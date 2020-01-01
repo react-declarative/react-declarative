@@ -124,6 +124,7 @@ export { default as dayjs } from 'dayjs';
 
 export { ConstraintView } from './components';
 export { ScrollView } from './components';
+export { ScaleView } from './components';
 export { FetchView } from './components';
 export { FadeView } from './components';
 export { TabsView } from './components';

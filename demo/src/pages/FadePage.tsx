@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ITab, useTabsHashstate } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate } from 'react-declarative';
 
 import history from '../history';
 
@@ -76,6 +76,15 @@ export const FadePage = () => {
                     return () => <p>{value}</p>
                 }}
             </TabsView>
+            <ScaleView style={{ width: '100%', height: 300, background: 'magenta' }} center>
+                <div
+                    style={{
+                        height: 200,
+                        width: 300,
+                        background: 'cyan',
+                    }}
+                />
+            </ScaleView>
         </>
     );
 }

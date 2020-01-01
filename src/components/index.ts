@@ -11,6 +11,7 @@ export * from './ModalProvider';
 
 export * from './ConstraintView';
 export * from './ScrollView';
+export * from './ScaleView';
 export * from './AutoSizer';
 export * from './FadeView';
 export * from './TabsView';
