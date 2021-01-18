@@ -3,12 +3,10 @@ import * as React from 'react';
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, makeStyles, Typography } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
-import Group, { IGroupProps } from '../Group';
+import Group from '../Group';
 
 import { PickProp } from '../../model/IManaged';
 import IField from '../../model/IField';
-
-import classNames from '../../utils/classNames';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -20,22 +18,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
-  stretch: {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'stretch',
-    justifyContent: 'stretch',
-  },
-  content: {
-    flexGrow: 1,
-    width: '100%',
-  },
 }));
 
-export interface IExpansionProps extends IGroupProps {
-  title?: PickProp<IField, 'title'>,
-  description?: PickProp<IField, 'description'>,
-  className?: PickProp<IField, 'className'>,
+export interface IExpansionProps {
+  title?: PickProp<IField, 'title'>;
+  style?: PickProp<IField, 'style'>;
+  description?: PickProp<IField, 'description'>;
+  className?: PickProp<IField, 'className'>;
 }
 
 interface IExpansionPrivate {
@@ -47,40 +36,21 @@ export const Expansion = ({
   description = '',
   className = '',
   style,
-  columns,
-  phoneColumns,
-  tabletColumns,
-  desktopColumns,
-  fieldRightMargin,
-  fieldBottomMargin,
   children,
-  ...otherProps
 }: IExpansionProps & IExpansionPrivate) => {
   const classes = useStyles();
   return (
-    <Group
-      className={classNames(className, classes.stretch)}
-      style={style}
-      columns={columns}
-      phoneColumns={phoneColumns}
-      tabletColumns={tabletColumns}
-      desktopColumns={desktopColumns}
-      fieldRightMargin={fieldRightMargin}
-      fieldBottomMargin={fieldBottomMargin}
-      {...otherProps}
-    >
-      <ExpansionPanel className={classes.content}>
-        <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-          <Typography className={classes.heading}>{title}</Typography>
-          <Typography className={classes.secondaryHeading}>{description}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Group>
-            {children}
-          </Group>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </Group>
+    <ExpansionPanel className={className} style={style}>
+      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+        <Typography className={classes.heading}>{title}</Typography>
+        <Typography className={classes.secondaryHeading}>{description}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Group>
+          {children}
+        </Group>
+      </ExpansionPanelDetails>
+   </ExpansionPanel>
   );
 };
 

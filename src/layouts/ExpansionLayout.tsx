@@ -3,11 +3,11 @@ import * as React from "react";
 import { makeStyles } from "@material-ui/core";
 
 import Expansion, { IExpansionProps } from "../components/Expansion";
-import Group from "../components/Group";
+import Group, { IGroupProps } from "../components/Group";
 
 import classNames from '../utils/classNames';
 
-export interface IExpansionLayoutProps extends IExpansionProps {}
+export interface IExpansionLayoutProps extends IExpansionProps, IGroupProps {}
 
 interface IExpansionLayoutPrivate {
   children: React.ReactChild;

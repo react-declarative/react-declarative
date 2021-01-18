@@ -2,12 +2,12 @@ import * as React from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import Group from "../components/Group";
+import Group, { IGroupProps } from "../components/Group";
 import Paper, { IPaperProps } from '../components/Paper';
 
 import classNames from "../utils/classNames";
 
-export interface IPaperLayoutProps extends IPaperProps {}
+export interface IPaperLayoutProps extends IPaperProps, IGroupProps {}
 
 interface IPaperLayoutPrivate {
   children: React.ReactChild;

@@ -3,7 +3,8 @@ import { createElement as h, forwardRef } from "react";
 
 import { Grid, Box } from "@material-ui/core";
 
-import { IManagedLayout } from "../../model/IManaged";
+import { IManagedLayout, PickProp } from "../../model/IManaged";
+import IField from "../../model/IField";
 
 type nums = keyof {
     1: never;
@@ -38,7 +39,7 @@ const gridProps = (
       xs: n(phoneColumns || columns || FULL_ROW),
       sm: n(phoneColumns || columns || FULL_ROW),
       md: n(tabletColumns || columns || FULL_ROW),
-      lg: n(tabletColumns || desktopColumns || columns || FULL_ROW),
+      lg: n(desktopColumns || tabletColumns || columns || FULL_ROW),
       xl: n(desktopColumns || columns || FULL_ROW),
     };
   } else {
@@ -63,8 +64,8 @@ const renderItem = (
 };
 
 export interface IGroupProps extends IManagedLayout {
-    style?: React.CSSProperties;
-    className?: string;
+    style?: PickProp<IField, 'style'>;
+    className?: PickProp<IField, 'className'>;
 }
 
 interface IGroupPrivate {
