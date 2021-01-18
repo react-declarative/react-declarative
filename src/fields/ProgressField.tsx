@@ -38,4 +38,4 @@ export const ProgressField = ({
   </Box>
 );
 
-export default makeField(ProgressField);
+export default makeField(ProgressField, false);

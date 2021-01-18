@@ -37,4 +37,4 @@ export const RatingField = ({
   </Box>
 );
 
-export default makeField(RatingField);
+export default makeField(RatingField, true);

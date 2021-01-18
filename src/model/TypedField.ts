@@ -8,10 +8,10 @@ import FieldType from './FieldType';
  * Компоновки
  */
 import { IFragmentLayoutProps } from '../layouts/FragmentLayout';
-import { IExpansionProps } from '../components/Expansion';
-import { IPaperProps } from '../components/Paper';
-import { IGroupProps } from '../components/Group';
 import { IDivLayoutProps } from '../layouts/DivLayout';
+import { IGroupLayoutProps } from '../layouts/GroupLayout';
+import { IPaperLayoutProps } from '../layouts/PaperLayout';
+import { IExpansionLayoutProps } from '../layouts/ExpansionLayout';
 
 /**
  * Поля ввода
@@ -42,9 +42,9 @@ type TypedFieldFactoryShallow<
   F extends {}
 > = IManagedShallow & TypedFieldFactory<T, F>;
 
-type Group = TypedFieldFactory<FieldType.Group, IGroupProps>;
-type Paper = TypedFieldFactory<FieldType.Paper, IPaperProps>;
-type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionProps>;
+type Group = TypedFieldFactory<FieldType.Group, IGroupLayoutProps>;
+type Paper = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps>;
+type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
 type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
 type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
 

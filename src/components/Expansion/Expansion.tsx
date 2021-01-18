@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
-  strech: {
+  stretch: {
     position: 'relative',
     display: 'flex',
     alignItems: 'stretch',
@@ -46,20 +46,29 @@ export const Expansion = ({
   title = '',
   description = '',
   className = '',
-  columns = '',
-  phoneColumns = '',
-  tabletColumns = '',
-  desktopColumns = '',
+  style,
+  columns,
+  phoneColumns,
+  tabletColumns,
+  desktopColumns,
+  fieldRightMargin,
+  fieldBottomMargin,
   children,
   ...otherProps
 }: IExpansionProps & IExpansionPrivate) => {
   const classes = useStyles();
   return (
-    <Group className={classNames(className, classes.strech)} columns={columns}
-      {...otherProps}
+    <Group
+      className={classNames(className, classes.stretch)}
+      style={style}
+      columns={columns}
       phoneColumns={phoneColumns}
       tabletColumns={tabletColumns}
-      desktopColumns={desktopColumns}>
+      desktopColumns={desktopColumns}
+      fieldRightMargin={fieldRightMargin}
+      fieldBottomMargin={fieldBottomMargin}
+      {...otherProps}
+    >
       <ExpansionPanel className={classes.content}>
         <ExpansionPanelSummary expandIcon={<ExpandMore />}>
           <Typography className={classes.heading}>{title}</Typography>

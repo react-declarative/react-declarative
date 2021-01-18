@@ -39,4 +39,4 @@ export const LineField = ({
   );
 };
 
-export default makeField(LineField);
+export default makeField(LineField, false);

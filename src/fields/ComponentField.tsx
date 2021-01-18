@@ -27,4 +27,4 @@ export const ComponentField = ({
 
 ComponentField.displayName = 'ComponentField';
 
-export default makeField(ComponentField);
+export default makeField(ComponentField, false);

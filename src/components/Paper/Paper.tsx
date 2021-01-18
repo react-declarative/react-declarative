@@ -33,22 +33,28 @@ interface IPaperPrivate {
 
 export const Paper = ({
   className = "",
+  style,
   columns = "",
   phoneColumns = "",
   tabletColumns = "",
   desktopColumns = "",
+  fieldBottomMargin,
+  fieldRightMargin,
   children,
   ...otherProps
 }: IPaperProps & IPaperPrivate) => {
   const classes = useStyles();
   return (
     <Group
-      className={classNames(className, classes.strech)}
-      columns={columns}
       {...otherProps}
+      className={classNames(className, classes.strech)}
+      style={style}
+      columns={columns}
       phoneColumns={phoneColumns}
       tabletColumns={tabletColumns}
       desktopColumns={desktopColumns}
+      fieldRightMargin={fieldRightMargin}
+      fieldBottomMargin={fieldBottomMargin}
     >
       <MatPaper className={classNames(classes.content, classes.strech)}>
         <Box p={2} className={classes.content}>

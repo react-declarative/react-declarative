@@ -86,13 +86,15 @@ export const Group = (
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
     onFocus,
+    ...otherProps
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
 ) => (
   <Grid
     ref={ref}
     onFocus={onFocus}
-    {...gridProps(isItem, columns, phoneColumns, tabletColumns, desktopColumns)}    
+    {...gridProps(isItem, columns, phoneColumns, tabletColumns, desktopColumns)}
+    {...otherProps}
     className={className}
     style={style}
   >

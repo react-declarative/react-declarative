@@ -8,10 +8,9 @@ import createField from '../../config/createField';
 
 import useResolved from '../../hooks/useResolved';
 
-import Expansion from '../Expansion';
-import Paper from '../Paper';
-import Group from '../Group';
-
+import ExpansionLayout from '../../layouts/ExpansionLayout';
+import PaperLayout from '../../layouts/PaperLayout';
+import GroupLayout from '../../layouts/GroupLayout';
 import FragmentLayout from '../../layouts/FragmentLayout';
 import DivLayout from '../../layouts/DivLayout';
 
@@ -87,30 +86,30 @@ export const OneInternal = ({
                     };
                     if (field.type === FieldType.Group) {
                         return (
-                            <Group
+                            <GroupLayout
                                 {...entity}
                                 key={currentPath}
                             >
                                 <OneInternal {...one} />
-                            </Group>
+                            </GroupLayout>
                         );
                     } else if (field.type === FieldType.Expansion) {
                         return (
-                            <Expansion
+                            <ExpansionLayout
                                 {...entity}
                                 key={currentPath}
                             >
                                 <OneInternal {...one} />
-                            </Expansion>
+                            </ExpansionLayout>
                         );
                     } else if (field.type === FieldType.Paper) {
                         return (
-                            <Paper
+                            <PaperLayout
                                 {...entity}
                                 key={currentPath}
                             >
                                 <OneInternal {...one} />
-                            </Paper>
+                            </PaperLayout>
                         );
                     } else if (field.type === FieldType.Div) {
                         return (

@@ -62,4 +62,4 @@ export const ItemsField = ({
   />
 );
 
-export default makeField(ItemsField);
+export default makeField(ItemsField, true);

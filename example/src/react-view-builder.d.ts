@@ -17,10 +17,10 @@ declare module 'react-view-builder/model/TypedField' {
         * Компоновки
         */
     import { IFragmentLayoutProps } from 'react-view-builder/layouts/FragmentLayout';
-    import { IExpansionProps } from 'react-view-builder/components/Expansion';
-    import { IPaperProps } from 'react-view-builder/components/Paper';
-    import { IGroupProps } from 'react-view-builder/components/Group';
     import { IDivLayoutProps } from 'react-view-builder/layouts/DivLayout';
+    import { IGroupLayoutProps } from 'react-view-builder/layouts/GroupLayout';
+    import { IPaperLayoutProps } from 'react-view-builder/layouts/PaperLayout';
+    import { IExpansionLayoutProps } from 'react-view-builder/layouts/ExpansionLayout';
     /**
         * Поля ввода
         */
@@ -43,9 +43,9 @@ declare module 'react-view-builder/model/TypedField' {
             type: T;
     };
     type TypedFieldFactoryShallow<T extends FieldType, F extends {}> = IManagedShallow & TypedFieldFactory<T, F>;
-    type Group = TypedFieldFactory<FieldType.Group, IGroupProps>;
-    type Paper = TypedFieldFactory<FieldType.Paper, IPaperProps>;
-    type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionProps>;
+    type Group = TypedFieldFactory<FieldType.Group, IGroupLayoutProps>;
+    type Paper = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps>;
+    type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
     type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
     type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
     type Checkbox = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps>;
@@ -410,21 +410,6 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
     export default FragmentLayout;
 }
 
-declare module 'react-view-builder/components/Expansion' {
-    export * from 'react-view-builder/components/Expansion/Expansion';
-    export { default } from 'react-view-builder/components/Expansion/Expansion';
-}
-
-declare module 'react-view-builder/components/Paper' {
-    export * from 'react-view-builder/components/Paper/Paper';
-    export { default } from 'react-view-builder/components/Paper/Paper';
-}
-
-declare module 'react-view-builder/components/Group' {
-    export * from 'react-view-builder/components/Group/Group';
-    export { default } from 'react-view-builder/components/Group/Group';
-}
-
 declare module 'react-view-builder/layouts/DivLayout' {
     import * as React from 'react';
     import IEntity from 'react-view-builder/model/IEntity';
@@ -442,6 +427,42 @@ declare module 'react-view-builder/layouts/DivLayout' {
         displayName: string;
     };
     export default DivLayout;
+}
+
+declare module 'react-view-builder/layouts/GroupLayout' {
+    import * as React from "react";
+    import { IGroupProps } from "react-view-builder/components/Group";
+    export interface IGroupLayoutProps extends IGroupProps {
+    }
+    interface IGroupLayoutPrivate {
+        children: React.ReactChild;
+    }
+    export const GroupLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps & IGroupLayoutPrivate) => JSX.Element;
+    export default GroupLayout;
+}
+
+declare module 'react-view-builder/layouts/PaperLayout' {
+    import * as React from "react";
+    import { IPaperProps } from 'react-view-builder/components/Paper';
+    export interface IPaperLayoutProps extends IPaperProps {
+    }
+    interface IPaperLayoutPrivate {
+        children: React.ReactChild;
+    }
+    export const PaperLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps & IPaperLayoutPrivate) => JSX.Element;
+    export default PaperLayout;
+}
+
+declare module 'react-view-builder/layouts/ExpansionLayout' {
+    import * as React from "react";
+    import { IExpansionProps } from "react-view-builder/components/Expansion";
+    export interface IExpansionLayoutProps extends IExpansionProps {
+    }
+    interface IExpansionLayoutPrivate {
+        children: React.ReactChild;
+    }
+    export const ExpansionLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps & IExpansionLayoutPrivate) => JSX.Element;
+    export default ExpansionLayout;
 }
 
 declare module 'react-view-builder/fields/CheckboxField' {
@@ -727,50 +748,19 @@ declare module 'react-view-builder/components/One' {
     export default One;
 }
 
-declare module 'react-view-builder/components/Expansion/Expansion' {
-    import * as React from 'react';
-    import { IGroupProps } from 'react-view-builder/components/Group';
-    import { PickProp } from 'react-view-builder/model/IManaged';
-    import IField from 'react-view-builder/model/IField';
-    export interface IExpansionProps extends IGroupProps {
-        title?: PickProp<IField, 'title'>;
-        description?: PickProp<IField, 'description'>;
-        className?: PickProp<IField, 'className'>;
-    }
-    interface IExpansionPrivate {
-        children: React.ReactChild;
-    }
-    export const Expansion: ({ title, description, className, columns, phoneColumns, tabletColumns, desktopColumns, children, ...otherProps }: IExpansionProps & IExpansionPrivate) => JSX.Element;
-    export default Expansion;
+declare module 'react-view-builder/components/Group' {
+    export * from 'react-view-builder/components/Group/Group';
+    export { default } from 'react-view-builder/components/Group/Group';
 }
 
-declare module 'react-view-builder/components/Paper/Paper' {
-    import * as React from 'react';
-    import { IGroupProps } from 'react-view-builder/components/Group';
-    export interface IPaperProps extends IGroupProps {
-    }
-    interface IPaperPrivate {
-        children: React.ReactChild;
-    }
-    export const Paper: ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, ...otherProps }: IPaperProps & IPaperPrivate) => JSX.Element;
-    export default Paper;
+declare module 'react-view-builder/components/Paper' {
+    export * from 'react-view-builder/components/Paper/Paper';
+    export { default } from 'react-view-builder/components/Paper/Paper';
 }
 
-declare module 'react-view-builder/components/Group/Group' {
-    import * as React from "react";
-    import { IManagedLayout } from "react-view-builder/model/IManaged";
-    export interface IGroupProps extends IManagedLayout {
-        style?: React.CSSProperties;
-        className?: string;
-    }
-    interface IGroupPrivate {
-        children: React.ReactChild;
-        isItem?: boolean;
-        onFocus?: () => void;
-    }
-    export const Group: ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>) => JSX.Element;
-    const _default: React.ForwardRefExoticComponent<IGroupProps & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
-    export default _default;
+declare module 'react-view-builder/components/Expansion' {
+    export * from 'react-view-builder/components/Expansion/Expansion';
+    export { default } from 'react-view-builder/components/Expansion/Expansion';
 }
 
 declare module 'react-view-builder/model/IOneProps' {
@@ -821,5 +811,51 @@ declare module 'react-view-builder/model/IOneProps' {
             LoadPlaceholder?: null | React.ComponentType;
     }
     export default IOneProps;
+}
+
+declare module 'react-view-builder/components/Group/Group' {
+    import * as React from "react";
+    import { IManagedLayout } from "react-view-builder/model/IManaged";
+    export interface IGroupProps extends IManagedLayout {
+        style?: React.CSSProperties;
+        className?: string;
+    }
+    interface IGroupPrivate {
+        children: React.ReactChild;
+        isItem?: boolean;
+        onFocus?: () => void;
+    }
+    export const Group: ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, ...otherProps }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>) => JSX.Element;
+    const _default: React.ForwardRefExoticComponent<IGroupProps & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
+    export default _default;
+}
+
+declare module 'react-view-builder/components/Paper/Paper' {
+    import * as React from 'react';
+    import { IGroupProps } from 'react-view-builder/components/Group';
+    export interface IPaperProps extends IGroupProps {
+    }
+    interface IPaperPrivate {
+        children: React.ReactChild;
+    }
+    export const Paper: ({ className, style, columns, phoneColumns, tabletColumns, desktopColumns, fieldBottomMargin, fieldRightMargin, children, ...otherProps }: IPaperProps & IPaperPrivate) => JSX.Element;
+    export default Paper;
+}
+
+declare module 'react-view-builder/components/Expansion/Expansion' {
+    import * as React from 'react';
+    import { IGroupProps } from 'react-view-builder/components/Group';
+    import { PickProp } from 'react-view-builder/model/IManaged';
+    import IField from 'react-view-builder/model/IField';
+    export interface IExpansionProps extends IGroupProps {
+        title?: PickProp<IField, 'title'>;
+        description?: PickProp<IField, 'description'>;
+        className?: PickProp<IField, 'className'>;
+    }
+    interface IExpansionPrivate {
+        children: React.ReactChild;
+    }
+    export const Expansion: ({ title, description, className, style, columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, children, ...otherProps }: IExpansionProps & IExpansionPrivate) => JSX.Element;
+    export default Expansion;
 }
 

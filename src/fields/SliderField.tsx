@@ -78,4 +78,4 @@ export const SliderField = ({
   </Box>
 );
 
-export default makeField(SliderField);
+export default makeField(SliderField, false);

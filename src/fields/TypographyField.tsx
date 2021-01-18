@@ -25,4 +25,4 @@ export const TypographyField = ({
   </Typography>
 );
 
-export default makeField(TypographyField);
+export default makeField(TypographyField, false);

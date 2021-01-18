@@ -31,4 +31,4 @@ export const CheckboxField = ({
 
 CheckboxField.displayName = 'CheckboxField';
 
-export default makeField(CheckboxField);
+export default makeField(CheckboxField, true);

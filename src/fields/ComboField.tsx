@@ -54,4 +54,4 @@ export const ComboField = ({
 
 ComboField.displayName = "ComboField";
 
-export default makeField(ComboField);
+export default makeField(ComboField, true);

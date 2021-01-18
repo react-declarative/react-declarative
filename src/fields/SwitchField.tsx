@@ -32,4 +32,4 @@ export const SwitchField = ({
   </Box>
 );
 
-export default makeField(SwitchField);
+export default makeField(SwitchField, true);
