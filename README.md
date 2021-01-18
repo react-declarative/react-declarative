@@ -21,6 +21,8 @@ npm install --save @tripolskypetr/react-view-builder
 
 > Link to [source code](./example/src/pages/LayoutPage.tsx)
 
+![layout-grid](./assets/layout.gif)
+
 ```tsx
 const fields: TypedField[] = [
   {
@@ -59,6 +61,8 @@ const fields: TypedField[] = [
 ### 2. Form validation
 
 > Link to [source code](./example/src/pages/ValidationPage.tsx)
+
+![form-validation](./assets/validation.gif)
 
 ```tsx
 const fields: TypedField[] = [
@@ -101,6 +105,8 @@ const fields: TypedField[] = [
 ### 3. Gallery of controls
 
 > Link to [source code](./example/src/pages/GalleryPage.tsx)
+
+![gallery](./assets/gallery.gif)
 
 ```tsx
 const fields: TypedField[] = [
