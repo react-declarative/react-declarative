@@ -27,11 +27,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "react-view-builder": ["../src"],
-      "react-view-builder/*": ["../src/*"]
-    }
   },
   "include": [
     "src"

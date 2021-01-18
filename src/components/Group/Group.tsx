@@ -16,18 +16,37 @@ type nums = keyof {
     8: never;
     9: never;
     10: never;
-    11: never;
-    12: never;
-}
+};
+
+type align = keyof {
+  "flex-start": never,
+};
 
 const n = (v: string)=> Number(v) as nums;
 const FULL_ROW = "12";
 
-const gridProps = (isItem: boolean) => {
+const gridProps = (
+  isItem: boolean,
+  columns: string,
+  phoneColumns: string,
+  tabletColumns: string,
+  desktopColumns: string,
+) => {
   if (isItem) {
-    return { spacing: 3, item: true };
+    return {
+      item: true,
+      xs: n(phoneColumns || columns || FULL_ROW),
+      sm: n(phoneColumns || columns || FULL_ROW),
+      md: n(tabletColumns || columns || FULL_ROW),
+      lg: n(tabletColumns || desktopColumns || columns || FULL_ROW),
+      xl: n(desktopColumns || columns || FULL_ROW),
+    };
   } else {
-    return { container: true };
+    return {
+      container: true,
+      spacing: 3 as nums,
+      alignItems: "flex-start" as align,
+    };
   }
 };
 
@@ -36,7 +55,7 @@ const renderItem = (
   children: React.ReactChild,
   mr: number,
   mb: number
-) => {
+): React.ReactChild => {
   if (isItem) {
     return h(Box, { mr, mb }, children);
   } else {
@@ -67,21 +86,14 @@ export const Group = (
     style,
     fieldRightMargin = 1,
     fieldBottomMargin = 2,
-    ...otherProps
+    onFocus,
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
 ) => (
   <Grid
     ref={ref}
-    alignItems="flex-start"
-    {...otherProps}
-    {...gridProps(isItem)}
-    xs={n(phoneColumns || columns || FULL_ROW)}
-    sm={n(phoneColumns || columns || FULL_ROW)}
-    md={n(tabletColumns || columns || FULL_ROW)}
-    lg={n(tabletColumns || desktopColumns || columns || FULL_ROW)}
-    xl={n(desktopColumns || columns || FULL_ROW)}
-    spacing={0}
+    onFocus={onFocus}
+    {...gridProps(isItem, columns, phoneColumns, tabletColumns, desktopColumns)}    
     className={className}
     style={style}
   >

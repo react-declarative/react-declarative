@@ -3,4 +3,4 @@ export { TypedField } from './model/TypedField';
 export { FieldType } from './model/FieldType';
 export { IField } from './model/IField';
 
-export { default } from './components';
+export { One } from './components';

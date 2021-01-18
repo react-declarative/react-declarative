@@ -1,11 +1,12 @@
 import React from 'react'
-import One, {FieldType, IField} from 'react-view-builder';
+import {One, FieldType, IField} from 'react-view-builder';
 
 const fields: IField[] = [
   {
-    type: FieldType.Group,
-  }
-]
+    type: FieldType.Text,
+    name: 'omg'
+  },
+];
 
 const App = () => {
   return <One fields={fields} />
