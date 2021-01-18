@@ -39,7 +39,7 @@ export const ItemsField = ({
     onChange={({}, v) => onChange(v as unknown as IAnything[])}
     options={itemList}
     disabled={disabled}
-    value={Array.from(value as unknown as string[])}
+    value={value || null}
     getOptionLabel={(s) => (tr(s) || "").toString()}
     renderTags={(value, getTagProps) =>
       value.map((option, index) => (

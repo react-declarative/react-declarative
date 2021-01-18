@@ -6,7 +6,7 @@ declare module 'react-view-builder' {
     export { TypedField } from 'react-view-builder/model/TypedField';
     export { FieldType } from 'react-view-builder/model/FieldType';
     export { IField } from 'react-view-builder/model/IField';
-    export { One } from 'react-view-builder/components';
+    export { One, OneTyped } from 'react-view-builder/components';
 }
 
 declare module 'react-view-builder/model/TypedField' {
@@ -702,9 +702,9 @@ declare module 'react-view-builder/fields/TypographyField' {
 }
 
 declare module 'react-view-builder/model/IAnything' {
-    export interface IAnything {
-        [key: string]: any;
-    }
+    export type IAnything<T extends object = object> = {
+        [P in keyof T]: any;
+    } | any;
     export default IAnything;
 }
 
@@ -721,8 +721,9 @@ declare module 'react-view-builder/components/One' {
           * <One.typed handler={...
           *     ^^^^^^
           */
-        typed(props: IOneProps<TypedField>): React.FunctionComponentElement<IOneProps<TypedField>>;
+        typed: (props: IOneProps<TypedField>) => React.FunctionComponentElement<IOneProps<TypedField>>;
     };
+    export const OneTyped: (props: IOneProps<TypedField>) => React.FunctionComponentElement<IOneProps<TypedField>>;
     export default One;
 }
 
