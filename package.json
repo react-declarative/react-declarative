@@ -1,10 +1,11 @@
 {
-  "name": "react-view-builder",
-  "version": "1.0.0",
+  "name": "@tripolskypetr/react-view-builder",
+  "version": "1.0.1",
   "description": "123",
+  "private": false,
   "author": "tripolskypetr",
   "license": "MIT",
-  "repository": "tripolskypetr/react-view-builder",
+  "repository": "https://github.com/tripolskypetr/react-view-builder",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.ts",
@@ -19,7 +20,7 @@
     "postinstall": "npm run build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^17.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -48,8 +49,8 @@
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "17.0.1",
+    "react-dom": "^17.0.1",
     "react-scripts": "^3.4.1",
     "typescript": "^3.7.5"
   },
@@ -60,5 +61,11 @@
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57"
-  }
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/tripolskypetr/react-view-builder#license"
+    }
+  ]
 }
