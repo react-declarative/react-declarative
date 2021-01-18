@@ -56,4 +56,6 @@ export const GroupLayout = ({
     );
 };
 
+GroupLayout.displayName = 'GroupLayout';
+
 export default GroupLayout;

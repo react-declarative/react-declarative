@@ -39,4 +39,6 @@ export const LineField = ({
   );
 };
 
+LineField.displayName = 'LineField';
+
 export default makeField(LineField, false);

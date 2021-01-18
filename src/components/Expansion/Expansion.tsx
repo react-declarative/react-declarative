@@ -54,4 +54,6 @@ export const Expansion = ({
   );
 };
 
+Expansion.displayName = 'Expansion';
+
 export default Expansion;

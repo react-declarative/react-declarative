@@ -62,4 +62,6 @@ export const ItemsField = ({
   />
 );
 
+ItemsField.displayName = 'ItemsField';
+
 export default makeField(ItemsField, true);

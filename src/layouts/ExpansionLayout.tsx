@@ -63,4 +63,6 @@ export const ExpansionLayout = ({
     );
 };
 
+ExpansionLayout.displayName = 'ExpansionLayout';
+
 export default ExpansionLayout;

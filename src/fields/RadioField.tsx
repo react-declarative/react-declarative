@@ -38,4 +38,6 @@ export const RadioField = ({
   </FormGroup>
 );
 
+RadioField.displayName = 'RadioField';
+
 export default makeField(RadioField, true);

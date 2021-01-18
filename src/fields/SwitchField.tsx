@@ -32,4 +32,6 @@ export const SwitchField = ({
   </Box>
 );
 
+SwitchField.displayName = 'SwitchField';
+
 export default makeField(SwitchField, true);

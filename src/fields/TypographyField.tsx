@@ -25,4 +25,6 @@ export const TypographyField = ({
   </Typography>
 );
 
+TypographyField.displayName = 'TypographyField';
+
 export default makeField(TypographyField, false);

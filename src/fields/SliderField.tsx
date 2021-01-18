@@ -78,4 +78,6 @@ export const SliderField = ({
   </Box>
 );
 
+SliderField.displayName = 'SliderField';
+
 export default makeField(SliderField, false);

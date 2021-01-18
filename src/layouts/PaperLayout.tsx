@@ -57,4 +57,6 @@ export const PaperLayout = ({
     );
 };
 
+PaperLayout.displayName = 'PaperLayout';
+
 export default PaperLayout;

@@ -47,4 +47,6 @@ export const Paper = ({
   );
 };
 
+Paper.displayName = 'Paper';
+
 export default Paper;

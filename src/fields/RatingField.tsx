@@ -37,4 +37,6 @@ export const RatingField = ({
   </Box>
 );
 
+RatingField.displayName = 'RatingField';
+
 export default makeField(RatingField, true);

@@ -103,4 +103,6 @@ export const Group = (
   </Grid>
 );
 
+Group.displayName = 'Group';
+
 export default forwardRef(Group);
