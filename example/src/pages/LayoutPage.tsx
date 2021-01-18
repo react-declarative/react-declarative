@@ -110,7 +110,11 @@ const fields: TypedField[] = [
         name: 'comment',
         title: 'Any comment',
         inputRows: 4,
-    }
+    },
+    /*{
+        type: FieldType.Component,
+        compute: (props) => <small>{props.comment}</small>
+    }*/
 ];
 
 interface IData {

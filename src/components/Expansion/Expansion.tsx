@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, makeStyles, Typography } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, makeStyles, Typography } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
 import Group from '../Group';
@@ -40,17 +40,17 @@ export const Expansion = ({
 }: IExpansionProps & IExpansionPrivate) => {
   const classes = useStyles();
   return (
-    <ExpansionPanel className={className} style={style}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion className={className} style={style}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{title}</Typography>
         <Typography className={classes.secondaryHeading}>{description}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <Group>
           {children}
         </Group>
-      </ExpansionPanelDetails>
-   </ExpansionPanel>
+      </AccordionDetails>
+   </Accordion>
   );
 };
 

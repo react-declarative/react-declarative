@@ -32,7 +32,7 @@ export interface IOneProps<Field = IField> {
    * Вызывается после изменения и передает измененный
    * объект прикладному программисту
    */
-  change?: (IAnything: IAnything, initial?: boolean) => void;
+  change?: (IAnything: IAnything, initial: boolean) => void;
   /**
    * Массив полей, выводимый в компоненте
    */

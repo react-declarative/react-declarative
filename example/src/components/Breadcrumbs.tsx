@@ -17,10 +17,15 @@ const useStyles = makeStyles({
   },
 });
 
+interface IBreadcrumbsProps {
+  save: () => void;
+  disabled: boolean;
+}
+
 export const Breadcrumbs = ({
-  save = () => null,
-  disabled = true,
-}) => {
+  save,
+  disabled,
+}: IBreadcrumbsProps) => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>

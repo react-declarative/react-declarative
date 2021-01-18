@@ -12,12 +12,15 @@ const fields: IField[] = [
     name: 'route',
     itemList: [
       'layout-page',
+      'validation-page',
     ],
     outlined: false,
     columns: '4',
     tr(item) {
       if (item === 'layout-page') {
         return 'Layout grid';
+      } else if (item === 'validation-page') {
+        return 'Form validation';
       } else {
         return '';
       }
