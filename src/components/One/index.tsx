@@ -43,13 +43,15 @@ export const One = ({
 
 One.displayName = 'One';
 
+export const OneTyped = (props: IOneProps<TypedField>) => h(One, props);
+
 /**
  * После написания формы можно включить строгую
  * проверку типов полей
  * <One.typed handler={...
  *     ^^^^^^
  */
-One.typed = (props: IOneProps<TypedField>) => h(One, props);
+One.typed = OneTyped;
 
 One.typed['displayName'] = 'OneTyped';
 

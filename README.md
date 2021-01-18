@@ -1,16 +1,18 @@
 # react-view-builder
 
-> A port of [theonekit](https://theonekit.com/) from TypeScript Namespaces to ES6 modules. Check this site for more samples...
+> [Material-ui](https://material-ui.com/) json endpoint form builder. Check [this site](https://theonekit.com/) for more samples...
 
-An React form builder that interfaces with a json endpoint to generate 12 column nested grid with input fields and automatic state management. Json endpoint is typed by typescript (**IntelliSense** available)...
+An React form builder which interfaces with a json endpoint to generate 12 column based nested grids with input fields and automatic state management. Json endpoint is typed by typescript (**IntelliSense** available). This tool is based on `material-ui` components so your app is going to look pretty on any device...
 
 ## Install
 
+> There is a sample app avalible in [example](./example/src/index.tsx) folder...
+
 ```bash
-npm install --save react-view-builder
+npm install --save @tripolskypetr/react-view-builder
 ```
 
-## Usage
+## Demos
 
 ```tsx
 import React, { Component } from 'react'
