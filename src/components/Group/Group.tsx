@@ -44,7 +44,6 @@ const gridProps = (
   } else {
     return {
       container: true,
-      spacing: 3 as nums,
       alignItems: "flex-start" as align,
     };
   }
@@ -84,8 +83,8 @@ export const Group = (
     children,
     isItem = false,
     style,
-    fieldRightMargin = 1,
-    fieldBottomMargin = 2,
+    fieldRightMargin = '1',
+    fieldBottomMargin = '2',
     onFocus,
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
@@ -97,7 +96,7 @@ export const Group = (
     className={className}
     style={style}
   >
-    {renderItem(isItem, children, fieldRightMargin, fieldBottomMargin)}
+    {renderItem(isItem, children, n(fieldRightMargin), n(fieldBottomMargin))}
   </Grid>
 );
 

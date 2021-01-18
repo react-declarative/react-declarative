@@ -5,7 +5,7 @@ import LayoutGrid from './pages/LayoutPage';
 export const Router = ({
     route = '',
 }) => {
-    if (route === 'layout-grid') {
+    if (route === 'layout-page') {
         return <LayoutGrid />;
     } else {
         return null;

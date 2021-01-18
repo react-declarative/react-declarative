@@ -14,9 +14,7 @@ const fields: IField[] = [
       'layout-page',
     ],
     outlined: false,
-    phoneColumns: '12',
-    tabletColumns: '6',
-    desktopColumns: '4',
+    columns: '4',
     tr(item) {
       if (item === 'layout-page') {
         return 'Layout grid';
@@ -31,7 +29,7 @@ const fields: IField[] = [
 const useStyles = makeStyles({
   offset: {
     padding: '15px',
-  }
+  },
 });
 
 const App = () => {
@@ -40,8 +38,10 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline/>
-      <Container className={classes.offset}>
+      <div className={classes.offset}>
         <One fields={fields} change={({route}) => setRoute(route)} />
+      </div>
+      <Container className={classes.offset}>
         <Router route={route} />
       </Container>
     </Fragment>

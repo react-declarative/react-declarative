@@ -211,8 +211,8 @@ export interface IField {
      * с исключением последней запятой при склеивании массива
      * руками, если раздражает
      */
-    fieldRightMargin?: number;
-    fieldBottomMargin?: number;
+    fieldRightMargin?: string;
+    fieldBottomMargin?: string;
 
     /**
      * Шрифт для поля Typography

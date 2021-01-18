@@ -283,8 +283,8 @@ declare module 'react-view-builder/model/IField' {
                 * с исключением последней запятой при склеивании массива
                 * руками, если раздражает
                 */
-            fieldRightMargin?: number;
-            fieldBottomMargin?: number;
+            fieldRightMargin?: string;
+            fieldBottomMargin?: string;
             /**
                 * Шрифт для поля Typography
                 */
@@ -467,23 +467,23 @@ declare module 'react-view-builder/fields/CheckboxField' {
 }
 
 declare module 'react-view-builder/fields/ComboField' {
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    import IField from 'react-view-builder/model/IField';
+    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    import IField from "react-view-builder/model/IField";
     export interface IComboFieldProps {
-        description?: PickProp<IField, 'description'>;
-        placeholder?: PickProp<IField, 'placeholder'>;
-        outlined?: PickProp<IField, 'outlined'>;
-        itemList?: PickProp<IField, 'itemList'>;
-        title?: PickProp<IField, 'title'>;
-        tr?: PickProp<IField, 'tr'>;
+        description?: PickProp<IField, "description">;
+        placeholder?: PickProp<IField, "placeholder">;
+        outlined?: PickProp<IField, "outlined">;
+        itemList?: PickProp<IField, "itemList">;
+        title?: PickProp<IField, "title">;
+        tr?: PickProp<IField, "tr">;
     }
     interface IComboFieldPrivate {
-        value: PickProp<IManaged, 'value'>;
-        disabled: PickProp<IManaged, 'disabled'>;
-        onChange: PickProp<IManaged, 'onChange'>;
+        value: PickProp<IManaged, "value">;
+        disabled: PickProp<IManaged, "disabled">;
+        onChange: PickProp<IManaged, "onChange">;
     }
     export const ComboField: {
-        ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
