@@ -9,7 +9,7 @@ import Logger from '../components/Logger';
 
 const fields: TypedField[] = [
     {
-        type: FieldType.Group,
+        type: FieldType.Paper,
         fields: [
             {
                 type: FieldType.Line,
@@ -54,7 +54,7 @@ const fields: TypedField[] = [
         ],
     },
     {
-        type: FieldType.Group,
+        type: FieldType.Paper,
         fields: [
             {
                 type: FieldType.Line,
@@ -105,7 +105,7 @@ const fields: TypedField[] = [
         ]
     },
     {
-        type: FieldType.Group,
+        type: FieldType.Paper,
         fields: [
             {
                 type: FieldType.Line,
@@ -135,7 +135,7 @@ const fields: TypedField[] = [
         ]
     },
     {
-        type: FieldType.Group,
+        type: FieldType.Paper,
         fields: [
             {
                 type: FieldType.Line,

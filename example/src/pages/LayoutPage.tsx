@@ -1,5 +1,7 @@
 import React, { useState, Fragment } from 'react';
 
+import { Face } from '@material-ui/icons';
+
 import { TypedField, FieldType, OneTyped } from 'react-view-builder';
 
 import Logger from '../components/Logger';
@@ -21,6 +23,7 @@ const fields: TypedField[] = [
                 title: 'First name',
                 defaultValue: 'Petr',
                 description: 'Your first name',
+                leadingIcon: Face,
                 name: 'firstName',
             },
             {
