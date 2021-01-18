@@ -122,14 +122,8 @@ const fields: TypedField[] = [
     }*/
 ];
 
-interface IData {
-    firstName: string;
-    lastName: string;
-    email: string;
-}
-
 export const LayoutGrid = () => {
-    const [data, setData] = useState<IData>();
+    const [data, setData] = useState();
     return (
         <Fragment>
             <OneTyped fields={fields} change={(newData) => setData(newData)} />
