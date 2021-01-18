@@ -32,6 +32,8 @@ export interface IManagedShallow extends IManagedLayout {
     isInvalid?: PickProp<IField, 'isInvalid'>;
     invalidity?: PickProp<IField, 'invalidity'>;
     compute?: PickProp<IField, 'compute'>;
+    focus?: PickProp<IField, 'focus'>;
+    blur?: PickProp<IField, 'blur'>;
     defaultValue?: v;
 }
 

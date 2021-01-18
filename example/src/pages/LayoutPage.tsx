@@ -24,6 +24,8 @@ const fields: TypedField[] = [
                 defaultValue: 'Petr',
                 description: 'Your first name',
                 leadingIcon: Face,
+                focus() { console.log("focus :-)"); },
+                blur() { console.log("blur :-("); },
                 name: 'firstName',
             },
             {

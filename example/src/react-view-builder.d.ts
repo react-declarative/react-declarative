@@ -339,6 +339,8 @@ declare module 'react-view-builder/model/IManaged' {
             isInvalid?: PickProp<IField, 'isInvalid'>;
             invalidity?: PickProp<IField, 'invalidity'>;
             compute?: PickProp<IField, 'compute'>;
+            focus?: PickProp<IField, 'focus'>;
+            blur?: PickProp<IField, 'blur'>;
             defaultValue?: v;
     }
     /**
