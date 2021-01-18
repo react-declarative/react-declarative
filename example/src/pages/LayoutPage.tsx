@@ -6,6 +6,10 @@ import Logger from '../components/Logger';
 
 const fields: TypedField[] = [
     {
+        type: FieldType.Line,
+        title: 'User info',
+    },
+    {
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',

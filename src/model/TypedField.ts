@@ -48,11 +48,12 @@ type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
 type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
 type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
 
+type Line = TypedFieldFactory<FieldType.Line, ILineFieldProps>;
+
 type Checkbox = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps>;
 type Combo = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps>;
 type Component = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps>;
 type Items = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps>;
-type Line = TypedFieldFactoryShallow<FieldType.Line, ILineFieldProps>;
 type Progress = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps>;
 type Radio = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps>;
 type Rating = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps>;
