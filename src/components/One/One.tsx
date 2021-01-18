@@ -53,7 +53,7 @@ export const OneInternal = ({
     });
     const handleChange = (v: object) => {
         setObject(v);
-        change(v);
+        change(v, false);
     };
     const handleReady = () => {
         if (--waitingReady.current === 0) {

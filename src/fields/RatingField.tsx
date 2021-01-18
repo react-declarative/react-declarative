@@ -5,13 +5,18 @@ import { Rating } from '@material-ui/lab';
 
 import makeField from "../components/makeField";
 import IManaged, { PickProp } from "../model/IManaged";
+import IField from "../model/IField";
 
 export interface IRatingFieldProps {
-  value?: PickProp<IManaged, "value">;
-  disabled?: PickProp<IManaged, "disabled">;
-  readonly?: PickProp<IManaged, "readonly">;
-  title?: PickProp<IManaged, "title">;
-  onChange?: PickProp<IManaged, "onChange">;
+  readonly?: PickProp<IField, "readonly">;
+  title?: PickProp<IField, "title">;
+}
+
+interface IRatingFieldPrivate {
+  name?: string;
+  value: PickProp<IManaged, "value">;
+  disabled: PickProp<IManaged, "disabled">;
+  onChange: PickProp<IManaged, "onChange">;
 }
 
 export const RatingField = ({
@@ -19,8 +24,9 @@ export const RatingField = ({
   disabled,
   readonly,
   title,
+  name,
   onChange,
-}: IManaged) => (
+}: IRatingFieldProps & IRatingFieldPrivate) => (
   <Box
     display="flex"
     justifyContent="center"
@@ -29,6 +35,7 @@ export const RatingField = ({
   >
     <Typography component="legend">{title}</Typography>
     <Rating
+      name={name}
       onChange={({}, v) => onChange(v)}
       disabled={disabled}
       value={Number(value)}

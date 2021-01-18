@@ -73,8 +73,8 @@ export interface IField {
      * окна, расположенного в коде прикладного программиста. Коллбек
      * получает на вход текущее значение поля и функцию onChange...
      */
-    leadingIconClick?: (value: IAnything, onChange?: (v: IAnything) => void) => void;
-    trailingIconClick?: (value: IAnything, onChange?: (v: IAnything) => void) => void;
+    leadingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
+    trailingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
 
     /**
      * Максимальное число для высчитывания процента
@@ -172,28 +172,28 @@ export interface IField {
      * ошибкую. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isInvalid?: (v: IAnything, change?: (v: null | string) => void) => null | string;
+    isInvalid?: (v: IAnything, change: (v: null | string) => void) => null | string;
 
     /**
      * Функция, позволяющая скрыть поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isVisible?: (v: IAnything, change?: (v: boolean) => void) => boolean;
+    isVisible?: (v: IAnything, change: (v: boolean) => void) => boolean;
 
     /**
      * Функция, позволяющая отключить поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isDisabled?: (v: IAnything, change?: (v: boolean) => void) => boolean;
+    isDisabled?: (v: IAnything, change: (v: boolean) => void) => boolean;
 
     /**
      * Функция, применяемая если значение поля вычисляется динамически.
      * Включает readonly. Для ComponentField может возвращать JSX.
      * Коллбек change позволяет осуществить операцию асинхронно (опционально).
      */
-    compute?: (v: IAnything, change?: (v: IAnything) => void) => IAnything;
+    compute?: (v: IAnything, change: (v: IAnything) => void) => IAnything;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении

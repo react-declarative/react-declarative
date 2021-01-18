@@ -69,7 +69,7 @@ export const SliderField = ({
         { li && createIcon(li, value as IAnything, onChange, lic, 'end') }
       </Grid>
       <Grid item xs>
-        <Slider {...otherProps} onChange={onChange} value={value}/>
+        <Slider {...otherProps} onChange={onChange} value={value || 0}/>
       </Grid>
       <Grid item>
         { ti && createIcon(ti, value as IAnything, onChange, tic, 'start') }

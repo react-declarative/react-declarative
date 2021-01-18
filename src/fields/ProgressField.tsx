@@ -25,6 +25,7 @@ export const ProgressField = ({
   <Box display="flex" alignItems="center">
     <Box width="100%" mr={1}>
       <LinearProgress
+        variant="determinate"
         value={percent(Number(value), Number(maxPercent))}
       />
     </Box>

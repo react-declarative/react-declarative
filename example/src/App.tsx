@@ -13,6 +13,7 @@ const fields: IField[] = [
     itemList: [
       'layout-page',
       'validation-page',
+      'gallery-page',
     ],
     outlined: false,
     columns: '4',
@@ -21,6 +22,8 @@ const fields: IField[] = [
         return 'Layout grid';
       } else if (item === 'validation-page') {
         return 'Form validation';
+      } else if (item === 'gallery-page') {
+        return 'Gallery of controls';
       } else {
         return '';
       }

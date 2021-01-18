@@ -166,8 +166,8 @@ declare module 'react-view-builder/model/IField' {
                 * окна, расположенного в коде прикладного программиста. Коллбек
                 * получает на вход текущее значение поля и функцию onChange...
                 */
-            leadingIconClick?: (value: IAnything, onChange?: (v: IAnything) => void) => void;
-            trailingIconClick?: (value: IAnything, onChange?: (v: IAnything) => void) => void;
+            leadingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
+            trailingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
             /**
                 * Максимальное число для высчитывания процента
                 * (минимальное число всегда ноль)
@@ -250,25 +250,25 @@ declare module 'react-view-builder/model/IField' {
                 * ошибкую. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isInvalid?: (v: IAnything, change?: (v: null | string) => void) => null | string;
+            isInvalid?: (v: IAnything, change: (v: null | string) => void) => null | string;
             /**
                 * Функция, позволяющая скрыть поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isVisible?: (v: IAnything, change?: (v: boolean) => void) => boolean;
+            isVisible?: (v: IAnything, change: (v: boolean) => void) => boolean;
             /**
                 * Функция, позволяющая отключить поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isDisabled?: (v: IAnything, change?: (v: boolean) => void) => boolean;
+            isDisabled?: (v: IAnything, change: (v: boolean) => void) => boolean;
             /**
                 * Функция, применяемая если значение поля вычисляется динамически.
                 * Включает readonly. Для ComponentField может возвращать JSX.
                 * Коллбек change позволяет осуществить операцию асинхронно (опционально).
                 */
-            compute?: (v: IAnything, change?: (v: IAnything) => void) => IAnything;
+            compute?: (v: IAnything, change: (v: IAnything) => void) => IAnything;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
                 * валидации
@@ -637,15 +637,19 @@ declare module 'react-view-builder/fields/RadioField' {
 
 declare module 'react-view-builder/fields/RatingField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    import IField from "react-view-builder/model/IField";
     export interface IRatingFieldProps {
-        value?: PickProp<IManaged, "value">;
-        disabled?: PickProp<IManaged, "disabled">;
-        readonly?: PickProp<IManaged, "readonly">;
-        title?: PickProp<IManaged, "title">;
-        onChange?: PickProp<IManaged, "onChange">;
+        readonly?: PickProp<IField, "readonly">;
+        title?: PickProp<IField, "title">;
+    }
+    interface IRatingFieldPrivate {
+        name?: string;
+        value: PickProp<IManaged, "value">;
+        disabled: PickProp<IManaged, "disabled">;
+        onChange: PickProp<IManaged, "onChange">;
     }
     export const RatingField: {
-        ({ value, disabled, readonly, title, onChange, }: IManaged): JSX.Element;
+        ({ value, disabled, readonly, title, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
