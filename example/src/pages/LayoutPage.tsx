@@ -13,24 +13,28 @@ const fields: TypedField[] = [
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',
-        desktopColumns: '3',
+        desktopColumns: '4',
+        fieldRightMargin: '0',
         fields: [
             {
                 type: FieldType.Text,
                 title: 'First name',
-                description: 'Petr',
+                defaultValue: 'Petr',
+                description: 'Your first name',
                 name: 'firstName',
             },
             {
                 type: FieldType.Text,
                 title: 'Last name',
-                description: 'Tripolsky',
+                defaultValue: 'Tripolsky',
+                description: 'Your last name',
                 name: 'lastName',
             },
             {
                 type: FieldType.Text,
                 title: 'Email',
-                description: 'tripolskypetr@gmail.com',
+                defaultValue: 'tripolskypetr@gmail.com',
+                description: 'Gmail. Yahoo, Yandex...',
                 name: 'email',
             }
         ],
@@ -39,20 +43,74 @@ const fields: TypedField[] = [
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',
-        desktopColumns: '3',
+        desktopColumns: '4',
+        fieldRightMargin: '0',
         fields: [
-
+            {
+                type: FieldType.Combo,
+                name: 'gender',
+                title: 'Gender',
+                description: 'Your gender',
+                itemList: [
+                    'Male',
+                    'Female',
+                    'Other',
+                ],
+                defaultValue: 'Male',
+            },
+            {
+                type: FieldType.Items,
+                name: 'lists',
+                title: 'User lists',
+                description: 'Multiple input',
+                itemList: [
+                    'VIP',
+                    'Blocklist',
+                    'Allowlist',
+                ],
+                defaultValue: ['VIP', 'Allowlist'],
+            },
+            {
+                type: FieldType.Text,
+                inputType: 'number',
+                title: 'Age',
+                defaultValue: '21',
+                description: '25',
+                name: 'How old are you?',
+            },
         ],
     },
     {
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',
-        desktopColumns: '3',
+        desktopColumns: '4',
+        fieldRightMargin: '0',
         fields: [
-
+            {
+                type: FieldType.Text,
+                name: 'phone',
+                title: 'Phone',
+                description: 'Your phone',
+                inputType: 'tel',
+                defaultValue: '8999',
+            },
+            {
+                type: FieldType.Text,
+                name: 'fax',
+                title: 'Fax',
+                description: 'Your fax',
+                inputType: 'tel',
+                defaultValue: '8999',
+            },
         ],
     },
+    {
+        type: FieldType.Text,
+        name: 'comment',
+        title: 'Any comment',
+        inputRows: 4,
+    }
 ];
 
 interface IData {

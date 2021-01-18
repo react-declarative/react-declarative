@@ -48,11 +48,11 @@ declare module 'react-view-builder/model/TypedField' {
     type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
     type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
     type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
+    type Line = TypedFieldFactory<FieldType.Line, ILineFieldProps>;
     type Checkbox = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps>;
     type Combo = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps>;
     type Component = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps>;
     type Items = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps>;
-    type Line = TypedFieldFactoryShallow<FieldType.Line, ILineFieldProps>;
     type Progress = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps>;
     type Radio = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps>;
     type Rating = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps>;
@@ -437,31 +437,42 @@ declare module 'react-view-builder/layouts/GroupLayout' {
     interface IGroupLayoutPrivate {
         children: React.ReactChild;
     }
-    export const GroupLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps & IGroupLayoutPrivate) => JSX.Element;
+    export const GroupLayout: {
+        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps & IGroupLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
     export default GroupLayout;
 }
 
 declare module 'react-view-builder/layouts/PaperLayout' {
     import * as React from "react";
+    import { IGroupProps } from "react-view-builder/components/Group";
     import { IPaperProps } from 'react-view-builder/components/Paper';
-    export interface IPaperLayoutProps extends IPaperProps {
+    export interface IPaperLayoutProps extends IPaperProps, IGroupProps {
     }
     interface IPaperLayoutPrivate {
         children: React.ReactChild;
     }
-    export const PaperLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps & IPaperLayoutPrivate) => JSX.Element;
+    export const PaperLayout: {
+        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps & IPaperLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
     export default PaperLayout;
 }
 
 declare module 'react-view-builder/layouts/ExpansionLayout' {
     import * as React from "react";
     import { IExpansionProps } from "react-view-builder/components/Expansion";
-    export interface IExpansionLayoutProps extends IExpansionProps {
+    import { IGroupProps } from "react-view-builder/components/Group";
+    export interface IExpansionLayoutProps extends IExpansionProps, IGroupProps {
     }
     interface IExpansionLayoutPrivate {
         children: React.ReactChild;
     }
-    export const ExpansionLayout: ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps & IExpansionLayoutPrivate) => JSX.Element;
+    export const ExpansionLayout: {
+        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps & IExpansionLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
     export default ExpansionLayout;
 }
 
@@ -550,7 +561,10 @@ declare module 'react-view-builder/fields/ItemsField' {
         value: PickProp<IManaged, 'value'>;
         disabled: PickProp<IManaged, "disabled">;
     }
-    export const ItemsField: ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate) => JSX.Element;
+    export const ItemsField: {
+        ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -564,7 +578,10 @@ declare module 'react-view-builder/fields/LineField' {
     export interface ILineFieldProps {
         title?: PickProp<IField, 'title'>;
     }
-    export const LineField: ({ title, }: ILineFieldProps) => JSX.Element;
+    export const LineField: {
+        ({ title, }: ILineFieldProps): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -582,7 +599,10 @@ declare module 'react-view-builder/fields/ProgressField' {
     interface IProgressFieldPrivate {
         value: PickProp<IManaged, "value">;
     }
-    export const ProgressField: ({ maxPercent, showPercentLabel, value, }: IProgressFieldProps & IProgressFieldPrivate) => JSX.Element;
+    export const ProgressField: {
+        ({ maxPercent, showPercentLabel, value, }: IProgressFieldProps & IProgressFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -604,7 +624,10 @@ declare module 'react-view-builder/fields/RadioField' {
         onChange: PickProp<IManaged, "onChange">;
         name?: PickProp<IEntity, 'name'>;
     }
-    export const RadioField: ({ disabled, value, onChange, title, radioValue, name, }: IRadioFieldProps & IRadioFieldPrivate) => JSX.Element;
+    export const RadioField: {
+        ({ disabled, value, onChange, title, radioValue, name, }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity): JSX.Element;
         displayName: string;
@@ -621,7 +644,10 @@ declare module 'react-view-builder/fields/RatingField' {
         title?: PickProp<IManaged, "title">;
         onChange?: PickProp<IManaged, "onChange">;
     }
-    export const RatingField: ({ value, disabled, readonly, title, onChange, }: IManaged) => JSX.Element;
+    export const RatingField: {
+        ({ value, disabled, readonly, title, onChange, }: IManaged): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -648,7 +674,10 @@ declare module 'react-view-builder/fields/SliderField' {
         value: PickProp<IManaged, 'value'>;
         onChange: PickProp<IManaged, 'onChange'>;
     }
-    export const SliderField: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, ...otherProps }: ISliderFieldProps & ISliderFieldPrivate) => JSX.Element;
+    export const SliderField: {
+        ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, ...otherProps }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -667,7 +696,10 @@ declare module 'react-view-builder/fields/SwitchField' {
         disabled: PickProp<IManaged, 'disabled'>;
         value: PickProp<IManaged, 'value'>;
     }
-    export const SwitchField: ({ disabled, value, onChange, title }: ISwitchFieldProps & ISwitchFieldPrivate) => JSX.Element;
+    export const SwitchField: {
+        ({ disabled, value, onChange, title }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -696,7 +728,10 @@ declare module 'react-view-builder/fields/TextField' {
         value: PickProp<IManaged, "value">;
         disabled: PickProp<IManaged, "disabled">;
     }
-    export const TextField: ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, onChange, }: ITextFieldProps & ITextFieldPrivate) => JSX.Element;
+    export const TextField: {
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, onChange, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -714,7 +749,10 @@ declare module 'react-view-builder/fields/TypographyField' {
     interface ITypographyFieldPrivate {
         value: PickProp<IManaged, 'value'>;
     }
-    export const TypographyField: ({ value, placeholder, typoVariant, }: ITypographyFieldProps & ITypographyFieldPrivate) => JSX.Element;
+    export const TypographyField: {
+        ({ value, placeholder, typoVariant, }: ITypographyFieldProps & ITypographyFieldPrivate): JSX.Element;
+        displayName: string;
+    };
     const _default: {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
@@ -815,47 +853,60 @@ declare module 'react-view-builder/model/IOneProps' {
 
 declare module 'react-view-builder/components/Group/Group' {
     import * as React from "react";
-    import { IManagedLayout } from "react-view-builder/model/IManaged";
+    import { IManagedLayout, PickProp } from "react-view-builder/model/IManaged";
+    import IField from "react-view-builder/model/IField";
     export interface IGroupProps extends IManagedLayout {
-        style?: React.CSSProperties;
-        className?: string;
+        style?: PickProp<IField, 'style'>;
+        className?: PickProp<IField, 'className'>;
     }
     interface IGroupPrivate {
         children: React.ReactChild;
         isItem?: boolean;
         onFocus?: () => void;
     }
-    export const Group: ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, ...otherProps }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>) => JSX.Element;
+    export const Group: {
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, ...otherProps }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        displayName: string;
+    };
     const _default: React.ForwardRefExoticComponent<IGroupProps & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
     export default _default;
 }
 
 declare module 'react-view-builder/components/Paper/Paper' {
     import * as React from 'react';
-    import { IGroupProps } from 'react-view-builder/components/Group';
-    export interface IPaperProps extends IGroupProps {
+    import IField from 'react-view-builder/model/IField';
+    import { PickProp } from 'react-view-builder/model/IManaged';
+    export interface IPaperProps {
+        className?: PickProp<IField, 'className'>;
+        style?: PickProp<IField, 'style'>;
     }
     interface IPaperPrivate {
         children: React.ReactChild;
     }
-    export const Paper: ({ className, style, columns, phoneColumns, tabletColumns, desktopColumns, fieldBottomMargin, fieldRightMargin, children, ...otherProps }: IPaperProps & IPaperPrivate) => JSX.Element;
+    export const Paper: {
+        ({ className, style, children, }: IPaperProps & IPaperPrivate): JSX.Element;
+        displayName: string;
+    };
     export default Paper;
 }
 
 declare module 'react-view-builder/components/Expansion/Expansion' {
     import * as React from 'react';
-    import { IGroupProps } from 'react-view-builder/components/Group';
     import { PickProp } from 'react-view-builder/model/IManaged';
     import IField from 'react-view-builder/model/IField';
-    export interface IExpansionProps extends IGroupProps {
+    export interface IExpansionProps {
         title?: PickProp<IField, 'title'>;
+        style?: PickProp<IField, 'style'>;
         description?: PickProp<IField, 'description'>;
         className?: PickProp<IField, 'className'>;
     }
     interface IExpansionPrivate {
         children: React.ReactChild;
     }
-    export const Expansion: ({ title, description, className, style, columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, children, ...otherProps }: IExpansionProps & IExpansionPrivate) => JSX.Element;
+    export const Expansion: {
+        ({ title, description, className, style, children, }: IExpansionProps & IExpansionPrivate): JSX.Element;
+        displayName: string;
+    };
     export default Expansion;
 }
 

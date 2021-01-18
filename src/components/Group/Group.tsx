@@ -1,10 +1,12 @@
 import * as React from "react";
 import { createElement as h, forwardRef } from "react";
 
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, makeStyles } from "@material-ui/core";
 
 import { IManagedLayout, PickProp } from "../../model/IManaged";
 import IField from "../../model/IField";
+
+import classNames from '../../utils/classNames';
 
 type nums = keyof {
     1: never;
@@ -74,6 +76,15 @@ interface IGroupPrivate {
     onFocus?: () => void;
 }
 
+const useStyles = makeStyles({
+  root: {
+    position: "relative",
+    '& > *': {
+      width: '100%',
+    },
+  },
+});
+
 export const Group = (
   {
     className = "",
@@ -90,18 +101,21 @@ export const Group = (
     ...otherProps
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
-) => (
-  <Grid
-    ref={ref}
-    onFocus={onFocus}
-    {...gridProps(isItem, columns, phoneColumns, tabletColumns, desktopColumns)}
-    {...otherProps}
-    className={className}
-    style={style}
-  >
-    {renderItem(isItem, children, n(fieldRightMargin), n(fieldBottomMargin))}
-  </Grid>
-);
+) => {
+  const classes = useStyles();
+  return (
+    <Grid
+      ref={ref}
+      onFocus={onFocus}
+      {...gridProps(isItem, columns, phoneColumns, tabletColumns, desktopColumns)}
+      {...otherProps}
+      className={classNames(className, classes.root)}
+      style={style}
+    >
+      {renderItem(isItem, children, n(fieldRightMargin), n(fieldBottomMargin))}
+    </Grid>
+  );
+};
 
 Group.displayName = 'Group';
 

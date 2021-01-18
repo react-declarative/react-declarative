@@ -38,7 +38,7 @@ export const ComboField = ({
     value={value || null}
     onChange={({}, v) => onChange(v)}
     getOptionLabel={(s) => (tr(s) || "").toString()}
-    options={itemList}
+    options={itemList || []}
     disabled={disabled}
     renderInput={(params) => (
       <MatTextField
