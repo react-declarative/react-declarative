@@ -1,6 +1,7 @@
+import IAnything from '../model/IAnything';
 import isObject from './isObject';
 
-export const deepMerge = (target, ...sources) => {
+export const deepMerge = (target: IAnything, ...sources: IAnything[]): IAnything => {
     if (!sources.length) return target;
     const source = sources.shift();
     if (isObject(target) && isObject(source)) {

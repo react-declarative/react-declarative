@@ -13,22 +13,24 @@ import create from '../utils/create';
 import set from '../utils/set';
 import get from '../utils/get';
 
+import IAnything from '../model/IAnything';
+
 interface IResolvedHookProps {
-    handler: (() => object) | (() => Promise<object>) | object;
+    handler: (() => IAnything) | (() => Promise<IAnything>) | IAnything;
     fallback: (e: Error) => void;
     fields: IField[];
-    change: (obj: object, initial?: boolean) => void;
+    change: (obj: IAnything, initial?: boolean) => void;
 }
 
 type useResolvedHook = (
     props: IResolvedHookProps
-) => [object, (v: object) => void];
+) => [IAnything | null, (v: IAnything) => void];
 
 const buildObj = (fields: IField[]) => {
     const obj = {};
     if (fields) {
         deepFlat(fields, 'fields').forEach((f) => {
-            if (isStatefull(f)) {
+            if (isStatefull(f as IField)) {
                 create(obj, f.name);
                 const value = f.defaultValue || get(obj, f.name) || initialValue(f.type);
                 set(obj, f.name, value);
@@ -49,7 +51,7 @@ export const useResolved: useResolvedHook = ({
     fields,
     change,
 }) => {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<IAnything | null>(null);
     const isRoot = useRef(false);
     useEffect(() => {
         const tryResolve = async () => {
@@ -76,7 +78,7 @@ export const useResolved: useResolvedHook = ({
                 } finally {
                     isRoot.current = true;
                 }
-            } else if (!deepCompare(data, handler)) {
+            } else if (!deepCompare(data as IAnything, handler)) {
                 setData(assign(buildObj(fields), handler));
             }
         };

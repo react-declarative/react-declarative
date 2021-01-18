@@ -32,11 +32,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export interface IExpansionProps extends IGroupProps {
   title?: PickProp<IField, 'title'>,
   description?: PickProp<IField, 'description'>,
   className?: PickProp<IField, 'className'>,
+}
+
+interface IExpansionPrivate {
+  children: React.ReactChild;
 }
 
 export const Expansion = ({
@@ -47,9 +50,9 @@ export const Expansion = ({
   phoneColumns = '',
   tabletColumns = '',
   desktopColumns = '',
-  children = null,
+  children,
   ...otherProps
-}: IExpansionProps & {children: any}) => {
+}: IExpansionProps & IExpansionPrivate) => {
   const classes = useStyles();
   return (
     <Group className={classNames(className, classes.strech)} columns={columns}

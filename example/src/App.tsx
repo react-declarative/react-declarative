@@ -1,10 +1,14 @@
 import React from 'react'
+import One, {FieldType, IField} from 'react-view-builder';
 
-import { ExampleComponent } from 'react-view-builder'
-import 'react-view-builder/dist/index.css'
+const fields: IField[] = [
+  {
+    type: FieldType.Group,
+  }
+]
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <One fields={fields} />
 }
 
 export default App

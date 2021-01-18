@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 
 import IEntity from '../model/IEntity';
 import IField from '../model/IField';
@@ -33,9 +33,9 @@ export const FragmentLayout = ({
     }, [object]);
     if (visible) {
         return (
-            <>
+            <Fragment>
                 {children}
-            </>
+            </Fragment>
         );
     } else {
         return null;

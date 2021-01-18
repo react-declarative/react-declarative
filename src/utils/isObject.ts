@@ -1,4 +1,4 @@
-export const isObject = (obj) => {
+export const isObject = (obj: any) => {
     const type = typeof obj;
     return type === 'function' || type === 'object' && !!obj;
 };

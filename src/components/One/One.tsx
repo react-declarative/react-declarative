@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useRef, Fragment } from 'react';
 
 /* eslint-disable react/jsx-no-useless-fragment */
 
@@ -63,7 +63,7 @@ export const OneInternal = ({
     };
     if (object) {
         return (
-            <>
+            <Fragment>
                 {fields?.map((field, index) => {
                     const currentPath = `${prefix}.${field.type}[${index}]`;
                     const entity: IEntity = {
@@ -134,7 +134,7 @@ export const OneInternal = ({
                         return createField(entity, currentPath);
                     }
                 })}
-            </>
+            </Fragment>
         );
     } else {
         return null;

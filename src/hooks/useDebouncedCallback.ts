@@ -1,3 +1,5 @@
+// @ts-nocheck 
+
 import { useRef, useMemo, useEffect, useCallback } from 'react';
 
 export interface Options {

@@ -1,6 +1,7 @@
+import IAnything from '../model/IAnything';
 import isObject from './isObject';
 
-export const deepCompare = (obj1, obj2) => {
+export const deepCompare = (obj1: IAnything, obj2: IAnything) => {
     if (obj1 === obj2) {
         return true;
     } else if (isObject(obj1) && isObject(obj2)) {
@@ -13,6 +14,8 @@ export const deepCompare = (obj1, obj2) => {
             }
         }
         return true;
+    } else {
+        return false;
     }
 }
 
