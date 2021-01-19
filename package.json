@@ -1,12 +1,24 @@
 {
   "name": "@tripolskypetr/react-view-builder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An React form builder which interfaces with a json endpoint to generate 12 column based nested grids with input fields and automatic state management. Json endpoint is typed by typescript (IntelliSense available). This tool is based on material-ui components so your app is going to look pretty on any device...",
   "private": false,
   "author": "tripolskypetr",
   "license": "MIT",
   "homepage": "https://theonekit.com",
-  "keywords": ["react", "typescript", "state-management", "frontend", "material-ui", "declarative", "form-validation", "layout-engine", "grid-system", "declarative-programming", "json-endpoint"],
+  "keywords": [
+    "react",
+    "typescript",
+    "state-management",
+    "frontend",
+    "material-ui",
+    "declarative",
+    "form-validation",
+    "layout-engine",
+    "grid-system",
+    "declarative-programming",
+    "json-endpoint"
+  ],
   "repository": "https://github.com/tripolskypetr/react-view-builder",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -16,8 +28,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs && npm run typedef",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "microbundle --no-compress --format modern,cjs --jsx React.createElement && npm run typedef",
+    "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
     "typedef": "node dts",
     "postinstall": "npm run build"
   },
@@ -48,7 +60,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.2.0",
-    "microbundle-crl": "^0.13.10",
+    "microbundle": "^0.13.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
     "react": "17.0.1",
