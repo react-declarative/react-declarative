@@ -31,4 +31,6 @@ export const Container = ({
   </Grid>
 );
 
+Container.displayName = 'Container';
+
 export default forwardRef(Container);

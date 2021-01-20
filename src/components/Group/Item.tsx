@@ -50,4 +50,6 @@ export const Item = ({
   </Grid>
 );
 
+Item.displayName = 'Item';
+
 export default forwardRef(Item);
