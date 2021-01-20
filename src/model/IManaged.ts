@@ -46,6 +46,7 @@ type Exclude = {
     focus: never;
     blur: never;
     ready: never;
+    check: never;
     change: never;
     name: never;
 } & IManagedShallow;
@@ -56,6 +57,7 @@ type Exclude = {
  */
 export interface IManaged extends Omit<IEntity, keyof Exclude> {
     value: v;
+    dirty: boolean;
     disabled: boolean;
     invalid: string | null;
     onChange: (v: v, skipReadonly?: boolean) => void;

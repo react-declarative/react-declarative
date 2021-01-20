@@ -14,12 +14,14 @@ import set from '../utils/set';
 import get from '../utils/get';
 
 import IAnything from '../model/IAnything';
+import { PickProp } from '../model/IManaged';
+import IOneProps from '../model/IOneProps';
 
 interface IResolvedHookProps {
-    handler: (() => IAnything) | (() => Promise<IAnything>) | IAnything;
-    fallback: (e: Error) => void;
-    fields: IField[];
-    change: (obj: IAnything, initial?: boolean) => void;
+    handler: PickProp<IOneProps, 'handler'>;
+    fallback: PickProp<IOneProps, 'fallback'>;
+    fields: PickProp<IOneProps, 'fields'>;
+    change: PickProp<IOneProps, 'change'>;
 }
 
 type useResolvedHook = (
@@ -62,11 +64,11 @@ export const useResolved: useResolvedHook = ({
                     const result = handler();
                     if (result instanceof Promise) {
                         const newData = assign(buildObj(fields), deepClone(await result));
-                        change(newData, true);
+                        change!(newData, true);
                         setData(newData);
                     } else {
                         const newData = assign(buildObj(fields), deepClone(result));
-                        change(newData, true);
+                        change!(newData, true);
                         setData(newData);
                     }
                 } catch (e) {

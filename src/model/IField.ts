@@ -172,21 +172,21 @@ export interface IField {
      * ошибкую. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isInvalid?: (v: IAnything, change: (v: null | string) => void) => null | string;
+    isInvalid?: (v: IAnything) => null | string;
 
     /**
      * Функция, позволяющая скрыть поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isVisible?: (v: IAnything, change: (v: boolean) => void) => boolean;
+    isVisible?: (v: IAnything) => boolean;
 
     /**
      * Функция, позволяющая отключить поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isDisabled?: (v: IAnything, change: (v: boolean) => void) => boolean;
+    isDisabled?: (v: IAnything) => boolean;
 
     /**
      * Функция, применяемая если значение поля вычисляется динамически.

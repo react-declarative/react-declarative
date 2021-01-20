@@ -64,6 +64,7 @@ export function makeField(
         isVisible = () => true,
         isInvalid = () => null,
         change = (v) => console.log({ v }),
+        check = () => null,
         ready = () => null,
         compute,
         object,
@@ -85,6 +86,7 @@ export function makeField(
         const [disabled, setDisabled] = useState<boolean>(false);
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
+        const [dirty, setDirty] = useState<boolean>(false);
 
         const inputUpdate = useRef(false);
 
@@ -104,22 +106,32 @@ export function makeField(
         useEffect(() => {
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
+                check();
             } else if (!name) {
-                // void(0);
+                check();
             } else {
+                const disabled = isDisabled(object);
+                const visible = isVisible(object);
+                const invalid = isInvalid(object);
                 const newValue = get(object, name);
                 if (newValue !== value) {
                     inputUpdate.current = true;
                     setValue(newValue);
                 }
-                setDisabled(isDisabled(object, (v) => setDisabled(v)));
-                setVisible(isVisible(object, (v) => setVisible(v)));
-                setInvalid(isInvalid(object, (v) => setInvalid(v)));
+                setDisabled(disabled);
+                setVisible(visible);
+                setInvalid(invalid);
+                if (!invalid) {
+                    /**
+                     * Коммит изменений ввода на форму только при
+                     * успешной валидации
+                     */
+                    check();
+                }
             }
             /**
-             * Вызываем коллбек для подсчета компонентов, получивших
-             * изменения. Важно при первой отрисовке, пока все не
-             * получили целевой объект форма не отображается
+             * Отображаем форму только после отклика всех
+             * полей
              */
             ready();
         }, [object]);
@@ -138,7 +150,7 @@ export function makeField(
             } else {
                 const copy = deepClone(object);
                 const check = set(copy, name, debouncedValue);
-                const invalid = isInvalid(copy, (v) => setInvalid(v));
+                const invalid = isInvalid(copy);
                 setInvalid(invalid);
                 if (!name) {
                     return;
@@ -194,6 +206,7 @@ export function makeField(
             if (focus) {
                 focus();
             }
+            setDirty(true);
         };
 
         const managedProps: IManaged & {name: string} = {
@@ -202,6 +215,7 @@ export function makeField(
             invalid,
             value,
             name,
+            dirty,
             ...otherProps,
         };
 

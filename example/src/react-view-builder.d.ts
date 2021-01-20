@@ -250,19 +250,19 @@ declare module 'react-view-builder/model/IField' {
                 * ошибкую. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isInvalid?: (v: IAnything, change: (v: null | string) => void) => null | string;
+            isInvalid?: (v: IAnything) => null | string;
             /**
                 * Функция, позволяющая скрыть поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isVisible?: (v: IAnything, change: (v: boolean) => void) => boolean;
+            isVisible?: (v: IAnything) => boolean;
             /**
                 * Функция, позволяющая отключить поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isDisabled?: (v: IAnything, change: (v: boolean) => void) => boolean;
+            isDisabled?: (v: IAnything) => boolean;
             /**
                 * Функция, применяемая если значение поля вычисляется динамически.
                 * Включает readonly. Для ComponentField может возвращать JSX.
@@ -352,6 +352,7 @@ declare module 'react-view-builder/model/IManaged' {
             focus: never;
             blur: never;
             ready: never;
+            check: never;
             change: never;
             name: never;
     } & IManagedShallow;
@@ -361,6 +362,7 @@ declare module 'react-view-builder/model/IManaged' {
         */
     export interface IManaged extends Omit<IEntity, keyof Exclude> {
             value: v;
+            dirty: boolean;
             disabled: boolean;
             invalid: string | null;
             onChange: (v: v, skipReadonly?: boolean) => void;
@@ -382,6 +384,7 @@ declare module 'react-view-builder/model/IEntity' {
     export interface IEntity extends Omit<IField, exclude> {
         change?: (object: IAnything) => void;
         invalidity: (msg: string) => void;
+        check: () => void;
         ready: () => void;
         object: IAnything;
     }
@@ -406,7 +409,7 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        ({ children, isVisible, object, ready, }: IFragmentLayoutProps & IFragmentLayoutPrivate): JSX.Element | null;
+        ({ children, isVisible, object, ready, check, }: IFragmentLayoutProps & IFragmentLayoutPrivate): JSX.Element | null;
         displayName: string;
     };
     export default FragmentLayout;
@@ -494,7 +497,7 @@ declare module 'react-view-builder/fields/CheckboxField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -521,7 +524,7 @@ declare module 'react-view-builder/fields/ComboField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -541,7 +544,7 @@ declare module 'react-view-builder/fields/ComponentField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -568,7 +571,7 @@ declare module 'react-view-builder/fields/ItemsField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -585,7 +588,7 @@ declare module 'react-view-builder/fields/LineField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -606,7 +609,7 @@ declare module 'react-view-builder/fields/ProgressField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -631,7 +634,7 @@ declare module 'react-view-builder/fields/RadioField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -655,7 +658,7 @@ declare module 'react-view-builder/fields/RatingField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -685,7 +688,7 @@ declare module 'react-view-builder/fields/SliderField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -707,7 +710,7 @@ declare module 'react-view-builder/fields/SwitchField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -717,29 +720,30 @@ declare module 'react-view-builder/fields/TextField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
     export interface ITextFieldProps {
-        inputType: PickProp<IField, "inputType">;
-        description: PickProp<IField, "description">;
-        outlined: PickProp<IField, "outlined">;
-        title: PickProp<IField, "title">;
+        inputType?: PickProp<IField, "inputType">;
+        description?: PickProp<IField, "description">;
+        outlined?: PickProp<IField, "outlined">;
+        title?: PickProp<IField, "title">;
         leadingIcon?: PickProp<IField, "leadingIcon">;
         trailingIcon?: PickProp<IField, "trailingIcon">;
         leadingIconClick?: PickProp<IField, "leadingIconClick">;
         trailingIconClick?: PickProp<IField, "trailingIconClick">;
-        inputRows: PickProp<IField, "inputRows">;
-        placeholder: PickProp<IField, "placeholder">;
+        inputRows?: PickProp<IField, "inputRows">;
+        placeholder?: PickProp<IField, "placeholder">;
     }
     interface ITextFieldPrivate {
         onChange: PickProp<IManaged, "onChange">;
         invalid: PickProp<IManaged, "invalid">;
         value: PickProp<IManaged, "value">;
         disabled: PickProp<IManaged, "disabled">;
+        dirty: PickProp<IManaged, "dirty">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, onChange, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, dirty, onChange, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -760,7 +764,7 @@ declare module 'react-view-builder/fields/TypographyField' {
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -774,11 +778,10 @@ declare module 'react-view-builder/model/IAnything' {
 }
 
 declare module 'react-view-builder/components/One' {
-    import * as React from 'react';
-    import IOneProps from 'react-view-builder/model/IOneProps';
     import TypedField from 'react-view-builder/model/TypedField';
+    import IOneProps from 'react-view-builder/model/IOneProps';
     export const One: {
-        ({ LoadPlaceholder, ready, ...props }: IOneProps): JSX.Element;
+        ({ LoadPlaceholder, ready, change, fields, ...props }: IOneProps): JSX.Element;
         displayName: string;
         /**
           * После написания формы можно включить строгую
@@ -786,9 +789,9 @@ declare module 'react-view-builder/components/One' {
           * <One.typed handler={...
           *     ^^^^^^
           */
-        typed: (props: IOneProps<TypedField>) => React.FunctionComponentElement<IOneProps<TypedField>>;
+        typed: (props: IOneProps<TypedField>) => JSX.Element;
     };
-    export const OneTyped: (props: IOneProps<TypedField>) => React.FunctionComponentElement<IOneProps<TypedField>>;
+    export const OneTyped: (props: IOneProps<TypedField>) => JSX.Element;
     export default One;
 }
 

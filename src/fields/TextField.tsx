@@ -60,16 +60,16 @@ const multiline = (inputRows: number) => ({
 });
 
 export interface ITextFieldProps {
-  inputType: PickProp<IField, "inputType">;
-  description: PickProp<IField, "description">;
-  outlined: PickProp<IField, "outlined">;
-  title: PickProp<IField, "title">;
+  inputType?: PickProp<IField, "inputType">;
+  description?: PickProp<IField, "description">;
+  outlined?: PickProp<IField, "outlined">;
+  title?: PickProp<IField, "title">;
   leadingIcon?: PickProp<IField, "leadingIcon">;
   trailingIcon?: PickProp<IField, "trailingIcon">;
   leadingIconClick?: PickProp<IField, "leadingIconClick">;
   trailingIconClick?: PickProp<IField, "trailingIconClick">;
-  inputRows: PickProp<IField, "inputRows">;
-  placeholder: PickProp<IField, "placeholder">;
+  inputRows?: PickProp<IField, "inputRows">;
+  placeholder?: PickProp<IField, "placeholder">;
 }
 
 interface ITextFieldPrivate {
@@ -77,6 +77,7 @@ interface ITextFieldPrivate {
   invalid: PickProp<IManaged, "invalid">;
   value: PickProp<IManaged, "value">;
   disabled: PickProp<IManaged, "disabled">;
+  dirty: PickProp<IManaged, "dirty">;
 }
 
 export const TextField = ({
@@ -93,15 +94,16 @@ export const TextField = ({
   trailingIconClick: tic,
   inputRows: rows = 1,
   placeholder = "",
+  dirty,
   onChange,
 }: ITextFieldProps & ITextFieldPrivate) => (
   <MatTextField
     variant={outlined ? "outlined" : "standard"}
-    helperText={invalid || description}
+    helperText={(dirty && invalid) || description}
     InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
     type={inputType}
     value={value}
-    error={invalid !== null}
+    error={dirty && invalid !== null}
     placeholder={placeholder}
     onChange={({ target }) => onChange(target.value.toString())}
     label={title}

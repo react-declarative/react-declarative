@@ -44,6 +44,7 @@ export const OneInternal = ({
     focus,
     blur,
 }: IOneProps) => {
+    const waitingChecked = useRef(countStatefull(fields));
     const waitingReady = useRef(countStatefull(fields));
     const [object, setObject] = useResolved({
         handler,
@@ -51,13 +52,30 @@ export const OneInternal = ({
         fields,
         change,
     });
+    /**
+     * Изменяем локальный объект, запускаем счетчик
+     * валидаций входных значений полей
+     */
     const handleChange = (v: object) => {
+        waitingChecked.current = countStatefull(fields);
         setObject(v);
-        change(v, false);
     };
+    /**
+     * Отображение только после отрисовки всех полей
+     * формы
+     */
     const handleReady = () => {
         if (--waitingReady.current === 0) {
             ready();
+        }
+    };
+    /**
+     * Производим коммит, если валидации на форме
+     * пройдены
+     */
+    const handleCheck = () => {
+        if (--waitingChecked.current === 0) {
+            change(object, false);
         }
     };
     if (object) {
@@ -68,6 +86,7 @@ export const OneInternal = ({
                     const entity: IEntity = {
                         invalidity: field.invalidity || invalidity,
                         change: handleChange,
+                        check: handleCheck,
                         ready: handleReady,
                         focus,
                         blur,

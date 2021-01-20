@@ -27,8 +27,10 @@ export const FragmentLayout = ({
 }: IFragmentLayoutProps & IFragmentLayoutPrivate) => {
     const [visible, setVisible] = useState(true);
     useEffect(() => {
-        const visible = isVisible(object, (v) => setVisible(v));
-        if (!visible) { ready(); }
+        const visible = isVisible(object);
+        if (!visible) {
+            ready();
+        }
         setVisible(visible);
     }, [object]);
     if (visible) {

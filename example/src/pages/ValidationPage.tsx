@@ -12,7 +12,7 @@ const fields: TypedField[] = [
         type: FieldType.Text,
         name: 'email',
         trailingIcon: Email,
-        defaultValue: 'tripolskypetr@gmail.com',
+        // defaultValue: 'tripolskypetr@gmail.com',
         isInvalid({email}) {
             const expr = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
             if (!expr.test(email)) {
@@ -27,6 +27,26 @@ const fields: TypedField[] = [
         isVisible({visible}) {
             return visible;
         }
+    },
+    {
+        type: FieldType.Fragment,
+        isVisible({visible}) {
+            return visible;
+        },
+        fields: [
+            {
+                type: FieldType.Text,
+                name: 'number',
+                title: 'Number',
+                description: 'Only number allowed',
+                isInvalid({number}) {
+                    if (isNaN(number) || number === '') {
+                        return 'It is not a number';
+                    }
+                    return null;
+                },
+            },
+        ],
     },
     {
         type: FieldType.Expansion,
