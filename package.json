@@ -1,9 +1,17 @@
 {
   "name": "@tripolskypetr/react-view-builder",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "An React form builder which interfaces with a json endpoint to generate 12 column based nested grids with input fields and automatic state management. Json endpoint is typed by typescript (IntelliSense available). This tool is based on material-ui components so your app is going to look pretty on any device...",
   "private": false,
-  "author": "tripolskypetr",
+  "author": {
+    "name": "Petr Tripolsky",
+    "email": "tripolskypetr@gmail.com",
+    "url": "https://github.com/tripolskypetr"
+  },
+  "funding": {
+    "type" : "individual",
+    "url" : "http://paypal.me/tripolskypetr"
+  },
   "license": "MIT",
   "homepage": "https://theonekit.com",
   "keywords": [
@@ -17,7 +25,8 @@
     "layout-engine",
     "grid-system",
     "declarative-programming",
-    "json-endpoint"
+    "json-endpoint",
+    "standalone"
   ],
   "repository": "https://github.com/tripolskypetr/react-view-builder",
   "main": "dist/index.js",
