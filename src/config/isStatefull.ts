@@ -5,6 +5,8 @@ const layouts: FieldType[] = [
     FieldType.Group,
     FieldType.Paper,
     FieldType.Expansion,
+    FieldType.Div,
+    FieldType.Fragment,
 ];
 
 /**
