@@ -409,7 +409,7 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        ({ children, isVisible, object, ready, check, }: IFragmentLayoutProps & IFragmentLayoutPrivate): JSX.Element | null;
+        ({ children, isVisible, object, ready, }: IFragmentLayoutProps & IFragmentLayoutPrivate): JSX.Element | null;
         displayName: string;
     };
     export default FragmentLayout;
@@ -874,7 +874,7 @@ declare module 'react-view-builder/components/Group/Group' {
         onFocus?: () => void;
     }
     export const Group: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, ...otherProps }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
     const _default: React.ForwardRefExoticComponent<IGroupProps & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
