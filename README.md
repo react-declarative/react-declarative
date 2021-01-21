@@ -134,6 +134,27 @@ const fields: TypedField[] = [
 
 ```
 
+### 4. JSX Injection
+
+> Link to [source code](./example/src/pages/GalleryPage.tsx)
+
+```tsx
+const fields: TypedField[] = [
+  {
+    type: FieldType.Paper,
+    fields: [
+      {
+        type: FieldType.Component,
+        compute: (props) => <Logger {...(props || {})}/>, 
+      },
+    ],
+  },
+
+  ...
+
+];
+```
+
 ## License
 
 MIT © [tripolskypetr](https://github.com/tripolskypetr)
