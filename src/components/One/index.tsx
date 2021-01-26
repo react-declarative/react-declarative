@@ -16,6 +16,7 @@ import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 import deepFlat from '../../utils/deepFlat';
+import arrays from '../../utils/arrays';
 
 const useStyles = makeStyles({
     hidden: {
@@ -44,7 +45,7 @@ export const One = ({
       isValid = isValid && isInvalid(newData) === null;
     });
     if (isValid) {
-      change(newData, initial);
+      change(arrays(newData), initial);
     }
   };
   const params = {

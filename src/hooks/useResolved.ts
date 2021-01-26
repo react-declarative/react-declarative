@@ -34,8 +34,11 @@ const buildObj = (fields: IField[]) => {
         deepFlat(fields, 'fields').forEach((f) => {
             if (isStatefull(f as IField)) {
                 create(obj, f.name);
-                const value = f.defaultValue || get(obj, f.name) || initialValue(f.type);
-                set(obj, f.name, value);
+                if (typeof f.defaultValue === 'undefined') {
+                    set(obj, f.name, get(obj, f.name) || initialValue(f.type));
+                } else {
+                    set(obj, f.name, f.defaultValue);
+                }
             }
         });
     }
