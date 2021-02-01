@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+// import { act } from 'react-dom/test-utils';
+
 import OneForm from '../components/One';
 
 import IOneProps from "../model/IOneProps";
@@ -9,6 +11,15 @@ import FieldType from "../model/FieldType";
 import IField from "../model/IField";
 
 jest.setTimeout(30_000);
+
+jest.mock('react', () => ({
+    ...jest.requireActual<any>('react'),
+    useState: (initialValue: any) => {
+        const { act } = jest.requireActual('react-dom/test-utils');
+        const [value, setValue] = jest.requireActual('react').useState(initialValue);
+        return [value, (newValue: any) => act(() => setValue(newValue))];
+    }
+}));
 
 const HELLO_THERE = 'Hello there!';
 
@@ -79,7 +90,7 @@ describe ('Strict fields set', () => {
         renderStrict({
             handler: () => Promise.resolve({
                 foo: {
-                    bar: 1
+                    bar: '1'
                 }
             }),
             fields: [
@@ -97,8 +108,8 @@ describe ('Strict fields set', () => {
             change({foo: {bar, baz}}) {
                 try {
                     expect.assertions(2);
-                    expect(bar).toEqual(1);
-                    expect(baz).toEqual(2);
+                    expect(bar).toBe('1');
+                    expect(baz).toBe('2');
                 } finally {
                     done();
                 }
@@ -110,7 +121,7 @@ describe ('Strict fields set', () => {
         renderStrict({
             handler: () => ({
                 foo: {
-                    bar: 1
+                    bar: '1'
                 }
             }),
             fields: [
@@ -128,8 +139,8 @@ describe ('Strict fields set', () => {
             change({foo: {bar, baz}}) {
                 try {
                     expect.assertions(2);
-                    expect(bar).toEqual(1);
-                    expect(baz).toEqual(2);
+                    expect(bar).toBe('1');
+                    expect(baz).toBe('2');
                 } finally {
                     done();
                 }
@@ -141,7 +152,7 @@ describe ('Strict fields set', () => {
         renderStrict({
             handler: () => ({
                 foo: {
-                    bar: 1
+                    bar: '1'
                 }
             }),
             fields: [
@@ -159,7 +170,7 @@ describe ('Strict fields set', () => {
             change({foo: {bar}}) {
                 try {
                     expect.assertions(1);
-                    expect(bar).toEqual(1);
+                    expect(bar).toBe('1');
                 } finally {
                     done();
                 }
