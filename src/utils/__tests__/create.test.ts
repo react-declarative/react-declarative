@@ -12,20 +12,20 @@ interface IObject {
     }
 };
 
-describe('Create object path tests', () => {
+describe ('Create object path tests', () => {
 
     let object: IObject;
 
-    beforeEach(() => {
+    beforeEach (() => {
         object = new Object();
     });
 
-    it('Will create path', () => {
+    it ('Will create path', () => {
         create(object, 'foo.bar.baz.value');
         expect(object?.foo?.bar?.baz).toBeTruthy();
     });
 
-    it('Will not override existing value', () => {
+    it ('Will not override existing value', () => {
         object = {
             foo: {
                 bar: {
