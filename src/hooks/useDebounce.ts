@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useCallback, useEffect, useState, useRef } from 'react';
 
 import {
