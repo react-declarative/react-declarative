@@ -384,7 +384,7 @@ describe("Create object flatmap by field", () => {
       ],
     },
   ];
-  it ('Will process deepFlat testcases', () => {
+  it ('Will pass deepFlat testcases', () => {
     expect(deepFlat(fields50, 'fields').length).toBe(50);
     expect(deepFlat(fields32, 'fields').length).toBe(32);
     expect(deepFlat(fields19, 'fields').length).toBe(19);

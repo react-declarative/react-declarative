@@ -7,12 +7,10 @@ const H_BUZZ = Symbol('buzz');
 
 describe ('Detect array by object keys', () => {
 
-    it ('Will patch root object', () => {
-        expect(Array.isArray(arrays({0: 'aaa'}))).toBeTruthy();
-    });
+    let entry: any = null;
 
-    it ('Will patch every object by need', () => {
-        const entry = arrays({
+    beforeEach(() => {
+        entry = arrays({
             foo: {
                 0: { 
                     bar: {
@@ -25,6 +23,13 @@ describe ('Detect array by object keys', () => {
                 value: 1,
             },
         });
+    });
+
+    it ('Will patch root object', () => {
+        expect(Array.isArray(arrays({0: 'aaa'}))).toBeTruthy();
+    });
+
+    it ('Will patch every object by need', () => {
         expect(Array.isArray(get(entry, 'foo'))).toBeTruthy();
         expect(Array.isArray(get(entry, 'foo.0'))).toBeFalsy();
         expect(get(entry, 'foo.0.bar.0')).toBe(H_LEET);
