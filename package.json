@@ -39,7 +39,8 @@
   "scripts": {
     "build": "microbundle --no-compress --format modern,cjs --jsx React.createElement && npm run typedef",
     "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
-    "typedef": "node dts.js"
+    "typedef": "node dts.js",
+    "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --env=jsdom"
   },
   "peerDependencies": {
     "react": "^17.0.1"
