@@ -28,7 +28,7 @@ afterEach(() => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
-describe('Strict fields set', () => {
+describe ('Strict fields set', () => {
     it ('Renders without crashing', (done) => {
         renderStrict({
             fields: [
@@ -43,4 +43,31 @@ describe('Strict fields set', () => {
             }
         });
     });
+    it ('Can bubble ready event from fields which \
+        wrapped by group-in-group (passthrought)', 
+        (done) => {
+            renderStrict({
+                fields: [
+                    {
+                        type: FieldType.Group,
+                        fields: [
+                                {
+                                    type: FieldType.Group,
+                                    fields: [
+                                        {
+                                            type: FieldType.Text,
+                                            title: HELLO_THERE,
+                                        }
+                                    ]
+                                }
+                        ]
+                    }
+                ],
+                ready() {
+                    expect(div.innerHTML).toContain(HELLO_THERE);
+                    done();
+                }
+            }) 
+        }
+    );
 });
