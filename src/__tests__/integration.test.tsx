@@ -8,6 +8,8 @@ import TypedField from "../model/TypedField";
 import FieldType from "../model/FieldType";
 import IField from "../model/IField";
 
+jest.setTimeout(30_000);
+
 const HELLO_THERE = 'Hello there!';
 
 let div: HTMLDivElement;
@@ -29,6 +31,7 @@ afterEach(() => {
 });
 
 describe ('Strict fields set', () => {
+
     it ('Renders without crashing', (done) => {
         renderStrict({
             fields: [
@@ -43,6 +46,7 @@ describe ('Strict fields set', () => {
             }
         });
     });
+
     it ('Can bubble ready event from fields which \
         wrapped by group-in-group (passthrought)', 
         (done) => {
@@ -70,4 +74,97 @@ describe ('Strict fields set', () => {
             }) 
         }
     );
+
+    it ('Will deep merge default values with promise', (done) => {
+        renderStrict({
+            handler: () => Promise.resolve({
+                foo: {
+                    bar: 1
+                }
+            }),
+            fields: [
+                {
+                    type: FieldType.Group,
+                    fields: [
+                        {
+                            type: FieldType.Text,
+                            name: 'foo.baz',
+                            defaultValue: '2',
+                        }
+                    ]
+                }
+            ],
+            change({foo: {bar, baz}}) {
+                try {
+                    expect.assertions(2);
+                    expect(bar).toEqual(1);
+                    expect(baz).toEqual(2);
+                } finally {
+                    done();
+                }
+            }
+        })
+    });
+
+    it ('Will deep merge default values with function', (done) => {
+        renderStrict({
+            handler: () => ({
+                foo: {
+                    bar: 1
+                }
+            }),
+            fields: [
+                {
+                    type: FieldType.Group,
+                    fields: [
+                        {
+                            type: FieldType.Text,
+                            name: 'foo.baz',
+                            defaultValue: '2',
+                        }
+                    ]
+                }
+            ],
+            change({foo: {bar, baz}}) {
+                try {
+                    expect.assertions(2);
+                    expect(bar).toEqual(1);
+                    expect(baz).toEqual(2);
+                } finally {
+                    done();
+                }
+            }
+        })
+    });
+
+    it ('Will not overwrite function result by default values', (done) => {
+        renderStrict({
+            handler: () => ({
+                foo: {
+                    bar: 1
+                }
+            }),
+            fields: [
+                {
+                    type: FieldType.Group,
+                    fields: [
+                        {
+                            type: FieldType.Text,
+                            name: 'foo.bar',
+                            defaultValue: '2',
+                        }
+                    ]
+                }
+            ],
+            change({foo: {bar}}) {
+                try {
+                    expect.assertions(1);
+                    expect(bar).toEqual(1);
+                } finally {
+                    done();
+                }
+            }
+        })
+    });
+
 });
