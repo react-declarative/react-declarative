@@ -38,8 +38,9 @@
   },
   "scripts": {
     "build": "microbundle --no-compress --format modern,cjs --jsx React.createElement && npm run typedef",
-    "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
+    "build:umd": "cd umd && npm run build",
     "typedef": "node dts.js",
+    "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
     "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --env=jsdom"
   },
   "peerDependencies": {

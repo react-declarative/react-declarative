@@ -15,3 +15,8 @@ fs.copyFileSync(
     abs('dist/react-view-builder.d.ts'),
     abs('example/src/react-view-builder.d.ts'),
 );
+
+fs.copyFileSync(
+    abs('dist/react-view-builder.d.ts'),
+    abs('umd/src/react-view-builder.d.ts'),
+);
