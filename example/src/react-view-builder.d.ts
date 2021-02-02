@@ -3,9 +3,12 @@
 //   ../react
 
 declare module 'react-view-builder' {
-    export { TypedField } from 'react-view-builder/model/TypedField';
-    export { FieldType } from 'react-view-builder/model/FieldType';
-    export { IField } from 'react-view-builder/model/IField';
+    import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
+    import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
+    import { IField as IFieldInternal } from 'react-view-builder/model/IField';
+    export const FieldType: typeof FieldTypeInternal;
+    export type TypedField = TypedFieldInternal;
+    export type IField = IFieldInternal;
     export { One, OneTyped } from 'react-view-builder/components';
 }
 

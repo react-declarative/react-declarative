@@ -1,2 +1,4 @@
 node_modules
-dist
+dist/**/*.d.ts
+dist/**/*.js.map
+dist/**/*.js

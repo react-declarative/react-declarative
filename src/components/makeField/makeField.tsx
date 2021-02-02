@@ -187,6 +187,7 @@ export function makeField(
                 return;
             }
             setValue(newValue);
+            setDirty(true);
         };
 
         /**
@@ -206,7 +207,6 @@ export function makeField(
             if (focus) {
                 focus();
             }
-            setDirty(true);
         };
 
         const managedProps: IManaged & {name: string} = {
