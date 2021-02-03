@@ -19,4 +19,6 @@ export const deepCompare = (obj1: IAnything, obj2: IAnything) => {
     }
 }
 
+window['deepCompare'] = deepCompare;
+
 export default deepCompare;

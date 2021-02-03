@@ -10,6 +10,8 @@ import deepClone from '../utils/deepClone';
 import deepFlat from '../utils/deepFlat';
 import assign from '../utils/deepMerge';
 import create from '../utils/create';
+
+import objects from '../utils/objects';
 import set from '../utils/set';
 import get from '../utils/get';
 
@@ -66,11 +68,11 @@ export const useResolved: useResolvedHook = ({
                 try {
                     const result = handler();
                     if (result instanceof Promise) {
-                        const newData = assign(buildObj(fields), deepClone(await result));
+                        const newData = objects(assign({}, buildObj(fields), deepClone(await result)));
                         change!(newData, true);
                         setData(newData);
                     } else {
-                        const newData = assign(buildObj(fields), deepClone(result));
+                        const newData = objects(assign({}, buildObj(fields), deepClone(result)));
                         change!(newData, true);
                         setData(newData);
                     }
@@ -84,7 +86,7 @@ export const useResolved: useResolvedHook = ({
                     isRoot.current = true;
                 }
             } else if (!deepCompare(data as IAnything, handler)) {
-                setData(assign(buildObj(fields), handler));
+                setData(objects(assign({}, buildObj(fields), handler)));
             }
         };
         tryResolve();

@@ -4,9 +4,13 @@ import { Autocomplete } from "@material-ui/lab";
 import { Chip, TextField as MatTextField } from "@material-ui/core";
 
 import makeField from "../components/makeField";
+
+import arrays from '../utils/arrays';
+import objects from '../utils/objects';
+
 import IManaged, { PickProp } from "../model/IManaged";
-import IField from "../model/IField";
 import IAnything from "../model/IAnything";
+import IField from "../model/IField";
 
 export interface IItemsFieldProps {
   description?: PickProp<IField, "description">;
@@ -36,10 +40,10 @@ export const ItemsField = ({
 }: IItemsFieldProps & IItemsFieldPrivate) => (
   <Autocomplete
     multiple
-    onChange={({}, v) => onChange(v as unknown as IAnything[])}
-    options={itemList || []}
+    onChange={({}, v) => onChange(objects(v))}
+    value={value ? arrays(value) : []}
+    options={arrays(itemList || {})}
     disabled={disabled}
-    value={value || []}
     getOptionLabel={(s) => (tr(s) || "").toString()}
     renderTags={(value, getTagProps) =>
       value.map((option, index) => (

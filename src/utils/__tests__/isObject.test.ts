@@ -16,6 +16,10 @@ describe ('Detect object as data structure', () => {
         expect(isObject(new MutationObserver())).toBeFalsy();
     });
 
+    it ('Will not mark Array as object', () => {
+        expect(isObject([1, 2, 3])).toBeFalsy();
+    });
+
     it ('Will not break on null', () => {
         expect(isObject(Object.create(null))).toBeFalsy();
         expect(isObject(null)).toBeFalsy();

@@ -102,7 +102,7 @@ export const TextField = ({
     helperText={(dirty && invalid) || description}
     InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
     type={inputType}
-    value={value}
+    value={(value || '').toString()}
     error={dirty && invalid !== null}
     placeholder={placeholder}
     onChange={({ target }) => onChange(target.value.toString())}

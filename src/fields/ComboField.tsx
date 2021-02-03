@@ -3,7 +3,10 @@ import * as React from "react";
 import { Autocomplete } from "@material-ui/lab";
 import { TextField as MatTextField } from "@material-ui/core";
 
+import arrays from '../utils/arrays';
+
 import makeField from "../components/makeField";
+
 import IManaged, { PickProp } from "../model/IManaged";
 import IAnything from "../model/IAnything";
 import IField from "../model/IField";
@@ -38,7 +41,7 @@ export const ComboField = ({
     value={value || null}
     onChange={({}, v) => onChange(v)}
     getOptionLabel={(s) => (tr(s) || "").toString()}
-    options={itemList || []}
+    options={arrays(itemList || {})}
     disabled={disabled}
     renderInput={(params) => (
       <MatTextField

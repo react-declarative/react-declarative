@@ -25,7 +25,7 @@ describe ('Detect array by object keys', () => {
         });
     });
 
-    it ('Can patch root object', () => {
+    it ('Will patch root object', () => {
         expect(Array.isArray(arrays({0: 'aaa'}))).toBeTruthy();
     });
 

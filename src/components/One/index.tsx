@@ -18,10 +18,12 @@ import classNames from '../../utils/classNames';
 import deepFlat from '../../utils/deepFlat';
 import arrays from '../../utils/arrays';
 
+import useStatic from '../../hooks/useStatic';
+
 const useStyles = makeStyles({
-    hidden: {
-      display: 'none',
-    },
+  hidden: {
+    display: 'none',
+  },
 });
 
 export const One = ({
@@ -32,6 +34,7 @@ export const One = ({
     ...props
   }: IOneProps) => {
   const [visible, setVisible] = useState(false);
+  const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
   const handleReady = () => {
     setVisible(true);
@@ -46,13 +49,15 @@ export const One = ({
     });
     if (isValid) {
       change(arrays(newData), initial);
+    } else {
+      console.log(newData);
     }
   };
   const params = {
     ...props,
-    fields,
-    ready: handleReady,
+    fields: fieldsSnapshot,
     change: handleChange,
+    ready: handleReady,
   };
   return (
     <Fragment>

@@ -21,8 +21,6 @@ import IEntity from '../../model/IEntity';
 
 import classNames from '../../utils/classNames';
 
-type valueType = string | number | boolean | IAnything;
-
 const stretch = {
     display: 'flex',
     alignItems: 'stretch',
@@ -94,7 +92,9 @@ export function makeField(
          * Чтобы поле input было React-управляемым, нельзя
          * передавать в свойство value значение null
          */
-        const [value, setValue] = useState<valueType>(false);
+        const [valueSnapshot, setValueSnapshot] = useState<IAnything>(false);
+        const [value, setValue] = useState<IAnything>(false);
+
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
             skipDebounce ? 0 : 800
@@ -104,6 +104,7 @@ export function makeField(
          * Эффект входящего изменения.
          */
         useEffect(() => {
+            const wasInvalid = !!invalid;
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
                 check();
@@ -114,9 +115,12 @@ export function makeField(
                 const visible = isVisible(object);
                 const invalid = isInvalid(object);
                 const newValue = get(object, name);
-                if (newValue !== value) {
+                if (newValue !== value && newValue !== valueSnapshot && !wasInvalid) {
                     inputUpdate.current = true;
+                    setValueSnapshot(newValue);
                     setValue(newValue);
+                } else {
+                    console.log('fail(')
                 }
                 setDisabled(disabled);
                 setVisible(visible);
@@ -142,6 +146,7 @@ export function makeField(
          * производительности
          */
         useEffect(() => {
+            debugger;
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
@@ -180,6 +185,7 @@ export function makeField(
          * на чтение
          */
         const handleChange = (newValue: IAnything, skipReadonly = false) => {
+            debugger;
             if (readonly && !skipReadonly) {
                 return;
             }
