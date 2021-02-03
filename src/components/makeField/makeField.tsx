@@ -119,8 +119,6 @@ export function makeField(
                     inputUpdate.current = true;
                     setValueSnapshot(newValue);
                     setValue(newValue);
-                } else {
-                    console.log('fail(')
                 }
                 setDisabled(disabled);
                 setVisible(visible);
