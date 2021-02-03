@@ -29,7 +29,7 @@ module.exports = {
     {
       apply: (compiler) => {
         compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
-          exec('node postbuild.js', (err, stdout, stderr) => {
+          exec('node -e "try{require(\'./postbuild\')}catch(e){}"', (err, stdout, stderr) => {
             if (stdout) process.stdout.write(stdout);
             if (stderr) process.stderr.write(stderr);
           });

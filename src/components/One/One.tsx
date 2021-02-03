@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, Fragment } from 'react';
+import { memo, useRef, useCallback, Fragment } from 'react';
 
 /* eslint-disable react/jsx-no-useless-fragment */
 
@@ -56,28 +56,28 @@ export const OneInternal = ({
      * Изменяем локальный объект, запускаем счетчик
      * валидаций входных значений полей
      */
-    const handleChange = (v: object) => {
+    const handleChange = useCallback((v: object) => {
         waitingChecked.current = countStatefull(fields);
         setObject(v);
-    };
+    }, []);
     /**
      * Отображение только после отрисовки всех полей
      * формы
      */
-    const handleReady = () => {
+    const handleReady = useCallback(() => {
         if (--waitingReady.current === 0) {
             ready();
         }
-    };
+    }, [ready]);
     /**
      * Производим коммит, если валидации на форме
      * пройдены
      */
-    const handleCheck = () => {
+    const handleCheck = useCallback(() => {
         if (--waitingChecked.current === 0) {
             change(object, false);
         }
-    };
+    }, [change, object]);
     if (object) {
         return (
             <Fragment>
@@ -109,7 +109,7 @@ export const OneInternal = ({
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternal {...one} />
+                                <OneInternalMemo {...one} />
                             </GroupLayout>
                         );
                     } else if (field.type === FieldType.Expansion) {
@@ -118,7 +118,7 @@ export const OneInternal = ({
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternal {...one} />
+                                <OneInternalMemo {...one} />
                             </ExpansionLayout>
                         );
                     } else if (field.type === FieldType.Paper) {
@@ -127,7 +127,7 @@ export const OneInternal = ({
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternal {...one} />
+                                <OneInternalMemo {...one} />
                             </PaperLayout>
                         );
                     } else if (field.type === FieldType.Div) {
@@ -136,7 +136,7 @@ export const OneInternal = ({
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternal {...one} />
+                                <OneInternalMemo {...one} />
                             </DivLayout>
                         );
                     } else if (field.type === FieldType.Fragment) {
@@ -145,7 +145,7 @@ export const OneInternal = ({
                                 key={currentPath}
                                 {...entity}
                             >
-                                <OneInternal {...one} />
+                                <OneInternalMemo {...one} />
                             </FragmentLayout>
                         );
                     } else {
@@ -161,4 +161,6 @@ export const OneInternal = ({
 
 OneInternal.displayName = 'OneInternal';
 
-export default OneInternal;
+export const OneInternalMemo = memo(OneInternal);
+
+export default OneInternalMemo;

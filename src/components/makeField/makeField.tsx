@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, useEffect } from 'react';
+import { memo, useRef, useState, useEffect } from 'react';
 
 /* eslint-disable no-console */
 
@@ -241,7 +241,7 @@ export function makeField(
 
     component.displayName = `Managed${Component.displayName || 'UnknownField'}`;
 
-    return component;
+    return memo(component);
 }
 
 export default makeField;
