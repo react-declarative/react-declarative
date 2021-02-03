@@ -146,7 +146,6 @@ export function makeField(
          * производительности
          */
         useEffect(() => {
-            debugger;
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
@@ -185,7 +184,6 @@ export function makeField(
          * на чтение
          */
         const handleChange = (newValue: IAnything, skipReadonly = false) => {
-            debugger;
             if (readonly && !skipReadonly) {
                 return;
             }
