@@ -62,7 +62,6 @@ export function makeField(
         isVisible = () => true,
         isInvalid = () => null,
         change = (v) => console.log({ v }),
-        check = () => null,
         ready = () => null,
         compute,
         object,
@@ -107,9 +106,8 @@ export function makeField(
             const wasInvalid = !!invalid;
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
-                check();
             } else if (!name) {
-                check();
+                // void(0);
             } else {
                 const disabled = isDisabled(object);
                 const visible = isVisible(object);
@@ -123,13 +121,6 @@ export function makeField(
                 setDisabled(disabled);
                 setVisible(visible);
                 setInvalid(invalid);
-                if (!invalid) {
-                    /**
-                     * Коммит изменений ввода на форму только при
-                     * успешной валидации
-                     */
-                    check();
-                }
             }
             /**
              * Отображаем форму только после отклика всех

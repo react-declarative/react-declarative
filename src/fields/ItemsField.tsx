@@ -41,8 +41,8 @@ export const ItemsField = ({
   <Autocomplete
     multiple
     onChange={({}, v) => onChange(objects(v))}
-    value={value ? arrays(value) : []}
-    options={arrays(itemList || {})}
+    value={value ? Object.values<any>(value) : []}
+    options={arrays(itemList) || []}
     disabled={disabled}
     getOptionLabel={(s) => (tr(s) || "").toString()}
     renderTags={(value, getTagProps) =>

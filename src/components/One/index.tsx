@@ -49,8 +49,6 @@ export const One = ({
     });
     if (isValid) {
       change(arrays(newData), initial);
-    } else {
-      console.log(newData);
     }
   };
   const params = {

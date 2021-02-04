@@ -14,6 +14,7 @@ const fields: IField[] = [
       'layout-page',
       'validation-page',
       'gallery-page',
+      'sample-page',
     ],
     outlined: false,
     columns: '4',
@@ -24,6 +25,8 @@ const fields: IField[] = [
         return 'Form validation';
       } else if (item === 'gallery-page') {
         return 'Gallery of controls';
+      } else if (item === 'sample-page') {
+        return 'Example page';
       } else {
         return '';
       }

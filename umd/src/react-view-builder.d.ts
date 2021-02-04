@@ -387,7 +387,6 @@ declare module 'react-view-builder/model/IEntity' {
     export interface IEntity extends Omit<IField, exclude> {
         change?: (object: IAnything) => void;
         invalidity: (msg: string) => void;
-        check: () => void;
         ready: () => void;
         object: IAnything;
     }
@@ -507,6 +506,7 @@ declare module 'react-view-builder/fields/CheckboxField' {
 }
 
 declare module 'react-view-builder/fields/ComboField' {
+    import * as React from "react";
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
     export interface IComboFieldProps {
@@ -526,10 +526,10 @@ declare module 'react-view-builder/fields/ComboField' {
         ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
-    const _default: {
+    const _default: React.MemoExoticComponent<{
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
-    };
+    }>;
     export default _default;
 }
 
@@ -554,6 +554,7 @@ declare module 'react-view-builder/fields/ComponentField' {
 }
 
 declare module 'react-view-builder/fields/ItemsField' {
+    import * as React from "react";
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
     export interface IItemsFieldProps {
@@ -573,10 +574,10 @@ declare module 'react-view-builder/fields/ItemsField' {
         ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
-    const _default: {
+    const _default: React.MemoExoticComponent<{
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
         displayName: string;
-    };
+    }>;
     export default _default;
 }
 
