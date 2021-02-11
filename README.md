@@ -7,7 +7,7 @@
 
 ![meme](./meme.png)
 
-A React form builder which interfaces with a json endpoint to generate 12 column based nested grids with input fields and automatic state management. Json endpoint is typed by typescript (**IntelliSense** available). This tool is based on `material-ui` components so your app is going to look pretty on any device...
+A React form builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `material-ui` components, so your application will look beautiful on any device...
 
 ## Install
 
