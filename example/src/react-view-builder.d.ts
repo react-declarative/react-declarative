@@ -171,8 +171,8 @@ declare module 'react-view-builder/model/IField' {
                 * окна, расположенного в коде прикладного программиста. Коллбек
                 * получает на вход текущее значение поля и функцию onChange...
                 */
-            leadingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
-            trailingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
+            leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
+            trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
             /**
                 * Максимальное число для высчитывания процента
                 * (минимальное число всегда ноль)
@@ -214,7 +214,7 @@ declare module 'react-view-builder/model/IField' {
                 * из поле itemList на человеческий, если
                 * используются константы
                 */
-            tr?: (s: string | Data) => Data;
+            tr?: (s: string | Data) => string;
             /**
                 * Тип поля для логического ветвления при рендеринге
                 */
@@ -282,7 +282,7 @@ declare module 'react-view-builder/model/IField' {
             /**
                 * Значение по-умолчанию для поля
                 */
-            defaultValue?: string | number | boolean | null;
+            defaultValue?: string | string[] | number | boolean | object | object[] | null;
             /**
                 * Позволяет выключить отступ. Можно использовать по аналогии
                 * с исключением последней запятой при склеивании массива
@@ -309,7 +309,7 @@ declare module 'react-view-builder/model/IField' {
 }
 
 declare module 'react-view-builder/model/IAnything' {
-    export type IAnything = Record<string, any | {}>;
+    export type IAnything = Record<string, any | {}> | any;
     export default IAnything;
 }
 

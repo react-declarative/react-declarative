@@ -39,7 +39,7 @@ export const ItemsField = ({
   dirty,
   invalid,
   title,
-  tr = (s) => s as IAnything,
+  tr = (s) => s.toString(),
   onChange,
 }: IItemsFieldProps & IItemsFieldPrivate) => (
   <Autocomplete

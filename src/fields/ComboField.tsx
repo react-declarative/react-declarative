@@ -38,7 +38,7 @@ export const ComboField = ({
   title = "",
   dirty,
   invalid,
-  tr = (s) => s as IAnything,
+  tr = (s) => s.toString(),
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
   <Autocomplete
