@@ -3,6 +3,7 @@ import * as React from "react";
 /* eslint-disable react/jsx-max-props-per-line */
 
 import FieldType from "../model/FieldType";
+import IAnything from "../model/IAnything";
 import IEntity from "../model/IEntity";
 
 import ComponentField from "../fields/ComponentField";
@@ -18,32 +19,32 @@ import ItemsField from "../fields/ItemsField";
 import RatingField from "../fields/RatingField";
 import TypographyField from "../fields/TypographyField";
 
-export const createField = (entity: IEntity, currentPath = "") => {
+export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
   const { type } = entity;
   if (type === FieldType.Text) {
-    return <TextField {...entity} key={currentPath} />;
+    return <TextField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Line) {
-    return <LineField {...entity} key={currentPath} />;
+    return <LineField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Radio) {
-    return <RadioField {...entity} key={currentPath} />;
+    return <RadioField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Switch) {
-    return <SwitchField {...entity} key={currentPath} />;
+    return <SwitchField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Checkbox) {
-    return <CheckboxField {...entity} key={currentPath} />;
+    return <CheckboxField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Progress) {
-    return <ProgressField {...entity} key={currentPath} />;
+    return <ProgressField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Component) {
-    return <ComponentField {...entity} key={currentPath} />;
+    return <ComponentField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Slider) {
-    return <SliderField {...entity} key={currentPath} />;
+    return <SliderField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Combo) {
-    return <ComboField {...entity} key={currentPath} />;
+    return <ComboField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Items) {
-    return <ItemsField {...entity} key={currentPath} />;
+    return <ItemsField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Rating) {
-    return <RatingField {...entity} key={currentPath} />;
+    return <RatingField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Typography) {
-    return <TypographyField {...entity} key={currentPath} />;
+    return <TypographyField<Data> {...entity} key={currentPath} />;
   } else {
     throw new Error("FieldFactory unknown key type");
   }

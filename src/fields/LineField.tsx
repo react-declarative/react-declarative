@@ -3,7 +3,9 @@ import * as React from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 
 import makeField from "../components/makeField";
+
 import { PickProp } from '../model/IManaged';
+import IAnything from '../model/IAnything';
 import IField from '../model/IField';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export interface ILineFieldProps {
-  title?: PickProp<IField, 'title'>;
+export interface ILineFieldProps<Data = IAnything> {
+  title?: PickProp<IField<Data>, 'title'>;
 }
 
 export const LineField = ({

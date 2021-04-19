@@ -3,17 +3,19 @@ import * as React from 'react';
 import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
 
 import makeField from "../components/makeField";
+
 import IManaged, { PickProp } from '../model/IManaged';
+import IAnything from '../model/IAnything';
 import IField from '../model/IField';
 
-export interface ICheckboxFieldProps {
-  title?: PickProp<IField, 'title'>;
+export interface ICheckboxFieldProps<Data = IAnything> {
+  title?: PickProp<IField<Data>, 'title'>;
 }
 
-export interface ICheckboxFieldPrivate {
-  value: PickProp<IManaged, 'value'>;
-  disabled: PickProp<IManaged, 'disabled'>;
-  onChange: PickProp<IManaged, 'onChange'>;
+export interface ICheckboxFieldPrivate<Data = IAnything>  {
+  value: PickProp<IManaged<Data>, 'value'>;
+  disabled: PickProp<IManaged<Data>, 'disabled'>;
+  onChange: PickProp<IManaged<Data>, 'onChange'>;
 }
 
 export const CheckboxField = ({

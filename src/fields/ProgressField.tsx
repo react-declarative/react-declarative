@@ -5,16 +5,17 @@ import { Box, LinearProgress, Typography } from "@material-ui/core";
 import makeField from "../components/makeField";
 import IManaged, { PickProp } from "../model/IManaged";
 import IField from "../model/IField";
+import IAnything from "../model/IAnything";
 
 const percent = (v: number, m: number) => Math.min(100, Math.round((Math.max(Number(v), 0) / m) * 100));
 
-export interface IProgressFieldProps {
-  maxPercent?: PickProp<IField, "maxPercent">;
-  showPercentLabel?: PickProp<IField, "showPercentLabel">;
+export interface IProgressFieldProps<Data = IAnything> {
+  maxPercent?: PickProp<IField<Data>, "maxPercent">;
+  showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
 }
 
-interface IProgressFieldPrivate {
-  value: PickProp<IManaged, "value">;
+interface IProgressFieldPrivate<Data = IAnything> {
+  value: PickProp<IManaged<Data>, "value">;
 }
 
 export const ProgressField = ({

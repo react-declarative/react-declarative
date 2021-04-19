@@ -5,8 +5,10 @@ import { makeStyles, Paper as MatPaper, Box } from '@material-ui/core';
 import Group from '../Group';
 
 import classNames from '../../utils/classNames';
-import IField from '../../model/IField';
+
 import { PickProp } from '../../model/IManaged';
+import IAnything from '../../model/IAnything';
+import IField from '../../model/IField';
 
 const useStyles = makeStyles((theme) => ({
   strech: {
@@ -23,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface IPaperProps {
-    className?: PickProp<IField, 'className'>;
-    style?: PickProp<IField, 'style'>;
+export interface IPaperProps<Data = IAnything> {
+    className?: PickProp<IField<Data>, 'className'>;
+    style?: PickProp<IField<Data>, 'style'>;
 }
 
 interface IPaperPrivate {

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import IField from '../model/IField';
+import IField from './IField';
 import IAnything from './IAnything';
 
-export interface IOneProps<Field = IField> {
+export interface IOneProps<Data = IAnything, Field = IField<Data>> {
   /**
    * Позволяет загружать данные в компонент
    */
-  handler?: IAnything | (() => IAnything) | (() => Promise<IAnything>);
+  handler?: Data | (() => Data) | (() => Promise<Data>);
   /**
    * Вызывается при ошибке в handler
    */
@@ -32,7 +32,7 @@ export interface IOneProps<Field = IField> {
    * Вызывается после изменения и передает измененный
    * объект прикладному программисту
    */
-  change?: (IAnything: IAnything, initial: boolean) => void;
+  change?: (Data: Data, initial: boolean) => void;
   /**
    * Массив полей, выводимый в компоненте
    */

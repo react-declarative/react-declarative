@@ -41,7 +41,9 @@ const useStyles = makeStyles({
     hidden: {
       display: 'none',
     },
-  });
+});
+
+type Value = object | string | number | boolean;
 
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
@@ -52,7 +54,7 @@ export function makeField(
     Component: React.FC<IManaged>,
     skipDebounce = false
 ) {
-    const component = ({
+    const component = <Data extends IAnything = IAnything>({
         className = '',
         columns = '',
         phoneColumns = '',
@@ -74,7 +76,7 @@ export function makeField(
         fieldRightMargin,
         fieldBottomMargin,
         ...otherProps
-    }: IEntity) => {
+    }: IEntity<Data>) => {
 
         const groupRef = useRef<HTMLDivElement>(null);
 
@@ -91,8 +93,8 @@ export function makeField(
          * Чтобы поле input было React-управляемым, нельзя
          * передавать в свойство value значение null
          */
-        const [valueSnapshot, setValueSnapshot] = useState<IAnything>(false);
-        const [value, setValue] = useState<IAnything>(false);
+        const [valueSnapshot, setValueSnapshot] = useState<Value>(false);
+        const [value, setValue] = useState<Value>(false);
 
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
@@ -172,7 +174,7 @@ export function makeField(
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = (newValue: IAnything, skipReadonly = false) => {
+        const handleChange = (newValue: Value, skipReadonly = false) => {
             if (readonly && !skipReadonly) {
                 return;
             }
@@ -202,7 +204,7 @@ export function makeField(
             }
         };
 
-        const managedProps: IManaged & {name: string} = {
+        const managedProps: IManaged<Data> & {name: string} = {
             onChange: handleChange,
             disabled,
             invalid,
@@ -225,14 +227,14 @@ export function makeField(
                 {...groupProps}
                 onFocus={onFocus}
             >
-                <Component {...managedProps} />
+                <Component {...managedProps as IManaged} />
             </Group>
         );
     };
 
     component.displayName = `Managed${Component.displayName || 'UnknownField'}`;
 
-    return memo(component);
+    return memo(component) as typeof component;
 }
 
 export default makeField;

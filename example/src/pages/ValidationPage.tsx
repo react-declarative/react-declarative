@@ -7,7 +7,7 @@ import { OneTyped, FieldType, TypedField } from 'react-view-builder';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Logger from '../components/Logger';
 
-const fields: TypedField[] = [
+const fields: TypedField<IOneData>[] = [
     {
         type: FieldType.Text,
         name: 'email',
@@ -40,7 +40,7 @@ const fields: TypedField[] = [
                 title: 'Number',
                 description: 'Only number allowed',
                 isInvalid({number}) {
-                    if (isNaN(number) || number === '') {
+                    if (isNaN(number as any) || number === '') {
                         return 'It is not a number';
                     }
                     return null;
@@ -68,6 +68,14 @@ const fields: TypedField[] = [
     },
 ];
 
+interface IOneData {
+    disabled: boolean;
+    visible: boolean;
+    number: string;
+    name: string;
+    email: string;
+}
+
 export const ValidationPage = () => {
     const [data, setData] = useState(null);
     const invalidity = () => setData(null);
@@ -80,7 +88,7 @@ export const ValidationPage = () => {
     return (
         <Fragment>
             <Breadcrumbs save={save} disabled={!data} />
-            <OneTyped
+            <OneTyped<IOneData>
                 fields={fields}
                 change={change}
                 invalidity={invalidity} 

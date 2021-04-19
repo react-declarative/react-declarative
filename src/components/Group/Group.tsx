@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import { IManagedLayout, PickProp } from "../../model/IManaged";
+import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 
 import classNames from '../../utils/classNames';
@@ -11,9 +12,9 @@ import classNames from '../../utils/classNames';
 import Item from "./Item";
 import Container from "./Container";
 
-export interface IGroupProps extends IManagedLayout {
-    style?: PickProp<IField, 'style'>;
-    className?: PickProp<IField, 'className'>;
+export interface IGroupProps<Data = IAnything> extends IManagedLayout {
+    style?: PickProp<IField<Data>, 'style'>;
+    className?: PickProp<IField<Data>, 'className'>;
 }
 
 interface IGroupPrivate {

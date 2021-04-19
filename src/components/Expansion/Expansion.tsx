@@ -6,6 +6,7 @@ import { ExpandMore } from '@material-ui/icons';
 import Group from '../Group';
 
 import { PickProp } from '../../model/IManaged';
+import IAnything from '../../model/IAnything';
 import IField from '../../model/IField';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface IExpansionProps {
-  title?: PickProp<IField, 'title'>;
-  style?: PickProp<IField, 'style'>;
-  description?: PickProp<IField, 'description'>;
-  className?: PickProp<IField, 'className'>;
+export interface IExpansionProps<Data = IAnything> {
+  title?: PickProp<IField<Data>, 'title'>;
+  style?: PickProp<IField<Data>, 'style'>;
+  description?: PickProp<IField<Data>, 'description'>;
+  className?: PickProp<IField<Data>, 'className'>;
 }
 
 interface IExpansionPrivate {

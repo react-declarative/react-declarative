@@ -26,13 +26,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const One = ({
+export const One = <Data extends IAnything = IAnything>({
     LoadPlaceholder = null,
     ready = () => null,
     change = () => null,
     fields,
     ...props
-  }: IOneProps) => {
+  }: IOneProps<Data>) => {
   const [visible, setVisible] = useState(false);
   const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
@@ -40,11 +40,11 @@ export const One = ({
     setVisible(true);
     ready();
   };
-  const handleChange = (newData: IAnything, initial: boolean) => {
+  const handleChange = (newData: Data, initial: boolean) => {
     let isValid = true;
     deepFlat(fields, 'fields').forEach(({
       isInvalid = () => null
-    }: IField) => {
+    }: IField<Data>) => {
       isValid = isValid && isInvalid(newData) === null;
     });
     if (isValid) {
@@ -69,7 +69,7 @@ export const One = ({
 
 One.displayName = 'One';
 
-export const OneTyped = (props: IOneProps<TypedField>) => <One {...props} />;
+export const OneTyped = <Data extends IAnything>(props: IOneProps<Data, TypedField<Data>>) => <One<Data> {...props} />;
 
 /**
  * После написания формы можно включить строгую

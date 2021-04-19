@@ -11,19 +11,21 @@ import IManaged, { PickProp } from "../model/IManaged";
 import IAnything from "../model/IAnything";
 import IField from "../model/IField";
 
-export interface IComboFieldProps {
-  description?: PickProp<IField, "description">;
-  placeholder?: PickProp<IField, "placeholder">;
-  outlined?: PickProp<IField, "outlined">;
-  itemList?: PickProp<IField, "itemList">;
-  title?: PickProp<IField, "title">;
-  tr?: PickProp<IField, "tr">;
+export interface IComboFieldProps<Data = IAnything> {
+  description?: PickProp<IField<Data>, "description">;
+  placeholder?: PickProp<IField<Data>, "placeholder">;
+  outlined?: PickProp<IField<Data>, "outlined">;
+  itemList?: PickProp<IField<Data>, "itemList">;
+  title?: PickProp<IField<Data>, "title">;
+  tr?: PickProp<IField<Data>, "tr">;
 }
 
-interface IComboFieldPrivate {
-  value: PickProp<IManaged, "value">;
-  disabled: PickProp<IManaged, "disabled">;
-  onChange: PickProp<IManaged, "onChange">;
+interface IComboFieldPrivate<Data = IAnything>  {
+  value: PickProp<IManaged<Data>, "value">;
+  disabled: PickProp<IManaged<Data>, "disabled">;
+  onChange: PickProp<IManaged<Data>, "onChange">;
+  dirty: PickProp<IManaged<Data>, "dirty">;
+  invalid: PickProp<IManaged<Data>, "invalid">;
 }
 
 export const ComboField = ({
@@ -34,6 +36,8 @@ export const ComboField = ({
   outlined = true,
   itemList = [],
   title = "",
+  dirty,
+  invalid,
   tr = (s) => s as IAnything,
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
@@ -47,9 +51,10 @@ export const ComboField = ({
       <MatTextField
         {...params}
         variant={outlined ? "outlined" : "standard"}
-        helperText={description}
         label={title}
         placeholder={placeholder}
+        helperText={(dirty && invalid) || description}
+        error={dirty && invalid !== null}
       />
     )}
   />

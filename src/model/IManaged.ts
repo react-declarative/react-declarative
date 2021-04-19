@@ -5,20 +5,15 @@ import IAnything from './IAnything';
 export type PickProp<T extends {}, P extends keyof T> = T[P];
 
 /**
- * Возможные значения value
- */
-type v = number | string | boolean | null | IAnything | IAnything[];
-
-/**
  * Типизацию компоновки следует вынести отдельно
  */
-export interface IManagedLayout {
-    columns?: PickProp<IField, 'columns'>;
-    phoneColumns?: PickProp<IField, 'phoneColumns'>;
-    tabletColumns?: PickProp<IField, 'tabletColumns'>;
-    desktopColumns?: PickProp<IField, 'desktopColumns'>;
-    fieldRightMargin?: PickProp<IField, 'fieldRightMargin'>;
-    fieldBottomMargin?: PickProp<IField, 'fieldBottomMargin'>;
+export interface IManagedLayout<Data = IAnything> {
+    columns?: PickProp<IField<Data>, 'columns'>;
+    phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
+    tabletColumns?: PickProp<IField<Data>, 'tabletColumns'>;
+    desktopColumns?: PickProp<IField<Data>, 'desktopColumns'>;
+    fieldRightMargin?: PickProp<IField<Data>, 'fieldRightMargin'>;
+    fieldBottomMargin?: PickProp<IField<Data>, 'fieldBottomMargin'>;
 }
 
 /**
@@ -26,21 +21,21 @@ export interface IManagedLayout {
  * перехватывает управление над свойствами
  * поля
  */
-export interface IManagedShallow extends IManagedLayout {
-    isDisabled?: PickProp<IField, 'isDisabled'>;
-    isVisible?: PickProp<IField, 'isVisible'>;
-    isInvalid?: PickProp<IField, 'isInvalid'>;
-    invalidity?: PickProp<IField, 'invalidity'>;
-    compute?: PickProp<IField, 'compute'>;
-    focus?: PickProp<IField, 'focus'>;
-    blur?: PickProp<IField, 'blur'>;
-    defaultValue?: v;
+export interface IManagedShallow<Data = IAnything> extends IManagedLayout<Data> {
+    isDisabled?: PickProp<IField<Data>, 'isDisabled'>;
+    isVisible?: PickProp<IField<Data>, 'isVisible'>;
+    isInvalid?: PickProp<IField<Data>, 'isInvalid'>;
+    invalidity?: PickProp<IField<Data>, 'invalidity'>;
+    compute?: PickProp<IField<Data>, 'compute'>;
+    focus?: PickProp<IField<Data>, 'focus'>;
+    blur?: PickProp<IField<Data>, 'blur'>;
+    defaultValue?: PickProp<IField<Data>, 'defaultValue'>;
 }
 
 /**
  * Свойства, не доступные управляемому полю
  */
-type Exclude = {
+type Exclude<Data = IAnything> = {
     object: never;
     type: never;
     focus: never;
@@ -49,18 +44,18 @@ type Exclude = {
     check: never;
     change: never;
     name: never;
-} & IManagedShallow;
+} & IManagedShallow<Data>;
 
 /**
  * Свойства сущности, обернутой в компонент высшего порядка
  * Предоставляется удобная абстракция
  */
-export interface IManaged extends Omit<IEntity, keyof Exclude> {
-    value: v;
+export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Data>, keyof Exclude<Data>> {
+    value: Value;
     dirty: boolean;
     disabled: boolean;
     invalid: string | null;
-    onChange: (v: v, skipReadonly?: boolean) => void;
+    onChange: (v: Value, skipReadonly?: boolean) => void;
 }
 
 export default IManaged;

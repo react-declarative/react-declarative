@@ -1,30 +1,31 @@
 import * as React from 'react';
 import { useState, useEffect, Fragment } from 'react';
 
-import IEntity from '../model/IEntity';
 import IField from '../model/IField';
+import IEntity from '../model/IEntity';
+import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
-export interface IFragmentLayoutProps {
-    isVisible?: PickProp<IField, 'isVisible'>;
+export interface IFragmentLayoutProps<Data = IAnything> {
+    isVisible?: PickProp<IField<Data>, 'isVisible'>;
 }
 
-interface IFragmentLayoutPrivate extends IEntity {
+interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children: React.ReactChild;
-    ready: PickProp<IEntity, 'ready'>;
-    object: PickProp<IEntity, 'object'>;
+    ready: PickProp<IEntity<Data>, 'ready'>;
+    object: PickProp<IEntity<Data>, 'object'>;
 }
 
 /**
  * Компоновка, которую можно скрыть, используя isVisible.
  * Потомки передаются насквозь...
  */
-export const FragmentLayout = ({
+export const FragmentLayout = <Data extends IAnything = IAnything>({
     children,
     isVisible = () => true,
     object,
     ready,
-}: IFragmentLayoutProps & IFragmentLayoutPrivate) => {
+}: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>) => {
     const [visible, setVisible] = useState(true);
     useEffect(() => {
         const visible = isVisible(object);

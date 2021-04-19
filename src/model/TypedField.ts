@@ -1,6 +1,7 @@
 import IManaged, { IManagedShallow } from './IManaged';
 import IEntity from './IEntity';
 import FieldType from './FieldType';
+import IAnything from './IAnything';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -29,61 +30,62 @@ import { ISwitchFieldProps } from '../fields/SwitchField';
 import { ITextFieldProps } from '../fields/TextField';
 import { ITypographyFieldProps } from '../fields/TypographyField';
 
-type Exclude = Omit<IManaged, keyof IEntity>;
+type Exclude<Data = IAnything> = Omit<IManaged<Data>, keyof IEntity<Data>>;
 
-type TypedFieldFactory<T extends FieldType, F extends {}> = {
-  [P in keyof Omit<F, keyof Exclude>]?: F[P];
+type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything> = {
+  [Prop in keyof Omit<Fields, keyof Exclude<Data>>]?: Fields[Prop];
 } & {
-  type: T;
+  type: Type;
 };
 
 type TypedFieldFactoryShallow<
-  T extends FieldType,
-  F extends {}
-> = IManagedShallow & TypedFieldFactory<T, F>;
+  Type extends FieldType,
+  Fields extends {},
+  Data = IAnything,
+> = IManagedShallow<Data> & TypedFieldFactory<Type, Fields, Data>;
 
-type Group = TypedFieldFactory<FieldType.Group, IGroupLayoutProps>;
-type Paper = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps>;
-type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
-type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
-type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
+type Group<Data = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data>, Data>;
+type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data>, Data>;
+type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
+type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
+type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
 
-type Line = TypedFieldFactory<FieldType.Line, ILineFieldProps>;
+type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
 
-type Checkbox = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps>;
-type Combo = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps>;
-type Component = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps>;
-type Items = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps>;
-type Progress = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps>;
-type Radio = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps>;
-type Rating = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps>;
-type Slider = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps>;
-type Switch = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps>;
-type Text = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps>;
-type Typography = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps>;
+type Checkbox<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data>, Data>;
+type Combo<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data>, Data>;
+type Component<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data>, Data>;
+type Items<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data>, Data>;
+type Progress<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps<Data>, Data>;
+type Radio<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps<Data>, Data>;
+type Rating<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps<Data>, Data>;
+type Slider<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps<Data>, Data>;
+type Switch<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps<Data>, Data>;
+type Text<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data>, Data>;
+type Typography<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data>, Data>;
 
 /**
  * Логическое ветвление компонентов
  * Typescript type-guard
  */
-export type TypedFieldRegistry<T = any> =
-  T extends Expansion ? Expansion
-  : T extends Group ? Group
-  : T extends Paper ? Paper
-  : T extends Checkbox ? Checkbox
-  : T extends Combo ? Combo
-  : T extends Component ? Component
-  : T extends Items ? Items
-  : T extends Line ? Line
-  : T extends Progress ? Progress
-  : T extends Radio ? Radio
-  : T extends Rating ? Rating
-  : T extends Slider ? Slider
-  : T extends Switch ? Switch
-  : T extends Text ? Text
-  : T extends Typography ? Typography
-  : T extends Fragment ? Fragment
-  : T extends Div ? Div
+export type TypedFieldRegistry<Data = IAnything, Target = any> =
+  Target extends Expansion<Data> ? Expansion<Data>
+  : Target extends Group<Data> ? Group<Data>
+  : Target extends Paper<Data> ? Paper<Data>
+  : Target extends Checkbox<Data> ? Checkbox<Data>
+  : Target extends Combo<Data> ? Combo<Data>
+  : Target extends Component<Data> ? Component<Data>
+  : Target extends Items<Data> ? Items<Data>
+  : Target extends Line<Data> ? Line<Data>
+  : Target extends Progress<Data> ? Progress<Data>
+  : Target extends Radio<Data> ? Radio<Data>
+  : Target extends Rating<Data> ? Rating<Data>
+  : Target extends Slider<Data> ? Slider<Data>
+  : Target extends Switch<Data> ? Switch<Data>
+  : Target extends Text<Data> ? Text<Data>
+  : Target extends Typography<Data> ? Typography<Data>
+  : Target extends Fragment<Data> ? Fragment<Data>
+  : Target extends Div<Data> ? Div<Data>
   : never;
 
 /**
@@ -91,9 +93,9 @@ export type TypedFieldRegistry<T = any> =
  * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
  * IntelliSense после указания *type* или методом исключения
  */
-export type TypedField = TypedFieldRegistry & {
+export type TypedField<Data = IAnything> = TypedFieldRegistry<Data> & {
   name?: string;
-  fields?: TypedField[];
+  fields?: TypedField<Data>[];
 };
 
 export default TypedField;

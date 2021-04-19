@@ -10,11 +10,11 @@ type exclude = 'defaultValue'
  * работы. ВАЖНО - изменение поля влечет изменение
  * всего целевого объекта, следуя паттерну immutable
  */
-export interface IEntity extends Omit<IField, exclude> {
-  change?: (object: IAnything) => void;
+export interface IEntity<Data = IAnything> extends Omit<IField<Data>, exclude> {
+  change?: (object: Data) => void;
   invalidity: (msg: string) => void;
   ready: () => void;
-  object: IAnything;
+  object: Data;
 }
 
 export default IEntity;

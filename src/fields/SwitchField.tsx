@@ -3,17 +3,19 @@ import * as React from 'react';
 import { Box, Switch, Typography } from '@material-ui/core';
 
 import makeField from '../components/makeField';
+
 import IManaged, { PickProp } from '../model/IManaged';
+import IAnything from '../model/IAnything';
 import IField from '../model/IField';
 
-export interface ISwitchFieldProps {
-  title?: PickProp<IField, 'title'>;
+export interface ISwitchFieldProps<Data = IAnything>  {
+  title?: PickProp<IField<Data>, 'title'>;
 }
 
-interface ISwitchFieldPrivate {
-  onChange: PickProp<IManaged, 'onChange'>;
-  disabled: PickProp<IManaged, 'disabled'>;
-  value: PickProp<IManaged, 'value'>;
+interface ISwitchFieldPrivate<Data = IAnything>  {
+  onChange: PickProp<IManaged<Data>, 'onChange'>;
+  disabled: PickProp<IManaged<Data>, 'disabled'>;
+  value: PickProp<IManaged<Data>, 'value'>;
 }
 
 export const SwitchField = ({

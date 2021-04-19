@@ -59,25 +59,25 @@ const multiline = (inputRows: number) => ({
   rows: inputRows,
 });
 
-export interface ITextFieldProps {
-  inputType?: PickProp<IField, "inputType">;
-  description?: PickProp<IField, "description">;
-  outlined?: PickProp<IField, "outlined">;
-  title?: PickProp<IField, "title">;
-  leadingIcon?: PickProp<IField, "leadingIcon">;
-  trailingIcon?: PickProp<IField, "trailingIcon">;
-  leadingIconClick?: PickProp<IField, "leadingIconClick">;
-  trailingIconClick?: PickProp<IField, "trailingIconClick">;
-  inputRows?: PickProp<IField, "inputRows">;
-  placeholder?: PickProp<IField, "placeholder">;
+export interface ITextFieldProps<Data = IAnything> {
+  inputType?: PickProp<IField<Data>, "inputType">;
+  description?: PickProp<IField<Data>, "description">;
+  outlined?: PickProp<IField<Data>, "outlined">;
+  title?: PickProp<IField<Data>, "title">;
+  leadingIcon?: PickProp<IField<Data>, "leadingIcon">;
+  trailingIcon?: PickProp<IField<Data>, "trailingIcon">;
+  leadingIconClick?: PickProp<IField<Data>, "leadingIconClick">;
+  trailingIconClick?: PickProp<IField<Data>, "trailingIconClick">;
+  inputRows?: PickProp<IField<Data>, "inputRows">;
+  placeholder?: PickProp<IField<Data>, "placeholder">;
 }
 
-interface ITextFieldPrivate {
-  onChange: PickProp<IManaged, "onChange">;
-  invalid: PickProp<IManaged, "invalid">;
-  value: PickProp<IManaged, "value">;
-  disabled: PickProp<IManaged, "disabled">;
-  dirty: PickProp<IManaged, "dirty">;
+interface ITextFieldPrivate<Data = IAnything> {
+  onChange: PickProp<IManaged<Data>, "onChange">;
+  invalid: PickProp<IManaged<Data>, "invalid">;
+  value: PickProp<IManaged<Data>, "value">;
+  disabled: PickProp<IManaged<Data>, "disabled">;
+  dirty: PickProp<IManaged<Data>, "dirty">;
 }
 
 export const TextField = ({
@@ -100,10 +100,10 @@ export const TextField = ({
   <MatTextField
     variant={outlined ? "outlined" : "standard"}
     helperText={(dirty && invalid) || description}
+    error={dirty && invalid !== null}
     InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
     type={inputType}
     value={(value || '').toString()}
-    error={dirty && invalid !== null}
     placeholder={placeholder}
     onChange={({ target }) => onChange(target.value.toString())}
     label={title}

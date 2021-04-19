@@ -1,8 +1,6 @@
-import IAnything from "../model/IAnything";
-
-export const deepFlat = (arr: IAnything[] = [], fieldName = 'fields') => {
-    const result: IAnything[] = [];
-    const process = (entries: IAnything[] = []) => entries.forEach((entry) => {
+export const deepFlat = <T = any>(arr: T[] = [], fieldName = 'fields') => {
+    const result: T[] = [];
+    const process = (entries: T[] = []) => entries.forEach((entry) => {
         if (Array.isArray(entry[fieldName])) {
             process(entry[fieldName])
         }

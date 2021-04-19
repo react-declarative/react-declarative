@@ -6,7 +6,7 @@ import IAnything from './IAnything';
 /**
  * Объект поля для прикладного программиста
  */
-export interface IField {
+export interface IField<Data = IAnything> {
 
     /**
      * Общие поля. Поле name позволяет задать забор
@@ -73,8 +73,8 @@ export interface IField {
      * окна, расположенного в коде прикладного программиста. Коллбек
      * получает на вход текущее значение поля и функцию onChange...
      */
-    leadingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
-    trailingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
+    leadingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
+    trailingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
 
     /**
      * Максимальное число для высчитывания процента
@@ -123,7 +123,7 @@ export interface IField {
      * из поле itemList на человеческий, если
      * используются константы
      */
-    tr?: (s: string | IAnything) => IAnything,
+    tr?: (s: string | Data) => Data,
 
     /**
      * Тип поля для логического ветвления при рендеринге
@@ -164,7 +164,7 @@ export interface IField {
     /**
      * Дочерние поля для групп
      */
-    fields?: IField[];
+    fields?: IField<Data>[];
 
     /**
      * Функция, позволяющая организовать валидацию. Если
@@ -172,28 +172,28 @@ export interface IField {
      * ошибкую. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isInvalid?: (v: IAnything) => null | string;
+    isInvalid?: (v: Data) => null | string;
 
     /**
      * Функция, позволяющая скрыть поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isVisible?: (v: IAnything) => boolean;
+    isVisible?: (v: Data) => boolean;
 
     /**
      * Функция, позволяющая отключить поле, исходя из целевого
      * объекта. Коллбек change позволяет осуществить мутацию
      * асинхронно (опционально)
      */
-    isDisabled?: (v: IAnything) => boolean;
+    isDisabled?: (v: Data) => boolean;
 
     /**
      * Функция, применяемая если значение поля вычисляется динамически.
      * Включает readonly. Для ComponentField может возвращать JSX.
      * Коллбек change позволяет осуществить операцию асинхронно (опционально).
      */
-    compute?: (v: IAnything, change: (v: IAnything) => void) => IAnything;
+    compute?: (v: Data, change: (v: any) => void) => any;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении
@@ -204,7 +204,7 @@ export interface IField {
     /**
      * Значение по-умолчанию для поля
      */
-    defaultValue?: string | number | boolean;
+    defaultValue?: string | number | boolean | null;
 
     /**
      * Позволяет выключить отступ. Можно использовать по аналогии

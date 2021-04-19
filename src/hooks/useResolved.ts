@@ -19,18 +19,14 @@ import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 import IOneProps from '../model/IOneProps';
 
-interface IResolvedHookProps {
-    handler: PickProp<IOneProps, 'handler'>;
-    fallback: PickProp<IOneProps, 'fallback'>;
-    fields: PickProp<IOneProps, 'fields'>;
-    change: PickProp<IOneProps, 'change'>;
+interface IResolvedHookProps<Data = IAnything> {
+    handler: PickProp<IOneProps<Data>, 'handler'>;
+    fallback: PickProp<IOneProps<Data>, 'fallback'>;
+    fields: PickProp<IOneProps<Data>, 'fields'>;
+    change: PickProp<IOneProps<Data>, 'change'>;
 }
 
-type useResolvedHook = (
-    props: IResolvedHookProps
-) => [IAnything | null, (v: IAnything) => void];
-
-const buildObj = (fields: IField[]) => {
+const buildObj = <Data = IAnything>(fields: IField<Data>[]) => {
     const obj = {};
     if (fields) {
         deepFlat(fields, 'fields').forEach((f) => {
@@ -52,13 +48,13 @@ const buildObj = (fields: IField[]) => {
  * один раз. Для дочерних One компонентов осуществляется
  * подписка на изменения
  */
-export const useResolved: useResolvedHook = ({
+export const useResolved = <Data = IAnything>({
     handler,
     fallback,
     fields,
     change,
-}) => {
-    const [data, setData] = useState<IAnything | null>(null);
+}: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
+    const [data, setData] = useState<Data | null>(null);
     const isRoot = useRef(false);
     useEffect(() => {
         const tryResolve = async () => {
@@ -66,13 +62,13 @@ export const useResolved: useResolvedHook = ({
                 return
             } else if (typeof handler === 'function') {
                 try {
-                    const result = handler();
+                    const result = (handler as Function)();
                     if (result instanceof Promise) {
-                        const newData = objects(assign({}, buildObj(fields), deepClone(await result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields), deepClone(await result)));
                         change!(newData, true);
                         setData(newData);
                     } else {
-                        const newData = objects(assign({}, buildObj(fields), deepClone(result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields), deepClone(result)));
                         change!(newData, true);
                         setData(newData);
                     }
@@ -85,7 +81,7 @@ export const useResolved: useResolvedHook = ({
                 } finally {
                     isRoot.current = true;
                 }
-            } else if (!deepCompare(data as IAnything, handler)) {
+            } else if (!deepCompare(data, handler)) {
                 setData(objects(assign({}, buildObj(fields), handler)));
             }
         };

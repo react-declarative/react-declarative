@@ -1,9 +1,8 @@
-import IAnything from '../model/IAnything';
 import isObject from './isObject';
 
-export const deepClone = (src: IAnything) => {
-    const target = {};
-    for (const prop in src) {
+export const deepClone = (src: any) => {
+    const target: any = {};
+    for (const prop in (src as any)) {
         if (src.hasOwnProperty(prop)) {
             if (Array.isArray(src[prop])) {
                 /* TODO: нет поддержки копирования массивов объектов */
@@ -15,7 +14,7 @@ export const deepClone = (src: IAnything) => {
             }
         }
     }
-    return target as IAnything;
+    return target;
 }
 
 export default deepClone;

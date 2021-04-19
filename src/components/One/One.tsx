@@ -18,12 +18,13 @@ import FieldType from '../../model/FieldType';
 import IOneProps from '../../model/IOneProps';
 import IEntity from '../../model/IEntity';
 import IField from '../../model/IField';
+import IAnything from '../../model/IAnything';
 
 /**
  * Мы отображаем корневой компонент только после инициализации
  * полей вложенных групп...
  */
-const countStatefull = (fields?: IField[]) => {
+const countStatefull = (fields?: IField<any>[]) => {
     const total = fields?.filter(isStatefull).length;
     if (total) {
         return total;
@@ -33,19 +34,19 @@ const countStatefull = (fields?: IField[]) => {
     }
 };
 
-export const OneInternal = ({
+export const OneInternal = <Data extends IAnything = IAnything>({
     fields,
     ready = () => null,
     prefix = 'root',
     fallback = () => null,
-    handler = () => ({}),
+    handler = () => ({} as Data),
     invalidity = () => null,
     change = () => null,
     focus,
     blur,
-}: IOneProps) => {
+}: IOneProps<Data>) => {
     const waitingReady = useRef(countStatefull(fields));
-    const [object, setObject] = useResolved({
+    const [object, setObject] = useResolved<Data>({
         handler,
         fallback,
         fields,
@@ -55,7 +56,7 @@ export const OneInternal = ({
      * Изменяем локальный объект, сообщаем вышестоящему
      * компоненту о изменениях
      */
-    const handleChange = useCallback((v: object) => {
+    const handleChange = useCallback((v: Data) => {
         change(v, false);
         setObject(v);
     }, []);
@@ -73,7 +74,7 @@ export const OneInternal = ({
             <Fragment>
                 {fields?.map((field, index) => {
                     const currentPath = `${prefix}.${field.type}[${index}]`;
-                    const entity: IEntity = {
+                    const entity: IEntity<Data> = {
                         invalidity: field.invalidity || invalidity,
                         change: handleChange,
                         ready: handleReady,
@@ -82,11 +83,11 @@ export const OneInternal = ({
                         ...field,
                         object,
                     };
-                    const one: IOneProps = {
+                    const one: IOneProps<Data> = {
                         change: handleChange,
                         ready: handleReady,
                         prefix: currentPath,
-                        fields: field.fields as IField[],
+                        fields: field.fields as IField<Data>[],
                         handler: object,
                         invalidity,
                         focus,
@@ -94,47 +95,47 @@ export const OneInternal = ({
                     };
                     if (field.type === FieldType.Group) {
                         return (
-                            <GroupLayout
+                            <GroupLayout<Data>
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternalMemo {...one} />
+                                <OneInternalMemo<Data> {...one} />
                             </GroupLayout>
                         );
                     } else if (field.type === FieldType.Expansion) {
                         return (
-                            <ExpansionLayout
+                            <ExpansionLayout<Data>
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternalMemo {...one} />
+                                <OneInternalMemo<Data> {...one} />
                             </ExpansionLayout>
                         );
                     } else if (field.type === FieldType.Paper) {
                         return (
-                            <PaperLayout
+                            <PaperLayout<Data>
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternalMemo {...one} />
+                                <OneInternalMemo<Data> {...one} />
                             </PaperLayout>
                         );
                     } else if (field.type === FieldType.Div) {
                         return (
-                            <DivLayout
+                            <DivLayout<Data>
                                 {...entity}
                                 key={currentPath}
                             >
-                                <OneInternalMemo {...one} />
+                                <OneInternalMemo<Data> {...one} />
                             </DivLayout>
                         );
                     } else if (field.type === FieldType.Fragment) {
                         return (
-                            <FragmentLayout
+                            <FragmentLayout<Data>
                                 key={currentPath}
                                 {...entity}
                             >
-                                <OneInternalMemo {...one} />
+                                <OneInternalMemo<Data> {...one} />
                             </FragmentLayout>
                         );
                     } else {
@@ -150,6 +151,6 @@ export const OneInternal = ({
 
 OneInternal.displayName = 'OneInternal';
 
-export const OneInternalMemo = memo(OneInternal);
+export const OneInternalMemo = memo(OneInternal) as typeof OneInternal;
 
 export default OneInternalMemo;

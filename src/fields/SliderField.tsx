@@ -4,9 +4,10 @@ import { Box, Grid, IconButton, Slider as MatSlider } from '@material-ui/core';
 
 import makeField from '../components/makeField';
 import icon from '../utils/createIcon';
+
 import IField from '../model/IField';
-import IManaged, { PickProp } from '../model/IManaged';
 import IAnything from '../model/IAnything';
+import IManaged, { PickProp } from '../model/IManaged';
 
 const createIcon = (
   icn: string | React.ComponentType,
@@ -36,22 +37,22 @@ const Slider = ({
     value={value} onChange={({}, v) => onChange(v)} />
 );
 
-export interface ISliderFieldProps {
-  stepSlider?: PickProp<IField, 'stepSlider'>;
-  maxSlider?: PickProp<IField, 'maxSlider'>;
-  minSlider?: PickProp<IField, 'minSlider'>;
-  leadingIcon?: PickProp<IField, 'leadingIcon'>;
-  trailingIcon?: PickProp<IField, 'trailingIcon'>;
-  leadingIconClick?: PickProp<IField, 'leadingIconClick'>;
-  trailingIconClick?: PickProp<IField, 'trailingIconClick'>;
-  sliderThumbColor?: PickProp<IField, 'sliderThumbColor'>;
-  sliderTrackColor?: PickProp<IField, 'sliderTrackColor'>;
-  sliderRailColor?: PickProp<IField, 'sliderRailColor'>;
+export interface ISliderFieldProps<Data = IAnything>  {
+  stepSlider?: PickProp<IField<Data>, 'stepSlider'>;
+  maxSlider?: PickProp<IField<Data>, 'maxSlider'>;
+  minSlider?: PickProp<IField<Data>, 'minSlider'>;
+  leadingIcon?: PickProp<IField<Data>, 'leadingIcon'>;
+  trailingIcon?: PickProp<IField<Data>, 'trailingIcon'>;
+  leadingIconClick?: PickProp<IField<Data>, 'leadingIconClick'>;
+  trailingIconClick?: PickProp<IField<Data>, 'trailingIconClick'>;
+  sliderThumbColor?: PickProp<IField<Data>, 'sliderThumbColor'>;
+  sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
+  sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
 }
 
-interface ISliderFieldPrivate {
-  value: PickProp<IManaged, 'value'>;
-  onChange: PickProp<IManaged, 'onChange'>;
+interface ISliderFieldPrivate<Data = IAnything>  {
+  value: PickProp<IManaged<Data>, 'value'>;
+  onChange: PickProp<IManaged<Data>, 'onChange'>;
 }
 
 export const SliderField = ({

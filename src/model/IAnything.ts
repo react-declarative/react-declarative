@@ -1,8 +1,6 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type IAnything<T extends object = object> = {
-    [P in keyof T]: any;
-} | any;
+export type IAnything = Record<string, any | {}>;
 
 export default IAnything;

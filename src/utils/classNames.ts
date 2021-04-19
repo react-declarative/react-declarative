@@ -1,6 +1,4 @@
-import IAnything from "../model/IAnything";
-
-export const classNames = (...args: Array<IAnything | string | object>) => {
+export const classNames = (...args: any[]) => {
   const classes: Array<string> = [];
   args.forEach((arg) => {
     if (arg) {

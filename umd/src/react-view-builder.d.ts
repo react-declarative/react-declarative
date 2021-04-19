@@ -6,9 +6,10 @@ declare module 'react-view-builder' {
     import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
     import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
     import { IField as IFieldInternal } from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
     export const FieldType: typeof FieldTypeInternal;
-    export type TypedField = TypedFieldInternal;
-    export type IField = IFieldInternal;
+    export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
+    export type IField<Data = IAnything> = IFieldInternal<Data>;
     export { One, OneTyped } from 'react-view-builder/components';
 }
 
@@ -16,6 +17,7 @@ declare module 'react-view-builder/model/TypedField' {
     import IManaged, { IManagedShallow } from 'react-view-builder/model/IManaged';
     import IEntity from 'react-view-builder/model/IEntity';
     import FieldType from 'react-view-builder/model/FieldType';
+    import IAnything from 'react-view-builder/model/IAnything';
     /**
         * Компоновки
         */
@@ -39,43 +41,43 @@ declare module 'react-view-builder/model/TypedField' {
     import { ISwitchFieldProps } from 'react-view-builder/fields/SwitchField';
     import { ITextFieldProps } from 'react-view-builder/fields/TextField';
     import { ITypographyFieldProps } from 'react-view-builder/fields/TypographyField';
-    type Exclude = Omit<IManaged, keyof IEntity>;
-    type TypedFieldFactory<T extends FieldType, F extends {}> = {
-            [P in keyof Omit<F, keyof Exclude>]?: F[P];
+    type Exclude<Data = IAnything> = Omit<IManaged<Data>, keyof IEntity<Data>>;
+    type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything> = {
+            [Prop in keyof Omit<Fields, keyof Exclude<Data>>]?: Fields[Prop];
     } & {
-            type: T;
+            type: Type;
     };
-    type TypedFieldFactoryShallow<T extends FieldType, F extends {}> = IManagedShallow & TypedFieldFactory<T, F>;
-    type Group = TypedFieldFactory<FieldType.Group, IGroupLayoutProps>;
-    type Paper = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps>;
-    type Expansion = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps>;
-    type Fragment = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps>;
-    type Div = TypedFieldFactory<FieldType.Div, IDivLayoutProps>;
-    type Line = TypedFieldFactory<FieldType.Line, ILineFieldProps>;
-    type Checkbox = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps>;
-    type Combo = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps>;
-    type Component = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps>;
-    type Items = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps>;
-    type Progress = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps>;
-    type Radio = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps>;
-    type Rating = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps>;
-    type Slider = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps>;
-    type Switch = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps>;
-    type Text = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps>;
-    type Typography = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps>;
+    type TypedFieldFactoryShallow<Type extends FieldType, Fields extends {}, Data = IAnything> = IManagedShallow<Data> & TypedFieldFactory<Type, Fields, Data>;
+    type Group<Data = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data>, Data>;
+    type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data>, Data>;
+    type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
+    type Fragment<Data = IAnything> = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
+    type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
+    type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
+    type Checkbox<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data>, Data>;
+    type Combo<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data>, Data>;
+    type Component<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data>, Data>;
+    type Items<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data>, Data>;
+    type Progress<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps<Data>, Data>;
+    type Radio<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps<Data>, Data>;
+    type Rating<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps<Data>, Data>;
+    type Slider<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps<Data>, Data>;
+    type Switch<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps<Data>, Data>;
+    type Text<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data>, Data>;
+    type Typography<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data>, Data>;
     /**
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<T = any> = T extends Expansion ? Expansion : T extends Group ? Group : T extends Paper ? Paper : T extends Checkbox ? Checkbox : T extends Combo ? Combo : T extends Component ? Component : T extends Items ? Items : T extends Line ? Line : T extends Progress ? Progress : T extends Radio ? Radio : T extends Rating ? Rating : T extends Slider ? Slider : T extends Switch ? Switch : T extends Text ? Text : T extends Typography ? Typography : T extends Fragment ? Fragment : T extends Div ? Div : never;
+    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
         * IntelliSense после указания *type* или методом исключения
         */
-    export type TypedField = TypedFieldRegistry & {
+    export type TypedField<Data = IAnything> = TypedFieldRegistry<Data> & {
             name?: string;
-            fields?: TypedField[];
+            fields?: TypedField<Data>[];
     };
     export default TypedField;
 }
@@ -110,7 +112,7 @@ declare module 'react-view-builder/model/IField' {
     /**
         * Объект поля для прикладного программиста
         */
-    export interface IField {
+    export interface IField<Data = IAnything> {
             /**
                 * Общие поля. Поле name позволяет задать забор
                 * поля из целевого объекта, не нужен для group,
@@ -169,8 +171,8 @@ declare module 'react-view-builder/model/IField' {
                 * окна, расположенного в коде прикладного программиста. Коллбек
                 * получает на вход текущее значение поля и функцию onChange...
                 */
-            leadingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
-            trailingIconClick?: (value: IAnything, onChange: (v: IAnything) => void) => void;
+            leadingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
+            trailingIconClick?: (value: Data, onChange: (v: Data) => void) => void;
             /**
                 * Максимальное число для высчитывания процента
                 * (минимальное число всегда ноль)
@@ -212,7 +214,7 @@ declare module 'react-view-builder/model/IField' {
                 * из поле itemList на человеческий, если
                 * используются константы
                 */
-            tr?: (s: string | IAnything) => IAnything;
+            tr?: (s: string | Data) => Data;
             /**
                 * Тип поля для логического ветвления при рендеринге
                 */
@@ -246,32 +248,32 @@ declare module 'react-view-builder/model/IField' {
             /**
                 * Дочерние поля для групп
                 */
-            fields?: IField[];
+            fields?: IField<Data>[];
             /**
                 * Функция, позволяющая организовать валидацию. Если
                 * возвращаемое значение не равно null, считается за
                 * ошибкую. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isInvalid?: (v: IAnything) => null | string;
+            isInvalid?: (v: Data) => null | string;
             /**
                 * Функция, позволяющая скрыть поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isVisible?: (v: IAnything) => boolean;
+            isVisible?: (v: Data) => boolean;
             /**
                 * Функция, позволяющая отключить поле, исходя из целевого
                 * объекта. Коллбек change позволяет осуществить мутацию
                 * асинхронно (опционально)
                 */
-            isDisabled?: (v: IAnything) => boolean;
+            isDisabled?: (v: Data) => boolean;
             /**
                 * Функция, применяемая если значение поля вычисляется динамически.
                 * Включает readonly. Для ComponentField может возвращать JSX.
                 * Коллбек change позволяет осуществить операцию асинхронно (опционально).
                 */
-            compute?: (v: IAnything, change: (v: IAnything) => void) => IAnything;
+            compute?: (v: Data, change: (v: any) => void) => any;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
                 * валидации
@@ -280,7 +282,7 @@ declare module 'react-view-builder/model/IField' {
             /**
                 * Значение по-умолчанию для поля
                 */
-            defaultValue?: string | number | boolean;
+            defaultValue?: string | number | boolean | null;
             /**
                 * Позволяет выключить отступ. Можно использовать по аналогии
                 * с исключением последней запятой при склеивании массива
@@ -306,6 +308,11 @@ declare module 'react-view-builder/model/IField' {
     export default IField;
 }
 
+declare module 'react-view-builder/model/IAnything' {
+    export type IAnything = Record<string, any | {}>;
+    export default IAnything;
+}
+
 declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/One';
     export { default } from 'react-view-builder/components/One';
@@ -317,39 +324,35 @@ declare module 'react-view-builder/model/IManaged' {
     import IAnything from 'react-view-builder/model/IAnything';
     export type PickProp<T extends {}, P extends keyof T> = T[P];
     /**
-        * Возможные значения value
-        */
-    type v = number | string | boolean | null | IAnything | IAnything[];
-    /**
         * Типизацию компоновки следует вынести отдельно
         */
-    export interface IManagedLayout {
-            columns?: PickProp<IField, 'columns'>;
-            phoneColumns?: PickProp<IField, 'phoneColumns'>;
-            tabletColumns?: PickProp<IField, 'tabletColumns'>;
-            desktopColumns?: PickProp<IField, 'desktopColumns'>;
-            fieldRightMargin?: PickProp<IField, 'fieldRightMargin'>;
-            fieldBottomMargin?: PickProp<IField, 'fieldBottomMargin'>;
+    export interface IManagedLayout<Data = IAnything> {
+            columns?: PickProp<IField<Data>, 'columns'>;
+            phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
+            tabletColumns?: PickProp<IField<Data>, 'tabletColumns'>;
+            desktopColumns?: PickProp<IField<Data>, 'desktopColumns'>;
+            fieldRightMargin?: PickProp<IField<Data>, 'fieldRightMargin'>;
+            fieldBottomMargin?: PickProp<IField<Data>, 'fieldBottomMargin'>;
     }
     /**
         * Компонент высшего порядка makeField
         * перехватывает управление над свойствами
         * поля
         */
-    export interface IManagedShallow extends IManagedLayout {
-            isDisabled?: PickProp<IField, 'isDisabled'>;
-            isVisible?: PickProp<IField, 'isVisible'>;
-            isInvalid?: PickProp<IField, 'isInvalid'>;
-            invalidity?: PickProp<IField, 'invalidity'>;
-            compute?: PickProp<IField, 'compute'>;
-            focus?: PickProp<IField, 'focus'>;
-            blur?: PickProp<IField, 'blur'>;
-            defaultValue?: v;
+    export interface IManagedShallow<Data = IAnything> extends IManagedLayout<Data> {
+            isDisabled?: PickProp<IField<Data>, 'isDisabled'>;
+            isVisible?: PickProp<IField<Data>, 'isVisible'>;
+            isInvalid?: PickProp<IField<Data>, 'isInvalid'>;
+            invalidity?: PickProp<IField<Data>, 'invalidity'>;
+            compute?: PickProp<IField<Data>, 'compute'>;
+            focus?: PickProp<IField<Data>, 'focus'>;
+            blur?: PickProp<IField<Data>, 'blur'>;
+            defaultValue?: PickProp<IField<Data>, 'defaultValue'>;
     }
     /**
         * Свойства, не доступные управляемому полю
         */
-    type Exclude = {
+    type Exclude<Data = IAnything> = {
             object: never;
             type: never;
             focus: never;
@@ -358,17 +361,17 @@ declare module 'react-view-builder/model/IManaged' {
             check: never;
             change: never;
             name: never;
-    } & IManagedShallow;
+    } & IManagedShallow<Data>;
     /**
         * Свойства сущности, обернутой в компонент высшего порядка
         * Предоставляется удобная абстракция
         */
-    export interface IManaged extends Omit<IEntity, keyof Exclude> {
-            value: v;
+    export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Data>, keyof Exclude<Data>> {
+            value: Value;
             dirty: boolean;
             disabled: boolean;
             invalid: string | null;
-            onChange: (v: v, skipReadonly?: boolean) => void;
+            onChange: (v: Value, skipReadonly?: boolean) => void;
     }
     export default IManaged;
 }
@@ -384,34 +387,35 @@ declare module 'react-view-builder/model/IEntity' {
       * работы. ВАЖНО - изменение поля влечет изменение
       * всего целевого объекта, следуя паттерну immutable
       */
-    export interface IEntity extends Omit<IField, exclude> {
-        change?: (object: IAnything) => void;
+    export interface IEntity<Data = IAnything> extends Omit<IField<Data>, exclude> {
+        change?: (object: Data) => void;
         invalidity: (msg: string) => void;
         ready: () => void;
-        object: IAnything;
+        object: Data;
     }
     export default IEntity;
 }
 
 declare module 'react-view-builder/layouts/FragmentLayout' {
     import * as React from 'react';
-    import IEntity from 'react-view-builder/model/IEntity';
     import IField from 'react-view-builder/model/IField';
+    import IEntity from 'react-view-builder/model/IEntity';
+    import IAnything from 'react-view-builder/model/IAnything';
     import { PickProp } from 'react-view-builder/model/IManaged';
-    export interface IFragmentLayoutProps {
-        isVisible?: PickProp<IField, 'isVisible'>;
+    export interface IFragmentLayoutProps<Data = IAnything> {
+        isVisible?: PickProp<IField<Data>, 'isVisible'>;
     }
-    interface IFragmentLayoutPrivate extends IEntity {
+    interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children: React.ReactChild;
-        ready: PickProp<IEntity, 'ready'>;
-        object: PickProp<IEntity, 'object'>;
+        ready: PickProp<IEntity<Data>, 'ready'>;
+        object: PickProp<IEntity<Data>, 'object'>;
     }
     /**
       * Компоновка, которую можно скрыть, используя isVisible.
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        ({ children, isVisible, object, ready, }: IFragmentLayoutProps & IFragmentLayoutPrivate): JSX.Element | null;
+        <Data extends Record<string, any> = Record<string, any>>({ children, isVisible, object, ready, }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
         displayName: string;
     };
     export default FragmentLayout;
@@ -419,18 +423,19 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
 
 declare module 'react-view-builder/layouts/DivLayout' {
     import * as React from 'react';
-    import IEntity from 'react-view-builder/model/IEntity';
     import IField from 'react-view-builder/model/IField';
+    import IEntity from 'react-view-builder/model/IEntity';
+    import IAnything from 'react-view-builder/model/IAnything';
     import { PickProp } from 'react-view-builder/model/IManaged';
-    export interface IDivLayoutProps {
-        className?: PickProp<IField, 'className'>;
-        style?: PickProp<IField, 'style'>;
+    export interface IDivLayoutProps<Data = IAnything> {
+        className?: PickProp<IField<Data>, 'className'>;
+        style?: PickProp<IField<Data>, 'style'>;
     }
-    interface IDivLayoutPrivate extends IEntity {
+    interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children: React.ReactChild;
     }
     export const DivLayout: {
-        ({ children, className, style, }: IDivLayoutProps & IDivLayoutPrivate): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ children, className, style, }: IDivLayoutProps<Data> & IDivLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default DivLayout;
@@ -439,13 +444,14 @@ declare module 'react-view-builder/layouts/DivLayout' {
 declare module 'react-view-builder/layouts/GroupLayout' {
     import * as React from "react";
     import { IGroupProps } from "react-view-builder/components/Group";
-    export interface IGroupLayoutProps extends IGroupProps {
+    import IAnything from "react-view-builder/model/IAnything";
+    export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {
     }
     interface IGroupLayoutPrivate {
         children: React.ReactChild;
     }
     export const GroupLayout: {
-        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps & IGroupLayoutPrivate): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data> & IGroupLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default GroupLayout;
@@ -455,13 +461,14 @@ declare module 'react-view-builder/layouts/PaperLayout' {
     import * as React from "react";
     import { IGroupProps } from "react-view-builder/components/Group";
     import { IPaperProps } from 'react-view-builder/components/Paper';
-    export interface IPaperLayoutProps extends IPaperProps, IGroupProps {
+    import IAnything from "react-view-builder/model/IAnything";
+    export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {
     }
     interface IPaperLayoutPrivate {
         children: React.ReactChild;
     }
     export const PaperLayout: {
-        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps & IPaperLayoutPrivate): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps<Data> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default PaperLayout;
@@ -471,13 +478,14 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
     import * as React from "react";
     import { IExpansionProps } from "react-view-builder/components/Expansion";
     import { IGroupProps } from "react-view-builder/components/Group";
-    export interface IExpansionLayoutProps extends IExpansionProps, IGroupProps {
+    import IAnything from "react-view-builder/model/IAnything";
+    export interface IExpansionLayoutProps<Data = IAnything> extends IExpansionProps<Data>, IGroupProps<Data> {
     }
     interface IExpansionLayoutPrivate {
         children: React.ReactChild;
     }
     export const ExpansionLayout: {
-        ({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default ExpansionLayout;
@@ -485,114 +493,121 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
 
 declare module 'react-view-builder/fields/CheckboxField' {
     import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
-    export interface ICheckboxFieldProps {
-        title?: PickProp<IField, 'title'>;
+    export interface ICheckboxFieldProps<Data = IAnything> {
+        title?: PickProp<IField<Data>, 'title'>;
     }
-    export interface ICheckboxFieldPrivate {
-        value: PickProp<IManaged, 'value'>;
-        disabled: PickProp<IManaged, 'disabled'>;
-        onChange: PickProp<IManaged, 'onChange'>;
+    export interface ICheckboxFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, 'value'>;
+        disabled: PickProp<IManaged<Data>, 'disabled'>;
+        onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const CheckboxField: {
         ({ disabled, value, onChange, title }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
 }
 
 declare module 'react-view-builder/fields/ComboField' {
-    import * as React from "react";
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    import IAnything from "react-view-builder/model/IAnything";
     import IField from "react-view-builder/model/IField";
-    export interface IComboFieldProps {
-        description?: PickProp<IField, "description">;
-        placeholder?: PickProp<IField, "placeholder">;
-        outlined?: PickProp<IField, "outlined">;
-        itemList?: PickProp<IField, "itemList">;
-        title?: PickProp<IField, "title">;
-        tr?: PickProp<IField, "tr">;
+    export interface IComboFieldProps<Data = IAnything> {
+        description?: PickProp<IField<Data>, "description">;
+        placeholder?: PickProp<IField<Data>, "placeholder">;
+        outlined?: PickProp<IField<Data>, "outlined">;
+        itemList?: PickProp<IField<Data>, "itemList">;
+        title?: PickProp<IField<Data>, "title">;
+        tr?: PickProp<IField<Data>, "tr">;
     }
-    interface IComboFieldPrivate {
-        value: PickProp<IManaged, "value">;
-        disabled: PickProp<IManaged, "disabled">;
-        onChange: PickProp<IManaged, "onChange">;
+    interface IComboFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, "value">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ComboField: {
-        ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, description, placeholder, outlined, itemList, title, dirty, invalid, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
-    const _default: React.MemoExoticComponent<{
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+    const _default: {
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
-    }>;
+    };
     export default _default;
 }
 
 declare module 'react-view-builder/fields/ComponentField' {
     import IField from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    export interface IComponentFieldProps {
-        compute?: PickProp<IField, 'compute'>;
+    export interface IComponentFieldProps<Data = IAnything> {
+        compute?: PickProp<IField<Data>, 'compute'>;
     }
-    interface IComponentFieldPrivate {
-        value: PickProp<IManaged, 'value'>;
+    interface IComponentFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, 'value'>;
     }
     export const ComponentField: {
         ({ value, }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element | null;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
 }
 
 declare module 'react-view-builder/fields/ItemsField' {
-    import * as React from "react";
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    import IAnything from "react-view-builder/model/IAnything";
     import IField from "react-view-builder/model/IField";
-    export interface IItemsFieldProps {
-        description?: PickProp<IField, "description">;
-        placeholder?: PickProp<IField, "placeholder">;
-        outlined?: PickProp<IField, "outlined">;
-        itemList?: PickProp<IField, "itemList">;
-        title?: PickProp<IField, "title">;
-        tr?: PickProp<IField, "tr">;
+    export interface IItemsFieldProps<Data = IAnything> {
+        description?: PickProp<IField<Data>, "description">;
+        placeholder?: PickProp<IField<Data>, "placeholder">;
+        outlined?: PickProp<IField<Data>, "outlined">;
+        itemList?: PickProp<IField<Data>, "itemList">;
+        title?: PickProp<IField<Data>, "title">;
+        tr?: PickProp<IField<Data>, "tr">;
     }
-    interface IItemsFieldPrivate {
-        onChange: PickProp<IManaged, "onChange">;
-        value: PickProp<IManaged, 'value'>;
-        disabled: PickProp<IManaged, "disabled">;
+    interface IItemsFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        value: PickProp<IManaged<Data>, 'value'>;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ItemsField: {
-        ({ value, disabled, description, placeholder, outlined, itemList, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, description, placeholder, outlined, itemList, dirty, invalid, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
-    const _default: React.MemoExoticComponent<{
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+    const _default: {
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
-    }>;
+    };
     export default _default;
 }
 
 declare module 'react-view-builder/fields/LineField' {
     import { PickProp } from 'react-view-builder/model/IManaged';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
-    export interface ILineFieldProps {
-        title?: PickProp<IField, 'title'>;
+    export interface ILineFieldProps<Data = IAnything> {
+        title?: PickProp<IField<Data>, 'title'>;
     }
     export const LineField: {
         ({ title, }: ILineFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -601,44 +616,46 @@ declare module 'react-view-builder/fields/LineField' {
 declare module 'react-view-builder/fields/ProgressField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
-    export interface IProgressFieldProps {
-        maxPercent?: PickProp<IField, "maxPercent">;
-        showPercentLabel?: PickProp<IField, "showPercentLabel">;
+    import IAnything from "react-view-builder/model/IAnything";
+    export interface IProgressFieldProps<Data = IAnything> {
+        maxPercent?: PickProp<IField<Data>, "maxPercent">;
+        showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
     }
-    interface IProgressFieldPrivate {
-        value: PickProp<IManaged, "value">;
+    interface IProgressFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, "value">;
     }
     export const ProgressField: {
         ({ maxPercent, showPercentLabel, value, }: IProgressFieldProps & IProgressFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
 }
 
 declare module 'react-view-builder/fields/RadioField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
     import IEntity from "react-view-builder/model/IEntity";
-    export interface IRadioFieldProps {
-        title?: PickProp<IField, "title">;
-        radioValue?: string;
+    import IAnything from "react-view-builder/model/IAnything";
+    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    export interface IRadioFieldProps<Data = IAnything> {
+        title?: PickProp<IField<Data>, "title">;
+        radioValue?: PickProp<IField<Data>, "radioValue">;
     }
-    interface IRadioFieldPrivate {
-        disabled: PickProp<IManaged, "disabled">;
-        value: PickProp<IManaged, "value">;
-        onChange: PickProp<IManaged, "onChange">;
-        name?: PickProp<IEntity, 'name'>;
+    interface IRadioFieldPrivate<Data = IAnything> {
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        value: PickProp<IManaged<Data>, "value">;
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        name?: PickProp<IEntity<Data>, 'name'>;
     }
     export const RadioField: {
         ({ disabled, value, onChange, title, radioValue, name, }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -646,23 +663,24 @@ declare module 'react-view-builder/fields/RadioField' {
 
 declare module 'react-view-builder/fields/RatingField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+    import IAnything from "react-view-builder/model/IAnything";
     import IField from "react-view-builder/model/IField";
-    export interface IRatingFieldProps {
-        readonly?: PickProp<IField, "readonly">;
-        title?: PickProp<IField, "title">;
+    export interface IRatingFieldProps<Data = IAnything> {
+        readonly?: PickProp<IField<Data>, "readonly">;
+        title?: PickProp<IField<Data>, "title">;
     }
-    interface IRatingFieldPrivate {
+    interface IRatingFieldPrivate<Data = IAnything> {
         name?: string;
-        value: PickProp<IManaged, "value">;
-        disabled: PickProp<IManaged, "disabled">;
-        onChange: PickProp<IManaged, "onChange">;
+        value: PickProp<IManaged<Data>, "value">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        onChange: PickProp<IManaged<Data>, "onChange">;
     }
     export const RatingField: {
         ({ value, disabled, readonly, title, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -670,29 +688,30 @@ declare module 'react-view-builder/fields/RatingField' {
 
 declare module 'react-view-builder/fields/SliderField' {
     import IField from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    export interface ISliderFieldProps {
-        stepSlider?: PickProp<IField, 'stepSlider'>;
-        maxSlider?: PickProp<IField, 'maxSlider'>;
-        minSlider?: PickProp<IField, 'minSlider'>;
-        leadingIcon?: PickProp<IField, 'leadingIcon'>;
-        trailingIcon?: PickProp<IField, 'trailingIcon'>;
-        leadingIconClick?: PickProp<IField, 'leadingIconClick'>;
-        trailingIconClick?: PickProp<IField, 'trailingIconClick'>;
-        sliderThumbColor?: PickProp<IField, 'sliderThumbColor'>;
-        sliderTrackColor?: PickProp<IField, 'sliderTrackColor'>;
-        sliderRailColor?: PickProp<IField, 'sliderRailColor'>;
+    export interface ISliderFieldProps<Data = IAnything> {
+        stepSlider?: PickProp<IField<Data>, 'stepSlider'>;
+        maxSlider?: PickProp<IField<Data>, 'maxSlider'>;
+        minSlider?: PickProp<IField<Data>, 'minSlider'>;
+        leadingIcon?: PickProp<IField<Data>, 'leadingIcon'>;
+        trailingIcon?: PickProp<IField<Data>, 'trailingIcon'>;
+        leadingIconClick?: PickProp<IField<Data>, 'leadingIconClick'>;
+        trailingIconClick?: PickProp<IField<Data>, 'trailingIconClick'>;
+        sliderThumbColor?: PickProp<IField<Data>, 'sliderThumbColor'>;
+        sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
+        sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
     }
-    interface ISliderFieldPrivate {
-        value: PickProp<IManaged, 'value'>;
-        onChange: PickProp<IManaged, 'onChange'>;
+    interface ISliderFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, 'value'>;
+        onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const SliderField: {
         ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, ...otherProps }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -700,21 +719,22 @@ declare module 'react-view-builder/fields/SliderField' {
 
 declare module 'react-view-builder/fields/SwitchField' {
     import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
-    export interface ISwitchFieldProps {
-        title?: PickProp<IField, 'title'>;
+    export interface ISwitchFieldProps<Data = IAnything> {
+        title?: PickProp<IField<Data>, 'title'>;
     }
-    interface ISwitchFieldPrivate {
-        onChange: PickProp<IManaged, 'onChange'>;
-        disabled: PickProp<IManaged, 'disabled'>;
-        value: PickProp<IManaged, 'value'>;
+    interface ISwitchFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, 'onChange'>;
+        disabled: PickProp<IManaged<Data>, 'disabled'>;
+        value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
         ({ disabled, value, onChange, title }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -723,31 +743,32 @@ declare module 'react-view-builder/fields/SwitchField' {
 declare module 'react-view-builder/fields/TextField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     import IField from "react-view-builder/model/IField";
-    export interface ITextFieldProps {
-        inputType?: PickProp<IField, "inputType">;
-        description?: PickProp<IField, "description">;
-        outlined?: PickProp<IField, "outlined">;
-        title?: PickProp<IField, "title">;
-        leadingIcon?: PickProp<IField, "leadingIcon">;
-        trailingIcon?: PickProp<IField, "trailingIcon">;
-        leadingIconClick?: PickProp<IField, "leadingIconClick">;
-        trailingIconClick?: PickProp<IField, "trailingIconClick">;
-        inputRows?: PickProp<IField, "inputRows">;
-        placeholder?: PickProp<IField, "placeholder">;
+    import IAnything from "react-view-builder/model/IAnything";
+    export interface ITextFieldProps<Data = IAnything> {
+        inputType?: PickProp<IField<Data>, "inputType">;
+        description?: PickProp<IField<Data>, "description">;
+        outlined?: PickProp<IField<Data>, "outlined">;
+        title?: PickProp<IField<Data>, "title">;
+        leadingIcon?: PickProp<IField<Data>, "leadingIcon">;
+        trailingIcon?: PickProp<IField<Data>, "trailingIcon">;
+        leadingIconClick?: PickProp<IField<Data>, "leadingIconClick">;
+        trailingIconClick?: PickProp<IField<Data>, "trailingIconClick">;
+        inputRows?: PickProp<IField<Data>, "inputRows">;
+        placeholder?: PickProp<IField<Data>, "placeholder">;
     }
-    interface ITextFieldPrivate {
-        onChange: PickProp<IManaged, "onChange">;
-        invalid: PickProp<IManaged, "invalid">;
-        value: PickProp<IManaged, "value">;
-        disabled: PickProp<IManaged, "disabled">;
-        dirty: PickProp<IManaged, "dirty">;
+    interface ITextFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
+        value: PickProp<IManaged<Data>, "value">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
     }
     export const TextField: {
         ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, dirty, onChange, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -755,37 +776,33 @@ declare module 'react-view-builder/fields/TextField' {
 
 declare module 'react-view-builder/fields/TypographyField' {
     import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
-    export interface ITypographyFieldProps {
-        placeholder?: PickProp<IField, 'placeholder'>;
-        typoVariant?: PickProp<IField, 'typoVariant'>;
+    export interface ITypographyFieldProps<Data = IAnything> {
+        placeholder?: PickProp<IField<Data>, 'placeholder'>;
+        typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
+        style?: PickProp<IField<Data>, 'style'>;
     }
-    interface ITypographyFieldPrivate {
-        value: PickProp<IManaged, 'value'>;
+    interface ITypographyFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, 'value'>;
     }
     export const TypographyField: {
         ({ value, placeholder, typoVariant, }: ITypographyFieldProps & ITypographyFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, check, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
 }
 
-declare module 'react-view-builder/model/IAnything' {
-    export type IAnything<T extends object = object> = {
-        [P in keyof T]: any;
-    } | any;
-    export default IAnything;
-}
-
 declare module 'react-view-builder/components/One' {
     import TypedField from 'react-view-builder/model/TypedField';
     import IOneProps from 'react-view-builder/model/IOneProps';
+    import IField from 'react-view-builder/model/IField';
     export const One: {
-        ({ LoadPlaceholder, ready, change, fields, ...props }: IOneProps): JSX.Element;
+        <Data extends Record<string, any> = Record<string, any>>({ LoadPlaceholder, ready, change, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
         displayName: string;
         /**
           * После написания формы можно включить строгую
@@ -793,9 +810,9 @@ declare module 'react-view-builder/components/One' {
           * <One.typed handler={...
           *     ^^^^^^
           */
-        typed: (props: IOneProps<TypedField>) => JSX.Element;
+        typed: <Data_1 extends Record<string, any>>(props: IOneProps<Data_1, TypedField<Data_1>>) => JSX.Element;
     };
-    export const OneTyped: (props: IOneProps<TypedField>) => JSX.Element;
+    export const OneTyped: <Data extends Record<string, any>>(props: IOneProps<Data, TypedField<Data>>) => JSX.Element;
     export default One;
 }
 
@@ -818,11 +835,11 @@ declare module 'react-view-builder/model/IOneProps' {
     import * as React from 'react';
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
-    export interface IOneProps<Field = IField> {
+    export interface IOneProps<Data = IAnything, Field = IField<Data>> {
             /**
                 * Позволяет загружать данные в компонент
                 */
-            handler?: IAnything | (() => IAnything) | (() => Promise<IAnything>);
+            handler?: Data | (() => Data) | (() => Promise<Data>);
             /**
                 * Вызывается при ошибке в handler
                 */
@@ -847,7 +864,7 @@ declare module 'react-view-builder/model/IOneProps' {
                 * Вызывается после изменения и передает измененный
                 * объект прикладному программисту
                 */
-            change?: (IAnything: IAnything, initial: boolean) => void;
+            change?: (Data: Data, initial: boolean) => void;
             /**
                 * Массив полей, выводимый в компоненте
                 */
@@ -867,10 +884,11 @@ declare module 'react-view-builder/model/IOneProps' {
 declare module 'react-view-builder/components/Group/Group' {
     import * as React from "react";
     import { IManagedLayout, PickProp } from "react-view-builder/model/IManaged";
+    import IAnything from "react-view-builder/model/IAnything";
     import IField from "react-view-builder/model/IField";
-    export interface IGroupProps extends IManagedLayout {
-        style?: PickProp<IField, 'style'>;
-        className?: PickProp<IField, 'className'>;
+    export interface IGroupProps<Data = IAnything> extends IManagedLayout {
+        style?: PickProp<IField<Data>, 'style'>;
+        className?: PickProp<IField<Data>, 'className'>;
     }
     interface IGroupPrivate {
         children: React.ReactChild;
@@ -881,17 +899,18 @@ declare module 'react-view-builder/components/Group/Group' {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
-    const _default: React.ForwardRefExoticComponent<IGroupProps & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
+    const _default: React.ForwardRefExoticComponent<IGroupProps<Record<string, any>> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
     export default _default;
 }
 
 declare module 'react-view-builder/components/Paper/Paper' {
     import * as React from 'react';
-    import IField from 'react-view-builder/model/IField';
     import { PickProp } from 'react-view-builder/model/IManaged';
-    export interface IPaperProps {
-        className?: PickProp<IField, 'className'>;
-        style?: PickProp<IField, 'style'>;
+    import IAnything from 'react-view-builder/model/IAnything';
+    import IField from 'react-view-builder/model/IField';
+    export interface IPaperProps<Data = IAnything> {
+        className?: PickProp<IField<Data>, 'className'>;
+        style?: PickProp<IField<Data>, 'style'>;
     }
     interface IPaperPrivate {
         children: React.ReactChild;
@@ -906,12 +925,13 @@ declare module 'react-view-builder/components/Paper/Paper' {
 declare module 'react-view-builder/components/Expansion/Expansion' {
     import * as React from 'react';
     import { PickProp } from 'react-view-builder/model/IManaged';
+    import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
-    export interface IExpansionProps {
-        title?: PickProp<IField, 'title'>;
-        style?: PickProp<IField, 'style'>;
-        description?: PickProp<IField, 'description'>;
-        className?: PickProp<IField, 'className'>;
+    export interface IExpansionProps<Data = IAnything> {
+        title?: PickProp<IField<Data>, 'title'>;
+        style?: PickProp<IField<Data>, 'style'>;
+        description?: PickProp<IField<Data>, 'description'>;
+        className?: PickProp<IField<Data>, 'className'>;
     }
     interface IExpansionPrivate {
         children: React.ReactChild;

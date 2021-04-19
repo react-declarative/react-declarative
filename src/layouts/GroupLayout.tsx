@@ -6,7 +6,9 @@ import Group, { IGroupProps } from "../components/Group";
 
 import classNames from "../utils/classNames";
 
-export interface IGroupLayoutProps extends IGroupProps {}
+import IAnything from "../model/IAnything";
+
+export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {}
 
 interface IGroupLayoutPrivate {
   children: React.ReactChild;
@@ -25,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const GroupLayout = ({
+export const GroupLayout = <Data extends IAnything = IAnything>({
   columns,
   phoneColumns,
   tabletColumns,
@@ -35,7 +37,7 @@ export const GroupLayout = ({
   style,
   className,
   children,
-}: IGroupLayoutProps & IGroupLayoutPrivate) => {
+}: IGroupLayoutProps<Data> & IGroupLayoutPrivate) => {
     const classes = useStyles();
     return (
         <Group

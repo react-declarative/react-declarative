@@ -4,19 +4,21 @@ import { Box, Typography } from "@material-ui/core";
 import { Rating } from '@material-ui/lab';
 
 import makeField from "../components/makeField";
+
 import IManaged, { PickProp } from "../model/IManaged";
+import IAnything from "../model/IAnything";
 import IField from "../model/IField";
 
-export interface IRatingFieldProps {
-  readonly?: PickProp<IField, "readonly">;
-  title?: PickProp<IField, "title">;
+export interface IRatingFieldProps<Data = IAnything> {
+  readonly?: PickProp<IField<Data>, "readonly">;
+  title?: PickProp<IField<Data>, "title">;
 }
 
-interface IRatingFieldPrivate {
+interface IRatingFieldPrivate<Data = IAnything> {
   name?: string;
-  value: PickProp<IManaged, "value">;
-  disabled: PickProp<IManaged, "disabled">;
-  onChange: PickProp<IManaged, "onChange">;
+  value: PickProp<IManaged<Data>, "value">;
+  disabled: PickProp<IManaged<Data>, "disabled">;
+  onChange: PickProp<IManaged<Data>, "onChange">;
 }
 
 export const RatingField = ({

@@ -7,7 +7,9 @@ import Paper, { IPaperProps } from '../components/Paper';
 
 import classNames from "../utils/classNames";
 
-export interface IPaperLayoutProps extends IPaperProps, IGroupProps {}
+import IAnything from "../model/IAnything";
+
+export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {}
 
 interface IPaperLayoutPrivate {
   children: React.ReactChild;
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const PaperLayout = ({
+export const PaperLayout = <Data extends IAnything = IAnything>({
   columns,
   phoneColumns,
   tabletColumns,
@@ -36,7 +38,7 @@ export const PaperLayout = ({
   style,
   className,
   children,
-}: IPaperLayoutProps & IPaperLayoutPrivate) => {
+}: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
     const classes = useStyles();
     return (
         <Group
