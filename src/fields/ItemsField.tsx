@@ -73,4 +73,6 @@ export const ItemsField = ({
 
 ItemsField.displayName = 'ItemsField';
 
-export default makeField(ItemsField, true);
+export default makeField(ItemsField, {
+  skipDebounce: true,
+});

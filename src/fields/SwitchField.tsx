@@ -36,4 +36,6 @@ export const SwitchField = ({
 
 SwitchField.displayName = 'SwitchField';
 
-export default makeField(SwitchField, true);
+export default makeField(SwitchField, {
+  skipDebounce: true,
+});

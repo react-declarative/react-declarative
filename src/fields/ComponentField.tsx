@@ -29,4 +29,4 @@ export const ComponentField = ({
 
 ComponentField.displayName = 'ComponentField';
 
-export default makeField(ComponentField, false);
+export default makeField(ComponentField);

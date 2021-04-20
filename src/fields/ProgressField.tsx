@@ -42,4 +42,4 @@ export const ProgressField = ({
 
 ProgressField.displayName = 'ProgressField';
 
-export default makeField(ProgressField, false);
+export default makeField(ProgressField);

@@ -15,6 +15,7 @@ const fields: IField[] = [
       'validation-page',
       'gallery-page',
       'sample-page',
+      'login-page',
     ],
     outlined: false,
     columns: '4',
@@ -27,6 +28,8 @@ const fields: IField[] = [
         return 'Gallery of controls';
       } else if (item === 'sample-page') {
         return 'Example page';
+      }  else if (item === 'login-page') {
+        return 'Autocomplete page';
       } else {
         return '';
       }

@@ -61,6 +61,7 @@ const multiline = (inputRows: number) => ({
 
 export interface ITextFieldProps<Data = IAnything> {
   inputType?: PickProp<IField<Data>, "inputType">;
+  inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
   description?: PickProp<IField<Data>, "description">;
   outlined?: PickProp<IField<Data>, "outlined">;
   title?: PickProp<IField<Data>, "title">;
@@ -78,6 +79,7 @@ interface ITextFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
+  name?: string;
 }
 
 export const TextField = ({
@@ -94,15 +96,19 @@ export const TextField = ({
   trailingIconClick: tic,
   inputRows: rows = 1,
   placeholder = "",
+  inputAutocomplete: autoComplete,
   dirty,
   onChange,
+  name,
 }: ITextFieldProps & ITextFieldPrivate) => (
   <MatTextField
+    name={name}
     variant={outlined ? "outlined" : "standard"}
     helperText={(dirty && invalid) || description}
     error={dirty && invalid !== null}
     InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
     type={inputType}
+    autoComplete={autoComplete}
     value={(value || '').toString()}
     placeholder={placeholder}
     onChange={({ target }) => onChange(target.value.toString())}
@@ -114,4 +120,6 @@ export const TextField = ({
 
 TextField.displayName = 'TextField';
 
-export default makeField(TextField, false);
+export default makeField(TextField, {
+  watchAutocomplete: true,
+});

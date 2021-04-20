@@ -42,4 +42,6 @@ export const RadioField = ({
 
 RadioField.displayName = 'RadioField';
 
-export default makeField(RadioField, true);
+export default makeField(RadioField, {
+  skipDebounce: true,
+});

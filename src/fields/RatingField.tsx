@@ -48,4 +48,6 @@ export const RatingField = ({
 
 RatingField.displayName = 'RatingField';
 
-export default makeField(RatingField, true);
+export default makeField(RatingField, {
+  skipDebounce: true,
+});

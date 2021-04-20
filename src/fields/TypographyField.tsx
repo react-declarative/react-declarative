@@ -30,4 +30,4 @@ export const TypographyField = ({
 
 TypographyField.displayName = 'TypographyField';
 
-export default makeField(TypographyField, false);
+export default makeField(TypographyField);

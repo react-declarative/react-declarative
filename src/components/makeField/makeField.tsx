@@ -21,6 +21,9 @@ import IEntity from '../../model/IEntity';
 
 import classNames from '../../utils/classNames';
 
+
+import useAutocomplete from '../../hooks/useAutocomplete';
+
 const stretch = {
     display: 'flex',
     alignItems: 'stretch',
@@ -43,6 +46,11 @@ const useStyles = makeStyles({
     },
 });
 
+interface IConfig {
+    skipDebounce?: boolean;
+    watchAutocomplete?: boolean;
+}
+
 type Value = object | string | number | boolean;
 
 /**
@@ -52,7 +60,10 @@ type Value = object | string | number | boolean;
  */
 export function makeField(
     Component: React.FC<IManaged>,
-    skipDebounce = false
+    config: IConfig = {
+        skipDebounce: false,
+        watchAutocomplete: false,
+    },
 ) {
     const component = <Data extends IAnything = IAnything>({
         className = '',
@@ -78,7 +89,7 @@ export function makeField(
         ...otherProps
     }: IEntity<Data>) => {
 
-        const groupRef = useRef<HTMLDivElement>(null);
+        const groupRef: React.MutableRefObject<HTMLDivElement> = useRef(null as never);
 
         const classes = useStyles();
 
@@ -98,7 +109,7 @@ export function makeField(
 
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
-            skipDebounce ? 0 : 800
+            config.skipDebounce ? 0 : 800
         );
 
         /**
@@ -130,6 +141,10 @@ export function makeField(
              */
             ready();
         }, [object]);
+
+        if (config.watchAutocomplete) {
+            useAutocomplete(groupRef, (target) => setValue(target.value));
+        }
 
         /**
          * Эффект исходящего изменения. Привязан на изменение

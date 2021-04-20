@@ -81,4 +81,4 @@ export const SliderField = ({
 
 SliderField.displayName = 'SliderField';
 
-export default makeField(SliderField, false);
+export default makeField(SliderField);

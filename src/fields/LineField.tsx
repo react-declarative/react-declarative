@@ -43,4 +43,4 @@ export const LineField = ({
 
 LineField.displayName = 'LineField';
 
-export default makeField(LineField, false);
+export default makeField(LineField);

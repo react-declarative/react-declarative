@@ -42,18 +42,25 @@ export interface IField<Data = IAnything> {
      * Поле type для MatTextField
      */
     inputType?: keyof {
-      text: "text",
-      color: "color",
-      date: "date",
-      email: "email",
-      month: "month",
-      number: "number",
-      password: "password",
-      search: "search",
-      tel: "tel",
-      time: "time",
-      url: "url",
-      week: "week",
+      'text': never,
+      'color': never,
+      'date': never,
+      'email': never,
+      'month': never,
+      'number': never,
+      'password': never,
+      'search': never,
+      'tel': never,
+      'time': never,
+      'url': never,
+      'week': never,
+    };
+
+    inputAutocomplete?: keyof {
+      'new-password': never,
+      'on': never,
+      'off': never,
+      'false': never,
     };
 
     /**

@@ -33,4 +33,6 @@ export const CheckboxField = ({
 
 CheckboxField.displayName = 'CheckboxField';
 
-export default makeField(CheckboxField, true);
+export default makeField(CheckboxField, {
+  skipDebounce: true,
+});

@@ -10,6 +10,8 @@ import Logger from '../components/Logger';
 const fields: TypedField<IOneData>[] = [
     {
         type: FieldType.Text,
+        inputType: 'email',
+        inputAutocomplete: 'on',
         name: 'email',
         trailingIcon: Email,
         // defaultValue: 'tripolskypetr@gmail.com',

@@ -143,18 +143,24 @@ declare module 'react-view-builder/model/IField' {
                 * Поле type для MatTextField
                 */
             inputType?: keyof {
-                    text: "text";
-                    color: "color";
-                    date: "date";
-                    email: "email";
-                    month: "month";
-                    number: "number";
-                    password: "password";
-                    search: "search";
-                    tel: "tel";
-                    time: "time";
-                    url: "url";
-                    week: "week";
+                    'text': never;
+                    'color': never;
+                    'date': never;
+                    'email': never;
+                    'month': never;
+                    'number': never;
+                    'password': never;
+                    'search': never;
+                    'tel': never;
+                    'time': never;
+                    'url': never;
+                    'week': never;
+            };
+            inputAutocomplete?: keyof {
+                    'new-password': never;
+                    'on': never;
+                    'off': never;
+                    'false': never;
             };
             /**
                 * Делает TextField многострочным, если
@@ -415,7 +421,7 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        <Data extends Record<string, any> = Record<string, any>>({ children, isVisible, object, ready, }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
+        <Data extends unknown = any>({ children, isVisible, object, ready, }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
         displayName: string;
     };
     export default FragmentLayout;
@@ -435,7 +441,7 @@ declare module 'react-view-builder/layouts/DivLayout' {
         children: React.ReactChild;
     }
     export const DivLayout: {
-        <Data extends Record<string, any> = Record<string, any>>({ children, className, style, }: IDivLayoutProps<Data> & IDivLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, }: IDivLayoutProps<Data> & IDivLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default DivLayout;
@@ -451,7 +457,7 @@ declare module 'react-view-builder/layouts/GroupLayout' {
         children: React.ReactChild;
     }
     export const GroupLayout: {
-        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data> & IGroupLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data> & IGroupLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default GroupLayout;
@@ -468,7 +474,7 @@ declare module 'react-view-builder/layouts/PaperLayout' {
         children: React.ReactChild;
     }
     export const PaperLayout: {
-        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps<Data> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IPaperLayoutProps<Data> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default PaperLayout;
@@ -485,7 +491,7 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
         children: React.ReactChild;
     }
     export const ExpansionLayout: {
-        <Data extends Record<string, any> = Record<string, any>>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default ExpansionLayout;
@@ -508,7 +514,7 @@ declare module 'react-view-builder/fields/CheckboxField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -538,7 +544,7 @@ declare module 'react-view-builder/fields/ComboField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -559,7 +565,7 @@ declare module 'react-view-builder/fields/ComponentField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -589,7 +595,7 @@ declare module 'react-view-builder/fields/ItemsField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -607,7 +613,7 @@ declare module 'react-view-builder/fields/LineField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -629,7 +635,7 @@ declare module 'react-view-builder/fields/ProgressField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -655,7 +661,7 @@ declare module 'react-view-builder/fields/RadioField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -680,7 +686,7 @@ declare module 'react-view-builder/fields/RatingField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -711,7 +717,7 @@ declare module 'react-view-builder/fields/SliderField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -734,7 +740,7 @@ declare module 'react-view-builder/fields/SwitchField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -746,6 +752,7 @@ declare module 'react-view-builder/fields/TextField' {
     import IAnything from "react-view-builder/model/IAnything";
     export interface ITextFieldProps<Data = IAnything> {
         inputType?: PickProp<IField<Data>, "inputType">;
+        inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
         description?: PickProp<IField<Data>, "description">;
         outlined?: PickProp<IField<Data>, "outlined">;
         title?: PickProp<IField<Data>, "title">;
@@ -762,13 +769,14 @@ declare module 'react-view-builder/fields/TextField' {
         value: PickProp<IManaged<Data>, "value">;
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
+        name?: string;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, dirty, onChange, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -791,7 +799,7 @@ declare module 'react-view-builder/fields/TypographyField' {
         displayName: string;
     };
     const _default: {
-        <Data extends Record<string, any> = Record<string, any>>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -802,7 +810,7 @@ declare module 'react-view-builder/components/One' {
     import IOneProps from 'react-view-builder/model/IOneProps';
     import IField from 'react-view-builder/model/IField';
     export const One: {
-        <Data extends Record<string, any> = Record<string, any>>({ LoadPlaceholder, ready, change, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
+        <Data extends unknown = any>({ LoadPlaceholder, ready, change, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
         displayName: string;
         /**
           * После написания формы можно включить строгую
@@ -810,9 +818,9 @@ declare module 'react-view-builder/components/One' {
           * <One.typed handler={...
           *     ^^^^^^
           */
-        typed: <Data_1 extends Record<string, any>>(props: IOneProps<Data_1, TypedField<Data_1>>) => JSX.Element;
+        typed: <Data_1 extends unknown>(props: IOneProps<Data_1, TypedField<Data_1>>) => JSX.Element;
     };
-    export const OneTyped: <Data extends Record<string, any>>(props: IOneProps<Data, TypedField<Data>>) => JSX.Element;
+    export const OneTyped: <Data extends unknown>(props: IOneProps<Data, TypedField<Data>>) => JSX.Element;
     export default One;
 }
 
@@ -899,7 +907,7 @@ declare module 'react-view-builder/components/Group/Group' {
         ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
-    const _default: React.ForwardRefExoticComponent<IGroupProps<Record<string, any>> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
+    const _default: React.ForwardRefExoticComponent<IGroupProps<any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
     export default _default;
 }
 
