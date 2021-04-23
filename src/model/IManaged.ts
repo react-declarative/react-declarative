@@ -4,6 +4,10 @@ import IAnything from './IAnything';
 
 export type PickProp<T extends {}, P extends keyof T> = T[P];
 
+export type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+
 /**
  * Типизацию компоновки следует вынести отдельно
  */
@@ -51,6 +55,7 @@ type Exclude<Data = IAnything> = {
  * Предоставляется удобная абстракция
  */
 export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Data>, keyof Exclude<Data>> {
+    name: string;
     value: Value;
     dirty: boolean;
     disabled: boolean;

@@ -79,7 +79,7 @@ interface ITextFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
-  name?: string;
+  name: PickProp<IManaged<Data>, "name">;
 }
 
 export const TextField = ({

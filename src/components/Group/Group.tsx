@@ -13,14 +13,14 @@ import Item from "./Item";
 import Container from "./Container";
 
 export interface IGroupProps<Data = IAnything> extends IManagedLayout {
-    style?: PickProp<IField<Data>, 'style'>;
-    className?: PickProp<IField<Data>, 'className'>;
+  style?: PickProp<IField<Data>, 'style'>;
+  className?: PickProp<IField<Data>, 'className'>;
 }
 
 interface IGroupPrivate {
-    children: React.ReactChild;
-    isItem?: boolean;
-    onFocus?: () => void;
+  children: React.ReactChild;
+  isItem?: boolean;
+  onFocus?: () => void;
 }
 
 const useStyles = makeStyles({

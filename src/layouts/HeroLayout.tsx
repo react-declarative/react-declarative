@@ -1,0 +1,281 @@
+import * as React from 'react';
+import { useMemo } from 'react';
+
+import classNames from '../utils/classNames';
+
+import { makeStyles } from '@material-ui/core';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+
+import IField from '../model/IField';
+import IAnything from '../model/IAnything';
+
+import { DeepPartial, PickProp } from '../model/IManaged';
+
+import range from '../utils/range';
+
+const styleElement = document.createElement('style');
+
+const UNIT_LIST = [
+  'px',
+  'vw',
+  'vh',
+];
+
+const BREAKPOINT_LIST: Breakpoint[] = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+];
+
+const BREAKPOINT_MAP = {
+  xs: 'phone',
+  sm: 'phone',
+  md: 'tablet',
+  lg: 'desktop',
+  xl: 'desktop',
+};
+
+const MARGIN_RANGE = 100;
+const SIZE_RANGE = 100;
+
+const MARGIN_DEFAULT = '0px';
+const SIZE_DEFAULT = '100%';
+
+const gen = (len: number) => range(0, len + 1);
+const cls = (metric: string, value: string) => `hero-layout_${metric}__${value}`;
+const obj = <T extends object>(arr: T[]): { [k: string]: T } => arr.reduce((acm, cur) => ({...acm, ...cur}), {});
+
+interface IHeroTop<Data = IAnything>  {
+  top: PickProp<IField<Data>, 'top'>;
+  phoneTop: PickProp<IField<Data>, 'phoneTop'>;
+  tabletTop: PickProp<IField<Data>, 'tabletTop'>;
+  desktopTop: PickProp<IField<Data>, 'desktopTop'>;
+}
+
+interface IHeroLeft<Data = IAnything>  {
+  left: PickProp<IField<Data>, 'left'>;
+  phoneLeft: PickProp<IField<Data>, 'phoneLeft'>;
+  tabletLeft: PickProp<IField<Data>, 'tabletLeft'>;
+  desktopLeft: PickProp<IField<Data>, 'desktopLeft'>;
+}
+
+interface IHeroRight<Data = IAnything>  {
+  right: PickProp<IField<Data>, 'right'>;
+  phoneRight: PickProp<IField<Data>, 'phoneRight'>;
+  tabletRight: PickProp<IField<Data>, 'tabletRight'>;
+  desktopRight: PickProp<IField<Data>, 'desktopRight'>;
+}
+
+interface IHeroBottom<Data = IAnything>  {
+  bottom: PickProp<IField<Data>, 'bottom'>;
+  phoneBottom: PickProp<IField<Data>, 'phoneBottom'>;
+  tabletBottom: PickProp<IField<Data>, 'tabletBottom'>;
+  desktopBottom: PickProp<IField<Data>, 'desktopBottom'>;
+}
+
+interface IHeroHeight<Data = IAnything>  {
+  height: PickProp<IField<Data>, 'height'>;
+  phoneHeight: PickProp<IField<Data>, 'phoneHeight'>;
+  tabletHeight: PickProp<IField<Data>, 'tabletHeight'>;
+  desktopHeight: PickProp<IField<Data>, 'desktopHeight'>;
+}
+
+interface IHeroWidth<Data = IAnything>  {
+  width: PickProp<IField<Data>, 'width'>;
+  phoneWidth: PickProp<IField<Data>, 'phoneWidth'>;
+  tabletWidth: PickProp<IField<Data>, 'tabletWidth'>;
+  desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
+}
+
+type IHeroRegistry<D = IAnything> = 
+  DeepPartial<
+    IHeroTop<D>
+      & IHeroLeft<D>
+      & IHeroRight<D>
+      & IHeroBottom<D>
+      & IHeroWidth<D>
+      & IHeroHeight<D>
+  >;
+
+const margins = gen(MARGIN_RANGE).map((len) => UNIT_LIST.map((unit) =>
+  `${len}${unit}`
+)).flat();
+
+const sizes = gen(SIZE_RANGE).map((len) => UNIT_LIST.map((unit) =>
+  `${len}${unit}`
+)).flat();
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  container: {
+    position: 'absolute',
+  },
+  ...obj(BREAKPOINT_LIST.map((bp: Breakpoint) => ({
+    [theme.breakpoints.only(bp)]: {
+      ...obj(margins.map((top: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Top`, top)]: { top },
+      }))),
+      ...obj(margins.map((left: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Left`, left)]: { left },
+      }))),
+      ...obj(margins.map((right: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Right`, right)]: { right },
+      }))),
+      ...obj(margins.map((bottom: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Bottom`, bottom)]: { bottom },
+      }))),
+      ...obj(sizes.map((height: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Height`, height)]: { height },
+      }))),
+      ...obj(margins.map((width: string) => ({
+        [cls(`${BREAKPOINT_MAP[bp]}Width`, width)]: { width },
+      }))),
+      [cls(`${BREAKPOINT_MAP[bp]}Height`, SIZE_DEFAULT)]: { height: SIZE_DEFAULT },
+      [cls(`${BREAKPOINT_MAP[bp]}Width`, SIZE_DEFAULT)]: { width: SIZE_DEFAULT },
+    },
+  }))),
+}), {
+  classNamePrefix: 'react-view-builder',
+  element: styleElement, 
+});
+
+export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> {
+  className?: PickProp<IField<Data>, 'className'>;
+  style?: PickProp<IField<Data>, 'style'>;
+}
+
+interface IHeroLayoutPrivate {
+  children: React.ReactChild;
+}
+
+export const HeroLayout = <Data extends IAnything = IAnything>({
+  children,
+  className,
+  style = {},
+  ...otherProps
+}: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
+
+  const classes = useStyles();
+
+  const [rootClasses, containerClasses] = useMemo(() => {
+
+    const {
+      top,
+      phoneTop,
+      tabletTop,
+      desktopTop,
+    } = otherProps as IHeroTop;
+  
+    const {
+      left,
+      phoneLeft,
+      tabletLeft,
+      desktopLeft,
+    } = otherProps as IHeroLeft;
+  
+    const {
+      right,
+      phoneRight,
+      tabletRight,
+      desktopRight,
+    } = otherProps as IHeroRight;
+  
+    const {
+      bottom,
+      phoneBottom,
+      tabletBottom,
+      desktopBottom,
+    } = otherProps as IHeroBottom;
+  
+    const {
+      height,
+      phoneHeight,
+      tabletHeight,
+      desktopHeight,
+    } = otherProps as IHeroHeight;
+  
+    const {
+      width,
+      phoneWidth,
+      tabletWidth,
+      desktopWidth,
+    } = otherProps as IHeroWidth;
+  
+    const containerClasses = [];
+    const rootClasses = [];
+  
+    containerClasses.push(cls('phoneTop', phoneTop || top || MARGIN_DEFAULT));
+    containerClasses.push(cls('tabletTop', tabletTop || top || MARGIN_DEFAULT));
+    containerClasses.push(cls('desktopTop', desktopTop || top || MARGIN_DEFAULT));
+  
+    containerClasses.push(cls('phoneLeft', phoneLeft || left || MARGIN_DEFAULT));
+    containerClasses.push(cls('tabletLeft', tabletLeft || left || MARGIN_DEFAULT));
+    containerClasses.push(cls('desktopLeft', desktopLeft || left || MARGIN_DEFAULT));
+  
+    containerClasses.push(cls('phoneRight', phoneRight || right || MARGIN_DEFAULT));
+    containerClasses.push(cls('tabletRight', tabletRight || right || MARGIN_DEFAULT));
+    containerClasses.push(cls('desktopRight', desktopRight || right || MARGIN_DEFAULT));
+  
+    containerClasses.push(cls('phoneBottom', phoneBottom || bottom || MARGIN_DEFAULT));
+    containerClasses.push(cls('tabletBottom', tabletBottom || bottom || MARGIN_DEFAULT));
+    containerClasses.push(cls('desktopBottom', desktopBottom || bottom || MARGIN_DEFAULT));
+  
+    rootClasses.push(cls('phoneHeight', phoneHeight || height || SIZE_DEFAULT));
+    rootClasses.push(cls('tabletHeight', tabletHeight || height || SIZE_DEFAULT));
+    rootClasses.push(cls('desktopHeight', desktopHeight || height || SIZE_DEFAULT));
+  
+    rootClasses.push(cls('phoneWidth', phoneWidth || width || SIZE_DEFAULT));
+    rootClasses.push(cls('tabletWidth', tabletWidth || width || SIZE_DEFAULT));
+    rootClasses.push(cls('desktopWidth', desktopWidth || width || SIZE_DEFAULT));
+
+    return [rootClasses, containerClasses];
+
+  }, [
+    otherProps.top,
+    otherProps.phoneTop,
+    otherProps.tabletTop,
+    otherProps.desktopTop,
+    otherProps.left,
+    otherProps.phoneLeft,
+    otherProps.tabletLeft,
+    otherProps.desktopLeft,
+    otherProps.right,
+    otherProps.phoneRight,
+    otherProps.tabletRight,
+    otherProps.desktopRight,
+    otherProps.bottom,
+    otherProps.phoneBottom,
+    otherProps.tabletBottom,
+    otherProps.desktopBottom,
+    otherProps.height,
+    otherProps.phoneHeight,
+    otherProps.tabletHeight,
+    otherProps.desktopHeight,
+  ]);
+
+  const rootClassList = rootClasses.map((c) => classes[c]);
+  const containerClassList = containerClasses.map((c) => classes[c]);
+
+  return (
+    <div
+      className={classNames(classes.root, rootClassList, className)}
+      style={style}
+    >
+      <div
+        className={classNames(classes.container, containerClassList)}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+HeroLayout.displayName = 'HeroLayout';
+
+export default HeroLayout;

@@ -26,12 +26,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IPaperProps<Data = IAnything> {
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
+  className?: PickProp<IField<Data>, 'className'>;
+  style?: PickProp<IField<Data>, 'style'>;
 }
 
 interface IPaperPrivate {
-    children: React.ReactChild;
+  children: React.ReactChild;
 }
 
 export const Paper = ({

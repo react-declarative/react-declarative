@@ -26,6 +26,7 @@ declare module 'react-view-builder/model/TypedField' {
     import { IGroupLayoutProps } from 'react-view-builder/layouts/GroupLayout';
     import { IPaperLayoutProps } from 'react-view-builder/layouts/PaperLayout';
     import { IExpansionLayoutProps } from 'react-view-builder/layouts/ExpansionLayout';
+    import { IHeroLayoutProps } from 'react-view-builder/layouts/HeroLayout';
     /**
         * Поля ввода
         */
@@ -53,6 +54,7 @@ declare module 'react-view-builder/model/TypedField' {
     type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
     type Fragment<Data = IAnything> = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
     type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
+    type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
     type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
     type Checkbox<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data>, Data>;
     type Combo<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data>, Data>;
@@ -69,7 +71,7 @@ declare module 'react-view-builder/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : never;
+    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : Target extends Hero<Data> ? Hero<Data> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -100,7 +102,8 @@ declare module 'react-view-builder/model/FieldType' {
         Rating = "rating",
         Typography = "typography",
         Fragment = "fragment",
-        Div = "div"
+        Div = "div",
+        Hero = "hero"
     }
     export default FieldType;
 }
@@ -310,6 +313,33 @@ declare module 'react-view-builder/model/IField' {
                     body1: 'body1';
                     body2: 'body2';
             };
+            /**
+                * Свойства для компоновки Hero - инструмента настройки отступов
+                */
+            top?: string;
+            phoneTop?: string;
+            tabletTop?: string;
+            desktopTop?: string;
+            left?: string;
+            phoneLeft?: string;
+            tabletLeft?: string;
+            desktopLeft?: string;
+            right?: string;
+            phoneRight?: string;
+            tabletRight?: string;
+            desktopRight?: string;
+            bottom?: string;
+            phoneBottom?: string;
+            tabletBottom?: string;
+            desktopBottom?: string;
+            height?: string;
+            phoneHeight?: string;
+            tabletHeight?: string;
+            desktopHeight?: string;
+            width?: string;
+            phoneWidth?: string;
+            tabletWidth?: string;
+            desktopWidth?: string;
     }
     export default IField;
 }
@@ -329,6 +359,9 @@ declare module 'react-view-builder/model/IManaged' {
     import IEntity from 'react-view-builder/model/IEntity';
     import IAnything from 'react-view-builder/model/IAnything';
     export type PickProp<T extends {}, P extends keyof T> = T[P];
+    export type DeepPartial<T> = {
+            [P in keyof T]?: DeepPartial<T[P]>;
+    };
     /**
         * Типизацию компоновки следует вынести отдельно
         */
@@ -373,6 +406,7 @@ declare module 'react-view-builder/model/IManaged' {
         * Предоставляется удобная абстракция
         */
     export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Data>, keyof Exclude<Data>> {
+            name: string;
             value: Value;
             dirty: boolean;
             disabled: boolean;
@@ -495,6 +529,62 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
         displayName: string;
     };
     export default ExpansionLayout;
+}
+
+declare module 'react-view-builder/layouts/HeroLayout' {
+    import * as React from 'react';
+    import IField from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
+    import { DeepPartial, PickProp } from 'react-view-builder/model/IManaged';
+    interface IHeroTop<Data = IAnything> {
+        top: PickProp<IField<Data>, 'top'>;
+        phoneTop: PickProp<IField<Data>, 'phoneTop'>;
+        tabletTop: PickProp<IField<Data>, 'tabletTop'>;
+        desktopTop: PickProp<IField<Data>, 'desktopTop'>;
+    }
+    interface IHeroLeft<Data = IAnything> {
+        left: PickProp<IField<Data>, 'left'>;
+        phoneLeft: PickProp<IField<Data>, 'phoneLeft'>;
+        tabletLeft: PickProp<IField<Data>, 'tabletLeft'>;
+        desktopLeft: PickProp<IField<Data>, 'desktopLeft'>;
+    }
+    interface IHeroRight<Data = IAnything> {
+        right: PickProp<IField<Data>, 'right'>;
+        phoneRight: PickProp<IField<Data>, 'phoneRight'>;
+        tabletRight: PickProp<IField<Data>, 'tabletRight'>;
+        desktopRight: PickProp<IField<Data>, 'desktopRight'>;
+    }
+    interface IHeroBottom<Data = IAnything> {
+        bottom: PickProp<IField<Data>, 'bottom'>;
+        phoneBottom: PickProp<IField<Data>, 'phoneBottom'>;
+        tabletBottom: PickProp<IField<Data>, 'tabletBottom'>;
+        desktopBottom: PickProp<IField<Data>, 'desktopBottom'>;
+    }
+    interface IHeroHeight<Data = IAnything> {
+        height: PickProp<IField<Data>, 'height'>;
+        phoneHeight: PickProp<IField<Data>, 'phoneHeight'>;
+        tabletHeight: PickProp<IField<Data>, 'tabletHeight'>;
+        desktopHeight: PickProp<IField<Data>, 'desktopHeight'>;
+    }
+    interface IHeroWidth<Data = IAnything> {
+        width: PickProp<IField<Data>, 'width'>;
+        phoneWidth: PickProp<IField<Data>, 'phoneWidth'>;
+        tabletWidth: PickProp<IField<Data>, 'tabletWidth'>;
+        desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
+    }
+    type IHeroRegistry<D = IAnything> = DeepPartial<IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroHeight<D>>;
+    export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> {
+        className?: PickProp<IField<Data>, 'className'>;
+        style?: PickProp<IField<Data>, 'style'>;
+    }
+    interface IHeroLayoutPrivate {
+        children: React.ReactChild;
+    }
+    export const HeroLayout: {
+        <Data extends unknown = any>({ children, className, style, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default HeroLayout;
 }
 
 declare module 'react-view-builder/fields/CheckboxField' {
@@ -643,7 +733,6 @@ declare module 'react-view-builder/fields/ProgressField' {
 
 declare module 'react-view-builder/fields/RadioField' {
     import IField from "react-view-builder/model/IField";
-    import IEntity from "react-view-builder/model/IEntity";
     import IAnything from "react-view-builder/model/IAnything";
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
     export interface IRadioFieldProps<Data = IAnything> {
@@ -654,14 +743,14 @@ declare module 'react-view-builder/fields/RadioField' {
         disabled: PickProp<IManaged<Data>, "disabled">;
         value: PickProp<IManaged<Data>, "value">;
         onChange: PickProp<IManaged<Data>, "onChange">;
-        name?: PickProp<IEntity<Data>, 'name'>;
+        name?: PickProp<IManaged<Data>, 'name'>;
     }
     export const RadioField: {
         ({ disabled, value, onChange, title, radioValue, name, }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -769,7 +858,7 @@ declare module 'react-view-builder/fields/TextField' {
         value: PickProp<IManaged<Data>, "value">;
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
-        name?: string;
+        name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
         ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
@@ -795,7 +884,7 @@ declare module 'react-view-builder/fields/TypographyField' {
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const TypographyField: {
-        ({ value, placeholder, typoVariant, }: ITypographyFieldProps & ITypographyFieldPrivate): JSX.Element;
+        ({ value, placeholder, typoVariant, style, }: ITypographyFieldProps & ITypographyFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {

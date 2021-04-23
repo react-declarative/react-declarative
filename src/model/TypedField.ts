@@ -13,6 +13,7 @@ import { IDivLayoutProps } from '../layouts/DivLayout';
 import { IGroupLayoutProps } from '../layouts/GroupLayout';
 import { IPaperLayoutProps } from '../layouts/PaperLayout';
 import { IExpansionLayoutProps } from '../layouts/ExpansionLayout';
+import { IHeroLayoutProps } from '../layouts/HeroLayout';
 
 /**
  * Поля ввода
@@ -49,6 +50,7 @@ type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutPr
 type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
 type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
 type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
+type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
 
 type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
 
@@ -86,6 +88,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
   : Target extends Typography<Data> ? Typography<Data>
   : Target extends Fragment<Data> ? Fragment<Data>
   : Target extends Div<Data> ? Div<Data>
+  : Target extends Hero<Data> ? Hero<Data>
   : never;
 
 /**

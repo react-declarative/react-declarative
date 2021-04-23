@@ -5,7 +5,6 @@ import { FormControlLabel, FormGroup, Radio, RadioGroup } from "@material-ui/cor
 import makeField from "../components/makeField";
 
 import IField from "../model/IField";
-import IEntity from "../model/IEntity";
 import IAnything from "../model/IAnything";
 import IManaged, { PickProp } from "../model/IManaged";
 
@@ -18,7 +17,7 @@ interface IRadioFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   value: PickProp<IManaged<Data>, "value">;
   onChange: PickProp<IManaged<Data>, "onChange">;
-  name?: PickProp<IEntity<Data>, 'name'>;
+  name?: PickProp<IManaged<Data>, 'name'>;
 }
 
 export const RadioField = ({

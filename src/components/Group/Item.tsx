@@ -38,7 +38,7 @@ export const Item = ({
     xs={n(phoneColumns || columns || FULL_ROW)}
     sm={n(phoneColumns || columns || FULL_ROW)}
     md={n(tabletColumns || columns || FULL_ROW)}
-    lg={n(desktopColumns || tabletColumns || columns || FULL_ROW)}
+    lg={n(desktopColumns || columns || FULL_ROW)}
     xl={n(desktopColumns || columns || FULL_ROW)}
   >
     <Box

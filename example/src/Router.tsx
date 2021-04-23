@@ -5,6 +5,7 @@ import LayoutGrid from './pages/LayoutPage';
 import GalleryPage from './pages/GalleryPage';
 import ValidationPage from './pages/ValidationPage';
 import LoginPage from './pages/LoginPage';
+import HeroPage from './pages/HeroPage';
 
 export const Router = ({
     route = '',
@@ -19,6 +20,8 @@ export const Router = ({
         return <SamplePage/>;
     } else if (route === 'login-page') {
         return <LoginPage/>;
+    } else if (route === 'hero-page') {
+        return <HeroPage/>;
     } else {
         return null;
     }

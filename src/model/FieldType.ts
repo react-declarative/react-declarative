@@ -16,6 +16,7 @@ export enum FieldType {
     Typography = 'typography',
     Fragment = 'fragment',
     Div = 'div',
+    Hero = 'hero',
 };
 
 export default FieldType;

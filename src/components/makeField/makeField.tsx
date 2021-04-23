@@ -16,8 +16,9 @@ import useDebounce from '../../hooks/useDebounce';
 import Group from '../Group';
 
 import IAnything from '../../model/IAnything';
-import IManaged from '../../model/IManaged';
+import IManaged, { DeepPartial } from '../../model/IManaged';
 import IEntity from '../../model/IEntity';
+import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
@@ -46,9 +47,10 @@ const useStyles = makeStyles({
     },
 });
 
-interface IConfig {
+interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
     watchAutocomplete?: boolean;
+    defaultProps?: DeepPartial<IField<Data>>;
 }
 
 type Value = object | string | number | boolean;
@@ -63,6 +65,7 @@ export function makeField(
     config: IConfig = {
         skipDebounce: false,
         watchAutocomplete: false,
+        defaultProps: { },
     },
 ) {
     const component = <Data extends IAnything = IAnything>({
@@ -219,7 +222,7 @@ export function makeField(
             }
         };
 
-        const managedProps: IManaged<Data> & {name: string} = {
+        const managedProps: IManaged<Data> = {
             onChange: handleChange,
             disabled,
             invalid,
@@ -233,6 +236,11 @@ export function makeField(
             [classes.hidden]: !visible,
         };
 
+        const componentProps = {
+            ...managedProps,
+            ...config.defaultProps,
+        };
+
         return (
             <Group
                 ref={groupRef}
@@ -242,7 +250,7 @@ export function makeField(
                 {...groupProps}
                 onFocus={onFocus}
             >
-                <Component {...managedProps as IManaged} />
+                <Component {...componentProps as IManaged} />
             </Group>
         );
     };

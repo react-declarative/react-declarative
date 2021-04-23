@@ -236,6 +236,33 @@ export interface IField<Data = IAnything> {
       body2: 'body2',
     };
 
+    /**
+     * Свойства для компоновки Hero - инструмента настройки отступов
+     */
+    top?: string;
+    phoneTop?: string;
+    tabletTop?: string;
+    desktopTop?: string;
+    left?: string;
+    phoneLeft?: string;
+    tabletLeft?: string;
+    desktopLeft?: string;
+    right?: string;
+    phoneRight?: string;
+    tabletRight?: string;
+    desktopRight?: string;
+    bottom?: string;
+    phoneBottom?: string;
+    tabletBottom?: string;
+    desktopBottom?: string;
+    height?: string;
+    phoneHeight?: string;
+    tabletHeight?: string;
+    desktopHeight?: string;
+    width?: string;
+    phoneWidth?: string;
+    tabletWidth?: string;
+    desktopWidth?: string;
   }
 
 export default IField;

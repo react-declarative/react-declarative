@@ -22,8 +22,9 @@ export const TypographyField = ({
   value = '',
   placeholder = '',
   typoVariant = 'body1',
+  style,
 }: ITypographyFieldProps & ITypographyFieldPrivate) => (
-  <Typography variant={typoVariant}>
+  <Typography variant={typoVariant} style={style}>
     {value || placeholder}
   </Typography>
 );
