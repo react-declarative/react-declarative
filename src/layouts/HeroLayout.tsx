@@ -3,49 +3,21 @@ import { useMemo } from 'react';
 
 import classNames from '../utils/classNames';
 
+import withTheme from '@material-ui/core/styles/withTheme';
+
 import { makeStyles } from '@material-ui/core';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import IField from '../model/IField';
 import IAnything from '../model/IAnything';
 
 import { DeepPartial, PickProp } from '../model/IManaged';
 
-import range from '../utils/range';
+import AutoSizer from '../components/AutoSizer';
 
-const styleElement = document.createElement('style');
-
-const UNIT_LIST = [
-  'px',
-  'vw',
-  'vh',
-];
-
-const BREAKPOINT_LIST: Breakpoint[] = [
-  'xs',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-];
-
-const BREAKPOINT_MAP = {
-  xs: 'phone',
-  sm: 'phone',
-  md: 'tablet',
-  lg: 'desktop',
-  xl: 'desktop',
-};
-
-const MARGIN_RANGE = 100;
-const SIZE_RANGE = 100;
-
-const MARGIN_DEFAULT = '0px';
-const SIZE_DEFAULT = '100%';
-
-const gen = (len: number) => range(0, len + 1);
-const cls = (metric: string, value: string) => `hero-layout_${metric}__${value}`;
-const obj = <T extends object>(arr: T[]): { [k: string]: T } => arr.reduce((acm, cur) => ({...acm, ...cur}), {});
+const DEFAULT_MARGIN = '0px';
+const DEFAULT_SIZE = '100%';
 
 interface IHeroTop<Data = IAnything>  {
   top: PickProp<IField<Data>, 'top'>;
@@ -99,15 +71,7 @@ type IHeroRegistry<D = IAnything> =
       & IHeroHeight<D>
   >;
 
-const margins = gen(MARGIN_RANGE).map((len) => UNIT_LIST.map((unit) =>
-  `${len}${unit}`
-)).flat();
-
-const sizes = gen(SIZE_RANGE).map((len) => UNIT_LIST.map((unit) =>
-  `${len}${unit}`
-)).flat();
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     flex: 1,
     position: 'relative',
@@ -116,33 +80,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     position: 'absolute',
   },
-  ...obj(BREAKPOINT_LIST.map((bp: Breakpoint) => ({
-    [theme.breakpoints.only(bp)]: {
-      ...obj(margins.map((top: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Top`, top)]: { top },
-      }))),
-      ...obj(margins.map((left: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Left`, left)]: { left },
-      }))),
-      ...obj(margins.map((right: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Right`, right)]: { right },
-      }))),
-      ...obj(margins.map((bottom: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Bottom`, bottom)]: { bottom },
-      }))),
-      ...obj(sizes.map((height: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Height`, height)]: { height },
-      }))),
-      ...obj(margins.map((width: string) => ({
-        [cls(`${BREAKPOINT_MAP[bp]}Width`, width)]: { width },
-      }))),
-      [cls(`${BREAKPOINT_MAP[bp]}Height`, SIZE_DEFAULT)]: { height: SIZE_DEFAULT },
-      [cls(`${BREAKPOINT_MAP[bp]}Width`, SIZE_DEFAULT)]: { width: SIZE_DEFAULT },
-    },
-  }))),
-}), {
-  classNamePrefix: 'react-view-builder',
-  element: styleElement, 
 });
 
 export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> {
@@ -152,123 +89,105 @@ export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> 
 
 interface IHeroLayoutPrivate {
   children: React.ReactChild;
+  theme?: Theme;
 }
 
-export const HeroLayout = <Data extends IAnything = IAnything>({
-  children,
+interface IBreakpoints {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+}
+
+interface IContainerProps<Data extends IAnything> {
+  children: React.ReactChild;
+  className: string;
+  bpoints: IBreakpoints;
+  width: number;
+  registry: IHeroRegistry<Data>;
+}
+
+const getScreenInfo = (width: number, bpoints: IBreakpoints) => ({
+  isDesktop: Math.max(bpoints.lg, bpoints.xl) < width,
+  isPhone: Math.max(bpoints.xs, bpoints.sm) < width,
+  isTablet: bpoints.md < width,
+});
+
+const Container = <Data extends IAnything>({
   className,
-  style = {},
-  ...otherProps
-}: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
+  bpoints,
+  width,
+  registry,
+  children,
+}: IContainerProps<Data>) => {
 
-  const classes = useStyles();
+  const {
+    isDesktop,
+    isTablet,
+  } = getScreenInfo(width, bpoints);
 
-  const [rootClasses, containerClasses] = useMemo(() => {
+  const [outerStyles, innerStyles] = useMemo(() => {
 
-    const {
-      top,
-      phoneTop,
-      tabletTop,
-      desktopTop,
-    } = otherProps as IHeroTop;
-  
-    const {
-      left,
-      phoneLeft,
-      tabletLeft,
-      desktopLeft,
-    } = otherProps as IHeroLeft;
-  
-    const {
-      right,
-      phoneRight,
-      tabletRight,
-      desktopRight,
-    } = otherProps as IHeroRight;
-  
-    const {
-      bottom,
-      phoneBottom,
-      tabletBottom,
-      desktopBottom,
-    } = otherProps as IHeroBottom;
-  
-    const {
-      height,
-      phoneHeight,
-      tabletHeight,
-      desktopHeight,
-    } = otherProps as IHeroHeight;
-  
-    const {
-      width,
-      phoneWidth,
-      tabletWidth,
-      desktopWidth,
-    } = otherProps as IHeroWidth;
-  
-    const containerClasses = [];
-    const rootClasses = [];
-  
-    containerClasses.push(cls('phoneTop', phoneTop || top || MARGIN_DEFAULT));
-    containerClasses.push(cls('tabletTop', tabletTop || top || MARGIN_DEFAULT));
-    containerClasses.push(cls('desktopTop', desktopTop || top || MARGIN_DEFAULT));
-  
-    containerClasses.push(cls('phoneLeft', phoneLeft || left || MARGIN_DEFAULT));
-    containerClasses.push(cls('tabletLeft', tabletLeft || left || MARGIN_DEFAULT));
-    containerClasses.push(cls('desktopLeft', desktopLeft || left || MARGIN_DEFAULT));
-  
-    containerClasses.push(cls('phoneRight', phoneRight || right || MARGIN_DEFAULT));
-    containerClasses.push(cls('tabletRight', tabletRight || right || MARGIN_DEFAULT));
-    containerClasses.push(cls('desktopRight', desktopRight || right || MARGIN_DEFAULT));
-  
-    containerClasses.push(cls('phoneBottom', phoneBottom || bottom || MARGIN_DEFAULT));
-    containerClasses.push(cls('tabletBottom', tabletBottom || bottom || MARGIN_DEFAULT));
-    containerClasses.push(cls('desktopBottom', desktopBottom || bottom || MARGIN_DEFAULT));
-  
-    rootClasses.push(cls('phoneHeight', phoneHeight || height || SIZE_DEFAULT));
-    rootClasses.push(cls('tabletHeight', tabletHeight || height || SIZE_DEFAULT));
-    rootClasses.push(cls('desktopHeight', desktopHeight || height || SIZE_DEFAULT));
-  
-    rootClasses.push(cls('phoneWidth', phoneWidth || width || SIZE_DEFAULT));
-    rootClasses.push(cls('tabletWidth', tabletWidth || width || SIZE_DEFAULT));
-    rootClasses.push(cls('desktopWidth', desktopWidth || width || SIZE_DEFAULT));
+    const outerStyles: React.CSSProperties = {};
+    const innerStyles: React.CSSProperties = {};
 
-    return [rootClasses, containerClasses];
+    if (isDesktop) {
+      outerStyles.height = registry.desktopHeight || registry.height || DEFAULT_SIZE;
+      outerStyles.width = registry.desktopWidth || registry.width || DEFAULT_SIZE;
+      innerStyles.top =  registry.desktopTop || registry.top || DEFAULT_MARGIN;
+      innerStyles.left = registry.desktopLeft || registry.left || DEFAULT_MARGIN;
+      innerStyles.right = registry.desktopRight || registry.right || DEFAULT_MARGIN;
+      innerStyles.bottom = registry.desktopBottom || registry.bottom || DEFAULT_MARGIN;
+    } else if (isTablet) {
+      outerStyles.height = registry.tabletHeight || registry.height || DEFAULT_SIZE;
+      outerStyles.width = registry.tabletWidth || registry.width || DEFAULT_SIZE;
+      innerStyles.top =  registry.tabletTop || registry.top || DEFAULT_MARGIN;
+      innerStyles.left = registry.tabletLeft || registry.left || DEFAULT_MARGIN;
+      innerStyles.right = registry.tabletRight || registry.right || DEFAULT_MARGIN;
+      innerStyles.bottom = registry.tabletBottom || registry.bottom || DEFAULT_MARGIN;
+    } else {
+      outerStyles.height = registry.phoneHeight || registry.height || DEFAULT_SIZE;
+      outerStyles.width = registry.phoneWidth || registry.width || DEFAULT_SIZE;
+      innerStyles.top =  registry.phoneTop || registry.top || DEFAULT_MARGIN;
+      innerStyles.left = registry.phoneLeft || registry.left || DEFAULT_MARGIN;
+      innerStyles.right = registry.phoneRight || registry.right || DEFAULT_MARGIN;
+      innerStyles.bottom = registry.phoneBottom || registry.bottom || DEFAULT_MARGIN;
+    }
+
+    return [outerStyles, innerStyles];
 
   }, [
-    otherProps.top,
-    otherProps.phoneTop,
-    otherProps.tabletTop,
-    otherProps.desktopTop,
-    otherProps.left,
-    otherProps.phoneLeft,
-    otherProps.tabletLeft,
-    otherProps.desktopLeft,
-    otherProps.right,
-    otherProps.phoneRight,
-    otherProps.tabletRight,
-    otherProps.desktopRight,
-    otherProps.bottom,
-    otherProps.phoneBottom,
-    otherProps.tabletBottom,
-    otherProps.desktopBottom,
-    otherProps.height,
-    otherProps.phoneHeight,
-    otherProps.tabletHeight,
-    otherProps.desktopHeight,
+    width,
+    registry.top,
+    registry.phoneTop,
+    registry.tabletTop,
+    registry.desktopTop,
+    registry.left,
+    registry.phoneLeft,
+    registry.tabletLeft,
+    registry.desktopLeft,
+    registry.right,
+    registry.phoneRight,
+    registry.tabletRight,
+    registry.desktopRight,
+    registry.bottom,
+    registry.phoneBottom,
+    registry.tabletBottom,
+    registry.desktopBottom,
+    registry.height,
+    registry.phoneHeight,
+    registry.tabletHeight,
+    registry.desktopHeight,
   ]);
-
-  const rootClassList = rootClasses.map((c) => classes[c]);
-  const containerClassList = containerClasses.map((c) => classes[c]);
 
   return (
     <div
-      className={classNames(classes.root, rootClassList, className)}
-      style={style}
+      style={outerStyles}
     >
       <div
-        className={classNames(classes.container, containerClassList)}
+        className={className}
+        style={innerStyles}
       >
         {children}
       </div>
@@ -276,6 +195,37 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   );
 };
 
+export const HeroLayout = <Data extends IAnything = IAnything>({
+  children,
+  className,
+  style = {},
+  theme,
+  ...otherProps
+}: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
+  const { breakpoints: { values: bpoints } } = theme!;
+  const classes = useStyles();
+  return (
+    <AutoSizer
+      className={classNames(classes.root, className)}
+      style={style}
+      target={document.body}
+      disableHeight
+      disableWidth
+    >
+      {({ width }) => width ? (
+        <Container<Data>
+          className={classes.container}
+          bpoints={bpoints}
+          width={width}
+          registry={otherProps}
+        >
+          {children}
+        </Container>
+      ) : null}
+    </AutoSizer>
+  );
+};
+
 HeroLayout.displayName = 'HeroLayout';
 
-export default HeroLayout;
+export default withTheme(HeroLayout) as typeof HeroLayout;
