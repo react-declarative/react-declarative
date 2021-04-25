@@ -79,6 +79,12 @@ const useStyles = makeStyles({
   },
   container: {
     position: 'absolute',
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    '& > *': {
+      flexGrow: 1,
+    },
   },
 });
 
