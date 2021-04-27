@@ -81,6 +81,7 @@ declare module 'react-view-builder/model/TypedField' {
     export type TypedField<Data = IAnything> = TypedFieldRegistry<Data> & {
             name?: string;
             fields?: TypedField<Data>[];
+            child?: TypedField<Data>;
     };
     export default TypedField;
 }
@@ -259,6 +260,7 @@ declare module 'react-view-builder/model/IField' {
                 * Дочерние поля для групп
                 */
             fields?: IField<Data>[];
+            child?: IField<Data>;
             /**
                 * Функция, позволяющая организовать валидацию. Если
                 * возвращаемое значение не равно null, считается за

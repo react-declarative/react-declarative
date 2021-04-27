@@ -172,6 +172,7 @@ export interface IField<Data = IAnything> {
      * Дочерние поля для групп
      */
     fields?: IField<Data>[];
+    child?: IField<Data>;
 
     /**
      * Функция, позволяющая организовать валидацию. Если

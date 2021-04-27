@@ -84,11 +84,14 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                         ...field,
                         object,
                     };
+                    const fields: IField<Data>[] = field.child ? 
+                        [ field.child ]
+                        : field.fields!;
                     const one: IOneProps<Data> = {
                         change: handleChange,
                         ready: handleReady,
                         prefix: currentPath,
-                        fields: field.fields as IField<Data>[],
+                        fields,
                         handler: object,
                         invalidity,
                         focus,

@@ -99,6 +99,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
 export type TypedField<Data = IAnything> = TypedFieldRegistry<Data> & {
   name?: string;
   fields?: TypedField<Data>[];
+  child?: TypedField<Data>;
 };
 
 export default TypedField;

@@ -22,12 +22,10 @@ const fields: TypedField[] = [
                         style: {
                             background: 'magenta',
                         },
-                        fields: [
-                            {
-                                type: FieldType.Typography,
-                                placeholder: 'Hello, world!',
-                            }
-                        ]
+                        child: {
+                            type: FieldType.Typography,
+                            placeholder: 'Hello, world!',
+                        }
                     }
                 ],
             },
