@@ -21,7 +21,9 @@ import Group, { IGroupProps } from '../components/Group';
 const DEFAULT_MARGIN = '0px';
 const DEFAULT_SIZE = '100%';
 
+const GRID_MAX_WIDTH = 9999999999999999;
 const FIELD_NEVER_MARGIN = '0';
+const AUTOSIZER_DELAY = 500;
 
 interface IHeroTop<Data = IAnything>  {
   top: PickProp<IField<Data>, 'top'>;
@@ -133,10 +135,16 @@ interface IContainerProps<Data extends IAnything> {
   registry: IHeroRegistry<Data>;
 }
 
-const getScreenInfo = (width: number, bpoints: IBreakpoints) => ({
-  isDesktop: Math.max(bpoints.lg, bpoints.xl) < width,
-  isPhone: Math.max(bpoints.xs, bpoints.sm) < width,
-  isTablet: bpoints.md < width,
+const match = (from: number, to: number) => matchMedia(`(min-width: ${from}px) and (max-width: ${to}px)`).matches;
+
+const getScreenInfo = ({
+  xs = 0,
+  md = 960,
+  lg = 1280,
+}: IBreakpoints) => ({
+  isPhone: match(xs, md),
+  isTablet: match(md, lg),
+  isDesktop: match(lg, GRID_MAX_WIDTH),
 });
 
 const Container = <Data extends IAnything>({
@@ -150,7 +158,8 @@ const Container = <Data extends IAnything>({
   const {
     isDesktop,
     isTablet,
-  } = getScreenInfo(width, bpoints);
+    isPhone,
+  } = getScreenInfo(bpoints);
 
   const [outerStyles, innerStyles] = useMemo(() => {
 
@@ -171,13 +180,15 @@ const Container = <Data extends IAnything>({
       innerStyles.left = registry.tabletLeft || registry.left || DEFAULT_MARGIN;
       innerStyles.right = registry.tabletRight || registry.right || DEFAULT_MARGIN;
       innerStyles.bottom = registry.tabletBottom || registry.bottom || DEFAULT_MARGIN;
-    } else {
+    } else if (isPhone) {
       outerStyles.height = registry.phoneHeight || registry.height || DEFAULT_SIZE;
       outerStyles.width = registry.phoneWidth || registry.width || DEFAULT_SIZE;
       innerStyles.top =  registry.phoneTop || registry.top || DEFAULT_MARGIN;
       innerStyles.left = registry.phoneLeft || registry.left || DEFAULT_MARGIN;
       innerStyles.right = registry.phoneRight || registry.right || DEFAULT_MARGIN;
       innerStyles.bottom = registry.phoneBottom || registry.bottom || DEFAULT_MARGIN;
+    } else {
+      throw new Error('HeroLayout invalid media query');
     }
 
     return [outerStyles, innerStyles];
@@ -248,6 +259,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       <Group className={classes.container}>
         <AutoSizer
           className={classes.content}
+          delay={AUTOSIZER_DELAY}
           target={document.body}
           disableHeight
           disableWidth

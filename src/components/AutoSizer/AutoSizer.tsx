@@ -20,6 +20,7 @@ interface IAutoSizerProps {
   onResize?: (s: ISize) => void;
   style?: React.CSSProperties;
   target?: HTMLElement;
+  delay?: number;
 }
 
 export const AutoSizer = ({
@@ -32,6 +33,7 @@ export const AutoSizer = ({
   className,
   children,
   target,
+  delay = 100,
 }: IAutoSizerProps) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
 
@@ -64,7 +66,7 @@ export const AutoSizer = ({
           setState({ height, width });
           onResize({ height, width });
         }
-      }, 200)
+      }, delay)
     );
 
     observer.observe(element);
@@ -73,7 +75,7 @@ export const AutoSizer = ({
       observer.unobserve(element);
       observer.disconnect();
     };
-  }, [disableHeight, disableWidth, state, onResize]);
+  }, [disableHeight, disableWidth, state, delay, onResize]);
 
   const { height, width } = state;
 
