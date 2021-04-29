@@ -5,19 +5,20 @@ import { OneTyped, FieldType, TypedField } from 'react-view-builder';
 
 const fields: TypedField[] = [
     {
-        type: FieldType.Radio,
-        name: 'button',
-        radioValue: 'one',
-        defaultValue: 'two',
-        title: 'One',
+        type: FieldType.Text,
+        inputAutocomplete: 'on',
+        inputType: "email",
+        name: "email",
+        title: "Почта",
+        description: "b00x@yandex.ru",
     },
     {
-        type: FieldType.Radio,
-        name: 'button',
-        radioValue: 'two',
-        defaultValue: 'two',
-        title: 'Two',
-    }
+        type: FieldType.Text,
+        inputType: "password",
+        name: "password",
+        title: "Пароль",
+        description: "От шести символов",
+    },
 ];
 
 const sleep = (timeout = 1000) => new Promise<void>((res) => setTimeout(() => res(), timeout));
@@ -35,10 +36,7 @@ export const LoginPage = () => {
         return false;
     };
 
-    const handleChange = (newData: any) => {
-        console.log('change');
-        setData(newData);
-    };
+    const handleChange = (newData: any) => setData(newData);
 
     return (
         <form onSubmit={handleSubmit} autoComplete="on">
