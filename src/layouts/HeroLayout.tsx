@@ -16,8 +16,12 @@ import { DeepPartial, PickProp } from '../model/IManaged';
 
 import AutoSizer from '../components/AutoSizer';
 
+import Group, { IGroupProps } from '../components/Group';
+
 const DEFAULT_MARGIN = '0px';
 const DEFAULT_SIZE = '100%';
+
+const FIELD_NEVER_MARGIN = '0';
 
 interface IHeroTop<Data = IAnything>  {
   top: PickProp<IField<Data>, 'top'>;
@@ -73,11 +77,21 @@ type IHeroRegistry<D = IAnything> =
 
 const useStyles = makeStyles({
   root: {
+    position: "relative",
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+  },
+  container: {
+    flexGrow: 1,
+    width: "100%",
+  },
+  content: {
     flex: 1,
     position: 'relative',
     overflow: 'hidden',
   },
-  container: {
+  item: {
     position: 'absolute',
     display: 'flex',
     alignItems: 'stretch',
@@ -88,7 +102,12 @@ const useStyles = makeStyles({
   },
 });
 
-export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> {
+type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
+  fieldRightMargin: never;
+  fieldBottomMargin: never;
+}>;
+
+export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data>, Group<Data>{
   className?: PickProp<IField<Data>, 'className'>;
   style?: PickProp<IField<Data>, 'style'>;
 }
@@ -203,32 +222,49 @@ const Container = <Data extends IAnything>({
 
 export const HeroLayout = <Data extends IAnything = IAnything>({
   children,
-  className,
-  style = {},
   theme,
+  className,
+  style,
+  columns,
+  phoneColumns,
+  tabletColumns,
+  desktopColumns,
   ...otherProps
 }: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
   const { breakpoints: { values: bpoints } } = theme!;
   const classes = useStyles();
   return (
-    <AutoSizer
-      className={classNames(classes.root, className)}
+    <Group
+      className={classNames(className, classes.root)}
       style={style}
-      target={document.body}
-      disableHeight
-      disableWidth
+      isItem={true}
+      columns={columns}
+      phoneColumns={phoneColumns}
+      tabletColumns={tabletColumns}
+      desktopColumns={desktopColumns}
+      fieldRightMargin={FIELD_NEVER_MARGIN}
+      fieldBottomMargin={FIELD_NEVER_MARGIN}
     >
-      {({ width }) => width ? (
-        <Container<Data>
-          className={classes.container}
-          bpoints={bpoints}
-          width={width}
-          registry={otherProps}
+      <Group className={classes.container}>
+        <AutoSizer
+          className={classes.content}
+          target={document.body}
+          disableHeight
+          disableWidth
         >
-          {children}
-        </Container>
-      ) : null}
-    </AutoSizer>
+          {({ width }) => width ? (
+            <Container<Data>
+              className={classes.item}
+              bpoints={bpoints}
+              width={width}
+              registry={otherProps}
+            >
+              {children}
+            </Container>
+          ) : null}
+        </AutoSizer>
+      </Group>
+    </Group>
   );
 };
 

@@ -51,9 +51,9 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
             fieldRightMargin={fieldRightMargin}
             fieldBottomMargin={fieldBottomMargin}
         >
-            <Group className={classes.content}>
-                {children}
-            </Group>
+          <Group className={classes.content}>
+              {children}
+          </Group>
         </Group>
     );
 };

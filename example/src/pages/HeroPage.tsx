@@ -16,6 +16,12 @@ const fields: TypedField[] = [
             {
                 type: FieldType.Hero,
                 height: '100px',
+
+                top: '10px',
+                left: '10px',
+                right: '10px',
+                bottom: '10px',
+
                 fields: [
                     {
                         type: FieldType.Div,

@@ -540,6 +540,7 @@ declare module 'react-view-builder/layouts/HeroLayout' {
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
     import { DeepPartial, PickProp } from 'react-view-builder/model/IManaged';
+    import Group, { IGroupProps } from 'react-view-builder/components/Group';
     interface IHeroTop<Data = IAnything> {
         top: PickProp<IField<Data>, 'top'>;
         phoneTop: PickProp<IField<Data>, 'phoneTop'>;
@@ -577,7 +578,11 @@ declare module 'react-view-builder/layouts/HeroLayout' {
         desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
     }
     type IHeroRegistry<D = IAnything> = DeepPartial<IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroHeight<D>>;
-    export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data> {
+    type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
+        fieldRightMargin: never;
+        fieldBottomMargin: never;
+    }>;
+    export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data>, Group<Data> {
         className?: PickProp<IField<Data>, 'className'>;
         style?: PickProp<IField<Data>, 'style'>;
     }
@@ -586,11 +591,11 @@ declare module 'react-view-builder/layouts/HeroLayout' {
         theme?: Theme;
     }
     export const HeroLayout: {
-        <Data extends unknown = any>({ children, className, style, theme, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, theme, className, style, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, className, style, theme, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, theme, className, style, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
