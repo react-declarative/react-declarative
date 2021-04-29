@@ -49,6 +49,7 @@ const useStyles = makeStyles({
 
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
+    skipValueSnapshot?: boolean;
     watchAutocomplete?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
@@ -69,6 +70,7 @@ export function makeField(
         skipDebounce: false,
         watchAutocomplete: false,
         defaultProps: { },
+        skipValueSnapshot: false,
     },
 ) {
     const component = <Data extends IAnything = IAnything>({
@@ -132,7 +134,10 @@ export function makeField(
                 const visible = isVisible(object);
                 const invalid = isInvalid(object);
                 const newValue = get(object, name);
-                if (newValue !== value && newValue !== valueSnapshot && !wasInvalid) {
+                let isOk: boolean = newValue !== value;
+                isOk = isOk && newValue !== valueSnapshot || !!config.skipValueSnapshot;
+                isOk = isOk && !wasInvalid;
+                if (isOk) {
                     inputUpdate.current = true;
                     setValueSnapshot(newValue);
                     setValue(newValue);
@@ -164,8 +169,9 @@ export function makeField(
             } else if (compute) {
                 return;
             } else {
+                const target = config.skipDebounce ? value : debouncedValue;
                 const copy = deepClone(object);
-                const check = set(copy, name, debouncedValue);
+                const check = set(copy, name, target);
                 const invalid = isInvalid(copy);
                 setInvalid(invalid);
                 if (!name) {
@@ -179,14 +185,18 @@ export function makeField(
                     change(copy);
                 }
             }
-        }, [debouncedValue]);
+        }, [config.skipDebounce ? value : debouncedValue]);
 
         /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = (newValue: Value, skipReadonly = false) => {
+        const handleChange = (newValue: Value, {
+            skipReadonly = false,
+        }: {
+            skipReadonly?: boolean;
+        } = {}) => {
             if (readonly && !skipReadonly) {
                 return;
             }

@@ -24,7 +24,9 @@ const icons = (
               edge="start"
               onClick={() => {
                 if (leadingIconClick) {
-                  leadingIconClick(v as unknown as IAnything, (v) => c(v, true));
+                  leadingIconClick(v as unknown as IAnything, (v) => c(v, {
+                    skipReadonly: true,
+                  }));
                 }
               }}
             >
@@ -42,7 +44,9 @@ const icons = (
               edge="end"
               onClick={() => {
                 if (trailingIconClick) {
-                  trailingIconClick(v as unknown as IAnything, (v) => c(v, true));
+                  trailingIconClick(v as unknown as IAnything, (v) => c(v, {
+                    skipReadonly: true,
+                  }));
                 }
               }}
             >

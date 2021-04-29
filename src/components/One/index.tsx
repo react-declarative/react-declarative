@@ -30,10 +30,12 @@ export const One = <Data extends IAnything = IAnything>({
     LoadPlaceholder = null,
     ready = () => null,
     change = () => null,
+    handler,
     fields,
     ...props
   }: IOneProps<Data>) => {
   const [visible, setVisible] = useState(false);
+  const [object, setObject] = useState<Data | null>(null);
   const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
   const handleReady = () => {
@@ -49,10 +51,12 @@ export const One = <Data extends IAnything = IAnything>({
     });
     if (isValid) {
       change(arrays(newData), initial);
+      setObject(newData);
     }
   };
   const params = {
     ...props,
+    handler: object || handler,
     fields: fieldsSnapshot,
     change: handleChange,
     ready: handleReady,

@@ -18,7 +18,9 @@ const createIcon = (
 ) => (
   <IconButton onClick={() => {
     if (click) {
-      click(value, (v) => onChange(v, true))
+      click(value, (v) => onChange(v, {
+        skipReadonly: true,
+      }))
     }
   }} edge={edge}>
     { icon(icn) }
