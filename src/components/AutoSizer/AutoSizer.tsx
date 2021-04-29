@@ -48,28 +48,32 @@ export const AutoSizer = ({
 
     const element = target || parentElement!;
 
+    const handler = () => {
+      let { height, width } = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+
+      width -= parseFloat(style.paddingLeft);
+      width -= parseFloat(style.paddingRight);
+
+      height -= parseFloat(style.paddingTop);
+      height -= parseFloat(style.paddingBottom);
+
+      let isOk = state.height !== height;
+      isOk = isOk || state.width !== width;
+
+      if (isOk) {
+        setState({ height, width });
+        onResize({ height, width });
+      }
+    };
+
     const observer = new ResizeObserver(
-      debounce(() => {
-        let { height, width } = element.getBoundingClientRect();
-        const style = getComputedStyle(element);
-
-        width -= parseFloat(style.paddingLeft);
-        width -= parseFloat(style.paddingRight);
-
-        height -= parseFloat(style.paddingTop);
-        height -= parseFloat(style.paddingBottom);
-
-        let isOk = state.height !== height;
-        isOk = isOk || state.width !== width;
-
-        if (isOk) {
-          setState({ height, width });
-          onResize({ height, width });
-        }
-      }, delay)
+      debounce(handler, delay)
     );
 
     observer.observe(element);
+
+    handler();
 
     return () => {
       observer.unobserve(element);
