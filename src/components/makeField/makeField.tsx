@@ -13,10 +13,10 @@ import { makeStyles } from '@material-ui/core';
 
 import useDebounce from '../../hooks/useDebounce';
 
-import Group from '../Group';
+import Group, { IGroupProps } from '../Group';
 
 import IAnything from '../../model/IAnything';
-import IManaged, { DeepPartial } from '../../model/IManaged';
+import IManaged from '../../model/IManaged';
 import IEntity from '../../model/IEntity';
 import IField from '../../model/IField';
 
@@ -50,7 +50,10 @@ const useStyles = makeStyles({
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
     watchAutocomplete?: boolean;
-    defaultProps?: DeepPartial<IField<Data>>;
+    defaultProps?: Partial<Omit<IField<Data>, keyof {
+        fields: never;
+        child: never;
+    }>>;
 }
 
 type Value = object | string | number | boolean;
@@ -178,15 +181,6 @@ export function makeField(
             }
         }, [debouncedValue]);
 
-        const groupProps = {
-            columns,
-            phoneColumns,
-            tabletColumns,
-            desktopColumns,
-            fieldRightMargin,
-            fieldBottomMargin,
-        };
-
         /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
@@ -222,6 +216,16 @@ export function makeField(
             }
         };
 
+        const groupProps: IGroupProps<Data> = {
+            columns,
+            phoneColumns,
+            tabletColumns,
+            desktopColumns,
+            fieldRightMargin,
+            fieldBottomMargin,
+            ...config.defaultProps,
+        };
+
         const managedProps: IManaged<Data> = {
             onChange: handleChange,
             disabled,
@@ -237,8 +241,8 @@ export function makeField(
         };
 
         const componentProps = {
-            ...managedProps,
             ...config.defaultProps,
+            ...managedProps,
         };
 
         return (
