@@ -1,15 +1,12 @@
 import * as React from "react";
 
-import { Box, Radio, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core";
+import { FormControlLabel, FormGroup, Radio, RadioGroup } from "@material-ui/core";
 
 import makeField from "../components/makeField";
 
 import IField from "../model/IField";
 import IAnything from "../model/IAnything";
 import IManaged, { PickProp } from "../model/IManaged";
-
-import { useRegistry } from "../helpers/RadioHelper";
 
 export interface IRadioFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, "title">;
@@ -23,44 +20,28 @@ interface IRadioFieldPrivate<Data = IAnything> {
   name?: PickProp<IManaged<Data>, 'name'>;
 }
 
-const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  }
-});
-
 export const RadioField = ({
   disabled,
+  value,
   onChange,
-  radioValue,
   title,
-  name,
-}: IRadioFieldProps & IRadioFieldPrivate) => {
-  const [read, write] = useRegistry(name!);
-  const classes = useStyles();
-
-  const handleChange = () => {
-    if (name === 'radioButton2') {
-      debugger;
-    }
-    onChange(radioValue);
-    write(radioValue!);
-  };
-
-  return (
-    <Box className={classes.root} onClick={handleChange}>
-      <Radio checked={read() === radioValue} disabled={disabled} />
-      <Typography variant="body1">
-        {title}
-      </Typography>
-    </Box>
-  );
-};
+  radioValue,
+  name = '',
+}: IRadioFieldProps & IRadioFieldPrivate) => (
+  <FormGroup>
+    <RadioGroup
+      name={name}
+      value={value}
+      onChange={() => onChange((radioValue || '').toString())}
+    >
+      <FormControlLabel value={radioValue} control={<Radio disabled={disabled} />} label={title} />
+    </RadioGroup>
+  </FormGroup>
+);
 
 RadioField.displayName = 'RadioField';
 
 export default makeField(RadioField, {
+  skipDebounce: true,
   skipValueSnapshot: true,
 });

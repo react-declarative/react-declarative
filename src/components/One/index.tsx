@@ -20,7 +20,6 @@ import arrays from '../../utils/arrays';
 
 import useStatic from '../../hooks/useStatic';
 import useResolved from '../../hooks/useResolved';
-import RadioHelper from '../../helpers/RadioHelper';
 
 const useStyles = makeStyles({
   hidden: {
@@ -70,16 +69,14 @@ export const One = <Data extends IAnything = IAnything>({
     handler: object!,
   };
   return (
-    <RadioHelper>
-      <Fragment>
-        {object && (
-          <Group className={classNames({[classes.hidden]: !visible})}>
-            <OneInternal {...params} />
-          </Group>
-        )}
-        {!visible && LoadPlaceholder}
-      </Fragment>
-    </RadioHelper>
+    <Fragment>
+      {object && (
+        <Group className={classNames({[classes.hidden]: !visible})}>
+          <OneInternal {...params} />
+        </Group>
+      )}
+      {!visible && LoadPlaceholder}
+    </Fragment>
   );
 };
 

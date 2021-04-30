@@ -123,9 +123,6 @@ export function makeField(
          * Эффект входящего изменения.
          */
         useEffect(() => {
-            if (name === 'radioButton2') {
-                debugger;
-              }
             const wasInvalid = !!invalid;
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
@@ -167,9 +164,6 @@ export function makeField(
          * производительности
          */
         useEffect(() => {
-            if (name === 'radioButton2') {
-                debugger;
-              }
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;

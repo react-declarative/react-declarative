@@ -763,7 +763,7 @@ declare module 'react-view-builder/fields/RadioField' {
         name?: PickProp<IManaged<Data>, 'name'>;
     }
     export const RadioField: {
-        ({ disabled, onChange, radioValue, title, name, }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
+        ({ disabled, value, onChange, title, radioValue, name, }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
