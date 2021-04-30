@@ -125,5 +125,5 @@ export const TextField = ({
 TextField.displayName = 'TextField';
 
 export default makeField(TextField, {
-  watchAutocomplete: true,
+  useAutocomplete: true,
 });

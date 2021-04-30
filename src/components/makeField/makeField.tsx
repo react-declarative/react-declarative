@@ -22,7 +22,6 @@ import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
-
 import useAutocomplete from '../../hooks/useAutocomplete';
 
 const stretch = {
@@ -50,7 +49,7 @@ const useStyles = makeStyles({
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
     skipValueSnapshot?: boolean;
-    watchAutocomplete?: boolean;
+    useAutocomplete?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -68,7 +67,7 @@ export function makeField(
     Component: React.FC<IManaged>,
     config: IConfig = {
         skipDebounce: false,
-        watchAutocomplete: false,
+        useAutocomplete: false,
         defaultProps: { },
         skipValueSnapshot: false,
     },
@@ -124,6 +123,9 @@ export function makeField(
          * Эффект входящего изменения.
          */
         useEffect(() => {
+            if (name === 'radioButton2') {
+                debugger;
+              }
             const wasInvalid = !!invalid;
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
@@ -135,7 +137,9 @@ export function makeField(
                 const invalid = isInvalid(object);
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
-                isOk = isOk && newValue !== valueSnapshot || !!config.skipValueSnapshot;
+                if (!config.skipValueSnapshot) {
+                    isOk = isOk && newValue !== valueSnapshot;
+                }
                 isOk = isOk && !wasInvalid;
                 if (isOk) {
                     inputUpdate.current = true;
@@ -153,7 +157,7 @@ export function makeField(
             ready();
         }, [object]);
 
-        if (config.watchAutocomplete) {
+        if (config.useAutocomplete) {
             useAutocomplete(groupRef, (target) => setValue(target.value));
         }
 
@@ -163,6 +167,9 @@ export function makeField(
          * производительности
          */
         useEffect(() => {
+            if (name === 'radioButton2') {
+                debugger;
+              }
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
