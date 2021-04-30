@@ -916,7 +916,7 @@ declare module 'react-view-builder/components/One' {
     import IOneProps from 'react-view-builder/model/IOneProps';
     import IField from 'react-view-builder/model/IField';
     export const One: {
-        <Data extends unknown = any>({ LoadPlaceholder, ready, change, handler, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
+        <Data extends unknown = any>({ LoadPlaceholder, ready, change, fallback, handler, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
         displayName: string;
         /**
           * После написания формы можно включить строгую

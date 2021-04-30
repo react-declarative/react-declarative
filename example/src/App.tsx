@@ -37,7 +37,7 @@ const fields: IField[] = [
         return '';
       }
     },
-    defaultValue: 'hero-page',
+    defaultValue: 'layout-page',
   },
 ];
 

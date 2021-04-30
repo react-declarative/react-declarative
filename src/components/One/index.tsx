@@ -19,6 +19,7 @@ import deepFlat from '../../utils/deepFlat';
 import arrays from '../../utils/arrays';
 
 import useStatic from '../../hooks/useStatic';
+import useResolved from '../../hooks/useResolved';
 
 const useStyles = makeStyles({
   hidden: {
@@ -30,12 +31,18 @@ export const One = <Data extends IAnything = IAnything>({
     LoadPlaceholder = null,
     ready = () => null,
     change = () => null,
-    handler,
+    fallback = () => null,
+    handler = () => ({} as Data),
     fields,
     ...props
   }: IOneProps<Data>) => {
   const [visible, setVisible] = useState(false);
-  const [object, setObject] = useState<Data | null>(null);
+  const [object, setObject] = useResolved<Data>({
+    handler,
+    fallback,
+    fields,
+    change,
+  });
   const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
   const handleReady = () => {
@@ -56,16 +63,18 @@ export const One = <Data extends IAnything = IAnything>({
   };
   const params = {
     ...props,
-    handler: object || handler,
     fields: fieldsSnapshot,
     change: handleChange,
     ready: handleReady,
+    handler: object!,
   };
   return (
     <Fragment>
-      <Group className={classNames({[classes.hidden]: !visible})}>
-        <OneInternal {...params} />
-      </Group>
+      {object && (
+        <Group className={classNames({[classes.hidden]: !visible})}>
+          <OneInternal {...params} />
+        </Group>
+      )}
       {!visible && LoadPlaceholder}
     </Fragment>
   );
