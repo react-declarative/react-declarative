@@ -82,7 +82,8 @@ export const One = <Data extends IAnything = IAnything>({
 
 One.displayName = 'One';
 
-export const OneTyped = <Data extends IAnything>(props: IOneProps<Data, TypedField<Data>>) => <One<Data> {...props} />;
+export const OneTyped = <Data extends IAnything = IAnything>(props: IOneProps<Data, TypedField<Data>>) =>
+  <One<Data> {...props} />;
 
 /**
  * После написания формы можно включить строгую

@@ -6,6 +6,7 @@ import GalleryPage from './pages/GalleryPage';
 import ValidationPage from './pages/ValidationPage';
 import LoginPage from './pages/LoginPage';
 import HeroPage from './pages/HeroPage';
+import ListPage from './pages/ListPage';
 
 export const Router = ({
     route = '',
@@ -22,6 +23,8 @@ export const Router = ({
         return <LoginPage/>;
     } else if (route === 'hero-page') {
         return <HeroPage/>;
+    } else if (route === 'list-page') {
+        return <ListPage/>;
     } else {
         return null;
     }

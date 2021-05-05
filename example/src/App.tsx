@@ -33,11 +33,13 @@ const fields: IField[] = [
         return 'Autocomplete page';
       } else if (item === 'hero-page') {
         return 'Hero page';
+      } else if (item === 'list-page') {
+        return 'List page';
       } else {
         return '';
       }
     },
-    defaultValue: 'layout-page',
+    defaultValue: 'list-page',
   },
 ];
 

@@ -18,6 +18,8 @@ interface IAutoSizerProps {
   disableWidth?: boolean;
   nonce?: string;
   onResize?: (s: ISize) => void;
+  heightRequest?: (height: number) => number;
+  widthRequest?: (width: number) => number;
   style?: React.CSSProperties;
   target?: HTMLElement;
   delay?: number;
@@ -29,6 +31,8 @@ export const AutoSizer = ({
   onResize = () => null,
   disableHeight = false,
   disableWidth = false,
+  heightRequest = (v) => v,
+  widthRequest = (v) => v,
   style = {},
   className,
   children,
@@ -58,6 +62,9 @@ export const AutoSizer = ({
       height -= parseFloat(style.paddingTop);
       height -= parseFloat(style.paddingBottom);
 
+      height = heightRequest(height);
+      width = widthRequest(width);
+
       let isOk = state.height !== height;
       isOk = isOk || state.width !== width;
 
@@ -79,7 +86,7 @@ export const AutoSizer = ({
       observer.unobserve(element);
       observer.disconnect();
     };
-  }, [disableHeight, disableWidth, state, delay, onResize]);
+  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize]);
 
   const { height, width } = state;
 

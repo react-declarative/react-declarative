@@ -12,13 +12,15 @@ export interface IListAction<FilterData = IAnything> {
   onClick: (e: FilterData) => void;
 }
 
-export interface IListProps<FilterData = IAnything, RowData = object, Field = IField<FilterData>> {
+export type IListColumns = GridColumns;
+
+export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> {
   className?: string;
   style?: React.CSSProperties;
   actions?: IListAction<FilterData>[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
-  columns: GridColumns;
+  columns: IListColumns;
   filters: Field[];
   handler: (data: FilterData) => Promise<RowData[]> | RowData[];
 }
