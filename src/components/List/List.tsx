@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import { DataGrid } from '@material-ui/data-grid';
@@ -53,7 +53,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
 
-  const [filterData, setFilterData] = useState<FilterData>();
+  const [filterData, setFilterData] = useState<FilterData>({} as never);
   const [rows, setRows] = useState<RowData[]>([]);
 
   const handleFilter = async (newData: FilterData) => {
@@ -64,13 +64,17 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     setRows([]);
   };
 
-  const handleClean = () => {
+  const handleDefault = () => {
     const newData: Partial<FilterData> = {};
     deepFlat(filters).map(({type, name}) => {
       set(newData, name, initialValue(type));
     });
     handleFilter(newData as FilterData);
   };
+
+  useEffect(() => {
+    handleDefault();
+  }, []);
 
   const {
     ColumnMenu,
@@ -106,7 +110,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
             <Filters<FilterData>
               filterData={filterData!}
               change={handleFilter}
-              clean={handleClean}
+              clean={handleDefault}
               filters={filters}
               title={title}
             />

@@ -204,6 +204,7 @@ export function makeField(
             if (compute) {
                 return;
             }
+            setValueSnapshot(newValue);
             setValue(newValue);
             setDirty(true);
         };
