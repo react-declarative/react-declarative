@@ -57,9 +57,9 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   const [rows, setRows] = useState<RowData[]>([]);
 
   const handleFilter = async (newData: FilterData) => {
-    Promise.resolve(handler(newData)).then((rows) => {
+    setTimeout(() => Promise.resolve(handler(newData)).then((rows) => {
       setRows(rows);
-    });
+    }));
     setFilterData(newData);
     setRows([]);
   };
