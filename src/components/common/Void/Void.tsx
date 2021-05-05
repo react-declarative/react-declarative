@@ -1,6 +1,6 @@
 import * as React from 'react';
-import IField from '../../model/IField';
-import { PickProp } from '../../model/IManaged';
+import IField from '../../../model/IField';
+import { PickProp } from '../../../model/IManaged';
 
 export interface IVoidProps {
     className: PickProp<IField, 'className'>;

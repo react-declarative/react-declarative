@@ -14,9 +14,9 @@ import IAnything from '../model/IAnything';
 
 import { DeepPartial, PickProp } from '../model/IManaged';
 
-import AutoSizer from '../components/AutoSizer';
+import AutoSizer from '../components/common/AutoSizer';
 
-import Group, { IGroupProps } from '../components/Group';
+import Group, { IGroupProps } from '../components/common/Group';
 
 const DEFAULT_MARGIN = '0px';
 const DEFAULT_SIZE = '100%';

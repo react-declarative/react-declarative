@@ -489,7 +489,7 @@ declare module 'react-view-builder/layouts/DivLayout' {
 
 declare module 'react-view-builder/layouts/GroupLayout' {
     import * as React from "react";
-    import { IGroupProps } from "react-view-builder/components/Group";
+    import { IGroupProps } from "react-view-builder/components/common/Group";
     import IAnything from "react-view-builder/model/IAnything";
     export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {
     }
@@ -505,8 +505,8 @@ declare module 'react-view-builder/layouts/GroupLayout' {
 
 declare module 'react-view-builder/layouts/PaperLayout' {
     import * as React from "react";
-    import { IGroupProps } from "react-view-builder/components/Group";
-    import { IPaperProps } from 'react-view-builder/components/Paper';
+    import { IGroupProps } from "react-view-builder/components/common/Group";
+    import { IPaperProps } from 'react-view-builder/components/common/Paper';
     import IAnything from "react-view-builder/model/IAnything";
     export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {
     }
@@ -522,8 +522,8 @@ declare module 'react-view-builder/layouts/PaperLayout' {
 
 declare module 'react-view-builder/layouts/ExpansionLayout' {
     import * as React from "react";
-    import { IExpansionProps } from "react-view-builder/components/Expansion";
-    import { IGroupProps } from "react-view-builder/components/Group";
+    import { IExpansionProps } from "react-view-builder/components/common/Expansion";
+    import { IGroupProps } from "react-view-builder/components/common/Group";
     import IAnything from "react-view-builder/model/IAnything";
     export interface IExpansionLayoutProps<Data = IAnything> extends IExpansionProps<Data>, IGroupProps<Data> {
     }
@@ -543,7 +543,7 @@ declare module 'react-view-builder/layouts/HeroLayout' {
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
     import { DeepPartial, PickProp } from 'react-view-builder/model/IManaged';
-    import Group, { IGroupProps } from 'react-view-builder/components/Group';
+    import Group, { IGroupProps } from 'react-view-builder/components/common/Group';
     interface IHeroTop<Data = IAnything> {
         top: PickProp<IField<Data>, 'top'>;
         phoneTop: PickProp<IField<Data>, 'phoneTop'>;
@@ -930,19 +930,19 @@ declare module 'react-view-builder/components/One' {
     export default One;
 }
 
-declare module 'react-view-builder/components/Group' {
-    export * from 'react-view-builder/components/Group/Group';
-    export { default } from 'react-view-builder/components/Group/Group';
+declare module 'react-view-builder/components/common/Group' {
+    export * from 'react-view-builder/components/common/Group/Group';
+    export { default } from 'react-view-builder/components/common/Group/Group';
 }
 
-declare module 'react-view-builder/components/Paper' {
-    export * from 'react-view-builder/components/Paper/Paper';
-    export { default } from 'react-view-builder/components/Paper/Paper';
+declare module 'react-view-builder/components/common/Paper' {
+    export * from 'react-view-builder/components/common/Paper/Paper';
+    export { default } from 'react-view-builder/components/common/Paper/Paper';
 }
 
-declare module 'react-view-builder/components/Expansion' {
-    export * from 'react-view-builder/components/Expansion/Expansion';
-    export { default } from 'react-view-builder/components/Expansion/Expansion';
+declare module 'react-view-builder/components/common/Expansion' {
+    export * from 'react-view-builder/components/common/Expansion/Expansion';
+    export { default } from 'react-view-builder/components/common/Expansion/Expansion';
 }
 
 declare module 'react-view-builder/model/IOneProps' {
@@ -995,7 +995,7 @@ declare module 'react-view-builder/model/IOneProps' {
     export default IOneProps;
 }
 
-declare module 'react-view-builder/components/Group/Group' {
+declare module 'react-view-builder/components/common/Group/Group' {
     import * as React from "react";
     import { IManagedLayout, PickProp } from "react-view-builder/model/IManaged";
     import IAnything from "react-view-builder/model/IAnything";
@@ -1017,7 +1017,7 @@ declare module 'react-view-builder/components/Group/Group' {
     export default _default;
 }
 
-declare module 'react-view-builder/components/Paper/Paper' {
+declare module 'react-view-builder/components/common/Paper/Paper' {
     import * as React from 'react';
     import { PickProp } from 'react-view-builder/model/IManaged';
     import IAnything from 'react-view-builder/model/IAnything';
@@ -1036,7 +1036,7 @@ declare module 'react-view-builder/components/Paper/Paper' {
     export default Paper;
 }
 
-declare module 'react-view-builder/components/Expansion/Expansion' {
+declare module 'react-view-builder/components/common/Expansion/Expansion' {
     import * as React from 'react';
     import { PickProp } from 'react-view-builder/model/IManaged';
     import IAnything from 'react-view-builder/model/IAnything';

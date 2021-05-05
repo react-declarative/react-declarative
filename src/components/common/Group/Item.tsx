@@ -3,8 +3,8 @@ import { forwardRef } from 'react';
 
 import { Grid, Box } from "@material-ui/core";
 
-import { IManagedLayout, PickProp } from '../../model/IManaged';
-import IField from '../../model/IField';
+import { IManagedLayout, PickProp } from '../../../model/IManaged';
+import IField from '../../../model/IField';
 
 const FULL_ROW = '12';
 

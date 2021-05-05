@@ -5,9 +5,9 @@ import { ExpandMore } from '@material-ui/icons';
 
 import Group from '../Group';
 
-import { PickProp } from '../../model/IManaged';
-import IAnything from '../../model/IAnything';
-import IField from '../../model/IField';
+import { PickProp } from '../../../model/IManaged';
+import IAnything from '../../../model/IAnything';
+import IField from '../../../model/IField';
 
 const useStyles = makeStyles((theme) => ({
   heading: {

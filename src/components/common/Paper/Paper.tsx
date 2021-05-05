@@ -4,11 +4,11 @@ import { makeStyles, Paper as MatPaper, Box } from '@material-ui/core';
 
 import Group from '../Group';
 
-import classNames from '../../utils/classNames';
+import classNames from '../../../utils/classNames';
 
-import { PickProp } from '../../model/IManaged';
-import IAnything from '../../model/IAnything';
-import IField from '../../model/IField';
+import { PickProp } from '../../../model/IManaged';
+import IAnything from '../../../model/IAnything';
+import IField from '../../../model/IField';
 
 const useStyles = makeStyles((theme) => ({
   strech: {

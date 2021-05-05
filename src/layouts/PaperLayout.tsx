@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import Group, { IGroupProps } from "../components/Group";
-import Paper, { IPaperProps } from '../components/Paper';
+import Group, { IGroupProps } from "../components/common/Group";
+import Paper, { IPaperProps } from '../components/common/Paper';
 
 import classNames from "../utils/classNames";
 

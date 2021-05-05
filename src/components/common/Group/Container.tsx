@@ -3,8 +3,8 @@ import { forwardRef } from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import { PickProp } from '../../model/IManaged';
-import IField from '../../model/IField';
+import { PickProp } from '../../../model/IManaged';
+import IField from '../../../model/IField';
 
 interface IContainerProps {
   className: PickProp<IField, 'className'>;

@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import Expansion, { IExpansionProps } from "../components/Expansion";
-import Group, { IGroupProps } from "../components/Group";
+import Expansion, { IExpansionProps } from "../components/common/Expansion";
+import Group, { IGroupProps } from "../components/common/Group";
 
 import classNames from '../utils/classNames';
 

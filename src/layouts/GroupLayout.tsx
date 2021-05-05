@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { makeStyles } from "@material-ui/core";
 
-import Group, { IGroupProps } from "../components/Group";
+import Group, { IGroupProps } from "../components/common/Group";
 
 import classNames from "../utils/classNames";
 

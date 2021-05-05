@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core';
 
 import useDebounce from '../../hooks/useDebounce';
 
-import Group, { IGroupProps } from '../Group';
+import Group, { IGroupProps } from '../common/Group';
 
 import IAnything from '../../model/IAnything';
 import IManaged from '../../model/IManaged';

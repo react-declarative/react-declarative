@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import OneInternal from './One';
-import Group from '../Group';
+import Group from '../common/Group';
 
 import TypedField from '../../model/TypedField';
 import IOneProps from '../../model/IOneProps';
