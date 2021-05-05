@@ -1,0 +1,127 @@
+import * as React from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { makeStyles, Theme } from '@material-ui/core';
+
+import Toolbar from '@material-ui/core/Toolbar';
+
+import dayjs from 'dayjs';
+
+import ToolbarButton from '../ToolbarButton';
+
+import HourView from './HourView';
+import MinutesView from './MinutesView';
+
+const globalStyles = (theme: Theme) => ({
+  container: {
+    width: 300,
+    height: 420,
+  },
+  toolbar: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.primary.main,
+    height: 100,
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
+  ...globalStyles(theme),
+  toolbar: {
+    ...globalStyles(theme).toolbar,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 50,
+  },
+  separator: {
+    margin: '0 2px 0 4px',
+    cursor: 'default',
+  },
+  ampmSelection: {
+    marginLeft: 20,
+    marginRight: -20,
+  },
+  ampmLabel: {
+    fontSize: 18,
+  },
+}));
+
+export const TimePicker = ({
+  onChange = (change: any) => console.log({change}),
+  date = dayjs(),
+}) => {
+  const classes = useStyles();
+  const [state, setState] = useState({
+    meridiemMode: date.format('a'),
+    isHourViewShown: true,
+  });
+  const handleChange = useCallback((time) => {
+    if (time.format('a') !== state.meridiemMode) {
+      const hours = state.meridiemMode === 'am'
+        ? time.hours() - 12
+        : time.hours() + 12;
+      time = time.clone().hours(hours);
+    }
+    onChange(time);
+  }, [state]);
+  const setMeridiemMode = (mode: any) => () => setState((p) => ({...p, meridiemMode: mode }));
+  useEffect(() => handleChange(date), [date, state.meridiemMode]);
+  const openMinutesView = () => setState((p) => ({...p, isHourViewShown: false}));
+  const openHourView = () => setState((p) => ({...p, isHourViewShown: true}));
+  return (
+    <div className={classes.container}>
+      <Toolbar className={classes.toolbar}>
+        <ToolbarButton
+          type="display3"
+          onClick={openHourView}
+          selected={state.isHourViewShown}
+          label={date.format('hh')}
+        />
+        <ToolbarButton
+          type="display3"
+          label=":"
+          selected={false}
+          className={classes.separator}
+        />
+        <ToolbarButton
+          type="display3"
+          onClick={openMinutesView}
+          selected={!state.isHourViewShown}
+          label={date.format('mm')}
+        />
+        <div className={classes.ampmSelection}>
+          <ToolbarButton
+            className={classes.ampmLabel}
+            selected={state.meridiemMode === 'am'}
+            type="subheading"
+            label="AM"
+            onClick={setMeridiemMode('am')}
+          />
+          <ToolbarButton
+            className={classes.ampmLabel}
+            selected={state.meridiemMode === 'pm'}
+            type="subheading"
+            label="PM"
+            onClick={setMeridiemMode('pm')}
+          />
+        </div>
+      </Toolbar>
+      {
+        state.isHourViewShown
+          ?
+            <HourView
+              date={date}
+              onChange={handleChange}
+            />
+          :
+            <MinutesView
+              date={date}
+              onChange={handleChange}
+            />
+      }
+    </div>
+  );
+};
+
+export default TimePicker;
