@@ -90,6 +90,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     FilterPanel,
     ColumnsPanel,
     Panel,
+    ...gridProps
   } = otherProps;
 
   return (
@@ -117,6 +118,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
             <div className={classNames(classes.container, classes.stretch)}>
               {rows.length && (
                 <DataGrid
+                  {...gridProps}
                   className={classNames(classes.stretch)}
                   columns={columns}
                   rows={rows}

@@ -368,7 +368,7 @@ declare module 'react-view-builder/model/IAnything' {
 }
 
 declare module 'react-view-builder/model/IListProps' {
-    import { GridColumns, GridSlotsComponent } from '@material-ui/data-grid';
+    import { GridColumns, GridComponentProps, GridSlotsComponent } from '@material-ui/data-grid';
     import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
     export enum ActionType {
@@ -379,7 +379,10 @@ declare module 'react-view-builder/model/IListProps' {
         onClick: (e: FilterData) => void;
     }
     export type IListColumns = GridColumns;
-    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent {
+    interface GridProps {
+        onRowClick?: GridComponentProps["onRowClick"];
+    }
+    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps {
         className?: string;
         style?: React.CSSProperties;
         title?: string;

@@ -1,4 +1,4 @@
-import { GridColumns, GridSlotsComponent } from '@material-ui/data-grid';
+import { GridColumns, GridComponentProps, GridSlotsComponent } from '@material-ui/data-grid';
 
 import IAnything from './IAnything';
 import IField from './IField';
@@ -14,7 +14,11 @@ export interface IListAction<FilterData = IAnything> {
 
 export type IListColumns = GridColumns;
 
-export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent {
+interface GridProps {
+  onRowClick?: GridComponentProps["onRowClick"];
+}
+
+export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
