@@ -8,7 +8,6 @@ import { IListAction as IListActionInternal } from './model/IListProps';
 import { IListColumns as IListColumnsInternal } from './model/IListProps';
 import { ActionType as ActionTypeInternal } from './model/IListProps';
 
-
 export const FieldType = FieldTypeInternal;
 export const ActionType = ActionTypeInternal;
 

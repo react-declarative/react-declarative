@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'stretch',
+    height: 60,
   },
   stretch: {
     flex: 1,
@@ -38,7 +39,11 @@ const createAction = <FilterData extends IAnything>(data: FilterData, {
 }: IListAction) => {
   if (type === ActionType.Add) {
     return (
-      <Fab onClick={() => onClick(data)}>
+      <Fab
+        size="small"
+        color="primary"
+        onClick={() => onClick(data)}
+      >
         <Add />
       </Fab>
     );

@@ -17,6 +17,7 @@ const fields: IField[] = [
       'sample-page',
       'login-page',
       'hero-page',
+      'list-page',
     ],
     outlined: false,
     columns: '4',

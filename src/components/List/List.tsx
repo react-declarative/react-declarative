@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import { DataGrid } from '@material-ui/data-grid';
+import Paper from '@material-ui/core/Paper';
 
 import classNames from '../../utils/classNames';
 
@@ -15,17 +16,21 @@ import IAnything from '../../model/IAnything';
 import Actions from './Actions';
 import Filters from './Filters';
 
+const AUTOSIZER_DELAY = 50;
+
 const useStyles = makeStyles({
   root: {
-    overflow: 'hidden',
   },
   container: {
     display: 'flex',
     alignItems: 'stretch',
     justifyContent: 'stretch',
     flexDirection: 'column',
+    '&&& .MuiDataGrid-root': {
+      border: '1px solid transparent',
+    },
   },
-  grid: {
+  stretch: {
     flex: 1,
   },
 });
@@ -39,6 +44,8 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   heightRequest = (v) => v,
   widthRequest = (v) => v,
   handler = () => [],
+  title = 'list-component',
+  ...otherProps
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
 
@@ -46,16 +53,35 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   const [rows, setRows] = useState<RowData[]>([]);
 
   const handleFilter = async (newData: FilterData) => {
+    Promise.resolve(handler(newData)).then((rows) => {
+      setRows(rows);
+    });
     setFilterData(newData);
-    const newRows = await Promise.resolve(handler(newData));
-    setRows(newRows);
+    setRows([]);
   };
+
+  const {
+    ColumnMenu,
+    ErrorOverlay,
+    Footer,
+    Header,
+    Toolbar,
+    PreferencesPanel,
+    LoadingOverlay,
+    NoResultsOverlay,
+    NoRowsOverlay,
+    Pagination,
+    FilterPanel,
+    ColumnsPanel,
+    Panel,
+  } = otherProps;
 
   return (
     <AutoSizer
       className={classNames(classes.root, className)}
       heightRequest={heightRequest}
       widthRequest={widthRequest}
+      delay={AUTOSIZER_DELAY}
       style={style}
     >
       {({ height, width }) => (
@@ -64,16 +90,38 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
             filterData={filterData!}
             actions={actions}
           />
-          <Filters<FilterData>
-            filterData={filterData!}
-            change={handleFilter}
-            filters={filters}
-          />
-          <DataGrid
-            className={classes.grid}
-            columns={columns}
-            rows={rows}
-          />
+          <Paper className={classNames(classes.container, classes.stretch)}>
+            <Filters<FilterData>
+              filterData={filterData!}
+              change={handleFilter}
+              filters={filters}
+              title={title}
+            />
+            <div className={classNames(classes.container, classes.stretch)}>
+              {rows.length && (
+                <DataGrid
+                  className={classNames(classes.stretch)}
+                  columns={columns}
+                  rows={rows}
+                  components={{
+                    ColumnMenu,
+                    ErrorOverlay,
+                    Footer,
+                    Header,
+                    Toolbar,
+                    PreferencesPanel,
+                    LoadingOverlay,
+                    NoResultsOverlay,
+                    NoRowsOverlay,
+                    Pagination,
+                    FilterPanel,
+                    ColumnsPanel,
+                    Panel,
+                  }}
+                />
+              )}
+            </div>
+          </Paper>
         </div>
       )}
     </AutoSizer>

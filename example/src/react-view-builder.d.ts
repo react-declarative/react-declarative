@@ -361,7 +361,7 @@ declare module 'react-view-builder/model/IAnything' {
 }
 
 declare module 'react-view-builder/model/IListProps' {
-    import { GridColumns } from '@material-ui/data-grid';
+    import { GridColumns, GridSlotsComponent } from '@material-ui/data-grid';
     import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
     export enum ActionType {
@@ -372,9 +372,10 @@ declare module 'react-view-builder/model/IListProps' {
         onClick: (e: FilterData) => void;
     }
     export type IListColumns = GridColumns;
-    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> {
+    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent {
         className?: string;
         style?: React.CSSProperties;
+        title?: string;
         actions?: IListAction<FilterData>[];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
@@ -1037,7 +1038,7 @@ declare module 'react-view-builder/components/List/List' {
     import IListProps from 'react-view-builder/model/IListProps';
     import TypedField from 'react-view-builder/model/TypedField';
     export const List: {
-        <FilterData extends unknown = any, RowData = any>({ className, style, filters, columns, actions, heightRequest, widthRequest, handler, }: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
+        <FilterData extends unknown = any, RowData = any>({ className, style, filters, columns, actions, heightRequest, widthRequest, handler, title, ...otherProps }: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
         typed: <FilterData_1 extends unknown = any, RowData_1 extends unknown = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
     };
     export const ListTyped: <FilterData extends unknown = any, RowData extends unknown = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;

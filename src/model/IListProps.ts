@@ -1,4 +1,4 @@
-import { GridColumns } from '@material-ui/data-grid';
+import { GridColumns, GridSlotsComponent } from '@material-ui/data-grid';
 
 import IAnything from './IAnything';
 import IField from './IField';
@@ -14,9 +14,10 @@ export interface IListAction<FilterData = IAnything> {
 
 export type IListColumns = GridColumns;
 
-export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> {
+export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent {
   className?: string;
   style?: React.CSSProperties;
+  title?: string;
   actions?: IListAction<FilterData>[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;

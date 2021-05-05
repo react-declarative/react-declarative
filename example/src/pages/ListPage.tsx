@@ -5,6 +5,8 @@ import {
     FieldType,
     TypedField,
     IListColumns,
+    IListAction,
+    ActionType,
 } from 'react-view-builder';
 
 const filters: TypedField[] = [
@@ -19,6 +21,15 @@ const columns: IListColumns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'firstName', headerName: 'First name', width: 130 },
     { field: 'lastName', headerName: 'Last name', width: 130 },
+];
+
+const actions: IListAction[] = [
+    {
+        type: ActionType.Add,
+        onClick(filterData) {
+            console.log(filterData);
+        },
+    },
 ];
 
 export const ListPage = () => {
@@ -43,6 +54,7 @@ export const ListPage = () => {
     return (
         <ListTyped
             heightRequest={heightRequest}
+            actions={actions}
             filters={filters}
             columns={columns}
             handler={handler}
