@@ -84,7 +84,6 @@ export const AutoSizer = ({
   const { height, width } = state;
 
   const outerStyle: React.CSSProperties = {
-    overflow: "visible",
     height,
     width,
   };
