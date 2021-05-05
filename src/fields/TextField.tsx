@@ -75,6 +75,7 @@ export interface ITextFieldProps<Data = IAnything> {
   trailingIconClick?: PickProp<IField<Data>, "trailingIconClick">;
   inputRows?: PickProp<IField<Data>, "inputRows">;
   placeholder?: PickProp<IField<Data>, "placeholder">;
+  readonly?: PickProp<IField<Data>, "readonly">;
 }
 
 interface ITextFieldPrivate<Data = IAnything> {

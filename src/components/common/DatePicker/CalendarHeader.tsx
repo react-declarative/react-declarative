@@ -11,8 +11,10 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import classNames from '../../../utils/classNames';
 
 const getWeekdaysMin = () => {
-  const { weekdaysMin, weekStart } = dayjs.Ls[dayjs.locale()];
-  return [...weekdaysMin!.slice(weekStart), ...weekdaysMin!.slice(0, weekStart)];
+  const { weekdays, weekdaysMin, weekStart } = dayjs.Ls[dayjs.locale()];
+  let days = weekdaysMin || weekdays;
+  days = [...days!.slice(weekStart, 7), ...days!.slice(0, weekStart)];
+  return days.map((day) => day.slice(0, 3).toUpperCase());
 };
 
 const useStyles = makeStyles((theme) => ({

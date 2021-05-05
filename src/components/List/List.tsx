@@ -60,6 +60,10 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     setRows([]);
   };
 
+  const handleClean = () => {
+    console.log('clean');
+  };
+
   const {
     ColumnMenu,
     ErrorOverlay,
@@ -94,6 +98,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
             <Filters<FilterData>
               filterData={filterData!}
               change={handleFilter}
+              clean={handleClean}
               filters={filters}
               title={title}
             />

@@ -52,6 +52,7 @@ interface IFiltersProps<FilterData = IAnything> {
   style?: React.CSSProperties;
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
+  clean: () => void;
   title: string;
 }
 
@@ -61,6 +62,7 @@ export const Filters = <FilterData extends IAnything>({
   filterData,
   filters,
   change,
+  clean,
   title,
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
@@ -97,7 +99,7 @@ export const Filters = <FilterData extends IAnything>({
         </Collapse>
       </div>
       <div className={classes.controls}>
-        <IconButton>
+        <IconButton onClick={clean}>
           <Delete/>
         </IconButton>
         <IconButton onClick={handleCollapse}>

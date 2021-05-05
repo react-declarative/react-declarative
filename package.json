@@ -90,7 +90,8 @@
     "@material-ui/data-grid": "^4.0.0-alpha.27",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "dayjs": "^1.10.4"
+    "dayjs": "^1.10.4",
+    "react-modal-hook": "^3.0.0"
   },
   "licenses": [
     {

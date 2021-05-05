@@ -59,9 +59,9 @@ export const TimePicker = ({
   const handleChange = useCallback((time) => {
     if (time.format('a') !== state.meridiemMode) {
       const hours = state.meridiemMode === 'am'
-        ? time.hours() - 12
-        : time.hours() + 12;
-      time = time.clone().hours(hours);
+        ? time.hour() - 12
+        : time.hour() + 12;
+      time = time.clone().hour(hours);
     }
     onChange(time);
   }, [state]);

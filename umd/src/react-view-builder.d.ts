@@ -3,6 +3,8 @@
 //   ../react
 //   ../@material-ui/data-grid
 //   ../@material-ui/core/styles/createMuiTheme
+//   ../dayjs
+//   ../react-modal-hook
 
 declare module 'react-view-builder' {
     import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
@@ -12,14 +14,19 @@ declare module 'react-view-builder' {
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
     import { IListColumns as IListColumnsInternal } from 'react-view-builder/model/IListProps';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/IListProps';
+    import { useDate, useTime } from 'react-view-builder/components';
     export const FieldType: typeof FieldTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
     export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
     export type IField<Data = IAnything> = IFieldInternal<Data>;
     export type IListAction<Data = IAnything> = IListActionInternal<Data>;
     export type IListColumns = IListColumnsInternal;
+    export type pickDateFn = ReturnType<typeof useDate>;
+    export type pickTimeFn = ReturnType<typeof useTime>;
     export { One, OneTyped } from 'react-view-builder/components';
     export { List, ListTyped } from 'react-view-builder/components';
+    export { ModalProvider } from 'react-view-builder/components';
+    export { useDate, useTime };
 }
 
 declare module 'react-view-builder/model/TypedField' {
@@ -389,6 +396,9 @@ declare module 'react-view-builder/model/IListProps' {
 declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/One';
     export * from 'react-view-builder/components/List';
+    export * from 'react-view-builder/components/hooks/useDate';
+    export * from 'react-view-builder/components/hooks/useTime';
+    export * from 'react-view-builder/components/common/ModalProvider';
 }
 
 declare module 'react-view-builder/model/IManaged' {
@@ -902,6 +912,7 @@ declare module 'react-view-builder/fields/TextField' {
         trailingIconClick?: PickProp<IField<Data>, "trailingIconClick">;
         inputRows?: PickProp<IField<Data>, "inputRows">;
         placeholder?: PickProp<IField<Data>, "placeholder">;
+        readonly?: PickProp<IField<Data>, "readonly">;
     }
     interface ITextFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -967,6 +978,29 @@ declare module 'react-view-builder/components/One' {
 declare module 'react-view-builder/components/List' {
     export * from 'react-view-builder/components/List/List';
     export { default } from 'react-view-builder/components/List/List';
+}
+
+declare module 'react-view-builder/components/hooks/useDate' {
+    import dayjs from 'dayjs';
+    type Fn = (d: dayjs.Dayjs | null) => void;
+    export const useDate: () => () => {
+        then(handler: Fn): void;
+    };
+    export default useDate;
+}
+
+declare module 'react-view-builder/components/hooks/useTime' {
+    import dayjs from 'dayjs';
+    type Fn = (d: dayjs.Dayjs | null) => void;
+    export const useTime: () => () => {
+        then(handler: Fn): void;
+    };
+    export default useTime;
+}
+
+declare module 'react-view-builder/components/common/ModalProvider' {
+    export * from 'react-view-builder/components/common/ModalProvider/ModalProvider';
+    export { default } from 'react-view-builder/components/common/ModalProvider/ModalProvider';
 }
 
 declare module 'react-view-builder/components/common/Group' {
@@ -1043,6 +1077,12 @@ declare module 'react-view-builder/components/List/List' {
     };
     export const ListTyped: <FilterData extends unknown = any, RowData extends unknown = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
     export default List;
+}
+
+declare module 'react-view-builder/components/common/ModalProvider/ModalProvider' {
+    import { ModalProvider } from 'react-modal-hook';
+    export { ModalProvider };
+    export default ModalProvider;
 }
 
 declare module 'react-view-builder/components/common/Group/Group' {

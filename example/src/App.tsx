@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 
-import { One, FieldType, IField } from 'react-view-builder';
+import { One, FieldType, IField, ModalProvider } from 'react-view-builder';
 
 import Router from './Router';
 
@@ -40,7 +40,7 @@ const fields: IField[] = [
         return '';
       }
     },
-    defaultValue: 'list-page',
+    defaultValue: 'layout-page',
   },
 ];
 
@@ -54,16 +54,18 @@ const App = () => {
   const [route, setRoute] = useState('');
   const classes = useStyles();
   return (
-    <Fragment>
-      <CssBaseline/>
-      <div className={classes.offset}>
-        <One fields={fields} change={({route}) => setRoute(route)} />
-      </div>
-      <Container className={classes.offset}>
-        <Router route={route} />
-      </Container>
-    </Fragment>
-  )
+    <ModalProvider>
+      <Fragment>
+        <CssBaseline/>
+        <div className={classes.offset}>
+          <One fields={fields} change={({route}) => setRoute(route)} />
+        </div>
+        <Container className={classes.offset}>
+          <Router route={route} />
+        </Container>
+      </Fragment>
+    </ModalProvider>
+  );
 };
 
 export default App;
