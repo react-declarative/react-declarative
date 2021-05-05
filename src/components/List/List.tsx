@@ -16,6 +16,10 @@ import IAnything from '../../model/IAnything';
 import Actions from './Actions';
 import Filters from './Filters';
 
+import initialValue from '../../config/initialValue';
+import deepFlat from '../../utils/deepFlat';
+import set from '../../utils/set';
+
 const AUTOSIZER_DELAY = 50;
 
 const useStyles = makeStyles({
@@ -61,7 +65,11 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   };
 
   const handleClean = () => {
-    console.log('clean');
+    const newData: Partial<FilterData> = {};
+    deepFlat(filters).map(({type, name}) => {
+      set(newData, name, initialValue(type));
+    });
+    handleFilter(newData as FilterData);
   };
 
   const {

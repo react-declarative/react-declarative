@@ -11,10 +11,10 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import classNames from '../../../utils/classNames';
 
 const getWeekdaysMin = () => {
-  const { weekdays, weekdaysMin, weekStart } = dayjs.Ls[dayjs.locale()];
-  let days = weekdaysMin || weekdays;
-  days = [...days!.slice(weekStart, 7), ...days!.slice(0, weekStart)];
-  return days.map((day) => day.slice(0, 3).toUpperCase());
+  const { weekdays, weekdaysMin, weekStart = 0 } = dayjs.Ls[dayjs.locale()];
+  const days = weekdaysMin! || weekdays;
+  const result = [...days.slice(weekStart, 7), ...days.slice(0,weekStart)];
+  return result.map((d) => d.slice(0, 1).toUpperCase());
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +69,7 @@ export const CalendarHeader = ({
       </div>
       <div className={classes.daysHeader}>
         { getWeekdaysMin().map((day, index) => (
-          <div key={day} className={classNames(classes.dayLabel, {
+          <div key={index} className={classNames(classes.dayLabel, {
             [classes.dayLabelStart]: index === 0,
             [classes.dayLabelEnd]: index === 6,
           })}> { day } </div>
