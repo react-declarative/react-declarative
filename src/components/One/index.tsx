@@ -21,10 +21,6 @@ import arrays from '../../utils/arrays';
 import useStatic from '../../hooks/useStatic';
 import useResolved from '../../hooks/useResolved';
 
-import AutocompleteHelper from '../../helpers/AutocompleteHelper';
-import deepClone from '../../utils/deepClone';
-import set from '../../utils/set';
-
 const useStyles = makeStyles({
   hidden: {
     display: 'none',
@@ -65,13 +61,6 @@ export const One = <Data extends IAnything = IAnything>({
       setObject(newData);
     }
   };
-  const handleAutocomplete = (name: string, value: any) => {
-    const copy = deepClone(object);
-    if (!set(copy, name, value)) {
-      throw new Error(`One error invalid name specified "${name}"`);
-    }
-    setObject(copy);
-  };
   const params = {
     ...props,
     fields: fieldsSnapshot,
@@ -80,16 +69,14 @@ export const One = <Data extends IAnything = IAnything>({
     handler: object!,
   };
   return (
-    <AutocompleteHelper handleWrite={handleAutocomplete}>
-      <Fragment>
-        {object && (
-          <Group className={classNames({[classes.hidden]: !visible})}>
-            <OneInternal {...params} />
-          </Group>
-        )}
-        {!visible && LoadPlaceholder}
-      </Fragment>
-    </AutocompleteHelper>
+    <Fragment>
+      {object && (
+        <Group className={classNames({[classes.hidden]: !visible})}>
+          <OneInternal {...params} />
+        </Group>
+      )}
+      {!visible && LoadPlaceholder}
+    </Fragment>
   );
 };
 

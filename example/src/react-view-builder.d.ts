@@ -14,6 +14,7 @@ declare module 'react-view-builder' {
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
     import { IListColumns as IListColumnsInternal } from 'react-view-builder/model/IListProps';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/IListProps';
+    import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
     export const FieldType: typeof FieldTypeInternal;
     export const ActionType: typeof ActionTypeInternal;

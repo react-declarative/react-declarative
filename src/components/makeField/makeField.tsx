@@ -22,9 +22,6 @@ import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
-import { useAutocompleteHelper } from '../../helpers/AutocompleteHelper';
-import useAutocomplete from '../../hooks/useAutocomplete';
-
 const stretch = {
     display: 'flex',
     alignItems: 'stretch',
@@ -50,7 +47,6 @@ const useStyles = makeStyles({
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
     skipValueSnapshot?: boolean;
-    useAutocomplete?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -68,7 +64,6 @@ export function makeField(
     Component: React.FC<IManaged>,
     config: IConfig = {
         skipDebounce: false,
-        useAutocomplete: false,
         defaultProps: { },
         skipValueSnapshot: false,
     },
@@ -98,7 +93,6 @@ export function makeField(
     }: IEntity<Data>) => {
 
         const groupRef: React.MutableRefObject<HTMLDivElement> = useRef(null as never);
-        const autocomplete = useAutocompleteHelper();
 
         const classes = useStyles();
 
@@ -108,7 +102,6 @@ export function makeField(
         const [dirty, setDirty] = useState<boolean>(false);
 
         const inputUpdate = useRef(false);
-        const autocompleteUpdate = useRef(false);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
@@ -157,13 +150,6 @@ export function makeField(
             ready();
         }, [object]);
 
-        if (config.useAutocomplete) {
-            useAutocomplete(groupRef, (target) => {
-                autocompleteUpdate.current = true;
-                autocomplete(name, target.value);
-            });
-        }
-
         /**
          * Эффект исходящего изменения. Привязан на изменение
          * value, обернутое в хук useDebounce для оптимизации
@@ -210,10 +196,6 @@ export function makeField(
             if (compute) {
                 return;
             }
-            if (inputUpdate.current) {
-                inputUpdate.current = false;
-            }
-            setValueSnapshot(newValue);
             setValue(newValue);
             setDirty(true);
         };

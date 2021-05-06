@@ -8,6 +8,8 @@ import { IListAction as IListActionInternal } from './model/IListProps';
 import { IListColumns as IListColumnsInternal } from './model/IListProps';
 import { ActionType as ActionTypeInternal } from './model/IListProps';
 
+import "vanilla-autofill-event";
+
 import { useDate, useTime } from './components';
 
 export const FieldType = FieldTypeInternal;
