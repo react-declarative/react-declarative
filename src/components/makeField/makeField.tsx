@@ -22,6 +22,7 @@ import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
+import { useAutocompleteHelper } from '../../helpers/AutocompleteHelper';
 import useAutocomplete from '../../hooks/useAutocomplete';
 
 const stretch = {
@@ -97,6 +98,7 @@ export function makeField(
     }: IEntity<Data>) => {
 
         const groupRef: React.MutableRefObject<HTMLDivElement> = useRef(null as never);
+        const autocomplete = useAutocompleteHelper();
 
         const classes = useStyles();
 
@@ -106,6 +108,7 @@ export function makeField(
         const [dirty, setDirty] = useState<boolean>(false);
 
         const inputUpdate = useRef(false);
+        const autocompleteUpdate = useRef(false);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
@@ -155,7 +158,10 @@ export function makeField(
         }, [object]);
 
         if (config.useAutocomplete) {
-            useAutocomplete(groupRef, (target) => setValue(target.value));
+            useAutocomplete(groupRef, (target) => {
+                autocompleteUpdate.current = true;
+                autocomplete(name, target.value);
+            });
         }
 
         /**
@@ -203,6 +209,9 @@ export function makeField(
             }
             if (compute) {
                 return;
+            }
+            if (inputUpdate.current) {
+                inputUpdate.current = false;
             }
             setValueSnapshot(newValue);
             setValue(newValue);
