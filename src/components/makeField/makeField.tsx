@@ -46,7 +46,6 @@ const useStyles = makeStyles({
 
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
-    skipValueSnapshot?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -65,7 +64,6 @@ export function makeField(
     config: IConfig = {
         skipDebounce: false,
         defaultProps: { },
-        skipValueSnapshot: false,
     },
 ) {
     const component = <Data extends IAnything = IAnything>({
@@ -107,7 +105,6 @@ export function makeField(
          * Чтобы поле input было React-управляемым, нельзя
          * передавать в свойство value значение null
          */
-        const [valueSnapshot, setValueSnapshot] = useState<Value>(false);
         const [value, setValue] = useState<Value>(false);
 
         const [debouncedValue, { pending, flush }] = useDebounce(
@@ -130,13 +127,9 @@ export function makeField(
                 const invalid = isInvalid(object);
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
-                if (!config.skipValueSnapshot) {
-                    isOk = isOk && newValue !== valueSnapshot;
-                }
                 isOk = isOk && !wasInvalid;
                 if (isOk) {
                     inputUpdate.current = true;
-                    setValueSnapshot(newValue);
                     setValue(newValue);
                 }
                 setDisabled(disabled);

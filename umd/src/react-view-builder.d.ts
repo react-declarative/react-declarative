@@ -464,7 +464,6 @@ declare module 'react-view-builder/model/IManaged' {
             invalid: string | null;
             onChange: (v: Value, config?: {
                     skipReadonly?: boolean;
-                    skipValueSnapshot?: boolean;
             }) => void;
     }
     export default IManaged;
