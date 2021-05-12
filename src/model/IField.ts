@@ -260,10 +260,26 @@ export interface IField<Data = IAnything> {
     phoneHeight?: string;
     tabletHeight?: string;
     desktopHeight?: string;
+    minHeight?: string;
+    phoneMinHeight?: string;
+    tabletMinHeight?: string;
+    desktopMinHeight?: string;
+    maxHeight?: string;
+    phoneMaxHeight?: string;
+    tabletMaxHeight?: string;
+    desktopMaxHeight?: string;
     width?: string;
     phoneWidth?: string;
     tabletWidth?: string;
     desktopWidth?: string;
+    minWidth?: string;
+    phoneMinWidth?: string;
+    tabletMinWidth?: string;
+    desktopMinWidth?: string;
+    maxWidth?: string;
+    phoneMaxWidth?: string;
+    tabletMaxWidth?: string;
+    desktopMaxWidth?: string;
   }
 
 export default IField;

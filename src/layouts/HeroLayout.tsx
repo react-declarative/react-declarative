@@ -20,6 +20,7 @@ import Group, { IGroupProps } from '../components/common/Group';
 
 const DEFAULT_MARGIN = '0px';
 const DEFAULT_SIZE = '100%';
+const DEFAULT_E_SIZE = 'unset';
 
 const GRID_MAX_WIDTH = 9999999999999999;
 const FIELD_NEVER_MARGIN = '0';
@@ -60,11 +61,39 @@ interface IHeroHeight<Data = IAnything>  {
   desktopHeight: PickProp<IField<Data>, 'desktopHeight'>;
 }
 
+interface IHeroMinHeight<Data = IAnything>  {
+  minHeight: PickProp<IField<Data>, 'minHeight'>;
+  phoneMinHeight: PickProp<IField<Data>, 'phoneMinHeight'>;
+  tabletMinHeight: PickProp<IField<Data>, 'tabletMinHeight'>;
+  desktopMinHeight: PickProp<IField<Data>, 'desktopMinHeight'>;
+}
+
+interface IHeroMaxHeight<Data = IAnything>  {
+  maxHeight: PickProp<IField<Data>, 'maxHeight'>;
+  phoneMaxHeight: PickProp<IField<Data>, 'phoneMaxHeight'>;
+  tabletMaxHeight: PickProp<IField<Data>, 'tabletMaxHeight'>;
+  desktopMaxHeight: PickProp<IField<Data>, 'desktopMaxHeight'>;
+}
+
 interface IHeroWidth<Data = IAnything>  {
   width: PickProp<IField<Data>, 'width'>;
   phoneWidth: PickProp<IField<Data>, 'phoneWidth'>;
   tabletWidth: PickProp<IField<Data>, 'tabletWidth'>;
   desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
+}
+
+interface IHeroMinWidth<Data = IAnything>  {
+  minWidth: PickProp<IField<Data>, 'minWidth'>;
+  phoneMinWidth: PickProp<IField<Data>, 'phoneMinWidth'>;
+  tabletMinWidth: PickProp<IField<Data>, 'tabletMinWidth'>;
+  desktopMinWidth: PickProp<IField<Data>, 'desktopMinWidth'>;
+}
+
+interface IHeroMaxWidth<Data = IAnything>  {
+  maxWidth: PickProp<IField<Data>, 'maxWidth'>;
+  phoneMaxWidth: PickProp<IField<Data>, 'phoneMaxWidth'>;
+  tabletMaxWidth: PickProp<IField<Data>, 'tabletMaxWidth'>;
+  desktopMaxWidth: PickProp<IField<Data>, 'desktopMaxWidth'>;
 }
 
 type IHeroRegistry<D = IAnything> = 
@@ -74,7 +103,11 @@ type IHeroRegistry<D = IAnything> =
       & IHeroRight<D>
       & IHeroBottom<D>
       & IHeroWidth<D>
+      & IHeroMinWidth<D>
+      & IHeroMaxWidth<D>
       & IHeroHeight<D>
+      & IHeroMinHeight<D>
+      & IHeroMaxHeight<D>
   >;
 
 const useStyles = makeStyles({
@@ -167,6 +200,10 @@ const Container = <Data extends IAnything>({
     const innerStyles: React.CSSProperties = {};
 
     if (isDesktop) {
+      outerStyles.minHeight = registry.desktopMinHeight || registry.minHeight || DEFAULT_E_SIZE;
+      outerStyles.maxHeight = registry.desktopMaxHeight || registry.maxHeight || DEFAULT_E_SIZE;
+      outerStyles.minWidth = registry.desktopMinWidth || registry.minWidth || DEFAULT_E_SIZE;
+      outerStyles.maxWidth = registry.desktopMaxWidth || registry.maxWidth || DEFAULT_E_SIZE;
       outerStyles.height = registry.desktopHeight || registry.height || DEFAULT_SIZE;
       outerStyles.width = registry.desktopWidth || registry.width || DEFAULT_SIZE;
       innerStyles.top =  registry.desktopTop || registry.top || DEFAULT_MARGIN;
@@ -174,6 +211,10 @@ const Container = <Data extends IAnything>({
       innerStyles.right = registry.desktopRight || registry.right || DEFAULT_MARGIN;
       innerStyles.bottom = registry.desktopBottom || registry.bottom || DEFAULT_MARGIN;
     } else if (isTablet) {
+      outerStyles.minHeight = registry.tabletMinHeight || registry.minHeight || DEFAULT_E_SIZE;
+      outerStyles.maxHeight = registry.tabletMaxHeight || registry.maxHeight || DEFAULT_E_SIZE;
+      outerStyles.minWidth = registry.tabletMinWidth || registry.minWidth || DEFAULT_E_SIZE;
+      outerStyles.maxWidth = registry.tabletMaxWidth || registry.maxWidth || DEFAULT_E_SIZE;
       outerStyles.height = registry.tabletHeight || registry.height || DEFAULT_SIZE;
       outerStyles.width = registry.tabletWidth || registry.width || DEFAULT_SIZE;
       innerStyles.top =  registry.tabletTop || registry.top || DEFAULT_MARGIN;
@@ -181,6 +222,10 @@ const Container = <Data extends IAnything>({
       innerStyles.right = registry.tabletRight || registry.right || DEFAULT_MARGIN;
       innerStyles.bottom = registry.tabletBottom || registry.bottom || DEFAULT_MARGIN;
     } else if (isPhone) {
+      outerStyles.minHeight = registry.phoneMinHeight || registry.minHeight || DEFAULT_E_SIZE;
+      outerStyles.maxHeight = registry.phoneMaxHeight || registry.maxHeight || DEFAULT_E_SIZE;
+      outerStyles.minWidth = registry.phoneMinWidth || registry.minWidth || DEFAULT_E_SIZE;
+      outerStyles.maxWidth = registry.phoneMaxWidth || registry.maxWidth || DEFAULT_E_SIZE;
       outerStyles.height = registry.phoneHeight || registry.height || DEFAULT_SIZE;
       outerStyles.width = registry.phoneWidth || registry.width || DEFAULT_SIZE;
       innerStyles.top =  registry.phoneTop || registry.top || DEFAULT_MARGIN;

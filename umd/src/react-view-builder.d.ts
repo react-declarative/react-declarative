@@ -355,10 +355,26 @@ declare module 'react-view-builder/model/IField' {
             phoneHeight?: string;
             tabletHeight?: string;
             desktopHeight?: string;
+            minHeight?: string;
+            phoneMinHeight?: string;
+            tabletMinHeight?: string;
+            desktopMinHeight?: string;
+            maxHeight?: string;
+            phoneMaxHeight?: string;
+            tabletMaxHeight?: string;
+            desktopMaxHeight?: string;
             width?: string;
             phoneWidth?: string;
             tabletWidth?: string;
             desktopWidth?: string;
+            minWidth?: string;
+            phoneMinWidth?: string;
+            tabletMinWidth?: string;
+            desktopMinWidth?: string;
+            maxWidth?: string;
+            phoneMaxWidth?: string;
+            tabletMaxWidth?: string;
+            desktopMaxWidth?: string;
     }
     export default IField;
 }
@@ -621,13 +637,37 @@ declare module 'react-view-builder/layouts/HeroLayout' {
         tabletHeight: PickProp<IField<Data>, 'tabletHeight'>;
         desktopHeight: PickProp<IField<Data>, 'desktopHeight'>;
     }
+    interface IHeroMinHeight<Data = IAnything> {
+        minHeight: PickProp<IField<Data>, 'minHeight'>;
+        phoneMinHeight: PickProp<IField<Data>, 'phoneMinHeight'>;
+        tabletMinHeight: PickProp<IField<Data>, 'tabletMinHeight'>;
+        desktopMinHeight: PickProp<IField<Data>, 'desktopMinHeight'>;
+    }
+    interface IHeroMaxHeight<Data = IAnything> {
+        maxHeight: PickProp<IField<Data>, 'maxHeight'>;
+        phoneMaxHeight: PickProp<IField<Data>, 'phoneMaxHeight'>;
+        tabletMaxHeight: PickProp<IField<Data>, 'tabletMaxHeight'>;
+        desktopMaxHeight: PickProp<IField<Data>, 'desktopMaxHeight'>;
+    }
     interface IHeroWidth<Data = IAnything> {
         width: PickProp<IField<Data>, 'width'>;
         phoneWidth: PickProp<IField<Data>, 'phoneWidth'>;
         tabletWidth: PickProp<IField<Data>, 'tabletWidth'>;
         desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
     }
-    type IHeroRegistry<D = IAnything> = DeepPartial<IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroHeight<D>>;
+    interface IHeroMinWidth<Data = IAnything> {
+        minWidth: PickProp<IField<Data>, 'minWidth'>;
+        phoneMinWidth: PickProp<IField<Data>, 'phoneMinWidth'>;
+        tabletMinWidth: PickProp<IField<Data>, 'tabletMinWidth'>;
+        desktopMinWidth: PickProp<IField<Data>, 'desktopMinWidth'>;
+    }
+    interface IHeroMaxWidth<Data = IAnything> {
+        maxWidth: PickProp<IField<Data>, 'maxWidth'>;
+        phoneMaxWidth: PickProp<IField<Data>, 'phoneMaxWidth'>;
+        tabletMaxWidth: PickProp<IField<Data>, 'tabletMaxWidth'>;
+        desktopMaxWidth: PickProp<IField<Data>, 'desktopMaxWidth'>;
+    }
+    type IHeroRegistry<D = IAnything> = DeepPartial<IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroMinWidth<D> & IHeroMaxWidth<D> & IHeroHeight<D> & IHeroMinHeight<D> & IHeroMaxHeight<D>>;
     type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
         fieldRightMargin: never;
         fieldBottomMargin: never;
