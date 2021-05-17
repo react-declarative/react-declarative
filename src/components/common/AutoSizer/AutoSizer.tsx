@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useLayoutEffect, useRef } from "react";
 import { debounce } from "@material-ui/core";
 
-declare var ResizeObserver: any;
+import ResizeEmitter from "./ResizeEmitter";
 
 export interface ISize {
   height: number;
@@ -74,17 +74,22 @@ export const AutoSizer = ({
       }
     };
 
-    const observer = new ResizeObserver(
-      debounce(handler, delay)
-    );
+    const { _emitters: emitters } = AutoSizer;
+    let observer: ResizeEmitter;
 
-    observer.observe(element);
+    if (emitters.has(element)) {
+      observer = emitters.get(element)!;
+    } else {
+      observer = new ResizeEmitter(element);
+      emitters.set(element, observer);
+    }
 
+    const handlerD = debounce(handler, delay);
+    observer.subscribe(handlerD);
     handler();
 
     return () => {
-      observer.unobserve(element);
-      observer.disconnect();
+      observer.unsubscribe(handlerD);
     };
   }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize]);
 
@@ -118,5 +123,7 @@ export const AutoSizer = ({
     </div>
   );
 };
+
+AutoSizer._emitters = new WeakMap<HTMLElement, ResizeEmitter>();
 
 export default AutoSizer;
