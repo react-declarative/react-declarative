@@ -11,7 +11,10 @@ export class ResizeEmitter {
   private observer: typeof ResizeObserver;
   private disposeTimeout: NodeJS.Timeout | null = null;
 
-  constructor(private target: HTMLElement) {
+  constructor(
+    private target: HTMLElement,
+    private onDispose: Callback,
+  ) {
     this.observer = new ResizeObserver(this.broadcast);
     this.observer.observe(this.target);
   }
@@ -42,6 +45,7 @@ export class ResizeEmitter {
       if (this.subscribers.length === 0) {
         this.observer.unobserve(this.target);
         this.observer.disconnect();
+        this.onDispose();
       }
     }, DISPOSE_CHECK_DELAY);
   }

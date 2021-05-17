@@ -80,7 +80,9 @@ export const AutoSizer = ({
     if (emitters.has(element)) {
       observer = emitters.get(element)!;
     } else {
-      observer = new ResizeEmitter(element);
+      observer = new ResizeEmitter(element, () => {
+        emitters.delete(element);
+      });
       emitters.set(element, observer);
     }
 
