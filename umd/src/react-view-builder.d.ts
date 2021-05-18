@@ -128,6 +128,7 @@ declare module 'react-view-builder/model/FieldType' {
 
 declare module 'react-view-builder/model/IField' {
     import * as React from 'react';
+    import { ISizeCallback } from 'react-view-builder/model/ISize';
     import FieldType from 'react-view-builder/model/FieldType';
     import IAnything from 'react-view-builder/model/IAnything';
     /**
@@ -335,46 +336,46 @@ declare module 'react-view-builder/model/IField' {
             /**
                 * Свойства для компоновки Hero - инструмента настройки отступов
                 */
-            top?: string;
-            phoneTop?: string;
-            tabletTop?: string;
-            desktopTop?: string;
-            left?: string;
-            phoneLeft?: string;
-            tabletLeft?: string;
-            desktopLeft?: string;
-            right?: string;
-            phoneRight?: string;
-            tabletRight?: string;
-            desktopRight?: string;
-            bottom?: string;
-            phoneBottom?: string;
-            tabletBottom?: string;
-            desktopBottom?: string;
-            height?: string;
-            phoneHeight?: string;
-            tabletHeight?: string;
-            desktopHeight?: string;
-            minHeight?: string;
-            phoneMinHeight?: string;
-            tabletMinHeight?: string;
-            desktopMinHeight?: string;
-            maxHeight?: string;
-            phoneMaxHeight?: string;
-            tabletMaxHeight?: string;
-            desktopMaxHeight?: string;
-            width?: string;
-            phoneWidth?: string;
-            tabletWidth?: string;
-            desktopWidth?: string;
-            minWidth?: string;
-            phoneMinWidth?: string;
-            tabletMinWidth?: string;
-            desktopMinWidth?: string;
-            maxWidth?: string;
-            phoneMaxWidth?: string;
-            tabletMaxWidth?: string;
-            desktopMaxWidth?: string;
+            top?: string | ISizeCallback<Data>;
+            phoneTop?: string | ISizeCallback<Data>;
+            tabletTop?: string | ISizeCallback<Data>;
+            desktopTop?: string | ISizeCallback<Data>;
+            left?: string | ISizeCallback<Data>;
+            phoneLeft?: string | ISizeCallback<Data>;
+            tabletLeft?: string | ISizeCallback<Data>;
+            desktopLeft?: string | ISizeCallback<Data>;
+            right?: string | ISizeCallback<Data>;
+            phoneRight?: string | ISizeCallback<Data>;
+            tabletRight?: string | ISizeCallback<Data>;
+            desktopRight?: string | ISizeCallback<Data>;
+            bottom?: string | ISizeCallback<Data>;
+            phoneBottom?: string | ISizeCallback<Data>;
+            tabletBottom?: string | ISizeCallback<Data>;
+            desktopBottom?: string | ISizeCallback<Data>;
+            height?: string | ISizeCallback<Data>;
+            phoneHeight?: string | ISizeCallback<Data>;
+            tabletHeight?: string | ISizeCallback<Data>;
+            desktopHeight?: string | ISizeCallback<Data>;
+            minHeight?: string | ISizeCallback<Data>;
+            phoneMinHeight?: string | ISizeCallback<Data>;
+            tabletMinHeight?: string | ISizeCallback<Data>;
+            desktopMinHeight?: string | ISizeCallback<Data>;
+            maxHeight?: string | ISizeCallback<Data>;
+            phoneMaxHeight?: string | ISizeCallback<Data>;
+            tabletMaxHeight?: string | ISizeCallback<Data>;
+            desktopMaxHeight?: string | ISizeCallback<Data>;
+            width?: string | ISizeCallback<Data>;
+            phoneWidth?: string | ISizeCallback<Data>;
+            tabletWidth?: string | ISizeCallback<Data>;
+            desktopWidth?: string | ISizeCallback<Data>;
+            minWidth?: string | ISizeCallback<Data>;
+            phoneMinWidth?: string | ISizeCallback<Data>;
+            tabletMinWidth?: string | ISizeCallback<Data>;
+            desktopMinWidth?: string | ISizeCallback<Data>;
+            maxWidth?: string | ISizeCallback<Data>;
+            phoneMaxWidth?: string | ISizeCallback<Data>;
+            tabletMaxWidth?: string | ISizeCallback<Data>;
+            desktopMaxWidth?: string | ISizeCallback<Data>;
     }
     export default IField;
 }
@@ -605,69 +606,70 @@ declare module 'react-view-builder/layouts/HeroLayout' {
     import { Theme } from '@material-ui/core/styles/createMuiTheme';
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
-    import { DeepPartial, PickProp } from 'react-view-builder/model/IManaged';
+    import { PickProp } from 'react-view-builder/model/IManaged';
     import Group, { IGroupProps } from 'react-view-builder/components/common/Group';
+    import IEntity from 'react-view-builder/model/IEntity';
     interface IHeroTop<Data = IAnything> {
-        top: PickProp<IField<Data>, 'top'>;
-        phoneTop: PickProp<IField<Data>, 'phoneTop'>;
-        tabletTop: PickProp<IField<Data>, 'tabletTop'>;
-        desktopTop: PickProp<IField<Data>, 'desktopTop'>;
+        top?: PickProp<IField<Data>, 'top'>;
+        phoneTop?: PickProp<IField<Data>, 'phoneTop'>;
+        tabletTop?: PickProp<IField<Data>, 'tabletTop'>;
+        desktopTop?: PickProp<IField<Data>, 'desktopTop'>;
     }
     interface IHeroLeft<Data = IAnything> {
-        left: PickProp<IField<Data>, 'left'>;
-        phoneLeft: PickProp<IField<Data>, 'phoneLeft'>;
-        tabletLeft: PickProp<IField<Data>, 'tabletLeft'>;
-        desktopLeft: PickProp<IField<Data>, 'desktopLeft'>;
+        left?: PickProp<IField<Data>, 'left'>;
+        phoneLeft?: PickProp<IField<Data>, 'phoneLeft'>;
+        tabletLeft?: PickProp<IField<Data>, 'tabletLeft'>;
+        desktopLeft?: PickProp<IField<Data>, 'desktopLeft'>;
     }
     interface IHeroRight<Data = IAnything> {
-        right: PickProp<IField<Data>, 'right'>;
-        phoneRight: PickProp<IField<Data>, 'phoneRight'>;
-        tabletRight: PickProp<IField<Data>, 'tabletRight'>;
-        desktopRight: PickProp<IField<Data>, 'desktopRight'>;
+        right?: PickProp<IField<Data>, 'right'>;
+        phoneRight?: PickProp<IField<Data>, 'phoneRight'>;
+        tabletRight?: PickProp<IField<Data>, 'tabletRight'>;
+        desktopRight?: PickProp<IField<Data>, 'desktopRight'>;
     }
     interface IHeroBottom<Data = IAnything> {
-        bottom: PickProp<IField<Data>, 'bottom'>;
-        phoneBottom: PickProp<IField<Data>, 'phoneBottom'>;
-        tabletBottom: PickProp<IField<Data>, 'tabletBottom'>;
-        desktopBottom: PickProp<IField<Data>, 'desktopBottom'>;
+        bottom?: PickProp<IField<Data>, 'bottom'>;
+        phoneBottom?: PickProp<IField<Data>, 'phoneBottom'>;
+        tabletBottom?: PickProp<IField<Data>, 'tabletBottom'>;
+        desktopBottom?: PickProp<IField<Data>, 'desktopBottom'>;
     }
     interface IHeroHeight<Data = IAnything> {
-        height: PickProp<IField<Data>, 'height'>;
-        phoneHeight: PickProp<IField<Data>, 'phoneHeight'>;
-        tabletHeight: PickProp<IField<Data>, 'tabletHeight'>;
-        desktopHeight: PickProp<IField<Data>, 'desktopHeight'>;
+        height?: PickProp<IField<Data>, 'height'>;
+        phoneHeight?: PickProp<IField<Data>, 'phoneHeight'>;
+        tabletHeight?: PickProp<IField<Data>, 'tabletHeight'>;
+        desktopHeight?: PickProp<IField<Data>, 'desktopHeight'>;
     }
     interface IHeroMinHeight<Data = IAnything> {
-        minHeight: PickProp<IField<Data>, 'minHeight'>;
-        phoneMinHeight: PickProp<IField<Data>, 'phoneMinHeight'>;
-        tabletMinHeight: PickProp<IField<Data>, 'tabletMinHeight'>;
-        desktopMinHeight: PickProp<IField<Data>, 'desktopMinHeight'>;
+        minHeight?: PickProp<IField<Data>, 'minHeight'>;
+        phoneMinHeight?: PickProp<IField<Data>, 'phoneMinHeight'>;
+        tabletMinHeight?: PickProp<IField<Data>, 'tabletMinHeight'>;
+        desktopMinHeight?: PickProp<IField<Data>, 'desktopMinHeight'>;
     }
     interface IHeroMaxHeight<Data = IAnything> {
-        maxHeight: PickProp<IField<Data>, 'maxHeight'>;
-        phoneMaxHeight: PickProp<IField<Data>, 'phoneMaxHeight'>;
-        tabletMaxHeight: PickProp<IField<Data>, 'tabletMaxHeight'>;
-        desktopMaxHeight: PickProp<IField<Data>, 'desktopMaxHeight'>;
+        maxHeight?: PickProp<IField<Data>, 'maxHeight'>;
+        phoneMaxHeight?: PickProp<IField<Data>, 'phoneMaxHeight'>;
+        tabletMaxHeight?: PickProp<IField<Data>, 'tabletMaxHeight'>;
+        desktopMaxHeight?: PickProp<IField<Data>, 'desktopMaxHeight'>;
     }
     interface IHeroWidth<Data = IAnything> {
-        width: PickProp<IField<Data>, 'width'>;
-        phoneWidth: PickProp<IField<Data>, 'phoneWidth'>;
-        tabletWidth: PickProp<IField<Data>, 'tabletWidth'>;
-        desktopWidth: PickProp<IField<Data>, 'desktopWidth'>;
+        width?: PickProp<IField<Data>, 'width'>;
+        phoneWidth?: PickProp<IField<Data>, 'phoneWidth'>;
+        tabletWidth?: PickProp<IField<Data>, 'tabletWidth'>;
+        desktopWidth?: PickProp<IField<Data>, 'desktopWidth'>;
     }
     interface IHeroMinWidth<Data = IAnything> {
-        minWidth: PickProp<IField<Data>, 'minWidth'>;
-        phoneMinWidth: PickProp<IField<Data>, 'phoneMinWidth'>;
-        tabletMinWidth: PickProp<IField<Data>, 'tabletMinWidth'>;
-        desktopMinWidth: PickProp<IField<Data>, 'desktopMinWidth'>;
+        minWidth?: PickProp<IField<Data>, 'minWidth'>;
+        phoneMinWidth?: PickProp<IField<Data>, 'phoneMinWidth'>;
+        tabletMinWidth?: PickProp<IField<Data>, 'tabletMinWidth'>;
+        desktopMinWidth?: PickProp<IField<Data>, 'desktopMinWidth'>;
     }
     interface IHeroMaxWidth<Data = IAnything> {
-        maxWidth: PickProp<IField<Data>, 'maxWidth'>;
-        phoneMaxWidth: PickProp<IField<Data>, 'phoneMaxWidth'>;
-        tabletMaxWidth: PickProp<IField<Data>, 'tabletMaxWidth'>;
-        desktopMaxWidth: PickProp<IField<Data>, 'desktopMaxWidth'>;
+        maxWidth?: PickProp<IField<Data>, 'maxWidth'>;
+        phoneMaxWidth?: PickProp<IField<Data>, 'phoneMaxWidth'>;
+        tabletMaxWidth?: PickProp<IField<Data>, 'tabletMaxWidth'>;
+        desktopMaxWidth?: PickProp<IField<Data>, 'desktopMaxWidth'>;
     }
-    type IHeroRegistry<D = IAnything> = DeepPartial<IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroMinWidth<D> & IHeroMaxWidth<D> & IHeroHeight<D> & IHeroMinHeight<D> & IHeroMaxHeight<D>>;
+    type IHeroRegistry<D = IAnything> = IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroMinWidth<D> & IHeroMaxWidth<D> & IHeroHeight<D> & IHeroMinHeight<D> & IHeroMaxHeight<D>;
     type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
         fieldRightMargin: never;
         fieldBottomMargin: never;
@@ -675,17 +677,18 @@ declare module 'react-view-builder/layouts/HeroLayout' {
     export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data>, Group<Data> {
         className?: PickProp<IField<Data>, 'className'>;
         style?: PickProp<IField<Data>, 'style'>;
+        object: PickProp<IEntity<Data>, 'object'>;
     }
     interface IHeroLayoutPrivate {
         children: React.ReactChild;
         theme?: Theme;
     }
     export const HeroLayout: {
-        <Data extends unknown = any>({ children, theme, className, style, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, theme, className, style, object, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, theme, className, style, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, theme, className, style, object, columns, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -997,6 +1000,16 @@ declare module 'react-view-builder/fields/TypographyField' {
         displayName: string;
     };
     export default _default;
+}
+
+declare module 'react-view-builder/model/ISize' {
+    import IAnything from 'react-view-builder/model/IAnything';
+    export interface ISize {
+        height: number;
+        width: number;
+    }
+    export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize) => string;
+    export default ISize;
 }
 
 declare module 'react-view-builder/components/One' {

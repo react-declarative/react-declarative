@@ -4,10 +4,7 @@ import { debounce } from "@material-ui/core";
 
 import ResizeEmitter from "./ResizeEmitter";
 
-export interface ISize {
-  height: number;
-  width: number;
-}
+import ISize from "../../../model/ISize";
 
 interface IAutoSizerProps {
   children: (s: ISize) => any;

@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { ISizeCallback } from './ISize';
+
 import FieldType from './FieldType';
 import IAnything from './IAnything';
 
@@ -240,46 +242,46 @@ export interface IField<Data = IAnything> {
     /**
      * Свойства для компоновки Hero - инструмента настройки отступов
      */
-    top?: string;
-    phoneTop?: string;
-    tabletTop?: string;
-    desktopTop?: string;
-    left?: string;
-    phoneLeft?: string;
-    tabletLeft?: string;
-    desktopLeft?: string;
-    right?: string;
-    phoneRight?: string;
-    tabletRight?: string;
-    desktopRight?: string;
-    bottom?: string;
-    phoneBottom?: string;
-    tabletBottom?: string;
-    desktopBottom?: string;
-    height?: string;
-    phoneHeight?: string;
-    tabletHeight?: string;
-    desktopHeight?: string;
-    minHeight?: string;
-    phoneMinHeight?: string;
-    tabletMinHeight?: string;
-    desktopMinHeight?: string;
-    maxHeight?: string;
-    phoneMaxHeight?: string;
-    tabletMaxHeight?: string;
-    desktopMaxHeight?: string;
-    width?: string;
-    phoneWidth?: string;
-    tabletWidth?: string;
-    desktopWidth?: string;
-    minWidth?: string;
-    phoneMinWidth?: string;
-    tabletMinWidth?: string;
-    desktopMinWidth?: string;
-    maxWidth?: string;
-    phoneMaxWidth?: string;
-    tabletMaxWidth?: string;
-    desktopMaxWidth?: string;
+    top?: string | ISizeCallback<Data>;
+    phoneTop?: string | ISizeCallback<Data>;
+    tabletTop?: string | ISizeCallback<Data>;
+    desktopTop?: string | ISizeCallback<Data>;
+    left?: string | ISizeCallback<Data>;
+    phoneLeft?: string | ISizeCallback<Data>;
+    tabletLeft?: string | ISizeCallback<Data>;
+    desktopLeft?: string | ISizeCallback<Data>;
+    right?: string | ISizeCallback<Data>;
+    phoneRight?: string | ISizeCallback<Data>;
+    tabletRight?: string | ISizeCallback<Data>;
+    desktopRight?: string | ISizeCallback<Data>;
+    bottom?: string | ISizeCallback<Data>;
+    phoneBottom?: string | ISizeCallback<Data>;
+    tabletBottom?: string | ISizeCallback<Data>;
+    desktopBottom?: string | ISizeCallback<Data>;
+    height?: string | ISizeCallback<Data>;
+    phoneHeight?: string | ISizeCallback<Data>;
+    tabletHeight?: string | ISizeCallback<Data>;
+    desktopHeight?: string | ISizeCallback<Data>;
+    minHeight?: string | ISizeCallback<Data>;
+    phoneMinHeight?: string | ISizeCallback<Data>;
+    tabletMinHeight?: string | ISizeCallback<Data>;
+    desktopMinHeight?: string | ISizeCallback<Data>;
+    maxHeight?: string | ISizeCallback<Data>;
+    phoneMaxHeight?: string | ISizeCallback<Data>;
+    tabletMaxHeight?: string | ISizeCallback<Data>;
+    desktopMaxHeight?: string | ISizeCallback<Data>;
+    width?: string | ISizeCallback<Data>;
+    phoneWidth?: string | ISizeCallback<Data>;
+    tabletWidth?: string | ISizeCallback<Data>;
+    desktopWidth?: string | ISizeCallback<Data>;
+    minWidth?: string | ISizeCallback<Data>;
+    phoneMinWidth?: string | ISizeCallback<Data>;
+    tabletMinWidth?: string | ISizeCallback<Data>;
+    desktopMinWidth?: string | ISizeCallback<Data>;
+    maxWidth?: string | ISizeCallback<Data>;
+    phoneMaxWidth?: string | ISizeCallback<Data>;
+    tabletMaxWidth?: string | ISizeCallback<Data>;
+    desktopMaxWidth?: string | ISizeCallback<Data>;
   }
 
 export default IField;
