@@ -282,6 +282,14 @@ export interface IField<Data = IAnything> {
     phoneMaxWidth?: string | ISizeCallback<Data>;
     tabletMaxWidth?: string | ISizeCallback<Data>;
     desktopMaxWidth?: string | ISizeCallback<Data>;
+    heroOuterStyle?: React.CSSProperties;
+    heroOuterPhoneStyle?: React.CSSProperties;
+    heroOuterTabletStyle?: React.CSSProperties;
+    heroOuterDesktopStyle?: React.CSSProperties;
+    heroInnerStyle?: React.CSSProperties;
+    heroInnerPhoneStyle?: React.CSSProperties;
+    heroInnerTabletStyle?: React.CSSProperties;
+    heroInnerDesktopStyle?: React.CSSProperties;
   }
 
 export default IField;

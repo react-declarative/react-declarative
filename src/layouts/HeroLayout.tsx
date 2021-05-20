@@ -98,6 +98,17 @@ interface IHeroMaxWidth<Data = IAnything>  {
   desktopMaxWidth?: PickProp<IField<Data>, 'desktopMaxWidth'>;
 }
 
+interface IHeroStyle<Data = IAnything>  {
+  heroOuterStyle?: PickProp<IField<Data>, 'heroOuterStyle'>;
+  heroOuterPhoneStyle?: PickProp<IField<Data>, 'heroOuterPhoneStyle'>;
+  heroOuterTabletStyle?: PickProp<IField<Data>, 'heroOuterTabletStyle'>;
+  heroOuterDesktopStyle?: PickProp<IField<Data>, 'heroOuterDesktopStyle'>;
+  heroInnerStyle?: PickProp<IField<Data>, 'heroInnerStyle'>;
+  heroInnerPhoneStyle?: PickProp<IField<Data>, 'heroInnerPhoneStyle'>;
+  heroInnerTabletStyle?: PickProp<IField<Data>, 'heroInnerTabletStyle'>;
+  heroInnerDesktopStyle?: PickProp<IField<Data>, 'heroInnerDesktopStyle'>;
+}
+
 type IHeroRegistry<D = IAnything> = 
   IHeroTop<D>
     & IHeroLeft<D>
@@ -108,7 +119,8 @@ type IHeroRegistry<D = IAnything> =
     & IHeroMaxWidth<D>
     & IHeroHeight<D>
     & IHeroMinHeight<D>
-    & IHeroMaxHeight<D>;
+    & IHeroMaxHeight<D>
+    & IHeroStyle<D>;
 
 const useStyles = makeStyles({
   root: {
@@ -201,8 +213,19 @@ const Container = <Data extends IAnything>({
 
   const [outerStyles, innerStyles] = useMemo(() => {
 
-    const outerStyles: React.CSSProperties = {};
-    const innerStyles: React.CSSProperties = {};
+    const outerStyles: React.CSSProperties = {
+      ...(isDesktop && (registry.heroOuterDesktopStyle || registry.heroOuterStyle)),
+      ...(isTablet && (registry.heroOuterTabletStyle || registry.heroOuterStyle)),
+      ...(isPhone && (registry.heroOuterPhoneStyle || registry.heroOuterStyle)),
+      ...(!isPhone && !isTablet && !isDesktop && registry.heroOuterStyle),
+    };
+
+    const innerStyles: React.CSSProperties = {
+      ...(isDesktop && (registry.heroInnerDesktopStyle || registry.heroInnerStyle)),
+      ...(isTablet && (registry.heroInnerTabletStyle || registry.heroInnerStyle)),
+      ...(isPhone && (registry.heroInnerPhoneStyle || registry.heroInnerStyle)),
+      ...(!isPhone && !isTablet && !isDesktop && registry.heroInnerStyle),
+    };
 
     const res = (value: ISizeCallback<Data> | string) => {
       if (typeof value === 'function') {

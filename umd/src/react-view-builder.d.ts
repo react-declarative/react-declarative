@@ -376,6 +376,14 @@ declare module 'react-view-builder/model/IField' {
             phoneMaxWidth?: string | ISizeCallback<Data>;
             tabletMaxWidth?: string | ISizeCallback<Data>;
             desktopMaxWidth?: string | ISizeCallback<Data>;
+            heroOuterStyle?: React.CSSProperties;
+            heroOuterPhoneStyle?: React.CSSProperties;
+            heroOuterTabletStyle?: React.CSSProperties;
+            heroOuterDesktopStyle?: React.CSSProperties;
+            heroInnerStyle?: React.CSSProperties;
+            heroInnerPhoneStyle?: React.CSSProperties;
+            heroInnerTabletStyle?: React.CSSProperties;
+            heroInnerDesktopStyle?: React.CSSProperties;
     }
     export default IField;
 }
@@ -669,7 +677,17 @@ declare module 'react-view-builder/layouts/HeroLayout' {
         tabletMaxWidth?: PickProp<IField<Data>, 'tabletMaxWidth'>;
         desktopMaxWidth?: PickProp<IField<Data>, 'desktopMaxWidth'>;
     }
-    type IHeroRegistry<D = IAnything> = IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroMinWidth<D> & IHeroMaxWidth<D> & IHeroHeight<D> & IHeroMinHeight<D> & IHeroMaxHeight<D>;
+    interface IHeroStyle<Data = IAnything> {
+        heroOuterStyle?: PickProp<IField<Data>, 'heroOuterStyle'>;
+        heroOuterPhoneStyle?: PickProp<IField<Data>, 'heroOuterPhoneStyle'>;
+        heroOuterTabletStyle?: PickProp<IField<Data>, 'heroOuterTabletStyle'>;
+        heroOuterDesktopStyle?: PickProp<IField<Data>, 'heroOuterDesktopStyle'>;
+        heroInnerStyle?: PickProp<IField<Data>, 'heroInnerStyle'>;
+        heroInnerPhoneStyle?: PickProp<IField<Data>, 'heroInnerPhoneStyle'>;
+        heroInnerTabletStyle?: PickProp<IField<Data>, 'heroInnerTabletStyle'>;
+        heroInnerDesktopStyle?: PickProp<IField<Data>, 'heroInnerDesktopStyle'>;
+    }
+    type IHeroRegistry<D = IAnything> = IHeroTop<D> & IHeroLeft<D> & IHeroRight<D> & IHeroBottom<D> & IHeroWidth<D> & IHeroMinWidth<D> & IHeroMaxWidth<D> & IHeroHeight<D> & IHeroMinHeight<D> & IHeroMaxHeight<D> & IHeroStyle<D>;
     type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
         fieldRightMargin: never;
         fieldBottomMargin: never;
