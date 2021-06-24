@@ -52,17 +52,16 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   ...otherProps
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
-  const initComplete = useRef(false);
 
   const [filterData, setFilterData] = useState<FilterData>({} as never);
+  const [initComplete, setInitComplete] = useState(false);
   const [rows, setRows] = useState<RowData[]>([]);
 
   const handleFilter = async (newData: FilterData) => {
+    setInitComplete(true);
     const rows = await Promise.resolve(handler(newData));
-    initComplete.current = true;
-    setTimeout(() => setRows(rows));
     setFilterData(newData);
-    setRows([]);
+    setRows(rows)
   };
 
   const handleDefault = () => {
@@ -74,8 +73,10 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   };
 
   useLayoutEffect(() => {
-    handleDefault();
-  }, []);
+    setTimeout(() => {
+      handleDefault();
+    }, 250);
+  }, [handler]);
 
   const {
     ColumnMenu,
@@ -134,7 +135,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>
-              {!!initComplete.current && (
+              {!!initComplete && (
                 <DataGrid
                   {...gridProps}
                   className={classNames(classes.stretch)}
