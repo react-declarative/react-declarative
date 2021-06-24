@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import { DataGrid } from '@material-ui/data-grid';
@@ -52,14 +52,15 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   ...otherProps
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
+  const initComplete = useRef(false);
 
   const [filterData, setFilterData] = useState<FilterData>({} as never);
   const [rows, setRows] = useState<RowData[]>([]);
 
   const handleFilter = async (newData: FilterData) => {
-    setTimeout(() => Promise.resolve(handler(newData)).then((rows) => {
-      setRows(rows);
-    }));
+    const rows = await Promise.resolve(handler(newData));
+    initComplete.current = true;
+    setTimeout(() => setRows(rows));
     setFilterData(newData);
     setRows([]);
   };
@@ -72,7 +73,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     handleFilter(newData as FilterData);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleDefault();
   }, []);
 
@@ -90,6 +91,19 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     FilterPanel,
     ColumnsPanel,
     Panel,
+    columnMenuProps,
+    errorOverlayProps,
+    footerProps,
+    headerProps,
+    toolbarProps,
+    preferencesPanelProps,
+    loadingOverlayProps,
+    noResultsOverlayProps,
+    noRowsOverlayProps,
+    paginationProps,
+    filterPanelProps,
+    columnsPanelProps,
+    panelProps,
     ...gridProps
   } = otherProps;
 
@@ -103,20 +117,24 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     >
       {({ height, width }) => (
         <div style={{height, width}} className={classes.container}>
-          <Actions<FilterData>
-            filterData={filterData!}
-            actions={actions}
-          />
-          <Paper className={classNames(classes.container, classes.stretch)}>
-            <Filters<FilterData>
+          {Array.isArray(actions) && !!actions.length && (
+            <Actions<FilterData>
               filterData={filterData!}
-              change={handleFilter}
-              clean={handleDefault}
-              filters={filters}
-              title={title}
+              actions={actions}
             />
+          )}
+          <Paper className={classNames(classes.container, classes.stretch)}>
+            {Array.isArray(filters) && !!filters.length && (
+              <Filters<FilterData>
+                filterData={filterData!}
+                change={handleFilter}
+                clean={handleDefault}
+                filters={filters}
+                title={title}
+              />
+            )}
             <div className={classNames(classes.container, classes.stretch)}>
-              {rows.length && (
+              {!!initComplete.current && (
                 <DataGrid
                   {...gridProps}
                   className={classNames(classes.stretch)}
@@ -136,6 +154,21 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
                     FilterPanel,
                     ColumnsPanel,
                     Panel,
+                  }}
+                  componentsProps={{
+                    columnMenu: columnMenuProps,
+                    errorOverlay: errorOverlayProps,
+                    footer: footerProps,
+                    header: headerProps,
+                    toolbar: toolbarProps,
+                    preferencesPanel: preferencesPanelProps,
+                    loadingOverlay: loadingOverlayProps,
+                    noResultsOverlay: noResultsOverlayProps,
+                    noRowsOverlay: noRowsOverlayProps,
+                    pagination: paginationProps,
+                    filterPanel: filterPanelProps,
+                    columnsPanel: columnsPanelProps,
+                    panel: panelProps,
                   }}
                 />
               )}

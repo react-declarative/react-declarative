@@ -18,7 +18,23 @@ interface GridProps {
   onRowClick?: GridComponentProps["onRowClick"];
 }
 
-export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps {
+interface ComponentProps {
+  columnMenuProps?: any;
+  errorOverlayProps?: any;
+  footerProps?: any;
+  headerProps?: any;
+  toolbarProps?: any;
+  preferencesPanelProps?: any;
+  loadingOverlayProps?: any;
+  noResultsOverlayProps?: any;
+  noRowsOverlayProps?: any;
+  paginationProps?: any;
+  filterPanelProps?: any;
+  columnsPanelProps?: any;
+  panelProps?: any;
+}
+
+export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
