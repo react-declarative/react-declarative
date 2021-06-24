@@ -1,4 +1,10 @@
-import { GridColumns, GridComponentProps, GridSlotsComponent } from '@material-ui/data-grid';
+import { 
+  GridColumns,
+  GridComponentProps,
+  GridSlotsComponent,
+  GridSortModel,
+  GridSortModelParams,
+} from '@material-ui/data-grid';
 
 import IAnything from './IAnything';
 import IField from './IField';
@@ -34,6 +40,8 @@ interface ComponentProps {
   panelProps?: any;
 }
 
+export type ListHandler<FilterData = IAnything, RowData = IAnything> = (data: FilterData) => Promise<RowData[]> | RowData[];
+
 export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
   className?: string;
   style?: React.CSSProperties;
@@ -41,9 +49,11 @@ export interface IListProps<FilterData = IAnything, RowData = IAnything, Field =
   actions?: IListAction<FilterData>[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
+  sortModel?: GridSortModel;
+  onSortModelChange?: (params?: GridSortModelParams) => void;
   columns: IListColumns;
-  filters: Field[];
-  handler: (data: FilterData) => Promise<RowData[]> | RowData[];
+  filters?: Field[];
+  handler: ListHandler<FilterData, RowData>;
 }
 
 export default IListProps;

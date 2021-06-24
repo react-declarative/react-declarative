@@ -19,7 +19,6 @@ import Filters from './Filters';
 import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
-
 const AUTOSIZER_DELAY = 50;
 
 const useStyles = makeStyles({
@@ -39,6 +38,12 @@ const useStyles = makeStyles({
   },
 });
 
+interface IListState<FilterData = IAnything, RowData = IAnything> {
+  initComplete: boolean;
+  filterData: FilterData;
+  rows: RowData[];
+}
+
 export const List = <FilterData extends IAnything = IAnything, RowData = IAnything>({
   className,
   style,
@@ -53,15 +58,25 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
 
-  const [filterData, setFilterData] = useState<FilterData>({} as never);
-  const [initComplete, setInitComplete] = useState(false);
-  const [rows, setRows] = useState<RowData[]>([]);
+  const [state, setState] = useState<IListState<FilterData, RowData>>({
+    initComplete: false,
+    filterData: {} as never,
+    rows: [] as never,
+  });
 
-  const handleFilter = async (newData: FilterData) => {
-    setInitComplete(true);
-    const rows = await Promise.resolve(handler(newData));
-    setFilterData(newData);
-    setRows(rows)
+  const {
+    initComplete,
+    filterData,
+    rows,
+  } = state;
+
+  const handleFilter = async (filterData: FilterData) => {
+    const rows = await Promise.resolve(handler(filterData)) as RowData[];
+    setState({
+      initComplete: true,
+      filterData,
+      rows,
+    });
   };
 
   const handleDefault = () => {
@@ -75,7 +90,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   useLayoutEffect(() => {
     setTimeout(() => {
       handleDefault();
-    }, 250);
+    }, 1);
   }, [handler]);
 
   const {
