@@ -1,4 +1,4 @@
-import { 
+import {
   GridColumns,
   GridComponentProps,
   GridSlotsComponent,
@@ -54,6 +54,7 @@ export interface IListProps<FilterData = IAnything, RowData = IAnything, Field =
   columns: IListColumns;
   filters?: Field[];
   handler: ListHandler<FilterData, RowData>;
+  rowHeight?: number;
 }
 
 export default IListProps;

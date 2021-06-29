@@ -394,7 +394,7 @@ declare module 'react-view-builder/model/IAnything' {
 }
 
 declare module 'react-view-builder/model/IListProps' {
-    import { GridColumns, GridComponentProps, GridSlotsComponent } from '@material-ui/data-grid';
+    import { GridColumns, GridComponentProps, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
     import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
     export enum ActionType {
@@ -408,16 +408,35 @@ declare module 'react-view-builder/model/IListProps' {
     interface GridProps {
         onRowClick?: GridComponentProps["onRowClick"];
     }
-    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps {
+    interface ComponentProps {
+        columnMenuProps?: any;
+        errorOverlayProps?: any;
+        footerProps?: any;
+        headerProps?: any;
+        toolbarProps?: any;
+        preferencesPanelProps?: any;
+        loadingOverlayProps?: any;
+        noResultsOverlayProps?: any;
+        noRowsOverlayProps?: any;
+        paginationProps?: any;
+        filterPanelProps?: any;
+        columnsPanelProps?: any;
+        panelProps?: any;
+    }
+    export type ListHandler<FilterData = IAnything, RowData = IAnything> = (data: FilterData) => Promise<RowData[]> | RowData[];
+    export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
         actions?: IListAction<FilterData>[];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
+        sortModel?: GridSortModel;
+        onSortModelChange?: (params?: GridSortModelParams) => void;
         columns: IListColumns;
-        filters: Field[];
-        handler: (data: FilterData) => Promise<RowData[]> | RowData[];
+        filters?: Field[];
+        handler: ListHandler<FilterData, RowData>;
+        rowHeight?: number;
     }
     export default IListProps;
 }
@@ -1146,7 +1165,7 @@ declare module 'react-view-builder/components/List/List' {
     import IListProps from 'react-view-builder/model/IListProps';
     import TypedField from 'react-view-builder/model/TypedField';
     export const List: {
-        <FilterData extends unknown = any, RowData = any>({ className, style, filters, columns, actions, heightRequest, widthRequest, handler, title, ...otherProps }: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
+        <FilterData extends unknown = any, RowData = any>({ className, style, filters, columns, actions, heightRequest, widthRequest, handler, title, rowHeight, ...otherProps }: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
         typed: <FilterData_1 extends unknown = any, RowData_1 extends unknown = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
     };
     export const ListTyped: <FilterData extends unknown = any, RowData extends unknown = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;

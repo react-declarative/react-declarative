@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import { DataGrid } from '@material-ui/data-grid';
@@ -19,18 +19,19 @@ import Filters from './Filters';
 import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
+
 const AUTOSIZER_DELAY = 50;
+const ROW_HEIGHT = 75;
 
 const useStyles = makeStyles({
-  root: {
-  },
+  root: {},
   container: {
-    display: 'flex',
-    alignItems: 'stretch',
-    justifyContent: 'stretch',
-    flexDirection: 'column',
-    '&&& .MuiDataGrid-root': {
-      border: '1px solid transparent',
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    flexDirection: "column",
+    "&&& .MuiDataGrid-root": {
+      border: "1px solid transparent",
     },
   },
   stretch: {
@@ -53,7 +54,8 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
   heightRequest = (v) => v,
   widthRequest = (v) => v,
   handler = () => [],
-  title = 'list-component',
+  title = "list-component",
+  rowHeight = ROW_HEIGHT,
   ...otherProps
 }: IListProps<FilterData, RowData>) => {
   const classes = useStyles();
@@ -64,14 +66,10 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
     rows: [] as never,
   });
 
-  const {
-    initComplete,
-    filterData,
-    rows,
-  } = state;
+  const { initComplete, filterData, rows } = state;
 
   const handleFilter = async (filterData: FilterData) => {
-    const rows = await Promise.resolve(handler(filterData)) as RowData[];
+    const rows = (await Promise.resolve(handler(filterData))) as RowData[];
     setState({
       initComplete: true,
       filterData,
@@ -81,7 +79,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
 
   const handleDefault = () => {
     const newData: Partial<FilterData> = {};
-    deepFlat(filters).map(({type, name}) => {
+    deepFlat(filters).map(({ type, name }) => {
       set(newData, name, initialValue(type));
     });
     handleFilter(newData as FilterData);
@@ -132,7 +130,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
       style={style}
     >
       {({ height, width }) => (
-        <div style={{height, width}} className={classes.container}>
+        <div style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
             <Actions<FilterData>
               filterData={filterData!}
@@ -186,6 +184,7 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
                     columnsPanel: columnsPanelProps,
                     panel: panelProps,
                   }}
+                  rowHeight={rowHeight}
                 />
               )}
             </div>
@@ -199,8 +198,9 @@ export const List = <FilterData extends IAnything = IAnything, RowData = IAnythi
 export const ListTyped = <
   FilterData extends IAnything = IAnything,
   RowData extends IAnything = IAnything
->(props: IListProps<FilterData, RowData, TypedField<FilterData>>) =>
-  <List<FilterData, RowData> {...props} />;
+>(
+  props: IListProps<FilterData, RowData, TypedField<FilterData>>
+) => <List<FilterData, RowData> {...props} />;
 
 List.typed = ListTyped;
 
