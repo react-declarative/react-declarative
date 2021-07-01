@@ -6,16 +6,16 @@ import Fab from '@material-ui/core/Fab';
 
 import Add from '@material-ui/icons/Add';
 
-import classNames from '../../utils/classNames';
+import classNames from '../../../../utils/classNames';
 
-import { ActionType, IListAction } from '../../model/IListProps';
-import IAnything from '../../model/IAnything';
+import { ActionType, IListAction } from '../../../../model/IListProps';
+import IAnything from '../../../../model/IAnything';
 
 const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'stretch',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "stretch",
     height: 60,
   },
   stretch: {
@@ -33,22 +33,18 @@ interface IActionsProps<FilterData = IAnything> {
   actions: IListAction<FilterData>[];
 }
 
-const createAction = <FilterData extends IAnything>(data: FilterData, {
-  type,
-  onClick,
-}: IListAction) => {
+const createAction = <FilterData extends IAnything>(
+  data: FilterData,
+  { type, onClick }: IListAction
+) => {
   if (type === ActionType.Add) {
     return (
-      <Fab
-        size="small"
-        color="primary"
-        onClick={() => onClick(data)}
-      >
+      <Fab size="small" color="primary" onClick={() => onClick(data)}>
         <Add />
       </Fab>
     );
   } else {
-    throw new Error('List Actions unknown action type');
+    throw new Error("List Actions unknown action type");
   }
 };
 
@@ -68,12 +64,10 @@ export const Actions = <FilterData extends IAnything>({
     >
       <div className={classes.stretch} />
       {actions.map((action, idx) => (
-        <Fragment key={idx}>
-          { createAction(filterData, action) }
-        </Fragment>
+        <Fragment key={idx}>{createAction(filterData, action)}</Fragment>
       ))}
     </div>
-  )
+  );
 };
 
 export default Actions;

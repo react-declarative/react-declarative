@@ -18,7 +18,9 @@ export interface IListAction<FilterData = IAnything> {
   onClick: (e: FilterData) => void;
 }
 
-export type IListColumns = GridColumns;
+export type IListColumns = {
+  // mobileIcon?: React.ComponentType,
+} & GridColumns;
 
 interface GridProps {
   onRowClick?: GridComponentProps["onRowClick"];
@@ -40,9 +42,33 @@ interface ComponentProps {
   panelProps?: any;
 }
 
-export type ListHandler<FilterData = IAnything, RowData = IAnything> = (data: FilterData) => Promise<RowData[]> | RowData[];
+export interface IRowData {
+  id: string | number;
+}
 
-export interface IListProps<FilterData = IAnything, RowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
+export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (
+  data?: FilterData
+) => Promise<RowData[]> | RowData[] | void;
+
+export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+  initComplete: boolean;
+  filterData: FilterData;
+  isMobile: boolean;
+  rows: RowData[];
+};
+
+export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
+  handleDefault: ListHandler<FilterData, RowData>;
+  handleFilter: (data: FilterData) => void;
+};
+
+export interface IListProps<
+  FilterData = IAnything,
+  RowData extends IRowData = IAnything,
+  Field = IField<FilterData>
+> extends GridSlotsComponent,
+    GridProps,
+    ComponentProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
