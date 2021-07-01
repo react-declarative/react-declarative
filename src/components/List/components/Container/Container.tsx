@@ -43,6 +43,10 @@ const useStyles = makeStyles({
   stretch: {
     flex: 1,
   },
+  noElevation: {
+    background: "transparent",
+    boxShadow: "none",
+  },
 });
 
 export const Container = <
@@ -61,6 +65,7 @@ export const Container = <
   handleDefault,
   initComplete,
   children,
+  isMobile,
 }: IContainerProps<FilterData, RowData>) => {
   const classes = useStyles();
 
@@ -77,7 +82,9 @@ export const Container = <
           {Array.isArray(actions) && !!actions.length && (
             <Actions<FilterData> filterData={filterData!} actions={actions} />
           )}
-          <Paper className={classNames(classes.container, classes.stretch)}>
+          <Paper className={classNames(classes.container, classes.stretch, {
+            [classes.noElevation]: isMobile,
+          })}>
             {Array.isArray(filters) && !!filters.length && (
               <Filters<FilterData>
                 filterData={filterData!}

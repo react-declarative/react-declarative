@@ -1,9 +1,8 @@
 import * as React from "react";
+import { useRef, useEffect } from 'react';
 
-import Paper from '@material-ui/core/Paper';
 
-import DynamicVirtualized, { createCache } from "react-window-dynamic-list";
-
+import { VariableSizeList as List } from "react-window";
 import IListProps, { IListState, IListCallbacks, IRowData } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 
@@ -24,7 +23,47 @@ export const Mobile = <
   RowData extends IRowData = IAnything,
   >(props: IMobileProps<FilterData, RowData>) => {
 
-  const cache = createCache();
+  const { rows } = props;
+
+  const listRef = useRef<any>({});
+  const rowHeights = useRef<any>({});
+
+  function getRowHeight(index: number) {
+    return rowHeights.current[index];
+  }
+
+  function setRowHeight(index: number, size: number) {
+    listRef.current.resetAfterIndex(0);
+    rowHeights.current = { ...rowHeights.current, [index]: size };
+  }
+
+  const Row = ({ index, style }: any) => {
+    const elementRef = useRef<HTMLDivElement>(null);
+
+    const handleResize = (newHeight: number) => {
+      console.log(newHeight)
+      setRowHeight(index, newHeight);
+    };
+
+    useEffect(() => {
+      const { current: element } = elementRef;
+      if (element) {
+        const { clientHeight } = element;
+        handleResize(clientHeight);
+      }
+    }, [elementRef]);
+
+    return (
+      <MobileItem<FilterData, RowData>
+        onResize={handleResize}
+        ref={elementRef}
+        key={index}
+        style={style}
+        data={rows[index]}
+        {...props}
+      />
+    );
+  }
 
   return (
     <Container
@@ -34,23 +73,15 @@ export const Mobile = <
         height,
         width,
       }) => (
-        <Paper>
-          <DynamicVirtualized<RowData>
-            height={height}
-            width={width}
-            data={[]}
-            cache={cache}
-          >
-            {({ index, style, data }) => (
-              <MobileItem<FilterData, RowData>
-                key={index}
-                style={style}
-                data={data}
-                {...props}
-              />
-            )}
-          </DynamicVirtualized>
-        </Paper>
+        <List
+          height={height}
+          width={width}
+          itemCount={rows.length}
+          itemSize={getRowHeight}
+          ref={listRef}
+        >
+          {Row}
+        </List>
       )}
     </Container>
   )
