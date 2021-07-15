@@ -14,7 +14,8 @@ import set from '../../utils/set';
 import Mobile from './components/Mobile';
 import Desktop from './components/Desktop';
 
-import createRowHeightCalc, { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightCalc";
+import { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightCalc";
+import useHeightCalc from './components/Desktop/hooks/useHeightCalc';
 import PropProvider from './components/PropProvider';
 
 export const List = <
@@ -40,9 +41,7 @@ export const List = <
 
   const { isMobile } = state;
 
-  const calcRowHeight = createRowHeightCalc<RowData>({
-    columns,
-  });
+  const calcRowHeight = useHeightCalc<RowData>(columns);
 
   const handleFilter = async (filterData: FilterData) => {
     const rows = (await Promise.resolve(handler(filterData))) as RowData[];

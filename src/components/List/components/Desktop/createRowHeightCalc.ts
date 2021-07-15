@@ -25,12 +25,7 @@ const defaultStyle = {
 
 const defaultGetText = (field: string) => (row: Record<string, string>) => row[field];
 
-export const createRowHeightCalc = <T extends IRowData = IAnything>({
-    columns = [],
-}: {
-    setHeight?: (h: number) => void;
-    columns?: IColumn[];
-} = {}) => {
+export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: IColumn[]): [(rows: T[]) => number, () => void] => {
     const fields: any = columns.map(({ field }) => field).filter((f) => !!f);
     const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width } }), {});
     const paddingMap: any = columns.reduce((acm, { field = '_', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
@@ -41,21 +36,26 @@ export const createRowHeightCalc = <T extends IRowData = IAnything>({
     div.style.left = `-${window.innerWidth}px`;
     div.style.zIndex = '9999';
     document.body.appendChild(div);
-    return (rows: T[]) => {
-        const maxRowHeight = Math.max(...rows.map((row) => {
-            const contentRowHeight = Math.max(...fields.map((field: keyof T) => {
-                Object.entries<any>(paddingMap[field] || {}).forEach(([k, v]) => div.style[k as any] = `${v}px`);
-                Object.entries<any>(textStyleMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
-                Object.entries<any>(widthMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
-                div.innerText = getTextMap[field] && getTextMap[field](row) || '';
-                const { height: boundingHeight } = div.getBoundingClientRect();
-                return boundingHeight;
+    return [
+        (rows: T[]) => {
+            const maxRowHeight = Math.max(...rows.map((row) => {
+                const contentRowHeight = Math.max(...fields.map((field: keyof T) => {
+                    Object.entries<any>(paddingMap[field] || {}).forEach(([k, v]) => div.style[k as any] = `${v}px`);
+                    Object.entries<any>(textStyleMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
+                    Object.entries<any>(widthMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
+                    div.innerText = getTextMap[field] && getTextMap[field](row) || '';
+                    const { height: boundingHeight } = div.getBoundingClientRect();
+                    return boundingHeight;
+                }));
+                const requiredRowHeight = Math.max(contentRowHeight, DEFAULT_ROW_HEIGHT);
+                return requiredRowHeight;
             }));
-            const requiredRowHeight = Math.max(contentRowHeight, DEFAULT_ROW_HEIGHT);
-            return requiredRowHeight;
-        }));
-        return maxRowHeight;
-    };
+            return maxRowHeight;
+        }, 
+        () => {
+            document.body.removeChild(div)
+        },
+    ];
 };
 
 export default createRowHeightCalc;
