@@ -58,7 +58,7 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'id',
     headerName: 'ID',
-    width: 200,
+    width: 'calc(100vw - 550px)',
     columnMenu: [
       {
         action: 'click-me',
@@ -70,18 +70,18 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'firstName',
     headerName: 'First name',
-    width: 200,
+    width: '200px',
   },
   {
     type: ColumnType.Text,
     field: 'lastName',
     headerName: 'Last name',
-    width: 200,
+    width: '200px',
   },
   {
     type: ColumnType.Action,
     headerName: 'Actions',
-    width: 150,
+    width: '150px',
   },
 ];
 

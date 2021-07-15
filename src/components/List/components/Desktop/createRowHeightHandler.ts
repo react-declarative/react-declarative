@@ -33,10 +33,10 @@ export const createRowHeightHandler = <T extends IRowData = IAnything>({
     columns?: IColumn[];
 } = {}) => {
     const fields: any = columns.map(({ field }) => field);
-    const widthMap: any = columns.reduce((acm, { field, width }) => ({ ...acm, [field]: { width } }), {});
-    const paddingMap: any = columns.reduce((acm, { field, sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
-    const getTextMap: any = columns.reduce((acm, { field, sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});
-    const textStyleMap: any = columns.reduce((acm, { field, sizerCellStyle }) => ({ ...acm, [field]: sizerCellStyle || defaultStyle }), {});
+    const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width } }), {});
+    const paddingMap: any = columns.reduce((acm, { field = '_', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
+    const getTextMap: any = columns.reduce((acm, { field = '_', sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});
+    const textStyleMap: any = columns.reduce((acm, { field = '_', sizerCellStyle }) => ({ ...acm, [field]: sizerCellStyle || defaultStyle }), {});
     const div = document.createElement('div');
     div.style.position = 'fixed';
     div.style.left = `-${window.innerWidth}px`;
@@ -45,15 +45,15 @@ export const createRowHeightHandler = <T extends IRowData = IAnything>({
     return (rows: T[]) => {
         const maxRowHeight = Math.max(...rows.map((row) => {
             const contentRowHeight = Math.max(...fields.map((field: keyof T) => {
-                Object.entries<any>(widthMap[field]).forEach(([k, v]) => div.style[k as any] = `${v}px`);
-                Object.entries<any>(paddingMap[field]).forEach(([k, v]) => div.style[k as any] = `${v}px`);
-                Object.entries<any>(textStyleMap[field]).forEach(([k, v]) => div.style[k as any] = v);
-                div.innerText = getTextMap[field](row);
+                Object.entries<any>(widthMap[field] || {}).forEach(([k, v]) => div.style[k as any] = `${v}px`);
+                Object.entries<any>(paddingMap[field] || {}).forEach(([k, v]) => div.style[k as any] = `${v}px`);
+                Object.entries<any>(textStyleMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
+                div.innerText = getTextMap[field] && getTextMap[field](row) || '';
                 const { height: boundingHeight } = div.getBoundingClientRect();
                 return boundingHeight;
             }));
             const requiredRowHeight = Math.max(contentRowHeight, DEFAULT_ROW_HEIGHT);
-            return Math.max(requiredRowHeight, DEFAULT_ROW_HEIGHT);
+            return requiredRowHeight;
         }));
         setHeight && setHeight(maxRowHeight);
     };

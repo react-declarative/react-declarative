@@ -76,8 +76,6 @@ export const Desktop = <
     ...gridProps
   } = otherProps;
 
-  const gridColumns = props.gridColumns || columns.map(createColumn);
-
   return (
     <Container<FilterData, RowData>
       {...props}
@@ -85,7 +83,7 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
-          columns={gridColumns}
+          columns={props.gridColumns || columns.map(createColumn)}
           rows={rows}
           components={{
             Header: Header || DefaultHeader,

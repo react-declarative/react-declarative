@@ -8,6 +8,8 @@ import { renderActionCell } from "../components/List/components/Desktop/componen
 import { renderTextCell } from "../components/List/components/Desktop/components/TextCell";
 import { renderHeader } from "../components/List/components/Desktop/components/Header";
 
+import computeStyle from "../components/List/components/Desktop/computeStyle";
+
 export const createColumn = (column: IColumn): GridColDef => {
     const {
         type,
@@ -21,8 +23,8 @@ export const createColumn = (column: IColumn): GridColDef => {
     const baseFields = {
         headerName,
         field,
-        width,
         sortable,
+        width: computeStyle(width),
         disableColumnMenu: !columnMenu && !showColumnMenu,
     };
     if (type === ColumnType.Text) {

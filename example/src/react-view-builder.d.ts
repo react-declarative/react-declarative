@@ -376,7 +376,7 @@ declare module 'react-view-builder/model/IColumn' {
         type: ColumnType;
         field?: string;
         headerName: string;
-        width: number;
+        width: string;
         columnMenu?: {
             label: string;
             action: string;

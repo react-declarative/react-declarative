@@ -14,7 +14,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
     headerName: string;
-    width: number;
+    width: string;
     columnMenu?: {
         label: string;
         action: string;
