@@ -2,12 +2,14 @@ import * as React from "react";
 
 import { DataGrid } from "@material-ui/data-grid";
 
-import IListProps, { IListState, IListCallbacks, IRowData } from '../../../../model/IListProps';
+import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
+import IRowData from '../../../../model/IRowData';
 
 import Container from "../Container";
 
-const ROW_HEIGHT = 75;
+import createColumn from "../../../../config/createColumn";
+
 
 interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   IListProps<FilterData, RowData>,
@@ -15,6 +17,7 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
+  rowHeight: number;
 }
 
 export const Desktop = <
@@ -32,7 +35,7 @@ export const Desktop = <
     widthRequest = (v) => v,
     handler = () => [],
     title = "list-component",
-    rowHeight = ROW_HEIGHT,
+    rowHeight,
     filterData,
     handleFilter,
     handleDefault,
@@ -71,6 +74,8 @@ export const Desktop = <
     ...gridProps
   } = otherProps;
 
+  const gridColumns = props.gridColumns || columns.map(createColumn);
+
   return (
     <Container
       {...props}
@@ -78,7 +83,7 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
-          columns={columns}
+          columns={gridColumns}
           rows={rows}
           components={{
             ColumnMenu,

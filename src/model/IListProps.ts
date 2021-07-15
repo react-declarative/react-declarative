@@ -7,6 +7,8 @@ import {
 } from '@material-ui/data-grid';
 
 import IAnything from './IAnything';
+import IRowData from './IRowData';
+import IColumn from './IColumn';
 import IField from './IField';
 
 export enum ActionType {
@@ -17,10 +19,6 @@ export interface IListAction<FilterData = IAnything> {
   type: ActionType;
   onClick: (e: FilterData) => void;
 }
-
-export type IListColumns = {
-  // mobileIcon?: React.ComponentType,
-} & GridColumns;
 
 interface GridProps {
   onRowClick?: GridComponentProps["onRowClick"];
@@ -42,23 +40,20 @@ interface ComponentProps {
   panelProps?: any;
 }
 
-export interface IRowData {
-  id: string | number;
-}
-
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (
   data?: FilterData
-) => Promise<RowData[]> | RowData[] | void;
+) => Promise<RowData[]> | RowData[];
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
   filterData: FilterData;
   isMobile: boolean;
   rows: RowData[];
+  rowHeight: number;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
-  handleDefault: ListHandler<FilterData, RowData>;
+  handleDefault: ListHandler<FilterData, RowData> | (() => void);
   handleFilter: (data: FilterData) => void;
 };
 
@@ -77,10 +72,10 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
   onSortModelChange?: (params?: GridSortModelParams) => void;
-  columns: IListColumns;
+  gridColumns?: GridColumns;
+  columns: IColumn<RowData>[];
   filters?: Field[];
-  handler: ListHandler<FilterData, RowData>;
-  rowHeight?: number;
+  handler: ListHandler;
 }
 
 export default IListProps;

@@ -6,8 +6,9 @@ import { lighten } from "@material-ui/core/styles/colorManipulator";
 
 import classNames from "../../../../utils/classNames";
 
-import IListProps, { IListState, IListCallbacks, IRowData } from '../../../../model/IListProps';
+import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
+import IRowData from '../../../../model/IRowData';
 
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
@@ -25,7 +26,7 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 
 export const ROW_BOTTOM_MARGIN = 25;
 
-interface IMobileItemProps<FilterData extends IRowData = IAnything, RowData extends IRowData = IAnything> extends
+interface IMobileItemProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything> extends
   IListProps<FilterData, RowData>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
@@ -86,7 +87,7 @@ const useStyles = makeStyles({
 });
 
 export const MobileItem = <
-  FilterData extends IRowData = IAnything,
+  FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   >({ className, style, onResize }: IMobileItemProps<FilterData, RowData>, forwardRef: any) => {
   const classes = useStyles();

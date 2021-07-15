@@ -7,8 +7,9 @@ import classNames from "../../../../utils/classNames";
 
 import AutoSizer from "../../../common/AutoSizer";
 
-import IListProps, { IListState, IListCallbacks, IRowData } from '../../../../model/IListProps';
+import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
+import IRowData from '../../../../model/IRowData';
 
 import Actions from "./Actions";
 import Filters from "./Filters";

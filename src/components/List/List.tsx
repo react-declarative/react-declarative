@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState, useLayoutEffect } from 'react';
 
-import IListProps, { IRowData, IListState, ListHandler } from '../../model/IListProps';
+import IListProps, { IListState } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
+import IRowData from '../../model/IRowData';
 
 import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
@@ -12,8 +13,10 @@ import set from '../../utils/set';
 import Mobile from './components/Mobile';
 import Desktop from './components/Desktop';
 
+import createRowHeightHandler, { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightHandler";
+
 export const List = <
-  FilterData extends IRowData = IAnything,
+  FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
 >(props: IListProps<FilterData, RowData>) => {
 
@@ -29,25 +32,35 @@ export const List = <
     isMobile: false,
     filterData: {} as never,
     rows: [] as never,
+    rowHeight: DEFAULT_ROW_HEIGHT,
   });
 
-  const { isMobile } = state;
+  const { isMobile, rowHeight } = state;
+
+  const handleRowHeight = createRowHeightHandler<RowData>({
+    setHeight: (rowHeight) => setState((prevState) => ({...prevState, rowHeight})),
+    columns,
+  });
 
   const handleFilter = async (filterData: FilterData) => {
     const rows = (await Promise.resolve(handler(filterData))) as RowData[];
+    handleRowHeight(rows);
     setState({
       initComplete: true,
       isMobile,
       filterData,
       rows,
+      rowHeight,
     });
   };
 
-  const handleDefault: ListHandler<FilterData, RowData>  = () => {
+  const handleDefault = () => {
     const newData: Partial<FilterData> = {};
-    deepFlat(filters).map(({ type, name }) => {
-      set(newData, name, initialValue(type));
-    });
+    deepFlat(filters)
+      .filter(({name}) => !!name)
+      .map(({ type, name }) => {
+        set(newData, name, initialValue(type));
+      });
     handleFilter(newData as FilterData);
   };
 
@@ -84,7 +97,7 @@ export const List = <
 };
 
 export const ListTyped = <
-  FilterData extends IRowData = IAnything,
+  FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
 >(
   props: IListProps<FilterData, RowData, TypedField<FilterData>>

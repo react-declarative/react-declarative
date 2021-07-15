@@ -9,19 +9,21 @@
 declare module 'react-view-builder' {
     import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
     import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
+    import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
     import { IField as IFieldInternal } from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
-    import { IListColumns as IListColumnsInternal } from 'react-view-builder/model/IListProps';
+    import { IColumn as IColumnInternal } from 'react-view-builder/model/IColumn';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/IListProps';
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
     export const FieldType: typeof FieldTypeInternal;
+    export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
     export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
     export type IField<Data = IAnything> = IFieldInternal<Data>;
     export type IListAction<Data = IAnything> = IListActionInternal<Data>;
-    export type IListColumns = IListColumnsInternal;
+    export type IColumn = IColumnInternal;
     export type pickDateFn = ReturnType<typeof useDate>;
     export type pickTimeFn = ReturnType<typeof useTime>;
     export { One, OneTyped } from 'react-view-builder/components';
@@ -124,6 +126,16 @@ declare module 'react-view-builder/model/FieldType' {
         Hero = "hero"
     }
     export default FieldType;
+}
+
+declare module 'react-view-builder/model/ColumnType' {
+    export enum ColumnType {
+        Text = "text-cell",
+        Action = "action-cell",
+        CheckBox = "checkbox-cell",
+        Custom = "custom-cell"
+    }
+    export default ColumnType;
 }
 
 declare module 'react-view-builder/model/IField' {
@@ -396,6 +408,8 @@ declare module 'react-view-builder/model/IAnything' {
 declare module 'react-view-builder/model/IListProps' {
     import { GridColumns, GridComponentProps, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
     import IAnything from 'react-view-builder/model/IAnything';
+    import IRowData from 'react-view-builder/model/IRowData';
+    import IColumn from 'react-view-builder/model/IColumn';
     import IField from 'react-view-builder/model/IField';
     export enum ActionType {
         Add = "add-action"
@@ -404,7 +418,6 @@ declare module 'react-view-builder/model/IListProps' {
         type: ActionType;
         onClick: (e: FilterData) => void;
     }
-    export type IListColumns = {} & GridColumns;
     interface GridProps {
         onRowClick?: GridComponentProps["onRowClick"];
     }
@@ -423,18 +436,16 @@ declare module 'react-view-builder/model/IListProps' {
         columnsPanelProps?: any;
         panelProps?: any;
     }
-    export interface IRowData {
-        id: string | number;
-    }
-    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (data?: FilterData) => Promise<RowData[]> | RowData[] | void;
+    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (data?: FilterData) => Promise<RowData[]> | RowData[];
     export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
         initComplete: boolean;
         filterData: FilterData;
         isMobile: boolean;
         rows: RowData[];
+        rowHeight: number;
     }
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
-        handleDefault: ListHandler<FilterData, RowData>;
+        handleDefault: ListHandler<FilterData, RowData> | (() => void);
         handleFilter: (data: FilterData) => void;
     }
     export interface IListProps<FilterData = IAnything, RowData extends IRowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
@@ -446,12 +457,48 @@ declare module 'react-view-builder/model/IListProps' {
         widthRequest?: (width: number) => number;
         sortModel?: GridSortModel;
         onSortModelChange?: (params?: GridSortModelParams) => void;
-        columns: IListColumns;
+        gridColumns?: GridColumns;
+        columns: IColumn<RowData>[];
         filters?: Field[];
-        handler: ListHandler<FilterData, RowData>;
-        rowHeight?: number;
+        handler: ListHandler;
     }
     export default IListProps;
+}
+
+declare module 'react-view-builder/model/IColumn' {
+    import { GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
+    import ColumnType from "react-view-builder/model/ColumnType";
+    import IAnything from 'react-view-builder/model/IAnything';
+    import IRowData from 'react-view-builder/model/IRowData';
+    export interface IColumn<RowData extends IRowData = IAnything> {
+        type: ColumnType;
+        field: string;
+        headerName: string;
+        width: number;
+        columnMenu?: {
+            label: string;
+            action: string;
+        }[];
+        sizerCellPadding?: {
+            paddingTop: number;
+            paddingLeft: number;
+            paddingRight: number;
+            paddingBottom: number;
+        };
+        sizerCellStyle?: {
+            whiteSpace: string;
+            overflowWrap: string;
+            lineHeight: string;
+            fontSize: string;
+            fontWeight: string;
+            border: string;
+        };
+        sizerGetText?: (row: RowData) => string;
+        renderCell?: (props: GridCellParams) => JSX.Element;
+        renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
+        sortable?: boolean;
+    }
+    export default IColumn;
 }
 
 declare module 'react-view-builder/components' {
@@ -1062,6 +1109,13 @@ declare module 'react-view-builder/model/ISize' {
     export default ISize;
 }
 
+declare module 'react-view-builder/model/IRowData' {
+    export interface IRowData {
+        id: string | number;
+    }
+    export default IRowData;
+}
+
 declare module 'react-view-builder/components/One' {
     import TypedField from 'react-view-builder/model/TypedField';
     import IOneProps from 'react-view-builder/model/IOneProps';
@@ -1175,13 +1229,14 @@ declare module 'react-view-builder/model/IOneProps' {
 }
 
 declare module 'react-view-builder/components/List/List' {
-    import IListProps, { IRowData } from 'react-view-builder/model/IListProps';
+    import IListProps from 'react-view-builder/model/IListProps';
     import TypedField from 'react-view-builder/model/TypedField';
+    import IRowData from 'react-view-builder/model/IRowData';
     export const List: {
-        <FilterData extends IRowData = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
-        typed: <FilterData_1 extends IRowData = any, RowData_1 extends IRowData = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
+        <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
+        typed: <FilterData_1 extends unknown = any, RowData_1 extends IRowData = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
     };
-    export const ListTyped: <FilterData extends IRowData = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
+    export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
     export default List;
 }
 

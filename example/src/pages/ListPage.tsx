@@ -4,9 +4,10 @@ import {
   ListTyped,
   FieldType,
   TypedField,
-  IListColumns,
+  IColumn,
   IListAction,
   ActionType,
+  ColumnType,
   useDate,
   useTime,
   pickDateFn,
@@ -52,10 +53,10 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn): TypedField[]
   },
 ];
 
-const columns: IListColumns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+const columns: IColumn[] = [
+  { type: ColumnType.Text, field: 'id', headerName: 'ID', width: 200 },
+  { type: ColumnType.Text, field: 'firstName', headerName: 'First name', width: 200 },
+  { type: ColumnType.Text, field: 'lastName', headerName: 'Last name', width: 200 },
 ];
 
 const actions: IListAction[] = [
