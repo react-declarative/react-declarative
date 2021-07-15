@@ -3,10 +3,10 @@ import { GridColDef } from "@material-ui/data-grid";
 import IColumn from "../model/IColumn";
 import ColumnType from "../model/ColumnType";
 
-import { renderCheckBoxCell } from "../components/List/components/Desktop/columns/CheckboxCell";
-import { renderActionCell } from "../components/List/components/Desktop/columns/ActionCell";
-import { renderTextCell } from "../components/List/components/Desktop/columns/TextCell";
-import { renderHeader } from "../components/List/components/Desktop/columns/Header";
+import { renderCheckBoxCell } from "../components/List/components/Desktop/components/CheckboxCell";
+import { renderActionCell } from "../components/List/components/Desktop/components/ActionCell";
+import { renderTextCell } from "../components/List/components/Desktop/components/TextCell";
+import { renderHeader } from "../components/List/components/Desktop/components/Header";
 
 export const createColumn = (column: IColumn): GridColDef => {
     const {
@@ -14,15 +14,16 @@ export const createColumn = (column: IColumn): GridColDef => {
         field,
         headerName,
         width,
+        columnMenu = undefined,
         sortable = true,
-        columnMenu,
+        showColumnMenu = false,
     } = column;
     const baseFields = {
         headerName,
         field,
         width,
         sortable,
-        disableColumnMenu: !columnMenu,
+        disableColumnMenu: !columnMenu && !showColumnMenu,
     };
     if (type === ColumnType.Text) {
         return {

@@ -19,6 +19,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
         label: string;
         action: string;
     }[];
+    showColumnMenu?: boolean;
     sizerCellPadding?: {
         paddingTop: number;
         paddingLeft: number;

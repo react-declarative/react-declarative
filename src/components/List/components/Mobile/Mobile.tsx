@@ -67,7 +67,7 @@ export const Mobile = <
   }
 
   return (
-    <Container
+    <Container<FilterData, RowData>
       {...props}
     >
       {({

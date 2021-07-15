@@ -30,9 +30,11 @@ const useStyles = makeStyles({
 
 type IHeaderProps = GridColumnHeaderParams;
 
-export const Header = ({ colDef: { headerName } }: IHeaderProps) => {
+export const Header = ({
+  colDef = {},
+}: IHeaderProps) => {
   const classes = useStyles();
-  console.log(headerName);
+  const { headerName } = colDef;
   return (
     <AutoSizer className={classes.root}>
       {({ width, height }) => (

@@ -54,9 +54,30 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn): TypedField[]
 ];
 
 const columns: IColumn[] = [
-  { type: ColumnType.Text, field: 'id', headerName: 'ID', width: 200 },
-  { type: ColumnType.Text, field: 'firstName', headerName: 'First name', width: 200 },
-  { type: ColumnType.Text, field: 'lastName', headerName: 'Last name', width: 200 },
+  { 
+    type: ColumnType.Text,
+    field: 'id',
+    headerName: 'ID',
+    width: 200,
+    columnMenu: [
+      {
+        action: 'click-me',
+        label: 'Click me',
+      },
+    ],
+  },
+  {
+    type: ColumnType.Text,
+    field: 'firstName',
+    headerName: 'First name',
+    width: 200,
+  },
+  {
+    type: ColumnType.Text,
+    field: 'lastName',
+    headerName: 'Last name',
+    width: 200,
+  },
 ];
 
 const actions: IListAction[] = [
@@ -92,6 +113,10 @@ export const ListPage = () => {
 
   const heightRequest = () => window.innerHeight - 100;
 
+  const handleColumnMenuClick = (action: string) => {
+    alert(action);
+  };
+
   return (
     <ListTyped
       heightRequest={heightRequest}
@@ -99,6 +124,7 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
+      onColumnMenuAction={handleColumnMenuClick}
     />
   );
 };

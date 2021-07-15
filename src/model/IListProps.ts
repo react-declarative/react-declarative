@@ -58,9 +58,9 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
 };
 
 export interface IListProps<
-  FilterData = IAnything,
+  FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
-  Field = IField<FilterData>
+  Field extends IField = IField<FilterData>,
 > extends GridSlotsComponent,
     GridProps,
     ComponentProps {
@@ -72,6 +72,7 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
   onSortModelChange?: (params?: GridSortModelParams) => void;
+  onColumnMenuAction?: (action: string) => void;
   gridColumns?: GridColumns;
   columns: IColumn<RowData>[];
   filters?: Field[];

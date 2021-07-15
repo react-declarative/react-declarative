@@ -8,8 +8,10 @@ import IRowData from '../../../../model/IRowData';
 
 import Container from "../Container";
 
-import createColumn from "../../../../config/createColumn";
+import DefaultHeader from "./components/Header";
+import DefaultColumnMenu from "./components/ColumnMenu";
 
+import createColumn from "../../../../config/createColumn";
 
 interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   IListProps<FilterData, RowData>,
@@ -77,7 +79,7 @@ export const Desktop = <
   const gridColumns = props.gridColumns || columns.map(createColumn);
 
   return (
-    <Container
+    <Container<FilterData, RowData>
       {...props}
     >
       {() => (
@@ -86,10 +88,10 @@ export const Desktop = <
           columns={gridColumns}
           rows={rows}
           components={{
-            ColumnMenu,
+            Header: Header || DefaultHeader,
+            ColumnMenu: ColumnMenu || DefaultColumnMenu,
             ErrorOverlay,
             Footer,
-            Header,
             Toolbar,
             PreferencesPanel,
             LoadingOverlay,

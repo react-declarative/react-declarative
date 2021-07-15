@@ -29,6 +29,7 @@ declare module 'react-view-builder' {
     export { One, OneTyped } from 'react-view-builder/components';
     export { List, ListTyped } from 'react-view-builder/components';
     export { ModalProvider } from 'react-view-builder/components';
+    export { useListProps } from 'react-view-builder/components';
     export { useDate, useTime };
 }
 
@@ -448,7 +449,7 @@ declare module 'react-view-builder/model/IListProps' {
         handleDefault: ListHandler<FilterData, RowData> | (() => void);
         handleFilter: (data: FilterData) => void;
     }
-    export interface IListProps<FilterData = IAnything, RowData extends IRowData = IAnything, Field = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
+    export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
@@ -457,6 +458,7 @@ declare module 'react-view-builder/model/IListProps' {
         widthRequest?: (width: number) => number;
         sortModel?: GridSortModel;
         onSortModelChange?: (params?: GridSortModelParams) => void;
+        onColumnMenuAction?: (action: string) => void;
         gridColumns?: GridColumns;
         columns: IColumn<RowData>[];
         filters?: Field[];
@@ -479,6 +481,7 @@ declare module 'react-view-builder/model/IColumn' {
             label: string;
             action: string;
         }[];
+        showColumnMenu?: boolean;
         sizerCellPadding?: {
             paddingTop: number;
             paddingLeft: number;
@@ -1137,6 +1140,7 @@ declare module 'react-view-builder/components/One' {
 
 declare module 'react-view-builder/components/List' {
     export * from "react-view-builder/components/List/List";
+    export { useProps as useListProps } from 'react-view-builder/components/List/components/PropProvider';
     export { default } from "react-view-builder/components/List/List";
 }
 
@@ -1232,12 +1236,18 @@ declare module 'react-view-builder/components/List/List' {
     import IListProps from 'react-view-builder/model/IListProps';
     import TypedField from 'react-view-builder/model/TypedField';
     import IRowData from 'react-view-builder/model/IRowData';
+    import IField from 'react-view-builder/model/IField';
     export const List: {
-        <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, import("../../model/IField").IField<FilterData>>): JSX.Element;
+        <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>): JSX.Element;
         typed: <FilterData_1 extends unknown = any, RowData_1 extends IRowData = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
     };
     export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
     export default List;
+}
+
+declare module 'react-view-builder/components/List/components/PropProvider' {
+    export * from 'react-view-builder/components/List/components/PropProvider/PropProvider';
+    export { default } from 'react-view-builder/components/List/components/PropProvider/PropProvider';
 }
 
 declare module 'react-view-builder/components/common/ModalProvider/ModalProvider' {
@@ -1306,5 +1316,19 @@ declare module 'react-view-builder/components/common/Expansion/Expansion' {
         displayName: string;
     };
     export default Expansion;
+}
+
+declare module 'react-view-builder/components/List/components/PropProvider/PropProvider' {
+    import * as React from 'react';
+    import IListProps from 'react-view-builder/model/IListProps';
+    import IAnything from 'react-view-builder/model/IAnything';
+    import IField from 'react-view-builder/model/IField';
+    import IRowData from 'react-view-builder/model/IRowData';
+    interface IPropContext<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends IListProps<FilterData, RowData, Field> {
+        children: React.ReactChild;
+    }
+    export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;
+    export const useProps: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>() => IPropContext<FilterData, RowData, Field>;
+    export default PropProvider;
 }
 
