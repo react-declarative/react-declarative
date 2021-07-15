@@ -14,7 +14,7 @@ import set from '../../utils/set';
 import Mobile from './components/Mobile';
 import Desktop from './components/Desktop';
 
-import createRowHeightHandler, { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightHandler";
+import createRowHeightCalc, { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightCalc";
 import PropProvider from './components/PropProvider';
 
 export const List = <
@@ -38,16 +38,15 @@ export const List = <
     rowHeight: DEFAULT_ROW_HEIGHT,
   });
 
-  const { isMobile, rowHeight } = state;
+  const { isMobile } = state;
 
-  const handleRowHeight = createRowHeightHandler<RowData>({
-    setHeight: (rowHeight) => setState((prevState) => ({ ...prevState, rowHeight })),
+  const calcRowHeight = createRowHeightCalc<RowData>({
     columns,
   });
 
   const handleFilter = async (filterData: FilterData) => {
     const rows = (await Promise.resolve(handler(filterData))) as RowData[];
-    handleRowHeight(rows);
+    const rowHeight = calcRowHeight(rows);
     setState({
       initComplete: true,
       isMobile,
@@ -74,7 +73,7 @@ export const List = <
   }, [handler]);
 
   return (
-    <PropProvider {...props}>
+    <PropProvider {...{...props, ...state}}>
       {isMobile ? (
         <Mobile<FilterData, RowData>
           {...props}

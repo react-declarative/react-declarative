@@ -21,8 +21,8 @@ interface ISize {
   width: number;
 }
 
-interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends 
-  IListProps<FilterData, RowData>, 
+interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
+  IListProps<FilterData, RowData>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 
-import IListProps from '../../../../model/IListProps';
+import IListProps, { IListState } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
 
@@ -11,7 +11,9 @@ interface IPropContext<
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<FilterData>
-> extends IListProps<FilterData, RowData, Field> {
+> extends
+    IListProps<FilterData, RowData, Field>,
+    IListState<FilterData, RowData> {
     children: React.ReactChild;
 }
 

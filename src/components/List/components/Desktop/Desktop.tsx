@@ -119,7 +119,7 @@ export const Desktop = <
         />
       )}
     </Container>
-  )
+  );
 };
 
 export default Desktop;

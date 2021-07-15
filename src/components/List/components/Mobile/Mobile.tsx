@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useRef, useEffect } from 'react';
 
-
 import { VariableSizeList as List } from "react-window";
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
@@ -22,7 +21,7 @@ interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnyth
 export const Mobile = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
-  >(props: IMobileProps<FilterData, RowData>) => {
+>(props: IMobileProps<FilterData, RowData>) => {
 
   const { rows } = props;
 

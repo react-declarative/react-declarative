@@ -368,7 +368,7 @@ declare module 'react-view-builder/model/IField' {
 }
 
 declare module 'react-view-builder/model/IColumn' {
-    import { GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
+    import { GridCellParams, GridColumnHeaderParams, GridComparatorFn } from '@material-ui/data-grid';
     import ColumnType from "react-view-builder/model/ColumnType";
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
@@ -399,6 +399,7 @@ declare module 'react-view-builder/model/IColumn' {
         sizerGetText?: (row: RowData) => string;
         renderCell?: (props: GridCellParams) => JSX.Element;
         renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
+        cellComparator?: GridComparatorFn;
         sortable?: boolean;
     }
     export default IColumn;
@@ -1330,11 +1331,11 @@ declare module 'react-view-builder/components/common/Expansion/Expansion' {
 
 declare module 'react-view-builder/components/List/components/PropProvider/PropProvider' {
     import * as React from 'react';
-    import IListProps from 'react-view-builder/model/IListProps';
+    import IListProps, { IListState } from 'react-view-builder/model/IListProps';
     import IAnything from 'react-view-builder/model/IAnything';
     import IField from 'react-view-builder/model/IField';
     import IRowData from 'react-view-builder/model/IRowData';
-    interface IPropContext<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends IListProps<FilterData, RowData, Field> {
+    interface IPropContext<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends IListProps<FilterData, RowData, Field>, IListState<FilterData, RowData> {
         children: React.ReactChild;
     }
     export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;

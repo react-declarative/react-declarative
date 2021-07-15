@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
     GridCellParams,
     GridColumnHeaderParams,
+    GridComparatorFn,
 } from '@material-ui/data-grid';
 
 import ColumnType from "./ColumnType";
@@ -37,6 +38,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     sizerGetText?: (row: RowData) => string;
     renderCell?: (props: GridCellParams) => JSX.Element;
     renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
+    cellComparator?: GridComparatorFn;
     sortable?: boolean;
 }
 
