@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import { GridCellParams } from "@material-ui/data-grid";
@@ -8,6 +9,8 @@ import Menu from '@material-ui/core/Menu';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import { useProps } from "../../PropProvider";
 
 const useStyles = makeStyles({
   root: {
@@ -20,34 +23,31 @@ const useStyles = makeStyles({
 
 type IActionCellProps = GridCellParams;
 
-export const ActionCell = ({}: IActionCellProps) => {
+export const ActionCell = (props: IActionCellProps) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const listProps = useProps();
 
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const {
+    rowActions = [],
+    onRowAction,
+  } = listProps;
+
+  const handleOpen = (event: any) => {
+    if (rowActions.length) {
+      setAnchorEl(event.currentTarget);
+    }
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const options = [
-    'None',
-    'Atria',
-    'Callisto',
-    'Dione',
-    'Ganymede',
-    'Hangouts Call',
-    'Luna',
-    'Oberon',
-    'Phobos',
-    'Pyxis',
-    'Sedna',
-    'Titania',
-    'Triton',
-    'Umbriel',
-  ];
+  const handleClick = (action: string) => () => {
+    onRowAction && onRowAction(props.row, action);
+    handleClose();
+  };
 
   return (
     <div className={classes.root}>
@@ -55,7 +55,7 @@ export const ActionCell = ({}: IActionCellProps) => {
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={handleOpen}
       >
         <MoreVertIcon />
       </IconButton>
@@ -66,9 +66,9 @@ export const ActionCell = ({}: IActionCellProps) => {
         open={!!anchorEl}
         onClose={handleClose}
       >
-        {options.map((option) => (
-          <MenuItem key={option} onClick={handleClose}>
-            {option}
+        {rowActions.map(({action, label}, idx) => (
+          <MenuItem key={idx} onClick={handleClick(action)}>
+            {label}
           </MenuItem>
         ))}
       </Menu>

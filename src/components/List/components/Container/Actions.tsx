@@ -8,7 +8,8 @@ import Add from '@material-ui/icons/Add';
 
 import classNames from '../../../../utils/classNames';
 
-import { ActionType, IListAction } from '../../../../model/IListProps';
+import { IListAction } from '../../../../model/IListProps';
+import ActionType from '../../../../model/ActionType';
 import IAnything from '../../../../model/IAnything';
 
 const useStyles = makeStyles({

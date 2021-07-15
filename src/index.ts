@@ -1,17 +1,19 @@
 
 import { TypedField as TypedFieldInternal } from './model/TypedField';
+import { IField as IFieldInternal } from './model/IField';
+import { IColumn as IColumnInternal } from './model/IColumn';
+
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
-import { IField as IFieldInternal } from './model/IField';
-import IAnything from './model/IAnything';
+import { ActionType as ActionTypeInternal } from './model/ActionType';
 
 import { IListAction as IListActionInternal } from './model/IListProps';
-import { IColumn as IColumnInternal } from './model/IColumn';
-import { ActionType as ActionTypeInternal } from './model/IListProps';
 
 import "vanilla-autofill-event";
 
 import { useDate, useTime } from './components';
+
+import IAnything from './model/IAnything';
 
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;

@@ -78,6 +78,11 @@ const columns: IColumn[] = [
     headerName: 'Last name',
     width: 200,
   },
+  {
+    type: ColumnType.Action,
+    headerName: 'Actions',
+    width: 150,
+  },
 ];
 
 const actions: IListAction[] = [
@@ -87,6 +92,13 @@ const actions: IListAction[] = [
       console.log(filterData);
     },
   },
+];
+
+const rowActions = [
+  {
+    label: 'Row action',
+    action: 'row-action',
+  }
 ];
 
 export const ListPage = () => {
@@ -117,14 +129,20 @@ export const ListPage = () => {
     alert(action);
   };
 
+  const handleRowActionsClick = (row: any, action: string) => {
+    alert(JSON.stringify({row, action}, null, 2));
+  };
+
   return (
     <ListTyped
       heightRequest={heightRequest}
+      rowActions={rowActions}
       actions={actions}
       filters={filters}
       columns={columns}
       handler={handler}
       onColumnMenuAction={handleColumnMenuClick}
+      onRowAction={handleRowActionsClick}
     />
   );
 };

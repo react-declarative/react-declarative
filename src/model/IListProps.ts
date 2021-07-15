@@ -6,14 +6,12 @@ import {
   GridSortModelParams,
 } from '@material-ui/data-grid';
 
+import ActionType from './ActionType';
+
 import IAnything from './IAnything';
 import IRowData from './IRowData';
 import IColumn from './IColumn';
 import IField from './IField';
-
-export enum ActionType {
-  Add = 'add-action',
-}
 
 export interface IListAction<FilterData = IAnything> {
   type: ActionType;
@@ -61,9 +59,7 @@ export interface IListProps<
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
-> extends GridSlotsComponent,
-    GridProps,
-    ComponentProps {
+> extends GridSlotsComponent, GridProps, ComponentProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
@@ -73,10 +69,15 @@ export interface IListProps<
   sortModel?: GridSortModel;
   onSortModelChange?: (params?: GridSortModelParams) => void;
   onColumnMenuAction?: (action: string) => void;
+  onRowAction?: (row: RowData, action: string) => void;
   gridColumns?: GridColumns;
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
+  rowActions?: {
+    action: string;
+    label: string;
+  }[];
 }
 
 export default IListProps;

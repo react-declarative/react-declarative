@@ -11,7 +11,7 @@ import { renderHeader } from "../components/List/components/Desktop/components/H
 export const createColumn = (column: IColumn): GridColDef => {
     const {
         type,
-        field,
+        field = '_',
         headerName,
         width,
         columnMenu = undefined,

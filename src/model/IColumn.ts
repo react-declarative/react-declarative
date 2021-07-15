@@ -12,7 +12,7 @@ import IRowData from './IRowData';
 
 export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
-    field: string;
+    field?: string;
     headerName: string;
     width: number;
     columnMenu?: {

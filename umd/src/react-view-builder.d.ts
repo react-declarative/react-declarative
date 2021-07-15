@@ -8,15 +8,15 @@
 
 declare module 'react-view-builder' {
     import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
+    import { IField as IFieldInternal } from 'react-view-builder/model/IField';
+    import { IColumn as IColumnInternal } from 'react-view-builder/model/IColumn';
     import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
     import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
-    import { IField as IFieldInternal } from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
+    import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
-    import { IColumn as IColumnInternal } from 'react-view-builder/model/IColumn';
-    import { ActionType as ActionTypeInternal } from 'react-view-builder/model/IListProps';
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
+    import IAnything from 'react-view-builder/model/IAnything';
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
@@ -103,40 +103,6 @@ declare module 'react-view-builder/model/TypedField' {
             child?: TypedField<Data>;
     };
     export default TypedField;
-}
-
-declare module 'react-view-builder/model/FieldType' {
-    export enum FieldType {
-        Switch = "switch",
-        Line = "line",
-        Group = "group",
-        Paper = "paper",
-        Expansion = "expansion",
-        Radio = "radio",
-        Checkbox = "checkbox",
-        Text = "text",
-        Progress = "progress",
-        Component = "component",
-        Slider = "slider",
-        Combo = "combo",
-        Items = "items",
-        Rating = "rating",
-        Typography = "typography",
-        Fragment = "fragment",
-        Div = "div",
-        Hero = "hero"
-    }
-    export default FieldType;
-}
-
-declare module 'react-view-builder/model/ColumnType' {
-    export enum ColumnType {
-        Text = "text-cell",
-        Action = "action-cell",
-        CheckBox = "checkbox-cell",
-        Custom = "custom-cell"
-    }
-    export default ColumnType;
 }
 
 declare module 'react-view-builder/model/IField' {
@@ -401,20 +367,91 @@ declare module 'react-view-builder/model/IField' {
     export default IField;
 }
 
-declare module 'react-view-builder/model/IAnything' {
-    export type IAnything = Record<string, any | {}> | any;
-    export default IAnything;
+declare module 'react-view-builder/model/IColumn' {
+    import { GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
+    import ColumnType from "react-view-builder/model/ColumnType";
+    import IAnything from 'react-view-builder/model/IAnything';
+    import IRowData from 'react-view-builder/model/IRowData';
+    export interface IColumn<RowData extends IRowData = IAnything> {
+        type: ColumnType;
+        field?: string;
+        headerName: string;
+        width: number;
+        columnMenu?: {
+            label: string;
+            action: string;
+        }[];
+        showColumnMenu?: boolean;
+        sizerCellPadding?: {
+            paddingTop: number;
+            paddingLeft: number;
+            paddingRight: number;
+            paddingBottom: number;
+        };
+        sizerCellStyle?: {
+            whiteSpace: string;
+            overflowWrap: string;
+            lineHeight: string;
+            fontSize: string;
+            fontWeight: string;
+            border: string;
+        };
+        sizerGetText?: (row: RowData) => string;
+        renderCell?: (props: GridCellParams) => JSX.Element;
+        renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
+        sortable?: boolean;
+    }
+    export default IColumn;
+}
+
+declare module 'react-view-builder/model/FieldType' {
+    export enum FieldType {
+        Switch = "switch",
+        Line = "line",
+        Group = "group",
+        Paper = "paper",
+        Expansion = "expansion",
+        Radio = "radio",
+        Checkbox = "checkbox",
+        Text = "text",
+        Progress = "progress",
+        Component = "component",
+        Slider = "slider",
+        Combo = "combo",
+        Items = "items",
+        Rating = "rating",
+        Typography = "typography",
+        Fragment = "fragment",
+        Div = "div",
+        Hero = "hero"
+    }
+    export default FieldType;
+}
+
+declare module 'react-view-builder/model/ColumnType' {
+    export enum ColumnType {
+        Text = "text-cell",
+        Action = "action-cell",
+        CheckBox = "checkbox-cell",
+        Custom = "custom-cell"
+    }
+    export default ColumnType;
+}
+
+declare module 'react-view-builder/model/ActionType' {
+    export enum ActionType {
+        Add = "add-action"
+    }
+    export default ActionType;
 }
 
 declare module 'react-view-builder/model/IListProps' {
     import { GridColumns, GridComponentProps, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
+    import ActionType from 'react-view-builder/model/ActionType';
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
     import IColumn from 'react-view-builder/model/IColumn';
     import IField from 'react-view-builder/model/IField';
-    export enum ActionType {
-        Add = "add-action"
-    }
     export interface IListAction<FilterData = IAnything> {
         type: ActionType;
         onClick: (e: FilterData) => void;
@@ -459,49 +496,17 @@ declare module 'react-view-builder/model/IListProps' {
         sortModel?: GridSortModel;
         onSortModelChange?: (params?: GridSortModelParams) => void;
         onColumnMenuAction?: (action: string) => void;
+        onRowAction?: (row: RowData, action: string) => void;
         gridColumns?: GridColumns;
         columns: IColumn<RowData>[];
         filters?: Field[];
         handler: ListHandler;
+        rowActions?: {
+            action: string;
+            label: string;
+        }[];
     }
     export default IListProps;
-}
-
-declare module 'react-view-builder/model/IColumn' {
-    import { GridCellParams, GridColumnHeaderParams } from '@material-ui/data-grid';
-    import ColumnType from "react-view-builder/model/ColumnType";
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IRowData from 'react-view-builder/model/IRowData';
-    export interface IColumn<RowData extends IRowData = IAnything> {
-        type: ColumnType;
-        field: string;
-        headerName: string;
-        width: number;
-        columnMenu?: {
-            label: string;
-            action: string;
-        }[];
-        showColumnMenu?: boolean;
-        sizerCellPadding?: {
-            paddingTop: number;
-            paddingLeft: number;
-            paddingRight: number;
-            paddingBottom: number;
-        };
-        sizerCellStyle?: {
-            whiteSpace: string;
-            overflowWrap: string;
-            lineHeight: string;
-            fontSize: string;
-            fontWeight: string;
-            border: string;
-        };
-        sizerGetText?: (row: RowData) => string;
-        renderCell?: (props: GridCellParams) => JSX.Element;
-        renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
-        sortable?: boolean;
-    }
-    export default IColumn;
 }
 
 declare module 'react-view-builder/components' {
@@ -510,6 +515,11 @@ declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/hooks/useDate';
     export * from 'react-view-builder/components/hooks/useTime';
     export * from 'react-view-builder/components/common/ModalProvider';
+}
+
+declare module 'react-view-builder/model/IAnything' {
+    export type IAnything = Record<string, any | {}> | any;
+    export default IAnything;
 }
 
 declare module 'react-view-builder/model/IManaged' {
