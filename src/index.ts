@@ -9,11 +9,15 @@ import { ActionType as ActionTypeInternal } from './model/ActionType';
 
 import { IListAction as IListActionInternal } from './model/IListProps';
 
+import { ListHandler as ListHandlerInternal } from './model/IListProps';
+import { OneHandler as OneHandlerInternal } from './model/IOneProps';
+
 import "vanilla-autofill-event";
 
 import { useDate, useTime } from './components';
 
 import IAnything from './model/IAnything';
+import IRowData from './model/IRowData';
 
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
@@ -21,6 +25,9 @@ export const ActionType = ActionTypeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;
+
+export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
+export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
 export type IListAction<Data = IAnything> = IListActionInternal<Data>;
 export type IColumn = IColumnInternal;

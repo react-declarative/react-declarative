@@ -14,14 +14,19 @@ declare module 'react-view-builder' {
     import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
+    import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
+    import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
     import IAnything from 'react-view-builder/model/IAnything';
+    import IRowData from 'react-view-builder/model/IRowData';
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
     export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
     export type IField<Data = IAnything> = IFieldInternal<Data>;
+    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
+    export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
     export type IListAction<Data = IAnything> = IListActionInternal<Data>;
     export type IColumn = IColumnInternal;
     export type pickDateFn = ReturnType<typeof useDate>;
@@ -399,7 +404,7 @@ declare module 'react-view-builder/model/IColumn' {
         sizerGetText?: (row: RowData) => string;
         renderCell?: (props: GridCellParams) => JSX.Element;
         renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
-        cellComparator?: GridComparatorFn;
+        sortComparator?: GridComparatorFn;
         sortable?: boolean;
     }
     export default IColumn;
@@ -499,7 +504,7 @@ declare module 'react-view-builder/model/IListProps' {
         onColumnMenuAction?: (action: string) => void;
         onRowAction?: (row: RowData, action: string) => void;
         gridColumns?: GridColumns;
-        columns: IColumn<RowData>[];
+        columns?: IColumn<RowData>[];
         filters?: Field[];
         handler: ListHandler;
         rowActions?: {
@@ -508,6 +513,57 @@ declare module 'react-view-builder/model/IListProps' {
         }[];
     }
     export default IListProps;
+}
+
+declare module 'react-view-builder/model/IOneProps' {
+    import * as React from 'react';
+    import IField from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
+    export type OneHandler<Data = IAnything> = Data | (() => Data) | (() => Promise<Data>);
+    export interface IOneProps<Data = IAnything, Field = IField<Data>> {
+            /**
+                * Позволяет загружать данные в компонент
+                */
+            handler?: OneHandler<Data>;
+            /**
+                * Вызывается при ошибке в handler
+                */
+            fallback?: (e: Error) => void;
+            /**
+                * Коллбек, вызываемый при не прохождении
+                * валидации
+                */
+            invalidity?: (e: string) => void;
+            /**
+                * Вызываются при фокусировки по филду
+                * в компоненте и потере фокуса
+                */
+            focus?: () => void;
+            blur?: () => void;
+            /**
+                * Вызывается, когда все поля успели отрисоваться
+                * в первый раз, после появления формы
+                */
+            ready?: () => void;
+            /**
+                * Вызывается после изменения и передает измененный
+                * объект прикладному программисту
+                */
+            change?: (Data: Data, initial: boolean) => void;
+            /**
+                * Массив полей, выводимый в компоненте
+                */
+            fields: Field[];
+            /**
+                * Префикс для формирования ключей элементов
+                */
+            prefix?: string;
+            /**
+                * Плейсхолдер, показываемый во время загрузки данных
+                */
+            LoadPlaceholder?: null | React.ComponentType;
+    }
+    export default IOneProps;
 }
 
 declare module 'react-view-builder/components' {
@@ -521,6 +577,13 @@ declare module 'react-view-builder/components' {
 declare module 'react-view-builder/model/IAnything' {
     export type IAnything = Record<string, any | {}> | any;
     export default IAnything;
+}
+
+declare module 'react-view-builder/model/IRowData' {
+    export interface IRowData {
+        id: string | number;
+    }
+    export default IRowData;
 }
 
 declare module 'react-view-builder/model/IManaged' {
@@ -1123,13 +1186,6 @@ declare module 'react-view-builder/model/ISize' {
     export default ISize;
 }
 
-declare module 'react-view-builder/model/IRowData' {
-    export interface IRowData {
-        id: string | number;
-    }
-    export default IRowData;
-}
-
 declare module 'react-view-builder/components/One' {
     import TypedField from 'react-view-builder/model/TypedField';
     import IOneProps from 'react-view-builder/model/IOneProps';
@@ -1191,56 +1247,6 @@ declare module 'react-view-builder/components/common/Paper' {
 declare module 'react-view-builder/components/common/Expansion' {
     export * from 'react-view-builder/components/common/Expansion/Expansion';
     export { default } from 'react-view-builder/components/common/Expansion/Expansion';
-}
-
-declare module 'react-view-builder/model/IOneProps' {
-    import * as React from 'react';
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
-    export interface IOneProps<Data = IAnything, Field = IField<Data>> {
-            /**
-                * Позволяет загружать данные в компонент
-                */
-            handler?: Data | (() => Data) | (() => Promise<Data>);
-            /**
-                * Вызывается при ошибке в handler
-                */
-            fallback?: (e: Error) => void;
-            /**
-                * Коллбек, вызываемый при не прохождении
-                * валидации
-                */
-            invalidity?: (e: string) => void;
-            /**
-                * Вызываются при фокусировки по филду
-                * в компоненте и потере фокуса
-                */
-            focus?: () => void;
-            blur?: () => void;
-            /**
-                * Вызывается, когда все поля успели отрисоваться
-                * в первый раз, после появления формы
-                */
-            ready?: () => void;
-            /**
-                * Вызывается после изменения и передает измененный
-                * объект прикладному программисту
-                */
-            change?: (Data: Data, initial: boolean) => void;
-            /**
-                * Массив полей, выводимый в компоненте
-                */
-            fields: Field[];
-            /**
-                * Префикс для формирования ключей элементов
-                */
-            prefix?: string;
-            /**
-                * Плейсхолдер, показываемый во время загрузки данных
-                */
-            LoadPlaceholder?: null | React.ComponentType;
-    }
-    export default IOneProps;
 }
 
 declare module 'react-view-builder/components/List/List' {

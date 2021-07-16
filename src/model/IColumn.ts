@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 import {
     GridCellParams,
@@ -38,7 +37,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     sizerGetText?: (row: RowData) => string;
     renderCell?: (props: GridCellParams) => JSX.Element;
     renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
-    cellComparator?: GridComparatorFn;
+    sortComparator?: GridComparatorFn;
     sortable?: boolean;
 }
 

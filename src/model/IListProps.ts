@@ -71,7 +71,7 @@ export interface IListProps<
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
   gridColumns?: GridColumns;
-  columns: IColumn<RowData>[];
+  columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
   rowActions?: {

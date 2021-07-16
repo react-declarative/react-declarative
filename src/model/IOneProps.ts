@@ -3,11 +3,13 @@ import * as React from 'react';
 import IField from './IField';
 import IAnything from './IAnything';
 
+export type OneHandler<Data = IAnything> = Data | (() => Data) | (() => Promise<Data>);
+
 export interface IOneProps<Data = IAnything, Field = IField<Data>> {
   /**
    * Позволяет загружать данные в компонент
    */
-  handler?: Data | (() => Data) | (() => Promise<Data>);
+  handler?: OneHandler<Data>;
   /**
    * Вызывается при ошибке в handler
    */

@@ -16,7 +16,7 @@ export const createColumn = (column: IColumn): GridColDef => {
         field = '_',
         headerName,
         width,
-        cellComparator,
+        sortComparator,
         columnMenu = undefined,
         sortable = true,
         showColumnMenu = false,
@@ -25,7 +25,7 @@ export const createColumn = (column: IColumn): GridColDef => {
         headerName,
         field,
         sortable,
-        cellComparator,
+        sortComparator,
         width: computeStyle(width),
         disableColumnMenu: !columnMenu && !showColumnMenu,
     };
