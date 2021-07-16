@@ -29,7 +29,7 @@ export type IField<Data = IAnything> = IFieldInternal<Data>;
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
-export type IListAction<Data = IAnything> = IListActionInternal<Data>;
+export type IListAction = IListActionInternal;
 export type IColumn = IColumnInternal;
 
 export type pickDateFn = ReturnType<typeof useDate>;

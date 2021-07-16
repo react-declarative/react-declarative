@@ -19,13 +19,13 @@ export const ColumnMenu = () => {
   } = gridProps;
 
   const {
-    columns,
+    columns = [],
     onColumnMenuAction,
   } = listProps;
 
   const {
     columnMenu = [],
-  } = columns.find(({field}) => field === columnMenuField)! || [];
+  } = columns.find(({field}) => field === columnMenuField)! || {};
 
   const handleClick = (item: string) => (e: any) => {
     e.stopPropagation();

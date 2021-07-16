@@ -58,7 +58,7 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'id',
     headerName: 'ID',
-    width: 'calc(100vw - 550px)',
+    width: 'calc(60vw - 550px)',
     columnMenu: [
       {
         action: 'click-me',
@@ -88,10 +88,16 @@ const columns: IColumn[] = [
 const actions: IListAction[] = [
   {
     type: ActionType.Add,
-    onClick(filterData) {
-      console.log(filterData);
-    },
   },
+  {
+    type: ActionType.Menu,
+    options: [
+      {
+        action: 'menu-action',
+        label: 'Hello world',
+      }
+    ],
+  }
 ];
 
 const rowActions = [
@@ -133,6 +139,10 @@ export const ListPage = () => {
     alert(JSON.stringify({row, action}, null, 2));
   };
 
+  const handleAction = (action: string) => {
+    alert(action);
+  };
+
   return (
     <ListTyped
       heightRequest={heightRequest}
@@ -143,6 +153,7 @@ export const ListPage = () => {
       handler={handler}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
+      onAction={handleAction}
     />
   );
 };

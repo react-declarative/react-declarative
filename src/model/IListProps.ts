@@ -13,9 +13,13 @@ import IRowData from './IRowData';
 import IColumn from './IColumn';
 import IField from './IField';
 
-export interface IListAction<FilterData = IAnything> {
+export interface IListAction {
   type: ActionType;
-  onClick: (e: FilterData) => void;
+  options?: {
+    action: string;
+    label: string;
+  }[];
+  action?: string;
 }
 
 interface GridProps {
@@ -63,13 +67,14 @@ export interface IListProps<
   className?: string;
   style?: React.CSSProperties;
   title?: string;
-  actions?: IListAction<FilterData>[];
+  actions?: IListAction[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
   onSortModelChange?: (params?: GridSortModelParams) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
+  onAction?: (action: string) => void;
   gridColumns?: GridColumns;
   columns?: IColumn<RowData>[];
   filters?: Field[];

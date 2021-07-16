@@ -27,7 +27,7 @@ declare module 'react-view-builder' {
     export type IField<Data = IAnything> = IFieldInternal<Data>;
     export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
-    export type IListAction<Data = IAnything> = IListActionInternal<Data>;
+    export type IListAction = IListActionInternal;
     export type IColumn = IColumnInternal;
     export type pickDateFn = ReturnType<typeof useDate>;
     export type pickTimeFn = ReturnType<typeof useTime>;
@@ -446,7 +446,8 @@ declare module 'react-view-builder/model/ColumnType' {
 
 declare module 'react-view-builder/model/ActionType' {
     export enum ActionType {
-        Add = "add-action"
+        Add = "add-action",
+        Menu = "menu-action"
     }
     export default ActionType;
 }
@@ -458,9 +459,13 @@ declare module 'react-view-builder/model/IListProps' {
     import IRowData from 'react-view-builder/model/IRowData';
     import IColumn from 'react-view-builder/model/IColumn';
     import IField from 'react-view-builder/model/IField';
-    export interface IListAction<FilterData = IAnything> {
+    export interface IListAction {
         type: ActionType;
-        onClick: (e: FilterData) => void;
+        options?: {
+            action: string;
+            label: string;
+        }[];
+        action?: string;
     }
     interface GridProps {
         onRowClick?: GridComponentProps["onRowClick"];
@@ -496,13 +501,14 @@ declare module 'react-view-builder/model/IListProps' {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
-        actions?: IListAction<FilterData>[];
+        actions?: IListAction[];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
         sortModel?: GridSortModel;
         onSortModelChange?: (params?: GridSortModelParams) => void;
         onColumnMenuAction?: (action: string) => void;
         onRowAction?: (row: RowData, action: string) => void;
+        onAction?: (action: string) => void;
         gridColumns?: GridColumns;
         columns?: IColumn<RowData>[];
         filters?: Field[];
