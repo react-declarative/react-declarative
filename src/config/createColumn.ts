@@ -22,11 +22,11 @@ export const createColumn = (column: IColumn): GridColDef => {
         showColumnMenu = false,
     } = column;
     const baseFields = {
-        headerName,
         field,
-        sortable,
-        sortComparator,
-        width: computeStyle(width),
+        ...(headerName && {headerName}),
+        ...(sortable && {sortable}),
+        ...(sortComparator && {sortComparator}),
+        ...(width && {width: computeStyle(width)}),
         disableColumnMenu: !columnMenu && !showColumnMenu,
     };
     if (type === ColumnType.Text) {
