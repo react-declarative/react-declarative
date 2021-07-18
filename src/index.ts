@@ -35,6 +35,8 @@ export type IColumn = IColumnInternal;
 export type pickDateFn = ReturnType<typeof useDate>;
 export type pickTimeFn = ReturnType<typeof useTime>;
 
+export { default as dayjs } from 'dayjs';
+
 export { One, OneTyped } from './components';
 export { List, ListTyped } from './components';
 export { ModalProvider } from './components';
