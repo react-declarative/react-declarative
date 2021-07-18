@@ -11,15 +11,12 @@ import ActionType from './ActionType';
 import IAnything from './IAnything';
 import IRowData from './IRowData';
 import IColumn from './IColumn';
+import IOption from './IOption';
 import IField from './IField';
 
-export interface IListAction {
+export interface IListAction extends Partial<IOption> {
   type: ActionType;
-  options?: {
-    action: string;
-    label: string;
-  }[];
-  action?: string;
+  options?: Partial<IOption>[];
 }
 
 interface GridProps {
@@ -67,6 +64,7 @@ export interface IListProps<
   className?: string;
   style?: React.CSSProperties;
   title?: string;
+  filterLabel?: string;
   actions?: IListAction[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
@@ -79,10 +77,7 @@ export interface IListProps<
   columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
-  rowActions?: {
-    action: string;
-    label: string;
-  }[];
+  rowActions?: IOption[];
 }
 
 export default IListProps;

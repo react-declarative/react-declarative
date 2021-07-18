@@ -56,7 +56,7 @@ interface IFiltersProps<FilterData = IAnything> {
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
   clean: () => void;
-  title: string;
+  label: string;
 }
 
 export const Filters = <FilterData extends IAnything>({
@@ -66,7 +66,7 @@ export const Filters = <FilterData extends IAnything>({
   filters,
   change,
   clean,
-  title,
+  label,
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
   const [collapsed, setCollapsed] = useState(false);
@@ -87,7 +87,7 @@ export const Filters = <FilterData extends IAnything>({
         </Collapse>
         <Collapse in={!collapsed}>
           <Typography variant="body1" className={classes.title}>
-            {title}
+            {label}
           </Typography>
         </Collapse>
       </div>

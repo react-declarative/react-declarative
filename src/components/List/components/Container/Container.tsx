@@ -60,7 +60,8 @@ export const Container = <
   actions = [],
   heightRequest = (v) => v,
   widthRequest = (v) => v,
-  title = "list-component",
+  title = '',
+  filterLabel = '',
   filterData,
   handleFilter,
   handleDefault,
@@ -81,7 +82,7 @@ export const Container = <
       {({ height, width }) => (
         <div style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
-            <Actions<FilterData> filterData={filterData!} actions={actions} />
+            <Actions<FilterData> title={title} filterData={filterData!} actions={actions} />
           )}
           <Paper className={classNames(classes.container, classes.stretch, {
             [classes.noElevation]: isMobile,
@@ -91,8 +92,8 @@ export const Container = <
                 filterData={filterData!}
                 change={handleFilter}
                 clean={handleDefault}
+                label={filterLabel}
                 filters={filters}
-                title={title}
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>

@@ -35,7 +35,7 @@ export const ColumnMenu = () => {
 
   return (
     <Box display="flex" flexDirection="column">
-      {columnMenu.map(({ action, label }, idx) => (
+      {columnMenu.map(({ action = 'unknown-action', label }, idx) => (
         <ButtonBase key={idx} onClick={handleClick(action)}>
           <ListItem>
             <ListItemText primary={label} />

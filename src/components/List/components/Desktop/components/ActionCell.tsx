@@ -4,10 +4,12 @@ import { makeStyles } from "@material-ui/core";
 
 import { GridCellParams } from "@material-ui/data-grid";
 
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { useProps } from "../../PropProvider";
@@ -53,22 +55,32 @@ export const ActionCell = (props: IActionCellProps) => {
     <div className={classes.root}>
       <IconButton
         aria-label="more"
-        aria-controls="long-menu"
         aria-haspopup="true"
         onClick={handleOpen}
       >
         <MoreVertIcon />
       </IconButton>
       <Menu
-        id="long-menu"
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
         anchorEl={anchorEl}
         keepMounted
         open={!!anchorEl}
         onClose={handleClose}
       >
-        {rowActions.map(({action, label}, idx) => (
+        {rowActions.map(({ action = 'unknown-action', icon: Icon, label }, idx) => (
           <MenuItem key={idx} onClick={handleClick(action)}>
-            {label}
+            {!!Icon && (
+              <ListItemIcon>
+                  <Icon />
+              </ListItemIcon>
+            )}
+            <Typography variant="inherit">
+              {label}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>

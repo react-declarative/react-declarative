@@ -15,7 +15,9 @@ import {
 } from 'react-view-builder';
 
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import Delete from '@material-ui/icons/Delete';
 import Alarm from '@material-ui/icons/Alarm';
+import Add from '@material-ui/icons/Add';
 
 const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn): TypedField[]  => [
   {
@@ -95,6 +97,7 @@ const actions: IListAction[] = [
       {
         action: 'menu-action',
         label: 'Hello world',
+        icon: Add,
       }
     ],
   }
@@ -104,6 +107,7 @@ const rowActions = [
   {
     label: 'Row action',
     action: 'row-action',
+    icon: Delete,
   }
 ];
 
@@ -145,6 +149,8 @@ export const ListPage = () => {
 
   return (
     <ListTyped
+      title="List Component"
+      filterLabel="Filters"
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}

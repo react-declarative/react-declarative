@@ -377,15 +377,13 @@ declare module 'react-view-builder/model/IColumn' {
     import ColumnType from "react-view-builder/model/ColumnType";
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
+    import IOption from 'react-view-builder/model/IOption';
     export interface IColumn<RowData extends IRowData = IAnything> {
         type: ColumnType;
         field?: string;
         headerName: string;
         width: string;
-        columnMenu?: {
-            label: string;
-            action: string;
-        }[];
+        columnMenu?: IOption[];
         showColumnMenu?: boolean;
         sizerCellPadding?: {
             paddingTop: number;
@@ -458,14 +456,11 @@ declare module 'react-view-builder/model/IListProps' {
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
     import IColumn from 'react-view-builder/model/IColumn';
+    import IOption from 'react-view-builder/model/IOption';
     import IField from 'react-view-builder/model/IField';
-    export interface IListAction {
+    export interface IListAction extends Partial<IOption> {
         type: ActionType;
-        options?: {
-            action: string;
-            label: string;
-        }[];
-        action?: string;
+        options?: Partial<IOption>[];
     }
     interface GridProps {
         onRowClick?: GridComponentProps["onRowClick"];
@@ -501,6 +496,7 @@ declare module 'react-view-builder/model/IListProps' {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
+        filterLabel?: string;
         actions?: IListAction[];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
@@ -513,10 +509,7 @@ declare module 'react-view-builder/model/IListProps' {
         columns?: IColumn<RowData>[];
         filters?: Field[];
         handler: ListHandler;
-        rowActions?: {
-            action: string;
-            label: string;
-        }[];
+        rowActions?: IOption[];
     }
     export default IListProps;
 }
@@ -1190,6 +1183,16 @@ declare module 'react-view-builder/model/ISize' {
     }
     export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize) => string;
     export default ISize;
+}
+
+declare module 'react-view-builder/model/IOption' {
+    import React from "react";
+    export interface IOption {
+        label: string;
+        action: string;
+        icon?: React.ComponentType<any>;
+    }
+    export default IOption;
 }
 
 declare module 'react-view-builder/components/One' {

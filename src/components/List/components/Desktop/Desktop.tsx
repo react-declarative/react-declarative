@@ -36,7 +36,6 @@ export const Desktop = <
     heightRequest = (v) => v,
     widthRequest = (v) => v,
     handler = () => [],
-    title = "list-component",
     rowHeight,
     filterData,
     handleFilter,

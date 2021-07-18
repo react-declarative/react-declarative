@@ -5,16 +5,17 @@ import { useProps } from "../../../PropProvider";
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Fab from '@material-ui/core/Fab';
 
+import IOption from '../../../../../../model/IOption';
+
 interface IActionMenuProps {
-    options?: {
-        label: string;
-        action: string;
-    }[];
+    options?: Partial<IOption>[];
 }
 
 export const ActionMenu = ({
@@ -49,22 +50,32 @@ export const ActionMenu = ({
                 size="small"
                 color="primary"
                 aria-label="more"
-                aria-controls="long-menu"
                 aria-haspopup="true"
                 onClick={handleFocus}
             >
                 <MoreVertIcon />
             </Fab>
             <Menu
-                id="long-menu"
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
                 anchorEl={anchorEl}
                 keepMounted
                 open={!!anchorEl}
                 onClose={handleClose}
             >
-                {options.map(({label, action}, idx) => (
+                {options.map(({label = 'unknown-label', action = 'unknown-action', icon: Icon}, idx) => (
                     <MenuItem key={idx} onClick={handleClick(action)}>
-                        {label}
+                        {!!Icon && (
+                            <ListItemIcon>
+                                <Icon />
+                            </ListItemIcon>
+                        )}
+                        <Typography variant="inherit">
+                            {label}
+                        </Typography>
                     </MenuItem>
                 ))}
             </Menu>

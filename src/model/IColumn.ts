@@ -9,16 +9,14 @@ import ColumnType from "./ColumnType";
 
 import IAnything from './IAnything';
 import IRowData from './IRowData';
+import IOption from './IOption';
 
 export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
     headerName: string;
     width: string;
-    columnMenu?: {
-        label: string;
-        action: string;
-    }[];
+    columnMenu?: IOption[];
     showColumnMenu?: boolean;
     sizerCellPadding?: {
         paddingTop: number;
