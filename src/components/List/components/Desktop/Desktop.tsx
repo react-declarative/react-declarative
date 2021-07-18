@@ -20,6 +20,7 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   className?: string;
   style?: React.CSSProperties;
   rowHeight: number;
+  ready: () => void;
 }
 
 export const Desktop = <

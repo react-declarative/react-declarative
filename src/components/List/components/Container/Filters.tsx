@@ -55,6 +55,7 @@ interface IFiltersProps<FilterData = IAnything> {
   style?: React.CSSProperties;
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
+  ready: () => void;
   clean: () => void;
   label: string;
 }
@@ -65,6 +66,7 @@ export const Filters = <FilterData extends IAnything>({
   filterData,
   filters,
   change,
+  ready,
   clean,
   label,
 }: IFiltersProps<FilterData>) => {
@@ -82,6 +84,7 @@ export const Filters = <FilterData extends IAnything>({
               handler={filterData}
               fields={filters}
               change={change}
+              ready={ready}
             />
           </Box>
         </Collapse>

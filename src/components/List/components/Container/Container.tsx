@@ -28,6 +28,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   className?: string;
   style?: React.CSSProperties;
   children: (s: ISize) => any;
+  ready: () => void;
 }
 
 const useStyles = makeStyles({
@@ -68,6 +69,7 @@ export const Container = <
   initComplete,
   children,
   isMobile,
+  ready,
 }: IContainerProps<FilterData, RowData>) => {
   const classes = useStyles();
 
@@ -94,6 +96,7 @@ export const Container = <
                 clean={handleDefault}
                 label={filterLabel}
                 filters={filters}
+                ready={ready}
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>

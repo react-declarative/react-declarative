@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
 
 import IListProps, { IListState } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
@@ -65,12 +65,6 @@ export const List = <
     handleFilter(newData as FilterData);
   };
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      handleDefault();
-    }, 1);
-  }, [handler]);
-
   return (
     <PropProvider {...{...props, ...state}}>
       {isMobile ? (
@@ -94,6 +88,7 @@ export const List = <
           actions={actions}
           handleDefault={handleDefault}
           handleFilter={handleFilter}
+          ready={handleDefault}
         />
       )}
     </PropProvider>
