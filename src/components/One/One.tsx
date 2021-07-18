@@ -6,7 +6,7 @@ import { memo, useRef, useCallback, Fragment } from 'react';
 import isStatefull from '../../config/isStatefull';
 import createField from '../../config/createField';
 
-import useResolved from '../../hooks/useResolved';
+import { useOneState } from './StateProvider';
 
 import ExpansionLayout from '../../layouts/ExpansionLayout';
 import PaperLayout from '../../layouts/PaperLayout';
@@ -39,20 +39,13 @@ export const OneInternal = <Data extends IAnything = IAnything>({
     fields,
     ready = () => null,
     prefix = 'root',
-    fallback = () => null,
-    handler = () => ({} as Data),
     invalidity = () => null,
     change = () => null,
     focus,
     blur,
 }: IOneProps<Data>) => {
     const waitingReady = useRef(countStatefull(fields));
-    const [object, setObject] = useResolved<Data>({
-        handler,
-        fallback,
-        fields,
-        change,
-    });
+    const {object, setObject} = useOneState<Data>();
     /**
      * Изменяем локальный объект, сообщаем вышестоящему
      * компоненту о изменениях

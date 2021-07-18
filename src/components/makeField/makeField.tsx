@@ -100,6 +100,7 @@ export function makeField(
         const [dirty, setDirty] = useState<boolean>(false);
 
         const inputUpdate = useRef(false);
+        const objectUpdate = useRef(false);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
@@ -117,6 +118,7 @@ export function makeField(
          */
         useEffect(() => {
             const wasInvalid = !!invalid;
+            objectUpdate.current = true;
             if (compute) {
                 setValue(compute(object, (v) => setValue(v)));
             } else if (!name) {
@@ -152,10 +154,12 @@ export function makeField(
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
+            } else if (objectUpdate.current) {
+                objectUpdate.current = false;
             } else if (compute) {
                 return;
             } else {
-                const target = config.skipDebounce ? value : debouncedValue;
+                const target = debouncedValue;
                 const copy = deepClone(object);
                 const check = set(copy, name, target);
                 const invalid = isInvalid(copy);
@@ -171,7 +175,7 @@ export function makeField(
                     change(copy);
                 }
             }
-        }, [config.skipDebounce ? value : debouncedValue]);
+        }, [debouncedValue, object]);
 
         /**
          * Блокирует применение изменений,

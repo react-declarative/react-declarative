@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 import IField from './IField';
 import IAnything from './IAnything';
@@ -43,10 +42,6 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Префикс для формирования ключей элементов
    */
   prefix?: string;
-  /**
-   * Плейсхолдер, показываемый во время загрузки данных
-   */
-  LoadPlaceholder?: null | React.ComponentType;
 }
 
 export default IOneProps;

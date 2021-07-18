@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { useState } from 'react';
 
 /* eslint-disable react/no-multi-comp */
@@ -19,7 +18,8 @@ import deepFlat from '../../utils/deepFlat';
 import arrays from '../../utils/arrays';
 
 import useStatic from '../../hooks/useStatic';
-import useResolved from '../../hooks/useResolved';
+
+import StateProvider from './StateProvider';
 
 const useStyles = makeStyles({
   hidden: {
@@ -27,28 +27,24 @@ const useStyles = makeStyles({
   },
 });
 
-export const One = <Data extends IAnything = IAnything>({
-    LoadPlaceholder = null,
-    ready = () => null,
-    change = () => null,
-    fallback = () => null,
-    handler = () => ({} as Data),
-    fields,
-    ...props
-  }: IOneProps<Data>) => {
+export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) => {
+
   const [visible, setVisible] = useState(false);
-  const [object, setObject] = useResolved<Data>({
-    handler,
-    fallback,
-    fields,
-    change,
-  });
+
+  const {
+    change = (data) => console.log({ data }),
+    ready = () => null,
+    fields = [],
+  } = props;
+
   const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
+
   const handleReady = () => {
     setVisible(true);
     ready();
   };
+
   const handleChange = (newData: Data, initial: boolean) => {
     let isValid = true;
     deepFlat(fields, 'fields').forEach(({
@@ -58,25 +54,27 @@ export const One = <Data extends IAnything = IAnything>({
     });
     if (isValid) {
       change(arrays(newData), initial);
-      setObject(newData);
     }
   };
-  const params = {
+
+  const stateParams = {
     ...props,
     fields: fieldsSnapshot,
     change: handleChange,
-    ready: handleReady,
-    handler: object!,
   };
+
+  const viewParams = {
+    ...props,
+    fields: fieldsSnapshot,
+    ready: handleReady,
+  };
+
   return (
-    <Fragment>
-      {object && (
-        <Group className={classNames({[classes.hidden]: !visible})}>
-          <OneInternal {...params} />
-        </Group>
-      )}
-      {!visible && LoadPlaceholder}
-    </Fragment>
+    <StateProvider {...stateParams}>
+      <Group className={classNames({[classes.hidden]: !visible})}>
+        <OneInternal {...viewParams} />
+      </Group>
+    </StateProvider>
   );
 };
 

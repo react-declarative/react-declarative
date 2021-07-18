@@ -515,7 +515,6 @@ declare module 'react-view-builder/model/IListProps' {
 }
 
 declare module 'react-view-builder/model/IOneProps' {
-    import * as React from 'react';
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
     export type OneHandler<Data = IAnything> = Data | (() => Data) | (() => Promise<Data>);
@@ -557,10 +556,6 @@ declare module 'react-view-builder/model/IOneProps' {
                 * Префикс для формирования ключей элементов
                 */
             prefix?: string;
-            /**
-                * Плейсхолдер, показываемый во время загрузки данных
-                */
-            LoadPlaceholder?: null | React.ComponentType;
     }
     export default IOneProps;
 }
@@ -1200,7 +1195,7 @@ declare module 'react-view-builder/components/One' {
     import IOneProps from 'react-view-builder/model/IOneProps';
     import IField from 'react-view-builder/model/IField';
     export const One: {
-        <Data extends unknown = any>({ LoadPlaceholder, ready, change, fallback, handler, fields, ...props }: IOneProps<Data, IField<Data>>): JSX.Element;
+        <Data extends unknown = any>(props: IOneProps<Data, IField<Data>>): JSX.Element;
         displayName: string;
         /**
           * После написания формы можно включить строгую
