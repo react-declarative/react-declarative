@@ -133,10 +133,10 @@ export function makeField(
                 if (isOk) {
                     inputUpdate.current = true;
                     setValue(newValue);
+                    setInvalid(invalid);
                 }
                 setDisabled(disabled);
                 setVisible(visible);
-                setInvalid(invalid);
             }
             /**
              * Отображаем форму только после отклика всех
