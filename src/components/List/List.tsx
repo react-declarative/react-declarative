@@ -77,6 +77,7 @@ export const List = <
           actions={actions}
           handleDefault={handleDefault}
           handleFilter={handleFilter}
+          ready={handleDefault}
         />
       ) : (
         <Desktop<FilterData, RowData>

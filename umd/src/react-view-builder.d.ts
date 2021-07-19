@@ -492,6 +492,7 @@ declare module 'react-view-builder/model/IListProps' {
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
         handleDefault: ListHandler<FilterData, RowData> | (() => void);
         handleFilter: (data: FilterData) => void;
+        ready: () => void;
     }
     export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
         className?: string;

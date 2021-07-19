@@ -54,6 +54,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: ListHandler<FilterData, RowData> | (() => void);
   handleFilter: (data: FilterData) => void;
+  ready: () => void;
 };
 
 export interface IListProps<

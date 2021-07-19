@@ -75,10 +75,21 @@ const columns: IColumn[] = [
     width: '200px',
   },
   {
-    type: ColumnType.Text,
+    type: ColumnType.CheckBox,
     field: 'lastName',
     headerName: 'Last name',
     width: '200px',
+    sortable: false,
+    columnMenu: [
+      {
+        action: 'hello-action',
+        label: 'Hello',
+      },
+      {
+        action: 'world-action',
+        label: 'world',
+      },
+    ]
   },
   {
     type: ColumnType.Action,

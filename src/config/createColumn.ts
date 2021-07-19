@@ -3,6 +3,8 @@ import { GridColDef } from "@material-ui/data-grid";
 import IColumn from "../model/IColumn";
 import ColumnType from "../model/ColumnType";
 
+import isUndefined from "../utils/isUndefined";
+
 import { renderCheckBoxCell } from "../components/List/components/Desktop/components/CheckboxCell";
 import { renderActionCell } from "../components/List/components/Desktop/components/ActionCell";
 import { renderTextCell } from "../components/List/components/Desktop/components/TextCell";
@@ -23,10 +25,10 @@ export const createColumn = (column: IColumn): GridColDef => {
     } = column;
     const baseFields = {
         field,
-        ...(headerName && {headerName}),
-        ...(sortable && {sortable}),
-        ...(sortComparator && {sortComparator}),
-        ...(width && {width: computeStyle(width)}),
+        ...(!isUndefined(headerName) && {headerName}),
+        ...(!isUndefined(sortable) && {sortable}),
+        ...(!isUndefined(sortComparator) && {sortComparator}),
+        ...(!isUndefined(width) && {width: computeStyle(width)}),
         disableColumnMenu: !columnMenu && !showColumnMenu,
     };
     if (type === ColumnType.Text) {
