@@ -70,6 +70,7 @@ export const Container = <
   children,
   isMobile,
   ready,
+  onFilterChange,
 }: IContainerProps<FilterData, RowData>) => {
   const classes = useStyles();
 
@@ -92,6 +93,7 @@ export const Container = <
             {Array.isArray(filters) && !!filters.length && (
               <Filters<FilterData>
                 filterData={filterData!}
+                onFilterChange={onFilterChange}
                 change={handleFilter}
                 clean={handleDefault}
                 label={filterLabel}

@@ -20,7 +20,6 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   className?: string;
   style?: React.CSSProperties;
   rowHeight: number;
-  ready: () => void;
 }
 
 export const Desktop = <
@@ -43,6 +42,10 @@ export const Desktop = <
     handleDefault,
     initComplete,
     rows,
+    checkboxSelection,
+    disableSelectionOnClick,
+    onRowSelected,
+    onRowClick,
     ...otherProps
   } = props;
 
@@ -83,7 +86,11 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
+          checkboxSelection={checkboxSelection}
+          disableSelectionOnClick={disableSelectionOnClick}
           columns={props.gridColumns || columns.map(createColumn)}
+          onRowSelected={onRowSelected}
+          onRowClick={onRowClick}
           rows={rows}
           components={{
             Header: Header || DefaultHeader,

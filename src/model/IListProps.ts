@@ -21,6 +21,7 @@ export interface IListAction extends Partial<IOption> {
 
 interface GridProps {
   onRowClick?: GridComponentProps["onRowClick"];
+  onRowSelected?: GridComponentProps["onRowSelected"];
 }
 
 interface ComponentProps {
@@ -71,6 +72,7 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
   onSortModelChange?: (params?: GridSortModelParams) => void;
+  onFilterChange?: (data: FilterData) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
   onAction?: (action: string) => void;
@@ -79,6 +81,8 @@ export interface IListProps<
   filters?: Field[];
   handler: ListHandler;
   rowActions?: IOption[];
+  checkboxSelection?: boolean;
+  disableSelectionOnClick?: boolean;
 }
 
 export default IListProps;

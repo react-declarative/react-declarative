@@ -465,6 +465,7 @@ declare module 'react-view-builder/model/IListProps' {
     }
     interface GridProps {
         onRowClick?: GridComponentProps["onRowClick"];
+        onRowSelected?: GridComponentProps["onRowSelected"];
     }
     interface ComponentProps {
         columnMenuProps?: any;
@@ -504,6 +505,7 @@ declare module 'react-view-builder/model/IListProps' {
         widthRequest?: (width: number) => number;
         sortModel?: GridSortModel;
         onSortModelChange?: (params?: GridSortModelParams) => void;
+        onFilterChange?: (data: FilterData) => void;
         onColumnMenuAction?: (action: string) => void;
         onRowAction?: (row: RowData, action: string) => void;
         onAction?: (action: string) => void;
@@ -512,6 +514,8 @@ declare module 'react-view-builder/model/IListProps' {
         filters?: Field[];
         handler: ListHandler;
         rowActions?: IOption[];
+        checkboxSelection?: boolean;
+        disableSelectionOnClick?: boolean;
     }
     export default IListProps;
 }

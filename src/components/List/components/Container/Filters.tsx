@@ -55,6 +55,7 @@ interface IFiltersProps<FilterData = IAnything> {
   style?: React.CSSProperties;
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
+  onFilterChange?: (data: FilterData) => void;
   ready: () => void;
   clean: () => void;
   label: string;
@@ -69,11 +70,17 @@ export const Filters = <FilterData extends IAnything>({
   ready,
   clean,
   label,
+  onFilterChange = () => null,
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
   const [collapsed, setCollapsed] = useState(false);
 
   const handleCollapse = () => setCollapsed(!collapsed);
+
+  const handleChange = (data: FilterData) => {
+    onFilterChange(data);
+    change(data);
+  };
 
   return (
     <div className={classNames(className, classes.root)} style={style}>
@@ -83,7 +90,7 @@ export const Filters = <FilterData extends IAnything>({
             <One<FilterData>
               handler={filterData}
               fields={filters}
-              change={change}
+              change={handleChange}
               ready={ready}
             />
           </Box>
