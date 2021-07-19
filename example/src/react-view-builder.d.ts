@@ -507,7 +507,7 @@ declare module 'react-view-builder/model/IListProps' {
         columnsPanelProps?: any;
         panelProps?: any;
     }
-    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (data?: FilterData) => Promise<RowData[]> | RowData[];
+    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((data?: FilterData) => Promise<RowData[]> | RowData[]);
     export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
         initComplete: boolean;
         filterData: FilterData;

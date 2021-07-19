@@ -192,7 +192,7 @@ export const ListPage = () => {
 
   const pickList = useList({
     title: 'Waiting for user input',
-    handler: () => [
+    handler: [
       {
         id: 1,
         label: 'VIP',

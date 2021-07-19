@@ -41,9 +41,9 @@ interface ComponentProps {
   panelProps?: any;
 }
 
-export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = (
+export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
   data?: FilterData
-) => Promise<RowData[]> | RowData[];
+) => Promise<RowData[]> | RowData[]);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;

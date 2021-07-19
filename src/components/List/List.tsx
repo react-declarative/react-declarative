@@ -47,7 +47,9 @@ export const List = <
   const calcRowHeight = useHeightCalc<RowData>(columns);
 
   const handleFilter = async (filterData: FilterData) => {
-    const rows = (await Promise.resolve(handler(filterData))) as RowData[];
+    const rows = typeof handler === 'function'
+      ? (await Promise.resolve(handler(filterData))) as RowData[]
+      : handler;
     const rowHeight = calcRowHeight(rows);
     setState({
       initComplete: true,
