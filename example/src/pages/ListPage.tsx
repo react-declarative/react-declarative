@@ -12,22 +12,30 @@ import {
   useDate,
   useTime,
   useOne,
+  useList,
   pickDateFn,
   pickTimeFn,
   pickOneFn,
+  pickListFn
 } from 'react-view-builder';
 
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import ListAlt from '@material-ui/icons/ListAlt';
 import Delete from '@material-ui/icons/Delete';
 import Alarm from '@material-ui/icons/Alarm';
 import Face from '@material-ui/icons/Face';
 import Add from '@material-ui/icons/Add';
 
-const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn, pickOne: pickOneFn): TypedField[]  => [
+const createFilters = (
+  pickDate: pickDateFn,
+  pickTime: pickTimeFn,
+  pickOne: pickOneFn,
+  pickList: pickListFn,
+): TypedField[]  => [
   {
     type: FieldType.Text,
     title: 'Pick date',
-    columns: '4',
+    desktopColumns: '3',
     description: 'By using trailing icon',
     name: 'date',
     trailingIcon: CalendarToday,
@@ -43,7 +51,7 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn, pickOne: pick
   {
     type: FieldType.Text,
     title: 'Pick time',
-    columns: '4',
+    desktopColumns: '3',
     description: 'By using leading icon',
     name: 'time',
     trailingIcon: Alarm,
@@ -60,7 +68,7 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn, pickOne: pick
   {
     type: FieldType.Text,
     title: 'Pick name',
-    columns: '4',
+    desktopColumns: '3',
     description: 'Firstname, Lastname',
     name: 'fio',
     trailingIcon: Face,
@@ -69,6 +77,24 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn, pickOne: pick
       if (input) {
         const { firstname, lastname } = input;
         onChange([ firstname, lastname ].join(' '));
+      } else {
+        onChange('Rejected :-(');
+      }
+    }),
+  },
+  {
+    type: FieldType.Text,
+    title: 'Pick list',
+    desktopColumns: '3',
+    description: 'VIP, BlockList',
+    name: 'list',
+    trailingIcon: ListAlt,
+    readonly: true,
+    trailingIconClick: (_, onChange) => pickList().then((input) => {
+      if (input && input.length) {
+        const [ first ] = input;
+        const { label } = first;
+        onChange(label);
       } else {
         onChange('Rejected :-(');
       }
@@ -147,6 +173,7 @@ export const ListPage = () => {
 
   const pickDate = useDate();
   const pickTime = useTime();
+
   const pickOne = useOne({
     title: 'Waiting for user input',
     fields: [
@@ -163,7 +190,35 @@ export const ListPage = () => {
     ],
   });
 
-  const filters = createFilters(pickDate, pickTime, pickOne);
+  const pickList = useList({
+    title: 'Waiting for user input',
+    handler: () => [
+      {
+        id: 1,
+        label: 'VIP',
+      },
+      {
+        id: 2,
+        label: 'BlockList',
+      },
+    ],
+    columns: [
+      {
+        type: ColumnType.Text,
+        field: 'id',
+        headerName: 'Id',
+        width: '125px',
+      },
+      {
+        type: ColumnType.Text,
+        field: 'label',
+        headerName: 'Label',
+        width: '225px',
+      },
+    ]
+  });
+
+  const filters = createFilters(pickDate, pickTime, pickOne, pickList);
 
   const handler = (filterData: any) => {
     console.log({ filterData });

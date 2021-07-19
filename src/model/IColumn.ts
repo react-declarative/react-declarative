@@ -32,6 +32,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
         fontWeight: string,
         border: string,
     };
+    requiredHeight?: number;
     sizerGetText?: (row: RowData) => string;
     renderCell?: (props: GridCellParams) => JSX.Element;
     renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;

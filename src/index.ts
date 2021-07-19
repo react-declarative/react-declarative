@@ -20,6 +20,7 @@ import "vanilla-autofill-event";
 
 import { useDate, useTime } from './components';
 import { useOne, useOneTyped } from './components';
+import { useList, useListTyped } from './components';
 
 import IAnything from './model/IAnything';
 import IRowData from './model/IRowData';
@@ -45,6 +46,9 @@ export type pickOneFn = ReturnType<typeof useOne>;
 export type pickDateFn = ReturnType<typeof useDate>;
 export type pickTimeFn = ReturnType<typeof useTime>;
 
+export type pickListTypedFn = ReturnType<typeof useListTyped>;
+export type pickListFn = ReturnType<typeof useList>;
+
 export { default as dayjs } from 'dayjs';
 
 export { One, OneTyped } from './components';
@@ -53,6 +57,7 @@ export { ModalProvider } from './components';
 
 export { useListProps } from './components';
 
+export { useList, useListTyped };
 export { useOne, useOneTyped };
 export { useDate, useTime };
 

@@ -4,12 +4,12 @@ import { useState } from 'react';
 import ModalDialog from '../ModalDialog';
 import One from '../../One';
 
+import Box from '@material-ui/core/Box';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import { OneHandler } from '../../../model/IOneProps';
-
-import Box from '@material-ui/core/Box';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface IOnePickerProps<Data = IAnything> {
   onChange: (data: Data | null) => void;

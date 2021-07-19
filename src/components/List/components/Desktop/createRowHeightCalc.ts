@@ -28,6 +28,7 @@ const defaultGetText = (field: string) => (row: Record<string, string>) => row[f
 export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: IColumn[]): [(rows: T[]) => number, () => void] => {
     const fields: any = columns.map(({ field }) => field).filter((f) => !!f);
     const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width } }), {});
+    const heightMap: any = columns.reduce((acm, { field = '_', requiredHeight = 0 }) => ({ ...acm, [field]: { requiredHeight } }), {});
     const paddingMap: any = columns.reduce((acm, { field = '_', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
     const getTextMap: any = columns.reduce((acm, { field = '_', sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});
     const textStyleMap: any = columns.reduce((acm, { field = '_', sizerCellStyle }) => ({ ...acm, [field]: sizerCellStyle || defaultStyle }), {});
@@ -45,7 +46,8 @@ export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: ICo
                     Object.entries<any>(widthMap[field] || {}).forEach(([k, v]) => div.style[k as any] = v);
                     div.innerText = getTextMap[field] && getTextMap[field](row) || '';
                     const { height: boundingHeight } = div.getBoundingClientRect();
-                    return boundingHeight;
+                    const { requiredHeight } = heightMap[field];
+                    return Math.max(boundingHeight, requiredHeight);
                 }));
                 const requiredRowHeight = Math.max(contentRowHeight, DEFAULT_ROW_HEIGHT);
                 return requiredRowHeight;

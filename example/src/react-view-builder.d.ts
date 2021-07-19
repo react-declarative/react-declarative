@@ -22,6 +22,7 @@ declare module 'react-view-builder' {
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
     import { useOne, useOneTyped } from 'react-view-builder/components';
+    import { useList, useListTyped } from 'react-view-builder/components';
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
     export const FieldType: typeof FieldTypeInternal;
@@ -39,11 +40,14 @@ declare module 'react-view-builder' {
     export type pickOneFn = ReturnType<typeof useOne>;
     export type pickDateFn = ReturnType<typeof useDate>;
     export type pickTimeFn = ReturnType<typeof useTime>;
+    export type pickListTypedFn = ReturnType<typeof useListTyped>;
+    export type pickListFn = ReturnType<typeof useList>;
     export { default as dayjs } from 'dayjs';
     export { One, OneTyped } from 'react-view-builder/components';
     export { List, ListTyped } from 'react-view-builder/components';
     export { ModalProvider } from 'react-view-builder/components';
     export { useListProps } from 'react-view-builder/components';
+    export { useList, useListTyped };
     export { useOne, useOneTyped };
     export { useDate, useTime };
     export { i18nMap };
@@ -410,6 +414,7 @@ declare module 'react-view-builder/model/IColumn' {
             fontWeight: string;
             border: string;
         };
+        requiredHeight?: number;
         sizerGetText?: (row: RowData) => string;
         renderCell?: (props: GridCellParams) => JSX.Element;
         renderHeader?: (props: GridColumnHeaderParams) => JSX.Element;
@@ -611,11 +616,12 @@ declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/hooks/useDate';
     export * from 'react-view-builder/components/hooks/useTime';
     export * from 'react-view-builder/components/hooks/useOne';
+    export * from 'react-view-builder/components/hooks/useList';
     export * from 'react-view-builder/components/common/ModalProvider';
 }
 
 declare module 'react-view-builder/model/IAnything' {
-    export type IAnything = Record<string, any | {}> | any;
+    export type IAnything = any;
     export default IAnything;
 }
 
@@ -1287,6 +1293,31 @@ declare module 'react-view-builder/components/hooks/useOne' {
         then(onData: Fn): void;
     };
     export default useOne;
+}
+
+declare module 'react-view-builder/components/hooks/useList' {
+    import IField from 'react-view-builder/model/IField';
+    import IColumn from 'react-view-builder/model/IColumn';
+    import IRowData from 'react-view-builder/model/IRowData';
+    import IAnything from 'react-view-builder/model/IAnything';
+    import TypedField from 'react-view-builder/model/TypedField';
+    import { ListHandler } from 'react-view-builder/model/IListProps';
+    import SelectionMode from 'react-view-builder/model/SelectionMode';
+    type Fn<Data = IAnything> = (d: Data[] | null) => void;
+    interface IParams<RowData extends IRowData = IAnything, FilterData extends IAnything = IAnything, Field extends IField = IField<FilterData>> {
+        handler: ListHandler<RowData>;
+        selectionMode?: SelectionMode.Single | SelectionMode.Multiple;
+        columns?: IColumn<RowData>[];
+        filters?: Field[];
+        title?: string;
+    }
+    export const useList: <RowData extends IRowData = any, FilterData extends unknown = any, Field extends IField<any> = IField<FilterData>>({ handler, selectionMode, columns, filters, title, }: IParams<RowData, FilterData, Field>) => () => {
+        then(onData: Fn): void;
+    };
+    export const useListTyped: <RowData extends IRowData = any, FilterData extends unknown = any>(params: IParams<RowData, FilterData, TypedField<FilterData>>) => () => {
+        then(onData: Fn): void;
+    };
+    export default useList;
 }
 
 declare module 'react-view-builder/components/common/ModalProvider' {
