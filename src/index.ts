@@ -6,6 +6,7 @@ import { IColumn as IColumnInternal } from './model/IColumn';
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
 import { ActionType as ActionTypeInternal } from './model/ActionType';
+import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
@@ -26,6 +27,7 @@ import IRowData from './model/IRowData';
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
 export const ActionType = ActionTypeInternal;
+export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;

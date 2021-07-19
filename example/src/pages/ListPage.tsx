@@ -4,6 +4,7 @@ import {
   ListTyped,
   FieldType,
   TypedField,
+  SelectionMode,
   IColumn,
   IListAction,
   ActionType,
@@ -203,6 +204,7 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
+      selectionMode={SelectionMode.Single}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onAction={handleAction}

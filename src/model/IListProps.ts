@@ -7,6 +7,7 @@ import {
 } from '@material-ui/data-grid';
 
 import ActionType from './ActionType';
+import SelectionMode from './SelectionMode';
 
 import IAnything from './IAnything';
 import IRowData from './IRowData';
@@ -50,6 +51,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   isMobile: boolean;
   rows: RowData[];
   rowHeight: number;
+  uniqueKey: string;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -71,6 +73,7 @@ export interface IListProps<
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
+  onSelectedRows?: (rows: RowData[]) => void;
   onSortModelChange?: (params?: GridSortModelParams) => void;
   onFilterChange?: (data: FilterData) => void;
   onColumnMenuAction?: (action: string) => void;
@@ -82,7 +85,7 @@ export interface IListProps<
   handler: ListHandler;
   rowActions?: IOption[];
   toggleFilters?: boolean;
-  checkboxSelection?: boolean;
+  selectionMode?: SelectionMode;
   disableSelectionOnClick?: boolean;
 }
 

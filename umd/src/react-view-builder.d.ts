@@ -13,6 +13,7 @@ declare module 'react-view-builder' {
     import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
     import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
+    import { SelectionMode as SelectionModeInternal } from 'react-view-builder/model/SelectionMode';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
     import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
     import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
@@ -26,6 +27,7 @@ declare module 'react-view-builder' {
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
+    export const SelectionMode: typeof SelectionModeInternal;
     export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
     export type IField<Data = IAnything> = IFieldInternal<Data>;
     export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
@@ -459,9 +461,19 @@ declare module 'react-view-builder/model/ActionType' {
     export default ActionType;
 }
 
+declare module 'react-view-builder/model/SelectionMode' {
+    export enum SelectionMode {
+        Single = "single-selection",
+        Multiple = "multiple-selection",
+        None = "none-selection"
+    }
+    export default SelectionMode;
+}
+
 declare module 'react-view-builder/model/IListProps' {
     import { GridColumns, GridComponentProps, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
     import ActionType from 'react-view-builder/model/ActionType';
+    import SelectionMode from 'react-view-builder/model/SelectionMode';
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
     import IColumn from 'react-view-builder/model/IColumn';
@@ -497,6 +509,7 @@ declare module 'react-view-builder/model/IListProps' {
         isMobile: boolean;
         rows: RowData[];
         rowHeight: number;
+        uniqueKey: string;
     }
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
         handleDefault: ListHandler<FilterData, RowData> | (() => void);
@@ -512,6 +525,7 @@ declare module 'react-view-builder/model/IListProps' {
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
         sortModel?: GridSortModel;
+        onSelectedRows?: (rows: RowData[]) => void;
         onSortModelChange?: (params?: GridSortModelParams) => void;
         onFilterChange?: (data: FilterData) => void;
         onColumnMenuAction?: (action: string) => void;
@@ -523,7 +537,7 @@ declare module 'react-view-builder/model/IListProps' {
         handler: ListHandler;
         rowActions?: IOption[];
         toggleFilters?: boolean;
-        checkboxSelection?: boolean;
+        selectionMode?: SelectionMode;
         disableSelectionOnClick?: boolean;
     }
     export default IListProps;

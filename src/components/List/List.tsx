@@ -18,6 +18,8 @@ import { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightCalc";
 import useHeightCalc from './components/Desktop/hooks/useHeightCalc';
 import PropProvider from './components/PropProvider';
 
+import randomString from '../../utils/randomString';
+
 export const List = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
@@ -37,9 +39,10 @@ export const List = <
     filterData: {} as never,
     rows: [] as never,
     rowHeight: DEFAULT_ROW_HEIGHT,
+    uniqueKey: randomString(),
   });
 
-  const { isMobile } = state;
+  const { isMobile, uniqueKey } = state;
 
   const calcRowHeight = useHeightCalc<RowData>(columns);
 
@@ -48,6 +51,7 @@ export const List = <
     const rowHeight = calcRowHeight(rows);
     setState({
       initComplete: true,
+      uniqueKey,
       isMobile,
       filterData,
       rows,

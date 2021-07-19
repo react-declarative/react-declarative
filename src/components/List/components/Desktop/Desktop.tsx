@@ -6,8 +6,11 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
+import SelectionMode from "../../../../model/SelectionMode";
+
 import Container from "../Container";
 
+import Checkbox from "./components/CheckBox";
 import DefaultHeader from "./components/Header";
 import DefaultColumnMenu from "./components/ColumnMenu";
 
@@ -42,10 +45,10 @@ export const Desktop = <
     handleDefault,
     initComplete,
     rows,
-    checkboxSelection,
     disableSelectionOnClick,
     onRowSelected,
     onRowClick,
+    selectionMode,
     ...otherProps
   } = props;
 
@@ -86,7 +89,7 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
-          checkboxSelection={checkboxSelection}
+          checkboxSelection={selectionMode !== SelectionMode.None}
           disableSelectionOnClick={disableSelectionOnClick}
           columns={props.gridColumns || columns.map(createColumn)}
           onRowSelected={onRowSelected}
@@ -95,6 +98,7 @@ export const Desktop = <
           components={{
             Header: Header || DefaultHeader,
             ColumnMenu: ColumnMenu || DefaultColumnMenu,
+            Checkbox,
             ErrorOverlay,
             Footer,
             Toolbar,
