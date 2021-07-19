@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 import IListProps, { IListState } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
@@ -64,6 +64,13 @@ export const List = <
       });
     handleFilter(newData as FilterData);
   };
+
+  useLayoutEffect(() => {
+    const hasFilters = Array.isArray(filters) && !!filters.length ;
+    if (!hasFilters) {
+      setTimeout(handleDefault);
+    }
+  }, [filters]);
 
   return (
     <PropProvider {...{...props, ...state}}>

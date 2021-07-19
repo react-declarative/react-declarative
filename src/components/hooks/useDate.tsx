@@ -31,8 +31,8 @@ export const useDate = () => {
     constructor() {
       showModal();
     };
-    then(handler: Fn) {
-      changeRef.current = handler;
+    then(onData: Fn) {
+      changeRef.current = onData;
     };
   }();
 };

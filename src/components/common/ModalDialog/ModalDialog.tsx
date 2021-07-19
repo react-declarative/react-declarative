@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 interface IModalDialogProps extends DialogProps {
-  children: React.ReactChild;
+  children: React.ReactNode;
   dividers?: boolean;
   onAccept: () => void;
   onDismis: () => void;

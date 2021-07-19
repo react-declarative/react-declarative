@@ -14,10 +14,12 @@ declare module 'react-view-builder' {
     import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
+    import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
     import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
+    import { useOne, useOneTyped } from 'react-view-builder/components';
     import IAnything from 'react-view-builder/model/IAnything';
     import IRowData from 'react-view-builder/model/IRowData';
     export const FieldType: typeof FieldTypeInternal;
@@ -28,7 +30,10 @@ declare module 'react-view-builder' {
     export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
     export type IListAction = IListActionInternal;
+    export type IOption = IOptionInternal;
     export type IColumn = IColumnInternal;
+    export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
+    export type pickOneFn = ReturnType<typeof useOne>;
     export type pickDateFn = ReturnType<typeof useDate>;
     export type pickTimeFn = ReturnType<typeof useTime>;
     export { default as dayjs } from 'dayjs';
@@ -36,6 +41,7 @@ declare module 'react-view-builder' {
     export { List, ListTyped } from 'react-view-builder/components';
     export { ModalProvider } from 'react-view-builder/components';
     export { useListProps } from 'react-view-builder/components';
+    export { useOne, useOneTyped };
     export { useDate, useTime };
 }
 
@@ -521,6 +527,16 @@ declare module 'react-view-builder/model/IListProps' {
     export default IListProps;
 }
 
+declare module 'react-view-builder/model/IOption' {
+    import React from "react";
+    export interface IOption {
+        label: string;
+        action: string;
+        icon?: React.ComponentType<any>;
+    }
+    export default IOption;
+}
+
 declare module 'react-view-builder/model/IOneProps' {
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
@@ -572,6 +588,7 @@ declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/List';
     export * from 'react-view-builder/components/hooks/useDate';
     export * from 'react-view-builder/components/hooks/useTime';
+    export * from 'react-view-builder/components/hooks/useOne';
     export * from 'react-view-builder/components/common/ModalProvider';
 }
 
@@ -1187,16 +1204,6 @@ declare module 'react-view-builder/model/ISize' {
     export default ISize;
 }
 
-declare module 'react-view-builder/model/IOption' {
-    import React from "react";
-    export interface IOption {
-        label: string;
-        action: string;
-        icon?: React.ComponentType<any>;
-    }
-    export default IOption;
-}
-
 declare module 'react-view-builder/components/One' {
     import TypedField from 'react-view-builder/model/TypedField';
     import IOneProps from 'react-view-builder/model/IOneProps';
@@ -1226,7 +1233,7 @@ declare module 'react-view-builder/components/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useDate: () => () => {
-        then(handler: Fn): void;
+        then(onData: Fn): void;
     };
     export default useDate;
 }
@@ -1235,9 +1242,29 @@ declare module 'react-view-builder/components/hooks/useTime' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useTime: () => () => {
-        then(handler: Fn): void;
+        then(onData: Fn): void;
     };
     export default useTime;
+}
+
+declare module 'react-view-builder/components/hooks/useOne' {
+    import IField from 'react-view-builder/model/IField';
+    import IAnything from 'react-view-builder/model/IAnything';
+    import TypedField from 'react-view-builder/model/TypedField';
+    import { OneHandler } from 'react-view-builder/model/IOneProps';
+    type Fn<Data = IAnything> = (d: Data | null) => void;
+    interface IParams<Data extends IAnything = IAnything, Field = IField<Data>> {
+        fields: Field[];
+        title?: string;
+        handler?: OneHandler<Data>;
+    }
+    export const useOne: <Data extends unknown = any, Field = IField<Data>>({ fields, title, handler, }: IParams<Data, Field>) => () => {
+        then(onData: Fn): void;
+    };
+    export const useOneTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data>>) => () => {
+        then(onData: Fn): void;
+    };
+    export default useOne;
 }
 
 declare module 'react-view-builder/components/common/ModalProvider' {

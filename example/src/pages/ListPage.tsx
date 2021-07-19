@@ -10,16 +10,19 @@ import {
   ColumnType,
   useDate,
   useTime,
+  useOne,
   pickDateFn,
   pickTimeFn,
+  pickOneFn,
 } from 'react-view-builder';
 
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Delete from '@material-ui/icons/Delete';
 import Alarm from '@material-ui/icons/Alarm';
+import Face from '@material-ui/icons/Face';
 import Add from '@material-ui/icons/Add';
 
-const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn): TypedField[]  => [
+const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn, pickOne: pickOneFn): TypedField[]  => [
   {
     type: FieldType.Text,
     title: 'Pick date',
@@ -48,6 +51,23 @@ const createFilters = (pickDate: pickDateFn, pickTime: pickTimeFn): TypedField[]
     trailingIconClick: (_, onChange) => pickTime().then((t) => {
       if (t) {
         onChange(t.format('H:mm'));
+      } else {
+        onChange('Rejected :-(');
+      }
+    }),
+  },
+  {
+    type: FieldType.Text,
+    title: 'Pick name',
+    columns: '4',
+    description: 'Firstname, Lastname',
+    name: 'fio',
+    trailingIcon: Face,
+    readonly: true,
+    trailingIconClick: (_, onChange) => pickOne().then((input) => {
+      if (input) {
+        const { firstname, lastname } = input;
+        onChange([ firstname, lastname ].join(' '));
       } else {
         onChange('Rejected :-(');
       }
@@ -126,8 +146,23 @@ export const ListPage = () => {
 
   const pickDate = useDate();
   const pickTime = useTime();
+  const pickOne = useOne({
+    title: 'Waiting for user input',
+    fields: [
+      {
+        type: FieldType.Text,
+        name: 'firstname',
+        title: 'First name',
+      },
+      {
+        type: FieldType.Text,
+        name: 'lastname',
+        title: 'Last name',
+      }
+    ],
+  });
 
-  const filters = createFilters(pickDate, pickTime);
+  const filters = createFilters(pickDate, pickTime, pickOne);
 
   const handler = (filterData: any) => {
     console.log({ filterData });
