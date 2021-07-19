@@ -13,6 +13,8 @@ import { IOption as IOptionInternal } from './model/IOption';
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
+import { i18nMap } from './config/i18n';
+
 import "vanilla-autofill-event";
 
 import { useDate, useTime } from './components';
@@ -51,3 +53,5 @@ export { useListProps } from './components';
 
 export { useOne, useOneTyped };
 export { useDate, useTime };
+
+export { i18nMap };

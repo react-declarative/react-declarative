@@ -17,6 +17,7 @@ declare module 'react-view-builder' {
     import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
     import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
+    import { i18nMap } from 'react-view-builder/config/i18n';
     import "vanilla-autofill-event";
     import { useDate, useTime } from 'react-view-builder/components';
     import { useOne, useOneTyped } from 'react-view-builder/components';
@@ -43,6 +44,7 @@ declare module 'react-view-builder' {
     export { useListProps } from 'react-view-builder/components';
     export { useOne, useOneTyped };
     export { useDate, useTime };
+    export { i18nMap };
 }
 
 declare module 'react-view-builder/model/TypedField' {
@@ -581,6 +583,12 @@ declare module 'react-view-builder/model/IOneProps' {
             prefix?: string;
     }
     export default IOneProps;
+}
+
+declare module 'react-view-builder/config/i18n' {
+    export const i18nMap: Record<string, string>;
+    export const i18n: (words: TemplateStringsArray, args?: any[]) => string;
+    export default i18n;
 }
 
 declare module 'react-view-builder/components' {
