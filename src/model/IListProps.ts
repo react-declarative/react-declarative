@@ -86,7 +86,6 @@ export interface IListProps<
   rowActions?: IOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
-  disableSelectionOnClick?: boolean;
 }
 
 export default IListProps;

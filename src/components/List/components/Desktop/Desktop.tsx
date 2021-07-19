@@ -45,7 +45,6 @@ export const Desktop = <
     handleDefault,
     initComplete,
     rows,
-    disableSelectionOnClick,
     onRowSelected,
     onRowClick,
     selectionMode,
@@ -89,8 +88,8 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
+          disableSelectionOnClick
           checkboxSelection={selectionMode !== SelectionMode.None}
-          disableSelectionOnClick={disableSelectionOnClick}
           columns={props.gridColumns || columns.map(createColumn)}
           onRowSelected={onRowSelected}
           onRowClick={onRowClick}

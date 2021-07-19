@@ -215,7 +215,8 @@ export const ListPage = () => {
         headerName: 'Label',
         width: '225px',
       },
-    ]
+    ],
+    width: 600,
   });
 
   const filters = createFilters(pickDate, pickTime, pickOne, pickList);

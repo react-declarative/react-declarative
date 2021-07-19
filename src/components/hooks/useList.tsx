@@ -10,6 +10,7 @@ import IAnything from '../../model/IAnything';
 import TypedField from '../../model/TypedField';
 import { ListHandler } from '../../model/IListProps';
 import SelectionMode from '../../model/SelectionMode';
+
 import ListPicker from '../common/ListPicker';
 
 type Fn<Data = IAnything> = (d: Data[] | null) => void;
@@ -24,6 +25,8 @@ interface IParams<
   columns?: IColumn<RowData>[];
   filters?: Field[];
   title?: string;
+  height?: number;
+  width?: number;
 }
 
 export const useList = <
@@ -36,6 +39,8 @@ export const useList = <
   columns,
   filters,
   title,
+  height,
+  width,
 }: IParams<RowData, FilterData, Field>) => {
 
   const changeRef = useRef<Fn>();
@@ -56,6 +61,8 @@ export const useList = <
       title={title}
       columns={columns}
       handler={handler}
+      height={height}
+      width={width}
       onChange={handleChange}
     />
   ));

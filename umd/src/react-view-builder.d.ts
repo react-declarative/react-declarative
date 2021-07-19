@@ -543,7 +543,6 @@ declare module 'react-view-builder/model/IListProps' {
         rowActions?: IOption[];
         toggleFilters?: boolean;
         selectionMode?: SelectionMode;
-        disableSelectionOnClick?: boolean;
     }
     export default IListProps;
 }
@@ -1310,8 +1309,10 @@ declare module 'react-view-builder/components/hooks/useList' {
         columns?: IColumn<RowData>[];
         filters?: Field[];
         title?: string;
+        height?: number;
+        width?: number;
     }
-    export const useList: <RowData extends IRowData = any, FilterData extends unknown = any, Field extends IField<any> = IField<FilterData>>({ handler, selectionMode, columns, filters, title, }: IParams<RowData, FilterData, Field>) => () => {
+    export const useList: <RowData extends IRowData = any, FilterData extends unknown = any, Field extends IField<any> = IField<FilterData>>({ handler, selectionMode, columns, filters, title, height, width, }: IParams<RowData, FilterData, Field>) => () => {
         then(onData: Fn): void;
     };
     export const useListTyped: <RowData extends IRowData = any, FilterData extends unknown = any>(params: IParams<RowData, FilterData, TypedField<FilterData>>) => () => {
