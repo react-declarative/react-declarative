@@ -37,9 +37,11 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "auto",
   },
   controls: {
-    minWidth: 80,
     display: "flex",
     alignItems: "center",
+  },
+  controlsWidth: {
+    minWidth: 80,
   },
   title: {
     height: 60,
@@ -56,6 +58,7 @@ interface IFiltersProps<FilterData = IAnything> {
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
   onFilterChange?: (data: FilterData) => void;
+  toggleFilters?: boolean;
   ready: () => void;
   clean: () => void;
   label: string;
@@ -70,10 +73,11 @@ export const Filters = <FilterData extends IAnything>({
   ready,
   clean,
   label,
+  toggleFilters,
   onFilterChange = () => null,
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(!!toggleFilters);
 
   const handleCollapse = () => setCollapsed(!collapsed);
 
@@ -101,13 +105,17 @@ export const Filters = <FilterData extends IAnything>({
           </Typography>
         </Collapse>
       </div>
-      <div className={classes.controls}>
+      <div className={classNames(classes.controls, {
+        [classes.controlsWidth]: !toggleFilters,
+      })}>
         <IconButton onClick={clean}>
           <Delete />
         </IconButton>
-        <IconButton onClick={handleCollapse}>
-          {collapsed ? <Less /> : <More />}
-        </IconButton>
+        {!toggleFilters && (
+          <IconButton onClick={handleCollapse}>
+            {collapsed ? <Less /> : <More />}
+          </IconButton>
+        )}
       </div>
     </div>
   );

@@ -81,6 +81,7 @@ export interface IListProps<
   filters?: Field[];
   handler: ListHandler;
   rowActions?: IOption[];
+  toggleFilters?: boolean;
   checkboxSelection?: boolean;
   disableSelectionOnClick?: boolean;
 }

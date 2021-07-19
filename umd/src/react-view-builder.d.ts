@@ -514,6 +514,7 @@ declare module 'react-view-builder/model/IListProps' {
         filters?: Field[];
         handler: ListHandler;
         rowActions?: IOption[];
+        toggleFilters?: boolean;
         checkboxSelection?: boolean;
         disableSelectionOnClick?: boolean;
     }

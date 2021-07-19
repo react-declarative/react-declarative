@@ -101,7 +101,7 @@ export const TextField = ({
   trailingIconClick: tic,
   inputRows: rows = 1,
   placeholder = "",
-  inputAutocomplete: autoComplete,
+  inputAutocomplete: autoComplete = "off",
   dirty,
   onChange,
   name,
