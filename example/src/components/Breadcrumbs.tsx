@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     flexDirection: "row",
     paddingTop: "10px",
     paddingBottom: "10px",
+    flex: 1,
   },
   stretch: {
     flexGrow: 1,

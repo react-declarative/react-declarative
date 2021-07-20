@@ -16,6 +16,7 @@ declare module 'react-view-builder' {
     import { SelectionMode as SelectionModeInternal } from 'react-view-builder/model/SelectionMode';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
     import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
+    import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-view-builder/model/IMenuGroup';
     import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
     import { i18nMap } from 'react-view-builder/config/i18n';
@@ -34,6 +35,8 @@ declare module 'react-view-builder' {
     export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
     export type IListAction = IListActionInternal;
+    export type IMenuOption = IMenuOptionInternal;
+    export type IMenuGroup = IMenuGroupInternal;
     export type IOption = IOptionInternal;
     export type IColumn = IColumnInternal;
     export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
@@ -46,6 +49,7 @@ declare module 'react-view-builder' {
     export { One, OneTyped } from 'react-view-builder/components';
     export { List, ListTyped } from 'react-view-builder/components';
     export { ModalProvider } from 'react-view-builder/components';
+    export { Scaffold } from 'react-view-builder/components';
     export { useListProps } from 'react-view-builder/components';
     export { useList, useListTyped };
     export { useOne, useOneTyped };
@@ -557,6 +561,20 @@ declare module 'react-view-builder/model/IOption' {
     export default IOption;
 }
 
+declare module 'react-view-builder/model/IMenuGroup' {
+    export interface IMenuOption {
+        name?: string;
+        label: string;
+        icon?: string;
+        bold?: boolean;
+        disabled?: boolean;
+    }
+    export interface IMenuGroup extends IMenuOption {
+        options?: IMenuGroup[];
+    }
+    export default IMenuGroup;
+}
+
 declare module 'react-view-builder/model/IOneProps' {
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
@@ -612,6 +630,7 @@ declare module 'react-view-builder/config/i18n' {
 declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/One';
     export * from 'react-view-builder/components/List';
+    export * from 'react-view-builder/components/Scaffold';
     export * from 'react-view-builder/components/hooks/useDate';
     export * from 'react-view-builder/components/hooks/useTime';
     export * from 'react-view-builder/components/hooks/useOne';
@@ -1256,6 +1275,11 @@ declare module 'react-view-builder/components/List' {
     export { default } from "react-view-builder/components/List/List";
 }
 
+declare module 'react-view-builder/components/Scaffold' {
+    export * from "react-view-builder/components/Scaffold/Scaffold";
+    export { default } from "react-view-builder/components/Scaffold/Scaffold";
+}
+
 declare module 'react-view-builder/components/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
@@ -1357,6 +1381,25 @@ declare module 'react-view-builder/components/List/List' {
 declare module 'react-view-builder/components/List/components/PropProvider' {
     export * from 'react-view-builder/components/List/components/PropProvider/PropProvider';
     export { default } from 'react-view-builder/components/List/components/PropProvider/PropProvider';
+}
+
+declare module 'react-view-builder/components/Scaffold/Scaffold' {
+    import * as React from "react";
+    import IMenuGroup from "react-view-builder/model/IMenuGroup";
+    interface IScaffoldProps {
+        children: React.ReactChild;
+        className?: string;
+        style?: React.CSSProperties;
+        title?: string;
+        selected?: string;
+        options?: IMenuGroup[];
+        onOptionClick?: (name: string) => void;
+    }
+    export const Scaffold: {
+        ({ children, className, style, selected, title, options, onOptionClick, }: IScaffoldProps): JSX.Element;
+        displayName: string;
+    };
+    export default Scaffold;
 }
 
 declare module 'react-view-builder/components/common/ModalProvider/ModalProvider' {

@@ -2,6 +2,7 @@
 export const i18nMap: Record<string, string> = {
     "OK": "OK",
     "Cancel": "Cancel",
+    "Search": "Search",
 };
 
 export const i18n = (words: TemplateStringsArray, args: any[] = []) => {

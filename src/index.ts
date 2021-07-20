@@ -11,6 +11,11 @@ import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
+import { 
+    IMenuGroup as IMenuGroupInternal,
+    IMenuOption as IMenuOptionInternal,
+} from './model/IMenuGroup';
+
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
@@ -37,6 +42,8 @@ export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnyt
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
 export type IListAction = IListActionInternal;
+export type IMenuOption = IMenuOptionInternal;
+export type IMenuGroup = IMenuGroupInternal;
 export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 
@@ -54,6 +61,7 @@ export { default as dayjs } from 'dayjs';
 export { One, OneTyped } from './components';
 export { List, ListTyped } from './components';
 export { ModalProvider } from './components';
+export { Scaffold } from './components';
 
 export { useListProps } from './components';
 
