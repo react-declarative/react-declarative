@@ -245,6 +245,10 @@ export const ListPage = () => {
     alert(action);
   };
 
+  const handleClick = (row: any) => {
+    alert(JSON.stringify({row}, null, 2));
+  };
+
   return (
     <ListTyped
       title="List Component"
@@ -258,6 +262,7 @@ export const ListPage = () => {
       selectionMode={SelectionMode.Multiple}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
+      onRowClick={handleClick}
       onAction={handleAction}
     />
   );

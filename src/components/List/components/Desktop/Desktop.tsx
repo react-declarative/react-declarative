@@ -16,6 +16,8 @@ import DefaultColumnMenu from "./components/ColumnMenu";
 
 import createColumn from "../../../../config/createColumn";
 
+import useRowClickHandler from "./hooks/useRowClickHandler";
+
 interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   IListProps<FilterData, RowData>,
   IListState<FilterData, RowData>,
@@ -29,6 +31,8 @@ export const Desktop = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
 >(props: IDesktopProps<FilterData, RowData>) => {
+
+  const handleRowClick = useRowClickHandler();
 
   const {
     className,
@@ -45,7 +49,6 @@ export const Desktop = <
     handleDefault,
     initComplete,
     rows,
-    onRowSelected,
     onRowClick,
     selectionMode,
     ...otherProps
@@ -83,6 +86,7 @@ export const Desktop = <
 
   return (
     <Container<FilterData, RowData>
+      ref={handleRowClick}
       {...props}
     >
       {() => (
@@ -91,8 +95,6 @@ export const Desktop = <
           disableSelectionOnClick
           checkboxSelection={selectionMode !== SelectionMode.None}
           columns={props.gridColumns || columns.map(createColumn)}
-          onRowSelected={onRowSelected}
-          onRowClick={onRowClick}
           rows={rows}
           components={{
             Header: Header || DefaultHeader,

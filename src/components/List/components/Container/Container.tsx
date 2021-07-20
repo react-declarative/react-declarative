@@ -1,4 +1,5 @@
 import * as React from "react";
+import { forwardRef } from 'react';
 import { makeStyles } from "@material-ui/core";
 
 import Paper from "@material-ui/core/Paper";
@@ -29,6 +30,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   style?: React.CSSProperties;
   children: (s: ISize) => any;
   ready: () => void;
+  ref?: (instance: HTMLDivElement) => void
 }
 
 const useStyles = makeStyles({
@@ -72,7 +74,7 @@ export const Container = <
   ready,
   toggleFilters,
   onFilterChange,
-}: IContainerProps<FilterData, RowData>) => {
+}: IContainerProps<FilterData, RowData>, ref: any) => {
   const classes = useStyles();
 
   return (
@@ -84,7 +86,7 @@ export const Container = <
       style={style}
     >
       {({ height, width }) => (
-        <div style={{ height, width }} className={classes.container}>
+        <div ref={ref} style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
             <Actions<FilterData> title={title} filterData={filterData!} actions={actions} />
           )}
@@ -117,4 +119,4 @@ export const Container = <
   )
 };
 
-export default Container;
+export default forwardRef(Container) as typeof Container;

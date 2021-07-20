@@ -13,6 +13,7 @@ import SelectionMode from "../../../../../model/SelectionMode";
 type ICheckBoxProps = CheckboxProps;
 
 const UNSET_ROW_ID = Symbol('unset-row-id');
+const GRID_ROW = ".MuiDataGrid-row[data-id]";
 
 export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
     checked,
@@ -34,7 +35,7 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
             ref.current = instance;
         }
         if (instance) {
-            const target = instance.closest<HTMLElement>("*[data-id]");
+            const target = instance.closest<HTMLElement>(GRID_ROW);
             const currentRowId = target?.dataset?.id;
             currentRowId && setRowId(currentRowId);
         }

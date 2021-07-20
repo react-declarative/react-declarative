@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
+import classNames from '../../../../../utils/classNames';
+
 import { GridCellParams } from "@material-ui/data-grid";
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -13,6 +15,8 @@ import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { useProps } from "../../PropProvider";
+
+import { SKIP_ROW_CLICK } from "../hooks/useRowClickHandler";
 
 const useStyles = makeStyles({
   root: {
@@ -52,7 +56,7 @@ export const ActionCell = (props: IActionCellProps) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classNames(classes.root, SKIP_ROW_CLICK)}>
       <IconButton
         aria-label="more"
         aria-haspopup="true"

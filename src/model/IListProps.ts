@@ -1,6 +1,5 @@
 import {
   GridColumns,
-  GridComponentProps,
   GridSlotsComponent,
   GridSortModel,
   GridSortModelParams,
@@ -18,11 +17,6 @@ import IField from './IField';
 export interface IListAction extends Partial<IOption> {
   type: ActionType;
   options?: Partial<IOption>[];
-}
-
-interface GridProps {
-  onRowClick?: GridComponentProps["onRowClick"];
-  onRowSelected?: GridComponentProps["onRowSelected"];
 }
 
 interface ComponentProps {
@@ -64,7 +58,7 @@ export interface IListProps<
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
-> extends GridSlotsComponent, GridProps, ComponentProps {
+> extends GridSlotsComponent, ComponentProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
@@ -78,6 +72,7 @@ export interface IListProps<
   onFilterChange?: (data: FilterData) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
+  onRowClick?: (row: RowData) => void;
   onAction?: (action: string) => void;
   gridColumns?: GridColumns;
   columns?: IColumn<RowData>[];

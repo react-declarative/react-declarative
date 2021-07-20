@@ -480,7 +480,7 @@ declare module 'react-view-builder/model/SelectionMode' {
 }
 
 declare module 'react-view-builder/model/IListProps' {
-    import { GridColumns, GridComponentProps, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
+    import { GridColumns, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
     import ActionType from 'react-view-builder/model/ActionType';
     import SelectionMode from 'react-view-builder/model/SelectionMode';
     import IAnything from 'react-view-builder/model/IAnything';
@@ -491,10 +491,6 @@ declare module 'react-view-builder/model/IListProps' {
     export interface IListAction extends Partial<IOption> {
         type: ActionType;
         options?: Partial<IOption>[];
-    }
-    interface GridProps {
-        onRowClick?: GridComponentProps["onRowClick"];
-        onRowSelected?: GridComponentProps["onRowSelected"];
     }
     interface ComponentProps {
         columnMenuProps?: any;
@@ -525,7 +521,7 @@ declare module 'react-view-builder/model/IListProps' {
         handleFilter: (data: FilterData) => void;
         ready: () => void;
     }
-    export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, GridProps, ComponentProps {
+    export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, ComponentProps {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
@@ -539,6 +535,7 @@ declare module 'react-view-builder/model/IListProps' {
         onFilterChange?: (data: FilterData) => void;
         onColumnMenuAction?: (action: string) => void;
         onRowAction?: (row: RowData, action: string) => void;
+        onRowClick?: (row: RowData) => void;
         onAction?: (action: string) => void;
         gridColumns?: GridColumns;
         columns?: IColumn<RowData>[];
