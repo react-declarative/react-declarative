@@ -39,7 +39,7 @@ const options: IMenuGroup[] = [
 ];
 
 const App = () => {
-  const [route, setRoute] = useState('');
+  const [route, setRoute] = useState('layout-page');
 
   const handleOptionClick = (name: string) => setRoute(name);
 

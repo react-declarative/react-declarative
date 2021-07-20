@@ -107,7 +107,7 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'id',
     headerName: 'ID',
-    width: 'calc(60vw - 550px)',
+    width: 'max(calc(100vw - 650px), 200px)',
     columnMenu: [
       {
         action: 'click-me',
