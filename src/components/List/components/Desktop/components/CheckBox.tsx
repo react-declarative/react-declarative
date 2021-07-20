@@ -12,6 +12,8 @@ import SelectionMode from "../../../../../model/SelectionMode";
 
 type ICheckBoxProps = CheckboxProps;
 
+const UNSET_ROW_ID = Symbol('unset-row-id');
+
 export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
     checked,
     className,
@@ -23,7 +25,7 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
     const gridProps = useGridSlotComponentProps();
 
     const { onSelectedRows, selectionMode } = useProps();
-    const [ rowIndex, setRowIndex ] = useState(-1);
+    const [ rowId, setRowId ] = useState<any>(UNSET_ROW_ID);
 
     const handleRef = (instance: HTMLButtonElement | null) => {
         if (typeof ref === 'function') {
@@ -33,8 +35,8 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
         }
         if (instance) {
             const target = instance.closest<HTMLElement>("*[data-id]");
-            const currentRow = target?.dataset?.rowindex;
-            currentRow && setRowIndex(Number(currentRow));
+            const currentRowId = target?.dataset?.id;
+            currentRowId && setRowId(currentRowId);
         }
         elementRef.current = instance;
     };
@@ -47,9 +49,9 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
             grid.selectRow(id, false);
         });
         if (checked) {
-            grid.selectRow(rowIndex + 1, false);
+            grid.selectRow(rowId, false);
         } else {
-            grid.selectRow(rowIndex + 1, true);
+            grid.selectRow(rowId, true);
         }
         onSelectedRows && onSelectedRows([
             ...grid.getSelectedRows().values(),
@@ -61,9 +63,9 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
         e.stopPropagation();
         const { current: grid } = gridProps.apiRef; 
         if (checked) {
-            grid.selectRow(rowIndex + 1, false);
+            grid.selectRow(rowId, false);
         } else {
-            grid.selectRow(rowIndex + 1, true);
+            grid.selectRow(rowId, true);
         }
         onSelectedRows && onSelectedRows([
             ...grid.getSelectedRows().values(),
@@ -80,7 +82,7 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
                 onClick={handleCheckBoxChange}
                 checked={checked}
                 color={color}
-                disabled={disabled || rowIndex === -1}
+                disabled={disabled || rowId === UNSET_ROW_ID}
                 tabIndex={tabIndex}
             />
         );
@@ -92,7 +94,7 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
                 onKeyDown={handleRadioChange}
                 onChange={handleRadioChange}
                 onClick={handleRadioChange}
-                disabled={disabled || rowIndex === -1}
+                disabled={disabled || rowId === UNSET_ROW_ID}
                 checked={checked}
                 color={color}
                 tabIndex={tabIndex}

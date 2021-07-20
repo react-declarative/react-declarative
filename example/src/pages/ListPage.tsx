@@ -224,15 +224,10 @@ export const ListPage = () => {
   const handler = (filterData: any) => {
     console.log({ filterData });
     return [
-      { id: 1, lastName: 'SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow', firstName: 'Jon', age: 35 },
-      { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-      { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-      { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-      { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-      { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-      { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-      { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-      { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+      { id: "b760df5d-9fb0-4360-a2e6-e3a5356480e6", lastName: 'SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow', firstName: 'Jon', age: 35 },
+      { id: "q560df5d-9fb0-4360-a2e6-e3a5356480d5", lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+      { id: "b760df5d-9fb0-4360-a2e6-e3a5356120e6", lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+      { id: "q560df5d-9fb0-4360-a2e6-e3a5133480d5", lastName: 'Stark', firstName: 'Arya', age: 16 },
     ];
   };
 
@@ -260,7 +255,7 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Single}
+      selectionMode={SelectionMode.Multiple}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onAction={handleAction}
