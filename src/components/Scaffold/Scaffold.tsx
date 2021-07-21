@@ -137,6 +137,7 @@ export const Scaffold = ({
           value={filterText}
           placeholder={i18n`Search`}
           InputProps={{
+            autoComplete: 'off',
             endAdornment: (
               <InputAdornment position="end">
                 <div style={{ marginRight: -10 }}>
