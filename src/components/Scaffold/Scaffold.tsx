@@ -114,7 +114,7 @@ export const Scaffold = ({
 
   const filteredMenuOptions = React.useMemo<IMenuGroup[]>(() => {
     const allowed = new Set<IMenuOption>();
-    const safeOptions = arrays(deepClone(objects(options)));
+    const safeOptions = arrays(deepClone(objects(options)), true);
     const keyword = filterText.toLowerCase();
     filerFlatMenu(flatifyMenu(safeOptions), keyword)
       .forEach((o) => allowed.add(o));
