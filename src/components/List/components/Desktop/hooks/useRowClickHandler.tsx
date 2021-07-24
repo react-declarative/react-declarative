@@ -25,7 +25,7 @@ export const useRowClickHandler = () => {
             const currentCell = target.closest(GRID_CELL);
             const { id: targetId } = currentRow.dataset;
             const { length: skipRowClick } = currentCell.getElementsByClassName(SKIP_ROW_CLICK);
-            const dataRow = rows.find(({id}) => id === targetId);
+            const dataRow = rows.find(({id}) => id.toString() === targetId);
             !skipRowClick && onRowClick && onRowClick(dataRow);
         };
 
@@ -67,7 +67,7 @@ export const useRowClickHandler = () => {
             elementMap.clear();
         };
 
-    }, [elementRef, listProps]);
+    }, [elementRef, listProps.rows, listProps.onRowClick]);
 
     return (instance: HTMLDivElement) => {
         setElementRef(instance);

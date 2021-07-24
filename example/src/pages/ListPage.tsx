@@ -141,6 +141,7 @@ const columns: IColumn[] = [
   {
     type: ColumnType.Action,
     headerName: 'Actions',
+    sortable: false,
     width: '150px',
   },
 ];

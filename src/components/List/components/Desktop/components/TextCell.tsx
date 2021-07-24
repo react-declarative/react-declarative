@@ -5,7 +5,7 @@ import { GridCellParams } from "@material-ui/data-grid";
 
 import AutoSizer from "../../../../common/AutoSizer";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     width: '100%',
@@ -22,11 +22,11 @@ const useStyles = makeStyles({
     lineHeight: "20px",
     fontSize: 14,
     fontWeight: 400,
-    color: "black",
+    color: theme.palette.getContrastText(theme.palette.background.paper),
     border: "3px solid transparent",
     overflow: "hidden",
   },
-});
+}));
 
 type ITextCellProps = GridCellParams;
 

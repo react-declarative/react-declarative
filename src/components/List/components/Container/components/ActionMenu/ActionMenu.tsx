@@ -53,7 +53,7 @@ export const ActionMenu = ({
                 aria-haspopup="true"
                 onClick={handleFocus}
             >
-                <MoreVertIcon />
+                <MoreVertIcon color="inherit" />
             </Fab>
             <Menu
                 getContentAnchorEl={null}

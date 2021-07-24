@@ -5,7 +5,7 @@ import { GridColumnHeaderParams } from "@material-ui/data-grid";
 
 import AutoSizer from "../../../../common/AutoSizer";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     width: '100%',
@@ -22,11 +22,11 @@ const useStyles = makeStyles({
     lineHeight: "20px",
     fontSize: 14,
     fontWeight: 400,
-    color: "#707070",
-    border: "3px solid transparent",
+    color: theme.palette.getContrastText(theme.palette.background.paper),
+    opacity: 0.5,
     overflow: "hidden",
   },
-});
+}));
 
 type IHeaderProps = GridColumnHeaderParams;
 
@@ -36,12 +36,12 @@ export const Header = ({
   const classes = useStyles();
   const { headerName } = colDef;
   return (
-    <AutoSizer className={classes.root}>
+    <AutoSizer disableHeight className={classes.root}>
       {({ width, height }) => (
         <div className={classes.container}>
           <div
             className={classes.content}
-            style={{ width: width - 25, maxHeight: height }}
+            style={{ width: width - 25, maxHeight: Math.max(height, 25) }}
           >
             {headerName}
           </div>

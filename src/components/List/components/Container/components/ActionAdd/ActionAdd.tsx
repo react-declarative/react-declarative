@@ -27,7 +27,7 @@ export const ActionAdd = ({
 
     return (
         <Fab size="small" color="primary" onClick={handleClick}>
-            <Add />
+            <Add color="inherit" />
         </Fab>
     );
 };
