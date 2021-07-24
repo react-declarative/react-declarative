@@ -39,9 +39,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(theme.palette.background.paper),
   },
   offset: theme.mixins.toolbar,
-  adjust: {
-    padding: 10,
-  },
   hide: {
     display: 'none',
   },
@@ -182,13 +179,11 @@ export const Scaffold = ({
         </Toolbar>
       </AppBar>
       <div className={classes.offset} />
-      <div className={classes.adjust}>
-        <Box p={1}>
-          <Grid container>
-            {children}
-          </Grid>
-        </Box>
-      </div>
+      <Box p={1}>
+        <Grid container>
+          {children}
+        </Grid>
+      </Box>
     </>
   );
 };
