@@ -110,11 +110,19 @@ export const Scaffold = ({
     onOptionClick && onOptionClick(name);
   };
 
+  const makeArray = (obj: any) => {
+    if (Array.isArray(obj)) {
+      return obj;
+    } else {
+      return [];
+    }
+  };
+
   const [filterText, setFilterText] = useState('');
 
   const filteredMenuOptions = React.useMemo<IMenuGroup[]>(() => {
     const allowed = new Set<IMenuOption>();
-    const safeOptions = arrays(deepClone(objects(options)), true);
+    const safeOptions = makeArray(arrays(deepClone(objects(options))));
     const keyword = filterText.toLowerCase();
     filerFlatMenu(flatifyMenu(safeOptions), keyword)
       .forEach((o) => allowed.add(o));
