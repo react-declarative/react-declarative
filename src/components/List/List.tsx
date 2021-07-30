@@ -19,6 +19,7 @@ import useHeightCalc from './components/Desktop/hooks/useHeightCalc';
 import PropProvider from './components/PropProvider';
 
 import randomString from '../../utils/randomString';
+import deepCompare from '../../utils/deepCompare';
 
 export const List = <
   FilterData extends IAnything = IAnything,
@@ -42,7 +43,7 @@ export const List = <
     uniqueKey: randomString(),
   });
 
-  const { isMobile, uniqueKey } = state;
+  const { isMobile } = state;
 
   const calcRowHeight = useHeightCalc<RowData>(columns);
 
@@ -50,15 +51,16 @@ export const List = <
     const rows = typeof handler === 'function'
       ? (await Promise.resolve(handler(filterData))) as RowData[]
       : handler;
-    const rowHeight = calcRowHeight(rows);
-    setState({
-      initComplete: true,
-      uniqueKey,
-      isMobile,
-      filterData,
-      rows,
-      rowHeight,
-    });
+    if (!deepCompare(rows, state.rows)) {
+      const rowHeight = calcRowHeight(rows);
+      setState((prevState) => ({
+        ...prevState,
+        initComplete: true,
+        filterData,
+        rows,
+        rowHeight,
+      }));
+    }
   };
 
   const handleDefault = () => {
