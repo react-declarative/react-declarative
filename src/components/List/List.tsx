@@ -29,6 +29,7 @@ export const List = <
 
   const {
     handler = () => [],
+    fallback = () => null,
     filters = [],
     columns = [],
     actions = [],
@@ -48,18 +49,22 @@ export const List = <
   const calcRowHeight = useHeightCalc<RowData>(columns);
 
   const handleFilter = async (filterData: FilterData) => {
-    const rows = typeof handler === 'function'
-      ? (await Promise.resolve(handler(filterData))) as RowData[]
-      : handler;
-    if (!deepCompare(rows, state.rows)) {
-      const rowHeight = calcRowHeight(rows);
-      setState((prevState) => ({
-        ...prevState,
-        initComplete: true,
-        filterData,
-        rows,
-        rowHeight,
-      }));
+    try {
+      const rows = typeof handler === 'function'
+        ? (await Promise.resolve(handler(filterData))) as RowData[]
+        : handler;
+      if (!deepCompare(rows, state.rows)) {
+        const rowHeight = calcRowHeight(rows);
+        setState((prevState) => ({
+          ...prevState,
+          initComplete: true,
+          filterData,
+          rows,
+          rowHeight,
+        }));
+      }
+    } catch (e) {
+      fallback(e);
     }
   };
 

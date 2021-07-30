@@ -78,6 +78,7 @@ export interface IListProps<
   columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
+  fallback?: (e: Error) => void;
   rowActions?: IOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
