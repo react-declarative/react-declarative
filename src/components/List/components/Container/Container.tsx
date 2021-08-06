@@ -23,7 +23,9 @@ interface ISize {
 }
 
 interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
-  IListProps<FilterData, RowData>,
+  Omit<IListProps<FilterData, RowData>, keyof {
+    ref: never;
+  }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;

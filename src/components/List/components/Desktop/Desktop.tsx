@@ -19,7 +19,9 @@ import createColumn from "../../../../config/createColumn";
 import useRowClickHandler from "./hooks/useRowClickHandler";
 
 interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
-  IListProps<FilterData, RowData>,
+  Omit<IListProps<FilterData, RowData>, keyof {
+    ref: never;
+  }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;

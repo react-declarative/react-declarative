@@ -22,6 +22,7 @@ declare module 'react-view-builder' {
     import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
     import { i18nMap } from 'react-view-builder/config/i18n';
     import "vanilla-autofill-event";
+    import { useConfirm } from 'react-view-builder/components';
     import { useDate, useTime } from 'react-view-builder/components';
     import { useOne, useOneTyped } from 'react-view-builder/components';
     import { useList, useListTyped } from 'react-view-builder/components';
@@ -47,6 +48,7 @@ declare module 'react-view-builder' {
     export type pickTimeFn = ReturnType<typeof useTime>;
     export type pickListTypedFn = ReturnType<typeof useListTyped>;
     export type pickListFn = ReturnType<typeof useList>;
+    export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export { default as dayjs } from 'dayjs';
     export { One, OneTyped } from 'react-view-builder/components';
     export { List, ListTyped } from 'react-view-builder/components';
@@ -56,6 +58,7 @@ declare module 'react-view-builder' {
     export { useList, useListTyped };
     export { useOne, useOneTyped };
     export { useDate, useTime };
+    export { useConfirm };
     export { i18nMap };
 }
 
@@ -645,6 +648,7 @@ declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/hooks/useTime';
     export * from 'react-view-builder/components/hooks/useOne';
     export * from 'react-view-builder/components/hooks/useList';
+    export * from 'react-view-builder/components/hooks/useConfirm';
     export * from 'react-view-builder/components/common/ModalProvider';
 }
 
@@ -1353,6 +1357,18 @@ declare module 'react-view-builder/components/hooks/useList' {
         then(onData: Fn): void;
     };
     export default useList;
+}
+
+declare module 'react-view-builder/components/hooks/useConfirm' {
+    type Fn = (result: boolean) => void;
+    interface IParams {
+        title: string;
+        msg: string;
+    }
+    export const useConfirm: ({ title, msg, }: IParams) => () => {
+        then(onData: Fn): void;
+    };
+    export default useConfirm;
 }
 
 declare module 'react-view-builder/components/common/ModalProvider' {

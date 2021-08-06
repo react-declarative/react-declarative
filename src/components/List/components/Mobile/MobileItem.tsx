@@ -27,7 +27,9 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 export const ROW_BOTTOM_MARGIN = 25;
 
 interface IMobileItemProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything> extends
-  IListProps<FilterData, RowData>,
+  Omit<IListProps<FilterData, RowData>, keyof {
+    ref: never;
+  }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   data: RowData;

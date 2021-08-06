@@ -25,6 +25,7 @@ import { i18nMap } from './config/i18n';
 
 import "vanilla-autofill-event";
 
+import { useConfirm } from './components';
 import { useDate, useTime } from './components';
 import { useOne, useOneTyped } from './components';
 import { useList, useListTyped } from './components';
@@ -59,6 +60,8 @@ export type pickTimeFn = ReturnType<typeof useTime>;
 export type pickListTypedFn = ReturnType<typeof useListTyped>;
 export type pickListFn = ReturnType<typeof useList>;
 
+export type pickConfirmFn = ReturnType<typeof useConfirm>;
+
 export { default as dayjs } from 'dayjs';
 
 export { One, OneTyped } from './components';
@@ -71,5 +74,6 @@ export { useListProps } from './components';
 export { useList, useListTyped };
 export { useOne, useOneTyped };
 export { useDate, useTime };
+export { useConfirm };
 
 export { i18nMap };
