@@ -1362,10 +1362,10 @@ declare module 'react-view-builder/components/hooks/useList' {
 declare module 'react-view-builder/components/hooks/useConfirm' {
     type Fn = (result: boolean) => void;
     interface IParams {
-        title: string;
-        msg: string;
+        title?: string;
+        msg?: string;
     }
-    export const useConfirm: ({ title, msg, }: IParams) => () => {
+    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, }: IParams) => ({ title, msg, }?: Partial<IParams>) => {
         then(onData: Fn): void;
     };
     export default useConfirm;

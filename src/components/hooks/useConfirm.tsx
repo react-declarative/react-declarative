@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { useModal } from 'react-modal-hook';
 
@@ -8,16 +8,18 @@ import ConfirmPicker from '../common/ConfirmPicker';
 type Fn = (result: boolean) => void;
 
 interface IParams {
-  title: string;
-  msg: string;
+  title?: string;
+  msg?: string;
 }
 
 export const useConfirm = ({
-  title,
-  msg,
+  title: defaultTitle = "",
+  msg: defaultMsg = "",
 }: IParams) => {
 
   const changeRef = useRef<Fn>();
+  const [currentTitle, setCurrentTitle] = useState(defaultTitle);
+  const [currentMsg, setCurrentMsg] = useState(defaultMsg);
 
   const handleChange: Fn = (time) => {
     const { current } = changeRef;
@@ -30,14 +32,19 @@ export const useConfirm = ({
   const [showModal, hideModal] = useModal(({ in: open }) => (
     <ConfirmPicker
       open={open}
-      title={title}
-      msg={msg}
+      title={currentTitle}
+      msg={currentMsg}
       onChange={handleChange}
     />
-  ));
+  ), [currentTitle, currentMsg]);
 
-  return () => new class {
+  return ({
+    title,
+    msg,
+  }: Partial<IParams> = {}) => new class {
     constructor() {
+      title && setCurrentTitle(title);
+      msg && setCurrentMsg(msg);
       showModal();
     };
     then(onData: Fn) {
