@@ -1365,7 +1365,7 @@ declare module 'react-view-builder/components/hooks/useConfirm' {
         title?: string;
         msg?: string;
     }
-    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, }: IParams) => ({ title, msg, }?: Partial<IParams>) => {
+    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, }?: IParams) => ({ title, msg, }?: Partial<IParams>) => {
         then(onData: Fn): void;
     };
     export default useConfirm;

@@ -15,7 +15,7 @@ interface IParams {
 export const useConfirm = ({
   title: defaultTitle = "",
   msg: defaultMsg = "",
-}: IParams) => {
+}: IParams = {}) => {
 
   const changeRef = useRef<Fn>();
   const [currentTitle, setCurrentTitle] = useState(defaultTitle);
