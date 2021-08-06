@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { forwardRef } from 'react';
 import { useState, useLayoutEffect } from 'react';
 
 import IListProps, { IListState } from '../../model/IListProps';
@@ -6,6 +7,7 @@ import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
 import IRowData from '../../model/IRowData';
 import IField from '../../model/IField';
+import IListApi from '../../model/IListApi';
 
 import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
@@ -21,11 +23,11 @@ import PropProvider from './components/PropProvider';
 import randomString from '../../utils/randomString';
 import deepCompare from '../../utils/deepCompare';
 
-export const List = <
+export const ListInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<IAnything>,
->(props: IListProps<FilterData, RowData, Field>) => {
+>(props: IListProps<FilterData, RowData, Field>, ref: any) => {
 
   const {
     handler = () => [],
@@ -78,12 +80,25 @@ export const List = <
     handleFilter(newData as FilterData);
   };
 
+  const handleReload = () => handleFilter(state.filterData);
+
   useLayoutEffect(() => {
-    const hasFilters = Array.isArray(filters) && !!filters.length ;
+    const hasFilters = Array.isArray(filters) && !!filters.length;
     if (!hasFilters) {
       setTimeout(handleDefault);
     }
   }, [filters]);
+
+  useLayoutEffect(() => {
+    const instance: IListApi = {
+      reload: handleReload,
+    };
+    if (typeof ref === 'function') {
+      ref(instance);
+    } else if (ref) {
+      ref.current = instance;
+    }
+  }, [ref, state]);
 
   return (
     <PropProvider {...{...props, ...state}}>
@@ -117,6 +132,8 @@ export const List = <
 
 };
 
+export const List = forwardRef(ListInternal) as typeof ListInternal;
+
 export const ListTyped = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
@@ -124,6 +141,6 @@ export const ListTyped = <
     props: IListProps<FilterData, RowData, TypedField<FilterData>>
   ) => <List<FilterData, RowData> {...props} />;
 
-List.typed = ListTyped;
+(List as any).typed = ListTyped;
 
 export default List;

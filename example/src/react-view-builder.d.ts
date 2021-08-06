@@ -14,6 +14,7 @@ declare module 'react-view-builder' {
     import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
     import { SelectionMode as SelectionModeInternal } from 'react-view-builder/model/SelectionMode';
+    import { IListApi as IListApiInternal } from 'react-view-builder/model/IListApi';
     import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
     import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
     import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-view-builder/model/IMenuGroup';
@@ -37,6 +38,7 @@ declare module 'react-view-builder' {
     export type IListAction = IListActionInternal;
     export type IMenuOption = IMenuOptionInternal;
     export type IMenuGroup = IMenuGroupInternal;
+    export type IListApi = IListApiInternal;
     export type IOption = IOptionInternal;
     export type IColumn = IColumnInternal;
     export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
@@ -479,7 +481,15 @@ declare module 'react-view-builder/model/SelectionMode' {
     export default SelectionMode;
 }
 
+declare module 'react-view-builder/model/IListApi' {
+    export interface IListApi {
+        reload: () => void;
+    }
+    export default IListApi;
+}
+
 declare module 'react-view-builder/model/IListProps' {
+    import { Ref } from 'react';
     import { GridColumns, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
     import ActionType from 'react-view-builder/model/ActionType';
     import SelectionMode from 'react-view-builder/model/SelectionMode';
@@ -488,6 +498,7 @@ declare module 'react-view-builder/model/IListProps' {
     import IColumn from 'react-view-builder/model/IColumn';
     import IOption from 'react-view-builder/model/IOption';
     import IField from 'react-view-builder/model/IField';
+    import IListApi from 'react-view-builder/model/IListApi';
     export interface IListAction extends Partial<IOption> {
         type: ActionType;
         options?: Partial<IOption>[];
@@ -522,6 +533,7 @@ declare module 'react-view-builder/model/IListProps' {
         ready: () => void;
     }
     export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, ComponentProps {
+        ref?: Ref<IListApi>;
         className?: string;
         style?: React.CSSProperties;
         title?: string;
@@ -1368,10 +1380,8 @@ declare module 'react-view-builder/components/List/List' {
     import TypedField from 'react-view-builder/model/TypedField';
     import IRowData from 'react-view-builder/model/IRowData';
     import IField from 'react-view-builder/model/IField';
-    export const List: {
-        <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>): JSX.Element;
-        typed: <FilterData_1 extends unknown = any, RowData_1 extends IRowData = any>(props: IListProps<FilterData_1, RowData_1, TypedField<FilterData_1>>) => JSX.Element;
-    };
+    export const ListInternal: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>, ref: any) => JSX.Element;
+    export const List: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>, ref: any) => JSX.Element;
     export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
     export default List;
 }

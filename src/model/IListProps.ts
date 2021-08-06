@@ -1,4 +1,8 @@
 import {
+  Ref,
+} from 'react';
+
+import {
   GridColumns,
   GridSlotsComponent,
   GridSortModel,
@@ -13,6 +17,7 @@ import IRowData from './IRowData';
 import IColumn from './IColumn';
 import IOption from './IOption';
 import IField from './IField';
+import IListApi from './IListApi';
 
 export interface IListAction extends Partial<IOption> {
   type: ActionType;
@@ -59,6 +64,7 @@ export interface IListProps<
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
 > extends GridSlotsComponent, ComponentProps {
+  ref?: Ref<IListApi>;
   className?: string;
   style?: React.CSSProperties;
   title?: string;

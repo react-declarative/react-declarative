@@ -8,6 +8,8 @@ import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
 import { ActionType as ActionTypeInternal } from './model/ActionType';
 import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
+import { IListApi as IListApiInternal } from './model/IListApi';
+
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
@@ -44,6 +46,7 @@ export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 export type IListAction = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;
 export type IMenuGroup = IMenuGroupInternal;
+export type IListApi = IListApiInternal;
 export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 
