@@ -1,7 +1,9 @@
+import * as React from 'react';
+
 export interface IMenuOption {
     name?: string;
     label: string;
-    icon?: string;
+    icon?: React.ComponentType;
     bold?: boolean;
     disabled?: boolean;
 }

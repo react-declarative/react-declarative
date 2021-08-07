@@ -29,6 +29,7 @@ export const SideMenu = ({
                 <React.Fragment key={idx}>
                     <MenuOption
                         key={item.name}
+                        parent
                         option={item}
                         selected={selected}
                         onClick={onClick}

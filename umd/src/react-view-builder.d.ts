@@ -575,10 +575,11 @@ declare module 'react-view-builder/model/IOption' {
 }
 
 declare module 'react-view-builder/model/IMenuGroup' {
+    import * as React from 'react';
     export interface IMenuOption {
         name?: string;
         label: string;
-        icon?: string;
+        icon?: React.ComponentType;
         bold?: boolean;
         disabled?: boolean;
     }

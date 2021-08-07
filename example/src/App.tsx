@@ -8,7 +8,6 @@ import Router from './Router';
 const options: IMenuGroup[] = [
   {
     label: 'Use cases',
-    icon: 'dot',
     options: [
       {
         name: "layout-page",

@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
-import Close from '@material-ui/icons/Close';
+import Restore from '@material-ui/icons/Restore';
 import More from '@material-ui/icons/ExpandMore';
 import Less from '@material-ui/icons/ExpandLess';
 
@@ -109,7 +109,7 @@ export const Filters = <FilterData extends IAnything>({
         [classes.controlsWidth]: !toggleFilters,
       })}>
         <IconButton onClick={clean}>
-          <Close />
+          <Restore />
         </IconButton>
         {!toggleFilters && (
           <IconButton onClick={handleCollapse}>

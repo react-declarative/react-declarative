@@ -11,15 +11,14 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import { IMenuOption } from '../../model/IMenuGroup';
 
 import OutlinedFlag from "@material-ui/icons/OutlinedFlag";
-import FiberManualRecordRounded from "@material-ui/icons/FiberManualRecordRounded";
-
-const DEFAULT_ICON = 'outlined-flag';
+import Dot from "@material-ui/icons/FiberManualRecord";
 
 interface IMenuOptionProps {
     option: IMenuOption;
     style?: React.CSSProperties;
     selected?: string;
     className?: string;
+    parent?: boolean;
     onClick: (name: string) => void;
 }
 
@@ -55,17 +54,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const createIcon = (icon: string | undefined) => {
-    if (icon === 'dot') {
-        return <FiberManualRecordRounded />
-    } else if (icon === 'outlined-flag') {
-        return <OutlinedFlag />
-    } else {
-        throw new Error('Scaffold unknown icon');
-    }
-};
-
-export const MenuOption: React.FC<IMenuOptionProps> = ({ option, style, selected, className, onClick }) => {
+export const MenuOption: React.FC<IMenuOptionProps> = ({
+    option,
+    style,
+    parent,
+    selected,
+    className,
+    onClick
+}) => {
     const classes = useStyles();
 
     const linkClasses = classNames(classes.navLink, {
@@ -79,6 +75,8 @@ export const MenuOption: React.FC<IMenuOptionProps> = ({ option, style, selected
         name && onClick(name);
     };
 
+    const Icon = option.icon || (parent ? Dot : OutlinedFlag);
+
     return (
         <ButtonBase  
             className={classNames(classes.root, linkClasses, className)}
@@ -88,7 +86,7 @@ export const MenuOption: React.FC<IMenuOptionProps> = ({ option, style, selected
                 onClick={handleClick}
             >
                 <ListItemIcon style={{ maxWidth: 24 }}>
-                    {createIcon(option.icon || DEFAULT_ICON)}
+                    <Icon />
                 </ListItemIcon>
                 <ListItemText primary={option.label} />
             </ListItem>
