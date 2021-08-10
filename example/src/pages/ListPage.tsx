@@ -9,99 +9,24 @@ import {
   IListAction,
   ActionType,
   ColumnType,
-  useDate,
-  useTime,
-  useOne,
-  useList,
-  pickDateFn,
-  pickTimeFn,
-  pickOneFn,
-  pickListFn
 } from 'react-view-builder';
 
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import ListAlt from '@material-ui/icons/ListAlt';
 import Delete from '@material-ui/icons/Delete';
-import Alarm from '@material-ui/icons/Alarm';
-import Face from '@material-ui/icons/Face';
 import Add from '@material-ui/icons/Add';
 
-const delay = (timeout = 1000) => new Promise<void>((res) => setTimeout(() => res(), timeout));
+import mock from './mock/list';
 
-const createFilters = (
-  pickDate: pickDateFn,
-  pickTime: pickTimeFn,
-  pickOne: pickOneFn,
-  pickList: pickListFn,
-): TypedField[]  => [
+const filters: TypedField[] = [
   {
     type: FieldType.Text,
-    title: 'Pick date',
-    desktopColumns: '3',
-    description: 'By using trailing icon',
-    name: 'date',
-    trailingIcon: CalendarToday,
-    readonly: true,
-    trailingIconClick: (_, onChange) => pickDate().then((d) => {
-      if (d) {
-        onChange(d.format('MM-DD-YYYY'));
-      } else {
-        onChange('Rejected :-(');
-      }
-    }),
+    name: 'firstName',
+    title: 'First name',
   },
   {
     type: FieldType.Text,
-    title: 'Pick time',
-    desktopColumns: '3',
-    description: 'By using leading icon',
-    name: 'time',
-    trailingIcon: Alarm,
-    readonly: true,
-    defaultValue: '12:00',
-    trailingIconClick: (_, onChange) => pickTime().then((t) => {
-      if (t) {
-        onChange(t.format('H:mm'));
-      } else {
-        onChange('Rejected :-(');
-      }
-    }),
-  },
-  {
-    type: FieldType.Text,
-    title: 'Pick name',
-    desktopColumns: '3',
-    description: 'Firstname, Lastname',
-    name: 'fio',
-    trailingIcon: Face,
-    readonly: true,
-    trailingIconClick: (_, onChange) => pickOne().then((input) => {
-      if (input) {
-        const { firstname, lastname } = input;
-        onChange([ firstname, lastname ].join(' '));
-      } else {
-        onChange('Rejected :-(');
-      }
-    }),
-  },
-  {
-    type: FieldType.Text,
-    title: 'Pick list',
-    desktopColumns: '3',
-    description: 'VIP, BlockList',
-    name: 'list',
-    trailingIcon: ListAlt,
-    readonly: true,
-    trailingIconClick: (_, onChange) => pickList().then((input) => {
-      if (input && input.length) {
-        const [ first ] = input;
-        const { label } = first;
-        onChange(label);
-      } else {
-        onChange('Rejected :-(');
-      }
-    }),
-  },
+    name: 'lastName',
+    title: 'Last name',
+  }
 ];
 
 const columns: IColumn[] = [
@@ -110,12 +35,6 @@ const columns: IColumn[] = [
     field: 'id',
     headerName: 'ID',
     width: 'max(calc(100vw - 650px), 200px)',
-    columnMenu: [
-      {
-        action: 'click-me',
-        label: 'Click me',
-      },
-    ],
   },
   {
     type: ColumnType.Text,
@@ -124,21 +43,10 @@ const columns: IColumn[] = [
     width: '200px',
   },
   {
-    type: ColumnType.CheckBox,
+    type: ColumnType.Text,
     field: 'lastName',
     headerName: 'Last name',
     width: '200px',
-    sortable: false,
-    columnMenu: [
-      {
-        action: 'hello-action',
-        label: 'Hello',
-      },
-      {
-        action: 'world-action',
-        label: 'world',
-      },
-    ]
   },
   {
     type: ColumnType.Action,
@@ -156,111 +64,51 @@ const actions: IListAction[] = [
     type: ActionType.Menu,
     options: [
       {
-        action: 'menu-action',
-        label: 'Hello world',
+        action: 'add-action',
+        label: 'Create new row',
         icon: Add,
-      }
+      },
     ],
   }
 ];
 
 const rowActions = [
   {
-    label: 'Row action',
-    action: 'row-action',
+    label: 'Remove action',
+    action: 'remove-action',
     icon: Delete,
-  }
+  },
 ];
+
+interface IRowData {
+  id: string;
+  lastName: string;
+  firstName: string;
+  age: string;
+}
+
+interface IFilterData {
+  firstName: string;
+  lastName: string;
+}
 
 export const ListPage = () => {
 
-  const pickDate = useDate();
-  const pickTime = useTime();
+  const handler = async ({
+    firstName,
+    lastName,
+  }: IFilterData) => {
+    let rows = await Promise.resolve(mock) as IRowData[];
 
-  const pickOne = useOne({
-    title: 'Waiting for user input',
-    fields: [
-      {
-        type: FieldType.Text,
-        name: 'firstname',
-        title: 'First name',
-      },
-      {
-        type: FieldType.Text,
-        name: 'lastname',
-        title: 'Last name',
-      }
-    ],
-  });
+    if (firstName) {
+      rows = rows.filter((row) => row.firstName.includes(firstName));
+    }
 
-  const pickList = useList({
-    title: 'Waiting for user input',
-    handler: [
-      {
-        id: 1,
-        label: 'VIP',
-      },
-      {
-        id: 2,
-        label: 'BlockList',
-      },
-    ],
-    columns: [
-      {
-        type: ColumnType.Text,
-        field: 'id',
-        headerName: 'Id',
-        width: '125px',
-      },
-      {
-        type: ColumnType.Text,
-        field: 'label',
-        headerName: 'Label',
-        width: '225px',
-      },
-    ],
-    width: 600,
-  });
+    if (lastName) {
+      rows = rows.filter((row) => row.lastName.includes(lastName));
+    }
 
-  const filters = createFilters(pickDate, pickTime, pickOne, pickList);
-
-  const handler = async (filterData: any) => {
-    console.log({ filterData });
-    await delay();
-    return Promise.resolve(JSON.parse(`[
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6q", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5w", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5e56120e6e", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5r", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6t", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5y", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6u", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5i", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a53a6480e6o", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5p", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6a", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5s", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6d", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5f", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6g", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5h", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6j", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5k", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6l", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5z", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6x", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5c", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6v", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5b", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e6b", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d5n", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e6m", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d5m", "lastName": "Stark", "firstName": "Arya", "age": "16" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356480e61", "lastName": "SnowSnow SnowSnow SnowSnow SnowSnow SnowSnow", "firstName": "Jon", "age": "35" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5356480d52", "lastName": "Lannister", "firstName": "Cersei", "age": "42" },
-      { "id": "b760df5d-9fb0-4360-a2e6-e3a5356120e63", "lastName": "Lannister", "firstName": "Jaime", "age": "45" },
-      { "id": "q560df5d-9fb0-4360-a2e6-e3a5133480d54", "lastName": "Stark", "firstName": "Arya", "age": "16" }
-    ]`));
+    return rows;
   };
 
   const heightRequest = () => window.innerHeight - 100;
@@ -282,7 +130,7 @@ export const ListPage = () => {
   };
 
   return (
-    <ListTyped
+    <ListTyped<IFilterData, IRowData>
       title="List Component"
       filterLabel="Filters"
       heightRequest={heightRequest}
