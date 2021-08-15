@@ -6,8 +6,8 @@ import { SlotContext } from '../../components/SlotFactory';
 import IItemsSlot from './IItemsSlot';
 
 export const ItemsSlot = (props: IItemsSlot) => {
-    const { Combo } = useContext(SlotContext);
-    return <Combo {...props} />;
+    const { Items } = useContext(SlotContext);
+    return <Items {...props} />;
 };
 
 export default ItemsSlot;
