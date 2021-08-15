@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Switch, Typography } from '@material-ui/core';
+import Switch from '../slots/SwitchSlot';
 
 import makeField from '../components/makeField';
 
@@ -22,16 +22,14 @@ export const SwitchField = ({
   disabled,
   value,
   onChange,
-  title
+  title,
 }: ISwitchFieldProps & ISwitchFieldPrivate) => (
-  <Box display="flex" alignItems="center">
-    <Box flex={1}>
-      <Typography variant="body1">
-        {title}
-      </Typography>
-    </Box>
-    <Switch disabled={disabled} checked={Boolean(value)} onChange={() => onChange(!value)} />
-  </Box>
+  <Switch
+    disabled={disabled}
+    value={value}
+    onChange={onChange}
+    title={title}
+  />
 );
 
 SwitchField.displayName = 'SwitchField';

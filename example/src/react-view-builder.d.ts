@@ -54,6 +54,7 @@ declare module 'react-view-builder' {
     export { List, ListTyped } from 'react-view-builder/components';
     export { ModalProvider } from 'react-view-builder/components';
     export { Scaffold } from 'react-view-builder/components';
+    export { SlotFactory } from 'react-view-builder/components';
     export { useListProps } from 'react-view-builder/components';
     export { useList, useListTyped };
     export { useOne, useOneTyped };
@@ -645,6 +646,7 @@ declare module 'react-view-builder/components' {
     export * from 'react-view-builder/components/One';
     export * from 'react-view-builder/components/List';
     export * from 'react-view-builder/components/Scaffold';
+    export * from 'react-view-builder/components/SlotFactory';
     export * from 'react-view-builder/components/hooks/useDate';
     export * from 'react-view-builder/components/hooks/useTime';
     export * from 'react-view-builder/components/hooks/useOne';
@@ -1162,7 +1164,7 @@ declare module 'react-view-builder/fields/SliderField' {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const SliderField: {
-        ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, ...otherProps }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
+        ({ value, onChange, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, stepSlider, maxSlider, minSlider, }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -1185,7 +1187,7 @@ declare module 'react-view-builder/fields/SwitchField' {
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
-        ({ disabled, value, onChange, title }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        ({ disabled, value, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -1197,8 +1199,8 @@ declare module 'react-view-builder/fields/SwitchField' {
 
 declare module 'react-view-builder/fields/TextField' {
     import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IField from "react-view-builder/model/IField";
     import IAnything from "react-view-builder/model/IAnything";
+    import IField from "react-view-builder/model/IField";
     export interface ITextFieldProps<Data = IAnything> {
         inputType?: PickProp<IField<Data>, "inputType">;
         inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
@@ -1222,7 +1224,7 @@ declare module 'react-view-builder/fields/TextField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -1293,6 +1295,13 @@ declare module 'react-view-builder/components/List' {
 declare module 'react-view-builder/components/Scaffold' {
     export * from "react-view-builder/components/Scaffold/Scaffold";
     export { default } from "react-view-builder/components/Scaffold/Scaffold";
+}
+
+declare module 'react-view-builder/components/SlotFactory' {
+    export * from 'react-view-builder/components/SlotFactory/SlotFactory';
+    export * from 'react-view-builder/components/SlotFactory/SlotContext';
+    export * from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
+    export { default } from 'react-view-builder/components/SlotFactory/SlotFactory';
 }
 
 declare module 'react-view-builder/components/hooks/useDate' {
@@ -1427,6 +1436,64 @@ declare module 'react-view-builder/components/Scaffold/Scaffold' {
     export default Scaffold;
 }
 
+declare module 'react-view-builder/components/SlotFactory/SlotFactory' {
+    import * as React from 'react';
+    import ISlotFactoryContext from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
+    interface ISlotFactoryProps extends ISlotFactoryContext {
+        children: React.ReactNode;
+    }
+    export const SlotFactory: ({ children, ...currentSlots }: Partial<ISlotFactoryProps>) => JSX.Element;
+    export default SlotFactory;
+}
+
+declare module 'react-view-builder/components/SlotFactory/SlotContext' {
+    import ISlotFactoryContext from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
+    export const defaultSlots: {
+        CheckBox: ({ disabled, onChange, title, value, }: import("../../slots/CheckBoxSlot").ICheckBoxSlot) => JSX.Element;
+        Combo: ({ value, disabled, description, placeholder, outlined, itemList, title, dirty, invalid, tr, onChange, }: import("../../slots/ComboSlot").IComboSlot) => JSX.Element;
+        Items: ({ value, disabled, description, placeholder, outlined, itemList, dirty, invalid, title, tr, onChange, }: import("../../slots/ItemsSlot").IItemsSlot) => JSX.Element;
+        Line: ({ title, }: import("../../slots/LineSlot").ILineSlot) => JSX.Element;
+        Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../../slots/RadioSlot").IRadioSlot) => JSX.Element;
+        Rating: ({ value, disabled, readonly, title, name, onChange, }: import("../../slots/RatingSlot").IRatingSlot) => JSX.Element;
+        Progress: ({ maxPercent, showPercentLabel, value, }: import("../../slots/ProgressSlot").IProgressSlot) => JSX.Element;
+        Typography: ({ value, placeholder, typoVariant, style, }: import("../../slots/TypographySlot").ITypographySlot) => JSX.Element;
+        Text: ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, onChange, name, }: import("../../slots/TextSlot").ITextSlot) => JSX.Element;
+        Switch: ({ disabled, value, onChange, title, }: import("../../slots/SwitchSlot").ISwitchSlot) => JSX.Element;
+        Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, stepSlider, maxSlider, minSlider, }: import("../../slots/SliderSlot").ISliderSlot) => JSX.Element;
+    };
+    export const SlotContext: import("react").Context<ISlotFactoryContext>;
+    export default SlotContext;
+}
+
+declare module 'react-view-builder/components/SlotFactory/ISlotFactoryContext' {
+    import { ComponentType } from 'react';
+    import { IProgressSlot } from 'react-view-builder/slots/ProgressSlot';
+    import { ICheckBoxSlot } from 'react-view-builder/slots/CheckBoxSlot';
+    import { IItemsSlot } from 'react-view-builder/slots/ItemsSlot';
+    import { IComboSlot } from 'react-view-builder/slots/ComboSlot';
+    import { ILineSlot } from 'react-view-builder/slots/LineSlot';
+    import { IRadioSlot } from 'react-view-builder/slots/RadioSlot';
+    import { IRatingSlot } from 'react-view-builder/slots/RatingSlot';
+    import { ITypographySlot } from 'react-view-builder/slots/TypographySlot';
+    import { ITextSlot } from 'react-view-builder/slots/TextSlot';
+    import { ISwitchSlot } from 'react-view-builder/slots/SwitchSlot';
+    import { ISliderSlot } from 'react-view-builder/slots/SliderSlot';
+    export interface ISlotFactoryContext {
+        CheckBox: ComponentType<ICheckBoxSlot>;
+        Combo: ComponentType<IComboSlot>;
+        Items: ComponentType<IItemsSlot>;
+        Line: ComponentType<ILineSlot>;
+        Progress: ComponentType<IProgressSlot>;
+        Radio: ComponentType<IRadioSlot>;
+        Rating: ComponentType<IRatingSlot>;
+        Typography: ComponentType<ITypographySlot>;
+        Text: ComponentType<ITextSlot>;
+        Switch: ComponentType<ISwitchSlot>;
+        Slider: ComponentType<ISliderSlot>;
+    }
+    export default ISlotFactoryContext;
+}
+
 declare module 'react-view-builder/components/common/ModalProvider/ModalProvider' {
     import { ModalProvider } from 'react-modal-hook';
     export { ModalProvider };
@@ -1507,5 +1574,282 @@ declare module 'react-view-builder/components/List/components/PropProvider/PropP
     export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;
     export const useProps: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>() => IPropContext<FilterData, RowData, Field>;
     export default PropProvider;
+}
+
+declare module 'react-view-builder/slots/ProgressSlot' {
+    export * from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
+    export * from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
+    export { default } from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
+}
+
+declare module 'react-view-builder/slots/CheckBoxSlot' {
+    export * from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
+    export * from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
+    export { default } from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
+}
+
+declare module 'react-view-builder/slots/ItemsSlot' {
+    export * from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
+    export * from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
+    export { default } from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
+}
+
+declare module 'react-view-builder/slots/ComboSlot' {
+    export * from 'react-view-builder/slots/ComboSlot/IComboSlot';
+    export * from 'react-view-builder/slots/ComboSlot/ComboSlot';
+    export { default } from 'react-view-builder/slots/ComboSlot/ComboSlot';
+}
+
+declare module 'react-view-builder/slots/LineSlot' {
+    export * from 'react-view-builder/slots/LineSlot/ILineSlot';
+    export * from 'react-view-builder/slots/LineSlot/LineSlot';
+    export { default } from 'react-view-builder/slots/LineSlot/LineSlot';
+}
+
+declare module 'react-view-builder/slots/RadioSlot' {
+    export * from 'react-view-builder/slots/RadioSlot/IRadioSlot';
+    export * from 'react-view-builder/slots/RadioSlot/RadioSlot';
+    export { default } from 'react-view-builder/slots/RadioSlot/RadioSlot';
+}
+
+declare module 'react-view-builder/slots/RatingSlot' {
+    export * from 'react-view-builder/slots/RatingSlot/IRatingSlot';
+    export * from 'react-view-builder/slots/RatingSlot/RatingSlot';
+    export { default } from 'react-view-builder/slots/RatingSlot/RatingSlot';
+}
+
+declare module 'react-view-builder/slots/TypographySlot' {
+    export * from 'react-view-builder/slots/TypographySlot/ITypographySlot';
+    export * from 'react-view-builder/slots/TypographySlot/TypographySlot';
+    export { default } from 'react-view-builder/slots/TypographySlot/TypographySlot';
+}
+
+declare module 'react-view-builder/slots/TextSlot' {
+    export * from 'react-view-builder/slots/TextSlot/ITextSlot';
+    export * from 'react-view-builder/slots/TextSlot/TextSlot';
+    export { default } from 'react-view-builder/slots/TextSlot/TextSlot';
+}
+
+declare module 'react-view-builder/slots/SwitchSlot' {
+    export * from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
+    export * from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
+    export { default } from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
+}
+
+declare module 'react-view-builder/slots/SliderSlot' {
+    export * from 'react-view-builder/slots/SliderSlot/ISliderSlot';
+    export * from 'react-view-builder/slots/SliderSlot/SliderSlot';
+    export { default } from 'react-view-builder/slots/SliderSlot/SliderSlot';
+}
+
+declare module 'react-view-builder/slots/ProgressSlot/IProgressSlot' {
+    export interface IProgressSlot {
+        maxPercent?: number;
+        showPercentLabel?: boolean;
+        value: number;
+    }
+    export default IProgressSlot;
+}
+
+declare module 'react-view-builder/slots/ProgressSlot/ProgressSlot' {
+    import IProgressSlot from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
+    export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
+    export default ProgressSlot;
+}
+
+declare module 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot' {
+    export interface ICheckBoxSlot {
+        disabled: boolean;
+        value: boolean;
+        onChange: (value: boolean) => void;
+        title?: string;
+    }
+    export default ICheckBoxSlot;
+}
+
+declare module 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot' {
+    import ICheckBoxSlot from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
+    export const CheckBoxSlot: (props: ICheckBoxSlot) => JSX.Element;
+    export default CheckBoxSlot;
+}
+
+declare module 'react-view-builder/slots/ItemsSlot/IItemsSlot' {
+    export interface IItemsSlot {
+        value: any;
+        disabled: boolean;
+        description?: string;
+        placeholder?: string;
+        outlined?: boolean;
+        itemList?: any[];
+        title?: string;
+        dirty: boolean;
+        invalid: string | null;
+        tr?: (s: any) => string;
+        onChange: (v: any) => void;
+    }
+    export default IItemsSlot;
+}
+
+declare module 'react-view-builder/slots/ItemsSlot/ItemsSlot' {
+    import IItemsSlot from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
+    export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
+    export default ItemsSlot;
+}
+
+declare module 'react-view-builder/slots/ComboSlot/IComboSlot' {
+    export interface IComboSlot {
+        value: any;
+        disabled: boolean;
+        description?: string;
+        placeholder?: string;
+        outlined?: boolean;
+        itemList?: any[];
+        title?: string;
+        dirty: boolean;
+        invalid: string | null;
+        tr?: (s: any) => string;
+        onChange: (v: any) => void;
+    }
+    export default IComboSlot;
+}
+
+declare module 'react-view-builder/slots/ComboSlot/ComboSlot' {
+    import IComboSlot from 'react-view-builder/slots/ComboSlot/IComboSlot';
+    export const ComboSlot: (props: IComboSlot) => JSX.Element;
+    export default ComboSlot;
+}
+
+declare module 'react-view-builder/slots/LineSlot/ILineSlot' {
+    export interface ILineSlot {
+        title?: string;
+    }
+    export default ILineSlot;
+}
+
+declare module 'react-view-builder/slots/LineSlot/LineSlot' {
+    import ILineSlot from 'react-view-builder/slots/LineSlot/ILineSlot';
+    export const LineSlot: (props: ILineSlot) => JSX.Element;
+    export default LineSlot;
+}
+
+declare module 'react-view-builder/slots/RadioSlot/IRadioSlot' {
+    export interface IRadioSlot {
+        disabled: boolean;
+        value: string;
+        onChange: (v: string) => void;
+        title?: string;
+        radioValue?: string;
+        name: string;
+    }
+    export default IRadioSlot;
+}
+
+declare module 'react-view-builder/slots/RadioSlot/RadioSlot' {
+    import IRadioSlot from 'react-view-builder/slots/RadioSlot/IRadioSlot';
+    export const RadioSlot: (props: IRadioSlot) => JSX.Element;
+    export default RadioSlot;
+}
+
+declare module 'react-view-builder/slots/RatingSlot/IRatingSlot' {
+    export interface IRatingSlot {
+        value: number | null;
+        disabled: boolean;
+        readonly?: boolean;
+        title?: string;
+        name?: string;
+        onChange: (v: number | null) => void;
+    }
+    export default IRatingSlot;
+}
+
+declare module 'react-view-builder/slots/RatingSlot/RatingSlot' {
+    import IRatingSlot from 'react-view-builder/slots/RatingSlot/IRatingSlot';
+    export const RatingSlot: (props: IRatingSlot) => JSX.Element;
+    export default RatingSlot;
+}
+
+declare module 'react-view-builder/slots/TypographySlot/ITypographySlot' {
+    import { CSSProperties } from "react";
+    export interface ITypographySlot {
+        value: string;
+        placeholder: string;
+        typoVariant: any;
+        style?: CSSProperties;
+    }
+    export default ITypographySlot;
+}
+
+declare module 'react-view-builder/slots/TypographySlot/TypographySlot' {
+    import ITypographySlot from 'react-view-builder/slots/TypographySlot/ITypographySlot';
+    export const TypographySlot: (props: ITypographySlot) => JSX.Element;
+    export default TypographySlot;
+}
+
+declare module 'react-view-builder/slots/TextSlot/ITextSlot' {
+    import { ComponentType } from "react";
+    export interface ITextSlot {
+        invalid: string | null;
+        value: string;
+        disabled: boolean;
+        inputType?: string;
+        description?: string;
+        outlined?: boolean;
+        title?: string;
+        leadingIcon?: string | ComponentType;
+        trailingIcon?: string | ComponentType;
+        leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
+        trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
+        inputRows?: number;
+        placeholder?: string;
+        inputAutocomplete?: string;
+        dirty: boolean;
+        onChange: (v: string) => void;
+        name: string;
+    }
+    export default ITextSlot;
+}
+
+declare module 'react-view-builder/slots/TextSlot/TextSlot' {
+    import ITextSlot from 'react-view-builder/slots/TextSlot/ITextSlot';
+    export const TypographySlot: (props: ITextSlot) => JSX.Element;
+    export default TypographySlot;
+}
+
+declare module 'react-view-builder/slots/SwitchSlot/ISwitchSlot' {
+    export interface ISwitchSlot {
+        disabled: boolean;
+        value: boolean;
+        onChange: (v: boolean) => void;
+        title?: string;
+    }
+    export default ISwitchSlot;
+}
+
+declare module 'react-view-builder/slots/SwitchSlot/SwitchSlot' {
+    import ISwitchSlot from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
+    export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
+    export default SwitchSlot;
+}
+
+declare module 'react-view-builder/slots/SliderSlot/ISliderSlot' {
+    import { ComponentType } from "react";
+    export interface ISliderSlot {
+        value: number;
+        onChange: (v: number) => void;
+        leadingIcon?: string | ComponentType;
+        trailingIcon?: string | ComponentType;
+        leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
+        trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
+        stepSlider?: number;
+        maxSlider?: number;
+        minSlider?: number;
+    }
+    export default ISliderSlot;
+}
+
+declare module 'react-view-builder/slots/SliderSlot/SliderSlot' {
+    import ISliderSlot from 'react-view-builder/slots/SliderSlot/ISliderSlot';
+    export const SliderSlot: (props: ISliderSlot) => JSX.Element;
+    export default SliderSlot;
 }
 

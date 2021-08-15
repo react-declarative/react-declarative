@@ -1,12 +1,8 @@
 import * as React from "react";
 
-import { Autocomplete } from "@material-ui/lab";
-import { Chip, TextField as MatTextField } from "@material-ui/core";
+import Items from '../slots/ItemsSlot';
 
 import makeField from "../components/makeField";
-
-import arrays from '../utils/arrays';
-import objects from '../utils/objects';
 
 import IManaged, { PickProp } from "../model/IManaged";
 import IAnything from "../model/IAnything";
@@ -42,32 +38,18 @@ export const ItemsField = ({
   tr = (s) => s.toString(),
   onChange,
 }: IItemsFieldProps & IItemsFieldPrivate) => (
-  <Autocomplete
-    multiple
-    onChange={({}, v) => onChange(objects(v))}
-    value={value ? Object.values<any>(value) : []}
-    options={arrays(itemList) || []}
+  <Items
+    value={value}
     disabled={disabled}
-    getOptionLabel={(s) => (tr(s) || "").toString()}
-    renderTags={(value, getTagProps) =>
-      value.map((option, index) => (
-        <Chip
-          variant={outlined ? "outlined" : "default"}
-          label={option}
-          {...getTagProps({ index })}
-        />
-      ))
-    }
-    renderInput={(params) => (
-      <MatTextField
-        variant={outlined ? "outlined" : "standard"}
-        {...params}
-        label={title}
-        placeholder={placeholder}
-        helperText={(dirty && invalid) || description}
-        error={dirty && invalid !== null}
-      />
-    )}
+    description={description}
+    placeholder={placeholder}
+    outlined={outlined}
+    itemList={itemList}
+    dirty={dirty}
+    invalid={invalid}
+    title={title}
+    tr={tr}
+    onChange={onChange}
   />
 );
 

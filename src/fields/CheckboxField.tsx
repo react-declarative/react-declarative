@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
+import CheckBox from '../slots/CheckBoxSlot';
 
 import makeField from "../components/makeField";
 
@@ -24,11 +24,12 @@ export const CheckboxField = ({
   onChange,
   title
 }: ICheckboxFieldProps & ICheckboxFieldPrivate) => (
-  <FormGroup>
-    <FormControlLabel
-      control={<Checkbox disabled={disabled} checked={Boolean(value)} onChange={() => onChange(!value)} />}
-      label={title} />
-  </FormGroup>
+  <CheckBox
+    disabled={disabled}
+    value={value}
+    onChange={onChange}
+    title={title}
+  />
 );
 
 CheckboxField.displayName = 'CheckboxField';

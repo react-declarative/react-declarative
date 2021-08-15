@@ -1,6 +1,7 @@
 export * from './One';
 export * from './List';
 export * from './Scaffold';
+export * from './SlotFactory';
 export * from './hooks/useDate';
 export * from './hooks/useTime';
 export * from './hooks/useOne';

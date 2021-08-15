@@ -1,67 +1,12 @@
 import * as React from "react";
 
-import { IconButton, InputAdornment, TextField as MatTextField } from "@material-ui/core";
+import Text from '../slots/TextSlot';
 
 import makeField from "../components/makeField";
+
 import IManaged, { PickProp } from "../model/IManaged";
-import icon from '../utils/createIcon';
-import IField from "../model/IField";
 import IAnything from "../model/IAnything";
-
-const icons = (
-  leadingIcon: string | React.ComponentType | undefined,
-  trailingIcon: string | React.ComponentType | undefined,
-  leadingIconClick: PickProp<IField, 'leadingIconClick'>,
-  trailingIconClick: PickProp<IField, 'trailingIconClick'>,
-  v: string,
-  c: PickProp<IManaged, 'onChange'>,
-) => ({
-  ...(leadingIcon
-    ? {
-        startAdornment: (
-          <InputAdornment position="start">
-            <IconButton
-              edge="start"
-              onClick={() => {
-                if (leadingIconClick) {
-                  leadingIconClick(v as unknown as IAnything, (v) => c(v, {
-                    skipReadonly: true,
-                  }));
-                }
-              }}
-            >
-              {icon(leadingIcon)}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }
-    : {}),
-  ...(trailingIcon
-    ? {
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={() => {
-                if (trailingIconClick) {
-                  trailingIconClick(v as unknown as IAnything, (v) => c(v, {
-                    skipReadonly: true,
-                  }));
-                }
-              }}
-            >
-              {icon(trailingIcon)}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }
-    : {}),
-});
-
-const multiline = (inputRows: number) => ({
-  multiline: inputRows > 1,
-  rows: inputRows,
-});
+import IField from "../model/IField";
 
 export interface ITextFieldProps<Data = IAnything> {
   inputType?: PickProp<IField<Data>, "inputType">;
@@ -95,31 +40,35 @@ export const TextField = ({
   description = "",
   outlined = true,
   title = "",
-  leadingIcon: li,
-  trailingIcon: ti,
-  leadingIconClick: lic,
-  trailingIconClick: tic,
-  inputRows: rows = 1,
+  leadingIcon,
+  trailingIcon,
+  leadingIconClick,
+  trailingIconClick,
+  inputRows = 1,
   placeholder = "",
-  inputAutocomplete: autoComplete = "off",
+  inputAutocomplete = "off",
   dirty,
   onChange,
   name,
 }: ITextFieldProps & ITextFieldPrivate) => (
-  <MatTextField
-    name={name}
-    variant={outlined ? "outlined" : "standard"}
-    helperText={(dirty && invalid) || description}
-    error={dirty && invalid !== null}
-    InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
-    type={inputType}
-    autoComplete={autoComplete}
-    value={(value || '').toString()}
-    placeholder={placeholder}
-    onChange={({ target }) => onChange(target.value.toString())}
-    label={title}
+  <Text
+    invalid={invalid}
+    value={value}
     disabled={disabled}
-    {...multiline(rows)}
+    inputType={inputType}
+    description={description}
+    outlined={outlined}
+    title={title}
+    leadingIcon={leadingIcon}
+    trailingIcon={trailingIcon}
+    leadingIconClick={leadingIconClick}
+    trailingIconClick={trailingIconClick}
+    inputRows={inputRows}
+    placeholder={placeholder}
+    inputAutocomplete={inputAutocomplete}
+    dirty={dirty}
+    onChange={onChange}
+    name={name}
   />
 );
 

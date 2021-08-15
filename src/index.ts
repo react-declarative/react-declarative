@@ -68,6 +68,7 @@ export { One, OneTyped } from './components';
 export { List, ListTyped } from './components';
 export { ModalProvider } from './components';
 export { Scaffold } from './components';
+export { SlotFactory } from './components';
 
 export { useListProps } from './components';
 

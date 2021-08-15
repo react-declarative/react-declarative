@@ -1,9 +1,6 @@
 import * as React from "react";
 
-import { Autocomplete } from "@material-ui/lab";
-import { TextField as MatTextField } from "@material-ui/core";
-
-import arrays from '../utils/arrays';
+import Combo from "../slots/ComboSlot";
 
 import makeField from "../components/makeField";
 
@@ -41,22 +38,18 @@ export const ComboField = ({
   tr = (s) => s.toString(),
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
-  <Autocomplete
-    value={value || null}
-    onChange={({}, v) => onChange(v)}
-    getOptionLabel={(s) => (tr(s) || "").toString()}
-    options={arrays(itemList) || []}
+  <Combo
+    value={value}
     disabled={disabled}
-    renderInput={(params) => (
-      <MatTextField
-        {...params}
-        variant={outlined ? "outlined" : "standard"}
-        label={title}
-        placeholder={placeholder}
-        helperText={(dirty && invalid) || description}
-        error={dirty && invalid !== null}
-      />
-    )}
+    description={description}
+    placeholder={placeholder}
+    outlined={outlined}
+    itemList={itemList}
+    title={title}
+    dirty={dirty}
+    invalid={invalid}
+    tr={tr}
+    onChange={onChange}
   />
 );
 

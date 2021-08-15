@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Typography } from '@material-ui/core';
+import Typography from '../slots/TypographySlot';
 
 import makeField from '../components/makeField';
 
@@ -24,9 +24,12 @@ export const TypographyField = ({
   typoVariant = 'body1',
   style,
 }: ITypographyFieldProps & ITypographyFieldPrivate) => (
-  <Typography variant={typoVariant} style={style}>
-    {value || placeholder}
-  </Typography>
+  <Typography
+    value={value}
+    placeholder={placeholder}
+    typoVariant={typoVariant}
+    style={style}
+  />
 );
 
 TypographyField.displayName = 'TypographyField';

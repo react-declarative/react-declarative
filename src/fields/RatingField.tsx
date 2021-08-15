@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import { Box, Typography } from "@material-ui/core";
-import { Rating } from '@material-ui/lab';
+import Rating from '../slots/RatingSlot';
 
 import makeField from "../components/makeField";
 
@@ -29,21 +28,14 @@ export const RatingField = ({
   name,
   onChange,
 }: IRatingFieldProps & IRatingFieldPrivate) => (
-  <Box
-    display="flex"
-    justifyContent="center"
-    component="fieldset"
-    borderColor="transparent"
-  >
-    <Typography component="legend">{title}</Typography>
-    <Rating
-      name={name}
-      onChange={({}, v) => onChange(v)}
-      disabled={disabled}
-      value={Number(value)}
-      readOnly={readonly}
-    />
-  </Box>
+  <Rating
+    value={value}
+    disabled={disabled}
+    readonly={readonly}
+    title={title}
+    name={name}
+    onChange={onChange}
+  />
 );
 
 RatingField.displayName = 'RatingField';

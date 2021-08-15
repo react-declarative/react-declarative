@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FormControlLabel, FormGroup, Radio, RadioGroup } from "@material-ui/core";
+import Radio from '../slots/RadioSlot';
 
 import makeField from "../components/makeField";
 
@@ -28,15 +28,14 @@ export const RadioField = ({
   radioValue,
   name = '',
 }: IRadioFieldProps & IRadioFieldPrivate) => (
-  <FormGroup>
-    <RadioGroup
-      name={name}
-      value={value}
-      onChange={() => onChange((radioValue || '').toString())}
-    >
-      <FormControlLabel value={radioValue} control={<Radio disabled={disabled} />} label={title} />
-    </RadioGroup>
-  </FormGroup>
+  <Radio
+    value={value}
+    disabled={disabled}
+    onChange={onChange}
+    title={title}
+    radioValue={radioValue}
+    name={name}
+  />
 );
 
 RadioField.displayName = 'RadioField';
