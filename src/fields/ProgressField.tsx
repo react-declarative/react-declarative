@@ -13,7 +13,7 @@ export interface IProgressFieldProps<Data = IAnything> {
   showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
 }
 
-interface IProgressFieldPrivate<Data = IAnything> {
+export interface IProgressFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
 }
 

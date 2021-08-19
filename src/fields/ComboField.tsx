@@ -17,7 +17,7 @@ export interface IComboFieldProps<Data = IAnything> {
   tr?: PickProp<IField<Data>, "tr">;
 }
 
-interface IComboFieldPrivate<Data = IAnything>  {
+export interface IComboFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
   onChange: PickProp<IManaged<Data>, "onChange">;

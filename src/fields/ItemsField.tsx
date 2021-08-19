@@ -17,7 +17,7 @@ export interface IItemsFieldProps<Data = IAnything> {
   tr?: PickProp<IField<Data>, "tr">;
 }
 
-interface IItemsFieldPrivate<Data = IAnything> {
+export interface IItemsFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   value: PickProp<IManaged<Data>, 'value'>;
   disabled: PickProp<IManaged<Data>, "disabled">;

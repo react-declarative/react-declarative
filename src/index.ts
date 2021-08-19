@@ -78,3 +78,27 @@ export { useDate, useTime };
 export { useConfirm };
 
 export { i18nMap };
+
+import { ICheckBoxSlot as ICheckBoxSlotInternal } from './slots/CheckBoxSlot';
+import { IComboSlot as IComboSlotInternal } from './slots/ComboSlot';
+import { IItemsSlot as IItemsSlotInternal } from './slots/ItemsSlot';
+import { ILineSlot as ILineSlotInternal } from './slots/LineSlot';
+import { IProgressSlot as IProgressSlotInternal } from './slots/ProgressSlot';
+import { IRadioSlot as IRadioSlotInternal } from './slots/RadioSlot';
+import { IRatingSlot as IRatingSlotInternal } from './slots/RatingSlot';
+import { ISliderSlot as ISliderSlotInternal } from './slots/SliderSlot';
+import { ISwitchSlot as ISwitchSlotInternal } from './slots/SwitchSlot';
+import { ITextSlot as ITextSlotInternal } from './slots/TextSlot';
+import { ITypographySlot as ITypographySlotInternal } from './slots/TypographySlot';
+
+export type ICheckBoxSlot = ICheckBoxSlotInternal;
+export type IComboSlot = IComboSlotInternal;
+export type IItemsSlot = IItemsSlotInternal;
+export type ILineSlot = ILineSlotInternal;
+export type IProgressSlot = IProgressSlotInternal;
+export type IRadioSlot = IRadioSlotInternal;
+export type IRatingSlot = IRatingSlotInternal;
+export type ISliderSlot = ISliderSlotInternal;
+export type ISwitchSlot = ISwitchSlotInternal;
+export type ITextSlot = ITextSlotInternal;
+export type ITypographySlot = ITypographySlotInternal;

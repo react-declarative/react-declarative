@@ -13,7 +13,7 @@ export interface IRadioFieldProps<Data = IAnything> {
   radioValue?: PickProp<IField<Data>, "radioValue">;
 }
 
-interface IRadioFieldPrivate<Data = IAnything> {
+export interface IRadioFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   value: PickProp<IManaged<Data>, "value">;
   onChange: PickProp<IManaged<Data>, "onChange">;

@@ -984,7 +984,7 @@ declare module 'react-view-builder/fields/ComboField' {
         title?: PickProp<IField<Data>, "title">;
         tr?: PickProp<IField<Data>, "tr">;
     }
-    interface IComboFieldPrivate<Data = IAnything> {
+    export interface IComboFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, "value">;
         disabled: PickProp<IManaged<Data>, "disabled">;
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -1035,7 +1035,7 @@ declare module 'react-view-builder/fields/ItemsField' {
         title?: PickProp<IField<Data>, "title">;
         tr?: PickProp<IField<Data>, "tr">;
     }
-    interface IItemsFieldPrivate<Data = IAnything> {
+    export interface IItemsFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
         value: PickProp<IManaged<Data>, 'value'>;
         disabled: PickProp<IManaged<Data>, "disabled">;
@@ -1079,7 +1079,7 @@ declare module 'react-view-builder/fields/ProgressField' {
         maxPercent?: PickProp<IField<Data>, "maxPercent">;
         showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
     }
-    interface IProgressFieldPrivate<Data = IAnything> {
+    export interface IProgressFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, "value">;
     }
     export const ProgressField: {
@@ -1101,7 +1101,7 @@ declare module 'react-view-builder/fields/RadioField' {
         title?: PickProp<IField<Data>, "title">;
         radioValue?: PickProp<IField<Data>, "radioValue">;
     }
-    interface IRadioFieldPrivate<Data = IAnything> {
+    export interface IRadioFieldPrivate<Data = IAnything> {
         disabled: PickProp<IManaged<Data>, "disabled">;
         value: PickProp<IManaged<Data>, "value">;
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -1126,7 +1126,7 @@ declare module 'react-view-builder/fields/RatingField' {
         readonly?: PickProp<IField<Data>, "readonly">;
         title?: PickProp<IField<Data>, "title">;
     }
-    interface IRatingFieldPrivate<Data = IAnything> {
+    export interface IRatingFieldPrivate<Data = IAnything> {
         name?: string;
         value: PickProp<IManaged<Data>, "value">;
         disabled: PickProp<IManaged<Data>, "disabled">;
@@ -1159,7 +1159,7 @@ declare module 'react-view-builder/fields/SliderField' {
         sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
         sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
     }
-    interface ISliderFieldPrivate<Data = IAnything> {
+    export interface ISliderFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
         onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
@@ -1181,7 +1181,7 @@ declare module 'react-view-builder/fields/SwitchField' {
     export interface ISwitchFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
     }
-    interface ISwitchFieldPrivate<Data = IAnything> {
+    export interface ISwitchFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
         disabled: PickProp<IManaged<Data>, 'disabled'>;
         value: PickProp<IManaged<Data>, 'value'>;
@@ -1215,7 +1215,7 @@ declare module 'react-view-builder/fields/TextField' {
         placeholder?: PickProp<IField<Data>, "placeholder">;
         readonly?: PickProp<IField<Data>, "readonly">;
     }
-    interface ITextFieldPrivate<Data = IAnything> {
+    export interface ITextFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
         invalid: PickProp<IManaged<Data>, "invalid">;
         value: PickProp<IManaged<Data>, "value">;
@@ -1243,7 +1243,7 @@ declare module 'react-view-builder/fields/TypographyField' {
         typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
         style?: PickProp<IField<Data>, 'style'>;
     }
-    interface ITypographyFieldPrivate<Data = IAnything> {
+    export interface ITypographyFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const TypographyField: {
@@ -1643,10 +1643,8 @@ declare module 'react-view-builder/slots/SliderSlot' {
 }
 
 declare module 'react-view-builder/slots/ProgressSlot/IProgressSlot' {
-    export interface IProgressSlot {
-        maxPercent?: number;
-        showPercentLabel?: boolean;
-        value: number;
+    import { IProgressFieldProps, IProgressFieldPrivate } from "react-view-builder/fields/ProgressField";
+    export interface IProgressSlot extends IProgressFieldProps, IProgressFieldPrivate {
     }
     export default IProgressSlot;
 }
@@ -1658,11 +1656,8 @@ declare module 'react-view-builder/slots/ProgressSlot/ProgressSlot' {
 }
 
 declare module 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot' {
-    export interface ICheckBoxSlot {
-        disabled: boolean;
-        value: boolean;
-        onChange: (value: boolean) => void;
-        title?: string;
+    import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-view-builder/fields/CheckboxField";
+    export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate {
     }
     export default ICheckBoxSlot;
 }
@@ -1674,18 +1669,8 @@ declare module 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot' {
 }
 
 declare module 'react-view-builder/slots/ItemsSlot/IItemsSlot' {
-    export interface IItemsSlot {
-        value: any;
-        disabled: boolean;
-        description?: string;
-        placeholder?: string;
-        outlined?: boolean;
-        itemList?: any[];
-        title?: string;
-        dirty: boolean;
-        invalid: string | null;
-        tr?: (s: any) => string;
-        onChange: (v: any) => void;
+    import { IItemsFieldPrivate, IItemsFieldProps } from "react-view-builder/fields/ItemsField";
+    export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {
     }
     export default IItemsSlot;
 }
@@ -1697,18 +1682,8 @@ declare module 'react-view-builder/slots/ItemsSlot/ItemsSlot' {
 }
 
 declare module 'react-view-builder/slots/ComboSlot/IComboSlot' {
-    export interface IComboSlot {
-        value: any;
-        disabled: boolean;
-        description?: string;
-        placeholder?: string;
-        outlined?: boolean;
-        itemList?: any[];
-        title?: string;
-        dirty: boolean;
-        invalid: string | null;
-        tr?: (s: any) => string;
-        onChange: (v: any) => void;
+    import { IComboFieldPrivate, IComboFieldProps } from "react-view-builder/fields/ComboField";
+    export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate {
     }
     export default IComboSlot;
 }
@@ -1720,8 +1695,8 @@ declare module 'react-view-builder/slots/ComboSlot/ComboSlot' {
 }
 
 declare module 'react-view-builder/slots/LineSlot/ILineSlot' {
-    export interface ILineSlot {
-        title?: string;
+    import { ILineFieldProps } from "react-view-builder/fields/LineField";
+    export interface ILineSlot extends ILineFieldProps {
     }
     export default ILineSlot;
 }
@@ -1733,13 +1708,8 @@ declare module 'react-view-builder/slots/LineSlot/LineSlot' {
 }
 
 declare module 'react-view-builder/slots/RadioSlot/IRadioSlot' {
-    export interface IRadioSlot {
-        disabled: boolean;
-        value: string;
-        onChange: (v: string) => void;
-        title?: string;
-        radioValue?: string;
-        name: string;
+    import { IRadioFieldPrivate, IRadioFieldProps } from "react-view-builder/fields/RadioField";
+    export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate {
     }
     export default IRadioSlot;
 }
@@ -1751,13 +1721,8 @@ declare module 'react-view-builder/slots/RadioSlot/RadioSlot' {
 }
 
 declare module 'react-view-builder/slots/RatingSlot/IRatingSlot' {
-    export interface IRatingSlot {
-        value: number | null;
-        disabled: boolean;
-        readonly?: boolean;
-        title?: string;
-        name?: string;
-        onChange: (v: number | null) => void;
+    import { IRatingFieldProps, IRatingFieldPrivate } from "react-view-builder/fields/RatingField";
+    export interface IRatingSlot extends IRatingFieldProps, IRatingFieldPrivate {
     }
     export default IRatingSlot;
 }
@@ -1769,12 +1734,8 @@ declare module 'react-view-builder/slots/RatingSlot/RatingSlot' {
 }
 
 declare module 'react-view-builder/slots/TypographySlot/ITypographySlot' {
-    import { CSSProperties } from "react";
-    export interface ITypographySlot {
-        value: string;
-        placeholder: string;
-        typoVariant: any;
-        style?: CSSProperties;
+    import { ITypographyFieldPrivate, ITypographyFieldProps } from "react-view-builder/fields/TypographyField";
+    export interface ITypographySlot extends ITypographyFieldProps, ITypographyFieldPrivate {
     }
     export default ITypographySlot;
 }
@@ -1786,25 +1747,8 @@ declare module 'react-view-builder/slots/TypographySlot/TypographySlot' {
 }
 
 declare module 'react-view-builder/slots/TextSlot/ITextSlot' {
-    import { ComponentType } from "react";
-    export interface ITextSlot {
-        invalid: string | null;
-        value: string;
-        disabled: boolean;
-        inputType?: string;
-        description?: string;
-        outlined?: boolean;
-        title?: string;
-        leadingIcon?: string | ComponentType;
-        trailingIcon?: string | ComponentType;
-        leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
-        trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
-        inputRows?: number;
-        placeholder?: string;
-        inputAutocomplete?: string;
-        dirty: boolean;
-        onChange: (v: string) => void;
-        name: string;
+    import { ITextFieldProps, ITextFieldPrivate } from "react-view-builder/fields/TextField";
+    export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate {
     }
     export default ITextSlot;
 }
@@ -1816,11 +1760,8 @@ declare module 'react-view-builder/slots/TextSlot/TextSlot' {
 }
 
 declare module 'react-view-builder/slots/SwitchSlot/ISwitchSlot' {
-    export interface ISwitchSlot {
-        disabled: boolean;
-        value: boolean;
-        onChange: (v: boolean) => void;
-        title?: string;
+    import { ISwitchFieldPrivate, ISwitchFieldProps } from "react-view-builder/fields/SwitchField";
+    export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {
     }
     export default ISwitchSlot;
 }
@@ -1832,17 +1773,8 @@ declare module 'react-view-builder/slots/SwitchSlot/SwitchSlot' {
 }
 
 declare module 'react-view-builder/slots/SliderSlot/ISliderSlot' {
-    import { ComponentType } from "react";
-    export interface ISliderSlot {
-        value: number;
-        onChange: (v: number) => void;
-        leadingIcon?: string | ComponentType;
-        trailingIcon?: string | ComponentType;
-        leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
-        trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
-        stepSlider?: number;
-        maxSlider?: number;
-        minSlider?: number;
+    import { ISliderFieldPrivate, ISliderFieldProps } from "react-view-builder/fields/SliderField";
+    export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {
     }
     export default ISliderSlot;
 }

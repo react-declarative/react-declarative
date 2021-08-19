@@ -1,8 +1,5 @@
-export interface ICheckBoxSlot {
-    disabled: boolean;
-    value: boolean;
-    onChange: (value: boolean) => void;
-    title?: string;
-}
+import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "../../fields/CheckboxField";
+
+export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate { }
 
 export default ICheckBoxSlot;

@@ -23,7 +23,7 @@ export interface ITextFieldProps<Data = IAnything> {
   readonly?: PickProp<IField<Data>, "readonly">;
 }
 
-interface ITextFieldPrivate<Data = IAnything> {
+export interface ITextFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   value: PickProp<IManaged<Data>, "value">;

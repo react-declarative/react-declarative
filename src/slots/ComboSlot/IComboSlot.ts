@@ -1,15 +1,5 @@
-export interface IComboSlot {
-    value: any;
-    disabled: boolean;
-    description?: string;
-    placeholder?: string;
-    outlined?: boolean;
-    itemList?: any[];
-    title?: string;
-    dirty: boolean;
-    invalid: string | null;
-    tr?: (s: any) => string;
-    onChange: (v: any) => void;
-}
+import { IComboFieldPrivate, IComboFieldProps } from "../../fields/ComboField";
+
+export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate { }
 
 export default IComboSlot;

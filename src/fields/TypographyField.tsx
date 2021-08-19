@@ -14,7 +14,7 @@ export interface ITypographyFieldProps<Data = IAnything> {
   style?: PickProp<IField<Data>, 'style'>;
 }
 
-interface ITypographyFieldPrivate<Data = IAnything> {
+export interface ITypographyFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, 'value'>;
 }
 

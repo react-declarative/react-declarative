@@ -1,10 +1,5 @@
-import { CSSProperties } from "react";
+import { ITypographyFieldPrivate, ITypographyFieldProps } from "../../fields/TypographyField";
 
-export interface ITypographySlot {
-    value: string;
-    placeholder: string;
-    typoVariant: any;
-    style?: CSSProperties;
-}
+export interface ITypographySlot extends ITypographyFieldProps, ITypographyFieldPrivate { }
 
 export default ITypographySlot;

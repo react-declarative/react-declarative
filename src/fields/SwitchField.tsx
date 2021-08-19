@@ -12,7 +12,7 @@ export interface ISwitchFieldProps<Data = IAnything>  {
   title?: PickProp<IField<Data>, 'title'>;
 }
 
-interface ISwitchFieldPrivate<Data = IAnything>  {
+export interface ISwitchFieldPrivate<Data = IAnything>  {
   onChange: PickProp<IManaged<Data>, 'onChange'>;
   disabled: PickProp<IManaged<Data>, 'disabled'>;
   value: PickProp<IManaged<Data>, 'value'>;

@@ -21,7 +21,7 @@ export interface ISliderFieldProps<Data = IAnything>  {
   sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
 }
 
-interface ISliderFieldPrivate<Data = IAnything>  {
+export interface ISliderFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, 'value'>;
   onChange: PickProp<IManaged<Data>, 'onChange'>;
 }

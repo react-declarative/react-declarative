@@ -6,6 +6,8 @@
 
 Сделайте изменения по аналогии последовательно в следующих файлах
 
+### Создание нового поля
+
 0. **[model/IField.ts](./model/IField.ts)** - Добавьте новые свойства поля
 
 1. **[config/createField.tsx](./config/createField.tsx)** - Регистрация файла (в процессе исполнения)
@@ -17,6 +19,14 @@
 4. **[model/FieldType.ts](./model/FieldType.ts)** - Добавление записи в enum
 
 5. **[model/TypedField.ts](./model/TypedField.ts)** - Объявление строгой типизации для пользователя
+
+### Регистрация слота поля
+
+0. **[slots/CheckBoxSlot](./slots/CheckBoxSlot)** - Создайте копию папки и обновите наименования
+
+1. **[components/SlotFactory/ISlotFactoryContext.ts](./components/SlotFactory/ISlotFactoryContext.ts)** - Обновите интерфейс контекста слотов
+
+2. **[components/SlotFactory/SlotContext.ts](./components/SlotFactory/SlotContext.ts)** - Обновите контекст слотов
 
 ## Иерархия композиции
 
