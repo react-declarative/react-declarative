@@ -91,7 +91,7 @@
         "@material-ui/icons": "^4.11.2",
         "@material-ui/lab": "^4.0.0-alpha.57",
         "@types/react-window": "^1.8.3",
-        "dayjs": "^1.10.4",
+        "dayjs": "^1.10.6",
         "react-modal-hook": "^3.0.0",
         "react-window": "^1.8.6",
         "vanilla-autofill-event": "^1.0.3"
