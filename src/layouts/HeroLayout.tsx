@@ -5,9 +5,7 @@ import classNames from '../utils/classNames';
 
 import withTheme from '@material-ui/core/styles/withTheme';
 
-import { makeStyles } from '@material-ui/core';
-
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { makeStyles, Theme } from '@material-ui/core';
 
 import IField from '../model/IField';
 import IAnything from '../model/IAnything';

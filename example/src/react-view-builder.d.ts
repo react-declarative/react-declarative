@@ -3,7 +3,7 @@
 //   ../dayjs
 //   ../react
 //   ../@material-ui/data-grid
-//   ../@material-ui/core/styles/createMuiTheme
+//   ../@material-ui/core
 //   ../react-modal-hook
 
 declare module 'react-view-builder' {
@@ -936,7 +936,7 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
 
 declare module 'react-view-builder/layouts/HeroLayout' {
     import * as React from 'react';
-    import { Theme } from '@material-ui/core/styles/createMuiTheme';
+    import { Theme } from '@material-ui/core';
     import IField from 'react-view-builder/model/IField';
     import IAnything from 'react-view-builder/model/IAnything';
     import { PickProp } from 'react-view-builder/model/IManaged';

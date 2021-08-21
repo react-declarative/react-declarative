@@ -66,6 +66,7 @@ export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) 
   const viewParams = {
     ...props,
     fields: fieldsSnapshot,
+    change: handleChange,
     ready: handleReady,
   };
 

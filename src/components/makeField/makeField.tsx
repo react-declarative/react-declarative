@@ -22,6 +22,8 @@ import IField from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
+const DEBOUNCE_SPEED = 800;
+
 const stretch = {
     display: 'flex',
     alignItems: 'stretch',
@@ -110,7 +112,7 @@ export function makeField(
 
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
-            config.skipDebounce ? 0 : 800
+            config.skipDebounce ? 0 : DEBOUNCE_SPEED
         );
 
         /**
@@ -164,6 +166,7 @@ export function makeField(
                 const check = set(copy, name, target);
                 const invalid = isInvalid(copy);
                 setInvalid(invalid);
+                setDirty(true);
                 if (!name) {
                     return;
                 } else if (!check) {
@@ -194,7 +197,6 @@ export function makeField(
                 return;
             }
             setValue(newValue);
-            setDirty(true);
         };
 
         /**
