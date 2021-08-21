@@ -90,7 +90,7 @@
         "@material-ui/data-grid": "^4.0.0-alpha.30",
         "@material-ui/icons": "^4.11.2",
         "@material-ui/lab": "^4.0.0-alpha.57",
-        "@types/react-window": "^1.8.3",
+        "@types/react-window": "^1.8.5",
         "dayjs": "^1.10.6",
         "react-modal-hook": "^3.0.0",
         "react-window": "^1.8.6",
