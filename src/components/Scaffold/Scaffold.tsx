@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import classNames from "../../utils/classNames";
 
@@ -54,6 +54,7 @@ interface IScaffoldProps {
   title?: string;
   selected?: string;
   options?: IMenuGroup[];
+  roles?: string[];
   onOptionClick?: (name: string) => void;
 }
 
@@ -68,8 +69,15 @@ const flatifyMenu = (items: IMenuGroup[]) => {
   return result;
 };
 
-const filerFlatMenu = (options: IMenuOption[], keyword: string) =>
-  options.filter(item => item.label.toLowerCase().includes(keyword));
+const filerFlatMenu = (options: IMenuOption[], {
+  keyword,
+  currentRoles,
+} : {
+  keyword: string;
+  currentRoles?: string[];
+}) => options
+  .filter(item => item.label.toLowerCase().includes(keyword))
+  .filter(({ roles = [] }) => !currentRoles || roles.find((role) => currentRoles.includes(role)));
 
 const cleanupMenu = (entry: Partial<IMenuGroup>, allowed: Set<IMenuOption>) =>
   entry.options = entry.options?.filter((option: any) => {
@@ -90,6 +98,7 @@ export const Scaffold = ({
   selected,
   title = 'Scaffold',
   options = [],
+  roles: currentRoles,
   onOptionClick,
 }: IScaffoldProps) => {
 
@@ -117,16 +126,16 @@ export const Scaffold = ({
 
   const [filterText, setFilterText] = useState('');
 
-  const filteredMenuOptions = React.useMemo<IMenuGroup[]>(() => {
+  const filteredMenuOptions = useMemo<IMenuGroup[]>(() => {
     const allowed = new Set<IMenuOption>();
     const safeOptions = makeArray(arrays(deepClone(objects(options))));
     const keyword = filterText.toLowerCase();
-    filerFlatMenu(flatifyMenu(safeOptions), keyword)
+    filerFlatMenu(flatifyMenu(safeOptions), { keyword, currentRoles })
       .forEach((o) => allowed.add(o));
     const entry = { options: safeOptions };
     cleanupMenu(entry, allowed);
     return entry.options;
-  }, [filterText]);
+  }, [filterText, currentRoles, currentRoles?.length]);
 
   return (
     <>

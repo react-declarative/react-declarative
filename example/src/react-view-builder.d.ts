@@ -604,6 +604,7 @@ declare module 'react-view-builder/model/IMenuGroup' {
         label: string;
         icon?: React.ComponentType;
         bold?: boolean;
+        roles?: string[];
         disabled?: boolean;
     }
     export interface IMenuGroup extends IMenuOption {
@@ -1658,10 +1659,11 @@ declare module 'react-view-builder/components/Scaffold/Scaffold' {
         title?: string;
         selected?: string;
         options?: IMenuGroup[];
+        roles?: string[];
         onOptionClick?: (name: string) => void;
     }
     export const Scaffold: {
-        ({ children, className, style, selected, title, options, onOptionClick, }: IScaffoldProps): JSX.Element;
+        ({ children, className, style, selected, title, options, roles: currentRoles, onOptionClick, }: IScaffoldProps): JSX.Element;
         displayName: string;
     };
     export default Scaffold;

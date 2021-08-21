@@ -5,6 +5,7 @@ export interface IMenuOption {
     label: string;
     icon?: React.ComponentType;
     bold?: boolean;
+    roles?: string[];
     disabled?: boolean;
 }
 
