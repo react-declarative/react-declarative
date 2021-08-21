@@ -61,6 +61,28 @@ declare module 'react-view-builder' {
     export { useDate, useTime };
     export { useConfirm };
     export { i18nMap };
+    import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-view-builder/slots/CheckBoxSlot';
+    import { IComboSlot as IComboSlotInternal } from 'react-view-builder/slots/ComboSlot';
+    import { IItemsSlot as IItemsSlotInternal } from 'react-view-builder/slots/ItemsSlot';
+    import { ILineSlot as ILineSlotInternal } from 'react-view-builder/slots/LineSlot';
+    import { IProgressSlot as IProgressSlotInternal } from 'react-view-builder/slots/ProgressSlot';
+    import { IRadioSlot as IRadioSlotInternal } from 'react-view-builder/slots/RadioSlot';
+    import { IRatingSlot as IRatingSlotInternal } from 'react-view-builder/slots/RatingSlot';
+    import { ISliderSlot as ISliderSlotInternal } from 'react-view-builder/slots/SliderSlot';
+    import { ISwitchSlot as ISwitchSlotInternal } from 'react-view-builder/slots/SwitchSlot';
+    import { ITextSlot as ITextSlotInternal } from 'react-view-builder/slots/TextSlot';
+    import { ITypographySlot as ITypographySlotInternal } from 'react-view-builder/slots/TypographySlot';
+    export type ICheckBoxSlot = ICheckBoxSlotInternal;
+    export type IComboSlot = IComboSlotInternal;
+    export type IItemsSlot = IItemsSlotInternal;
+    export type ILineSlot = ILineSlotInternal;
+    export type IProgressSlot = IProgressSlotInternal;
+    export type IRadioSlot = IRadioSlotInternal;
+    export type IRatingSlot = IRatingSlotInternal;
+    export type ISliderSlot = ISliderSlotInternal;
+    export type ISwitchSlot = ISwitchSlotInternal;
+    export type ITextSlot = ITextSlotInternal;
+    export type ITypographySlot = ITypographySlotInternal;
 }
 
 declare module 'react-view-builder/model/TypedField' {
@@ -665,6 +687,72 @@ declare module 'react-view-builder/model/IRowData' {
         id: string | number;
     }
     export default IRowData;
+}
+
+declare module 'react-view-builder/slots/CheckBoxSlot' {
+    export * from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
+    export * from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
+    export { default } from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
+}
+
+declare module 'react-view-builder/slots/ComboSlot' {
+    export * from 'react-view-builder/slots/ComboSlot/IComboSlot';
+    export * from 'react-view-builder/slots/ComboSlot/ComboSlot';
+    export { default } from 'react-view-builder/slots/ComboSlot/ComboSlot';
+}
+
+declare module 'react-view-builder/slots/ItemsSlot' {
+    export * from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
+    export * from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
+    export { default } from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
+}
+
+declare module 'react-view-builder/slots/LineSlot' {
+    export * from 'react-view-builder/slots/LineSlot/ILineSlot';
+    export * from 'react-view-builder/slots/LineSlot/LineSlot';
+    export { default } from 'react-view-builder/slots/LineSlot/LineSlot';
+}
+
+declare module 'react-view-builder/slots/ProgressSlot' {
+    export * from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
+    export * from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
+    export { default } from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
+}
+
+declare module 'react-view-builder/slots/RadioSlot' {
+    export * from 'react-view-builder/slots/RadioSlot/IRadioSlot';
+    export * from 'react-view-builder/slots/RadioSlot/RadioSlot';
+    export { default } from 'react-view-builder/slots/RadioSlot/RadioSlot';
+}
+
+declare module 'react-view-builder/slots/RatingSlot' {
+    export * from 'react-view-builder/slots/RatingSlot/IRatingSlot';
+    export * from 'react-view-builder/slots/RatingSlot/RatingSlot';
+    export { default } from 'react-view-builder/slots/RatingSlot/RatingSlot';
+}
+
+declare module 'react-view-builder/slots/SliderSlot' {
+    export * from 'react-view-builder/slots/SliderSlot/ISliderSlot';
+    export * from 'react-view-builder/slots/SliderSlot/SliderSlot';
+    export { default } from 'react-view-builder/slots/SliderSlot/SliderSlot';
+}
+
+declare module 'react-view-builder/slots/SwitchSlot' {
+    export * from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
+    export * from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
+    export { default } from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
+}
+
+declare module 'react-view-builder/slots/TextSlot' {
+    export * from 'react-view-builder/slots/TextSlot/ITextSlot';
+    export * from 'react-view-builder/slots/TextSlot/TextSlot';
+    export { default } from 'react-view-builder/slots/TextSlot/TextSlot';
+}
+
+declare module 'react-view-builder/slots/TypographySlot' {
+    export * from 'react-view-builder/slots/TypographySlot/ITypographySlot';
+    export * from 'react-view-builder/slots/TypographySlot/TypographySlot';
+    export { default } from 'react-view-builder/slots/TypographySlot/TypographySlot';
 }
 
 declare module 'react-view-builder/model/IManaged' {
@@ -1386,6 +1474,149 @@ declare module 'react-view-builder/components/common/ModalProvider' {
     export { default } from 'react-view-builder/components/common/ModalProvider/ModalProvider';
 }
 
+declare module 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot' {
+    import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-view-builder/fields/CheckboxField";
+    export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate {
+    }
+    export default ICheckBoxSlot;
+}
+
+declare module 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot' {
+    import ICheckBoxSlot from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
+    export const CheckBoxSlot: (props: ICheckBoxSlot) => JSX.Element;
+    export default CheckBoxSlot;
+}
+
+declare module 'react-view-builder/slots/ComboSlot/IComboSlot' {
+    import { IComboFieldPrivate, IComboFieldProps } from "react-view-builder/fields/ComboField";
+    export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate {
+    }
+    export default IComboSlot;
+}
+
+declare module 'react-view-builder/slots/ComboSlot/ComboSlot' {
+    import IComboSlot from 'react-view-builder/slots/ComboSlot/IComboSlot';
+    export const ComboSlot: (props: IComboSlot) => JSX.Element;
+    export default ComboSlot;
+}
+
+declare module 'react-view-builder/slots/ItemsSlot/IItemsSlot' {
+    import { IItemsFieldPrivate, IItemsFieldProps } from "react-view-builder/fields/ItemsField";
+    export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {
+    }
+    export default IItemsSlot;
+}
+
+declare module 'react-view-builder/slots/ItemsSlot/ItemsSlot' {
+    import IItemsSlot from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
+    export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
+    export default ItemsSlot;
+}
+
+declare module 'react-view-builder/slots/LineSlot/ILineSlot' {
+    import { ILineFieldProps } from "react-view-builder/fields/LineField";
+    export interface ILineSlot extends ILineFieldProps {
+    }
+    export default ILineSlot;
+}
+
+declare module 'react-view-builder/slots/LineSlot/LineSlot' {
+    import ILineSlot from 'react-view-builder/slots/LineSlot/ILineSlot';
+    export const LineSlot: (props: ILineSlot) => JSX.Element;
+    export default LineSlot;
+}
+
+declare module 'react-view-builder/slots/ProgressSlot/IProgressSlot' {
+    import { IProgressFieldProps, IProgressFieldPrivate } from "react-view-builder/fields/ProgressField";
+    export interface IProgressSlot extends IProgressFieldProps, IProgressFieldPrivate {
+    }
+    export default IProgressSlot;
+}
+
+declare module 'react-view-builder/slots/ProgressSlot/ProgressSlot' {
+    import IProgressSlot from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
+    export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
+    export default ProgressSlot;
+}
+
+declare module 'react-view-builder/slots/RadioSlot/IRadioSlot' {
+    import { IRadioFieldPrivate, IRadioFieldProps } from "react-view-builder/fields/RadioField";
+    export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate {
+    }
+    export default IRadioSlot;
+}
+
+declare module 'react-view-builder/slots/RadioSlot/RadioSlot' {
+    import IRadioSlot from 'react-view-builder/slots/RadioSlot/IRadioSlot';
+    export const RadioSlot: (props: IRadioSlot) => JSX.Element;
+    export default RadioSlot;
+}
+
+declare module 'react-view-builder/slots/RatingSlot/IRatingSlot' {
+    import { IRatingFieldProps, IRatingFieldPrivate } from "react-view-builder/fields/RatingField";
+    export interface IRatingSlot extends IRatingFieldProps, IRatingFieldPrivate {
+    }
+    export default IRatingSlot;
+}
+
+declare module 'react-view-builder/slots/RatingSlot/RatingSlot' {
+    import IRatingSlot from 'react-view-builder/slots/RatingSlot/IRatingSlot';
+    export const RatingSlot: (props: IRatingSlot) => JSX.Element;
+    export default RatingSlot;
+}
+
+declare module 'react-view-builder/slots/SliderSlot/ISliderSlot' {
+    import { ISliderFieldPrivate, ISliderFieldProps } from "react-view-builder/fields/SliderField";
+    export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {
+    }
+    export default ISliderSlot;
+}
+
+declare module 'react-view-builder/slots/SliderSlot/SliderSlot' {
+    import ISliderSlot from 'react-view-builder/slots/SliderSlot/ISliderSlot';
+    export const SliderSlot: (props: ISliderSlot) => JSX.Element;
+    export default SliderSlot;
+}
+
+declare module 'react-view-builder/slots/SwitchSlot/ISwitchSlot' {
+    import { ISwitchFieldPrivate, ISwitchFieldProps } from "react-view-builder/fields/SwitchField";
+    export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {
+    }
+    export default ISwitchSlot;
+}
+
+declare module 'react-view-builder/slots/SwitchSlot/SwitchSlot' {
+    import ISwitchSlot from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
+    export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
+    export default SwitchSlot;
+}
+
+declare module 'react-view-builder/slots/TextSlot/ITextSlot' {
+    import { ITextFieldProps, ITextFieldPrivate } from "react-view-builder/fields/TextField";
+    export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate {
+    }
+    export default ITextSlot;
+}
+
+declare module 'react-view-builder/slots/TextSlot/TextSlot' {
+    import ITextSlot from 'react-view-builder/slots/TextSlot/ITextSlot';
+    export const TypographySlot: (props: ITextSlot) => JSX.Element;
+    export default TypographySlot;
+}
+
+declare module 'react-view-builder/slots/TypographySlot/ITypographySlot' {
+    import { ITypographyFieldPrivate, ITypographyFieldProps } from "react-view-builder/fields/TypographyField";
+    export interface ITypographySlot extends ITypographyFieldProps, ITypographyFieldPrivate {
+    }
+    export default ITypographySlot;
+}
+
+declare module 'react-view-builder/slots/TypographySlot/TypographySlot' {
+    import ITypographySlot from 'react-view-builder/slots/TypographySlot/ITypographySlot';
+    export const TypographySlot: (props: ITypographySlot) => JSX.Element;
+    export default TypographySlot;
+}
+
 declare module 'react-view-builder/components/common/Group' {
     export * from 'react-view-builder/components/common/Group/Group';
     export { default } from 'react-view-builder/components/common/Group/Group';
@@ -1574,214 +1805,5 @@ declare module 'react-view-builder/components/List/components/PropProvider/PropP
     export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;
     export const useProps: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>() => IPropContext<FilterData, RowData, Field>;
     export default PropProvider;
-}
-
-declare module 'react-view-builder/slots/ProgressSlot' {
-    export * from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
-    export * from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
-    export { default } from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
-}
-
-declare module 'react-view-builder/slots/CheckBoxSlot' {
-    export * from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
-    export * from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
-    export { default } from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
-}
-
-declare module 'react-view-builder/slots/ItemsSlot' {
-    export * from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
-    export * from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
-    export { default } from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
-}
-
-declare module 'react-view-builder/slots/ComboSlot' {
-    export * from 'react-view-builder/slots/ComboSlot/IComboSlot';
-    export * from 'react-view-builder/slots/ComboSlot/ComboSlot';
-    export { default } from 'react-view-builder/slots/ComboSlot/ComboSlot';
-}
-
-declare module 'react-view-builder/slots/LineSlot' {
-    export * from 'react-view-builder/slots/LineSlot/ILineSlot';
-    export * from 'react-view-builder/slots/LineSlot/LineSlot';
-    export { default } from 'react-view-builder/slots/LineSlot/LineSlot';
-}
-
-declare module 'react-view-builder/slots/RadioSlot' {
-    export * from 'react-view-builder/slots/RadioSlot/IRadioSlot';
-    export * from 'react-view-builder/slots/RadioSlot/RadioSlot';
-    export { default } from 'react-view-builder/slots/RadioSlot/RadioSlot';
-}
-
-declare module 'react-view-builder/slots/RatingSlot' {
-    export * from 'react-view-builder/slots/RatingSlot/IRatingSlot';
-    export * from 'react-view-builder/slots/RatingSlot/RatingSlot';
-    export { default } from 'react-view-builder/slots/RatingSlot/RatingSlot';
-}
-
-declare module 'react-view-builder/slots/TypographySlot' {
-    export * from 'react-view-builder/slots/TypographySlot/ITypographySlot';
-    export * from 'react-view-builder/slots/TypographySlot/TypographySlot';
-    export { default } from 'react-view-builder/slots/TypographySlot/TypographySlot';
-}
-
-declare module 'react-view-builder/slots/TextSlot' {
-    export * from 'react-view-builder/slots/TextSlot/ITextSlot';
-    export * from 'react-view-builder/slots/TextSlot/TextSlot';
-    export { default } from 'react-view-builder/slots/TextSlot/TextSlot';
-}
-
-declare module 'react-view-builder/slots/SwitchSlot' {
-    export * from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
-    export * from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
-    export { default } from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
-}
-
-declare module 'react-view-builder/slots/SliderSlot' {
-    export * from 'react-view-builder/slots/SliderSlot/ISliderSlot';
-    export * from 'react-view-builder/slots/SliderSlot/SliderSlot';
-    export { default } from 'react-view-builder/slots/SliderSlot/SliderSlot';
-}
-
-declare module 'react-view-builder/slots/ProgressSlot/IProgressSlot' {
-    import { IProgressFieldProps, IProgressFieldPrivate } from "react-view-builder/fields/ProgressField";
-    export interface IProgressSlot extends IProgressFieldProps, IProgressFieldPrivate {
-    }
-    export default IProgressSlot;
-}
-
-declare module 'react-view-builder/slots/ProgressSlot/ProgressSlot' {
-    import IProgressSlot from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
-    export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
-    export default ProgressSlot;
-}
-
-declare module 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot' {
-    import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-view-builder/fields/CheckboxField";
-    export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate {
-    }
-    export default ICheckBoxSlot;
-}
-
-declare module 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot' {
-    import ICheckBoxSlot from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
-    export const CheckBoxSlot: (props: ICheckBoxSlot) => JSX.Element;
-    export default CheckBoxSlot;
-}
-
-declare module 'react-view-builder/slots/ItemsSlot/IItemsSlot' {
-    import { IItemsFieldPrivate, IItemsFieldProps } from "react-view-builder/fields/ItemsField";
-    export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {
-    }
-    export default IItemsSlot;
-}
-
-declare module 'react-view-builder/slots/ItemsSlot/ItemsSlot' {
-    import IItemsSlot from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
-    export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
-    export default ItemsSlot;
-}
-
-declare module 'react-view-builder/slots/ComboSlot/IComboSlot' {
-    import { IComboFieldPrivate, IComboFieldProps } from "react-view-builder/fields/ComboField";
-    export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate {
-    }
-    export default IComboSlot;
-}
-
-declare module 'react-view-builder/slots/ComboSlot/ComboSlot' {
-    import IComboSlot from 'react-view-builder/slots/ComboSlot/IComboSlot';
-    export const ComboSlot: (props: IComboSlot) => JSX.Element;
-    export default ComboSlot;
-}
-
-declare module 'react-view-builder/slots/LineSlot/ILineSlot' {
-    import { ILineFieldProps } from "react-view-builder/fields/LineField";
-    export interface ILineSlot extends ILineFieldProps {
-    }
-    export default ILineSlot;
-}
-
-declare module 'react-view-builder/slots/LineSlot/LineSlot' {
-    import ILineSlot from 'react-view-builder/slots/LineSlot/ILineSlot';
-    export const LineSlot: (props: ILineSlot) => JSX.Element;
-    export default LineSlot;
-}
-
-declare module 'react-view-builder/slots/RadioSlot/IRadioSlot' {
-    import { IRadioFieldPrivate, IRadioFieldProps } from "react-view-builder/fields/RadioField";
-    export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate {
-    }
-    export default IRadioSlot;
-}
-
-declare module 'react-view-builder/slots/RadioSlot/RadioSlot' {
-    import IRadioSlot from 'react-view-builder/slots/RadioSlot/IRadioSlot';
-    export const RadioSlot: (props: IRadioSlot) => JSX.Element;
-    export default RadioSlot;
-}
-
-declare module 'react-view-builder/slots/RatingSlot/IRatingSlot' {
-    import { IRatingFieldProps, IRatingFieldPrivate } from "react-view-builder/fields/RatingField";
-    export interface IRatingSlot extends IRatingFieldProps, IRatingFieldPrivate {
-    }
-    export default IRatingSlot;
-}
-
-declare module 'react-view-builder/slots/RatingSlot/RatingSlot' {
-    import IRatingSlot from 'react-view-builder/slots/RatingSlot/IRatingSlot';
-    export const RatingSlot: (props: IRatingSlot) => JSX.Element;
-    export default RatingSlot;
-}
-
-declare module 'react-view-builder/slots/TypographySlot/ITypographySlot' {
-    import { ITypographyFieldPrivate, ITypographyFieldProps } from "react-view-builder/fields/TypographyField";
-    export interface ITypographySlot extends ITypographyFieldProps, ITypographyFieldPrivate {
-    }
-    export default ITypographySlot;
-}
-
-declare module 'react-view-builder/slots/TypographySlot/TypographySlot' {
-    import ITypographySlot from 'react-view-builder/slots/TypographySlot/ITypographySlot';
-    export const TypographySlot: (props: ITypographySlot) => JSX.Element;
-    export default TypographySlot;
-}
-
-declare module 'react-view-builder/slots/TextSlot/ITextSlot' {
-    import { ITextFieldProps, ITextFieldPrivate } from "react-view-builder/fields/TextField";
-    export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate {
-    }
-    export default ITextSlot;
-}
-
-declare module 'react-view-builder/slots/TextSlot/TextSlot' {
-    import ITextSlot from 'react-view-builder/slots/TextSlot/ITextSlot';
-    export const TypographySlot: (props: ITextSlot) => JSX.Element;
-    export default TypographySlot;
-}
-
-declare module 'react-view-builder/slots/SwitchSlot/ISwitchSlot' {
-    import { ISwitchFieldPrivate, ISwitchFieldProps } from "react-view-builder/fields/SwitchField";
-    export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {
-    }
-    export default ISwitchSlot;
-}
-
-declare module 'react-view-builder/slots/SwitchSlot/SwitchSlot' {
-    import ISwitchSlot from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
-    export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
-    export default SwitchSlot;
-}
-
-declare module 'react-view-builder/slots/SliderSlot/ISliderSlot' {
-    import { ISliderFieldPrivate, ISliderFieldProps } from "react-view-builder/fields/SliderField";
-    export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {
-    }
-    export default ISliderSlot;
-}
-
-declare module 'react-view-builder/slots/SliderSlot/SliderSlot' {
-    import ISliderSlot from 'react-view-builder/slots/SliderSlot/ISliderSlot';
-    export const SliderSlot: (props: ISliderSlot) => JSX.Element;
-    export default SliderSlot;
 }
 
