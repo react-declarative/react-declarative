@@ -1,6 +1,4 @@
 
-<img src="./assets/logo.png" height="32px" width="32px" align="right">
-
 # react-declarative
 
 > [Material-ui](https://material-ui.com/) json endpoint form builder. Check [this site](https://theonekit.com/) for more samples...
