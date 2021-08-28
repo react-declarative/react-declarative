@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { OneTyped, FieldType, TypedField } from 'react-view-builder';
+import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
 import { Paper } from '@material-ui/core';
 

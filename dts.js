@@ -7,16 +7,16 @@ function abs(subdir) {
 }
 
 dts.bundle({
-    name: 'react-view-builder',
+    name: 'react-declarative',
     main: 'dist/index.d.ts',
 });
 
 fs.copyFileSync(
-    abs('dist/react-view-builder.d.ts'),
-    abs('example/src/react-view-builder.d.ts'),
+    abs('dist/react-declarative.d.ts'),
+    abs('example/src/react-declarative.d.ts'),
 );
 
 fs.copyFileSync(
-    abs('dist/react-view-builder.d.ts'),
-    abs('umd/src/react-view-builder.d.ts'),
+    abs('dist/react-declarative.d.ts'),
+    abs('umd/src/react-declarative.d.ts'),
 );

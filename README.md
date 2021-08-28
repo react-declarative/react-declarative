@@ -1,7 +1,7 @@
 
 <img src="./assets/logo.png" height="32px" width="32px" align="right">
 
-# react-view-builder
+# react-declarative
 
 > [Material-ui](https://material-ui.com/) json endpoint form builder. Check [this site](https://theonekit.com/) for more samples...
 
@@ -14,7 +14,7 @@ A React form builder which interacts with a JSON endpoint to generate nested 12-
 > There is a sample app avalible in [example](./example/src/index.tsx) folder...
 
 ```bash
-npm install --save @tripolskypetr/react-view-builder
+npm install --save react-declarative
 ```
 
 ## Demos

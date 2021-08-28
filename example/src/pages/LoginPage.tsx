@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import { OneTyped, FieldType, TypedField } from 'react-view-builder';
+import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
 const fields: TypedField[] = [
     {

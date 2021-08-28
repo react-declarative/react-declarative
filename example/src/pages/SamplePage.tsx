@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 
 import { Box } from '@material-ui/core';
 
-import { TypedField, FieldType, OneTyped } from 'react-view-builder';
+import { TypedField, FieldType, OneTyped } from 'react-declarative';
 
 import Logger from '../components/Logger';
 

@@ -6,28 +6,28 @@
 //   ../@material-ui/core
 //   ../react-modal-hook
 
-declare module 'react-view-builder' {
-    import { TypedField as TypedFieldInternal } from 'react-view-builder/model/TypedField';
-    import { IField as IFieldInternal } from 'react-view-builder/model/IField';
-    import { IColumn as IColumnInternal } from 'react-view-builder/model/IColumn';
-    import { FieldType as FieldTypeInternal } from 'react-view-builder/model/FieldType';
-    import { ColumnType as ColumnTypeInternal } from 'react-view-builder/model/ColumnType';
-    import { ActionType as ActionTypeInternal } from 'react-view-builder/model/ActionType';
-    import { SelectionMode as SelectionModeInternal } from 'react-view-builder/model/SelectionMode';
-    import { IListApi as IListApiInternal } from 'react-view-builder/model/IListApi';
-    import { IListAction as IListActionInternal } from 'react-view-builder/model/IListProps';
-    import { IOption as IOptionInternal } from 'react-view-builder/model/IOption';
-    import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-view-builder/model/IMenuGroup';
-    import { ListHandler as ListHandlerInternal } from 'react-view-builder/model/IListProps';
-    import { OneHandler as OneHandlerInternal } from 'react-view-builder/model/IOneProps';
-    import { i18nMap } from 'react-view-builder/config/i18n';
+declare module 'react-declarative' {
+    import { TypedField as TypedFieldInternal } from 'react-declarative/model/TypedField';
+    import { IField as IFieldInternal } from 'react-declarative/model/IField';
+    import { IColumn as IColumnInternal } from 'react-declarative/model/IColumn';
+    import { FieldType as FieldTypeInternal } from 'react-declarative/model/FieldType';
+    import { ColumnType as ColumnTypeInternal } from 'react-declarative/model/ColumnType';
+    import { ActionType as ActionTypeInternal } from 'react-declarative/model/ActionType';
+    import { SelectionMode as SelectionModeInternal } from 'react-declarative/model/SelectionMode';
+    import { IListApi as IListApiInternal } from 'react-declarative/model/IListApi';
+    import { IListAction as IListActionInternal } from 'react-declarative/model/IListProps';
+    import { IOption as IOptionInternal } from 'react-declarative/model/IOption';
+    import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-declarative/model/IMenuGroup';
+    import { ListHandler as ListHandlerInternal } from 'react-declarative/model/IListProps';
+    import { OneHandler as OneHandlerInternal } from 'react-declarative/model/IOneProps';
+    import { i18nMap } from 'react-declarative/config/i18n';
     import "vanilla-autofill-event";
-    import { useConfirm } from 'react-view-builder/components';
-    import { useDate, useTime } from 'react-view-builder/components';
-    import { useOne, useOneTyped } from 'react-view-builder/components';
-    import { useList, useListTyped } from 'react-view-builder/components';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IRowData from 'react-view-builder/model/IRowData';
+    import { useConfirm } from 'react-declarative/components';
+    import { useDate, useTime } from 'react-declarative/components';
+    import { useOne, useOneTyped } from 'react-declarative/components';
+    import { useList, useListTyped } from 'react-declarative/components';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IRowData from 'react-declarative/model/IRowData';
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
@@ -50,28 +50,28 @@ declare module 'react-view-builder' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export { default as dayjs } from 'dayjs';
-    export { One, OneTyped } from 'react-view-builder/components';
-    export { List, ListTyped } from 'react-view-builder/components';
-    export { ModalProvider } from 'react-view-builder/components';
-    export { Scaffold } from 'react-view-builder/components';
-    export { SlotFactory } from 'react-view-builder/components';
-    export { useListProps } from 'react-view-builder/components';
+    export { One, OneTyped } from 'react-declarative/components';
+    export { List, ListTyped } from 'react-declarative/components';
+    export { ModalProvider } from 'react-declarative/components';
+    export { Scaffold } from 'react-declarative/components';
+    export { SlotFactory } from 'react-declarative/components';
+    export { useListProps } from 'react-declarative/components';
     export { useList, useListTyped };
     export { useOne, useOneTyped };
     export { useDate, useTime };
     export { useConfirm };
     export { i18nMap };
-    import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-view-builder/slots/CheckBoxSlot';
-    import { IComboSlot as IComboSlotInternal } from 'react-view-builder/slots/ComboSlot';
-    import { IItemsSlot as IItemsSlotInternal } from 'react-view-builder/slots/ItemsSlot';
-    import { ILineSlot as ILineSlotInternal } from 'react-view-builder/slots/LineSlot';
-    import { IProgressSlot as IProgressSlotInternal } from 'react-view-builder/slots/ProgressSlot';
-    import { IRadioSlot as IRadioSlotInternal } from 'react-view-builder/slots/RadioSlot';
-    import { IRatingSlot as IRatingSlotInternal } from 'react-view-builder/slots/RatingSlot';
-    import { ISliderSlot as ISliderSlotInternal } from 'react-view-builder/slots/SliderSlot';
-    import { ISwitchSlot as ISwitchSlotInternal } from 'react-view-builder/slots/SwitchSlot';
-    import { ITextSlot as ITextSlotInternal } from 'react-view-builder/slots/TextSlot';
-    import { ITypographySlot as ITypographySlotInternal } from 'react-view-builder/slots/TypographySlot';
+    import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-declarative/slots/CheckBoxSlot';
+    import { IComboSlot as IComboSlotInternal } from 'react-declarative/slots/ComboSlot';
+    import { IItemsSlot as IItemsSlotInternal } from 'react-declarative/slots/ItemsSlot';
+    import { ILineSlot as ILineSlotInternal } from 'react-declarative/slots/LineSlot';
+    import { IProgressSlot as IProgressSlotInternal } from 'react-declarative/slots/ProgressSlot';
+    import { IRadioSlot as IRadioSlotInternal } from 'react-declarative/slots/RadioSlot';
+    import { IRatingSlot as IRatingSlotInternal } from 'react-declarative/slots/RatingSlot';
+    import { ISliderSlot as ISliderSlotInternal } from 'react-declarative/slots/SliderSlot';
+    import { ISwitchSlot as ISwitchSlotInternal } from 'react-declarative/slots/SwitchSlot';
+    import { ITextSlot as ITextSlotInternal } from 'react-declarative/slots/TextSlot';
+    import { ITypographySlot as ITypographySlotInternal } from 'react-declarative/slots/TypographySlot';
     export type ICheckBoxSlot = ICheckBoxSlotInternal;
     export type IComboSlot = IComboSlotInternal;
     export type IItemsSlot = IItemsSlotInternal;
@@ -85,35 +85,35 @@ declare module 'react-view-builder' {
     export type ITypographySlot = ITypographySlotInternal;
 }
 
-declare module 'react-view-builder/model/TypedField' {
-    import IManaged, { IManagedShallow } from 'react-view-builder/model/IManaged';
-    import IEntity from 'react-view-builder/model/IEntity';
-    import FieldType from 'react-view-builder/model/FieldType';
-    import IAnything from 'react-view-builder/model/IAnything';
+declare module 'react-declarative/model/TypedField' {
+    import IManaged, { IManagedShallow } from 'react-declarative/model/IManaged';
+    import IEntity from 'react-declarative/model/IEntity';
+    import FieldType from 'react-declarative/model/FieldType';
+    import IAnything from 'react-declarative/model/IAnything';
     /**
         * Компоновки
         */
-    import { IFragmentLayoutProps } from 'react-view-builder/layouts/FragmentLayout';
-    import { IDivLayoutProps } from 'react-view-builder/layouts/DivLayout';
-    import { IGroupLayoutProps } from 'react-view-builder/layouts/GroupLayout';
-    import { IPaperLayoutProps } from 'react-view-builder/layouts/PaperLayout';
-    import { IExpansionLayoutProps } from 'react-view-builder/layouts/ExpansionLayout';
-    import { IHeroLayoutProps } from 'react-view-builder/layouts/HeroLayout';
+    import { IFragmentLayoutProps } from 'react-declarative/layouts/FragmentLayout';
+    import { IDivLayoutProps } from 'react-declarative/layouts/DivLayout';
+    import { IGroupLayoutProps } from 'react-declarative/layouts/GroupLayout';
+    import { IPaperLayoutProps } from 'react-declarative/layouts/PaperLayout';
+    import { IExpansionLayoutProps } from 'react-declarative/layouts/ExpansionLayout';
+    import { IHeroLayoutProps } from 'react-declarative/layouts/HeroLayout';
     /**
         * Поля ввода
         */
-    import { ICheckboxFieldProps } from 'react-view-builder/fields/CheckboxField';
-    import { IComboFieldProps } from 'react-view-builder/fields/ComboField';
-    import { IComponentFieldProps } from 'react-view-builder/fields/ComponentField';
-    import { IItemsFieldProps } from 'react-view-builder/fields/ItemsField';
-    import { ILineFieldProps } from 'react-view-builder/fields/LineField';
-    import { IProgressFieldProps } from 'react-view-builder/fields/ProgressField';
-    import { IRadioFieldProps } from 'react-view-builder/fields/RadioField';
-    import { IRatingFieldProps } from 'react-view-builder/fields/RatingField';
-    import { ISliderFieldProps } from 'react-view-builder/fields/SliderField';
-    import { ISwitchFieldProps } from 'react-view-builder/fields/SwitchField';
-    import { ITextFieldProps } from 'react-view-builder/fields/TextField';
-    import { ITypographyFieldProps } from 'react-view-builder/fields/TypographyField';
+    import { ICheckboxFieldProps } from 'react-declarative/fields/CheckboxField';
+    import { IComboFieldProps } from 'react-declarative/fields/ComboField';
+    import { IComponentFieldProps } from 'react-declarative/fields/ComponentField';
+    import { IItemsFieldProps } from 'react-declarative/fields/ItemsField';
+    import { ILineFieldProps } from 'react-declarative/fields/LineField';
+    import { IProgressFieldProps } from 'react-declarative/fields/ProgressField';
+    import { IRadioFieldProps } from 'react-declarative/fields/RadioField';
+    import { IRatingFieldProps } from 'react-declarative/fields/RatingField';
+    import { ISliderFieldProps } from 'react-declarative/fields/SliderField';
+    import { ISwitchFieldProps } from 'react-declarative/fields/SwitchField';
+    import { ITextFieldProps } from 'react-declarative/fields/TextField';
+    import { ITypographyFieldProps } from 'react-declarative/fields/TypographyField';
     type Exclude<Data = IAnything> = Omit<IManaged<Data>, keyof IEntity<Data>>;
     type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything> = {
             [Prop in keyof Omit<Fields, keyof Exclude<Data>>]?: Fields[Prop];
@@ -157,11 +157,11 @@ declare module 'react-view-builder/model/TypedField' {
     export default TypedField;
 }
 
-declare module 'react-view-builder/model/IField' {
+declare module 'react-declarative/model/IField' {
     import * as React from 'react';
-    import { ISizeCallback } from 'react-view-builder/model/ISize';
-    import FieldType from 'react-view-builder/model/FieldType';
-    import IAnything from 'react-view-builder/model/IAnything';
+    import { ISizeCallback } from 'react-declarative/model/ISize';
+    import FieldType from 'react-declarative/model/FieldType';
+    import IAnything from 'react-declarative/model/IAnything';
     /**
         * Объект поля для прикладного программиста
         */
@@ -419,12 +419,12 @@ declare module 'react-view-builder/model/IField' {
     export default IField;
 }
 
-declare module 'react-view-builder/model/IColumn' {
+declare module 'react-declarative/model/IColumn' {
     import { GridCellParams, GridColumnHeaderParams, GridComparatorFn } from '@material-ui/data-grid';
-    import ColumnType from "react-view-builder/model/ColumnType";
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IRowData from 'react-view-builder/model/IRowData';
-    import IOption from 'react-view-builder/model/IOption';
+    import ColumnType from "react-declarative/model/ColumnType";
+    import IAnything from 'react-declarative/model/IAnything';
+    import IRowData from 'react-declarative/model/IRowData';
+    import IOption from 'react-declarative/model/IOption';
     export interface IColumn<RowData extends IRowData = IAnything> {
         type: ColumnType;
         field?: string;
@@ -456,7 +456,7 @@ declare module 'react-view-builder/model/IColumn' {
     export default IColumn;
 }
 
-declare module 'react-view-builder/model/FieldType' {
+declare module 'react-declarative/model/FieldType' {
     export enum FieldType {
         Switch = "switch",
         Line = "line",
@@ -480,7 +480,7 @@ declare module 'react-view-builder/model/FieldType' {
     export default FieldType;
 }
 
-declare module 'react-view-builder/model/ColumnType' {
+declare module 'react-declarative/model/ColumnType' {
     export enum ColumnType {
         Text = "text-cell",
         Action = "action-cell",
@@ -490,7 +490,7 @@ declare module 'react-view-builder/model/ColumnType' {
     export default ColumnType;
 }
 
-declare module 'react-view-builder/model/ActionType' {
+declare module 'react-declarative/model/ActionType' {
     export enum ActionType {
         Add = "add-action",
         Menu = "menu-action"
@@ -498,7 +498,7 @@ declare module 'react-view-builder/model/ActionType' {
     export default ActionType;
 }
 
-declare module 'react-view-builder/model/SelectionMode' {
+declare module 'react-declarative/model/SelectionMode' {
     export enum SelectionMode {
         Single = "single-selection",
         Multiple = "multiple-selection",
@@ -507,24 +507,24 @@ declare module 'react-view-builder/model/SelectionMode' {
     export default SelectionMode;
 }
 
-declare module 'react-view-builder/model/IListApi' {
+declare module 'react-declarative/model/IListApi' {
     export interface IListApi {
         reload: () => void;
     }
     export default IListApi;
 }
 
-declare module 'react-view-builder/model/IListProps' {
+declare module 'react-declarative/model/IListProps' {
     import { Ref } from 'react';
     import { GridColumns, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
-    import ActionType from 'react-view-builder/model/ActionType';
-    import SelectionMode from 'react-view-builder/model/SelectionMode';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IRowData from 'react-view-builder/model/IRowData';
-    import IColumn from 'react-view-builder/model/IColumn';
-    import IOption from 'react-view-builder/model/IOption';
-    import IField from 'react-view-builder/model/IField';
-    import IListApi from 'react-view-builder/model/IListApi';
+    import ActionType from 'react-declarative/model/ActionType';
+    import SelectionMode from 'react-declarative/model/SelectionMode';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IRowData from 'react-declarative/model/IRowData';
+    import IColumn from 'react-declarative/model/IColumn';
+    import IOption from 'react-declarative/model/IOption';
+    import IField from 'react-declarative/model/IField';
+    import IListApi from 'react-declarative/model/IListApi';
     export interface IListAction extends Partial<IOption> {
         type: ActionType;
         options?: Partial<IOption>[];
@@ -587,7 +587,7 @@ declare module 'react-view-builder/model/IListProps' {
     export default IListProps;
 }
 
-declare module 'react-view-builder/model/IOption' {
+declare module 'react-declarative/model/IOption' {
     import React from "react";
     export interface IOption {
         label: string;
@@ -597,7 +597,7 @@ declare module 'react-view-builder/model/IOption' {
     export default IOption;
 }
 
-declare module 'react-view-builder/model/IMenuGroup' {
+declare module 'react-declarative/model/IMenuGroup' {
     import * as React from 'react';
     export interface IMenuOption {
         name?: string;
@@ -613,9 +613,9 @@ declare module 'react-view-builder/model/IMenuGroup' {
     export default IMenuGroup;
 }
 
-declare module 'react-view-builder/model/IOneProps' {
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
+declare module 'react-declarative/model/IOneProps' {
+    import IField from 'react-declarative/model/IField';
+    import IAnything from 'react-declarative/model/IAnything';
     export type OneHandler<Data = IAnything> = Data | (() => Data) | (() => Promise<Data>);
     export interface IOneProps<Data = IAnything, Field = IField<Data>> {
             /**
@@ -659,107 +659,107 @@ declare module 'react-view-builder/model/IOneProps' {
     export default IOneProps;
 }
 
-declare module 'react-view-builder/config/i18n' {
+declare module 'react-declarative/config/i18n' {
     export const i18nMap: Record<string, string>;
     export const i18n: (words: TemplateStringsArray, args?: any[]) => string;
     export default i18n;
 }
 
-declare module 'react-view-builder/components' {
-    export * from 'react-view-builder/components/One';
-    export * from 'react-view-builder/components/List';
-    export * from 'react-view-builder/components/Scaffold';
-    export * from 'react-view-builder/components/SlotFactory';
-    export * from 'react-view-builder/components/hooks/useDate';
-    export * from 'react-view-builder/components/hooks/useTime';
-    export * from 'react-view-builder/components/hooks/useOne';
-    export * from 'react-view-builder/components/hooks/useList';
-    export * from 'react-view-builder/components/hooks/useConfirm';
-    export * from 'react-view-builder/components/common/ModalProvider';
+declare module 'react-declarative/components' {
+    export * from 'react-declarative/components/One';
+    export * from 'react-declarative/components/List';
+    export * from 'react-declarative/components/Scaffold';
+    export * from 'react-declarative/components/SlotFactory';
+    export * from 'react-declarative/components/hooks/useDate';
+    export * from 'react-declarative/components/hooks/useTime';
+    export * from 'react-declarative/components/hooks/useOne';
+    export * from 'react-declarative/components/hooks/useList';
+    export * from 'react-declarative/components/hooks/useConfirm';
+    export * from 'react-declarative/components/common/ModalProvider';
 }
 
-declare module 'react-view-builder/model/IAnything' {
+declare module 'react-declarative/model/IAnything' {
     export type IAnything = any;
     export default IAnything;
 }
 
-declare module 'react-view-builder/model/IRowData' {
+declare module 'react-declarative/model/IRowData' {
     export interface IRowData {
         id: string | number;
     }
     export default IRowData;
 }
 
-declare module 'react-view-builder/slots/CheckBoxSlot' {
-    export * from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
-    export * from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
-    export { default } from 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot';
+declare module 'react-declarative/slots/CheckBoxSlot' {
+    export * from 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot';
+    export * from 'react-declarative/slots/CheckBoxSlot/CheckBoxSlot';
+    export { default } from 'react-declarative/slots/CheckBoxSlot/CheckBoxSlot';
 }
 
-declare module 'react-view-builder/slots/ComboSlot' {
-    export * from 'react-view-builder/slots/ComboSlot/IComboSlot';
-    export * from 'react-view-builder/slots/ComboSlot/ComboSlot';
-    export { default } from 'react-view-builder/slots/ComboSlot/ComboSlot';
+declare module 'react-declarative/slots/ComboSlot' {
+    export * from 'react-declarative/slots/ComboSlot/IComboSlot';
+    export * from 'react-declarative/slots/ComboSlot/ComboSlot';
+    export { default } from 'react-declarative/slots/ComboSlot/ComboSlot';
 }
 
-declare module 'react-view-builder/slots/ItemsSlot' {
-    export * from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
-    export * from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
-    export { default } from 'react-view-builder/slots/ItemsSlot/ItemsSlot';
+declare module 'react-declarative/slots/ItemsSlot' {
+    export * from 'react-declarative/slots/ItemsSlot/IItemsSlot';
+    export * from 'react-declarative/slots/ItemsSlot/ItemsSlot';
+    export { default } from 'react-declarative/slots/ItemsSlot/ItemsSlot';
 }
 
-declare module 'react-view-builder/slots/LineSlot' {
-    export * from 'react-view-builder/slots/LineSlot/ILineSlot';
-    export * from 'react-view-builder/slots/LineSlot/LineSlot';
-    export { default } from 'react-view-builder/slots/LineSlot/LineSlot';
+declare module 'react-declarative/slots/LineSlot' {
+    export * from 'react-declarative/slots/LineSlot/ILineSlot';
+    export * from 'react-declarative/slots/LineSlot/LineSlot';
+    export { default } from 'react-declarative/slots/LineSlot/LineSlot';
 }
 
-declare module 'react-view-builder/slots/ProgressSlot' {
-    export * from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
-    export * from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
-    export { default } from 'react-view-builder/slots/ProgressSlot/ProgressSlot';
+declare module 'react-declarative/slots/ProgressSlot' {
+    export * from 'react-declarative/slots/ProgressSlot/IProgressSlot';
+    export * from 'react-declarative/slots/ProgressSlot/ProgressSlot';
+    export { default } from 'react-declarative/slots/ProgressSlot/ProgressSlot';
 }
 
-declare module 'react-view-builder/slots/RadioSlot' {
-    export * from 'react-view-builder/slots/RadioSlot/IRadioSlot';
-    export * from 'react-view-builder/slots/RadioSlot/RadioSlot';
-    export { default } from 'react-view-builder/slots/RadioSlot/RadioSlot';
+declare module 'react-declarative/slots/RadioSlot' {
+    export * from 'react-declarative/slots/RadioSlot/IRadioSlot';
+    export * from 'react-declarative/slots/RadioSlot/RadioSlot';
+    export { default } from 'react-declarative/slots/RadioSlot/RadioSlot';
 }
 
-declare module 'react-view-builder/slots/RatingSlot' {
-    export * from 'react-view-builder/slots/RatingSlot/IRatingSlot';
-    export * from 'react-view-builder/slots/RatingSlot/RatingSlot';
-    export { default } from 'react-view-builder/slots/RatingSlot/RatingSlot';
+declare module 'react-declarative/slots/RatingSlot' {
+    export * from 'react-declarative/slots/RatingSlot/IRatingSlot';
+    export * from 'react-declarative/slots/RatingSlot/RatingSlot';
+    export { default } from 'react-declarative/slots/RatingSlot/RatingSlot';
 }
 
-declare module 'react-view-builder/slots/SliderSlot' {
-    export * from 'react-view-builder/slots/SliderSlot/ISliderSlot';
-    export * from 'react-view-builder/slots/SliderSlot/SliderSlot';
-    export { default } from 'react-view-builder/slots/SliderSlot/SliderSlot';
+declare module 'react-declarative/slots/SliderSlot' {
+    export * from 'react-declarative/slots/SliderSlot/ISliderSlot';
+    export * from 'react-declarative/slots/SliderSlot/SliderSlot';
+    export { default } from 'react-declarative/slots/SliderSlot/SliderSlot';
 }
 
-declare module 'react-view-builder/slots/SwitchSlot' {
-    export * from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
-    export * from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
-    export { default } from 'react-view-builder/slots/SwitchSlot/SwitchSlot';
+declare module 'react-declarative/slots/SwitchSlot' {
+    export * from 'react-declarative/slots/SwitchSlot/ISwitchSlot';
+    export * from 'react-declarative/slots/SwitchSlot/SwitchSlot';
+    export { default } from 'react-declarative/slots/SwitchSlot/SwitchSlot';
 }
 
-declare module 'react-view-builder/slots/TextSlot' {
-    export * from 'react-view-builder/slots/TextSlot/ITextSlot';
-    export * from 'react-view-builder/slots/TextSlot/TextSlot';
-    export { default } from 'react-view-builder/slots/TextSlot/TextSlot';
+declare module 'react-declarative/slots/TextSlot' {
+    export * from 'react-declarative/slots/TextSlot/ITextSlot';
+    export * from 'react-declarative/slots/TextSlot/TextSlot';
+    export { default } from 'react-declarative/slots/TextSlot/TextSlot';
 }
 
-declare module 'react-view-builder/slots/TypographySlot' {
-    export * from 'react-view-builder/slots/TypographySlot/ITypographySlot';
-    export * from 'react-view-builder/slots/TypographySlot/TypographySlot';
-    export { default } from 'react-view-builder/slots/TypographySlot/TypographySlot';
+declare module 'react-declarative/slots/TypographySlot' {
+    export * from 'react-declarative/slots/TypographySlot/ITypographySlot';
+    export * from 'react-declarative/slots/TypographySlot/TypographySlot';
+    export { default } from 'react-declarative/slots/TypographySlot/TypographySlot';
 }
 
-declare module 'react-view-builder/model/IManaged' {
-    import IField from 'react-view-builder/model/IField';
-    import IEntity from 'react-view-builder/model/IEntity';
-    import IAnything from 'react-view-builder/model/IAnything';
+declare module 'react-declarative/model/IManaged' {
+    import IField from 'react-declarative/model/IField';
+    import IEntity from 'react-declarative/model/IEntity';
+    import IAnything from 'react-declarative/model/IAnything';
     export type PickProp<T extends {}, P extends keyof T> = T[P];
     export type DeepPartial<T> = {
             [P in keyof T]?: DeepPartial<T[P]>;
@@ -820,9 +820,9 @@ declare module 'react-view-builder/model/IManaged' {
     export default IManaged;
 }
 
-declare module 'react-view-builder/model/IEntity' {
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/model/IEntity' {
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     type exclude = 'defaultValue';
     /**
       * Объект сущность представляет собой поле прикладного
@@ -840,12 +840,12 @@ declare module 'react-view-builder/model/IEntity' {
     export default IEntity;
 }
 
-declare module 'react-view-builder/layouts/FragmentLayout' {
+declare module 'react-declarative/layouts/FragmentLayout' {
     import * as React from 'react';
-    import IField from 'react-view-builder/model/IField';
-    import IEntity from 'react-view-builder/model/IEntity';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import { PickProp } from 'react-view-builder/model/IManaged';
+    import IField from 'react-declarative/model/IField';
+    import IEntity from 'react-declarative/model/IEntity';
+    import IAnything from 'react-declarative/model/IAnything';
+    import { PickProp } from 'react-declarative/model/IManaged';
     export interface IFragmentLayoutProps<Data = IAnything> {
         isVisible?: PickProp<IField<Data>, 'isVisible'>;
     }
@@ -865,12 +865,12 @@ declare module 'react-view-builder/layouts/FragmentLayout' {
     export default FragmentLayout;
 }
 
-declare module 'react-view-builder/layouts/DivLayout' {
+declare module 'react-declarative/layouts/DivLayout' {
     import * as React from 'react';
-    import IField from 'react-view-builder/model/IField';
-    import IEntity from 'react-view-builder/model/IEntity';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import { PickProp } from 'react-view-builder/model/IManaged';
+    import IField from 'react-declarative/model/IField';
+    import IEntity from 'react-declarative/model/IEntity';
+    import IAnything from 'react-declarative/model/IAnything';
+    import { PickProp } from 'react-declarative/model/IManaged';
     export interface IDivLayoutProps<Data = IAnything> {
         className?: PickProp<IField<Data>, 'className'>;
         style?: PickProp<IField<Data>, 'style'>;
@@ -885,10 +885,10 @@ declare module 'react-view-builder/layouts/DivLayout' {
     export default DivLayout;
 }
 
-declare module 'react-view-builder/layouts/GroupLayout' {
+declare module 'react-declarative/layouts/GroupLayout' {
     import * as React from "react";
-    import { IGroupProps } from "react-view-builder/components/common/Group";
-    import IAnything from "react-view-builder/model/IAnything";
+    import { IGroupProps } from "react-declarative/components/common/Group";
+    import IAnything from "react-declarative/model/IAnything";
     export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {
     }
     interface IGroupLayoutPrivate {
@@ -901,11 +901,11 @@ declare module 'react-view-builder/layouts/GroupLayout' {
     export default GroupLayout;
 }
 
-declare module 'react-view-builder/layouts/PaperLayout' {
+declare module 'react-declarative/layouts/PaperLayout' {
     import * as React from "react";
-    import { IGroupProps } from "react-view-builder/components/common/Group";
-    import { IPaperProps } from 'react-view-builder/components/common/Paper';
-    import IAnything from "react-view-builder/model/IAnything";
+    import { IGroupProps } from "react-declarative/components/common/Group";
+    import { IPaperProps } from 'react-declarative/components/common/Paper';
+    import IAnything from "react-declarative/model/IAnything";
     export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {
     }
     interface IPaperLayoutPrivate {
@@ -918,11 +918,11 @@ declare module 'react-view-builder/layouts/PaperLayout' {
     export default PaperLayout;
 }
 
-declare module 'react-view-builder/layouts/ExpansionLayout' {
+declare module 'react-declarative/layouts/ExpansionLayout' {
     import * as React from "react";
-    import { IExpansionProps } from "react-view-builder/components/common/Expansion";
-    import { IGroupProps } from "react-view-builder/components/common/Group";
-    import IAnything from "react-view-builder/model/IAnything";
+    import { IExpansionProps } from "react-declarative/components/common/Expansion";
+    import { IGroupProps } from "react-declarative/components/common/Group";
+    import IAnything from "react-declarative/model/IAnything";
     export interface IExpansionLayoutProps<Data = IAnything> extends IExpansionProps<Data>, IGroupProps<Data> {
     }
     interface IExpansionLayoutPrivate {
@@ -935,14 +935,14 @@ declare module 'react-view-builder/layouts/ExpansionLayout' {
     export default ExpansionLayout;
 }
 
-declare module 'react-view-builder/layouts/HeroLayout' {
+declare module 'react-declarative/layouts/HeroLayout' {
     import * as React from 'react';
     import { Theme } from '@material-ui/core';
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import { PickProp } from 'react-view-builder/model/IManaged';
-    import Group, { IGroupProps } from 'react-view-builder/components/common/Group';
-    import IEntity from 'react-view-builder/model/IEntity';
+    import IField from 'react-declarative/model/IField';
+    import IAnything from 'react-declarative/model/IAnything';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    import Group, { IGroupProps } from 'react-declarative/components/common/Group';
+    import IEntity from 'react-declarative/model/IEntity';
     interface IHeroTop<Data = IAnything> {
         top?: PickProp<IField<Data>, 'top'>;
         phoneTop?: PickProp<IField<Data>, 'phoneTop'>;
@@ -1038,10 +1038,10 @@ declare module 'react-view-builder/layouts/HeroLayout' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/CheckboxField' {
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/fields/CheckboxField' {
+    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface ICheckboxFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
     }
@@ -1061,10 +1061,10 @@ declare module 'react-view-builder/fields/CheckboxField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/ComboField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IField from "react-view-builder/model/IField";
+declare module 'react-declarative/fields/ComboField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
     export interface IComboFieldProps<Data = IAnything> {
         description?: PickProp<IField<Data>, "description">;
         placeholder?: PickProp<IField<Data>, "placeholder">;
@@ -1091,10 +1091,10 @@ declare module 'react-view-builder/fields/ComboField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/ComponentField' {
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
+declare module 'react-declarative/fields/ComponentField' {
+    import IField from 'react-declarative/model/IField';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
     export interface IComponentFieldProps<Data = IAnything> {
         compute?: PickProp<IField<Data>, 'compute'>;
     }
@@ -1112,10 +1112,10 @@ declare module 'react-view-builder/fields/ComponentField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/ItemsField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IField from "react-view-builder/model/IField";
+declare module 'react-declarative/fields/ItemsField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
     export interface IItemsFieldProps<Data = IAnything> {
         description?: PickProp<IField<Data>, "description">;
         placeholder?: PickProp<IField<Data>, "placeholder">;
@@ -1142,10 +1142,10 @@ declare module 'react-view-builder/fields/ItemsField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/LineField' {
-    import { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/fields/LineField' {
+    import { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface ILineFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
     }
@@ -1160,10 +1160,10 @@ declare module 'react-view-builder/fields/LineField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/ProgressField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IField from "react-view-builder/model/IField";
-    import IAnything from "react-view-builder/model/IAnything";
+declare module 'react-declarative/fields/ProgressField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IField from "react-declarative/model/IField";
+    import IAnything from "react-declarative/model/IAnything";
     export interface IProgressFieldProps<Data = IAnything> {
         maxPercent?: PickProp<IField<Data>, "maxPercent">;
         showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
@@ -1182,10 +1182,10 @@ declare module 'react-view-builder/fields/ProgressField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/RadioField' {
-    import IField from "react-view-builder/model/IField";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
+declare module 'react-declarative/fields/RadioField' {
+    import IField from "react-declarative/model/IField";
+    import IAnything from "react-declarative/model/IAnything";
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
     export interface IRadioFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, "title">;
         radioValue?: PickProp<IField<Data>, "radioValue">;
@@ -1207,10 +1207,10 @@ declare module 'react-view-builder/fields/RadioField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/RatingField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IField from "react-view-builder/model/IField";
+declare module 'react-declarative/fields/RatingField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
     export interface IRatingFieldProps<Data = IAnything> {
         readonly?: PickProp<IField<Data>, "readonly">;
         title?: PickProp<IField<Data>, "title">;
@@ -1232,10 +1232,10 @@ declare module 'react-view-builder/fields/RatingField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/SliderField' {
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
+declare module 'react-declarative/fields/SliderField' {
+    import IField from 'react-declarative/model/IField';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
     export interface ISliderFieldProps<Data = IAnything> {
         stepSlider?: PickProp<IField<Data>, 'stepSlider'>;
         maxSlider?: PickProp<IField<Data>, 'maxSlider'>;
@@ -1263,10 +1263,10 @@ declare module 'react-view-builder/fields/SliderField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/SwitchField' {
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/fields/SwitchField' {
+    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface ISwitchFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
     }
@@ -1286,10 +1286,10 @@ declare module 'react-view-builder/fields/SwitchField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/TextField' {
-    import IManaged, { PickProp } from "react-view-builder/model/IManaged";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IField from "react-view-builder/model/IField";
+declare module 'react-declarative/fields/TextField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
     export interface ITextFieldProps<Data = IAnything> {
         inputType?: PickProp<IField<Data>, "inputType">;
         inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
@@ -1323,10 +1323,10 @@ declare module 'react-view-builder/fields/TextField' {
     export default _default;
 }
 
-declare module 'react-view-builder/fields/TypographyField' {
-    import IManaged, { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/fields/TypographyField' {
+    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface ITypographyFieldProps<Data = IAnything> {
         placeholder?: PickProp<IField<Data>, 'placeholder'>;
         typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
@@ -1346,8 +1346,8 @@ declare module 'react-view-builder/fields/TypographyField' {
     export default _default;
 }
 
-declare module 'react-view-builder/model/ISize' {
-    import IAnything from 'react-view-builder/model/IAnything';
+declare module 'react-declarative/model/ISize' {
+    import IAnything from 'react-declarative/model/IAnything';
     export interface ISize {
         height: number;
         width: number;
@@ -1356,10 +1356,10 @@ declare module 'react-view-builder/model/ISize' {
     export default ISize;
 }
 
-declare module 'react-view-builder/components/One' {
-    import TypedField from 'react-view-builder/model/TypedField';
-    import IOneProps from 'react-view-builder/model/IOneProps';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/components/One' {
+    import TypedField from 'react-declarative/model/TypedField';
+    import IOneProps from 'react-declarative/model/IOneProps';
+    import IField from 'react-declarative/model/IField';
     export const One: {
         <Data extends unknown = any>(props: IOneProps<Data, IField<Data>>): JSX.Element;
         displayName: string;
@@ -1375,25 +1375,25 @@ declare module 'react-view-builder/components/One' {
     export default One;
 }
 
-declare module 'react-view-builder/components/List' {
-    export * from "react-view-builder/components/List/List";
-    export { useProps as useListProps } from 'react-view-builder/components/List/components/PropProvider';
-    export { default } from "react-view-builder/components/List/List";
+declare module 'react-declarative/components/List' {
+    export * from "react-declarative/components/List/List";
+    export { useProps as useListProps } from 'react-declarative/components/List/components/PropProvider';
+    export { default } from "react-declarative/components/List/List";
 }
 
-declare module 'react-view-builder/components/Scaffold' {
-    export * from "react-view-builder/components/Scaffold/Scaffold";
-    export { default } from "react-view-builder/components/Scaffold/Scaffold";
+declare module 'react-declarative/components/Scaffold' {
+    export * from "react-declarative/components/Scaffold/Scaffold";
+    export { default } from "react-declarative/components/Scaffold/Scaffold";
 }
 
-declare module 'react-view-builder/components/SlotFactory' {
-    export * from 'react-view-builder/components/SlotFactory/SlotFactory';
-    export * from 'react-view-builder/components/SlotFactory/SlotContext';
-    export * from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
-    export { default } from 'react-view-builder/components/SlotFactory/SlotFactory';
+declare module 'react-declarative/components/SlotFactory' {
+    export * from 'react-declarative/components/SlotFactory/SlotFactory';
+    export * from 'react-declarative/components/SlotFactory/SlotContext';
+    export * from 'react-declarative/components/SlotFactory/ISlotFactoryContext';
+    export { default } from 'react-declarative/components/SlotFactory/SlotFactory';
 }
 
-declare module 'react-view-builder/components/hooks/useDate' {
+declare module 'react-declarative/components/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useDate: () => () => {
@@ -1402,7 +1402,7 @@ declare module 'react-view-builder/components/hooks/useDate' {
     export default useDate;
 }
 
-declare module 'react-view-builder/components/hooks/useTime' {
+declare module 'react-declarative/components/hooks/useTime' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useTime: () => () => {
@@ -1411,11 +1411,11 @@ declare module 'react-view-builder/components/hooks/useTime' {
     export default useTime;
 }
 
-declare module 'react-view-builder/components/hooks/useOne' {
-    import IField from 'react-view-builder/model/IField';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import TypedField from 'react-view-builder/model/TypedField';
-    import { OneHandler } from 'react-view-builder/model/IOneProps';
+declare module 'react-declarative/components/hooks/useOne' {
+    import IField from 'react-declarative/model/IField';
+    import IAnything from 'react-declarative/model/IAnything';
+    import TypedField from 'react-declarative/model/TypedField';
+    import { OneHandler } from 'react-declarative/model/IOneProps';
     type Fn<Data = IAnything> = (d: Data | null) => void;
     interface IParams<Data extends IAnything = IAnything, Field = IField<Data>> {
         fields: Field[];
@@ -1431,14 +1431,14 @@ declare module 'react-view-builder/components/hooks/useOne' {
     export default useOne;
 }
 
-declare module 'react-view-builder/components/hooks/useList' {
-    import IField from 'react-view-builder/model/IField';
-    import IColumn from 'react-view-builder/model/IColumn';
-    import IRowData from 'react-view-builder/model/IRowData';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import TypedField from 'react-view-builder/model/TypedField';
-    import { ListHandler } from 'react-view-builder/model/IListProps';
-    import SelectionMode from 'react-view-builder/model/SelectionMode';
+declare module 'react-declarative/components/hooks/useList' {
+    import IField from 'react-declarative/model/IField';
+    import IColumn from 'react-declarative/model/IColumn';
+    import IRowData from 'react-declarative/model/IRowData';
+    import IAnything from 'react-declarative/model/IAnything';
+    import TypedField from 'react-declarative/model/TypedField';
+    import { ListHandler } from 'react-declarative/model/IListProps';
+    import SelectionMode from 'react-declarative/model/SelectionMode';
     type Fn<Data = IAnything> = (d: Data[] | null) => void;
     interface IParams<RowData extends IRowData = IAnything, FilterData extends IAnything = IAnything, Field extends IField = IField<FilterData>> {
         handler: ListHandler<RowData>;
@@ -1458,7 +1458,7 @@ declare module 'react-view-builder/components/hooks/useList' {
     export default useList;
 }
 
-declare module 'react-view-builder/components/hooks/useConfirm' {
+declare module 'react-declarative/components/hooks/useConfirm' {
     type Fn = (result: boolean) => void;
     interface IParams {
         title?: string;
@@ -1470,188 +1470,188 @@ declare module 'react-view-builder/components/hooks/useConfirm' {
     export default useConfirm;
 }
 
-declare module 'react-view-builder/components/common/ModalProvider' {
-    export * from 'react-view-builder/components/common/ModalProvider/ModalProvider';
-    export { default } from 'react-view-builder/components/common/ModalProvider/ModalProvider';
+declare module 'react-declarative/components/common/ModalProvider' {
+    export * from 'react-declarative/components/common/ModalProvider/ModalProvider';
+    export { default } from 'react-declarative/components/common/ModalProvider/ModalProvider';
 }
 
-declare module 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot' {
-    import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-view-builder/fields/CheckboxField";
+declare module 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot' {
+    import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-declarative/fields/CheckboxField";
     export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate {
     }
     export default ICheckBoxSlot;
 }
 
-declare module 'react-view-builder/slots/CheckBoxSlot/CheckBoxSlot' {
-    import ICheckBoxSlot from 'react-view-builder/slots/CheckBoxSlot/ICheckBoxSlot';
+declare module 'react-declarative/slots/CheckBoxSlot/CheckBoxSlot' {
+    import ICheckBoxSlot from 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot';
     export const CheckBoxSlot: (props: ICheckBoxSlot) => JSX.Element;
     export default CheckBoxSlot;
 }
 
-declare module 'react-view-builder/slots/ComboSlot/IComboSlot' {
-    import { IComboFieldPrivate, IComboFieldProps } from "react-view-builder/fields/ComboField";
+declare module 'react-declarative/slots/ComboSlot/IComboSlot' {
+    import { IComboFieldPrivate, IComboFieldProps } from "react-declarative/fields/ComboField";
     export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate {
     }
     export default IComboSlot;
 }
 
-declare module 'react-view-builder/slots/ComboSlot/ComboSlot' {
-    import IComboSlot from 'react-view-builder/slots/ComboSlot/IComboSlot';
+declare module 'react-declarative/slots/ComboSlot/ComboSlot' {
+    import IComboSlot from 'react-declarative/slots/ComboSlot/IComboSlot';
     export const ComboSlot: (props: IComboSlot) => JSX.Element;
     export default ComboSlot;
 }
 
-declare module 'react-view-builder/slots/ItemsSlot/IItemsSlot' {
-    import { IItemsFieldPrivate, IItemsFieldProps } from "react-view-builder/fields/ItemsField";
+declare module 'react-declarative/slots/ItemsSlot/IItemsSlot' {
+    import { IItemsFieldPrivate, IItemsFieldProps } from "react-declarative/fields/ItemsField";
     export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {
     }
     export default IItemsSlot;
 }
 
-declare module 'react-view-builder/slots/ItemsSlot/ItemsSlot' {
-    import IItemsSlot from 'react-view-builder/slots/ItemsSlot/IItemsSlot';
+declare module 'react-declarative/slots/ItemsSlot/ItemsSlot' {
+    import IItemsSlot from 'react-declarative/slots/ItemsSlot/IItemsSlot';
     export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
     export default ItemsSlot;
 }
 
-declare module 'react-view-builder/slots/LineSlot/ILineSlot' {
-    import { ILineFieldProps } from "react-view-builder/fields/LineField";
+declare module 'react-declarative/slots/LineSlot/ILineSlot' {
+    import { ILineFieldProps } from "react-declarative/fields/LineField";
     export interface ILineSlot extends ILineFieldProps {
     }
     export default ILineSlot;
 }
 
-declare module 'react-view-builder/slots/LineSlot/LineSlot' {
-    import ILineSlot from 'react-view-builder/slots/LineSlot/ILineSlot';
+declare module 'react-declarative/slots/LineSlot/LineSlot' {
+    import ILineSlot from 'react-declarative/slots/LineSlot/ILineSlot';
     export const LineSlot: (props: ILineSlot) => JSX.Element;
     export default LineSlot;
 }
 
-declare module 'react-view-builder/slots/ProgressSlot/IProgressSlot' {
-    import { IProgressFieldProps, IProgressFieldPrivate } from "react-view-builder/fields/ProgressField";
+declare module 'react-declarative/slots/ProgressSlot/IProgressSlot' {
+    import { IProgressFieldProps, IProgressFieldPrivate } from "react-declarative/fields/ProgressField";
     export interface IProgressSlot extends IProgressFieldProps, IProgressFieldPrivate {
     }
     export default IProgressSlot;
 }
 
-declare module 'react-view-builder/slots/ProgressSlot/ProgressSlot' {
-    import IProgressSlot from 'react-view-builder/slots/ProgressSlot/IProgressSlot';
+declare module 'react-declarative/slots/ProgressSlot/ProgressSlot' {
+    import IProgressSlot from 'react-declarative/slots/ProgressSlot/IProgressSlot';
     export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
     export default ProgressSlot;
 }
 
-declare module 'react-view-builder/slots/RadioSlot/IRadioSlot' {
-    import { IRadioFieldPrivate, IRadioFieldProps } from "react-view-builder/fields/RadioField";
+declare module 'react-declarative/slots/RadioSlot/IRadioSlot' {
+    import { IRadioFieldPrivate, IRadioFieldProps } from "react-declarative/fields/RadioField";
     export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate {
     }
     export default IRadioSlot;
 }
 
-declare module 'react-view-builder/slots/RadioSlot/RadioSlot' {
-    import IRadioSlot from 'react-view-builder/slots/RadioSlot/IRadioSlot';
+declare module 'react-declarative/slots/RadioSlot/RadioSlot' {
+    import IRadioSlot from 'react-declarative/slots/RadioSlot/IRadioSlot';
     export const RadioSlot: (props: IRadioSlot) => JSX.Element;
     export default RadioSlot;
 }
 
-declare module 'react-view-builder/slots/RatingSlot/IRatingSlot' {
-    import { IRatingFieldProps, IRatingFieldPrivate } from "react-view-builder/fields/RatingField";
+declare module 'react-declarative/slots/RatingSlot/IRatingSlot' {
+    import { IRatingFieldProps, IRatingFieldPrivate } from "react-declarative/fields/RatingField";
     export interface IRatingSlot extends IRatingFieldProps, IRatingFieldPrivate {
     }
     export default IRatingSlot;
 }
 
-declare module 'react-view-builder/slots/RatingSlot/RatingSlot' {
-    import IRatingSlot from 'react-view-builder/slots/RatingSlot/IRatingSlot';
+declare module 'react-declarative/slots/RatingSlot/RatingSlot' {
+    import IRatingSlot from 'react-declarative/slots/RatingSlot/IRatingSlot';
     export const RatingSlot: (props: IRatingSlot) => JSX.Element;
     export default RatingSlot;
 }
 
-declare module 'react-view-builder/slots/SliderSlot/ISliderSlot' {
-    import { ISliderFieldPrivate, ISliderFieldProps } from "react-view-builder/fields/SliderField";
+declare module 'react-declarative/slots/SliderSlot/ISliderSlot' {
+    import { ISliderFieldPrivate, ISliderFieldProps } from "react-declarative/fields/SliderField";
     export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {
     }
     export default ISliderSlot;
 }
 
-declare module 'react-view-builder/slots/SliderSlot/SliderSlot' {
-    import ISliderSlot from 'react-view-builder/slots/SliderSlot/ISliderSlot';
+declare module 'react-declarative/slots/SliderSlot/SliderSlot' {
+    import ISliderSlot from 'react-declarative/slots/SliderSlot/ISliderSlot';
     export const SliderSlot: (props: ISliderSlot) => JSX.Element;
     export default SliderSlot;
 }
 
-declare module 'react-view-builder/slots/SwitchSlot/ISwitchSlot' {
-    import { ISwitchFieldPrivate, ISwitchFieldProps } from "react-view-builder/fields/SwitchField";
+declare module 'react-declarative/slots/SwitchSlot/ISwitchSlot' {
+    import { ISwitchFieldPrivate, ISwitchFieldProps } from "react-declarative/fields/SwitchField";
     export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {
     }
     export default ISwitchSlot;
 }
 
-declare module 'react-view-builder/slots/SwitchSlot/SwitchSlot' {
-    import ISwitchSlot from 'react-view-builder/slots/SwitchSlot/ISwitchSlot';
+declare module 'react-declarative/slots/SwitchSlot/SwitchSlot' {
+    import ISwitchSlot from 'react-declarative/slots/SwitchSlot/ISwitchSlot';
     export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
     export default SwitchSlot;
 }
 
-declare module 'react-view-builder/slots/TextSlot/ITextSlot' {
-    import { ITextFieldProps, ITextFieldPrivate } from "react-view-builder/fields/TextField";
+declare module 'react-declarative/slots/TextSlot/ITextSlot' {
+    import { ITextFieldProps, ITextFieldPrivate } from "react-declarative/fields/TextField";
     export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate {
     }
     export default ITextSlot;
 }
 
-declare module 'react-view-builder/slots/TextSlot/TextSlot' {
-    import ITextSlot from 'react-view-builder/slots/TextSlot/ITextSlot';
+declare module 'react-declarative/slots/TextSlot/TextSlot' {
+    import ITextSlot from 'react-declarative/slots/TextSlot/ITextSlot';
     export const TypographySlot: (props: ITextSlot) => JSX.Element;
     export default TypographySlot;
 }
 
-declare module 'react-view-builder/slots/TypographySlot/ITypographySlot' {
-    import { ITypographyFieldPrivate, ITypographyFieldProps } from "react-view-builder/fields/TypographyField";
+declare module 'react-declarative/slots/TypographySlot/ITypographySlot' {
+    import { ITypographyFieldPrivate, ITypographyFieldProps } from "react-declarative/fields/TypographyField";
     export interface ITypographySlot extends ITypographyFieldProps, ITypographyFieldPrivate {
     }
     export default ITypographySlot;
 }
 
-declare module 'react-view-builder/slots/TypographySlot/TypographySlot' {
-    import ITypographySlot from 'react-view-builder/slots/TypographySlot/ITypographySlot';
+declare module 'react-declarative/slots/TypographySlot/TypographySlot' {
+    import ITypographySlot from 'react-declarative/slots/TypographySlot/ITypographySlot';
     export const TypographySlot: (props: ITypographySlot) => JSX.Element;
     export default TypographySlot;
 }
 
-declare module 'react-view-builder/components/common/Group' {
-    export * from 'react-view-builder/components/common/Group/Group';
-    export { default } from 'react-view-builder/components/common/Group/Group';
+declare module 'react-declarative/components/common/Group' {
+    export * from 'react-declarative/components/common/Group/Group';
+    export { default } from 'react-declarative/components/common/Group/Group';
 }
 
-declare module 'react-view-builder/components/common/Paper' {
-    export * from 'react-view-builder/components/common/Paper/Paper';
-    export { default } from 'react-view-builder/components/common/Paper/Paper';
+declare module 'react-declarative/components/common/Paper' {
+    export * from 'react-declarative/components/common/Paper/Paper';
+    export { default } from 'react-declarative/components/common/Paper/Paper';
 }
 
-declare module 'react-view-builder/components/common/Expansion' {
-    export * from 'react-view-builder/components/common/Expansion/Expansion';
-    export { default } from 'react-view-builder/components/common/Expansion/Expansion';
+declare module 'react-declarative/components/common/Expansion' {
+    export * from 'react-declarative/components/common/Expansion/Expansion';
+    export { default } from 'react-declarative/components/common/Expansion/Expansion';
 }
 
-declare module 'react-view-builder/components/List/List' {
-    import IListProps from 'react-view-builder/model/IListProps';
-    import TypedField from 'react-view-builder/model/TypedField';
-    import IRowData from 'react-view-builder/model/IRowData';
-    import IField from 'react-view-builder/model/IField';
+declare module 'react-declarative/components/List/List' {
+    import IListProps from 'react-declarative/model/IListProps';
+    import TypedField from 'react-declarative/model/TypedField';
+    import IRowData from 'react-declarative/model/IRowData';
+    import IField from 'react-declarative/model/IField';
     export const ListInternal: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>, ref: any) => JSX.Element;
     export const List: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>, ref: any) => JSX.Element;
     export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
     export default List;
 }
 
-declare module 'react-view-builder/components/List/components/PropProvider' {
-    export * from 'react-view-builder/components/List/components/PropProvider/PropProvider';
-    export { default } from 'react-view-builder/components/List/components/PropProvider/PropProvider';
+declare module 'react-declarative/components/List/components/PropProvider' {
+    export * from 'react-declarative/components/List/components/PropProvider/PropProvider';
+    export { default } from 'react-declarative/components/List/components/PropProvider/PropProvider';
 }
 
-declare module 'react-view-builder/components/Scaffold/Scaffold' {
+declare module 'react-declarative/components/Scaffold/Scaffold' {
     import * as React from "react";
-    import IMenuGroup from "react-view-builder/model/IMenuGroup";
+    import IMenuGroup from "react-declarative/model/IMenuGroup";
     interface IScaffoldProps {
         children: React.ReactChild;
         className?: string;
@@ -1669,9 +1669,9 @@ declare module 'react-view-builder/components/Scaffold/Scaffold' {
     export default Scaffold;
 }
 
-declare module 'react-view-builder/components/SlotFactory/SlotFactory' {
+declare module 'react-declarative/components/SlotFactory/SlotFactory' {
     import * as React from 'react';
-    import ISlotFactoryContext from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
+    import ISlotFactoryContext from 'react-declarative/components/SlotFactory/ISlotFactoryContext';
     interface ISlotFactoryProps extends ISlotFactoryContext {
         children: React.ReactNode;
     }
@@ -1679,8 +1679,8 @@ declare module 'react-view-builder/components/SlotFactory/SlotFactory' {
     export default SlotFactory;
 }
 
-declare module 'react-view-builder/components/SlotFactory/SlotContext' {
-    import ISlotFactoryContext from 'react-view-builder/components/SlotFactory/ISlotFactoryContext';
+declare module 'react-declarative/components/SlotFactory/SlotContext' {
+    import ISlotFactoryContext from 'react-declarative/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../../slots/CheckBoxSlot").ICheckBoxSlot) => JSX.Element;
         Combo: ({ value, disabled, description, placeholder, outlined, itemList, title, dirty, invalid, tr, onChange, }: import("../../slots/ComboSlot").IComboSlot) => JSX.Element;
@@ -1698,19 +1698,19 @@ declare module 'react-view-builder/components/SlotFactory/SlotContext' {
     export default SlotContext;
 }
 
-declare module 'react-view-builder/components/SlotFactory/ISlotFactoryContext' {
+declare module 'react-declarative/components/SlotFactory/ISlotFactoryContext' {
     import { ComponentType } from 'react';
-    import { IProgressSlot } from 'react-view-builder/slots/ProgressSlot';
-    import { ICheckBoxSlot } from 'react-view-builder/slots/CheckBoxSlot';
-    import { IItemsSlot } from 'react-view-builder/slots/ItemsSlot';
-    import { IComboSlot } from 'react-view-builder/slots/ComboSlot';
-    import { ILineSlot } from 'react-view-builder/slots/LineSlot';
-    import { IRadioSlot } from 'react-view-builder/slots/RadioSlot';
-    import { IRatingSlot } from 'react-view-builder/slots/RatingSlot';
-    import { ITypographySlot } from 'react-view-builder/slots/TypographySlot';
-    import { ITextSlot } from 'react-view-builder/slots/TextSlot';
-    import { ISwitchSlot } from 'react-view-builder/slots/SwitchSlot';
-    import { ISliderSlot } from 'react-view-builder/slots/SliderSlot';
+    import { IProgressSlot } from 'react-declarative/slots/ProgressSlot';
+    import { ICheckBoxSlot } from 'react-declarative/slots/CheckBoxSlot';
+    import { IItemsSlot } from 'react-declarative/slots/ItemsSlot';
+    import { IComboSlot } from 'react-declarative/slots/ComboSlot';
+    import { ILineSlot } from 'react-declarative/slots/LineSlot';
+    import { IRadioSlot } from 'react-declarative/slots/RadioSlot';
+    import { IRatingSlot } from 'react-declarative/slots/RatingSlot';
+    import { ITypographySlot } from 'react-declarative/slots/TypographySlot';
+    import { ITextSlot } from 'react-declarative/slots/TextSlot';
+    import { ISwitchSlot } from 'react-declarative/slots/SwitchSlot';
+    import { ISliderSlot } from 'react-declarative/slots/SliderSlot';
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
@@ -1727,17 +1727,17 @@ declare module 'react-view-builder/components/SlotFactory/ISlotFactoryContext' {
     export default ISlotFactoryContext;
 }
 
-declare module 'react-view-builder/components/common/ModalProvider/ModalProvider' {
+declare module 'react-declarative/components/common/ModalProvider/ModalProvider' {
     import { ModalProvider } from 'react-modal-hook';
     export { ModalProvider };
     export default ModalProvider;
 }
 
-declare module 'react-view-builder/components/common/Group/Group' {
+declare module 'react-declarative/components/common/Group/Group' {
     import * as React from "react";
-    import { IManagedLayout, PickProp } from "react-view-builder/model/IManaged";
-    import IAnything from "react-view-builder/model/IAnything";
-    import IField from "react-view-builder/model/IField";
+    import { IManagedLayout, PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
     export interface IGroupProps<Data = IAnything> extends IManagedLayout {
         style?: PickProp<IField<Data>, 'style'>;
         className?: PickProp<IField<Data>, 'className'>;
@@ -1755,11 +1755,11 @@ declare module 'react-view-builder/components/common/Group/Group' {
     export default _default;
 }
 
-declare module 'react-view-builder/components/common/Paper/Paper' {
+declare module 'react-declarative/components/common/Paper/Paper' {
     import * as React from 'react';
-    import { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface IPaperProps<Data = IAnything> {
         className?: PickProp<IField<Data>, 'className'>;
         style?: PickProp<IField<Data>, 'style'>;
@@ -1774,11 +1774,11 @@ declare module 'react-view-builder/components/common/Paper/Paper' {
     export default Paper;
 }
 
-declare module 'react-view-builder/components/common/Expansion/Expansion' {
+declare module 'react-declarative/components/common/Expansion/Expansion' {
     import * as React from 'react';
-    import { PickProp } from 'react-view-builder/model/IManaged';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
     export interface IExpansionProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
         style?: PickProp<IField<Data>, 'style'>;
@@ -1795,12 +1795,12 @@ declare module 'react-view-builder/components/common/Expansion/Expansion' {
     export default Expansion;
 }
 
-declare module 'react-view-builder/components/List/components/PropProvider/PropProvider' {
+declare module 'react-declarative/components/List/components/PropProvider/PropProvider' {
     import * as React from 'react';
-    import IListProps, { IListState } from 'react-view-builder/model/IListProps';
-    import IAnything from 'react-view-builder/model/IAnything';
-    import IField from 'react-view-builder/model/IField';
-    import IRowData from 'react-view-builder/model/IRowData';
+    import IListProps, { IListState } from 'react-declarative/model/IListProps';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
+    import IRowData from 'react-declarative/model/IRowData';
     interface IPropContext<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends IListProps<FilterData, RowData, Field>, IListState<FilterData, RowData> {
         children: React.ReactChild;
     }

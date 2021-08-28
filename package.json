@@ -1,5 +1,5 @@
 {
-    "name": "@tripolskypetr/react-view-builder",
+    "name": "react-declarative",
     "version": "1.5.6",
     "description": "A React form builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (IntelliSense available). This tool is based on material-ui components, so your application will look beautiful on any device...",
     "private": false,
@@ -13,7 +13,7 @@
         "url": "http://paypal.me/tripolskypetr"
     },
     "license": "MIT",
-    "homepage": "https://theonekit.com",
+    "homepage": "https://react-declarative.com",
     "keywords": [
         "react",
         "typescript",
@@ -33,7 +33,7 @@
         "code-autocomplete",
         "form-builder"
     ],
-    "repository": "https://github.com/tripolskypetr/react-view-builder",
+    "repository": "https://github.com/react-declarative/react-declarative",
     "main": "dist/index.js",
     "module": "dist/index.modern.js",
     "source": "src/index.ts",

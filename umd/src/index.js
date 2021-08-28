@@ -1,1 +1,1 @@
-exports.viewBuilder = require("react-view-builder");
+exports.declarative = require("react-declarative");

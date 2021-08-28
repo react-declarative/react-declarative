@@ -1,5 +1,5 @@
 
-/// <reference path="./react-view-builder.d.ts"/>
+/// <reference path="./react-declarative.d.ts"/>
 
 import {
     One as OneDefault,
@@ -7,7 +7,7 @@ import {
     FieldType as FieldTypeDefault,
     IField as  IFieldDefault,
     TypedField as TypedFieldDefault
-} from 'react-view-builder';
+} from 'react-declarative';
 
 declare global {
 

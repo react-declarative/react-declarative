@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Add, Remove } from '@material-ui/icons';
 
-import { OneTyped, FieldType, TypedField } from 'react-view-builder';
+import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
 import Logger from '../components/Logger';
 

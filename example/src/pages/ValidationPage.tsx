@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import { Email } from '@material-ui/icons';
 
-import { OneTyped, FieldType, TypedField } from 'react-view-builder';
+import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
 import Breadcrumbs from '../components/Breadcrumbs';
 import Logger from '../components/Logger';

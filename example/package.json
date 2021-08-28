@@ -1,5 +1,5 @@
 {
-  "name": "react-view-builder-example",
+  "name": "react-declarative-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -25,7 +25,7 @@
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-scripts": "file:../node_modules/react-scripts",
-    "react-view-builder": "file:..",
+    "react-declarative": "file:..",
     "typescript": "file:../node_modules/typescript"
   },
   "devDependencies": {

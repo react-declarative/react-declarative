@@ -9,7 +9,7 @@ import {
   IListAction,
   ActionType,
   ColumnType,
-} from 'react-view-builder';
+} from 'react-declarative';
 
 import Delete from '@material-ui/icons/Delete';
 import Add from '@material-ui/icons/Add';

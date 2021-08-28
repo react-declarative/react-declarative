@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 
 import { Face } from '@material-ui/icons';
 
-import { TypedField, FieldType, OneTyped } from 'react-view-builder';
+import { TypedField, FieldType, OneTyped } from 'react-declarative';
 
 import Logger from '../components/Logger';
 

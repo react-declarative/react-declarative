@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { Scaffold, IMenuGroup } from 'react-view-builder';
+import { Scaffold, IMenuGroup } from 'react-declarative';
 
 import Router from './Router';
 

@@ -17,7 +17,7 @@ import {
   pickTimeFn,
   pickOneFn,
   pickListFn
-} from 'react-view-builder';
+} from 'react-declarative';
 
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import ListAlt from '@material-ui/icons/ListAlt';

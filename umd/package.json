@@ -1,10 +1,10 @@
 {
-    "name": "react-view-builder-umd",
+    "name": "react-declarative-umd",
     "scripts": {
         "build": "webpack-cli"
     },
     "dependencies": {
-        "react-view-builder": "file:.."
+        "react-declarative": "file:.."
     },
     "devDependencies": {
         "terser-webpack-plugin": "^5.1.1",
