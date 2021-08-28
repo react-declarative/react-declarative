@@ -6,8 +6,8 @@ function abs(subdir) {
 }
 
 fs.copyFileSync(
-    abs('./src/react-view-builder.d.ts'),
-    abs('./dist/react-view-builder.d.ts'),
+    abs('./src/react-declarative.d.ts'),
+    abs('./dist/react-declarative.d.ts'),
 );
 
 fs.copyFileSync(

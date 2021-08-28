@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }))),
 }), {
-  classNamePrefix: 'react-view-builder',
+  classNamePrefix: 'react-declarative',
   element: styleElement, 
 });
 

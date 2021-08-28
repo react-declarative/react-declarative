@@ -7,7 +7,7 @@ module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
   mode: 'production',
   output: {
-    filename: 'react-view-builder.min.js',
+    filename: 'react-declarative.min.js',
     path: path.resolve(__dirname, './dist'),
     library: 'viewBuilder',
     libraryTarget: 'umd',
