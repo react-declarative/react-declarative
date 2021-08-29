@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha, makeStyles } from '@material-ui/core';
 
 import classNames from '../../../../utils/classNames';
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    background: fade(
+    background: alpha(
       theme.palette.getContrastText(theme.palette.background.paper),
       0.05
     ),

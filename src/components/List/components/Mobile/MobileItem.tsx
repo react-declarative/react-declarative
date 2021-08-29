@@ -29,6 +29,7 @@ export const ROW_BOTTOM_MARGIN = 25;
 interface IMobileItemProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
+    limit: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {

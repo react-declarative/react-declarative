@@ -18,6 +18,8 @@ import {
     IMenuOption as IMenuOptionInternal,
 } from './model/IMenuGroup';
 
+import { ListHandlerPagination as ListHandlerPaginationInternal } from './model/IListProps';
+import { ListHandlerResult as ListHandlerResultInternal } from './model/IListProps';
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
@@ -42,7 +44,10 @@ export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
+export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
+
+export type ListHandlerPagination = ListHandlerPaginationInternal;
 
 export type IListAction = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;

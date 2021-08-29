@@ -9,12 +9,13 @@ import {
   IListAction,
   ActionType,
   ColumnType,
+  ListHandlerPagination,
 } from 'react-declarative';
 
 import Delete from '@material-ui/icons/Delete';
 import Add from '@material-ui/icons/Add';
 
-import mock from './mock/list';
+import mock, { MOCK_TOTAL } from './mock/list';
 
 const filters: TypedField[] = [
   {
@@ -97,8 +98,14 @@ export const ListPage = () => {
   const handler = async ({
     firstName,
     lastName,
-  }: IFilterData) => {
+  }: IFilterData, {
+    limit,
+    offset,
+  }: ListHandlerPagination) => {
+
     let rows = await Promise.resolve(mock) as IRowData[];
+
+    rows = rows.slice(offset, limit + offset);
 
     if (firstName) {
       rows = rows.filter((row) => row.firstName.includes(firstName));
@@ -108,7 +115,10 @@ export const ListPage = () => {
       rows = rows.filter((row) => row.lastName.includes(lastName));
     }
 
-    return rows;
+    return {
+      rows,
+      total: MOCK_TOTAL,
+    };
   };
 
   const heightRequest = () => window.innerHeight - 100;

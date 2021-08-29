@@ -2,7 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import { useState, useLayoutEffect } from 'react';
 
-import IListProps, { IListState } from '../../model/IListProps';
+import IListProps, { IListState, ListHandlerResult } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
 import IRowData from '../../model/IRowData';
@@ -23,6 +23,12 @@ import PropProvider from './components/PropProvider';
 import randomString from '../../utils/randomString';
 import deepCompare from '../../utils/deepCompare';
 
+const DEFAULT_LIMIT = 50;
+
+/*
+ * TODO:
+ * https://github.com/mui-org/material-ui-x/pull/2117
+ */
 export const ListInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
@@ -32,6 +38,7 @@ export const ListInternal = <
   const {
     handler = () => [],
     fallback = () => null,
+    limit: defaultLimit = DEFAULT_LIMIT,
     filters = [],
     columns = [],
     actions = [],
@@ -44,17 +51,46 @@ export const ListInternal = <
     rows: [] as never,
     rowHeight: DEFAULT_ROW_HEIGHT,
     uniqueKey: randomString(),
+    limit: defaultLimit,
+    offset: 0,
+    total: null,
+    loading: false,
   });
+
+  const setLoading = (loading: boolean) => setState((prevState) => ({...prevState, loading}));
 
   const { isMobile } = state;
 
   const calcRowHeight = useHeightCalc<RowData>(columns);
 
+  const handleRows = async (filterData: FilterData): Promise<{
+    rows: RowData[];
+    total: number | null;
+  }> => {
+    const response: ListHandlerResult<RowData> = typeof handler === 'function'
+      ? (await Promise.resolve(handler(filterData, {
+        limit: state.limit,
+        offset: state.offset,
+      })))
+      : handler;
+    if (Array.isArray(response)) {
+      return {
+        rows: response,
+        total: null,
+      };
+    } else {
+      const { rows = [], total = null } = response || {};
+      return { rows, total };
+    }
+  };
+
   const handleFilter = async (filterData: FilterData) => {
+    setLoading(true);
     try {
-      const rows = typeof handler === 'function'
-        ? (await Promise.resolve(handler(filterData))) as RowData[]
-        : handler;
+      const {
+        rows,
+        total,
+      } = await handleRows(filterData);
       if (!deepCompare(rows, state.rows)) {
         const rowHeight = calcRowHeight(rows);
         setState((prevState) => ({
@@ -62,11 +98,14 @@ export const ListInternal = <
           initComplete: true,
           filterData,
           rows,
+          total,
           rowHeight,
         }));
       }
     } catch (e) {
       fallback(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -100,6 +139,32 @@ export const ListInternal = <
     }
   }, [ref, state]);
 
+  const handlePageChange = (page: number) => {
+    if (state.total !== null) {
+      setState((prevState) => ({
+        ...prevState,
+        offset: page * state.limit,
+      }));
+    }
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    if (state.total !== null) {
+      const newPage = Math.floor(state.offset / newLimit);
+      setState((prevState) => ({
+        ...prevState,
+        offset: newPage * newLimit,
+        limit: newLimit,
+      }));
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (state.total !== null) {
+      handleFilter(state.filterData);
+    }
+  }, [state.limit, state.offset]);
+
   return (
     <PropProvider {...{...props, ...state}}>
       {isMobile ? (
@@ -110,6 +175,8 @@ export const ListInternal = <
           filters={filters}
           columns={columns}
           actions={actions}
+          handlePageChange={handlePageChange}
+          handleLimitChange={handleLimitChange}
           handleDefault={handleDefault}
           handleFilter={handleFilter}
           ready={handleDefault}
@@ -122,9 +189,12 @@ export const ListInternal = <
           filters={filters}
           columns={columns}
           actions={actions}
+          handlePageChange={handlePageChange}
+          handleLimitChange={handleLimitChange}
           handleDefault={handleDefault}
           handleFilter={handleFilter}
           ready={handleDefault}
+          limit={state.limit}
         />
       )}
     </PropProvider>

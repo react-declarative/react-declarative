@@ -12,7 +12,9 @@ interface IPropContext<
     RowData extends IRowData = IAnything,
     Field extends IField = IField<FilterData>
 > extends
-    IListProps<FilterData, RowData, Field>,
+    Omit<IListProps<FilterData, RowData, Field>, keyof {
+        limit: never;
+    }>,
     IListState<FilterData, RowData> {
     children: React.ReactChild;
 }

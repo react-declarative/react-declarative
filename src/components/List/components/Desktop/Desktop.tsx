@@ -21,6 +21,7 @@ import useRowClickHandler from "./hooks/useRowClickHandler";
 interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
+    limit: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
@@ -45,9 +46,14 @@ export const Desktop = <
     heightRequest = (v) => v,
     widthRequest = (v) => v,
     handler = () => [],
+    limit,
+    total,
+    offset,
     rowHeight,
     filterData,
     handleFilter,
+    handlePageChange,
+    handleLimitChange,
     handleDefault,
     initComplete,
     rows,
@@ -86,6 +92,15 @@ export const Desktop = <
     ...gridProps
   } = otherProps;
 
+  const pagination: Record<string, unknown> = {
+    pageSize: limit,
+    ...(total !== null && {
+      rowCount: total,
+      page: Math.floor(offset / limit!),
+      paginationMode: "server",
+    }),
+  };
+
   return (
     <Container<FilterData, RowData>
       ref={handleRowClick}
@@ -94,6 +109,8 @@ export const Desktop = <
       {() => (
         <DataGrid
           {...gridProps}
+          {...pagination}
+          pagination
           disableSelectionOnClick
           checkboxSelection={selectionMode !== SelectionMode.None}
           columns={props.gridColumns || columns.map(createColumn)}
@@ -130,6 +147,8 @@ export const Desktop = <
             panel: panelProps,
           }}
           rowHeight={rowHeight}
+          onPageChange={({page}) => handlePageChange(page)}
+          onPageSizeChange={({pageSize}) => handleLimitChange(pageSize)}
         />
       )}
     </Container>

@@ -40,9 +40,19 @@ interface ComponentProps {
   panelProps?: any;
 }
 
+export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
+  rows: RowData[];
+  total: number;
+};
+
+export type ListHandlerPagination = {
+  limit: number;
+  offset: number;
+}
+
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
-  data?: FilterData
-) => Promise<RowData[]> | RowData[]);
+  data: FilterData, pagination: ListHandlerPagination
+) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
@@ -50,12 +60,18 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   isMobile: boolean;
   rows: RowData[];
   rowHeight: number;
+  limit: number;
+  offset: number;
+  total: number | null;
   uniqueKey: string;
+  loading: boolean;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: ListHandler<FilterData, RowData> | (() => void);
   handleFilter: (data: FilterData) => void;
+  handlePageChange: (page: number) => void;
+  handleLimitChange: (limit: number) => void;
   ready: () => void;
 };
 
@@ -70,6 +86,7 @@ export interface IListProps<
   title?: string;
   filterLabel?: string;
   actions?: IListAction[];
+  limit?: number;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   sortModel?: GridSortModel;
