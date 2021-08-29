@@ -93,8 +93,9 @@ export const Desktop = <
   } = otherProps;
 
   const pagination: Record<string, unknown> = {
-    pageSize: limit,
     ...(total !== null && {
+      pageSize: limit,
+      pagination: true,
       rowCount: total,
       page: Math.floor(offset / limit!),
       paginationMode: "server",
@@ -110,7 +111,6 @@ export const Desktop = <
         <DataGrid
           {...gridProps}
           {...pagination}
-          pagination
           disableSelectionOnClick
           checkboxSelection={selectionMode !== SelectionMode.None}
           columns={props.gridColumns || columns.map(createColumn)}
