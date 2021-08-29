@@ -6,7 +6,6 @@ import {
   GridColumns,
   GridSlotsComponent,
   GridSortModel,
-  GridSortModelParams,
 } from '@material-ui/data-grid';
 
 import ActionType from './ActionType';
@@ -48,10 +47,14 @@ export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] 
 export type ListHandlerPagination = {
   limit: number;
   offset: number;
-}
+};
+
+export type ListHandlerSortModel = GridSortModel;
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
-  data: FilterData, pagination: ListHandlerPagination
+  data: FilterData,
+  pagination: ListHandlerPagination,
+  sort: ListHandlerSortModel,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -65,10 +68,12 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   total: number | null;
   uniqueKey: string;
   loading: boolean;
+  sort: ListHandlerSortModel;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: ListHandler<FilterData, RowData> | (() => void);
+  handleSortModel: (sort: ListHandlerSortModel) => void;
   handleFilter: (data: FilterData) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
@@ -89,10 +94,9 @@ export interface IListProps<
   limit?: number;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
-  sortModel?: GridSortModel;
   onSelectedRows?: (rows: RowData[]) => void;
-  onSortModelChange?: (params?: GridSortModelParams) => void;
   onFilterChange?: (data: FilterData) => void;
+  onSortModelChange?: (sort: ListHandlerSortModel) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;

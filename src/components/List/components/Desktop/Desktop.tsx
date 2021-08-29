@@ -49,9 +49,11 @@ export const Desktop = <
     limit,
     total,
     offset,
+    sort,
     rowHeight,
     filterData,
     handleFilter,
+    handleSortModel,
     handlePageChange,
     handleLimitChange,
     handleDefault,
@@ -114,6 +116,7 @@ export const Desktop = <
           disableSelectionOnClick
           checkboxSelection={selectionMode !== SelectionMode.None}
           columns={props.gridColumns || columns.map(createColumn)}
+          sortModel={sort}
           rows={rows}
           components={{
             Header: Header || DefaultHeader,
@@ -147,8 +150,9 @@ export const Desktop = <
             panel: panelProps,
           }}
           rowHeight={rowHeight}
-          onPageChange={({page}) => handlePageChange(page)}
-          onPageSizeChange={({pageSize}) => handleLimitChange(pageSize)}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handleLimitChange}
+          onSortModelChange={handleSortModel}
         />
       )}
     </Container>

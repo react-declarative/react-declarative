@@ -135,7 +135,7 @@ export const Scaffold = ({
     const entry = { options: safeOptions };
     cleanupMenu(entry, allowed);
     return entry.options;
-  }, [filterText, currentRoles, currentRoles?.length]);
+  }, [filterText, currentRoles]);
 
   return (
     <>

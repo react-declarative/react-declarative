@@ -19,6 +19,7 @@ declare module 'react-declarative' {
     import { IOption as IOptionInternal } from 'react-declarative/model/IOption';
     import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-declarative/model/IMenuGroup';
     import { ListHandlerPagination as ListHandlerPaginationInternal } from 'react-declarative/model/IListProps';
+    import { ListHandlerSortModel as ListHandlerSortModelInternal } from 'react-declarative/model/IListProps';
     import { ListHandlerResult as ListHandlerResultInternal } from 'react-declarative/model/IListProps';
     import { ListHandler as ListHandlerInternal } from 'react-declarative/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-declarative/model/IOneProps';
@@ -40,6 +41,7 @@ declare module 'react-declarative' {
     export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
     export type ListHandlerPagination = ListHandlerPaginationInternal;
+    export type ListHandlerSortModel = ListHandlerSortModelInternal;
     export type IListAction = IListActionInternal;
     export type IMenuOption = IMenuOptionInternal;
     export type IMenuGroup = IMenuGroupInternal;
@@ -520,7 +522,7 @@ declare module 'react-declarative/model/IListApi' {
 
 declare module 'react-declarative/model/IListProps' {
     import { Ref } from 'react';
-    import { GridColumns, GridSlotsComponent, GridSortModel, GridSortModelParams } from '@material-ui/data-grid';
+    import { GridColumns, GridSlotsComponent, GridSortModel } from '@material-ui/data-grid';
     import ActionType from 'react-declarative/model/ActionType';
     import SelectionMode from 'react-declarative/model/SelectionMode';
     import IAnything from 'react-declarative/model/IAnything';
@@ -556,7 +558,8 @@ declare module 'react-declarative/model/IListProps' {
         limit: number;
         offset: number;
     };
-    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((data: FilterData, pagination: ListHandlerPagination) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
+    export type ListHandlerSortModel = GridSortModel;
+    export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((data: FilterData, pagination: ListHandlerPagination, sort: ListHandlerSortModel) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
     export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
         initComplete: boolean;
         filterData: FilterData;
@@ -568,9 +571,11 @@ declare module 'react-declarative/model/IListProps' {
         total: number | null;
         uniqueKey: string;
         loading: boolean;
+        sort: ListHandlerSortModel;
     }
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
         handleDefault: ListHandler<FilterData, RowData> | (() => void);
+        handleSortModel: (sort: ListHandlerSortModel) => void;
         handleFilter: (data: FilterData) => void;
         handlePageChange: (page: number) => void;
         handleLimitChange: (limit: number) => void;
@@ -586,10 +591,9 @@ declare module 'react-declarative/model/IListProps' {
         limit?: number;
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
-        sortModel?: GridSortModel;
         onSelectedRows?: (rows: RowData[]) => void;
-        onSortModelChange?: (params?: GridSortModelParams) => void;
         onFilterChange?: (data: FilterData) => void;
+        onSortModelChange?: (sort: ListHandlerSortModel) => void;
         onColumnMenuAction?: (action: string) => void;
         onRowAction?: (row: RowData, action: string) => void;
         onRowClick?: (row: RowData) => void;

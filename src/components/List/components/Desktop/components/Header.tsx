@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
 type IHeaderProps = GridColumnHeaderParams;
 
 export const Header = ({
-  colDef = {},
+  colDef,
 }: IHeaderProps) => {
   const classes = useStyles();
-  const { headerName } = colDef;
+  const { headerName } = colDef || {};
   return (
     <AutoSizer disableHeight className={classes.root}>
       {({ width, height }) => (

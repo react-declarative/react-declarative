@@ -19,6 +19,8 @@ import {
 } from './model/IMenuGroup';
 
 import { ListHandlerPagination as ListHandlerPaginationInternal } from './model/IListProps';
+import { ListHandlerSortModel as ListHandlerSortModelInternal } from './model/IListProps';
+
 import { ListHandlerResult as ListHandlerResultInternal } from './model/IListProps';
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
@@ -48,6 +50,7 @@ export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandle
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
 export type ListHandlerPagination = ListHandlerPaginationInternal;
+export type ListHandlerSortModel = ListHandlerSortModelInternal;
 
 export type IListAction = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;

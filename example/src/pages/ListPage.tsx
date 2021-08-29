@@ -10,6 +10,7 @@ import {
   ActionType,
   ColumnType,
   ListHandlerPagination,
+  ListHandlerSortModel,
 } from 'react-declarative';
 
 import Delete from '@material-ui/icons/Delete';
@@ -31,7 +32,7 @@ const filters: TypedField[] = [
 ];
 
 const columns: IColumn[] = [
-  { 
+  {
     type: ColumnType.Text,
     field: 'id',
     headerName: 'ID',
@@ -101,7 +102,10 @@ export const ListPage = () => {
   }: IFilterData, {
     limit,
     offset,
-  }: ListHandlerPagination) => {
+  }: ListHandlerPagination, sort: ListHandlerSortModel) => {
+
+    // TODO
+    console.log(sort);
 
     let rows = await Promise.resolve(mock) as IRowData[];
 
@@ -130,7 +134,7 @@ export const ListPage = () => {
   };
 
   const handleRowActionsClick = (row: any, action: string) => {
-    alert(JSON.stringify({row, action}, null, 2));
+    alert(JSON.stringify({ row, action }, null, 2));
   };
 
   const handleAction = (action: string) => {
@@ -138,7 +142,7 @@ export const ListPage = () => {
   };
 
   const handleClick = (row: any) => {
-    alert(JSON.stringify({row}, null, 2));
+    alert(JSON.stringify({ row }, null, 2));
   };
 
   return (
