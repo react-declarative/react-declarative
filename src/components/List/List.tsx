@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useCallback, useLayoutEffect } from 'react';
 
 import IListProps, { IListState, ListHandlerResult } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
@@ -84,7 +84,7 @@ export const ListInternal = <
     }
   };
 
-  const handleFilter = async (filterData: FilterData) => {
+  const handleFilter = async (filterData: FilterData, keepPagination = false) => {
     setLoading(true);
     try {
       const {
@@ -100,6 +100,9 @@ export const ListInternal = <
           rows,
           total,
           rowHeight,
+          ...(!keepPagination && {
+            offset: 0,
+          }),
         }));
       }
     } catch (e) {
@@ -109,7 +112,7 @@ export const ListInternal = <
     }
   };
 
-  const handleDefault = () => {
+  const handleDefault = useCallback(() => {
     const newData: Partial<FilterData> = {};
     deepFlat(filters)
       .filter(({ name }) => !!name)
@@ -117,9 +120,9 @@ export const ListInternal = <
         set(newData, name, initialValue(type));
       });
     handleFilter(newData as FilterData);
-  };
+  }, [filters]);
 
-  const handleReload = () => handleFilter(state.filterData);
+  const handleReload = useCallback(() => handleFilter(state.filterData, true), [state]);
 
   useLayoutEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
@@ -161,7 +164,7 @@ export const ListInternal = <
 
   useLayoutEffect(() => {
     if (state.total !== null) {
-      handleFilter(state.filterData);
+      handleReload();
     }
   }, [state.limit, state.offset]);
 

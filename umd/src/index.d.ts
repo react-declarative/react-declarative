@@ -11,7 +11,7 @@ import {
 
 declare global {
 
-    export namespace viewBuilder {
+    export namespace declarative {
         
         export const One = OneDefault;
         export const OneTyped = OneTypedDefault;
@@ -20,6 +20,6 @@ declare global {
         export type IField = IFieldDefault;
         export type TypedField = TypedFieldDefault;
 
-    } // namespace viewBuilder
+    } // namespace declarative
 
 } // declare global
