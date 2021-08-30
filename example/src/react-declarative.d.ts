@@ -61,6 +61,7 @@ declare module 'react-declarative' {
     export { ModalProvider } from 'react-declarative/components';
     export { Scaffold } from 'react-declarative/components';
     export { SlotFactory } from 'react-declarative/components';
+    export { Breadcrumbs } from 'react-declarative/components';
     export { useListProps } from 'react-declarative/components';
     export { useList, useListTyped };
     export { useOne, useOneTyped };
@@ -640,7 +641,7 @@ declare module 'react-declarative/model/IMenuGroup' {
 declare module 'react-declarative/model/IOneProps' {
     import IField from 'react-declarative/model/IField';
     import IAnything from 'react-declarative/model/IAnything';
-    export type OneHandler<Data = IAnything> = Data | (() => Data) | (() => Promise<Data>);
+    export type OneHandler<Data = IAnything> = Data | (() => Data | null) | (() => Promise<Data | null>);
     export interface IOneProps<Data = IAnything, Field = IField<Data>> {
             /**
                 * Позволяет загружать данные в компонент
@@ -694,6 +695,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/List';
     export * from 'react-declarative/components/Scaffold';
     export * from 'react-declarative/components/SlotFactory';
+    export * from 'react-declarative/components/Breadcrumbs';
     export * from 'react-declarative/components/hooks/useDate';
     export * from 'react-declarative/components/hooks/useTime';
     export * from 'react-declarative/components/hooks/useOne';
@@ -1417,6 +1419,11 @@ declare module 'react-declarative/components/SlotFactory' {
     export { default } from 'react-declarative/components/SlotFactory/SlotFactory';
 }
 
+declare module 'react-declarative/components/Breadcrumbs' {
+    export * from 'react-declarative/components/Breadcrumbs/Breadcrumbs';
+    export { default } from 'react-declarative/components/Breadcrumbs/Breadcrumbs';
+}
+
 declare module 'react-declarative/components/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
@@ -1748,6 +1755,18 @@ declare module 'react-declarative/components/SlotFactory/ISlotFactoryContext' {
         Slider: ComponentType<ISliderSlot>;
     }
     export default ISlotFactoryContext;
+}
+
+declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
+    interface IBreadcrumbsProps {
+        onSave?: () => void;
+        onBack?: () => void;
+        disabled?: boolean;
+        title?: string;
+        subtitle?: string;
+    }
+    export const Breadcrumbs: ({ onSave, onBack, disabled, title, subtitle, }: IBreadcrumbsProps) => JSX.Element;
+    export default Breadcrumbs;
 }
 
 declare module 'react-declarative/components/common/ModalProvider/ModalProvider' {

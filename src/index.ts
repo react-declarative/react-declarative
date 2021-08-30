@@ -77,6 +77,7 @@ export { List, ListTyped } from './components';
 export { ModalProvider } from './components';
 export { Scaffold } from './components';
 export { SlotFactory } from './components';
+export { Breadcrumbs } from './components';
 
 export { useListProps } from './components';
 
