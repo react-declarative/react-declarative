@@ -1663,7 +1663,7 @@ declare module 'react-declarative/components/List/List' {
     import IRowData from 'react-declarative/model/IRowData';
     import IField from 'react-declarative/model/IField';
     export const List: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<any>>(props: IListProps<FilterData, RowData, Field>, ref: any) => JSX.Element;
-    export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>) => JSX.Element;
+    export const ListTyped: <FilterData extends unknown = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData>>, ref: any) => JSX.Element;
     export default List;
 }
 

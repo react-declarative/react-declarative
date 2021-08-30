@@ -224,8 +224,9 @@ const ListTypedInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   >(
-    props: IListProps<FilterData, RowData, TypedField<FilterData>>
-  ) => <List<FilterData, RowData> {...props} />;
+    props: IListProps<FilterData, RowData, TypedField<FilterData>>,
+    ref: any
+  ) => <List<FilterData, RowData> ref={ref} {...props} />;
 
 export const ListTyped = forwardRef(ListTypedInternal) as typeof ListTypedInternal;
 
