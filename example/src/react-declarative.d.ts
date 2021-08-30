@@ -589,6 +589,7 @@ declare module 'react-declarative/model/IListProps' {
         filterLabel?: string;
         actions?: IListAction[];
         limit?: number;
+        sizeByParent?: boolean;
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
         onSelectedRows?: (rows: RowData[]) => void;

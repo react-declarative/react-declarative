@@ -89,6 +89,7 @@ export const AutoSizer = ({
 
     return () => {
       observer.unsubscribe(handlerD);
+      handlerD.clear();
     };
   }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize]);
 

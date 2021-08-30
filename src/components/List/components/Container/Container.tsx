@@ -77,8 +77,15 @@ export const Container = <
   ready,
   toggleFilters,
   onFilterChange,
+  sizeByParent = true,
 }: IContainerProps<FilterData, RowData>, ref: any) => {
   const classes = useStyles();
+
+  const sizer = {
+    ...(!sizeByParent && {
+      target: document.body,
+    })
+  };
 
   return (
     <AutoSizer
@@ -87,6 +94,7 @@ export const Container = <
       widthRequest={widthRequest}
       delay={AUTOSIZER_DELAY}
       style={style}
+      {...sizer}
     >
       {({ height, width }) => (
         <div ref={ref} style={{ height, width }} className={classes.container}>
