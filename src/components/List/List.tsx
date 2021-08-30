@@ -26,11 +26,7 @@ import objects from '../../utils/objects';
 
 const DEFAULT_LIMIT = 50;
 
-/*
- * TODO:
- * https://github.com/mui-org/material-ui-x/pull/2117
- */
-export const ListInternal = <
+const ListInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<IAnything>,
@@ -38,7 +34,7 @@ export const ListInternal = <
 
   const {
     handler = () => [],
-    fallback = () => null,
+    fallback = (e) => console.error(e),
     limit: defaultLimit = DEFAULT_LIMIT,
     filters = [],
     columns = [],
@@ -224,12 +220,14 @@ export const ListInternal = <
 
 export const List = forwardRef(ListInternal) as typeof ListInternal;
 
-export const ListTyped = <
+const ListTypedInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   >(
     props: IListProps<FilterData, RowData, TypedField<FilterData>>
   ) => <List<FilterData, RowData> {...props} />;
+
+export const ListTyped = forwardRef(ListTypedInternal) as typeof ListTypedInternal;
 
 (List as any).typed = ListTyped;
 
