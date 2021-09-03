@@ -1,6 +1,6 @@
 export interface ISwitchItem {
     path: string;
-    component: React.ComponentType;
+    component: React.ComponentType<any>;
     guard?: () => boolean;
 }
 

@@ -1,5 +1,5 @@
 export interface ISwitchState {
-    component: React.ComponentType;
+    component: React.ComponentType<any>;
     params: Record<string, unknown>;
 }
 

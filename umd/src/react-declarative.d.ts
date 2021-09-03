@@ -32,6 +32,8 @@ declare module 'react-declarative' {
     import { useList, useListTyped } from 'react-declarative/components';
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData from 'react-declarative/model/IRowData';
+    import ISwitchItemInternal from 'react-declarative/components/Switch/model/ISwitchItem';
+    export type ISwitchItem = ISwitchItemInternal;
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
@@ -717,6 +719,15 @@ declare module 'react-declarative/model/IRowData' {
         id: string | number;
     }
     export default IRowData;
+}
+
+declare module 'react-declarative/components/Switch/model/ISwitchItem' {
+    export interface ISwitchItem {
+        path: string;
+        component: React.ComponentType<any>;
+        guard?: () => boolean;
+    }
+    export default ISwitchItem;
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot' {
@@ -1877,14 +1888,5 @@ declare module 'react-declarative/components/Switch/model/ISwitchProps' {
         NotFound?: ComponentType;
     }
     export default ISwitchProps;
-}
-
-declare module 'react-declarative/components/Switch/model/ISwitchItem' {
-    export interface ISwitchItem {
-        path: string;
-        component: React.ComponentType;
-        guard?: () => boolean;
-    }
-    export default ISwitchItem;
 }
 

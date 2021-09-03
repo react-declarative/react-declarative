@@ -36,7 +36,7 @@ export const getItem = ({
       };
     }
     return acm;
-  });
+  }, null as unknown as ISwitchCurrent);
   return isOk ? (route as unknown as ISwitchCurrent) : null;
 };
 
