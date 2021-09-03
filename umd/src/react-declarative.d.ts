@@ -5,6 +5,7 @@
 //   ../@material-ui/data-grid
 //   ../@material-ui/core
 //   ../react-modal-hook
+//   ../history
 
 declare module 'react-declarative' {
     import { TypedField as TypedFieldInternal } from 'react-declarative/model/TypedField';
@@ -56,12 +57,13 @@ declare module 'react-declarative' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export { default as dayjs } from 'dayjs';
-    export { One, OneTyped } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
+    export { One, OneTyped } from 'react-declarative/components';
     export { ModalProvider } from 'react-declarative/components';
-    export { Scaffold } from 'react-declarative/components';
     export { SlotFactory } from 'react-declarative/components';
     export { Breadcrumbs } from 'react-declarative/components';
+    export { Scaffold } from 'react-declarative/components';
+    export { Switch } from 'react-declarative/components';
     export { useListProps } from 'react-declarative/components';
     export { useList, useListTyped };
     export { useOne, useOneTyped };
@@ -693,6 +695,7 @@ declare module 'react-declarative/config/i18n' {
 declare module 'react-declarative/components' {
     export * from 'react-declarative/components/One';
     export * from 'react-declarative/components/List';
+    export * from 'react-declarative/components/Switch';
     export * from 'react-declarative/components/Scaffold';
     export * from 'react-declarative/components/SlotFactory';
     export * from 'react-declarative/components/Breadcrumbs';
@@ -1407,6 +1410,11 @@ declare module 'react-declarative/components/List' {
     export { default } from "react-declarative/components/List/List";
 }
 
+declare module 'react-declarative/components/Switch' {
+    export * from 'react-declarative/components/Switch/Switch';
+    export { default } from 'react-declarative/components/Switch/Switch';
+}
+
 declare module 'react-declarative/components/Scaffold' {
     export * from "react-declarative/components/Scaffold/Scaffold";
     export { default } from "react-declarative/components/Scaffold/Scaffold";
@@ -1679,6 +1687,12 @@ declare module 'react-declarative/components/List/components/PropProvider' {
     export { default } from 'react-declarative/components/List/components/PropProvider/PropProvider';
 }
 
+declare module 'react-declarative/components/Switch/Switch' {
+    import ISwitchProps from 'react-declarative/components/Switch/model/ISwitchProps';
+    export const Switch: ({ items, history, NotFound, }: ISwitchProps) => import("react").ReactElement<{}, string | ((props: any) => import("react").ReactElement<any, string | any | (new (props: any) => import("react").Component<any, any, any>)> | null) | (new (props: any) => import("react").Component<any, any, any>)>;
+    export default Switch;
+}
+
 declare module 'react-declarative/components/Scaffold/Scaffold' {
     import * as React from "react";
     import IMenuGroup from "react-declarative/model/IMenuGroup";
@@ -1851,5 +1865,26 @@ declare module 'react-declarative/components/List/components/PropProvider/PropPr
     export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;
     export const useProps: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>() => IPropContext<FilterData, RowData, Field>;
     export default PropProvider;
+}
+
+declare module 'react-declarative/components/Switch/model/ISwitchProps' {
+    import { BrowserHistory } from "history";
+    import { ComponentType } from "react";
+    import ISwitchItem from "react-declarative/components/Switch/model/ISwitchItem";
+    export interface ISwitchProps {
+        items: ISwitchItem[];
+        history?: BrowserHistory;
+        NotFound?: ComponentType;
+    }
+    export default ISwitchProps;
+}
+
+declare module 'react-declarative/components/Switch/model/ISwitchItem' {
+    export interface ISwitchItem {
+        path: string;
+        component: React.ComponentType;
+        guard?: () => boolean;
+    }
+    export default ISwitchItem;
 }
 

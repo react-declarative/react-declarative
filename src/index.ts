@@ -72,12 +72,14 @@ export type pickConfirmFn = ReturnType<typeof useConfirm>;
 
 export { default as dayjs } from 'dayjs';
 
-export { One, OneTyped } from './components';
 export { List, ListTyped } from './components';
+export { One, OneTyped } from './components';
+
 export { ModalProvider } from './components';
-export { Scaffold } from './components';
 export { SlotFactory } from './components';
 export { Breadcrumbs } from './components';
+export { Scaffold } from './components';
+export { Switch } from './components';
 
 export { useListProps } from './components';
 
