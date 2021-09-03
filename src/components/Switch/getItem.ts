@@ -13,14 +13,14 @@ export const getItem = ({
   items,
   url = '',
 }: IParams): ISwitchCurrent | null => {
-  const keys: Key[] = []
-  const params: Record<string, unknown> = {};
+  const keys: Key[] = [];
   let isOk = false;
   const route = items.reduce((acm: ISwitchItem, {
     component,
     path,
     guard = () => true,
   }) => {
+    const params: Record<string, unknown> = {};
     const reg = pathToRegexp(path, keys)
     const match = reg.test(url);
     if (match && guard()) {
