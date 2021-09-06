@@ -1,8 +1,10 @@
+import { Fragment } from "react";
+
 import { pathToRegexp } from "path-to-regexp";
 import { Key } from "path-to-regexp";
 
-import ISwitchCurrent from "./model/ISwitchCurrent";
 import ISwitchItem from "./model/ISwitchItem";
+import ISwitchState from "./model/ISwitchState";
 
 interface IParams {
   items: ISwitchItem[];
@@ -12,11 +14,12 @@ interface IParams {
 export const getItem = ({
   items,
   url = '',
-}: IParams): ISwitchCurrent | null => {
+}: IParams): ISwitchState | null => {
   const keys: Key[] = [];
   let isOk = false;
   const route = items.reduce((acm: ISwitchItem, {
-    component,
+    component = Fragment,
+    redirect,
     path,
     guard = () => true,
   }) => {
@@ -31,13 +34,14 @@ export const getItem = ({
       isOk = true;
       return {
         component,
+        redirect,
         path,
         params,
       };
     }
     return acm;
-  }, null as unknown as ISwitchCurrent);
-  return isOk ? (route as unknown as ISwitchCurrent) : null;
+  }, null as unknown as ISwitchItem);
+  return isOk ? (route as unknown as ISwitchState) : null;
 };
 
 export default getItem;

@@ -35,6 +35,7 @@ export const Switch = ({
       const { pathname: url } = location;
       const item = getItem({ items, url, });
       if (item) {
+        item.redirect && history.push(item.redirect);
         setState(item);
       } else {
         setState({
