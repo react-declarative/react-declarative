@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createElement } from 'react';
 
 import { Fragment } from 'react';
@@ -8,6 +8,8 @@ import { createBrowserHistory } from 'history';
 
 import ISwitchState from './model/ISwitchState';
 import ISwitchProps from './model/ISwitchProps';
+
+import randomString from '../../utils/randomString';
 
 import NotFoundDefault from './NotFound';
 
@@ -26,21 +28,26 @@ export const Switch = ({
   const {
     component = Fragment,
     params,
-  } = state || {};
+    key,
+  } = useMemo(() => state || {}, [state]);
 
   useEffect(() => {
     const handler = ({
       location,
     }: Update) => {
-      const { pathname: url } = location;
-      const item = getItem({ items, url, });
+      const { pathname: url, key = randomString() } = location;
+      const item = getItem({ items, url });
       if (item) {
-        item.redirect && history.push(item.redirect);
-        setState(item);
+        if (item.redirect) {
+          history.push(item.redirect);
+        } else {
+          setState({ ...item, key });
+        }
       } else {
         setState({
           component: NotFound,
           params: {},
+          key,
         });
       }
     };
@@ -49,7 +56,10 @@ export const Switch = ({
     return () => unsubscribe();
   }, [history]);
 
-  return createElement(component, params);
+  return createElement(component, {
+    ...params,
+    key,
+  });
 };
 
 export default Switch;
