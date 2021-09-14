@@ -725,7 +725,7 @@ declare module 'react-declarative/components/Switch/model/ISwitchItem' {
     export interface ISwitchItem {
         path: string;
         component?: React.ComponentType<any>;
-        guard?: () => boolean;
+        guard?: () => boolean | Promise<boolean>;
         redirect?: string;
     }
     export default ISwitchItem;
@@ -1701,7 +1701,7 @@ declare module 'react-declarative/components/List/components/PropProvider' {
 
 declare module 'react-declarative/components/Switch/Switch' {
     import ISwitchProps from 'react-declarative/components/Switch/model/ISwitchProps';
-    export const Switch: ({ items, history, NotFound, }: ISwitchProps) => import("react").ReactElement<any, string | ((props: any) => import("react").ReactElement<any, string | any | (new (props: any) => import("react").Component<any, any, any>)> | null) | (new (props: any) => import("react").Component<any, any, any>)>;
+    export const Switch: ({ items, fallback, history, NotFound, Loading, }: ISwitchProps) => import("react").ReactElement<any, string | ((props: any) => import("react").ReactElement<any, string | any | (new (props: any) => import("react").Component<any, any, any>)> | null) | (new (props: any) => import("react").Component<any, any, any>)>;
     export default Switch;
 }
 
@@ -1885,8 +1885,10 @@ declare module 'react-declarative/components/Switch/model/ISwitchProps' {
     import ISwitchItem from "react-declarative/components/Switch/model/ISwitchItem";
     export interface ISwitchProps {
         items: ISwitchItem[];
+        fallback?: (e: Error) => void;
         history?: BrowserHistory;
-        NotFound?: ComponentType;
+        NotFound?: ComponentType<any>;
+        Loading?: ComponentType<any>;
     }
     export default ISwitchProps;
 }

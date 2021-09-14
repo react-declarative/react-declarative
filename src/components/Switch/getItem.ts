@@ -6,42 +6,43 @@ import { Key } from "path-to-regexp";
 import ISwitchItem from "./model/ISwitchItem";
 import ISwitchState from "./model/ISwitchState";
 
+import randomString from "../../utils/randomString";
+
 interface IParams {
   items: ISwitchItem[];
   url?: string;
+  key?: string;
 }
 
-export const getItem = ({
+export const getItem = async ({
   items,
   url = '',
-}: IParams): ISwitchState | null => {
+  key = randomString(),
+}: IParams): Promise<ISwitchState | null> => {
   const keys: Key[] = [];
-  let isOk = false;
-  const route = items.reduce((acm: ISwitchItem, {
-    component = Fragment,
-    redirect,
-    path,
-    guard = () => true,
-  }) => {
+  let result: ISwitchState | null = null;
+  for (const { component = Fragment, redirect, path, guard = () => true } of items) {
     const params: Record<string, unknown> = {};
     const reg = pathToRegexp(path, keys)
     const match = reg.test(url);
-    if (match && guard()) {
-      const tokens = reg.exec(url);
-      tokens && keys.forEach((key, i) => {
-        params[key.name] = tokens[i + 1]
-      });
-      isOk = true;
-      return {
-        component,
-        redirect,
-        path,
-        params,
-      };
+    if (match) {
+      let canActivate: boolean | Promise<boolean> = guard();
+      canActivate = (canActivate as unknown) instanceof Promise ? (await canActivate) : canActivate;
+      if (canActivate) {
+        const tokens = reg.exec(url);
+        tokens && keys.forEach((key, i) => {
+          params[key.name] = tokens[i + 1]
+        });
+        result = {
+          component,
+          redirect,
+          params,
+          key,
+        };
+      }
     }
-    return acm;
-  }, null as unknown as ISwitchItem);
-  return isOk ? (route as unknown as ISwitchState) : null;
+  }
+  return result;
 };
 
 export default getItem;

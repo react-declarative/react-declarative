@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createElement } from 'react';
 
 import { Fragment } from 'react';
@@ -12,18 +12,23 @@ import ISwitchProps from './model/ISwitchProps';
 import randomString from '../../utils/randomString';
 
 import NotFoundDefault from './NotFound';
+import LoadingDefault from './Loading';
 
 import getItem from './getItem';
+import ISwitchItem from './model/ISwitchItem';
 
 const defaultHistory = createBrowserHistory();
 
 export const Switch = ({
   items = [],
+  fallback = () => null,
   history = defaultHistory,
   NotFound = NotFoundDefault,
+  Loading = LoadingDefault,
 }: ISwitchProps) => {
 
   const [state, setState] = useState<ISwitchState>(null as never);
+  const [loading, setLoading] = useState(false);
 
   const {
     component = Fragment,
@@ -31,17 +36,30 @@ export const Switch = ({
     key,
   } = useMemo(() => state || {}, [state]);
 
+  const handleItem = useCallback(async (items: ISwitchItem[], url: string, key: string) => {
+    let result: ISwitchState | null = null;
+    try {
+      setLoading(true);
+      result = await getItem({ items, url, key });
+    } catch (e) {
+      fallback(e as Error);
+    } finally {
+      setLoading(false);
+      return result;
+    }
+  }, [fallback]);
+
   useEffect(() => {
-    const handler = ({
+    const handler = async ({
       location,
     }: Update) => {
       const { pathname: url, key = randomString() } = location;
-      const item = getItem({ items, url });
+      const item = await handleItem(items, url, key);
       if (item) {
         if (item.redirect) {
           history.push(item.redirect);
         } else {
-          setState({ ...item, key });
+          setState(item);
         }
       } else {
         setState({
@@ -56,10 +74,14 @@ export const Switch = ({
     return () => unsubscribe();
   }, [history]);
 
-  return createElement(component, {
-    ...params,
-    key,
-  });
+  if (loading) {
+    return createElement(Loading);
+  } else {
+    return createElement(component, {
+      ...params,
+      key,
+    });
+  }
 };
 
 export default Switch;

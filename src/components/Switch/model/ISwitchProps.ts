@@ -5,8 +5,10 @@ import ISwitchItem from "./ISwitchItem";
 
 export interface ISwitchProps {
     items: ISwitchItem[];
+    fallback?: (e: Error) => void;
     history?: BrowserHistory;
-    NotFound?: ComponentType;
+    NotFound?: ComponentType<any>;
+    Loading?: ComponentType<any>;
 }
 
 export default ISwitchProps;

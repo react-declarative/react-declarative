@@ -74,7 +74,7 @@ export const useResolved = <Data = IAnything>({
                     }
                 } catch (e) {
                     if (fallback) {
-                        fallback(e);
+                        fallback(e as Error);
                     } else {
                         throw e;
                     }
