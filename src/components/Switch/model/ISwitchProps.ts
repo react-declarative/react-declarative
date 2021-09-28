@@ -7,6 +7,7 @@ export interface ISwitchProps {
     items: ISwitchItem[];
     fallback?: (e: Error) => void;
     history?: BrowserHistory;
+    Forbidden?: ComponentType<any>;
     NotFound?: ComponentType<any>;
     Loading?: ComponentType<any>;
 }

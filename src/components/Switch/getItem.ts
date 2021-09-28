@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, ComponentType } from "react";
 
 import { pathToRegexp } from "path-to-regexp";
 import { Key } from "path-to-regexp";
@@ -12,12 +12,14 @@ interface IParams {
   items: ISwitchItem[];
   url?: string;
   key?: string;
+  Forbidden?: ComponentType<any>;
 }
 
 export const getItem = async ({
   items,
   url = '',
   key = randomString(),
+  Forbidden = Fragment,
 }: IParams): Promise<ISwitchState | null> => {
   const keys: Key[] = [];
   let result: ISwitchState | null = null;
@@ -37,6 +39,12 @@ export const getItem = async ({
           component,
           redirect,
           params,
+          key,
+        };
+      } else {
+        result = {
+          component: Forbidden,
+          params: {},
           key,
         };
       }

@@ -11,6 +11,7 @@ import ISwitchProps from './model/ISwitchProps';
 
 import randomString from '../../utils/randomString';
 
+import ForbiddenDefault from './Forbidden';
 import NotFoundDefault from './NotFound';
 import LoadingDefault from './Loading';
 
@@ -23,6 +24,7 @@ export const Switch = ({
   items = [],
   fallback = () => null,
   history = defaultHistory,
+  Forbidden = ForbiddenDefault,
   NotFound = NotFoundDefault,
   Loading = LoadingDefault,
 }: ISwitchProps) => {
@@ -40,7 +42,7 @@ export const Switch = ({
     let result: ISwitchState | null = null;
     try {
       setLoading(true);
-      result = await getItem({ items, url, key });
+      result = await getItem({ items, url, key, Forbidden });
     } catch (e) {
       fallback(e as Error);
     } finally {
