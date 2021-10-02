@@ -86,6 +86,7 @@ interface IRowData {
   id: string;
   lastName: string;
   firstName: string;
+  color: string;
   age: string;
 }
 
@@ -160,6 +161,7 @@ export const ListPage = () => {
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
+      rowColor={row => row.color}
     />
   );
 };

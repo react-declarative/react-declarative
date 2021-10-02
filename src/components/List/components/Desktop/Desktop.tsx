@@ -1,12 +1,14 @@
 import * as React from "react";
+import { makeStyles } from '@material-ui/core';
+
+import classNames from "../../../../utils/classNames";
 
 import { DataGrid } from "@material-ui/data-grid";
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
+import SelectionMode from "../../../../model/SelectionMode";
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
-
-import SelectionMode from "../../../../model/SelectionMode";
 
 import Container from "../Container";
 
@@ -30,12 +32,34 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   rowHeight: number;
 }
 
+const useStyles = makeStyles({
+  dataGrid: {
+    '& .MuiDataGrid-row': {
+      position: 'relative',
+    },
+    '& .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator': {
+      display: 'none',
+    },
+  },
+  noCheckboxWidth: {
+    '& .MuiDataGrid-cellCheckbox, .MuiDataGrid-columnHeaderCheckbox': {
+      // width: '0 !important',
+      // maxWidth: '0 !important',
+      // minWidth: '0 !important',
+      '& .MuiDataGrid-columnSeparator': {
+        display: 'none',
+      },
+    },
+  },
+});
+
 export const Desktop = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
 >(props: IDesktopProps<FilterData, RowData>) => {
 
   const handleRowClick = useRowClickHandler();
+  const classes = useStyles();
 
   const {
     className,
@@ -113,8 +137,11 @@ export const Desktop = <
         <DataGrid
           {...gridProps}
           {...pagination}
+          className={classNames(classes.dataGrid, {
+            [classes.noCheckboxWidth]: !selectionMode || selectionMode === SelectionMode.None,
+          })}
           disableSelectionOnClick
-          checkboxSelection={selectionMode !== SelectionMode.None}
+          checkboxSelection
           columns={props.gridColumns || columns.map(createColumn)}
           sortModel={sort}
           rows={rows}

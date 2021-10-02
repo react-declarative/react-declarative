@@ -106,6 +106,7 @@ export interface IListProps<
   columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
+  rowColor?: ((row: RowData) => string) | string;
   fallback?: (e: Error) => void;
   rowActions?: IOption[];
   toggleFilters?: boolean;

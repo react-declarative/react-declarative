@@ -1,19 +1,35 @@
 import * as React from "react";
+import { makeStyles } from "@material-ui/core";
 import { useRef, useState, forwardRef } from "react";
 
 import MatCheckBox, { CheckboxProps } from "@material-ui/core/Checkbox";
 
+import SelectionMode from "../../../../../model/SelectionMode";
+
 import Radio from "@material-ui/core/Radio";
+import Box from "@material-ui/core/Box";
+
+import RowMark from "./RowMark";
 
 import { useGridSlotComponentProps } from "@material-ui/data-grid";
 import { useProps } from "../../PropProvider";
-
-import SelectionMode from "../../../../../model/SelectionMode";
 
 type ICheckBoxProps = CheckboxProps;
 
 const UNSET_ROW_ID = Symbol('unset-row-id');
 const GRID_ROW = ".MuiDataGrid-row[data-id]";
+
+const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 4,
+    },
+    hidden: {
+        display: 'none',
+    },
+});
 
 export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
     checked,
@@ -24,8 +40,9 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
 }: ICheckBoxProps, ref) => {
     const elementRef: React.MutableRefObject<HTMLButtonElement | null> = useRef(null);
     const gridProps = useGridSlotComponentProps();
+    const classes = useStyles();
 
-    const { onSelectedRows, selectionMode } = useProps();
+    const { onSelectedRows, selectionMode, rowColor, rows } = useProps();
     const [ rowId, setRowId ] = useState<any>(UNSET_ROW_ID);
 
     const handleRef = (instance: HTMLButtonElement | null) => {
@@ -73,37 +90,57 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
         ]);
     };
 
-    if (selectionMode === SelectionMode.Multiple) {
-        return (
-            <MatCheckBox
-                ref={handleRef}
-                className={className}
-                onKeyDown={handleCheckBoxChange}
-                onChange={handleCheckBoxChange}
-                onClick={handleCheckBoxChange}
-                checked={checked}
-                color={color}
-                disabled={disabled || rowId === UNSET_ROW_ID}
-                tabIndex={tabIndex}
-            />
-        );
-    } else if (selectionMode === SelectionMode.Single) {
-        return (
-            <Radio
-                ref={handleRef}
-                className={className}
-                onKeyDown={handleRadioChange}
-                onChange={handleRadioChange}
-                onClick={handleRadioChange}
-                disabled={disabled || rowId === UNSET_ROW_ID}
-                checked={checked}
-                color={color}
-                tabIndex={tabIndex}
-            />
-        );
-    } else {
-        return null;
-    }
+    const renderBox = () => {
+        if (selectionMode === SelectionMode.Multiple) {
+            return (
+                <MatCheckBox
+                    ref={handleRef}
+                    className={className}
+                    onKeyDown={handleCheckBoxChange}
+                    onChange={handleCheckBoxChange}
+                    onClick={handleCheckBoxChange}
+                    checked={checked}
+                    color={color}
+                    disabled={disabled || rowId === UNSET_ROW_ID}
+                    tabIndex={tabIndex}
+                />
+            );
+        } else if (selectionMode === SelectionMode.Single) {
+            return (
+                <Radio
+                    ref={handleRef}
+                    className={className}
+                    onKeyDown={handleRadioChange}
+                    onChange={handleRadioChange}
+                    onClick={handleRadioChange}
+                    disabled={disabled || rowId === UNSET_ROW_ID}
+                    checked={checked}
+                    color={color}
+                    tabIndex={tabIndex}
+                />
+            );
+        } else {
+            return (
+                <button
+                    ref={handleRef}
+                    className={classes.hidden}
+                />
+            );
+        }
+    };
+
+    return (
+        <Box className={classes.root}>
+            {!!rowColor && !!rowId && (
+                <RowMark
+                    rows={rows}
+                    rowColor={rowColor}
+                    rowId={rowId}
+                />
+            )}
+            {renderBox()}
+        </Box>
+    );
 });
 
 export default CheckBox;

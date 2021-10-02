@@ -106,7 +106,7 @@ const ListInternal = <
         }));
       }
     } catch (e) {
-      fallback(e);
+      fallback(e as Error);
     } finally {
       setLoading(false);
       onFilterChange(filterData);
