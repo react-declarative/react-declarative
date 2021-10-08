@@ -1,11 +1,14 @@
 import * as React from 'react';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import MatTextField from "@material-ui/core/TextField";
 
 import arrays from '../../../utils/arrays';
 
 import { IComboSlot } from '../../../slots/ComboSlot';
+
+import useItemList from '../hooks/useItemList';
 
 export const Combo = ({
   value,
@@ -19,24 +22,46 @@ export const Combo = ({
   invalid,
   tr = (s) => s.toString(),
   onChange,
-}: IComboSlot) => (
-  <Autocomplete
-    value={value || null}
-    onChange={({ }, v) => onChange(v)}
-    getOptionLabel={(s) => (tr(s) || "").toString()}
-    options={arrays(itemList) || []}
-    disabled={disabled}
-    renderInput={(params) => (
-      <MatTextField
-        {...params}
-        variant={outlined ? "outlined" : "standard"}
-        label={title}
-        placeholder={placeholder}
-        helperText={(dirty && invalid) || description}
-        error={dirty && invalid !== null}
-      />
-    )}
-  />
-);
+}: IComboSlot) => {
+  const {
+    items: options,
+    labels,
+    loading,
+    loaded,
+  } = useItemList({
+    itemList: arrays(itemList) || [],
+    tr,
+  });
+  return (
+    <Autocomplete
+      value={loaded ? (value || null) : null}
+      onChange={({ }, v) => onChange(v)}
+      getOptionLabel={(v) => labels[v] || ''}
+      options={options}
+      loading={loading}
+      disabled={disabled}
+      renderInput={(params) => (
+        <MatTextField
+          {...params}
+          variant={outlined ? "outlined" : "standard"}
+          label={title}
+          placeholder={placeholder}
+          helperText={(dirty && invalid) || description}
+          error={dirty && invalid !== null}
+          value={"123"}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
+    />
+  );
+};
 
 export default Combo;

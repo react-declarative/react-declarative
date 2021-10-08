@@ -125,14 +125,14 @@ export interface IField<Data = IAnything> {
     /**
      * Варианты выбора для ComboField и ItemsField
      */
-    itemList?: string[],
+    itemList?: string[] | (() => string[]) | (() => Promise<string[]>),
 
     /**
      * Позволяет перевести значения у ComboField и ItemsField
      * из поле itemList на человеческий, если
      * используются константы
      */
-    tr?: (s: string | Data) => string,
+    tr?: ((s: string) => string) | ((s: string) => Promise<string>),
 
     /**
      * Тип поля для логического ветвления при рендеринге
