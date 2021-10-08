@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 
+import IListProps from '../../../../../model/IListProps';
+
 import Box from '@material-ui/core/Box';
 
 interface IRowMarkProps {
     rows: any[];
     rowId: string;
-    rowColor: string | ((row: any) => string);
+    rowMark: IListProps<any>['rowMark'];
 }
 
 const useStyles = makeStyles({
@@ -20,27 +22,26 @@ const useStyles = makeStyles({
 });
 
 const RowMark = ({
-    rowColor,
+    rowMark,
     rowId,
     rows,
 }: IRowMarkProps) => {
     const classes = useStyles();
 
-
     const getRow = (id: string) => rows.find((row) => row.id === id);
 
-    const getRowColor = (id: string) => {
+    const getRowMark = (id: string) => {
         const row = getRow(id);
-        if (row && rowColor) {
-            return typeof rowColor === 'string'
-                ? row[rowColor]
-                : rowColor(row);
+        if (row && rowMark) {
+            return typeof rowMark === 'string'
+                ? row[rowMark]
+                : rowMark(row);
         } else {
             return 'unset';
         }
     };
 
-    const background = getRowColor(rowId);
+    const background = getRowMark(rowId);
 
     return (
         <Box

@@ -44,6 +44,11 @@ export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] 
   total: number;
 };
 
+export type ListAvatar = {
+  src?: string;
+  alt?: string;
+};
+
 export type ListHandlerPagination = {
   limit: number;
   offset: number;
@@ -106,7 +111,8 @@ export interface IListProps<
   columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
-  rowColor?: ((row: RowData) => string) | string;
+  rowMark?: ((row: RowData) => string) | string;
+  rowAvatar?: ((row: RowData) => ListAvatar) | ListAvatar;
   fallback?: (e: Error) => void;
   rowActions?: IOption[];
   toggleFilters?: boolean;

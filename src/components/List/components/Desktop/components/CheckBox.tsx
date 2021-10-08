@@ -10,6 +10,7 @@ import Radio from "@material-ui/core/Radio";
 import Box from "@material-ui/core/Box";
 
 import RowMark from "./RowMark";
+import RowAvatar from "./RowAvatar";
 
 import { useGridSlotComponentProps } from "@material-ui/data-grid";
 import { useProps } from "../../PropProvider";
@@ -26,9 +27,6 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         minWidth: 4,
     },
-    hidden: {
-        display: 'none',
-    },
 });
 
 export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
@@ -42,7 +40,7 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
     const gridProps = useGridSlotComponentProps();
     const classes = useStyles();
 
-    const { onSelectedRows, selectionMode, rowColor, rows } = useProps();
+    const { onSelectedRows, selectionMode, rowMark, rowAvatar, rows } = useProps();
     const [ rowId, setRowId ] = useState<any>(UNSET_ROW_ID);
 
     const handleRef = (instance: HTMLButtonElement | null) => {
@@ -119,11 +117,19 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
                     tabIndex={tabIndex}
                 />
             );
+        } else if (rowAvatar && rowId !== UNSET_ROW_ID) {
+            return (
+                <RowAvatar
+                    rows={rows}
+                    rowAvatar={rowAvatar}
+                    rowId={rowId}
+                />
+            );
         } else {
             return (
-                <button
+                <MatCheckBox
+                    disabled
                     ref={handleRef}
-                    className={classes.hidden}
                 />
             );
         }
@@ -131,10 +137,10 @@ export const CheckBox = forwardRef<HTMLButtonElement, ICheckBoxProps>(({
 
     return (
         <Box className={classes.root}>
-            {!!rowColor && !!rowId && (
+            {!!rowMark && rowId !== UNSET_ROW_ID && (
                 <RowMark
                     rows={rows}
-                    rowColor={rowColor}
+                    rowMark={rowMark}
                     rowId={rowId}
                 />
             )}

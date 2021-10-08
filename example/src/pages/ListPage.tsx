@@ -156,12 +156,16 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Multiple}
+      selectionMode={SelectionMode.None}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
-      rowColor={row => row.color}
+      rowMark={row => row.color}
+      rowAvatar={(row) => ({
+        alt: row.firstName,
+        src: 'https://avatars.githubusercontent.com/u/19227776?s=400&u=9eb4f0056f36228804b7e4c2e4d02358d5786bb4&v=4',
+      })}
     />
   );
 };
