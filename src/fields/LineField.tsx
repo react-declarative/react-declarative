@@ -8,6 +8,8 @@ import { PickProp } from '../model/IManaged';
 import IAnything from '../model/IAnything';
 import IField from '../model/IField';
 
+const FIELD_NEVER_MARGIN = '0';
+
 export interface ILineFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, 'title'>;
 }
@@ -22,4 +24,9 @@ export const LineField = ({
 
 LineField.displayName = 'LineField';
 
-export default makeField(LineField);
+export default makeField(LineField, {
+  defaultProps: {
+    fieldRightMargin: FIELD_NEVER_MARGIN,
+    fieldBottomMargin: FIELD_NEVER_MARGIN,
+  }
+});
