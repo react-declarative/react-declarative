@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useLayoutEffect } from "react";
 
 import IField from "../../../model/IField";
 
@@ -8,20 +8,23 @@ interface IParams {
   defaultList?: string[];
 }
 
-interface IState {
+interface IItemsState {
   items: string[];
   labels: Record<string, string>;
 }
 
-interface IResult extends IState {
+interface ILoadingState {
   loading: boolean;
   loaded: boolean;
+}
+
+interface IState extends IItemsState, ILoadingState {
 }
 
 const fetchState = async ({
   itemList = [],
   tr = v => v,
-}: Partial<IParams>): Promise<IState> => {
+}: Partial<IParams>): Promise<IItemsState> => {
   const labels: Record<string, string> = {};
   const items = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList()) : itemList);
   await Promise.all(items.map(async (item) => labels[item] = await Promise.resolve(tr(item))));
@@ -35,46 +38,44 @@ export const useItemList = ({
   itemList = [],
   defaultList = [],
   tr = v => v,
-}: IParams): IResult => {
-
-  const initComplete = useRef(false);
+}: IParams): IState => {
 
   const [state, setState] = useState<IState>({
     items: defaultList,
     labels: {},
+    loaded: false,
+    loading: false,
   });
 
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (loading && !initComplete.current) {
+  useLayoutEffect(() => {
+    if (state.loading && !state.loaded) {
       (async () => {
         try {
           const newState = await fetchState({
             itemList,
             tr,
           });
-          setState(newState);
-          initComplete.current = true;
-          setLoading(false);
+          setState({
+            ...newState,
+            loaded: true,
+            loading: false,
+          });
         } catch (e) {
           console.warn(e);
         }
       })();
     }
-  }, [loading]);
+  }, [state.loading]);
 
-  useEffect(() => {
-    setLoading(true);
+  useLayoutEffect(() => {
+    setState((prev) => ({
+      ...prev,
+      loading: true,
+      loaded: false,
+    }));
   }, []);
 
-  const { current: loaded } = initComplete;
-
-  return {
-    ...state,
-    loading,
-    loaded,
-  };
+  return state;
 };
 
 export default useItemList;
