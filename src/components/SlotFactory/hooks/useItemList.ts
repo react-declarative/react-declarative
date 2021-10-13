@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 
 import IField from "../../../model/IField";
 
@@ -40,6 +40,8 @@ export const useItemList = ({
   tr = v => v,
 }: IParams): IState => {
 
+  const mountedRef = useRef(true);
+
   const [state, setState] = useState<IState>({
     items: defaultList,
     labels: {},
@@ -55,11 +57,13 @@ export const useItemList = ({
             itemList,
             tr,
           });
-          setState({
-            ...newState,
-            loaded: true,
-            loading: false,
-          });
+          if (mountedRef.current) {
+            setState({
+              ...newState,
+              loaded: true,
+              loading: false,
+            });
+          }
         } catch (e) {
           console.warn(e);
         }
@@ -73,6 +77,9 @@ export const useItemList = ({
       loading: true,
       loaded: false,
     }));
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
   return state;
