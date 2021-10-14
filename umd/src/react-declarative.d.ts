@@ -59,6 +59,7 @@ declare module 'react-declarative' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export { default as dayjs } from 'dayjs';
+    export { AutoSizer } from 'react-declarative/components/common/AutoSizer';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped } from 'react-declarative/components';
     export { ModalProvider } from 'react-declarative/components';
@@ -612,8 +613,8 @@ declare module 'react-declarative/model/IListProps' {
         columns?: IColumn<RowData>[];
         filters?: Field[];
         handler: ListHandler;
-        rowMark?: ((row: RowData) => string) | string;
-        rowAvatar?: ((row: RowData) => ListAvatar) | ListAvatar;
+        rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
+        rowAvatar?: ((row: RowData) => ListAvatar) | ((row: RowData) => Promise<ListAvatar>) | ListAvatar;
         fallback?: (e: Error) => void;
         rowActions?: IOption[];
         toggleFilters?: boolean;
@@ -735,6 +736,11 @@ declare module 'react-declarative/components/Switch/model/ISwitchItem' {
         redirect?: string;
     }
     export default ISwitchItem;
+}
+
+declare module 'react-declarative/components/common/AutoSizer' {
+    export * from "react-declarative/components/common/AutoSizer/AutoSizer";
+    export { default } from "react-declarative/components/common/AutoSizer/AutoSizer";
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot' {
@@ -1532,6 +1538,32 @@ declare module 'react-declarative/components/common/ModalProvider' {
     export { default } from 'react-declarative/components/common/ModalProvider/ModalProvider';
 }
 
+declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
+    import * as React from "react";
+    import ResizeEmitter from "react-declarative/components/common/AutoSizer/ResizeEmitter";
+    import ISize from "react-declarative/model/ISize";
+    interface IAutoSizerProps {
+        children: (s: ISize) => any;
+        className?: string;
+        defaultHeight?: number;
+        defaultWidth?: number;
+        disableHeight?: boolean;
+        disableWidth?: boolean;
+        nonce?: string;
+        onResize?: (s: ISize) => void;
+        heightRequest?: (height: number) => number;
+        widthRequest?: (width: number) => number;
+        style?: React.CSSProperties;
+        target?: HTMLElement;
+        delay?: number;
+    }
+    export const AutoSizer: {
+        ({ defaultHeight, defaultWidth, onResize, disableHeight, disableWidth, heightRequest, widthRequest, style, className, children, target, delay, }: IAutoSizerProps): JSX.Element;
+        _emitters: WeakMap<HTMLElement, ResizeEmitter>;
+    };
+    export default AutoSizer;
+}
+
 declare module 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot' {
     import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "react-declarative/fields/CheckboxField";
     export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate {
@@ -1805,6 +1837,19 @@ declare module 'react-declarative/components/common/ModalProvider/ModalProvider'
     import { ModalProvider } from 'react-modal-hook';
     export { ModalProvider };
     export default ModalProvider;
+}
+
+declare module 'react-declarative/components/common/AutoSizer/ResizeEmitter' {
+    type Callback = () => void;
+    export class ResizeEmitter {
+        constructor(target: HTMLElement, onDispose: Callback);
+        subscribe: (fn: Callback) => void;
+        unsubscribe: (fn: Callback) => void;
+        broadcast: () => void;
+        clearTimeout: () => void;
+        tryDispose: () => void;
+    }
+    export default ResizeEmitter;
 }
 
 declare module 'react-declarative/components/common/Group/Group' {

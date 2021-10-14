@@ -75,6 +75,8 @@ export type pickConfirmFn = ReturnType<typeof useConfirm>;
 
 export { default as dayjs } from 'dayjs';
 
+export { AutoSizer } from './components/common/AutoSizer';
+
 export { List, ListTyped } from './components';
 export { One, OneTyped } from './components';
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useLayoutEffect, useCallback, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import IListProps from '../../../../../model/IListProps';
@@ -27,21 +28,43 @@ const RowMark = ({
     rows,
 }: IRowMarkProps) => {
     const classes = useStyles();
+    const mountedRef = useRef(true);
+    const [background, setBackground] = useState('');
 
-    const getRow = (id: string) => rows.find((row) => row.id === id);
-
-    const getRowMark = (id: string) => {
+    const getRowMark = useCallback(async (id: string) => {
+        const getRow = (id: string) => rows.find((row) => row.id === id);
         const row = getRow(id);
         if (row && rowMark) {
-            return typeof rowMark === 'string'
-                ? row[rowMark]
-                : rowMark(row);
+            if (typeof rowMark === 'function') {
+                let result: string | Promise<string> = rowMark(row);
+                result = result instanceof Promise ? (await result) : result;
+                return result;
+            } else {
+                return row[rowMark];
+            }
         } else {
             return 'unset';
         }
-    };
+    }, [rows, rowMark]);
 
-    const background = getRowMark(rowId);
+    useLayoutEffect(() => {
+        (async () => {
+            try {
+                const background = await getRowMark(rowId);
+                if (mountedRef.current) {
+                    setBackground(background);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        })();
+    }, [rowId, getRowMark]);
+
+    useLayoutEffect(() => {
+        return () => {
+            mountedRef.current = false;
+        };
+    }, []);
 
     return (
         <Box

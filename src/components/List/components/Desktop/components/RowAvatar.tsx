@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useState, useLayoutEffect, useCallback, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 
-import IListProps from '../../../../../model/IListProps';
+import IListProps, { ListAvatar } from '../../../../../model/IListProps';
 
 import MatAvatar from '@material-ui/core/Avatar';
 
@@ -25,34 +26,55 @@ const RowAvatar = ({
     rows,
 }: IRowAvatarProps) => {
     const classes = useStyles();
+    const mountedRef = useRef(true);
+    const [avatar, setAvatar] = useState<ListAvatar | null>(null);
 
-    const getRow = (id: string) => rows.find((row) => row.id === id);
-
-    const getRowAvatar = (id: string) => {
-        const row = getRow(id);
+    const getRowAvatar = useCallback(async (id: string) => {
+        const row = rows.find((row) => row.id === id);
         if (row && rowAvatar) {
-            return typeof rowAvatar === 'function'
-                ? rowAvatar(row)
-                : {
+            if (typeof rowAvatar === 'function') {
+                let result: ListAvatar | Promise<ListAvatar> = rowAvatar(row);
+                result = result instanceof Promise ? (await result) : result;
+                return result;
+            } else {
+                return {
                     src: rowAvatar.src ? row[rowAvatar.src] : '',
                     alt: rowAvatar.alt ? row[rowAvatar.alt] : '',
                 };
+            }
         } else {
             return {
                 src: '',
                 alt: '',
             };
         }
-    };
+    }, [rowAvatar, rows]);
 
-    const avatar = getRowAvatar(rowId);
+    useLayoutEffect(() => {
+        (async () => {
+            try {
+                const newAvatar = await getRowAvatar(rowId);
+                if (mountedRef.current) {
+                    setAvatar(newAvatar);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        })();
+    }, [rowId, getRowAvatar]);
 
-    return (
+    useLayoutEffect(() => {
+        return () => {
+            mountedRef.current = false;
+        };
+    }, []);
+
+    return avatar ? (
         <MatAvatar
             className={classes.avatar}
             {...avatar}
         />
-    );
+    ) : null;
 };
 
 export default RowAvatar;
