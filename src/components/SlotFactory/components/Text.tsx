@@ -94,7 +94,7 @@ export const Text = ({
         InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
         type={inputType}
         autoComplete={autoComplete}
-        value={(value || '').toString()}
+        value={String(value)}
         placeholder={placeholder}
         onChange={({ target }) => onChange(target.value.toString())}
         label={title}
