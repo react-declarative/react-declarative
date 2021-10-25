@@ -15,7 +15,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
     headerName: string;
-    width: string;
+    width: string | (() => string | number);
     columnMenu?: IOption[];
     showColumnMenu?: boolean;
     sizerCellPadding?: {

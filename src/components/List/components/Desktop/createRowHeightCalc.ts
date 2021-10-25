@@ -3,6 +3,8 @@ import IAnything from "../../../../model/IAnything";
 import IColumn from "../../../../model/IColumn";
 import IRowData from "../../../../model/IRowData";
 
+import widthToString from "./widthToString";
+
 export const DEFAULT_ROW_HEIGHT = 75;
 
 const defaultPadding = {
@@ -27,7 +29,7 @@ const defaultGetText = (field: string) => (row: Record<string, string>) => row[f
 
 export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: IColumn[]): [(rows: T[]) => number, () => void] => {
     const fields: any = columns.map(({ field }) => field).filter((f) => !!f);
-    const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width } }), {});
+    const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width: widthToString(width) } }), {});
     const heightMap: any = columns.reduce((acm, { field = '_', requiredHeight = 0 }) => ({ ...acm, [field]: { requiredHeight } }), {});
     const paddingMap: any = columns.reduce((acm, { field = '_', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
     const getTextMap: any = columns.reduce((acm, { field = '_', sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});

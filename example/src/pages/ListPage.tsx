@@ -48,7 +48,7 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'lastName',
     headerName: 'Last name',
-    width: '200px',
+    width: () => '200px',
   },
   {
     type: ColumnType.Action,
