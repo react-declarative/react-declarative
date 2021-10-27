@@ -11,7 +11,7 @@ interface IChildParams<T extends object = object> extends ISize {
 }
 
 interface IAutoSizerProps<T extends object = object> {
-  children: (s: IChildParams) => any;
+  children: (s: IChildParams<T>) => any;
   className?: string;
   defaultHeight?: number;
   defaultWidth?: number;

@@ -1546,7 +1546,7 @@ declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
         payload: T;
     }
     interface IAutoSizerProps<T extends object = object> {
-        children: (s: IChildParams) => any;
+        children: (s: IChildParams<T>) => any;
         className?: string;
         defaultHeight?: number;
         defaultWidth?: number;
