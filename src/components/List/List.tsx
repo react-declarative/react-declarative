@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import { useState, useCallback, useLayoutEffect } from 'react';
+import { useState, useCallback, useLayoutEffect, useRef } from 'react';
 
 import IListProps, { IListState, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
@@ -32,6 +32,12 @@ const ListInternal = <
   Field extends IField = IField<IAnything>,
 >(props: IListProps<FilterData, RowData, Field>, ref: any) => {
 
+  const isMounted = useRef(true);
+
+  useLayoutEffect(() => () => {
+    isMounted.current = false;
+  }, []);
+
   const {
     handler = () => [],
     fallback = (e) => console.error(e),
@@ -57,7 +63,7 @@ const ListInternal = <
     sort: [],
   });
 
-  const setLoading = (loading: boolean) => setState((prevState) => ({...prevState, loading}));
+  const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({...prevState, loading}));
 
   const { isMobile } = state;
 
@@ -93,7 +99,7 @@ const ListInternal = <
       } = await handleRows(filterData);
       if (!deepCompare(objects(rows), objects(state.rows)) || rows.length === 0) {
         const rowHeight = calcRowHeight(rows);
-        setState((prevState) => ({
+        isMounted.current && setState((prevState) => ({
           ...prevState,
           initComplete: true,
           filterData,
@@ -145,7 +151,7 @@ const ListInternal = <
 
   const handlePageChange = (page: number) => {
     if (state.total !== null) {
-      setState((prevState) => ({
+      isMounted.current && setState((prevState) => ({
         ...prevState,
         offset: page * state.limit,
       }));
@@ -155,7 +161,7 @@ const ListInternal = <
   const handleLimitChange = (newLimit: number) => {
     if (state.total !== null) {
       const newPage = Math.floor(state.offset / newLimit);
-      setState((prevState) => ({
+      isMounted.current && setState((prevState) => ({
         ...prevState,
         offset: newPage * newLimit,
         limit: newLimit,
@@ -165,7 +171,7 @@ const ListInternal = <
 
   const handleSortModel = useCallback((sort: ListHandlerSortModel) => {
     if (!deepCompare(objects(state.sort), objects(sort))) {
-      setState((prevState) => ({
+      isMounted.current && setState((prevState) => ({
         ...prevState,
         sort,
       }));

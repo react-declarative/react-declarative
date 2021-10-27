@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useLayoutEffect } from 'react';
 
 import IField from '../model/IField';
 
@@ -55,8 +55,9 @@ export const useResolved = <Data = IAnything>({
     change,
 }: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
+    const isMounted = useRef(true);
     const isRoot = useRef(false);
-    useEffect(() => {
+    useLayoutEffect(() => {
         const tryResolve = async () => {
             if (isRoot.current) {
                 return
@@ -66,11 +67,11 @@ export const useResolved = <Data = IAnything>({
                     if (result instanceof Promise) {
                         const newData = objects(assign({}, buildObj<Data>(fields), deepClone(await result)));
                         change!(newData, true);
-                        setData(newData);
+                        isMounted.current && setData(newData);
                     } else {
                         const newData = objects(assign({}, buildObj<Data>(fields), deepClone(result)));
                         change!(newData, true);
-                        setData(newData);
+                        isMounted.current && setData(newData);
                     }
                 } catch (e) {
                     if (fallback) {
@@ -82,11 +83,14 @@ export const useResolved = <Data = IAnything>({
                     isRoot.current = true;
                 }
             } else if (!deepCompare(data, handler)) {
-                setData(objects(assign({}, buildObj(fields), handler)));
+                isMounted.current && setData(objects(assign({}, buildObj(fields), handler)));
             }
         };
         tryResolve();
     }, [handler]);
+    useLayoutEffect(() => () => {
+        isMounted.current = false;
+    }, []);
     return [data, setData];
 };
 
