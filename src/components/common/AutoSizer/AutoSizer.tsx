@@ -6,8 +6,12 @@ import ResizeEmitter from "./ResizeEmitter";
 
 import ISize from "../../../model/ISize";
 
-interface IAutoSizerProps {
-  children: (s: ISize) => any;
+interface IChildParams<T extends object = object> extends ISize {
+  payload: T;
+}
+
+interface IAutoSizerProps<T extends object = object> {
+  children: (s: IChildParams) => any;
   className?: string;
   defaultHeight?: number;
   defaultWidth?: number;
@@ -20,9 +24,12 @@ interface IAutoSizerProps {
   style?: React.CSSProperties;
   target?: HTMLElement;
   delay?: number;
+  payload?: T;
 }
 
-export const AutoSizer = ({
+const EMPTY_PAYLOAD = Object.freeze({});
+
+export const AutoSizer = <T extends object = object>({
   defaultHeight = 0,
   defaultWidth = 0,
   onResize = () => null,
@@ -34,9 +41,11 @@ export const AutoSizer = ({
   className,
   children,
   target,
+  payload = EMPTY_PAYLOAD as T,
   delay = 100,
-}: IAutoSizerProps) => {
+}: IAutoSizerProps<T>) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
+  const initialPayload = useRef(true);
 
   const [state, setState] = useState<ISize>({
     height: defaultHeight,
@@ -93,6 +102,14 @@ export const AutoSizer = ({
     };
   }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize]);
 
+  useLayoutEffect(() => {
+    if (payload !== EMPTY_PAYLOAD && !initialPayload.current) {
+      setState((state) => ({...state}));
+    } else {
+      initialPayload.current = false;
+    }
+  }, [payload]);
+
   const { height, width } = state;
 
   const outerStyle: React.CSSProperties = {
@@ -100,7 +117,7 @@ export const AutoSizer = ({
     width,
   };
 
-  const childParams: ISize = { height, width };
+  const childParams: IChildParams<T> = { height, width, payload };
 
   if (disableHeight) {
     delete outerStyle.height;

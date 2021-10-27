@@ -37,7 +37,7 @@ export const Items = ({
     return (
         <Autocomplete
             multiple
-            onChange={({ }, v) => onChange(objects(v))}
+            onChange={({ }, v) => onChange(v.length ? objects(v) : null)}
             getOptionLabel={(v) => labels[v] || ''}
             value={loaded ? value ? Object.values<string>(value) : [] : []}
             options={options}

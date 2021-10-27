@@ -1542,8 +1542,11 @@ declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
     import * as React from "react";
     import ResizeEmitter from "react-declarative/components/common/AutoSizer/ResizeEmitter";
     import ISize from "react-declarative/model/ISize";
-    interface IAutoSizerProps {
-        children: (s: ISize) => any;
+    interface IChildParams<T extends object = object> extends ISize {
+        payload: T;
+    }
+    interface IAutoSizerProps<T extends object = object> {
+        children: (s: IChildParams) => any;
         className?: string;
         defaultHeight?: number;
         defaultWidth?: number;
@@ -1556,9 +1559,10 @@ declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
         style?: React.CSSProperties;
         target?: HTMLElement;
         delay?: number;
+        payload?: T;
     }
     export const AutoSizer: {
-        ({ defaultHeight, defaultWidth, onResize, disableHeight, disableWidth, heightRequest, widthRequest, style, className, children, target, delay, }: IAutoSizerProps): JSX.Element;
+        <T extends object = object>({ defaultHeight, defaultWidth, onResize, disableHeight, disableWidth, heightRequest, widthRequest, style, className, children, target, payload, delay, }: IAutoSizerProps<T>): JSX.Element;
         _emitters: WeakMap<HTMLElement, ResizeEmitter>;
     };
     export default AutoSizer;
