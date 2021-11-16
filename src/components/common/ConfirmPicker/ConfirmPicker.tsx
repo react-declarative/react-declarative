@@ -11,10 +11,12 @@ interface IConfirmPickerProps {
   title: string;
   msg: string;
   open?: boolean;
+  canCancel?: boolean;
 }
 
 export const ConfirmPicker = ({
   onChange = (result: boolean) => console.log({ result }),
+  canCancel = true,
   title,
   msg,
   open = true,
@@ -24,6 +26,7 @@ export const ConfirmPicker = ({
   return (
     <ModalDialog
       open={open}
+      canCancel={canCancel}
       onAccept={handleAccept}
       onDismis={handleDismis}
     >

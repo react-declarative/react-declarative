@@ -10,14 +10,17 @@ type Fn = (result: boolean) => void;
 interface IParams {
   title?: string;
   msg?: string;
+  canCancel?: boolean;
 }
 
 export const useConfirm = ({
   title: defaultTitle = "",
   msg: defaultMsg = "",
+  canCancel: defaultCanCancel = true,
 }: IParams = {}) => {
 
   const changeRef = useRef<Fn>();
+  const [currentCanCancel, setCurrentCanCancel] = useState(defaultCanCancel);
   const [currentTitle, setCurrentTitle] = useState(defaultTitle);
   const [currentMsg, setCurrentMsg] = useState(defaultMsg);
 
@@ -32,19 +35,22 @@ export const useConfirm = ({
   const [showModal, hideModal] = useModal(({ in: open }) => (
     <ConfirmPicker
       open={open}
+      canCancel={currentCanCancel}
       title={currentTitle}
       msg={currentMsg}
       onChange={handleChange}
     />
-  ), [currentTitle, currentMsg]);
+  ), [currentTitle, currentMsg, currentCanCancel]);
 
   return ({
+    canCancel,
     title,
     msg,
   }: Partial<IParams> = {}) => new class {
     constructor() {
-      title && setCurrentTitle(title);
-      msg && setCurrentMsg(msg);
+      canCancel !== undefined && setCurrentCanCancel(canCancel);
+      title !== undefined && setCurrentTitle(title);
+      msg  !== undefined && setCurrentMsg(msg);
       showModal();
     };
     then(onData: Fn) {

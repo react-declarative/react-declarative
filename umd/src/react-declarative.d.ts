@@ -107,6 +107,7 @@ declare module 'react-declarative/model/TypedField' {
         */
     import { IFragmentLayoutProps } from 'react-declarative/layouts/FragmentLayout';
     import { IDivLayoutProps } from 'react-declarative/layouts/DivLayout';
+    import { ICenterLayoutProps } from 'react-declarative/layouts/CenterLayout';
     import { IGroupLayoutProps } from 'react-declarative/layouts/GroupLayout';
     import { IPaperLayoutProps } from 'react-declarative/layouts/PaperLayout';
     import { IExpansionLayoutProps } from 'react-declarative/layouts/ExpansionLayout';
@@ -139,6 +140,7 @@ declare module 'react-declarative/model/TypedField' {
     type Fragment<Data = IAnything> = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
     type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
     type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
+    type Center<Data = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data>, Data>;
     type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
     type Checkbox<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data>, Data>;
     type Combo<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data>, Data>;
@@ -155,7 +157,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : Target extends Hero<Data> ? Hero<Data> : never;
+    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : Target extends Center<Data> ? Center<Data> : Target extends Hero<Data> ? Hero<Data> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -487,7 +489,8 @@ declare module 'react-declarative/model/FieldType' {
         Typography = "typography",
         Fragment = "fragment",
         Div = "div",
-        Hero = "hero"
+        Hero = "hero",
+        Center = "center"
     }
     export default FieldType;
 }
@@ -936,6 +939,26 @@ declare module 'react-declarative/layouts/DivLayout' {
         displayName: string;
     };
     export default DivLayout;
+}
+
+declare module 'react-declarative/layouts/CenterLayout' {
+    import * as React from 'react';
+    import IField from 'react-declarative/model/IField';
+    import IEntity from 'react-declarative/model/IEntity';
+    import IAnything from 'react-declarative/model/IAnything';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    export interface ICenterLayoutProps<Data = IAnything> {
+        className?: PickProp<IField<Data>, 'className'>;
+        style?: PickProp<IField<Data>, 'style'>;
+    }
+    interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+        children: React.ReactChild;
+    }
+    export const CenterLayout: {
+        <Data extends unknown = any>({ children, className, style, }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default CenterLayout;
 }
 
 declare module 'react-declarative/layouts/GroupLayout' {
@@ -1526,8 +1549,9 @@ declare module 'react-declarative/components/hooks/useConfirm' {
     interface IParams {
         title?: string;
         msg?: string;
+        canCancel?: boolean;
     }
-    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, }?: IParams) => ({ title, msg, }?: Partial<IParams>) => {
+    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, msg, }?: Partial<IParams>) => {
         then(onData: Fn): void;
     };
     export default useConfirm;

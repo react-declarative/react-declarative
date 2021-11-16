@@ -13,6 +13,7 @@ import PaperLayout from '../../layouts/PaperLayout';
 import GroupLayout from '../../layouts/GroupLayout';
 import FragmentLayout from '../../layouts/FragmentLayout';
 import DivLayout from '../../layouts/DivLayout';
+import CenterLayout from '../../layouts/CenterLayout';
 import HeroLayout from '../../layouts/HeroLayout';
 
 import FieldType from '../../model/FieldType';
@@ -125,6 +126,15 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                             >
                                 <OneInternalMemo<Data> {...one} />
                             </DivLayout>
+                        );
+                    }  else if (field.type === FieldType.Center) {
+                        return (
+                            <CenterLayout<Data>
+                                {...entity}
+                                key={currentPath}
+                            >
+                                <OneInternalMemo<Data> {...one} />
+                            </CenterLayout>
                         );
                     } else if (field.type === FieldType.Fragment) {
                         return (

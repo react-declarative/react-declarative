@@ -17,6 +17,7 @@ export enum FieldType {
     Fragment = 'fragment',
     Div = 'div',
     Hero = 'hero',
+    Center = 'center',
 };
 
 export default FieldType;
