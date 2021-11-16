@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useRef, useState, useLayoutEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { debounce, makeStyles } from '@material-ui/core';
 
 import classNames from '../utils/classNames';
 
@@ -10,6 +11,10 @@ import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
 import Group from '../components/common/Group';
+
+const CENTER_DEBOUNCE = 1_000;
+
+declare var ResizeObserver: any;
 
 export interface ICenterLayoutProps<Data = IAnything> {
     className?: PickProp<IField<Data>, 'className'>;
@@ -25,6 +30,8 @@ const useStyles = makeStyles({
         position: 'relative',
         overflowY: 'auto',
         width: '100%',
+        height: '100%',
+        flex: 1,
     },
     container: {
         position: 'absolute',
@@ -38,6 +45,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     content: {
+        width: '100%',
     },
 });
 
@@ -47,12 +55,58 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     style,
 }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>) => {
     const classes = useStyles();
+
+    const groupRef = useRef<HTMLDivElement>(null);
+    const [marginRight, setMarginRight] = useState(0);
+
+    useLayoutEffect(() => {
+
+        const { current: group } = groupRef;
+
+        const handler = () => {
+            if (group) {
+                const { width, left } = group.getBoundingClientRect();
+                let right = 0;
+                group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
+                setMarginRight(Math.min(right - left - width, 0));
+            }
+        };
+
+        const handlerD = debounce(handler, CENTER_DEBOUNCE);
+
+        const mObserver = new MutationObserver(handlerD);
+        const rObserver = new ResizeObserver(handlerD);
+
+        if (group) {
+            mObserver.observe(group, {
+                childList: true,
+                subtree: true,
+            });
+            rObserver.observe(group);
+            handler();
+        };
+
+        return () => {
+            handlerD.clear();
+            mObserver.disconnect();
+            group && rObserver.unobserve(group);
+            rObserver.disconnect();
+        };
+    }, []);
+
     return (
         <div className={classNames(classes.root, className)} style={style}>
             <div className={classes.container}>
-                <Group className={classes.content}>
-                    {children}
-                </Group>
+                <div
+                    className={classes.content}
+                    style={{
+                        marginRight,
+                    }}
+                >
+                    <Group ref={groupRef}>
+                        {children}
+                    </Group>
+                </div>
             </div>
         </div>
     );    
