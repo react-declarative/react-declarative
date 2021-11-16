@@ -9,6 +9,8 @@ import IEntity from '../model/IEntity';
 import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
+import Group from '../components/common/Group';
+
 export interface ICenterLayoutProps<Data = IAnything> {
     className?: PickProp<IField<Data>, 'className'>;
     style?: PickProp<IField<Data>, 'style'>;
@@ -35,6 +37,8 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         flexDirection: 'column',
     },
+    content: {
+    },
 });
 
 export const CenterLayout = <Data extends IAnything = IAnything>({
@@ -46,7 +50,9 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     return (
         <div className={classNames(classes.root, className)} style={style}>
             <div className={classes.container}>
-                {children}
+                <Group className={classes.content}>
+                    {children}
+                </Group>
             </div>
         </div>
     );    

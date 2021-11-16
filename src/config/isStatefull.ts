@@ -7,6 +7,7 @@ const layouts: FieldType[] = [
     FieldType.Expansion,
     FieldType.Div,
     FieldType.Fragment,
+    FieldType.Center,
 ];
 
 /**
