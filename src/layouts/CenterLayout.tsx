@@ -68,7 +68,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 const { width, left } = group.getBoundingClientRect();
                 let right = 0;
                 group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
-                setMarginRight(Math.min(right - left - width, 0));
+                right ? setMarginRight(Math.min(right - left - width, 0)) : setMarginRight(0);
             }
         };
 
