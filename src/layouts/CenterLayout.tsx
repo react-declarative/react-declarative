@@ -12,7 +12,7 @@ import { PickProp } from '../model/IManaged';
 
 import Group from '../components/common/Group';
 
-const CENTER_DEBOUNCE = 1_000;
+const CENTER_DEBOUNCE = 500;
 
 declare var ResizeObserver: any;
 
@@ -83,7 +83,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 subtree: true,
             });
             rObserver.observe(group);
-            handler();
+            setTimeout(handler, CENTER_DEBOUNCE / 2);
         };
 
         return () => {
