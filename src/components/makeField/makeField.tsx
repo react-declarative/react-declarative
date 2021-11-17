@@ -4,6 +4,7 @@ import { memo, useRef, useState, useEffect } from 'react';
 /* eslint-disable no-console */
 
 import deepClone from '../../utils/deepClone';
+import arrays from '../../utils/arrays';
 import set from '../../utils/set';
 import get from '../../utils/get';
 import deepCompare from '../../utils/deepCompare';
@@ -122,7 +123,7 @@ export function makeField(
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
-                setValue(compute(object, (v) => setValue(v)));
+                setValue(compute(arrays(object), (v) => setValue(v)));
             } else if (!name) {
                 // void(0);
             } else {
