@@ -11,6 +11,7 @@ import IAnything from './IAnything';
 import { IFragmentLayoutProps } from '../layouts/FragmentLayout';
 import { IDivLayoutProps } from '../layouts/DivLayout';
 import { ICenterLayoutProps } from '../layouts/CenterLayout';
+import { IStretchLayoutProps } from '../layouts/StretchLayout';
 import { IGroupLayoutProps } from '../layouts/GroupLayout';
 import { IPaperLayoutProps } from '../layouts/PaperLayout';
 import { IExpansionLayoutProps } from '../layouts/ExpansionLayout';
@@ -53,6 +54,7 @@ type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragme
 type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
 type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
 type Center<Data = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data>, Data>;
+type Stretch<Data = IAnything> = TypedFieldFactory<FieldType.Stretch, IStretchLayoutProps<Data>, Data>;
 
 type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
 
@@ -91,6 +93,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
   : Target extends Fragment<Data> ? Fragment<Data>
   : Target extends Div<Data> ? Div<Data>
   : Target extends Center<Data> ? Center<Data>
+  : Target extends Stretch<Data> ? Stretch<Data>
   : Target extends Hero<Data> ? Hero<Data>
   : never;
 

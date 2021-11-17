@@ -17,6 +17,7 @@ const CENTER_DEBOUNCE = 500;
 declare var ResizeObserver: any;
 
 export interface ICenterLayoutProps<Data = IAnything> {
+    innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
     className?: PickProp<IField<Data>, 'className'>;
     style?: PickProp<IField<Data>, 'style'>;
 }
@@ -53,6 +54,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
+    innerPadding: padding = '0px',
 }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>) => {
     const classes = useStyles();
 
@@ -96,7 +98,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
 
     return (
         <div className={classNames(classes.root, className)} style={style}>
-            <div className={classes.container}>
+            <div className={classes.container} style={{ padding }}>
                 <div
                     className={classes.content}
                     style={{

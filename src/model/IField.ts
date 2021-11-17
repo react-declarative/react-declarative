@@ -97,6 +97,11 @@ export interface IField<Data = IAnything> {
     showPercentLabel?: boolean;
 
     /**
+     * Внутренние отступы для Paper
+     */
+    innerPadding?: string;
+
+    /**
      * - Коллбеки, позволяющий перекрасить SliderField.
      * Работают только если заданы все вместе
      * - ВНИМАНИЕ! Потенциально возможна просадка производительности,

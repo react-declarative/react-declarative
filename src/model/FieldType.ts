@@ -18,6 +18,7 @@ export enum FieldType {
     Div = 'div',
     Hero = 'hero',
     Center = 'center',
+    Stretch = 'stretch',
 };
 
 export default FieldType;

@@ -7,9 +7,13 @@ import Paper, { IPaperProps } from '../components/common/Paper';
 
 import classNames from "../utils/classNames";
 
+import { PickProp } from "../model/IManaged";
 import IAnything from "../model/IAnything";
+import IField from "../model/IField";
 
-export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {}
+export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {
+  innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
+}
 
 interface IPaperLayoutPrivate {
   children: React.ReactChild;
@@ -33,11 +37,10 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   phoneColumns,
   tabletColumns,
   desktopColumns,
-  fieldRightMargin,
-  fieldBottomMargin,
   style,
   className,
   children,
+  innerPadding: padding = '5px',
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
     const classes = useStyles();
     return (
@@ -49,10 +52,10 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
             phoneColumns={phoneColumns}
             tabletColumns={tabletColumns}
             desktopColumns={desktopColumns}
-            fieldRightMargin={fieldRightMargin}
-            fieldBottomMargin={fieldBottomMargin}
+            fieldRightMargin="0"
+            fieldBottomMargin="0"
         >
-            <Paper className={classes.content}>
+            <Paper className={classes.content} style={{ padding }}>
                 {children}
             </Paper>
         </Group>
