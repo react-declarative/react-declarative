@@ -36,6 +36,7 @@ const useStyles = makeStyles({
     },
     container: {
         position: 'absolute',
+        overflowX: 'hidden',
         top: 0,
         left: 0,
         right: 0,
