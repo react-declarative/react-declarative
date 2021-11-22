@@ -49,6 +49,9 @@ const useStyles = makeStyles({
     content: {
         width: '100%',
     },
+    hidden: {
+        display: 'none',
+    },
 });
 
 export const CenterLayout = <Data extends IAnything = IAnything>({
@@ -60,7 +63,8 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const classes = useStyles();
 
     const groupRef = useRef<HTMLDivElement>(null);
-    const [marginRight, setMarginRight] = useState(0);
+    const [ initComplete, setInitComplete ] = useState(false);
+    const [ marginRight, setMarginRight ] = useState(0);
 
     useLayoutEffect(() => {
 
@@ -71,7 +75,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 const { width, left } = group.getBoundingClientRect();
                 let right = 0;
                 group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
-                right ? setMarginRight(Math.min(right - left - width, 0)) : setMarginRight(0);
+                right ? setMarginRight(Math.min(right - left - width, 0)) : setMarginRight(-1);
             }
         };
 
@@ -97,13 +101,19 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
         };
     }, []);
 
+    useLayoutEffect(() => {
+        marginRight && setInitComplete(true)
+    }, [marginRight]);
+
     return (
         <div className={classNames(classes.root, className)} style={style}>
             <div className={classes.container} style={{ padding }}>
                 <div
-                    className={classes.content}
+                    className={classNames(classes.content, {
+                        [classes.hidden]: !initComplete,
+                    })}
                     style={{
-                        marginRight,
+                        marginRight: marginRight !== -1 ? marginRight : 'unset',
                     }}
                 >
                     <Group ref={groupRef}>
