@@ -66,12 +66,18 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const [ initComplete, setInitComplete ] = useState(false);
     const [ marginRight, setMarginRight ] = useState(0);
 
+    const isMounted = useRef(true);
+
+    useLayoutEffect(() => () => {
+      isMounted.current = false;
+    }, []);
+
     useLayoutEffect(() => {
 
         const { current: group } = groupRef;
 
         const handler = () => {
-            if (group) {
+            if (group && isMounted.current) {
                 const { width, left } = group.getBoundingClientRect();
                 let right = 0;
                 group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
