@@ -665,6 +665,14 @@ declare module 'react-declarative/model/IOneProps' {
     export type OneHandler<Data = IAnything> = Data | (() => Data | null) | (() => Promise<Data | null>);
     export interface IOneProps<Data = IAnything, Field = IField<Data>> {
             /**
+                * Класс корневой группы
+                */
+            className?: string;
+            /**
+                * Стиль корневой группы
+                */
+            style?: React.CSSProperties;
+            /**
                 * Позволяет загружать данные в компонент
                 */
             handler?: OneHandler<Data>;

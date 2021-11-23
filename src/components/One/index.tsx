@@ -38,6 +38,11 @@ export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) 
     fields = [],
   } = props;
 
+  const {
+    className,
+    style,
+  } = props;
+
   const fieldsSnapshot = useStatic(fields);
   const classes = useStyles();
 
@@ -79,7 +84,12 @@ export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) 
 
   return (
     <StateProvider {...stateParams}>
-      <Group className={classNames({[classes.hidden]: !visible})}>
+      <Group
+        className={classNames(className, {
+          [classes.hidden]: !visible,
+        })}
+        style={style}
+      >
         <OneInternal {...viewParams} />
       </Group>
     </StateProvider>
