@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useMemo, useRef } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 
 import classNames from '../utils/classNames';
+import waitForSize from '../utils/wairForSize';
 
 import withTheme from '@material-ui/core/styles/withTheme';
 
@@ -13,8 +14,8 @@ import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
 import AutoSizer from '../components/common/AutoSizer';
-
 import Group, { IGroupProps } from '../components/common/Group';
+
 import { ISizeCallback } from '../model/ISize';
 import IEntity from '../model/IEntity';
 
@@ -205,77 +206,95 @@ const Container = <Data extends IAnything>({
   element,
 }: IContainerProps<Data>) => {
 
+  const [outerStyles, setOuterStyles] = useState<React.CSSProperties>({});
+  const [innerStyles, setInnerStyles] = useState<React.CSSProperties>({});
+
   const {
     isDesktop,
     isTablet,
     isPhone,
   } = getScreenInfo(bpoints);
+  
+  const isMounted = useRef(true);
 
-  const [outerStyles, innerStyles] = useMemo(() => {
+  useLayoutEffect(() => () => {
+    isMounted.current = false;
+  }, []);
 
-    const outerStyles: React.CSSProperties = {
-      ...(isDesktop && (registry.heroOuterDesktopStyle || registry.heroOuterStyle)),
-      ...(isTablet && (registry.heroOuterTabletStyle || registry.heroOuterStyle)),
-      ...(isPhone && (registry.heroOuterPhoneStyle || registry.heroOuterStyle)),
-      ...(!isPhone && !isTablet && !isDesktop && registry.heroOuterStyle),
-    };
+  useLayoutEffect(() => {
 
-    const innerStyles: React.CSSProperties = {
-      ...(isDesktop && (registry.heroInnerDesktopStyle || registry.heroInnerStyle)),
-      ...(isTablet && (registry.heroInnerTabletStyle || registry.heroInnerStyle)),
-      ...(isPhone && (registry.heroInnerPhoneStyle || registry.heroInnerStyle)),
-      ...(!isPhone && !isTablet && !isDesktop && registry.heroInnerStyle),
-    };
+    const process = async () => {
 
-    const res = (value: ISizeCallback<Data> | string) => {
-      if (typeof value === 'function') {
-        return value(object, {
-          height,
-          width,
-        }, element);
+      const outerStyles: React.CSSProperties = {
+        ...(isDesktop && (registry.heroOuterDesktopStyle || registry.heroOuterStyle)),
+        ...(isTablet && (registry.heroOuterTabletStyle || registry.heroOuterStyle)),
+        ...(isPhone && (registry.heroOuterPhoneStyle || registry.heroOuterStyle)),
+        ...(!isPhone && !isTablet && !isDesktop && registry.heroOuterStyle),
+      };
+
+      const innerStyles: React.CSSProperties = {
+        ...(isDesktop && (registry.heroInnerDesktopStyle || registry.heroInnerStyle)),
+        ...(isTablet && (registry.heroInnerTabletStyle || registry.heroInnerStyle)),
+        ...(isPhone && (registry.heroInnerPhoneStyle || registry.heroInnerStyle)),
+        ...(!isPhone && !isTablet && !isDesktop && registry.heroInnerStyle),
+      };
+
+      await waitForSize(element);
+
+      const res = (value: ISizeCallback<Data> | string) => {
+        if (typeof value === 'function') {
+          const { height, width } = element.getBoundingClientRect();
+          return value(object, { height, width }, element);
+        } else {
+          return value;
+        }
+      };
+
+      if (isDesktop) {
+        outerStyles.minHeight = res(registry.desktopMinHeight || registry.minHeight || DEFAULT_E_SIZE);
+        outerStyles.maxHeight = res(registry.desktopMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
+        outerStyles.minWidth = res(registry.desktopMinWidth || registry.minWidth || DEFAULT_E_SIZE);
+        outerStyles.maxWidth = res(registry.desktopMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
+        outerStyles.height = res(registry.desktopHeight || registry.height || DEFAULT_SIZE);
+        outerStyles.width = res(registry.desktopWidth || registry.width || DEFAULT_SIZE);
+        innerStyles.top =  res(registry.desktopTop || registry.top || DEFAULT_MARGIN);
+        innerStyles.left = res(registry.desktopLeft || registry.left || DEFAULT_MARGIN);
+        innerStyles.right = res(registry.desktopRight || registry.right || DEFAULT_MARGIN);
+        innerStyles.bottom = res(registry.desktopBottom || registry.bottom || DEFAULT_MARGIN);
+      } else if (isTablet) {
+        outerStyles.minHeight = res(registry.tabletMinHeight || registry.minHeight || DEFAULT_E_SIZE);
+        outerStyles.maxHeight = res(registry.tabletMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
+        outerStyles.minWidth = res(registry.tabletMinWidth || registry.minWidth || DEFAULT_E_SIZE);
+        outerStyles.maxWidth = res(registry.tabletMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
+        outerStyles.height = res(registry.tabletHeight || registry.height || DEFAULT_SIZE);
+        outerStyles.width = res(registry.tabletWidth || registry.width || DEFAULT_SIZE);
+        innerStyles.top =  res(registry.tabletTop || registry.top || DEFAULT_MARGIN);
+        innerStyles.left = res(registry.tabletLeft || registry.left || DEFAULT_MARGIN);
+        innerStyles.right = res(registry.tabletRight || registry.right || DEFAULT_MARGIN);
+        innerStyles.bottom = res(registry.tabletBottom || registry.bottom || DEFAULT_MARGIN);
+      } else if (isPhone) {
+        outerStyles.minHeight = res(registry.phoneMinHeight || registry.minHeight || DEFAULT_E_SIZE);
+        outerStyles.maxHeight = res(registry.phoneMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
+        outerStyles.minWidth = res(registry.phoneMinWidth || registry.minWidth || DEFAULT_E_SIZE);
+        outerStyles.maxWidth = res(registry.phoneMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
+        outerStyles.height = res(registry.phoneHeight || registry.height || DEFAULT_SIZE);
+        outerStyles.width = res(registry.phoneWidth || registry.width || DEFAULT_SIZE);
+        innerStyles.top =  res(registry.phoneTop || registry.top || DEFAULT_MARGIN);
+        innerStyles.left = res(registry.phoneLeft || registry.left || DEFAULT_MARGIN);
+        innerStyles.right = res(registry.phoneRight || registry.right || DEFAULT_MARGIN);
+        innerStyles.bottom = res(registry.phoneBottom || registry.bottom || DEFAULT_MARGIN);
       } else {
-        return value;
+        throw new Error('HeroLayout invalid media query');
       }
+
+      if (isMounted.current) {
+        setOuterStyles(outerStyles);
+        setInnerStyles(innerStyles);
+      }
+
     };
 
-    if (isDesktop) {
-      outerStyles.minHeight = res(registry.desktopMinHeight || registry.minHeight || DEFAULT_E_SIZE);
-      outerStyles.maxHeight = res(registry.desktopMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
-      outerStyles.minWidth = res(registry.desktopMinWidth || registry.minWidth || DEFAULT_E_SIZE);
-      outerStyles.maxWidth = res(registry.desktopMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
-      outerStyles.height = res(registry.desktopHeight || registry.height || DEFAULT_SIZE);
-      outerStyles.width = res(registry.desktopWidth || registry.width || DEFAULT_SIZE);
-      innerStyles.top =  res(registry.desktopTop || registry.top || DEFAULT_MARGIN);
-      innerStyles.left = res(registry.desktopLeft || registry.left || DEFAULT_MARGIN);
-      innerStyles.right = res(registry.desktopRight || registry.right || DEFAULT_MARGIN);
-      innerStyles.bottom = res(registry.desktopBottom || registry.bottom || DEFAULT_MARGIN);
-    } else if (isTablet) {
-      outerStyles.minHeight = res(registry.tabletMinHeight || registry.minHeight || DEFAULT_E_SIZE);
-      outerStyles.maxHeight = res(registry.tabletMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
-      outerStyles.minWidth = res(registry.tabletMinWidth || registry.minWidth || DEFAULT_E_SIZE);
-      outerStyles.maxWidth = res(registry.tabletMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
-      outerStyles.height = res(registry.tabletHeight || registry.height || DEFAULT_SIZE);
-      outerStyles.width = res(registry.tabletWidth || registry.width || DEFAULT_SIZE);
-      innerStyles.top =  res(registry.tabletTop || registry.top || DEFAULT_MARGIN);
-      innerStyles.left = res(registry.tabletLeft || registry.left || DEFAULT_MARGIN);
-      innerStyles.right = res(registry.tabletRight || registry.right || DEFAULT_MARGIN);
-      innerStyles.bottom = res(registry.tabletBottom || registry.bottom || DEFAULT_MARGIN);
-    } else if (isPhone) {
-      outerStyles.minHeight = res(registry.phoneMinHeight || registry.minHeight || DEFAULT_E_SIZE);
-      outerStyles.maxHeight = res(registry.phoneMaxHeight || registry.maxHeight || DEFAULT_E_SIZE);
-      outerStyles.minWidth = res(registry.phoneMinWidth || registry.minWidth || DEFAULT_E_SIZE);
-      outerStyles.maxWidth = res(registry.phoneMaxWidth || registry.maxWidth || DEFAULT_E_SIZE);
-      outerStyles.height = res(registry.phoneHeight || registry.height || DEFAULT_SIZE);
-      outerStyles.width = res(registry.phoneWidth || registry.width || DEFAULT_SIZE);
-      innerStyles.top =  res(registry.phoneTop || registry.top || DEFAULT_MARGIN);
-      innerStyles.left = res(registry.phoneLeft || registry.left || DEFAULT_MARGIN);
-      innerStyles.right = res(registry.phoneRight || registry.right || DEFAULT_MARGIN);
-      innerStyles.bottom = res(registry.phoneBottom || registry.bottom || DEFAULT_MARGIN);
-    } else {
-      throw new Error('HeroLayout invalid media query');
-    }
-
-    return [outerStyles, innerStyles];
+    process();
 
   }, [
     object,
