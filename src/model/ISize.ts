@@ -5,6 +5,6 @@ export interface ISize {
   width: number;
 }
 
-export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize) => string;
+export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize, ref: HTMLDivElement) => string;
 
 export default ISize;

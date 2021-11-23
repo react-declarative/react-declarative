@@ -1468,7 +1468,7 @@ declare module 'react-declarative/model/ISize' {
         height: number;
         width: number;
     }
-    export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize) => string;
+    export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize, ref: HTMLDivElement) => string;
     export default ISize;
 }
 

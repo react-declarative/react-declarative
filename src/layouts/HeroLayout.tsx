@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import classNames from '../utils/classNames';
 
@@ -179,6 +179,7 @@ interface IContainerProps<Data extends IAnything> {
   width: number;
   registry: IHeroRegistry<Data>;
   object: PickProp<IEntity<Data>, 'object'>;
+  element: HTMLDivElement;
 }
 
 const match = (from: number, to: number) => matchMedia(`(min-width: ${from}px) and (max-width: ${to}px)`).matches;
@@ -201,6 +202,7 @@ const Container = <Data extends IAnything>({
   registry,
   children,
   object,
+  element,
 }: IContainerProps<Data>) => {
 
   const {
@@ -230,7 +232,7 @@ const Container = <Data extends IAnything>({
         return value(object, {
           height,
           width,
-        });
+        }, element);
       } else {
         return value;
       }
@@ -279,6 +281,7 @@ const Container = <Data extends IAnything>({
     object,
     width,
     height,
+    element,
     registry.top,
     registry.phoneTop,
     registry.tabletTop,
@@ -336,10 +339,12 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   ...otherProps
 }: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
   const { breakpoints: { values: bpoints } } = theme!;
+  const groupRef: React.MutableRefObject<any> = useRef(null);
   const classes = useStyles();
   return (
     <Group
       className={classNames(className, classes.root)}
+      ref={(el) => groupRef.current = el}
       style={style}
       isItem={true}
       columns={columns}
@@ -359,6 +364,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
         >
           {({ width, height }) => width ? (
             <Container<Data>
+              element={groupRef.current}
               className={classes.item}
               bpoints={bpoints}
               height={height}
