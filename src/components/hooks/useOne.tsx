@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { useModal } from 'react-modal-hook';
 
@@ -20,11 +20,14 @@ interface IParams<Data extends IAnything = IAnything, Field = IField<Data>> {
 
 export const useOne = <Data extends IAnything = IAnything, Field = IField<Data>>({
   fields,
-  title,
-  handler,
+  title: defaultTitle,
+  handler: defaultHandler,
 }: IParams<Data, Field>) => {
 
   const changeRef = useRef<Fn>();
+
+  const [currentHandler, setCurrentHandler] = useState(() => defaultHandler);
+  const [currentTitle, setCurrentTitle] = useState(defaultTitle);
 
   const handleChange: Fn = (date) => {
     const { current } = changeRef;
@@ -38,14 +41,19 @@ export const useOne = <Data extends IAnything = IAnything, Field = IField<Data>>
     <OnePicker
       open={open}
       fields={fields as unknown as IField[]}
-      title={title}
-      handler={handler}
+      title={currentTitle}
+      handler={currentHandler}
       onChange={handleChange}
     />
-  ));
+  ), [currentTitle, currentHandler]);
 
-  return () => new class {
+  return ({
+    handler,
+    title,
+  }: Partial<IParams<Data, Field>> = {}) => new class {
     constructor() {
+      handler !== undefined && setCurrentHandler(() => handler);
+      title !== undefined && setCurrentTitle(title);
       showModal();
     };
     then(onData: Fn) {

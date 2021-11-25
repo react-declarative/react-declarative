@@ -1548,10 +1548,10 @@ declare module 'react-declarative/components/hooks/useOne' {
         title?: string;
         handler?: OneHandler<Data>;
     }
-    export const useOne: <Data extends unknown = any, Field = IField<Data>>({ fields, title, handler, }: IParams<Data, Field>) => () => {
+    export const useOne: <Data extends unknown = any, Field = IField<Data>>({ fields, title: defaultTitle, handler: defaultHandler, }: IParams<Data, Field>) => ({ handler, title, }?: Partial<IParams<Data, Field>>) => {
         then(onData: Fn): void;
     };
-    export const useOneTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data>>) => () => {
+    export const useOneTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data>>) => ({ handler, title, }?: Partial<IParams<Data, TypedField<Data>>>) => {
         then(onData: Fn): void;
     };
     export default useOne;

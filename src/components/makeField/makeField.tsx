@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useRef, useState, useEffect } from 'react';
+import { memo, useRef, useState, useLayoutEffect } from 'react';
 
 /* eslint-disable no-console */
 
@@ -116,10 +116,19 @@ export function makeField(
             config.skipDebounce ? 0 : DEBOUNCE_SPEED
         );
 
+        const isMounted = useRef(true);
+
+        useLayoutEffect(() => () => {
+          isMounted.current = false;
+        }, []);
+
         /**
          * Эффект входящего изменения.
          */
-        useEffect(() => {
+        useLayoutEffect(() => {
+            if (!isMounted.current) {
+                return;
+            }
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
@@ -153,7 +162,10 @@ export function makeField(
          * value, обернутое в хук useDebounce для оптимизации
          * производительности
          */
-        useEffect(() => {
+        useLayoutEffect(() => {
+            if (!isMounted.current) {
+                return;
+            }
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
@@ -191,6 +203,9 @@ export function makeField(
         }: {
             skipReadonly?: boolean;
         } = {}) => {
+            if (!isMounted.current) {
+                return;
+            }
             if (readonly && !skipReadonly) {
                 return;
             }
@@ -206,6 +221,9 @@ export function makeField(
          * фокуса
          */
         const onFocus = () => {
+            if (!isMounted.current) {
+                return;
+            }
             waitForBlur(groupRef.current as HTMLDivElement).then(() => {
                 if (pending()) {
                     flush();
