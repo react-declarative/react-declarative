@@ -19,7 +19,7 @@ export interface ISliderFieldProps<Data = IAnything>  {
   sliderThumbColor?: PickProp<IField<Data>, 'sliderThumbColor'>;
   sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
   sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
-  elementRef?: PickProp<IField<Data>, 'elementRef'>;
+  groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 export interface ISliderFieldPrivate<Data = IAnything>  {

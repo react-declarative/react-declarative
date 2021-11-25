@@ -11,7 +11,7 @@ const FIELD_NEVER_MARGIN = '0';
 
 export interface IComponentFieldProps<Data = IAnything> {
     compute?: PickProp<IField<Data>, 'compute'>;
-    elementRef?: PickProp<IField<Data>, 'elementRef'>;
+    groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 interface IComponentFieldPrivate<Data = IAnything> {

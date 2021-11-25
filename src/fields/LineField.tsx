@@ -12,7 +12,7 @@ const FIELD_NEVER_MARGIN = '0';
 
 export interface ILineFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, 'title'>;
-  elementRef?: PickProp<IField<Data>, 'elementRef'>;
+  groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 export const LineField = ({

@@ -35,9 +35,10 @@ export interface IField<Data = IAnything> {
     outlined?: boolean;
 
     /**
-     * Передает ссылку на корневой элемент группы при перерисовках
+     * Передает ссылку при перерисовках
      */
-    elementRef?: (element: HTMLDivElement) => void;
+    groupRef?: (element: HTMLDivElement) => void;
+    inputRef?: (element: HTMLInputElement) => void;
 
     /**
      * Автофокус и постоянное отключение поля

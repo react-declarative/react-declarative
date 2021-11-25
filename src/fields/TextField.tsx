@@ -23,7 +23,8 @@ export interface ITextFieldProps<Data = IAnything> {
   readonly?: PickProp<IField<Data>, "readonly">;
   autoFocus?: PickProp<IField<Data>, "autoFocus">;
   disabled?: PickProp<IField<Data>, "disabled">;
-  elementRef?: PickProp<IField<Data>, 'elementRef'>;
+  groupRef?: PickProp<IField<Data>, 'groupRef'>;
+  inputRef?: PickProp<IField<Data>, 'inputRef'>;
 }
 
 export interface ITextFieldPrivate<Data = IAnything> {
@@ -55,10 +56,12 @@ export const TextField = ({
   loading,
   onChange,
   autoFocus,
+  inputRef,
   name,
 }: ITextFieldProps & ITextFieldPrivate) => (
   <Text
     autoFocus={autoFocus}
+    inputRef={inputRef}
     invalid={invalid}
     value={value}
     disabled={disabled}

@@ -12,7 +12,7 @@ export interface ITypographyFieldProps<Data = IAnything> {
   placeholder?: PickProp<IField<Data>, 'placeholder'>;
   typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
   style?: PickProp<IField<Data>, 'style'>;
-  elementRef?: PickProp<IField<Data>, 'elementRef'>;
+  groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 export interface ITypographyFieldPrivate<Data = IAnything> {

@@ -204,9 +204,10 @@ declare module 'react-declarative/model/IField' {
             readonly?: boolean;
             outlined?: boolean;
             /**
-                * Передает ссылку на корневой элемент группы при перерисовках
+                * Передает ссылку при перерисовках
                 */
-            elementRef?: (element: HTMLDivElement) => void;
+            groupRef?: (element: HTMLDivElement) => void;
+            inputRef?: (element: HTMLInputElement) => void;
             /**
                 * Автофокус и постоянное отключение поля
                 */
@@ -1171,7 +1172,7 @@ declare module 'react-declarative/fields/CheckboxField' {
     import IField from 'react-declarative/model/IField';
     export interface ICheckboxFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface ICheckboxFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
@@ -1200,7 +1201,7 @@ declare module 'react-declarative/fields/ComboField' {
         itemList?: PickProp<IField<Data>, "itemList">;
         title?: PickProp<IField<Data>, "title">;
         tr?: PickProp<IField<Data>, "tr">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface IComboFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, "value">;
@@ -1226,7 +1227,7 @@ declare module 'react-declarative/fields/ComponentField' {
     import IManaged, { PickProp } from 'react-declarative/model/IManaged';
     export interface IComponentFieldProps<Data = IAnything> {
         compute?: PickProp<IField<Data>, 'compute'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     interface IComponentFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
@@ -1253,7 +1254,7 @@ declare module 'react-declarative/fields/ItemsField' {
         itemList?: PickProp<IField<Data>, "itemList">;
         title?: PickProp<IField<Data>, "title">;
         tr?: PickProp<IField<Data>, "tr">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface IItemsFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -1279,7 +1280,7 @@ declare module 'react-declarative/fields/LineField' {
     import IField from 'react-declarative/model/IField';
     export interface ILineFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export const LineField: {
         ({ title, }: ILineFieldProps): JSX.Element;
@@ -1299,7 +1300,7 @@ declare module 'react-declarative/fields/ProgressField' {
     export interface IProgressFieldProps<Data = IAnything> {
         maxPercent?: PickProp<IField<Data>, "maxPercent">;
         showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface IProgressFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, "value">;
@@ -1322,7 +1323,7 @@ declare module 'react-declarative/fields/RadioField' {
     export interface IRadioFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, "title">;
         radioValue?: PickProp<IField<Data>, "radioValue">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface IRadioFieldPrivate<Data = IAnything> {
         disabled: PickProp<IManaged<Data>, "disabled">;
@@ -1348,7 +1349,7 @@ declare module 'react-declarative/fields/RatingField' {
     export interface IRatingFieldProps<Data = IAnything> {
         readonly?: PickProp<IField<Data>, "readonly">;
         title?: PickProp<IField<Data>, "title">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface IRatingFieldPrivate<Data = IAnything> {
         name?: string;
@@ -1382,7 +1383,7 @@ declare module 'react-declarative/fields/SliderField' {
         sliderThumbColor?: PickProp<IField<Data>, 'sliderThumbColor'>;
         sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
         sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface ISliderFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
@@ -1405,7 +1406,7 @@ declare module 'react-declarative/fields/SwitchField' {
     import IField from 'react-declarative/model/IField';
     export interface ISwitchFieldProps<Data = IAnything> {
         title?: PickProp<IField<Data>, 'title'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface ISwitchFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
@@ -1442,7 +1443,8 @@ declare module 'react-declarative/fields/TextField' {
         readonly?: PickProp<IField<Data>, "readonly">;
         autoFocus?: PickProp<IField<Data>, "autoFocus">;
         disabled?: PickProp<IField<Data>, "disabled">;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
+        inputRef?: PickProp<IField<Data>, 'inputRef'>;
     }
     export interface ITextFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -1454,7 +1456,7 @@ declare module 'react-declarative/fields/TextField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -1472,7 +1474,7 @@ declare module 'react-declarative/fields/TypographyField' {
         placeholder?: PickProp<IField<Data>, 'placeholder'>;
         typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
         style?: PickProp<IField<Data>, 'style'>;
-        elementRef?: PickProp<IField<Data>, 'elementRef'>;
+        groupRef?: PickProp<IField<Data>, 'groupRef'>;
     }
     export interface ITypographyFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, 'value'>;
