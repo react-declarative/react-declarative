@@ -204,6 +204,15 @@ declare module 'react-declarative/model/IField' {
             readonly?: boolean;
             outlined?: boolean;
             /**
+                * Передает ссылку на корневой элемент группы при перерисовках
+                */
+            ref?: (element: HTMLDivElement) => void;
+            /**
+                * Автофокус и постоянное отключение поля
+                */
+            autoFocus?: boolean;
+            disabled?: boolean;
+            /**
                 * Поле, специфичное для RadioField и позволяющее
                 * задать значение при выборе элемента кликом
                 */
@@ -1421,6 +1430,8 @@ declare module 'react-declarative/fields/TextField' {
         inputRows?: PickProp<IField<Data>, "inputRows">;
         placeholder?: PickProp<IField<Data>, "placeholder">;
         readonly?: PickProp<IField<Data>, "readonly">;
+        autoFocus?: PickProp<IField<Data>, "autoFocus">;
+        disabled?: PickProp<IField<Data>, "disabled">;
     }
     export interface ITextFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -1432,11 +1443,11 @@ declare module 'react-declarative/fields/TextField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1754,7 +1765,8 @@ declare module 'react-declarative/slots/SwitchSlot/SwitchSlot' {
 
 declare module 'react-declarative/slots/TextSlot/ITextSlot' {
     import { ITextFieldProps, ITextFieldPrivate } from "react-declarative/fields/TextField";
-    export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate {
+    type ITextBase = ITextFieldProps & ITextFieldPrivate;
+    export interface ITextSlot extends ITextBase {
     }
     export default ITextSlot;
 }

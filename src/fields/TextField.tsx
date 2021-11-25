@@ -21,6 +21,8 @@ export interface ITextFieldProps<Data = IAnything> {
   inputRows?: PickProp<IField<Data>, "inputRows">;
   placeholder?: PickProp<IField<Data>, "placeholder">;
   readonly?: PickProp<IField<Data>, "readonly">;
+  autoFocus?: PickProp<IField<Data>, "autoFocus">;
+  disabled?: PickProp<IField<Data>, "disabled">;
 }
 
 export interface ITextFieldPrivate<Data = IAnything> {
@@ -51,9 +53,11 @@ export const TextField = ({
   dirty,
   loading,
   onChange,
+  autoFocus,
   name,
 }: ITextFieldProps & ITextFieldPrivate) => (
   <Text
+    autoFocus={autoFocus}
     invalid={invalid}
     value={value}
     disabled={disabled}

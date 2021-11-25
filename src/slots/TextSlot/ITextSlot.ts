@@ -1,5 +1,7 @@
 import { ITextFieldProps, ITextFieldPrivate } from "../../fields/TextField";
 
-export interface ITextSlot extends ITextFieldProps, ITextFieldPrivate { }
+type ITextBase = ITextFieldProps & ITextFieldPrivate;
+
+export interface ITextSlot extends ITextBase { }
 
 export default ITextSlot;

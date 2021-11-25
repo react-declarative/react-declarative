@@ -35,6 +35,17 @@ export interface IField<Data = IAnything> {
     outlined?: boolean;
 
     /**
+     * Передает ссылку на корневой элемент группы при перерисовках
+     */
+    ref?: (element: HTMLDivElement) => void;
+
+    /**
+     * Автофокус и постоянное отключение поля
+     */
+    autoFocus?: boolean;
+    disabled?: boolean;
+
+    /**
      * Поле, специфичное для RadioField и позволяющее
      * задать значение при выборе элемента кликом
      */

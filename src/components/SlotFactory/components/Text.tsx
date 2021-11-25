@@ -99,6 +99,7 @@ export const Text = ({
     inputAutocomplete: autoComplete = "off",
     dirty,
     loading,
+    autoFocus,
     onChange,
     name,
 }: ITextSlot) => (
@@ -107,8 +108,13 @@ export const Text = ({
         variant={outlined ? "outlined" : "standard"}
         helperText={(dirty && invalid) || description}
         error={dirty && invalid !== null}
-        InputProps={icons(li, ti, lic, tic, loading, (value || '').toString(), onChange)}
+        InputProps={{
+            autoComplete: autoComplete,
+            autoFocus: autoFocus,
+            ...icons(li, ti, lic, tic, loading, (value || '').toString(), onChange),
+        }}
         type={inputType}
+        autoFocus={autoFocus}
         autoComplete={autoComplete}
         value={loading ? LOADING_LABEL : String(value)}
         placeholder={placeholder}

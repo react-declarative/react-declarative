@@ -87,8 +87,11 @@ export function makeField(
         focus,
         blur,
         invalidity,
+        disabled: fieldDisabled = false,
+        autoFocus,
         readonly = false,
         style,
+        ref = () => null,
         fieldRightMargin,
         fieldBottomMargin,
         ...otherProps
@@ -166,6 +169,7 @@ export function makeField(
              * полей
              */
             ready();
+            groupRef.current && ref(groupRef.current);
         }, [object]);
 
         /**
@@ -202,6 +206,7 @@ export function makeField(
                     change(copy);
                 }
             }
+            groupRef.current && ref(groupRef.current);
         }, [debouncedValue, object]);
 
         /**
@@ -261,7 +266,8 @@ export function makeField(
         const managedProps: IManaged<Data> = {
             onChange: handleChange,
             fallback,
-            disabled,
+            disabled: disabled || fieldDisabled,
+            autoFocus,
             invalid,
             value,
             name,
