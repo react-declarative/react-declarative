@@ -59,7 +59,7 @@ export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) 
 
   const handleChange = (newData: Data, initial: boolean) => {
     let isValid = true;
-    deepFlat(fields, 'fields').forEach(({
+    deepFlat(fields).forEach(({
       isInvalid = () => null
     }: IField<Data>) => {
       isValid = isValid && isInvalid(newData) === null;

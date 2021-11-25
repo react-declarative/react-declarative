@@ -29,7 +29,7 @@ interface IResolvedHookProps<Data = IAnything> {
 const buildObj = <Data = IAnything>(fields: IField<Data>[]) => {
     const obj = {};
     if (fields) {
-        deepFlat(fields, 'fields').forEach((f) => {
+        deepFlat(fields).forEach((f) => {
             if (isStatefull(f as IField)) {
                 create(obj, f.name);
                 if (typeof f.defaultValue === 'undefined') {

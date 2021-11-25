@@ -1,9 +1,9 @@
-export const deepFlat = <T = any>(arr: T[] = [], fieldName = 'fields') => {
-    const result: T[] = [];
-    const process = (entries: T[] = []) => entries.forEach((entry) => {
-        if (Array.isArray(entry[fieldName])) {
-            process(entry[fieldName])
-        }
+export const deepFlat = <T = any>(arr: T[] = []) => {
+    const result: any[] = [];
+    const process = (entries: any[] = []) => entries.forEach((entry) => {
+        const fields = entry['fields'] || [];
+        const child = entry['child'] ? [ entry['child'] ] : [];
+        process([...fields, ...child]);
         result.push(entry);
     });
     process(arr);

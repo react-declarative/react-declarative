@@ -384,10 +384,27 @@ describe("Create object flatmap by field", () => {
       ],
     },
   ];
+  const fields4 = [
+    {
+      type: FieldType.Group,
+      child: {
+        type: FieldType.Group,
+        fields: [
+          {
+            type: FieldType.Group,
+          },
+          {
+            type: FieldType.Group,
+          },
+        ]
+      }
+    },
+  ];
   it("Will pass static deepFlat testcases", () => {
-    expect(deepFlat(fields50, "fields").length).toBe(50);
-    expect(deepFlat(fields32, "fields").length).toBe(32);
-    expect(deepFlat(fields19, "fields").length).toBe(19);
-    expect(deepFlat(fields3, "fields").length).toBe(3);
+    expect(deepFlat(fields50).length).toBe(50);
+    expect(deepFlat(fields32).length).toBe(32);
+    expect(deepFlat(fields19).length).toBe(19);
+    expect(deepFlat(fields3).length).toBe(3);
+    expect(deepFlat(fields4).length).toBe(4);
   });
 });
