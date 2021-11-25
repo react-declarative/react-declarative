@@ -79,6 +79,7 @@ export function makeField(
         isVisible = () => true,
         isInvalid = () => null,
         change = (v) => console.log({ v }),
+        fallback = () => null,
         ready = () => null,
         compute,
         object,
@@ -132,7 +133,14 @@ export function makeField(
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
-                setValue(compute(arrays(object), (v) => setValue(v)));
+                const result = compute(arrays(object), (v) => setValue(v));
+                if (result instanceof Promise) {
+                    result
+                        .then((value) => setValue(value))
+                        .catch((e) => fallback(e));
+                } else {
+                    setValue(result);
+                }
             } else if (!name) {
                 // void(0);
             } else {
@@ -249,6 +257,7 @@ export function makeField(
 
         const managedProps: IManaged<Data> = {
             onChange: handleChange,
+            fallback,
             disabled,
             invalid,
             value,

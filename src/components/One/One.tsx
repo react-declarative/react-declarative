@@ -43,6 +43,7 @@ export const OneInternal = <Data extends IAnything = IAnything>({
     prefix = 'root',
     invalidity = () => null,
     change = () => null,
+    fallback = () => null,
     focus,
     blur,
 }: IOneProps<Data>) => {
@@ -74,6 +75,7 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                         invalidity: field.invalidity || invalidity,
                         change: handleChange,
                         ready: handleReady,
+                        fallback,
                         focus,
                         blur,
                         ...field,

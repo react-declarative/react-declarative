@@ -353,7 +353,7 @@ declare module 'react-declarative/model/IField' {
                 * Включает readonly. Для ComponentField может возвращать JSX.
                 * Коллбек change позволяет осуществить операцию асинхронно (опционально).
                 */
-            compute?: (v: Data, change: (v: any) => void) => any;
+            compute?: (v: Data, change: (v: any) => void) => Promise<IAnything> | IAnything;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
                 * валидации
@@ -905,6 +905,7 @@ declare module 'react-declarative/model/IEntity' {
     export interface IEntity<Data = IAnything> extends Omit<IField<Data>, exclude> {
         change?: (object: Data) => void;
         invalidity: (msg: string) => void;
+        fallback: (e: Error) => void;
         ready: () => void;
         object: Data;
     }

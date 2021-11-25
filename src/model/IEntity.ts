@@ -13,6 +13,7 @@ type exclude = 'defaultValue'
 export interface IEntity<Data = IAnything> extends Omit<IField<Data>, exclude> {
   change?: (object: Data) => void;
   invalidity: (msg: string) => void;
+  fallback: (e: Error) => void;
   ready: () => void;
   object: Data;
 }

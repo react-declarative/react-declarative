@@ -208,7 +208,7 @@ export interface IField<Data = IAnything> {
      * Включает readonly. Для ComponentField может возвращать JSX.
      * Коллбек change позволяет осуществить операцию асинхронно (опционально).
      */
-    compute?: (v: Data, change: (v: any) => void) => any;
+    compute?: (v: Data, change: (v: any) => void) => Promise<IAnything> | IAnything;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении
