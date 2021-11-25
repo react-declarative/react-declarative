@@ -883,6 +883,7 @@ declare module 'react-declarative/model/IManaged' {
             value: Value;
             dirty: boolean;
             disabled: boolean;
+            loading: boolean;
             invalid: string | null;
             onChange: (v: Value, config?: {
                     skipReadonly?: boolean;
@@ -1425,16 +1426,17 @@ declare module 'react-declarative/fields/TextField' {
         onChange: PickProp<IManaged<Data>, "onChange">;
         invalid: PickProp<IManaged<Data>, "invalid">;
         value: PickProp<IManaged<Data>, "value">;
+        loading: PickProp<IManaged<Data>, "loading">;
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, readonly, style, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;

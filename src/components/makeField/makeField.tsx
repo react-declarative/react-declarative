@@ -101,6 +101,7 @@ export function makeField(
         const [disabled, setDisabled] = useState<boolean>(false);
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
+        const [loading, setLoading] = useState<boolean>(false);
         const [dirty, setDirty] = useState<boolean>(false);
 
         const inputUpdate = useRef(false);
@@ -135,9 +136,11 @@ export function makeField(
             if (compute) {
                 const result = compute(arrays(object), (v) => setValue(v));
                 if (result instanceof Promise) {
+                    setLoading(true)
                     result
-                        .then((value) => setValue(value))
-                        .catch((e) => fallback(e));
+                        .then((value) => isMounted.current && setValue(value))
+                        .catch((e) => isMounted.current && fallback(e))
+                        .then(() => isMounted.current && setLoading(false));
                 } else {
                     setValue(result);
                 }
@@ -263,6 +266,7 @@ export function makeField(
             value,
             name,
             dirty,
+            loading,
             ...otherProps,
         };
 

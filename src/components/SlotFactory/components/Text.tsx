@@ -3,6 +3,7 @@ import * as React from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import MatTextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import IManaged, { PickProp } from '../../../model/IManaged';
 import { ITextSlot } from '../../../slots/TextSlot';
@@ -12,11 +13,14 @@ import IAnything from '../../../model/IAnything';
 
 import icon from '../../../utils/createIcon';
 
+const LOADING_LABEL = 'Loading';
+
 const icons = (
     leadingIcon: string | React.ComponentType | undefined,
     trailingIcon: string | React.ComponentType | undefined,
     leadingIconClick: PickProp<IField, 'leadingIconClick'>,
     trailingIconClick: PickProp<IField, 'trailingIconClick'>,
+    loading: boolean,
     v: string,
     c: PickProp<IManaged, 'onChange'>,
 ) => ({
@@ -40,7 +44,7 @@ const icons = (
             ),
         }
         : {}),
-    ...(trailingIcon
+    ...(trailingIcon && !loading
         ? {
             endAdornment: (
                 <InputAdornment position="end">
@@ -60,6 +64,17 @@ const icons = (
             ),
         }
         : {}),
+        ...(loading
+            ? {
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton edge="end">
+                            <CircularProgress color="inherit" size={20} />
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }
+            : {}),
 });
 
 const multiline = (inputRows: number) => ({
@@ -83,6 +98,7 @@ export const Text = ({
     placeholder = "",
     inputAutocomplete: autoComplete = "off",
     dirty,
+    loading,
     onChange,
     name,
 }: ITextSlot) => (
@@ -91,10 +107,10 @@ export const Text = ({
         variant={outlined ? "outlined" : "standard"}
         helperText={(dirty && invalid) || description}
         error={dirty && invalid !== null}
-        InputProps={icons(li, ti, lic, tic, (value || '').toString(), onChange)}
+        InputProps={icons(li, ti, lic, tic, loading, (value || '').toString(), onChange)}
         type={inputType}
         autoComplete={autoComplete}
-        value={String(value)}
+        value={loading ? LOADING_LABEL : String(value)}
         placeholder={placeholder}
         onChange={({ target }) => onChange(target.value.toString())}
         label={title}

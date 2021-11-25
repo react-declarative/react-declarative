@@ -59,6 +59,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     value: Value;
     dirty: boolean;
     disabled: boolean;
+    loading: boolean;
     invalid: string | null;
     onChange: (v: Value, config?: {
         skipReadonly?: boolean;

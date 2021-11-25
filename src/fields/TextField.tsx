@@ -27,6 +27,7 @@ export interface ITextFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   value: PickProp<IManaged<Data>, "value">;
+  loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
@@ -48,6 +49,7 @@ export const TextField = ({
   placeholder = "",
   inputAutocomplete = "off",
   dirty,
+  loading,
   onChange,
   name,
 }: ITextFieldProps & ITextFieldPrivate) => (
@@ -67,6 +69,7 @@ export const TextField = ({
     placeholder={placeholder}
     inputAutocomplete={inputAutocomplete}
     dirty={dirty}
+    loading={loading}
     onChange={onChange}
     name={name}
   />
