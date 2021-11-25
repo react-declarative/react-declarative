@@ -91,7 +91,7 @@ export function makeField(
         autoFocus,
         readonly = false,
         style,
-        ref = () => null,
+        elementRef: ref = () => null,
         fieldRightMargin,
         fieldBottomMargin,
         ...otherProps

@@ -11,6 +11,7 @@ import IAnything from "../model/IAnything";
 export interface IProgressFieldProps<Data = IAnything> {
   maxPercent?: PickProp<IField<Data>, "maxPercent">;
   showPercentLabel?: PickProp<IField<Data>, "showPercentLabel">;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface IProgressFieldPrivate<Data = IAnything> {

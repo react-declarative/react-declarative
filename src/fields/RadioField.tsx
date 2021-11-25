@@ -11,6 +11,7 @@ import IManaged, { PickProp } from "../model/IManaged";
 export interface IRadioFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, "title">;
   radioValue?: PickProp<IField<Data>, "radioValue">;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface IRadioFieldPrivate<Data = IAnything> {

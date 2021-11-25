@@ -15,6 +15,7 @@ export interface IComboFieldProps<Data = IAnything> {
   itemList?: PickProp<IField<Data>, "itemList">;
   title?: PickProp<IField<Data>, "title">;
   tr?: PickProp<IField<Data>, "tr">;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface IComboFieldPrivate<Data = IAnything>  {

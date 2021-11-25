@@ -11,6 +11,7 @@ import IField from "../model/IField";
 export interface IRatingFieldProps<Data = IAnything> {
   readonly?: PickProp<IField<Data>, "readonly">;
   title?: PickProp<IField<Data>, "title">;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface IRatingFieldPrivate<Data = IAnything> {

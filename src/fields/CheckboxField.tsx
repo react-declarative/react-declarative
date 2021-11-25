@@ -10,6 +10,7 @@ import IField from '../model/IField';
 
 export interface ICheckboxFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, 'title'>;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface ICheckboxFieldPrivate<Data = IAnything>  {

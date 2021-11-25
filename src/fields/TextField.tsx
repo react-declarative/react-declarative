@@ -23,6 +23,7 @@ export interface ITextFieldProps<Data = IAnything> {
   readonly?: PickProp<IField<Data>, "readonly">;
   autoFocus?: PickProp<IField<Data>, "autoFocus">;
   disabled?: PickProp<IField<Data>, "disabled">;
+  elementRef?: PickProp<IField<Data>, 'elementRef'>;
 }
 
 export interface ITextFieldPrivate<Data = IAnything> {
