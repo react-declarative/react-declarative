@@ -19,7 +19,7 @@ import Group, { IGroupProps } from '../common/Group';
 import IAnything from '../../model/IAnything';
 import IManaged from '../../model/IManaged';
 import IEntity from '../../model/IEntity';
-import IField from '../../model/IField';
+import IField, { Value } from '../../model/IField';
 
 import classNames from '../../utils/classNames';
 
@@ -54,8 +54,6 @@ interface IConfig<Data = IAnything> {
         child: never;
     }>>;
 }
-
-type Value = object | string | number | boolean;
 
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
@@ -137,7 +135,7 @@ export function makeField(
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
-                const result = compute(arrays(object), (v) => setValue(v));
+                const result = compute(arrays(object));
                 if (result instanceof Promise) {
                     setLoading(true)
                     result
@@ -273,6 +271,7 @@ export function makeField(
             name,
             dirty,
             loading,
+            object,
             ...otherProps,
         };
 

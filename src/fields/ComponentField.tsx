@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { isValidElement } from 'react';
+import { Fragment } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 import makeField from '../components/makeField';
 
@@ -10,24 +11,27 @@ import IManaged, { PickProp } from '../model/IManaged';
 const FIELD_NEVER_MARGIN = '0';
 
 export interface IComponentFieldProps<Data = IAnything> {
-    compute?: PickProp<IField<Data>, 'compute'>;
+    element?: PickProp<IField<Data>, 'element'>;
     groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 interface IComponentFieldPrivate<Data = IAnything> {
-    value: PickProp<IManaged<Data>, 'value'>;
+    object: PickProp<IManaged<Data>, 'object'>;
 }
 
 export const ComponentField = ({
-    value,
+    element: Element = Fragment,
+    object,
 }: IComponentFieldProps & IComponentFieldPrivate) => {
-    if (isValidElement(value)) {
-        return value;
-    } else if (value) {
-        return <p>Invalid component</p>;
-    } else {
-        return null;
-    }
+    const [node, setNode] = useState<JSX.Element | null>(null);
+    useLayoutEffect(() => {
+        setNode(() => (
+            <Element
+                {...object}
+            />
+        ));
+    }, [object]);
+    return node;
 };
 
 ComponentField.displayName = 'ComponentField';

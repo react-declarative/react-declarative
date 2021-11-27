@@ -7,13 +7,13 @@ import {
     DebouncedControlFunctions,
 } from './useDebouncedCallback';
 
+import { Value } from '../model/IField';
+
 function valueEquality<T>(left: T, right: T): boolean {
     return left === right;
 }
 
-type value = object | string | number | boolean;
-
-export function useDebounce<T extends value>(
+export function useDebounce<T extends Value>(
     value: T,
     delay: number,
     options?: { maxWait?: number; leading?: boolean; trailing?: boolean; equalityFn?: (left: T, right: T) => boolean }

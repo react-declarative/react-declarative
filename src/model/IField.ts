@@ -5,6 +5,8 @@ import { ISizeCallback } from './ISize';
 import FieldType from './FieldType';
 import IAnything from './IAnything';
 
+export type Value = string | string[] | number | boolean | null;
+
 /**
  * Объект поля для прикладного программиста
  */
@@ -196,31 +198,32 @@ export interface IField<Data = IAnything> {
     /**
      * Функция, позволяющая организовать валидацию. Если
      * возвращаемое значение не равно null, считается за
-     * ошибкую. Коллбек change позволяет осуществить мутацию
-     * асинхронно (опционально)
+     * ошибкую
      */
     isInvalid?: (v: Data) => null | string;
 
     /**
      * Функция, позволяющая скрыть поле, исходя из целевого
-     * объекта. Коллбек change позволяет осуществить мутацию
-     * асинхронно (опционально)
+     * объекта
      */
     isVisible?: (v: Data) => boolean;
 
     /**
      * Функция, позволяющая отключить поле, исходя из целевого
-     * объекта. Коллбек change позволяет осуществить мутацию
-     * асинхронно (опционально)
+     * объекта
      */
     isDisabled?: (v: Data) => boolean;
 
     /**
      * Функция, применяемая если значение поля вычисляется динамически.
-     * Включает readonly. Для ComponentField может возвращать JSX.
-     * Коллбек change позволяет осуществить операцию асинхронно (опционально).
+     * Включает readonly.
      */
-    compute?: (v: Data, change: (v: any) => void) => Promise<IAnything> | IAnything;
+    compute?: (v: Data) => Promise<Value> | Value;
+
+    /**
+     * Инъекция JSX для ComponentField
+     */
+    element?: React.ComponentType<Data>;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении
@@ -231,7 +234,7 @@ export interface IField<Data = IAnything> {
     /**
      * Значение по-умолчанию для поля
      */
-    defaultValue?: string | string[] | number | boolean | object | object[] | null;
+    defaultValue?: Value;
 
     /**
      * Позволяет выключить отступ. Можно использовать по аналогии
