@@ -129,9 +129,6 @@ export function makeField(
          * Эффект входящего изменения.
          */
         useLayoutEffect(() => {
-            if (!isMounted.current) {
-                return;
-            }
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
@@ -176,9 +173,6 @@ export function makeField(
          * производительности
          */
         useLayoutEffect(() => {
-            if (!isMounted.current) {
-                return;
-            }
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
