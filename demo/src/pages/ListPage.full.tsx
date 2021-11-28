@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   ListTyped,
   FieldType,
@@ -191,7 +189,7 @@ export const ListPage = () => {
         title: 'Last name',
       }
     ],
-  });
+  }) as pickOneFn;
 
   const pickList = useList({
     title: 'Waiting for user input',
@@ -220,7 +218,7 @@ export const ListPage = () => {
       },
     ],
     width: 600,
-  });
+  }) as pickListFn;
 
   const filters = createFilters(pickDate, pickTime, pickOne, pickList);
 

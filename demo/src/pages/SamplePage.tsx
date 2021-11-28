@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 
 import { Box } from '@material-ui/core';
 
@@ -19,7 +19,7 @@ const fields: TypedField[] = [
                         fields: [
                             {
                                 type: FieldType.Component,
-                                compute: () => (
+                                element: () => (
                                     <Box display="flex" justifyContent="center">
                                         <Box style={{
                                             background: "#54545447",

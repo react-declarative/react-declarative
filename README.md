@@ -9,7 +9,7 @@ A React form builder which interacts with a JSON endpoint to generate nested 12-
 
 ## Install
 
-> There is a sample app avalible in [example](./example/src/index.tsx) folder...
+> There is a sample app avalible in [demo](./demo/src/index.tsx) folder...
 
 ```bash
 npm install --save react-declarative
@@ -19,7 +19,7 @@ npm install --save react-declarative
 
 ### 1. Layout grid
 
-> Link to [source code](./example/src/pages/LayoutPage.tsx)
+> Link to [source code](./demo/src/pages/LayoutPage.tsx)
 
 ![layout-grid](./assets/layout.gif)
 
@@ -60,7 +60,7 @@ const fields: TypedField[] = [
 
 ### 2. Form validation
 
-> Link to [source code](./example/src/pages/ValidationPage.tsx)
+> Link to [source code](./demo/src/pages/ValidationPage.tsx)
 
 ![form-validation](./assets/validation.gif)
 
@@ -104,7 +104,7 @@ const fields: TypedField[] = [
 
 ### 3. Gallery of controls
 
-> Link to [source code](./example/src/pages/GalleryPage.tsx)
+> Link to [source code](./demo/src/pages/GalleryPage.tsx)
 
 ![gallery](./assets/gallery.gif)
 
@@ -136,7 +136,7 @@ const fields: TypedField[] = [
 
 ### 4. JSX Injection
 
-> Link to [source code](./example/src/pages/GalleryPage.tsx)
+> Link to [source code](./demo/src/pages/GalleryPage.tsx)
 
 ```tsx
 const fields: TypedField[] = [
@@ -145,7 +145,7 @@ const fields: TypedField[] = [
     fields: [
       {
         type: FieldType.Component,
-        compute: (props) => <Logger {...(props || {})}/>, 
+        element: (props) => <Logger {...(props || {})}/>, 
       },
     ],
   },

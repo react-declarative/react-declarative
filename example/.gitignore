@@ -1,9 +1,0 @@
-node_modules
-build/**/*.d.ts
-build/**/*.js.map
-build/**/*.js
-build/**/*.txt
-build/**/*.json
-build/**/*.html
-build/**/*.css
-.DS_Store

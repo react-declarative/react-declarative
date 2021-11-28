@@ -13,7 +13,7 @@ dts.bundle({
 
 fs.copyFileSync(
     abs('dist/react-declarative.d.ts'),
-    abs('example/src/react-declarative.d.ts'),
+    abs('demo/src/react-declarative.d.ts'),
 );
 
 fs.copyFileSync(

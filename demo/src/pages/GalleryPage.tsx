@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 import { Add, Remove } from '@material-ui/icons';
 
 import { OneTyped, FieldType, TypedField } from 'react-declarative';
@@ -143,7 +140,7 @@ const fields: TypedField[] = [
             },
             {
                 type: FieldType.Component,
-                compute: (props) => <Logger {...(props || {})}/>, 
+                element: (props) => <Logger {...(props || {})}/>, 
             },
             {
                 type: FieldType.Rating,

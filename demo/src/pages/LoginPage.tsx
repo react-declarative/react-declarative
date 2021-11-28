@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
