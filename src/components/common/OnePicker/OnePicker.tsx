@@ -27,7 +27,7 @@ export const OnePicker = <Data extends IAnything = IAnything>({
   open = true,
 }: IOnePickerProps<Data>) => {
   const [data, setData] = useState<Data | null>(null);
-  const handleChange = (data: Data, initial: boolean) => !initial && setData(data);
+  const handleChange = (data: Data) => setData(data);
   const handleAccept = () => onChange(data);
   const handleDismis = () => onChange(null);
   return (

@@ -112,11 +112,11 @@ export const Text = ({
         error={dirty && invalid !== null}
         InputProps={{
             autoComplete: autoComplete,
-            autoFocus: autoFocus,
+            autoFocus,
             ...icons(li, ti, lic, tic, loading, (value || '').toString(), onChange),
         }}
         type={inputType}
-        autoFocus={autoFocus}
+        focused={autoFocus}
         autoComplete={autoComplete}
         value={loading ? LOADING_LABEL : String(value)}
         placeholder={placeholder}
