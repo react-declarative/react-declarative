@@ -2,7 +2,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import { useState, useCallback, useLayoutEffect, useRef } from 'react';
 
-import IListProps, { IListState, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
+import IListProps, { IListCallbacks, IListState, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
 import IRowData from '../../model/IRowData';
@@ -25,6 +25,7 @@ import deepCompare from '../../utils/deepCompare';
 import objects from '../../utils/objects';
 
 const DEFAULT_LIMIT = 50;
+const DEFAULT_AUTORELOAD_INTERVAL = 30_000;
 
 const ListInternal = <
   FilterData extends IAnything = IAnything,
@@ -42,6 +43,8 @@ const ListInternal = <
     handler = () => [],
     fallback = (e) => console.error(e),
     limit: defaultLimit = DEFAULT_LIMIT,
+    autoReload: defaultAutoReload = true,
+    autoReloadInterval = DEFAULT_AUTORELOAD_INTERVAL,
     filters = [],
     columns = [],
     actions = [],
@@ -60,10 +63,13 @@ const ListInternal = <
     offset: 0,
     total: null,
     loading: false,
+    autoReload: defaultAutoReload,
     sort: [],
   });
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({...prevState, loading}));
+
+  const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({...prevState, autoReload}));
 
   const { isMobile } = state;
 
@@ -185,8 +191,36 @@ const ListInternal = <
     }
   }, [state.limit, state.offset, state.sort]);
 
+  useLayoutEffect(() => {
+    let timeout: any = null;
+    if (state.autoReload && !state.loading) {
+      timeout = setTimeout(() => {
+        timeout = null;
+        handleReload();
+      }, autoReloadInterval);
+    }
+    return () => {
+      if (timeout !== null) {
+        clearTimeout(timeout);
+      }
+    }
+  }, [state.autoReload, state.loading, autoReloadInterval]);
+
+  const handleAutoReload = (autoReload: boolean) => setAutoReload(autoReload);
+
+  const callbacks: IListCallbacks<FilterData, RowData> = {
+    handlePageChange,
+    handleLimitChange,
+    handleSortModel,
+    handleDefault,
+    handleFilter,
+    handleReload,
+    handleAutoReload,
+    ready: handleDefault,
+  };
+
   return (
-    <PropProvider {...{...props, ...state}}>
+    <PropProvider {...{...props, ...state, ...callbacks}}>
       {isMobile ? (
         <Mobile<FilterData, RowData>
           {...props}
@@ -195,12 +229,7 @@ const ListInternal = <
           filters={filters}
           columns={columns}
           actions={actions}
-          handlePageChange={handlePageChange}
-          handleLimitChange={handleLimitChange}
-          handleSortModel={handleSortModel}
-          handleDefault={handleDefault}
-          handleFilter={handleFilter}
-          ready={handleDefault}
+          {...callbacks}
         />
       ) : (
         <Desktop<FilterData, RowData>
@@ -210,13 +239,8 @@ const ListInternal = <
           filters={filters}
           columns={columns}
           actions={actions}
-          handlePageChange={handlePageChange}
-          handleLimitChange={handleLimitChange}
-          handleSortModel={handleSortModel}
-          handleDefault={handleDefault}
-          handleFilter={handleFilter}
-          ready={handleDefault}
           limit={state.limit}
+          {...callbacks}
         />
       )}
     </PropProvider>

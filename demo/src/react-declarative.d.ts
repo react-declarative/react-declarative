@@ -558,9 +558,19 @@ declare module 'react-declarative/model/IListProps' {
     import IOption from 'react-declarative/model/IOption';
     import IField from 'react-declarative/model/IField';
     import IListApi from 'react-declarative/model/IListApi';
+    interface IUpdateOption extends IOption {
+        action: 'update-now';
+        label: never;
+        icon: never;
+    }
+    interface IAutoReloadOption extends IOption {
+        action: 'auto-reload';
+        label: never;
+        icon: never;
+    }
     export interface IListAction extends Partial<IOption> {
         type: ActionType;
-        options?: Partial<IOption>[];
+        options?: Partial<IOption | IUpdateOption | IAutoReloadOption>[];
     }
     interface ComponentProps {
         columnMenuProps?: any;
@@ -602,6 +612,7 @@ declare module 'react-declarative/model/IListProps' {
         total: number | null;
         uniqueKey: string;
         loading: boolean;
+        autoReload: boolean;
         sort: ListHandlerSortModel;
     }
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -610,6 +621,8 @@ declare module 'react-declarative/model/IListProps' {
         handleFilter: (data: FilterData) => void;
         handlePageChange: (page: number) => void;
         handleLimitChange: (limit: number) => void;
+        handleAutoReload: (autoReload: boolean) => void;
+        handleReload: () => void;
         ready: () => void;
     }
     export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, ComponentProps {
@@ -621,6 +634,8 @@ declare module 'react-declarative/model/IListProps' {
         actions?: IListAction[];
         limit?: number;
         sizeByParent?: boolean;
+        autoReload?: boolean;
+        autoReloadInterval?: number;
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
         onSelectedRows?: (rows: RowData[]) => void;
@@ -1186,7 +1201,7 @@ declare module 'react-declarative/fields/CheckboxField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1217,7 +1232,7 @@ declare module 'react-declarative/fields/ComboField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1270,7 +1285,7 @@ declare module 'react-declarative/fields/ItemsField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1289,7 +1304,7 @@ declare module 'react-declarative/fields/LineField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1312,7 +1327,7 @@ declare module 'react-declarative/fields/ProgressField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1338,7 +1353,7 @@ declare module 'react-declarative/fields/RadioField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1364,7 +1379,7 @@ declare module 'react-declarative/fields/RatingField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1396,7 +1411,7 @@ declare module 'react-declarative/fields/SliderField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1420,7 +1435,7 @@ declare module 'react-declarative/fields/SwitchField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1462,7 +1477,7 @@ declare module 'react-declarative/fields/TextField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1486,7 +1501,7 @@ declare module 'react-declarative/fields/TypographyField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, elementRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
+        <Data extends unknown = any>({ className, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, focus, blur, invalidity, disabled: fieldDisabled, autoFocus, readonly, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../model/IEntity").IEntity<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -1883,7 +1898,7 @@ declare module 'react-declarative/components/SlotFactory/SlotContext' {
         Rating: ({ value, disabled, readonly, title, name, onChange, }: import("../../slots/RatingSlot").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../../slots/ProgressSlot").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../../slots/TypographySlot").ITypographySlot) => JSX.Element;
-        Text: ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, loading, onChange, name, }: import("../../slots/TextSlot").ITextSlot) => JSX.Element;
+        Text: ({ invalid, value, disabled, inputType, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../../slots/TextSlot").ITextSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../../slots/SwitchSlot").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, stepSlider, maxSlider, minSlider, }: import("../../slots/SliderSlot").ISliderSlot) => JSX.Element;
     };
@@ -2015,13 +2030,14 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
 
 declare module 'react-declarative/components/List/components/PropProvider/PropProvider' {
     import * as React from 'react';
-    import IListProps, { IListState } from 'react-declarative/model/IListProps';
+    import IListProps, { IListCallbacks, IListState } from 'react-declarative/model/IListProps';
     import IAnything from 'react-declarative/model/IAnything';
     import IField from 'react-declarative/model/IField';
     import IRowData from 'react-declarative/model/IRowData';
     interface IPropContext<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends Omit<IListProps<FilterData, RowData, Field>, keyof {
         limit: never;
-    }>, IListState<FilterData, RowData> {
+        autoReload: never;
+    }>, IListState<FilterData, RowData>, IListCallbacks<FilterData, RowData> {
         children: React.ReactChild;
     }
     export const PropProvider: <FilterData extends unknown = any, RowData extends IRowData = any, Field extends IField<any> = IField<FilterData>>(props: IPropContext<FilterData, RowData, Field>) => JSX.Element;

@@ -18,9 +18,21 @@ import IOption from './IOption';
 import IField from './IField';
 import IListApi from './IListApi';
 
+interface IUpdateOption extends IOption {
+  action: 'update-now';
+  label: never;
+  icon: never;
+};
+
+interface IAutoReloadOption extends IOption {
+  action: 'auto-reload';
+  label: never;
+  icon: never;
+};
+
 export interface IListAction extends Partial<IOption> {
   type: ActionType;
-  options?: Partial<IOption>[];
+  options?: Partial<IOption | IUpdateOption | IAutoReloadOption>[];
 }
 
 interface ComponentProps {
@@ -73,6 +85,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   total: number | null;
   uniqueKey: string;
   loading: boolean;
+  autoReload: boolean;
   sort: ListHandlerSortModel;
 };
 
@@ -82,6 +95,8 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handleFilter: (data: FilterData) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
+  handleAutoReload: (autoReload: boolean) => void;
+  handleReload: () => void;
   ready: () => void;
 };
 
@@ -98,6 +113,8 @@ export interface IListProps<
   actions?: IListAction[];
   limit?: number;
   sizeByParent?: boolean;
+  autoReload?: boolean;
+  autoReloadInterval?: number;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rows: RowData[]) => void;

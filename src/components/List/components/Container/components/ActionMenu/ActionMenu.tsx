@@ -4,15 +4,16 @@ import { useState } from 'react';
 import { useProps } from "../../../PropProvider";
 
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Fab from '@material-ui/core/Fab';
 
 import IOption from '../../../../../../model/IOption';
+
+import CommonAction from './components/CommonAction';
+import UpdateNowAction from './components/UpdateNowAction';
+import AutoReloadAction from './components/AutoReloadAction';
 
 interface IActionMenuProps {
     options?: Partial<IOption>[];
@@ -66,18 +67,26 @@ export const ActionMenu = ({
                 open={!!anchorEl}
                 onClose={handleClose}
             >
-                {options.map(({label = 'unknown-label', action = 'unknown-action', icon: Icon}, idx) => (
-                    <MenuItem key={idx} onClick={handleClick(action)}>
-                        {!!Icon && (
-                            <ListItemIcon>
-                                <Icon />
-                            </ListItemIcon>
-                        )}
-                        <Typography variant="inherit">
-                            {label}
-                        </Typography>
-                    </MenuItem>
-                ))}
+                {options.map(({label = 'unknown-label', action = 'unknown-action', icon}, idx) => {
+                    if (action === 'update-now') {
+                        return (
+                            <UpdateNowAction key={idx} />
+                        );
+                    } else if (action === 'auto-reload') {
+                        return (
+                            <AutoReloadAction key={idx} />
+                        );
+                    } else {
+                        return (
+                            <CommonAction
+                                key={idx}
+                                icon={icon}
+                                label={label}
+                                onClick={handleClick(action)}
+                            />
+                        );
+                    }
+                })}
             </Menu>
         </div>
     )

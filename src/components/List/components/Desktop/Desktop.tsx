@@ -21,6 +21,7 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
+    autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {

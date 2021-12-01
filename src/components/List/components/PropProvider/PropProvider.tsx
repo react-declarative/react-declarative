@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 
-import IListProps, { IListState } from '../../../../model/IListProps';
+import IListProps, { IListCallbacks, IListState } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
 
@@ -14,8 +14,10 @@ interface IPropContext<
 > extends
     Omit<IListProps<FilterData, RowData, Field>, keyof {
         limit: never;
+        autoReload: never;
     }>,
-    IListState<FilterData, RowData> {
+    IListState<FilterData, RowData>,
+    IListCallbacks<FilterData, RowData> {
     children: React.ReactChild;
 }
 

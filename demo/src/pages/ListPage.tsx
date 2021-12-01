@@ -68,6 +68,12 @@ const actions: IListAction[] = [
         label: 'Create new row',
         icon: Add,
       },
+      {
+        action: 'update-now',
+      },
+      {
+        action: 'auto-reload',
+      },
     ],
   }
 ];
