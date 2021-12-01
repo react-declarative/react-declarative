@@ -2,9 +2,8 @@ import { Fragment, useState } from 'react';
 
 import { Email } from '@material-ui/icons';
 
-import { OneTyped, FieldType, TypedField } from 'react-declarative';
+import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs } from 'react-declarative';
 
-import Breadcrumbs from '../components/Breadcrumbs';
 import Logger from '../components/Logger';
 
 const fields: TypedField<IOneData>[] = [
@@ -70,6 +69,13 @@ const fields: TypedField<IOneData>[] = [
     },
 ];
 
+const actions: IOption[] = [
+    {
+        label: 'Sample action',
+        action: 'sample-action',
+    }
+];
+
 interface IOneData {
     disabled: boolean;
     visible: boolean;
@@ -86,10 +92,11 @@ export const ValidationPage = () => {
             setData(newData);
         }
     };
+    const action = (action: string) => alert(action); 
     const save = () => setData(null);
     return (
         <Fragment>
-            <Breadcrumbs save={save} disabled={!data} />
+            <Breadcrumbs onSave={save} onAction={action} disabled={!data} actions={actions} />
             <OneTyped<IOneData>
                 fields={fields}
                 change={change}

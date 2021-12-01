@@ -1936,14 +1936,17 @@ declare module 'react-declarative/components/SlotFactory/ISlotFactoryContext' {
 }
 
 declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
+    import IOption from 'react-declarative/model/IOption';
     interface IBreadcrumbsProps {
         onSave?: () => void;
         onBack?: () => void;
+        onAction?: (action: string) => void;
+        actions?: IOption[];
         disabled?: boolean;
         title?: string;
         subtitle?: string;
     }
-    export const Breadcrumbs: ({ onSave, onBack, disabled, title, subtitle, }: IBreadcrumbsProps) => JSX.Element;
+    export const Breadcrumbs: ({ onSave, onBack, onAction, actions, disabled, title, subtitle, }: IBreadcrumbsProps) => JSX.Element;
     export default Breadcrumbs;
 }
 

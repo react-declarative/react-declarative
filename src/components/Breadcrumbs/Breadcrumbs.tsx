@@ -8,7 +8,11 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles({
+import ActionMenu from './ActionMenu';
+
+import IOption from '../../model/IOption';
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
@@ -17,16 +21,21 @@ const useStyles = makeStyles({
     paddingTop: "10px",
     paddingBottom: "10px",
     flex: 1,
+    '& > *:nth-child(n + 1)': {
+      marginLeft: theme.spacing(1),
+    },
   },
   stretch: {
     flexGrow: 1,
     shrink: 1,
   },
-});
+}));
 
 interface IBreadcrumbsProps {
   onSave?: () => void;
   onBack?: () => void;
+  onAction?: (action: string) => void;
+  actions?: IOption[];
   disabled?: boolean;
   title?: string;
   subtitle?: string;
@@ -35,6 +44,8 @@ interface IBreadcrumbsProps {
 export const Breadcrumbs = ({
   onSave,
   onBack,
+  onAction,
+  actions,
   disabled,
   title = 'Title',
   subtitle = 'Subtitle',
@@ -54,6 +65,12 @@ export const Breadcrumbs = ({
       >
         Save
       </Button>
+      {!!actions?.length && (
+        <ActionMenu
+          options={actions}
+          onAction={onAction}
+        />
+      )}
     </Box>
   );
 };
