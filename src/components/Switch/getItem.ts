@@ -21,11 +21,11 @@ export const getItem = async ({
   key = randomString(),
   Forbidden = Fragment,
 }: IParams): Promise<ISwitchState | null> => {
-  const keys: Key[] = [];
   let result: ISwitchState | null = null;
   for (const { component = Fragment, redirect, path, guard = () => true } of items) {
     const params: Record<string, unknown> = {};
-    const reg = pathToRegexp(path, keys)
+    const keys: Key[] = [];
+    const reg = pathToRegexp(path, keys);
     const match = reg.test(url);
     if (match) {
       let canActivate: boolean | Promise<boolean> = guard();
@@ -33,7 +33,7 @@ export const getItem = async ({
       if (canActivate) {
         const tokens = reg.exec(url);
         tokens && keys.forEach((key, i) => {
-          params[key.name] = tokens[i + 1]
+          params[key.name] = tokens[i + 1];
         });
         result = {
           component,
