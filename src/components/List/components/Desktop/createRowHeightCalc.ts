@@ -29,11 +29,11 @@ const defaultGetText = (field: string) => (row: Record<string, string>) => row[f
 
 export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: IColumn[]): [(rows: T[]) => number, () => void] => {
     const fields: any = columns.map(({ field }) => field).filter((f) => !!f);
-    const widthMap: any = columns.reduce((acm, { field = '_', width }) => ({ ...acm, [field]: { width: widthToString(width) } }), {});
-    const heightMap: any = columns.reduce((acm, { field = '_', requiredHeight = 0 }) => ({ ...acm, [field]: { requiredHeight } }), {});
-    const paddingMap: any = columns.reduce((acm, { field = '_', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
-    const getTextMap: any = columns.reduce((acm, { field = '_', sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});
-    const textStyleMap: any = columns.reduce((acm, { field = '_', sizerCellStyle }) => ({ ...acm, [field]: sizerCellStyle || defaultStyle }), {});
+    const widthMap: any = columns.reduce((acm, { field = '_unknown', width }) => ({ ...acm, [field]: { width: widthToString(width) } }), {});
+    const heightMap: any = columns.reduce((acm, { field = '_unknown', requiredHeight = 0 }) => ({ ...acm, [field]: { requiredHeight } }), {});
+    const paddingMap: any = columns.reduce((acm, { field = '_unknown', sizerCellPadding }) => ({ ...acm, [field]: sizerCellPadding || defaultPadding }), {});
+    const getTextMap: any = columns.reduce((acm, { field = '_unknown', sizerGetText }) => ({ ...acm, [field]: sizerGetText || defaultGetText(field) }), {});
+    const textStyleMap: any = columns.reduce((acm, { field = '_unknown', sizerCellStyle }) => ({ ...acm, [field]: sizerCellStyle || defaultStyle }), {});
     const div = document.createElement('div');
     div.style.position = 'fixed';
     div.style.left = `-${window.innerWidth}px`;

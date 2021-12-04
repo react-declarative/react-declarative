@@ -2,7 +2,6 @@ import * as React from "react";
 import { makeStyles } from "@material-ui/core";
 
 import { GridCellParams } from "@material-ui/data-grid";
-import { useGridSlotComponentProps } from "@material-ui/data-grid";
 
 import { useProps } from "../../PropProvider";
 
@@ -34,17 +33,10 @@ const useStyles = makeStyles((theme) => ({
 
 type IComputeCellProps = GridCellParams;
 
-export const ComputeCell = ({ row }: IComputeCellProps) => {
+export const ComputeCell = ({ row, field }: IComputeCellProps) => {
   const classes = useStyles();
 
-  const gridProps = useGridSlotComponentProps();
   const listProps = useProps();
-
-  const {
-    state: {
-      columnMenu: { field: columnMenuField = "" },
-    },
-  } = gridProps;
 
   const {
     columns = [],
@@ -52,18 +44,18 @@ export const ComputeCell = ({ row }: IComputeCellProps) => {
   } = listProps;
 
   const {
-    compute = (value: any) => value,
-  } = columns.find(({field}) => field === columnMenuField) || {};
+    compute = (_: any) => '',
+  } = columns.find((col) => col.field === field) || {};
 
   return (
-    <AutoSizer className={classes.root}>
+    <AutoSizer className={classes.root} payload={row}>
       {({ width, height }) => (
         <div className={classes.container}>
           <pre
             className={classes.content}
             style={{ width: width - 25, maxHeight: height }}
           >
-            <Async params={row} fallback={fallback}>
+            <Async payload={row} fallback={fallback}>
               {(row) => compute(row)}
             </Async>
           </pre>

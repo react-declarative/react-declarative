@@ -37,16 +37,11 @@ const columns: IColumn[] = [
     width: 'max(calc(100vw - 650px), 200px)',
   },
   {
-    type: ColumnType.Text,
-    field: 'firstName',
-    headerName: 'First name',
-    width: '200px',
-  },
-  {
-    type: ColumnType.Text,
-    field: 'lastName',
-    headerName: 'Last name',
-    width: () => '200px',
+    type: ColumnType.Compute,
+    field: 'fullName',
+    headerName: 'Full name',
+    compute: ({ firstName, lastName }) => `${firstName} ${lastName}`,
+    width: '400px',
   },
   {
     type: ColumnType.Action,

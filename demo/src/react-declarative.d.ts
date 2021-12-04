@@ -60,6 +60,7 @@ declare module 'react-declarative' {
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export { default as dayjs } from 'dayjs';
     export { AutoSizer } from 'react-declarative/components/common/AutoSizer';
+    export { Async } from 'react-declarative/components/common/Async';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped } from 'react-declarative/components';
     export { ModalProvider } from 'react-declarative/components';
@@ -456,6 +457,7 @@ declare module 'react-declarative/model/IColumn' {
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData from 'react-declarative/model/IRowData';
     import IOption from 'react-declarative/model/IOption';
+    import { Value } from 'react-declarative/model/IField';
     export interface IColumn<RowData extends IRowData = IAnything> {
         type: ColumnType;
         field?: string;
@@ -477,6 +479,7 @@ declare module 'react-declarative/model/IColumn' {
             fontWeight: string;
             border: string;
         };
+        compute?: (row: RowData) => Promise<Value> | Value;
         requiredHeight?: number;
         sizerGetText?: (row: RowData) => string;
         renderCell?: (props: GridCellParams) => JSX.Element;
@@ -518,6 +521,7 @@ declare module 'react-declarative/model/ColumnType' {
         Text = "text-cell",
         Action = "action-cell",
         CheckBox = "checkbox-cell",
+        Compute = "compute-cell",
         Custom = "custom-cell"
     }
     export default ColumnType;
@@ -785,6 +789,11 @@ declare module 'react-declarative/components/Switch/model/ISwitchItem' {
 declare module 'react-declarative/components/common/AutoSizer' {
     export * from "react-declarative/components/common/AutoSizer/AutoSizer";
     export { default } from "react-declarative/components/common/AutoSizer/AutoSizer";
+}
+
+declare module 'react-declarative/components/common/Async' {
+    export * from 'react-declarative/components/common/Async/Async';
+    export { default } from 'react-declarative/components/common/Async/Async';
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot' {
@@ -1675,6 +1684,17 @@ declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
         _emitters: WeakMap<HTMLElement, ResizeEmitter>;
     };
     export default AutoSizer;
+}
+
+declare module 'react-declarative/components/common/Async/Async' {
+    import { Value } from 'react-declarative/model/IField';
+    interface IAsyncProps<T extends any = object> {
+        children: (p: T) => (Value | Promise<Value>);
+        fallback?: (e: Error) => void;
+        payload?: T;
+    }
+    export const Async: <T extends unknown = object>({ children, fallback, payload, }: IAsyncProps<T>) => JSX.Element;
+    export default Async;
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot' {

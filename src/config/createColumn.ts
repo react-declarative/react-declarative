@@ -4,6 +4,7 @@ import IColumn from "../model/IColumn";
 import ColumnType from "../model/ColumnType";
 
 import isUndefined from "../utils/isUndefined";
+import randomString from "../utils/randomString";
 
 import { renderCheckBoxCell } from "../components/List/components/Desktop/components/CheckboxCell";
 import { renderComputeCell } from "../components/List/components/Desktop/components/ComputeCell";
@@ -16,7 +17,7 @@ import computeStyle from "../components/List/components/Desktop/computeStyle";
 export const createColumn = (column: IColumn): GridColDef => {
     const {
         type,
-        field = '_',
+        field = `_${randomString()}`,
         headerName,
         width,
         sortComparator,

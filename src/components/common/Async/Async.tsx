@@ -1,19 +1,21 @@
+import * as React from 'react';
+
 import { useLayoutEffect, useRef, useState } from 'react';
 
-type Result = JSX.Element | string | number | null;
+import { Value } from '../../../model/IField';
 
 interface IAsyncProps<T extends any = object> {
-    children: (p: T) => (Result | Promise<Result>);
+    children: (p: T) => (Value | Promise<Value>);
     fallback?: (e: Error) => void;
-    params?: T;
+    payload?: T;
 }
 
 export const Async = <T extends any = object>({
     children,
     fallback = () => null,
-    params = {} as T,
+    payload = {} as T,
 }: IAsyncProps<T>) => {
-    const [child, setChild] = useState<Result>(null);
+    const [child, setChild] = useState<string>('');
 
     const isMounted = useRef(true);
 
@@ -24,16 +26,20 @@ export const Async = <T extends any = object>({
     useLayoutEffect(() => {
         const process = async () => {
             try {
-                const newChild = await Promise.resolve(children(params!));
-                isMounted.current && setChild(newChild);
+                const newChild = await Promise.resolve(children(payload!));
+                isMounted.current && setChild((newChild || '').toString());
             } catch(e) {
                 fallback(e as Error);
             }
         };
         process();
-    }, [children, fallback, params]);
+    }, [children, fallback, payload]);
 
-    return child as JSX.Element;
+    return (
+        <>
+            {child}
+        </>
+    );
 };
 
 export default Async;
