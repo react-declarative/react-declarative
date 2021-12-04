@@ -6,15 +6,16 @@ import ColumnType from "../model/ColumnType";
 import isUndefined from "../utils/isUndefined";
 import randomString from "../utils/randomString";
 
+import { renderComponentCell } from "../components/List/components/Desktop/components/ComponentCell";
 import { renderCheckBoxCell } from "../components/List/components/Desktop/components/CheckboxCell";
 import { renderComputeCell } from "../components/List/components/Desktop/components/ComputeCell";
 import { renderActionCell } from "../components/List/components/Desktop/components/ActionCell";
 import { renderTextCell } from "../components/List/components/Desktop/components/TextCell";
 import { renderHeader } from "../components/List/components/Desktop/components/Header";
 
-import computeStyle from "../components/List/components/Desktop/computeStyle";
+import { INTERNAL_COLUMN_NAME } from "../components/List/components/Desktop/config";
 
-export const INTERNAL_COLUMN_NAME = "__field";
+import computeStyle from "../components/List/components/Desktop/computeStyle";
 
 export const createColumn = (column: IColumn): GridColDef => {
     const field = column.field || `_${randomString()}`;
@@ -52,6 +53,12 @@ export const createColumn = (column: IColumn): GridColDef => {
         return {
             renderHeader,
             renderCell: renderComputeCell,
+            ...baseFields,
+        };
+    } else if (type === ColumnType.Component) {
+        return {
+            renderHeader,
+            renderCell: renderComponentCell,
             ...baseFields,
         };
     } else if (type === ColumnType.Action) {

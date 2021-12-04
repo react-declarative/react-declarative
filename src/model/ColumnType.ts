@@ -3,6 +3,7 @@ export enum ColumnType {
     Action = 'action-cell',
     CheckBox = 'checkbox-cell',
     Compute = 'compute-cell',
+    Component = 'component-cell',
     Custom = 'custom-cell',
 }
 

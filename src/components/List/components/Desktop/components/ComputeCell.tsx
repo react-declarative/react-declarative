@@ -5,7 +5,7 @@ import { GridCellParams } from "@material-ui/data-grid";
 
 import { useProps } from "../../PropProvider";
 
-import { INTERNAL_COLUMN_NAME } from "../../../../../config/createColumn";
+import { INTERNAL_COLUMN_NAME } from "../config";
 
 import AutoSizer from "../../../../common/AutoSizer";
 import Async from "../../../../common/Async";

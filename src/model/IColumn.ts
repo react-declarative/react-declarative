@@ -35,6 +35,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
         border: string,
     };
     compute?: (row: RowData) => Promise<Value> | Value;
+    element?: React.ComponentType<RowData>;
     requiredHeight?: number;
     sizerGetText?: (row: RowData) => string;
     renderCell?: (props: GridCellParams) => JSX.Element;

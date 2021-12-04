@@ -16,6 +16,7 @@ import Add from '@material-ui/icons/Add';
 
 import mock from './mock/list';
 
+
 const filters: TypedField[] = [
   {
     type: FieldType.Text,
@@ -40,7 +41,17 @@ const columns: IColumn[] = [
     type: ColumnType.Compute,
     headerName: 'Full name',
     compute: ({ firstName, lastName }) => `${firstName} ${lastName}`,
-    width: '400px',
+    width: '200px',
+  },
+  {
+    type: ColumnType.Component,
+    headerName: 'Component',
+    element: () => (
+      <div>
+        Custom cell Component
+      </div>
+    ),
+    width: '200px',
   },
   {
     type: ColumnType.Action,

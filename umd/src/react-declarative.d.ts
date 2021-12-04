@@ -480,6 +480,7 @@ declare module 'react-declarative/model/IColumn' {
             border: string;
         };
         compute?: (row: RowData) => Promise<Value> | Value;
+        element?: React.ComponentType<RowData>;
         requiredHeight?: number;
         sizerGetText?: (row: RowData) => string;
         renderCell?: (props: GridCellParams) => JSX.Element;
@@ -522,6 +523,7 @@ declare module 'react-declarative/model/ColumnType' {
         Action = "action-cell",
         CheckBox = "checkbox-cell",
         Compute = "compute-cell",
+        Component = "component-cell",
         Custom = "custom-cell"
     }
     export default ColumnType;
