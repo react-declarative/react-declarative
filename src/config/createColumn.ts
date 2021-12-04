@@ -6,6 +6,7 @@ import ColumnType from "../model/ColumnType";
 import isUndefined from "../utils/isUndefined";
 
 import { renderCheckBoxCell } from "../components/List/components/Desktop/components/CheckboxCell";
+import { renderComputeCell } from "../components/List/components/Desktop/components/ComputeCell";
 import { renderActionCell } from "../components/List/components/Desktop/components/ActionCell";
 import { renderTextCell } from "../components/List/components/Desktop/components/TextCell";
 import { renderHeader } from "../components/List/components/Desktop/components/Header";
@@ -41,6 +42,12 @@ export const createColumn = (column: IColumn): GridColDef => {
         return {
             renderHeader,
             renderCell: renderCheckBoxCell,
+            ...baseFields,
+        };
+    } else if (type === ColumnType.Compute) {
+        return {
+            renderHeader,
+            renderCell: renderComputeCell,
             ...baseFields,
         };
     } else if (type === ColumnType.Action) {

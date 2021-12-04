@@ -2,6 +2,7 @@ export enum ColumnType {
     Text = 'text-cell',
     Action = 'action-cell',
     CheckBox = 'checkbox-cell',
+    Compute = 'compute-cell',
     Custom = 'custom-cell',
 }
 

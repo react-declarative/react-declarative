@@ -11,6 +11,8 @@ import IAnything from './IAnything';
 import IRowData from './IRowData';
 import IOption from './IOption';
 
+import { Value } from './IField';
+
 export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
@@ -32,6 +34,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
         fontWeight: string,
         border: string,
     };
+    compute?: (row: RowData) => Promise<Value> | Value;
     requiredHeight?: number;
     sizerGetText?: (row: RowData) => string;
     renderCell?: (props: GridCellParams) => JSX.Element;
