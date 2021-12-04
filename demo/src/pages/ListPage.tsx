@@ -38,7 +38,6 @@ const columns: IColumn[] = [
   },
   {
     type: ColumnType.Compute,
-    field: 'fullName',
     headerName: 'Full name',
     compute: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     width: '400px',

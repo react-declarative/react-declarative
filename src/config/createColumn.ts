@@ -14,10 +14,13 @@ import { renderHeader } from "../components/List/components/Desktop/components/H
 
 import computeStyle from "../components/List/components/Desktop/computeStyle";
 
+export const INTERNAL_COLUMN_NAME = "__field";
+
 export const createColumn = (column: IColumn): GridColDef => {
+    const field = column.field || `_${randomString()}`;
+    column[INTERNAL_COLUMN_NAME] = field;
     const {
         type,
-        field = `_${randomString()}`,
         headerName,
         width,
         sortComparator,

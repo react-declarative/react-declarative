@@ -5,6 +5,8 @@ import { GridCellParams } from "@material-ui/data-grid";
 
 import { useProps } from "../../PropProvider";
 
+import { INTERNAL_COLUMN_NAME } from "../../../../../config/createColumn";
+
 import AutoSizer from "../../../../common/AutoSizer";
 import Async from "../../../../common/Async";
 
@@ -45,7 +47,7 @@ export const ComputeCell = ({ row, field }: IComputeCellProps) => {
 
   const {
     compute = (_: any) => '',
-  } = columns.find((col) => col.field === field) || {};
+  } = columns.find((col) => col.field === field || col[INTERNAL_COLUMN_NAME] === field) || {};
 
   return (
     <AutoSizer className={classes.root} payload={row}>
