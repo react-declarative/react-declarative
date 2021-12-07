@@ -1,4 +1,3 @@
-
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IField as IFieldInternal } from './model/IField';
 import { IColumn as IColumnInternal } from './model/IColumn';
@@ -26,8 +25,6 @@ import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
 import { i18nMap } from './config/i18n';
-
-import "vanilla-autofill-event";
 
 import { useConfirm } from './components';
 import { useDate, useTime } from './components';

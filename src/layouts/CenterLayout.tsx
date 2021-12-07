@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useRef, useState, useLayoutEffect } from 'react';
 
+import Sha from 'sha.js';
+
 import { debounce, makeStyles } from '@material-ui/core';
 
 import classNames from '../utils/classNames';
@@ -11,6 +13,7 @@ import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
 import Group from '../components/common/Group';
+import getXPathFromElement from '../utils/getXPathFromElement';
 
 const CENTER_DEBOUNCE = 500;
 
@@ -49,10 +52,32 @@ const useStyles = makeStyles({
     content: {
         width: '100%',
     },
-    hidden: {
-        display: 'none',
-    },
 });
+
+const marginManager = new class {
+
+    private readonly storage = new Map<string, number>();
+
+    private readonly getElementHash = (element: HTMLElement) => {
+        const xpath = getXPathFromElement(element);
+        if (xpath) {
+            return Sha('sha1').update(xpath).digest('hex');
+        } else {
+            return '';
+        }
+    };
+
+    getValue = (element: HTMLElement) => {
+        const hash = this.getElementHash(element);
+        return this.storage.get(hash) || 0;
+    };
+
+    setValue(element: HTMLElement, marginRight: number) {
+        const hash = this.getElementHash(element);
+        hash && this.storage.set(hash, marginRight);
+    };
+
+}();
 
 export const CenterLayout = <Data extends IAnything = IAnything>({
     children,
@@ -63,7 +88,6 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const classes = useStyles();
 
     const groupRef = useRef<HTMLDivElement>(null);
-    const [ initComplete, setInitComplete ] = useState(false);
     const [ marginRight, setMarginRight ] = useState(0);
 
     const isMounted = useRef(true);
@@ -81,7 +105,9 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 const { width, left } = group.getBoundingClientRect();
                 let right = 0;
                 group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
-                right ? setMarginRight(Math.min(right - left - width, 0)) : setMarginRight(-1);
+                const marginRight = Math.min(right - left - width, 0);
+                marginManager.setValue(group, marginRight);
+                setMarginRight(marginRight);
             }
         };
 
@@ -108,16 +134,17 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     }, []);
 
     useLayoutEffect(() => {
-        marginRight && setInitComplete(true)
-    }, [marginRight]);
+        const { current: group } = groupRef;
+        if (group) {
+            setMarginRight(marginManager.getValue(group));
+        }
+    }, []);
 
     return (
         <div className={classNames(classes.root, className)} style={style}>
             <div className={classes.container} style={{ padding }}>
                 <div
-                    className={classNames(classes.content, {
-                        [classes.hidden]: !initComplete,
-                    })}
+                    className={classes.content}
                     style={{
                         marginRight: marginRight !== -1 ? marginRight : 'unset',
                     }}

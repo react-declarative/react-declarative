@@ -25,7 +25,6 @@ declare module 'react-declarative' {
     import { ListHandler as ListHandlerInternal } from 'react-declarative/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-declarative/model/IOneProps';
     import { i18nMap } from 'react-declarative/config/i18n';
-    import "vanilla-autofill-event";
     import { useConfirm } from 'react-declarative/components';
     import { useDate, useTime } from 'react-declarative/components';
     import { useOne, useOneTyped } from 'react-declarative/components';
