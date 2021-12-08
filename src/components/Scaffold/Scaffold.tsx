@@ -28,8 +28,6 @@ import IMenuGroup, { IMenuOption } from "../../model/IMenuGroup";
 
 import SideMenu from "./SideMenu";
 
-import i18n from "../../config/i18n";
-
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
@@ -149,7 +147,7 @@ export const Scaffold = ({
           variant="standard"
           onChange={({ target }) => setFilterText(target.value.toString())}
           value={filterText}
-          placeholder={i18n`Search`}
+          placeholder="Search"
           InputProps={{
             autoComplete: 'off',
             endAdornment: (

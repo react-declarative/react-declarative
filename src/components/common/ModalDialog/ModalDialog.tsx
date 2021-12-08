@@ -6,8 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
-import i18n from '../../../config/i18n';
-
 const useStyles = makeStyles({
   dialog: {
     '&:first-child': {
@@ -40,8 +38,8 @@ export const ModalDialog = ({
         { children }
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={onAccept}>{i18n`OK`}</Button>
-        <Button disabled={!canCancel} color="primary" onClick={onDismis}>{i18n`Cancel`}</Button>
+        <Button color="primary" onClick={onAccept}>OK</Button>
+        <Button disabled={!canCancel} color="primary" onClick={onDismis}>Cancel</Button>
       </DialogActions>
     </Dialog>
   );

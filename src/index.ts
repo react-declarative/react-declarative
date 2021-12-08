@@ -24,8 +24,6 @@ import { ListHandlerResult as ListHandlerResultInternal } from './model/IListPro
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
-import { i18nMap } from './config/i18n';
-
 import { useConfirm } from './components';
 import { useDate, useTime } from './components';
 import { useOne, useOneTyped } from './components';
@@ -78,6 +76,9 @@ export { Async } from './components/common/Async';
 export { List, ListTyped } from './components';
 export { One, OneTyped } from './components';
 
+export { Translate } from './components';
+export { register as registerTr } from './components/Translate';
+
 export { ModalProvider } from './components';
 export { SlotFactory } from './components';
 export { Breadcrumbs } from './components';
@@ -90,8 +91,6 @@ export { useList, useListTyped };
 export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
-
-export { i18nMap };
 
 import { ICheckBoxSlot as ICheckBoxSlotInternal } from './slots/CheckBoxSlot';
 import { IComboSlot as IComboSlotInternal } from './slots/ComboSlot';

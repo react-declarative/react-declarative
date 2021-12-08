@@ -2,6 +2,7 @@ export * from './One';
 export * from './List';
 export * from './Switch';
 export * from './Scaffold';
+export * from './Translate';
 export * from './SlotFactory';
 export * from './Breadcrumbs';
 export * from './hooks/useDate';

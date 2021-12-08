@@ -24,7 +24,6 @@ declare module 'react-declarative' {
     import { ListHandlerResult as ListHandlerResultInternal } from 'react-declarative/model/IListProps';
     import { ListHandler as ListHandlerInternal } from 'react-declarative/model/IListProps';
     import { OneHandler as OneHandlerInternal } from 'react-declarative/model/IOneProps';
-    import { i18nMap } from 'react-declarative/config/i18n';
     import { useConfirm } from 'react-declarative/components';
     import { useDate, useTime } from 'react-declarative/components';
     import { useOne, useOneTyped } from 'react-declarative/components';
@@ -62,6 +61,8 @@ declare module 'react-declarative' {
     export { Async } from 'react-declarative/components/common/Async';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped } from 'react-declarative/components';
+    export { Translate } from 'react-declarative/components';
+    export { register as registerTr } from 'react-declarative/components/Translate';
     export { ModalProvider } from 'react-declarative/components';
     export { SlotFactory } from 'react-declarative/components';
     export { Breadcrumbs } from 'react-declarative/components';
@@ -72,7 +73,6 @@ declare module 'react-declarative' {
     export { useOne, useOneTyped };
     export { useDate, useTime };
     export { useConfirm };
-    export { i18nMap };
     import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-declarative/slots/CheckBoxSlot';
     import { IComboSlot as IComboSlotInternal } from 'react-declarative/slots/ComboSlot';
     import { IItemsSlot as IItemsSlotInternal } from 'react-declarative/slots/ItemsSlot';
@@ -744,17 +744,12 @@ declare module 'react-declarative/model/IOneProps' {
     export default IOneProps;
 }
 
-declare module 'react-declarative/config/i18n' {
-    export const i18nMap: Record<string, string>;
-    export const i18n: (words: TemplateStringsArray, args?: any[]) => string;
-    export default i18n;
-}
-
 declare module 'react-declarative/components' {
     export * from 'react-declarative/components/One';
     export * from 'react-declarative/components/List';
     export * from 'react-declarative/components/Switch';
     export * from 'react-declarative/components/Scaffold';
+    export * from 'react-declarative/components/Translate';
     export * from 'react-declarative/components/SlotFactory';
     export * from 'react-declarative/components/Breadcrumbs';
     export * from 'react-declarative/components/hooks/useDate';
@@ -795,6 +790,11 @@ declare module 'react-declarative/components/common/AutoSizer' {
 declare module 'react-declarative/components/common/Async' {
     export * from 'react-declarative/components/common/Async/Async';
     export { default } from 'react-declarative/components/common/Async/Async';
+}
+
+declare module 'react-declarative/components/Translate' {
+    export * from 'react-declarative/components/Translate/Translate';
+    export { default } from 'react-declarative/components/Translate/Translate';
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot' {
@@ -1696,6 +1696,26 @@ declare module 'react-declarative/components/common/Async/Async' {
     }
     export const Async: <T extends unknown = object>({ children, fallback, payload, }: IAsyncProps<T>) => JSX.Element;
     export default Async;
+}
+
+declare module 'react-declarative/components/Translate/Translate' {
+    import * as React from 'react';
+    interface IAttributeCollection {
+        [name: string]: unknown;
+    }
+    type Locale = Record<string, string>;
+    export class Translate {
+        get skipList(): string[];
+        constructor(locale?: Locale);
+        createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
+    }
+    global {
+        interface Window {
+            Translate: Translate;
+        }
+    }
+    export const register: (locale?: Locale) => void;
+    export default Translate;
 }
 
 declare module 'react-declarative/slots/CheckBoxSlot/ICheckBoxSlot' {
