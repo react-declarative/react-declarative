@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { makeStyles, Box } from '@material-ui/core';
+import { alpha } from '@material-ui/core/styles';
 
 import Group from '../Group';
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    border: '1px solid rgba(0, 0, 0, 0.23)',
+    border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
     borderRadius: '4px',
   },
   content: {
