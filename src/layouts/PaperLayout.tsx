@@ -42,7 +42,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   children,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
-  innerPadding: padding = '5px',
+  innerPadding: padding = '18px',
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
     const classes = useStyles();
     return (

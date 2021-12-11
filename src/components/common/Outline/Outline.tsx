@@ -44,8 +44,13 @@ export const Outline = ({
   const classes = useStyles();
   return (
     <Box className={classNames(className, classes.strech)} style={style}>
-      <Box p={2} className={classes.content}>
-        <Group>{children}</Group>
+      <Box className={classes.content}>
+        <Group
+          fieldBottomMargin="0"
+          fieldRightMargin="0"
+        >
+          {children}
+        </Group>
       </Box>
     </Box>
   );

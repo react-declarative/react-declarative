@@ -42,7 +42,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
   children,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
-  innerPadding: padding = '5px',
+  innerPadding: padding = '18px',
 }: IOutlineLayoutProps<Data> & IOutlineLayoutPrivate) => {
   const classes = useStyles();
   return (
