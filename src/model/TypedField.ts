@@ -13,6 +13,7 @@ import { IDivLayoutProps } from '../layouts/DivLayout';
 import { ICenterLayoutProps } from '../layouts/CenterLayout';
 import { IStretchLayoutProps } from '../layouts/StretchLayout';
 import { IGroupLayoutProps } from '../layouts/GroupLayout';
+import { IOutlineLayoutProps } from '../layouts/OutlineLayout';
 import { IPaperLayoutProps } from '../layouts/PaperLayout';
 import { IExpansionLayoutProps } from '../layouts/ExpansionLayout';
 import { IHeroLayoutProps } from '../layouts/HeroLayout';
@@ -49,6 +50,7 @@ type TypedFieldFactoryShallow<
 
 type Group<Data = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data>, Data>;
 type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data>, Data>;
+type Outline<Data = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data>, Data>;
 type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
 type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
 type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
@@ -78,6 +80,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
   Target extends Expansion<Data> ? Expansion<Data>
   : Target extends Group<Data> ? Group<Data>
   : Target extends Paper<Data> ? Paper<Data>
+  : Target extends Outline<Data> ? Outline<Data>
   : Target extends Checkbox<Data> ? Checkbox<Data>
   : Target extends Combo<Data> ? Combo<Data>
   : Target extends Component<Data> ? Component<Data>

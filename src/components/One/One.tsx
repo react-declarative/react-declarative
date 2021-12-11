@@ -10,6 +10,7 @@ import { useOneState } from './StateProvider';
 
 import ExpansionLayout from '../../layouts/ExpansionLayout';
 import PaperLayout from '../../layouts/PaperLayout';
+import OutlineLayout from '../../layouts/OutlineLayout';
 import GroupLayout from '../../layouts/GroupLayout';
 import FragmentLayout from '../../layouts/FragmentLayout';
 import DivLayout from '../../layouts/DivLayout';
@@ -120,6 +121,15 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                             >
                                 <OneInternalMemo<Data> {...one} />
                             </PaperLayout>
+                        );
+                    } else if (field.type === FieldType.Outline) {
+                        return (
+                            <OutlineLayout<Data>
+                                {...entity}
+                                key={currentPath}
+                            >
+                                <OneInternalMemo<Data> {...one} />
+                            </OutlineLayout>
                         );
                     } else if (field.type === FieldType.Div) {
                         return (

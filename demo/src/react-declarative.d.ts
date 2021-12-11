@@ -110,6 +110,7 @@ declare module 'react-declarative/model/TypedField' {
     import { ICenterLayoutProps } from 'react-declarative/layouts/CenterLayout';
     import { IStretchLayoutProps } from 'react-declarative/layouts/StretchLayout';
     import { IGroupLayoutProps } from 'react-declarative/layouts/GroupLayout';
+    import { IOutlineLayoutProps } from 'react-declarative/layouts/OutlineLayout';
     import { IPaperLayoutProps } from 'react-declarative/layouts/PaperLayout';
     import { IExpansionLayoutProps } from 'react-declarative/layouts/ExpansionLayout';
     import { IHeroLayoutProps } from 'react-declarative/layouts/HeroLayout';
@@ -137,6 +138,7 @@ declare module 'react-declarative/model/TypedField' {
     type TypedFieldFactoryShallow<Type extends FieldType, Fields extends {}, Data = IAnything> = IManagedShallow<Data> & TypedFieldFactory<Type, Fields, Data>;
     type Group<Data = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data>, Data>;
     type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data>, Data>;
+    type Outline<Data = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data>, Data>;
     type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
     type Fragment<Data = IAnything> = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
     type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
@@ -159,7 +161,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : Target extends Center<Data> ? Center<Data> : Target extends Stretch<Data> ? Stretch<Data> : Target extends Hero<Data> ? Hero<Data> : never;
+    export type TypedFieldRegistry<Data = IAnything, Target = any> = Target extends Expansion<Data> ? Expansion<Data> : Target extends Group<Data> ? Group<Data> : Target extends Paper<Data> ? Paper<Data> : Target extends Outline<Data> ? Outline<Data> : Target extends Checkbox<Data> ? Checkbox<Data> : Target extends Combo<Data> ? Combo<Data> : Target extends Component<Data> ? Component<Data> : Target extends Items<Data> ? Items<Data> : Target extends Line<Data> ? Line<Data> : Target extends Progress<Data> ? Progress<Data> : Target extends Radio<Data> ? Radio<Data> : Target extends Rating<Data> ? Rating<Data> : Target extends Slider<Data> ? Slider<Data> : Target extends Switch<Data> ? Switch<Data> : Target extends Text<Data> ? Text<Data> : Target extends Typography<Data> ? Typography<Data> : Target extends Fragment<Data> ? Fragment<Data> : Target extends Div<Data> ? Div<Data> : Target extends Center<Data> ? Center<Data> : Target extends Stretch<Data> ? Stretch<Data> : Target extends Hero<Data> ? Hero<Data> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -496,6 +498,7 @@ declare module 'react-declarative/model/FieldType' {
         Line = "line",
         Group = "group",
         Paper = "paper",
+        Outline = "outline",
         Expansion = "expansion",
         Radio = "radio",
         Checkbox = "checkbox",
@@ -1053,6 +1056,26 @@ declare module 'react-declarative/layouts/GroupLayout' {
     export default GroupLayout;
 }
 
+declare module 'react-declarative/layouts/OutlineLayout' {
+    import * as React from "react";
+    import { IGroupProps } from "react-declarative/components/common/Group";
+    import { IOutlineProps } from 'react-declarative/components/common/Outline';
+    import { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IOutlineLayoutProps<Data = IAnything> extends IOutlineProps<Data>, IGroupProps<Data> {
+        innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
+    }
+    interface IOutlineLayoutPrivate {
+        children: React.ReactChild;
+    }
+    export const OutlineLayout: {
+        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data> & IOutlineLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default OutlineLayout;
+}
+
 declare module 'react-declarative/layouts/PaperLayout' {
     import * as React from "react";
     import { IGroupProps } from "react-declarative/components/common/Group";
@@ -1067,7 +1090,7 @@ declare module 'react-declarative/layouts/PaperLayout' {
         children: React.ReactChild;
     }
     export const PaperLayout: {
-        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, style, className, children, innerPadding: padding, }: IPaperLayoutProps<Data> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IPaperLayoutProps<Data> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default PaperLayout;
@@ -1867,6 +1890,11 @@ declare module 'react-declarative/components/common/Group' {
     export { default } from 'react-declarative/components/common/Group/Group';
 }
 
+declare module 'react-declarative/components/common/Outline' {
+    export * from 'react-declarative/components/common/Outline/Outline';
+    export { default } from 'react-declarative/components/common/Outline/Outline';
+}
+
 declare module 'react-declarative/components/common/Paper' {
     export * from 'react-declarative/components/common/Paper/Paper';
     export { default } from 'react-declarative/components/common/Paper/Paper';
@@ -2030,6 +2058,25 @@ declare module 'react-declarative/components/common/Group/Group' {
     };
     const _default: React.ForwardRefExoticComponent<IGroupProps<any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
     export default _default;
+}
+
+declare module 'react-declarative/components/common/Outline/Outline' {
+    import * as React from 'react';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
+    export interface IOutlineProps<Data = IAnything> {
+        className?: PickProp<IField<Data>, 'className'>;
+        style?: PickProp<IField<Data>, 'style'>;
+    }
+    interface IOutlinePrivate {
+        children: React.ReactChild;
+    }
+    export const Outline: {
+        ({ className, style, children, }: IOutlineProps & IOutlinePrivate): JSX.Element;
+        displayName: string;
+    };
+    export default Outline;
 }
 
 declare module 'react-declarative/components/common/Paper/Paper' {

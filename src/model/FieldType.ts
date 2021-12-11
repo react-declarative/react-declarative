@@ -3,6 +3,7 @@ export enum FieldType {
     Line = 'line',
     Group = 'group',
     Paper = 'paper',
+    Outline = 'outline',
     Expansion= 'expansion',
     Radio = 'radio',
     Checkbox = 'checkbox',

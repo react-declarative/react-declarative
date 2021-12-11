@@ -4,6 +4,7 @@ import IField from '../model/IField';
 const layouts: FieldType[] = [
     FieldType.Group,
     FieldType.Paper,
+    FieldType.Outline,
     FieldType.Expansion,
     FieldType.Div,
     FieldType.Fragment,

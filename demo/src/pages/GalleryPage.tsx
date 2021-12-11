@@ -6,7 +6,8 @@ import Logger from '../components/Logger';
 
 const fields: TypedField[] = [
     {
-        type: FieldType.Paper,
+        type: FieldType.Outline,
+        fieldBottomMargin: '1',
         fields: [
             {
                 type: FieldType.Line,
@@ -52,6 +53,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        fieldBottomMargin: '1',
         fields: [
             {
                 type: FieldType.Line,
@@ -103,6 +105,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        fieldBottomMargin: '1',
         fields: [
             {
                 type: FieldType.Line,
@@ -133,6 +136,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        fieldBottomMargin: '1',
         fields: [
             {
                 type: FieldType.Line,

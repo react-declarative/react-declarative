@@ -40,6 +40,8 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   style,
   className,
   children,
+  fieldRightMargin = '0',
+  fieldBottomMargin = '0',
   innerPadding: padding = '5px',
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
     const classes = useStyles();
@@ -52,8 +54,8 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
             phoneColumns={phoneColumns}
             tabletColumns={tabletColumns}
             desktopColumns={desktopColumns}
-            fieldRightMargin="0"
-            fieldBottomMargin="0"
+            fieldRightMargin={fieldRightMargin}
+            fieldBottomMargin={fieldBottomMargin}
         >
             <Paper className={classes.content} style={{ padding }}>
                 {children}
