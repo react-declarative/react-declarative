@@ -7,6 +7,7 @@ import {
   IListAction,
   ActionType,
   ColumnType,
+  DisplayMode,
   ListHandlerPagination,
   ListHandlerSortModel,
 } from 'react-declarative';
@@ -40,6 +41,7 @@ const columns: IColumn[] = [
   {
     type: ColumnType.Compute,
     headerName: 'Full name',
+    primary: true,
     compute: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     width: '200px',
   },
@@ -159,6 +161,7 @@ export const ListPage = () => {
     <ListTyped<IFilterData, IRowData>
       title="List Component"
       filterLabel="Filters"
+      displayMode={DisplayMode.Mobile}
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}

@@ -14,6 +14,7 @@ declare module 'react-declarative' {
     import { FieldType as FieldTypeInternal } from 'react-declarative/model/FieldType';
     import { ColumnType as ColumnTypeInternal } from 'react-declarative/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-declarative/model/ActionType';
+    import { DisplayMode as DisplayModeInternal } from 'react-declarative/model/DisplayMode';
     import { SelectionMode as SelectionModeInternal } from 'react-declarative/model/SelectionMode';
     import { IListApi as IListApiInternal } from 'react-declarative/model/IListApi';
     import { IListAction as IListActionInternal } from 'react-declarative/model/IListProps';
@@ -35,6 +36,7 @@ declare module 'react-declarative' {
     export const FieldType: typeof FieldTypeInternal;
     export const ColumnType: typeof ColumnTypeInternal;
     export const ActionType: typeof ActionTypeInternal;
+    export const DisplayMode: typeof DisplayModeInternal;
     export const SelectionMode: typeof SelectionModeInternal;
     export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
     export type IField<Data = IAnything> = IFieldInternal<Data>;
@@ -462,6 +464,8 @@ declare module 'react-declarative/model/IColumn' {
     export interface IColumn<RowData extends IRowData = IAnything> {
         type: ColumnType;
         field?: string;
+        primary?: boolean;
+        secondary?: boolean;
         headerName: string;
         width: string | (() => string | number);
         columnMenu?: IOption[];
@@ -539,6 +543,14 @@ declare module 'react-declarative/model/ActionType' {
     export default ActionType;
 }
 
+declare module 'react-declarative/model/DisplayMode' {
+    export enum DisplayMode {
+        Desktop = "desktop",
+        Mobile = "mobile"
+    }
+    export default DisplayMode;
+}
+
 declare module 'react-declarative/model/SelectionMode' {
     export enum SelectionMode {
         Single = "single-selection",
@@ -559,6 +571,7 @@ declare module 'react-declarative/model/IListProps' {
     import { Ref } from 'react';
     import { GridColumns, GridSlotsComponent, GridSortModel } from '@material-ui/data-grid';
     import ActionType from 'react-declarative/model/ActionType';
+    import DisplayMode from 'react-declarative/model/DisplayMode';
     import SelectionMode from 'react-declarative/model/SelectionMode';
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData from 'react-declarative/model/IRowData';
@@ -663,6 +676,7 @@ declare module 'react-declarative/model/IListProps' {
         rowActions?: IOption[];
         toggleFilters?: boolean;
         selectionMode?: SelectionMode;
+        displayMode?: DisplayMode;
     }
     export default IListProps;
 }
@@ -1684,7 +1698,7 @@ declare module 'react-declarative/components/common/AutoSizer/AutoSizer' {
     import * as React from "react";
     import ResizeEmitter from "react-declarative/components/common/AutoSizer/ResizeEmitter";
     import ISize from "react-declarative/model/ISize";
-    interface IChildParams<T extends object = object> extends ISize {
+    export interface IChildParams<T extends object = object> extends ISize {
         payload: T;
     }
     interface IAutoSizerProps<T extends object = object> {

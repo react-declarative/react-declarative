@@ -5,6 +5,7 @@ import { IColumn as IColumnInternal } from './model/IColumn';
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
 import { ActionType as ActionTypeInternal } from './model/ActionType';
+import { DisplayMode as DisplayModeInternal } from './model/DisplayMode';
 import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
 import { IListApi as IListApiInternal } from './model/IListApi';
@@ -38,6 +39,7 @@ export type ISwitchItem = ISwitchItemInternal;
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
 export const ActionType = ActionTypeInternal;
+export const DisplayMode = DisplayModeInternal;
 export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;

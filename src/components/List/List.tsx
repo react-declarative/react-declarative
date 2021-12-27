@@ -24,6 +24,8 @@ import randomString from '../../utils/randomString';
 import deepCompare from '../../utils/deepCompare';
 import objects from '../../utils/objects';
 
+import DisplayMode from '../../model/DisplayMode';
+
 const DEFAULT_LIMIT = 50;
 const DEFAULT_AUTORELOAD_INTERVAL = 30_000;
 
@@ -45,6 +47,7 @@ const ListInternal = <
     limit: defaultLimit = DEFAULT_LIMIT,
     autoReload: defaultAutoReload = true,
     autoReloadInterval = DEFAULT_AUTORELOAD_INTERVAL,
+    displayMode = DisplayMode.Desktop,
     filters = [],
     columns = [],
     actions = [],
@@ -54,7 +57,7 @@ const ListInternal = <
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
     initComplete: false,
-    isMobile: false,
+    isMobile: displayMode === DisplayMode.Mobile,
     filterData: {} as never,
     rows: [] as never,
     rowHeight: DEFAULT_ROW_HEIGHT,

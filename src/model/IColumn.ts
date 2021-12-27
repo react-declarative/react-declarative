@@ -16,6 +16,8 @@ import { Value } from './IField';
 export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
+    primary?: boolean;
+    secondary?: boolean;
     headerName: string;
     width: string | (() => string | number);
     columnMenu?: IOption[];

@@ -1,14 +1,30 @@
 import * as React from "react";
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
+import { makeStyles } from '@material-ui/core';
 
-import { VariableSizeList as List } from "react-window";
+import { FixedSizeList, ListOnScrollProps } from "react-window";
+
+import deepCompare from '../../../../utils/deepCompare';
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+
+import Async from '../../../common/Async';
+
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
+import IColumn from "../../../../model/IColumn";
 
 import Container from "../Container";
 
-import MobileItem from "./MobileItem";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: theme.palette.background.paper,
+  },
+}));
 
 interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
@@ -22,70 +38,145 @@ interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnyth
   style?: React.CSSProperties;
 }
 
+interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+  rows: IMobileProps<FilterData, RowData>["rows"];
+  filterData: IMobileProps<FilterData, RowData>["filterData"];
+};
+
+const AsyncText = <RowData extends IRowData = IAnything>({
+  row,
+  fallback,
+  column,
+}: {
+  row: RowData;
+  fallback: IListProps['fallback'];
+  column?: IColumn<RowData>;
+}) => (
+  <Async fallback={fallback}>
+    {() => {
+      if (column && column.compute) {
+        return column.compute(row);
+      } else if (column && column.field) {
+        return row[column.field];
+      } else {
+        return 'empty';
+      }
+    }}
+  </Async>
+);
+
 export const Mobile = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
 >(props: IMobileProps<FilterData, RowData>) => {
 
-  const { rows } = props;
+  const innerRef = useRef<HTMLElement>(null);
+  const classes = useStyles();
 
-  const listRef = useRef<any>({});
-  const rowHeights = useRef<any>({});
+  const {
+    rows: upperRows,
+    filterData: upperFilterData,
+    fallback = () => null,
+    columns = [],
+    rowHeight,
+    offset,
+    limit,
+    loading,
+  } = props;
 
-  function getRowHeight(index: number) {
-    return rowHeights.current[index];
-  }
+  const {
+    handlePageChange,
+  } = props;
 
-  function setRowHeight(index: number, size: number) {
-    listRef.current.resetAfterIndex(0);
-    rowHeights.current = { ...rowHeights.current, [index]: size };
-  }
+  const [state, setState] = useState<IMobileState>({
+    rows: upperRows,
+    filterData: upperFilterData,
+  });
 
-  const Row = ({ index, style }: any) => {
-    const elementRef = useRef<HTMLDivElement>(null);
+  const handleFilterData = useCallback(() => {
+    if (!deepCompare(state.filterData, upperFilterData)) {
+      setState(() => ({
+        rows: upperRows,
+        filterData: upperFilterData,
+      }));
+    }
+  }, [state, upperRows, upperFilterData]);
 
-    const handleResize = (newHeight: number) => {
-      console.log(newHeight)
-      setRowHeight(index, newHeight);
-    };
+  useEffect(() => setState((state) => ({
+    ...state,
+    rows: [...state.rows, ...upperRows],
+  })), [upperRows]);
 
-    useEffect(() => {
-      const { current: element } = elementRef;
-      if (element) {
-        const { clientHeight } = element;
-        handleResize(clientHeight);
+  useEffect(() => handleFilterData(), [upperFilterData]);
+
+  const createScrollHandler = (height: number) => ({
+    scrollDirection,
+    scrollOffset,
+  }: ListOnScrollProps) => {
+    if (scrollDirection === 'forward') {
+      const { current } = innerRef;
+      if (current && !loading) {
+        const { height: scrollHeight } = current.getBoundingClientRect();
+        const currentPage = Math.floor(offset / limit);
+        if (height + scrollOffset === scrollHeight) {
+          handlePageChange(currentPage + 1);
+          console.log('inc')
+        }
       }
-    }, [elementRef]);
+    }
+  };
 
-    return (
-      <MobileItem<FilterData, RowData>
-        onResize={handleResize}
-        ref={elementRef}
-        key={index}
-        style={style}
-        data={rows[index]}
-        {...props}
-      />
-    );
-  }
+  const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
+  const secondaryColumn = columns.find(({ secondary }) => secondary);
+
+  console.log(state.rows, primaryColumn, secondaryColumn);
 
   return (
     <Container<FilterData, RowData>
       {...props}
+      {...state}
     >
-      {({
-        height,
-        width,
-      }) => (
-        <List
+      {({ height, width, payload: { rows } }) => (
+        <FixedSizeList
+          className={classes.root}
           height={height}
           width={width}
           itemCount={rows.length}
-          itemSize={getRowHeight}
-          ref={listRef}
+          onScroll={createScrollHandler(height)}
+          innerRef={innerRef}
+          itemSize={rowHeight}
         >
-          {Row}
-        </List>
+          {({ index, style }) => {
+            const primary = (
+              <AsyncText<RowData>
+                row={rows[index]}
+                fallback={fallback}
+                column={primaryColumn}
+              />
+            );
+            const secondary = (
+              <AsyncText<RowData>
+                row={rows[index]}
+                fallback={fallback}
+                column={secondaryColumn}
+              />
+            );
+            return (
+              <ListItem
+                key={index}
+                style={style}
+              >
+                <ListItemAvatar>
+                  <Avatar />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={primary}
+                  secondary={secondary}
+                />
+              </ListItem>
+            );
+          }} 
+        </FixedSizeList>
       )}
     </Container>
   )

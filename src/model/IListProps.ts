@@ -9,6 +9,7 @@ import {
 } from '@material-ui/data-grid';
 
 import ActionType from './ActionType';
+import DisplayMode from './DisplayMode';
 import SelectionMode from './SelectionMode';
 
 import IAnything from './IAnything';
@@ -134,6 +135,7 @@ export interface IListProps<
   rowActions?: IOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
+  displayMode?: DisplayMode;
 }
 
 export default IListProps;

@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 
 import classNames from "../../../../utils/classNames";
 
-import AutoSizer from "../../../common/AutoSizer";
+import AutoSizer, { IChildParams } from "../../../common/AutoSizer";
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
@@ -16,11 +16,6 @@ import Actions from "./Actions";
 import Filters from "./Filters";
 
 const AUTOSIZER_DELAY = 50;
-
-interface ISize {
-  height: number;
-  width: number;
-}
 
 interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
@@ -32,7 +27,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
-  children: (s: ISize) => any;
+  children: (s: IChildParams<IContainerProps<FilterData, RowData>>) => any;
   ready: () => void;
   ref?: (instance: HTMLDivElement) => void
 }
@@ -60,27 +55,30 @@ const useStyles = makeStyles({
 export const Container = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
->({
-  className,
-  style,
-  filters = [],
-  actions = [],
-  heightRequest = (v) => v,
-  widthRequest = (v) => v,
-  title = '',
-  filterLabel = '',
-  filterData,
-  handleFilter,
-  handleDefault,
-  initComplete,
-  children,
-  isMobile,
-  ready,
-  toggleFilters,
-  onFilterChange,
-  sizeByParent = true,
-}: IContainerProps<FilterData, RowData>, ref: any) => {
+>(props: IContainerProps<FilterData, RowData>, ref: any) => {
+
   const classes = useStyles();
+
+  const {
+    className,
+    style,
+    filters = [],
+    actions = [],
+    heightRequest = (v) => v,
+    widthRequest = (v) => v,
+    title = '',
+    filterLabel = '',
+    filterData,
+    handleFilter,
+    handleDefault,
+    initComplete,
+    children,
+    isMobile,
+    ready,
+    toggleFilters,
+    onFilterChange,
+    sizeByParent = true,
+  } = props;
 
   const sizer = {
     ...(!sizeByParent && {
@@ -95,9 +93,10 @@ export const Container = <
       widthRequest={widthRequest}
       delay={AUTOSIZER_DELAY}
       style={style}
+      payload={props}
       {...sizer}
     >
-      {({ height, width }) => (
+      {({ height, width, payload }) => (
         <div ref={ref} style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
             <Actions<FilterData> title={title} filterData={filterData!} actions={actions} />
@@ -119,7 +118,7 @@ export const Container = <
             )}
             <div className={classNames(classes.container, classes.stretch)}>
               {!!initComplete && (
-                <AutoSizer>
+                <AutoSizer payload={payload}>
                   {children}
                 </AutoSizer>
               )}

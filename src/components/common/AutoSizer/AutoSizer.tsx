@@ -6,7 +6,7 @@ import ResizeEmitter from "./ResizeEmitter";
 
 import ISize from "../../../model/ISize";
 
-interface IChildParams<T extends object = object> extends ISize {
+export interface IChildParams<T extends object = object> extends ISize {
   payload: T;
 }
 
