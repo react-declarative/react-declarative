@@ -45,7 +45,7 @@ const ListInternal = <
     handler = () => [],
     fallback = (e) => console.error(e),
     limit: defaultLimit = DEFAULT_LIMIT,
-    autoReload: defaultAutoReload = true,
+    autoReload: defaultAutoReload = !props.displayMode || props.displayMode === DisplayMode.Desktop,
     autoReloadInterval = DEFAULT_AUTORELOAD_INTERVAL,
     displayMode = DisplayMode.Desktop,
     filters = [],

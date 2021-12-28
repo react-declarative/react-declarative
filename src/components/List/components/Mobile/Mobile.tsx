@@ -6,17 +6,11 @@ import { FixedSizeList, ListOnScrollProps } from "react-window";
 
 import deepCompare from '../../../../utils/deepCompare';
 
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-
-import Async from '../../../common/Async';
-
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
-import IColumn from "../../../../model/IColumn";
+
+import MobileListItem from "./MobileListItem";
 
 import Container from "../Container";
 
@@ -43,28 +37,6 @@ interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnyth
   filterData: IMobileProps<FilterData, RowData>["filterData"];
 };
 
-const AsyncText = <RowData extends IRowData = IAnything>({
-  row,
-  fallback,
-  column,
-}: {
-  row: RowData;
-  fallback: IListProps['fallback'];
-  column?: IColumn<RowData>;
-}) => (
-  <Async fallback={fallback}>
-    {() => {
-      if (column && column.compute) {
-        return column.compute(row);
-      } else if (column && column.field) {
-        return row[column.field];
-      } else {
-        return 'empty';
-      }
-    }}
-  </Async>
-);
-
 export const Mobile = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
@@ -76,11 +48,10 @@ export const Mobile = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
-    fallback = () => null,
-    columns = [],
     rowHeight,
     offset,
     limit,
+    total,
     loading,
   } = props;
 
@@ -93,21 +64,38 @@ export const Mobile = <
     filterData: upperFilterData,
   });
 
-  const handleFilterData = useCallback(() => {
+  const handleMergeRows = useCallback(() => setState(({
+    rows,
+    filterData,
+  }) => {
+    const rowMap = new Map(rows.map((row) => [row.id, row]));
+    upperRows.forEach((row) => rowMap.set(row.id, row));
+    return {
+      filterData,
+      rows: [...rowMap.values()],
+    };
+  }), [upperRows]);
+
+  const handleCleanRows = useCallback(() => setState(() => ({
+    rows: upperRows,
+    filterData: upperFilterData,
+  })), [upperRows, upperFilterData]);
+
+  const handleAppendRows = useCallback(() => setState((state) => ({
+    ...state,
+    rows: [...state.rows, ...upperRows],
+  })), [state, upperRows]);
+
+  const handlePaginate = useCallback(() => {
     if (!deepCompare(state.filterData, upperFilterData)) {
-      setState(() => ({
-        rows: upperRows,
-        filterData: upperFilterData,
-      }));
+      handleCleanRows();
+    } else {
+      handleMergeRows();
     }
   }, [state, upperRows, upperFilterData]);
 
-  useEffect(() => setState((state) => ({
-    ...state,
-    rows: [...state.rows, ...upperRows],
-  })), [upperRows]);
-
-  useEffect(() => handleFilterData(), [upperFilterData]);
+  useEffect(() => handleAppendRows(), [upperRows]);
+  useEffect(() => handlePaginate(), [upperFilterData]);
 
   const createScrollHandler = (height: number) => ({
     scrollDirection,
@@ -117,19 +105,15 @@ export const Mobile = <
       const { current } = innerRef;
       if (current && !loading) {
         const { height: scrollHeight } = current.getBoundingClientRect();
-        const currentPage = Math.floor(offset / limit);
+        const pendingPage = Math.floor(offset / limit) + 1;
         if (height + scrollOffset === scrollHeight) {
-          handlePageChange(currentPage + 1);
-          console.log('inc')
+          if (!total || pendingPage * limit <= total) {
+            handlePageChange(pendingPage);
+          }
         }
       }
     }
   };
-
-  const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
-  const secondaryColumn = columns.find(({ secondary }) => secondary);
-
-  console.log(state.rows, primaryColumn, secondaryColumn);
 
   return (
     <Container<FilterData, RowData>
@@ -146,36 +130,13 @@ export const Mobile = <
           innerRef={innerRef}
           itemSize={rowHeight}
         >
-          {({ index, style }) => {
-            const primary = (
-              <AsyncText<RowData>
-                row={rows[index]}
-                fallback={fallback}
-                column={primaryColumn}
-              />
-            );
-            const secondary = (
-              <AsyncText<RowData>
-                row={rows[index]}
-                fallback={fallback}
-                column={secondaryColumn}
-              />
-            );
-            return (
-              <ListItem
-                key={index}
-                style={style}
-              >
-                <ListItemAvatar>
-                  <Avatar />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={primary}
-                  secondary={secondary}
-                />
-              </ListItem>
-            );
-          }} 
+          {({ index, style }) => (
+            <MobileListItem
+              key={index}
+              row={rows[index]}
+              style={style}
+            />
+          )} 
         </FixedSizeList>
       )}
     </Container>
