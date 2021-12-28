@@ -10,7 +10,7 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
-import MobileListItem from "./MobileListItem";
+import ListItem from "./ListItem";
 
 import Container from "../Container";
 
@@ -131,9 +131,10 @@ export const Mobile = <
           itemSize={rowHeight}
         >
           {({ index, style }) => (
-            <MobileListItem
+            <ListItem
               key={index}
               row={rows[index]}
+              rows={rows}
               style={style}
             />
           )} 

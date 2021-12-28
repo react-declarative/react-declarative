@@ -9,8 +9,8 @@ import SelectionMode from "../../../../../model/SelectionMode";
 import Radio from "@material-ui/core/Radio";
 import Box from "@material-ui/core/Box";
 
-import RowMark from "./RowMark";
-import RowAvatar from "./RowAvatar";
+import RowMark from "../../RowMark";
+import RowAvatar from "../../RowAvatar";
 
 import { useGridSlotComponentProps } from "@material-ui/data-grid";
 import { useProps } from "../../PropProvider";

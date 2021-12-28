@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import ListItem from '@material-ui/core/ListItem';
+import MatListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
-import Avatar from '@material-ui/core/Avatar';
 
 import Async from '../../../common/Async';
 import ActionMenu from '../../../common/ActionMenu';
@@ -16,6 +14,8 @@ import IRowData from '../../../../model/IRowData';
 import IColumn from "../../../../model/IColumn";
 
 import { useProps } from '../PropProvider';
+import RowAvatar from '../RowAvatar';
+import RowMark from '../RowMark';
 
 const AsyncText = <RowData extends IRowData = IAnything>({
     row,
@@ -41,11 +41,13 @@ const AsyncText = <RowData extends IRowData = IAnything>({
 
 interface IMobileListItemProps<RowData extends IRowData = IAnything> {
     row: RowData;
+    rows: RowData[];
     style?: React.CSSProperties;
 }
 
-export const MobileListItem = <RowData extends IRowData = IAnything>({
+export const ListItem = <RowData extends IRowData = IAnything>({
     row,
+    rows,
     style,
 }: IMobileListItemProps<RowData>) => {
 
@@ -53,11 +55,17 @@ export const MobileListItem = <RowData extends IRowData = IAnything>({
 
     const {
         columns = [],
+        rowActions,
+        onRowClick,
+        onRowAction,
         fallback,
+        rowAvatar,
+        rowMark,
     } = useProps();
 
     const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
     const secondaryColumn = columns.find(({ secondary }) => secondary);
+    const rowId = row.id.toString();
 
     const primary = (
         <AsyncText<RowData>
@@ -77,31 +85,54 @@ export const MobileListItem = <RowData extends IRowData = IAnything>({
     
     const handleClick = () => {
         if (!menuOpened) {
-            debugger
+            onRowClick && onRowClick(row);
         }
     };
 
-    const handleMenuToggle = (opened: boolean) => setMenuOpened(opened);
+    const handleMenuToggle = (opened: boolean) => {
+        setMenuOpened(opened);
+    };
+
+    const handleAction = (action: string) => {
+        onRowAction && onRowAction(row, action);
+    };
 
     return (
-        <ListItem
+        <MatListItem
             button
             onClick={handleClick}
             style={style}
         >
-            <ListItemAvatar>
-                <Avatar />
-            </ListItemAvatar>
+            {!!rowMark && (
+                <RowMark
+                    rowId={rowId}
+                    rowMark={rowMark}
+                    rows={rows}
+                />
+            )}
+            {!!rowAvatar && (
+                <ListItemAvatar>
+                    <RowAvatar
+                        rowAvatar={rowAvatar}
+                        rowId={rowId}
+                        rows={rows}
+                    />
+                </ListItemAvatar>
+            )}
             <ListItemText
                 primary={primary}
                 secondary={secondary}
             />
-            <ActionMenu
-                transparent
-                onToggle={handleMenuToggle}
-            />
-        </ListItem>
+            {!!rowActions && (
+                <ActionMenu
+                    transparent
+                    options={rowActions}
+                    onToggle={handleMenuToggle}
+                    onAction={handleAction}
+                />
+            )}
+        </MatListItem>
     );
 };
 
-export default MobileListItem;
+export default ListItem;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useLayoutEffect, useCallback, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 
-import IListProps from '../../../../../model/IListProps';
+import IListProps from '../../../../model/IListProps';
 
 import Box from '@material-ui/core/Box';
 

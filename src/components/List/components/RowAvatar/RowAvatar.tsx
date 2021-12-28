@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useLayoutEffect, useCallback, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 
-import IListProps, { ListAvatar } from '../../../../../model/IListProps';
+import IListProps, { ListAvatar } from '../../../../model/IListProps';
 
 import MatAvatar from '@material-ui/core/Avatar';
 
