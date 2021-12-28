@@ -107,7 +107,7 @@ export const Mobile = <
         const { height: scrollHeight } = current.getBoundingClientRect();
         const pendingPage = Math.floor(offset / limit) + 1;
         if (height + scrollOffset === scrollHeight) {
-          if (!total || pendingPage * limit <= total) {
+          if (!total || pendingPage * limit < total) {
             handlePageChange(pendingPage);
           }
         }
