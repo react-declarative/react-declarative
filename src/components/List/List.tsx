@@ -72,11 +72,17 @@ const ListInternal = <
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({...prevState, loading}));
 
+  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({...prevState, isMobile}));
+
   const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({...prevState, autoReload}));
 
   const { isMobile } = state;
 
   const calcRowHeight = useHeightCalc<RowData>(columns);
+
+  useLayoutEffect(() => {
+    setMobile(displayMode !== DisplayMode.Desktop);
+  }, [displayMode]);
 
   const handleRows = async (filterData: FilterData): Promise<{
     rows: RowData[];
@@ -211,6 +217,8 @@ const ListInternal = <
 
   const handleAutoReload = (autoReload: boolean) => setAutoReload(autoReload);
 
+  const handleSetMobile = (isMobile: boolean) => setMobile(isMobile);
+
   const callbacks: IListCallbacks<FilterData, RowData> = {
     handlePageChange,
     handleLimitChange,
@@ -218,6 +226,7 @@ const ListInternal = <
     handleDefault,
     handleFilter,
     handleReload,
+    handleSetMobile,
     handleAutoReload,
     ready: handleDefault,
   };

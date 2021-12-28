@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { makeStyles } from '@material-ui/core';
 
 import MatListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
+import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
 
 import Async from '../../../common/Async';
 import ActionMenu from '../../../common/ActionMenu';
@@ -39,6 +43,15 @@ const AsyncText = <RowData extends IRowData = IAnything>({
     </Async>
 );
 
+const useStyles = makeStyles({
+    root: {
+        position: 'relative',
+    },
+    checkbox: {
+        opacity: 0.2,
+    },
+});
+
 interface IMobileListItemProps<RowData extends IRowData = IAnything> {
     row: RowData;
     rows: RowData[];
@@ -52,6 +65,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
 }: IMobileListItemProps<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
+    const classes = useStyles();
 
     const {
         columns = [],
@@ -100,6 +114,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     return (
         <MatListItem
             button
+            className={classes.root}
             onClick={handleClick}
             style={style}
         >
@@ -118,6 +133,11 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                         rows={rows}
                     />
                 </ListItemAvatar>
+            )}
+            {!rowAvatar && (
+                <ListItemIcon className={classes.checkbox}>
+                    <CheckBoxOutlineBlank />
+                </ListItemIcon>
             )}
             <ListItemText
                 primary={primary}

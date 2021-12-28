@@ -31,9 +31,15 @@ interface IAutoReloadOption extends IOption {
   icon: never;
 };
 
+interface IMobileViewOption extends IOption {
+  action: 'mobile-view';
+  label: never;
+  icon: never;
+};
+
 export interface IListAction extends Partial<IOption> {
   type: ActionType;
-  options?: Partial<IOption | IUpdateOption | IAutoReloadOption>[];
+  options?: Partial<IOption | IUpdateOption | IAutoReloadOption | IMobileViewOption>[];
 }
 
 interface ComponentProps {
@@ -97,6 +103,7 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
   handleAutoReload: (autoReload: boolean) => void;
+  handleSetMobile: (isMobile: boolean) => void;
   handleReload: () => void;
   ready: () => void;
 };

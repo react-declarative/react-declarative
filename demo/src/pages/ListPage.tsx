@@ -81,6 +81,9 @@ const actions: IListAction[] = [
       {
         action: 'auto-reload',
       },
+      {
+        action: 'mobile-view',
+      },
     ],
   }
 ];
@@ -161,7 +164,6 @@ export const ListPage = () => {
     <ListTyped<IFilterData, IRowData>
       title="List Component"
       filterLabel="Filters"
-      displayMode={DisplayMode.Mobile}
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}

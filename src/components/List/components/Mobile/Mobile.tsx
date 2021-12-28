@@ -4,6 +4,13 @@ import { makeStyles } from '@material-ui/core';
 
 import { FixedSizeList, ListOnScrollProps } from "react-window";
 
+import Box from '@material-ui/core/Box';
+import MatListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+import NotInterested from '@material-ui/icons/NotInterested';
+
 import deepCompare from '../../../../utils/deepCompare';
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
@@ -17,6 +24,13 @@ import Container from "../Container";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.paper,
+  },
+  empty: {
+    position: 'absolute',
+    zIndex: 999,
+    top: 0,
+    left: 0,
+    right: 0,
   },
 }));
 
@@ -121,24 +135,37 @@ export const Mobile = <
       {...state}
     >
       {({ height, width, payload: { rows } }) => (
-        <FixedSizeList
-          className={classes.root}
-          height={height}
-          width={width}
-          itemCount={rows.length}
-          onScroll={createScrollHandler(height)}
-          innerRef={innerRef}
-          itemSize={rowHeight}
-        >
-          {({ index, style }) => (
-            <ListItem
-              key={index}
-              row={rows[index]}
-              rows={rows}
-              style={style}
-            />
-          )} 
-        </FixedSizeList>
+        <Box position="relative" style={{height, width}}>
+          {!rows.length && (
+            <MatListItem className={classes.empty}>
+              <ListItemIcon>
+                <NotInterested />
+              </ListItemIcon>
+              <ListItemText
+                primary="Empty"
+                secondary="Nothing found"
+              />
+            </MatListItem>
+          )}
+          <FixedSizeList
+            className={classes.root}
+            height={height}
+            width={width}
+            itemCount={rows.length}
+            onScroll={createScrollHandler(height)}
+            innerRef={innerRef}
+            itemSize={rowHeight}
+          >
+            {({ index, style }) => (
+              <ListItem
+                key={index}
+                row={rows[index]}
+                rows={rows}
+                style={style}
+              />
+            )} 
+          </FixedSizeList>
+        </Box>
       )}
     </Container>
   )
