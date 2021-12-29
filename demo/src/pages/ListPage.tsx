@@ -36,6 +36,7 @@ const columns: IColumn[] = [
     type: ColumnType.Text,
     field: 'id',
     headerName: 'ID',
+    secondary: true,
     width: 'max(calc(100vw - 650px), 200px)',
   },
   {

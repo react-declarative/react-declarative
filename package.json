@@ -45,6 +45,7 @@
         "build": "microbundle --no-compress --format modern,cjs --jsx React.createElement && npm run typedef",
         "build:umd": "cd umd && npm run build",
         "typedef": "node dts.js",
+        "postinstall": "sh ./scripts/post-install.sh",
         "start": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement",
         "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --env=jsdom"
     },
