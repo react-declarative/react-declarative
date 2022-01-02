@@ -96,12 +96,12 @@ const ListInternal = <
       : handler;
     if (Array.isArray(response)) {
       return {
-        rows: response,
+        rows: [...response],
         total: null,
       };
     } else {
       const { rows = [], total = null } = response || {};
-      return { rows, total };
+      return { rows: [...rows], total };
     }
   };
 

@@ -11,8 +11,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import NotInterested from '@material-ui/icons/NotInterested';
 
-import deepCompare from '../../../../utils/deepCompare';
-
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
@@ -57,6 +55,8 @@ export const Mobile = <
 >(props: IMobileProps<FilterData, RowData>) => {
 
   const innerRef = useRef<HTMLElement>(null);
+  const outerRef = useRef<HTMLElement>(null);
+
   const classes = useStyles();
 
   const {
@@ -78,38 +78,28 @@ export const Mobile = <
     filterData: upperFilterData,
   });
 
-  const handleMergeRows = useCallback(() => setState(({
+  const handleCleanRows = useCallback(() => {
+    const { current } = outerRef;
+    setState(() => ({
+      rows: upperRows,
+      filterData: upperFilterData,
+    }));
+    current && current.scrollTo(0, 0);
+  }, [upperRows, upperFilterData]);
+
+  const handleAppendRows = useCallback(() => setState(({
     rows,
     filterData,
   }) => {
-    const rowMap = new Map(rows.map((row) => [row.id, row]));
-    upperRows.forEach((row) => rowMap.set(row.id, row));
+    const rowIds = new Set(rows.map(({ id }) => id));
     return {
       filterData,
-      rows: [...rowMap.values()],
+      rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
     };
-  }), [upperRows]);
-
-  const handleCleanRows = useCallback(() => setState(() => ({
-    rows: upperRows,
-    filterData: upperFilterData,
-  })), [upperRows, upperFilterData]);
-
-  const handleAppendRows = useCallback(() => setState((state) => ({
-    ...state,
-    rows: [...state.rows, ...upperRows],
-  })), [state, upperRows]);
-
-  const handlePaginate = useCallback(() => {
-    if (!deepCompare(state.filterData, upperFilterData)) {
-      handleCleanRows();
-    } else {
-      handleMergeRows();
-    }
-  }, [state, upperRows, upperFilterData]);
+  }), [state, upperRows]);
 
   useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handlePaginate(), [upperFilterData]);
+  useEffect(() => handleCleanRows(), [upperFilterData]);
 
   const createScrollHandler = (height: number) => ({
     scrollDirection,
@@ -154,6 +144,7 @@ export const Mobile = <
             itemCount={rows.length}
             onScroll={createScrollHandler(height)}
             innerRef={innerRef}
+            outerRef={outerRef}
             itemSize={rowHeight}
           >
             {({ index, style }) => (
