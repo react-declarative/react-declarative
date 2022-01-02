@@ -37,7 +37,7 @@ export const ComponentCell = ({ row, field }: IComponentCellProps) => {
   } = listProps;
 
   const {
-    element: Element = Fragment,
+    element: Element = () => <Fragment />,
   } = columns.find((col) => col.field === field || col[INTERNAL_COLUMN_NAME] === field) || {};
 
   return (
