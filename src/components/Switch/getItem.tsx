@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Fragment, ComponentType } from "react";
 
 import { pathToRegexp } from "path-to-regexp";
@@ -19,10 +21,10 @@ export const getItem = async ({
   items,
   url = '',
   key = randomString(),
-  Forbidden = Fragment,
+  Forbidden = () => <Fragment />,
 }: IParams): Promise<ISwitchState | null> => {
   let result: ISwitchState | null = null;
-  for (const { component = Fragment, redirect, path, guard = () => true } of items) {
+  for (const { component = () => <Fragment />, redirect, path, guard = () => true } of items) {
     const params: Record<string, unknown> = {};
     const keys: Key[] = [];
     const reg = pathToRegexp(path, keys);

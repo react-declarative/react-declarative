@@ -20,7 +20,7 @@ interface IComponentFieldPrivate<Data = IAnything> {
 }
 
 export const ComponentField = ({
-    element: Element = Fragment,
+    element: Element = () => <Fragment />,
     object,
 }: IComponentFieldProps & IComponentFieldPrivate) => {
     const [node, setNode] = useState<JSX.Element | null>(null);

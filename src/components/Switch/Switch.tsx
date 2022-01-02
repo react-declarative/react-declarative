@@ -33,7 +33,7 @@ export const Switch = ({
   const [loading, setLoading] = useState(false);
 
   const {
-    component = Fragment,
+    component = () => <Fragment />,
     params,
     key,
   } = useMemo(() => state || {}, [state]);
