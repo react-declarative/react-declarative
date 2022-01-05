@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createElement } from 'react';
 
@@ -6,6 +8,7 @@ import { Fragment } from 'react';
 import { Update } from 'history';
 import { createBrowserHistory } from 'history';
 
+import ISwitchItem from './model/ISwitchItem';
 import ISwitchState from './model/ISwitchState';
 import ISwitchProps from './model/ISwitchProps';
 
@@ -16,7 +19,6 @@ import NotFoundDefault from './NotFound';
 import LoadingDefault from './Loading';
 
 import getItem from './getItem';
-import ISwitchItem from './model/ISwitchItem';
 
 const defaultHistory = createBrowserHistory();
 

@@ -13,9 +13,9 @@ declare global {
 
     export namespace declarative {
         
-        export const One = OneDefault;
-        export const OneTyped = OneTypedDefault;
-        export const FieldType = FieldTypeDefault;
+        export const One: typeof OneDefault;
+        export const OneTyped: typeof OneTypedDefault;
+        export const FieldType: typeof FieldTypeDefault;
 
         export type IField = IFieldDefault;
         export type TypedField = TypedFieldDefault;
