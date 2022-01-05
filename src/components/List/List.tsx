@@ -72,7 +72,7 @@ const ListInternal = <
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({...prevState, loading}));
 
-  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({...prevState, isMobile}));
+  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({...prevState, isMobile, offset: 0}));
 
   const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({...prevState, autoReload}));
 
