@@ -112,20 +112,17 @@ const ListInternal = <
         rows,
         total,
       } = await handleRows(filterData);
-      if (!deepCompare(objects(rows), objects(state.rows)) || rows.length === 0) {
-        const rowHeight = calcRowHeight(rows);
-        isMounted.current && setState((prevState) => ({
-          ...prevState,
-          initComplete: true,
-          filterData,
-          rows,
-          total,
-          rowHeight,
-          ...(!keepPagination && {
-            offset: 0,
-          }),
-        }));
-      }
+      isMounted.current && setState((prevState) => ({
+        ...prevState,
+        initComplete: true,
+        filterData,
+        rows,
+        total,
+        rowHeight: calcRowHeight(rows),
+        ...(!keepPagination && {
+          offset: 0,
+        }),
+      }));
     } catch (e) {
       fallback(e as Error);
     } finally {
@@ -241,6 +238,8 @@ const ListInternal = <
           filters={filters}
           columns={columns}
           actions={actions}
+          limit={state.limit}
+          offset={state.offset}
           {...callbacks}
         />
       ) : (
@@ -252,6 +251,7 @@ const ListInternal = <
           columns={columns}
           actions={actions}
           limit={state.limit}
+          offset={state.offset}
           {...callbacks}
         />
       )}

@@ -54,7 +54,11 @@ export const createRowHeightCalc = <T extends IRowData = IAnything>(columns: ICo
                 const requiredRowHeight = Math.max(contentRowHeight, DEFAULT_ROW_HEIGHT);
                 return requiredRowHeight;
             }));
-            return maxRowHeight;
+            if (Number.isFinite(maxRowHeight) && !Number.isNaN(maxRowHeight)) {
+                return maxRowHeight;
+            } else {
+                return DEFAULT_ROW_HEIGHT;
+            }
         }, 
         () => {
             document.body.removeChild(div)
