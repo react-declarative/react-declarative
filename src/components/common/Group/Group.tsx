@@ -1,7 +1,7 @@
 import * as React from "react";
 import { forwardRef } from "react";
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
 import { IManagedLayout, PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";

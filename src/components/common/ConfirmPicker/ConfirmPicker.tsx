@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import ModalDialog from '../ModalDialog';
 
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import DialogTitle from '@mui/material/DialogTitle';
 
 interface IConfirmPickerProps {
   onChange: (result: boolean) => void;

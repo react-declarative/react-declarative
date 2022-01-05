@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 
-import { Email } from '@material-ui/icons';
+import { Email } from '@mui/icons-material';
 
 import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs } from 'react-declarative';
 
@@ -12,6 +12,7 @@ const fields: TypedField<IOneData>[] = [
         inputType: 'email',
         inputAutocomplete: 'on',
         name: 'email',
+        title: 'Email',
         trailingIcon: Email,
         // defaultValue: 'tripolskypetr@gmail.com',
         isInvalid({email}) {

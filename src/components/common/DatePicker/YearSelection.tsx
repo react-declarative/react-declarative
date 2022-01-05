@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useRef, useCallback, useLayoutEffect } from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from "../../../styles";
 
 import classNames from '../../../utils/classNames';
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   disabled: {
     pointerEvents: 'none',
-    color: theme.palette.text.hint,
+    color: theme.palette.text.disabled,
   },
 }));
 

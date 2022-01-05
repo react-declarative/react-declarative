@@ -1,18 +1,18 @@
 import * as React from "react";
 import { useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
 import classNames from '../../../../../utils/classNames';
 
-import { GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@mui/x-data-grid";
 
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { useProps } from "../../PropProvider";
 
@@ -65,7 +65,6 @@ export const ActionCell = (props: IActionCellProps) => {
         <MoreVertIcon />
       </IconButton>
       <Menu
-        getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 import { ICheckBoxSlot } from '../../../slots/CheckBoxSlot';
 
@@ -19,7 +19,7 @@ export const CheckBox = ({
                 checked={Boolean(value)}
                 onChange={() => onChange(!value)}
             />}
-            label={title} />
+            label={title || ''} />
     </FormGroup>
 );
 

@@ -3,7 +3,7 @@ import {
     GridCellParams,
     GridColumnHeaderParams,
     GridComparatorFn,
-} from '@material-ui/data-grid';
+} from '@mui/x-data-grid';
 
 import ColumnType from "./ColumnType";
 

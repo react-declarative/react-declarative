@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 
 import { TypedField, FieldType, OneTyped } from 'react-declarative';
 

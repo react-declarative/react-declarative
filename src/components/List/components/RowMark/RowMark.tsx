@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useState, useLayoutEffect, useCallback, useRef } from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from '../../../../styles';
 
 import IListProps from '../../../../model/IListProps';
 
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 
 interface IRowMarkProps {
     rows: any[];

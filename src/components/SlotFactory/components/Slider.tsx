@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import MatSlider from '@material-ui/core/Slider';
-import IconButton from '@material-ui/core/IconButton';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import MatSlider from '@mui/material/Slider';
+import IconButton from '@mui/material/IconButton';
 
 import IAnything from '../../../model/IAnything';
 import IManaged, { PickProp } from '../../../model/IManaged';

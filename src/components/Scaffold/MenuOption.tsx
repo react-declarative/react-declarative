@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from '../../styles';
 
 import classNames from '../../utils/classNames';
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ButtonBase from "@material-ui/core/ButtonBase";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ButtonBase from "@mui/material/ButtonBase";
 
 import { IMenuOption } from '../../model/IMenuGroup';
 
-import OutlinedFlag from "@material-ui/icons/OutlinedFlag";
-import Dot from "@material-ui/icons/FiberManualRecord";
+import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
+import Dot from "@mui/icons-material/FiberManualRecord";
 
 interface IMenuOptionProps {
     option: IMenuOption;

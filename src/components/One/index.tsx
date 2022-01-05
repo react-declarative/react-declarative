@@ -3,7 +3,7 @@ import { useState, useLayoutEffect, useRef } from 'react';
 
 /* eslint-disable react/no-multi-comp */
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '../../styles';
 
 import OneInternal from './One';
 import Group from '../common/Group';

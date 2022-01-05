@@ -1,11 +1,18 @@
 import ReactDOM from 'react-dom'
-import App from './App'
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ModalProvider } from 'react-declarative';
 
+import App from './App'
+
+const theme = createTheme();
+
 ReactDOM.render(
-    <ModalProvider>
-        <App />
-    </ModalProvider>,
+    <ThemeProvider theme={theme}>
+        <ModalProvider>
+            <App />
+        </ModalProvider>
+    </ThemeProvider>,
     document.getElementById('root')
 );

@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles, Paper as MatPaper, Box } from '@material-ui/core';
+import { Paper as MatPaper, Box } from '@mui/material';
+
+import { makeStyles } from '../../../styles';
 
 import Group from '../Group';
 

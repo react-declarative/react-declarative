@@ -4,9 +4,8 @@ import {
 
 import {
   GridColumns,
-  GridSlotsComponent,
   GridSortModel,
-} from '@material-ui/data-grid';
+} from '@mui/x-data-grid';
 
 import ActionType from './ActionType';
 import DisplayMode from './DisplayMode';
@@ -56,6 +55,23 @@ interface ComponentProps {
   filterPanelProps?: any;
   columnsPanelProps?: any;
   panelProps?: any;
+}
+
+interface SlotsComponent {
+  Header?: any;
+  ColumnMenu?: any;
+  ErrorOverlay?: any;
+  Footer?: any;
+  Toolbar?: any;
+  CheckBox?: any;
+  PreferencesPanel?: any;
+  LoadingOverlay?: any;
+  NoResultsOverlay?: any;
+  NoRowsOverlay?: any;
+  Pagination?: any;
+  FilterPanel?: any;
+  ColumnsPanel?: any;
+  Panel?: any;
 }
 
 export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
@@ -112,7 +128,7 @@ export interface IListProps<
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
-> extends GridSlotsComponent, ComponentProps {
+> extends SlotsComponent, ComponentProps {
   ref?: Ref<IListApi>;
   className?: string;
   style?: React.CSSProperties;

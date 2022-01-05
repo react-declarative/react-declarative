@@ -4,8 +4,8 @@ import { useState } from 'react';
 import ModalDialog from '../ModalDialog';
 import One from '../../One';
 
-import Box from '@material-ui/core/Box';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@mui/material/Box';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';

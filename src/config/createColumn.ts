@@ -1,4 +1,4 @@
-import { GridColDef } from "@material-ui/data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 
 import IColumn from "../model/IColumn";
 import ColumnType from "../model/ColumnType";

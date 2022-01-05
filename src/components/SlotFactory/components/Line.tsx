@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core';
-import { alpha } from '@material-ui/core/styles';
+import { makeStyles } from '../../../styles';
+import { alpha } from '@mui/material/styles';
 
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import { ILineSlot } from '../../../slots/LineSlot';
 

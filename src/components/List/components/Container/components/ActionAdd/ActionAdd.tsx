@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { useProps } from "../../../PropProvider";
 
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 
-import Add from '@material-ui/icons/Add';
+import Add from '@mui/icons-material/Add';
 
 interface IActionAddProps {
     action?: string;

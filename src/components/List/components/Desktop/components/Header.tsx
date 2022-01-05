@@ -1,7 +1,8 @@
 import * as React from "react";
-import { makeStyles } from "@material-ui/core";
 
-import { GridColumnHeaderParams } from "@material-ui/data-grid";
+import { makeStyles } from "../../../../../styles";
+
+import { GridColumnHeaderParams } from "@mui/x-data-grid";
 
 import AutoSizer from "../../../../common/AutoSizer";
 

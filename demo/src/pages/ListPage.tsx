@@ -12,8 +12,8 @@ import {
   ListHandlerSortModel,
 } from 'react-declarative';
 
-import Delete from '@material-ui/icons/Delete';
-import Add from '@material-ui/icons/Add';
+import Delete from '@mui/icons-material/Delete';
+import Add from '@mui/icons-material/Add';
 
 import mock from './mock/list';
 

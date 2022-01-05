@@ -1,7 +1,8 @@
 import * as React from "react";
-import { makeStyles } from '@material-ui/core';
 
-import { DataGrid } from "@material-ui/data-grid";
+import { makeStyles } from '../../../../styles';
+
+import { DataGrid } from "@mui/x-data-grid";
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
@@ -9,8 +10,8 @@ import IRowData from '../../../../model/IRowData';
 
 import Container from "../Container";
 
-import Checkbox from "./components/CheckBox";
 import DefaultHeader from "./components/Header";
+import DefaultCheckBox from "./components/CheckBox";
 import DefaultColumnMenu from "./components/ColumnMenu";
 
 import createColumn from "../../../../config/createColumn";
@@ -79,6 +80,7 @@ export const Desktop = <
   const {
     ColumnMenu,
     ErrorOverlay,
+    CheckBox,
     Footer,
     Header,
     Toolbar,
@@ -134,7 +136,7 @@ export const Desktop = <
           components={{
             Header: Header || DefaultHeader,
             ColumnMenu: ColumnMenu || DefaultColumnMenu,
-            Checkbox,
+            BaseCheckbox: CheckBox || DefaultCheckBox,
             ErrorOverlay,
             Footer,
             Toolbar,

@@ -1,15 +1,16 @@
 import * as React from "react";
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from '../../../../styles';
 
 import { FixedSizeList, ListOnScrollProps } from "react-window";
 
-import Box from '@material-ui/core/Box';
-import MatListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Box from '@mui/material/Box';
+import MatListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
-import NotInterested from '@material-ui/icons/NotInterested';
+import NotInterested from '@mui/icons-material/NotInterested';
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';

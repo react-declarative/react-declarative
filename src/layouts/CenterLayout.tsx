@@ -3,7 +3,8 @@ import { useRef, useState, useLayoutEffect } from 'react';
 
 import Sha from 'sha.js';
 
-import { debounce, makeStyles } from '@material-ui/core';
+import { makeStyles } from '../styles';
+import { debounce } from '@mui/material';
 
 import classNames from '../utils/classNames';
 

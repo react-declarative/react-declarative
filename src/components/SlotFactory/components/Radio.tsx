@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormGroup from "@material-ui/core/FormGroup";
-import MatRadio from "@material-ui/core/Radio";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormGroup from "@mui/material/FormGroup";
+import MatRadio from "@mui/material/Radio";
 
 import { IRadioSlot } from '../../../slots/RadioSlot';
 
@@ -21,7 +21,11 @@ export const Radio = ({
             value={value}
             onChange={() => onChange((radioValue || '').toString())}
         >
-            <FormControlLabel value={radioValue} control={<MatRadio disabled={disabled} />} label={title} />
+            <FormControlLabel 
+                value={radioValue}
+                control={<MatRadio disabled={disabled} />}
+                label={title || ''}
+            />
         </RadioGroup>
     </FormGroup>
 );

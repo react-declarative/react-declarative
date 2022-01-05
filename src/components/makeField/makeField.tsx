@@ -10,7 +10,7 @@ import get from '../../utils/get';
 import deepCompare from '../../utils/deepCompare';
 import waitForBlur from '../../utils/wairForBlur';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '../../styles';
 
 import useDebounce from '../../hooks/useDebounce';
 

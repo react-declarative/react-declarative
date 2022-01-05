@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useState, useLayoutEffect, useCallback, useRef } from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from '../../../../styles';
 
 import IListProps, { ListAvatar } from '../../../../model/IListProps';
 
-import MatAvatar from '@material-ui/core/Avatar';
+import MatAvatar from '@mui/material/Avatar';
 
 interface IRowAvatarProps {
     rows: any[];
@@ -14,7 +15,7 @@ interface IRowAvatarProps {
 
 const useStyles = makeStyles({
     avatar: {
-        borderRadius: 3,
+        border: '2.5px solid transparent',
         height: 24,
         width: 24,
     },

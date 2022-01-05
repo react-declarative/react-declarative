@@ -7,41 +7,53 @@ import deepClone from '../../utils/deepClone';
 import objects from '../../utils/objects';
 import arrays from '../../utils/arrays';
 
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import AppBar from "@mui/material/AppBar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Drawer from "@mui/material/Drawer";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "../../styles";
 
-import Menu from "@material-ui/icons/Menu";
-import Search from "@material-ui/icons/Search";
+import Menu from "@mui/icons-material/Menu";
+import Search from "@mui/icons-material/Search";
 
 import IMenuGroup, { IMenuOption } from "../../model/IMenuGroup";
 
 import SideMenu from "./SideMenu";
 
+const DRAWER_WIDTH = 256;
+
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  appBar: {
-    background: theme.palette.background.paper,
-    color: theme.palette.getContrastText(theme.palette.background.paper),
+  appBarSolidPaper: {
+    background: `${theme.palette.background.paper} !important`,
+    color: `${theme.palette.getContrastText(theme.palette.background.paper)} !important`,
+  },
+  drawer: {
+    width: DRAWER_WIDTH,
+    '& > .MuiPaper-root': {
+      width: DRAWER_WIDTH
+    },
   },
   offset: theme.mixins.toolbar,
   hide: {
     display: 'none',
   },
   searchBox: {
+    display: 'inline-flex',
     margin: 5,
+    '& > *': {
+      flex: 1,
+    },
   },
 }));
 
@@ -50,6 +62,7 @@ interface IScaffoldProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
+  colored?: boolean;
   selected?: string;
   options?: IMenuGroup[];
   roles?: string[];
@@ -96,6 +109,7 @@ export const Scaffold = ({
   selected,
   title = 'Scaffold',
   options = [],
+  colored = true,
   roles: currentRoles,
   onOptionClick,
 }: IScaffoldProps) => {
@@ -139,34 +153,38 @@ export const Scaffold = ({
     <>
       <CssBaseline />
       <Drawer
+        className={classes.drawer}
         open={opened}
         onClose={() => setOpened(false)}
       >
-        <TextField
-          className={classes.searchBox}
-          variant="standard"
-          onChange={({ target }) => setFilterText(target.value.toString())}
-          value={filterText}
-          placeholder="Search"
-          InputProps={{
-            autoComplete: 'off',
-            endAdornment: (
-              <InputAdornment position="end">
-                <div style={{ marginRight: -10 }}>
-                  <IconButton>
-                    <Search />
-                  </IconButton>
-                </div>
-              </InputAdornment>
-            ),
-          }}
-          name="search"
-          type="text"
-        />
+        <Box className={classes.searchBox}>
+          <TextField
+            variant="standard"
+            onChange={({ target }) => setFilterText(target.value.toString())}
+            value={filterText}
+            placeholder="Search"
+            InputProps={{
+              autoComplete: 'off',
+              endAdornment: (
+                <InputAdornment position="end">
+                  <div style={{ marginRight: -10 }}>
+                    <IconButton>
+                      <Search />
+                    </IconButton>
+                  </div>
+                </InputAdornment>
+              ),
+            }}
+            name="search"
+            type="text"
+          />
+        </Box>
         <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
       </Drawer>
       <AppBar
-        className={classNames(classes.appBar, className)}
+        className={classNames(className, {
+          [classes.appBarSolidPaper]: !colored,
+        })}
         position="fixed"
         style={style}
       >

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
-import { GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@mui/x-data-grid";
 
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 
 const useStyles = makeStyles({
   root: {

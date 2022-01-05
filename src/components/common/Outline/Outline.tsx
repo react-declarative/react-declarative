@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { makeStyles, Box } from '@material-ui/core';
-import { alpha } from '@material-ui/core/styles';
+import { Box } from '@mui/material';
+
+import { alpha } from '@mui/material/styles';
+import { makeStyles } from '../../../styles';
 
 import Group from '../Group';
 

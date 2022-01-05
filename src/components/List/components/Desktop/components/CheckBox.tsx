@@ -1,18 +1,18 @@
 import * as React from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 import { useRef, useState, forwardRef } from "react";
 
-import MatCheckBox, { CheckboxProps } from "@material-ui/core/Checkbox";
+import MatCheckBox, { CheckboxProps } from "@mui/material/Checkbox";
 
 import SelectionMode from "../../../../../model/SelectionMode";
 
-import Radio from "@material-ui/core/Radio";
-import Box from "@material-ui/core/Box";
+import Radio from "@mui/material/Radio";
+import Box from "@mui/material/Box";
 
 import RowMark from "../../RowMark";
 import RowAvatar from "../../RowAvatar";
 
-import { useGridSlotComponentProps } from "@material-ui/data-grid";
+import { useGridSlotComponentProps } from "../hooks/useGridSlotComponentProps";
 import { useProps } from "../../PropProvider";
 
 type ICheckBoxProps = CheckboxProps;

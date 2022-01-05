@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 
 import { OneTyped, FieldType, TypedField } from 'react-declarative';

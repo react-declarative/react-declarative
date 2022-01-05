@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from "../../../styles";
 
 import { getMinutes, getHours, MINUTES, HOURS } from './time';
 

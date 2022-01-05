@@ -1,6 +1,6 @@
 import { useState, Fragment } from 'react';
 
-import { Face } from '@material-ui/icons';
+import { Face } from '@mui/icons-material';
 
 import { TypedField, FieldType, OneTyped } from 'react-declarative';
 

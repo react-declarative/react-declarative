@@ -17,12 +17,12 @@ import {
   pickListFn
 } from 'react-declarative';
 
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import ListAlt from '@material-ui/icons/ListAlt';
-import Delete from '@material-ui/icons/Delete';
-import Alarm from '@material-ui/icons/Alarm';
-import Face from '@material-ui/icons/Face';
-import Add from '@material-ui/icons/Add';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import ListAlt from '@mui/icons-material/ListAlt';
+import Delete from '@mui/icons-material/Delete';
+import Alarm from '@mui/icons-material/Alarm';
+import Face from '@mui/icons-material/Face';
+import Add from '@mui/icons-material/Add';
 
 const delay = (timeout = 1000) => new Promise<void>((res) => setTimeout(() => res(), timeout));
 

@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { alpha, makeStyles } from '@material-ui/core';
+
+import { makeStyles } from "../../../../styles";
+import { alpha } from '@mui/material/styles';
 
 import classNames from '../../../../utils/classNames';
 
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
-import Restore from '@material-ui/icons/Restore';
-import More from '@material-ui/icons/ExpandMore';
-import Less from '@material-ui/icons/ExpandLess';
+import Restore from '@mui/icons-material/Restore';
+import More from '@mui/icons-material/ExpandMore';
+import Less from '@mui/icons-material/ExpandLess';
 
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';

@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Box from "@material-ui/core/Box";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ButtonBase from "@mui/material/ButtonBase";
+import Box from "@mui/material/Box";
 
-import { useGridSlotComponentProps } from "@material-ui/data-grid";
+import { useGridSlotComponentProps } from "../hooks/useGridSlotComponentProps";
 import { useProps } from "../../PropProvider";
 
 export const ColumnMenu = () => {

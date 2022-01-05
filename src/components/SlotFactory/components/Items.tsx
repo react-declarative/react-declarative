@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import MatTextField from "@material-ui/core/TextField";
-import Chip from "@material-ui/core/Chip";
+import Autocomplete from "@mui/lab/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
+import MatTextField from "@mui/material/TextField";
+import Chip from "@mui/material/Chip";
 
 import arrays from '../../../utils/arrays';
 import objects from '../../../utils/objects';
@@ -46,7 +46,7 @@ export const Items = ({
             renderTags={(value, getTagProps) =>
                 value.map((option: string, index) => (
                     <Chip
-                        variant={outlined ? "outlined" : "default"}
+                        variant={outlined ? "outlined" : "filled"}
                         label={labels[option]}
                         {...getTagProps({ index })}
                     />

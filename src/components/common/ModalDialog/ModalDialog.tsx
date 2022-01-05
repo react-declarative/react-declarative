@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
 
-import Dialog, { DialogProps } from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "../../../styles";
+
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 const useStyles = makeStyles({
   dialog: {

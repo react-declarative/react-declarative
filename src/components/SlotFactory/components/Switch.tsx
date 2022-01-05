@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import Box from '@material-ui/core/Box';
-import MatSwitch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
+import Box from '@mui/material/Box';
+import MatSwitch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
 
 import { ISwitchSlot } from '../../../slots/SwitchSlot';
 

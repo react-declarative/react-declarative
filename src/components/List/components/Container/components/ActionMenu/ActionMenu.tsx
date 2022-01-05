@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import { useProps } from "../../../PropProvider";
 
-import Menu from '@material-ui/core/Menu';
+import Menu from '@mui/material/Menu';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 
 import IOption from '../../../../../../model/IOption';
 
@@ -58,7 +58,6 @@ export const ActionMenu = ({
                 <MoreVertIcon color="inherit" />
             </Fab>
             <Menu
-                getContentAnchorEl={null}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',

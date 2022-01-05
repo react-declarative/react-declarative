@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
 import { useState } from 'react';
+
+import { makeStyles } from "../../../styles";
 
 import ModalDialog from '../ModalDialog';
 import List from '../../List';
 
-import Box from '@material-ui/core/Box';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@mui/material/Box';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import IField from '../../../model/IField';
 import IColumn from '../../../model/IColumn';

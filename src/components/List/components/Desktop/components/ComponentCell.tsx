@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Fragment } from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
-import { GridCellParams } from "@material-ui/data-grid";
+import { GridCellParams } from "@mui/x-data-grid";
 
 import { useProps } from "../../PropProvider";
 

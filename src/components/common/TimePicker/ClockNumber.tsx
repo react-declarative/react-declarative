@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+
+import { Theme } from '@mui/material';
+import { makeStyles } from '../../../styles';
 
 import classNames from '../../../utils/classNames';
 
@@ -29,9 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     borderRadius: '50%',
     pointerEvents: 'all',
-    color: theme.palette.type === 'light'
-      ? theme.palette.text.primary
-      : theme.palette.text.hint
+    color: theme.palette.text.primary,
   },
   selected: {
     color: theme.palette.getContrastText(theme.palette.text.primary)

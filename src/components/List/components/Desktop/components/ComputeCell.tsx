@@ -1,7 +1,8 @@
 import * as React from "react";
-import { makeStyles } from "@material-ui/core";
 
-import { GridCellParams } from "@material-ui/data-grid";
+import { makeStyles } from "../../../../../styles";
+
+import { GridCellParams } from "@mui/x-data-grid";
 
 import { useProps } from "../../PropProvider";
 

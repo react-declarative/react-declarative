@@ -2,8 +2,8 @@
 // Dependencies for this module:
 //   ../dayjs
 //   ../react
-//   ../@material-ui/data-grid
-//   ../@material-ui/core
+//   ../@mui/x-data-grid
+//   ../@mui/material
 //   ../react-modal-hook
 //   ../history
 
@@ -455,7 +455,7 @@ declare module 'react-declarative/model/IField' {
 }
 
 declare module 'react-declarative/model/IColumn' {
-    import { GridCellParams, GridColumnHeaderParams, GridComparatorFn } from '@material-ui/data-grid';
+    import { GridCellParams, GridColumnHeaderParams, GridComparatorFn } from '@mui/x-data-grid';
     import ColumnType from "react-declarative/model/ColumnType";
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData from 'react-declarative/model/IRowData';
@@ -569,7 +569,7 @@ declare module 'react-declarative/model/IListApi' {
 
 declare module 'react-declarative/model/IListProps' {
     import { Ref } from 'react';
-    import { GridColumns, GridSlotsComponent, GridSortModel } from '@material-ui/data-grid';
+    import { GridColumns, GridSortModel } from '@mui/x-data-grid';
     import ActionType from 'react-declarative/model/ActionType';
     import DisplayMode from 'react-declarative/model/DisplayMode';
     import SelectionMode from 'react-declarative/model/SelectionMode';
@@ -613,6 +613,22 @@ declare module 'react-declarative/model/IListProps' {
         columnsPanelProps?: any;
         panelProps?: any;
     }
+    interface SlotsComponent {
+        Header?: any;
+        ColumnMenu?: any;
+        ErrorOverlay?: any;
+        Footer?: any;
+        Toolbar?: any;
+        CheckBox?: any;
+        PreferencesPanel?: any;
+        LoadingOverlay?: any;
+        NoResultsOverlay?: any;
+        NoRowsOverlay?: any;
+        Pagination?: any;
+        FilterPanel?: any;
+        ColumnsPanel?: any;
+        Panel?: any;
+    }
     export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
         rows: RowData[];
         total: number;
@@ -652,7 +668,7 @@ declare module 'react-declarative/model/IListProps' {
         handleReload: () => void;
         ready: () => void;
     }
-    export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends GridSlotsComponent, ComponentProps {
+    export interface IListProps<FilterData extends IAnything = IAnything, RowData extends IRowData = IAnything, Field extends IField = IField<FilterData>> extends SlotsComponent, ComponentProps {
         ref?: Ref<IListApi>;
         className?: string;
         style?: React.CSSProperties;
@@ -1135,7 +1151,7 @@ declare module 'react-declarative/layouts/ExpansionLayout' {
 
 declare module 'react-declarative/layouts/HeroLayout' {
     import * as React from 'react';
-    import { Theme } from '@material-ui/core';
+    import { Theme } from '@mui/material';
     import IField from 'react-declarative/model/IField';
     import IAnything from 'react-declarative/model/IAnything';
     import { PickProp } from 'react-declarative/model/IManaged';
@@ -1955,13 +1971,14 @@ declare module 'react-declarative/components/Scaffold/Scaffold' {
         className?: string;
         style?: React.CSSProperties;
         title?: string;
+        colored?: boolean;
         selected?: string;
         options?: IMenuGroup[];
         roles?: string[];
         onOptionClick?: (name: string) => void;
     }
     export const Scaffold: {
-        ({ children, className, style, selected, title, options, roles: currentRoles, onOptionClick, }: IScaffoldProps): JSX.Element;
+        ({ children, className, style, selected, title, options, colored, roles: currentRoles, onOptionClick, }: IScaffoldProps): JSX.Element;
         displayName: string;
     };
     export default Scaffold;

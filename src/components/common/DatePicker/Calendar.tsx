@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState, useCallback } from 'react';
 import { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core';
 
-import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from "../../../styles";
+
+import IconButton from '@mui/material/IconButton';
 
 import dayjs from 'dayjs';
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   disabled: {
     pointerEvents: 'none',
-    color: theme.palette.text.hint,
+    color: theme.palette.text.disabled,
   },
   active: {
     color: theme.palette.primary.main,

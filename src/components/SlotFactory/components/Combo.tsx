@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import MatTextField from "@material-ui/core/TextField";
+import CircularProgress from '@mui/material/CircularProgress';
+import Autocomplete from "@mui/lab/Autocomplete";
+import MatTextField from "@mui/material/TextField";
 
 import arrays from '../../../utils/arrays';
 

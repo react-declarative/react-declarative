@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
 
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 import { PickProp } from '../../../model/IManaged';
 import IField from '../../../model/IField';

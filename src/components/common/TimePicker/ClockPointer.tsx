@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from "../../../styles";
 
 import classNames from '../../../utils/classNames';
 

@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { Accordion, AccordionDetails, AccordionSummary, makeStyles, Typography } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+
+import { makeStyles } from '../../../styles';
 
 import Group from '../Group';
 

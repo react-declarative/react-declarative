@@ -1,8 +1,8 @@
 import * as React from "react";
 import { forwardRef } from 'react';
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 
 import classNames from "../../../../utils/classNames";
 

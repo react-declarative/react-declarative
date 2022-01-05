@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { makeStyles, alpha } from '@material-ui/core';
+
+import { alpha } from '@mui/material';
+import { makeStyles } from '../../../styles'; 
 
 import classNames from '../../../utils/classNames';
 
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 
 import IOption from '../../../model/IOption';
 
@@ -82,7 +84,6 @@ export const ActionMenu = ({
                 <MoreVertIcon color="inherit" />
             </Fab>
             <Menu
-                getContentAnchorEl={null}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',

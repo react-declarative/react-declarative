@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import MatTypography from "@material-ui/core/Typography";
+import MatTypography from "@mui/material/Typography";
 
 import { ITypographySlot } from '../../../slots/TypographySlot';
 

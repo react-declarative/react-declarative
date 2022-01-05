@@ -4,9 +4,9 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import classNames from '../utils/classNames';
 import waitForSize from '../utils/wairForSize';
 
-import withTheme from '@material-ui/core/styles/withTheme';
-
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '../styles';
+import { withTheme } from '@mui/styles';
+import { Theme } from '@mui/material';
 
 import IField from '../model/IField';
 import IAnything from '../model/IAnything';

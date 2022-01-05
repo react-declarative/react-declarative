@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
+
+import { makeStyles } from "../../../styles";
 
 import dayjs from 'dayjs';
 
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import classNames from '../../../utils/classNames';
 

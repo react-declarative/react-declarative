@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useLayoutEffect, useRef } from "react";
-import { debounce } from "@material-ui/core";
+import { debounce } from "@mui/material";
 
 import ResizeEmitter from "./ResizeEmitter";
 
