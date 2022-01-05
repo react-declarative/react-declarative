@@ -4,7 +4,7 @@ import { useProps } from '../../PropProvider';
 
 export const SKIP_ROW_CLICK = 'useRowClickHandler__skip-row-click';
 
-const RENDERING_ZONE = '.MuiDataGrid-renderingZone';
+const RENDERING_ZONE = '.MuiDataGrid-virtualScrollerRenderZone';
 const GRID_ROW = '.MuiDataGrid-row[data-id]';
 const GRID_CELL = `.MuiDataGrid-cell:not(.MuiDataGrid-cellCheckbox)`;
 
