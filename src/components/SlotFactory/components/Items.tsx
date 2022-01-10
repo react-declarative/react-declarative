@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Autocomplete from "@mui/lab/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import MatTextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
