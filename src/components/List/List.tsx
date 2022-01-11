@@ -2,6 +2,8 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import { useState, useCallback, useLayoutEffect, useRef } from 'react';
 
+import { ThemeProvider } from '../../styles';
+
 import IListProps, { IListCallbacks, IListState, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
@@ -229,33 +231,35 @@ const ListInternal = <
   };
 
   return (
-    <PropProvider {...{...props, ...state, ...callbacks}}>
-      {isMobile ? (
-        <Mobile<FilterData, RowData>
-          {...props}
-          {...state}
-          handler={handler}
-          filters={filters}
-          columns={columns}
-          actions={actions}
-          limit={state.limit}
-          offset={state.offset}
-          {...callbacks}
-        />
-      ) : (
-        <Desktop<FilterData, RowData>
-          {...props}
-          {...state}
-          handler={handler}
-          filters={filters}
-          columns={columns}
-          actions={actions}
-          limit={state.limit}
-          offset={state.offset}
-          {...callbacks}
-        />
-      )}
-    </PropProvider>
+    <ThemeProvider>
+      <PropProvider {...{...props, ...state, ...callbacks}}>
+        {isMobile ? (
+          <Mobile<FilterData, RowData>
+            {...props}
+            {...state}
+            handler={handler}
+            filters={filters}
+            columns={columns}
+            actions={actions}
+            limit={state.limit}
+            offset={state.offset}
+            {...callbacks}
+          />
+        ) : (
+          <Desktop<FilterData, RowData>
+            {...props}
+            {...state}
+            handler={handler}
+            filters={filters}
+            columns={columns}
+            actions={actions}
+            limit={state.limit}
+            offset={state.offset}
+            {...callbacks}
+          />
+        )}
+      </PropProvider>
+    </ThemeProvider>
   );
 
 };

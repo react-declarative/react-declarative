@@ -3,7 +3,7 @@ import { useState, useLayoutEffect, useRef } from 'react';
 
 /* eslint-disable react/no-multi-comp */
 
-import { makeStyles } from '../../styles';
+import { makeStyles, ThemeProvider } from '../../styles';
 
 import OneInternal from './One';
 import Group from '../common/Group';
@@ -83,16 +83,18 @@ export const One = <Data extends IAnything = IAnything>(props: IOneProps<Data>) 
   };
 
   return (
-    <StateProvider {...stateParams}>
-      <Group
-        className={classNames(className, {
-          [classes.hidden]: !visible,
-        })}
-        style={style}
-      >
-        <OneInternal {...viewParams} />
-      </Group>
-    </StateProvider>
+    <ThemeProvider>
+      <StateProvider {...stateParams}>
+        <Group
+          className={classNames(className, {
+            [classes.hidden]: !visible,
+          })}
+          style={style}
+        >
+          <OneInternal {...viewParams} />
+        </Group>
+      </StateProvider>
+    </ThemeProvider>
   );
 };
 

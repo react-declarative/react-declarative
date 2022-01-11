@@ -498,27 +498,27 @@ declare module 'react-declarative/model/IColumn' {
 
 declare module 'react-declarative/model/FieldType' {
     export enum FieldType {
-        Switch = "switch",
-        Line = "line",
-        Group = "group",
-        Paper = "paper",
-        Outline = "outline",
-        Expansion = "expansion",
-        Radio = "radio",
-        Checkbox = "checkbox",
-        Text = "text",
-        Progress = "progress",
-        Component = "component",
-        Slider = "slider",
-        Combo = "combo",
-        Items = "items",
-        Rating = "rating",
-        Typography = "typography",
-        Fragment = "fragment",
-        Div = "div",
-        Hero = "hero",
-        Center = "center",
-        Stretch = "stretch"
+        Switch = "switch-field",
+        Line = "line-field",
+        Group = "group-layout",
+        Paper = "paper-layout",
+        Outline = "outline-layout",
+        Expansion = "expansion-layout",
+        Radio = "radio-field",
+        Checkbox = "checkbox-field",
+        Text = "text-field",
+        Progress = "progress-field",
+        Component = "component-field",
+        Slider = "slider-field",
+        Combo = "combo-field",
+        Items = "items-field",
+        Rating = "rating-field",
+        Typography = "typography-field",
+        Fragment = "fragment-layout",
+        Div = "div-layout",
+        Hero = "hero-layout",
+        Center = "center-layout",
+        Stretch = "stretch-layout"
     }
     export default FieldType;
 }
