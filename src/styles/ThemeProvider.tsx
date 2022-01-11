@@ -1,25 +1,23 @@
 import * as React from 'react';
 
-import { ThemeProvider as MatThemeProvider } from "@mui/styles";
-import { DefaultTheme } from "@mui/styles";
+import { useMemo } from 'react';
 
-import { createTheme } from "@mui/system";
-
-const theme = createTheme();
+import { ThemeProvider as MatThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 
 interface IThemeProviderProps {
     children: React.ReactNode;
 }
 
-const handleTheme = (upperTheme: DefaultTheme) => ({
-    ...theme,
-    ...upperTheme,
-});
-
 export const ThemeProvider = ({
     children,
-}: IThemeProviderProps) => (
-    <MatThemeProvider theme={handleTheme}>
-        {children}
-    </MatThemeProvider>
-);
+}: IThemeProviderProps) => {
+    const upperTheme = useTheme();
+    const currentTheme = useMemo(() => createTheme(upperTheme), [upperTheme]);
+    return (
+        <MatThemeProvider theme={currentTheme}>
+            {children}
+        </MatThemeProvider>
+    );
+};
