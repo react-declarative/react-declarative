@@ -1,7 +1,7 @@
 
 # react-declarative
 
-> [Material-ui](https://material-ui.com/) json endpoint form builder. Check [this site](https://theonekit.com/) for more samples...
+> [Material-ui](https://material-ui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) for more samples...
 
 ![meme](./meme.png)
 

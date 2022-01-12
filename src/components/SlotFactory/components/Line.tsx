@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'stretch',
     },
     line: {
-        border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
+        background: alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23),
         flexGrow: 1,
         margin: 15,
         height: 1,
