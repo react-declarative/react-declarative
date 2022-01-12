@@ -4,7 +4,6 @@
 //   ../react
 //   ../@mui/x-data-grid
 //   ../@mui/material
-//   ../react-modal-hook
 //   ../history
 
 declare module 'react-declarative' {
@@ -2058,8 +2057,11 @@ declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
 }
 
 declare module 'react-declarative/components/common/ModalProvider/ModalProvider' {
-    import { ModalProvider } from 'react-modal-hook';
-    export { ModalProvider };
+    import * as React from 'react';
+    interface IModalProviderProps {
+        children: React.ReactNode;
+    }
+    export const ModalProvider: ({ children }: IModalProviderProps) => JSX.Element;
     export default ModalProvider;
 }
 
