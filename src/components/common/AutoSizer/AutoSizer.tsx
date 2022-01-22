@@ -58,7 +58,20 @@ export const AutoSizer = <T extends object = object>({
 
     const element = target || parentElement!;
 
+    const removeCurrentSize = () => {
+      !disableHeight && current.style.removeProperty('height');
+      !disableWidth && current.style.removeProperty('width');
+    };
+
+    const rollbackSize = (height: number, width: number) => {
+      !disableHeight && current.style.setProperty('height', `${height}px`);
+      !disableWidth && current.style.setProperty('width', `${width}px`);
+    };
+
     const handler = () => {
+
+      removeCurrentSize();
+
       let { height, width } = element.getBoundingClientRect();
       const style = getComputedStyle(element);
 
@@ -77,6 +90,8 @@ export const AutoSizer = <T extends object = object>({
       if (isOk) {
         setState({ height, width });
         onResize({ height, width });
+      } else {
+        rollbackSize(height, width);
       }
     };
 
@@ -120,11 +135,11 @@ export const AutoSizer = <T extends object = object>({
   const childParams: IChildParams<T> = { height, width, payload };
 
   if (disableHeight) {
-    delete outerStyle.height;
+    outerStyle.height = style.height;
   }
 
   if (disableWidth) {
-    delete outerStyle.width;
+    outerStyle.width = style.width;
   }
 
   return (
@@ -132,8 +147,8 @@ export const AutoSizer = <T extends object = object>({
       className={className}
       ref={autoSizer}
       style={{
-        ...outerStyle,
         ...style,
+        ...outerStyle,
       }}
     >
       {children(childParams)}
