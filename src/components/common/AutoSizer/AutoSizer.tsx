@@ -111,7 +111,10 @@ export const AutoSizer = <T extends object = object>({
     observer.subscribe(handlerD);
     handler();
 
+    window.addEventListener('resize', handlerD);
+
     return () => {
+      window.removeEventListener('resize', handlerD);
       observer.unsubscribe(handlerD);
       handlerD.clear();
     };

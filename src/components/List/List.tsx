@@ -55,6 +55,7 @@ const ListInternal = <
     actions = [],
     onSortModelChange = () => null,
     onFilterChange = () => null,
+    toggleFilters = false,
   } = props;
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
@@ -69,6 +70,7 @@ const ListInternal = <
     total: null,
     loading: false,
     autoReload: defaultAutoReload,
+    filtersCollapsed: toggleFilters,
     sort: [],
   });
 
@@ -77,6 +79,8 @@ const ListInternal = <
   const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({...prevState, isMobile, offset: 0}));
 
   const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({...prevState, autoReload}));
+
+  const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({...prevState, filtersCollapsed}));
 
   const { isMobile } = state;
 
@@ -218,6 +222,8 @@ const ListInternal = <
 
   const handleSetMobile = (isMobile: boolean) => setMobile(isMobile);
 
+  const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
+
   const callbacks: IListCallbacks<FilterData, RowData> = {
     handlePageChange,
     handleLimitChange,
@@ -227,6 +233,7 @@ const ListInternal = <
     handleReload,
     handleSetMobile,
     handleAutoReload,
+    handleFiltersCollapsed,
     ready: handleDefault,
   };
 

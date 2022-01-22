@@ -77,6 +77,7 @@ export const Container = <
     ready,
     toggleFilters,
     onFilterChange,
+    handleFiltersCollapsed,
     sizeByParent = true,
   } = props;
 
@@ -110,6 +111,7 @@ export const Container = <
                 toggleFilters={toggleFilters}
                 onFilterChange={onFilterChange}
                 change={handleFilter}
+                onCollapsedChange={handleFiltersCollapsed}
                 clean={handleDefault as any}
                 label={filterLabel}
                 filters={filters}

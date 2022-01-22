@@ -59,6 +59,7 @@ interface IFiltersProps<FilterData = IAnything> {
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
   onFilterChange?: (data: FilterData) => void;
+  onCollapsedChange?: (collapsed: boolean) => void;
   toggleFilters?: boolean;
   ready: () => void;
   clean: () => void;
@@ -76,6 +77,7 @@ export const Filters = <FilterData extends IAnything>({
   label,
   toggleFilters,
   onFilterChange = () => null,
+  onCollapsedChange = () => null,
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
   const [collapsed, setCollapsed] = useState(!!toggleFilters);
@@ -87,10 +89,17 @@ export const Filters = <FilterData extends IAnything>({
     change(data);
   };
 
+  const handleTransitionEnd = () => {
+    onCollapsedChange(collapsed);
+  };
+
   return (
     <div className={classNames(className, classes.root)} style={style}>
       <div className={classes.container}>
-        <Collapse in={collapsed}>
+        <Collapse
+          onTransitionEnd={handleTransitionEnd}
+          in={collapsed}
+        >
           <Box p={1}>
             <One<FilterData>
               handler={filterData}

@@ -654,6 +654,7 @@ declare module 'react-declarative/model/IListProps' {
         uniqueKey: string;
         loading: boolean;
         autoReload: boolean;
+        filtersCollapsed: boolean;
         sort: ListHandlerSortModel;
     }
     export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -662,6 +663,7 @@ declare module 'react-declarative/model/IListProps' {
         handleFilter: (data: FilterData) => void;
         handlePageChange: (page: number) => void;
         handleLimitChange: (limit: number) => void;
+        handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
         handleAutoReload: (autoReload: boolean) => void;
         handleSetMobile: (isMobile: boolean) => void;
         handleReload: () => void;
