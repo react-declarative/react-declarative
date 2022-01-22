@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
+    overflow: 'hidden',
     "&&& .MuiDataGrid-root": {
       border: "1px solid transparent",
     },
