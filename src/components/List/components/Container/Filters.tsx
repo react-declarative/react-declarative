@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { makeStyles } from "../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -81,6 +81,7 @@ export const Filters = <FilterData extends IAnything>({
 }: IFiltersProps<FilterData>) => {
   const classes = useStyles();
   const [collapsed, setCollapsed] = useState(!!toggleFilters);
+  const [disabled, setDisabled] = useState(false);
 
   const handleCollapse = () => setCollapsed(!collapsed);
 
@@ -89,15 +90,22 @@ export const Filters = <FilterData extends IAnything>({
     change(data);
   };
 
-  const handleTransitionEnd = () => {
+  useEffect(() => {
+    setDisabled(true);
+    /* react transitioncancel hack */
+    setTimeout(handleCollapseEnd, 1_000);
+  }, [collapsed]);
+
+  const handleCollapseEnd = useCallback(() => {
     onCollapsedChange(collapsed);
-  };
+    setTimeout(() => setDisabled(false), 100);
+  }, [collapsed]);
 
   return (
     <div className={classNames(className, classes.root)} style={style}>
       <div className={classes.container}>
         <Collapse
-          onTransitionEnd={handleTransitionEnd}
+          onTransitionEnd={handleCollapseEnd}
           in={collapsed}
         >
           <Box p={1}>
@@ -122,7 +130,7 @@ export const Filters = <FilterData extends IAnything>({
           <Restore />
         </IconButton>
         {!toggleFilters && (
-          <IconButton onClick={handleCollapse}>
+          <IconButton disabled={disabled} onClick={handleCollapse}>
             {collapsed ? <Less /> : <More />}
           </IconButton>
         )}
