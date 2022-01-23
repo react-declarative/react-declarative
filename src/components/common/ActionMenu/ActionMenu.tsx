@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     transparent: {
         boxShadow: 'none !important',
         background: 'transparent !important',
-        color: alpha(theme.palette.getContrastText(theme.palette.background.default), 0.4),
+        color: `${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.4)} !important`,
     },
 }));
 
