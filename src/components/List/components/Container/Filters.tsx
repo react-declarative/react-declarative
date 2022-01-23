@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { makeStyles } from "../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -79,9 +79,13 @@ export const Filters = <FilterData extends IAnything>({
   onFilterChange = () => null,
   onCollapsedChange = () => null,
 }: IFiltersProps<FilterData>) => {
+
   const classes = useStyles();
+
   const [collapsed, setCollapsed] = useState(!!toggleFilters);
   const [disabled, setDisabled] = useState(false);
+
+  const isInitialized = useRef(false);
 
   const handleCollapse = () => setCollapsed(!collapsed);
 
@@ -91,14 +95,25 @@ export const Filters = <FilterData extends IAnything>({
   };
 
   useEffect(() => {
-    setDisabled(true);
-    /* react transitioncancel hack */
-    setTimeout(handleCollapseEnd, 1_000);
+    if (isInitialized.current) {
+      setDisabled(true);
+      /* react transitioncancel hack */
+      setTimeout(handleCollapseEnd, 1_000);
+    }
   }, [collapsed]);
 
+  useEffect(() => {
+    isInitialized.current = true;
+    return () => {
+      isInitialized.current = false;
+    };
+  }, []);
+
   const handleCollapseEnd = useCallback(() => {
-    onCollapsedChange(collapsed);
-    setTimeout(() => setDisabled(false), 100);
+    if (isInitialized.current) {
+      onCollapsedChange(collapsed);
+      setTimeout(() => setDisabled(false), 100);
+    }
   }, [collapsed]);
 
   return (
