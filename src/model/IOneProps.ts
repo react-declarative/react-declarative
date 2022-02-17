@@ -10,6 +10,10 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    */
   className?: string;
   /**
+   * Список ролей, ограничивающий отображение полей
+   */
+  roles?: string[];
+  /**
    * Стиль корневой группы
    */
   style?: React.CSSProperties;

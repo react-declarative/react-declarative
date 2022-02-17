@@ -8,6 +8,7 @@ const fields: TypedField[] = [
     {
         type: FieldType.Outline,
         fieldBottomMargin: '1',
+
         fields: [
             {
                 type: FieldType.Line,
@@ -152,11 +153,30 @@ const fields: TypedField[] = [
                 defaultValue: 5,
             },
         ]
-    }
+    },
+    {
+        type: FieldType.Paper,
+        roles: [
+            "admin"
+        ],
+        child: {
+            type: FieldType.Typography,
+            typoVariant: 'body1',
+            placeholder: 'Not allowed',
+        },
+    },
+    {
+        type: FieldType.Typography,
+        roles: [
+            "admin"
+        ],
+        typoVariant: 'h2',
+        placeholder: 'Another hidden field',
+    },
 ];
 
 export const GalleryPage = () => (
-    <OneTyped fields={fields}/>
+    <OneTyped roles={["user"]} fields={fields}/>
 );
 
 export default GalleryPage;

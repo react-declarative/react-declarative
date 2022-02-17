@@ -13,6 +13,7 @@ export type DeepPartial<T> = {
  */
 export interface IManagedLayout<Data = IAnything> {
     columns?: PickProp<IField<Data>, 'columns'>;
+    roles?: PickProp<IField<Data>, 'roles'>;
     phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
     tabletColumns?: PickProp<IField<Data>, 'tabletColumns'>;
     desktopColumns?: PickProp<IField<Data>, 'desktopColumns'>;

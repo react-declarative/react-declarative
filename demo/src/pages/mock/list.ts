@@ -20,4 +20,6 @@ for (let i = 0; i !== MOCK_TOTAL; i++) {
     })
 }
 
+(window as any).mock = _mock;
+
 export default _mock;

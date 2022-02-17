@@ -193,6 +193,10 @@ declare module 'react-declarative/model/IField' {
                 */
             name?: string;
             /**
+                * Список ролей, необходимых для отображения поля
+                */
+            roles?: string[];
+            /**
                 * Коллбеки, вызываемый при фокусировкеи потере фокуса.
                 * Подразумевается изменение формы со стороны прикладного
                 * программиста, а не работа с полем ввода
@@ -740,6 +744,10 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             className?: string;
             /**
+                * Список ролей, ограничивающий отображение полей
+                */
+            roles?: string[];
+            /**
                 * Стиль корневой группы
                 */
             style?: React.CSSProperties;
@@ -916,6 +924,7 @@ declare module 'react-declarative/model/IManaged' {
         */
     export interface IManagedLayout<Data = IAnything> {
             columns?: PickProp<IField<Data>, 'columns'>;
+            roles?: PickProp<IField<Data>, 'roles'>;
             phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
             tabletColumns?: PickProp<IField<Data>, 'tabletColumns'>;
             desktopColumns?: PickProp<IField<Data>, 'desktopColumns'>;

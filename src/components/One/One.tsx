@@ -40,6 +40,7 @@ const countStatefull = (fields?: IField<any>[]) => {
 
 export const OneInternal = <Data extends IAnything = IAnything>({
     fields,
+    roles,
     ready = () => null,
     prefix = 'root',
     invalidity = () => null,
@@ -70,116 +71,120 @@ export const OneInternal = <Data extends IAnything = IAnything>({
     if (object) {
         return (
             <Fragment>
-                {fields?.map((field, index) => {
-                    const currentPath = `${prefix}.${field.type}[${index}]`;
-                    const entity: IEntity<Data> = {
-                        invalidity: field.invalidity || invalidity,
-                        change: handleChange,
-                        ready: handleReady,
-                        fallback,
-                        focus,
-                        blur,
-                        ...field,
-                        object,
-                    };
-                    const fields: IField<Data>[] = field.child ? 
-                        [ field.child ]
-                        : field.fields!;
-                    const one: IOneProps<Data> = {
-                        change: handleChange,
-                        ready: handleReady,
-                        prefix: currentPath,
-                        fields,
-                        handler: object,
-                        invalidity,
-                        focus,
-                        blur,
-                    };
-                    if (field.type === FieldType.Group) {
-                        return (
-                            <GroupLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </GroupLayout>
-                        );
-                    } else if (field.type === FieldType.Expansion) {
-                        return (
-                            <ExpansionLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </ExpansionLayout>
-                        );
-                    } else if (field.type === FieldType.Paper) {
-                        return (
-                            <PaperLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </PaperLayout>
-                        );
-                    } else if (field.type === FieldType.Outline) {
-                        return (
-                            <OutlineLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </OutlineLayout>
-                        );
-                    } else if (field.type === FieldType.Div) {
-                        return (
-                            <DivLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </DivLayout>
-                        );
-                    } else if (field.type === FieldType.Center) {
-                        return (
-                            <CenterLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </CenterLayout>
-                        );
-                    } else if (field.type === FieldType.Stretch) {
-                        return (
-                            <StretchLayout<Data>
-                                {...entity}
-                                key={currentPath}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </StretchLayout>
-                        );
-                    } else if (field.type === FieldType.Fragment) {
-                        return (
-                            <FragmentLayout<Data>
-                                key={currentPath}
-                                {...entity}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </FragmentLayout>
-                        );
-                    } else if (field.type === FieldType.Hero) {
-                        return (
-                            <HeroLayout<Data>
-                                key={currentPath}
-                                {...entity}
-                            >
-                                <OneInternalMemo<Data> {...one} />
-                            </HeroLayout>
-                        );
-                    } else {
-                        return createField(entity, currentPath);
-                    }
-                })}
+                {fields
+                    ?.filter((field) => !roles || !field.roles || field.roles.find((role) => roles.includes(role)))
+                    ?.map((field, index) => {
+                        const currentPath = `${prefix}.${field.type}[${index}]`;
+                        const entity: IEntity<Data> = {
+                            invalidity: field.invalidity || invalidity,
+                            change: handleChange,
+                            ready: handleReady,
+                            fallback,
+                            focus,
+                            blur,
+                            ...field,
+                            object,
+                        };
+                        const fields: IField<Data>[] = field.child ? 
+                            [ field.child ]
+                            : field.fields!;
+                        const one: IOneProps<Data> = {
+                            change: handleChange,
+                            ready: handleReady,
+                            prefix: currentPath,
+                            fields,
+                            roles,
+                            handler: object,
+                            invalidity,
+                            focus,
+                            blur,
+                        };
+                        if (field.type === FieldType.Group) {
+                            return (
+                                <GroupLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </GroupLayout>
+                            );
+                        } else if (field.type === FieldType.Expansion) {
+                            return (
+                                <ExpansionLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </ExpansionLayout>
+                            );
+                        } else if (field.type === FieldType.Paper) {
+                            return (
+                                <PaperLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </PaperLayout>
+                            );
+                        } else if (field.type === FieldType.Outline) {
+                            return (
+                                <OutlineLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </OutlineLayout>
+                            );
+                        } else if (field.type === FieldType.Div) {
+                            return (
+                                <DivLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </DivLayout>
+                            );
+                        } else if (field.type === FieldType.Center) {
+                            return (
+                                <CenterLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </CenterLayout>
+                            );
+                        } else if (field.type === FieldType.Stretch) {
+                            return (
+                                <StretchLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </StretchLayout>
+                            );
+                        } else if (field.type === FieldType.Fragment) {
+                            return (
+                                <FragmentLayout<Data>
+                                    key={currentPath}
+                                    {...entity}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </FragmentLayout>
+                            );
+                        } else if (field.type === FieldType.Hero) {
+                            return (
+                                <HeroLayout<Data>
+                                    key={currentPath}
+                                    {...entity}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </HeroLayout>
+                            );
+                        } else {
+                            return createField(entity, currentPath);
+                        }
+                    })
+                }
             </Fragment>
         );
     } else {
