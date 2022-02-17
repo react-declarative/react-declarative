@@ -1,5 +1,5 @@
 export const deepFlat = <T = any>(arr: T[] = []) => {
-    const result: any[] = [];
+    const result: T[] = [];
     const process = (entries: any[] = []) => entries.forEach((entry) => {
         const fields = entry['fields'] || [];
         const child = entry['child'] ? [ entry['child'] ] : [];

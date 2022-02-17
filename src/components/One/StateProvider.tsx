@@ -25,6 +25,7 @@ export const StateProvider = <Data extends IAnything>({
 
     const {
         fields = [],
+        roles,
         change = () => null,
         fallback = () => null,
         handler = () => ({} as Data),
@@ -34,6 +35,7 @@ export const StateProvider = <Data extends IAnything>({
         handler,
         fallback,
         fields,
+        roles,
         change,
     });
 

@@ -23,22 +23,25 @@ interface IResolvedHookProps<Data = IAnything> {
     handler: PickProp<IOneProps<Data>, 'handler'>;
     fallback: PickProp<IOneProps<Data>, 'fallback'>;
     fields: PickProp<IOneProps<Data>, 'fields'>;
+    roles: PickProp<IOneProps<Data>, 'roles'>;
     change: PickProp<IOneProps<Data>, 'change'>;
 }
 
-const buildObj = <Data = IAnything>(fields: IField<Data>[]) => {
+const buildObj = <Data = IAnything>(fields: IField<Data>[], roles?: string[]) => {
     const obj = {};
     if (fields) {
-        deepFlat(fields).forEach((f) => {
-            if (isStatefull(f as IField)) {
-                create(obj, f.name);
-                if (typeof f.defaultValue === 'undefined') {
-                    set(obj, f.name, get(obj, f.name) || initialValue(f.type));
-                } else {
-                    set(obj, f.name, f.defaultValue);
+        deepFlat(fields)
+            .filter((field) => !roles || !field.roles || field.roles.find((role) => roles.includes(role)))
+            .forEach((f) => {
+                if (isStatefull(f as IField)) {
+                    create(obj, f.name);
+                    if (typeof f.defaultValue === 'undefined') {
+                        set(obj, f.name, get(obj, f.name) || initialValue(f.type));
+                    } else {
+                        set(obj, f.name, f.defaultValue);
+                    }
                 }
-            }
-        });
+            });
     }
     return obj;
 };
@@ -52,6 +55,7 @@ export const useResolved = <Data = IAnything>({
     handler,
     fallback,
     fields,
+    roles,
     change,
 }: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
@@ -65,11 +69,11 @@ export const useResolved = <Data = IAnything>({
                 try {
                     const result = (handler as Function)();
                     if (result instanceof Promise) {
-                        const newData = objects(assign({}, buildObj<Data>(fields), deepClone(await result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields, roles), deepClone(await result)));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     } else {
-                        const newData = objects(assign({}, buildObj<Data>(fields), deepClone(result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields, roles), deepClone(result)));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     }
@@ -83,7 +87,7 @@ export const useResolved = <Data = IAnything>({
                     isRoot.current = true;
                 }
             } else if (!deepCompare(data, handler)) {
-                isMounted.current && setData(objects(assign({}, buildObj(fields), handler)));
+                isMounted.current && setData(objects(assign({}, buildObj(fields, roles), handler)));
             }
         };
         tryResolve();
