@@ -8,7 +8,6 @@ const fields: TypedField[] = [
     {
         type: FieldType.Outline,
         fieldBottomMargin: '1',
-
         fields: [
             {
                 type: FieldType.Line,

@@ -25,15 +25,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "downlevelIteration": true,
-    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
   },
   "include": [
     "src"
   ],
   "exclude": [
+    "*.test.ts",
     "node_modules",
     "dist",
     "example"
