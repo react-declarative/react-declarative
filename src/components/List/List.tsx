@@ -90,26 +90,36 @@ const ListInternal = <
     setMobile(displayMode !== DisplayMode.Desktop);
   }, [displayMode]);
 
-  const handleRows = async (filterData: FilterData): Promise<{
+  const handleRows = useCallback(async (filterData: FilterData): Promise<{
     rows: RowData[];
     total: number | null;
   }> => {
-    const response: ListHandlerResult<RowData> = typeof handler === 'function'
-      ? (await Promise.resolve(handler(filterData, {
+    if (typeof handler === 'function') {
+      const response: ListHandlerResult<RowData> = await Promise.resolve(handler(filterData, {
         limit: state.limit,
         offset: state.offset,
-      }, state.sort)))
-      : handler;
-    if (Array.isArray(response)) {
-      return {
-        rows: [...response],
-        total: null,
-      };
+      }, state.sort));
+      if (Array.isArray(response)) {
+        return {
+          rows: [...response],
+          total: null,
+        };
+      } else {
+        const { rows = [], total = null } = response || {};
+        return { rows: [...rows], total };
+      }
     } else {
-      const { rows = [], total = null } = response || {};
-      return { rows: [...rows], total };
+      if (Array.isArray(handler)) {
+        return {
+          rows: handler.slice(state.offset, state.limit + state.offset),
+          total: handler.length,
+        };
+      } else {
+        const { rows = [], total = null } = handler || {};
+        return { rows: [...rows], total };
+      }
     }
-  };
+  }, [state, handler]);
 
   const handleFilter = useCallback(async (filterData: FilterData, keepPagination = false) => {
     setLoading(true);
