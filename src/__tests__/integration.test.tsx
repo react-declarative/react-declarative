@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-// import { act } from 'react-dom/test-utils';
-
 import OneForm from '../components/One';
 
 import IOneProps from "../model/IOneProps";
@@ -29,7 +27,7 @@ function render(props: IOneProps<IField>) {
     ReactDOM.render(<OneForm {...props}/>, div);
 }
 
-function renderStrict(props: IOneProps<TypedField>) {
+function renderStrict(props: IOneProps<any, TypedField>) {
     return render(props);
 }
 
