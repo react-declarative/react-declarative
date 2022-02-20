@@ -85,6 +85,32 @@ export interface IField<Data = IAnything> {
     };
 
     /**
+     * Список вкладок для TabLayout
+     */
+    tabList?: string[];
+
+    /**
+     * Номер активной вкладки по-умолчанию
+     */
+    tabIndex?: number;
+
+    /**
+     * Вариант вывода вкладок для TabLayout
+     */
+    tabVariant?: "fullWidth" | "standard" | "scrollable";
+
+    /**
+     * Цвет вкладок для TabLayout
+     */
+    tabColor?: "primary" | "secondary";
+
+    /**
+     * Позволяет содержимому растягивать высоту блока
+     * у TabLayout
+     */
+    tabKeepFlow?: boolean;
+
+    /**
      * Делает TextField многострочным, если
      * inputRows больше единицы
      */

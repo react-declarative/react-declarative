@@ -155,6 +155,49 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        child: {
+            type: FieldType.Tabs,
+            tabList: [
+                "First",
+                "Second",
+                "Third"
+            ],
+            fields: [
+                {
+                    type: FieldType.Group,
+                    fields: [
+                        {
+                            type: FieldType.Typography,
+                            typoVariant: 'body1',
+                            placeholder: 'First Tab',
+                        },
+                        {
+                            type: FieldType.Typography,
+                            typoVariant: 'body1',
+                            placeholder: 'First Tab',
+                        },
+                        {
+                            type: FieldType.Typography,
+                            typoVariant: 'body1',
+                            placeholder: 'First Tab',
+                        },
+                    ],
+                },
+                {
+                    type: FieldType.Typography,
+                    typoVariant: 'body1',
+                    placeholder: 'Second Tab',
+                },
+                {
+                    type: FieldType.Typography,
+                    typoVariant: 'body1',
+                    placeholder: 'Third Tab',
+                },
+            ],
+        },
+    },
+    {
+        type: FieldType.Paper,
         roles: [
             "admin"
         ],

@@ -10,6 +10,7 @@ import IAnything from './IAnything';
  */
 import { IFragmentLayoutProps } from '../layouts/FragmentLayout';
 import { IDivLayoutProps } from '../layouts/DivLayout';
+import { ITabsLayoutProps } from '../layouts/TabsLayout';
 import { ICenterLayoutProps } from '../layouts/CenterLayout';
 import { IStretchLayoutProps } from '../layouts/StretchLayout';
 import { IGroupLayoutProps } from '../layouts/GroupLayout';
@@ -54,6 +55,7 @@ type Outline<Data = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLa
 type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
 type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
 type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
+type Tabs<Data = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps<Data>, Data>;
 type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
 type Center<Data = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data>, Data>;
 type Stretch<Data = IAnything> = TypedFieldFactory<FieldType.Stretch, IStretchLayoutProps<Data>, Data>;
@@ -95,6 +97,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
   : Target extends Typography<Data> ? Typography<Data>
   : Target extends Fragment<Data> ? Fragment<Data>
   : Target extends Div<Data> ? Div<Data>
+  : Target extends Tabs<Data> ? Tabs<Data>
   : Target extends Center<Data> ? Center<Data>
   : Target extends Stretch<Data> ? Stretch<Data>
   : Target extends Hero<Data> ? Hero<Data>

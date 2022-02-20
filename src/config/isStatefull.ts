@@ -7,6 +7,7 @@ const layouts: FieldType[] = [
     FieldType.Outline,
     FieldType.Expansion,
     FieldType.Div,
+    FieldType.Tabs,
     FieldType.Hero,
     FieldType.Fragment,
     FieldType.Center,

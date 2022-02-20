@@ -14,6 +14,7 @@ import OutlineLayout from '../../layouts/OutlineLayout';
 import GroupLayout from '../../layouts/GroupLayout';
 import FragmentLayout from '../../layouts/FragmentLayout';
 import DivLayout from '../../layouts/DivLayout';
+import TabsLayout from '../../layouts/TabsLayout';
 import CenterLayout from '../../layouts/CenterLayout';
 import StretchLayout from '../../layouts/StretchLayout';
 import HeroLayout from '../../layouts/HeroLayout';
@@ -143,6 +144,15 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                                 >
                                     <OneInternalMemo<Data> {...one} />
                                 </DivLayout>
+                            );
+                        } else if (field.type === FieldType.Tabs) {
+                            return (
+                                <TabsLayout<Data>
+                                    {...entity}
+                                    key={currentPath}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </TabsLayout>
                             );
                         } else if (field.type === FieldType.Center) {
                             return (
