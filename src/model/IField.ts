@@ -111,6 +111,11 @@ export interface IField<Data = IAnything> {
     tabKeepFlow?: boolean;
 
     /**
+     * Отделяет табы отчерком у TabLayout
+     */
+    tabLine?: boolean;
+
+    /**
      * Делает TextField многострочным, если
      * inputRows больше единицы
      */

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "../styles";
+import { alpha } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -17,6 +18,7 @@ import { PickProp } from '../model/IManaged';
 export interface ITabsLayoutProps<Data = IAnything> {
     className?: PickProp<IField<Data>, 'className'>;
     style?: PickProp<IField<Data>, 'style'>;
+    tabLine?: PickProp<IField<Data>, 'tabLine'>;
     tabList?: PickProp<IField<Data>, 'tabList'>;
     tabIndex?: PickProp<IField<Data>, 'tabIndex'>;
     tabColor?: PickProp<IField<Data>, 'tabColor'>;
@@ -36,7 +38,7 @@ const createTabHidden = (idx: number) => ({
     },
 });
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         position: 'relative',
         display: "flex",
@@ -80,18 +82,24 @@ const useStyles = makeStyles({
         justifyContent: "stretch",
         flexDirection: 'column',
     },
+    line: {
+        background: alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23),
+        maxHeight: 2,
+        marginTop: -2,
+    },
     hideTabIndex0: createTabHidden(0),
     hideTabIndex1: createTabHidden(1),
     hideTabIndex2: createTabHidden(2),
     hideTabIndex3: createTabHidden(3),
     hideTabIndex4: createTabHidden(4),
-});
+}));
 
 export const TabsLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
     tabVariant = "fullWidth",
+    tabLine = false,
     tabColor = "primary",
     tabList = ["Empty"],
     tabKeepFlow = false,
@@ -121,6 +129,9 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
                         />
                     ))}
                 </Tabs>
+                {tabLine && (
+                    <Box className={classes.line} />
+                )}
                 <Box className={classNames(classes.content, {
                     [classes.hideTabIndex0]: tabIndex !== 0,
                     [classes.hideTabIndex1]: tabIndex !== 1,

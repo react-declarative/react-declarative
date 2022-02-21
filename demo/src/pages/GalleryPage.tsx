@@ -155,6 +155,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        innerPadding: '0',
         child: {
             type: FieldType.Tabs,
             tabList: [
@@ -162,6 +163,7 @@ const fields: TypedField[] = [
                 "Second",
                 "Third"
             ],
+            tabLine: true,
             fields: [
                 {
                     type: FieldType.Group,
