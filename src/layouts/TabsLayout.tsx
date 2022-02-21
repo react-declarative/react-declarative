@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: -2,
     },
     background: {
-        background: alpha('#000', 0.1),
+        background: alpha('#000', 0.05),
     },
     hideTabIndex0: createTabHidden(0),
     hideTabIndex1: createTabHidden(1),
