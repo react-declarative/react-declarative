@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
         '& $container': {
             position: 'static !important',
         },
+        '& $content': {
+            overflow: 'hidden !important',
+        },
     },
     minSize: {
         minWidth: 225,
