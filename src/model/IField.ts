@@ -116,6 +116,11 @@ export interface IField<Data = IAnything> {
     tabLine?: boolean;
 
     /**
+     * Закрашивает фон TabLayout в темный цвет
+     */
+    tabBackground?: boolean;
+
+    /**
      * Делает TextField многострочным, если
      * inputRows больше единицы
      */

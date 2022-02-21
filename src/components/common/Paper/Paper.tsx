@@ -12,7 +12,7 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   strech: {
     position: "relative",
     display: "flex",
@@ -22,10 +22,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     width: "100%",
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
-}));
+});
 
 export interface IPaperProps<Data = IAnything> {
   className?: PickProp<IField<Data>, 'className'>;

@@ -164,6 +164,7 @@ const fields: TypedField[] = [
                 "Third"
             ],
             tabLine: true,
+            tabBackground: true,
             fields: [
                 {
                     type: FieldType.Group,

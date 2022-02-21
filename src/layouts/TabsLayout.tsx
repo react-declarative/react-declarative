@@ -24,6 +24,7 @@ export interface ITabsLayoutProps<Data = IAnything> {
     tabColor?: PickProp<IField<Data>, 'tabColor'>;
     tabVariant?: PickProp<IField<Data>, 'tabVariant'>;
     tabKeepFlow?: PickProp<IField<Data>, 'tabKeepFlow'>;
+    tabBackground?: PickProp<IField<Data>, 'tabBackground'>;
 }
 
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
@@ -81,11 +82,15 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "stretch",
         justifyContent: "stretch",
         flexDirection: 'column',
+        overflowY: 'auto',
     },
     line: {
         background: alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23),
         maxHeight: 2,
         marginTop: -2,
+    },
+    background: {
+        background: alpha('#000', 0.1),
     },
     hideTabIndex0: createTabHidden(0),
     hideTabIndex1: createTabHidden(1),
@@ -103,6 +108,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     tabColor = "primary",
     tabList = ["Empty"],
     tabKeepFlow = false,
+    tabBackground = false,
     tabIndex: tabIndexDefault = 0,
 }: ITabsLayoutProps<Data> & ITabsLayoutPrivate<Data>) => {
     const classes = useStyles();
@@ -133,6 +139,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
                     <Box className={classes.line} />
                 )}
                 <Box className={classNames(classes.content, {
+                    [classes.background]: tabBackground,
                     [classes.hideTabIndex0]: tabIndex !== 0,
                     [classes.hideTabIndex1]: tabIndex !== 1,
                     [classes.hideTabIndex2]: tabIndex !== 2,
