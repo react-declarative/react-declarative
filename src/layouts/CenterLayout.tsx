@@ -59,9 +59,6 @@ const useStyles = makeStyles({
             position: 'static',
         },
     },
-    adjust: {
-        paddingBottom: 5,
-    }
 });
 
 const marginManager = new class {
@@ -164,9 +161,6 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                         {children}
                     </Group>
                 </div>
-                {keepFlow && (
-                    <div className={classes.adjust}/>
-                )}
             </div>
         </div>
     );    

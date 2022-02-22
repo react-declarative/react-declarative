@@ -7,9 +7,6 @@ import Logger from '../components/Logger';
 const fields: TypedField[] = [
     {
         type: FieldType.Center,
-        style: {
-            minHeight: 500,
-        },
         fields: [
             {
                 type: FieldType.Paper,
