@@ -5,6 +5,7 @@ import ValidationPage from './pages/ValidationPage';
 import LoginPage from './pages/LoginPage';
 import HeroPage from './pages/HeroPage';
 import ListPage from './pages/ListPage';
+import BottomFadePage from './pages/BottomFadePage';
 
 export const Router = ({
     route = '',
@@ -23,6 +24,8 @@ export const Router = ({
         return <HeroPage/>;
     } else if (route === 'list-page') {
         return <ListPage/>;
+    } else if (route === 'bottom-fade-page') {
+        return <BottomFadePage />;  
     } else {
         return null;
     }

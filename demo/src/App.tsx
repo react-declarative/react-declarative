@@ -32,6 +32,10 @@ const options: IMenuGroup[] = [
         name: "list-page",
         label: 'List page',
       },
+      {
+        name: "bottom-fade-page",
+        label: 'Bottom fade',
+      },
     ],
   },
 ];

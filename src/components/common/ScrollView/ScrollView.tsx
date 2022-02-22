@@ -6,19 +6,16 @@ import classNames from '../../../utils/classNames';
 
 import AutoSizer from '../AutoSizer';
 
+export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
+
 const useStyles = makeStyles({
     root: {
-        position: 'relative',
-    },
-    scrollY: {
-        overflowX: 'hidden',
-        overflowY: 'auto',
-    },
-    scrollXY: {
-        overflowX: 'auto',
-        overflowY: 'auto',
+        overflow: 'auto',
     },
     container: {
+        position: 'relative',
+    },
+    content: {
         position: 'absolute',
         top: 0,
         left: 0,
@@ -42,7 +39,6 @@ interface IScrollViewProps {
     className?: string;
     style?: React.CSSProperties;
     center?: boolean;
-    scrollX?: boolean;
 }
 
 export const ScrollView = ({
@@ -50,31 +46,29 @@ export const ScrollView = ({
     className,
     style,
     center = false,
-    scrollX = false,
 }: IScrollViewProps) => {
     const classes = useStyles();
     return (
-        <AutoSizer className={className} style={style}>
-            {({ height, width }) => (
-                <div className={classNames(classes.root, {
-                    [classes.scrollXY]: scrollX,
-                    [classes.scrollX]: !scrollX,
-                })} style={{ height, width }}>
-                    <div
-                        className={classNames(classes.container, {
-                            [classes.stretch]: !center,
-                            [classes.center]: center,
-                        })}
-                        style={{
-                            minHeight: height,
-                            minWidth: width,
-                        }}
-                    >
-                        {children}
+        <div className={className} style={style}>
+            <AutoSizer className={classNames(classes.root, SCROLL_VIEW_TARGER)}>
+                {({ height, width }) => (
+                    <div className={classes.container}>
+                        <div
+                            className={classNames(classes.content, {
+                                [classes.stretch]: !center,
+                                [classes.center]: center,
+                            })}
+                            style={{
+                                minHeight: height,
+                                minWidth: width,
+                            }}
+                        >
+                            {children}
+                        </div>
                     </div>
-                </div>
-            )}
-        </AutoSizer>
+                )}
+            </AutoSizer>
+        </div>
     );
 };
 
