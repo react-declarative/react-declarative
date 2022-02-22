@@ -38,6 +38,7 @@ export interface IBottomFadeProps {
     Fade?: typeof DefaultFade;
     style?: React.CSSProperties;
     children: React.ReactChild;
+    color?: string;
     selector?: string;
     zIndex?: number;
 }
@@ -52,6 +53,7 @@ declare var ResizeObserver: any;
 export const BottomFade = ({
     className,
     style,
+    color,
     children,
     zIndex = 9,
     Fade = DefaultFade,
@@ -121,6 +123,7 @@ export const BottomFade = ({
                 className={classes.fade}
                 visible={state.visible}
                 none={state.none}
+                color={color}
                 zIndex={zIndex}
             />
         </div>

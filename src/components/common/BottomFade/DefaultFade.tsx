@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import { makeStyles } from '../../../styles';
+
+import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material';
 
 import classNames from '../../../utils/classNames';
@@ -9,17 +12,12 @@ interface IDefaultFadeProps {
     className: string;
     visible: boolean;
     zIndex: number;
+    color?: string;
     none: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        background: `linear-gradient(
-            to bottom,
-            ${alpha(theme.palette.background.default, 0)},
-            ${theme.palette.background.default}
-        )`,
-    },
+    root: {},
     none: {
         display: "none",
     },
@@ -52,10 +50,24 @@ const useStyles = makeStyles((theme) => ({
 export const DefaultFade = ({
     className,
     visible,
+    color,
     none,
     zIndex,
 }: IDefaultFadeProps) => {
     const classes = useStyles();
+    const theme = useTheme();
+
+    const bg = useMemo(() => {
+        const fadeColor = color || theme.palette.background.default;
+        return {
+            background: `linear-gradient(
+                to bottom,
+                ${alpha(fadeColor, 0)},
+                ${fadeColor}
+            )`,
+        };
+    }, [theme, color])
+
     return (
         <div
             className={classNames(className, classes.root, {
@@ -65,6 +77,7 @@ export const DefaultFade = ({
             })}
             style={{ 
                 zIndex,
+                ...bg
             }}
         />
     );

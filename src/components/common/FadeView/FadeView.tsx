@@ -6,6 +6,7 @@ import AutoSizer from '../AutoSizer';
 
 type BottomFadeT = Pick<IBottomFadeProps, keyof {
     Fade: never;
+    color: never;
     zIndex: never;
 }>;
 
@@ -20,6 +21,7 @@ export const FadeView = ({
     style,
     children,
     Fade,
+    color,
     zIndex,
 }: IFadeView) => {
     return (
@@ -28,6 +30,7 @@ export const FadeView = ({
                 {({ height, width }) => (
                     <BottomFade
                         Fade={Fade}
+                        color={color}
                         zIndex={zIndex}
                     >
                         <ScrollView
