@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
 });
 
-interface IBottomFadeProps {
+export interface IBottomFadeProps {
     className?: string;
     Fade?: typeof DefaultFade;
     style?: React.CSSProperties;
@@ -46,6 +46,8 @@ interface IState {
     visible: boolean;
     none: boolean;
 }
+
+declare var ResizeObserver: any;
 
 export const BottomFade = ({
     className,
@@ -87,6 +89,8 @@ export const BottomFade = ({
                     copy.none = scrollHeight <= clientHeight;
                     update();
                 };
+                const observer = new ResizeObserver(handleResize);
+                observer.observe(scrollViewRef);
                 handleScroll();
                 handleResize();
                 scrollViewRef.addEventListener("scroll", handleScroll, { passive: true });
@@ -94,6 +98,7 @@ export const BottomFade = ({
                 return () => {
                     scrollViewRef.removeEventListener("scroll", handleScroll);
                     window.removeEventListener("resize", handleResize);
+                    observer.unobserve(scrollViewRef);
                     update.clear();
                 };
             }
