@@ -72,6 +72,7 @@ export type pickConfirmFn = ReturnType<typeof useConfirm>;
 
 export { default as dayjs } from 'dayjs';
 
+export { ScrollView } from './components/common/ScrollView';
 export { AutoSizer } from './components/common/AutoSizer';
 export { Async } from './components/common/Async';
 
