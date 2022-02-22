@@ -85,6 +85,12 @@ export interface IField<Data = IAnything> {
     };
 
     /**
+     * Позволяет содержимому растягивать высоту блока
+     * у CenterLayout
+     */
+    centerKeepFlow?: boolean;
+
+    /**
      * Список вкладок для TabLayout
      */
     tabList?: string[];

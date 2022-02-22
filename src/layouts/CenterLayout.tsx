@@ -16,11 +16,12 @@ import { PickProp } from '../model/IManaged';
 import Group from '../components/common/Group';
 import getXPathFromElement from '../utils/getXPathFromElement';
 
-const CENTER_DEBOUNCE = 500;
+const CENTER_DEBOUNCE = 250;
 
 declare var ResizeObserver: any;
 
 export interface ICenterLayoutProps<Data = IAnything> {
+    centerKeepFlow?: PickProp<IField<Data>, 'centerKeepFlow'>;
     innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
     className?: PickProp<IField<Data>, 'className'>;
     style?: PickProp<IField<Data>, 'style'>;
@@ -33,9 +34,8 @@ interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 const useStyles = makeStyles({
     root: {
         position: 'relative',
+        minWidth: 1,
         overflowY: 'auto',
-        width: '100%',
-        height: '100%',
         flex: 1,
     },
     container: {
@@ -53,6 +53,15 @@ const useStyles = makeStyles({
     content: {
         width: '100%',
     },
+    keepFlow: {
+        position: 'static',
+        '& $container': {
+            position: 'static',
+        },
+    },
+    adjust: {
+        paddingBottom: 5,
+    }
 });
 
 const marginManager = new class {
@@ -84,17 +93,18 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
+    centerKeepFlow: keepFlow = true,
     innerPadding: padding = '0px',
 }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>) => {
     const classes = useStyles();
 
     const groupRef = useRef<HTMLDivElement>(null);
-    const [ marginRight, setMarginRight ] = useState(0);
+    const [marginRight, setMarginRight] = useState(0);
 
     const isMounted = useRef(true);
 
     useLayoutEffect(() => () => {
-      isMounted.current = false;
+        isMounted.current = false;
     }, []);
 
     useLayoutEffect(() => {
@@ -123,7 +133,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 subtree: true,
             });
             rObserver.observe(group);
-            setTimeout(handler, CENTER_DEBOUNCE / 2);
+            handler();
         };
 
         return () => {
@@ -142,18 +152,21 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     }, []);
 
     return (
-        <div className={classNames(classes.root, className)} style={style}>
+        <div className={classNames(classes.root, className, {
+            [classes.keepFlow]: keepFlow,
+        })} style={style}>
             <div className={classes.container} style={{ padding }}>
                 <div
                     className={classes.content}
-                    style={{
-                        marginRight: marginRight !== -1 ? marginRight : 'unset',
-                    }}
+                    style={{ marginRight }}
                 >
                     <Group ref={groupRef}>
                         {children}
                     </Group>
                 </div>
+                {keepFlow && (
+                    <div className={classes.adjust}/>
+                )}
             </div>
         </div>
     );    

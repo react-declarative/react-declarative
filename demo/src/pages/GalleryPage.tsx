@@ -6,6 +6,47 @@ import Logger from '../components/Logger';
 
 const fields: TypedField[] = [
     {
+        type: FieldType.Center,
+        style: {
+            minHeight: 500,
+        },
+        fields: [
+            {
+                type: FieldType.Paper,
+                fieldBottomMargin: '1',
+                fieldRightMargin: '1',
+                phoneColumns: '12',
+                columns: '3',
+                child: {
+                    type: FieldType.Typography,
+                    placeholder: 'Content',
+                }
+            },
+            {
+                type: FieldType.Paper,
+                fieldBottomMargin: '1',
+                fieldRightMargin: '1',
+                phoneColumns: '12',
+                columns: '3',
+                child: {
+                    type: FieldType.Typography,
+                    placeholder: 'Content',
+                }
+            },
+            {
+                type: FieldType.Paper,
+                fieldBottomMargin: '1',
+                fieldRightMargin: '1',
+                phoneColumns: '12',
+                columns: '3',
+                child: {
+                    type: FieldType.Typography,
+                    placeholder: 'Content',
+                }
+            },
+        ],
+    },
+    {
         type: FieldType.Outline,
         fieldBottomMargin: '1',
         fields: [
