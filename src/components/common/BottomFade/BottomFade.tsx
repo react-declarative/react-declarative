@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { makeStyles } from '../../../styles';
 
@@ -64,22 +64,26 @@ export const BottomFade = ({
         none: true,
     });
 
+    const lastCopyRef = useRef<IState>(state);
+
+    useEffect(() => {
+        lastCopyRef.current = state;
+    }, [state]);
+
     useEffect(() => {
         if (elementRef) {
             const scrollViewRef = elementRef.querySelector(selector);
             if (scrollViewRef) {
-                const copy = Object.assign({}, state);
+                const copy = Object.assign({}, lastCopyRef.current);
                 const update = debounce(() => setState({...copy}), FADE_ANIMATION_DELAY);
                 const handleScroll = () => {
                     const { scrollTop } = scrollViewRef;
-                    console.log({ scrollTop })
                     copy.visible = scrollTop === 0;
                     copy.none = false;
                     update();
                 };
                 const handleResize = () => {
                     const { scrollHeight, clientHeight } = scrollViewRef;
-                    console.log({ scrollHeight, clientHeight  })
                     copy.none = scrollHeight <= clientHeight;
                     update();
                 };
