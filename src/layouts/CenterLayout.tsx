@@ -31,6 +31,8 @@ interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children: React.ReactChild;
 }
 
+type minHeightT = PickProp<React.CSSProperties, 'minHeight'>;
+
 const useStyles = makeStyles({
     root: {
         position: 'relative',
@@ -96,13 +98,24 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const classes = useStyles();
 
     const groupRef = useRef<HTMLDivElement>(null);
+    const rootRef = useRef<HTMLDivElement>(null);
+
     const [marginRight, setMarginRight] = useState(0);
+    const [minHeight, setMinHeight] = useState<minHeightT>(0);
 
     const isMounted = useRef(true);
 
     useLayoutEffect(() => () => {
         isMounted.current = false;
     }, []);
+
+    useLayoutEffect(() => {
+        const { current: root } = rootRef;
+        if (root && keepFlow) {
+            const { minHeight } = getComputedStyle(root);
+            setMinHeight(minHeight);
+        }
+    }, [keepFlow]);
 
     useLayoutEffect(() => {
 
@@ -113,7 +126,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 const { width, left } = group.getBoundingClientRect();
                 let right = 0;
                 group.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
-                const marginRight = Math.max(right - left - width, 0);
+                const marginRight = Math.min(right - left - width, 0);
                 marginManager.setValue(group, marginRight);
                 setMarginRight(marginRight);
             }
@@ -130,6 +143,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 subtree: true,
             });
             rObserver.observe(group);
+            window.addEventListener('resize', handlerD);
             handler();
         };
 
@@ -137,6 +151,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             handlerD.clear();
             mObserver.disconnect();
             group && rObserver.unobserve(group);
+            window.removeEventListener('resize', handlerD);
             rObserver.disconnect();
         };
     }, []);
@@ -149,10 +164,10 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     }, []);
 
     return (
-        <div className={classNames(classes.root, className, {
+        <div ref={rootRef} className={classNames(classes.root, className, {
             [classes.keepFlow]: keepFlow,
         })} style={style}>
-            <div className={classes.container} style={{ padding }}>
+            <div className={classes.container} style={{ padding, minHeight }}>
                 <div
                     className={classes.content}
                     style={{ marginRight }}
