@@ -6,11 +6,11 @@ import ResizeEmitter from "./ResizeEmitter";
 
 import ISize from "../../../model/ISize";
 
-export interface IChildParams<T extends object = object> extends ISize {
+export interface IChildParams<T extends unknown = object> extends ISize {
   payload: T;
 }
 
-interface IAutoSizerProps<T extends object = object> {
+interface IAutoSizerProps<T extends unknown = object> {
   children: (s: IChildParams<T>) => any;
   className?: string;
   defaultHeight?: number;
@@ -29,7 +29,7 @@ interface IAutoSizerProps<T extends object = object> {
 
 const EMPTY_PAYLOAD = Object.freeze({});
 
-export const AutoSizer = <T extends object = object>({
+export const AutoSizer = <T extends unknown = object>({
   defaultHeight = 0,
   defaultWidth = 0,
   onResize = () => null,

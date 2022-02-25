@@ -10,12 +10,14 @@ import Tabs from '@mui/material/Tabs';
 
 import classNames from "../utils/classNames";
 
+import Group, { IGroupProps } from "../components/common/Group";
+
 import IField from '../model/IField';
 import IEntity from '../model/IEntity';
 import IAnything from '../model/IAnything';
 import { PickProp } from '../model/IManaged';
 
-export interface ITabsLayoutProps<Data = IAnything> {
+export interface ITabsLayoutProps<Data = IAnything> extends IGroupProps<Data> {
     className?: PickProp<IField<Data>, 'className'>;
     style?: PickProp<IField<Data>, 'style'>;
     tabLine?: PickProp<IField<Data>, 'tabLine'>;
@@ -113,46 +115,64 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     tabKeepFlow = false,
     tabBackground = false,
     tabIndex: tabIndexDefault = 0,
+    columns,
+    phoneColumns,
+    tabletColumns,
+    desktopColumns,
+    fieldRightMargin = '0',
+    fieldBottomMargin = '0',
 }: ITabsLayoutProps<Data> & ITabsLayoutPrivate<Data>) => {
     const classes = useStyles();
     const [tabIndex, setTabIndex] = useState(tabIndexDefault);
     const handleTabChange = (_: unknown, tabIndex: number) => setTabIndex(tabIndex);
     return (
-        <Box className={classNames(className, classes.root, {
-            [classes.keepFlow]: tabKeepFlow,
-            [classes.minSize]: !tabKeepFlow,
-        })} style={style}>
-            <Box className={classes.container}>
-                <Tabs
-                    value={tabIndex}
-                    indicatorColor={tabColor}
-                    textColor={tabColor}
-                    variant={tabVariant}
-                    onChange={handleTabChange}
-                    className={classNames(classes.tabs, TABS_SELECTOR)}
-                >
-                    {tabList.map((label, idx) => (
-                        <Tab
-                            key={idx}
-                            label={label}
-                        />
-                    ))}
-                </Tabs>
-                {tabLine && (
-                    <Box className={classes.line} />
-                )}
-                <Box className={classNames(classes.content, {
-                    [classes.background]: tabBackground,
-                    [classes.hideTabIndex0]: tabIndex !== 0,
-                    [classes.hideTabIndex1]: tabIndex !== 1,
-                    [classes.hideTabIndex2]: tabIndex !== 2,
-                    [classes.hideTabIndex3]: tabIndex !== 3,
-                    [classes.hideTabIndex4]: tabIndex !== 4,
-                })}>
-                    {children}
+        <Group
+            className={className}
+            style={style}
+            isItem={true}
+            columns={columns}
+            phoneColumns={phoneColumns}
+            tabletColumns={tabletColumns}
+            desktopColumns={desktopColumns}
+            fieldRightMargin={fieldRightMargin}
+            fieldBottomMargin={fieldBottomMargin}
+        >
+            <Box className={classNames(classes.root, {
+                [classes.keepFlow]: tabKeepFlow,
+                [classes.minSize]: !tabKeepFlow,
+            })}>
+                <Box className={classes.container}>
+                    <Tabs
+                        value={tabIndex}
+                        indicatorColor={tabColor}
+                        textColor={tabColor}
+                        variant={tabVariant}
+                        onChange={handleTabChange}
+                        className={classNames(classes.tabs, TABS_SELECTOR)}
+                    >
+                        {tabList.map((label, idx) => (
+                            <Tab
+                                key={idx}
+                                label={label}
+                            />
+                        ))}
+                    </Tabs>
+                    {tabLine && (
+                        <Box className={classes.line} />
+                    )}
+                    <Box className={classNames(classes.content, {
+                        [classes.background]: tabBackground,
+                        [classes.hideTabIndex0]: tabIndex !== 0,
+                        [classes.hideTabIndex1]: tabIndex !== 1,
+                        [classes.hideTabIndex2]: tabIndex !== 2,
+                        [classes.hideTabIndex3]: tabIndex !== 3,
+                        [classes.hideTabIndex4]: tabIndex !== 4,
+                    })}>
+                        {children}
+                    </Box>
                 </Box>
             </Box>
-        </Box>
+        </Group>
     );
 };
 

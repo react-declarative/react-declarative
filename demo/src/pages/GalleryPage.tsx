@@ -8,8 +8,9 @@ const fields: TypedField[] = [
     {
         type: FieldType.Center,
         style: {
-            minHeight: 300,
+            minHeight: 150,
         },
+        columns: '6',
         fields: [
             {
                 type: FieldType.Paper,
