@@ -44,7 +44,7 @@ const useStyles = makeStyles({
         flex: 1,
     },
     content: {
-        overflowX: 'hidden',
+        overflow: 'hidden',
         flex: 1,
         minHeight: '100%',
         display: 'flex',
