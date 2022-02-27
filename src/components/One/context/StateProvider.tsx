@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { createContext, useContext } from 'react';
 
-import useResolved from '../../hooks/useResolved';
+import useResolved from '../../../hooks/useResolved';
 
-import IAnything from '../../model/IAnything';
-import IOneProps from '../../model/IOneProps';
+import IAnything from '../../../model/IAnything';
+import IOneProps from '../../../model/IOneProps';
 
 interface IStateProviderProps<Data = IAnything> extends 
     IOneProps<Data> {
