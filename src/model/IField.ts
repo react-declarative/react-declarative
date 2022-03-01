@@ -111,6 +111,11 @@ export interface IField<Data = IAnything> {
     tabKeepFlow?: boolean;
 
     /**
+     * Событие изменения вкладки
+     */
+    tabChange?: (idx: number) => void;
+
+    /**
      * Отделяет табы отчерком у TabLayout
      */
     tabLine?: boolean;

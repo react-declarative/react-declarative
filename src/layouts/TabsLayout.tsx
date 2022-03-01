@@ -24,6 +24,7 @@ export interface ITabsLayoutProps<Data = IAnything> extends IGroupProps<Data> {
     tabList?: PickProp<IField<Data>, 'tabList'>;
     tabIndex?: PickProp<IField<Data>, 'tabIndex'>;
     tabColor?: PickProp<IField<Data>, 'tabColor'>;
+    tabChange?: PickProp<IField<Data>, 'tabChange'>;
     tabVariant?: PickProp<IField<Data>, 'tabVariant'>;
     tabKeepFlow?: PickProp<IField<Data>, 'tabKeepFlow'>;
     tabBackground?: PickProp<IField<Data>, 'tabBackground'>;
@@ -108,6 +109,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
+    tabChange,
     tabVariant = "fullWidth",
     tabLine = false,
     tabColor = "primary",
@@ -124,7 +126,10 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
 }: ITabsLayoutProps<Data> & ITabsLayoutPrivate<Data>) => {
     const classes = useStyles();
     const [tabIndex, setTabIndex] = useState(tabIndexDefault);
-    const handleTabChange = (_: unknown, tabIndex: number) => setTabIndex(tabIndex);
+    const handleTabChange = (_: unknown, tabIndex: number) => {
+        tabChange && tabChange(tabIndex);
+        setTabIndex(tabIndex);
+    };
     return (
         <Group
             className={className}
