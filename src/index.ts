@@ -13,6 +13,9 @@ import { IListApi as IListApiInternal } from './model/IListApi';
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
+import { serviceManager as serviceManagerInternal } from './helpers/DependencyService';
+export const serviceManager = serviceManagerInternal;
+
 import { 
     IMenuGroup as IMenuGroupInternal,
     IMenuOption as IMenuOptionInternal,
