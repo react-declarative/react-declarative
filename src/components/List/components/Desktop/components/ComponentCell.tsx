@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Fragment } from "react";
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "../../../../../styles";
 
 import { GridCellParams } from "@mui/x-data-grid";
 

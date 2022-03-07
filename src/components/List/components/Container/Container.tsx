@@ -1,6 +1,6 @@
 import * as React from "react";
 import { forwardRef } from 'react';
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "../../../../styles";
 
 import Paper from "@mui/material/Paper";
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "../styles";
 
 import Group, { IGroupProps } from "../components/common/Group";
 import Outline, { IOutlineProps } from '../components/common/Outline';
