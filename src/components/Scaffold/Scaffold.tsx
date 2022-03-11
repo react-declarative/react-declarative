@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: DRAWER_WIDTH,
     '& > .MuiPaper-root': {
-      width: DRAWER_WIDTH
+      width: DRAWER_WIDTH,
+      overflowX: 'hidden',
     },
   },
   offset: theme.mixins.toolbar,

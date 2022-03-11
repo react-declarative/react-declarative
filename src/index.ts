@@ -14,6 +14,8 @@ import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
 import { serviceManager as serviceManagerInternal } from './helpers/DependencyService';
+export const provide = serviceManagerInternal.registerCreator;
+export const inject = serviceManagerInternal.inject;
 export const serviceManager = serviceManagerInternal;
 
 import { 
