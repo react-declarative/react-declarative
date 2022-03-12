@@ -37,7 +37,7 @@ export interface IListAction extends Partial<IOption> {
 }
 
 interface ComponentProps {
-  columnMenuProps?: any;
+  /*columnMenuProps?: any;
   errorOverlayProps?: any;
   footerProps?: any;
   headerProps?: any;
@@ -49,11 +49,11 @@ interface ComponentProps {
   paginationProps?: any;
   filterPanelProps?: any;
   columnsPanelProps?: any;
-  panelProps?: any;
+  panelProps?: any;*/
 }
 
 interface SlotsComponent {
-  Header?: any;
+  /*Header?: any;
   ColumnMenu?: any;
   ErrorOverlay?: any;
   Footer?: any;
@@ -66,7 +66,7 @@ interface SlotsComponent {
   Pagination?: any;
   FilterPanel?: any;
   ColumnsPanel?: any;
-  Panel?: any;
+  Panel?: any;*/
 }
 
 export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
