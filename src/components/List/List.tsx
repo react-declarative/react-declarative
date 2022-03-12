@@ -156,7 +156,7 @@ const ListInternal = <
   useEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
     if (!hasFilters && !state.initComplete) {
-      setTimeout(handleDefault);
+      handleDefault();
     }
   }, [filters]);
 
