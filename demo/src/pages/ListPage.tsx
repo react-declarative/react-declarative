@@ -16,6 +16,7 @@ import Delete from '@mui/icons-material/Delete';
 import Add from '@mui/icons-material/Add';
 
 import mock from './mock/list';
+import sleep from '../utils/sleep';
 
 
 const filters: TypedField[] = [
@@ -39,12 +40,12 @@ const columns: IColumn[] = [
     secondary: true,
     width: 'max(calc(100vw - 650px), 200px)',
   },
-  {
+  /*{
     type: ColumnType.Text,
     field: 'firstName',
     headerName: 'First Name',
     width: 'max(calc(100vw - 650px), 200px)',
-  },
+  },*/
   {
     type: ColumnType.Compute,
     headerName: 'Full name',
@@ -147,6 +148,10 @@ export const ListPage = () => {
       rows,
       total,
     };
+
+    //await sleep(3_000)
+
+    // return [];
   };
 
   const heightRequest = () => window.innerHeight - 100;
@@ -177,23 +182,23 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Multiple}
+      selectionMode={SelectionMode.Single}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
-      displayMode={DisplayMode.Lightweight}
-      
+      displayMode={DisplayMode.Desktop}
+      rowMark={row => row.color}
+      rowAvatar={(row) => ({
+        alt: row.firstName,
+        src: 'https://avatars.githubusercontent.com/u/19227776?s=400&u=9eb4f0056f36228804b7e4c2e4d02358d5786bb4&v=4',
+      })}
     />
   );
 };
 
 /*
-rowMark={row => row.color}
-      rowAvatar={(row) => ({
-        alt: row.firstName,
-        src: 'https://avatars.githubusercontent.com/u/19227776?s=400&u=9eb4f0056f36228804b7e4c2e4d02358d5786bb4&v=4',
-      })}
+
 */
 
 export default ListPage;
