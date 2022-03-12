@@ -27,6 +27,8 @@ interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
 const useStyles = makeStyles({
     root: {
         position: 'relative',
+        overflow: 'hidden',
+        overflowWrap: 'break-word',
     },
     stretch: {
         position: 'absolute',
@@ -106,8 +108,16 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
 
     const align = column.type === ColumnType.Action ? 'center' : 'left';
 
+    const minWidth = typeof column.width === 'function' ? column.width() : column.width;
+    const maxWidth = minWidth;
+
     return (
-        <TableCell className={classes.root} align={align} padding={padding}>
+        <TableCell
+            className={classes.root}
+            style={{ minWidth, maxWidth }}
+            align={align}
+            padding={padding}
+        >
             {renderInner()}
         </TableCell>
     );
