@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { useState, useLayoutEffect, useCallback, useRef } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
-import IListProps, { ListAvatar } from '../../../../model/IListProps';
-
-import { useProps } from '../PropProvider';
+import IAnything from '../../../../model/IAnything';
+import IRowData from '../../../../model/IRowData';
 
 import MatAvatar from '@mui/material/Avatar';
 
-interface IRowAvatarProps {
-    rows: any[];
-    rowId: string;
-    rowAvatar: IListProps<any>['rowAvatar'];
+import useRowAvatar from '../hooks/useRowAvatar';
+
+interface IRowAvatarProps<RowData extends IRowData = IAnything> {
+    row: RowData,
 }
 
 const useStyles = makeStyles({
@@ -23,63 +21,13 @@ const useStyles = makeStyles({
     },
 });
 
-const RowAvatar = ({
-    rowAvatar,
-    rowId,
-    rows,
-}: IRowAvatarProps) => {
+const RowAvatar = <RowData extends IRowData = IAnything>({
+    row,
+}: IRowAvatarProps<RowData>) => {
+
     const classes = useStyles();
-    const mountedRef = useRef(true);
-    const [avatar, setAvatar] = useState<ListAvatar | null>(null);
-    const { fallback } = useProps();
 
-    const getRowAvatar = useCallback(async (id: string) => {
-        const row = rows.find((row) => row.id === id);
-        if (row && rowAvatar) {
-            if (typeof rowAvatar === 'function') {
-                let result: ListAvatar | Promise<ListAvatar> | string = rowAvatar(row);
-                result = result instanceof Promise ? (await result) : result;
-                return typeof result === 'string' ? { 
-                    src: result,
-                    alt: result,
-                } : result;
-            } else if (typeof rowAvatar === 'string') {
-                return {
-                    src: row[rowAvatar] || '',
-                    alt: row[rowAvatar] || '',
-                };
-            } else {
-                return {
-                    src: rowAvatar.src ? row[rowAvatar.src] : '',
-                    alt: rowAvatar.alt ? row[rowAvatar.alt] : '',
-                };
-            }
-        } else {
-            return {
-                src: '',
-                alt: '',
-            };
-        }
-    }, [rowAvatar, rows]);
-
-    useLayoutEffect(() => {
-        (async () => {
-            try {
-                const newAvatar = await getRowAvatar(rowId);
-                if (mountedRef.current) {
-                    setAvatar(newAvatar);
-                }
-            } catch (e) {
-                fallback && fallback(e as Error);
-            }
-        })();
-    }, [rowId, getRowAvatar]);
-
-    useLayoutEffect(() => {
-        return () => {
-            mountedRef.current = false;
-        };
-    }, []);
+    const avatar = useRowAvatar({ row });
 
     return avatar ? (
         <MatAvatar

@@ -20,6 +20,8 @@ import ListItem from "./ListItem";
 
 import Container from "../Container";
 
+const DEFAULT_ITEM_SIZE = 75;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.paper,
@@ -63,7 +65,6 @@ export const Mobile = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
-    rowHeight,
     offset,
     limit,
     total,
@@ -146,13 +147,12 @@ export const Mobile = <
             onScroll={createScrollHandler(height)}
             innerRef={innerRef}
             outerRef={outerRef}
-            itemSize={rowHeight}
+            itemSize={DEFAULT_ITEM_SIZE}
           >
             {({ index, style }) => (
               <ListItem
                 key={index}
                 row={rows[index]}
-                rows={rows}
                 style={style}
               />
             )} 

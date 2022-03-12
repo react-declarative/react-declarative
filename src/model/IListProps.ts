@@ -2,11 +2,6 @@ import {
   Ref,
 } from 'react';
 
-import {
-  GridColumns,
-  GridSortModel,
-} from '@mui/x-data-grid';
-
 import ActionType from './ActionType';
 import DisplayMode from './DisplayMode';
 import SelectionMode from './SelectionMode';
@@ -89,7 +84,7 @@ export type ListHandlerPagination = {
   offset: number;
 };
 
-export type ListHandlerSortModel = GridSortModel;
+export type ListHandlerSortModel = IListSortItem[];
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
   data: FilterData,
@@ -102,7 +97,6 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   filterData: FilterData;
   isMobile: boolean;
   rows: RowData[];
-  rowHeight: number;
   limit: number;
   offset: number;
   total: number | null;
@@ -155,7 +149,6 @@ export interface IListProps<
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;
   onAction?: (action: string) => void;
-  gridColumns?: GridColumns;
   columns?: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;

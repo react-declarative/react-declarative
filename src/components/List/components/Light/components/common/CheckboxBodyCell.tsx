@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
@@ -15,9 +14,9 @@ import IRowData from '../../../../../../model/IRowData';
 import IAnything from '../../../../../../model/IAnything';
 import SelectionMode from '../../../../../../model/SelectionMode';
 
-import { ListAvatar } from '../../../../../../model/IListProps';
-
 import useSelection from '../../hooks/useSelection';
+import useRowAvatar from '../../../hooks/useRowAvatar';
+import useRowMark from '../../../hooks/useRowMark';
 
 interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
@@ -39,14 +38,8 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
 
     const classes = useStyles();
 
-    const [avatar, setAvatar] = useState<ListAvatar | null>(null);
-    const [mark, setMark] = useState('');
-
-    const isMountedRef = useRef(true);
-
-    useLayoutEffect(() => () => {
-        isMountedRef.current = false;
-    }, []);
+    const avatar = useRowAvatar({ row });
+    const mark = useRowMark({ row });
 
     const props = useProps<RowData>();
     const { selection, setSelection } = useSelection();
@@ -55,7 +48,6 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
         selectionMode,
         rowAvatar,
         rowMark,
-        fallback,
     } = props;
 
     const createToggleHandler = (radio = false) => (e: any) => {
@@ -70,71 +62,8 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
         setSelection(selection);
     };
 
-    useEffect(() => {
-        const processAvatar = async () => {
-            try {
-                if (typeof rowAvatar === 'function') {
-                    let result: ListAvatar | Promise<ListAvatar> | string = rowAvatar(row);
-                    result = result instanceof Promise ? (await result) : result;
-                    isMountedRef.current && setAvatar(typeof result === 'string' ? {
-                        src: result,
-                        alt: result,
-                    } : result);
-                } else if (typeof rowAvatar === 'string') {
-                    isMountedRef.current && setAvatar({
-                        src: row[rowAvatar] || '',
-                        alt: row[rowAvatar] || '',
-                    });
-                } else if (rowAvatar) {
-                    isMountedRef.current && setAvatar({
-                        src: rowAvatar.src ? row[rowAvatar.src] : '',
-                        alt: rowAvatar.alt ? row[rowAvatar.alt] : '',
-                    });
-                }
-            } catch (e) {
-                fallback && fallback(e as Error);
-            }
-            return;
-        };
-        processAvatar();
-    }, [row, rowAvatar]);
-
-    useEffect(() => {
-        const processMark = async () => {
-            try {
-                if (typeof rowMark === 'function') {
-                    let result: string | Promise<string> = rowMark(row);
-                    result = result instanceof Promise ? (await result) : result;
-                    isMountedRef.current && setMark(result);
-                } else if (rowMark) {
-                    isMountedRef.current && setMark(row[rowMark]);
-                }
-            } catch (e) {
-                fallback && fallback(e as Error);
-            }
-            return;
-        };
-        processMark();
-    }, [row, rowMark]);
-
     const renderCheckbox = () => {
-        if (selectionMode === SelectionMode.Single) {
-            return (
-                <Radio
-                    color="primary"
-                    onClick={createToggleHandler(true)}
-                    checked={selection.has(row.id)}
-                />
-            );
-        } else if (selectionMode === SelectionMode.Multiple) {
-            return (
-                <Checkbox
-                    color="primary"
-                    onClick={createToggleHandler(false)}
-                    checked={selection.has(row.id)}
-                />
-            );
-        } else if (rowAvatar && avatar) {
+        if (rowAvatar && avatar) {
             const normalStyles = {
                 height: 42,
                 width: 42,
@@ -149,6 +78,22 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
                     style={rowMark ? markedStyles : normalStyles}
                     src={avatar.src}
                     alt={avatar.alt}
+                />
+            );
+        } else if (selectionMode === SelectionMode.Single) {
+            return (
+                <Radio
+                    color="primary"
+                    onClick={createToggleHandler(true)}
+                    checked={selection.has(row.id)}
+                />
+            );
+        } else if (selectionMode === SelectionMode.Multiple) {
+            return (
+                <Checkbox
+                    color="primary"
+                    onClick={createToggleHandler(false)}
+                    checked={selection.has(row.id)}
                 />
             );
         } else if (selectionMode === SelectionMode.None) {

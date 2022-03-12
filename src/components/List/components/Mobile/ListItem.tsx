@@ -55,13 +55,11 @@ const useStyles = makeStyles({
 
 interface IMobileListItemProps<RowData extends IRowData = IAnything> {
     row: RowData;
-    rows: RowData[];
     style?: React.CSSProperties;
 }
 
 export const ListItem = <RowData extends IRowData = IAnything>({
     row,
-    rows,
     style,
 }: IMobileListItemProps<RowData>) => {
 
@@ -80,7 +78,6 @@ export const ListItem = <RowData extends IRowData = IAnything>({
 
     const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
     const secondaryColumn = columns.find(({ secondary }) => secondary);
-    const rowId = row.id.toString();
 
     const primary = (
         <AsyncText<RowData>
@@ -121,17 +118,13 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         >
             {!!rowMark && (
                 <RowMark
-                    rowId={rowId}
-                    rowMark={rowMark}
-                    rows={rows}
+                    row={row}
                 />
             )}
             {!!rowAvatar && (
                 <ListItemAvatar>
                     <RowAvatar
-                        rowAvatar={rowAvatar}
-                        rowId={rowId}
-                        rows={rows}
+                        row={row}
                     />
                 </ListItemAvatar>
             )}

@@ -15,7 +15,7 @@ import IAnything from '../../../../../model/IAnything';
 
 import useSelection from '../hooks/useSelection';
 
-interface ILightBodyRowProps<RowData extends IRowData = IAnything> {
+interface IDesktopBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
 }
 
@@ -25,9 +25,9 @@ const useStyles = makeStyles({
     },
 });
 
-export const LightBodyRow = <RowData extends IRowData = IAnything>({
+export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     row,
-}: ILightBodyRowProps<RowData>) => {
+}: IDesktopBodyRowProps<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
 
@@ -76,4 +76,4 @@ export const LightBodyRow = <RowData extends IRowData = IAnything>({
     );
 };
 
-export default LightBodyRow;
+export default DesktopBodyRow;

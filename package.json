@@ -74,7 +74,6 @@
         "@mui/icons-material": "^5.2.5",
         "@mui/material": "^5.2.6",
         "@mui/styles": "^5.2.3",
-        "@mui/x-data-grid": "^5.2.1",
         "dayjs": "^1.10.6",
         "history": "^5.0.1",
         "path-to-regexp": "^6.2.0",

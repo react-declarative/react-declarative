@@ -17,10 +17,7 @@ import set from '../../utils/set';
 
 import Light from './components/Light';
 import Mobile from './components/Mobile';
-import Desktop from './components/Desktop';
 
-import { DEFAULT_ROW_HEIGHT } from "./components/Desktop/createRowHeightCalc";
-import useHeightCalc from './components/Desktop/hooks/useHeightCalc';
 import PropProvider from './components/PropProvider';
 
 import randomString from '../../utils/randomString';
@@ -64,7 +61,6 @@ const ListInternal = <
     isMobile: displayMode === DisplayMode.Mobile,
     filterData: {} as never,
     rows: [] as never,
-    rowHeight: DEFAULT_ROW_HEIGHT,
     uniqueKey: randomString(),
     limit: defaultLimit,
     offset: 0,
@@ -84,8 +80,6 @@ const ListInternal = <
   const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({...prevState, filtersCollapsed}));
 
   const { isMobile } = state;
-
-  const calcRowHeight = useHeightCalc<RowData>(columns);
 
   useLayoutEffect(() => {
     setMobile(displayMode !== DisplayMode.Desktop);
@@ -135,7 +129,6 @@ const ListInternal = <
         filterData,
         rows,
         total,
-        rowHeight: calcRowHeight(rows),
         ...(!keepPagination && {
           offset: 0,
         }),
@@ -249,21 +242,7 @@ const ListInternal = <
   };
 
   const renderInner = () => {
-    if (displayMode === DisplayMode.Lightweight) {
-      return (
-        <Light<FilterData, RowData>
-          {...props}
-          {...state}
-          handler={handler}
-          filters={filters}
-          columns={columns}
-          actions={actions}
-          limit={state.limit}
-          offset={state.offset}
-          {...callbacks}
-        />
-      );
-    } else if (isMobile) {
+    if (isMobile) {
       return (
         <Mobile<FilterData, RowData>
           {...props}
@@ -279,7 +258,7 @@ const ListInternal = <
       );
     } else {
       return (
-        <Desktop<FilterData, RowData>
+        <Light<FilterData, RowData>
           {...props}
           {...state}
           handler={handler}

@@ -18,8 +18,8 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
-import LightBodyRow from "./components/LightBodyRow";
-import LightHeadRow from "./components/LightHeadRow";
+import DesktopBodyRow from "./components/DesktopBodyRow";
+import DesktopHeadRow from "./components/DesktopHeadRow";
 
 import Container from "../Container";
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface ILightProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
+interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
@@ -50,10 +50,10 @@ interface ILightProps<FilterData = IAnything, RowData extends IRowData = IAnythi
   style?: React.CSSProperties;
 }
 
-export const Light = <
+export const Desktop = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
-  >(props: ILightProps<FilterData, RowData>) => {
+  >(props: IDesktopProps<FilterData, RowData>) => {
 
   const classes = useStyles();
 
@@ -96,11 +96,11 @@ export const Light = <
               <TableContainer style={{ height: height - PAGINATION_HEIGHT, width }}>
                 <Table stickyHeader>
                   <TableHead>
-                    <LightHeadRow<RowData> />
+                    <DesktopHeadRow<RowData> />
                   </TableHead>
                   <TableBody>
                     {rows.map((row, index) => (
-                      <LightBodyRow<RowData>
+                      <DesktopBodyRow<RowData>
                         row={row}
                         key={index}
                       />
@@ -130,4 +130,4 @@ export const Light = <
   );
 };
 
-export default Light;
+export default Desktop;

@@ -16,7 +16,7 @@ import ColumnType from '../../../../../model/ColumnType';
 
 import useSortModel from '../hooks/useSortModel';
 
-export const LightHeadRow = <RowData extends IRowData = IAnything>() => {
+export const DesktopHeadRow = <RowData extends IRowData = IAnything>() => {
 
     const props = useProps<RowData>();
     const { sortModel, setSortModel } = useSortModel();
@@ -85,6 +85,7 @@ export const LightHeadRow = <RowData extends IRowData = IAnything>() => {
                 };
 
                 const minWidth = typeof column.width === 'function' ? column.width() : column.width;
+                const maxWidth = minWidth;
 
                 const align = column.type === ColumnType.Action ? 'center' : 'left';
 
@@ -92,7 +93,7 @@ export const LightHeadRow = <RowData extends IRowData = IAnything>() => {
                     <TableCell
                         key={idx}
                         align={align}
-                        style={{ minWidth }}
+                        style={{ minWidth, maxWidth }}
                         sortDirection={sortDirection}
                     >
                         {isSortable ? (
@@ -111,4 +112,4 @@ export const LightHeadRow = <RowData extends IRowData = IAnything>() => {
     );
 };
 
-export default LightHeadRow;
+export default DesktopHeadRow;
