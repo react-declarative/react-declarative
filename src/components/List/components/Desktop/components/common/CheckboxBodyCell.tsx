@@ -46,7 +46,7 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
     const { selection, setSelection } = useSelection();
 
     const {
-        selectionMode,
+        selectionMode = SelectionMode.None,
         rowAvatar,
         rowMark,
     } = props;

@@ -15,7 +15,7 @@ import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
 
-import Light from './components/Light';
+import Desktop from './components/Desktop';
 import Mobile from './components/Mobile';
 
 import PropProvider from './components/PropProvider';
@@ -258,7 +258,7 @@ const ListInternal = <
       );
     } else {
       return (
-        <Light<FilterData, RowData>
+        <Desktop<FilterData, RowData>
           {...props}
           {...state}
           handler={handler}
