@@ -66,6 +66,7 @@ export const createColumn = (column: IColumn): GridColDef => {
             renderHeader,
             renderCell: renderActionCell,
             ...baseFields,
+            sortable: false,
         };
     } else if (type === ColumnType.Custom) {
         const {

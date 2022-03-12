@@ -5,6 +5,8 @@ import { makeStyles } from '../../../../styles';
 
 import IListProps, { ListAvatar } from '../../../../model/IListProps';
 
+import { useProps } from '../PropProvider';
+
 import MatAvatar from '@mui/material/Avatar';
 
 interface IRowAvatarProps {
@@ -29,14 +31,23 @@ const RowAvatar = ({
     const classes = useStyles();
     const mountedRef = useRef(true);
     const [avatar, setAvatar] = useState<ListAvatar | null>(null);
+    const { fallback } = useProps();
 
     const getRowAvatar = useCallback(async (id: string) => {
         const row = rows.find((row) => row.id === id);
         if (row && rowAvatar) {
             if (typeof rowAvatar === 'function') {
-                let result: ListAvatar | Promise<ListAvatar> = rowAvatar(row);
+                let result: ListAvatar | Promise<ListAvatar> | string = rowAvatar(row);
                 result = result instanceof Promise ? (await result) : result;
-                return result;
+                return typeof result === 'string' ? { 
+                    src: result,
+                    alt: result,
+                } : result;
+            } else if (typeof rowAvatar === 'string') {
+                return {
+                    src: row[rowAvatar] || '',
+                    alt: row[rowAvatar] || '',
+                };
             } else {
                 return {
                     src: rowAvatar.src ? row[rowAvatar.src] : '',
@@ -59,7 +70,7 @@ const RowAvatar = ({
                     setAvatar(newAvatar);
                 }
             } catch (e) {
-                console.warn(e);
+                fallback && fallback(e as Error);
             }
         })();
     }, [rowId, getRowAvatar]);

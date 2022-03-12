@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useRef, useMemo } from 'react';
 
 /* eslint-disable react/no-multi-comp */
 
@@ -15,8 +15,6 @@ import IField from '../../../model/IField';
 import classNames from '../../../utils/classNames';
 import deepFlat from '../../../utils/deepFlat';
 import arrays from '../../../utils/arrays';
-
-import useStatic from '../../../hooks/useStatic';
 
 import StateProvider from '../context/StateProvider';
 
@@ -42,7 +40,7 @@ export const OneGenesis = <Data extends IAnything = IAnything>(props: IOneProps<
     style,
   } = props;
 
-  const fieldsSnapshot = useStatic(fields);
+  const fieldsSnapshot = useMemo(() => fields, []);
   const classes = useStyles();
 
   useLayoutEffect(() => () => {

@@ -126,11 +126,16 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   ready: () => void;
 };
 
+export interface IListSortItem {
+  field: string;
+  sort: 'asc' | 'desc';
+}
+
 export interface IListProps<
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
-> extends SlotsComponent, ComponentProps {
+  > extends SlotsComponent, ComponentProps {
   ref?: Ref<IListApi>;
   className?: string;
   style?: React.CSSProperties;
@@ -155,7 +160,7 @@ export interface IListProps<
   filters?: Field[];
   handler: ListHandler;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
-  rowAvatar?: ((row: RowData) => ListAvatar) | ((row: RowData) => Promise<ListAvatar>) | ListAvatar;
+  rowAvatar?: string | ((row: RowData) => ListAvatar) | ((row: RowData) => Promise<ListAvatar>) | ((row: RowData) => string) | ListAvatar;
   fallback?: (e: Error) => void;
   rowActions?: IOption[];
   toggleFilters?: boolean;

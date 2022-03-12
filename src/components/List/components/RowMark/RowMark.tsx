@@ -5,6 +5,8 @@ import { makeStyles } from '../../../../styles';
 
 import IListProps from '../../../../model/IListProps';
 
+import { useProps } from '../PropProvider';
+
 import Box from '@mui/material/Box';
 
 interface IRowMarkProps {
@@ -31,6 +33,7 @@ const RowMark = ({
     const classes = useStyles();
     const mountedRef = useRef(true);
     const [background, setBackground] = useState('');
+    const { fallback } = useProps();
 
     const getRowMark = useCallback(async (id: string) => {
         const getRow = (id: string) => rows.find((row) => row.id === id);
@@ -56,7 +59,7 @@ const RowMark = ({
                     setBackground(background);
                 }
             } catch (e) {
-                console.warn(e);
+                fallback && fallback(e as Error);
             }
         })();
     }, [rowId, getRowMark]);

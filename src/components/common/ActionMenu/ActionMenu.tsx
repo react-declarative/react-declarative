@@ -17,7 +17,7 @@ import Fab from '@mui/material/Fab';
 
 import IOption from '../../../model/IOption';
 
-interface IActionMenuProps {
+export interface IActionMenuProps {
     options?: Partial<IOption>[];
     transparent?: boolean;
     disabled?: boolean;

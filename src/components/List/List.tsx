@@ -15,6 +15,7 @@ import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
 
+import Light from './components/Light';
 import Mobile from './components/Mobile';
 import Desktop from './components/Desktop';
 
@@ -28,7 +29,7 @@ import objects from '../../utils/objects';
 
 import DisplayMode from '../../model/DisplayMode';
 
-const DEFAULT_LIMIT = 50;
+const DEFAULT_LIMIT = 25;
 const DEFAULT_AUTORELOAD_INTERVAL = 30_000;
 
 const ListInternal = <
@@ -247,34 +248,56 @@ const ListInternal = <
     ready: handleDefault,
   };
 
+  const renderInner = () => {
+    if (displayMode === DisplayMode.Lightweight) {
+      return (
+        <Light<FilterData, RowData>
+          {...props}
+          {...state}
+          handler={handler}
+          filters={filters}
+          columns={columns}
+          actions={actions}
+          limit={state.limit}
+          offset={state.offset}
+          {...callbacks}
+        />
+      );
+    } else if (isMobile) {
+      return (
+        <Mobile<FilterData, RowData>
+          {...props}
+          {...state}
+          handler={handler}
+          filters={filters}
+          columns={columns}
+          actions={actions}
+          limit={state.limit}
+          offset={state.offset}
+          {...callbacks}
+        />
+      );
+    } else {
+      return (
+        <Desktop<FilterData, RowData>
+          {...props}
+          {...state}
+          handler={handler}
+          filters={filters}
+          columns={columns}
+          actions={actions}
+          limit={state.limit}
+          offset={state.offset}
+          {...callbacks}
+        />
+      );
+    }
+  };
+
   return (
     <ThemeProvider>
       <PropProvider {...{...props, ...state, ...callbacks}}>
-        {isMobile ? (
-          <Mobile<FilterData, RowData>
-            {...props}
-            {...state}
-            handler={handler}
-            filters={filters}
-            columns={columns}
-            actions={actions}
-            limit={state.limit}
-            offset={state.offset}
-            {...callbacks}
-          />
-        ) : (
-          <Desktop<FilterData, RowData>
-            {...props}
-            {...state}
-            handler={handler}
-            filters={filters}
-            columns={columns}
-            actions={actions}
-            limit={state.limit}
-            offset={state.offset}
-            {...callbacks}
-          />
-        )}
+        {renderInner()}
       </PropProvider>
     </ThemeProvider>
   );

@@ -1,6 +1,7 @@
 export enum DisplayMode {
-    Desktop = 'desktop',
-    Mobile = 'mobile',
+    Lightweight = 'lightweight-mode',
+    Desktop = 'desktop-mode',
+    Mobile = 'mobile-mode',
 }
 
 export default DisplayMode;
