@@ -24,6 +24,9 @@ interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {
 }
 
 const useStyles = makeStyles({
+    root: {
+        position: 'relative',
+    },
     mark: {
         position: 'absolute',
         top: 0,
@@ -110,7 +113,7 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
     };
 
     return (
-        <TableCell padding="checkbox">
+        <TableCell className={classes.root} padding="checkbox">
             {rowMark && (
                 <Box
                     className={classes.mark}
