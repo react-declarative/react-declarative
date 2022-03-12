@@ -5,6 +5,7 @@ import { makeStyles } from '../../../../../../styles';
 
 import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
 
 import Async from '../../../../../common/Async';
 import ActionMenu, { IActionMenuProps } from '../../../../../common/ActionMenu';
@@ -26,6 +27,19 @@ interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
 const useStyles = makeStyles({
     root: {
         position: 'relative',
+    },
+    stretch: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        '& > *:nth-child(1)': {
+            flex: 1,
+        },
     },
 });
 
@@ -68,7 +82,9 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
                 element: Element = () => <Fragment />,
             } = column;
             return (
-                <Element {...row} />
+                <Box className={classes.stretch}>
+                    <Element {...row} />
+                </Box>
             );
         } else if (column.type === ColumnType.Action) {
             return !!rowActions ? (

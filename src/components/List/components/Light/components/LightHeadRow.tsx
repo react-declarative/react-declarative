@@ -84,12 +84,15 @@ export const LightHeadRow = <RowData extends IRowData = IAnything>() => {
                     }
                 };
 
+                const minWidth = typeof column.width === 'function' ? column.width() : column.width;
+
                 const align = column.type === ColumnType.Action ? 'center' : 'left';
 
                 return (
                     <TableCell
                         key={idx}
                         align={align}
+                        style={{ minWidth }}
                         sortDirection={sortDirection}
                     >
                         {isSortable ? (

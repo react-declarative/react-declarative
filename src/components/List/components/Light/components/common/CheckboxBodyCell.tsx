@@ -124,7 +124,6 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
                     color="primary"
                     onClick={createToggleHandler(true)}
                     checked={selection.has(row.id)}
-                    disabled
                 />
             );
         } else if (selectionMode === SelectionMode.Multiple) {

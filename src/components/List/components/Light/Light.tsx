@@ -3,14 +3,16 @@ import * as React from "react";
 import { makeStyles } from '../../../../styles';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableFooter from '@mui/material/TableFooter';
 import TableHead from '@mui/material/TableHead';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
@@ -31,12 +33,8 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     background: theme.palette.background.paper,
   },
-  tableHead: {
-    position: 'sticky',
-    top: 0,
-  },
-  tableBody: {
-    marginTop: 53,
+  noBorder: {
+    border: 'none !important',
   },
 }));
 
@@ -77,8 +75,13 @@ export const Light = <
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
 
   const renderPlaceholder = () => (
-    <TableCell rowSpan={columns.length || 1} align="center">
-      {loading ? "Loading" : "Nothing found"}
+    <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">
+      <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
+        {loading && <CircularProgress size={28} />}
+        <Typography variant="body1">
+          {loading ? "Loading" : "Nothing found"}
+        </Typography>
+      </Stack>
     </TableCell>
   );
 
@@ -110,19 +113,15 @@ export const Light = <
                   </TableBody>
                 </Table>
               </TableContainer>
-              <TableContainer style={{ height: PAGINATION_HEIGHT, width }}>
-                <Table>
-                  <TableFooter>
-                    <TablePagination
-                      count={total || -1}
-                      rowsPerPage={limit}
-                      page={offset / limit}
-                      onPageChange={handleDirtyPageChange}
-                      onRowsPerPageChange={handleDirtyLimitChange}
-                    />
-                  </TableFooter>
-                </Table>
-              </TableContainer>
+              <TablePagination
+                width={width}
+                component={Box}
+                count={total || -1}
+                rowsPerPage={limit}
+                page={offset / limit}
+                onPageChange={handleDirtyPageChange}
+                onRowsPerPageChange={handleDirtyLimitChange}
+              />
             </Box>
           )}
         </Container>
