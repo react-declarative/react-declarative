@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import { useState, useCallback, useLayoutEffect, useRef } from 'react';
+import { useState, useCallback, useLayoutEffect, useEffect, useRef } from 'react';
 
 import { ThemeProvider } from '../../styles';
 
@@ -81,7 +81,7 @@ const ListInternal = <
 
   const { isMobile } = state;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setMobile(displayMode !== DisplayMode.Desktop);
   }, [displayMode]);
 
@@ -153,14 +153,14 @@ const ListInternal = <
 
   const handleReload = useCallback(() => handleFilter(state.filterData, true), [state]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
     if (!hasFilters && !state.initComplete) {
       setTimeout(handleDefault);
     }
   }, [filters]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const instance: IListApi = {
       reload: handleReload,
     };
@@ -201,13 +201,13 @@ const ListInternal = <
     }
   }, [state]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.initComplete) {
       handleReload();
     }
   }, [state.limit, state.offset, state.sort]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let timeout: any = null;
     if (state.autoReload && !state.loading) {
       timeout = setTimeout(() => {
