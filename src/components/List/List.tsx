@@ -20,10 +20,6 @@ import Mobile from './components/Mobile';
 
 import PropProvider from './components/PropProvider';
 
-import randomString from '../../utils/randomString';
-import deepCompare from '../../utils/deepCompare';
-import objects from '../../utils/objects';
-
 import DisplayMode from '../../model/DisplayMode';
 
 const DEFAULT_LIMIT = 25;
@@ -61,7 +57,6 @@ const ListInternal = <
     isMobile: displayMode === DisplayMode.Mobile,
     filterData: {} as never,
     rows: [] as never,
-    uniqueKey: randomString(),
     limit: defaultLimit,
     offset: 0,
     total: null,
@@ -192,13 +187,11 @@ const ListInternal = <
   };
 
   const handleSortModel = useCallback((sort: ListHandlerSortModel) => {
-    if (!deepCompare(objects(state.sort), objects(sort))) {
-      isMounted.current && setState((prevState) => ({
-        ...prevState,
-        sort,
-      }));
-      onSortModelChange(sort);
-    }
+    isMounted.current && setState((prevState) => ({
+      ...prevState,
+      sort,
+    }));
+    onSortModelChange(sort);
   }, [state]);
 
   useEffect(() => {

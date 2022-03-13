@@ -100,7 +100,6 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   limit: number;
   offset: number;
   total: number | null;
-  uniqueKey: string;
   loading: boolean;
   autoReload: boolean;
   filtersCollapsed: boolean;
