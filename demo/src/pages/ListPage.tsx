@@ -187,18 +187,18 @@ export const ListPage = () => {
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
+      onSelectedRows={console.log}
       displayMode={DisplayMode.Desktop}
-      rowMark={row => row.color}
-      rowAvatar={(row) => ({
-        alt: row.firstName,
-        src: 'https://avatars.githubusercontent.com/u/19227776?s=400&u=9eb4f0056f36228804b7e4c2e4d02358d5786bb4&v=4',
-      })}
     />
   );
 };
 
 /*
-
+rowMark={row => row.color}
+      rowAvatar={(row) => ({
+        alt: row.firstName,
+        src: 'https://avatars.githubusercontent.com/u/19227776?s=400&u=9eb4f0056f36228804b7e4c2e4d02358d5786bb4&v=4',
+      })}
 */
 
 export default ListPage;

@@ -9,14 +9,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import { useProps } from "../../PropProvider";
+import useProps from '../.../../../../hooks/useProps';
 
 import IRowData from '../../../../../model/IRowData';
 import IAnything from '../../../../../model/IAnything';
 import SelectionMode from '../../../../../model/SelectionMode';
 import ColumnType from '../../../../../model/ColumnType';
 
-import useSortModel from '../hooks/useSortModel';
+import useSortModel from '../../../hooks/useSortModel';
+
+interface IDesktopHeadRowProps {
+    onSortModelChange: () => void;
+}
 
 const useStyles = makeStyles((theme) => ({
     tableRow: {
@@ -26,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const DesktopHeadRow = <RowData extends IRowData = IAnything>() => {
+export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
+    onSortModelChange,
+}: IDesktopHeadRowProps) => {
 
     const classes = useStyles();
 
@@ -75,6 +81,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>() => {
             });
         }
         setSortModel(sortModel);
+        onSortModelChange();
     }, [sortModel]);
 
     return (

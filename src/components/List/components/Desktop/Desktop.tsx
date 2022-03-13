@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useRef } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
@@ -22,9 +23,6 @@ import DesktopBodyRow from "./components/DesktopBodyRow";
 import DesktopHeadRow from "./components/DesktopHeadRow";
 
 import Container from "../Container";
-
-import { SelectionProvider } from './hooks/useSelection';
-import { SortModelProvider } from './hooks/useSortModel';
 
 const PAGINATION_HEIGHT = 52;
 
@@ -57,6 +55,8 @@ export const Desktop = <
 
   const classes = useStyles();
 
+  const outerRef = useRef<HTMLDivElement>(null);
+
   const {
     limit,
     offset,
@@ -74,6 +74,8 @@ export const Desktop = <
 
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
 
+  const handleScrollTop = () => outerRef.current && outerRef.current.scrollTo(0, 0);
+
   const renderPlaceholder = () => (
     <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">
       <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
@@ -86,47 +88,45 @@ export const Desktop = <
   );
 
   return (
-    <SelectionProvider>
-      <SortModelProvider>
-        <Container<FilterData, RowData>
-          {...props}
-        >
-          {({ height, width, payload: { rows } }) => (
-            <Box className={classes.root}>
-              <TableContainer style={{ height: height - PAGINATION_HEIGHT, width }}>
-                <Table stickyHeader>
-                  <TableHead>
-                    <DesktopHeadRow<RowData> />
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row, index) => (
-                      <DesktopBodyRow<RowData>
-                        row={row}
-                        key={index}
-                      />
-                    ))}
-                    {rows.length === 0 && (
-                      <TableRow>
-                        {renderPlaceholder()}
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                width={width}
-                component={Box}
-                count={total || -1}
-                rowsPerPage={limit}
-                page={offset / limit}
-                onPageChange={handleDirtyPageChange}
-                onRowsPerPageChange={handleDirtyLimitChange}
-              />
-            </Box>
-          )}
-        </Container>
-      </SortModelProvider>
-    </SelectionProvider>
+    <Container<FilterData, RowData>
+      {...props}
+    >
+      {({ height, width, payload: { rows } }) => (
+        <Box className={classes.root}>
+          <TableContainer ref={outerRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
+            <Table stickyHeader>
+              <TableHead>
+                <DesktopHeadRow<RowData>
+                  onSortModelChange={handleScrollTop}
+                />
+              </TableHead>
+              <TableBody>
+                {rows.map((row, index) => (
+                  <DesktopBodyRow<RowData>
+                    row={row}
+                    key={index}
+                  />
+                ))}
+                {rows.length === 0 && (
+                  <TableRow>
+                    {renderPlaceholder()}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            width={width}
+            component={Box}
+            count={total || -1}
+            rowsPerPage={limit}
+            page={offset / limit}
+            onPageChange={handleDirtyPageChange}
+            onRowsPerPageChange={handleDirtyLimitChange}
+          />
+        </Box>
+      )}
+    </Container>
   );
 };
 

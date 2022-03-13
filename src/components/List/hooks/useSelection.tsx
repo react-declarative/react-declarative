@@ -1,9 +1,9 @@
 import React from 'react';
 import { createContext, useContext, useState } from 'react';
 
-import { useProps } from "../../PropProvider";
+import useProps from "./useProps";
 
-import IRowData from '../../../../../model/IRowData';
+import IRowData from '../../../model/IRowData';
 
 const SelectionContext = createContext<IState>(null as never);
 

@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 
 import Refresh from '@mui/icons-material/Refresh';
 
-import { useProps } from "../../../../PropProvider";
+import useProps from "../../../../../hooks/useProps";
 
 export const UpdateNowAction = () => {
 

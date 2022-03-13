@@ -4,7 +4,7 @@ import { ListAvatar } from '../../../model/IListProps';
 import IAnything from '../../../model/IAnything';
 import IRowData from '../../../model/IRowData';
 
-import { useProps } from '../components/PropProvider';
+import { useProps } from '../hooks/useProps';
 
 interface IParams<RowData extends IRowData = IAnything> {
     row: RowData;

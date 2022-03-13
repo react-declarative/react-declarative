@@ -1,9 +1,9 @@
 import React from 'react';
 import { createContext, useContext, useState } from 'react';
 
-import { IListSortItem } from '../../../../../model/IListProps';
+import { IListSortItem } from '../../../model/IListProps';
 
-import { useProps } from "../../PropProvider";
+import useProps from "./useProps";
 
 const SortModelContext = createContext<IState>(null as never);
 

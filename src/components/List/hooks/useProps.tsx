@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useContext } from 'react';
 
-import IListProps, { IListCallbacks, IListState } from '../../../../model/IListProps';
-import IAnything from '../../../../model/IAnything';
-import IField from '../../../../model/IField';
+import IListProps, { IListCallbacks, IListState } from '../../../model/IListProps';
+import IAnything from '../../../model/IAnything';
+import IField from '../../../model/IField';
 
-import IRowData from '../../../../model/IRowData';
+import IRowData from '../../../model/IRowData';
 
 interface IPropContext<
     FilterData extends IAnything = IAnything,
@@ -39,4 +39,4 @@ export const useProps = <
     Field extends IField = IField<FilterData>
 > () => useContext(PropContext) as IPropContext<FilterData, RowData, Field>;
 
-export default PropProvider;
+export default useProps;

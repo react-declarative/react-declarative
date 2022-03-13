@@ -8,15 +8,14 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import TableCell from '@mui/material/TableCell';
 
-import { useProps } from "../../../PropProvider";
-
 import IRowData from '../../../../../../model/IRowData';
 import IAnything from '../../../../../../model/IAnything';
 
 import SelectionMode from '../../../../../../model/SelectionMode';
 
-import useSelection from '../../hooks/useSelection';
+import useSelection from '../../../../hooks/useSelection';
 import useRowAvatar from '../../../../hooks/useRowAvatar';
+import useProps from '../.../../../../../hooks/useProps';
 import useRowMark from '../../../../hooks/useRowMark';
 
 interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {

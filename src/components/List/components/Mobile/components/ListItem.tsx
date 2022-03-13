@@ -8,8 +8,6 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
-import CheckBoxOutlineBlank from '@mui/icons-material/CheckBoxOutlineBlank';
-
 import Async from '../../../../common/Async';
 import ActionMenu from '../../../../common/ActionMenu';
 
@@ -18,7 +16,9 @@ import IAnything from '../../../../../model/IAnything';
 import IRowData from '../../../../../model/IRowData';
 import IColumn from "../../../../../model/IColumn";
 
-import { useProps } from '../../PropProvider';
+import useProps from '../.../../../../hooks/useProps';
+
+import RowCheckbox from './common/RowCheckbox';
 import RowAvatar from './common/RowAvatar';
 import RowMark from './common/RowMark';
 
@@ -121,16 +121,17 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                     row={row}
                 />
             )}
-            {!!rowAvatar && (
+            {!!rowAvatar ? (
                 <ListItemAvatar>
                     <RowAvatar
                         row={row}
                     />
                 </ListItemAvatar>
-            )}
-            {!rowAvatar && (
-                <ListItemIcon className={classes.checkbox}>
-                    <CheckBoxOutlineBlank />
+            ) : (
+                <ListItemIcon>
+                    <RowCheckbox
+                        row={row}
+                    />
                 </ListItemIcon>
             )}
             <ListItemText

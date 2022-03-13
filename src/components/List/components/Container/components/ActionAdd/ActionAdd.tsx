@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useProps } from "../../../PropProvider";
+import useProps from "../../../../hooks/useProps";
 
 import Fab from '@mui/material/Fab';
 

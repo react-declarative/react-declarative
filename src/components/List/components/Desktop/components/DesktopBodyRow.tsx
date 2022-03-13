@@ -3,15 +3,14 @@ import { useState } from 'react';
 
 import TableRow from '@mui/material/TableRow';
 
-import { useProps } from "../../PropProvider";
-
 import CheckboxBodyCell from './common/CheckboxBodyCell';
 import CommonBodyCell from './common/CommonBodyCell';
 
 import IRowData from '../../../../../model/IRowData';
 import IAnything from '../../../../../model/IAnything';
 
-import useSelection from '../hooks/useSelection';
+import useSelection from '../../../hooks/useSelection';
+import useProps from '../.../../../../hooks/useProps';
 
 interface IDesktopBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { useProps } from "../../../PropProvider";
+import useProps from "../../../../hooks/useProps";
 
 import Menu from '@mui/material/Menu';
 

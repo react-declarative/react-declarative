@@ -18,7 +18,9 @@ import set from '../../utils/set';
 import Desktop from './components/Desktop';
 import Mobile from './components/Mobile';
 
-import PropProvider from './components/PropProvider';
+import { SelectionProvider } from './hooks/useSelection';
+import { SortModelProvider } from './hooks/useSortModel';
+import { PropProvider } from './hooks/useProps';
 
 import DisplayMode from '../../model/DisplayMode';
 
@@ -29,7 +31,7 @@ const ListInternal = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<IAnything>,
->(props: IListProps<FilterData, RowData, Field>, ref: any) => {
+  >(props: IListProps<FilterData, RowData, Field>, ref: any) => {
 
   const isMounted = useRef(true);
 
@@ -66,13 +68,13 @@ const ListInternal = <
     sort: [],
   });
 
-  const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({...prevState, loading}));
+  const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
 
-  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({...prevState, isMobile, offset: 0}));
+  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, isMobile, offset: 0 }));
 
-  const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({...prevState, autoReload}));
+  const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, autoReload }));
 
-  const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({...prevState, filtersCollapsed}));
+  const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, filtersCollapsed }));
 
   const { isMobile } = state;
 
@@ -80,14 +82,14 @@ const ListInternal = <
     setMobile(displayMode !== DisplayMode.Desktop);
   }, [displayMode]);
 
-  const handleRows = useCallback(async (filterData: FilterData): Promise<{
+  const handleRows = useCallback(async (filterData: FilterData, keepPagination = false): Promise<{
     rows: RowData[];
     total: number | null;
   }> => {
     if (typeof handler === 'function') {
       const response: ListHandlerResult<RowData> = await Promise.resolve(handler(filterData, {
         limit: state.limit,
-        offset: state.offset,
+        offset: keepPagination ? state.offset : 0,
       }, state.sort));
       if (Array.isArray(response)) {
         return {
@@ -117,7 +119,7 @@ const ListInternal = <
       const {
         rows,
         total,
-      } = await handleRows(filterData);
+      } = await handleRows(filterData, keepPagination);
       isMounted.current && setState((prevState) => ({
         ...prevState,
         initComplete: true,
@@ -189,6 +191,7 @@ const ListInternal = <
   const handleSortModel = useCallback((sort: ListHandlerSortModel) => {
     isMounted.current && setState((prevState) => ({
       ...prevState,
+      offset: 0,
       sort,
     }));
     onSortModelChange(sort);
@@ -268,8 +271,12 @@ const ListInternal = <
 
   return (
     <ThemeProvider>
-      <PropProvider {...{...props, ...state, ...callbacks}}>
-        {renderInner()}
+      <PropProvider {...{ ...props, ...state, ...callbacks }}>
+        <SelectionProvider>
+          <SortModelProvider>
+            {renderInner()}
+          </SortModelProvider>
+        </SelectionProvider>
       </PropProvider>
     </ThemeProvider>
   );

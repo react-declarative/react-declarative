@@ -3,7 +3,7 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import IAnything from '../../../model/IAnything';
 import IRowData from '../../../model/IRowData';
 
-import { useProps } from '../components/PropProvider';
+import useProps from './useProps';
 
 interface IParams<RowData extends IRowData = IAnything> {
     row: RowData;

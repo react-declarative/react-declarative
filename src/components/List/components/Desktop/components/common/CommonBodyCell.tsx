@@ -15,7 +15,7 @@ import IColumn from '../../../../../../model/IColumn';
 import IRowData from '../../../../../../model/IRowData';
 import ColumnType from '../../../../../../model/ColumnType';
 
-import { useProps } from '../../../PropProvider';
+import useProps from "../../../../hooks/useProps";
 
 interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
     column: IColumn<RowData>;

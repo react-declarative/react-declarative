@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import CheckBoxOn from '@mui/icons-material/CheckBox';
 import CheckBoxOff from '@mui/icons-material/CheckBoxOutlineBlank';
 
-import { useProps } from "../../../../PropProvider";
+import useProps from "../../../../../hooks/useProps";
 
 export const AutoReloadAction = () => {
 
