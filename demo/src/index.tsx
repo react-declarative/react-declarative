@@ -6,7 +6,26 @@ import { ModalProvider } from 'react-declarative';
 
 import App from './App'
 
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#90cbf9',
+        },
+        secondary: {
+            main: '#90cbf9',
+        },
+        text: {
+            primary: "#fff",
+            secondary: "rgba(255, 255, 255, 0.7)",
+            disabled: "rgba(255, 255, 255, 0.5)",
+        },
+        background: {
+            paper: "#424242",
+            default: "#212121",
+        },
+    },
+});
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
