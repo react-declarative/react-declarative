@@ -16,7 +16,7 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
-import ListItem from "./ListItem";
+import ListItem from "./components/ListItem";
 
 import Container from "../Container";
 

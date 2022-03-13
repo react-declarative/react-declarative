@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { makeStyles } from '../../../../../styles';
+
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import TableRow from '@mui/material/TableRow';
@@ -16,7 +18,17 @@ import ColumnType from '../../../../../model/ColumnType';
 
 import useSortModel from '../hooks/useSortModel';
 
+const useStyles = makeStyles((theme) => ({
+    tableRow: {
+        '& > .MuiTableCell-root': {
+            background: `${theme.palette.background.paper} !important`,
+        },
+    },
+}));
+
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>() => {
+
+    const classes = useStyles();
 
     const props = useProps<RowData>();
     const { sortModel, setSortModel } = useSortModel();
@@ -66,7 +78,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>() => {
     }, [sortModel]);
 
     return (
-        <TableRow>
+        <TableRow className={classes.tableRow}>
             <TableCell padding="checkbox">
                 {renderCheckbox()}
             </TableCell>

@@ -1,9 +1,9 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
-import IAnything from '../../../../model/IAnything';
-import IRowData from '../../../../model/IRowData';
+import IAnything from '../../../model/IAnything';
+import IRowData from '../../../model/IRowData';
 
-import { useProps } from '../PropProvider';
+import { useProps } from '../components/PropProvider';
 
 interface IParams<RowData extends IRowData = IAnything> {
     row: RowData;

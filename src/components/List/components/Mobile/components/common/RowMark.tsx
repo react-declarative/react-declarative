@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
-import IAnything from '../../../../model/IAnything';
-import IRowData from '../../../../model/IRowData';
+import IAnything from '../../../../../../model/IAnything';
+import IRowData from '../../../../../../model/IRowData';
 
 import Box from '@mui/material/Box';
 
-import useRowMark from '../hooks/useRowMark';
+import useRowMark from '../../../../hooks/useRowMark';
 
 interface IRowMarkProps<RowData extends IRowData = IAnything> {
     row: RowData,

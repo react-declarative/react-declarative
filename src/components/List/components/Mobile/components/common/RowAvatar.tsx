@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
-import IAnything from '../../../../model/IAnything';
-import IRowData from '../../../../model/IRowData';
+import IAnything from '../../../../../../model/IAnything';
+import IRowData from '../../../../../../model/IRowData';
 
 import MatAvatar from '@mui/material/Avatar';
 
-import useRowAvatar from '../hooks/useRowAvatar';
+import useRowAvatar from '../../../../hooks/useRowAvatar';
 
 interface IRowAvatarProps<RowData extends IRowData = IAnything> {
     row: RowData,

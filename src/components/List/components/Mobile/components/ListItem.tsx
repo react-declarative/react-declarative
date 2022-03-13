@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from '../../../../../styles';
 
 import MatListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,17 +10,17 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import CheckBoxOutlineBlank from '@mui/icons-material/CheckBoxOutlineBlank';
 
-import Async from '../../../common/Async';
-import ActionMenu from '../../../common/ActionMenu';
+import Async from '../../../../common/Async';
+import ActionMenu from '../../../../common/ActionMenu';
 
-import IListProps from '../../../../model/IListProps';
-import IAnything from '../../../../model/IAnything';
-import IRowData from '../../../../model/IRowData';
-import IColumn from "../../../../model/IColumn";
+import IListProps from '../../../../../model/IListProps';
+import IAnything from '../../../../../model/IAnything';
+import IRowData from '../../../../../model/IRowData';
+import IColumn from "../../../../../model/IColumn";
 
-import { useProps } from '../PropProvider';
-import RowAvatar from '../RowAvatar';
-import RowMark from '../RowMark';
+import { useProps } from '../../PropProvider';
+import RowAvatar from './common/RowAvatar';
+import RowMark from './common/RowMark';
 
 const AsyncText = <RowData extends IRowData = IAnything>({
     row,

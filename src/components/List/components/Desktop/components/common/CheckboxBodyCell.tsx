@@ -16,8 +16,8 @@ import IAnything from '../../../../../../model/IAnything';
 import SelectionMode from '../../../../../../model/SelectionMode';
 
 import useSelection from '../../hooks/useSelection';
-import useRowAvatar from '../../../hooks/useRowAvatar';
-import useRowMark from '../../../hooks/useRowMark';
+import useRowAvatar from '../../../../hooks/useRowAvatar';
+import useRowMark from '../../../../hooks/useRowMark';
 
 interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
