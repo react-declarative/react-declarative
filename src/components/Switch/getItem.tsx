@@ -24,7 +24,7 @@ export const getItem = async ({
   Forbidden = () => <Fragment />,
 }: IParams): Promise<ISwitchState | null> => {
   let result: ISwitchState | null = null;
-  for (const { component = () => <Fragment />, redirect, path, guard = () => true } of items) {
+  for (const { element = () => <Fragment />, redirect, path, guard = () => true } of items) {
     const params: Record<string, unknown> = {};
     const keys: Key[] = [];
     const reg = pathToRegexp(path, keys);
@@ -38,14 +38,14 @@ export const getItem = async ({
           params[key.name] = tokens[i + 1];
         });
         result = {
-          component,
+          element,
           redirect,
           params,
           key,
         };
       } else {
         result = {
-          component: Forbidden,
+          element: Forbidden,
           params: {},
           key,
         };

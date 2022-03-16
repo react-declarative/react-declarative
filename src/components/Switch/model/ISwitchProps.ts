@@ -10,6 +10,7 @@ export interface ISwitchProps {
     Forbidden?: ComponentType<any>;
     NotFound?: ComponentType<any>;
     Loading?: ComponentType<any>;
+    loadingAppearDelay?: number;
 }
 
 export default ISwitchProps;

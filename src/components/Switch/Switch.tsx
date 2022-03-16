@@ -12,8 +12,6 @@ import ISwitchItem from './model/ISwitchItem';
 import ISwitchState from './model/ISwitchState';
 import ISwitchProps from './model/ISwitchProps';
 
-import randomString from '../../utils/randomString';
-
 import ForbiddenDefault from './Forbidden';
 import NotFoundDefault from './NotFound';
 import LoadingDefault from './Loading';
@@ -22,6 +20,8 @@ import getItem from './getItem';
 
 const defaultHistory = createBrowserHistory();
 
+const LOADING_APPEAR_DELAY_DEFAULT = 1_000;
+
 export const Switch = ({
   items = [],
   fallback = () => null,
@@ -29,59 +29,62 @@ export const Switch = ({
   Forbidden = ForbiddenDefault,
   NotFound = NotFoundDefault,
   Loading = LoadingDefault,
+  loadingAppearDelay = LOADING_APPEAR_DELAY_DEFAULT,
 }: ISwitchProps) => {
 
   const [state, setState] = useState<ISwitchState>(null as never);
   const [loading, setLoading] = useState(false);
 
   const {
-    component = () => <Fragment />,
+    element = () => <Fragment />,
     params,
     key,
   } = useMemo(() => state || {}, [state]);
 
-  const handleItem = useCallback(async (items: ISwitchItem[], url: string, key: string) => {
+  const handleItem = useCallback(async (items: ISwitchItem[], url: string, key = url) => {
     let result: ISwitchState | null = null;
+    const loaderWillAppear = setTimeout(() => setLoading(true), loadingAppearDelay);
     try {
-      setLoading(true);
       result = await getItem({ items, url, key, Forbidden });
     } catch (e) {
       fallback(e as Error);
     } finally {
+      clearTimeout(loaderWillAppear);
       setLoading(false);
       return result;
     }
-  }, [fallback]);
+  }, [fallback, loadingAppearDelay]);
+
+  const handleNavigate = useCallback(async ({
+    location,
+  }: Update) => {
+    const { pathname: url } = location;
+    const item = await handleItem(items, url);
+    if (item) {
+      if (item.redirect) {
+        history.push(item.redirect);
+      } else if (state?.key !== item.key) {
+        setState(item);
+      }
+    } else if (state?.key !== url) {
+      setState({
+        element: NotFound,
+        params: {},
+        key: url,
+      });
+    }
+  }, [state]);
 
   useEffect(() => {
-    const handler = async ({
-      location,
-    }: Update) => {
-      const { pathname: url, key = randomString() } = location;
-      const item = await handleItem(items, url, key);
-      if (item) {
-        if (item.redirect) {
-          history.push(item.redirect);
-        } else {
-          setState(item);
-        }
-      } else {
-        setState({
-          component: NotFound,
-          params: {},
-          key,
-        });
-      }
-    };
-    const unsubscribe = history.listen(handler);
-    handler(history);
+    const unsubscribe = history.listen(handleNavigate);
+    handleNavigate(history);
     return () => unsubscribe();
   }, [history]);
 
   if (loading) {
     return createElement(Loading);
   } else {
-    return createElement(component, {
+    return createElement(element, {
       ...params,
       key,
     });

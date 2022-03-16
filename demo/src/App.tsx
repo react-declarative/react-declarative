@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { createMemoryHistory } from 'history';
 
-import { Scaffold, IMenuGroup } from 'react-declarative';
+import { Scaffold, Switch, IMenuGroup, ISwitchItem } from 'react-declarative';
 
-import Router from './Router';
+import SamplePage from './pages/SamplePage';
+import LayoutGrid from './pages/LayoutPage';
+import GalleryPage from './pages/GalleryPage';
+import ValidationPage from './pages/ValidationPage';
+import LoginPage from './pages/LoginPage';
+import HeroPage from './pages/HeroPage';
+import ListPage from './pages/ListPage';
+import BottomFadePage from './pages/BottomFadePage';
+import sleep from './utils/sleep';
+
+const history = createMemoryHistory();
 
 const options: IMenuGroup[] = [
   {
@@ -40,19 +50,65 @@ const options: IMenuGroup[] = [
   },
 ];
 
-const App = () => {
-  const [route, setRoute] = useState('layout-page');
+const routes: ISwitchItem[] = [
+  {
+    path: '/',
+    redirect: '/layout-page'
+  },
+  {
+    path: '/layout-page',
+    element: () => <LayoutGrid />,
+  },
+  {
+    path: '/validation-page',
+    element: () => <ValidationPage />,
+  },
+  {
+    path: '/gallery-page',
+    element: () => <GalleryPage />,
+  },
+  {
+    path: '/sample-page',
+    element: () => <SamplePage />,
+  },
+  {
+    path: '/login-page',
+    element: () => <LoginPage />,
+  },
+  {
+    path: '/hero-page',
+    element: () => <HeroPage />,
+  },
+  {
+    path: '/list-page',
+    element: () => <ListPage />,
+  },
+  {
+    path: '/bottom-fade-page',
+    guard: async () => {
+      await sleep(1_000);
+      return true;
+    },
+    element: () => <BottomFadePage />,
+  },
+];
 
-  const handleOptionClick = (name: string) => setRoute(name);
+const App = () => {
+
+  const handleOptionClick = (path: string) => history.push(`/${path}`);
 
   return (
     <Scaffold
       title="Scaffold"
-      selected={route}
       options={options}
       onOptionClick={handleOptionClick}
     >
-      <Router route={route} />
+      <Switch
+        Loading={() => <p>Checking permissions (mock)</p>}
+        NotFound={() => <p>Not found(</p>}
+        history={history}
+        items={routes}
+      />
     </Scaffold>
   );
 };
