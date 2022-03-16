@@ -12,6 +12,8 @@ import ISwitchItem from './model/ISwitchItem';
 import ISwitchState from './model/ISwitchState';
 import ISwitchProps from './model/ISwitchProps';
 
+import randomString from '../../utils/randomString';
+
 import ForbiddenDefault from './Forbidden';
 import NotFoundDefault from './NotFound';
 import LoadingDefault from './Loading';
@@ -58,19 +60,19 @@ export const Switch = ({
   const handleNavigate = useCallback(async ({
     location,
   }: Update) => {
-    const { pathname: url } = location;
-    const item = await handleItem(items, url);
+    const { pathname: url, key = randomString() } = location;
+    const item = await handleItem(items, url, key);
     if (item) {
       if (item.redirect) {
         history.push(item.redirect);
-      } else if (state?.key !== item.key) {
+      } else {
         setState(item);
       }
-    } else if (state?.key !== url) {
+    } else {
       setState({
         element: NotFound,
         params: {},
-        key: url,
+        key,
       });
     }
   }, [state]);
