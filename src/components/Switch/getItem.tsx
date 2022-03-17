@@ -14,6 +14,7 @@ interface IParams {
   items: ISwitchItem[];
   url?: string;
   key?: string;
+  onLoading?: () => void;
   Forbidden?: ComponentType<any>;
 }
 
@@ -21,6 +22,7 @@ export const getItem = async ({
   items,
   url = '',
   key = randomString(),
+  onLoading = () => null,
   Forbidden = () => <Fragment />,
 }: IParams): Promise<ISwitchState | null> => {
   let result: ISwitchState | null = null;
@@ -31,7 +33,10 @@ export const getItem = async ({
     const match = reg.test(url);
     if (match) {
       let canActivate: boolean | Promise<boolean> = guard();
-      canActivate = (canActivate as unknown) instanceof Promise ? (await canActivate) : canActivate;
+      if (canActivate instanceof Promise) {
+        onLoading();
+        canActivate = await canActivate;
+      }
       if (canActivate) {
         const tokens = reg.exec(url);
         tokens && keys.forEach((key, i) => {

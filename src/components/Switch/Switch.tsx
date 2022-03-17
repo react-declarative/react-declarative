@@ -22,8 +22,6 @@ import getItem from './getItem';
 
 const defaultHistory = createBrowserHistory();
 
-const LOADING_APPEAR_DELAY_DEFAULT = 1_000;
-
 export const Switch = ({
   items = [],
   fallback = () => null,
@@ -31,7 +29,6 @@ export const Switch = ({
   Forbidden = ForbiddenDefault,
   NotFound = NotFoundDefault,
   Loading = LoadingDefault,
-  loadingAppearDelay = LOADING_APPEAR_DELAY_DEFAULT,
 }: ISwitchProps) => {
 
   const [state, setState] = useState<ISwitchState>(null as never);
@@ -45,17 +42,21 @@ export const Switch = ({
 
   const handleItem = useCallback(async (items: ISwitchItem[], url: string, key = url) => {
     let result: ISwitchState | null = null;
-    const loaderWillAppear = setTimeout(() => setLoading(true), loadingAppearDelay);
     try {
-      result = await getItem({ items, url, key, Forbidden });
+      result = await getItem({
+        items,
+        url,
+        key,
+        Forbidden,
+        onLoading: () => setLoading(true),
+      });
     } catch (e) {
       fallback(e as Error);
     } finally {
-      clearTimeout(loaderWillAppear);
       setLoading(false);
       return result;
     }
-  }, [fallback, loadingAppearDelay]);
+  }, [fallback]);
 
   const handleNavigate = useCallback(async ({
     location,
