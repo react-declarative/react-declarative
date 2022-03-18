@@ -14,6 +14,7 @@ interface IParams {
   items: ISwitchItem[];
   url?: string;
   key?: string;
+  loading?: boolean;
   onLoading?: () => void;
   Forbidden?: ComponentType<any>;
 }
@@ -23,6 +24,7 @@ export const getItem = async ({
   url = '',
   key = randomString(),
   onLoading = () => null,
+  loading = false,
   Forbidden = () => <Fragment />,
 }: IParams): Promise<ISwitchState | null> => {
   let result: ISwitchState | null = null;
@@ -45,6 +47,7 @@ export const getItem = async ({
         result = {
           element,
           redirect,
+          loading,
           params,
           key,
         };
@@ -52,6 +55,7 @@ export const getItem = async ({
         result = {
           element: Forbidden,
           params: {},
+          loading,
           key,
         };
       }

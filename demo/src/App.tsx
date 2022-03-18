@@ -86,7 +86,7 @@ const routes: ISwitchItem[] = [
   {
     path: '/bottom-fade-page',
     guard: async () => {
-      //await sleep(1_000);
+      await sleep(1_000);
       return true;
     },
     element: () => <BottomFadePage />,

@@ -32,13 +32,15 @@ export const Switch = ({
 }: ISwitchProps) => {
 
   const [state, setState] = useState<ISwitchState>(null as never);
-  const [loading, setLoading] = useState(false);
 
   const {
     element = () => <Fragment />,
+    loading,
     params,
     key,
   } = useMemo(() => state || {}, [state]);
+
+  const setLoading = (loading: boolean) => setState((prevState) => ({...prevState, loading}));
 
   const handleItem = useCallback(async (items: ISwitchItem[], url: string, key = url) => {
     let result: ISwitchState | null = null;
@@ -53,7 +55,6 @@ export const Switch = ({
     } catch (e) {
       fallback(e as Error);
     } finally {
-      setLoading(false);
       return result;
     }
   }, [fallback]);
@@ -72,6 +73,7 @@ export const Switch = ({
     } else {
       setState({
         element: NotFound,
+        loading: false,
         params: {},
         key,
       });
