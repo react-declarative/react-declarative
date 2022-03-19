@@ -10,6 +10,7 @@ import IAnything from '../../../../../../model/IAnything';
 import IRowData from '../../../../../../model/IRowData';
 
 import useSelection from '../../../../hooks/useSelection';
+import useToggleHandler from '../../../../hooks/useToggleHandler';
 
 interface IRowCheckboxProps<RowData extends IRowData = IAnything> {
     row: RowData,
@@ -23,19 +24,9 @@ const RowCheckbox = <RowData extends IRowData = IAnything>({
         selectionMode,
     } = useProps();
 
-    const { selection, setSelection } = useSelection();
+    const { selection } = useSelection();
 
-    const createToggleHandler = (radio = false) => (e: any) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (selection.has(row.id)) {
-            selection.delete(row.id);
-        } else {
-            radio && selection.clear();
-            selection.add(row.id);
-        }
-        setSelection(selection);
-    };
+    const createToggleHandler = useToggleHandler(row);
 
     if (selectionMode === SelectionMode.Single) {
         return (

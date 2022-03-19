@@ -13,6 +13,7 @@ import IAnything from '../../../../../../model/IAnything';
 
 import SelectionMode from '../../../../../../model/SelectionMode';
 
+import useToggleHandler from '../../../../hooks/useToggleHandler';
 import useSelection from '../../../../hooks/useSelection';
 import useRowAvatar from '../../../../hooks/useRowAvatar';
 import useProps from '../.../../../../../hooks/useProps';
@@ -41,11 +42,12 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
 
     const classes = useStyles();
 
+    const { selection } = useSelection();
+
     const avatar = useRowAvatar({ row });
     const mark = useRowMark({ row });
 
     const props = useProps<RowData>();
-    const { selection, setSelection } = useSelection();
 
     const {
         selectionMode = SelectionMode.None,
@@ -53,17 +55,7 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
         rowMark,
     } = props;
 
-    const createToggleHandler = (radio = false) => (e: any) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (selection.has(row.id)) {
-            selection.delete(row.id);
-        } else {
-            radio && selection.clear();
-            selection.add(row.id);
-        }
-        setSelection(selection);
-    };
+    const createToggleHandler = useToggleHandler(row);
 
     const renderCheckbox = () => {
         if (rowAvatar && avatar) {
