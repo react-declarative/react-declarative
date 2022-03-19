@@ -21,6 +21,7 @@ const icons = (
     leadingIconClick: PickProp<IField, 'leadingIconClick'>,
     trailingIconClick: PickProp<IField, 'trailingIconClick'>,
     loading: boolean,
+    disabled: boolean,
     v: string,
     c: PickProp<IManaged, 'onChange'>,
 ) => ({
@@ -30,6 +31,7 @@ const icons = (
                 <InputAdornment position="start">
                     <IconButton
                         edge="start"
+                        disabled={disabled}
                         onClick={() => {
                             if (leadingIconClick) {
                                 leadingIconClick(v as unknown as IAnything, (v) => c(v, {
@@ -50,6 +52,7 @@ const icons = (
                 <InputAdornment position="end">
                     <IconButton
                         edge="end"
+                        disabled={disabled}
                         onClick={() => {
                             if (trailingIconClick) {
                                 trailingIconClick(v as unknown as IAnything, (v) => c(v, {
@@ -68,7 +71,7 @@ const icons = (
             ? {
                 endAdornment: (
                     <InputAdornment position="end">
-                        <IconButton edge="end">
+                        <IconButton disabled={disabled} edge="end">
                             <CircularProgress color="inherit" size={20} />
                         </IconButton>
                     </InputAdornment>
@@ -113,7 +116,7 @@ export const Text = ({
         InputProps={{
             autoComplete: autoComplete,
             autoFocus,
-            ...icons(li, ti, lic, tic, loading, (value || '').toString(), onChange),
+            ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
         }}
         type={inputType}
         focused={autoFocus}
