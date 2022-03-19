@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 export const GroupLayout = <Data extends IAnything = IAnything>({
   columns,
+  columnsOverride,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -51,7 +52,10 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
             fieldRightMargin={fieldRightMargin}
             fieldBottomMargin={fieldBottomMargin}
         >
-          <Group className={classes.content}>
+          <Group
+            className={classes.content}
+            columnsOverride={columnsOverride}
+          >
               {children}
           </Group>
         </Group>

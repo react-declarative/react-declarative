@@ -118,6 +118,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     tabBackground = false,
     tabIndex: tabIndexDefault = 0,
     columns,
+    columnsOverride,
     phoneColumns,
     tabletColumns,
     desktopColumns,
@@ -136,6 +137,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
             style={style}
             isItem={true}
             columns={columns}
+            columnsOverride={columnsOverride}
             phoneColumns={phoneColumns}
             tabletColumns={tabletColumns}
             desktopColumns={desktopColumns}

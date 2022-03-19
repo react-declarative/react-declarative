@@ -48,6 +48,19 @@ const fields: TypedField[] = [
         ],
     },
     {
+        type: FieldType.Group,
+        columnsOverride: '5',
+        fieldRightMargin: '0',
+        fields: [...new Array(5)].map((_, idx) => ({
+            type: FieldType.Paper,
+            fieldRightMargin: idx === 4 ? '0' : '1',
+            columns: '1',
+            style: {
+                minHeight: 125,
+            }
+        })),
+    },
+    {
         type: FieldType.Outline,
         fieldBottomMargin: '1',
         fields: [

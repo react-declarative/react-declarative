@@ -30,20 +30,23 @@ export interface IPaperProps<Data = IAnything> {
   style?: PickProp<IField<Data>, 'style'>;
 }
 
-interface IPaperPrivate {
+interface IPaperPrivate<Data = IAnything> {
   children: React.ReactChild;
+  columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
 }
 
 export const Paper = ({
   className = "",
   style,
   children,
+  columnsOverride,
 }: IPaperProps & IPaperPrivate) => {
   const classes = useStyles();
   return (
     <MatPaper className={classNames(className, classes.strech)} style={style}>
       <Box className={classes.content}>
         <Group
+          columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"
         >

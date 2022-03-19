@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 
 export const OutlineLayout = <Data extends IAnything = IAnything>({
   columns,
+  columnsOverride,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -57,7 +58,11 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
       fieldRightMargin={fieldRightMargin}
       fieldBottomMargin={fieldBottomMargin}
     >
-      <Outline className={classes.content} style={{ padding }}>
+      <Outline
+        className={classes.content}
+        columnsOverride={columnsOverride}
+        style={{ padding }}
+      >
         {children}
       </Outline>
     </Group>

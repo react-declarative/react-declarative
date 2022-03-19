@@ -236,6 +236,11 @@ export interface IField<Data = IAnything> {
     desktopColumns?: string;
 
     /**
+     * Произвольное количество колонок в строке
+     */
+    columnsOverride?: string;
+
+    /**
      * Дочерние поля для групп
      */
     fields?: IField<Data>[];

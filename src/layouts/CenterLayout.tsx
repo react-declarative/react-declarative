@@ -63,6 +63,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     phoneColumns,
     tabletColumns,
     desktopColumns,
+    columnsOverride,
     fieldRightMargin = '0',
     fieldBottomMargin = '0',
 }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>) => {
@@ -132,7 +133,10 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                     <div className={classNames(classes.container)}>
                         <div className={classes.content} style={{ padding }}>
                             <div style={{ marginRight, width }}>
-                                <Group ref={handleGroupRef}>
+                                <Group
+                                    columnsOverride={columnsOverride}
+                                    ref={handleGroupRef}
+                                >
                                     {children}
                                 </Group>
                             </div>

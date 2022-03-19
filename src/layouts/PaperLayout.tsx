@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 
 export const PaperLayout = <Data extends IAnything = IAnything>({
   columns,
+  columnsOverride,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -44,24 +45,28 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   fieldBottomMargin = '0',
   innerPadding: padding = '18px',
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
-    const classes = useStyles();
-    return (
-        <Group
-            className={classNames(className, classes.root)}
-            style={style}
-            isItem={true}
-            columns={columns}
-            phoneColumns={phoneColumns}
-            tabletColumns={tabletColumns}
-            desktopColumns={desktopColumns}
-            fieldRightMargin={fieldRightMargin}
-            fieldBottomMargin={fieldBottomMargin}
-        >
-            <Paper className={classes.content} style={{ padding }}>
-                {children}
-            </Paper>
-        </Group>
-    );
+  const classes = useStyles();
+  return (
+    <Group
+      className={classNames(className, classes.root)}
+      style={style}
+      isItem={true}
+      columns={columns}
+      phoneColumns={phoneColumns}
+      tabletColumns={tabletColumns}
+      desktopColumns={desktopColumns}
+      fieldRightMargin={fieldRightMargin}
+      fieldBottomMargin={fieldBottomMargin}
+    >
+      <Paper
+        className={classes.content}
+        columnsOverride={columnsOverride}
+        style={{ padding }}
+      >
+        {children}
+      </Paper>
+    </Group>
+  );
 };
 
 PaperLayout.displayName = 'PaperLayout';

@@ -42,6 +42,7 @@ export const Group = (
     children,
     isItem = false,
     style,
+    columnsOverride = '12',
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
     onFocus,
@@ -71,6 +72,7 @@ export const Group = (
       <Container
         ref={ref}
         className={classNames(classes.root, className)}
+        columnsOverride={columnsOverride}
         style={style}
         onFocus={onFocus}
       >

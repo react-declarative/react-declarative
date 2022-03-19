@@ -352,6 +352,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   style,
   object,
   columns,
+  columnsOverride,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -373,7 +374,10 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       fieldRightMargin={FIELD_NEVER_MARGIN}
       fieldBottomMargin={FIELD_NEVER_MARGIN}
     >
-      <Group className={classes.container}>
+      <Group
+        className={classes.container}
+        columnsOverride={columnsOverride}
+      >
         <AutoSizer
           className={classes.content}
           delay={AUTOSIZER_DELAY}

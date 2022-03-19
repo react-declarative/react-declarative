@@ -9,15 +9,19 @@ import IField from '../../../model/IField';
 interface IContainerProps {
   className: PickProp<IField, 'className'>;
   style: PickProp<IField, 'style'>;
+  columnsOverride?: PickProp<IField, 'columnsOverride'>;
   children: React.ReactChild;
   onFocus?: () => void;
 }
+
+const n = (v: string) => Number(v) as any;
 
 export const Container = ({
   className,
   style,
   children,
   onFocus,
+  columnsOverride = '12',
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
   <Grid
     ref={ref}
@@ -26,6 +30,7 @@ export const Container = ({
     className={className}
     style={style}
     onFocus={onFocus}
+    columns={n(columnsOverride)}
   >
     {children}
   </Grid>

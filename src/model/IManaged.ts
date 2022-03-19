@@ -12,6 +12,7 @@ export type DeepPartial<T> = {
  * Типизацию компоновки следует вынести отдельно
  */
 export interface IManagedLayout<Data = IAnything> {
+    columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
     columns?: PickProp<IField<Data>, 'columns'>;
     roles?: PickProp<IField<Data>, 'roles'>;
     phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
