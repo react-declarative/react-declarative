@@ -44,6 +44,7 @@
     "scripts": {
         "build": "rimraf dist && node ./scripts/build.js && npm run typedef",
         "typedef": "tsc --emitDeclarationOnly --outDir ./dist/types && node ./scripts/dts.js",
+        "postinstall": "rimraf ./node_modules/react && rimraf ./node_modules/react-dom",
         "test": "jest --env=jsdom"
     },
     "peerDependencies": {
@@ -58,7 +59,7 @@
         "@types/sha.js": "^2.4.0",
         "dts-bundle": "^0.7.3",
         "dts-minify": "^0.3.0",
-        "esbuild": "^0.14.23",
+        "esbuild-wasm": "^0.14.23",
         "esbuild-node-externals": "^1.4.1",
         "jest": "^26.6.3",
         "rimraf": "^3.0.2",

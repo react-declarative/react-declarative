@@ -1,4 +1,4 @@
-const esbuild = require('esbuild');
+const esbuild = require('esbuild-wasm');
 const { nodeExternalsPlugin } = require('esbuild-node-externals');
 
 esbuild.build({
