@@ -92,13 +92,15 @@ const ListInternal = <
         offset: keepPagination ? state.offset : 0,
       }, state.sort));
       if (Array.isArray(response)) {
+        response.length > state.limit && console.warn("List rows count is more than it's capacity");
         return {
-          rows: [...response],
+          rows: response.slice(0, state.limit),
           total: null,
         };
       } else {
         const { rows = [], total = null } = response || {};
-        return { rows: [...rows], total };
+        rows.length > state.limit && console.warn("List rows count is more than it's capacity");
+        return { rows: rows.slice(0, state.limit), total };
       }
     } else {
       if (Array.isArray(handler)) {
@@ -108,7 +110,10 @@ const ListInternal = <
         };
       } else {
         const { rows = [], total = null } = handler || {};
-        return { rows: [...rows], total };
+        return {
+          rows: rows.slice(state.offset, state.limit + state.offset),
+          total,
+        };
       }
     }
   }, [state, handler]);
@@ -169,23 +174,19 @@ const ListInternal = <
   }, [ref, state]);
 
   const handlePageChange = (page: number) => {
-    if (state.total !== null) {
-      isMounted.current && setState((prevState) => ({
-        ...prevState,
-        offset: page * state.limit,
-      }));
-    }
+    isMounted.current && setState((prevState) => ({
+      ...prevState,
+      offset: page * state.limit,
+    }));
   };
 
   const handleLimitChange = (newLimit: number) => {
-    if (state.total !== null) {
-      const newPage = Math.floor(state.offset / newLimit);
-      isMounted.current && setState((prevState) => ({
-        ...prevState,
-        offset: newPage * newLimit,
-        limit: newLimit,
-      }));
-    }
+    const newPage = Math.floor(state.offset / newLimit);
+    isMounted.current && setState((prevState) => ({
+      ...prevState,
+      offset: newPage * newLimit,
+      limit: newLimit,
+    }));
   };
 
   const handleSortModel = useCallback((sort: ListHandlerSortModel) => {

@@ -127,8 +127,9 @@ export const ListPage = () => {
     offset,
   }: ListHandlerPagination, sort: ListHandlerSortModel) => {
 
-    // TODO
-    console.log(sort);
+    console.log({limit, offset, sort})
+
+    // return mock;
 
     let rows = await Promise.resolve(mock) as IRowData[];
 
