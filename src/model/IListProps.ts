@@ -142,14 +142,14 @@ export interface IListProps<
   selectedRows?: RowId[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
-  onSelectedRows?: (rowIds: RowId[]) => void;
+  onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
   onSortModelChange?: (sort: ListHandlerSortModel) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;
   onAction?: (action: string) => void;
-  columns?: IColumn<RowData>[];
+  columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;

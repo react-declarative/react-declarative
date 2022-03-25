@@ -1,47 +1,48 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { useModal } from 'react-modal-hook';
 
-import IField from '../../model/IField';
-import IColumn from '../../model/IColumn';
 import IRowData from '../../model/IRowData';
 import IAnything from '../../model/IAnything';
-import TypedField from '../../model/TypedField';
-import { ListHandler } from '../../model/IListProps';
+import IListProps from '../../model/IListProps';
+
 import SelectionMode from '../../model/SelectionMode';
 
-import ListPicker from '../common/ListPicker';
+import ListPicker, { IListPickerProps } from '../common/ListPicker';
 
 type Fn<Data = IAnything> = (d: Data[] | null) => void;
 
-interface IParams<
-  RowData extends IRowData = IAnything,
-  FilterData extends IAnything = IAnything,
-  Field extends IField = IField<FilterData>
-> {
-  handler: ListHandler<RowData>;
+interface IParams<RowData extends IRowData = IAnything> extends Omit<IListPickerProps<RowData>, keyof {
+  onChange: never;
+  selectionMode: never;
+  selectedRows: never;
+  minHeight: never;
+  minWidth: never;
+  title: never;
+  open: never;
+}> {
   selectionMode?: SelectionMode.Single | SelectionMode.Multiple;
-  columns?: IColumn<RowData>[];
-  filters?: Field[];
+  selectedRows?: IListProps<RowData>['selectedRows'];
+  minHeight?: number;
+  minWidth?: number;
   title?: string;
-  height?: number;
-  width?: number;
 }
 
-export const useList = <
-  RowData extends IRowData = IAnything,
-  FilterData extends IAnything = IAnything,
-  Field extends IField = IField<FilterData>
->({
+export const useList = <RowData extends IRowData = IAnything>({
   handler,
-  selectionMode = SelectionMode.Single,
   columns,
-  filters,
-  title,
-  height,
-  width,
-}: IParams<RowData, FilterData, Field>) => {
+  selectionMode = SelectionMode.Single,
+  title: titleDefault = 'Pick item',
+  minWidth: minWidthDefault = 425,
+  minHeight: minHeightDefault = 375,
+  selectedRows: selectedRowsDefault,
+}: IParams<RowData>) => {
+
+  const [title, setTitle] = useState(titleDefault);
+  const [minWidth, setMinWidth] = useState(minWidthDefault);
+  const [minHeight, setMinHeight] = useState(minHeightDefault);
+  const [selectedRows, setSelectedRows] = useState(selectedRowsDefault || null);
 
   const changeRef = useRef<Fn>();
 
@@ -56,19 +57,28 @@ export const useList = <
   const [showModal, hideModal] = useModal(({ in: open }) => (
     <ListPicker
       open={open}
-      filters={filters}
       selectionMode={selectionMode}
+      minHeight={minHeight}
+      minWidth={minWidth}
       title={title}
       columns={columns}
       handler={handler}
-      height={height}
-      width={width}
+      selectedRows={selectedRows}
       onChange={handleChange}
     />
-  ));
+  ), [title, minWidth, minHeight, selectedRows]);
 
-  return () => new class {
+  return ({
+    title,
+    minWidth,
+    minHeight,
+    selectedRows,
+  }: Partial<IParams<RowData>> = {}) => new class {
     constructor() {
+      title !== undefined && setTitle(title);
+      minWidth !== undefined && setMinWidth(minWidth);
+      minHeight !== undefined && setMinHeight(minHeight);
+      selectedRows !== undefined && setSelectedRows(selectedRows);
       showModal();
     };
     then(onData: Fn) {
@@ -76,11 +86,5 @@ export const useList = <
     };
   }();
 };
-
-export const useListTyped = <
-  RowData extends IRowData = IAnything,
-  FilterData extends IAnything = IAnything,
->(params: IParams<RowData, FilterData, TypedField<FilterData>>) =>
-  useList(params);
 
 export default useList;

@@ -72,7 +72,6 @@ export const Container = <
     filterData,
     handleFilter,
     handleDefault,
-    initComplete,
     children,
     isMobile,
     ready,
@@ -120,11 +119,9 @@ export const Container = <
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>
-              {!!initComplete && (
-                <AutoSizer payload={payload}>
-                  {children}
-                </AutoSizer>
-              )}
+              <AutoSizer payload={payload}>
+                {children}
+              </AutoSizer>
             </div>
           </Paper>
         </div>

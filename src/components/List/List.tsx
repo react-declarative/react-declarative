@@ -154,7 +154,7 @@ const ListInternal = <
         set(newData, name, initialValue(type));
       });
     handleFilter(newData as FilterData);
-    selectionApiRef.current?.reload();
+    selectionApiRef.current?.reload(true);
   }, [filters]);
 
   const handleReload = useCallback((keepSelection = false) => {
@@ -164,10 +164,10 @@ const ListInternal = <
 
   useEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
-    if (!hasFilters && !state.initComplete) {
+    if (!hasFilters) {
       handleDefault();
     }
-  }, [filters]);
+  }, []);
 
   useEffect(() => {
     const instance: IListApi = {

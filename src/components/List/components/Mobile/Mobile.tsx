@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import MatListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import CircularProgress from "@mui/material/CircularProgress";
 
 import NotInterested from '@mui/icons-material/NotInterested';
 
@@ -16,11 +17,15 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
+import classNames from "../../../../utils/classNames";
+
 import ListItem from "./components/ListItem";
 
 import Container from "../Container";
 
 const DEFAULT_ITEM_SIZE = 75;
+
+export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,21 +131,25 @@ export const Mobile = <
       {...props}
       {...state}
     >
-      {({ height, width, payload: { rows } }) => (
+      {({ height, width, payload: { rows, loading } }) => (
         <Box position="relative" style={{height, width}}>
           {!rows.length && (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
-                <NotInterested />
+                {loading ? (
+                  <CircularProgress size={40} />
+                ) : (
+                  <NotInterested />
+                )}
               </ListItemIcon>
               <ListItemText
-                primary="Empty"
-                secondary="Nothing found"
+                primary={loading ? "Loading" : "Empty"}
+                secondary={loading ? "Fetching data" : "Nothing found"}
               />
             </MatListItem>
           )}
           <FixedSizeList
-            className={classes.root}
+            className={classNames(classes.root, MOBILE_LIST_ROOT)}
             height={height}
             width={width}
             itemCount={rows.length}

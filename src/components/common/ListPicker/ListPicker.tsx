@@ -9,52 +9,66 @@ import List from '../../List';
 import Box from '@mui/material/Box';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import IField from '../../../model/IField';
-import IColumn from '../../../model/IColumn';
+import { MOBILE_LIST_ROOT } from '../../List/components/Mobile';
+
 import IRowData, { RowId } from '../../../model/IRowData';
 import IAnything from '../../../model/IAnything';
-import { ListHandler } from '../../../model/IListProps';
-import SelectionMode from '../../../model/SelectionMode';
+import IListProps from '../../../model/IListProps';
 
-interface IListPickerProps<RowData extends IRowData = IAnything> {
+import SelectionMode from '../../../model/SelectionMode';
+import DisplayMode from '../../../model/DisplayMode';
+
+export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
-  handler: ListHandler<RowData>;
+  handler: IListProps<RowData>['handler'];
   selectionMode: SelectionMode.Single | SelectionMode.Multiple;
-  columns?: IColumn<RowData>[];
-  filters?: IField[];
-  title?: string;
-  open?: boolean;
-  height?: number;
-  width?: number;
+  columns: IListProps<RowData>['columns'];
+  selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
+  minHeight: number;
+  minWidth: number;
+  title: string;
+  open: boolean;
 }
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 425,
-    minHeight: 375,
     "& .MuiPaper-root": {
       background: "transparent",
       boxShadow: "none",
+    },
+    [`& .${MOBILE_LIST_ROOT}`]: {
+      background: "transparent !important",
     },
   },
 });
 
 export const ListPicker = <RowData extends IRowData = IAnything>({
   onChange = (data) => console.log({ data }),
-  filters,
   handler,
   title,
   columns,
   open = true,
   selectionMode,
-  height: minHeight,
-  width: minWidth,
+  selectedRows: selectedRowsDefault = null,
+  minHeight,
+  minWidth,
 }: IListPickerProps<RowData>) => {
-  const [selectedRows, setSelectedRows] = useState<RowId[] | null>(null);
+  const [selectedRows, setSelectedRows] = useState(selectedRowsDefault);
   const classes = useStyles();
-  const handleChange = (rows: RowId[]) => setSelectedRows(rows);
+  const handleChange = (rows: RowId[], initialChange: boolean) => {
+    if (!initialChange) {
+      setSelectedRows(rows);
+    }
+  };
   const handleAccept = () => onChange(selectedRows);
   const handleDismis = () => onChange(null);
+  const handleClick = ({ id: rowId }: RowData) => setSelectedRows((selectedRows) => {
+    if (selectedRows) {
+      return [...selectedRows, rowId];
+    } else {
+      return [rowId];
+    }
+  });
   return (
     <ModalDialog
       open={open}
@@ -68,14 +82,16 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
           </Box>
         </DialogTitle>
       )}
-      <Box style={{minHeight, minWidth}} p={3}>
+      <Box className={classes.root} style={{minHeight, minWidth}}>
         <List<IAnything, RowData>
-          className={classes.root}
+          sizeByParent
+          displayMode={DisplayMode.Mobile}
           handler={handler}
-          filters={filters}
           columns={columns}
+          selectedRows={selectedRows || undefined}
           selectionMode={selectionMode}
           onSelectedRows={handleChange}
+          onRowClick={handleClick}
         />
       </Box>
     </ModalDialog>

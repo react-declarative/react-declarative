@@ -30,10 +30,10 @@ import { ListHandlerResult as ListHandlerResultInternal } from './model/IListPro
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
+import { useList } from './components';
 import { useConfirm } from './components';
 import { useDate, useTime } from './components';
 import { useOne, useOneTyped } from './components';
-import { useList, useListTyped } from './components';
 
 import IAnything from './model/IAnything';
 import IRowData, { RowId } from './model/IRowData';
@@ -73,7 +73,6 @@ export type pickOneFn = ReturnType<typeof useOne>;
 export type pickDateFn = ReturnType<typeof useDate>;
 export type pickTimeFn = ReturnType<typeof useTime>;
 
-export type pickListTypedFn = ReturnType<typeof useListTyped>;
 export type pickListFn = ReturnType<typeof useList>;
 
 export type pickConfirmFn = ReturnType<typeof useConfirm>;
@@ -100,10 +99,10 @@ export { Switch } from './components';
 
 export { useListProps } from './components';
 
-export { useList, useListTyped };
 export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
+export { useList };
 
 import { ICheckBoxSlot as ICheckBoxSlotInternal } from './slots/CheckBoxSlot';
 import { IComboSlot as IComboSlotInternal } from './slots/ComboSlot';

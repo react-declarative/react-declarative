@@ -20,8 +20,27 @@ interface IState {
     setSelection: (s: Set<RowId>) => void;
 }
 
+const compareSelection = (s1: Set<RowId>, s2: Set<RowId>) => {
+    if (s1.size !== s2.size) {
+        return false;
+    } else {
+        let isSimilar = true;
+        s1.forEach((row) => {
+            if (!s2.has(row) && isSimilar) {
+                isSimilar = false;
+            }
+        });
+        s2.forEach((row) => {
+            if (!s1.has(row) && isSimilar) {
+                isSimilar = false;
+            }
+        });
+        return isSimilar;
+    }
+};
+
 export interface ISelectionReloadRef {
-    reload: () => void;
+    reload: (initialChange?: boolean) => void;
 }
 
 export const SelectionProvider = forwardRef(({
@@ -29,12 +48,12 @@ export const SelectionProvider = forwardRef(({
     selectedRows,
 }: ISelectionProviderProps, ref: any) => {
 
-    const [selection, setSelection] = useState(new Set<RowId>());
+    const [selection, setSelection] = useState(new Set<RowId>(selectedRows));
 
     const { onSelectedRows } = useProps();
 
-    const handleSelectionChange = (selection: IState['selection'] = new Set()) => {
-        onSelectedRows && onSelectedRows([...selection]);
+    const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
+        onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
 
@@ -44,14 +63,11 @@ export const SelectionProvider = forwardRef(({
     };
 
     useEffect(() => {
+        const reload = (initialChange?: boolean) => handleSelectionChange(new Set(), initialChange);
         if (typeof ref === 'function') {
-            ref({
-                reload: handleSelectionChange,
-            })
+            ref({ reload });
         } else if (ref) {
-            ref.current = {
-                reload: handleSelectionChange,
-            };
+            ref.current = { reload };
         }
     }, [ref]);
 
@@ -59,19 +75,8 @@ export const SelectionProvider = forwardRef(({
         if (!selectedRows) {
             return;
         }
-        let isOk = true;
         const pendingSelection = new Set(selectedRows);
-        selection.forEach((row) => {
-            if (!pendingSelection.has(row) && isOk) {
-                isOk = false;
-            }
-        });
-        pendingSelection.forEach((row) => {
-            if (!selection.has(row) && isOk) {
-                isOk = false;
-            }
-        });
-        if (!isOk) {
+        if (!compareSelection(pendingSelection, selection)) {
             handleSelectionChange(pendingSelection);
         }
     }, [selectedRows, selection]);

@@ -11,6 +11,7 @@ import {
   ListHandlerPagination,
   ListHandlerSortModel,
   RowId,
+  useList,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -19,7 +20,6 @@ import Add from '@mui/icons-material/Add';
 import mock from './mock/list';
 import sleep from '../utils/sleep';
 import { useState } from 'react';
-
 
 const filters: TypedField[] = [
   {
@@ -135,6 +135,8 @@ export const ListPage = () => {
 
     // return mock;
 
+    await sleep(3_000);
+
     let rows = await Promise.resolve(mock) as IRowData[];
 
     if (firstName) {
@@ -159,6 +161,12 @@ export const ListPage = () => {
     // return [];
   };
 
+  const pickList = useList<IRowData>({
+    columns,
+    handler,
+    selectedRows,
+  });
+
   console.log(selectedRows)
 
   const heightRequest = () => window.innerHeight - 100;
@@ -172,6 +180,11 @@ export const ListPage = () => {
   };
 
   const handleAction = (action: string) => {
+    if (action === 'add-action') {
+      pickList({
+        title: 'Row creator'
+      }).then(console.log);
+    }
     alert(action);
   };
 
@@ -201,7 +214,7 @@ export const ListPage = () => {
       onRowClick={handleClick}
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
-      displayMode={DisplayMode.Desktop}
+      displayMode={DisplayMode.Mobile}
       selectedRows={selectedRows}
     />
   );
