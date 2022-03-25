@@ -12,6 +12,7 @@ import {
   ListHandlerSortModel,
   RowId,
   useList,
+  useOne,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -94,6 +95,14 @@ const actions: IListAction[] = [
       {
         action: 'mobile-view',
       },
+      {
+        action: 'list-action',
+        label: 'Pick list',
+      },
+      {
+        action: 'one-action',
+        label: 'Pick one',
+      },
     ],
   }
 ];
@@ -135,7 +144,7 @@ export const ListPage = () => {
 
     // return mock;
 
-    await sleep(3_000);
+    await sleep(25_000);
 
     let rows = await Promise.resolve(mock) as IRowData[];
 
@@ -167,7 +176,12 @@ export const ListPage = () => {
     selectedRows,
   });
 
-  console.log(selectedRows)
+  const pickOne = useOne({
+    fields: [
+      {type: FieldType.Text, columns: '6', title: 'Firstname', defaultValue: 'Петр', name: 'f'},
+      {type: FieldType.Text, columns: '6', title: 'Lastname', name: 'l'},
+    ],
+  });
 
   const heightRequest = () => window.innerHeight - 100;
 
@@ -180,9 +194,13 @@ export const ListPage = () => {
   };
 
   const handleAction = (action: string) => {
-    if (action === 'add-action') {
+    if (action === 'list-action') {
       pickList({
-        title: 'Row creator'
+        title: 'List picker'
+      }).then(console.log);
+    } else if (action === 'one-action') {
+      pickOne({
+        title: 'One picker'
       }).then(console.log);
     }
     alert(action);
