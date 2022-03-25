@@ -36,9 +36,12 @@ import { useOne, useOneTyped } from './components';
 import { useList, useListTyped } from './components';
 
 import IAnything from './model/IAnything';
-import IRowData from './model/IRowData';
+import IRowData, { RowId } from './model/IRowData';
+
+export type { IRowData, RowId };
 
 import ISwitchItemInternal from './components/Switch/model/ISwitchItem';
+
 export type ISwitchItem = ISwitchItemInternal;
 
 export const FieldType = FieldTypeInternal;
