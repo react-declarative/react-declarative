@@ -54,6 +54,7 @@ const ListInternal = <
     onSortModelChange = () => null,
     onFilterChange = () => null,
     toggleFilters = false,
+    selectedRows = [],
   } = props;
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
@@ -279,7 +280,7 @@ const ListInternal = <
   return (
     <ThemeProvider>
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
-        <SelectionProvider ref={selectionApiRef}>
+        <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider>
             {renderInner()}
           </SortModelProvider>

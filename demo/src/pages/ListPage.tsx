@@ -10,6 +10,7 @@ import {
   DisplayMode,
   ListHandlerPagination,
   ListHandlerSortModel,
+  RowId,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -17,6 +18,7 @@ import Add from '@mui/icons-material/Add';
 
 import mock from './mock/list';
 import sleep from '../utils/sleep';
+import { useState } from 'react';
 
 
 const filters: TypedField[] = [
@@ -119,6 +121,8 @@ interface IFilterData {
 
 export const ListPage = () => {
 
+  const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
+
   const handler = async ({
     firstName,
     lastName,
@@ -155,6 +159,8 @@ export const ListPage = () => {
     // return [];
   };
 
+  console.log(selectedRows)
+
   const heightRequest = () => window.innerHeight - 100;
 
   const handleColumnMenuClick = (action: string) => {
@@ -170,11 +176,17 @@ export const ListPage = () => {
   };
 
   const handleClick = (row: any) => {
-    alert(JSON.stringify({ row }, null, 2));
+    // alert(JSON.stringify({ row }, null, 2));
+    setSelectedRows((rows) => [...rows, row.id]);
+  };
+
+  const handleSelectedRows = (selectedRows: RowId[]) => {
+    setSelectedRows(selectedRows);
   };
 
   return (
     <ListTyped<IFilterData, IRowData>
+      ref={(listApi) => (window as any).listApi = listApi}
       title="List Component"
       filterLabel="Filters"
       heightRequest={heightRequest}
@@ -183,13 +195,14 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Single}
+      selectionMode={SelectionMode.Multiple}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
-      onSelectedRows={console.log}
+      onSelectedRows={handleSelectedRows}
       displayMode={DisplayMode.Desktop}
+      selectedRows={selectedRows}
     />
   );
 };

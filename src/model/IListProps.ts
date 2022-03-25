@@ -139,6 +139,7 @@ export interface IListProps<
   sizeByParent?: boolean;
   autoReload?: boolean;
   autoReloadInterval?: number;
+  selectedRows?: RowId[];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[]) => void;
