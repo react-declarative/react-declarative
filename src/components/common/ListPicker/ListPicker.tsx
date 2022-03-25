@@ -11,13 +11,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import IField from '../../../model/IField';
 import IColumn from '../../../model/IColumn';
-import IRowData from '../../../model/IRowData';
+import IRowData, { RowId } from '../../../model/IRowData';
 import IAnything from '../../../model/IAnything';
 import { ListHandler } from '../../../model/IListProps';
 import SelectionMode from '../../../model/SelectionMode';
 
 interface IListPickerProps<RowData extends IRowData = IAnything> {
-  onChange: (data: RowData[] | null) => void;
+  onChange: (data: RowId[] | null) => void;
   handler: ListHandler<RowData>;
   selectionMode: SelectionMode.Single | SelectionMode.Multiple;
   columns?: IColumn<RowData>[];
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 export const ListPicker = <RowData extends IRowData = IAnything>({
-  onChange = (data: RowData[] | null) => console.log({ data }),
+  onChange = (data) => console.log({ data }),
   filters,
   handler,
   title,
@@ -50,9 +50,9 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
   height: minHeight,
   width: minWidth,
 }: IListPickerProps<RowData>) => {
-  const [selectedRows, setSelectedRows] = useState<RowData[] | null>(null);
+  const [selectedRows, setSelectedRows] = useState<RowId[] | null>(null);
   const classes = useStyles();
-  const handleChange = (rows: RowData[]) => setSelectedRows(rows);
+  const handleChange = (rows: RowId[]) => setSelectedRows(rows);
   const handleAccept = () => onChange(selectedRows);
   const handleDismis = () => onChange(null);
   return (

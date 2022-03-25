@@ -7,7 +7,7 @@ import DisplayMode from './DisplayMode';
 import SelectionMode from './SelectionMode';
 
 import IAnything from './IAnything';
-import IRowData from './IRowData';
+import IRowData, { RowId } from './IRowData';
 import IColumn from './IColumn';
 import IOption from './IOption';
 import IField from './IField';
@@ -141,7 +141,7 @@ export interface IListProps<
   autoReloadInterval?: number;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
-  onSelectedRows?: (rows: RowData[]) => void;
+  onSelectedRows?: (rowIds: RowId[]) => void;
   onFilterChange?: (data: FilterData) => void;
   onSortModelChange?: (sort: ListHandlerSortModel) => void;
   onColumnMenuAction?: (action: string) => void;

@@ -1,5 +1,7 @@
 export interface IRowData {
-    id: string | number;
+    id: RowId;
 }
+
+export type RowId = string | number;
 
 export default IRowData;

@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 
 import useProps from "./useProps";
 
-import IRowData from '../../../model/IRowData';
+import { RowId } from '../../../model/IRowData';
 
 const SelectionContext = createContext<IState>(null as never);
 
@@ -13,18 +13,16 @@ interface ISelectionProviderProps {
     children: React.ReactNode;
 }
 
-type ID = IRowData['id'];
-
 interface IState {
-    selection: Set<ID>;
-    setSelection: (s: Set<ID>) => void;
+    selection: Set<RowId>;
+    setSelection: (s: Set<RowId>) => void;
 }
 
 export const SelectionProvider = ({
     children,
 }: ISelectionProviderProps) => {
 
-    const [selection, setSelection] = useState(new Set<ID>());
+    const [selection, setSelection] = useState(new Set<RowId>());
 
     const { onSelectedRows } = useProps();
 
