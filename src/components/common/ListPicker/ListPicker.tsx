@@ -34,7 +34,6 @@ const useStyles = makeStyles({
   root: {
     "& .MuiPaper-root": {
       background: "transparent",
-      boxShadow: "none",
     },
     [`& .${MOBILE_LIST_ROOT}`]: {
       background: "transparent !important",

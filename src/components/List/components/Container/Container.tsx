@@ -40,16 +40,12 @@ const useStyles = makeStyles({
     justifyContent: "stretch",
     flexDirection: "column",
     overflow: 'hidden',
-    "&&& .MuiDataGrid-root": {
-      border: "1px solid transparent",
-    },
   },
   stretch: {
     flex: 1,
   },
   noElevation: {
     background: "transparent",
-    boxShadow: "none",
   },
 });
 

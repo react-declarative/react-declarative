@@ -144,7 +144,7 @@ export const ListPage = () => {
 
     // return mock;
 
-    await sleep(25_000);
+    await sleep(3_000);
 
     let rows = await Promise.resolve(mock) as IRowData[];
 

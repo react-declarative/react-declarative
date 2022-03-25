@@ -46,10 +46,10 @@ export const useList = <RowData extends IRowData = IAnything>({
 
   const changeRef = useRef<Fn>();
 
-  const handleChange: Fn = (date) => {
+  const handleChange: Fn = (data) => {
     const { current } = changeRef;
     if (current) {
-      current(date);
+      current(Array.isArray(data) ? data.length === 0 ? null : data : data);
     }
     hideModal();
   };
