@@ -18,7 +18,7 @@ import set from '../../utils/set';
 import Desktop from './components/Desktop';
 import Mobile from './components/Mobile';
 
-import { SelectionProvider } from './hooks/useSelection';
+import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { PropProvider } from './hooks/useProps';
 
@@ -34,6 +34,8 @@ const ListInternal = <
   >(props: IListProps<FilterData, RowData, Field>, ref: any) => {
 
   const isMounted = useRef(true);
+
+  const selectionApiRef = useRef<ISelectionReloadRef>();
 
   useLayoutEffect(() => () => {
     isMounted.current = false;
@@ -153,7 +155,10 @@ const ListInternal = <
     handleFilter(newData as FilterData);
   }, [filters]);
 
-  const handleReload = useCallback(() => handleFilter(state.filterData, true), [state]);
+  const handleReload = useCallback(() => {
+    handleFilter(state.filterData, true);
+    selectionApiRef.current?.reload();
+  }, [state]);
 
   useEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
@@ -273,7 +278,7 @@ const ListInternal = <
   return (
     <ThemeProvider>
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
-        <SelectionProvider>
+        <SelectionProvider ref={selectionApiRef}>
           <SortModelProvider>
             {renderInner()}
           </SortModelProvider>
