@@ -153,6 +153,7 @@ const ListInternal = <
         set(newData, name, initialValue(type));
       });
     handleFilter(newData as FilterData);
+    selectionApiRef.current?.reload();
   }, [filters]);
 
   const handleReload = useCallback((keepSelection = false) => {
