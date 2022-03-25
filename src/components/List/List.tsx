@@ -155,9 +155,9 @@ const ListInternal = <
     handleFilter(newData as FilterData);
   }, [filters]);
 
-  const handleReload = useCallback(() => {
+  const handleReload = useCallback((keepSelection = false) => {
     handleFilter(state.filterData, true);
-    selectionApiRef.current?.reload();
+    !keepSelection && selectionApiRef.current?.reload();
   }, [state]);
 
   useEffect(() => {
@@ -205,7 +205,7 @@ const ListInternal = <
 
   useEffect(() => {
     if (state.initComplete) {
-      handleReload();
+      handleReload(true);
     }
   }, [state.limit, state.offset, state.sort]);
 
@@ -214,7 +214,7 @@ const ListInternal = <
     if (state.autoReload && !state.loading) {
       timeout = setTimeout(() => {
         timeout = null;
-        handleReload();
+        handleReload(true);
       }, autoReloadInterval);
     }
     return () => {
