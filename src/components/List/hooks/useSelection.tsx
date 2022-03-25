@@ -11,7 +11,7 @@ export const useSelection = () => useContext(SelectionContext);
 
 interface ISelectionProviderProps {
     children: React.ReactNode;
-    selectedRows: RowId[];
+    selectedRows?: RowId[];
     ref: React.Ref<ISelectionReloadRef>;
 }
 
@@ -56,6 +56,9 @@ export const SelectionProvider = forwardRef(({
     }, [ref]);
 
     useEffect(() => {
+        if (!selectedRows) {
+            return;
+        }
         let isOk = true;
         const pendingSelection = new Set(selectedRows);
         selection.forEach((row) => {

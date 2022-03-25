@@ -54,7 +54,7 @@ const ListInternal = <
     onSortModelChange = () => null,
     onFilterChange = () => null,
     toggleFilters = false,
-    selectedRows = [],
+    selectedRows,
   } = props;
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
