@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { makeStyles } from "../styles";
 import { alpha } from '@mui/material/styles';
@@ -35,12 +35,6 @@ const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
 interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children: React.ReactChild;
 }
-
-const createTabHidden = (idx: number) => ({
-    [`& > *:nth-child(${idx + 1})`]: {
-        display: 'none !important',
-    },
-});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -98,11 +92,6 @@ const useStyles = makeStyles((theme) => ({
     background: {
         background: alpha('#000', 0.05),
     },
-    hideTabIndex0: createTabHidden(0),
-    hideTabIndex1: createTabHidden(1),
-    hideTabIndex2: createTabHidden(2),
-    hideTabIndex3: createTabHidden(3),
-    hideTabIndex4: createTabHidden(4),
 }));
 
 export const TabsLayout = <Data extends IAnything = IAnything>({
@@ -131,6 +120,12 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
         tabChange && tabChange(tabIndex);
         setTabIndex(tabIndex);
     };
+    const contentSx = useMemo(() => Array(tabList.length).fill({}).reduce((acm, {}, idx) => ({
+        [`& > *:nth-child(${idx + 1})`]: {
+            display: tabIndex === idx ? 'inherit' : 'none !important',
+        },
+        ...acm,
+    }), {}), [tabIndex]);
     return (
         <Group
             className={className}
@@ -167,14 +162,12 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
                     {tabLine && (
                         <Box className={classes.line} />
                     )}
-                    <Box className={classNames(classes.content, {
-                        [classes.background]: tabBackground,
-                        [classes.hideTabIndex0]: tabIndex !== 0,
-                        [classes.hideTabIndex1]: tabIndex !== 1,
-                        [classes.hideTabIndex2]: tabIndex !== 2,
-                        [classes.hideTabIndex3]: tabIndex !== 3,
-                        [classes.hideTabIndex4]: tabIndex !== 4,
-                    })}>
+                    <Box
+                        className={classNames(classes.content, {
+                            [classes.background]: tabBackground,
+                        })}
+                        sx={contentSx}
+                    >
                         {children}
                     </Box>
                 </Box>
