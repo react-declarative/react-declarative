@@ -83,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "stretch",
         flexDirection: 'column',
         overflowY: 'auto',
+        '& > *': {
+            flex: 1,
+        },
     },
     line: {
         background: alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23),
@@ -121,7 +124,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
         setTabIndex(tabIndex);
     };
     const contentSx = useMemo(() => Array(tabList.length).fill({}).reduce((acm, {}, idx) => ({
-        [`& > *:nth-child(${idx + 1})`]: {
+        [`& > *:nth-of-type(${idx + 1})`]: {
             display: tabIndex === idx ? 'inherit' : 'none !important',
         },
         ...acm,
