@@ -62,7 +62,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
   const handleAccept = () => onChange(selectedRows);
   const handleDismis = () => onChange(null);
   const handleClick = ({ id: rowId }: RowData) => setSelectedRows((selectedRows) => {
-    if (selectedRows) {
+    if (selectedRows && selectionMode === SelectionMode.Multiple) {
       return [...selectedRows, rowId];
     } else {
       return [rowId];
