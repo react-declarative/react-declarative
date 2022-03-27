@@ -19,11 +19,13 @@ import IRowData from '../../../../model/IRowData';
 
 import classNames from "../../../../utils/classNames";
 
+import ModalLoader from "./components/ModalLoader";
 import ListItem from "./components/ListItem";
 
 import Container from "../Container";
 
 const DEFAULT_ITEM_SIZE = 75;
+const SCROLL_DELTA = 10;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -85,6 +87,8 @@ export const Mobile = <
     filterData: upperFilterData,
   });
 
+  const [pageChanged, setPageChanged] = useState(false);
+
   const handleCleanRows = useCallback(() => {
     const { current } = outerRef;
     setState(() => ({
@@ -117,9 +121,10 @@ export const Mobile = <
       if (current && !loading) {
         const { height: scrollHeight } = current.getBoundingClientRect();
         const pendingPage = Math.floor(offset / limit) + 1;
-        if (height + scrollOffset === scrollHeight) {
+        if (Math.ceil(height + scrollOffset) + SCROLL_DELTA >= scrollHeight && scrollHeight !== 0) {
           if (!total || pendingPage * limit < total) {
             handlePageChange(pendingPage);
+            setPageChanged(true);
           }
         }
       }
@@ -133,6 +138,7 @@ export const Mobile = <
     >
       {({ height, width, payload: { rows, loading } }) => (
         <Box position="relative" style={{height, width}}>
+          <ModalLoader open={pageChanged && loading} />
           {!rows.length && (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
