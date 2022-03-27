@@ -9,7 +9,7 @@ import ValidationPage from './pages/ValidationPage';
 import LoginPage from './pages/LoginPage';
 import HeroPage from './pages/HeroPage';
 import ListPage from './pages/ListPage';
-import BottomFadePage from './pages/BottomFadePage';
+import FadePage from './pages/FadePage';
 import sleep from './utils/sleep';
 
 const history = createMemoryHistory();
@@ -43,8 +43,8 @@ const options: IMenuGroup[] = [
         label: 'List page',
       },
       {
-        name: "bottom-fade-page",
-        label: 'Bottom fade',
+        name: "fade-page",
+        label: 'Fade page',
       },
     ],
   },
@@ -84,12 +84,12 @@ const routes: ISwitchItem[] = [
     element: () => <ListPage />,
   },
   {
-    path: '/bottom-fade-page',
+    path: '/fade-page',
     guard: async () => {
       await sleep(1_000);
       return true;
     },
-    element: () => <BottomFadePage />,
+    element: () => <FadePage />,
   },
 ];
 

@@ -1,16 +1,18 @@
 import * as React from 'react';
 
-import BottomFade, { IBottomFadeProps } from '../BottomFade';
+import FadeContainer, { IFadeContainerProps } from './components/FadeContainer';
 import ScrollView from '../ScrollView';
 import AutoSizer from '../AutoSizer';
 
-type BottomFadeT = Pick<IBottomFadeProps, keyof {
+type FadeContainerT = Pick<IFadeContainerProps, keyof {
     Fade: never;
     color: never;
     zIndex: never;
+    disableBottom: never;
+    disableRight: never;
 }>;
 
-interface IFadeView extends BottomFadeT {
+interface IFadeView extends FadeContainerT {
     className?: string;
     style?: React.CSSProperties;
     children: React.ReactChild;
@@ -23,15 +25,19 @@ export const FadeView = ({
     Fade,
     color,
     zIndex,
+    disableBottom,
+    disableRight,
 }: IFadeView) => {
     return (
         <div className={className} style={style}>
             <AutoSizer>
                 {({ height, width }) => (
-                    <BottomFade
+                    <FadeContainer
                         Fade={Fade}
                         color={color}
                         zIndex={zIndex}
+                        disableBottom={disableBottom}
+                        disableRight={disableRight}
                     >
                         <ScrollView
                             style={{ 
@@ -41,7 +47,7 @@ export const FadeView = ({
                         >
                             {children}
                         </ScrollView>
-                    </BottomFade>
+                    </FadeContainer>
                 )}
             </AutoSizer>
         </div>

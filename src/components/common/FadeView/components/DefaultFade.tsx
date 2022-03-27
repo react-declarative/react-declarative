@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
-import { makeStyles } from '../../../styles';
+import { makeStyles } from '../../../../styles';
 
 import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material';
 
-import classNames from '../../../utils/classNames';
+import classNames from '../../../../utils/classNames';
 
 interface IDefaultFadeProps {
     className: string;
     visible: boolean;
     zIndex: number;
+    position: 'bottom' | 'right';
     color?: string;
     none: boolean;
 }
@@ -52,6 +53,7 @@ export const DefaultFade = ({
     visible,
     color,
     none,
+    position,
     zIndex,
 }: IDefaultFadeProps) => {
     const classes = useStyles();
@@ -61,7 +63,7 @@ export const DefaultFade = ({
         const fadeColor = color || theme.palette.background.default;
         return {
             background: `linear-gradient(
-                to bottom,
+                ${position === 'bottom' ? 'to bottom' : 'to right'},
                 ${alpha(fadeColor, 0)},
                 ${fadeColor}
             )`,
