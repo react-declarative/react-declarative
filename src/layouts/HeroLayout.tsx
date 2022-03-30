@@ -384,6 +384,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
           target={document.body}
           disableHeight
           disableWidth
+          keepFlow
         >
           {({ width, height }) => width ? (
             <Container<Data>
