@@ -4,13 +4,15 @@ import { makeStyles } from '../../../styles';
 
 import classNames from '../../../utils/classNames';
 
-import AutoSizer from '../AutoSizer';
+import AutoSizer, { IAutoSizerProps } from '../AutoSizer';
+
+import IAnything from '../../../model/IAnything';
 
 export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 
 const useStyles = makeStyles({
     root: {
-        overflow: 'auto',
+        overflow: 'auto !important',
     },
     container: {
         position: 'relative',
@@ -34,23 +36,34 @@ const useStyles = makeStyles({
     },
 });
 
-interface IScrollViewProps {
+interface IScrollViewProps<T extends IAnything = IAnything> {
     children: React.ReactChild;
     className?: string;
     style?: React.CSSProperties;
     center?: boolean;
+    payload?: IAutoSizerProps<T>["payload"];
+    heightRequest?: IAutoSizerProps<T>["heightRequest"];
+    widthRequest?: IAutoSizerProps<T>["widthRequest"];
 }
 
-export const ScrollView = ({
+export const ScrollView = <T extends IAnything = IAnything> ({
     children,
     className,
     style,
+    payload,
+    heightRequest,
+    widthRequest,
     center = false,
-}: IScrollViewProps) => {
+}: IScrollViewProps<T>) => {
     const classes = useStyles();
     return (
         <div className={className} style={style}>
-            <AutoSizer className={classNames(classes.root, SCROLL_VIEW_TARGER)}>
+            <AutoSizer
+                className={classNames(classes.root, SCROLL_VIEW_TARGER)}
+                heightRequest={heightRequest}
+                widthRequest={widthRequest}
+                payload={payload}
+            >
                 {({ height, width }) => (
                     <div className={classes.container}>
                         <div

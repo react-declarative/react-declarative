@@ -1,8 +1,12 @@
 import * as React from "react";
 import { useState, useLayoutEffect, useRef } from "react";
+
 import { debounce } from "@mui/material";
+import { makeStyles } from '../../../styles';
 
 import ResizeEmitter from "./ResizeEmitter";
+
+import classNames from "../../../utils/classNames";
 
 import ISize from "../../../model/ISize";
 
@@ -10,14 +14,13 @@ export interface IChildParams<T extends unknown = object> extends ISize {
   payload: T;
 }
 
-interface IAutoSizerProps<T extends unknown = object> {
+export interface IAutoSizerProps<T extends unknown = object> {
   children: (s: IChildParams<T>) => any;
   className?: string;
   defaultHeight?: number;
   defaultWidth?: number;
   disableHeight?: boolean;
   disableWidth?: boolean;
-  nonce?: string;
   onResize?: (s: ISize) => void;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
@@ -26,6 +29,20 @@ interface IAutoSizerProps<T extends unknown = object> {
   delay?: number;
   payload?: T;
 }
+
+const useStyles = makeStyles({
+  root: {
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  container: {
+    position: 'absolute',
+    minWidth: '100%',
+    minHeight: '100%',
+    top: 0,
+    left: 0,
+  },
+});
 
 const EMPTY_PAYLOAD = Object.freeze({});
 
@@ -46,6 +63,8 @@ export const AutoSizer = <T extends unknown = object>({
 }: IAutoSizerProps<T>) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
   const initialPayload = useRef(true);
+
+  const classes = useStyles();
 
   const [state, setState] = useState<ISize>({
     height: defaultHeight,
@@ -147,14 +166,16 @@ export const AutoSizer = <T extends unknown = object>({
 
   return (
     <div
-      className={className}
+      className={classNames(className, classes.root)}
       ref={autoSizer}
       style={{
         ...style,
         ...outerStyle,
       }}
     >
-      {children(childParams)}
+      <div className={classes.container}>
+        {children(childParams)}
+      </div>
     </div>
   );
 };

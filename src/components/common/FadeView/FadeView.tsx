@@ -1,8 +1,11 @@
 import * as React from 'react';
 
 import FadeContainer, { IFadeContainerProps } from './components/FadeContainer';
+
 import ScrollView from '../ScrollView';
-import AutoSizer from '../AutoSizer';
+import AutoSizer, { IAutoSizerProps } from '../AutoSizer';
+
+import IAnything from '../../../model/IAnything';
 
 type FadeContainerT = Pick<IFadeContainerProps, keyof {
     Fade: never;
@@ -12,13 +15,16 @@ type FadeContainerT = Pick<IFadeContainerProps, keyof {
     disableRight: never;
 }>;
 
-interface IFadeView extends FadeContainerT {
+interface IFadeView<T extends IAnything = IAnything> extends FadeContainerT {
     className?: string;
     style?: React.CSSProperties;
     children: React.ReactChild;
+    payload?: IAutoSizerProps<T>["payload"];
+    heightRequest?: IAutoSizerProps<T>["heightRequest"];
+    widthRequest?: IAutoSizerProps<T>["widthRequest"];
 }
 
-export const FadeView = ({
+export const FadeView = <T extends IAnything = IAnything>({
     className,
     style,
     children,
@@ -27,11 +33,18 @@ export const FadeView = ({
     zIndex,
     disableBottom,
     disableRight,
-}: IFadeView) => {
+    payload,
+    heightRequest,
+    widthRequest,
+}: IFadeView<T>) => {
     return (
         <div className={className} style={style}>
-            <AutoSizer>
-                {({ height, width }) => (
+            <AutoSizer
+                payload={payload}
+                heightRequest={heightRequest}
+                widthRequest={widthRequest}
+            >
+                {({ height, width, payload }) => (
                     <FadeContainer
                         Fade={Fade}
                         color={color}
@@ -44,6 +57,9 @@ export const FadeView = ({
                                 height,
                                 width,
                             }}
+                            payload={payload}
+                            heightRequest={heightRequest}
+                            widthRequest={widthRequest}
                         >
                             {children}
                         </ScrollView>
