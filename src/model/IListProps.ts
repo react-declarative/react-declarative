@@ -138,6 +138,7 @@ export interface IListProps<
   limit?: number;
   sizeByParent?: boolean;
   autoReload?: boolean;
+  keepFlow?: boolean;
   autoReloadInterval?: number;
   selectedRows?: RowId[];
   heightRequest?: (height: number) => number;

@@ -71,6 +71,7 @@ export const Container = <
     children,
     isMobile,
     ready,
+    keepFlow,
     toggleFilters,
     onFilterChange,
     handleFiltersCollapsed,
@@ -88,6 +89,7 @@ export const Container = <
       className={classNames(classes.root, className)}
       heightRequest={heightRequest}
       widthRequest={widthRequest}
+      keepFlow={keepFlow}
       delay={AUTOSIZER_DELAY}
       style={style}
       payload={props}

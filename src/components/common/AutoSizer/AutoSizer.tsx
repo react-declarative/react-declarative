@@ -25,6 +25,7 @@ export interface IAutoSizerProps<T extends unknown = object> {
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   style?: React.CSSProperties;
+  keepFlow?: boolean;
   target?: HTMLElement;
   delay?: number;
   payload?: T;
@@ -59,6 +60,7 @@ export const AutoSizer = <T extends unknown = object>({
   children,
   target,
   payload = EMPTY_PAYLOAD as T,
+  keepFlow = false,
   delay = 100,
 }: IAutoSizerProps<T>) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
@@ -164,18 +166,30 @@ export const AutoSizer = <T extends unknown = object>({
     outerStyle.width = style.width;
   }
 
+  const renderInner = () => {
+    if (!keepFlow) {
+      return (
+        <div className={classes.container}>
+          {children(childParams)}
+        </div>
+      );
+    } else {
+      return children(childParams);
+    }
+  };
+
   return (
     <div
-      className={classNames(className, classes.root)}
+      className={classNames(className, {
+        [classes.root]: !keepFlow,
+      })}
       ref={autoSizer}
       style={{
         ...style,
         ...outerStyle,
       }}
     >
-      <div className={classes.container}>
-        {children(childParams)}
-      </div>
+      {renderInner()}
     </div>
   );
 };

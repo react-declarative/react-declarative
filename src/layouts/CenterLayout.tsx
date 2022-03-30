@@ -128,7 +128,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             fieldRightMargin={fieldRightMargin}
             fieldBottomMargin={fieldBottomMargin}
         >
-            <AutoSizer className={classes.root} payload={marginRight}>
+            <AutoSizer keepFlow className={classes.root} payload={marginRight}>
                 {({ width }) => (
                     <div className={classNames(classes.container)}>
                         <div className={classes.content} style={{ padding }}>
