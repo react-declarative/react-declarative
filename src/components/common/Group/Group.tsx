@@ -42,7 +42,7 @@ export const Group = (
     children,
     isItem = false,
     style,
-    columnsOverride = '12',
+    columnsOverride,
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
     onFocus,

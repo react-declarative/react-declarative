@@ -21,7 +21,7 @@ export const Container = ({
   style,
   children,
   onFocus,
-  columnsOverride = '12',
+  columnsOverride,
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
   <Grid
     ref={ref}
@@ -30,7 +30,7 @@ export const Container = ({
     className={className}
     style={style}
     onFocus={onFocus}
-    columns={n(columnsOverride)}
+    columns={columnsOverride && n(columnsOverride)}
   >
     {children}
   </Grid>
