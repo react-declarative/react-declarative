@@ -187,11 +187,13 @@ const match = (from: number, to: number) => matchMedia(`(min-width: ${from}px) a
 
 const getScreenInfo = ({
   xs = 0,
-  md = 960,
+  sm = 600,
+  // md = 960,
   lg = 1280,
+  // xl = 1536,
 }: IBreakpoints) => ({
-  isPhone: match(xs, md),
-  isTablet: match(md, lg),
+  isPhone: match(xs, sm),
+  isTablet: match(sm, lg),
   isDesktop: match(lg, GRID_MAX_WIDTH),
 });
 
