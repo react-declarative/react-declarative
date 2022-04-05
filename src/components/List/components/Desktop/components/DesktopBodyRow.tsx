@@ -10,7 +10,6 @@ import CommonBodyCell from './common/CommonBodyCell';
 import IRowData from '../../../../../model/IRowData';
 import IAnything from '../../../../../model/IAnything';
 
-import useSelection from '../../../hooks/useSelection';
 import useProps from '../.../../../../hooks/useProps';
 
 interface IDesktopBodyRowProps<RowData extends IRowData = IAnything> {
@@ -36,8 +35,6 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const props = useProps<RowData>();
 
-    const { selection } = useSelection();
-
     const {
         onRowClick,
         onRowAction,
@@ -60,10 +57,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     return (
         <TableRow
-            hover
             className={classes.noBottomBorder}
             onClick={handleClick}
-            selected={selection.has(row.id)}
         >
             <CheckboxBodyCell<RowData> row={row} />
             {columns.map((column, idx) => (
@@ -71,6 +66,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
                     column={column}
                     row={row}
                     key={idx}
+                    idx={idx}
                     fullWidth={fullWidth}
                     onAction={handleAction}
                     onMenuToggle={handleMenuToggle}

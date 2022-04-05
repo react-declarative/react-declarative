@@ -41,7 +41,7 @@ const columns: IColumn[] = [
     field: 'id',
     headerName: 'ID',
     secondary: true,
-    width: 'max(calc(100vw - 650px), 200px)',
+    width: (fullWidth) => Math.max(fullWidth - 650, 200),
   },
   /*{
     type: ColumnType.Text,
@@ -54,7 +54,7 @@ const columns: IColumn[] = [
     headerName: 'Full name',
     primary: true,
     compute: ({ firstName, lastName }) => `${firstName} ${lastName}`,
-    width: '200px',
+    width: () => '200px',
   },
   {
     type: ColumnType.Component,
@@ -64,13 +64,13 @@ const columns: IColumn[] = [
         Custom cell Component
       </div>
     ),
-    width: '200px',
+    width: () => '200px',
   },
   {
     type: ColumnType.Action,
     headerName: 'Actions',
     sortable: false,
-    width: '150px',
+    width: () => '150px',
   },
 ];
 

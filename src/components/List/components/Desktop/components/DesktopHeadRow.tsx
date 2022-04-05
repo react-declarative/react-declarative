@@ -16,6 +16,8 @@ import IAnything from '../../../../../model/IAnything';
 import SelectionMode from '../../../../../model/SelectionMode';
 import ColumnType from '../../../../../model/ColumnType';
 
+import widthManager from '../helpers/columnWidthManager';
+
 import useSortModel from '../../../hooks/useSortModel';
 
 interface IDesktopHeadRowProps {
@@ -105,7 +107,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     }
                 };
 
-                const minWidth = typeof column.width === 'function' ? column.width(fullWidth) : column.width;
+                const computeWidth = () => typeof column.width === 'function' ? column.width(fullWidth) : column.width;
+                const minWidth = widthManager.memoize(`column-${idx}`, computeWidth);
                 const maxWidth = minWidth;
 
                 const align = column.type === ColumnType.Action ? 'center' : 'left';

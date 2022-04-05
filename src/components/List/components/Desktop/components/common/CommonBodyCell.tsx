@@ -15,11 +15,14 @@ import IColumn from '../../../../../../model/IColumn';
 import IRowData from '../../../../../../model/IRowData';
 import ColumnType from '../../../../../../model/ColumnType';
 
+import widthManager from '../../helpers/columnWidthManager';
+
 import useProps from "../../../../hooks/useProps";
 
 interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
     column: IColumn<RowData>;
     row: RowData;
+    idx: number;
     fullWidth: number;
     onMenuToggle: IActionMenuProps['onToggle'];
     onAction: IActionMenuProps['onAction']
@@ -49,6 +52,7 @@ const useStyles = makeStyles({
 export const CommonBodyCell = <RowData extends IRowData = IAnything>({
     column,
     row,
+    idx,
     fullWidth,
     onMenuToggle,
     onAction,
@@ -110,7 +114,8 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
 
     const align = column.type === ColumnType.Action ? 'center' : 'left';
 
-    const minWidth = typeof column.width === 'function' ? column.width(fullWidth) : column.width;
+    const computeWidth = () => typeof column.width === 'function' ? column.width(fullWidth) : column.width;
+    const minWidth = widthManager.memoize(`column-${idx}`, computeWidth);
     const maxWidth = minWidth;
 
     return (

@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 
 import classNames from "../../../../utils/classNames";
 
-import AutoSizer, { IChildParams } from "../../../common/AutoSizer";
+import AutoSizer, { IAutoSizerProps, IChildParams } from "../../../common/AutoSizer";
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
@@ -30,6 +30,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   children: (s: IChildParams<IContainerProps<FilterData, RowData>>) => any;
   ready: () => void;
   ref?: (instance: HTMLDivElement) => void
+  onResize?: IAutoSizerProps['onResize'];
 }
 
 const useStyles = makeStyles({
@@ -117,7 +118,7 @@ export const Container = <
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>
-              <AutoSizer payload={payload}>
+              <AutoSizer payload={payload} onResize={props.onResize}>
                 {children}
               </AutoSizer>
             </div>

@@ -23,6 +23,8 @@ import DesktopExpansionRow from "./components/DesktopExpansionRow";
 import DesktopBodyRow from "./components/DesktopBodyRow";
 import DesktopHeadRow from "./components/DesktopHeadRow";
 
+import widthManager from "./helpers/columnWidthManager";
+
 import Container from "../Container";
 
 const PAGINATION_HEIGHT = 52;
@@ -73,6 +75,8 @@ export const Desktop = <
     handlePageChange,
   } = props;
 
+  const handleResize = () => widthManager.clear();
+
   const handleDirtyLimitChange = (e: any) => handleLimitChange(e.target.value);
 
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
@@ -93,6 +97,7 @@ export const Desktop = <
   return (
     <Container<FilterData, RowData>
       {...props}
+      onResize={handleResize}
     >
       {({ height, width, payload: { rows } }) => (
         <Box className={classes.root}>
