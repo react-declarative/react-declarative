@@ -226,14 +226,15 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Multiple}
+      selectionMode={SelectionMode.Expander}
       onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
-      displayMode={DisplayMode.Mobile}
+      displayMode={DisplayMode.Desktop}
       selectedRows={selectedRows}
+      ExpansionContent={({ id }: any) => <p>{id}</p>}
     />
   );
 };

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { makeStyles } from '../../../../../styles';
 
 import TableRow from '@mui/material/TableRow';
 
@@ -16,11 +17,20 @@ interface IDesktopBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
 }
 
+const useStyles = makeStyles({
+    noBottomBorder: {
+        '& > *': {
+            borderBottom: '0 !important',
+        },
+    },
+});
+
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     row,
 }: IDesktopBodyRowProps<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
+    const classes = useStyles();
 
     const props = useProps<RowData>();
 
@@ -49,6 +59,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     return (
         <TableRow
             hover
+            className={classes.noBottomBorder}
             onClick={handleClick}
             selected={selection.has(row.id)}
         >

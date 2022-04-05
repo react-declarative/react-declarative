@@ -20,6 +20,7 @@ import Mobile from './components/Mobile';
 
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
+import { ExpansionProvider } from './hooks/useExpansion';
 import { PropProvider } from './hooks/useProps';
 
 import DisplayMode from '../../model/DisplayMode';
@@ -282,7 +283,9 @@ const ListInternal = <
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider>
-            {renderInner()}
+            <ExpansionProvider>
+              {renderInner()}
+            </ExpansionProvider>
           </SortModelProvider>
         </SelectionProvider>
       </PropProvider>

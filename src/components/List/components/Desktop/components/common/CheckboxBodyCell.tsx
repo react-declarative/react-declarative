@@ -19,6 +19,8 @@ import useRowAvatar from '../../../../hooks/useRowAvatar';
 import useProps from '../.../../../../../hooks/useProps';
 import useRowMark from '../../../../hooks/useRowMark';
 
+import CheckboxExpander from './CheckboxExpander';
+
 interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
 }
@@ -96,6 +98,12 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
                 <Checkbox
                     color="primary"
                     disabled
+                />
+            );
+        } else if (selectionMode === SelectionMode.Expander) {
+            return (
+                <CheckboxExpander 
+                    rowId={row.id}
                 />
             );
         } else {

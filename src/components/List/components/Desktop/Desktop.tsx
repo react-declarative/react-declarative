@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef } from 'react';
+import { useRef, Fragment } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
@@ -19,12 +19,15 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
+import DesktopExpansionRow from "./components/DesktopExpansionRow";
 import DesktopBodyRow from "./components/DesktopBodyRow";
 import DesktopHeadRow from "./components/DesktopHeadRow";
 
 import Container from "../Container";
 
 const PAGINATION_HEIGHT = 52;
+
+const ROWS_PER_PAGE = [10, 25, 50];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,10 +105,14 @@ export const Desktop = <
               </TableHead>
               <TableBody>
                 {rows.map((row, index) => (
-                  <DesktopBodyRow<RowData>
-                    row={row}
-                    key={index}
-                  />
+                  <Fragment key={index}>
+                    <DesktopBodyRow<RowData>
+                      row={row}
+                    />
+                    <DesktopExpansionRow<RowData>
+                      row={row}
+                    />
+                  </Fragment>
                 ))}
                 {rows.length === 0 && (
                   <TableRow>
@@ -121,6 +128,7 @@ export const Desktop = <
             count={total || -1}
             rowsPerPage={limit}
             page={offset / limit}
+            rowsPerPageOptions={ROWS_PER_PAGE}
             onPageChange={handleDirtyPageChange}
             onRowsPerPageChange={handleDirtyLimitChange}
           />

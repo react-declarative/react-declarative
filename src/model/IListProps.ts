@@ -160,6 +160,7 @@ export interface IListProps<
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
   displayMode?: DisplayMode;
+  ExpansionContent?: React.ComponentType;
 }
 
 export default IListProps;
