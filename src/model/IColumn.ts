@@ -12,7 +12,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     primary?: boolean;
     secondary?: boolean;
     headerName: string;
-    width: string | (() => string | number);
+    width: string | ((width: number) => string | number);
     columnMenu?: IOption[];
     showColumnMenu?: boolean;
     compute?: (row: RowData) => Promise<Value> | Value;

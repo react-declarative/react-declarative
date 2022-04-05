@@ -101,12 +101,14 @@ export const Desktop = <
               <TableHead>
                 <DesktopHeadRow<RowData>
                   onSortModelChange={handleScrollTop}
+                  fullWidth={width}
                 />
               </TableHead>
               <TableBody>
                 {rows.map((row, index) => (
                   <Fragment key={index}>
                     <DesktopBodyRow<RowData>
+                      fullWidth={width}
                       row={row}
                     />
                     <DesktopExpansionRow<RowData>

@@ -15,6 +15,7 @@ import useProps from '../.../../../../hooks/useProps';
 
 interface IDesktopBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
+    fullWidth: number;
 }
 
 const useStyles = makeStyles({
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
 
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     row,
+    fullWidth,
 }: IDesktopBodyRowProps<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
@@ -69,6 +71,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
                     column={column}
                     row={row}
                     key={idx}
+                    fullWidth={fullWidth}
                     onAction={handleAction}
                     onMenuToggle={handleMenuToggle}
                 />

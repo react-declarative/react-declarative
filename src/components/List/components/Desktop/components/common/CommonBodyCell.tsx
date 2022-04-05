@@ -20,6 +20,7 @@ import useProps from "../../../../hooks/useProps";
 interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
     column: IColumn<RowData>;
     row: RowData;
+    fullWidth: number;
     onMenuToggle: IActionMenuProps['onToggle'];
     onAction: IActionMenuProps['onAction']
 }
@@ -48,6 +49,7 @@ const useStyles = makeStyles({
 export const CommonBodyCell = <RowData extends IRowData = IAnything>({
     column,
     row,
+    fullWidth,
     onMenuToggle,
     onAction,
 }: ICommonBodyCellProps<RowData>) => {
@@ -108,7 +110,7 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
 
     const align = column.type === ColumnType.Action ? 'center' : 'left';
 
-    const minWidth = typeof column.width === 'function' ? column.width() : column.width;
+    const minWidth = typeof column.width === 'function' ? column.width(fullWidth) : column.width;
     const maxWidth = minWidth;
 
     return (

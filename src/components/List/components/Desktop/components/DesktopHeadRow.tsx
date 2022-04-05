@@ -20,6 +20,7 @@ import useSortModel from '../../../hooks/useSortModel';
 
 interface IDesktopHeadRowProps {
     onSortModelChange: () => void;
+    fullWidth: number;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     onSortModelChange,
+    fullWidth,
 }: IDesktopHeadRowProps) => {
 
     const classes = useStyles();
@@ -103,7 +105,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     }
                 };
 
-                const minWidth = typeof column.width === 'function' ? column.width() : column.width;
+                const minWidth = typeof column.width === 'function' ? column.width(fullWidth) : column.width;
                 const maxWidth = minWidth;
 
                 const align = column.type === ColumnType.Action ? 'center' : 'left';
