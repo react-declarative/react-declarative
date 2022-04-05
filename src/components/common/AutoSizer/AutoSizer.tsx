@@ -28,6 +28,7 @@ export interface IAutoSizerProps<T extends unknown = object> {
   keepFlow?: boolean;
   target?: HTMLElement;
   delay?: number;
+  closest?: string;
   payload?: T;
 }
 
@@ -62,6 +63,7 @@ export const AutoSizer = <T extends unknown = object>({
   payload = EMPTY_PAYLOAD as T,
   keepFlow = false,
   delay = 100,
+  closest,
 }: IAutoSizerProps<T>) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
   const initialPayload = useRef(true);
@@ -77,7 +79,16 @@ export const AutoSizer = <T extends unknown = object>({
     const { current } = autoSizer;
     const { parentElement } = current;
 
-    const element = target || parentElement!;
+    let element = target || parentElement;
+
+    if (closest) {
+      element = element?.closest(closest) || null;
+    }
+
+    if (!element) {
+      console.warn('AutoSizer null parent element');
+      return;
+    }
 
     const removeCurrentSize = () => {
       !disableHeight && current.style.removeProperty('height');
@@ -93,8 +104,8 @@ export const AutoSizer = <T extends unknown = object>({
 
       removeCurrentSize();
 
-      let { height, width } = element.getBoundingClientRect();
-      const style = getComputedStyle(element);
+      let { height, width } = element!.getBoundingClientRect();
+      const style = getComputedStyle(element!);
 
       width -= parseFloat(style.paddingLeft);
       width -= parseFloat(style.paddingRight);
@@ -123,7 +134,7 @@ export const AutoSizer = <T extends unknown = object>({
       observer = emitters.get(element)!;
     } else {
       observer = new ResizeEmitter(element, () => {
-        emitters.delete(element);
+        emitters.delete(element!);
       });
       emitters.set(element, observer);
     }
@@ -139,7 +150,7 @@ export const AutoSizer = <T extends unknown = object>({
       observer.unsubscribe(handlerD);
       handlerD.clear();
     };
-  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize]);
+  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize, closest]);
 
   useLayoutEffect(() => {
     if (payload !== EMPTY_PAYLOAD && !initialPayload.current) {
