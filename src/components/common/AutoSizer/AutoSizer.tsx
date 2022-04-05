@@ -29,6 +29,7 @@ export interface IAutoSizerProps<T extends unknown = object> {
   target?: HTMLElement;
   delay?: number;
   closest?: string;
+  selector?: string;
   payload?: T;
 }
 
@@ -64,6 +65,7 @@ export const AutoSizer = <T extends unknown = object>({
   keepFlow = false,
   delay = 100,
   closest,
+  selector,
 }: IAutoSizerProps<T>) => {
   const autoSizer = useRef<HTMLDivElement>(null as never);
   const initialPayload = useRef(true);
@@ -83,6 +85,8 @@ export const AutoSizer = <T extends unknown = object>({
 
     if (closest) {
       element = element?.closest(closest) || null;
+    } else if (selector) {
+      element = element?.closest(selector) || null;
     }
 
     if (!element) {
@@ -150,7 +154,7 @@ export const AutoSizer = <T extends unknown = object>({
       observer.unsubscribe(handlerD);
       handlerD.clear();
     };
-  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize, closest]);
+  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize, closest, selector]);
 
   useLayoutEffect(() => {
     if (payload !== EMPTY_PAYLOAD && !initialPayload.current) {
