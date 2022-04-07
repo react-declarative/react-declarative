@@ -85,7 +85,9 @@ export const AutoSizer = <T extends unknown = object>({
 
     if (closest) {
       element = element?.closest(closest) || null;
-    } else if (selector) {
+    }
+
+    if (selector) {
       element = element?.querySelector(selector) || null;
     }
 
