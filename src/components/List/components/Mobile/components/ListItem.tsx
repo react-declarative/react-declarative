@@ -22,7 +22,7 @@ import RowCheckbox from './common/RowCheckbox';
 import RowAvatar from './common/RowAvatar';
 import RowMark from './common/RowMark';
 
-const AsyncText = <RowData extends IRowData = IAnything>({
+const ColumnContent = <RowData extends IRowData = IAnything>({
     row,
     fallback,
     column,
@@ -80,7 +80,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     const secondaryColumn = columns.find(({ secondary }) => secondary);
 
     const primary = (
-        <AsyncText<RowData>
+        <ColumnContent<RowData>
             row={row}
             fallback={fallback}
             column={primaryColumn}
@@ -88,7 +88,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     );
 
     const secondary = secondaryColumn ? (
-        <AsyncText<RowData>
+        <ColumnContent<RowData>
             row={row}
             fallback={fallback}
             column={secondaryColumn}
