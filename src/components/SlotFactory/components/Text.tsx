@@ -89,6 +89,7 @@ export const Text = ({
     invalid,
     value,
     disabled,
+    readonly,
     inputType = "text",
     description = "",
     outlined = true,
@@ -115,6 +116,7 @@ export const Text = ({
         error={dirty && invalid !== null}
         InputProps={{
             autoComplete: autoComplete,
+            readOnly: readonly,
             autoFocus,
             ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
         }}

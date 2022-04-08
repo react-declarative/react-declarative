@@ -86,8 +86,8 @@ export function makeField(
         blur,
         invalidity,
         disabled: fieldDisabled = false,
+        readonly: fieldReadonly = false,
         autoFocus,
-        readonly = false,
         style,
         groupRef: ref = () => null,
         fieldRightMargin,
@@ -99,7 +99,9 @@ export function makeField(
 
         const classes = useStyles();
 
-        const [disabled, setDisabled] = useState<boolean>(false);
+        const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
+        const [readonly, setReadonly] = useState<boolean>(true);
+
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
         const [loading, setLoading] = useState<boolean>(false);
@@ -214,7 +216,7 @@ export function makeField(
             if (!isMounted.current) {
                 return;
             }
-            if (readonly && !skipReadonly) {
+            if (fieldReadonly && !skipReadonly) {
                 return;
             }
             if (compute) {
@@ -231,6 +233,9 @@ export function makeField(
         const onFocus = () => {
             if (!isMounted.current) {
                 return;
+            }
+            if (!fieldReadonly) {
+                setReadonly(false);
             }
             waitForBlur(groupRef.current as HTMLDivElement).then(() => {
                 if (pending()) {
@@ -258,7 +263,8 @@ export function makeField(
         const managedProps: IManaged<Data> = {
             onChange: handleChange,
             fallback,
-            disabled: disabled || fieldDisabled,
+            disabled: fieldDisabled || disabled,
+            readonly: fieldReadonly || readonly,
             autoFocus,
             invalid,
             value,

@@ -13,6 +13,7 @@ import useItemList from '../hooks/useItemList';
 export const Combo = ({
   value,
   disabled,
+  readonly,
   description = "",
   placeholder = "",
   outlined = true,
@@ -51,6 +52,7 @@ export const Combo = ({
           value={"123"}
           InputProps={{
             ...params.InputProps,
+            readOnly: readonly,
             endAdornment: (
               <>
                 {loading ? <CircularProgress color="inherit" size={20} /> : null}

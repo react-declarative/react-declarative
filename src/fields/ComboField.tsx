@@ -21,6 +21,7 @@ export interface IComboFieldProps<Data = IAnything> {
 export interface IComboFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  readonly: PickProp<IManaged<Data>, "readonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
@@ -29,6 +30,7 @@ export interface IComboFieldPrivate<Data = IAnything>  {
 export const ComboField = ({
   value,
   disabled,
+  readonly,
   description = "",
   placeholder = "",
   outlined = true,
@@ -42,6 +44,7 @@ export const ComboField = ({
   <Combo
     value={value}
     disabled={disabled}
+    readonly={readonly}
     description={description}
     placeholder={placeholder}
     outlined={outlined}

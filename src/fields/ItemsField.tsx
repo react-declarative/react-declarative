@@ -22,6 +22,7 @@ export interface IItemsFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   value: PickProp<IManaged<Data>, 'value'>;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  readonly: PickProp<IManaged<Data>, "readonly">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
 }
@@ -29,6 +30,7 @@ export interface IItemsFieldPrivate<Data = IAnything> {
 export const ItemsField = ({
   value,
   disabled,
+  readonly,
   description,
   placeholder,
   outlined = true,
@@ -42,6 +44,7 @@ export const ItemsField = ({
   <Items
     value={value}
     disabled={disabled}
+    readonly={readonly}
     description={description}
     placeholder={placeholder}
     outlined={outlined}

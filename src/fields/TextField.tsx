@@ -41,6 +41,7 @@ export const TextField = ({
   invalid,
   value,
   disabled,
+  readonly,
   inputType = "text",
   description = "",
   outlined = true,
@@ -64,6 +65,7 @@ export const TextField = ({
     inputRef={inputRef}
     invalid={invalid}
     value={value}
+    readonly={readonly}
     disabled={disabled}
     inputType={inputType}
     description={description}
