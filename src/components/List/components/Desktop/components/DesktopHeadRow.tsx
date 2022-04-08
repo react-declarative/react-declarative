@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
             background: `${theme.palette.background.paper} !important`,
         },
     },
+    cell: {
+        paddingLeft: '0 !important',
+        paddingRight: '0 !important',
+    },
 }));
 
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
@@ -115,6 +119,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
                 return (
                     <TableCell
+                        className={classes.cell}
                         key={idx}
                         align={align}
                         style={{ minWidth, maxWidth }}

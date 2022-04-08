@@ -32,6 +32,8 @@ const useStyles = makeStyles({
     root: {
         position: 'relative',
         overflow: 'hidden',
+        paddingLeft: '0 !important',
+        paddingRight: '0 !important',
         overflowWrap: 'break-word',
     },
     stretch: {
