@@ -36,6 +36,11 @@ const useStyles = makeStyles({
         bottom: 0,
         width: 4,
     },
+    avatar: {
+        marginLeft: 2,
+        height: '32px !important',
+        width: '32px !important',
+    }
 });
 
 export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
@@ -61,18 +66,9 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
 
     const renderCheckbox = () => {
         if (rowAvatar && avatar) {
-            const normalStyles = {
-                height: 42,
-                width: 42,
-            }
-            const markedStyles = {
-                height: normalStyles.height - 4,
-                width: normalStyles.width - 4,
-                marginLeft: 2,
-            };
             return (
                 <Avatar
-                    style={rowMark ? markedStyles : normalStyles}
+                    className={classes.avatar}
                     src={avatar.src}
                     alt={avatar.alt}
                 />
