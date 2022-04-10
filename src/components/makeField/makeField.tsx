@@ -244,6 +244,7 @@ export function makeField(
                 if (blur) {
                     blur();
                 }
+                setReadonly(true);
             });
             if (focus) {
                 focus();

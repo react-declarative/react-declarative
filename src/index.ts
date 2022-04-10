@@ -31,6 +31,7 @@ import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
 import { useList } from './components';
+import { useModal } from './components';
 import { useConfirm } from './components';
 import { useDate, useTime } from './components';
 import { useOne, useOneTyped } from './components';
@@ -101,6 +102,7 @@ export { useListProps } from './components';
 export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
+export { useModal };
 export { useList };
 
 import { ICheckBoxSlot as ICheckBoxSlotInternal } from './slots/CheckBoxSlot';

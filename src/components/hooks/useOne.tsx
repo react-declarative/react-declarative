@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
 
-import { useModal } from 'react-modal-hook';
+import { useModal } from '../common/ModalProvider';
 
 import OnePicker from '../common/OnePicker';
 
@@ -37,9 +37,9 @@ export const useOne = <Data extends IAnything = IAnything, Field = IField<Data>>
     hideModal();
   };
 
-  const [showModal, hideModal] = useModal(({ in: open }) => (
+  const { showModal, hideModal } = useModal(() => (
     <OnePicker
-      open={open}
+      open
       fields={fields as unknown as IField[]}
       title={currentTitle}
       handler={currentHandler}

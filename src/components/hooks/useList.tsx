@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
 
-import { useModal } from 'react-modal-hook';
+import { useModal } from '../common/ModalProvider';
 
 import IRowData from '../../model/IRowData';
 import IAnything from '../../model/IAnything';
@@ -54,9 +54,9 @@ export const useList = <RowData extends IRowData = IAnything>({
     hideModal();
   };
 
-  const [showModal, hideModal] = useModal(({ in: open }) => (
+  const { showModal, hideModal } = useModal(() => (
     <ListPicker
-      open={open}
+      open
       selectionMode={selectionMode}
       minHeight={minHeight}
       minWidth={minWidth}

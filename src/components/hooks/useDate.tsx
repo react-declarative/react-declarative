@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef } from 'react';
 
-import { useModal } from 'react-modal-hook';
+import { useModal } from '../common/ModalProvider';
 import dayjs from 'dayjs';
 
 import DatePicker from '../common/DatePicker';
@@ -20,9 +20,9 @@ export const useDate = () => {
     hideModal();
   };
 
-  const [showModal, hideModal] = useModal(({ in: open }) => (
+  const { showModal, hideModal } = useModal(() => (
     <DatePicker
-      open={open}
+      open
       onChange={handleChange}
     />
   ));

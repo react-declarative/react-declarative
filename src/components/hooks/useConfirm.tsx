@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
 
-import { useModal } from 'react-modal-hook';
+import { useModal } from '../common/ModalProvider';
 
 import ConfirmPicker from '../common/ConfirmPicker';
 
@@ -32,9 +32,9 @@ export const useConfirm = ({
     hideModal();
   };
 
-  const [showModal, hideModal] = useModal(({ in: open }) => (
+  const { showModal, hideModal } = useModal(() => (
     <ConfirmPicker
-      open={open}
+      open
       canCancel={currentCanCancel}
       title={currentTitle}
       msg={currentMsg}

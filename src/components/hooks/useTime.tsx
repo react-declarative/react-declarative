@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef } from 'react';
 
-import { useModal } from 'react-modal-hook';
+import { useModal } from '../common/ModalProvider';
 import dayjs from 'dayjs';
 
 import TimePicker from '../common/TimePicker';
@@ -20,9 +20,9 @@ export const useTime = () => {
     hideModal();
   };
 
-  const [showModal, hideModal] = useModal(({ in: open }) => (
+  const { showModal, hideModal } = useModal(() => (
     <TimePicker
-      open={open}
+      open
       onChange={handleChange}
     />
   ));

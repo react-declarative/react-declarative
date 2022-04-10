@@ -78,7 +78,6 @@
         "dayjs": "^1.10.6",
         "history": "^5.0.1",
         "path-to-regexp": "^6.2.0",
-        "react-modal-hook": "^3.0.0",
         "react-window": "^1.8.6",
         "sha.js": "^2.4.11"
     },
