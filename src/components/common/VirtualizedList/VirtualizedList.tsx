@@ -19,10 +19,10 @@ export interface IScrollParams {
 }
 
 export const SCROLL_WRAPPER = 'react-declarative__vlistWrapper';
+const SCROLL_EVENT_DELAY = 1_000;
 
 /**
- * todo: debug
- * https://github.com/nishanbajracharya/react-virtualized-listview/blob/master/src/index.js
+ * @see https://github.com/nishanbajracharya/react-virtualized-listview/blob/master/src/index.js
  */
 
 interface IVirtualizedListProps<RowData extends IAnything> {
@@ -123,22 +123,24 @@ export const VirtualizedList = <Data extends IAnything>({
                 window.getComputedStyle(wrapper, null).getPropertyValue('height')
             );
             let prevScrollTop = wrapper.scrollTop;
+            let scollEmitTimeout: any = null;
             const handleScroll = (event: any) => {
                 const { scrollTop, scrollHeight, clientHeight } = event.target;
                 setState((prevState) => ({
                     ...prevState,
                     scrollTop,
                 }));
-                onScroll({
+                scollEmitTimeout = setTimeout(() => onScroll({
                     direction: scrollTop > prevScrollTop ? 'down' : 'up',
                     scrollOffset: scrollHeight - scrollTop - clientHeight,
-                });
+                }), SCROLL_EVENT_DELAY)
                 prevScrollTop = scrollTop;
             };
             setState((prevState) => ({ ...prevState, visibleHeight }));
             wrapper.addEventListener('scroll', handleScroll, true);
             return () => {
                 wrapper.removeEventListener('scroll', handleScroll);
+                scollEmitTimeout && clearTimeout(scollEmitTimeout);
             };
         } else {
             console.warn('VirtualizedList undefined wrapper');

@@ -118,6 +118,11 @@ export const Mobile = <
   }: IScrollParams) => {
     if (direction === 'down' && !loading) {
       const pendingPage = Math.floor(offset / limit) + 1;
+      console.log({
+        direction,
+        scrollOffset,
+        pendingPage
+      });
       if (scrollOffset < SCROLL_PAGINATION_DELTA) {
         if (!total || pendingPage * limit < total) {
           handlePageChange(pendingPage);
