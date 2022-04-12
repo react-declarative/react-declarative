@@ -103,8 +103,12 @@ export const Text = ({
     placeholder = "",
     inputAutocomplete: autoComplete = "off",
     inputFormatterSymbol: symbol = '0',
+    inputFormatterAllowed: allowed,
     inputFormatterTemplate: template = '',
-    inputFormatter = (raw) => formatText(raw, template, symbol),
+    inputFormatter = (raw) => formatText(raw, template, {
+        symbol,
+        allowed,
+    }),
     dirty,
     loading,
     autoFocus,

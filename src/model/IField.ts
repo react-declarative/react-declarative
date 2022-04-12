@@ -94,6 +94,11 @@ export interface IField<Data = IAnything> {
      */
     inputFormatterSymbol?: string;
 
+    /**
+     * Разрешенные к вводу символы
+     */
+    inputFormatterAllowed?: RegExp;
+
     inputAutocomplete?: keyof {
       'new-password': never,
       'on': never,

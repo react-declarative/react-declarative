@@ -128,3 +128,5 @@ export type ISliderSlot = ISliderSlotInternal;
 export type ISwitchSlot = ISwitchSlotInternal;
 export type ITextSlot = ITextSlotInternal;
 export type ITypographySlot = ITypographySlotInternal;
+
+export { formatText } from './utils/formatText';

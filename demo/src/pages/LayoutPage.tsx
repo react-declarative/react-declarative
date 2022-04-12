@@ -49,6 +49,7 @@ const fields: TypedField[] = [
                 title: 'Snils',
                 name: 'snils',
                 inputFormatterTemplate: '000-000-000 00',
+                inputFormatterAllowed: /^[0-9]/,
             }
         ],
     },

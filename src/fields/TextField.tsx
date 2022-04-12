@@ -13,6 +13,7 @@ export interface ITextFieldProps<Data = IAnything> {
   inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
   inputFormatter?: PickProp<IField<Data>, "inputFormatter">;
   inputFormatterSymbol?: PickProp<IField<Data>, "inputFormatterSymbol">;
+  inputFormatterAllowed?: PickProp<IField<Data>, "inputFormatterAllowed">;
   inputFormatterTemplate?: PickProp<IField<Data>, "inputFormatterTemplate">;
   description?: PickProp<IField<Data>, "description">;
   outlined?: PickProp<IField<Data>, "outlined">;
@@ -58,6 +59,7 @@ export const TextField = ({
   inputAutocomplete = "off",
   inputFormatter,
   inputFormatterSymbol,
+  inputFormatterAllowed,
   inputFormatterTemplate,
   dirty,
   loading,
@@ -86,6 +88,7 @@ export const TextField = ({
     inputAutocomplete={inputAutocomplete}
     inputFormatter={inputFormatter}
     inputFormatterSymbol={inputFormatterSymbol}
+    inputFormatterAllowed={inputFormatterAllowed}
     inputFormatterTemplate={inputFormatterTemplate}
     dirty={dirty}
     loading={loading}
