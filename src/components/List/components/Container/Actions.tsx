@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "stretch",
     minHeight: 70,
-    gap: 10,
+    '& > *:nth-child(n + 1)': {
+      marginLeft: theme.spacing(1),
+    },
     marginBottom: 5,
   },
   stretch: {
