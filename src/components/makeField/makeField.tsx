@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { memo, useRef, useState, useLayoutEffect } from 'react';
+import { memo } from 'react';
+import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 
 /* eslint-disable no-console */
 
@@ -95,7 +96,7 @@ export function makeField(
         ...otherProps
     }: IEntity<Data>) => {
 
-        const groupRef: React.MutableRefObject<HTMLDivElement> = useRef(null as never);
+        const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
 
         const classes = useStyles();
 
@@ -130,7 +131,7 @@ export function makeField(
         /**
          * Эффект входящего изменения.
          */
-        useLayoutEffect(() => {
+        useEffect(() => {
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
@@ -166,7 +167,6 @@ export function makeField(
              * полей
              */
             ready();
-            groupRef.current && ref(groupRef.current);
         }, [object]);
 
         /**
@@ -174,7 +174,7 @@ export function makeField(
          * value, обернутое в хук useDebounce для оптимизации
          * производительности
          */
-        useLayoutEffect(() => {
+        useEffect(() => {
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
@@ -200,8 +200,19 @@ export function makeField(
                     change(copy);
                 }
             }
-            groupRef.current && ref(groupRef.current);
         }, [debouncedValue, object]);
+
+        /*
+         * Флаг readonly позволяет управлять автокомплитом формы. На мобильных
+         * устройствах мы выключаем его до фокусировки input
+         */
+        useEffect(() => {
+            const handler = () => setReadonly(false);
+            groupRef && groupRef.addEventListener('touchstart', handler, {
+                once: true
+            });
+            return () => groupRef && groupRef.removeEventListener('touchstart', handler);
+        }, [groupRef]);
 
         /**
          * Блокирует применение изменений,
@@ -226,18 +237,29 @@ export function makeField(
         };
 
         /**
+         * Ссылка на группу хранится в useState для
+         * правильной работы эффекта
+         */
+        const handleGroupRef = (element: HTMLDivElement | null) => {
+            if (element) {
+                setGroupRef(element);
+            }
+            ref(element);
+        };
+
+        /**
          * Запускает механизм вещания фокусировки,
          * использует полифил для ожидания потери
          * фокуса
          */
-        const onFocus = () => {
+        const handleFocus = () => {
             if (!isMounted.current) {
                 return;
             }
             if (!fieldReadonly) {
                 setReadonly(false);
             }
-            waitForBlur(groupRef.current as HTMLDivElement).then(() => {
+            groupRef && waitForBlur(groupRef).then(() => {
                 if (pending()) {
                     flush();
                 }
@@ -287,12 +309,12 @@ export function makeField(
 
         return (
             <Group
-                ref={groupRef}
+                ref={handleGroupRef}
                 isItem
                 style={style}
                 className={classNames(className, classes.root, hidden)}
                 {...groupProps}
-                onFocus={onFocus}
+                onFocus={handleFocus}
             >
                 <Component {...componentProps as IManaged} />
             </Group>

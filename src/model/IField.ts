@@ -44,8 +44,8 @@ export interface IField<Data = IAnything> {
     /**
      * Передает ссылку при перерисовках
      */
-    groupRef?: (element: HTMLDivElement) => void;
-    inputRef?: (element: HTMLInputElement) => void;
+    groupRef?: (element?: HTMLDivElement | null) => void;
+    inputRef?: (element?: HTMLInputElement | null) => void;
 
     /**
      * Автофокус и постоянное отключение поля
