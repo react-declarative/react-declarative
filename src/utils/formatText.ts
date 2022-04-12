@@ -5,10 +5,7 @@ export const formatText = (raw: string, template: string, symbol = '0') => {
     let idx = 0;
     let result = '';
     for (const char of template) {
-        if (char === symbol) {
-            result += raw[idx];
-            idx++;
-        } else if (char === raw[idx]) {
+        if (char === symbol || char === raw[idx]) {
             result += raw[idx];
             idx++;
         } else {
