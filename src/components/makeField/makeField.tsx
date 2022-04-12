@@ -208,9 +208,7 @@ export function makeField(
          */
         useEffect(() => {
             const handler = () => setReadonly(false);
-            groupRef && groupRef.addEventListener('touchstart', handler, {
-                once: true
-            });
+            groupRef && groupRef.addEventListener('touchstart', handler);
             return () => groupRef && groupRef.removeEventListener('touchstart', handler);
         }, [groupRef]);
 
