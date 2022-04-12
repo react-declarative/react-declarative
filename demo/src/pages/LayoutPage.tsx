@@ -43,6 +43,12 @@ const fields: TypedField[] = [
                 defaultValue: 'tripolskypetr@gmail.com',
                 description: 'Gmail. Yahoo, Yandex...',
                 name: 'email',
+            },
+            {
+                type: FieldType.Text,
+                title: 'Snils',
+                name: 'snils',
+                inputFormatterTemplate: '000-000-000 00',
             }
         ],
     },

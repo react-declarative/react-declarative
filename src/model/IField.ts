@@ -77,6 +77,23 @@ export interface IField<Data = IAnything> {
       'week': never,
     };
 
+    /**
+     * Форматтер, преобразующий пользовательский
+     * ввод к нужному шаблону
+     */
+    inputFormatter?: (input: string) => string;
+
+    /**
+     * Шаблонов для форматтера
+     */
+    inputFormatterTemplate?: string;
+
+    /**
+     * Разделитель шаблона форматтера,
+     * по дефолту 0
+     */
+    inputFormatterSymbol?: string;
+
     inputAutocomplete?: keyof {
       'new-password': never,
       'on': never,

@@ -11,6 +11,9 @@ import IField from "../model/IField";
 export interface ITextFieldProps<Data = IAnything> {
   inputType?: PickProp<IField<Data>, "inputType">;
   inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
+  inputFormatter?: PickProp<IField<Data>, "inputFormatter">;
+  inputFormatterSymbol?: PickProp<IField<Data>, "inputFormatterSymbol">;
+  inputFormatterTemplate?: PickProp<IField<Data>, "inputFormatterTemplate">;
   description?: PickProp<IField<Data>, "description">;
   outlined?: PickProp<IField<Data>, "outlined">;
   title?: PickProp<IField<Data>, "title">;
@@ -53,6 +56,9 @@ export const TextField = ({
   inputRows = 1,
   placeholder = "",
   inputAutocomplete = "off",
+  inputFormatter,
+  inputFormatterSymbol,
+  inputFormatterTemplate,
   dirty,
   loading,
   onChange,
@@ -78,6 +84,9 @@ export const TextField = ({
     inputRows={inputRows}
     placeholder={placeholder}
     inputAutocomplete={inputAutocomplete}
+    inputFormatter={inputFormatter}
+    inputFormatterSymbol={inputFormatterSymbol}
+    inputFormatterTemplate={inputFormatterTemplate}
     dirty={dirty}
     loading={loading}
     onChange={onChange}

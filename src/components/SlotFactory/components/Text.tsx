@@ -12,6 +12,7 @@ import { IField } from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 
 import icon from '../../../utils/createIcon';
+import formatText from '../../../utils/formatText';
 
 const LOADING_LABEL = 'Loading';
 
@@ -101,6 +102,9 @@ export const Text = ({
     inputRows: rows = 1,
     placeholder = "",
     inputAutocomplete: autoComplete = "off",
+    inputFormatterSymbol: symbol = '0',
+    inputFormatterTemplate: template = '',
+    inputFormatter = (raw) => formatText(raw, template, symbol),
     dirty,
     loading,
     autoFocus,
@@ -125,7 +129,7 @@ export const Text = ({
         autoComplete={autoComplete}
         value={loading ? LOADING_LABEL : String(value)}
         placeholder={placeholder}
-        onChange={({ target }) => onChange(target.value.toString())}
+        onChange={({ target }) => onChange(inputFormatter(target.value))}
         label={title}
         disabled={disabled}
         {...multiline(rows)}
