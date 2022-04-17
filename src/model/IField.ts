@@ -208,6 +208,7 @@ export interface IField<Data = IAnything> {
     minSlider?: number;
     maxSlider?: number;
     stepSlider?: number;
+    labelFormatSlider?: (v: number) => string | number;
 
     /**
      * Варианты выбора для ComboField и ItemsField

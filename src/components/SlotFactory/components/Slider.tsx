@@ -37,6 +37,7 @@ export const Slider = ({
     trailingIcon: ti,
     leadingIconClick: lic,
     trailingIconClick: tic,
+    labelFormatSlider,
     stepSlider,
     maxSlider = 100,
     minSlider = 0,
@@ -49,7 +50,8 @@ export const Slider = ({
         <Grid item xs>
           <MatSlider step={stepSlider} marks={!!stepSlider} min={minSlider} max={maxSlider}
             aria-labelledby="discrete-slider" valueLabelDisplay="auto" color="primary"
-            value={value || 0} onChange={({ }, v) => onChange(v as number)} />
+            value={value || 0} onChange={({ }, v) => onChange(v as number)}
+            valueLabelFormat={labelFormatSlider} />
         </Grid>
         <Grid item>
           { ti && createIcon(ti, value as IAnything, onChange, tic, 'start') }

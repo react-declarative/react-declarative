@@ -12,6 +12,7 @@ export interface ISliderFieldProps<Data = IAnything>  {
   stepSlider?: PickProp<IField<Data>, 'stepSlider'>;
   maxSlider?: PickProp<IField<Data>, 'maxSlider'>;
   minSlider?: PickProp<IField<Data>, 'minSlider'>;
+  labelFormatSlider?: PickProp<IField<Data>, 'labelFormatSlider'>;
   leadingIcon?: PickProp<IField<Data>, 'leadingIcon'>;
   trailingIcon?: PickProp<IField<Data>, 'trailingIcon'>;
   leadingIconClick?: PickProp<IField<Data>, 'leadingIconClick'>;
@@ -37,6 +38,7 @@ export const SliderField = ({
   stepSlider,
   maxSlider,
   minSlider,
+  labelFormatSlider,
 }: ISliderFieldProps & ISliderFieldPrivate) => (
   <Slider
     value={value}
@@ -45,6 +47,7 @@ export const SliderField = ({
     trailingIcon={trailingIcon}
     leadingIconClick={leadingIconClick}
     trailingIconClick={trailingIconClick}
+    labelFormatSlider={labelFormatSlider}
     stepSlider={stepSlider}
     maxSlider={maxSlider}
     minSlider={minSlider}
