@@ -7,15 +7,18 @@ import { Value } from '../../../model/IField';
 interface IAsyncProps<T extends any = object> {
     children: (p: T) => (Value | Promise<Value>);
     fallback?: (e: Error) => void;
+    LoaderModal?: React.ComponentType;
     payload?: T;
 }
 
 export const Async = <T extends any = object>({
     children,
     fallback = () => null,
+    LoaderModal = () => null,
     payload = {} as T,
 }: IAsyncProps<T>) => {
-    const [child, setChild] = useState<string>('');
+    const [child, setChild] = useState<React.ReactNode>('');
+    const [loading, setLoading] = useState(false);
 
     const isMounted = useRef(true);
 
@@ -26,10 +29,17 @@ export const Async = <T extends any = object>({
     useLayoutEffect(() => {
         const process = async () => {
             try {
-                const newChild = await Promise.resolve(children(payload!));
-                isMounted.current && setChild((newChild || '').toString());
+                const result = children(payload!);
+                if (result instanceof Promise) {
+                    setLoading(true);
+                    isMounted.current && setChild((await result) || null);
+                } else {
+                    isMounted.current && setChild(result || null);
+                }
             } catch(e) {
                 fallback(e as Error);
+            } finally {
+                setLoading(false);
             }
         };
         process();
@@ -37,6 +47,7 @@ export const Async = <T extends any = object>({
 
     return (
         <>
+            {loading && <LoaderModal />}
             {child}
         </>
     );

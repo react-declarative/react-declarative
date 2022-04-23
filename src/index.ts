@@ -97,6 +97,8 @@ export { Breadcrumbs } from './components';
 export { Scaffold } from './components';
 export { Switch } from './components';
 
+export { useStaticPaginator } from './components';
+export { useApiPaginator } from './components';
 export { useListProps } from './components';
 
 export { useOne, useOneTyped };

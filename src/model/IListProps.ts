@@ -71,7 +71,7 @@ interface SlotsComponent {
 
 export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
   rows: RowData[];
-  total: number;
+  total: number | null;
 };
 
 export type ListAvatar = {
@@ -84,12 +84,12 @@ export type ListHandlerPagination = {
   offset: number;
 };
 
-export type ListHandlerSortModel = IListSortItem[];
+export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
   data: FilterData,
   pagination: ListHandlerPagination,
-  sort: ListHandlerSortModel,
+  sort: ListHandlerSortModel<RowData>,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -103,12 +103,12 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   loading: boolean;
   autoReload: boolean;
   filtersCollapsed: boolean;
-  sort: ListHandlerSortModel;
+  sort: ListHandlerSortModel<RowData>;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: ListHandler<FilterData, RowData> | (() => void);
-  handleSortModel: (sort: ListHandlerSortModel) => void;
+  handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
   handleFilter: (data: FilterData) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
@@ -119,8 +119,8 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   ready: () => void;
 };
 
-export interface IListSortItem {
-  field: string;
+export interface IListSortItem<RowData extends IRowData = IAnything> {
+  field: keyof RowData;
   sort: 'asc' | 'desc';
 }
 
