@@ -16,6 +16,7 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     onFetchEnd?: () => void;
     withAbortSignal?: boolean;
     getFetchParams?: () => RequestInit;
+    fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
 }
 
@@ -30,6 +31,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     onFetchEnd,
     withAbortSignal = true,
     getFetchParams,
+    fallback,
 }: IApiHandlerParams<Data> = {}): OneHandler<Data> => {
     const handler: OneHandler<Data> = useMemo(() => async () => {
         let url = new URL(path, origin);
@@ -41,6 +43,9 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
             return responseMap(json);
         } catch (e) {
             if (e instanceof DOMException && e.name == "AbortError") {
+                return { ...EMPTY_RESPONSE } as Data;
+            } else if (fallback) {
+                fallback(e as Error);
                 return { ...EMPTY_RESPONSE } as Data;
             } else {
                 throw e;

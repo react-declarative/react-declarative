@@ -25,6 +25,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withFilters?: boolean;
     withSort?: boolean;
     getFetchParams?: () => RequestInit;
+    fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
     responseMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
 }
@@ -38,6 +39,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     getFetchParams,
+    fallback,
     onFetchBegin,
     onFetchEnd,
     requestMap = (url) => url,
@@ -99,6 +101,9 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             return responseMap(json);
         } catch (e) {
             if (e instanceof DOMException && e.name == "AbortError") {
+                return { ...EMPTY_RESPONSE };
+            } else if (fallback) {
+                fallback(e as Error);
                 return { ...EMPTY_RESPONSE };
             } else {
                 throw e;
