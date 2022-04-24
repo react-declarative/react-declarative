@@ -23,7 +23,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withPagination?: boolean;
     withFilters?: boolean;
     withSort?: boolean;
-    fetchParams?: RequestInit;
+    getFetchParams?: () => RequestInit;
     abortSignal?: AbortSignal;
     resultMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
 }
@@ -36,7 +36,7 @@ const EMPTY_RESPONSE = {
 export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(path: string, {
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
-    fetchParams,
+    getFetchParams,
     onFetchBegin,
     onFetchEnd,
     resultMap = (json) => {
@@ -91,7 +91,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         }
         onFetchBegin && onFetchBegin();
         try {
-            const data = await fetch(url.toString(), { signal, ...fetchParams });
+            const data = await fetch(url.toString(), { signal, ...(getFetchParams && getFetchParams()) });
             const json = await data.json();
             return resultMap(json)
         } catch (e) {

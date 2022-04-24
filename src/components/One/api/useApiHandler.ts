@@ -15,7 +15,7 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     onFetchBegin?: () => void;
     onFetchEnd?: () => void;
     withAbortSignal?: boolean;
-    fetchParams?: RequestInit;
+    getFetchParams?: () => RequestInit;
     abortSignal?: AbortSignal;
 }
 
@@ -29,14 +29,14 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     onFetchBegin,
     onFetchEnd,
     withAbortSignal = true,
-    fetchParams,
+    getFetchParams,
 }: IApiHandlerParams<Data> = {}): OneHandler<Data> => {
     const handler: OneHandler<Data> = useMemo(() => async () => {
         let url = new URL(path, origin);
         url = requestMap(new URL(url));
         onFetchBegin && onFetchBegin();
         try {
-            const data = await fetch(url.toString(), { signal, ...fetchParams });
+            const data = await fetch(url.toString(), { signal, ...(getFetchParams && getFetchParams()) });
             const json = await data.json();
             return responseMap(json)
         } catch (e) {
