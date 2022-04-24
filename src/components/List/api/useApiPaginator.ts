@@ -25,7 +25,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withSort?: boolean;
     fetchParams?: RequestInit;
     abortSignal?: AbortSignal;
-    resultMap?: (json: any) => ListHandlerResult<RowData>;
+    resultMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
 }
 
 const EMPTY_RESPONSE = {
