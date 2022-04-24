@@ -17,6 +17,8 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     filterHandler?: (url: URL, filterData: FilterData) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
     paginationHandler?: (url: URL, pagination: ListHandlerPagination) => URL;
+    onFetchBegin?: () => void;
+    onFetchEnd?: () => void;
     withAbortSignal?: boolean;
     withPagination?: boolean;
     withFilters?: boolean;
@@ -35,6 +37,8 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     fetchParams,
+    onFetchBegin,
+    onFetchEnd,
     resultMap = (json) => {
         const { rows = [], total = null } = json;
         return {
@@ -85,6 +89,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         if (withFilters) {
             url = filterHandler(new URL(url), filterData);
         }
+        onFetchBegin && onFetchBegin();
         try {
             const data = await fetch(url.toString(), { signal, ...fetchParams });
             const json = await data.json();
@@ -95,6 +100,8 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             } else {
                 throw e;
             }
+        } finally {
+            onFetchEnd && onFetchEnd();
         }
     }, []);
     useEffect(() => () => {
