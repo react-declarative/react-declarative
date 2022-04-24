@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { 
     ListHandler,
     ListHandlerSortModel,
@@ -7,7 +9,7 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
-interface IStaticPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
@@ -53,21 +55,24 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     withFilters = true,
     withSort = true,
     withTotal = true,
-}: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => (filterData, pagination, sort) => {
-    let handledRows = rows.slice(0);
-    if (withFilters) {
-        handledRows = filterHandler(handledRows, filterData);
-    }
-    if (withSort) {
-        handledRows = sortHandler(handledRows, sort);
-    }
-    if (withPagination) {
-        handledRows = paginationHandler(handledRows, pagination);
-    }
-    return {
-        rows: handledRows,
-        total: withTotal ? rows.length : null,
-    };
+}: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => (filterData, pagination, sort) => {
+        let handledRows = rows.slice(0);
+        if (withFilters) {
+            handledRows = filterHandler(handledRows, filterData);
+        }
+        if (withSort) {
+            handledRows = sortHandler(handledRows, sort);
+        }
+        if (withPagination) {
+            handledRows = paginationHandler(handledRows, pagination);
+        }
+        return {
+            rows: handledRows,
+            total: withTotal ? rows.length : null,
+        };
+    }, []);
+    return handler;
 };
 
 export default useStaticPaginator;

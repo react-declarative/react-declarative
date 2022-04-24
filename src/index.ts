@@ -2,6 +2,14 @@ import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IField as IFieldInternal } from './model/IField';
 import { IColumn as IColumnInternal } from './model/IColumn';
 
+import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
+import { IStaticPaginatorParams as IStaticPaginatorParamsInternal } from './components/List/api/useStaticPaginator';
+import { IApiHandlerParams as IApiHandlerParamsInternal } from './components/One/api/useApiHandler';
+
+export type IListApiPaginatorParams = IApiPaginatorParamsInternal;
+export type IListStaticPaginatorParams = IStaticPaginatorParamsInternal;
+export type IOneApiHandlerParams = IApiHandlerParamsInternal;
+
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
 import { ActionType as ActionTypeInternal } from './model/ActionType';
@@ -13,7 +21,7 @@ import { IListApi as IListApiInternal } from './model/IListApi';
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
-import { serviceManager as serviceManagerInternal } from './helpers/DependencyService';
+import { serviceManager as serviceManagerInternal } from './helpers/serviceManager';
 export const provide = serviceManagerInternal.registerCreator;
 export const inject = serviceManagerInternal.inject;
 export const serviceManager = serviceManagerInternal;
@@ -99,6 +107,8 @@ export { Switch } from './components';
 
 export { useStaticPaginator } from './components';
 export { useApiPaginator } from './components';
+export { useApiHandler } from './components';
+
 export { useListProps } from './components';
 
 export { useOne, useOneTyped };
