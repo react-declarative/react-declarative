@@ -14,6 +14,7 @@ import IRowData from "../../../model/IRowData";
 
 export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     origin?: string;
+    requestMap?: (url: URL) => URL;
     filterHandler?: (url: URL, filterData: FilterData) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
     paginationHandler?: (url: URL, pagination: ListHandlerPagination) => URL;
@@ -25,7 +26,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withSort?: boolean;
     getFetchParams?: () => RequestInit;
     abortSignal?: AbortSignal;
-    resultMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
+    responseMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
 }
 
 const EMPTY_RESPONSE = {
@@ -39,7 +40,8 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     getFetchParams,
     onFetchBegin,
     onFetchEnd,
-    resultMap = (json) => {
+    requestMap = (url) => url,
+    responseMap = (json) => {
         const { rows = [], total = null } = json;
         return {
             rows,
@@ -89,11 +91,12 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         if (withFilters) {
             url = filterHandler(new URL(url), filterData);
         }
+        url = requestMap(new URL(url));
         onFetchBegin && onFetchBegin();
         try {
             const data = await fetch(url.toString(), { signal, ...(getFetchParams && getFetchParams()) });
             const json = await data.json();
-            return resultMap(json)
+            return responseMap(json);
         } catch (e) {
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE };

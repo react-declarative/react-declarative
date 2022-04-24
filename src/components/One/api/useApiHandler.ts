@@ -38,7 +38,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
         try {
             const data = await fetch(url.toString(), { signal, ...(getFetchParams && getFetchParams()) });
             const json = await data.json();
-            return responseMap(json)
+            return responseMap(json);
         } catch (e) {
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE } as Data;
