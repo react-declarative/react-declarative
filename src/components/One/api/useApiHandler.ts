@@ -11,7 +11,7 @@ import IAnything from "../../../model/IAnything";
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
     requestMap?: (url: URL) => URL;
-    responseMap?: (json: any) => Data;
+    responseMap?: (json: Record<string, any>) => Data;
     onFetchBegin?: () => void;
     onFetchEnd?: () => void;
     withAbortSignal?: boolean;
@@ -25,7 +25,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     requestMap = (url) => url,
-    responseMap = (json) => json,
+    responseMap = (json) => json as Data,
     onFetchBegin,
     onFetchEnd,
     withAbortSignal = true,
