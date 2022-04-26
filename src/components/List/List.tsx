@@ -56,6 +56,7 @@ const ListInternal = <
     onFilterChange = () => null,
     toggleFilters = false,
     selectedRows,
+    sortModel: upperSortModel = [],
   } = props;
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
@@ -69,7 +70,7 @@ const ListInternal = <
     loading: false,
     autoReload: defaultAutoReload,
     filtersCollapsed: toggleFilters,
-    sort: [],
+    sort: upperSortModel,
   });
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
@@ -282,7 +283,7 @@ const ListInternal = <
     <ThemeProvider>
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
-          <SortModelProvider>
+          <SortModelProvider sortModel={upperSortModel}>
             <ExpansionProvider>
               {renderInner()}
             </ExpansionProvider>

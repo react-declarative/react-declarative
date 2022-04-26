@@ -67,7 +67,7 @@ export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandle
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
 export type ListHandlerPagination = ListHandlerPaginationInternal;
-export type ListHandlerSortModel = ListHandlerSortModelInternal;
+export type ListHandlerSortModel<RowData extends IRowData = IAnything> = ListHandlerSortModelInternal<RowData>;
 
 export type IListAction = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;

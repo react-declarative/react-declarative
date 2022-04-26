@@ -145,7 +145,7 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
-  onSortModelChange?: (sort: ListHandlerSortModel) => void;
+  onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
   onColumnMenuAction?: (action: string) => void;
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;
@@ -159,6 +159,7 @@ export interface IListProps<
   rowActions?: IOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
+  sortModel?: ListHandlerSortModel<RowData>;
   displayMode?: DisplayMode;
   ExpansionContent?: React.ComponentType;
 }

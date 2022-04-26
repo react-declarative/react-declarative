@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext, useContext, useState } from 'react';
 
-import { IListSortItem } from '../../../model/IListProps';
+import { IListSortItem, ListHandlerSortModel } from '../../../model/IListProps';
 
 import useProps from "./useProps";
 
@@ -11,6 +11,7 @@ export const useSortModel = () => useContext(SortModelContext);
 
 interface ISortModelProviderProps {
     children: React.ReactNode;
+    sortModel: ListHandlerSortModel;
 }
 
 interface IState {
@@ -20,8 +21,9 @@ interface IState {
 
 export const SortModelProvider = ({
     children,
+    sortModel: upperSortModel,
 }: ISortModelProviderProps) => {
-    const [sortModel, setSortModel] = useState(new Map<string, IListSortItem>());
+    const [sortModel, setSortModel] = useState(new Map<string, IListSortItem>(upperSortModel.map((sort) => [String(sort.field), sort])));
 
     const {
         handleSortModel,
