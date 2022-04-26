@@ -18,13 +18,14 @@ export interface IRatingFieldPrivate<Data = IAnything> {
   name?: string;
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
 }
 
 export const RatingField = ({
   value,
   disabled,
-  readonly,
+  fieldReadonly,
   title,
   name,
   onChange,
@@ -32,7 +33,7 @@ export const RatingField = ({
   <Rating
     value={value}
     disabled={disabled}
-    readonly={readonly}
+    fieldReadonly={fieldReadonly}
     title={title}
     name={name}
     onChange={onChange}

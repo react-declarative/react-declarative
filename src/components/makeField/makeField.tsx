@@ -286,6 +286,7 @@ export function makeField(
             fallback,
             disabled: fieldDisabled || disabled,
             readonly: fieldReadonly || readonly,
+            fieldReadonly,
             autoFocus,
             invalid,
             value,

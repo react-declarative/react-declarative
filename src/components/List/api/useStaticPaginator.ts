@@ -13,6 +13,7 @@ export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends 
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
+    compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
     withPagination?: boolean;
     withFilters?: boolean;
     withSort?: boolean;
@@ -20,6 +21,17 @@ export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends 
 }
 
 export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rows: RowData[], {
+    compareFn = (a, b) => {
+        if (typeof a === 'number' && typeof b === 'number') {
+            return a - b;
+        } else if (typeof a === 'boolean' && typeof b === 'boolean') {
+            return  (a ? 1 : 0) - (b ? 1 : 0);
+        } else if (typeof a === 'string' && typeof b === 'string') {
+            return a.localeCompare(b);
+        } else {
+            return 0;
+        }
+    },
     filterHandler = (rows, filterData) => {
         Object.entries(filterData).forEach(([key, value]) => {
             if (value) {
@@ -38,9 +50,11 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
             sort,
         }) => {
             rows = rows.sort((a, b) => {
-                const value1 = String(a[field as keyof RowData]);
-                const value2 = String(b[field as keyof RowData]);
-                return sort === 'asc' ? value1.localeCompare(value2) : value2.localeCompare(value1);
+                if (sort === 'asc') {
+                    return compareFn(a[field], b[field]);
+                } else {
+                    return compareFn(b[field], a[field]);
+                }
             });
         });
         return rows;
