@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import { makeStyles } from '../../../../styles';
-import { alpha } from '@mui/material';
+import { alpha, decomposeColor, recomposeColor, Theme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-import ScrollView from '../../../common/ScrollView';
+import FadeView from '../../../common/FadeView';
 
-import IListProps from '../../../../model/IListProps';
+import IListProps, { IListChip } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
@@ -33,7 +35,23 @@ export const Chips = <RowData extends IRowData = IAnything>({
     listChips = [],
 }: IChipsProps<RowData>) => {
 
+    const theme = useTheme<Theme>();
     const classes = useStyles();
+
+    const fadeColor = useMemo(() => {
+        const a = 0.05;
+        const oneminusalpha = 1 - a;
+        const background = decomposeColor(theme.palette.background.paper);
+        const overlay = decomposeColor(alpha(
+            theme.palette.getContrastText(theme.palette.background.paper),
+            a,
+        ));
+        background.values[0] = ((overlay.values[0] * a) + (oneminusalpha * background.values[0]))
+        background.values[1] = ((overlay.values[1] * a) + (oneminusalpha * background.values[1]))
+        background.values[2] = ((overlay.values[2] * a) + (oneminusalpha * background.values[2]))
+        background.values[3] = 1.0;
+        return recomposeColor(background);
+    }, [theme]);
 
     const { chips, setChips } = useChips();
 
@@ -42,8 +60,35 @@ export const Chips = <RowData extends IRowData = IAnything>({
         setChips(chips);
     };
 
+    const renderChip = (chip: IListChip<RowData>, idx: number) => {
+        const name = chip.name.toString();
+        const enabled = !!chips.get(name);
+        return (
+            <Chip
+                variant={enabled ? 'filled' : 'outlined'}
+                onClick={!enabled ? createToggleHandler(name, true) : undefined}
+                onDelete={enabled ? createToggleHandler(name, false) : undefined}
+                label={chip.label}
+                color={chip.color}
+                key={`${enabled}-${idx}`}
+            />
+        );
+    };
+
+    const enabledChips = listChips
+        .filter(({ name }) => chips.get(name.toString()))
+        .map(renderChip);
+
+    const disabledChips = listChips
+        .filter(({ name }) => !chips.get(name.toString()))
+        .map(renderChip)
+
     return (
-        <ScrollView className={classes.root}>
+        <FadeView 
+            className={classes.root}
+            color={fadeColor}
+            disableBottom
+        >
             <Stack
                 alignItems="center"
                 direction="row"
@@ -51,22 +96,10 @@ export const Chips = <RowData extends IRowData = IAnything>({
                 marginRight="5px"
                 spacing={1}
             >
-                {listChips.map((chip, idx) => {
-                    const name = chip.name.toString();
-                    const enabled = !!chips.get(name);
-                    return (
-                        <Chip
-                            variant={enabled ? 'filled' : 'outlined'}
-                            onClick={!enabled ? createToggleHandler(name, true) : undefined}
-                            onDelete={enabled ? createToggleHandler(name, false) : undefined}
-                            label={chip.label}
-                            color={chip.color}
-                            key={idx}
-                        />
-                    );
-                })}
+                {enabledChips}
+                {disabledChips}
             </Stack>
-        </ScrollView>
+        </FadeView>
     );
 };
 

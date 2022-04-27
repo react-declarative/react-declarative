@@ -17,6 +17,7 @@ import Filters from "./Filters";
 import Chips from "./Chips";
 
 const AUTOSIZER_DELAY = 50;
+const CONTAINER_MARK = 'react-declarative__containerMark';
 
 interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
@@ -91,7 +92,7 @@ export const Container = <
 
   return (
     <AutoSizer
-      className={classNames(classes.root, className)}
+      className={classNames(classes.root, className, CONTAINER_MARK)}
       heightRequest={heightRequest}
       widthRequest={widthRequest}
       keepFlow={keepFlow}

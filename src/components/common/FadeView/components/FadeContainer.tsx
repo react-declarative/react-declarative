@@ -12,6 +12,7 @@ import DefaultFade from './DefaultFade';
 import { SCROLL_VIEW_TARGER } from '../../ScrollView';
 
 const FADE_ANIMATION_DELAY = 50;
+const FADE_MARK = 'react-declarative__fadeMark';
 
 const useStyles = makeStyles({
     root: {
@@ -165,7 +166,7 @@ export const FadeContainer = ({
             </div>
             {!disableBottom && (
                 <Fade
-                    className={classes.bottomFade}
+                    className={classNames(classes.bottomFade, FADE_MARK)}
                     position="bottom"
                     visible={bottomState.visible}
                     none={bottomState.none}
@@ -175,7 +176,7 @@ export const FadeContainer = ({
             )}
             {!disableRight && (
                 <Fade
-                    className={classes.rightFade}
+                    className={classNames(classes.rightFade, FADE_MARK)}
                     position="right"
                     visible={rightState.visible}
                     none={rightState.none}

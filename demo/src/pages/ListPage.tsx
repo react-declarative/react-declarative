@@ -112,18 +112,18 @@ const actions: IListAction[] = [
 
 const chips: IListChip[] = [
   {
-    label: 'Chip1',
+    label: 'The chip1_enabled is true',
     name: 'chip1_enabled',
     enabled: true,
     color: 'info',
   },
   {
-    label: 'Chip2',
+    label: 'The chip2_enabled is true',
     name: 'chip2_enabled',
     color: 'warning',
   },
   {
-    label: 'Chip3',
+    label: 'The chip3_enabled is true',
     name: 'chip3_enabled',
     color: 'error',
   }
