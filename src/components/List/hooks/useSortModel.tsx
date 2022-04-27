@@ -30,7 +30,7 @@ export const SortModelProvider = ({
     } = useProps();
 
     const handleSortModelChange = (sortModel: IState['sortModel']) => {
-        handleSortModel && handleSortModel([...sortModel.values()]);
+        handleSortModel([...sortModel.values()]);
         setSortModel(new Map(sortModel));
     };
 

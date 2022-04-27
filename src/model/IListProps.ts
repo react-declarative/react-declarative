@@ -36,6 +36,13 @@ export interface IListAction extends Partial<IOption> {
   options?: Partial<IOption | IUpdateOption | IAutoReloadOption | IMobileViewOption>[];
 }
 
+export interface IListChip<RowData extends IRowData = IAnything> {
+  name: keyof RowData,
+  label: string;
+  color?: "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  enabled?: boolean;
+}
+
 interface ComponentProps {
   /*columnMenuProps?: any;
   errorOverlayProps?: any;
@@ -84,12 +91,15 @@ export type ListHandlerPagination = {
   offset: number;
 };
 
+export type ListHandlerChips<RowData extends IRowData = IAnything> = Record<keyof RowData, boolean>;
+
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
   data: FilterData,
   pagination: ListHandlerPagination,
   sort: ListHandlerSortModel<RowData>,
+  chips: ListHandlerChips<RowData>,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -104,6 +114,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   autoReload: boolean;
   filtersCollapsed: boolean;
   sort: ListHandlerSortModel<RowData>;
+  chips: ListHandlerChips<RowData>;
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -115,6 +126,7 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleAutoReload: (autoReload: boolean) => void;
   handleSetMobile: (isMobile: boolean) => void;
+  handleChips: (chips: ListHandlerChips) => void;
   handleReload: () => void;
   ready: () => void;
 };
@@ -145,8 +157,9 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
+  onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  onColumnMenuAction?: (action: string) => void;
+  /*onColumnMenuAction?: (action: string) => void;*/
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;
   onAction?: (action: string) => void;
@@ -159,6 +172,7 @@ export interface IListProps<
   rowActions?: IOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
+  chips?: IListChip<RowData>[];
   sortModel?: ListHandlerSortModel<RowData>;
   displayMode?: DisplayMode;
   ExpansionContent?: React.ComponentType;

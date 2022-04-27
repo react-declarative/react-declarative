@@ -14,6 +14,7 @@ import IRowData from '../../../../model/IRowData';
 
 import Actions from "./Actions";
 import Filters from "./Filters";
+import Chips from "./Chips";
 
 const AUTOSIZER_DELAY = 50;
 
@@ -21,6 +22,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
+    chips: never;
     autoReload: never;
   }>,
   IListState<FilterData, RowData>,
@@ -29,6 +31,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   style?: React.CSSProperties;
   children: (s: IChildParams<IContainerProps<FilterData, RowData>>) => any;
   ready: () => void;
+  listChips: IListProps['chips'];
   ref?: (instance: HTMLDivElement) => void
   onResize?: IAutoSizerProps['onResize'];
 }
@@ -62,6 +65,7 @@ export const Container = <
     style,
     filters = [],
     actions = [],
+    listChips,
     heightRequest = (v) => v,
     widthRequest = (v) => v,
     title = '',
@@ -115,6 +119,11 @@ export const Container = <
                 label={filterLabel}
                 filters={filters}
                 ready={ready}
+              />
+            )}
+            {Array.isArray(listChips) && !!listChips.length && (
+              <Chips<RowData>
+                listChips={listChips}
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>

@@ -14,6 +14,7 @@ interface IPropContext<
 > extends
     Omit<IListProps<FilterData, RowData, Field>, keyof {
         limit: never;
+        chips: never;
         autoReload: never;
     }>,
     IListState<FilterData, RowData>,

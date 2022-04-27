@@ -45,12 +45,14 @@ interface IDesktopProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
+    chips: never;
     autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
+  listChips: IListProps['chips'];
 }
 
 export const Desktop = <
@@ -110,7 +112,11 @@ export const Desktop = <
                 />
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => (
+                {(loading || rows.length === 0) ? (
+                  <TableRow>
+                    {renderPlaceholder()}
+                  </TableRow>
+                ) : rows.map((row, index) => (
                   <Fragment key={index}>
                     <DesktopBodyRow<RowData>
                       fullWidth={width}
@@ -121,11 +127,6 @@ export const Desktop = <
                     />
                   </Fragment>
                 ))}
-                {rows.length === 0 && (
-                  <TableRow>
-                    {renderPlaceholder()}
-                  </TableRow>
-                )}
               </TableBody>
             </Table>
           </TableContainer>

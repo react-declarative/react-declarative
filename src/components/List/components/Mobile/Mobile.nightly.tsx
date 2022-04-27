@@ -46,12 +46,14 @@ interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnyth
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
+    chips: never;
     autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
+  listChips: IListProps['chips'];
 }
 
 interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -140,7 +142,7 @@ export const Mobile = <
       {({ height, width, payload: { rows, loading } }) => (
         <Box ref={rootRef} position="relative" style={{height, width}}>
           <ModalLoader open={pageChanged && loading} />
-          {!rows.length && (
+          {(rows.length === 0 || loading) ? (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
                 {loading ? (
@@ -154,23 +156,24 @@ export const Mobile = <
                 secondary={loading ? "Fetching data" : "Nothing found"}
               />
             </MatListItem>
+          ) : (
+            <VirtualizedList
+              className={classNames(classes.root, MOBILE_LIST_ROOT)}
+              height={height}
+              width={width}
+              rows={rows}
+              itemSize={DEFAULT_ITEM_SIZE}
+              onScroll={handleScroll}
+            >
+              {({ index, style }) => (
+                <ListItem
+                  key={index}
+                  row={rows[index]}
+                  style={style}
+                />
+              )} 
+            </VirtualizedList>
           )}
-          <VirtualizedList
-            className={classNames(classes.root, MOBILE_LIST_ROOT)}
-            height={height}
-            width={width}
-            rows={rows}
-            itemSize={DEFAULT_ITEM_SIZE}
-            onScroll={handleScroll}
-          >
-            {({ index, style }) => (
-              <ListItem
-                key={index}
-                row={rows[index]}
-                style={style}
-              />
-            )} 
-          </VirtualizedList>
         </Box>
       )}
     </Container>

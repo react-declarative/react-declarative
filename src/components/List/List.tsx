@@ -4,7 +4,7 @@ import { useState, useCallback, useLayoutEffect, useEffect, useRef } from 'react
 
 import { ThemeProvider } from '../../styles';
 
-import IListProps, { IListCallbacks, IListState, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
+import IListProps, { IListCallbacks, IListState, ListHandlerChips, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
 import IRowData from '../../model/IRowData';
@@ -21,6 +21,7 @@ import Mobile from './components/Mobile';
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ExpansionProvider } from './hooks/useExpansion';
+import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
 import DisplayMode from '../../model/DisplayMode';
@@ -54,9 +55,11 @@ const ListInternal = <
     actions = [],
     onSortModelChange = () => null,
     onFilterChange = () => null,
+    onChipsChange = () => null,
     toggleFilters = false,
     selectedRows,
     sortModel: upperSortModel = [],
+    chips: upperChips = [],
   } = props;
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
@@ -71,6 +74,10 @@ const ListInternal = <
     autoReload: defaultAutoReload,
     filtersCollapsed: toggleFilters,
     sort: upperSortModel,
+    chips: upperChips.reduce<ListHandlerChips<RowData>>(
+      (acm, { name: chip, enabled = false }) => ({...acm, [chip]: enabled}),
+      {} as any,
+    ),
   });
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
@@ -95,7 +102,7 @@ const ListInternal = <
       const response: ListHandlerResult<RowData> = await Promise.resolve(handler(filterData, {
         limit: state.limit,
         offset: keepPagination ? state.offset : 0,
-      }, state.sort));
+      }, state.sort, state.chips));
       if (Array.isArray(response)) {
         response.length > state.limit && console.warn("List rows count is more than it's capacity");
         return {
@@ -133,6 +140,7 @@ const ListInternal = <
       isMounted.current && setState((prevState) => ({
         ...prevState,
         initComplete: true,
+        loading: false,
         filterData,
         rows,
         total,
@@ -207,11 +215,20 @@ const ListInternal = <
     onSortModelChange(sort);
   }, [state]);
 
+  const handleChips = useCallback((chips: ListHandlerChips) => {
+    isMounted.current && setState((prevState) => ({
+      ...prevState,
+      offset: 0,
+      chips,
+    }));
+    onChipsChange(chips);
+  }, [state]);
+
   useEffect(() => {
     if (state.initComplete) {
       handleReload(true);
     }
-  }, [state.limit, state.offset, state.sort]);
+  }, [state.limit, state.offset, state.sort, state.chips]);
 
   useEffect(() => {
     let timeout: any = null;
@@ -243,6 +260,7 @@ const ListInternal = <
     handleReload,
     handleSetMobile,
     handleAutoReload,
+    handleChips,
     handleFiltersCollapsed,
     ready: handleDefault,
   };
@@ -259,6 +277,7 @@ const ListInternal = <
           actions={actions}
           limit={state.limit}
           offset={state.offset}
+          listChips={upperChips}
           {...callbacks}
         />
       );
@@ -273,6 +292,7 @@ const ListInternal = <
           actions={actions}
           limit={state.limit}
           offset={state.offset}
+          listChips={upperChips}
           {...callbacks}
         />
       );
@@ -284,9 +304,11 @@ const ListInternal = <
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider sortModel={upperSortModel}>
-            <ExpansionProvider>
-              {renderInner()}
-            </ExpansionProvider>
+            <ChipsProvider chips={upperChips}>
+              <ExpansionProvider>
+                {renderInner()}
+              </ExpansionProvider>
+            </ChipsProvider>
           </SortModelProvider>
         </SelectionProvider>
       </PropProvider>

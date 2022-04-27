@@ -2,6 +2,7 @@ import { useMemo, useEffect } from 'react';
 
 import { 
     ListHandler,
+    ListHandlerChips,
     ListHandlerResult,
     ListHandlerSortModel,
     ListHandlerPagination,
@@ -16,6 +17,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     origin?: string;
     requestMap?: (url: URL) => URL;
     filterHandler?: (url: URL, filterData: FilterData) => URL;
+    chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
     paginationHandler?: (url: URL, pagination: ListHandlerPagination) => URL;
     onFetchBegin?: () => void;
@@ -23,6 +25,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withAbortSignal?: boolean;
     withPagination?: boolean;
     withFilters?: boolean;
+    withChips?: boolean;
     withSort?: boolean;
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
@@ -58,6 +61,14 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         });
         return url;
     },
+    chipsHandler = (url, chips) => {
+        Object.entries(chips).forEach(([chip, enabled]) => {
+            if (enabled) {
+                url.searchParams.append(`filter.${chip}`, `$eq:1`);
+            }
+        });
+        return url;
+    },
     sortHandler = (url, sort) => {
         sort.forEach(({
             field,
@@ -80,18 +91,22 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     withAbortSignal = true,
     withPagination = true,
     withFilters = true,
+    withChips = true,
     withSort = true,
 }: IApiPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
-    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort) => {
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
         let url = new URL(path, origin);
         if (withPagination) {
             url = paginationHandler(new URL(url), pagination);
         }
-        if (withSort) {
-            url = sortHandler(new URL(url), sort);
-        }
         if (withFilters) {
             url = filterHandler(new URL(url), filterData);
+        }
+        if (withChips) {
+            url = chipsHandler(new URL(url), chips);
+        }
+        if (withSort) {
+            url = sortHandler(new URL(url), sort);
         }
         url = requestMap(new URL(url));
         onFetchBegin && onFetchBegin();

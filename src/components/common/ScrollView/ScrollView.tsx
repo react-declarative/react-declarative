@@ -13,6 +13,10 @@ export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 const useStyles = makeStyles({
     root: {
         overflow: 'auto !important',
+        scrollbarWidth: 'none',
+        '&::-webkit-scrollbar': {
+            display: 'none',
+        },
     },
     container: {
         position: 'relative',

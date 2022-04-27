@@ -19,6 +19,7 @@ import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 import { IListApi as IListApiInternal } from './model/IListApi';
 
 import { IListAction as IListActionInternal } from './model/IListProps';
+import { IListChip as IListChipInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
 import { serviceManager as serviceManagerInternal } from './helpers/serviceManager';
@@ -33,6 +34,7 @@ import {
 
 import { ListHandlerPagination as ListHandlerPaginationInternal } from './model/IListProps';
 import { ListHandlerSortModel as ListHandlerSortModelInternal } from './model/IListProps';
+import { ListHandlerChips as ListHandlerChipsInternal } from './model/IListProps';
 
 import { ListHandlerResult as ListHandlerResultInternal } from './model/IListProps';
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
@@ -68,7 +70,9 @@ export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 
 export type ListHandlerPagination = ListHandlerPaginationInternal;
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = ListHandlerSortModelInternal<RowData>;
+export type ListHandlerChips<RowData extends IRowData = IAnything> = ListHandlerChipsInternal<RowData>;
 
+export type IListChip<RowData extends IRowData = IAnything> = IListChipInternal<RowData>;
 export type IListAction = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;
 export type IMenuGroup = IMenuGroupInternal;

@@ -46,12 +46,14 @@ interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnyth
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
+    chips: never;
     autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
+  listChips: IListProps['chips'];
 }
 
 interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -62,7 +64,7 @@ interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnyth
 export const Mobile = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
->(props: IMobileProps<FilterData, RowData>) => {
+  >(props: IMobileProps<FilterData, RowData>) => {
 
   const innerRef = useRef<HTMLElement>(null);
   const outerRef = useRef<HTMLElement>(null);
@@ -137,9 +139,9 @@ export const Mobile = <
       {...state}
     >
       {({ height, width, payload: { rows, loading } }) => (
-        <Box position="relative" style={{height, width}}>
+        <Box position="relative" style={{ height, width }}>
           <ModalLoader open={pageChanged && loading} />
-          {!rows.length && (
+          {(rows.length === 0 || loading) ? (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
                 {loading ? (
@@ -153,25 +155,26 @@ export const Mobile = <
                 secondary={loading ? "Fetching data" : "Nothing found"}
               />
             </MatListItem>
+          ) : (
+            <FixedSizeList
+              className={classNames(classes.root, MOBILE_LIST_ROOT)}
+              height={height}
+              width={width}
+              itemCount={rows.length}
+              onScroll={createScrollHandler(height)}
+              innerRef={innerRef}
+              outerRef={outerRef}
+              itemSize={DEFAULT_ITEM_SIZE}
+            >
+              {({ index, style }) => (
+                <ListItem
+                  key={index}
+                  row={rows[index]}
+                  style={style}
+                />
+              )}
+            </FixedSizeList>
           )}
-          <FixedSizeList
-            className={classNames(classes.root, MOBILE_LIST_ROOT)}
-            height={height}
-            width={width}
-            itemCount={rows.length}
-            onScroll={createScrollHandler(height)}
-            innerRef={innerRef}
-            outerRef={outerRef}
-            itemSize={DEFAULT_ITEM_SIZE}
-          >
-            {({ index, style }) => (
-              <ListItem
-                key={index}
-                row={rows[index]}
-                style={style}
-              />
-            )} 
-          </FixedSizeList>
         </Box>
       )}
     </Container>

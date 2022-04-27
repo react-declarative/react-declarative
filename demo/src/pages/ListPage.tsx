@@ -13,6 +13,9 @@ import {
   RowId,
   useList,
   useOne,
+  IListChip,
+  ListHandlerChips,
+  useStaticPaginator,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -107,6 +110,25 @@ const actions: IListAction[] = [
   }
 ];
 
+const chips: IListChip[] = [
+  {
+    label: 'Chip1',
+    name: 'chip1_enabled',
+    enabled: true,
+    color: 'info',
+  },
+  {
+    label: 'Chip2',
+    name: 'chip2_enabled',
+    color: 'warning',
+  },
+  {
+    label: 'Chip3',
+    name: 'chip3_enabled',
+    color: 'error',
+  }
+];
+
 const rowActions = [
   {
     label: 'Remove action',
@@ -132,15 +154,17 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = async ({
+  const handler = useStaticPaginator(mock);
+
+  /*const handler = async ({
     firstName,
     lastName,
   }: IFilterData, {
     limit,
     offset,
-  }: ListHandlerPagination, sort: ListHandlerSortModel) => {
+  }: ListHandlerPagination, sort: ListHandlerSortModel, chips: ListHandlerChips) => {
 
-    console.log({limit, offset, sort})
+    console.log({limit, offset, sort, chips})
 
     // return mock;
 
@@ -168,7 +192,7 @@ export const ListPage = () => {
     //await sleep(3_000)
 
     // return [];
-  };
+  };*/
 
   const pickList = useList<IRowData>({
     columns,
@@ -184,10 +208,6 @@ export const ListPage = () => {
   });
 
   const heightRequest = () => window.innerHeight - 100;
-
-  const handleColumnMenuClick = (action: string) => {
-    alert(action);
-  };
 
   const handleRowActionsClick = (row: any, action: string) => {
     alert(JSON.stringify({ row, action }, null, 2));
@@ -227,13 +247,13 @@ export const ListPage = () => {
       columns={columns}
       handler={handler}
       selectionMode={SelectionMode.Expander}
-      onColumnMenuAction={handleColumnMenuClick}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
       displayMode={DisplayMode.Desktop}
       selectedRows={selectedRows}
+      chips={chips}
       ExpansionContent={({ id }: any) => <p>{id}</p>}
     />
   );

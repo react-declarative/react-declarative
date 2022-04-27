@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { 
     ListHandler,
+    ListHandlerChips,
     ListHandlerSortModel,
     ListHandlerPagination,
 } from "../../../model/IListProps";
@@ -11,11 +12,13 @@ import IRowData from "../../../model/IRowData";
 
 export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
+    chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
     compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
     withPagination?: boolean;
     withFilters?: boolean;
+    withChips?: boolean;
     withSort?: boolean;
     withTotal?: boolean;
 }
@@ -44,6 +47,14 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
         });
         return rows;
     },
+    chipsHandler = (rows, chips) => {
+        Object.entries(chips).forEach(([chip, enabled]) => {
+            if (enabled) {
+                rows = rows.filter((row) => row[chip]);
+            }
+        });
+        return rows;
+    },
     sortHandler = (rows, sort) => {
         sort.forEach(({
             field,
@@ -67,13 +78,17 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     },
     withPagination = true,
     withFilters = true,
+    withChips = true,
     withSort = true,
     withTotal = true,
 }: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
-    const handler: ListHandler<FilterData, RowData> = useMemo(() => (filterData, pagination, sort) => {
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => (filterData, pagination, sort, chips) => {
         let handledRows = rows.slice(0);
         if (withFilters) {
             handledRows = filterHandler(handledRows, filterData);
+        }
+        if (withChips) {
+            handledRows = chipsHandler(handledRows, chips);
         }
         if (withSort) {
             handledRows = sortHandler(handledRows, sort);
