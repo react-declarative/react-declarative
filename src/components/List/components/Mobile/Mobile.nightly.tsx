@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import MatListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import CircularProgress from "@mui/material/CircularProgress";
 
 import NotInterested from '@mui/icons-material/NotInterested';
 
@@ -64,10 +63,10 @@ interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnyth
 export const Mobile = <
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
->(props: IMobileProps<FilterData, RowData>) => {
+  >(props: IMobileProps<FilterData, RowData>) => {
 
   const classes = useStyles();
-  
+
   const rootRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -77,6 +76,7 @@ export const Mobile = <
     limit,
     total,
     loading,
+    showLoader = false,
   } = props;
 
   const {
@@ -87,8 +87,6 @@ export const Mobile = <
     rows: upperRows,
     filterData: upperFilterData,
   });
-
-  const [pageChanged, setPageChanged] = useState(false);
 
   const handleCleanRows = useCallback(() => {
     const { current } = rootRef;
@@ -128,7 +126,6 @@ export const Mobile = <
       if (scrollOffset < SCROLL_PAGINATION_DELTA) {
         if (!total || pendingPage * limit < total) {
           handlePageChange(pendingPage);
-          setPageChanged(true);
         }
       }
     }
@@ -140,20 +137,16 @@ export const Mobile = <
       {...state}
     >
       {({ height, width, payload: { rows, loading } }) => (
-        <Box ref={rootRef} position="relative" style={{height, width}}>
-          <ModalLoader open={pageChanged && loading} />
-          {(rows.length === 0 || loading) ? (
+        <Box ref={rootRef} position="relative" style={{ height, width }}>
+          <ModalLoader open={showLoader && loading} />
+          {!loading && rows.length === 0 ? (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
-                {loading ? (
-                  <CircularProgress size={40} />
-                ) : (
-                  <NotInterested />
-                )}
+                <NotInterested />
               </ListItemIcon>
               <ListItemText
-                primary={loading ? "Loading" : "Empty"}
-                secondary={loading ? "Fetching data" : "Nothing found"}
+                primary="Empty"
+                secondary="Nothing found"
               />
             </MatListItem>
           ) : (
@@ -171,7 +164,7 @@ export const Mobile = <
                   row={rows[index]}
                   style={style}
                 />
-              )} 
+              )}
             </VirtualizedList>
           )}
         </Box>

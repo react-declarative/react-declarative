@@ -84,6 +84,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
       <Box className={classes.root} style={{minHeight, minWidth}}>
         <List<IAnything, RowData>
           sizeByParent
+          showLoader
           displayMode={DisplayMode.Mobile}
           handler={handler}
           columns={columns}

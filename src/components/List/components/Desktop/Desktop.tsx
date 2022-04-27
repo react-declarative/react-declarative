@@ -70,6 +70,7 @@ export const Desktop = <
     loading,
     total,
     columns = [],
+    showLoader,
   } = props;
 
   const {
@@ -112,7 +113,7 @@ export const Desktop = <
                 />
               </TableHead>
               <TableBody>
-                {(loading || rows.length === 0) ? (
+                {(showLoader && loading) || (!loading && rows.length === 0) ? (
                   <TableRow>
                     {renderPlaceholder()}
                   </TableRow>

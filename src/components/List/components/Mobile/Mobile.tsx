@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import MatListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import CircularProgress from "@mui/material/CircularProgress";
 
 import NotInterested from '@mui/icons-material/NotInterested';
 
@@ -78,6 +77,7 @@ export const Mobile = <
     limit,
     total,
     loading,
+    showLoader = false,
   } = props;
 
   const {
@@ -88,8 +88,6 @@ export const Mobile = <
     rows: upperRows,
     filterData: upperFilterData,
   });
-
-  const [pageChanged, setPageChanged] = useState(false);
 
   const handleCleanRows = useCallback(() => {
     const { current } = outerRef;
@@ -126,7 +124,6 @@ export const Mobile = <
         if (Math.ceil(height + scrollOffset) + SCROLL_DELTA >= scrollHeight && scrollHeight !== 0) {
           if (!total || pendingPage * limit < total) {
             handlePageChange(pendingPage);
-            setPageChanged(true);
           }
         }
       }
@@ -140,19 +137,15 @@ export const Mobile = <
     >
       {({ height, width, payload: { rows, loading } }) => (
         <Box position="relative" style={{ height, width }}>
-          <ModalLoader open={pageChanged && loading} />
-          {(rows.length === 0 || loading) ? (
+          <ModalLoader open={showLoader && loading} />
+          {!loading && rows.length === 0 ? (
             <MatListItem className={classes.empty}>
               <ListItemIcon>
-                {loading ? (
-                  <CircularProgress size={40} />
-                ) : (
-                  <NotInterested />
-                )}
+                <NotInterested />
               </ListItemIcon>
               <ListItemText
-                primary={loading ? "Loading" : "Empty"}
-                secondary={loading ? "Fetching data" : "Nothing found"}
+                primary="Empty"
+                secondary="Nothing found"
               />
             </MatListItem>
           ) : (

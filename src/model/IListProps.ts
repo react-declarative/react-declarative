@@ -153,6 +153,7 @@ export interface IListProps<
   keepFlow?: boolean;
   autoReloadInterval?: number;
   selectedRows?: RowId[];
+  showLoader?: boolean;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
