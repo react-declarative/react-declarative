@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import { makeStyles } from '../../../../styles';
-import { alpha, decomposeColor, recomposeColor, Theme } from '@mui/material';
+import { alpha, decomposeColor, recomposeColor } from '@mui/material';
+import { createTheme, Theme, ThemeProvider } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import Chip from '@mui/material/Chip';
@@ -53,6 +54,21 @@ export const Chips = <RowData extends IRowData = IAnything>({
         return recomposeColor(background);
     }, [theme]);
 
+    const chipTheme = useMemo(() => {
+        return listChips.reduce((acm, { name, color = theme.palette.primary.main }) => ({
+            [name]: createTheme({
+                ...theme,
+                palette: {
+                    ...theme.palette,
+                    primary: {
+                        main: color,
+                    },
+                }
+            }),
+            ...acm,
+        }), {});
+    }, [theme]);
+
     const { chips, setChips } = useChips();
 
     const createToggleHandler = (name: string, state = true) => () => {
@@ -64,14 +80,15 @@ export const Chips = <RowData extends IRowData = IAnything>({
         const name = chip.name.toString();
         const enabled = !!chips.get(name);
         return (
-            <Chip
-                variant={enabled ? 'filled' : 'outlined'}
-                onClick={!enabled ? createToggleHandler(name, true) : undefined}
-                onDelete={enabled ? createToggleHandler(name, false) : undefined}
-                label={chip.label}
-                color={chip.color}
-                key={`${enabled}-${idx}`}
-            />
+            <ThemeProvider key={`${enabled}-${idx}`} theme={chipTheme[name]}>
+                <Chip
+                    variant={enabled ? 'filled' : 'outlined'}
+                    onClick={!enabled ? createToggleHandler(name, true) : undefined}
+                    onDelete={enabled ? createToggleHandler(name, false) : undefined}
+                    color='primary'
+                    label={chip.label}
+                />
+            </ThemeProvider>
         );
     };
 

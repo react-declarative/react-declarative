@@ -115,17 +115,17 @@ const chips: IListChip[] = [
     label: 'The chip1_enabled is true',
     name: 'chip1_enabled',
     enabled: true,
-    color: 'info',
+    color: '#4caf50',
   },
   {
     label: 'The chip2_enabled is true',
     name: 'chip2_enabled',
-    color: 'warning',
+    color: '#ff9800',
   },
   {
     label: 'The chip3_enabled is true',
     name: 'chip3_enabled',
-    color: 'error',
+    color: '#42a5f5',
   }
 ];
 

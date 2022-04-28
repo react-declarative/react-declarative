@@ -39,7 +39,7 @@ export interface IListAction extends Partial<IOption> {
 export interface IListChip<RowData extends IRowData = IAnything> {
   name: keyof RowData,
   label: string;
-  color?: "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  color?: string;
   enabled?: boolean;
 }
 
