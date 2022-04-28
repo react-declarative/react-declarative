@@ -83,7 +83,7 @@ export const Chips = <RowData extends IRowData = IAnything>({
             <ThemeProvider key={`${enabled}-${idx}`} theme={chipTheme[name]}>
                 <Chip
                     variant={enabled ? 'filled' : 'outlined'}
-                    onClick={!enabled ? createToggleHandler(name, true) : undefined}
+                    onClick={createToggleHandler(name, !enabled)}
                     onDelete={enabled ? createToggleHandler(name, false) : undefined}
                     color='primary'
                     label={chip.label}
