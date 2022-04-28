@@ -3,10 +3,13 @@ import { Fragment } from 'react';
 import { useState, useLayoutEffect } from 'react';
 
 import makeField from '../components/makeField';
+import { useOneState } from '../components/One/context/StateProvider';
 
 import IField from '../model/IField';
 import IAnything from '../model/IAnything';
 import IManaged, { PickProp } from '../model/IManaged';
+
+import deepClone from '../utils/deepClone';
 
 const FIELD_NEVER_MARGIN = '0';
 
@@ -24,10 +27,13 @@ export const ComponentField = ({
     object,
 }: IComponentFieldProps & IComponentFieldPrivate) => {
     const [node, setNode] = useState<JSX.Element | null>(null);
+    const { setObject } = useOneState();
+    const onChange = (object: unknown) => setObject(deepClone(object));
     useLayoutEffect(() => {
+        const props = { ...object, onChange };
         setNode(() => (
             <Element
-                {...object}
+                {...props}
             />
         ));
     }, [object]);
