@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { makeStyles } from '../../../../../../../styles';
+
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -9,12 +11,34 @@ import CheckBoxOff from '@mui/icons-material/CheckBoxOutlineBlank';
 
 import useProps from "../../../../../hooks/useProps";
 
-export const AutoReloadAction = () => {
+import classNames from '../../../../../../../utils/classNames';
 
-    const { isMobile, handleSetMobile } = useProps();
+interface IMobileViewActionProps {
+    enabled: boolean;
+}
+
+const useStyles = makeStyles({
+    disabled: {
+        opacity: 0.5,
+    },
+});
+
+export const MobileViewAction = ({
+    enabled,
+}: IMobileViewActionProps) => {
+
+    const classes = useStyles();
+
+    const { isMobile, handleSetMobile = () => null } = useProps();
+    const handleClick = () => enabled && handleSetMobile(!isMobile);
 
     return (
-        <MenuItem onClick={() => handleSetMobile(!isMobile)}>
+        <MenuItem
+            className={classNames({
+                [classes.disabled]: !enabled,
+            })}
+            onClick={handleClick}
+        >
             <ListItemIcon>
                 {isMobile ? <CheckBoxOn /> : <CheckBoxOff />}
             </ListItemIcon>
@@ -26,4 +50,4 @@ export const AutoReloadAction = () => {
 
 };
 
-export default AutoReloadAction;
+export default MobileViewAction;

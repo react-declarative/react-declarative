@@ -147,6 +147,7 @@ export interface IListProps<
   title?: string;
   filterLabel?: string;
   actions?: IListAction[];
+  actionAvalibility?: Record<string, any>;
   limit?: number;
   sizeByParent?: boolean;
   autoReload?: boolean;

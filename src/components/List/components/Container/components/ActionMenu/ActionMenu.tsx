@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import useProps from "../../../../hooks/useProps";
 
@@ -38,12 +38,31 @@ export const ActionMenu = ({
 
     const {
         onAction,
+        actionAvalibility: avalibility,
     } = listProps;
+
+    const actionAvalibility = useMemo(() => {
+        const actionAvalibility = options.reduce((acm, {
+            action = 'unknown-action',
+            enabled = true,
+        }) => ({
+            [action]: enabled,
+            ...acm,
+        }), {
+            ['unknown-action']: true,
+        });
+        return {
+            ...actionAvalibility,
+            ...avalibility,
+        };
+    }, [options, avalibility]);
 
     const handleClick = (item: string) => (e: any) => {
         e.stopPropagation();
-        onAction && onAction(item);
-        handleClose();
+        if (actionAvalibility[item]) {
+            onAction && onAction(item);
+            handleClose();
+        }
     };
 
     return (
@@ -70,15 +89,15 @@ export const ActionMenu = ({
                 {options.map(({label = 'unknown-label', action = 'unknown-action', icon}, idx) => {
                     if (action === 'update-now') {
                         return (
-                            <UpdateNowAction key={idx} />
+                            <UpdateNowAction enabled={actionAvalibility[action]} key={idx} />
                         );
                     } else if (action === 'auto-reload') {
                         return (
-                            <AutoReloadAction key={idx} />
+                            <AutoReloadAction enabled={actionAvalibility[action]} key={idx} />
                         );
                     } else if (action === 'mobile-view') {
                         return (
-                            <MobileViewAction key={idx} />
+                            <MobileViewAction enabled={actionAvalibility[action]} key={idx} />
                         );
                     } else {
                         return (
@@ -86,6 +105,7 @@ export const ActionMenu = ({
                                 key={idx}
                                 icon={icon}
                                 label={label}
+                                enabled={actionAvalibility[action]}
                                 onClick={handleClick(action)}
                             />
                         );

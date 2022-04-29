@@ -106,6 +106,10 @@ const actions: IListAction[] = [
         action: 'one-action',
         label: 'Pick one',
       },
+      {
+        action: 'disabled-action',
+        label: 'Disabled',
+      },
     ],
   }
 ];
@@ -246,15 +250,17 @@ export const ListPage = () => {
       filters={filters}
       columns={columns}
       handler={handler}
-      selectionMode={SelectionMode.Expander}
+      selectionMode={SelectionMode.Multiple}
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
       displayMode={DisplayMode.Desktop}
       selectedRows={selectedRows}
+      actionAvalibility={{
+        ['disabled-action']: false,
+      }}
       chips={chips}
-      ExpansionContent={({ id }: any) => <p>{id}</p>}
     />
   );
 };
