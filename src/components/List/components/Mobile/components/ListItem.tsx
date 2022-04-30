@@ -141,7 +141,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
             {!!rowActions && (
                 <ActionMenu
                     transparent
-                    options={rowActions}
+                    options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
                     onToggle={handleMenuToggle}
                     onAction={handleAction}
                 />

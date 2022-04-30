@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useMemo } from 'react';
 
+import { makeStyles } from '../../../../../../styles';
+
 import useProps from "../../../../hooks/useProps";
 
 import Menu from '@mui/material/Menu';
@@ -9,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Fab from '@mui/material/Fab';
 
-import IOption from '../../../../../../model/IOption';
+import IListOption from '../../../../../../model/IListOption';
 
 import CommonAction from './components/CommonAction';
 import UpdateNowAction from './components/UpdateNowAction';
@@ -17,12 +19,20 @@ import AutoReloadAction from './components/AutoReloadAction';
 import MobileViewAction from './components/MobileViewAction';
 
 interface IActionMenuProps {
-    options?: Partial<IOption>[];
+    options?: Partial<IListOption>[];
 }
+
+const useStyles = makeStyles({
+    root: {
+        zIndex: 'unset !important',
+    },
+});
 
 export const ActionMenu = ({
     options = [],
 }: IActionMenuProps) => {
+
+    const classes = useStyles();
 
     const listProps = useProps();
 
@@ -68,6 +78,7 @@ export const ActionMenu = ({
     return (
         <div>
             <Fab
+                className={classes.root}
                 size="small"
                 color="primary"
                 aria-label="more"

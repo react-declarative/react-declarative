@@ -16,6 +16,7 @@ import {
   IListChip,
   ListHandlerChips,
   useStaticPaginator,
+  IListOption,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -133,7 +134,22 @@ const chips: IListChip[] = [
   }
 ];
 
-const rowActions = [
+const rowActions: IListOption[] = [
+  {
+    label: 'chip1',
+    action: 'chip1-action',
+    isVisible: ({ chip1_enabled }) => chip1_enabled,
+  },
+  {
+    label: 'chip2',
+    action: 'chip2-action',
+    isVisible: ({ chip2_enabled }) => chip2_enabled,
+  },
+  {
+    label: 'chip3',
+    action: 'chip3-action',
+    isVisible: ({ chip3_enabled }) => chip3_enabled,
+  },
   {
     label: 'Remove action',
     action: 'remove-action',

@@ -9,31 +9,31 @@ import SelectionMode from './SelectionMode';
 import IAnything from './IAnything';
 import IRowData, { RowId } from './IRowData';
 import IColumn from './IColumn';
-import IOption from './IOption';
+import IListOption from './IListOption';
 import IField from './IField';
 import IListApi from './IListApi';
 
-interface IUpdateOption extends IOption {
+interface IUpdateOption extends IListOption {
   action: 'update-now';
   label: never;
   icon: never;
 };
 
-interface IAutoReloadOption extends IOption {
+interface IAutoReloadOption extends IListOption {
   action: 'auto-reload';
   label: never;
   icon: never;
 };
 
-interface IMobileViewOption extends IOption {
+interface IMobileViewOption extends IListOption {
   action: 'mobile-view';
   label: never;
   icon: never;
 };
 
-export interface IListAction extends Partial<IOption> {
+export interface IListAction<RowData extends IRowData = IAnything> extends Partial<IListOption<RowData>> {
   type: ActionType;
-  options?: Partial<IOption | IUpdateOption | IAutoReloadOption | IMobileViewOption>[];
+  options?: Partial<IListOption | IUpdateOption | IAutoReloadOption | IMobileViewOption>[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
@@ -171,7 +171,7 @@ export interface IListProps<
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   rowAvatar?: string | ((row: RowData) => ListAvatar) | ((row: RowData) => Promise<ListAvatar>) | ((row: RowData) => string) | ListAvatar;
   fallback?: (e: Error) => void;
-  rowActions?: IOption[];
+  rowActions?: IListOption[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];

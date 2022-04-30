@@ -100,7 +100,7 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
             return !!rowActions ? (
                 <ActionMenu
                     transparent
-                    options={rowActions}
+                    options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
                     onToggle={onMenuToggle}
                     onAction={onAction}
                 />

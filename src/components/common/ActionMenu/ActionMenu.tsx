@@ -26,6 +26,9 @@ export interface IActionMenuProps {
 };
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        zIndex: 'unset !important',
+    },
     transparent: {
         boxShadow: 'none !important',
         background: 'transparent !important',
@@ -69,7 +72,7 @@ export const ActionMenu = ({
     return (
         <div>
             <Fab
-                className={classNames({
+                className={classNames(classes.root, {
                     [classes.transparent]: transparent,
                 })}
                 disableFocusRipple={transparent}
