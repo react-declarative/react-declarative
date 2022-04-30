@@ -27,10 +27,24 @@ import Search from "@mui/icons-material/Search";
 import IMenuGroup, { IMenuOption } from "../../model/IMenuGroup";
 
 import SideMenu from "./SideMenu";
+import ScrollView from "../common/ScrollView";
 
 const DRAWER_WIDTH = 256;
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    maxHeight: '100vh',
+    minWidth: '100vw',
+    maxWidth: '100vw',
+  },
+  container: {
+    flex: 1,
+  },
   title: {
     flexGrow: 1,
   },
@@ -46,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   offset: theme.mixins.toolbar,
-  hide: {
-    display: 'none',
-  },
   searchBox: {
     display: 'inline-flex',
     margin: 5,
@@ -151,7 +162,7 @@ export const Scaffold = ({
   }, [filterText, currentRoles]);
 
   return (
-    <>
+    <Box className={classNames(className, classes.root)} style={style}>
       <CssBaseline />
       <Drawer
         className={classes.drawer}
@@ -183,11 +194,10 @@ export const Scaffold = ({
         <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
       </Drawer>
       <AppBar
-        className={classNames(className, {
+        className={classNames({
           [classes.appBarSolidPaper]: !colored,
         })}
         position="fixed"
-        style={style}
       >
         <Toolbar>
           <IconButton
@@ -205,12 +215,14 @@ export const Scaffold = ({
         </Toolbar>
       </AppBar>
       <div className={classes.offset} />
-      <Box p={1}>
-        <Grid container>
-          {children}
-        </Grid>
-      </Box>
-    </>
+      <ScrollView className={classes.container}>
+        <Box p={1}>
+          <Grid container>
+            {children}
+          </Grid>
+        </Box>
+      </ScrollView>
+    </Box>
   );
 };
 
