@@ -84,7 +84,7 @@ export const Desktop = <
 
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
 
-  const handleScrollTop = () => outerRef.current && outerRef.current.scrollTo(0, 0);
+  const handleScrollTop = () => outerRef.current && outerRef.current.scrollTo(outerRef.current.scrollLeft || 0, 0);
 
   const renderPlaceholder = () => (
     <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">

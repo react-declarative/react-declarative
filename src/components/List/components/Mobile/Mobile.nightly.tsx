@@ -95,7 +95,7 @@ export const Mobile = <
       rows: upperRows,
       filterData: upperFilterData,
     }));
-    scrollArea && scrollArea.scrollTo(0, 0);
+    scrollArea && scrollArea.scrollTo(scrollArea.scrollLeft || 0, 0);
   }, [upperRows, upperFilterData]);
 
   const handleAppendRows = useCallback(() => setState(({
