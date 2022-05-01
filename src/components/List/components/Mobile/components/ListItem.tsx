@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, createElement } from 'react';
 
 import { makeStyles } from '../../../../../styles';
 
@@ -33,8 +33,8 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
 }) => (
     <Async fallback={fallback}>
         {() => {
-            if (column && column.compute) {
-                return column.compute(row);
+            if (column && column.element) {
+                return createElement(column.element, row);
             } else if (column && column.field) {
                 return row[column.field];
             } else {
