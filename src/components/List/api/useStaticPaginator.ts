@@ -48,12 +48,16 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
         return rows;
     },
     chipsHandler = (rows, chips) => {
+        if (!Object.values(chips).reduce((acm, cur) => acm || cur)) {
+            return rows;
+        }
+        const tmp: RowData[][] = [];
         Object.entries(chips).forEach(([chip, enabled]) => {
             if (enabled) {
-                rows = rows.filter((row) => row[chip]);
+                tmp.push(rows.filter((row) => row[chip]));
             }
         });
-        return rows;
+        return tmp.flat();
     },
     sortHandler = (rows, sort) => {
         sort.forEach(({
