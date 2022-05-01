@@ -58,6 +58,8 @@ interface IMobileProps<FilterData = IAnything, RowData extends IRowData = IAnyth
 interface IMobileState<FilterData = IAnything, RowData extends IRowData = IAnything> {
   rows: IMobileProps<FilterData, RowData>["rows"];
   filterData: IMobileProps<FilterData, RowData>["filterData"];
+  chips: IMobileProps<FilterData, RowData>["chips"];
+  sort: IMobileProps<FilterData, RowData>["sort"];
 };
 
 export const Mobile = <
@@ -73,6 +75,8 @@ export const Mobile = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
+    sort: upperSort,
+    chips: upperChips,
     offset,
     limit,
     total,
@@ -87,6 +91,8 @@ export const Mobile = <
   const [state, setState] = useState<IMobileState>({
     rows: upperRows,
     filterData: upperFilterData,
+    sort: upperSort,
+    chips: upperChips,
   });
 
   const handleCleanRows = useCallback(() => {
@@ -94,17 +100,19 @@ export const Mobile = <
     setState(() => ({
       rows: upperRows,
       filterData: upperFilterData,
+      sort: upperSort,
+      chips: upperChips,
     }));
     current && current.scrollTo(current.scrollLeft || 0, 0);
-  }, [upperRows, upperFilterData]);
+  }, [upperRows, upperFilterData, upperSort, upperChips]);
 
   const handleAppendRows = useCallback(() => setState(({
     rows,
-    filterData,
+    ...state
   }) => {
     const rowIds = new Set(rows.map(({ id }) => id));
     return {
-      filterData,
+      ...state,
       rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
     };
   }), [state, upperRows]);
