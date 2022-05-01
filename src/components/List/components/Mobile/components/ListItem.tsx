@@ -35,6 +35,8 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
         {() => {
             if (column && column.element) {
                 return createElement(column.element, row);
+            } else  if (column && column.compute) {
+                return column.compute(row);
             } else if (column && column.field) {
                 return row[column.field];
             } else {

@@ -15,7 +15,7 @@ export const Async = <T extends any = object>({
     children,
     fallback = () => null,
     LoaderModal = () => null,
-    payload = {} as T,
+    payload,
 }: IAsyncProps<T>) => {
     const [child, setChild] = useState<React.ReactNode>('');
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ export const Async = <T extends any = object>({
             }
         };
         process();
-    }, [children, fallback, payload]);
+    }, [payload]);
 
     return (
         <>

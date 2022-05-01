@@ -85,16 +85,16 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     const handler: ListHandler<FilterData, RowData> = useMemo(() => (filterData, pagination, sort, chips) => {
         let handledRows = rows.slice(0);
         if (withFilters) {
-            handledRows = filterHandler(handledRows, filterData);
+            handledRows = filterHandler(handledRows.slice(0), filterData);
         }
         if (withChips) {
-            handledRows = chipsHandler(handledRows, chips);
+            handledRows = chipsHandler(handledRows.slice(0), chips);
         }
         if (withSort) {
-            handledRows = sortHandler(handledRows, sort);
+            handledRows = sortHandler(handledRows.slice(0), sort);
         }
         if (withPagination) {
-            handledRows = paginationHandler(handledRows, pagination);
+            handledRows = paginationHandler(handledRows.slice(0), pagination);
         }
         return {
             rows: handledRows,
