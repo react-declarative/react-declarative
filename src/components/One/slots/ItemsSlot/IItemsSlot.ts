@@ -1,4 +1,4 @@
-import { IItemsFieldPrivate, IItemsFieldProps } from "../../../../fields/ItemsField";
+import { IItemsFieldPrivate, IItemsFieldProps } from "../../fields/ItemsField";
 
 export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate { }
 

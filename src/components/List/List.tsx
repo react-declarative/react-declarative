@@ -11,7 +11,7 @@ import IRowData from '../../model/IRowData';
 import IField from '../../model/IField';
 import IListApi from '../../model/IListApi';
 
-import initialValue from '../../config/initialValue';
+import initialValue from '../One/config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
 

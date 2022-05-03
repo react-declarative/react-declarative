@@ -1,4 +1,4 @@
-import { IComboFieldPrivate, IComboFieldProps } from "../../../../fields/ComboField";
+import { IComboFieldPrivate, IComboFieldProps } from "../../fields/ComboField";
 
 export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate { }
 

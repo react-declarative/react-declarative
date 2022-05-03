@@ -3,21 +3,21 @@ import { memo, useRef, useCallback, Fragment } from 'react';
 
 /* eslint-disable react/jsx-no-useless-fragment */
 
-import isStatefull from '../../../../config/isStatefull';
-import createField from '../../../../config/createField';
+import isStatefull from '../../config/isStatefull';
+import createField from '../../config/createField';
 
 import { useOneState } from '../../context/StateProvider';
 
-import ExpansionLayout from '../../../../layouts/ExpansionLayout';
-import PaperLayout from '../../../../layouts/PaperLayout';
-import OutlineLayout from '../../../../layouts/OutlineLayout';
-import GroupLayout from '../../../../layouts/GroupLayout';
-import FragmentLayout from '../../../../layouts/FragmentLayout';
-import DivLayout from '../../../../layouts/DivLayout';
-import TabsLayout from '../../../../layouts/TabsLayout';
-import CenterLayout from '../../../../layouts/CenterLayout';
-import StretchLayout from '../../../../layouts/StretchLayout';
-import HeroLayout from '../../../../layouts/HeroLayout';
+import ExpansionLayout from '../../layouts/ExpansionLayout';
+import PaperLayout from '../../layouts/PaperLayout';
+import OutlineLayout from '../../layouts/OutlineLayout';
+import GroupLayout from '../../layouts/GroupLayout';
+import FragmentLayout from '../../layouts/FragmentLayout';
+import DivLayout from '../../layouts/DivLayout';
+import TabsLayout from '../../layouts/TabsLayout';
+import CenterLayout from '../../layouts/CenterLayout';
+import StretchLayout from '../../layouts/StretchLayout';
+import HeroLayout from '../../layouts/HeroLayout';
 
 import FieldType from '../../../../model/FieldType';
 import IOneProps from '../../../../model/IOneProps';

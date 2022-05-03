@@ -1,4 +1,4 @@
-import { ILineFieldProps } from "../../../../fields/LineField";
+import { ILineFieldProps } from "../../fields/LineField";
 
 export interface ILineSlot extends ILineFieldProps { }
 

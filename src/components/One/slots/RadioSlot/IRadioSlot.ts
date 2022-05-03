@@ -1,4 +1,4 @@
-import { IRadioFieldPrivate, IRadioFieldProps } from "../../../../fields/RadioField";
+import { IRadioFieldPrivate, IRadioFieldProps } from "../../fields/RadioField";
 
 export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate { }
 

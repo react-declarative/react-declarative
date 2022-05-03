@@ -1,4 +1,4 @@
-import { ISwitchFieldPrivate, ISwitchFieldProps } from "../../../../fields/SwitchField";
+import { ISwitchFieldPrivate, ISwitchFieldProps } from "../../fields/SwitchField";
 
 export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate { }
 

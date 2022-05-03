@@ -1,4 +1,4 @@
-import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "../../../../fields/CheckboxField";
+import { ICheckboxFieldPrivate, ICheckboxFieldProps } from "../../fields/CheckboxField";
 
 export interface ICheckBoxSlot extends ICheckboxFieldProps, ICheckboxFieldPrivate { }
 

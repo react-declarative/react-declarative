@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 
 import classNames from "../../../../utils/classNames";
 
-import AutoSizer, { IAutoSizerProps, IChildParams } from "../../../common/AutoSizer";
+import AutoSizer, { IAutoSizerProps, IChildParams } from "../../../AutoSizer";
 
 import IListProps, { IListState, IListCallbacks } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';

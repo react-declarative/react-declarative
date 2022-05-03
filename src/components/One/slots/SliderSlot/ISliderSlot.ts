@@ -1,4 +1,4 @@
-import { ISliderFieldPrivate, ISliderFieldProps } from "../../../../fields/SliderField";
+import { ISliderFieldPrivate, ISliderFieldProps } from "../../fields/SliderField";
 
 export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate { }
 

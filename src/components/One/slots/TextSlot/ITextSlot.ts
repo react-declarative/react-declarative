@@ -1,4 +1,4 @@
-import { ITextFieldProps, ITextFieldPrivate } from "../../../../fields/TextField";
+import { ITextFieldProps, ITextFieldPrivate } from "../../fields/TextField";
 
 type ITextBase = ITextFieldProps & ITextFieldPrivate;
 

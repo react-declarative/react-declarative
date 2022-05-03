@@ -8,32 +8,32 @@ import IAnything from './IAnything';
 /**
  * Компоновки
  */
-import { IFragmentLayoutProps } from '../layouts/FragmentLayout';
-import { IDivLayoutProps } from '../layouts/DivLayout';
-import { ITabsLayoutProps } from '../layouts/TabsLayout';
-import { ICenterLayoutProps } from '../layouts/CenterLayout';
-import { IStretchLayoutProps } from '../layouts/StretchLayout';
-import { IGroupLayoutProps } from '../layouts/GroupLayout';
-import { IOutlineLayoutProps } from '../layouts/OutlineLayout';
-import { IPaperLayoutProps } from '../layouts/PaperLayout';
-import { IExpansionLayoutProps } from '../layouts/ExpansionLayout';
-import { IHeroLayoutProps } from '../layouts/HeroLayout';
+import { IFragmentLayoutProps } from '../components/One/layouts/FragmentLayout';
+import { IDivLayoutProps } from '../components/One/layouts/DivLayout';
+import { ITabsLayoutProps } from '../components/One/layouts/TabsLayout';
+import { ICenterLayoutProps } from '../components/One/layouts/CenterLayout';
+import { IStretchLayoutProps } from '../components/One/layouts/StretchLayout';
+import { IGroupLayoutProps } from '../components/One/layouts/GroupLayout';
+import { IOutlineLayoutProps } from '../components/One/layouts/OutlineLayout';
+import { IPaperLayoutProps } from '../components/One/layouts/PaperLayout';
+import { IExpansionLayoutProps } from '../components/One/layouts/ExpansionLayout';
+import { IHeroLayoutProps } from '../components/One/layouts/HeroLayout';
 
 /**
  * Поля ввода
  */
-import { ICheckboxFieldProps } from '../fields/CheckboxField';
-import { IComboFieldProps } from '../fields/ComboField';
-import { IComponentFieldProps } from '../fields/ComponentField';
-import { IItemsFieldProps } from '../fields/ItemsField';
-import { ILineFieldProps } from '../fields/LineField';
-import { IProgressFieldProps } from '../fields/ProgressField';
-import { IRadioFieldProps } from '../fields/RadioField';
-import { IRatingFieldProps } from '../fields/RatingField';
-import { ISliderFieldProps } from '../fields/SliderField';
-import { ISwitchFieldProps } from '../fields/SwitchField';
-import { ITextFieldProps } from '../fields/TextField';
-import { ITypographyFieldProps } from '../fields/TypographyField';
+import { ICheckboxFieldProps } from '../components/One/fields/CheckboxField';
+import { IComboFieldProps } from '../components/One/fields/ComboField';
+import { IComponentFieldProps } from '../components/One/fields/ComponentField';
+import { IItemsFieldProps } from '../components/One/fields/ItemsField';
+import { ILineFieldProps } from '../components/One/fields/LineField';
+import { IProgressFieldProps } from '../components/One/fields/ProgressField';
+import { IRadioFieldProps } from '../components/One/fields/RadioField';
+import { IRatingFieldProps } from '../components/One/fields/RatingField';
+import { ISliderFieldProps } from '../components/One/fields/SliderField';
+import { ISwitchFieldProps } from '../components/One/fields/SwitchField';
+import { ITextFieldProps } from '../components/One/fields/TextField';
+import { ITypographyFieldProps } from '../components/One/fields/TypographyField';
 
 type Exclude<Data = IAnything> = Omit<IManaged<Data>, keyof IEntity<Data>>;
 

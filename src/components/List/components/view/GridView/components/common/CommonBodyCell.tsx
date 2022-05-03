@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
-import Async from '../../../../../../common/Async';
+import Async from '../../../../../../Async';
 import ActionMenu, { IActionMenuProps } from '../../../../../../common/ActionMenu';
 
 import IAnything from '../../../../../../../model/IAnything';

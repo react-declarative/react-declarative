@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
-import Async from '../../../../../common/Async';
+import Async from '../../../../../Async';
 import ActionMenu from '../../../../../common/ActionMenu';
 
 import IListProps from '../../../../../../model/IListProps';

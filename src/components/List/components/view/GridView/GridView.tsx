@@ -19,7 +19,7 @@ import IListProps, { IListState, IListCallbacks } from '../../../../../model/ILi
 import IAnything from '../../../../../model/IAnything';
 import IRowData from '../../../../../model/IRowData';
 
-import ConstraintView from "../../../../common/ConstraintView";
+import ConstraintView from "../../../../ConstraintView";
 
 import DisplayMode from "../../../../../model/DisplayMode";
 

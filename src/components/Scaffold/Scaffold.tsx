@@ -27,7 +27,7 @@ import Search from "@mui/icons-material/Search";
 import IMenuGroup, { IMenuOption } from "../../model/IMenuGroup";
 
 import SideMenu from "./SideMenu";
-import ScrollView from "../common/ScrollView";
+import ScrollView from "../ScrollView";
 
 const DRAWER_WIDTH = 256;
 

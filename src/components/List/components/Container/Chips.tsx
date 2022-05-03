@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-import FadeView from '../../../common/FadeView';
+import FadeView from '../../../FadeView';
 
 import IListProps, { IListChip } from '../../../../model/IListProps';
 import IAnything from '../../../../model/IAnything';
