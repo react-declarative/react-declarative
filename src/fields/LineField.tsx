@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Line from '../slots/LineSlot';
+import Line from '../components/One/slots/LineSlot';
 
 import makeField from "../components/makeField";
 

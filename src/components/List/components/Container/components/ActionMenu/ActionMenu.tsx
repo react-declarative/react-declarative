@@ -16,7 +16,6 @@ import IListOption from '../../../../../../model/IListOption';
 import CommonAction from './components/CommonAction';
 import UpdateNowAction from './components/UpdateNowAction';
 import AutoReloadAction from './components/AutoReloadAction';
-import MobileViewAction from './components/MobileViewAction';
 
 interface IActionMenuProps {
     options?: Partial<IListOption>[];
@@ -105,10 +104,6 @@ export const ActionMenu = ({
                     } else if (action === 'auto-reload') {
                         return (
                             <AutoReloadAction enabled={actionAvalibility[action]} key={idx} />
-                        );
-                    } else if (action === 'mobile-view') {
-                        return (
-                            <MobileViewAction enabled={actionAvalibility[action]} key={idx} />
                         );
                     } else {
                         return (

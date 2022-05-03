@@ -48,7 +48,7 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
         return rows;
     },
     chipsHandler = (rows, chips) => {
-        if (!Object.values(chips).reduce((acm, cur) => acm || cur)) {
+        if (!Object.values(chips).reduce((acm, cur) => acm || cur, false)) {
             return rows;
         }
         const tmp: RowData[][] = [];

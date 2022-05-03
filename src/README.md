@@ -22,11 +22,11 @@
 
 ### Регистрация слота поля
 
-0. **[slots/CheckBoxSlot](./slots/CheckBoxSlot)** - Создайте копию папки и обновите наименования
+0. **[components/One/slots/CheckBoxSlot](./components/One/slots/CheckBoxSlot)** - Создайте копию папки и обновите наименования
 
-1. **[components/SlotFactory/ISlotFactoryContext.ts](./components/SlotFactory/ISlotFactoryContext.ts)** - Обновите интерфейс контекста слотов
+1. **[components/One/components/ISlotFactoryContext.ts](./components/One/components/SlotFactory/ISlotFactoryContext.ts)** - Обновите интерфейс контекста слотов
 
-2. **[components/SlotFactory/SlotContext.ts](./components/SlotFactory/SlotContext.ts)** - Обновите контекст слотов
+2. **[components/One/components/SlotFactory/SlotContext.ts](./components/One/components/SlotFactory/SlotContext.ts)** - Обновите контекст слотов
 
 ## Иерархия композиции
 

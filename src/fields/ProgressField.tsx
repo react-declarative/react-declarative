@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Progress from '../slots/ProgressSlot';
+import Progress from '../components/One/slots/ProgressSlot';
 
 import makeField from "../components/makeField";
 

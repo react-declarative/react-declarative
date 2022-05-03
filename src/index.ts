@@ -13,7 +13,6 @@ export type IOneApiHandlerParams = IApiHandlerParamsInternal;
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
 import { ActionType as ActionTypeInternal } from './model/ActionType';
-import { DisplayMode as DisplayModeInternal } from './model/DisplayMode';
 import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
 import { IListApi as IListApiInternal } from './model/IListApi';
@@ -59,7 +58,6 @@ export type ISwitchItem = ISwitchItemInternal;
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
 export const ActionType = ActionTypeInternal;
-export const DisplayMode = DisplayModeInternal;
 export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
@@ -96,6 +94,7 @@ export type pickConfirmFn = ReturnType<typeof useConfirm>;
 export { default as dayjs } from 'dayjs';
 
 export { ScrollView } from './components/common/ScrollView';
+export { ColumnView } from './components/common/ColumnView';
 export { AutoSizer } from './components/common/AutoSizer';
 export { FadeView } from './components/common/FadeView';
 export { Async } from './components/common/Async';
@@ -107,7 +106,7 @@ export { Translate } from './components';
 export { register as registerTr } from './components/Translate';
 
 export { ModalProvider } from './components';
-export { SlotFactory } from './components';
+export { OneSlotFactory } from './components';
 export { Breadcrumbs } from './components';
 export { Scaffold } from './components';
 export { Switch } from './components';
@@ -124,17 +123,17 @@ export { useConfirm };
 export { useModal };
 export { useList };
 
-import { ICheckBoxSlot as ICheckBoxSlotInternal } from './slots/CheckBoxSlot';
-import { IComboSlot as IComboSlotInternal } from './slots/ComboSlot';
-import { IItemsSlot as IItemsSlotInternal } from './slots/ItemsSlot';
-import { ILineSlot as ILineSlotInternal } from './slots/LineSlot';
-import { IProgressSlot as IProgressSlotInternal } from './slots/ProgressSlot';
-import { IRadioSlot as IRadioSlotInternal } from './slots/RadioSlot';
-import { IRatingSlot as IRatingSlotInternal } from './slots/RatingSlot';
-import { ISliderSlot as ISliderSlotInternal } from './slots/SliderSlot';
-import { ISwitchSlot as ISwitchSlotInternal } from './slots/SwitchSlot';
-import { ITextSlot as ITextSlotInternal } from './slots/TextSlot';
-import { ITypographySlot as ITypographySlotInternal } from './slots/TypographySlot';
+import { ICheckBoxSlot as ICheckBoxSlotInternal } from './components';
+import { IComboSlot as IComboSlotInternal } from './components';
+import { IItemsSlot as IItemsSlotInternal } from './components';
+import { ILineSlot as ILineSlotInternal } from './components';
+import { IProgressSlot as IProgressSlotInternal } from './components';
+import { IRadioSlot as IRadioSlotInternal } from './components';
+import { IRatingSlot as IRatingSlotInternal } from './components';
+import { ISliderSlot as ISliderSlotInternal } from './components';
+import { ISwitchSlot as ISwitchSlotInternal } from './components';
+import { ITextSlot as ITextSlotInternal } from './components';
+import { ITypographySlot as ITypographySlotInternal } from './components';
 
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;

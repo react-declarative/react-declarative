@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Radio from '../slots/RadioSlot';
+import Radio from '../components/One/slots/RadioSlot';
 
 import makeField from "../components/makeField";
 

@@ -15,16 +15,14 @@ import initialValue from '../../config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
 
-import Desktop from './components/Desktop';
-import Mobile from './components/Mobile';
+import GridView from './components/view/GridView';
+import ChooserView from './components/view/ChooserView';
 
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ExpansionProvider } from './hooks/useExpansion';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
-
-import DisplayMode from '../../model/DisplayMode';
 
 const DEFAULT_LIMIT = 25;
 const DEFAULT_AUTORELOAD_INTERVAL = 30_000;
@@ -47,9 +45,9 @@ const ListInternal = <
     handler = () => [],
     fallback = (e) => console.error(e),
     limit: defaultLimit = DEFAULT_LIMIT,
-    autoReload: defaultAutoReload = !props.displayMode || props.displayMode === DisplayMode.Desktop,
+    isChooser: defaultIsChooser = false,
+    autoReload: defaultAutoReload = !defaultIsChooser,
     autoReloadInterval = DEFAULT_AUTORELOAD_INTERVAL,
-    displayMode = DisplayMode.Desktop,
     filters = [],
     columns = [],
     actions = [],
@@ -64,7 +62,7 @@ const ListInternal = <
 
   const [state, setState] = useState<IListState<FilterData, RowData>>({
     initComplete: false,
-    isMobile: displayMode === DisplayMode.Mobile,
+    isChooser: defaultIsChooser,
     filterData: {} as never,
     rows: [] as never,
     limit: defaultLimit,
@@ -82,17 +80,11 @@ const ListInternal = <
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
 
-  const setMobile = (isMobile: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, isMobile, offset: 0 }));
-
   const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, autoReload }));
 
   const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, filtersCollapsed }));
 
-  const { isMobile } = state;
-
-  useEffect(() => {
-    setMobile(displayMode !== DisplayMode.Desktop);
-  }, [displayMode]);
+  const { isChooser } = state;
 
   const handleRows = useCallback(async (filterData: FilterData, keepPagination = false): Promise<{
     rows: RowData[];
@@ -247,8 +239,6 @@ const ListInternal = <
 
   const handleAutoReload = (autoReload: boolean) => setAutoReload(autoReload);
 
-  const handleSetMobile = (isMobile: boolean) => setMobile(isMobile);
-
   const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
 
   const callbacks: IListCallbacks<FilterData, RowData> = {
@@ -258,7 +248,6 @@ const ListInternal = <
     handleDefault,
     handleFilter,
     handleReload,
-    handleSetMobile,
     handleAutoReload,
     handleChips,
     handleFiltersCollapsed,
@@ -266,9 +255,9 @@ const ListInternal = <
   };
 
   const renderInner = () => {
-    if (isMobile) {
+    if (isChooser) {
       return (
-        <Mobile<FilterData, RowData>
+        <ChooserView<FilterData, RowData>
           {...props}
           {...state}
           handler={handler}
@@ -283,7 +272,7 @@ const ListInternal = <
       );
     } else {
       return (
-        <Desktop<FilterData, RowData>
+        <GridView<FilterData, RowData>
           {...props}
           {...state}
           handler={handler}

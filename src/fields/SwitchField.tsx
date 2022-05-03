@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Switch from '../slots/SwitchSlot';
+import Switch from '../components/One/slots/SwitchSlot';
 
 import makeField from '../components/makeField';
 

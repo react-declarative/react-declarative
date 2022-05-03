@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography from '../slots/TypographySlot';
+import Typography from '../components/One/slots/TypographySlot';
 
 import makeField from '../components/makeField';
 

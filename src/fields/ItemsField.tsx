@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Items from '../slots/ItemsSlot';
+import Items from '../components/One/slots/ItemsSlot';
 
 import makeField from "../components/makeField";
 

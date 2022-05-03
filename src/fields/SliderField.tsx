@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Slider from '../slots/SliderSlot';
+import Slider from '../components/One/slots/SliderSlot';
 
 import makeField from '../components/makeField';
 

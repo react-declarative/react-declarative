@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Combo from "../slots/ComboSlot";
+import Combo from "../components/One/slots/ComboSlot";
 
 import makeField from "../components/makeField";
 

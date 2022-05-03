@@ -24,6 +24,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
     ref: never;
     limit: never;
     chips: never;
+    isChooser: never;
     autoReload: never;
   }>,
   IListState<FilterData, RowData>,
@@ -75,9 +76,8 @@ export const Container = <
     handleFilter,
     handleDefault,
     children,
-    isMobile,
+    isChooser,
     ready,
-    keepFlow,
     toggleFilters,
     onFilterChange,
     handleFiltersCollapsed,
@@ -95,7 +95,6 @@ export const Container = <
       className={classNames(classes.root, className, CONTAINER_MARK)}
       heightRequest={heightRequest}
       widthRequest={widthRequest}
-      keepFlow={keepFlow}
       delay={AUTOSIZER_DELAY}
       style={style}
       payload={props}
@@ -107,9 +106,9 @@ export const Container = <
             <Actions<FilterData> title={title} filterData={filterData!} actions={actions} />
           )}
           <Paper className={classNames(classes.container, classes.stretch, {
-            [classes.noElevation]: isMobile,
+            [classes.noElevation]: isChooser,
           })}>
-            {Array.isArray(filters) && !!filters.length && (
+            {!isChooser && Array.isArray(filters) && !!filters.length && (
               <Filters<FilterData>
                 filterData={filterData!}
                 toggleFilters={toggleFilters}
@@ -122,7 +121,7 @@ export const Container = <
                 ready={ready}
               />
             )}
-            {Array.isArray(listChips) && !!listChips.length && (
+            {!isChooser && Array.isArray(listChips) && !!listChips.length && (
               <Chips<RowData>
                 listChips={listChips}
               />

@@ -3,7 +3,6 @@ import {
 } from 'react';
 
 import ActionType from './ActionType';
-import DisplayMode from './DisplayMode';
 import SelectionMode from './SelectionMode';
 
 import IAnything from './IAnything';
@@ -25,15 +24,9 @@ interface IAutoReloadOption extends IListOption {
   icon: never;
 };
 
-interface IMobileViewOption extends IListOption {
-  action: 'mobile-view';
-  label: never;
-  icon: never;
-};
-
 export interface IListAction<RowData extends IRowData = IAnything> extends Partial<IListOption<RowData>> {
   type: ActionType;
-  options?: Partial<IListOption | IUpdateOption | IAutoReloadOption | IMobileViewOption>[];
+  options?: Partial<IListOption | IUpdateOption | IAutoReloadOption>[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
@@ -105,7 +98,7 @@ export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnyt
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
   filterData: FilterData;
-  isMobile: boolean;
+  isChooser: boolean;
   rows: RowData[];
   limit: number;
   offset: number;
@@ -125,7 +118,6 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handleLimitChange: (limit: number) => void;
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleAutoReload: (autoReload: boolean) => void;
-  handleSetMobile: (isMobile: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
   handleReload: () => void;
   ready: () => void;
@@ -151,7 +143,6 @@ export interface IListProps<
   limit?: number;
   sizeByParent?: boolean;
   autoReload?: boolean;
-  keepFlow?: boolean;
   autoReloadInterval?: number;
   selectedRows?: RowId[];
   showLoader?: boolean;
@@ -176,7 +167,7 @@ export interface IListProps<
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
   sortModel?: ListHandlerSortModel<RowData>;
-  displayMode?: DisplayMode;
+  isChooser?: boolean;
   ExpansionContent?: React.ComponentType;
 }
 

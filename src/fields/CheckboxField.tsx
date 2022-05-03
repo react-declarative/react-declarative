@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import CheckBox from '../slots/CheckBoxSlot';
+import CheckBox from '../components/One/slots/CheckBoxSlot';
 
 import makeField from "../components/makeField";
 

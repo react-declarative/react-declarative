@@ -9,14 +9,13 @@ import List from '../../List';
 import Box from '@mui/material/Box';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { MOBILE_LIST_ROOT } from '../../List/components/Mobile';
+import { MOBILE_LIST_ROOT } from '../../List/components/view/ChooserView';
 
 import IRowData, { RowId } from '../../../model/IRowData';
 import IAnything from '../../../model/IAnything';
 import IListProps from '../../../model/IListProps';
 
 import SelectionMode from '../../../model/SelectionMode';
-import DisplayMode from '../../../model/DisplayMode';
 
 export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
@@ -85,7 +84,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
         <List<IAnything, RowData>
           sizeByParent
           showLoader
-          displayMode={DisplayMode.Mobile}
+          isChooser
           handler={handler}
           columns={columns}
           selectedRows={selectedRows || undefined}

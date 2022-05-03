@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Text from '../slots/TextSlot';
+import Text from '../components/One/slots/TextSlot';
 
 import makeField from "../components/makeField";
 

@@ -7,9 +7,6 @@ import {
   IListAction,
   ActionType,
   ColumnType,
-  DisplayMode,
-  ListHandlerPagination,
-  ListHandlerSortModel,
   RowId,
   useList,
   useOne,
@@ -17,6 +14,8 @@ import {
   ListHandlerChips,
   useStaticPaginator,
   IListOption,
+  ListHandlerPagination,
+  ListHandlerSortModel,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -97,9 +96,6 @@ const actions: IListAction[] = [
         action: 'auto-reload',
       },
       {
-        action: 'mobile-view',
-      },
-      {
         action: 'list-action',
         label: 'Pick list',
       },
@@ -176,7 +172,7 @@ export const ListPage = () => {
 
   const handler = useStaticPaginator(mock);
 
-  /*const handler = async ({
+  const pickerHandler = async ({
     firstName,
     lastName,
   }: IFilterData, {
@@ -212,11 +208,11 @@ export const ListPage = () => {
     //await sleep(3_000)
 
     // return [];
-  };*/
+  };
 
   const pickList = useList<IRowData>({
     columns,
-    handler,
+    handler: pickerHandler,
     selectedRows,
   });
 
@@ -271,7 +267,6 @@ export const ListPage = () => {
       onRowClick={handleClick}
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
-      displayMode={DisplayMode.Desktop}
       selectedRows={selectedRows}
       actionAvalibility={{
         ['disabled-action']: false,
