@@ -19,7 +19,7 @@ import IListProps, { IListState, IListCallbacks } from '../../../../../model/ILi
 import IAnything from '../../../../../model/IAnything';
 import IRowData from '../../../../../model/IRowData';
 
-import ColumnView from "../../../../common/ColumnView";
+import ConstraintView from "../../../../common/ConstraintView";
 
 import DisplayMode from "../../../../../model/DisplayMode";
 
@@ -161,7 +161,7 @@ export const GridView = <
         );
 
         return (
-          <ColumnView
+          <ConstraintView
             phoneView={() => renderInner(DisplayMode.Phone)}
             tabletView={() => renderInner(DisplayMode.Tablet)}
             desktopView={() => renderInner(DisplayMode.Desktop)}

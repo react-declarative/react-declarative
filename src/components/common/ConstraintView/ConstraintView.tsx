@@ -7,7 +7,7 @@ import AutoSizer, { IAutoSizerProps, IChildParams } from '../AutoSizer';
 
 import IAnything from '../../../model/IAnything';
 
-interface IColumnViewProps<T extends IAnything = IAnything> extends Omit<IAutoSizerProps<T>, keyof {
+interface IConstraintViewProps<T extends IAnything = IAnything> extends Omit<IAutoSizerProps<T>, keyof {
     children: never;
 }> {
     phoneView?: React.ComponentType<any>;
@@ -21,14 +21,14 @@ const GRID_MAX_WIDTH = 9999999999999999;
 
 const match = (from: number, to: number) => (width: number) => width >= from && width < to;
 
-export const ColumnView = <T extends IAnything = IAnything>({
+export const ConstraintView = <T extends IAnything = IAnything>({
     desktopView: Desktop = () => <></>,
     tabletView: Tablet = Desktop,
     phoneView: Phone = Tablet,
     onViewChanged,
     params,
     ...otherProps
-}: IColumnViewProps<T>) => {
+}: IConstraintViewProps<T>) => {
 
     const theme = useTheme();
     const lastView = useRef('');
@@ -99,4 +99,4 @@ export const ColumnView = <T extends IAnything = IAnything>({
 
 };
 
-export default ColumnView;
+export default ConstraintView;
