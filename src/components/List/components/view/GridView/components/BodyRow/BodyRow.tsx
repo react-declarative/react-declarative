@@ -10,12 +10,15 @@ import CommonBodyCell from '../common/CommonBodyCell';
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
 
+import DisplayMode from '../../../../../../../model/DisplayMode';
+
 import useProps from '../.../../../../../../hooks/useProps';
 import useSelection from '../../../../../hooks/useSelection';
 
 interface IBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
     fullWidth: number;
+    mode: DisplayMode;
 }
 
 const useStyles = makeStyles({

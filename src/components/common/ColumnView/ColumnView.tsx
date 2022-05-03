@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import { useTheme } from '@mui/material';
 
@@ -12,9 +13,10 @@ interface IColumnViewProps<T extends IAnything = IAnything> extends Omit<IAutoSi
     phoneView?: React.ComponentType<any>;
     tabletView?: React.ComponentType<any>;
     desktopView?: React.ComponentType<any>;
+    params?: IChildParams<T>;
 }
 
-// const GRID_MAX_WIDTH = 9999999999999999;
+const GRID_MAX_WIDTH = 9999999999999999;
 
 const match = (from: number, to: number) => (width: number) => width >= from && width < to;
 
@@ -22,24 +24,39 @@ export const ColumnView = <T extends IAnything = IAnything>({
     desktopView: Desktop = () => <></>,
     tabletView: Tablet = Desktop,
     phoneView: Phone = Tablet,
+    params,
     ...otherProps
 }: IColumnViewProps<T>) => {
 
-    const {
-        breakpoints: {
-            values: {
-                xs = 0,
-                sm = 600,
-                // md = 960,
-                lg = 1280,
-                // xl = 1536,
-            }
-        }
-    } = useTheme();
+    const theme = useTheme();
 
-    const isPhone = match(xs, sm);
-    const isTablet = match(sm, lg);
-    // const isDesktop = match(lg, GRID_MAX_WIDTH);
+    const {
+        isPhone,
+        isTablet,
+    } = useMemo(() => {
+        const {
+            breakpoints: {
+                values: {
+                    xs = 0,
+                    sm = 600,
+                    // md = 960,
+                    lg = 1280,
+                    // xl = 1536,
+                }
+            }
+        } = theme;
+
+        const isPhone = match(xs, sm);
+        const isTablet = match(sm, lg);
+        const isDesktop = match(lg, GRID_MAX_WIDTH);
+
+        return {
+            isPhone,
+            isTablet,
+            isDesktop,
+        };
+
+    }, [theme]);
 
     const renderContent = ({ width, payload }: IChildParams<T>) => {
         if (isPhone(width)) {
@@ -57,11 +74,16 @@ export const ColumnView = <T extends IAnything = IAnything>({
         }
     };
 
-    return (
-        <AutoSizer {...otherProps}>
-            {renderContent}
-        </AutoSizer>
-    );
+    if (params) {
+        return renderContent(params);
+    } else {
+        return (
+            <AutoSizer {...otherProps}>
+                {renderContent}
+            </AutoSizer>
+        );
+    }
+
 };
 
 export default ColumnView;

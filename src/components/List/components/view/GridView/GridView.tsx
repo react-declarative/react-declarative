@@ -19,6 +19,10 @@ import IListProps, { IListState, IListCallbacks } from '../../../../../model/ILi
 import IAnything from '../../../../../model/IAnything';
 import IRowData from '../../../../../model/IRowData';
 
+import ColumnView from "../../../../common/ColumnView";
+
+import DisplayMode from "../../../../../model/DisplayMode";
+
 import ExpansionRow from "./components/ExpansionRow";
 import BodyRow from "./components/BodyRow";
 import HeadRow from "./components/HeadRow";
@@ -103,47 +107,64 @@ export const GridView = <
       {...props}
       onResize={handleResize}
     >
-      {({ height, width, payload: { rows } }) => (
-        <Box className={classes.root}>
-          <TableContainer ref={outerRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
-            <Table stickyHeader>
-              <TableHead>
-                <HeadRow
-                  onSortModelChange={handleScrollTop}
-                  fullWidth={width}
-                />
-              </TableHead>
-              <TableBody>
-                {(showLoader && loading) || (!loading && rows.length === 0) ? (
-                  <TableRow>
-                    {renderPlaceholder()}
-                  </TableRow>
-                ) : rows.map((row, index) => (
-                  <Fragment key={index}>
-                    <BodyRow<RowData>
-                      fullWidth={width}
-                      row={row}
-                    />
-                    <ExpansionRow<RowData>
-                      row={row}
-                    />
-                  </Fragment>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            width={width}
-            component={Box}
-            count={total || -1}
-            rowsPerPage={limit}
-            page={offset / limit}
-            rowsPerPageOptions={ROWS_PER_PAGE}
-            onPageChange={handleDirtyPageChange}
-            onRowsPerPageChange={handleDirtyLimitChange}
+      {(params) => {
+
+        const { height, width, payload: { rows } } = params;
+
+        const renderInner = (mode: DisplayMode) => (
+          <Box className={classes.root}>
+            <TableContainer ref={outerRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
+              <Table stickyHeader>
+                <TableHead>
+                  <HeadRow
+                    onSortModelChange={handleScrollTop}
+                    fullWidth={width}
+                    mode={mode}
+                  />
+                </TableHead>
+                <TableBody>
+                  {(showLoader && loading) || (!loading && rows.length === 0) ? (
+                    <TableRow>
+                      {renderPlaceholder()}
+                    </TableRow>
+                  ) : rows.map((row, index) => (
+                    <Fragment key={index}>
+                      <BodyRow<RowData>
+                        fullWidth={width}
+                        row={row}
+                        mode={mode}
+                      />
+                      <ExpansionRow<RowData>
+                        row={row}
+                        mode={mode}
+                      />
+                    </Fragment>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              width={width}
+              component={Box}
+              count={total || -1}
+              rowsPerPage={limit}
+              page={offset / limit}
+              rowsPerPageOptions={ROWS_PER_PAGE}
+              onPageChange={handleDirtyPageChange}
+              onRowsPerPageChange={handleDirtyLimitChange}
+            />
+          </Box>
+        );
+
+        return (
+          <ColumnView
+            phoneView={() => renderInner(DisplayMode.Phone)}
+            tabletView={() => renderInner(DisplayMode.Tablet)}
+            desktopView={() => renderInner(DisplayMode.Desktop)}
+            params={params}
           />
-        </Box>
-      )}
+        );
+      }}
     </Container>
   );
 };

@@ -16,6 +16,8 @@ import IAnything from '../../../../../../../model/IAnything';
 import SelectionMode from '../../../../../../../model/SelectionMode';
 import ColumnType from '../../../../../../../model/ColumnType';
 
+import DisplayMode from '../../../../../../../model/DisplayMode';
+
 import widthManager from '../../helpers/columnWidthManager';
 
 import useSortModel from '../../../../../hooks/useSortModel';
@@ -23,6 +25,7 @@ import useSortModel from '../../../../../hooks/useSortModel';
 interface IHeadRowProps {
     onSortModelChange: () => void;
     fullWidth: number;
+    mode: DisplayMode;
 }
 
 const useStyles = makeStyles((theme) => ({

@@ -11,12 +11,15 @@ import Box from '@mui/material/Box';
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
 
+import DisplayMode from '../../../../../../../model/DisplayMode';
+
 import useProps from '../../../../../hooks/useProps';
 import useExpansion from '../../../../../hooks/useExpansion';
 import useSelection from '../../../../../hooks/useSelection';
 
 interface IExpansionRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
+    mode: DisplayMode;
 }
 
 const useStyles = makeStyles({
