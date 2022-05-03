@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import CheckboxBodyCell from '../common/CheckboxBodyCell';
 import CommonBodyCell from '../common/CommonBodyCell';
 
+import computeHidden from '../../helpers/computeHidden';
+
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
 
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
 
 export const BodyRow = <RowData extends IRowData = IAnything>({
     row,
+    mode,
     fullWidth,
 }: IBodyRowProps<RowData>) => {
 
@@ -67,12 +70,17 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
             onClick={handleClick}
         >
             <CheckboxBodyCell<RowData> row={row} />
-            {columns.map((column, idx) => (
+            {columns.filter((column, idx) => computeHidden({
+                column,
+                mode,
+                idx,
+            })).map((column, idx) => (
                 <CommonBodyCell<RowData>
                     column={column}
                     row={row}
                     key={idx}
                     idx={idx}
+                    mode={mode}
                     fullWidth={fullWidth}
                     onAction={handleAction}
                     onMenuToggle={handleMenuToggle}

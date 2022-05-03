@@ -1,8 +1,6 @@
-import React from "react";
+type Dimension = string | number | boolean;
 
-type Dimension = React.CSSProperties["width"];
-
-export const columnWidthManager = new class {
+export const constraintManager = new class {
     _cache = new Map<string, Dimension>();
     memoize = (column: string, compute: () => Dimension) => {
         if (!this._cache.has(column)) {
@@ -18,4 +16,4 @@ export const columnWidthManager = new class {
     };
 };
 
-export default columnWidthManager;
+export default constraintManager;

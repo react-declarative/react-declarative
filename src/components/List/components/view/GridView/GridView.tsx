@@ -27,7 +27,7 @@ import ExpansionRow from "./components/ExpansionRow";
 import BodyRow from "./components/BodyRow";
 import HeadRow from "./components/HeadRow";
 
-import widthManager from "./helpers/columnWidthManager";
+import constraintManager from "./helpers/constraintManager";
 
 import Container from "../../Container";
 
@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     background: theme.palette.background.paper,
+    '& .MuiTableCell-root': {
+      paddingLeft: '0 !important',
+      paddingRight: '0 !important',
+    },
   },
   noBorder: {
     border: 'none !important',
@@ -83,7 +87,7 @@ export const GridView = <
     handlePageChange,
   } = props;
 
-  const handleResize = () => widthManager.clear();
+  const handleResize = () => constraintManager.clear();
 
   const handleDirtyLimitChange = (e: any) => handleLimitChange(e.target.value);
 
@@ -161,6 +165,7 @@ export const GridView = <
             phoneView={() => renderInner(DisplayMode.Phone)}
             tabletView={() => renderInner(DisplayMode.Tablet)}
             desktopView={() => renderInner(DisplayMode.Desktop)}
+            onViewChanged={handleResize}
             params={params}
           />
         );

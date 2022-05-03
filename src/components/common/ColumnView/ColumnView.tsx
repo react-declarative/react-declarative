@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import { useTheme } from '@mui/material';
 
@@ -13,6 +13,7 @@ interface IColumnViewProps<T extends IAnything = IAnything> extends Omit<IAutoSi
     phoneView?: React.ComponentType<any>;
     tabletView?: React.ComponentType<any>;
     desktopView?: React.ComponentType<any>;
+    onViewChanged?: (name: string) => void;
     params?: IChildParams<T>;
 }
 
@@ -24,11 +25,13 @@ export const ColumnView = <T extends IAnything = IAnything>({
     desktopView: Desktop = () => <></>,
     tabletView: Tablet = Desktop,
     phoneView: Phone = Tablet,
+    onViewChanged,
     params,
     ...otherProps
 }: IColumnViewProps<T>) => {
 
     const theme = useTheme();
+    const lastView = useRef('');
 
     const {
         isPhone,
@@ -58,16 +61,26 @@ export const ColumnView = <T extends IAnything = IAnything>({
 
     }, [theme]);
 
+    const handleView = (name: string) => {
+        if (lastView.current !== name) {
+            onViewChanged && onViewChanged(name);
+        }
+        lastView.current = name;
+    }
+
     const renderContent = ({ width, payload }: IChildParams<T>) => {
         if (isPhone(width)) {
+            handleView('phone');
             return (
                 <Phone {...payload} />
             );
         } else if (isTablet(width)) {
+            handleView('tablet');
             return (
                 <Tablet {...payload} />
             );
         } else {
+            handleView('desktop');
             return (
                 <Desktop {...payload} />
             );

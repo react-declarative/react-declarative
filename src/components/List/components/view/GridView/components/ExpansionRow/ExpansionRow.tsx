@@ -55,7 +55,7 @@ export const ExpansionRow = <RowData extends IRowData = IAnything> ({
     const opened = expansion.has(row.id);
     return (
         <TableRow selected={selection.has(row.id)}>
-            <TableCell className={classes.root} colSpan={columns.length + 1 || 1}>
+            <TableCell className={classes.root} colSpan={columns.length + 1 || 1} padding="none">
                 <Box className={classes.container}>
                     <Collapse className={classes.content} in={opened}>
                         <ExpansionContent

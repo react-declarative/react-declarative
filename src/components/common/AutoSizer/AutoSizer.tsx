@@ -10,6 +10,8 @@ import classNames from "../../../utils/classNames";
 
 import ISize from "../../../model/ISize";
 
+const RESIZE_CHECK_DELAY = 5_000;
+
 export interface IChildParams<T extends unknown = object> extends ISize {
   payload: T;
 }
@@ -67,8 +69,11 @@ export const AutoSizer = <T extends unknown = object>({
   closest,
   selector,
 }: IAutoSizerProps<T>) => {
+
   const autoSizer = useRef<HTMLDivElement>(null as never);
+
   const initialPayload = useRef(true);
+  const isMounted = useRef(true);
 
   const classes = useStyles();
 
@@ -76,6 +81,8 @@ export const AutoSizer = <T extends unknown = object>({
     height: defaultHeight,
     width: defaultWidth,
   });
+
+  const stateRef = useRef<ISize>(state);
 
   useLayoutEffect(() => {
     const { current } = autoSizer;
@@ -106,7 +113,9 @@ export const AutoSizer = <T extends unknown = object>({
       !disableWidth && current.style.setProperty('width', `${width}px`);
     };
 
-    const handler = () => {
+    const handler = (check = false) => {
+
+      const { current: state } = stateRef;
 
       removeCurrentSize();
 
@@ -122,15 +131,22 @@ export const AutoSizer = <T extends unknown = object>({
       height = heightRequest(height);
       width = widthRequest(width);
 
-      let isOk = state.height !== height;
-      isOk = isOk || state.width !== width;
+      let isOk = isMounted.current;
+      isOk = isOk && (state.height !== height || state.width !== width);
 
       if (isOk) {
-        setState({ height, width });
-        onResize({ height, width });
+        const newSize = { height, width };
+        stateRef.current = newSize;
+        setState(newSize);
+        onResize(newSize);
       } else {
         rollbackSize(height, width);
       }
+
+      if (!check) {
+        setTimeout(() => handler(true), RESIZE_CHECK_DELAY);
+      }
+
     };
 
     const { _emitters: emitters } = AutoSizer;
@@ -149,10 +165,10 @@ export const AutoSizer = <T extends unknown = object>({
     observer.subscribe(handlerD);
     handler();
 
-    window.addEventListener('resize', handlerD);
+    window.addEventListener('resize', handlerD as any);
 
     return () => {
-      window.removeEventListener('resize', handlerD);
+      window.removeEventListener('resize', handlerD as any);
       observer.unsubscribe(handlerD);
       handlerD.clear();
     };
@@ -165,6 +181,10 @@ export const AutoSizer = <T extends unknown = object>({
       initialPayload.current = false;
     }
   }, [payload]);
+
+  useLayoutEffect(() => () => {
+    isMounted.current = false;
+  }, []);
 
   const { height, width } = state;
 

@@ -16,9 +16,11 @@ import IAnything from '../../../../../../../model/IAnything';
 import SelectionMode from '../../../../../../../model/SelectionMode';
 import ColumnType from '../../../../../../../model/ColumnType';
 
+import computeHidden from '../../helpers/computeHidden';
+
 import DisplayMode from '../../../../../../../model/DisplayMode';
 
-import widthManager from '../../helpers/columnWidthManager';
+import computeWidth from '../../helpers/computeWidth';
 
 import useSortModel from '../../../../../hooks/useSortModel';
 
@@ -29,20 +31,17 @@ interface IHeadRowProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-    tableRow: {
-        '& > .MuiTableCell-root': {
-            background: `${theme.palette.background.paper} !important`,
-        },
-    },
     cell: {
         paddingLeft: '0 !important',
         paddingRight: '0 !important',
+        background: `${theme.palette.background.paper} !important`,
     },
 }));
 
 export const HeadRow = <RowData extends IRowData = IAnything>({
     onSortModelChange,
     fullWidth,
+    mode,
 }: IHeadRowProps) => {
 
     const classes = useStyles();
@@ -96,11 +95,15 @@ export const HeadRow = <RowData extends IRowData = IAnything>({
     }, [sortModel]);
 
     return (
-        <TableRow className={classes.tableRow}>
-            <TableCell padding="checkbox">
+        <TableRow>
+            <TableCell className={classes.cell} padding="checkbox">
                 {renderCheckbox()}
             </TableCell>
-            {columns.map((column, idx) => {
+            {columns.filter((column, idx) => computeHidden({
+                column,
+                mode,
+                idx,
+            })).map((column, idx) => {
                 const sortTarget = sortModel.get(column.field || '');
                 const sortDirection = sortTarget?.sort || undefined;
 
@@ -114,8 +117,13 @@ export const HeadRow = <RowData extends IRowData = IAnything>({
                     }
                 };
 
-                const computeWidth = () => typeof column.width === 'function' ? column.width(fullWidth) : column.width;
-                const minWidth = widthManager.memoize(`column-${idx}`, computeWidth);
+                const minWidth = computeWidth({
+                    column,
+                    mode,
+                    fullWidth,
+                    idx,
+                });
+            
                 const maxWidth = minWidth;
 
                 const align = column.type === ColumnType.Action ? 'center' : 'left';
