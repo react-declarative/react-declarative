@@ -92,7 +92,6 @@ export const ActionMenu = ({
                     horizontal: 'left',
                 }}
                 anchorEl={anchorEl}
-                keepMounted
                 open={!!anchorEl}
                 onClose={handleClose}
             >
