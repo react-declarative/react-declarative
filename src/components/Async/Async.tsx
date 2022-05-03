@@ -2,10 +2,8 @@ import * as React from 'react';
 
 import { useLayoutEffect, useRef, useState } from 'react';
 
-import { Value } from '../../model/IField';
-
 interface IAsyncProps<T extends any = object> {
-    children: (p: T) => (Value | Promise<Value>);
+    children: (p: T) => (React.ReactNode | Promise<React.ReactNode>);
     fallback?: (e: Error) => void;
     LoaderModal?: React.ComponentType;
     payload?: T;
