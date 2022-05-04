@@ -2,6 +2,7 @@ const createFlushAwaiter = (delay: number) => new Promise<void>((res) => {
 
     const resolve = () => {
         res();
+        observer.disconnect();
         delayManager.clear();
     };
 
