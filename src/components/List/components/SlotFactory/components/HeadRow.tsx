@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../styles';
 
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
@@ -9,22 +9,20 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import useProps from '../.../../../../../../hooks/useProps';
+import useProps from '../../../hooks/useProps';
 
-import IRowData from '../../../../../../../model/IRowData';
-import IAnything from '../../../../../../../model/IAnything';
-import SelectionMode from '../../../../../../../model/SelectionMode';
-import ColumnType from '../../../../../../../model/ColumnType';
+import IRowData from '../../../../../model/IRowData';
+import IAnything from '../../../../../model/IAnything';
+import SelectionMode from '../../../../../model/SelectionMode';
+import ColumnType from '../../../../../model/ColumnType';
+import DisplayMode from '../../../../../model/DisplayMode';
 
-import computeHidden from '../../helpers/computeHidden';
+import computeHidden from '../../../helpers/computeHidden';
+import computeWidth from '../../../helpers/computeWidth';
 
-import DisplayMode from '../../../../../../../model/DisplayMode';
+import useSortModel from '../../../hooks/useSortModel';
 
-import computeWidth from '../../helpers/computeWidth';
-
-import useSortModel from '../../../../../hooks/useSortModel';
-
-interface IHeadRowProps {
+export interface IHeadRowProps {
     onSortModelChange: () => void;
     fullWidth: number;
     mode: DisplayMode;

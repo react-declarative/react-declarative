@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../styles';
+
+import { RowId } from '../../../../../model/IRowData';
 
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
@@ -8,20 +10,23 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import TableCell from '@mui/material/TableCell';
 
-import IRowData from '../../../../../../../model/IRowData';
-import IAnything from '../../../../../../../model/IAnything';
+import IRowData from '../../../../../model/IRowData';
+import IAnything from '../../../../../model/IAnything';
 
-import SelectionMode from '../../../../../../../model/SelectionMode';
+import SelectionMode from '../../../../../model/SelectionMode';
 
-import useToggleHandler from '../../../../../hooks/useToggleHandler';
-import useSelection from '../../../../../hooks/useSelection';
-import useRowAvatar from '../../../../../hooks/useRowAvatar';
-import useProps from '../.../../../../../../hooks/useProps';
-import useRowMark from '../../../../../hooks/useRowMark';
+import useToggleHandler from '../../../hooks/useToggleHandler';
+import useSelection from '../../../hooks/useSelection';
+import useRowAvatar from '../../../hooks/useRowAvatar';
+import useExpansion from '../../../hooks/useExpansion';
+import useProps from '../../../hooks/useProps';
+import useRowMark from '../../../hooks/useRowMark';
 
-import CheckboxExpander from './CheckboxExpander';
+import IconButton from '@mui/material/IconButton';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
-interface ICheckboxBodyCellProps<RowData extends IRowData = IAnything> {
+export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
 }
 
@@ -43,9 +48,33 @@ const useStyles = makeStyles({
     }
 });
 
-export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
+const Expander = ({
+    rowId,
+}: {
+    rowId: RowId;
+}) => {
+    const { expansion, toggleExpansion } = useExpansion();
+
+    const handleToggle = (e: any) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleExpansion(rowId);
+    };
+
+    return (
+        <IconButton onClick={handleToggle}>
+            {expansion.has(rowId) ? (
+                <ExpandLess />
+            ) : (
+                <ExpandMore />
+            )}
+        </IconButton>
+    );
+};
+
+export const CheckboxCell = <RowData extends IRowData = IAnything>({
     row,
-}: ICheckboxBodyCellProps<RowData>) => {
+}: ICheckboxCellProps<RowData>) => {
 
     const classes = useStyles();
 
@@ -98,7 +127,7 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
             );
         } else if (selectionMode === SelectionMode.Expander) {
             return (
-                <CheckboxExpander 
+                <Expander 
                     rowId={row.id}
                 />
             );
@@ -120,4 +149,4 @@ export const CheckboxBodyCell = <RowData extends IRowData = IAnything>({
     );
 };
 
-export default CheckboxBodyCell;
+export default CheckboxCell;

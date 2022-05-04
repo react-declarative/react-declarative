@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../styles';
 
 import TableRow from '@mui/material/TableRow';
 
-import CheckboxBodyCell from '../common/CheckboxBodyCell';
-import CommonBodyCell from '../common/CommonBodyCell';
+import CheckboxBodyCell from '../../../slots/CheckboxCellSlot';
+import CommonBodyCell from '../../../slots/CommonCellSlot';
 
-import computeHidden from '../../helpers/computeHidden';
+import computeHidden from '../../../helpers/computeHidden';
 
-import IRowData from '../../../../../../../model/IRowData';
-import IAnything from '../../../../../../../model/IAnything';
+import IRowData from '../../../../../model/IRowData';
+import IAnything from '../../../../../model/IAnything';
 
-import DisplayMode from '../../../../../../../model/DisplayMode';
+import DisplayMode from '../../../../../model/DisplayMode';
 
-import useProps from '../.../../../../../../hooks/useProps';
-import useSelection from '../../../../../hooks/useSelection';
+import useProps from '../../../hooks/useProps';
+import useSelection from '../../../hooks/useSelection';
 
-interface IBodyRowProps<RowData extends IRowData = IAnything> {
+export interface IBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
     fullWidth: number;
     mode: DisplayMode;
@@ -69,13 +69,13 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
             selected={selection.has(row.id)}
             onClick={handleClick}
         >
-            <CheckboxBodyCell<RowData> row={row} />
+            <CheckboxBodyCell row={row} />
             {columns.filter((column, idx) => computeHidden({
                 column,
                 mode,
                 idx,
             })).map((column, idx) => (
-                <CommonBodyCell<RowData>
+                <CommonBodyCell
                     column={column}
                     row={row}
                     key={idx}

@@ -1,26 +1,26 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../styles';
 
 import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
-import Async from '../../../../../../Async';
-import ActionMenu, { IActionMenuProps } from '../../../../../../common/ActionMenu';
+import Async from '../../../../Async';
+import ActionMenu, { IActionMenuProps } from '../../../../common/ActionMenu';
 
-import IAnything from '../../../../../../../model/IAnything';
-import IColumn from '../../../../../../../model/IColumn';
-import IRowData from '../../../../../../../model/IRowData';
-import ColumnType from '../../../../../../../model/ColumnType';
-import DisplayMode from '../../../../../../../model/DisplayMode';
+import IAnything from '../../../../../model/IAnything';
+import IColumn from '../../../../../model/IColumn';
+import IRowData from '../../../../../model/IRowData';
+import ColumnType from '../../../../../model/ColumnType';
+import DisplayMode from '../../../../../model/DisplayMode';
 
-import { computeWidth } from '../../helpers/computeWidth';
+import { computeWidth } from '../../../helpers/computeWidth';
 
-import useProps from "../../../../../hooks/useProps";
+import useProps from "../../../hooks/useProps";
 
-interface ICommonBodyCellProps<RowData extends IRowData = IAnything> {
+export interface ICommonCellProps<RowData extends IRowData = IAnything> {
     column: IColumn<RowData>;
     row: RowData;
     idx: number;
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const CommonBodyCell = <RowData extends IRowData = IAnything>({
+export const CommonCell = <RowData extends IRowData = IAnything>({
     column,
     row,
     idx,
@@ -61,7 +61,7 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
     fullWidth,
     onMenuToggle,
     onAction,
-}: ICommonBodyCellProps<RowData>) => {
+}: ICommonCellProps<RowData>) => {
 
     const classes = useStyles();
 
@@ -141,4 +141,4 @@ export const CommonBodyCell = <RowData extends IRowData = IAnything>({
 
 };
 
-export default CommonBodyCell;
+export default CommonCell;

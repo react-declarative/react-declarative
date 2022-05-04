@@ -23,11 +23,11 @@ import ConstraintView from "../../../../ConstraintView";
 
 import DisplayMode from "../../../../../model/DisplayMode";
 
-import ExpansionRow from "./components/ExpansionRow";
-import BodyRow from "./components/BodyRow";
-import HeadRow from "./components/HeadRow";
+import ExpansionRow from "../../../slots/ExpansionRowSlot";
+import BodyRow from "../../../slots/BodyRowSlot";
+import HeadRow from "../../../slots/HeadRowSlot";
 
-import constraintManager from "./helpers/constraintManager";
+import constraintManager from "../../../helpers/constraintManager";
 
 import Container from "../../Container";
 
@@ -133,12 +133,12 @@ export const GridView = <
                     </TableRow>
                   ) : rows.map((row, index) => (
                     <Fragment key={index}>
-                      <BodyRow<RowData>
+                      <BodyRow
                         fullWidth={width}
                         row={row}
                         mode={mode}
                       />
-                      <ExpansionRow<RowData>
+                      <ExpansionRow
                         row={row}
                         mode={mode}
                       />

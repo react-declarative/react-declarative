@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../styles';
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 
-import IRowData from '../../../../../../../model/IRowData';
-import IAnything from '../../../../../../../model/IAnything';
+import IRowData from '../../../../../model/IRowData';
+import IAnything from '../../../../../model/IAnything';
 
-import DisplayMode from '../../../../../../../model/DisplayMode';
+import DisplayMode from '../../../../../model/DisplayMode';
 
-import useProps from '../../../../../hooks/useProps';
-import useExpansion from '../../../../../hooks/useExpansion';
-import useSelection from '../../../../../hooks/useSelection';
+import useProps from '../../../hooks/useProps';
+import useExpansion from '../../../hooks/useExpansion';
+import useSelection from '../../../hooks/useSelection';
 
-interface IExpansionRowProps<RowData extends IRowData = IAnything> {
+export interface IExpansionRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
     mode: DisplayMode;
 }

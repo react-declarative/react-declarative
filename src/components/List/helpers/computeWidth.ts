@@ -1,7 +1,7 @@
 import React from "react";
 
-import DisplayMode from "../../../../../../model/DisplayMode";
-import IColumn from "../../../../../../model/IColumn";
+import DisplayMode from "../../../model/DisplayMode";
+import IColumn from "../../../model/IColumn";
 
 import constraintManager from "./constraintManager";
 

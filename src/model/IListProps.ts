@@ -36,39 +36,6 @@ export interface IListChip<RowData extends IRowData = IAnything> {
   enabled?: boolean;
 }
 
-interface ComponentProps {
-  /*columnMenuProps?: any;
-  errorOverlayProps?: any;
-  footerProps?: any;
-  headerProps?: any;
-  toolbarProps?: any;
-  preferencesPanelProps?: any;
-  loadingOverlayProps?: any;
-  noResultsOverlayProps?: any;
-  noRowsOverlayProps?: any;
-  paginationProps?: any;
-  filterPanelProps?: any;
-  columnsPanelProps?: any;
-  panelProps?: any;*/
-}
-
-interface SlotsComponent {
-  /*Header?: any;
-  ColumnMenu?: any;
-  ErrorOverlay?: any;
-  Footer?: any;
-  Toolbar?: any;
-  CheckBox?: any;
-  PreferencesPanel?: any;
-  LoadingOverlay?: any;
-  NoResultsOverlay?: any;
-  NoRowsOverlay?: any;
-  Pagination?: any;
-  FilterPanel?: any;
-  ColumnsPanel?: any;
-  Panel?: any;*/
-}
-
 export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
   rows: RowData[];
   total: number | null;
@@ -132,7 +99,7 @@ export interface IListProps<
   FilterData extends IAnything = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
-  > extends SlotsComponent, ComponentProps {
+  > {
   ref?: Ref<IListApi>;
   className?: string;
   style?: React.CSSProperties;
@@ -152,7 +119,6 @@ export interface IListProps<
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  /*onColumnMenuAction?: (action: string) => void;*/
   onRowAction?: (row: RowData, action: string) => void;
   onRowClick?: (row: RowData) => void;
   onAction?: (action: string) => void;

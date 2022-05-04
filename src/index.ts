@@ -109,6 +109,7 @@ export { register as registerTr } from './components/Translate';
 
 export { ModalProvider } from './components';
 export { OneSlotFactory } from './components';
+export { ListSlotFactory } from './components';
 export { Breadcrumbs } from './components';
 export { Scaffold } from './components';
 export { Switch } from './components';
@@ -137,6 +138,12 @@ import { ISwitchSlot as ISwitchSlotInternal } from './components';
 import { ITextSlot as ITextSlotInternal } from './components';
 import { ITypographySlot as ITypographySlotInternal } from './components';
 
+import { IBodyRowSlot as IBodyRowSlotInternal } from './components';
+import { ICheckboxCellSlot as ICheckboxCellSlotInternal } from './components';
+import { ICommonCellSlot as ICommonCellSlotInternal } from './components';
+import { IExpansionRowSlot as IExpansionRowSlotInternal } from './components';
+import { IHeadRowSlot as IHeadRowSlotInternal } from './components';
+
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;
 export type IItemsSlot = IItemsSlotInternal;
@@ -148,5 +155,11 @@ export type ISliderSlot = ISliderSlotInternal;
 export type ISwitchSlot = ISwitchSlotInternal;
 export type ITextSlot = ITextSlotInternal;
 export type ITypographySlot = ITypographySlotInternal;
+
+export type IBodyRowSlot = IBodyRowSlotInternal;
+export type ICheckboxCellSlot = ICheckboxCellSlotInternal;
+export type ICommonCellSlot = ICommonCellSlotInternal;
+export type IExpansionRowSlot = IExpansionRowSlotInternal;
+export type IHeadRowSlot = IHeadRowSlotInternal;
 
 export { formatText } from './utils/formatText';
