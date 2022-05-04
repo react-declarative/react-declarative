@@ -12,8 +12,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { MOBILE_LIST_ROOT } from '../../List/components/view/ChooserView';
 
 import IRowData, { RowId } from '../../../model/IRowData';
-import IAnything from '../../../model/IAnything';
 import IListProps from '../../../model/IListProps';
+import IAnything from '../../../model/IAnything';
+import IColumn from '../../../model/IColumn';
 
 import SelectionMode from '../../../model/SelectionMode';
 
@@ -21,7 +22,10 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
   handler: IListProps<RowData>['handler'];
   selectionMode: SelectionMode.Single | SelectionMode.Multiple;
-  columns: IListProps<RowData>['columns'];
+  columns: Omit<IColumn<RowData>, keyof {
+    headerName: never;
+    width: never;
+  }>[];
   selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
   minHeight: number;
   minWidth: number;
@@ -86,7 +90,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
           showLoader
           isChooser
           handler={handler}
-          columns={columns}
+          columns={columns as IColumn<RowData>[]}
           selectedRows={selectedRows || undefined}
           selectionMode={selectionMode}
           onSelectedRows={handleChange}

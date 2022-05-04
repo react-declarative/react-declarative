@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 
 import { useModal } from '../components/ModalProvider';
 
+import IColumn from '../model/IColumn';
 import IRowData from '../model/IRowData';
 import IAnything from '../model/IAnything';
 import IListProps from '../model/IListProps';
@@ -20,10 +21,15 @@ interface IParams<RowData extends IRowData = IAnything> extends Omit<IListPicker
   minHeight: never;
   minWidth: never;
   title: never;
+  columns: never;
   open: never;
 }> {
   selectionMode?: SelectionMode.Single | SelectionMode.Multiple;
   selectedRows?: IListProps<RowData>['selectedRows'];
+  columns: Omit<IColumn<RowData>, keyof {
+    headerName: never;
+    width: never;
+  }>[];
   minHeight?: number;
   minWidth?: number;
   title?: string;
