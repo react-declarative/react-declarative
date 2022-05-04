@@ -71,6 +71,7 @@ const columns: IColumn[] = [
   },
   {
     type: ColumnType.Action,
+    phoneOrder: -1,
     headerName: 'Actions',
     sortable: false,
     width: () => '150px',

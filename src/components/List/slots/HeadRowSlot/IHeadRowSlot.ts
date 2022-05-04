@@ -1,4 +1,4 @@
-import { IHeadRowProps } from "../../components/SlotFactory/components/HeadRow";
+import { IHeadRowProps } from "../../components/SlotFactory/components/HeadRow/HeadRow";
 
 export interface IHeadRowSlot extends IHeadRowProps { }
 

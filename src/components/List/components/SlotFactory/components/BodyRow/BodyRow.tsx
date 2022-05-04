@@ -1,21 +1,22 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { makeStyles } from '../../../../../styles';
+import { useMemo, useState } from 'react';
+import { makeStyles } from '../../../../../../styles';
 
 import TableRow from '@mui/material/TableRow';
 
-import CheckboxBodyCell from '../../../slots/CheckboxCellSlot';
-import CommonBodyCell from '../../../slots/CommonCellSlot';
+import CheckboxBodyCell from '../../../../slots/CheckboxCellSlot';
+import CommonBodyCell from '../../../../slots/CommonCellSlot';
 
-import computeHidden from '../../../helpers/computeHidden';
+import sortColumns from '../../../../helpers/sortColumns';
 
-import IRowData from '../../../../../model/IRowData';
-import IAnything from '../../../../../model/IAnything';
+import IColumn from '../../../../../../model/IColumn';
+import IRowData from '../../../../../../model/IRowData';
+import IAnything from '../../../../../../model/IAnything';
 
-import DisplayMode from '../../../../../model/DisplayMode';
+import DisplayMode from '../../../../../../model/DisplayMode';
 
-import useProps from '../../../hooks/useProps';
-import useSelection from '../../../hooks/useSelection';
+import useProps from '../../../../hooks/useProps';
+import useSelection from '../../../../hooks/useSelection';
 
 export interface IBodyRowProps<RowData extends IRowData = IAnything> {
     row: RowData;
@@ -63,6 +64,31 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
         onRowAction && onRowAction(row, action);
     };
 
+    const content = useMemo(() => {
+
+        const renderColumn = (column: IColumn, idx: number) => (
+            <CommonBodyCell
+                column={column}
+                row={row}
+                key={idx}
+                idx={idx}
+                mode={mode}
+                fullWidth={fullWidth}
+                onAction={handleAction}
+                onMenuToggle={handleMenuToggle}
+            />
+        );
+    
+        const content = sortColumns({
+            mode,
+            columns,
+            fullWidth,
+        }).map(renderColumn);
+
+        return content;
+
+    }, [fullWidth]);
+
     return (
         <TableRow
             className={classes.noBottomBorder}
@@ -70,22 +96,7 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
             onClick={handleClick}
         >
             <CheckboxBodyCell row={row} />
-            {columns.filter((column, idx) => computeHidden({
-                column,
-                mode,
-                idx,
-            })).map((column, idx) => (
-                <CommonBodyCell
-                    column={column}
-                    row={row}
-                    key={idx}
-                    idx={idx}
-                    mode={mode}
-                    fullWidth={fullWidth}
-                    onAction={handleAction}
-                    onMenuToggle={handleMenuToggle}
-                />
-            ))}
+            {content}
         </TableRow>
     );
 };

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
-import { RowId } from '../../../../../model/IRowData';
+import { RowId } from '../../../../../../model/IRowData';
 
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
@@ -10,17 +10,17 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import TableCell from '@mui/material/TableCell';
 
-import IRowData from '../../../../../model/IRowData';
-import IAnything from '../../../../../model/IAnything';
+import IRowData from '../../../../../../model/IRowData';
+import IAnything from '../../../../../../model/IAnything';
 
-import SelectionMode from '../../../../../model/SelectionMode';
+import SelectionMode from '../../../../../../model/SelectionMode';
 
-import useToggleHandler from '../../../hooks/useToggleHandler';
-import useSelection from '../../../hooks/useSelection';
-import useRowAvatar from '../../../hooks/useRowAvatar';
-import useExpansion from '../../../hooks/useExpansion';
-import useProps from '../../../hooks/useProps';
-import useRowMark from '../../../hooks/useRowMark';
+import useToggleHandler from '../../../../hooks/useToggleHandler';
+import useSelection from '../../../../hooks/useSelection';
+import useRowAvatar from '../../../../hooks/useRowAvatar';
+import useExpansion from '../../../../hooks/useExpansion';
+import useProps from '../../../../hooks/useProps';
+import useRowMark from '../../../../hooks/useRowMark';
 
 import IconButton from '@mui/material/IconButton';
 import ExpandLess from '@mui/icons-material/ExpandLess';

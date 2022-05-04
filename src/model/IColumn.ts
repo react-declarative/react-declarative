@@ -6,22 +6,19 @@ import IOption from './IOption';
 
 import { Value } from './IField';
 
-type WidthFn = string | ((width: number) => string | number);
-
 export interface IColumn<RowData extends IRowData = IAnything> {
     type: ColumnType;
     field?: string;
     primary?: boolean;
     secondary?: boolean;
     headerName: string;
-    width?: WidthFn;
-    hidden?: boolean;
-    phoneWidth?: WidthFn;
+    width: string | ((width: number) => string | number);
     phoneHidden?: boolean;
-    tabletWidth?: WidthFn;
+    phoneOrder?: number;
     tabletHidden?: boolean;
-    desktopWidth?: WidthFn;
+    tabletOrder?: number;
     desktopHidden?: boolean;
+    desktopOrder?: number;
     columnMenu?: IOption[];
     showColumnMenu?: boolean;
     compute?: (row: RowData) => Promise<Value> | Value;

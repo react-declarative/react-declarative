@@ -3,31 +3,31 @@ import IColumn from "../../../model/IColumn";
 
 import constraintManager from "./constraintManager";
 
-interface IComputeHiddenParams {
+interface IComputeOrderParams {
     column: IColumn;
     mode: DisplayMode;
     fullWidth: number;
     idx: number;
 }
 
-export const computeHidden = ({
+export const computeOrder = ({
     fullWidth,
     column,
     mode,
     idx,
-}: IComputeHiddenParams) => {
+}: IComputeOrderParams) => {
     const compute = () => {
-        let field = false;
+        let order = 0;
         if (mode === DisplayMode.Desktop) {
-            field = !!column.desktopHidden;
+            order = column.desktopOrder || 0;
         } else if (mode === DisplayMode.Tablet) {
-            field = !!column.tabletHidden;
+            order = column.desktopOrder || 0;;
         } else if (mode === DisplayMode.Phone) {
-            field = !!column.phoneHidden;
+            order = column.phoneOrder || 0;
         }
-        return field;
+        return order;
     };
-    return constraintManager.memoize(`column-hidden-${fullWidth}-${idx}`, compute);
+    return constraintManager.memoize(`column-order-${fullWidth}-${idx}`, compute) as number;
 };
 
-export default computeHidden;
+export default computeOrder;
