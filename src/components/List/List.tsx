@@ -24,6 +24,8 @@ import { ExpansionProvider } from './hooks/useExpansion';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
+import scrollManager from './helpers/scrollManager';
+
 const DEFAULT_LIMIT = 25;
 
 const ListInternal = <
@@ -123,6 +125,9 @@ const ListInternal = <
         rows,
         total,
       } = await handleRows(filterData, keepPagination);
+      if (!keepPagination) {
+        scrollManager.scrollTop();
+      }
       isMounted.current && setState((prevState) => ({
         ...prevState,
         initComplete: true,
@@ -151,7 +156,7 @@ const ListInternal = <
       });
     handleFilter(newData as FilterData);
     selectionApiRef.current?.reload(true);
-  }, [filters]);
+  }, [filters, state.sort, state.chips]);
 
   const handleReload = useCallback((keepSelection = false) => {
     handleFilter(state.filterData, true);
@@ -214,7 +219,14 @@ const ListInternal = <
     if (state.initComplete) {
       handleReload(true);
     }
-  }, [state.limit, state.offset, state.sort, state.chips]);
+  }, [state.limit, state.offset]);
+
+  useEffect(() => {
+    if (state.initComplete) {
+      handleFilter(state.filterData, false);
+      selectionApiRef.current?.reload();
+    }
+  }, [state.sort, state.chips]);
 
   const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
 

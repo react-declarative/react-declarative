@@ -25,7 +25,6 @@ import sortColumns from '../../../../helpers/sortColumns';
 import useSortModel from '../../../../hooks/useSortModel';
 
 export interface IHeadRowProps {
-    onSortModelChange: () => void;
     fullWidth: number;
     mode: DisplayMode;
 }
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const HeadRow = <RowData extends IRowData = IAnything>({
-    onSortModelChange,
     fullWidth,
     mode,
 }: IHeadRowProps) => {
@@ -91,7 +89,6 @@ export const HeadRow = <RowData extends IRowData = IAnything>({
             });
         }
         setSortModel(sortModel);
-        onSortModelChange();
     }, [sortModel]);
 
 

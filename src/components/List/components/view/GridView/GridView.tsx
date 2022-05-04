@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 
 import { makeStyles } from '../../../../../styles';
 
@@ -28,6 +28,7 @@ import BodyRow from "../../../slots/BodyRowSlot";
 import HeadRow from "../../../slots/HeadRowSlot";
 
 import constraintManager from "../../../helpers/constraintManager";
+import scrollManager from "../../../helpers/scrollManager";
 
 import Container from "../../Container";
 
@@ -70,8 +71,6 @@ export const GridView = <
 
   const classes = useStyles();
 
-  const outerRef = useRef<HTMLDivElement>(null);
-
   const {
     limit,
     offset,
@@ -92,8 +91,6 @@ export const GridView = <
 
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
 
-  const handleScrollTop = () => outerRef.current && outerRef.current.scrollTo(outerRef.current.scrollLeft || 0, 0);
-
   const renderPlaceholder = () => (
     <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">
       <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
@@ -104,6 +101,10 @@ export const GridView = <
       </Stack>
     </TableCell>
   );
+
+  useEffect(() => () => {
+    scrollManager.clear();
+  }, []);
 
   return (
     <Container<FilterData, RowData>
@@ -116,11 +117,10 @@ export const GridView = <
 
         const renderInner = (mode: DisplayMode) => (
           <Box className={classes.root}>
-            <TableContainer ref={outerRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
+            <TableContainer ref={scrollManager.provideRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
               <Table stickyHeader>
                 <TableHead>
                   <HeadRow
-                    onSortModelChange={handleScrollTop}
                     fullWidth={width}
                     mode={mode}
                   />
