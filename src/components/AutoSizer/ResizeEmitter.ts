@@ -47,6 +47,7 @@ export class ResizeEmitter {
         this.observer.disconnect();
         this.onDispose();
       }
+      this.disposeTimeout = null;
     }, DISPOSE_CHECK_DELAY);
   }
 }

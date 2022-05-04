@@ -7,10 +7,9 @@ import { makeStyles } from '../../styles';
 import ResizeEmitter from "./ResizeEmitter";
 
 import classNames from "../../utils/classNames";
+import waitForFlush from "../../utils/waitForFlush";
 
 import ISize from "../../model/ISize";
-
-const RESIZE_CHECK_DELAY = 5_000;
 
 export interface IChildParams<T extends unknown = object> extends ISize {
   payload: T;
@@ -113,7 +112,7 @@ export const AutoSizer = <T extends unknown = object>({
       !disableWidth && current.style.setProperty('width', `${width}px`);
     };
 
-    const handler = (check = false) => {
+    const handler = () => {
 
       const { current: state } = stateRef;
 
@@ -143,9 +142,7 @@ export const AutoSizer = <T extends unknown = object>({
         rollbackSize(height, width);
       }
 
-      if (!check) {
-        setTimeout(() => handler(true), RESIZE_CHECK_DELAY);
-      }
+      waitForFlush().then(handler);
 
     };
 
