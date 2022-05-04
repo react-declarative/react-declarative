@@ -94,9 +94,6 @@ const actions: IListAction[] = [
         action: 'update-now',
       },
       {
-        action: 'auto-reload',
-      },
-      {
         action: 'list-action',
         label: 'Pick list',
       },

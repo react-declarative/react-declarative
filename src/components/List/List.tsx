@@ -25,7 +25,6 @@ import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
 const DEFAULT_LIMIT = 25;
-const DEFAULT_AUTORELOAD_INTERVAL = 30_000;
 
 const ListInternal = <
   FilterData extends IAnything = IAnything,
@@ -46,8 +45,6 @@ const ListInternal = <
     fallback = (e) => console.error(e),
     limit: defaultLimit = DEFAULT_LIMIT,
     isChooser: defaultIsChooser = false,
-    autoReload: defaultAutoReload = !defaultIsChooser,
-    autoReloadInterval = DEFAULT_AUTORELOAD_INTERVAL,
     filters = [],
     columns = [],
     actions = [],
@@ -69,7 +66,6 @@ const ListInternal = <
     offset: 0,
     total: null,
     loading: false,
-    autoReload: defaultAutoReload,
     filtersCollapsed: toggleFilters,
     sort: upperSortModel,
     chips: upperChips.reduce<ListHandlerChips<RowData>>(
@@ -79,8 +75,6 @@ const ListInternal = <
   });
 
   const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
-
-  const setAutoReload = (autoReload: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, autoReload }));
 
   const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, filtersCollapsed }));
 
@@ -222,23 +216,6 @@ const ListInternal = <
     }
   }, [state.limit, state.offset, state.sort, state.chips]);
 
-  useEffect(() => {
-    let timeout: any = null;
-    if (state.autoReload && !state.loading) {
-      timeout = setTimeout(() => {
-        timeout = null;
-        handleReload(true);
-      }, autoReloadInterval);
-    }
-    return () => {
-      if (timeout !== null) {
-        clearTimeout(timeout);
-      }
-    }
-  }, [state.autoReload, state.loading, autoReloadInterval]);
-
-  const handleAutoReload = (autoReload: boolean) => setAutoReload(autoReload);
-
   const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
 
   const callbacks: IListCallbacks<FilterData, RowData> = {
@@ -248,7 +225,6 @@ const ListInternal = <
     handleDefault,
     handleFilter,
     handleReload,
-    handleAutoReload,
     handleChips,
     handleFiltersCollapsed,
     ready: handleDefault,

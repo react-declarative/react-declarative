@@ -25,7 +25,6 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
     limit: never;
     chips: never;
     isChooser: never;
-    autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {

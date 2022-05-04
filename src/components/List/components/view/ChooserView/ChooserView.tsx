@@ -47,7 +47,6 @@ interface IChooserProps<FilterData = IAnything, RowData extends IRowData = IAnyt
     limit: never;
     chips: never;
     isChooser: never;
-    autoReload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {

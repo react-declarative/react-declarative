@@ -16,7 +16,6 @@ interface IPropContext<
         limit: never;
         chips: never;
         isChooser: never;
-        autoReload: never;
     }>,
     IListState<FilterData, RowData>,
     IListCallbacks<FilterData, RowData> {

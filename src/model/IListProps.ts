@@ -18,15 +18,9 @@ interface IUpdateOption extends IListOption {
   icon: never;
 };
 
-interface IAutoReloadOption extends IListOption {
-  action: 'auto-reload';
-  label: never;
-  icon: never;
-};
-
 export interface IListAction<RowData extends IRowData = IAnything> extends Partial<IListOption<RowData>> {
   type: ActionType;
-  options?: Partial<IListOption | IUpdateOption | IAutoReloadOption>[];
+  options?: Partial<IListOption | IUpdateOption>[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
@@ -71,7 +65,6 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   offset: number;
   total: number | null;
   loading: boolean;
-  autoReload: boolean;
   filtersCollapsed: boolean;
   sort: ListHandlerSortModel<RowData>;
   chips: ListHandlerChips<RowData>;
@@ -84,7 +77,6 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
-  handleAutoReload: (autoReload: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
   handleReload: () => void;
   ready: () => void;
@@ -109,8 +101,6 @@ export interface IListProps<
   actionAvalibility?: Record<string, any>;
   limit?: number;
   sizeByParent?: boolean;
-  autoReload?: boolean;
-  autoReloadInterval?: number;
   selectedRows?: RowId[];
   showLoader?: boolean;
   heightRequest?: (height: number) => number;
