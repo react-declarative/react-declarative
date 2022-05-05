@@ -1,5 +1,8 @@
-import { IHeadRowProps } from "../../components/SlotFactory/components/HeadRow/HeadRow";
+import DisplayMode from "../../../../model/DisplayMode";
 
-export interface IHeadRowSlot extends IHeadRowProps { }
+export interface IHeadRowSlot {
+    fullWidth: number;
+    mode: DisplayMode;
+}
 
 export default IHeadRowSlot;

@@ -1,7 +1,6 @@
 import IColumn from "../../../model/IColumn";
 import DisplayMode from "../../../model/DisplayMode";
 
-import computeHidden from "./computeHidden";
 import computeOrder from "./computeOrder";
 
 interface IParams {
@@ -15,12 +14,6 @@ export const sortColumns = ({
     fullWidth,
     mode,
 }: IParams) => columns
-    .filter((column, idx) => !computeHidden({
-        fullWidth,
-        column,
-        mode,
-        idx,
-    }))
     .map((column, idx) => [column, idx] as const)
     .sort(([col1, idx1], [col2, idx2]) => {
         const order1 = computeOrder({

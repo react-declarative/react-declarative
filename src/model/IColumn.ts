@@ -13,11 +13,8 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     secondary?: boolean;
     headerName: string;
     width: string | ((width: number) => string | number);
-    phoneHidden?: boolean;
     phoneOrder?: number;
-    tabletHidden?: boolean;
     tabletOrder?: number;
-    desktopHidden?: boolean;
     desktopOrder?: number;
     columnMenu?: IOption[];
     showColumnMenu?: boolean;
