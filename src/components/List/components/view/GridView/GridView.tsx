@@ -23,7 +23,6 @@ import ConstraintView from "../../../../ConstraintView";
 
 import DisplayMode from "../../../../../model/DisplayMode";
 
-import ExpansionRow from "../../../slots/ExpansionRowSlot";
 import BodyRow from "../../../slots/BodyRowSlot";
 import HeadRow from "../../../slots/HeadRowSlot";
 
@@ -134,10 +133,6 @@ export const GridView = <
                     <Fragment key={index}>
                       <BodyRow
                         fullWidth={width}
-                        row={row}
-                        mode={mode}
-                      />
-                      <ExpansionRow
                         row={row}
                         mode={mode}
                       />

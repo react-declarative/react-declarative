@@ -20,7 +20,6 @@ import ChooserView from './components/view/ChooserView';
 
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
-import { ExpansionProvider } from './hooks/useExpansion';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
@@ -282,9 +281,7 @@ const ListInternal = <
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider sortModel={upperSortModel}>
             <ChipsProvider chips={upperChips}>
-              <ExpansionProvider>
-                {renderInner()}
-              </ExpansionProvider>
+              {renderInner()}
             </ChipsProvider>
           </SortModelProvider>
         </SelectionProvider>

@@ -6,7 +6,6 @@ import { makeStyles } from '../../../../../../styles';
 import MatListItem from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Async from '../../../../../Async';
 import ActionMenu from '../../../../../common/ActionMenu';
@@ -20,7 +19,6 @@ import useProps from '../.../../../../../hooks/useProps';
 import useSelection from '../../../../hooks/useSelection';
 
 import RowCheckbox from './common/RowCheckbox';
-import RowAvatar from './common/RowAvatar';
 import RowMark from './common/RowMark';
 
 const ColumnContent = <RowData extends IRowData = IAnything>({
@@ -75,7 +73,6 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         onRowClick,
         onRowAction,
         fallback,
-        rowAvatar,
         rowMark,
     } = useProps();
 
@@ -126,19 +123,11 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                     row={row}
                 />
             )}
-            {!!rowAvatar ? (
-                <ListItemAvatar>
-                    <RowAvatar
-                        row={row}
-                    />
-                </ListItemAvatar>
-            ) : (
-                <ListItemIcon>
-                    <RowCheckbox
-                        row={row}
-                    />
-                </ListItemIcon>
-            )}
+            <ListItemIcon>
+                <RowCheckbox
+                    row={row}
+                />
+            </ListItemIcon>
             <ListItemText
                 primary={primary}
                 secondary={secondary}

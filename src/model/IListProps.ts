@@ -116,7 +116,6 @@ export interface IListProps<
   filters?: Field[];
   handler: ListHandler;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
-  rowAvatar?: string | ((row: RowData) => ListAvatar) | ((row: RowData) => Promise<ListAvatar>) | ((row: RowData) => string) | ListAvatar;
   fallback?: (e: Error) => void;
   rowActions?: IListOption[];
   toggleFilters?: boolean;

@@ -2,12 +2,9 @@ import * as React from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
-import { RowId } from '../../../../../../model/IRowData';
-
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import TableCell from '@mui/material/TableCell';
 
 import IRowData from '../../../../../../model/IRowData';
@@ -17,14 +14,8 @@ import SelectionMode from '../../../../../../model/SelectionMode';
 
 import useToggleHandler from '../../../../hooks/useToggleHandler';
 import useSelection from '../../../../hooks/useSelection';
-import useRowAvatar from '../../../../hooks/useRowAvatar';
-import useExpansion from '../../../../hooks/useExpansion';
-import useProps from '../../../../hooks/useProps';
 import useRowMark from '../../../../hooks/useRowMark';
-
-import IconButton from '@mui/material/IconButton';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import useProps from '../../../../hooks/useProps';
 
 export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
@@ -48,30 +39,6 @@ const useStyles = makeStyles({
     }
 });
 
-const Expander = ({
-    rowId,
-}: {
-    rowId: RowId;
-}) => {
-    const { expansion, toggleExpansion } = useExpansion();
-
-    const handleToggle = (e: any) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleExpansion(rowId);
-    };
-
-    return (
-        <IconButton onClick={handleToggle}>
-            {expansion.has(rowId) ? (
-                <ExpandLess />
-            ) : (
-                <ExpandMore />
-            )}
-        </IconButton>
-    );
-};
-
 export const CheckboxCell = <RowData extends IRowData = IAnything>({
     row,
 }: ICheckboxCellProps<RowData>) => {
@@ -80,29 +47,19 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
 
     const { selection } = useSelection();
 
-    const avatar = useRowAvatar({ row });
     const mark = useRowMark({ row });
 
     const props = useProps<RowData>();
 
     const {
         selectionMode = SelectionMode.None,
-        rowAvatar,
         rowMark,
     } = props;
 
     const createToggleHandler = useToggleHandler(row);
 
     const renderCheckbox = () => {
-        if (rowAvatar && avatar) {
-            return (
-                <Avatar
-                    className={classes.avatar}
-                    src={avatar.src}
-                    alt={avatar.alt}
-                />
-            );
-        } else if (selectionMode === SelectionMode.Single) {
+        if (selectionMode === SelectionMode.Single) {
             return (
                 <Radio
                     color="primary"
@@ -123,12 +80,6 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                 <Checkbox
                     color="primary"
                     disabled
-                />
-            );
-        } else if (selectionMode === SelectionMode.Expander) {
-            return (
-                <Expander 
-                    rowId={row.id}
                 />
             );
         } else {
