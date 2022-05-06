@@ -94,6 +94,9 @@ const actions: IListAction[] = [
         action: 'update-now',
       },
       {
+        action: 'resort-action',
+      },
+      {
         action: 'list-action',
         label: 'Pick list',
       },

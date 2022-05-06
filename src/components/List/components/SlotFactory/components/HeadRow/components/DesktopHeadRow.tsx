@@ -82,7 +82,6 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         setSortModel(sortModel);
     }, [sortModel]);
 
-
     const content = useMemo(() => {
 
         const renderColumn = (column: HeadColumn, idx: number) => {

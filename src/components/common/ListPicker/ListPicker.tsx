@@ -63,7 +63,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
     }
   };
   const handleAccept = () => onChange(selectedRows);
-  const handleDismis = () => onChange(null);
+  const handleDismiss = () => onChange(null);
   const handleClick = ({ id: rowId }: RowData) => setSelectedRows((selectedRows) => {
     if (selectedRows && selectionMode === SelectionMode.Multiple) {
       return [...selectedRows, rowId];
@@ -75,7 +75,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
     <ModalDialog
       open={open}
       onAccept={handleAccept}
-      onDismis={handleDismis}
+      onDismiss={handleDismiss}
     >
       {!!title && (
         <DialogTitle>

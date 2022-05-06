@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { useListProps } from '../../../..';
+
+import useProps from '../../../../hooks/useProps';
 
 import IAnything from "../../../../../../model/IAnything";
 import IRowData from "../../../../../../model/IRowData";
@@ -25,7 +26,7 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
 
     const {
         columns: listColumns,
-    } = useListProps();
+    } = useProps();
 
     const columns = useMemo(() => {
 

@@ -21,7 +21,7 @@ interface IModalDialogProps extends DialogProps {
   canCancel?: boolean;
   dividers?: boolean;
   onAccept: () => void;
-  onDismis: () => void;
+  onDismiss?: () => void;
 }
 
 export const ModalDialog = ({
@@ -29,7 +29,7 @@ export const ModalDialog = ({
   dividers = false,
   canCancel = true,
   onAccept = () => console.log('accept'),
-  onDismis = () => console.log('dismiss'),
+  onDismiss = () => console.log('dismiss'),
   ...other
 }: IModalDialogProps) => {
   const classes = useStyles();
@@ -40,7 +40,14 @@ export const ModalDialog = ({
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={onAccept}>OK</Button>
-        <Button disabled={!canCancel} color="primary" onClick={onDismis}>Cancel</Button>
+        {canCancel && (
+          <Button
+            color="primary"
+            onClick={onDismiss}
+          >
+            Cancel
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

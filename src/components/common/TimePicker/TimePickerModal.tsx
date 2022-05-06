@@ -20,12 +20,12 @@ export const TimePickerModal = ({
   const [time, setTime] = useState(now);
   const handleChange = (time: any) => setTime(time);
   const handleAccept = useCallback(() => onChange(time), [time]);
-  const handleDismis = () => onChange(null);
+  const handleDismiss = () => onChange(null);
   return (
     <ModalDialog
       open={open}
       onAccept={handleAccept}
-      onDismis={handleDismis}
+      onDismiss={handleDismiss}
     >
       <TimePicker
         date={time}

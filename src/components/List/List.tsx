@@ -11,6 +11,8 @@ import IRowData from '../../model/IRowData';
 import IField from '../../model/IField';
 import IListApi from '../../model/IListApi';
 
+import ModalProvider from '../ModalProvider';
+
 import initialValue from '../One/config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
@@ -70,7 +72,7 @@ const ListInternal = <
     filtersCollapsed: toggleFilters,
     sort: upperSortModel,
     chips: upperChips.reduce<ListHandlerChips<RowData>>(
-      (acm, { name: chip, enabled = false }) => ({...acm, [chip]: enabled}),
+      (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: enabled }),
       {} as any,
     ),
   });
@@ -281,7 +283,9 @@ const ListInternal = <
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider sortModel={upperSortModel}>
             <ChipsProvider chips={upperChips}>
-              {renderInner()}
+              <ModalProvider>
+                {renderInner()}
+              </ModalProvider>
             </ChipsProvider>
           </SortModelProvider>
         </SelectionProvider>

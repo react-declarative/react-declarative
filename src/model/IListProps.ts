@@ -18,9 +18,15 @@ interface IUpdateOption extends IListOption {
   icon: never;
 };
 
+interface IResortOption extends IListOption {
+  action: 'resort-action';
+  label: never;
+  icon: never;
+}
+
 export interface IListAction<RowData extends IRowData = IAnything> extends Partial<IListOption<RowData>> {
   type: ActionType;
-  options?: Partial<IListOption | IUpdateOption>[];
+  options?: Partial<IListOption | IUpdateOption | IResortOption>[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {

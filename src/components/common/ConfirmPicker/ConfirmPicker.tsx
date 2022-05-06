@@ -22,13 +22,13 @@ export const ConfirmPicker = ({
   open = true,
 }: IConfirmPickerProps) => {
   const handleAccept = () => onChange(true);
-  const handleDismis = () => onChange(false);
+  const handleDismiss = () => onChange(false);
   return (
     <ModalDialog
       open={open}
       canCancel={canCancel}
       onAccept={handleAccept}
-      onDismis={handleDismis}
+      onDismiss={handleDismiss}
     >
       <DialogTitle>
         <Box mr={3}>

@@ -29,12 +29,12 @@ export const OnePicker = <Data extends IAnything = IAnything>({
   const [data, setData] = useState<Data | null>(null);
   const handleChange = (data: Data) => setData(data);
   const handleAccept = () => onChange(data);
-  const handleDismis = () => onChange(null);
+  const handleDismiss = () => onChange(null);
   return (
     <ModalDialog
       open={open}
       onAccept={handleAccept}
-      onDismis={handleDismis}
+      onDismiss={handleDismiss}
     >
       {!!title && (
         <DialogTitle>

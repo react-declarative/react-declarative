@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { useListProps } from '../../../..';
+
+import useProps from '../../../../hooks/useProps';
 
 import DisplayMode from "../../../../../../model/DisplayMode";
 
@@ -20,7 +21,7 @@ export const HeadRow = ({
 
     const {
         columns: listColumns,
-    } = useListProps();
+    } = useProps();
 
     const columns = useMemo(() => wrapColumns({
         columns: listColumns,

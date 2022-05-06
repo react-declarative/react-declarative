@@ -25,12 +25,12 @@ export const DatePickerModal = ({
   const [date, setDate] = useState(dayjs(now));
   const handleChange = (date: any) => setDate(date);
   const handleAccept = () => onChange(date);
-  const handleDismis = () => onChange(null);
+  const handleDismiss = () => onChange(null);
   return (
     <ModalDialog
       open={true}
       onAccept={handleAccept}
-      onDismis={handleDismis}
+      onDismiss={handleDismiss}
     >
       <DatePicker
         date={date}

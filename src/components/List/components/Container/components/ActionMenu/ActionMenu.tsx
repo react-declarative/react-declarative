@@ -15,6 +15,7 @@ import IListOption from '../../../../../../model/IListOption';
 
 import CommonAction from './components/CommonAction';
 import UpdateNowAction from './components/UpdateNowAction';
+import SortAction from './components/SortAction';
 
 interface IActionMenuProps {
     options?: Partial<IListOption>[];
@@ -97,7 +98,17 @@ export const ActionMenu = ({
                 {options.map(({label = 'unknown-label', action = 'unknown-action', icon}, idx) => {
                     if (action === 'update-now') {
                         return (
-                            <UpdateNowAction enabled={actionAvalibility[action]} key={idx} />
+                            <UpdateNowAction
+                                enabled={actionAvalibility[action]}
+                                key={idx}
+                            />
+                        );
+                    } else if (action === 'resort-action') {
+                        return (
+                            <SortAction
+                                enabled={actionAvalibility[action]}
+                                key={idx}
+                            />
                         );
                     } else {
                         return (
