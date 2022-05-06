@@ -142,7 +142,9 @@ export const AutoSizer = <T extends unknown = object>({
         rollbackSize(height, width);
       }
 
-      waitForFlush().then(handler);
+      if (isOk) {
+        waitForFlush().then(handler);
+      }
 
     };
 
