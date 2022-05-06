@@ -16,9 +16,16 @@ export const scrollManager = new class {
     provideRef = (element: HTMLElement | null) => {
         this.clear();
         if (element) {
-            element.addEventListener('scroll', this._handleScroll);
+            const { scrollTop, scrollLeft } = element;
+            element.addEventListener('scroll', this._handleScroll, {
+                passive: true,
+            });
             this._currentElement = element;
-            element.scrollTo(this._lastScrollX, this._lastScrollY);
+            if (scrollTop || scrollLeft) {
+                this._handleScroll();
+            } else {
+                element.scrollTo(this._lastScrollX, this._lastScrollY);
+            }
         }
     };
 
