@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { makeStyles } from '../../../../styles';
+import { alpha } from '@mui/material';
 
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -23,13 +24,21 @@ interface ISortModalProps {
     onClose: () => void;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     inactive: {
         opacity: 0.5,
     },
     container: {
         width: 300,
         height: 340,
+    },
+    list: {
+        '& > $item:nth-child(even)': {
+            background: alpha(
+                theme.palette.getContrastText(theme.palette.background.paper),
+                0.05
+            ),
+        },
     },
     item: {
         '& .MuiListItemText-root > .MuiTypography-root': {
@@ -38,7 +47,7 @@ const useStyles = makeStyles({
             textOverflow: 'ellipsis',
         },
     },
-});
+}));
 
 export const SortModal = ({
     columns,
@@ -86,7 +95,7 @@ export const SortModal = ({
             onDismiss={handleDismiss}
         >
             <Box className={classes.container}>
-                <List>
+                <List className={classes.list} disablePadding>
                     {columns.map((column, idx) => {
                         const sortTarget = sortModel.get(column.field || '');
                         const sortDirection = sortTarget?.sort || undefined;
