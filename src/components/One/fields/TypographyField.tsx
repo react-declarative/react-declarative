@@ -11,6 +11,7 @@ import IField from '../../../model/IField';
 export interface ITypographyFieldProps<Data = IAnything> {
   placeholder?: PickProp<IField<Data>, 'placeholder'>;
   typoVariant?: PickProp<IField<Data>, 'typoVariant'>;
+  className?: PickProp<IField<Data>, 'className'>;
   style?: PickProp<IField<Data>, 'style'>;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
