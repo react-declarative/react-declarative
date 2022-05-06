@@ -11,17 +11,13 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 
 import useProps from '../../../../../hooks/useProps';
 
-import IColumn from '../../../../../../../model/IColumn';
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
 
 import ColumnType from '../../../../../../../model/ColumnType';
 import SelectionMode from '../../../../../../../model/SelectionMode';
 
-import computeWidth from '../../../../../helpers/computeWidth';
-import sortColumns from '../../../../../helpers/sortColumns';
-
-import { IHeadRowSlot } from '../../../../../slots/HeadRowSlot';
+import { IHeadRowSlot, HeadColumn } from '../../../../../slots/HeadRowSlot';
 
 import useSortModel from '../../../../../hooks/useSortModel';
 
@@ -35,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     fullWidth,
-    mode,
+    columns,
 }: IHeadRowSlot) => {
 
     const classes = useStyles();
@@ -44,7 +40,6 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     const { sortModel, setSortModel } = useSortModel();
 
     const {
-        columns = [],
         selectionMode,
     } = props;
 
@@ -90,7 +85,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     const content = useMemo(() => {
 
-        const renderColumn = (column: IColumn, idx: number) => {
+        const renderColumn = (column: HeadColumn, idx: number) => {
             const sortTarget = sortModel.get(column.field || '');
             const sortDirection = sortTarget?.sort || undefined;
     
@@ -104,13 +99,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                 }
             };
     
-            const minWidth = computeWidth({
-                column,
-                mode,
-                fullWidth,
-                idx,
-            });
-        
+            const minWidth = column.width;
             const maxWidth = minWidth;
     
             const align = column.type === ColumnType.Action ? 'center' : 'left';
@@ -136,11 +125,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
             );
         };
     
-        const content = sortColumns({
-            mode,
-            columns,
-            fullWidth,
-        }).map(renderColumn);
+        const content = columns.map(renderColumn);
 
         return content;
 

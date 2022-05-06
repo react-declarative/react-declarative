@@ -108,8 +108,8 @@ export { Translate } from './components';
 export { register as registerTr } from './components/Translate';
 
 export { ModalProvider } from './components';
-export { OneSlotFactory } from './components';
-export { ListSlotFactory } from './components';
+export { OneSlotFactory, OneDefaultSlots } from './components';
+export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
 export { Scaffold } from './components';
 export { Switch } from './components';

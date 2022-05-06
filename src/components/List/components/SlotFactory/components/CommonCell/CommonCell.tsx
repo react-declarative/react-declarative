@@ -8,27 +8,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
 import Async from '../../../../../Async';
-import ActionMenu, { IActionMenuProps } from '../../../../../common/ActionMenu';
+import ActionMenu from '../../../../../common/ActionMenu';
 
 import IAnything from '../../../../../../model/IAnything';
-import IColumn from '../../../../../../model/IColumn';
 import IRowData from '../../../../../../model/IRowData';
 import ColumnType from '../../../../../../model/ColumnType';
-import DisplayMode from '../../../../../../model/DisplayMode';
 
-import { computeWidth } from '../../../../helpers/computeWidth';
+import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
 import useProps from "../../../../hooks/useProps";
-
-export interface ICommonCellProps<RowData extends IRowData = IAnything> {
-    column: IColumn<RowData>;
-    row: RowData;
-    idx: number;
-    fullWidth: number;
-    mode: DisplayMode;
-    onMenuToggle: IActionMenuProps['onToggle'];
-    onAction: IActionMenuProps['onAction']
-}
 
 const useStyles = makeStyles({
     root: {
@@ -56,12 +44,9 @@ const useStyles = makeStyles({
 export const CommonCell = <RowData extends IRowData = IAnything>({
     column,
     row,
-    idx,
-    mode,
-    fullWidth,
     onMenuToggle,
     onAction,
-}: ICommonCellProps<RowData>) => {
+}: ICommonCellSlot<RowData>) => {
 
     const classes = useStyles();
 
@@ -119,13 +104,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
 
     const align = column.type === ColumnType.Action ? 'center' : 'left';
 
-    const minWidth = computeWidth({
-        column,
-        mode,
-        fullWidth,
-        idx,
-    });
-
+    const minWidth = column.width;
     const maxWidth = minWidth;
 
     return (

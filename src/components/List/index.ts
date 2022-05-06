@@ -5,4 +5,5 @@ export { useSelection as useListSelection } from './hooks/useSelection';
 export { useApiPaginator } from './api/useApiPaginator';
 export { useStaticPaginator } from './api/useStaticPaginator';
 export { default as ListSlotFactory } from './components/SlotFactory';
+export { defaultSlots as ListDefaultSlots } from './components/SlotFactory';
 export { default } from "./List";

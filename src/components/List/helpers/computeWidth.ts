@@ -1,5 +1,3 @@
-import React from "react";
-
 import DisplayMode from "../../../model/DisplayMode";
 import IColumn from "../../../model/IColumn";
 
@@ -19,9 +17,10 @@ export const computeWidth = ({
 }: IComputeWidthParams) => {
     const compute = () => {
         const field = column.width;
-        return typeof field === 'function' ? field(fullWidth) : field;
+        const result = typeof field === 'function' ? field(fullWidth) : field;
+        return typeof result === 'number' ? `${result}px` : result;
     };
-    return constraintManager.memoize(`column-width-${fullWidth}-${idx}`, compute) as React.CSSProperties['width'];
+    return constraintManager.memoize(`column-width-${fullWidth}-${idx}`, compute) as string;
 };
 
 export default computeWidth;

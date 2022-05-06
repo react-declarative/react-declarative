@@ -2,6 +2,7 @@ import IColumn from "../../../model/IColumn";
 import DisplayMode from "../../../model/DisplayMode";
 
 import computeOrder from "./computeOrder";
+import computeWidth from "./computeWidth";
 
 interface IParams {
     columns: IColumn[];
@@ -9,7 +10,7 @@ interface IParams {
     mode: DisplayMode;
 }
 
-export const sortColumns = ({
+export const wrapColumns = ({
     columns,
     fullWidth,
     mode,
@@ -30,6 +31,15 @@ export const sortColumns = ({
         }) + idx2 - (idx2 > idx1 ? 1 : 0);
         return order1 - order2;
     })
-    .map(([col]) => col);
+    .map(([col]) => col)
+    .map((column, idx) => ({
+        ...column,
+        width: computeWidth({
+            fullWidth,
+            column,
+            mode,
+            idx,
+        }),
+    }));
 
-export default sortColumns;
+export default wrapColumns;

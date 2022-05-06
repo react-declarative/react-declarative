@@ -7,13 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import CheckboxBodyCell from '../../../../../slots/CheckboxCellSlot';
 import CommonBodyCell from '../../../../../slots/CommonCellSlot';
 
-import sortColumns from '../../../../../helpers/sortColumns';
-
-import IColumn from '../../../../../../../model/IColumn';
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
 
-import { IBodyRowSlot } from '../../../../../slots/BodyRowSlot';
+import { IBodyRowSlot, BodyColumn } from '../../../../../slots/BodyRowSlot';
 
 import useProps from '../../../../../hooks/useProps';
 import useSelection from '../../../../../hooks/useSelection';
@@ -26,6 +23,7 @@ const useStyles = makeStyles({
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     row,
     mode,
+    columns,
     fullWidth,
 }: IBodyRowSlot<RowData>) => {
 
@@ -38,7 +36,6 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const {
         onRowClick,
         onRowAction,
-        columns = [],
     } = props;
 
     const handleClick = () => {
@@ -57,7 +54,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const content = useMemo(() => {
 
-        const renderColumn = (column: IColumn, idx: number) => (
+        const renderColumn = (column: BodyColumn, idx: number) => (
             <CommonBodyCell
                 column={column}
                 row={row}
@@ -70,11 +67,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
             />
         );
     
-        const content = sortColumns({
-            mode,
-            columns,
-            fullWidth,
-        }).map(renderColumn);
+        const content = columns.map(renderColumn);
 
         return content;
 
