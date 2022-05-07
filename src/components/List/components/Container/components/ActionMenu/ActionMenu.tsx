@@ -100,6 +100,7 @@ export const ActionMenu = ({
                         return (
                             <UpdateNowAction
                                 enabled={actionAvalibility[action]}
+                                onClose={handleClose}
                                 key={idx}
                             />
                         );
@@ -107,6 +108,7 @@ export const ActionMenu = ({
                         return (
                             <SortAction
                                 enabled={actionAvalibility[action]}
+                                onClose={handleClose}
                                 key={idx}
                             />
                         );

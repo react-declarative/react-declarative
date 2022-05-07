@@ -14,6 +14,7 @@ import classNames from '../../../../../../../utils/classNames';
 
 interface ISortActionProps {
     enabled: boolean;
+    onClose: () => void;
 }
 
 const useStyles = makeStyles({
@@ -24,13 +25,19 @@ const useStyles = makeStyles({
 
 export const SortAction = ({
     enabled,
+    onClose,
 }: ISortActionProps) => {
 
     const classes = useStyles();
 
     const showModal = useModalSort();
 
-    const handleClick = () => enabled && showModal();
+    const handleClick = () => {
+        if (enabled) {
+            showModal();
+            onClose();
+        }
+    };
 
     return (
         <MenuItem

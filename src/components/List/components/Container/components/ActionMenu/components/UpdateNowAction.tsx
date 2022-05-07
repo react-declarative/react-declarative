@@ -14,6 +14,7 @@ import classNames from '../../../../../../../utils/classNames';
 
 interface IUpdateNowActionProps {
     enabled: boolean;
+    onClose: () => void;
 }
 
 const useStyles = makeStyles({
@@ -24,12 +25,19 @@ const useStyles = makeStyles({
 
 export const UpdateNowAction = ({
     enabled,
+    onClose,
 }: IUpdateNowActionProps) => {
 
     const classes = useStyles();
 
     const { handleReload = () => null } = useProps();
-    const handleClick = () => enabled && handleReload();
+
+    const handleClick = () => {
+        if (enabled) {
+            handleReload();
+            onClose();
+        }
+    };
 
     return (
         <MenuItem
