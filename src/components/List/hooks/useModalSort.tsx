@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useContext } from 'react';
+import { createContext } from 'react';
 
 import SortModal from '../components/SortModal';
+
+import ModalProvider from '../../ModalProvider';
 
 import { useModal } from '../../ModalProvider';
 
@@ -9,7 +12,17 @@ import ColumnType from '../../../model/ColumnType';
 
 import useProps from '../hooks/useProps';
 
-export const useModalSort = () => {
+export const useModalSort = () => useContext(ModalSortContext);
+
+const ModalSortContext = createContext<() => void>(null as never);
+
+interface IModalSortProviderProps {
+    children: React.ReactChild;
+}
+
+const InternalProvider = ({
+    children,
+}: IModalSortProviderProps) => {
 
     const { columns: listColumns } = useProps();
 
@@ -29,7 +42,23 @@ export const useModalSort = () => {
         />
     ), []);
 
-    return showModal;
+    const handleModal = () => showModal();
+
+    return (
+        <ModalSortContext.Provider value={handleModal}>
+            {children}
+        </ModalSortContext.Provider>
+    );
 };
+
+export const ModalSortProvider = ({
+    children,
+}: IModalSortProviderProps) => (
+    <ModalProvider>
+        <InternalProvider>
+            {children}
+        </InternalProvider>
+    </ModalProvider>
+);
 
 export default useModalSort;

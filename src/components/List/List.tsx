@@ -11,8 +11,6 @@ import IRowData from '../../model/IRowData';
 import IField from '../../model/IField';
 import IListApi from '../../model/IListApi';
 
-import ModalProvider from '../ModalProvider';
-
 import initialValue from '../One/config/initialValue';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
@@ -22,6 +20,7 @@ import ChooserView from './components/view/ChooserView';
 
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
+import { ModalSortProvider } from './hooks/useModalSort';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
@@ -283,9 +282,9 @@ const ListInternal = <
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
           <SortModelProvider sortModel={upperSortModel}>
             <ChipsProvider chips={upperChips}>
-              <ModalProvider>
+              <ModalSortProvider>
                 {renderInner()}
-              </ModalProvider>
+              </ModalSortProvider>
             </ChipsProvider>
           </SortModelProvider>
         </SelectionProvider>
