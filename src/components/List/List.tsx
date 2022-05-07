@@ -26,7 +26,7 @@ import { PropProvider } from './hooks/useProps';
 
 import scrollManager from './helpers/scrollManager';
 
-const DEFAULT_LIMIT = 25;
+const DEFAULT_LIMIT = 10;
 
 const ListInternal = <
   FilterData extends IAnything = IAnything,
