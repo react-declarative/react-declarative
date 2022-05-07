@@ -18,6 +18,8 @@ interface IMobileCommonCellProps extends ICommonCellSlot {
     disableGutters: boolean;
 }
 
+const COMPONENT_MIN_HEIGHT = 70;
+
 const useStyles = makeStyles({
     root: {
         position: 'relative',
@@ -46,9 +48,6 @@ const useStyles = makeStyles({
         width: 48,
         maxWidth: 48,
     },
-    componentHeight: {
-        minHeight: 70,
-    },
 });
 
 export const MobileCommonCell = ({
@@ -61,6 +60,9 @@ export const MobileCommonCell = ({
     const classes = useStyles();
 
     const { column } = props;
+
+    const { minHeight: minHeightCol } = column;
+    const minHeight = minHeightCol || (column.type === ColumnType.Component ? COMPONENT_MIN_HEIGHT : undefined);
 
     return (
         <TableCell
@@ -76,9 +78,12 @@ export const MobileCommonCell = ({
                         {column.headerName}
                     </Typography>
                 )}
-                <Box className={classNames(classes.content, {
-                    [classes.componentHeight]: column.type === ColumnType.Component,
-                })}>
+                <Box 
+                    className={classes.content}
+                    style={{
+                        minHeight,
+                    }}
+                >
                     <CommonCellSlot
                         {...props}
                     />

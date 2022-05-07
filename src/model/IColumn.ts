@@ -13,6 +13,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     secondary?: boolean;
     headerName: string;
     width: string | ((width: number) => string | number);
+    minHeight?: string | number;
     phoneOrder?: number;
     tabletOrder?: number;
     desktopOrder?: number;

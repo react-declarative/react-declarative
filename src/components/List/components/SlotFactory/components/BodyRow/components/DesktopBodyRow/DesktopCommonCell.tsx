@@ -33,10 +33,12 @@ export const DesktopCommonCell = (props: ICommonCellSlot) => {
     const minWidth = column.width;
     const maxWidth = minWidth;
 
+    const minHeight = column.minHeight;
+
     return (
         <TableCell
             className={classes.root}
-            style={{ minWidth, maxWidth }}
+            style={{ minWidth, maxWidth, minHeight }}
             align={align}
             padding={padding}
         >
