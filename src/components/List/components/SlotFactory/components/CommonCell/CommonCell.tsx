@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
-import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
@@ -19,13 +18,6 @@ import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 import useProps from "../../../../hooks/useProps";
 
 const useStyles = makeStyles({
-    root: {
-        position: 'relative',
-        overflow: 'hidden',
-        paddingLeft: '0 !important',
-        paddingRight: '0 !important',
-        overflowWrap: 'break-word',
-    },
     stretch: {
         position: 'absolute',
         top: 0,
@@ -55,68 +47,46 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
         rowActions,
     } = useProps<RowData>()
     
-    const renderInner = () => {
-        if (column.type === ColumnType.Text) {
-            return row[column.field!];
-        } else if (column.type === ColumnType.Compute) {
-            return (
-                <Async
-                    payload={row}
-                    fallback={fallback}
-                >
-                    {column.compute!}
-                </Async>
-            );
-        } else if (column.type === ColumnType.CheckBox) {
-            return (
-                <Checkbox
-                    color="primary"
-                    disabled
-                    checked={row[column.field!]}
-                />
-            );
-        } else if (column.type === ColumnType.Component) {
-            const {
-                element: Element = () => <Fragment />,
-            } = column;
-            return (
-                <Box className={classes.stretch}>
-                    <Element {...row} />
-                </Box>
-            );
-        } else if (column.type === ColumnType.Action) {
-            return !!rowActions ? (
-                <ActionMenu
-                    transparent
-                    options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
-                    onToggle={onMenuToggle}
-                    onAction={onAction}
-                />
-            ) : null;
-        } else {
-            return null;
-        }
-    };
-
-    const padding = column.type === ColumnType.Component ? 'none'
-        : column.type === ColumnType.CheckBox ? 'checkbox'
-        : 'normal';
-
-    const align = column.type === ColumnType.Action ? 'center' : 'left';
-
-    const minWidth = column.width;
-    const maxWidth = minWidth;
-
-    return (
-        <TableCell
-            className={classes.root}
-            style={{ minWidth, maxWidth }}
-            align={align}
-            padding={padding}
-        >
-            {renderInner()}
-        </TableCell>
-    );
+    if (column.type === ColumnType.Text) {
+        return row[column.field!];
+    } else if (column.type === ColumnType.Compute) {
+        return (
+            <Async
+                payload={row}
+                fallback={fallback}
+            >
+                {column.compute!}
+            </Async>
+        );
+    } else if (column.type === ColumnType.CheckBox) {
+        return (
+            <Checkbox
+                color="primary"
+                disabled
+                checked={row[column.field!]}
+            />
+        );
+    } else if (column.type === ColumnType.Component) {
+        const {
+            element: Element = () => <Fragment />,
+        } = column;
+        return (
+            <Box className={classes.stretch}>
+                <Element {...row} />
+            </Box>
+        );
+    } else if (column.type === ColumnType.Action) {
+        return !!rowActions ? (
+            <ActionMenu
+                transparent
+                options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
+                onToggle={onMenuToggle}
+                onAction={onAction}
+            />
+        ) : null;
+    } else {
+        return null;
+    }
 
 };
 

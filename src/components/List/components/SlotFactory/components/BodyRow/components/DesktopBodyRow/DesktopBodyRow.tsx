@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { useMemo, useState } from 'react';
-import { makeStyles } from '../../../../../../../styles';
+import { makeStyles } from '../../../../../../../../styles';
 
 import TableRow from '@mui/material/TableRow';
 
-import CheckboxBodyCell from '../../../../../slots/CheckboxCellSlot';
-import CommonBodyCell from '../../../../../slots/CommonCellSlot';
+import CheckboxBodyCell from './DesktopCheckboxBodyCell';
+import CommonBodyCell from './DesktopCommonCell';
 
-import IRowData from '../../../../../../../model/IRowData';
-import IAnything from '../../../../../../../model/IAnything';
+import IRowData from '../../../../../../../../model/IRowData';
+import IAnything from '../../../../../../../../model/IAnything';
 
-import { IBodyRowSlot, BodyColumn } from '../../../../../slots/BodyRowSlot';
+import { IBodyRowSlot, BodyColumn } from '../../../../../../slots/BodyRowSlot';
 
-import useProps from '../../../../../hooks/useProps';
-import useSelection from '../../../../../hooks/useSelection';
+import useProps from '../../../../../../hooks/useProps';
+import useSelection from '../../../../../../hooks/useSelection';
 
 const useStyles = makeStyles({
     root: {

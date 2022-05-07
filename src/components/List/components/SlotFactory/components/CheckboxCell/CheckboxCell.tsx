@@ -5,7 +5,6 @@ import { makeStyles } from '../../../../../../styles';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
-import TableCell from '@mui/material/TableCell';
 
 import IRowData from '../../../../../../model/IRowData';
 import IAnything from '../../../../../../model/IAnything';
@@ -32,11 +31,6 @@ const useStyles = makeStyles({
         bottom: 0,
         width: 4,
     },
-    avatar: {
-        marginLeft: 2,
-        height: '32px !important',
-        width: '32px !important',
-    }
 });
 
 export const CheckboxCell = <RowData extends IRowData = IAnything>({
@@ -88,7 +82,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
     };
 
     return (
-        <TableCell className={classes.root} padding="checkbox">
+        <>
             {rowMark && (
                 <Box
                     className={classes.mark}
@@ -96,7 +90,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                 />
             )}
             {renderCheckbox()}
-        </TableCell>
+        </>
     );
 };
 
