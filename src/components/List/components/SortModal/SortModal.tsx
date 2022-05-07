@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
         height: 340,
     },
     list: {
-        '& > $item:nth-child(even)': {
+        '& > $item:nth-child(2n)': {
             background: alpha(
                 theme.palette.getContrastText(theme.palette.background.paper),
-                0.05
+                0.04
             ),
         },
     },

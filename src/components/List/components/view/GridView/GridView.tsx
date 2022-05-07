@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     background: theme.palette.background.paper,
-    '& .MuiTableCell-root': {
+    '& $noBorder': {
       paddingLeft: '0 !important',
       paddingRight: '0 !important',
     },
