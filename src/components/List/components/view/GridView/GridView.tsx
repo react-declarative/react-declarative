@@ -115,30 +115,42 @@ export const GridView = <
         const { height, width, payload: { rows } } = params;
 
         const renderInner = (mode: DisplayMode) => (
+          <>
+            <TableHead>
+              <HeadRow
+                fullWidth={width}
+                mode={mode}
+              />
+            </TableHead>
+            <TableBody>
+              {(showLoader && loading) || (!loading && rows.length === 0) ? (
+                <TableRow>
+                  {renderPlaceholder()}
+                </TableRow>
+              ) : rows.map((row, index) => (
+                <Fragment key={index}>
+                  <BodyRow
+                    fullWidth={width}
+                    row={row}
+                    mode={mode}
+                  />
+                </Fragment>
+              ))}
+            </TableBody>
+          </>
+        );
+
+        return (
           <Box className={classes.root}>
             <TableContainer ref={scrollManager.provideRef} style={{ height: height - PAGINATION_HEIGHT, width }}>
               <Table stickyHeader>
-                <TableHead>
-                  <HeadRow
-                    fullWidth={width}
-                    mode={mode}
-                  />
-                </TableHead>
-                <TableBody>
-                  {(showLoader && loading) || (!loading && rows.length === 0) ? (
-                    <TableRow>
-                      {renderPlaceholder()}
-                    </TableRow>
-                  ) : rows.map((row, index) => (
-                    <Fragment key={index}>
-                      <BodyRow
-                        fullWidth={width}
-                        row={row}
-                        mode={mode}
-                      />
-                    </Fragment>
-                  ))}
-                </TableBody>
+                <ConstraintView
+                  phoneView={() => renderInner(DisplayMode.Phone)}
+                  tabletView={() => renderInner(DisplayMode.Tablet)}
+                  desktopView={() => renderInner(DisplayMode.Desktop)}
+                  onViewChanged={handleResize}
+                  params={params}
+                />
               </Table>
             </TableContainer>
             <TablePagination
@@ -152,16 +164,6 @@ export const GridView = <
               onRowsPerPageChange={handleDirtyLimitChange}
             />
           </Box>
-        );
-
-        return (
-          <ConstraintView
-            phoneView={() => renderInner(DisplayMode.Phone)}
-            tabletView={() => renderInner(DisplayMode.Tablet)}
-            desktopView={() => renderInner(DisplayMode.Desktop)}
-            onViewChanged={handleResize}
-            params={params}
-          />
         );
       }}
     </Container>

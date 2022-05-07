@@ -3,34 +3,25 @@ export const scrollManager = new class {
     _currentElement?: HTMLElement;
 
     _lastScrollX = 0;
-    _lastScrollY = 0;
 
     _handleScroll = () => {
         if (this._currentElement) {
-            const { scrollTop, scrollLeft } = this._currentElement;
+            const { scrollLeft } = this._currentElement;
             this._lastScrollX = scrollLeft;
-            this._lastScrollY = scrollTop;
         }
-    }
+    };
 
     provideRef = (element: HTMLElement | null) => {
         this.clear();
         if (element) {
-            const { scrollTop, scrollLeft } = element;
             element.addEventListener('scroll', this._handleScroll, {
                 passive: true,
             });
             this._currentElement = element;
-            if (scrollTop || scrollLeft) {
-                this._handleScroll();
-            } else {
-                element.scrollTo(this._lastScrollX, this._lastScrollY);
-            }
         }
     };
 
     scrollTop = () => {
-        this._lastScrollY = 0;
         if (this._currentElement) {
             this._currentElement.scrollTo(this._lastScrollX, 0);
         }
