@@ -62,6 +62,7 @@ const columns: IColumn[] = [
   {
     type: ColumnType.Component,
     headerName: 'Component',
+    phoneHidden: true,
     element: () => (
       <div>
         Custom cell Component

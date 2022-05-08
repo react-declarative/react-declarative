@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     row: {
-        paddingBottom: 16,
+        marginBottom: 16,
     },
 }));
 

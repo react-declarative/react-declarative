@@ -15,8 +15,11 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     width: string | ((width: number) => string | number);
     minHeight?: string | number;
     phoneOrder?: number;
+    phoneHidden?: boolean;
     tabletOrder?: number;
+    tabletHidden?: boolean;
     desktopOrder?: number;
+    desktopHidden?: boolean;
     columnMenu?: IOption[];
     showColumnMenu?: boolean;
     compute?: (row: RowData) => Promise<Value> | Value;
