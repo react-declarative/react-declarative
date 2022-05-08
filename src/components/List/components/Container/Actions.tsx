@@ -11,8 +11,8 @@ import { IListAction } from '../../../../model/IListProps';
 import ActionType from '../../../../model/ActionType';
 import IAnything from '../../../../model/IAnything';
 
-import ActionMenu from './components/ActionMenu';
-import ActionAdd from './components/ActionAdd';
+import ActionMenu from '../../slots/ActionMenuSlot';
+import ActionAdd from '../../slots/ActionAddSlot';
 
 const useStyles = makeStyles((theme) => ({
   root: {

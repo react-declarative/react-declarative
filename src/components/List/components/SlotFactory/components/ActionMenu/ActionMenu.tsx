@@ -11,15 +11,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Fab from '@mui/material/Fab';
 
-import IListOption from '../../../../../../model/IListOption';
+import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
 import CommonAction from './components/CommonAction';
 import UpdateNowAction from './components/UpdateNowAction';
 import SortAction from './components/SortAction';
-
-interface IActionMenuProps {
-    options?: Partial<IListOption>[];
-}
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +25,7 @@ const useStyles = makeStyles({
 
 export const ActionMenu = ({
     options = [],
-}: IActionMenuProps) => {
+}: IActionMenuSlot) => {
 
     const classes = useStyles();
 

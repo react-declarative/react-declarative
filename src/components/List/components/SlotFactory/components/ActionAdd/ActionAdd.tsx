@@ -6,13 +6,11 @@ import Fab from '@mui/material/Fab';
 
 import Add from '@mui/icons-material/Add';
 
-interface IActionAddProps {
-    action?: string;
-}
+import IActionAddSlot from '../../../../slots/ActionAddSlot/IActionAddSlot';
 
 export const ActionAdd = ({
     action = 'add-action',
-}: IActionAddProps) => {
+}: IActionAddSlot) => {
 
     const listProps = useProps();
 
