@@ -1,5 +1,3 @@
-import { createMemoryHistory } from 'history';
-
 import { Scaffold, Switch, IMenuGroup, ISwitchItem } from 'react-declarative';
 
 import SamplePage from './pages/SamplePage';
@@ -10,9 +8,10 @@ import LoginPage from './pages/LoginPage';
 import HeroPage from './pages/HeroPage';
 import ListPage from './pages/ListPage';
 import FadePage from './pages/FadePage';
-import sleep from './utils/sleep';
 
-const history = createMemoryHistory();
+import history from './history';
+
+import sleep from './utils/sleep';
 
 const options: IMenuGroup[] = [
   {

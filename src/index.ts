@@ -116,6 +116,7 @@ export { Switch } from './components';
 
 export { useStaticPaginator } from './components';
 export { useApiPaginator } from './components';
+export { usePreventLeave } from './components';
 export { useApiHandler } from './components';
 
 export { useListProps, useListSelection } from './components';

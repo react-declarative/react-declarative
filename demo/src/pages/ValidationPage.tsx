@@ -2,9 +2,11 @@ import { Fragment, useState } from 'react';
 
 import { Email } from '@mui/icons-material';
 
-import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs } from 'react-declarative';
+import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs, usePreventLeave } from 'react-declarative';
 
 import Logger from '../components/Logger';
+
+import history from '../history';
 
 const fields: TypedField<IOneData>[] = [
     {
@@ -86,22 +88,31 @@ interface IOneData {
 }
 
 export const ValidationPage = () => {
-    const [data, setData] = useState(null);
+
+    const {
+        data,
+        oneProps,
+        afterSave,
+    } = usePreventLeave({
+        history,
+    });
+
+    /*const [data, setData] = useState(null);
     const invalidity = () => setData(null);
     const change = (newData: any, initialChange: boolean) => {
         if (!initialChange) {
             setData(newData);
         }
-    };
+    };*/
+
     const action = (action: string) => alert(action); 
-    const save = () => setData(null);
+
     return (
         <Fragment>
-            <Breadcrumbs onSave={save} onAction={action} disabled={!data} actions={actions} />
+            <Breadcrumbs onSave={afterSave} onAction={action} disabled={!data} actions={actions} />
             <OneTyped<IOneData>
                 fields={fields}
-                change={change}
-                invalidity={invalidity} 
+                {...oneProps}
             />
             <Logger {...(data || {})} />
         </Fragment>
