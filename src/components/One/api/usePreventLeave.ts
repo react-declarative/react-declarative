@@ -34,7 +34,7 @@ export const usePreventLeave = <Data = IAnything>({
     onBlock = () => () => null,
     onSave = () => {},
     fallback,
-}: IPreventLeaveParams<Data>): IPreventLeaveReturn<Data> => {
+}: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
 
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
