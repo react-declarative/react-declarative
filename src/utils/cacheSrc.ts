@@ -6,7 +6,7 @@ const toBlob = (src: string) => new Promise<Blob>((res) => {
         c.width = target.naturalWidth;
         c.height = target.naturalHeight;
         ctx!.drawImage(target, 0, 0);
-        c.toBlob((b) => res(b!), "image/png", 0.75);
+        c.toBlob((b) => res(b!), "image/png", 1.0);
     };
     img.crossOrigin = "";
     img.src = src;
@@ -23,10 +23,15 @@ const cacheManager = new class {
 };
 
 export const cacheSrc = (url: string) => ({
-    ref: (element: HTMLImageElement) =>
-        cacheManager.createPromise(url).then((blob) => {
-            element.src = URL.createObjectURL(blob);
-        })
+    ref: (element: HTMLImageElement | null) => {
+        if (element) {
+            element.style.visibility = 'hidden';
+            cacheManager.createPromise(url).then((blob) => {
+                element.src = URL.createObjectURL(blob);
+                element.style.visibility = 'visible';
+            })
+        }
+    }
 });
 
 export default cacheSrc;
