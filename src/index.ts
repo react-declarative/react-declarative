@@ -163,3 +163,7 @@ export type IHeadRowSlot = IHeadRowSlotInternal;
 
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
+
+export { createCustomTag } from './utils/createCustomTag';
+export { mainColor } from './utils/mainColor';
+export { cacheSrc } from './utils/cacheSrc';
