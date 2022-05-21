@@ -161,6 +161,10 @@ export const Scaffold = ({
     return entry.options;
   }, [filterText, currentRoles]);
 
+  const preventScroll = (e: any) => {
+    e.preventDefault()
+  };
+
   return (
     <Box className={classNames(className, classes.root)} style={style}>
       <CssBaseline />
@@ -198,6 +202,7 @@ export const Scaffold = ({
           [classes.appBarSolidPaper]: !colored,
         })}
         position="fixed"
+        onTouchMove={preventScroll}
       >
         <Toolbar>
           <IconButton
@@ -214,7 +219,7 @@ export const Scaffold = ({
           </Typography>
         </Toolbar>
       </AppBar>
-      <div className={classes.offset} />
+      <div onTouchMove={preventScroll} className={classes.offset} />
       <ScrollView className={classes.container}>
         <Box p={1}>
           <Grid container>

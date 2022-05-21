@@ -17,15 +17,6 @@ const useStyles = makeStyles({
         '&::-webkit-scrollbar': {
             display: 'none',
         },
-        /** mobile safari scroll fix */
-        '& > *': {
-            pointerEvents: 'none',
-            touchAction: 'none',
-        },
-        '& > * > *': {
-            pointerEvents: 'auto',
-            touchAction: 'auto',
-        },
     },
     container: {
         position: 'relative',
