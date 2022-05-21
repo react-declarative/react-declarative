@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 
 import classNames from "../../utils/classNames";
 
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
   },
+  preventScroll: {},
 }));
 
 interface IScaffoldProps {
@@ -126,6 +127,8 @@ export const Scaffold = ({
   onOptionClick,
 }: IScaffoldProps) => {
 
+  const rootRef = useRef<HTMLDivElement>(null);
+
   const [opened, setOpened] = useState(false);
   const classes = useStyles();
 
@@ -161,12 +164,21 @@ export const Scaffold = ({
     return entry.options;
   }, [filterText, currentRoles]);
 
-  const preventScroll = (e: any) => {
-    e.preventDefault()
-  };
+  useEffect(() => {
+    const { current: root } = rootRef;
+    if (root) {
+      root.querySelectorAll(`.${classes.preventScroll}`).forEach((el) => {
+        el.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+        }, {
+          passive: false,
+        });
+      });
+    }
+  }, []);
 
   return (
-    <Box className={classNames(className, classes.root)} style={style}>
+    <Box ref={rootRef} className={classNames(className, classes.root)} style={style}>
       <CssBaseline />
       <Drawer
         className={classes.drawer}
@@ -198,11 +210,10 @@ export const Scaffold = ({
         <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
       </Drawer>
       <AppBar
-        className={classNames({
+        className={classNames(classes.preventScroll, {
           [classes.appBarSolidPaper]: !colored,
         })}
         position="fixed"
-        onTouchMove={preventScroll}
       >
         <Toolbar>
           <IconButton
@@ -219,7 +230,7 @@ export const Scaffold = ({
           </Typography>
         </Toolbar>
       </AppBar>
-      <div onTouchMove={preventScroll} className={classes.offset} />
+      <div className={classNames(classes.offset, classes.preventScroll)} />
       <ScrollView className={classes.container}>
         <Box p={1}>
           <Grid container>
