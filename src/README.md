@@ -1,41 +1,41 @@
-# One
+# Just for you known
 
-> Единый компонент для отрисовки форм пользовательского интерфейса. Оригинальный компонент размещен [по ссылке](https://theonekit.com)
+> The `react-declarative` is not just a form builder. This one is a huge framework with [dashboard adaptive cards builder](./components/One/layouts/HeroLayout.tsx), crud-based [List component](./components/List) and more.
 
-## Добавление нового типа полей
+## Adding a new field type
 
-Сделайте изменения по аналогии последовательно в следующих файлах
+Make changes by analogy sequentially in the following files
 
-### Создание нового поля
+### Create a new field
 
-0. **[model/IField.ts](./model/IField.ts)** - Добавьте новые свойства поля
+0. **[model/IField.ts](./model/IField.ts)** - Add new field properties
 
-1. **[config/createField.tsx](./config/createField.tsx)** - Регистрация файла (в процессе исполнения)
+1. **[config/createField.tsx](./components/One/config/createField.tsx)** - File registration (during execution)
 
-2. **[config/initialValue.ts](./config/initialValue.ts)** - Значение по-умолчанию для поля
+2. **[config/initialValue.ts](./components/One/config/initialValue.ts)** - Default value for the field
 
-3. **[config/isStatefull.ts](./config/isStatefull.ts)** - Должно работать сходу, если вы создаете поле, а не компоновку
+3. **[config/isStatefull.ts](./components/One/config/isStatefull.ts)** - Mark If you're creating a field, not a layout
 
-4. **[model/FieldType.ts](./model/FieldType.ts)** - Добавление записи в enum
+4. **[model/FieldType.ts](./model/FieldType.ts)** - Adding a field entry to enum
 
-5. **[model/TypedField.ts](./model/TypedField.ts)** - Объявление строгой типизации для пользователя
+5. **[model/TypedField.ts](./model/TypedField.ts)** - Strong typing declaration for the userspace
 
-### Регистрация слота поля
+### Register field slot
 
-0. **[components/One/slots/CheckBoxSlot](./components/One/slots/CheckBoxSlot)** - Создайте копию папки и обновите наименования
+0. **[components/One/slots/CheckBoxSlot](./components/One/slots/CheckBoxSlot)** - Duplicate this folder and update naming
 
-1. **[components/One/components/ISlotFactoryContext.ts](./components/One/components/SlotFactory/ISlotFactoryContext.ts)** - Обновите интерфейс контекста слотов
+1. **[components/One/components/ISlotFactoryContext.ts](./components/One/components/SlotFactory/ISlotFactoryContext.ts)** - Update slot context interface
 
-2. **[components/One/components/SlotFactory/SlotContext.ts](./components/One/components/SlotFactory/SlotContext.ts)** - Обновите контекст слотов
+2. **[components/One/components/SlotFactory/SlotContext.ts](./components/One/components/SlotFactory/SlotContext.ts)** - Update slots context value
 
-## Иерархия композиции
+## Composition hierarchy
 
-По порядку наслоения изменений в процессе исполнения
+In order of composition during execution
 
-0. **IField** - Поле, получаемое из JSON прикладного программиста
+0. **IField** - Field retrieved from the userspace
 
-1. **IEntity** - Поле, подключенное к внутреннему состоянию One компонента
+1. **IEntity** - A field connected to the instance of the `One` component
 
-2. **IManaged** - Обертка над коллбеком `change` и текущим `object`, призванная предотвратить рекурсивные перерисовки и предоставить удобное api для разработчика полей (предоставляет `value` и `onChange`, вызов последнего можно задваивать).
+2. **IMaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
 
-**ВАЖНО:** TypedField осуществляет проверку только на момент статической проверки типов. Внутренняя реализация One компонента осуществляет именно композицию объектов без каких-либо ветвлений на типы полей
+**IMPORTANT:** TypedField only checks at the time of static type checking. The internal implementation of the One component performs exactly the composition of objects without any branching to field types
