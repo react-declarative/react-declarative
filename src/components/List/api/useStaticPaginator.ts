@@ -10,6 +10,11 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+const EMPTY_RESPONSE = {
+    rows: [],
+    total: null,
+};
+
 export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
@@ -21,9 +26,12 @@ export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends 
     withChips?: boolean;
     withSort?: boolean;
     withTotal?: boolean;
+    fallback?: (e: Error) => void;
 }
 
-export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rows: RowData[], {
+type AsyncHandler<T extends IRowData> = T[] | (() => Promise<T[]> | T[]);
+
+export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: AsyncHandler<RowData>, {
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
@@ -85,25 +93,36 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     withChips = true,
     withSort = true,
     withTotal = true,
+    fallback,
 }: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
-    const handler: ListHandler<FilterData, RowData> = useMemo(() => (filterData, pagination, sort, chips) => {
-        let handledRows = rows.slice(0);
-        if (withFilters) {
-            handledRows = filterHandler(handledRows.slice(0), filterData);
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
+        try {
+            const rows = typeof rowsHandler === 'function' ? (await Promise.resolve(rowsHandler())) : rowsHandler;
+            let handledRows = rows;
+            if (withFilters) {
+                handledRows = filterHandler(handledRows.slice(0), filterData);
+            }
+            if (withChips) {
+                handledRows = chipsHandler(handledRows.slice(0), chips);
+            }
+            if (withSort) {
+                handledRows = sortHandler(handledRows.slice(0), sort);
+            }
+            if (withPagination) {
+                handledRows = paginationHandler(handledRows.slice(0), pagination);
+            }
+            return {
+                rows: handledRows,
+                total: withTotal ? rows.length : null,
+            };
+        } catch (e) {
+            if (fallback) {
+                fallback(e as Error);
+                return EMPTY_RESPONSE;
+            } else {
+                throw e;
+            }
         }
-        if (withChips) {
-            handledRows = chipsHandler(handledRows.slice(0), chips);
-        }
-        if (withSort) {
-            handledRows = sortHandler(handledRows.slice(0), sort);
-        }
-        if (withPagination) {
-            handledRows = paginationHandler(handledRows.slice(0), pagination);
-        }
-        return {
-            rows: handledRows,
-            total: withTotal ? rows.length : null,
-        };
     }, []);
     return handler;
 };
