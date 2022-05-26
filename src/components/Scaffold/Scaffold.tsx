@@ -166,16 +166,16 @@ export const Scaffold = ({
 
   useEffect(() => {
     const { current: root } = rootRef;
-    if (root) {
-      root.querySelectorAll(`.${classes.preventScroll}`).forEach((el) => {
-        el.addEventListener('touchmove', (e) => {
-          e.preventDefault();
-        }, {
-          passive: false,
-        });
-      });
-    }
-  }, []);
+    const elements = root?.querySelectorAll(`.${classes.preventScroll}`) || [];
+    const preventScroll = (e: any) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    elements.forEach((el) => el.addEventListener('touchmove', preventScroll, {
+      passive: false,
+    }));
+    return () => elements.forEach((el) => el.removeEventListener('touchmove', preventScroll));
+  });
 
   return (
     <Box ref={rootRef} className={classNames(className, classes.root)} style={style}>
