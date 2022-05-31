@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
 export interface IAsyncProps<T extends any = object> {
     children: (p: T) => (React.ReactNode | Promise<React.ReactNode>);
@@ -32,25 +32,25 @@ export const Async = <T extends any = object>({
       isMounted.current = false;
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const process = async () => {
             let isOk = true;
-            setError(false);
+            isMounted.current && setError(false);
             onLoadStart && onLoadStart();
             try {
                 const result = children(payload!);
                 if (result instanceof Promise) {
-                    setLoading(true);
+                    isMounted.current && setLoading(true);
                     isMounted.current && setChild((await result) || null);
                 } else {
                     isMounted.current && setChild(result || null);
                 }
             } catch(e) {
                 fallback(e as Error);
-                setError(true);
+                isMounted.current && setError(true);
                 isOk = false;
             } finally {
-                setLoading(false);
+                isMounted.current && setLoading(false);
                 onLoadEnd && onLoadEnd(isOk);
             }
         };
