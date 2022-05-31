@@ -10,6 +10,7 @@ export * from './ConstraintView';
 export * from './ScrollView';
 export * from './AutoSizer';
 export * from './FadeView';
+export * from './FetchView';
 export * from './Async';
 
 // export * from './common/VirtualizedList';

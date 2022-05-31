@@ -98,6 +98,7 @@ export { default as dayjs } from 'dayjs';
 export { ConstraintView } from './components';
 export { ScrollView } from './components';
 export { AutoSizer } from './components';
+export { FetchView } from './components';
 export { FadeView } from './components';
 export { Async } from './components';
 

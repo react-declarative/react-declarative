@@ -2,21 +2,29 @@ import * as React from 'react';
 
 import { useLayoutEffect, useRef, useState } from 'react';
 
-interface IAsyncProps<T extends any = object> {
+export interface IAsyncProps<T extends any = object> {
     children: (p: T) => (React.ReactNode | Promise<React.ReactNode>);
     fallback?: (e: Error) => void;
-    LoaderModal?: React.ComponentType;
+    Loader?: React.ComponentType;
+    Error?: React.ComponentType;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
     payload?: T;
 }
 
 export const Async = <T extends any = object>({
     children,
     fallback = () => null,
-    LoaderModal = () => null,
+    Loader = () => null,
+    Error = () => null,
+    onLoadStart,
+    onLoadEnd,
     payload,
 }: IAsyncProps<T>) => {
     const [child, setChild] = useState<React.ReactNode>('');
+
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const isMounted = useRef(true);
 
@@ -26,6 +34,9 @@ export const Async = <T extends any = object>({
 
     useLayoutEffect(() => {
         const process = async () => {
+            let isOk = true;
+            setError(false);
+            onLoadStart && onLoadStart();
             try {
                 const result = children(payload!);
                 if (result instanceof Promise) {
@@ -36,8 +47,11 @@ export const Async = <T extends any = object>({
                 }
             } catch(e) {
                 fallback(e as Error);
+                setError(true);
+                isOk = false;
             } finally {
                 setLoading(false);
+                onLoadEnd && onLoadEnd(isOk);
             }
         };
         process();
@@ -45,7 +59,8 @@ export const Async = <T extends any = object>({
 
     return (
         <>
-            {loading && <LoaderModal />}
+            {loading && <Loader />}
+            {error && <Error />}
             {child}
         </>
     );

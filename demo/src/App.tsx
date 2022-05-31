@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import HeroPage from './pages/HeroPage';
 import ListPage from './pages/ListPage';
 import FadePage from './pages/FadePage';
+import RevealPage from './pages/RevealPage';
 
 import history from './history';
 
@@ -44,6 +45,10 @@ const options: IMenuGroup[] = [
       {
         name: "fade-page",
         label: 'Fade page',
+      },
+      {
+        name: "reveal-page",
+        label: 'Reveal page',
       },
     ],
   },
@@ -90,6 +95,14 @@ const routes: ISwitchItem[] = [
     },
     element: () => <FadePage />,
   },
+  {
+    path: '/list-page',
+    element: () => <ListPage />,
+  },
+  {
+    path: '/reveal-page',
+    element: () => <RevealPage />,
+  }
 ];
 
 const App = () => {
