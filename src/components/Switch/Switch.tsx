@@ -18,6 +18,7 @@ export interface ISwitchItem {
     path: string;
     element?: React.ComponentType<any>;
     guard?: () => boolean | Promise<boolean>;
+    prefetch?: (params?: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
     redirect?: string;
 }
 
@@ -78,6 +79,7 @@ export const Switch = ({
             const {
                 element = Fragment,
                 redirect,
+                prefetch,
                 path,
             } = item;
 
@@ -103,6 +105,7 @@ export const Switch = ({
                         };
                     }
                     buildParams();
+                    prefetch && Object.assign(params, await prefetch(params));
                     return {
                         element,
                         params,

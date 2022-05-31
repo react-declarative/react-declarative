@@ -7,16 +7,15 @@ import Async, { IAsyncProps } from '../Async';
 
 import { Loaderlaceholder } from './components/Placeholder';
 import { ErrorPlaceholder } from './components/Placeholder';
-
 import Reveal, { IRevealProps } from './components/Reveal';
 
 import classNames from '../../utils/classNames';
 
-type Data = Record<string, any>;
+import IAnything from '../../model/IAnything';
 
-type FetchState<T extends any = object, D = Data> = (payload: T) => D | Promise<D>;
+type FetchState<T extends any = object, D = IAnything> = (payload: T) => D | Promise<D>;
 
-export interface IFetchViewProps<P extends any = object, D = Data> extends Omit<IAsyncProps<P>, keyof {
+export interface IFetchViewProps<P extends any = object, D = IAnything> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     animation?: IRevealProps['animation'];
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const FetchView = <P extends any = object, D = Data> ({
+export const FetchView = <P extends any = object, D = IAnything> ({
     animation,
     className,
     style,
