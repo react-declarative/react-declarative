@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useState } from 'react';
 
 import { makeStyles } from '../../styles';
@@ -12,18 +12,18 @@ import Reveal, { IRevealProps } from './components/Reveal';
 
 import classNames from '../../utils/classNames';
 
-type Data = Record<string, any> | Record<string, any>[];
+type Data = Record<string, any>;
 
-type FetchState<T extends any = object> = (payload: T) => Data | Promise<Data>;
+type FetchState<T extends any = object, D = Data> = (payload: T) => D | Promise<D>;
 
-interface IFetchViewProps<T extends any = object> extends Omit<IAsyncProps<T>, keyof {
+export interface IFetchViewProps<P extends any = object, D = Data> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     animation?: IRevealProps['animation'];
     className?: string;
     style?: React.CSSProperties;
-    state: FetchState<T> | FetchState<T>[];
-    children: (data: Data) => React.ReactNode;
+    state: FetchState<P, D> | (FetchState<P, D>[]);
+    children: (data: D | D[]) => React.ReactNode;
 };
 
 const useStyles = makeStyles({
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const FetchView = <T extends any = object> ({
+export const FetchView = <P extends any = object, D = Data> ({
     animation,
     className,
     style,
@@ -43,17 +43,17 @@ export const FetchView = <T extends any = object> ({
     children,
     state,
     ...otherProps
-}: IFetchViewProps<T>) => {
+}: IFetchViewProps<P, D>) => {
 
     const classes = useStyles();
 
     const [appear, setAppear] = useState(false);
 
-    const handleData = async (payload: T) => {
+    const handleData = async (payload: P)  => {
         if (Array.isArray(state)) {
             return await Promise.all(state.map((item) => item(payload)));
         } else {
-            return await Promise.resolve(state(payload));
+            return await state(payload);
         }
     };
 
@@ -74,7 +74,7 @@ export const FetchView = <T extends any = object> ({
             animation={animation}
             appear={appear}
         >
-            <Async
+            <Async<P>
                 {...otherProps}
                 Loader={Loader}
                 Error={Error}

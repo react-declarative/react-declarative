@@ -1,99 +1,144 @@
 import * as React from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { createElement } from 'react';
+import { BrowserHistory, Location } from 'history';
+import { Key } from 'path-to-regexp';
 
-import { Fragment } from 'react';
-
-import { Update } from 'history';
 import { createBrowserHistory } from 'history';
+import { pathToRegexp } from 'path-to-regexp';
 
-import ISwitchItem from './model/ISwitchItem';
-import ISwitchState from './model/ISwitchState';
-import ISwitchProps from './model/ISwitchProps';
+import FetchView, { IFetchViewProps } from '../FetchView';
 
-import randomString from '../../utils/randomString';
+import ForbiddenDefault from './components/Forbidden';
+import NotFoundDefault from './components/NotFound';
+import LoaderDefault from './components/Loader';
+import ErrorDefault from './components/Error';
 
-import ForbiddenDefault from './Forbidden';
-import NotFoundDefault from './NotFound';
-import LoadingDefault from './Loading';
+export interface ISwitchItem {
+    path: string;
+    element?: React.ComponentType<any>;
+    guard?: () => boolean | Promise<boolean>;
+    redirect?: string;
+}
 
-import getItem from './getItem';
+export interface ISwitchProps {
+    className?: string;
+    style?: React.CSSProperties;
+    items: ISwitchItem[];
+    fallback?: (e: Error) => void;
+    history?: BrowserHistory;
+    Forbidden?: React.ComponentType<any>;
+    NotFound?: React.ComponentType<any>;
+    Loader?: React.ComponentType<any>;
+    Error?: React.ComponentType<any>;
+    animation?: IFetchViewProps['animation'];
+}
+
+const canActivate = async (item: ISwitchItem) => {
+    const { guard = () => true } = item;
+    let isAvailable = guard();
+    if (isAvailable instanceof Promise) {
+        return await isAvailable;
+    } else {
+        return isAvailable;
+    }
+};
 
 const defaultHistory = createBrowserHistory();
 
+const Fragment = () => <></>;
+
 export const Switch = ({
-  items = [],
-  fallback = () => null,
-  history = defaultHistory,
-  Forbidden = ForbiddenDefault,
-  NotFound = NotFoundDefault,
-  Loading = LoadingDefault,
+    className,
+    style,
+    Loader = LoaderDefault,
+    Forbidden = ForbiddenDefault,
+    NotFound = NotFoundDefault,
+    Error = ErrorDefault,
+    animation,
+    history = defaultHistory,
+    fallback,
+    items,
 }: ISwitchProps) => {
 
-  const [state, setState] = useState<ISwitchState>(null as never);
-
-  const {
-    element = () => <Fragment />,
-    loading,
-    params,
-    key,
-  } = useMemo(() => state || {}, [state]);
-
-  const setLoading = (loading: boolean) => setState((prevState) => ({...prevState, loading}));
-
-  const handleItem = useCallback(async (items: ISwitchItem[], url: string, key = url) => {
-    let result: ISwitchState | null = null;
-    try {
-      result = await getItem({
-        items,
-        url,
-        key,
-        Forbidden,
-        onLoading: () => setLoading(true),
-      });
-    } catch (e) {
-      fallback(e as Error);
-    } finally {
-      return result;
-    }
-  }, [fallback]);
-
-  const handleNavigate = useCallback(async ({
-    location,
-  }: Update) => {
-    const { pathname: url, key = randomString() } = location;
-    const item = await handleItem(items, url, key);
-    if (item) {
-      if (item.redirect) {
-        history.push(item.redirect);
-      } else {
-        setState(item);
-      }
-    } else {
-      setState({
-        element: NotFound,
-        loading: false,
-        params: {},
-        key,
-      });
-    }
-  }, [state]);
-
-  useEffect(() => {
-    const unsubscribe = history.listen(handleNavigate);
-    handleNavigate(history);
-    return () => unsubscribe();
-  }, [history]);
-
-  if (loading) {
-    return createElement(Loading);
-  } else {
-    return createElement(element, {
-      ...params,
-      key,
+    const [location, setLocation] = useState<Location>({
+        ...history.location,
     });
-  }
+
+    useEffect(() => {
+        const handleLocation = () => setLocation({ ...history.location });
+        handleLocation();
+        return history.listen(handleLocation);
+    }, [history, items]);
+
+    const handleState = useMemo(() => async () => {
+        const { pathname: url } = location;
+        for (const item of items) {
+
+            const {
+                element = Fragment,
+                redirect,
+                path,
+            } = item;
+
+            const params: Record<string, unknown> = {};
+
+            const keys: Key[] = [];
+            const reg = pathToRegexp(path, keys);
+            const match = reg.test(url);
+
+            const buildParams = () => {
+                const tokens = reg.exec(url);
+                tokens && keys.forEach((key, i) => {
+                    params[key.name] = tokens[i + 1];
+                });
+            };
+
+            if (match) {
+                if (await canActivate(item)) {
+                    if (redirect) {
+                        history.push(redirect);
+                        return {
+                            element: Fragment,
+                        };
+                    }
+                    buildParams();
+                    return {
+                        element,
+                        params,
+                    }
+                }
+                return {
+                    element: Forbidden,
+                }
+            }
+        }
+        return {
+            element: NotFound,
+        }
+    }, [items, location]);
+
+    return (
+        <FetchView<Location>
+            className={className}
+            style={style}
+            state={handleState}
+            Loader={Loader}
+            Error={Error}
+            animation={animation}
+            payload={location}
+            fallback={fallback}
+        >
+            {(data: Record<string, any>) => {
+                const { element: Element = Fragment, params } = data;
+                return (
+                    <Element
+                        {...params}
+                    />
+                );
+            }}
+        </FetchView>
+    );
 };
 
 export default Switch;

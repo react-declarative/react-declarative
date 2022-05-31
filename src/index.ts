@@ -53,7 +53,7 @@ import IRowData, { RowId } from './model/IRowData';
 
 export type { IRowData, RowId };
 
-import ISwitchItemInternal from './components/Switch/model/ISwitchItem';
+import { ISwitchItem as ISwitchItemInternal } from './components';
 
 export type ISwitchItem = ISwitchItemInternal;
 

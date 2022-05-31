@@ -13,7 +13,6 @@ import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import TextField from "@mui/material/TextField";
@@ -233,9 +232,7 @@ export const Scaffold = ({
       <div className={classNames(classes.offset, classes.preventScroll)} />
       <ScrollView className={classes.container}>
         <Box p={1}>
-          <Grid container>
-            {children}
-          </Grid>
+          {children}
         </Box>
       </ScrollView>
     </Box>

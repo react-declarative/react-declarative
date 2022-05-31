@@ -116,7 +116,7 @@ const App = () => {
       onOptionClick={handleOptionClick}
     >
       <Switch
-        Loading={() => <p>Checking permissions (mock)</p>}
+        Loader={() => <p>Checking permissions (mock)</p>}
         NotFound={() => <p>Not found(</p>}
         history={history}
         items={routes}

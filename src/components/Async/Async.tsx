@@ -57,13 +57,19 @@ export const Async = <T extends any = object>({
         process();
     }, [payload]);
 
-    return (
-        <>
-            {loading && <Loader />}
-            {error && <Error />}
-            {child}
-        </>
-    );
+
+    if (loading) {
+        return <Loader />;
+    } else if (error) {
+        return <Error />;
+    } else {
+        return (
+            <>
+                {child}
+            </>
+        );
+    }
+
 };
 
 export default Async;

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { SxProps } from '@mui/material';
 import { red } from '@mui/material/colors';
