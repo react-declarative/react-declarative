@@ -41,6 +41,7 @@ export const FetchView = <P extends any = object, D = IAnything> ({
     onLoadStart,
     children,
     state,
+    payload,
     ...otherProps
 }: IFetchViewProps<P, D>) => {
 
@@ -79,6 +80,7 @@ export const FetchView = <P extends any = object, D = IAnything> ({
                 Error={Error}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
+                payload={payload}
             >
                 {async (payload) => {
                     const data = await handleData(payload);

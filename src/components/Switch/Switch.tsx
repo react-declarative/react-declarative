@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useMemo } from 'react';
 
-import { BrowserHistory, Location } from 'history';
+import { BrowserHistory, Location, Update } from 'history';
 import { Key } from 'path-to-regexp';
 
 import { createBrowserHistory } from 'history';
@@ -67,13 +67,15 @@ export const Switch = ({
     });
 
     useEffect(() => {
-        const handleLocation = () => setLocation({ ...history.location });
-        handleLocation();
+        const handleLocation = ({ location }: Update) => {
+            const newLocation = { ...location };
+            setLocation(newLocation);
+        };
         return history.listen(handleLocation);
-    }, [history, items]);
+    }, [history]);
 
     const handleState = useMemo(() => async () => {
-        const { pathname: url } = location;
+        const { pathname: url = '/' } = location;
         for (const item of items) {
 
             const {
@@ -119,7 +121,7 @@ export const Switch = ({
         return {
             element: NotFound,
         }
-    }, [items, location]);
+    }, [location]);
 
     return (
         <FetchView<Location>
