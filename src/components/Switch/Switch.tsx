@@ -101,7 +101,10 @@ export const Switch = ({
             if (match) {
                 if (await canActivate(item)) {
                     if (redirect) {
-                        history.push(redirect);
+                        setLocation((location) => ({
+                            ...location,
+                            pathname: redirect,
+                        }));
                         return {
                             element: Fragment,
                         };
