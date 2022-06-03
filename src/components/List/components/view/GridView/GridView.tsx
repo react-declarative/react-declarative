@@ -9,11 +9,12 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
+
+import TablePagination from '../../TablePagination';
 
 import IListProps, { IListState, IListCallbacks } from '../../../../../model/IListProps';
 import IAnything from '../../../../../model/IAnything';
@@ -155,7 +156,6 @@ export const GridView = <
             </TableContainer>
             <TablePagination
               width={width}
-              component={Box}
               count={total || -1}
               rowsPerPage={limit}
               page={offset / limit}

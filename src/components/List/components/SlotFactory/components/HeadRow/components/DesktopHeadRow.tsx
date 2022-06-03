@@ -20,10 +20,11 @@ import SelectionMode from '../../../../../../../model/SelectionMode';
 import { IHeadRowSlot, HeadColumn } from '../../../../../slots/HeadRowSlot';
 
 import useSortModel from '../../../../../hooks/useSortModel';
+import useSelection from '../../../../../hooks/useSelection';
 
 const useStyles = makeStyles((theme) => ({
     cell: {
-        paddingLeft: '0 !important',
+        paddingLeft: '4px !important',
         paddingRight: '0 !important',
         background: `${theme.palette.background.paper} !important`,
     },
@@ -38,24 +39,39 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     const props = useProps<RowData>();
     const { sortModel, setSortModel } = useSortModel();
+    const { selection, setSelection } = useSelection();
 
     const {
         selectionMode,
     } = props;
 
     const renderCheckbox = () => {
+
+        const handleCheckboxClick = () => {
+            if (selection.size === props.rows.length) {
+                setSelection(new Set());
+            } else {
+                setSelection(new Set(props.rows.map(({ id }) => id)));
+            }
+        };
+
+        const handleRadioClick = () => {
+            setSelection(new Set());
+        };
+
         if (selectionMode === SelectionMode.Single) {
             return (
                 <Radio
                     color="primary"
-                    disabled
+                    onChange={handleRadioClick}
                 />
             );
         } else {
             return (
                 <Checkbox
                     color="primary"
-                    disabled
+                    checked={props.rows.length === selection.size}
+                    onClick={handleCheckboxClick}
                 />
             );
         }
