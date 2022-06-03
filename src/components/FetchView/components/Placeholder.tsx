@@ -14,7 +14,6 @@ const createPlaceholder = (text: string, sx?: SxProps) => () => (
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 50,
             fontSize: 18,
             color: 'text.secondary',
             ...sx,
