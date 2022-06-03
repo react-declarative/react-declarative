@@ -9,6 +9,7 @@ import arrays from '../../utils/arrays';
 
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
+import LinearProgress from "@mui/material/LinearProgress";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -58,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
       overflowX: 'hidden',
     },
   },
+  loaderBar: {
+    marginTop: -4,
+  },
   offset: theme.mixins.toolbar,
   searchBox: {
     display: 'inline-flex',
@@ -74,6 +78,7 @@ interface IScaffoldProps {
   className?: string;
   style?: React.CSSProperties;
   title?: string;
+  loader?: boolean;
   colored?: boolean;
   selected?: string;
   options?: IMenuGroup[];
@@ -122,6 +127,7 @@ export const Scaffold = ({
   title = 'Scaffold',
   options = [],
   colored = true,
+  loader = false,
   roles: currentRoles,
   onOptionClick,
 }: IScaffoldProps) => {
@@ -228,6 +234,11 @@ export const Scaffold = ({
             {title}
           </Typography>
         </Toolbar>
+        {loader && (
+          <Box className={classes.loaderBar}>
+            <LinearProgress color="secondary" />
+          </Box>
+        )}
       </AppBar>
       <div className={classNames(classes.offset, classes.preventScroll)} />
       <ScrollView className={classes.container}>

@@ -45,13 +45,23 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         selectionMode,
     } = props;
 
+    const isAllSelected = useMemo(() => {
+        for (const row of props.rows) {
+            if (!selection.has(row.id)) {
+                return false;
+            }
+        }
+        return true;
+    }, [selection, props.rows]);
+
     const renderCheckbox = () => {
 
         const handleCheckboxClick = () => {
-            if (selection.size === props.rows.length) {
+            if (isAllSelected) {
                 setSelection(new Set());
             } else {
-                setSelection(new Set(props.rows.map(({ id }) => id)));
+                props.rows.forEach(({ id }) => selection.add(id));
+                setSelection(selection);
             }
         };
 
@@ -70,7 +80,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
             return (
                 <Checkbox
                     color="primary"
-                    checked={props.rows.length === selection.size}
+                    checked={isAllSelected}
                     onClick={handleCheckboxClick}
                 />
             );
