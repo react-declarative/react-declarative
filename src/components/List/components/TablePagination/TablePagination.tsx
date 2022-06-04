@@ -37,7 +37,7 @@ const TablePaginationContainer = (props: BoxProps) => {
                     variant="body1"
                     className={classes.label}
                 >
-                    {`Selected: ${selection.size} items`}
+                    {`Selected: ${selection.size} ${selection.size === 1 ? 'item' : 'items'}`}
                 </Typography>
             ) : (
                 <Box flex="1" />
