@@ -14,6 +14,11 @@ const useStyles = makeStyles({
     root: {
         display: 'flex',
         alignItems: 'center',
+        scrollbarWidth: 'none',
+        '&::-webkit-scrollbar': {
+            display: 'none',
+        },
+        overflowX: 'auto',
     },
     label: {
         flex: 1,
