@@ -76,12 +76,19 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     onChange={handleRadioClick}
                 />
             );
-        } else {
+        } else if (selectionMode === SelectionMode.Multiple) {
             return (
                 <Checkbox
                     color="primary"
                     checked={isAllSelected}
                     onClick={handleCheckboxClick}
+                />
+            );
+        } else {
+            return (
+                <Checkbox
+                    color="primary"
+                    disabled
                 />
             );
         }
