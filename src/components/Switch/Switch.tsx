@@ -33,6 +33,8 @@ export interface ISwitchProps {
     Loader?: React.ComponentType<any>;
     Error?: React.ComponentType<any>;
     animation?: IFetchViewProps['animation'];
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk?: boolean) => void;
 }
 
 const canActivate = async (item: ISwitchItem) => {
@@ -60,6 +62,8 @@ export const Switch = ({
     history = defaultHistory,
     fallback,
     items,
+    onLoadStart,
+    onLoadEnd,
 }: ISwitchProps) => {
 
     const [location, setLocation] = useState<Location>({
@@ -136,6 +140,8 @@ export const Switch = ({
             animation={animation}
             payload={location}
             fallback={fallback}
+            onLoadStart={onLoadStart}
+            onLoadEnd={onLoadEnd}
         >
             {(data: Record<string, any>) => {
                 const { element: Element = Fragment, params } = data;
