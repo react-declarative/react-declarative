@@ -164,6 +164,7 @@ export type IHeadRowSlot = IHeadRowSlotInternal;
 
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
+export { singleshot } from './utils/singleshot';
 
 export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
