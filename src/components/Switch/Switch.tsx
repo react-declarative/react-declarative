@@ -105,10 +105,12 @@ export const Switch = ({
             if (match) {
                 if (await canActivate(item)) {
                     if (redirect) {
-                        setLocation((location) => ({
-                            ...location,
-                            pathname: redirect,
-                        }));
+                        setTimeout(() => {
+                            setLocation((location) => ({
+                                ...location,
+                                pathname: redirect,
+                            }));
+                        });
                         return {
                             element: Fragment,
                         };
