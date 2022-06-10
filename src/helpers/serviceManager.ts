@@ -25,7 +25,7 @@ export const serviceManager = new class {
         }
     };
 
-    registerInstance = <T = unknown>(key: string, inst: T) => {
+    registerInstance = <T = unknown>(key: Key, inst: T) => {
         this._instances.set(key, inst);
     };
 
