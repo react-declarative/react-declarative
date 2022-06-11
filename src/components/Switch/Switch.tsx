@@ -21,7 +21,7 @@ export interface ISwitchItem {
     element?: React.ComponentType<any>;
     guard?: () => boolean | Promise<boolean>;
     prefetch?: (params?: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
-    redirect?: string;
+    redirect?: string | (() => string | null);
 }
 
 export interface ISwitchProps {
@@ -106,7 +106,7 @@ export const Switch = ({
 
             if (match) {
                 if (await canActivate(item)) {
-                    if (redirect) {
+                    if (typeof redirect === 'string') {
                         setLocation((location) => ({
                             ...location,
                             pathname: redirect,
@@ -114,6 +114,18 @@ export const Switch = ({
                         return {
                             element: Fragment,
                         };
+                    }
+                    if (typeof redirect === 'function') {
+                        const result = redirect();
+                        if (result !== null) {
+                            setLocation((location) => ({
+                                ...location,
+                                pathname: result,
+                            }));
+                            return {
+                                element: Fragment,
+                            };
+                        }
                     }
                     buildParams();
                     prefetch && Object.assign(params, await prefetch(params));
