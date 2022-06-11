@@ -14,6 +14,8 @@ import NotFoundDefault from './components/NotFound';
 import LoaderDefault from './components/Loader';
 import ErrorDefault from './components/Error';
 
+import sleep from '../../utils/sleep';
+
 export interface ISwitchItem {
     path: string;
     element?: React.ComponentType<any>;
@@ -105,12 +107,10 @@ export const Switch = ({
             if (match) {
                 if (await canActivate(item)) {
                     if (redirect) {
-                        setTimeout(() => {
-                            setLocation((location) => ({
-                                ...location,
-                                pathname: redirect,
-                            }));
-                        });
+                        setLocation((location) => ({
+                            ...location,
+                            pathname: redirect,
+                        }));
                         return {
                             element: Fragment,
                         };
@@ -145,8 +145,10 @@ export const Switch = ({
             onLoadStart={onLoadStart}
             onLoadEnd={onLoadEnd}
         >
-            {(data: Record<string, any>) => {
+            {async (data: Record<string, any>) => {
                 const { element: Element = Fragment, params } = data;
+                /* delay to prevent sync execution for appear animation */
+                await sleep(0);
                 return (
                     <Element
                         {...params}
