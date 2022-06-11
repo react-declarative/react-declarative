@@ -20,8 +20,8 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
     paginationHandler?: (url: URL, pagination: ListHandlerPagination) => URL;
-    onFetchBegin?: () => void;
-    onFetchEnd?: () => void;
+    onLoadBegin?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
     withAbortSignal?: boolean;
     withPagination?: boolean;
     withFilters?: boolean;
@@ -43,8 +43,8 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     abortSignal: signal = abortManager.signal,
     fetchParams,
     fallback,
-    onFetchBegin,
-    onFetchEnd,
+    onLoadBegin,
+    onLoadEnd,
     requestMap = (url) => url,
     responseMap = (json) => {
         const { rows = [], total = null } = json;
@@ -96,6 +96,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
 }: IApiPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
         let url = new URL(path, origin);
+        let isOk = true;
         if (withPagination) {
             url = paginationHandler(new URL(url), pagination);
         }
@@ -109,12 +110,13 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             url = sortHandler(new URL(url), sort);
         }
         url = requestMap(new URL(url));
-        onFetchBegin && onFetchBegin();
+        onLoadBegin && onLoadBegin();
         try {
             const data = await fetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
+            isOk = false;
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE };
             } else if (fallback) {
@@ -124,7 +126,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
                 throw e;
             }
         } finally {
-            onFetchEnd && onFetchEnd();
+            onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
     useEffect(() => () => {

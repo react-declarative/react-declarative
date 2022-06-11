@@ -12,8 +12,8 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
     requestMap?: (url: URL) => URL;
     responseMap?: (json: Record<string, any>) => Data;
-    onFetchBegin?: () => void;
-    onFetchEnd?: () => void;
+    onLoadBegin?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
     withAbortSignal?: boolean;
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
@@ -27,8 +27,8 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     abortSignal: signal = abortManager.signal,
     requestMap = (url) => url,
     responseMap = (json) => json as Data,
-    onFetchBegin,
-    onFetchEnd,
+    onLoadBegin,
+    onLoadEnd,
     withAbortSignal = true,
     fetchParams,
     fallback,
@@ -36,12 +36,14 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     const handler: OneHandler<Data> = useMemo(() => async () => {
         let url = new URL(path, origin);
         url = requestMap(new URL(url));
-        onFetchBegin && onFetchBegin();
+        onLoadBegin && onLoadBegin();
+        let isOk = true;
         try {
             const data = await fetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
+            isOk = false;
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE } as Data;
             } else if (fallback) {
@@ -51,7 +53,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
                 throw e;
             }
         } finally {
-            onFetchEnd && onFetchEnd();
+            onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
     useEffect(() => () => {

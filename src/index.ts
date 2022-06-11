@@ -117,6 +117,8 @@ export { Switch } from './components';
 
 export { useStaticPaginator } from './components';
 export { useApiPaginator } from './components';
+
+export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
 export { useApiHandler } from './components';
 

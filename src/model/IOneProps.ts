@@ -2,7 +2,9 @@
 import IField from './IField';
 import IAnything from './IAnything';
 
-export type OneHandler<Data = IAnything> = Data | (() => Data | null) | (() => Promise<Data | null>) | null;
+type DataOrNull<Data = IAnything> = Data | null;
+
+export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
 
 export interface IOneProps<Data = IAnything, Field = IField<Data>> {
   /**
