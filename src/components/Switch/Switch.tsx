@@ -20,8 +20,8 @@ export interface ISwitchItem {
     path: string;
     element?: React.ComponentType<any>;
     guard?: () => boolean | Promise<boolean>;
-    prefetch?: (params?: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
-    redirect?: string | (() => string | null);
+    prefetch?: (params: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
+    redirect?: string | ((params: Record<string, any>) => string | null);
 }
 
 export interface ISwitchProps {
@@ -106,6 +106,8 @@ export const Switch = ({
 
             if (match) {
                 if (await canActivate(item)) {
+                    buildParams();
+                    prefetch && Object.assign(params, await prefetch(params));
                     if (typeof redirect === 'string') {
                         setLocation((location) => ({
                             ...location,
@@ -116,7 +118,7 @@ export const Switch = ({
                         };
                     }
                     if (typeof redirect === 'function') {
-                        const result = redirect();
+                        const result = redirect(params);
                         if (result !== null) {
                             setLocation((location) => ({
                                 ...location,
@@ -127,8 +129,6 @@ export const Switch = ({
                             };
                         }
                     }
-                    buildParams();
-                    prefetch && Object.assign(params, await prefetch(params));
                     return {
                         element,
                         params,
