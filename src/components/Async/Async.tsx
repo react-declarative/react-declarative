@@ -10,16 +10,18 @@ export interface IAsyncProps<T extends any = object> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     payload?: T;
+    throwError?: boolean;
 }
 
 export const Async = <T extends any = object>({
     children,
-    fallback = () => null,
+    fallback,
     Loader = () => null,
     Error = () => null,
     onLoadStart,
     onLoadEnd,
     payload,
+    throwError = false,
 }: IAsyncProps<T>) => {
     const [child, setChild] = useState<React.ReactNode>('');
 
@@ -46,9 +48,13 @@ export const Async = <T extends any = object>({
                     isMounted.current && setChild(result || null);
                 }
             } catch(e) {
-                fallback(e as Error);
                 isMounted.current && setError(true);
                 isOk = false;
+                if (!throwError) {
+                    fallback && fallback(e as Error);
+                } else {
+                    throw e;
+                }
             } finally {
                 isMounted.current && setLoading(false);
                 onLoadEnd && onLoadEnd(isOk);
