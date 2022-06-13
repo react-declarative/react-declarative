@@ -37,6 +37,7 @@ export interface ISwitchProps {
     animation?: IFetchViewProps['animation'];
     onLoadStart?: () => void;
     onLoadEnd?: (isOk?: boolean) => void;
+    throwError?: boolean;
 }
 
 const canActivate = async (item: ISwitchItem) => {
@@ -66,6 +67,7 @@ export const Switch = ({
     items,
     onLoadStart,
     onLoadEnd,
+    throwError = false,
 }: ISwitchProps) => {
 
     const [location, setLocation] = useState<Location>({
@@ -156,6 +158,7 @@ export const Switch = ({
             fallback={fallback}
             onLoadStart={onLoadStart}
             onLoadEnd={onLoadEnd}
+            throwError={throwError}
         >
             {async (data: Record<string, any>) => {
                 const { element: Element = Fragment, params } = data;
