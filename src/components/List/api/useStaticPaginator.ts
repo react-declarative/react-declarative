@@ -26,12 +26,13 @@ export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends 
     withChips?: boolean;
     withSort?: boolean;
     withTotal?: boolean;
+    keepClean?: boolean;
     fallback?: (e: Error) => void;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
 }
 
-type AsyncHandler<T extends IRowData> = T[] | (() => Promise<T[]> | T[]);
-
-export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: AsyncHandler<RowData>, {
+export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
@@ -93,35 +94,44 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     withChips = true,
     withSort = true,
     withTotal = true,
+    keepClean = false,
     fallback,
+    onLoadStart,
+    onLoadEnd,
 }: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
+        let isOk = true;
         try {
-            const rows = typeof rowsHandler === 'function' ? (await Promise.resolve(rowsHandler())) : rowsHandler;
-            let handledRows = rows;
-            if (withFilters) {
-                handledRows = filterHandler(handledRows.slice(0), filterData);
+            onLoadStart && onLoadStart();
+            const data = typeof rowsHandler === 'function' ? (await Promise.resolve(rowsHandler(filterData, pagination, sort, chips))) : rowsHandler;
+            let rows = Array.isArray(data) ? data : data.rows;
+            if (withFilters && !keepClean) {
+                rows = filterHandler(rows.slice(0), filterData);
             }
-            if (withChips) {
-                handledRows = chipsHandler(handledRows.slice(0), chips);
+            if (withChips && !keepClean) {
+                rows = chipsHandler(rows.slice(0), chips);
             }
-            if (withSort) {
-                handledRows = sortHandler(handledRows.slice(0), sort);
+            if (withSort && !keepClean) {
+                rows = sortHandler(rows.slice(0), sort);
             }
-            if (withPagination) {
-                handledRows = paginationHandler(handledRows.slice(0), pagination);
+            if (withPagination && !keepClean) {
+                rows = paginationHandler(rows.slice(0), pagination);
             }
+            const total = Array.isArray(data) ? data.length : data.rows.length;
             return {
-                rows: handledRows,
-                total: withTotal ? rows.length : null,
+                rows,
+                total: withTotal ? total : null,
             };
         } catch (e) {
+            isOk = false;
             if (fallback) {
                 fallback(e as Error);
                 return EMPTY_RESPONSE;
             } else {
                 throw e;
             }
+        } finally {
+            onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
     return handler;

@@ -27,9 +27,10 @@ export interface IPreventLeaveReturn<Data = IAnything> {
 }
 
 const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
+const HISTORY_INSTANCE = createMemoryHistory();
 
 export const usePreventLeave = <Data = IAnything>({
-    history = createMemoryHistory(),
+    history = HISTORY_INSTANCE,
     onChange,
     onBlock = () => () => null,
     onSave = () => {},
