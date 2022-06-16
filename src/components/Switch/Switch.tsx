@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 
 import { BrowserHistory, Location, Update } from 'history';
 import { Key } from 'path-to-regexp';
@@ -21,6 +21,7 @@ export interface ISwitchItem {
     element?: React.ComponentType<any>;
     guard?: () => boolean | Promise<boolean>;
     prefetch?: (params: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
+    unload?: (params: Record<string, any>) =>  (Promise<void> | void); 
     redirect?: string | ((params: Record<string, any>) => string | null);
 }
 
@@ -70,6 +71,8 @@ export const Switch = ({
     throwError = false,
 }: ISwitchProps) => {
 
+    const unloadRef = useRef<(() => Promise<void>) | null>(null);
+
     const [location, setLocation] = useState<Location>({
         ...history.location,
     });
@@ -84,12 +87,14 @@ export const Switch = ({
 
     const handleState = useMemo(() => async () => {
         const { pathname: url = '/' } = location;
+        unloadRef.current && await unloadRef.current();
         for (const item of items) {
 
             const {
                 element = Fragment,
                 redirect,
                 prefetch,
+                unload,
                 path,
             } = item;
 
@@ -106,10 +111,20 @@ export const Switch = ({
                 });
             };
 
+            const provideUnloadRef = () => {
+                if (unload) {
+                    unloadRef.current = async () => {
+                        await Promise.resolve(unload(params));
+                        unloadRef.current = null;
+                    };
+                }
+            };
+
             if (match) {
                 if (await canActivate(item)) {
                     buildParams();
                     prefetch && Object.assign(params, await prefetch(params));
+                    provideUnloadRef();
                     if (typeof redirect === 'string') {
                         setLocation((location) => ({
                             ...location,
