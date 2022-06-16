@@ -12,7 +12,7 @@ export const RevealPage = () => {
 
     return (
         <FetchView state={state}>
-            {(data) => (
+            {(data: any) => (
                 <span style={{ color: 'green' }}>
                     {JSON.stringify(data)}
                 </span>

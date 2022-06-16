@@ -13,16 +13,22 @@ import classNames from '../../utils/classNames';
 
 import IAnything from '../../model/IAnything';
 
-type FetchState<T extends any = object, D = IAnything> = (payload: T) => D | Promise<D>;
+type FetchState<T extends any = object> = ((payload: T) => Promise<IAnything>) | ((payload: T) => IAnything);
 
-export interface IFetchViewProps<P extends any = object, D = IAnything> extends Omit<IAsyncProps<P>, keyof {
+type State<P extends any = object> = {
+    state: FetchState<P>;
+    children: (data: IAnything) => React.ReactNode;
+} | {
+    state: FetchState<P>[];
+    children: (data: IAnything[]) => React.ReactNode;
+};
+
+export type IFetchViewProps<P extends any = object> = Omit<IAsyncProps<P>, keyof {
     children: never;
-}> {
+}> & State<P> & {
     animation?: IRevealProps['animation'];
     className?: string;
     style?: React.CSSProperties;
-    state: FetchState<P, D> | (FetchState<P, D>[]);
-    children: (data: D | D[]) => React.ReactNode;
 };
 
 const useStyles = makeStyles({
@@ -31,7 +37,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const FetchView = <P extends any = object, D = IAnything> ({
+export const FetchView = <P extends any = object> ({
     animation,
     className,
     style,
@@ -43,15 +49,19 @@ export const FetchView = <P extends any = object, D = IAnything> ({
     state,
     payload,
     ...otherProps
-}: IFetchViewProps<P, D>) => {
+}: IFetchViewProps<P>) => {
 
     const classes = useStyles();
 
     const [appear, setAppear] = useState(false);
 
-    const handleData = async (payload: P)  => {
+    const handleData = async (payload: P): Promise<IAnything>  => {
         if (Array.isArray(state)) {
-            return await Promise.all(state.map((item) => item(payload)));
+            const result: IAnything[] = [];
+            for (const item of state) {
+                result.push(await item(payload));
+            }
+            return result;
         } else {
             return await state(payload);
         }
