@@ -5,6 +5,7 @@ import { makeStyles } from '../../../../../../../styles';
 
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
+import Tooltip from '@mui/material/Tooltip';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
@@ -54,6 +55,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         return true;
     }, [selection, props.rows]);
 
+    const isIndeterminate = !!selection.size && !isAllSelected;
+
     const renderCheckbox = () => {
 
         const handleCheckboxClick = () => {
@@ -81,6 +84,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                 <Checkbox
                     color="primary"
                     checked={isAllSelected}
+                    indeterminate={isIndeterminate}
                     onClick={handleCheckboxClick}
                 />
             );
@@ -102,7 +106,6 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     field: id,
                     sort: 'desc',
                 })
-                
             } else if (sortTarget.sort === 'desc') {
                 sortModel.delete(id);
             }
@@ -163,10 +166,16 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     }, [fullWidth]);
 
+    const tooltipLabel = isIndeterminate ? 'Select all'
+        : isAllSelected ? 'Deselect'
+        : 'Select all';
+
     return (
         <TableRow>
             <TableCell className={classes.cell} padding="checkbox">
-                {renderCheckbox()}
+                <Tooltip title={tooltipLabel}>
+                    {renderCheckbox()}
+                </Tooltip>
             </TableCell>
             {content}
         </TableRow>
