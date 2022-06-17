@@ -126,7 +126,7 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
             isOk = false;
             if (fallback) {
                 fallback(e as Error);
-                return EMPTY_RESPONSE;
+                return { ...EMPTY_RESPONSE };
             } else {
                 throw e;
             }
