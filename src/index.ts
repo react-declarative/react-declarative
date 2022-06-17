@@ -116,6 +116,7 @@ export { Scaffold } from './components';
 export { Switch } from './components';
 
 export { useStaticPaginator } from './components';
+export { useLastPagination } from './components';
 export { useApiPaginator } from './components';
 
 export { useStaticHandler } from './components';
