@@ -1,36 +1,39 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../../../styles';
-
 import BaseActionMenu from '../../../../../ActionMenu';
-
-import useProps from "../../../../hooks/useProps";
-
-import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
 import Refresh from '@mui/icons-material/Refresh';
 import Sort from '@mui/icons-material/Sort';
 
-const useStyles = makeStyles({
-    root: {
-        zIndex: 'unset !important',
-    },
-});
+import useProps from "../../../../hooks/useProps";
+import useModalSort from '../../../../hooks/useModalSort';
+import useReload from '../../../../hooks/useReload';
+
+import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
 export const ActionMenu = ({
     options = [],
 }: IActionMenuSlot) => {
 
-    const classes = useStyles();
+    const showSortModal = useModalSort();
+    const reloadList = useReload();
 
     const {
         onAction,
         fallback,
     } = useProps();
 
+    const handleAction = (action: string) => {
+        if (action === 'update-now') {
+            reloadList();
+        } else if (action === 'resort-action') {
+            showSortModal();
+        }
+        onAction && onAction(action);
+    };
+
     return (
         <BaseActionMenu
-            className={classes.root}
             options={options.map(({
                 action,
                 ...other
@@ -56,7 +59,7 @@ export const ActionMenu = ({
                     }
                 }
             })}
-            onAction={onAction}
+            onAction={handleAction}
             fallback={fallback}
         />
     );
