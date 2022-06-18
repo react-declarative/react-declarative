@@ -88,7 +88,7 @@ export const ActionMenu = ({
         e.preventDefault();
         e.stopPropagation();
         setAnchorEl(e.currentTarget);
-        setLoading(options.length);
+        setLoading((loading) => loading + options.length);
         onToggle && onToggle(true);
     };
 
