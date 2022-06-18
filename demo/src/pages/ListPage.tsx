@@ -94,10 +94,6 @@ const actions: IListAction[] = [
       },
       {
         action: 'update-now',
-        isVisible: async () => {
-          await sleep(10_000);
-          return true;
-        },
       },
       {
         action: 'resort-action',
@@ -112,7 +108,13 @@ const actions: IListAction[] = [
       },
       {
         action: 'disabled-action',
+        isDisabled: () => true,
         label: 'Disabled',
+      },
+      {
+        action: 'disabled-action',
+        isVisible: () => false,
+        label: 'Hidden',
       },
     ],
   }
@@ -221,6 +223,7 @@ export const ListPage = () => {
     columns,
     handler: pickerHandler,
     selectedRows,
+    rowActions,
   });
 
   const pickOne = useOne({

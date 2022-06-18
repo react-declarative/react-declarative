@@ -17,6 +17,7 @@ import IAnything from '../../../model/IAnything';
 import IColumn from '../../../model/IColumn';
 
 import SelectionMode from '../../../model/SelectionMode';
+import IListRowAction from '../../../model/IListRowAction';
 
 export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
@@ -31,6 +32,7 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
   minWidth: number;
   title: string;
   open: boolean;
+  rowActions?: IListRowAction[];
 }
 
 const useStyles = makeStyles({
@@ -54,6 +56,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
   selectedRows: selectedRowsDefault = null,
   minHeight,
   minWidth,
+  rowActions,
 }: IListPickerProps<RowData>) => {
   const [selectedRows, setSelectedRows] = useState(selectedRowsDefault);
   const classes = useStyles();
@@ -95,6 +98,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
           selectionMode={selectionMode}
           onSelectedRows={handleChange}
           onRowClick={handleClick}
+          rowActions={rowActions}
         />
       </Box>
     </ModalDialog>

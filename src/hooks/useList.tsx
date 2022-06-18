@@ -38,6 +38,7 @@ interface IParams<RowData extends IRowData = IAnything> extends Omit<IListPicker
 export const useList = <RowData extends IRowData = IAnything>({
   handler,
   columns,
+  rowActions,
   selectionMode = SelectionMode.Single,
   title: titleDefault = 'Pick item',
   minWidth: minWidthDefault = 425,
@@ -71,6 +72,7 @@ export const useList = <RowData extends IRowData = IAnything>({
       handler={handler}
       selectedRows={selectedRows}
       onChange={handleChange}
+      rowActions={rowActions}
     />
   ), [title, minWidth, minHeight, selectedRows]);
 

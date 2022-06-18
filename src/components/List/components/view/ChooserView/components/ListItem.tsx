@@ -117,6 +117,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
             className={classes.root}
             onClick={handleClick}
             style={style}
+            disableRipple={menuOpened}
         >
             {!!rowMark && (
                 <RowMark
