@@ -1,21 +1,15 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
+import BaseActionMenu from '../../../../../common/ActionMenu';
+
 import useProps from "../../../../hooks/useProps";
-
-import Menu from '@mui/material/Menu';
-
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-import Fab from '@mui/material/Fab';
 
 import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
-import CommonAction from './components/CommonAction';
-import UpdateNowAction from './components/UpdateNowAction';
-import SortAction from './components/SortAction';
+import Refresh from '@mui/icons-material/Refresh';
+import Sort from '@mui/icons-material/Sort';
 
 const useStyles = makeStyles({
     root: {
@@ -29,100 +23,43 @@ export const ActionMenu = ({
 
     const classes = useStyles();
 
-    const listProps = useProps();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-  
-    const handleFocus = (event: any) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
     const {
         onAction,
-        actionAvalibility: avalibility,
-    } = listProps;
-
-    const actionAvalibility = useMemo(() => {
-        const actionAvalibility = options.reduce((acm, {
-            action = 'unknown-action',
-            enabled = true,
-        }) => ({
-            [action]: enabled,
-            ...acm,
-        }), {
-            ['unknown-action']: true,
-        });
-        return {
-            ...actionAvalibility,
-            ...avalibility,
-        };
-    }, [options, avalibility]);
-
-    const handleClick = (item: string) => (e: any) => {
-        e.stopPropagation();
-        if (actionAvalibility[item]) {
-            onAction && onAction(item);
-            handleClose();
-        }
-    };
+        fallback,
+    } = useProps();
 
     return (
-        <div>
-            <Fab
-                className={classes.root}
-                size="small"
-                color="primary"
-                aria-label="more"
-                aria-haspopup="true"
-                onClick={handleFocus}
-            >
-                <MoreVertIcon color="inherit" />
-            </Fab>
-            <Menu
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                anchorEl={anchorEl}
-                open={!!anchorEl}
-                onClose={handleClose}
-            >
-                {options.map(({label = 'unknown-label', action = 'unknown-action', icon}, idx) => {
-                    if (action === 'update-now') {
-                        return (
-                            <UpdateNowAction
-                                enabled={actionAvalibility[action]}
-                                onClose={handleClose}
-                                key={idx}
-                            />
-                        );
-                    } else if (action === 'resort-action') {
-                        return (
-                            <SortAction
-                                enabled={actionAvalibility[action]}
-                                onClose={handleClose}
-                                key={idx}
-                            />
-                        );
-                    } else {
-                        return (
-                            <CommonAction
-                                key={idx}
-                                icon={icon}
-                                label={label}
-                                enabled={actionAvalibility[action]}
-                                onClick={handleClick(action)}
-                            />
-                        );
+        <BaseActionMenu
+            className={classes.root}
+            options={options.map(({
+                action,
+                ...other
+            }) => {
+                if (action === 'update-now') {
+                    return {
+                        ...other,
+                        action,
+                        icon: Refresh,
+                        label: 'Refresh manually'
                     }
-                })}
-            </Menu>
-        </div>
-    )
+                } else if (action === 'resort-action') {
+                    return {
+                        ...other,
+                        action,
+                        icon: Sort,
+                        label: 'Change sort order'
+                    }
+                } else {
+                    return {
+                        action,
+                        ...other
+                    }
+                }
+            })}
+            onAction={onAction}
+            fallback={fallback}
+        />
+    );
 }
 
 export default ActionMenu;

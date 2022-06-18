@@ -13,7 +13,7 @@ import {
   IListChip,
   ListHandlerChips,
   useStaticPaginator,
-  IListOption,
+  IListRowAction,
   ListHandlerPagination,
   ListHandlerSortModel,
 } from 'react-declarative';
@@ -89,10 +89,15 @@ const actions: IListAction[] = [
       {
         action: 'add-action',
         label: 'Create new row',
+        isDisabled: () => true,
         icon: Add,
       },
       {
         action: 'update-now',
+        isVisible: async () => {
+          await sleep(10_000);
+          return true;
+        },
       },
       {
         action: 'resort-action',
@@ -132,7 +137,7 @@ const chips: IListChip[] = [
   }
 ];
 
-const rowActions: IListOption[] = [
+const rowActions: IListRowAction[] = [
   {
     label: 'chip1',
     action: 'chip1-action',
@@ -270,9 +275,6 @@ export const ListPage = () => {
       onAction={handleAction}
       onSelectedRows={handleSelectedRows}
       selectedRows={selectedRows}
-      actionAvalibility={{
-        ['disabled-action']: false,
-      }}
       chips={chips}
     />
   );

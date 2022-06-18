@@ -8,25 +8,26 @@ import SelectionMode from './SelectionMode';
 import IAnything from './IAnything';
 import IRowData, { RowId } from './IRowData';
 import IColumn from './IColumn';
-import IListOption from './IListOption';
+import IListRowAction from './IListRowAction';
 import IField from './IField';
 import IListApi from './IListApi';
+import IOption from './IOption';
 
-interface IUpdateOption extends IListOption {
+interface IUpdateOption extends IOption {
   action: 'update-now';
   label: never;
   icon: never;
 };
 
-interface IResortOption extends IListOption {
+interface IResortOption extends IOption {
   action: 'resort-action';
   label: never;
   icon: never;
 }
 
-export interface IListAction<RowData extends IRowData = IAnything> extends Partial<IListOption<RowData>> {
+export interface IListAction extends Partial<IOption> {
   type: ActionType;
-  options?: Partial<IListOption | IUpdateOption | IResortOption>[];
+  options?: Partial<IOption | IUpdateOption | IResortOption>[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
@@ -104,7 +105,6 @@ export interface IListProps<
   title?: string;
   filterLabel?: string;
   actions?: IListAction[];
-  actionAvalibility?: Record<string, any>;
   limit?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
@@ -123,7 +123,7 @@ export interface IListProps<
   handler: ListHandler;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
-  rowActions?: IListOption[];
+  rowActions?: IListRowAction[];
   toggleFilters?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];

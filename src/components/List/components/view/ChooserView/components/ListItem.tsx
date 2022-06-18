@@ -72,8 +72,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         rowActions,
         onRowClick,
         onRowAction,
-        fallback,
         rowMark,
+        fallback,
     } = useProps();
 
     const { selection } = useSelection();
@@ -135,9 +135,18 @@ export const ListItem = <RowData extends IRowData = IAnything>({
             {!!rowActions && (
                 <ActionMenu
                     transparent
-                    options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
+                    options={rowActions.map(({
+                        isDisabled = () => false,
+                        isVisible = () => true,
+                        ...other
+                    }) => ({
+                        ...other,
+                        isVisible: () => isVisible(row),
+                        isDisabled: () => isDisabled(row),
+                    }))}
                     onToggle={handleMenuToggle}
                     onAction={handleAction}
+                    fallback={fallback}
                 />
             )}
         </MatListItem>

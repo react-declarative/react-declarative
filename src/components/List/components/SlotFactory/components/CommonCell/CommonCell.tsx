@@ -44,7 +44,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
 
     const {
         fallback,
-        rowActions,
+        rowActions = [],
     } = useProps<RowData>()
     
     if (column.type === ColumnType.Text) {
@@ -76,14 +76,23 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
             </Box>
         );
     } else if (column.type === ColumnType.Action) {
-        return !!rowActions ? (
+        return (
             <ActionMenu
                 transparent
-                options={rowActions.filter(({ isVisible = () => true }) => isVisible(row))}
+                options={rowActions.map(({
+                    isVisible = () => true,
+                    isDisabled = () => false,
+                    ...other
+                }) => ({
+                    ...other,
+                    isVisible: () => isVisible(row),
+                    isDisabled: () => isDisabled(row),
+                }))}
                 onToggle={onMenuToggle}
                 onAction={onAction}
+                fallback={fallback}
             />
-        ) : null;
+        );
     } else {
         return null;
     }

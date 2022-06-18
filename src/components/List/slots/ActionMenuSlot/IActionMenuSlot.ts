@@ -1,7 +1,7 @@
-import IListOption from "../../../../model/IListOption";
+import IOption from "../../../../model/IOption";
 
 export interface IActionMenuSlot {
-    options?: Partial<IListOption>[];
+    options?: Partial<IOption>[];
 }
 
 export default IActionMenuSlot;

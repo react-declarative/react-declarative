@@ -59,7 +59,9 @@ const createAction = ({
   } else if (type === ActionType.Menu) {
     return (
       <ActionMenu
-        options={options}
+        options={options.map((option) => ({
+          ...option,
+        }))}
       />
     )
   } else {
