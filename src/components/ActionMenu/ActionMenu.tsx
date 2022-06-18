@@ -2,11 +2,11 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { alpha } from '@mui/material';
-import { makeStyles } from '../../../styles';
+import { makeStyles } from '../../styles';
 
-import classNames from '../../../utils/classNames';
+import classNames from '../../utils/classNames';
 
-import Async from '../../Async';
+import Async from '../Async';
 
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -18,7 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Fab from '@mui/material/Fab';
 
-import IOption from '../../../model/IOption';
+import IOption from '../../model/IOption';
 
 export interface IActionMenuProps {
     options?: Partial<IOption>[];

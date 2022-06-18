@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
-import BaseActionMenu from '../../../../../common/ActionMenu';
+import BaseActionMenu from '../../../../../ActionMenu';
 
 import useProps from "../../../../hooks/useProps";
 

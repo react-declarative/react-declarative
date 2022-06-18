@@ -100,6 +100,7 @@ export { ScrollView } from './components';
 export { AutoSizer } from './components';
 export { FetchView } from './components';
 export { FadeView } from './components';
+export { ActionMenu } from './components';
 export { Async } from './components';
 
 export { List, ListTyped } from './components';

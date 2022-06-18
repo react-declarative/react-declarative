@@ -1,4 +1,4 @@
-import { IActionMenuProps } from "../../../common/ActionMenu";
+import { IActionMenuProps } from "../../../ActionMenu";
 
 import IAnything from "../../../../model/IAnything";
 import IRowData from "../../../../model/IRowData";

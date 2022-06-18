@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 
-import ActionMenu from '../common/ActionMenu';
+import ActionMenu from '../ActionMenu';
 
 import IOption from '../../model/IOption';
 

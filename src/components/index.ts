@@ -5,6 +5,7 @@ export * from './Scaffold';
 export * from './Translate';
 export * from './Breadcrumbs';
 export * from './ModalProvider';
+export * from './ActionMenu';
 
 export * from './ConstraintView';
 export * from './ScrollView';

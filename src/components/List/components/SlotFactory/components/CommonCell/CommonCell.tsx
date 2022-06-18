@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
 import Async from '../../../../../Async';
-import ActionMenu from '../../../../../common/ActionMenu';
+import ActionMenu from '../../../../../ActionMenu';
 
 import IAnything from '../../../../../../model/IAnything';
 import IRowData from '../../../../../../model/IRowData';
