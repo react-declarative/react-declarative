@@ -1,4 +1,9 @@
-export const singleshot = <T extends (...args: any) => any>(run: T): T => {
+
+interface IClearable {
+    clear: () => void;
+}
+
+export const singleshot = <T extends (...args: any) => any>(run: T): T & IClearable => {
     let hasRunned = false;
     let result: ReturnType<T> = null as never;
     const fn = (...args: any) => {
@@ -7,7 +12,10 @@ export const singleshot = <T extends (...args: any) => any>(run: T): T => {
         }
         return result;
     };
-    return fn as T;
+    fn.clear = () => {
+        hasRunned = false;
+    };
+    return fn as T & IClearable;
 };
 
 export default singleshot;
