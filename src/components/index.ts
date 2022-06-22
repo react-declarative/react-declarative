@@ -13,5 +13,6 @@ export * from './AutoSizer';
 export * from './FadeView';
 export * from './FetchView';
 export * from './Async';
+export * from './If';
 
 // export * from './common/VirtualizedList';

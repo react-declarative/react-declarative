@@ -102,6 +102,7 @@ export { FetchView } from './components';
 export { FadeView } from './components';
 export { ActionMenu } from './components';
 export { Async } from './components';
+export { If } from './components';
 
 export { List, ListTyped } from './components';
 export { One, OneTyped } from './components';
