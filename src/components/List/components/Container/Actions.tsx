@@ -11,6 +11,8 @@ import { IListAction } from '../../../../model/IListProps';
 import ActionType from '../../../../model/ActionType';
 import IAnything from '../../../../model/IAnything';
 
+import useSelection from '../../hooks/useSelection';
+
 import ActionMenu from '../../slots/ActionMenuSlot';
 import ActionAdd from '../../slots/ActionAddSlot';
 
@@ -45,30 +47,6 @@ interface IActionsProps<FilterData = IAnything> {
   title?: string;
 }
 
-const createAction = ({ 
-  type, 
-  options = [],
-  action,
-}: IListAction) => {
-  if (type === ActionType.Add) {
-    return (
-      <ActionAdd
-        action={action}
-      />
-    );
-  } else if (type === ActionType.Menu) {
-    return (
-      <ActionMenu
-        options={options.map((option) => ({
-          ...option,
-        }))}
-      />
-    )
-  } else {
-    throw new Error("List Actions unknown action type");
-  }
-};
-
 export const Actions = <FilterData extends IAnything>({
   className,
   actions,
@@ -76,6 +54,41 @@ export const Actions = <FilterData extends IAnything>({
   title,
 }: IActionsProps<FilterData>) => {
   const classes = useStyles();
+
+  const { selection } = useSelection();
+
+  const createAction = ({ 
+    type, 
+    options: upperOptions = [],
+    action,
+  }: IListAction) => {
+    if (type === ActionType.Add) {
+      return (
+        <ActionAdd
+          action={action}
+        />
+      );
+    } else if (type === ActionType.Menu) {
+      const rowIds = [...selection];
+      const options = upperOptions.map(({
+        isDisabled = () => false,
+        isVisible = () => true,
+        ...other
+      }) => ({
+        ...other,
+        isDisabled: () => isDisabled(rowIds),
+        isVisible: () => isVisible(rowIds),
+      }));
+      return (
+        <ActionMenu
+          options={options}
+        />
+      );
+    } else {
+      throw new Error("List Actions unknown action type");
+    }
+  };
+
   return (
     <div
       className={classNames(className, classes.root, {

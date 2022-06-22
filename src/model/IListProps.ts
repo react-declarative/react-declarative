@@ -13,21 +13,36 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 
-interface IUpdateOption extends IOption {
-  action: 'update-now';
+interface IUpdateOption extends Omit<IListActionOption, keyof {
   label: never;
   icon: never;
+}> {
+  action: 'update-now';
+  label?: IOption['label'];
+  icon?: IOption['icon'];
 };
 
-interface IResortOption extends IOption {
-  action: 'resort-action';
+interface IResortOption extends Omit<IListActionOption, keyof {
   label: never;
   icon: never;
+}> {
+  action: 'resort-action';
+  label?: IOption['label'];
+  icon?: IOption['icon'];
 }
 
-export interface IListAction extends Partial<IOption> {
+export interface IListActionOption extends Omit<IOption, keyof {
+  isVisible: never;
+  isDisabled: never;
+}> {
+  isVisible?: (rowIds: RowId[]) => Promise<boolean> | boolean;
+  isDisabled?: (rowIds: RowId[]) => Promise<boolean> | boolean;
+};
+
+export interface IListAction {
   type: ActionType;
-  options?: Partial<IOption | IUpdateOption | IResortOption>[];
+  action?: string;
+  options?: (IListActionOption | IUpdateOption | IResortOption)[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
