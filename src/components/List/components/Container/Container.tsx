@@ -113,6 +113,7 @@ export const Container = <
           {Array.isArray(operations) && !! operations.length && (
             <Operations
               operations={operations}
+              width={width}
             />
           )}
           <Paper className={classNames(classes.container, classes.stretch, {

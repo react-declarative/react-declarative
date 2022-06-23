@@ -25,7 +25,10 @@ interface IOperationsProps {
     className?: string;
     style?: React.CSSProperties;
     operations: IListOperation[];
+    width: number;
 }
+
+const LABEL_SHRINK = 500;
 
 const useStyles = makeStyles({
     root: {
@@ -62,6 +65,7 @@ export const Operations = ({
     className,
     style,
     operations,
+    width,
 }: IOperationsProps) => {
 
     const classes = useStyles();
@@ -72,9 +76,8 @@ export const Operations = ({
     const {
         onOperation,
         fallback,
+        rows,
     } = useProps();
-
-    const rowIds = [...selection];
 
     const [isAll, setIsAll] = useState(false);
 
@@ -83,11 +86,13 @@ export const Operations = ({
         selection,
     ]);
 
+    const selectedRows = rows.filter(({ id }) => selection.has(id));
+
     const createHandleOperation = (action: string) => () => {
-        onOperation && onOperation(action, rowIds, isAll);
+        onOperation && onOperation(action, selectedRows, isAll);
     };
 
-    const allCheckbox = (
+    const AllCheckbox = (
         <Checkbox
             value={isAll}
             onChange={() => setIsAll(!isAll)}
@@ -113,7 +118,7 @@ export const Operations = ({
                                 isAvailable = true,
                             }, idx) => {
                                 const handleAvailable = () => typeof isAvailable === 'function'
-                                    ? isAvailable(rowIds, isAll)
+                                    ? isAvailable(selectedRows, isAll)
                                     : isAvailable;
                                 const available = nothingFound ? false : await handleAvailable();
                                 return (
@@ -133,10 +138,14 @@ export const Operations = ({
                 </Box>
             </FadeView>
             <Box className={classes.label}>
-                <FormControlLabel
-                    control={allCheckbox}
-                    label="Apply for everyone"
-                />
+                {width < LABEL_SHRINK ? (
+                    AllCheckbox
+                ) : (
+                    <FormControlLabel
+                        control={AllCheckbox}
+                        label="Apply for everyone"
+                    />
+                )}
             </Box>
         </Box>
     );

@@ -255,7 +255,7 @@ export const ListPage = () => {
     alert(JSON.stringify({ row, action }, null, 2));
   };
 
-  const handleAction = (action: string) => {
+  const handleAction = (action: string, rows: any) => {
     if (action === 'list-action') {
       pickList({
         title: 'List picker'
@@ -265,7 +265,10 @@ export const ListPage = () => {
         title: 'One picker'
       }).then(console.log);
     }
-    alert(action);
+    alert(JSON.stringify({
+      action,
+      rows,
+    }, null, 2));
   };
 
   const handleClick = (row: any) => {
@@ -277,8 +280,8 @@ export const ListPage = () => {
     setSelectedRows(selectedRows);
   };
   
-  const handleOperation = (action: string, rowIds: any[], isAll: boolean) => {
-    alert(JSON.stringify({ action, rowIds, isAll }, null, 2));
+  const handleOperation = (action: string, rows: any[], isAll: boolean) => {
+    alert(JSON.stringify({ action, rows, isAll }, null, 2));
   };
 
   return (

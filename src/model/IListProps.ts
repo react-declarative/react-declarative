@@ -14,7 +14,7 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 
-interface IUpdateOption extends Omit<IListActionOption, keyof {
+interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
 }> {
@@ -23,7 +23,7 @@ interface IUpdateOption extends Omit<IListActionOption, keyof {
   icon?: IOption['icon'];
 };
 
-interface IResortOption extends Omit<IListActionOption, keyof {
+interface IResortOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
 }> {
@@ -32,18 +32,18 @@ interface IResortOption extends Omit<IListActionOption, keyof {
   icon?: IOption['icon'];
 }
 
-export interface IListActionOption extends Omit<IOption, keyof {
+export interface IListActionOption<RowData extends IRowData = IAnything> extends Omit<IOption, keyof {
   isVisible: never;
   isDisabled: never;
 }> {
-  isVisible?: (rowIds: RowId[]) => Promise<boolean> | boolean;
-  isDisabled?: (rowIds: RowId[]) => Promise<boolean> | boolean;
+  isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+  isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
 };
 
-export interface IListAction {
+export interface IListAction<RowData extends IRowData = IAnything> {
   type: ActionType;
   action?: string;
-  options?: (IListActionOption | IUpdateOption | IResortOption)[];
+  options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData>)[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {
@@ -120,8 +120,8 @@ export interface IListProps<
   style?: React.CSSProperties;
   title?: string;
   filterLabel?: string;
-  actions?: IListAction[];
-  operations?: IListOperation[];
+  actions?: IListAction<RowData>[];
+  operations?: IListOperation<RowData>[];
   limit?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
@@ -132,10 +132,10 @@ export interface IListProps<
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  onOperation?: (action: string, rowIds: RowId[], isAll: boolean) => void;
+  onOperation?: (action: string, selectedRows: RowData[], isAll: boolean) => void;
   onRowAction?: (action: string, row: RowData) => void;
   onRowClick?: (row: RowData) => void;
-  onAction?: (action: string, rowIds: RowId[]) => void;
+  onAction?: (action: string, selectedRows: RowData[]) => void;
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;

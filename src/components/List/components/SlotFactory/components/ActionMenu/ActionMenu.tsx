@@ -24,6 +24,7 @@ export const ActionMenu = ({
     const {
         onAction,
         fallback,
+        rows,
     } = useProps();
 
     const handleAction = (action: string) => {
@@ -32,7 +33,7 @@ export const ActionMenu = ({
         } else if (action === 'resort-action') {
             showSortModal();
         }
-        onAction && onAction(action, [...selection]);
+        onAction && onAction(action, rows.filter(({ id }) => selection.has(id)));
     };
 
     return (
