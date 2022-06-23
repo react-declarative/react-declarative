@@ -172,6 +172,8 @@ export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
 export { singleshot } from './utils/singleshot';
 
+export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
+
 export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';
