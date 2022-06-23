@@ -12,6 +12,7 @@ import ActionType from '../../../../model/ActionType';
 import IAnything from '../../../../model/IAnything';
 
 import useSelection from '../../hooks/useSelection';
+import useProps from '../../hooks/useProps';
 
 import ActionMenu from '../../slots/ActionMenuSlot';
 import ActionAdd from '../../slots/ActionAddSlot';
@@ -56,6 +57,9 @@ export const Actions = <FilterData extends IAnything>({
   const classes = useStyles();
 
   const { selection } = useSelection();
+  const { operations } = useProps();
+
+  const hasOperations = Array.isArray(operations) && !!operations.length;
 
   const createAction = ({ 
     type, 
@@ -96,7 +100,13 @@ export const Actions = <FilterData extends IAnything>({
       })}
       style={style}
     >
-      <Typography className={classes.title} variant="h5">
+      <Typography
+        className={classes.title}
+        variant="h5"
+        sx={{
+          marginLeft: hasOperations ? '0 !important' : 'inherit',
+        }}
+      >
         {title}
       </Typography>
       <div className={classes.stretch} />

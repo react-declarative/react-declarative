@@ -17,9 +17,10 @@ import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
 import { IListApi as IListApiInternal } from './model/IListApi';
 
+import { IListOperation as IListOperationInternal } from './model/IListOperation';
+import { IListRowAction as IListRowActionInternal } from './model/IListRowAction';
 import { IListAction as IListActionInternal } from './model/IListProps';
 import { IListChip as IListChipInternal } from './model/IListProps';
-import { IListRowAction as IListRowActionInternal } from './model/IListRowAction';
 import { IOption as IOptionInternal } from './model/IOption';
 
 import { serviceManager as serviceManagerInternal } from './helpers/serviceManager';
@@ -75,6 +76,7 @@ export type ListHandlerChips<RowData extends IRowData = IAnything> = ListHandler
 
 export type IListRowAction<RowData extends IRowData = IAnything>  = IListRowActionInternal<RowData>;
 export type IListChip<RowData extends IRowData = IAnything> = IListChipInternal<RowData>;
+export type IListOperation = IListOperationInternal;
 export type IListAction  = IListActionInternal;
 
 export type IMenuOption = IMenuOptionInternal;

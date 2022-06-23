@@ -12,6 +12,7 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
+import Operations from "./Operations";
 import Actions from "./Actions";
 import Filters from "./Filters";
 import Chips from "./Chips";
@@ -69,6 +70,7 @@ export const Container = <
     listChips,
     heightRequest = (v) => v,
     widthRequest = (v) => v,
+    operations,
     title = '',
     filterLabel = '',
     filterData,
@@ -102,7 +104,16 @@ export const Container = <
       {({ height, width, payload }) => (
         <div ref={ref} style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
-            <Actions<FilterData> title={title} filterData={filterData!} actions={actions} />
+            <Actions<FilterData>
+              title={title}
+              filterData={filterData!}
+              actions={actions}
+            />
+          )}
+          {Array.isArray(operations) && !! operations.length && (
+            <Operations
+              operations={operations}
+            />
           )}
           <Paper className={classNames(classes.container, classes.stretch, {
             [classes.noElevation]: isChooser,

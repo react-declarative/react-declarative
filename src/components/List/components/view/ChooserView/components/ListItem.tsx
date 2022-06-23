@@ -108,7 +108,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     };
 
     const handleAction = (action: string) => {
-        onRowAction && onRowAction(row, action);
+        onRowAction && onRowAction(action, row);
     };
 
     return (

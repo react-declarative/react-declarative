@@ -26,7 +26,7 @@ export const ActionAdd = ({
 
     const handleClick = (e: any) => {
         e.stopPropagation();
-        onAction && onAction(action);
+        onAction && onAction(action, []);
     };
 
     return (

@@ -8,12 +8,15 @@ import Sort from '@mui/icons-material/Sort';
 import useProps from "../../../../hooks/useProps";
 import useModalSort from '../../../../hooks/useModalSort';
 import useReload from '../../../../hooks/useReload';
+import useSelection from '../../../../hooks/useSelection';
 
 import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
 export const ActionMenu = ({
     options = [],
 }: IActionMenuSlot) => {
+
+    const { selection } = useSelection();
 
     const showSortModal = useModalSort();
     const reloadList = useReload();
@@ -29,7 +32,7 @@ export const ActionMenu = ({
         } else if (action === 'resort-action') {
             showSortModal();
         }
-        onAction && onAction(action);
+        onAction && onAction(action, [...selection]);
     };
 
     return (

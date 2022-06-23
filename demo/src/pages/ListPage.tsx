@@ -16,6 +16,7 @@ import {
   IListRowAction,
   ListHandlerPagination,
   ListHandlerSortModel,
+  IListOperation,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -118,6 +119,21 @@ const actions: IListAction[] = [
       },
     ],
   }
+];
+
+const operations: IListOperation[] = [
+  {
+    action: 'operation-one',
+    label: 'Operation one',
+  },
+  {
+    action: 'operation-two',
+    label: 'Operation two',
+  },
+  {
+    action: 'operation-three',
+    label: 'Operation three',
+  },
 ];
 
 const chips: IListChip[] = [
@@ -235,7 +251,7 @@ export const ListPage = () => {
 
   const heightRequest = () => window.innerHeight - 100;
 
-  const handleRowActionsClick = (row: any, action: string) => {
+  const handleRowActionsClick = (action: string, row: any) => {
     alert(JSON.stringify({ row, action }, null, 2));
   };
 
@@ -260,6 +276,10 @@ export const ListPage = () => {
   const handleSelectedRows = (selectedRows: RowId[]) => {
     setSelectedRows(selectedRows);
   };
+  
+  const handleOperation = (action: string, rowIds: any[], isAll: boolean) => {
+    alert(JSON.stringify({ action, rowIds, isAll }, null, 2));
+  };
 
   return (
     <ListTyped<IFilterData, IRowData>
@@ -276,8 +296,10 @@ export const ListPage = () => {
       onRowAction={handleRowActionsClick}
       onRowClick={handleClick}
       onAction={handleAction}
+      onOperation={handleOperation}
       onSelectedRows={handleSelectedRows}
       selectedRows={selectedRows}
+      operations={operations}
       chips={chips}
     />
   );

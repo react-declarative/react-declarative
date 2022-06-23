@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 interface IScrollViewProps<T extends IAnything = IAnything> {
-    children: React.ReactChild;
+    children: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     center?: boolean;

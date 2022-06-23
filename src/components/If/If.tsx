@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
 export interface IIfProps<T extends any = object> {
-    condition:  boolean | ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
+    condition:  boolean | ((payload: T) => boolean | Promise<boolean>);
     children: React.ReactNode;
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;

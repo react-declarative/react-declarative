@@ -8,6 +8,7 @@ import SelectionMode from './SelectionMode';
 import IAnything from './IAnything';
 import IRowData, { RowId } from './IRowData';
 import IColumn from './IColumn';
+import IListOperation from './IListOperation';
 import IListRowAction from './IListRowAction';
 import IField from './IField';
 import IListApi from './IListApi';
@@ -120,6 +121,7 @@ export interface IListProps<
   title?: string;
   filterLabel?: string;
   actions?: IListAction[];
+  operations?: IListOperation[];
   limit?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
@@ -130,9 +132,10 @@ export interface IListProps<
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  onRowAction?: (row: RowData, action: string) => void;
+  onOperation?: (action: string, rowIds: RowId[], isAll: boolean) => void;
+  onRowAction?: (action: string, row: RowData) => void;
   onRowClick?: (row: RowData) => void;
-  onAction?: (action: string) => void;
+  onAction?: (action: string, rowIds: RowId[]) => void;
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
