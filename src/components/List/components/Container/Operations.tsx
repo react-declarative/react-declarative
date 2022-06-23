@@ -71,6 +71,7 @@ export const Operations = ({
 
     const {
         onOperation,
+        fallback,
     } = useProps();
 
     const rowIds = [...selection];
@@ -104,7 +105,7 @@ export const Operations = ({
         >
             <FadeView className={classes.container} color={fadeColor}>
                 <Box className={classes.content}>
-                    <Async payload={conditionPayload}>
+                    <Async payload={conditionPayload} fallback={fallback}>
                         {async () => {
                             return await Promise.all(operations.map(async ({
                                 action,
