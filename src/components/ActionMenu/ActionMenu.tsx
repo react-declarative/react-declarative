@@ -6,7 +6,7 @@ import { makeStyles } from '../../styles';
 
 import classNames from '../../utils/classNames';
 
-import Async from '../Async';
+import Async, { IAsyncProps } from '../Async';
 
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -20,7 +20,7 @@ import Fab from '@mui/material/Fab';
 
 import IOption from '../../model/IOption';
 
-export interface IActionMenuProps {
+export interface IActionMenuProps<T extends any = object> {
     options?: Partial<IOption>[];
     transparent?: boolean;
     disabled?: boolean;
@@ -30,6 +30,7 @@ export interface IActionMenuProps {
     throwError?: boolean;
     className?: string;
     style?: React.CSSProperties;
+    payload?: IAsyncProps<T>['payload'];
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const ActionMenu = ({
+export const ActionMenu = <T extends any = object>({
     options = [],
     transparent = false,
     disabled = false,
@@ -75,9 +76,10 @@ export const ActionMenu = ({
     fallback,
     onToggle,
     onAction,
+    payload,
     className,
     style,
-}: IActionMenuProps) => {
+}: IActionMenuProps<T>) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [loading, setLoading] = useState(0);
@@ -172,12 +174,13 @@ export const ActionMenu = ({
                                 </MenuItem>
                             );
                             return (
-                                <Async
+                                <Async<T>
                                     Loader={Placeholder}
                                     throwError={throwError}
                                     fallback={fallback}
                                     key={idx}
                                     onLoadEnd={handleLoadEnd}
+                                    payload={payload}
                                 >
                                     {async () => {
                                         const disabled = await isDisabled();

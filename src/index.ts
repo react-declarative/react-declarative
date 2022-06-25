@@ -174,6 +174,7 @@ export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
 export { singleshot } from './utils/singleshot';
 export { cancelable } from './utils/cancelable';
+export { cached } from './utils/cached';
 
 export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
 

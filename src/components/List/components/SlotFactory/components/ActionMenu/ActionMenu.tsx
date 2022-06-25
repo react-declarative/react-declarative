@@ -33,38 +33,49 @@ export const ActionMenu = ({
         } else if (action === 'resort-action') {
             showSortModal();
         }
-        onAction && onAction(action, rows.filter(({ id }) => selection.has(id)));
+        onAction && onAction(action, selectedRows);
     };
+
+    const selectedRows = rows.filter(({ id }) => selection.has(id));
 
     return (
         <BaseActionMenu
             options={options.map(({
                 action,
+                isDisabled = () => true,
+                isVisible = () => true,
                 ...other
             }) => {
                 if (action === 'update-now') {
                     return {
-                        ...other,
                         action,
+                        ...other,
                         icon: Refresh,
+                        isDisabled: () => isDisabled(selectedRows),
+                        isVisible: () => isVisible(selectedRows),
                         label: 'Refresh manually'
                     }
                 } else if (action === 'resort-action') {
                     return {
-                        ...other,
                         action,
+                        ...other,
                         icon: Sort,
+                        isDisabled: () => isDisabled(selectedRows),
+                        isVisible: () => isVisible(selectedRows),
                         label: 'Change sort order'
                     }
                 } else {
                     return {
                         action,
-                        ...other
+                        ...other,
+                        isDisabled: () => isDisabled(selectedRows),
+                        isVisible: () => isVisible(selectedRows),
                     }
                 }
             })}
             onAction={handleAction}
             fallback={fallback}
+            payload={selection}
         />
     );
 }

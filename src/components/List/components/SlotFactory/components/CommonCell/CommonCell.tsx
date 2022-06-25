@@ -91,6 +91,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 onToggle={onMenuToggle}
                 onAction={onAction}
                 fallback={fallback}
+                payload={row}
             />
         );
     } else {

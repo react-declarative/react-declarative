@@ -148,6 +148,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                     onToggle={handleMenuToggle}
                     onAction={handleAction}
                     fallback={fallback}
+                    payload={row}
                 />
             )}
         </MatListItem>

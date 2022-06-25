@@ -90,7 +90,10 @@ const actions: IListAction[] = [
       {
         action: 'add-action',
         label: 'Create new row',
-        isDisabled: () => true,
+        isDisabled: (rows) => {
+          debugger
+          return true
+        },
         icon: Add,
       },
       {
@@ -109,7 +112,11 @@ const actions: IListAction[] = [
       },
       {
         action: 'disabled-action',
-        isDisabled: () => true,
+        isDisabled: async () => {
+          console.log('call')
+          await sleep(5_000)
+          return true
+        },
         label: 'Disabled',
       },
       {
@@ -129,7 +136,8 @@ const operations: IListOperation[] = [
   {
     action: 'operation-two',
     label: 'Operation two',
-    isAvailable: async () => {
+    isAvailable: async (row) => {
+      console.log('call', row)
       await sleep(3_000)
       return true
     }

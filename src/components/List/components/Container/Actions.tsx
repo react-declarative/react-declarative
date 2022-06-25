@@ -57,9 +57,11 @@ export const Actions = <FilterData extends IAnything>({
   const classes = useStyles();
 
   const { selection } = useSelection();
-  const { operations } = useProps();
+  const { operations, rows } = useProps();
 
   const hasOperations = Array.isArray(operations) && !!operations.length;
+
+  const selectedRows = rows.filter(({ id }) => selection.has(id));
 
   const createAction = ({ 
     type, 
@@ -73,15 +75,14 @@ export const Actions = <FilterData extends IAnything>({
         />
       );
     } else if (type === ActionType.Menu) {
-      const rowIds = [...selection];
       const options = upperOptions.map(({
         isDisabled = () => false,
         isVisible = () => true,
         ...other
       }) => ({
         ...other,
-        isDisabled: () => isDisabled(rowIds),
-        isVisible: () => isVisible(rowIds),
+        isDisabled: () => isDisabled(selectedRows),
+        isVisible: () => isVisible(selectedRows),
       }));
       return (
         <ActionMenu
