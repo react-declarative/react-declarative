@@ -129,6 +129,10 @@ const operations: IListOperation[] = [
   {
     action: 'operation-two',
     label: 'Operation two',
+    isAvailable: async () => {
+      await sleep(3_000)
+      return true
+    }
   },
   {
     action: 'operation-three',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 import { makeStyles } from '../../../../styles';
 import { useTheme } from '@mui/styles';
@@ -19,7 +19,6 @@ import useSelection from '../../hooks/useSelection';
 import useProps from '../../hooks/useProps';
 
 import classNames from '../../../../utils/classNames';
-import randomString from '../../../../utils/randomString';
 
 interface IOperationsProps {
     className?: string;
@@ -81,12 +80,9 @@ export const Operations = ({
 
     const [isAll, setIsAll] = useState(false);
 
-    const conditionPayload = useMemo(() => randomString(), [
-        isAll,
-        selection,
-    ]);
-
     const selectedRows = rows.filter(({ id }) => selection.has(id));
+
+    const conditionPayload = isAll ? 'all' : selection;
 
     const createHandleOperation = (action: string) => () => {
         onOperation && onOperation(action, selectedRows, isAll);
@@ -103,14 +99,29 @@ export const Operations = ({
 
     const nothingFound = !selection.size && !isAll;
 
+    const Loader = () => (
+        <>
+            {operations.map(({ label }, idx) => (
+                <Button
+                    disabled
+                    key={idx}
+                    size="small"
+                    variant="contained"
+                >
+                    {label}
+                </Button>
+            ))}
+        </>
+    );
+
     return (
         <Box
             className={classNames(className, classes.root)}
             style={style}
         >
-            <FadeView className={classes.container} color={fadeColor}>
+            <FadeView className={classes.container} color={fadeColor} payload={conditionPayload}>
                 <Box className={classes.content}>
-                    <Async payload={conditionPayload} fallback={fallback}>
+                    <Async payload={conditionPayload} Loader={Loader} fallback={fallback}>
                         {async () => {
                             return await Promise.all(operations.map(async ({
                                 action,

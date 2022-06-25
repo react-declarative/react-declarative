@@ -173,6 +173,7 @@ export { createProvider } from './utils/createProvider';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
 export { singleshot } from './utils/singleshot';
+export { cancelable } from './utils/cancelable';
 
 export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
 

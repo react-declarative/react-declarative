@@ -2,8 +2,10 @@ import * as React from 'react';
 
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
+import cancelable, { IWrappedFn } from '../../utils/cancelable';
+
 export interface IAsyncProps<T extends any = object> {
-    children: (p: T) => (React.ReactNode | Promise<React.ReactNode>);
+    children: (p: T) => (Result | Promise<Result>);
     fallback?: (e: Error) => void;
     Loader?: React.ComponentType;
     Error?: React.ComponentType;
@@ -12,6 +14,8 @@ export interface IAsyncProps<T extends any = object> {
     payload?: T;
     throwError?: boolean;
 }
+
+type Result = React.ReactNode;
 
 export const Async = <T extends any = object>({
     children,
@@ -23,7 +27,10 @@ export const Async = <T extends any = object>({
     payload,
     throwError = false,
 }: IAsyncProps<T>) => {
-    const [child, setChild] = useState<React.ReactNode>('');
+
+    const [child, setChild] = useState<Result>('');
+
+    const executionRef = useRef<IWrappedFn<Result> | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -35,21 +42,40 @@ export const Async = <T extends any = object>({
     }, []);
 
     useEffect(() => {
-        const process = async () => {
+        
+        if (executionRef.current) {
+            executionRef.current.cancel();
+        }
+
+        const execute = cancelable(async () => {
             let isOk = true;
-            isMounted.current && setError(false);
             onLoadStart && onLoadStart();
             try {
                 const result = children(payload!);
                 if (result instanceof Promise) {
-                    isMounted.current && setLoading(true);
-                    isMounted.current && setChild((await result) || null);
+                    return (await result) || null;
                 } else {
-                    isMounted.current && setChild(result || null);
+                    return result || null;
                 }
-            } catch(e) {
-                isMounted.current && setError(true);
+            } catch (e) {
                 isOk = false;
+                throw e;
+            } finally {
+                onLoadEnd && onLoadEnd(isOk);
+            }
+        });
+
+        executionRef.current = execute;
+
+        const process = async () => {
+            isMounted.current && setLoading(true);
+            isMounted.current && setError(false);
+            try {
+                const result = await execute();
+                executionRef.current = null;
+                isMounted.current && setChild(result);
+            } catch (e) {
+                isMounted.current && setError(true);
                 if (!throwError) {
                     fallback && fallback(e as Error);
                 } else {
@@ -57,10 +83,11 @@ export const Async = <T extends any = object>({
                 }
             } finally {
                 isMounted.current && setLoading(false);
-                onLoadEnd && onLoadEnd(isOk);
             }
         };
+
         process();
+
     }, [payload]);
 
 
