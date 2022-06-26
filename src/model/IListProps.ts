@@ -101,7 +101,7 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handleLimitChange: (limit: number) => void;
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
-  handleReload: () => void;
+  handleReload: () => Promise<void>;
   ready: () => void;
 };
 
@@ -132,10 +132,12 @@ export interface IListProps<
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  onOperation?: (action: string, selectedRows: RowData[], isAll: boolean) => void;
-  onRowAction?: (action: string, row: RowData) => void;
-  onRowClick?: (row: RowData) => void;
-  onAction?: (action: string, selectedRows: RowData[]) => void;
+  onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: () => Promise<void>) => void;
+  onRowAction?: (action: string, row: RowData, reload: () => Promise<void>) => void;
+  onRowClick?: (row: RowData,  reload: () => Promise<void>) => void;
+  onLoadStart?: (source: string) => void;
+  onLoadEnd?: (isOk: boolean, source: string) => void;
+  onAction?: (action: string, selectedRows: RowData[], reload: () => Promise<void>) => void;
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
@@ -147,7 +149,6 @@ export interface IListProps<
   chips?: IListChip<RowData>[];
   sortModel?: ListHandlerSortModel<RowData>;
   isChooser?: boolean;
-  ExpansionContent?: React.ComponentType;
 }
 
 export default IListProps;

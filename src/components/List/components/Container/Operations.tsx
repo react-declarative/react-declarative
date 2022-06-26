@@ -16,6 +16,7 @@ import Async from '../../../Async';
 import IListOperation from '../../../../model/IListOperation';
 
 import useSelection from '../../hooks/useSelection';
+import useReload from '../../hooks/useReload';
 import useProps from '../../hooks/useProps';
 
 import classNames from '../../../../utils/classNames';
@@ -78,6 +79,8 @@ export const Operations = ({
         rows,
     } = useProps();
 
+    const reload = useReload();
+
     const [isAll, setIsAll] = useState(false);
 
     const selectedRows = rows.filter(({ id }) => selection.has(id));
@@ -85,7 +88,7 @@ export const Operations = ({
     const conditionPayload = isAll ? 'all' : selection;
 
     const createHandleOperation = (action: string) => () => {
-        onOperation && onOperation(action, selectedRows, isAll);
+        onOperation && onOperation(action, selectedRows, isAll, reload);
     };
 
     const AllCheckbox = (

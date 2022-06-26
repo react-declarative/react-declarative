@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import useProps from "../../../../hooks/useProps";
+import useReload from '../../../../hooks/useReload';
 
 import Fab from '@mui/material/Fab';
 
@@ -19,6 +20,8 @@ export const ActionAdd = ({
 
     const listProps = useProps();
 
+    const reload = useReload();
+
     const {
         onAction,
         fallback,
@@ -26,7 +29,7 @@ export const ActionAdd = ({
 
     const handleClick = (e: any) => {
         e.stopPropagation();
-        onAction && onAction(action, []);
+        onAction && onAction(action, [], reload);
     };
 
     return (

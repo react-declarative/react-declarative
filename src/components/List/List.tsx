@@ -158,8 +158,8 @@ const ListInternal = <
     selectionApiRef.current?.reload(true);
   }, [filters, state.sort, state.chips]);
 
-  const handleReload = useCallback((keepSelection = false) => {
-    handleFilter(state.filterData, true);
+  const handleReload = useCallback(async (keepSelection = false) => {
+    await handleFilter(state.filterData, true);
     !keepSelection && selectionApiRef.current?.reload();
   }, [state]);
 

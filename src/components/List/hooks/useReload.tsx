@@ -1,7 +1,7 @@
 import useProps from './useProps';
 
 export const useReload = () => {
-    const { handleReload = () => null } = useProps();
+    const { handleReload } = useProps();
     return () => handleReload();
 };
 

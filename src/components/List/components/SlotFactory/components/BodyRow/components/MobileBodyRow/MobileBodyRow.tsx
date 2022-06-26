@@ -15,11 +15,13 @@ import CommonBodyCell from './MobileCommonCell';
 import IRowData from '../../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../../model/IAnything';
 
+import ColumnType from '../../../../../../../../model/ColumnType';
+
 import { IBodyRowSlot, BodyColumn } from '../../../../../../slots/BodyRowSlot';
 
 import useProps from '../../../../../../hooks/useProps';
 import useSelection from '../../../../../../hooks/useSelection';
-import ColumnType from '../../../../../../../../model/ColumnType';
+import useReload from '../../../../../../hooks/useReload';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +51,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const classes = useStyles();
 
     const props = useProps<RowData>();
+    const reload = useReload();
+    
     const { selection } = useSelection();
 
     const {
@@ -58,7 +62,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const handleClick = () => {
         if (!menuOpened) {
-            onRowClick && onRowClick(row);
+            onRowClick && onRowClick(row, reload);
         }
     };
 
@@ -67,7 +71,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     };
 
     const handleAction = (action: string) => {
-        onRowAction && onRowAction(action, row);
+        onRowAction && onRowAction(action, row, reload);
     };
 
     const [firstCol, actionCol, cols] = useMemo(() => {

@@ -33,7 +33,7 @@ export const ActionMenu = ({
         } else if (action === 'resort-action') {
             showSortModal();
         }
-        onAction && onAction(action, selectedRows);
+        onAction && onAction(action, selectedRows, reloadList);
     };
 
     const selectedRows = rows.filter(({ id }) => selection.has(id));

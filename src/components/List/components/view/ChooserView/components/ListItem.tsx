@@ -15,6 +15,7 @@ import IAnything from '../../../../../../model/IAnything';
 import IRowData from '../../../../../../model/IRowData';
 import IColumn from "../../../../../../model/IColumn";
 
+import useReload from '../../../../hooks/useReload';
 import useProps from '../.../../../../../hooks/useProps';
 import useSelection from '../../../../hooks/useSelection';
 
@@ -76,6 +77,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         fallback,
     } = useProps();
 
+    const reload = useReload();
+
     const { selection } = useSelection();
 
     const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
@@ -99,7 +102,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     
     const handleClick = () => {
         if (!menuOpened) {
-            onRowClick && onRowClick(row);
+            onRowClick && onRowClick(row, reload);
         }
     };
 
@@ -108,7 +111,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     };
 
     const handleAction = (action: string) => {
-        onRowAction && onRowAction(action, row);
+        onRowAction && onRowAction(action, row, reload);
     };
 
     return (

@@ -13,6 +13,7 @@ import IAnything from '../../../../../../../../model/IAnything';
 import { IBodyRowSlot, BodyColumn } from '../../../../../../slots/BodyRowSlot';
 
 import useProps from '../../../../../../hooks/useProps';
+import useReload from '../../../../../../hooks/useReload';
 import useSelection from '../../../../../../hooks/useSelection';
 
 const useStyles = makeStyles({
@@ -31,6 +32,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const classes = useStyles();
 
     const props = useProps<RowData>();
+    const reload = useReload();
+
     const { selection } = useSelection();
 
     const {
@@ -40,7 +43,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const handleClick = () => {
         if (!menuOpened) {
-            onRowClick && onRowClick(row);
+            onRowClick && onRowClick(row, reload);
         }
     };
 
@@ -49,7 +52,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     };
 
     const handleAction = (action: string) => {
-        onRowAction && onRowAction(action, row);
+        onRowAction && onRowAction(action, row, reload);
     };
 
     const content = useMemo(() => {

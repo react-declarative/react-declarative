@@ -56,6 +56,12 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Префикс для формирования ключей элементов
    */
   prefix?: string;
+  /**
+   * Коллбеки управления отображением
+   * состоянием загрузки
+   */
+  onLoadStart?: (source: string) => void;
+  onLoadEnd?: (isOk: boolean, source: string) => void;
 }
 
 export default IOneProps;
