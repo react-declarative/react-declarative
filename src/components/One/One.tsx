@@ -6,6 +6,7 @@ import TypedField from "../../model/TypedField";
 import IOnePublicProps from "../../model/IOnePublicProps";
 
 import OneGenesis from './components/OneGenesis';
+import PropsProvider from './context/PropsProvider';
 
 export const One = <Data extends IAnything = IAnything>(props: IOnePublicProps<Data>) => {
 
@@ -15,6 +16,8 @@ export const One = <Data extends IAnything = IAnything>(props: IOnePublicProps<D
         ready = props.onReady,
         change = props.onChange,
         invalidity = props.onInvalid,
+        loadStart = props.onLoadStart,
+        loadEnd = props.onLoadEnd,
         ...otherProps
     } = props;
 
@@ -24,13 +27,23 @@ export const One = <Data extends IAnything = IAnything>(props: IOnePublicProps<D
         ready,
         change,
         invalidity,
+        loadStart,
+        loadEnd,
+    };
+
+    const genesisProps = {
+        ...otherProps,
+        ...wrappedProps,
     };
 
     return (
-        <OneGenesis
-            {...otherProps}
-            {...wrappedProps}
-        />
+        <PropsProvider
+            {...genesisProps}
+        >
+            <OneGenesis
+                {...genesisProps}
+            />
+        </PropsProvider>
     );
 };
 

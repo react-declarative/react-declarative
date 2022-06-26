@@ -60,8 +60,8 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Коллбеки управления отображением
    * состоянием загрузки
    */
-  onLoadStart?: (source: string) => void;
-  onLoadEnd?: (isOk: boolean, source: string) => void;
+  loadStart?: (source: string) => void;
+  loadEnd?: (isOk: boolean, source: string) => void;
 }
 
 export default IOneProps;

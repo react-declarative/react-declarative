@@ -10,6 +10,8 @@ export interface IOnePublicProps<Data = IAnything, Field = IField<Data>>
     onReady?: IOneProps<Data, Field>['ready'];
     onChange?: IOneProps<Data, Field>['change'];
     onInvalid?: IOneProps<Data, Field>['invalidity'];
+    onLoadStart?: IOneProps<Data, Field>['loadStart'];
+    onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
 };
 
 export default IOnePublicProps;

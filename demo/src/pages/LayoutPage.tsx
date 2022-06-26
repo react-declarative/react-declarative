@@ -165,7 +165,10 @@ export const LayoutGrid = () => {
     const [data, setData] = useState();
     return (
         <Fragment>
-            <OneTyped fields={fields} change={(newData) => setData(newData)} />
+            <OneTyped
+                fields={fields}
+                change={(newData) => setData(newData)}
+            />
             <Logger {...(data || {})}/>
         </Fragment>
     );

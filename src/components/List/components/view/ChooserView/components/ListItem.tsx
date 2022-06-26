@@ -22,6 +22,8 @@ import useSelection from '../../../../hooks/useSelection';
 import RowCheckbox from './common/RowCheckbox';
 import RowMark from './common/RowMark';
 
+const LOAD_SOURCE = 'list-item';
+
 const ColumnContent = <RowData extends IRowData = IAnything>({
     row,
     fallback,
@@ -30,21 +32,37 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
     row: RowData;
     fallback?: IListProps['fallback'];
     column?: IColumn<RowData>;
-}) => (
-    <Async fallback={fallback}>
-        {() => {
-            if (column && column.element) {
-                return createElement(column.element, row);
-            } else  if (column && column.compute) {
-                return column.compute(row);
-            } else if (column && column.field) {
-                return row[column.field];
-            } else {
-                return 'empty';
-            }
-        }}
-    </Async>
-);
+}) => {
+
+    const {
+        onLoadStart,
+        onLoadEnd,
+    } = useProps();
+
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+
+    return (
+        <Async
+            fallback={fallback}
+            payload={row}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+        >
+            {() => {
+                if (column && column.element) {
+                    return createElement(column.element, row);
+                } else  if (column && column.compute) {
+                    return column.compute(row);
+                } else if (column && column.field) {
+                    return row[column.field];
+                } else {
+                    return 'empty';
+                }
+            }}
+        </Async>
+    );
+}
 
 const useStyles = makeStyles({
     root: {
@@ -75,6 +93,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         onRowAction,
         rowMark,
         fallback,
+        onLoadStart,
+        onLoadEnd,
     } = useProps();
 
     const reload = useReload();
@@ -114,6 +134,9 @@ export const ListItem = <RowData extends IRowData = IAnything>({
         onRowAction && onRowAction(action, row, reload);
     };
 
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+
     return (
         <MatListItem
             selected={selection.has(row.id)}
@@ -152,6 +175,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                     onAction={handleAction}
                     fallback={fallback}
                     payload={row}
+                    onLoadStart={handleLoadStart}
+                    onLoadEnd={handleLoadEnd}
                 />
             )}
         </MatListItem>

@@ -21,6 +21,8 @@ import useProps from '../../hooks/useProps';
 
 import classNames from '../../../../utils/classNames';
 
+const LOAD_SOURCE = 'list-operations';
+
 interface IOperationsProps {
     className?: string;
     style?: React.CSSProperties;
@@ -77,6 +79,8 @@ export const Operations = ({
         onOperation,
         fallback,
         rows,
+        onLoadStart,
+        onLoadEnd,
     } = useProps();
 
     const reload = useReload();
@@ -117,6 +121,9 @@ export const Operations = ({
         </>
     );
 
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+
     return (
         <Box
             className={classNames(className, classes.root)}
@@ -124,7 +131,13 @@ export const Operations = ({
         >
             <FadeView className={classes.container} color={fadeColor} payload={conditionPayload}>
                 <Box className={classes.content}>
-                    <Async payload={conditionPayload} Loader={Loader} fallback={fallback}>
+                    <Async 
+                        payload={conditionPayload}
+                        Loader={Loader}
+                        fallback={fallback}
+                        onLoadStart={handleLoadStart}
+                        onLoadEnd={handleLoadEnd}
+                    >
                         {async () => {
                             return await Promise.all(operations.map(async ({
                                 action,

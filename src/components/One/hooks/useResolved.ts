@@ -19,12 +19,16 @@ import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 import IOneProps from '../../../model/IOneProps';
 
+const LOAD_SOURCE = 'one-resolve';
+
 interface IResolvedHookProps<Data = IAnything> {
     handler: PickProp<IOneProps<Data>, 'handler'>;
     fallback: PickProp<IOneProps<Data>, 'fallback'>;
     fields: PickProp<IOneProps<Data>, 'fields'>;
     roles: PickProp<IOneProps<Data>, 'roles'>;
     change: PickProp<IOneProps<Data>, 'change'>;
+    loadStart: PickProp<IOneProps<Data>, 'loadStart'>;
+    loadEnd: PickProp<IOneProps<Data>, 'loadEnd'>;
 }
 
 const buildObj = <Data = IAnything>(fields: IField<Data>[], roles?: string[]) => {
@@ -57,6 +61,8 @@ export const useResolved = <Data = IAnything>({
     fields,
     roles,
     change,
+    loadStart,
+    loadEnd,
 }: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const isMounted = useRef(true);
@@ -66,6 +72,8 @@ export const useResolved = <Data = IAnything>({
             if (isRoot.current) {
                 return
             } else if (typeof handler === 'function') {
+                let isOk = true;
+                loadStart && loadStart(LOAD_SOURCE);
                 try {
                     const result = (handler as Function)();
                     if (result instanceof Promise) {
@@ -78,12 +86,14 @@ export const useResolved = <Data = IAnything>({
                         isMounted.current && setData(newData);
                     }
                 } catch (e) {
+                    isOk = false;
                     if (fallback) {
                         fallback(e as Error);
                     } else {
                         throw e;
                     }
                 } finally {
+                    loadEnd && loadEnd(isOk, LOAD_SOURCE);
                     isRoot.current = true;
                 }
             } else if (!deepCompare(data, handler)) {

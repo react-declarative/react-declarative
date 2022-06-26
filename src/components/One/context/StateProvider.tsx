@@ -29,6 +29,8 @@ export const StateProvider = <Data extends IAnything>({
         change = () => null,
         fallback = () => null,
         handler = () => ({} as Data),
+        loadStart,
+        loadEnd,
     } = otherProps;
 
     const [object, setObjectHook] = useResolved<Data>({
@@ -37,6 +39,8 @@ export const StateProvider = <Data extends IAnything>({
         fields,
         roles,
         change,
+        loadStart,
+        loadEnd,
     });
 
     const setObject = (data: Data) => {

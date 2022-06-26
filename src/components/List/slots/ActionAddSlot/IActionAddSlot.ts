@@ -1,7 +1,10 @@
-export interface IActionAddSlot {
+import IAnything from "../../../../model/IAnything";
+import IRowData from "../../../../model/IRowData";
+
+export interface IActionAddSlot<RowData extends IRowData = IAnything> {
     action?: string;
-    isVisible?: () => Promise<boolean> | boolean;
-    isDisabled?: () => Promise<boolean> | boolean;
+    isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+    isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
 }
 
 export default IActionAddSlot;

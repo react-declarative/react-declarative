@@ -1,6 +1,10 @@
 import { useState, useLayoutEffect, useRef } from "react";
 
+import { useProps } from "../../../context/PropsProvider";
+
 import IField from "../../../../../model/IField";
+
+const LOAD_SOURCE = 'items-field';
 
 interface IParams {
   itemList: IField<any>['itemList'];
@@ -42,6 +46,12 @@ export const useItemList = ({
 
   const mountedRef = useRef(true);
 
+  const {
+    loadStart,
+    loadEnd,
+    fallback,
+  } = useProps();
+
   const [state, setState] = useState<IState>({
     items: defaultList,
     labels: {},
@@ -52,6 +62,8 @@ export const useItemList = ({
   useLayoutEffect(() => {
     if (state.loading && !state.loaded) {
       (async () => {
+        let isOk = true;
+        loadStart && loadStart(LOAD_SOURCE);
         try {
           const newState = await fetchState({
             itemList,
@@ -65,7 +77,14 @@ export const useItemList = ({
             });
           }
         } catch (e) {
-          console.warn(e);
+          isOk = false;
+          if (fallback) {
+            fallback(e as Error);
+          } else {
+            throw e;
+          }
+        } finally {
+          loadEnd && loadEnd(isOk, LOAD_SOURCE);
         }
       })();
     }

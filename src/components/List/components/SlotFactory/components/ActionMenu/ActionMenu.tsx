@@ -12,6 +12,8 @@ import useSelection from '../../../../hooks/useSelection';
 
 import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
+const LOAD_SOURCE = 'action-menu';
+
 export const ActionMenu = ({
     options = [],
 }: IActionMenuSlot) => {
@@ -25,6 +27,8 @@ export const ActionMenu = ({
         onAction,
         fallback,
         rows,
+        onLoadStart,
+        onLoadEnd,
     } = useProps();
 
     const handleAction = (action: string) => {
@@ -35,6 +39,9 @@ export const ActionMenu = ({
         }
         onAction && onAction(action, selectedRows, reloadList);
     };
+
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
     const selectedRows = rows.filter(({ id }) => selection.has(id));
 
@@ -76,6 +83,8 @@ export const ActionMenu = ({
             onAction={handleAction}
             fallback={fallback}
             payload={selection}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
         />
     );
 }

@@ -17,6 +17,8 @@ import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
 import useProps from "../../../../hooks/useProps";
 
+const LOAD_SOURCE = 'list-item';
+
 const useStyles = makeStyles({
     stretch: {
         position: 'absolute',
@@ -45,8 +47,13 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
     const {
         fallback,
         rowActions = [],
-    } = useProps<RowData>()
-    
+        onLoadStart,
+        onLoadEnd,
+    } = useProps<RowData>();
+
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+
     if (column.type === ColumnType.Text) {
         return row[column.field!];
     } else if (column.type === ColumnType.Compute) {
@@ -54,6 +61,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
             <Async
                 payload={row}
                 fallback={fallback}
+                onLoadStart={handleLoadStart}
+                onLoadEnd={handleLoadEnd}
             >
                 {column.compute!}
             </Async>
@@ -92,6 +101,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 onAction={onAction}
                 fallback={fallback}
                 payload={row}
+                onLoadStart={handleLoadStart}
+                onLoadEnd={handleLoadEnd}
             />
         );
     } else {

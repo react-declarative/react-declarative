@@ -31,6 +31,8 @@ export interface IActionMenuProps<T extends any = object> {
     className?: string;
     style?: React.CSSProperties;
     payload?: IAsyncProps<T>['payload'];
+    onLoadStart?: IAsyncProps<T>['onLoadStart'];
+    onLoadEnd?: IAsyncProps<T>['onLoadEnd'];
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +81,8 @@ export const ActionMenu = <T extends any = object>({
     payload,
     className,
     style,
+    onLoadStart,
+    onLoadEnd,
 }: IActionMenuProps<T>) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -94,7 +98,10 @@ export const ActionMenu = <T extends any = object>({
         onToggle && onToggle(true);
     };
 
-    const handleLoadEnd = () => setLoading((loading) => loading - 1);
+    const handleLoadEnd = (isOk: boolean) => {
+        setLoading((loading) => loading - 1);
+        onLoadEnd && onLoadEnd(isOk);
+    };
 
     const handleClose = (e: any) => {
         e.preventDefault();
@@ -179,6 +186,7 @@ export const ActionMenu = <T extends any = object>({
                                     throwError={throwError}
                                     fallback={fallback}
                                     key={idx}
+                                    onLoadStart={onLoadStart}
                                     onLoadEnd={handleLoadEnd}
                                     payload={payload}
                                 >
