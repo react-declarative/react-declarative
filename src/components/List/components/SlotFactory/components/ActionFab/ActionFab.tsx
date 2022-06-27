@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Fab from '@mui/material/Fab';
 
-import FolderOutlined from '@mui/icons-material/FolderOutlined';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import useProps from "../../../../hooks/useProps";
 import useReload from '../../../../hooks/useReload';
@@ -18,7 +18,7 @@ const Fragment = () => <></>;
 
 export const ActionFab = ({
     action = 'fab-action',
-    icon: Icon = FolderOutlined,
+    icon: Icon = SettingsIcon,
     isVisible = () => true,
     isDisabled = () => false,
 }: IActionFabSlot) => {
