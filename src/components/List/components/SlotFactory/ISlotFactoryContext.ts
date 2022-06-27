@@ -6,6 +6,7 @@ import { ICommonCellSlot } from '../../slots/CommonCellSlot';
 import { IHeadRowSlot } from '../../slots/HeadRowSlot';
 import { IActionAddSlot } from '../../slots/ActionAddSlot';
 import { IActionMenuSlot } from '../../slots/ActionMenuSlot';
+import { IActionFabSlot } from '../../slots/ActionFabSlot';
 
 export interface ISlotFactoryContext {
     BodyRow: ComponentType<IBodyRowSlot>;
@@ -13,6 +14,7 @@ export interface ISlotFactoryContext {
     CommonCell: ComponentType<ICommonCellSlot>;
     HeadRow: ComponentType<IHeadRowSlot>;
     ActionAdd: ComponentType<IActionAddSlot>;
+    ActionFab: ComponentType<IActionFabSlot>;
     ActionMenu: ComponentType<IActionMenuSlot>;
 }
 

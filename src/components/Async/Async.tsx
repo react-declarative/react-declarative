@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
-import cancelable, { IWrappedFn } from '../../utils/cancelable';
+import cancelable, { IWrappedFn } from '../../utils/hof/cancelable';
 
 export interface IAsyncProps<T extends any = object> {
     children: (p: T) => (Result | Promise<Result>);

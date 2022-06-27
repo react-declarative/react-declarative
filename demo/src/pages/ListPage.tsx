@@ -12,7 +12,7 @@ import {
   useOne,
   IListChip,
   ListHandlerChips,
-  useStaticPaginator,
+  useArrayPaginator,
   IListRowAction,
   ListHandlerPagination,
   ListHandlerSortModel,
@@ -83,6 +83,9 @@ const columns: IColumn[] = [
 const actions: IListAction[] = [
   {
     type: ActionType.Add,
+  },
+  {
+    type: ActionType.Fab,
   },
   {
     type: ActionType.Menu,
@@ -207,7 +210,7 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useStaticPaginator(mock);
+  const handler = useArrayPaginator(mock);
 
   const pickerHandler = async ({
     firstName,

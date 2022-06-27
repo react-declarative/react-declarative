@@ -3,11 +3,11 @@ import { IField as IFieldInternal } from './model/IField';
 import { IColumn as IColumnInternal } from './model/IColumn';
 
 import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
-import { IStaticPaginatorParams as IStaticPaginatorParamsInternal } from './components/List/api/useStaticPaginator';
+import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from './components/List/api/useArrayPaginator';
 import { IApiHandlerParams as IApiHandlerParamsInternal } from './components/One/api/useApiHandler';
 
 export type IListApiPaginatorParams = IApiPaginatorParamsInternal;
-export type IListStaticPaginatorParams = IStaticPaginatorParamsInternal;
+export type ILastArrayPaginatorParams = IArrayPaginatorParamsInternal;
 export type IOneApiHandlerParams = IApiHandlerParamsInternal;
 
 import { FieldType as FieldTypeInternal } from './model/FieldType';
@@ -119,7 +119,7 @@ export { Breadcrumbs } from './components';
 export { Scaffold } from './components';
 export { Switch } from './components';
 
-export { useStaticPaginator } from './components';
+export { useArrayPaginator } from './components';
 export { useLastPagination } from './components';
 export { useApiPaginator } from './components';
 
@@ -172,9 +172,11 @@ export type IHeadRowSlot = IHeadRowSlotInternal;
 export { createProvider } from './utils/createProvider';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
-export { singleshot } from './utils/singleshot';
-export { cancelable } from './utils/cancelable';
-export { cached } from './utils/cached';
+
+export { singleshot } from './utils/hof/singleshot';
+export { cancelable } from './utils/hof/cancelable';
+export { queued } from './utils/hof/queued';
+export { cached } from './utils/hof/cached';
 
 export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
 

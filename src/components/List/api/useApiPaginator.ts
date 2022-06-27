@@ -12,6 +12,7 @@ import abortManager from '../../../helpers/abortManager';
 
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
+import queued from '../../../utils/hof/queued';
 
 export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     origin?: string;
@@ -75,7 +76,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             sort,
         }) => {
             if (sort) {
-                url.searchParams.append('sortBy', `${field}:${sort.toUpperCase()}`)
+                url.searchParams.append('sortBy', `${String(field)}:${sort.toUpperCase()}`)
             }
         });
         return url;
@@ -94,6 +95,9 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     withChips = true,
     withSort = true,
 }: IApiPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
+
+    const queuedFetch = useMemo(() => queued(fetch), []);
+
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
         let url = new URL(path, origin);
         let isOk = true;
@@ -112,7 +116,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         url = requestMap(new URL(url));
         onLoadBegin && onLoadBegin();
         try {
-            const data = await fetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
@@ -129,11 +133,15 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
+
     useEffect(() => () => {
         if (withAbortSignal) {
             abortManager.abort();
         }
     }, []);
+
+    useEffect(() => () => queuedFetch.clear(), []);
+
     return handler;
 };
 

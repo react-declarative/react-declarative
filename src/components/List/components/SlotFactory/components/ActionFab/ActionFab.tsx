@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Fab from '@mui/material/Fab';
 
-import Add from '@mui/icons-material/Add';
+import FolderOutlined from '@mui/icons-material/FolderOutlined';
 
 import useProps from "../../../../hooks/useProps";
 import useReload from '../../../../hooks/useReload';
@@ -10,17 +10,18 @@ import useSelection from '../../../../hooks/useSelection';
 
 import Async from '../../../../../Async';
 
-import IActionAddSlot from '../../../../slots/ActionAddSlot/IActionAddSlot';
+import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 
 const LOAD_SOURCE = 'action-menu';
 
 const Fragment = () => <></>;
 
-export const ActionAdd = ({
-    action = 'add-action',
+export const ActionFab = ({
+    action = 'fab-action',
+    icon: Icon = FolderOutlined,
     isVisible = () => true,
     isDisabled = () => false,
-}: IActionAddSlot) => {
+}: IActionFabSlot) => {
 
     const listProps = useProps();
 
@@ -60,7 +61,7 @@ export const ActionAdd = ({
                 if (visible) {
                     return (
                         <Fab disabled={disabled} size="small" color="primary" onClick={handleClick}>
-                            <Add color="inherit" />
+                            <Icon color="inherit" />
                         </Fab>
                     );
                 } else {
@@ -71,4 +72,4 @@ export const ActionAdd = ({
     );
 };
 
-export default ActionAdd;
+export default ActionFab;

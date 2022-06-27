@@ -16,6 +16,7 @@ import useProps from '../../hooks/useProps';
 
 import ActionMenu from '../../slots/ActionMenuSlot';
 import ActionAdd from '../../slots/ActionAddSlot';
+import ActionFab from '../../slots/ActionFabSlot';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,14 +67,28 @@ export const Actions = <FilterData extends IAnything>({
   const createAction = ({ 
     type, 
     options: upperOptions = [],
+    isDisabled,
+    isVisible,
+    icon,
     action,
   }: IListAction) => {
     if (type === ActionType.Add) {
       return (
         <ActionAdd
           action={action}
+          isDisabled={isDisabled}
+          isVisible={isVisible}
         />
       );
+    } else if (type === ActionType.Fab) {
+      return (
+        <ActionFab
+          action={action}
+          icon={icon}
+          isDisabled={isDisabled}
+          isVisible={isVisible}
+        />
+      )
     } else if (type === ActionType.Menu) {
       const options = upperOptions.map(({
         isDisabled = () => false,

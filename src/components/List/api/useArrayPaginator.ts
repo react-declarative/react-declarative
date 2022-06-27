@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 import { 
     ListHandler,
@@ -10,12 +10,14 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+import queued from '../../../utils/hof/queued';
+
 const EMPTY_RESPONSE = {
     rows: [],
     total: null,
 };
 
-export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
@@ -32,7 +34,7 @@ export interface IStaticPaginatorParams<FilterData = IAnything, RowData extends 
     onLoadEnd?: (isOk: boolean) => void;
 }
 
-export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
+export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
@@ -98,12 +100,26 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
     fallback,
     onLoadStart,
     onLoadEnd,
-}: IStaticPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
+}: IArrayPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
+
+    const resolve = useMemo(() => queued(async (
+        filterData: FilterData,
+        pagination: ListHandlerPagination,
+        sort: ListHandlerSortModel,
+        chips: ListHandlerChips,
+    ) => {
+        if (typeof rowsHandler === 'function') {
+            return await rowsHandler(filterData, pagination, sort, chips);
+        } else {
+            return rowsHandler;
+        }
+    }), []);
+
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
         let isOk = true;
         try {
             onLoadStart && onLoadStart();
-            const data = typeof rowsHandler === 'function' ? (await Promise.resolve(rowsHandler(filterData, pagination, sort, chips))) : rowsHandler;
+            const data = await resolve(filterData, pagination, sort, chips);
             let rows = Array.isArray(data) ? data : data.rows;
             if (withFilters && !keepClean) {
                 rows = filterHandler(rows.slice(0), filterData);
@@ -134,7 +150,10 @@ export const useStaticPaginator = <FilterData = IAnything, RowData extends IRowD
             onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
+
+    useEffect(() => () => resolve.clear(), []);
+
     return handler;
 };
 
-export default useStaticPaginator;
+export default useArrayPaginator;

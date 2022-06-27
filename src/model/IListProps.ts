@@ -43,6 +43,9 @@ export interface IListActionOption<RowData extends IRowData = IAnything> extends
 export interface IListAction<RowData extends IRowData = IAnything> {
   type: ActionType;
   action?: string;
+  isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+  isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+  icon?: React.ComponentType<any>;
   options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData>)[];
 }
 
