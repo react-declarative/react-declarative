@@ -7,6 +7,7 @@ import {
 import abortManager from '../../../helpers/abortManager';
 
 import IAnything from "../../../model/IAnything";
+import queued from '../../../utils/hof/queued';
 
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
@@ -18,11 +19,13 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
+    fetch?: typeof window.fetch,
 }
 
 const EMPTY_RESPONSE = {};
 
 export const useApiHandler = <Data extends IAnything = IAnything>(path: string, {
+    fetch = window.fetch,
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     requestMap = (url) => url,
@@ -33,13 +36,16 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     fetchParams,
     fallback,
 }: IApiHandlerParams<Data> = {}): OneHandler<Data> => {
+
+    const queuedFetch = useMemo(() => queued(fetch), []);
+
     const handler: OneHandler<Data> = useMemo(() => async () => {
         let url = new URL(path, origin);
         url = requestMap(new URL(url));
         onLoadBegin && onLoadBegin();
         let isOk = true;
         try {
-            const data = await fetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
@@ -56,11 +62,17 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
             onLoadEnd && onLoadEnd(isOk);
         }
     }, []);
+
     useEffect(() => () => {
         if (withAbortSignal) {
             abortManager.abort();
         }
     }, []);
+
+    useEffect(() => () => {
+        queuedFetch.clear();
+    }, []);
+
     return handler;
 };
 

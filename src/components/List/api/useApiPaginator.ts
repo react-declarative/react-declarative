@@ -16,6 +16,7 @@ import queued from '../../../utils/hof/queued';
 
 export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
     origin?: string;
+    fetch?: typeof window.fetch;
     requestMap?: (url: URL) => URL;
     filterHandler?: (url: URL, filterData: FilterData) => URL;
     chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
@@ -40,6 +41,7 @@ const EMPTY_RESPONSE = {
 };
 
 export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(path: string, {
+    fetch = window.fetch,
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     fetchParams,
@@ -140,7 +142,9 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         }
     }, []);
 
-    useEffect(() => () => queuedFetch.clear(), []);
+    useEffect(() => () => {
+        queuedFetch.clear()
+    }, []);
 
     return handler;
 };
