@@ -49,6 +49,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
+            queuedFetch.clear();
             isOk = false;
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE } as Data;

@@ -122,6 +122,7 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
             const json = await data.json();
             return responseMap(json);
         } catch (e) {
+            queuedFetch.clear();
             isOk = false;
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE };

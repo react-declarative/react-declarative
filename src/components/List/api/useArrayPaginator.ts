@@ -102,7 +102,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
     onLoadEnd,
 }: IArrayPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
 
-    const resolve = useMemo(() => queued(async (
+    const queuedResolve = useMemo(() => queued(async (
         filterData: FilterData,
         pagination: ListHandlerPagination,
         sort: ListHandlerSortModel,
@@ -119,7 +119,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
         let isOk = true;
         try {
             onLoadStart && onLoadStart();
-            const data = await resolve(filterData, pagination, sort, chips);
+            const data = await queuedResolve(filterData, pagination, sort, chips);
             let rows = Array.isArray(data) ? data : data.rows;
             if (withFilters && !keepClean) {
                 rows = filterHandler(rows.slice(0), filterData);
@@ -139,6 +139,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
                 total: withTotal ? total : null,
             };
         } catch (e) {
+            queuedResolve.clear();
             isOk = false;
             if (fallback) {
                 fallback(e as Error);
@@ -151,7 +152,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
         }
     }, []);
 
-    useEffect(() => () => resolve.clear(), []);
+    useEffect(() => () => queuedResolve.clear(), []);
 
     return handler;
 };
