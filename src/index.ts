@@ -172,6 +172,7 @@ export type IHeadRowSlot = IHeadRowSlotInternal;
 export { createProvider } from './utils/createProvider';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
+export { wordForm } from './utils/wordForm';
 
 export { singleshot } from './utils/hof/singleshot';
 export { cancelable } from './utils/hof/cancelable';
