@@ -27,8 +27,10 @@ export const cacheSrc = (url: string) => ({
         if (element) {
             element.style.visibility = 'hidden';
             cacheManager.createPromise(url).then((blob) => {
-                element.src = URL.createObjectURL(blob);
-                element.style.visibility = 'visible';
+                if (document.contains(element)) {
+                    element.src = URL.createObjectURL(blob);
+                    element.style.visibility = 'visible';
+                }
             })
         }
     }
