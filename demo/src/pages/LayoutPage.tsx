@@ -14,6 +14,14 @@ const fields: TypedField[] = [
         title: 'User info',
     },
     {
+        type: FieldType.Condition,
+        condition: () => false,
+        child: {
+            type: FieldType.Typography,
+            placeholder: 'Condition not satisfied',
+        }
+    },
+    {
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',

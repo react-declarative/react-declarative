@@ -18,6 +18,7 @@ import TabsLayout from '../../layouts/TabsLayout';
 import CenterLayout from '../../layouts/CenterLayout';
 import StretchLayout from '../../layouts/StretchLayout';
 import HeroLayout from '../../layouts/HeroLayout';
+import ConditionLayout from '../../layouts/ConditionLayout';
 
 import FieldType from '../../../../model/FieldType';
 import IOneProps from '../../../../model/IOneProps';
@@ -186,6 +187,15 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                                 >
                                     <OneInternalMemo<Data> {...one} />
                                 </HeroLayout>
+                            );
+                        } else if (field.type === FieldType.Condition) {
+                            return (
+                                <ConditionLayout<Data>
+                                    key={currentPath}
+                                    {...entity}
+                                >
+                                    <OneInternalMemo<Data> {...one} />
+                                </ConditionLayout>
                             );
                         } else {
                             return createField(entity, currentPath);

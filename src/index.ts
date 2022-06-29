@@ -173,6 +173,9 @@ export type ICheckboxCellSlot = ICheckboxCellSlotInternal;
 export type ICommonCellSlot = ICommonCellSlotInternal;
 export type IHeadRowSlot = IHeadRowSlotInternal;
 
+export { arrays } from './utils/arrays';
+export { objects } from './utils/objects';
+
 export { createProvider } from './utils/createProvider';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';

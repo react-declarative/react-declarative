@@ -21,6 +21,7 @@ export enum FieldType {
     Hero = 'hero-layout',
     Center = 'center-layout',
     Stretch = 'stretch-layout',
+    Condition = 'condition-layout',
 };
 
 export default FieldType;

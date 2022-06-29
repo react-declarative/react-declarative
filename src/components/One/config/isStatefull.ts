@@ -12,6 +12,7 @@ const layouts: FieldType[] = [
     FieldType.Fragment,
     FieldType.Center,
     FieldType.Stretch,
+    FieldType.Condition,
 ];
 
 /**

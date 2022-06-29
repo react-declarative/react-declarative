@@ -18,6 +18,7 @@ import { IOutlineLayoutProps } from '../components/One/layouts/OutlineLayout';
 import { IPaperLayoutProps } from '../components/One/layouts/PaperLayout';
 import { IExpansionLayoutProps } from '../components/One/layouts/ExpansionLayout';
 import { IHeroLayoutProps } from '../components/One/layouts/HeroLayout';
+import { IConditionLayoutProps } from '../components/One/layouts/ConditionLayout';
 
 /**
  * Поля ввода
@@ -59,6 +60,7 @@ type Tabs<Data = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps
 type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
 type Center<Data = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data>, Data>;
 type Stretch<Data = IAnything> = TypedFieldFactory<FieldType.Stretch, IStretchLayoutProps<Data>, Data>;
+type Condition<Data = IAnything> = TypedFieldFactory<FieldType.Condition, IConditionLayoutProps<Data>, Data>;
 
 type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
 
@@ -101,6 +103,7 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
   : Target extends Center<Data> ? Center<Data>
   : Target extends Stretch<Data> ? Stretch<Data>
   : Target extends Hero<Data> ? Hero<Data>
+  : Target extends Condition<Data> ? Condition<Data>
   : never;
 
 /**

@@ -340,6 +340,11 @@ export interface IField<Data = IAnything> {
     };
 
     /**
+     * Предикат для компоновки Condition
+     */
+    condition?: ((payload: Data) => boolean) | ((payload: Data) => Promise<boolean>)
+
+    /**
      * Свойства для компоновки Hero - инструмента настройки отступов
      */
     top?: string | ISizeCallback<Data>;
