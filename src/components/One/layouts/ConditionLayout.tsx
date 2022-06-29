@@ -20,7 +20,8 @@ interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 }
 
 /**
- * Компоновка, которую можно скрыть, используя isVisible.
+ * Компоновка, которую можно скрыть, используя condition.
+ * В отличие от isVisible умеет приходовать промис
  * Потомки передаются насквозь...
  */
 export const ConditionLayout = <Data extends IAnything = IAnything>({
