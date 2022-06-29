@@ -22,7 +22,7 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     fetch?: typeof window.fetch,
 }
 
-const EMPTY_RESPONSE = {};
+const EMPTY_RESPONSE = null;
 
 export const useApiHandler = <Data extends IAnything = IAnything>(path: string, {
     fetch = window.fetch,
@@ -52,10 +52,10 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
             queuedFetch.clear();
             isOk = false;
             if (e instanceof DOMException && e.name == "AbortError") {
-                return { ...EMPTY_RESPONSE } as Data;
+                return EMPTY_RESPONSE;
             } else if (fallback) {
                 fallback(e as Error);
-                return { ...EMPTY_RESPONSE } as Data;
+                return EMPTY_RESPONSE;
             } else {
                 throw e;
             }

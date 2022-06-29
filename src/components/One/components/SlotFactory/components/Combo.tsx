@@ -36,7 +36,9 @@ export const Combo = ({
 }: IComboSlot) => {
 
   const { object } = useOneState();
-  const { fallback } = useOneProps();
+  const { fallback = (e: Error) => {
+    throw e;
+  } } = useOneProps();
 
   const reloadCondition = useMemo(() => randomString(), [
     value,

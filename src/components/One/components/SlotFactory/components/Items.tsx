@@ -40,7 +40,9 @@ export const Items = ({
 }: IItemsSlot) => {
 
     const { object } = useOneState();
-    const { fallback } = useOneProps();
+    const { fallback = (e: Error) => {
+        throw e;
+    } } = useOneProps();
 
     const reloadCondition = useMemo(() => randomString(), [
         value,

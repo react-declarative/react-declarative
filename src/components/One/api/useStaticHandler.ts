@@ -13,7 +13,7 @@ export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
     fallback?: (e: Error) => void;
 }
 
-const EMPTY_RESPONSE = {};
+const EMPTY_RESPONSE = null;
 
 const resolveHandler = async <Data = IAnything>(handler: OneHandler<Data>): Promise<Data | null> => {
     if (typeof handler === 'function') {
@@ -40,7 +40,7 @@ export const useStaticHandler = <Data extends IAnything = IAnything>(handler: On
             isOk = false;
             if (fallback) {
                 fallback(e as Error);
-                return { ...EMPTY_RESPONSE } as Data;
+                return EMPTY_RESPONSE;
             } else {
                 throw e;
             }

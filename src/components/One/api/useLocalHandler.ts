@@ -18,7 +18,7 @@ export interface ILocalHandlerResult<Data extends IAnything = IAnything> {
     change: IOneProps<Data>['change'];
 }
 
-const EMPTY_RESPONSE = {};
+const EMPTY_RESPONSE = null;
 
 const resolveHandler = async <Data = IAnything>(handler: OneHandler<Data>): Promise<Data | null> => {
     if (typeof handler === 'function') {
@@ -49,7 +49,7 @@ export const useLocalHandler = <Data extends IAnything = IAnything>(handler: One
                 isOk = false;
                 if (fallback) {
                     fallback(e as Error);
-                    setData({ ...EMPTY_RESPONSE } as Data);
+                    setData(EMPTY_RESPONSE);
                 } else {
                     throw e;
                 }
