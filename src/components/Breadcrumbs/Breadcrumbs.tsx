@@ -12,6 +12,8 @@ import ActionMenu from '../ActionMenu';
 
 import IOption from '../../model/IOption';
 
+const BREADCRUMBS_SAVE_DELAY = 500;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -51,6 +53,9 @@ export const Breadcrumbs = ({
   subtitle = 'Subtitle',
 }: IBreadcrumbsProps) => {
   const classes = useStyles();
+
+  const handleSave = () => onSave && setTimeout(onSave, BREADCRUMBS_SAVE_DELAY);
+
   return (
     <Box className={classes.root}>
       <MatBreadcrumbs className={classes.stretch} aria-label="breadcrumb">
@@ -58,7 +63,7 @@ export const Breadcrumbs = ({
         <Typography color="textPrimary">{subtitle}</Typography>
       </MatBreadcrumbs>
       <Button
-        onClick={onSave}
+        onClick={handleSave}
         color="primary"
         disabled={disabled}
         variant="contained"

@@ -13,6 +13,7 @@ export interface IItemsFieldProps<Data = IAnything> {
   placeholder?: PickProp<IField<Data>, "placeholder">;
   outlined?: PickProp<IField<Data>, "outlined">;
   itemList?: PickProp<IField<Data>, "itemList">;
+  keepSync?: PickProp<IField<Data>, "keepSync">;
   title?: PickProp<IField<Data>, "title">;
   tr?: PickProp<IField<Data>, "tr">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
@@ -36,6 +37,7 @@ export const ItemsField = ({
   placeholder,
   outlined = true,
   itemList = [],
+  keepSync,
   fieldReadonly,
   dirty,
   invalid,
@@ -51,6 +53,7 @@ export const ItemsField = ({
     placeholder={placeholder}
     outlined={outlined}
     itemList={itemList}
+    keepSync={keepSync}
     fieldReadonly={fieldReadonly}
     dirty={dirty}
     invalid={invalid}

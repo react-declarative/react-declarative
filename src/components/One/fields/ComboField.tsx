@@ -13,6 +13,7 @@ export interface IComboFieldProps<Data = IAnything> {
   placeholder?: PickProp<IField<Data>, "placeholder">;
   outlined?: PickProp<IField<Data>, "outlined">;
   itemList?: PickProp<IField<Data>, "itemList">;
+  keepSync?: PickProp<IField<Data>, "keepSync">;
   title?: PickProp<IField<Data>, "title">;
   tr?: PickProp<IField<Data>, "tr">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
@@ -37,6 +38,7 @@ export const ComboField = ({
   placeholder = "",
   outlined = true,
   itemList = [],
+  keepSync = true,
   title = "",
   dirty,
   invalid,
@@ -52,6 +54,7 @@ export const ComboField = ({
     placeholder={placeholder}
     outlined={outlined}
     itemList={itemList}
+    keepSync={keepSync}
     title={title}
     dirty={dirty}
     invalid={invalid}

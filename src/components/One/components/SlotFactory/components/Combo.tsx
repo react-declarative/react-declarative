@@ -27,6 +27,7 @@ export const Combo = ({
   placeholder = "",
   outlined = true,
   itemList = [],
+  keepSync,
   title = "",
   dirty,
   invalid,
@@ -101,12 +102,15 @@ export const Combo = ({
     const handleBlur = () => {
       if (!fieldReadonly) {
         setUnfocused(true);
-        onChange(value);
+        !keepSync && onChange(value);
       }
     };
 
     const handleChange = (value: any) => {
       setValue(value);
+      if (keepSync) {
+        onChange(value)
+      }
     };
 
     return (

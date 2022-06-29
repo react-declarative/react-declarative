@@ -31,6 +31,7 @@ export const Items = ({
     placeholder,
     outlined = true,
     itemList = [],
+    keepSync,
     dirty,
     invalid,
     title,
@@ -117,11 +118,14 @@ export const Items = ({
         const handleBlur = () => {
             if (!fieldReadonly) {
                 setUnfocused(true);
-                onChange(value);
+                !keepSync && onChange(value);
             }
         };
 
         const handleChange = (value: any) => {
+            if (keepSync) {
+                onChange(value)
+            }
             setValue(value);
         };
 

@@ -223,6 +223,12 @@ export interface IField<Data = IAnything> {
     tr?: ((s: string) => string) | ((s: string) => Promise<string>),
 
     /**
+     * Флаг для FieldType.Items и FieldType.Combo, который разрешает сабмит по изменению
+     * без ожидания потери фокуса
+     */
+    keepSync?: boolean;
+
+    /**
      * Тип поля для логического ветвления при рендеринге
      */
     type: FieldType;
