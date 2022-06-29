@@ -1,21 +1,32 @@
 import * as React from 'react';
+import { useMemo, useState } from 'react';
+
+import { AutocompleteRenderGetTagProps } from "@mui/material/Autocomplete";
+import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 
 import Autocomplete from "@mui/material/Autocomplete";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import MatTextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 
+import Async from '../../../../Async';
+
 import arrays from '../../../../../utils/arrays';
 import objects from '../../../../../utils/objects';
+import randomString from '../../../../../utils/randomString';
+
+import { useOneState } from '../../../context/StateProvider';
+import { useOneProps } from '../../../context/PropsProvider';
 
 import { IItemsSlot } from '../../../slots/ItemsSlot';
 
-import useItemList from '../hooks/useItemList';
+const EMPTY_ARRAY = [] as any;
 
 export const Items = ({
     value,
     disabled,
-    readonly,
+    fieldReadonly,
     description,
     placeholder,
     outlined = true,
@@ -26,54 +37,129 @@ export const Items = ({
     tr = (s) => s.toString(),
     onChange,
 }: IItemsSlot) => {
-    const {
-        items: options,
-        labels,
-        loading,
-        loaded,
-    } = useItemList({
-        itemList: arrays(itemList) || [],
-        tr,
-    });
-    return (
+
+    const { object } = useOneState();
+    const { fallback } = useOneProps();
+
+    const reloadCondition = useMemo(() => randomString(), [
+        value,
+        disabled,
+        dirty,
+        invalid,
+        object,
+    ]);
+
+    const createRenderTags = (labels: Record<string, any>) => (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
+        return value.map((option: string, index: number) => (
+            <Chip
+                variant={outlined ? "outlined" : "filled"}
+                label={labels[option] || option}
+                {...getTagProps({ index })}
+            />
+        ))
+    };
+
+    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || '';
+
+    const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
+        <MatTextField
+            variant={outlined ? "outlined" : "standard"}
+            {...params}
+            label={title}
+            placeholder={placeholder}
+            helperText={(dirty && invalid) || description}
+            error={dirty && invalid !== null}
+            InputProps={{
+                ...params.InputProps,
+                readOnly: readonly,
+                endAdornment: (
+                    <>
+                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                        {params.InputProps.endAdornment}
+                    </>
+                ),
+            }}
+        />
+    )
+
+    const Loader = () => (
         <Autocomplete
             multiple
-            onChange={({ }, v) => onChange(v.length ? objects(v) : null)}
-            getOptionLabel={(v) => labels[v] || ''}
-            value={loaded ? value ? Object.values<string>(value) : [] : []}
-            options={options}
-            loading={loading}
-            disabled={disabled}
-            renderTags={(value, getTagProps) =>
-                value.map((option: string, index) => (
-                    <Chip
-                        variant={outlined ? "outlined" : "filled"}
-                        label={labels[option]}
-                        {...getTagProps({ index })}
-                    />
-                ))
-            }
-            renderInput={(params) => (
-                <MatTextField
-                    variant={outlined ? "outlined" : "standard"}
-                    {...params}
-                    label={title}
-                    placeholder={placeholder}
-                    helperText={(dirty && invalid) || description}
-                    error={dirty && invalid !== null}
-                    InputProps={{
-                        ...params.InputProps,
-                        readOnly: readonly,
-                        endAdornment: (
-                          <>
-                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                            {params.InputProps.endAdornment}
-                          </>
-                        ),
-                    }}
-                />
-            )}
+            loading
+            disabled
+            onChange={() => null}
+            value={EMPTY_ARRAY}
+            options={EMPTY_ARRAY}
+            getOptionLabel={createGetOptionLabel({})}
+            renderTags={createRenderTags({})}
+            renderInput={createRenderInput(true, true)}
         />
+    );
+
+    const Content = ({
+        labels,
+        options,
+        data
+    }: {
+        labels: Record<string, any>;
+        options: any[];
+        data: any;
+    }) => {
+        const [unfocused, setUnfocused] = useState(true);
+        const [value, setValue] = useState(data);
+
+        const handleFocus = () => {
+            if (!fieldReadonly) {
+                setUnfocused(false);
+            }
+        };
+
+        const handleBlur = () => {
+            if (!fieldReadonly) {
+                setUnfocused(true);
+                onChange(value);
+            }
+        };
+
+        const handleChange = (value: any) => {
+            setValue(value);
+        };
+
+        return (
+            <Autocomplete
+                multiple
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                readOnly={unfocused}
+                onChange={({ }, v) => handleChange(v.length ? objects(v) : null)}
+                getOptionLabel={createGetOptionLabel(labels)}
+                value={value ? Object.values<string>(value) : []}
+                options={options}
+                disabled={disabled}
+                renderTags={createRenderTags(labels)}
+                renderInput={createRenderInput(false, unfocused)}
+            />
+        );
+    };
+
+    return (
+        <Async Loader={Loader} payload={reloadCondition} fallback={fallback}>
+            {async () => {
+
+                const labels: Record<string, string> = {};
+                itemList = arrays(itemList) || [];
+                const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object)) : itemList);
+                await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item))));
+
+                return (
+                    <Content
+                        options={options}
+                        labels={labels}
+                        data={value}
+                    />
+                );
+            }}
+        </Async>
     );
 };
 

@@ -213,7 +213,7 @@ export interface IField<Data = IAnything> {
     /**
      * Варианты выбора для ComboField и ItemsField
      */
-    itemList?: string[] | (() => string[]) | (() => Promise<string[]>),
+    itemList?: string[] | ((data: Data) => string[]) | ((data: Data) => Promise<string[]>),
 
     /**
      * Позволяет перевести значения у ComboField и ItemsField

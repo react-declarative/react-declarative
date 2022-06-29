@@ -20,6 +20,6 @@ export const PropsProvider = <Data extends IAnything = IAnything>({
     </PropsContext.Provider>
 );
 
-export const useProps = <Data extends IAnything = IAnything>() => useContext(PropsContext) as IOneProps<Data>;
+export const useOneProps = <Data extends IAnything = IAnything>() => useContext(PropsContext) as IOneProps<Data>;
 
 export default PropsProvider;
