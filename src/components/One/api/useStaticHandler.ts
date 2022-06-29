@@ -6,7 +6,7 @@ import {
 
 import IAnything from "../../../model/IAnything";
 
-export interface IApiHandlerParams<Data extends IAnything = IAnything> {
+export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
     resultMap?: (json: Record<string, any> | null) => Data | null;
     onLoadBegin?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -29,7 +29,7 @@ export const useStaticHandler = <Data extends IAnything = IAnything>(handler: On
     onLoadBegin,
     onLoadEnd,
     fallback,
-}: IApiHandlerParams<Data> = {}): OneHandler<Data> => {
+}: IStaticHandlerParams<Data> = {}): OneHandler<Data> => {
     const resultHandler: OneHandler<Data> = useMemo(() => async () => {
         onLoadBegin && onLoadBegin();
         let isOk = true;

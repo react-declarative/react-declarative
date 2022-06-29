@@ -125,6 +125,7 @@ export { useApiPaginator } from './components';
 
 export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
+export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
 
 export { useListProps, useListSelection } from './components';
