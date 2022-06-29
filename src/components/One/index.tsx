@@ -1,5 +1,7 @@
 export * from './One';
 export * from './slots';
+export { OtherComboSlot } from './other/OtherComboSlot';
+export { OtherItemsSlot } from './other/OtherItemsSlot';
 export { useApiHandler } from './api/useApiHandler';
 export { useLocalHandler } from './api/useLocalHandler';
 export { useStaticHandler } from './api/useStaticHandler';

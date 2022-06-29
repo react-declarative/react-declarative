@@ -2,7 +2,7 @@ import { useState, Fragment } from 'react';
 
 import { Face } from '@mui/icons-material';
 
-import { TypedField, FieldType, OneTyped } from 'react-declarative';
+import { TypedField, FieldType, OneTyped, OneSlotFactory, OtherComboSlot, OtherItemsSlot } from 'react-declarative';
 
 import Logger from '../components/Logger';
 
@@ -164,13 +164,18 @@ const fields: TypedField[] = [
 export const LayoutGrid = () => {
     const [data, setData] = useState();
     return (
-        <Fragment>
-            <OneTyped
-                fields={fields}
-                change={(newData) => setData(newData)}
-            />
-            <Logger {...(data || {})}/>
-        </Fragment>
+        <OneSlotFactory
+            Combo={OtherComboSlot}
+            Items={OtherItemsSlot}
+        >
+            <Fragment>
+                <OneTyped
+                    fields={fields}
+                    change={(newData) => setData(newData)}
+                />
+                <Logger {...(data || {})}/>
+            </Fragment>
+        </OneSlotFactory>
     );
 }
 
