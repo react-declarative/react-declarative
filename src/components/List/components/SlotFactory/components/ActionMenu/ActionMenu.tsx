@@ -8,7 +8,7 @@ import Sort from '@mui/icons-material/Sort';
 import useProps from "../../../../hooks/useProps";
 import useModalSort from '../../../../hooks/useModalSort';
 import useReload from '../../../../hooks/useReload';
-import useSelection from '../../../../hooks/useSelection';
+import useCachedRows from '../../../../hooks/useCachedRows';
 
 import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
@@ -18,7 +18,7 @@ export const ActionMenu = ({
     options = [],
 }: IActionMenuSlot) => {
 
-    const { selection } = useSelection();
+    const { selectedRows } = useCachedRows();
 
     const showSortModal = useModalSort();
     const reloadList = useReload();
@@ -26,7 +26,6 @@ export const ActionMenu = ({
     const {
         onAction,
         fallback,
-        rows,
         onLoadStart,
         onLoadEnd,
         loading,
@@ -43,8 +42,6 @@ export const ActionMenu = ({
 
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
-
-    const selectedRows = rows.filter(({ id }) => selection.has(id));
 
     return (
         <BaseActionMenu
@@ -83,7 +80,7 @@ export const ActionMenu = ({
             })}
             onAction={handleAction}
             fallback={fallback}
-            payload={selection}
+            payload={selectedRows}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
             disabled={loading}

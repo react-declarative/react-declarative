@@ -6,7 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import useProps from "../../../../hooks/useProps";
 import useReload from '../../../../hooks/useReload';
-import useSelection from '../../../../hooks/useSelection';
+import useCachedRows from '../../../../hooks/useCachedRows';
 
 import Async from '../../../../../Async';
 
@@ -27,10 +27,9 @@ export const ActionFab = ({
 
     const reload = useReload();
 
-    const { selection } = useSelection();
+    const { selectedRows } = useCachedRows();
 
     const {
-        rows,
         fallback,
         onAction,
         onLoadStart,
@@ -44,8 +43,6 @@ export const ActionFab = ({
 
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
-
-    const selectedRows = rows.filter(({ id }) => selection.has(id));
 
     const Content = ({
         disabled,
@@ -68,7 +65,7 @@ export const ActionFab = ({
             fallback={fallback}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
-            payload={selection}
+            payload={selectedRows}
         >
             {async () => {
                 const visible = await isVisible(selectedRows);

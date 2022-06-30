@@ -11,7 +11,7 @@ import { IListAction } from '../../../../model/IListProps';
 import ActionType from '../../../../model/ActionType';
 import IAnything from '../../../../model/IAnything';
 
-import useSelection from '../../hooks/useSelection';
+import useCachedRows from '../../hooks/useCachedRows';
 import useProps from '../../hooks/useProps';
 
 import ActionMenu from '../../slots/ActionMenuSlot';
@@ -57,12 +57,10 @@ export const Actions = <FilterData extends IAnything>({
 }: IActionsProps<FilterData>) => {
   const classes = useStyles();
 
-  const { selection } = useSelection();
-  const { operations, rows } = useProps();
+  const { selectedRows } = useCachedRows();
+  const { operations } = useProps();
 
   const hasOperations = Array.isArray(operations) && !!operations.length;
-
-  const selectedRows = rows.filter(({ id }) => selection.has(id));
 
   const createAction = ({ 
     type, 

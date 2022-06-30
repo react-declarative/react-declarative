@@ -21,6 +21,7 @@ import ChooserView from './components/view/ChooserView';
 import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ModalSortProvider } from './hooks/useModalSort';
+import { CachedRowsProvider } from './hooks/useCachedRows';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
@@ -280,13 +281,15 @@ const ListInternal = <
     <ThemeProvider>
       <PropProvider {...{ ...props, ...state, ...callbacks }}>
         <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
-          <SortModelProvider sortModel={upperSortModel}>
-            <ChipsProvider chips={upperChips}>
-              <ModalSortProvider>
-                {renderInner()}
-              </ModalSortProvider>
-            </ChipsProvider>
-          </SortModelProvider>
+          <CachedRowsProvider>
+            <SortModelProvider sortModel={upperSortModel}>
+              <ChipsProvider chips={upperChips}>
+                <ModalSortProvider>
+                  {renderInner()}
+                </ModalSortProvider>
+              </ChipsProvider>
+            </SortModelProvider>
+          </CachedRowsProvider>
         </SelectionProvider>
       </PropProvider>
     </ThemeProvider>
