@@ -108,17 +108,20 @@ export const Items = ({
         options: any[];
         data: any;
     }) => {
+
+        const { readonly } = useOneProps();
+
         const [unfocused, setUnfocused] = useState(true);
         const [value, setValue] = useState(data);
 
         const handleFocus = () => {
-            if (!fieldReadonly) {
+            if (!fieldReadonly && !readonly) {
                 setUnfocused(false);
             }
         };
 
         const handleBlur = () => {
-            if (!fieldReadonly) {
+            if (!fieldReadonly && !readonly) {
                 setUnfocused(true);
                 !keepSync && onChange(value);
             }
@@ -136,14 +139,14 @@ export const Items = ({
                 multiple
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                readOnly={unfocused}
+                readOnly={readonly || unfocused}
                 onChange={({ }, v) => handleChange(v.length ? objects(v) : null)}
                 getOptionLabel={createGetOptionLabel(labels)}
                 value={value ? Object.values<string>(value) : []}
                 options={options}
                 disabled={disabled}
                 renderTags={createRenderTags(labels)}
-                renderInput={createRenderInput(false, unfocused)}
+                renderInput={createRenderInput(false, readonly || unfocused)}
             />
         );
     };

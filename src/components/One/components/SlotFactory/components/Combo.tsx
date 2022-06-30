@@ -92,17 +92,20 @@ export const Combo = ({
     options: any[];
     data: any;
   }) => {
+
+    const { readonly } = useOneProps();
+
     const [unfocused, setUnfocused] = useState(true);
     const [value, setValue] = useState(data);
 
     const handleFocus = () => {
-      if (!fieldReadonly) {
+      if (!fieldReadonly && !readonly) {
         setUnfocused(false);
       }
     };
 
     const handleBlur = () => {
-      if (!fieldReadonly) {
+      if (!fieldReadonly && !readonly) {
         setUnfocused(true);
         !keepSync && onChange(value);
       }
@@ -124,8 +127,8 @@ export const Combo = ({
         getOptionLabel={(v) => labels[v] || ''}
         options={options}
         disabled={disabled}
-        readOnly={unfocused}
-        renderInput={createRenderInput(false, unfocused)}
+        readOnly={readonly || unfocused}
+        renderInput={createRenderInput(false, readonly || unfocused)}
       />
     );
   };
