@@ -210,7 +210,8 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useArrayPaginator((_, {limit}) => {
+  const handler = useArrayPaginator(async (_, {limit}) => {
+    await sleep(5_000)
     return {
       rows: mock.slice(0, limit),
       total: limit * 2

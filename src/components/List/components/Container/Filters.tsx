@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     paddingLeft: 10,
   },
+  disabled: {
+    pointerEvents: 'none',
+    userSelect: 'none',
+    opacity: 0.5,
+  }
 }));
 
 interface IFiltersProps<FilterData = IAnything> {
@@ -63,6 +68,7 @@ interface IFiltersProps<FilterData = IAnything> {
   toggleFilters?: boolean;
   ready: () => void;
   clean: () => void;
+  loading: boolean;
   label: string;
 }
 
@@ -75,6 +81,7 @@ export const Filters = <FilterData extends IAnything>({
   ready,
   clean,
   label,
+  loading,
   toggleFilters,
   onFilterChange = () => null,
   onCollapsedChange = () => null,
@@ -123,12 +130,15 @@ export const Filters = <FilterData extends IAnything>({
           onTransitionEnd={handleCollapseEnd}
           in={collapsed}
         >
-          <Box p={1}>
+          <Box p={1} className={classNames({
+            [classes.disabled]: loading,
+          })}>
             <One<FilterData>
               handler={filterData}
               fields={filters}
               change={handleChange}
               ready={ready}
+              readonly={loading}
             />
           </Box>
         </Collapse>
@@ -141,7 +151,7 @@ export const Filters = <FilterData extends IAnything>({
       <div className={classNames(classes.controls, {
         [classes.controlsWidth]: !toggleFilters,
       })}>
-        <IconButton onClick={clean}>
+        <IconButton disabled={loading} onClick={clean}>
           <Restore />
         </IconButton>
         {!toggleFilters && (

@@ -47,6 +47,21 @@ export const ActionFab = ({
 
     const selectedRows = rows.filter(({ id }) => selection.has(id));
 
+    const Content = ({
+        disabled,
+        onClick,
+    }: {
+        disabled: boolean
+        onClick: (e: any) => void;
+    }) => {
+        const { loading } = useProps();
+        return (
+            <Fab disabled={loading || disabled} size="small" color="primary" onClick={onClick}>
+                <Icon color="inherit" />
+            </Fab>
+        );
+    };
+
     return (
         <Async
             Loader={Fragment}
@@ -60,10 +75,11 @@ export const ActionFab = ({
                 const disabled = await isDisabled(selectedRows);
                 if (visible) {
                     return (
-                        <Fab disabled={disabled} size="small" color="primary" onClick={handleClick}>
-                            <Icon color="inherit" />
-                        </Fab>
-                    );
+                        <Content
+                            disabled={disabled}
+                            onClick={handleClick}
+                        />
+                    )
                 } else {
                     return null;
                 }

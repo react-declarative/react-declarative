@@ -19,6 +19,7 @@ import useChips from '../../hooks/useChips';
 
 interface IChipsProps<RowData extends IRowData = IAnything> {
     listChips: IListProps<RowData>['chips'];
+    loading: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Chips = <RowData extends IRowData = IAnything>({
     listChips = [],
+    loading,
 }: IChipsProps<RowData>) => {
 
     const theme = useTheme<Theme>();
@@ -87,6 +89,7 @@ export const Chips = <RowData extends IRowData = IAnything>({
                     onDelete={enabled ? createToggleHandler(name, false) : undefined}
                     color='primary'
                     label={chip.label}
+                    disabled={loading}
                 />
             </ThemeProvider>
         );

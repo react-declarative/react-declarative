@@ -49,6 +49,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
         rowActions = [],
         onLoadStart,
         onLoadEnd,
+        loading,
     } = useProps<RowData>();
 
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
@@ -103,6 +104,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 payload={row}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
+                disabled={loading}
             />
         );
     } else {

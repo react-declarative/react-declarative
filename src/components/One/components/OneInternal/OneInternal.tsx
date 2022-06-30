@@ -47,6 +47,7 @@ export const OneInternal = <Data extends IAnything = IAnything>({
     prefix = 'root',
     invalidity = () => null,
     fallback = () => null,
+    readonly,
     focus,
     blur,
 }: IOneProps<Data>) => {
@@ -77,6 +78,7 @@ export const OneInternal = <Data extends IAnything = IAnything>({
                         const currentPath = `${prefix}.${field.type}[${index}]`;
                         const entity: IEntity<Data> = {
                             invalidity: field.invalidity || invalidity,
+                            readonly: readonly || field.readonly,
                             change: handleChange,
                             ready: handleReady,
                             fallback,

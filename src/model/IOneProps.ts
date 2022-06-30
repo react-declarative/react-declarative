@@ -62,6 +62,10 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    */
   loadStart?: (source: string) => void;
   loadEnd?: (isOk: boolean, source: string) => void;
+  /**
+   * Отключает ввод данных
+   */
+  readonly?: boolean;
 }
 
 export default IOneProps;

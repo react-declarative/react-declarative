@@ -81,6 +81,7 @@ export const Operations = ({
         rows,
         onLoadStart,
         onLoadEnd,
+        loading,
     } = useProps();
 
     const reload = useReload();
@@ -97,6 +98,7 @@ export const Operations = ({
 
     const AllCheckbox = (
         <Checkbox
+            disabled={loading}
             value={isAll}
             onChange={() => setIsAll(!isAll)}
         />
@@ -124,6 +126,28 @@ export const Operations = ({
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
+    const Operation = ({
+        available,
+        onClick,
+        label,
+    }: {
+        available: boolean;
+        onClick: () => void;
+        label: string;
+    }) => {
+        const { loading } = useProps();
+        return (
+            <Button
+                disabled={loading || !available}
+                size="small"
+                variant="contained"
+                onClick={onClick}
+            >
+                {label}
+            </Button>
+        );
+    };
+
     return (
         <Box
             className={classNames(className, classes.root)}
@@ -149,15 +173,12 @@ export const Operations = ({
                                     : isAvailable;
                                 const available = nothingFound ? false : await handleAvailable();
                                 return (
-                                    <Button
-                                        disabled={!available}
+                                    <Operation
                                         key={idx}
-                                        size="small"
-                                        variant="contained"
+                                        available={available}
+                                        label={label}
                                         onClick={createHandleOperation(action)}
-                                    >
-                                        {label}
-                                    </Button>
+                                    />
                                 );
                             }));
                         }}
@@ -169,6 +190,7 @@ export const Operations = ({
                     AllCheckbox
                 ) : (
                     <FormControlLabel
+                        disabled={loading}
                         control={AllCheckbox}
                         label="Apply for everyone"
                     />

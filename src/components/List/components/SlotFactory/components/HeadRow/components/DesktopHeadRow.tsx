@@ -44,6 +44,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     const {
         selectionMode,
+        loading,
     } = props;
 
     const isAllSelected = useMemo(() => {
@@ -52,7 +53,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                 return false;
             }
         }
-        return true;
+        return !!props.rows.length;
     }, [selection, props.rows]);
 
     const isIndeterminate = !!selection.size && !isAllSelected;
@@ -75,6 +76,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         if (selectionMode === SelectionMode.Single) {
             return (
                 <Radio
+                    disabled={loading}
                     color="primary"
                     onChange={handleRadioClick}
                 />
@@ -82,6 +84,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         } else if (selectionMode === SelectionMode.Multiple) {
             return (
                 <Checkbox
+                    disabled={loading}
                     color="primary"
                     checked={isAllSelected}
                     indeterminate={isIndeterminate}
@@ -152,6 +155,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                             active={!!sortTarget}
                             direction={sortDirection}
                             onClick={handleClick}
+                            disabled={loading}
                         >
                             {column.headerName}
                         </TableSortLabel>

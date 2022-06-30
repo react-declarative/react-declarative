@@ -79,6 +79,7 @@ export const Container = <
     children,
     isChooser,
     ready,
+    loading,
     toggleFilters,
     onFilterChange,
     handleFiltersCollapsed,
@@ -130,11 +131,13 @@ export const Container = <
                 label={filterLabel}
                 filters={filters}
                 ready={ready}
+                loading={loading}
               />
             )}
             {!isChooser && Array.isArray(listChips) && !!listChips.length && (
               <Chips<RowData>
                 listChips={listChips}
+                loading={loading}
               />
             )}
             <div className={classNames(classes.container, classes.stretch)}>

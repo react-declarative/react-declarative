@@ -29,6 +29,7 @@ export const ActionMenu = ({
         rows,
         onLoadStart,
         onLoadEnd,
+        loading,
     } = useProps();
 
     const handleAction = (action: string) => {
@@ -85,6 +86,7 @@ export const ActionMenu = ({
             payload={selection}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
+            disabled={loading}
         />
     );
 }

@@ -141,8 +141,8 @@ export const ActionMenu = <T extends any = object>({
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
-                anchorEl={anchorEl}
-                open={!!anchorEl}
+                anchorEl={disabled ? null : anchorEl}
+                open={!!anchorEl && !disabled}
                 onClose={handleClose}
             >
                 <Box className={classes.container}>

@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import useSelection from '../../hooks/useSelection';
 
 import classNames from '../../../../utils/classNames';
+import useProps from '../../hooks/useProps';
 
 const useStyles = makeStyles({
     root: {
@@ -27,15 +28,22 @@ const useStyles = makeStyles({
         paddingLeft: 15,
         whiteSpace: 'nowrap',
     },
+    disabled: {
+        pointerEvents: 'none',
+        opacity: 0.5,
+    },
 });
 
 const TablePaginationContainer = (props: BoxProps) => {
     const classes = useStyles();
     const { selection } = useSelection();
+    const { loading } = useProps();
     return (
         <Box
             {...props}
-            className={classNames(props.className, classes.root)}
+            className={classNames(props.className, classes.root, {
+                [classes.disabled]: loading,
+            })}
         >   
             {selection.size ? (
                 <Typography

@@ -48,6 +48,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
     const {
         selectionMode = SelectionMode.None,
         rowMark,
+        loading,
     } = props;
 
     const createToggleHandler = useToggleHandler(row);
@@ -59,6 +60,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                     color="primary"
                     onClick={createToggleHandler(true)}
                     checked={selection.has(row.id)}
+                    disabled={loading}
                 />
             );
         } else if (selectionMode === SelectionMode.Multiple) {
@@ -67,6 +69,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                     color="primary"
                     onClick={createToggleHandler(false)}
                     checked={selection.has(row.id)}
+                    disabled={loading}
                 />
             );
         } else if (selectionMode === SelectionMode.None) {
