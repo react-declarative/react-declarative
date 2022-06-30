@@ -1,5 +1,7 @@
+import React from 'react';
 
 import IField from './IField';
+import IEntity from './IEntity';
 import IAnything from './IAnything';
 
 type DataOrNull<Data = IAnything> = Data | null;
@@ -7,6 +9,10 @@ type DataOrNull<Data = IAnything> = Data | null;
 export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
 
 export interface IOneProps<Data = IAnything, Field = IField<Data>> {
+  /**
+   * Фабрика для создания полей пользователя
+   */
+  createField?: (entity: IEntity<Data>, currentPath: string) => React.ReactElement;
   /**
    * Класс корневой группы
    */

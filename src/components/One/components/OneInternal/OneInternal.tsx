@@ -4,7 +4,7 @@ import { memo, useRef, useCallback, Fragment } from 'react';
 /* eslint-disable react/jsx-no-useless-fragment */
 
 import isStatefull from '../../config/isStatefull';
-import createField from '../../config/createField';
+import createFieldInternal from '../../config/createField';
 
 import { useOneState } from '../../context/StateProvider';
 
@@ -40,7 +40,7 @@ const countStatefull = (fields?: IField<any>[]) => {
     }
 };
 
-export const OneInternal = <Data extends IAnything = IAnything>({
+export const OneInternal = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>({
     fields,
     roles,
     ready = () => null,
@@ -50,7 +50,8 @@ export const OneInternal = <Data extends IAnything = IAnything>({
     readonly,
     focus,
     blur,
-}: IOneProps<Data>) => {
+    createField = createFieldInternal,
+}: IOneProps<Data, Field>) => {
     const waitingReady = useRef(countStatefull(fields));
     const { object, setObject } = useOneState<Data>();
     /**

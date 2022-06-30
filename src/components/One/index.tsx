@@ -1,5 +1,7 @@
 export * from './One';
 export * from './slots';
+export { createField } from './config/createField';
+export { makeField } from './components/makeField';
 export { useOneProps } from './context/PropsProvider';
 export { useOneState } from './context/StateProvider';
 export { OtherComboSlot } from './other/OtherComboSlot';

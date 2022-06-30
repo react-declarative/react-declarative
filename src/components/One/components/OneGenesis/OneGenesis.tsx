@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const OneGenesis = <Data extends IAnything = IAnything>(props: IOneProps<Data>) => {
+export const OneGenesis = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Field>) => {
 
   const [visible, setVisible] = useState(false);
   const isMounted = useRef(true);
@@ -58,7 +58,7 @@ export const OneGenesis = <Data extends IAnything = IAnything>(props: IOneProps<
     let isValid = true;
     deepFlat(fields).forEach(({
       isInvalid = () => null
-    }: IField<Data>) => {
+    }: any) => {
       isValid = isValid && isInvalid(newData) === null;
     });
     if (isValid) {
@@ -80,7 +80,7 @@ export const OneGenesis = <Data extends IAnything = IAnything>(props: IOneProps<
 
   return (
     <ThemeProvider>
-      <StateProvider {...stateParams}>
+      <StateProvider<Data, Field> {...stateParams}>
         <Group
           className={classNames(className, {
             [classes.hidden]: !visible,

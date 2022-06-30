@@ -3,11 +3,12 @@ import { createContext, useContext } from 'react';
 
 import useResolved from '../hooks/useResolved';
 
+import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
 
-interface IStateProviderProps<Data = IAnything> extends 
-    IOneProps<Data> {
+interface IStateProviderProps<Data = IAnything, Field extends IField<Data> = IField<Data>> extends 
+    IOneProps<Data, Field> {
     children: React.ReactElement;
 }
 
@@ -18,10 +19,10 @@ interface IState<Data = IAnything> {
 
 const StateContext = createContext<IState>(null as never);
 
-export const StateProvider = <Data extends IAnything>({
+export const StateProvider = <Data extends IAnything, Field extends IField<Data> = IField<Data>>({
     children,
     ...otherProps
-}: IStateProviderProps<Data>) => {
+}: IStateProviderProps<Data, Field>) => {
 
     const {
         fields = [],

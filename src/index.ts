@@ -1,5 +1,7 @@
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IField as IFieldInternal } from './model/IField';
+import { IEntity as IEntityInternal } from './model/IEntity';
+import { IManaged as IManagedInternal } from './model/IManaged';
 import { IColumn as IColumnInternal } from './model/IColumn';
 
 import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
@@ -65,6 +67,8 @@ export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;
+export type IEntity<Data = IAnything> = IEntityInternal<Data>;
+export type IManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
@@ -132,6 +136,8 @@ export { usePreventLeave } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
 
+export { createField, makeField } from './components';
+
 export { useListProps, useListCachedRows } from './components';
 export { useOneProps, useOneState } from './components';
 
@@ -140,6 +146,9 @@ export { useDate, useTime };
 export { useConfirm };
 export { useModal };
 export { useList };
+
+import { IOnePublicProps as IOnePublicPropsInternal } from './model/IOnePublicProps';
+export type IOnePublicProps<Data = IAnything, Field extends IField<Data> = IField<Data>> = IOnePublicPropsInternal<Data, Field>;
 
 import { ICheckBoxSlot as ICheckBoxSlotInternal } from './components';
 import { IComboSlot as IComboSlotInternal } from './components';

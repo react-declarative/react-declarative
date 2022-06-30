@@ -2,19 +2,20 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { createContext } from 'react';
 
+import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
 
-const PropsContext = createContext<IOneProps>(null as never);
+const PropsContext = createContext<IOneProps<any, any>>(null as never);
 
-interface IPropsProviderProps<Data extends IAnything = IAnything> extends IOneProps<Data> {
+interface IPropsProviderProps<Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>> extends IOneProps<Data, Field> {
     children: React.ReactNode;
 }
 
-export const PropsProvider = <Data extends IAnything = IAnything>({
+export const PropsProvider = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>({
     children,
     ...props
-}: IPropsProviderProps<Data>) => (
+}: IPropsProviderProps<Data, Field>) => (
     <PropsContext.Provider value={props}>
         {children}
     </PropsContext.Provider>
