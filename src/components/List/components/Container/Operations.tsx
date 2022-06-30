@@ -15,7 +15,7 @@ import Async from '../../../Async';
 
 import IListOperation from '../../../../model/IListOperation';
 
-import useSelection from '../../hooks/useSelection';
+import useCachedRows from '../../hooks/useCachedRows';
 import useReload from '../../hooks/useReload';
 import useProps from '../../hooks/useProps';
 
@@ -73,12 +73,9 @@ export const Operations = ({
     const classes = useStyles();
     const theme = useTheme<Theme>();
 
-    const { selection } = useSelection();
-
     const {
         onOperation,
         fallback,
-        rows,
         onLoadStart,
         onLoadEnd,
         loading,
@@ -88,9 +85,9 @@ export const Operations = ({
 
     const [isAll, setIsAll] = useState(false);
 
-    const selectedRows = rows.filter(({ id }) => selection.has(id));
+    const { selectedRows } = useCachedRows();
 
-    const conditionPayload = isAll ? 'all' : selection;
+    const conditionPayload = isAll ? 'all' : selectedRows;
 
     const createHandleOperation = (action: string) => () => {
         onOperation && onOperation(action, selectedRows, isAll, reload);
@@ -106,7 +103,7 @@ export const Operations = ({
 
     const fadeColor = theme.palette.background.default;
 
-    const nothingFound = !selection.size && !isAll;
+    const nothingFound = !selectedRows.length && !isAll;
 
     const Loader = () => (
         <>
