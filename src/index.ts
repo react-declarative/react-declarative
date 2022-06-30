@@ -122,6 +122,7 @@ export { Switch } from './components';
 export { OtherComboSlot } from './components';
 export { OtherItemsSlot } from './components';
 
+export { useCachedPaginator } from './components';
 export { useArrayPaginator } from './components';
 export { useLastPagination } from './components';
 export { useApiPaginator } from './components';
