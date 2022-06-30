@@ -210,7 +210,12 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useArrayPaginator(mock);
+  const handler = useArrayPaginator((_, {limit}) => {
+    return {
+      rows: mock.slice(0, limit),
+      total: limit * 2
+    }
+  });
 
   const pickerHandler = async ({
     firstName,
@@ -241,7 +246,9 @@ export const ListPage = () => {
     rows = rows.slice(offset, limit + offset);
 
     return {
-      rows,
+      rows: [
+        {}
+      ],
       total,
     };
 
