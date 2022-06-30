@@ -133,7 +133,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
             if (withPagination && !keepClean) {
                 rows = paginationHandler(rows.slice(0), pagination);
             }
-            const total = Array.isArray(data) ? data.length : data.total;
+            const total = Array.isArray(data) ? data.length : (data.total || null);
             return {
                 rows,
                 total: withTotal ? total : null,
