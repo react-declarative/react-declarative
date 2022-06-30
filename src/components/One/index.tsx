@@ -1,5 +1,7 @@
 export * from './One';
 export * from './slots';
+export { useOneProps } from './context/PropsProvider';
+export { useOneState } from './context/StateProvider';
 export { OtherComboSlot } from './other/OtherComboSlot';
 export { OtherItemsSlot } from './other/OtherItemsSlot';
 export { useApiHandler } from './api/useApiHandler';

@@ -173,8 +173,7 @@ export const LayoutGrid = () => {
     const [data, setData] = useState();
     return (
         <OneSlotFactory
-            Combo={OtherComboSlot}
-            Items={OtherItemsSlot}
+
         >
             <Fragment>
                 <OneTyped

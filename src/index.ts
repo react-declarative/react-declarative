@@ -132,7 +132,8 @@ export { usePreventLeave } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
 
-export { useListProps, useListSelection } from './components';
+export { useListProps, useListCachedRows } from './components';
+export { useOneProps, useOneState } from './components';
 
 export { useOne, useOneTyped };
 export { useDate, useTime };
