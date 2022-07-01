@@ -8,6 +8,7 @@ import classNames from '../../../../utils/classNames';
 
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
@@ -45,16 +46,22 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 80,
   },
   title: {
-    height: 60,
     display: "flex",
     alignItems: "center",
-    paddingLeft: 10,
   },
   disabled: {
     pointerEvents: 'none',
     userSelect: 'none',
     opacity: 0.5,
-  }
+  },
+  labelContent: {
+    display: 'flex',
+    minHeight: '60px',
+    '& > *:nth-child(1)': {
+      flex: 1,
+    },
+    padding: theme.spacing(1),
+  },
 }));
 
 interface IFiltersProps<FilterData = IAnything> {
@@ -63,6 +70,7 @@ interface IFiltersProps<FilterData = IAnything> {
   style?: React.CSSProperties;
   filters: IField<FilterData>[];
   change: (data: FilterData) => void;
+  onSearchChange?: (search: string) => void;
   onFilterChange?: (data: FilterData) => void;
   onCollapsedChange?: (collapsed: boolean) => void;
   toggleFilters?: boolean;
@@ -70,6 +78,8 @@ interface IFiltersProps<FilterData = IAnything> {
   clean: () => void;
   loading: boolean;
   label: string;
+  search: string;
+  withSearch: boolean;
 }
 
 export const Filters = <FilterData extends IAnything>({
@@ -82,15 +92,22 @@ export const Filters = <FilterData extends IAnything>({
   clean,
   label,
   loading,
+  withSearch,
   toggleFilters,
+  search: upperSearch,
+  onSearchChange = () => null,
   onFilterChange = () => null,
   onCollapsedChange = () => null,
 }: IFiltersProps<FilterData>) => {
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const classes = useStyles();
 
   const [collapsed, setCollapsed] = useState(!!toggleFilters);
   const [disabled, setDisabled] = useState(false);
+
+  const [search, setSearch] = useState(upperSearch);
 
   const isInitialized = useRef(false);
 
@@ -100,6 +117,10 @@ export const Filters = <FilterData extends IAnything>({
     onFilterChange(data);
     change(data);
   };
+
+  useEffect(() => {
+    setSearch(upperSearch);
+  }, [upperSearch])
 
   useEffect(() => {
     if (isInitialized.current) {
@@ -123,6 +144,42 @@ export const Filters = <FilterData extends IAnything>({
     }
   }, [collapsed]);
 
+  const renderLabel = () => {
+    if (withSearch) {
+      return (
+        <TextField
+          label={label}
+          variant="standard"
+          value={search}
+          inputRef={searchInputRef}
+          onChange={({ target }) => setSearch(target.value)}
+          onBlur={() => onSearchChange(search)}
+          onKeyDown={({ key }) => {
+            if (key === 'Enter' && search !== upperSearch) {
+              searchInputRef.current?.blur();
+            }
+          }}
+          className={classNames({
+            [classes.disabled]: loading,
+          })}
+          InputProps={{
+            readOnly: loading,
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          focused
+        />
+      );
+    } else {
+      return (
+        <Typography variant="body1" className={classes.title}>
+          {label}
+        </Typography>
+      );
+    }
+  };
+
   return (
     <div className={classNames(className, classes.root)} style={style}>
       <div className={classes.container}>
@@ -143,9 +200,9 @@ export const Filters = <FilterData extends IAnything>({
           </Box>
         </Collapse>
         <Collapse in={!collapsed}>
-          <Typography variant="body1" className={classes.title}>
-            {label}
-          </Typography>
+          <Box className={classes.labelContent}>
+            {renderLabel()}
+          </Box>
         </Collapse>
       </div>
       <div className={classNames(classes.controls, {

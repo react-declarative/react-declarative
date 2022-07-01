@@ -91,6 +91,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   offset: number;
   total: number | null;
   loading: boolean;
+  search: string;
   filtersCollapsed: boolean;
   sort: ListHandlerSortModel<RowData>;
   chips: ListHandlerChips<RowData>;
@@ -105,6 +106,7 @@ export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
   handleReload: () => Promise<void>;
+  handleSearch: (search: string) => void;
   ready: () => void;
 };
 
@@ -134,6 +136,7 @@ export interface IListProps<
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
+  onSearchChange?: (search: string) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
   onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: () => Promise<void>) => void;
   onRowAction?: (action: string, row: RowData, reload: () => Promise<void>) => void;
@@ -148,6 +151,7 @@ export interface IListProps<
   fallback?: (e: Error) => void;
   rowActions?: IListRowAction[];
   toggleFilters?: boolean;
+  withSearch?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
   sortModel?: ListHandlerSortModel<RowData>;

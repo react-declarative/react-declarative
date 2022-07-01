@@ -54,6 +54,7 @@ const ListInternal = <
     onSortModelChange = () => null,
     onFilterChange = () => null,
     onChipsChange = () => null,
+    onSearchChange = () => null,
     toggleFilters = false,
     selectedRows,
     sortModel: upperSortModel = [],
@@ -68,6 +69,7 @@ const ListInternal = <
     limit: defaultLimit,
     offset: 0,
     total: null,
+    search: "",
     loading: false,
     filtersCollapsed: toggleFilters,
     sort: upperSortModel,
@@ -216,6 +218,15 @@ const ListInternal = <
     onChipsChange(chips);
   }, [state]);
 
+  const handleSearch = useCallback((search: string) => {
+    isMounted.current && setState((prevState) => ({
+      ...prevState,
+      offset: 0,
+      search,
+    }));
+    onSearchChange(search);
+  }, [state]);
+
   useEffect(() => {
     if (state.initComplete) {
       handleReload(true);
@@ -227,7 +238,7 @@ const ListInternal = <
       handleFilter(state.filterData, false);
       selectionApiRef.current?.reload();
     }
-  }, [state.sort, state.chips]);
+  }, [state.sort, state.chips, state.search]);
 
   const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
 
@@ -239,6 +250,7 @@ const ListInternal = <
     handleFilter,
     handleReload,
     handleChips,
+    handleSearch,
     handleFiltersCollapsed,
     ready: handleDefault,
   };

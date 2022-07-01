@@ -327,6 +327,7 @@ export const ListPage = () => {
       selectedRows={selectedRows}
       operations={operations}
       chips={chips}
+      withSearch
     />
   );
 };

@@ -82,6 +82,9 @@ export const Container = <
     loading,
     toggleFilters,
     onFilterChange,
+    withSearch = false,
+    search,
+    handleSearch,
     handleFiltersCollapsed,
     sizeByParent = true,
   } = props;
@@ -126,12 +129,15 @@ export const Container = <
                 toggleFilters={toggleFilters}
                 onFilterChange={onFilterChange}
                 change={handleFilter}
+                onSearchChange={handleSearch}
                 onCollapsedChange={handleFiltersCollapsed}
                 clean={handleDefault as any}
                 label={filterLabel}
                 filters={filters}
                 ready={ready}
                 loading={loading}
+                search={search}
+                withSearch={withSearch}
               />
             )}
             {!isChooser && Array.isArray(listChips) && !!listChips.length && (

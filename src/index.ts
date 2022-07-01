@@ -202,3 +202,5 @@ export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
 export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';
+
+export * as typo from './utils/typo';
