@@ -93,7 +93,7 @@ const ListInternal = <
       const response: ListHandlerResult<RowData> = await Promise.resolve(handler(filterData, {
         limit: state.limit,
         offset: keepPagination ? state.offset : 0,
-      }, state.sort, state.chips));
+      }, state.sort, state.chips, state.search));
       if (Array.isArray(response)) {
         response.length > state.limit && console.warn("List rows count is more than it's capacity");
         return {

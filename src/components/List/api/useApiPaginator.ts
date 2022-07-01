@@ -21,6 +21,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     filterHandler?: (url: URL, filterData: FilterData) => URL;
     chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
+    searchHandler?: (url: URL, search: string) => URL;
     paginationHandler?: (url: URL, pagination: ListHandlerPagination) => URL;
     onLoadBegin?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -28,6 +29,7 @@ export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRo
     withPagination?: boolean;
     withFilters?: boolean;
     withChips?: boolean;
+    withSearch?: boolean;
     withSort?: boolean;
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
@@ -83,6 +85,10 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         });
         return url;
     },
+    searchHandler = (url, search) => {
+        url.searchParams.set('search', search);
+        return url;
+    },
     paginationHandler = (url, {
         limit,
         offset,
@@ -94,13 +100,14 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
     withAbortSignal = true,
     withPagination = true,
     withFilters = true,
+    withSearch = true,
     withChips = true,
     withSort = true,
 }: IApiPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
 
     const queuedFetch = useMemo(() => queued(fetch), []);
 
-    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips) => {
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
         let url = new URL(path, origin);
         let isOk = true;
         if (withPagination) {
@@ -114,6 +121,9 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         }
         if (withSort) {
             url = sortHandler(new URL(url), sort);
+        }
+        if (withSearch) {
+            url = searchHandler(new URL(url), search);
         }
         url = requestMap(new URL(url));
         onLoadBegin && onLoadBegin();

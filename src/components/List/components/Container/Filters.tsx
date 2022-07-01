@@ -11,10 +11,12 @@ import Collapse from '@mui/material/Collapse';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import Restore from '@mui/icons-material/Restore';
 import More from '@mui/icons-material/ExpandMore';
 import Less from '@mui/icons-material/ExpandLess';
+import Search from '@mui/icons-material/Search';
 
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
@@ -164,7 +166,13 @@ export const Filters = <FilterData extends IAnything>({
           })}
           InputProps={{
             readOnly: loading,
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            )
           }}
+          placeholder="Search"
           InputLabelProps={{
             shrink: true,
           }}

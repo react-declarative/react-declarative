@@ -189,7 +189,7 @@ export const Operations = ({
                     <FormControlLabel
                         disabled={loading}
                         control={AllCheckbox}
-                        label="Apply for everyone"
+                        label="All items"
                     />
                 )}
             </Box>

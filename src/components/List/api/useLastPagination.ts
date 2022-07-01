@@ -20,6 +20,7 @@ interface IState<FilterData = IAnything, RowData extends IRowData = IAnything> {
     pagination: ListHandlerPagination;
     sort: ListHandlerSortModel<RowData>;
     chips: ListHandlerChips<RowData>;
+    search: string;
 }
 
 export const useLastPagination = <FilterData = IAnything, RowData extends IRowData = IAnything>(upperHandler: ListHandler<FilterData, RowData>): IResult => {
@@ -31,10 +32,11 @@ export const useLastPagination = <FilterData = IAnything, RowData extends IRowDa
             offset: 0,
             limit: 0,
         },
+        search: "",
     });
-    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chips) => {
-        setData({ filterData, pagination, sort, chips });
-        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chips): upperHandler;
+    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chips, search) => {
+        setData({ filterData, pagination, sort, chips, search });
+        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chips, search): upperHandler;
     };
     return {
         handler,

@@ -80,6 +80,7 @@ export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnyt
   pagination: ListHandlerPagination,
   sort: ListHandlerSortModel<RowData>,
   chips: ListHandlerChips<RowData>,
+  search: string,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
