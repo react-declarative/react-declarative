@@ -111,6 +111,7 @@ export const Filters = <FilterData extends IAnything>({
 }: IFiltersProps<FilterData>) => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchEscapeRef = useRef(false);
 
   const classes = useStyles();
 
@@ -130,7 +131,14 @@ export const Filters = <FilterData extends IAnything>({
 
   useEffect(() => {
     setSearch(upperSearch);
-  }, [upperSearch])
+  }, [upperSearch]);
+
+  useEffect(() => {
+    if (searchEscapeRef.current) {
+      searchEscapeRef.current = false;
+      searchInputRef.current?.blur();
+    }
+  }, [search]);
 
   useEffect(() => {
     if (isInitialized.current) {
@@ -154,6 +162,11 @@ export const Filters = <FilterData extends IAnything>({
     }
   }, [collapsed]);
 
+  const handleSearchEscape = () => {
+    setSearch(upperSearch);
+    searchEscapeRef.current = true;
+  };
+
   const renderLabel = () => {
     if (withSearch) {
       return (
@@ -167,6 +180,8 @@ export const Filters = <FilterData extends IAnything>({
           onKeyDown={({ key }) => {
             if (key === 'Enter' && search !== upperSearch) {
               searchInputRef.current?.blur();
+            } else if (key === 'Escape') {
+              handleSearchEscape();
             }
           }}
           className={classNames({

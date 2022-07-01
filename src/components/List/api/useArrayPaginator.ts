@@ -21,6 +21,7 @@ const SEARCH_ENTRIES = [
     "name",
     "label",
     "title",
+    "description",
 ];
 
 export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -95,12 +96,17 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
     },
     searchHandler = (rows, search) => {
         if (rows.length) {
-            const searchEntry = SEARCH_ENTRIES.find((entry) => rows[0][entry]) || 'id';
-            return rows.filter((row) => {
-                return String(row[searchEntry]).toLowerCase().includes(search.toLowerCase());
-            });
+            const searchEntry = SEARCH_ENTRIES.find((entry) => rows[0][entry]);
+            if (searchEntry) {
+                return rows.filter((row) => {
+                    return String(row[searchEntry]).toLowerCase().includes(search.toLowerCase());
+                });
+            } else {
+                return rows;
+            }
+        } else {
+            return rows;
         }
-        return rows;
     },
     paginationHandler = (rows, {
         limit,
