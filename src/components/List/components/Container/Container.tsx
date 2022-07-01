@@ -137,6 +137,8 @@ export const Container = <
                 ready={ready}
                 loading={loading}
                 search={search}
+                height={height}
+                width={width}
                 withSearch={withSearch}
               />
             )}

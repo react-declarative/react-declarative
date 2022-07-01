@@ -64,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
     },
     padding: theme.spacing(1),
   },
+  filters: {
+    padding: theme.spacing(1),
+    overflowX: 'hidden',
+    overflowY: 'auto',
+  },
 }));
 
 interface IFiltersProps<FilterData = IAnything> {
@@ -82,11 +87,14 @@ interface IFiltersProps<FilterData = IAnything> {
   label: string;
   search: string;
   withSearch: boolean;
+  height: number;
+  width: number;
 }
 
 export const Filters = <FilterData extends IAnything>({
   className,
   style,
+  height,
   filterData,
   filters,
   change,
@@ -195,9 +203,14 @@ export const Filters = <FilterData extends IAnything>({
           onTransitionEnd={handleCollapseEnd}
           in={collapsed}
         >
-          <Box p={1} className={classNames({
-            [classes.disabled]: loading,
-          })}>
+          <Box
+            className={classNames(classes.filters, {
+              [classes.disabled]: loading,
+            })}
+            sx={{
+              maxHeight: Math.max((height / 2) - 150, 220),
+            }}
+          >
             <One<FilterData>
               handler={filterData}
               fields={filters}
