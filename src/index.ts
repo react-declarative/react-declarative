@@ -162,6 +162,9 @@ import { ISwitchSlot as ISwitchSlotInternal } from './components';
 import { ITextSlot as ITextSlotInternal } from './components';
 import { ITypographySlot as ITypographySlotInternal } from './components';
 
+import { IActionAddSlot as IActionAddSlotInternal } from './components';
+import { IActionFabSlot as IActionFabSlotInternal } from './components';
+import { IActionMenuSlot as IActionMenuSlotInternal } from './components';
 import { IBodyRowSlot as IBodyRowSlotInternal } from './components';
 import { ICheckboxCellSlot as ICheckboxCellSlotInternal } from './components';
 import { ICommonCellSlot as ICommonCellSlotInternal } from './components';
@@ -179,6 +182,9 @@ export type ISwitchSlot = ISwitchSlotInternal;
 export type ITextSlot = ITextSlotInternal;
 export type ITypographySlot = ITypographySlotInternal;
 
+export type IActionAddSlot = IActionAddSlotInternal;
+export type IActionFabSlot = IActionFabSlotInternal;
+export type IActionMenuSlot = IActionMenuSlotInternal;
 export type IBodyRowSlot = IBodyRowSlotInternal;
 export type ICheckboxCellSlot = ICheckboxCellSlotInternal;
 export type ICommonCellSlot = ICommonCellSlotInternal;
