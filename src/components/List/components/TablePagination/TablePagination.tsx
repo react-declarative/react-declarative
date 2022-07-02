@@ -39,7 +39,9 @@ const useStyles = makeStyles({
             marginRight: 'unset !important',
         },
         '& .MuiTablePagination-displayedRows': {
-            display: 'none',
+            transform: 'translateY(-1px)',
+            marginLeft: '10px',
+            marginRight: '10px',
         },
         '& .MuiTablePagination-actions': {
             marginLeft: 'unset !important',
@@ -95,30 +97,36 @@ const TableActions = ({
     className,
     count,
     page,
+    rowsPerPage,
     onPageChange,
 }: {
     className?: string;
+    rowsPerPage: number;
     count: number;
     page: number;
     onPageChange: (e: any, page: number) => void;
-}) => (
-    <Pagination
-        className={className}
-        page={page + 1}
-        count={count}
-        renderItem={(item) => (
-            <PaginationItem
-                components={{
-                    previous: ArrowBackIcon,
-                    next: ArrowForwardIcon
-                }}
-                {...item}
-            />
-        )}
-        size="small"
-        onChange={(e, page) => onPageChange(e, page - 1)}
-    />
-);
+}) => {
+    const extraPage = count % rowsPerPage === 0 ? 0 : 1;
+    const pages = Math.floor(count / rowsPerPage) + extraPage;
+    return (
+        <Pagination
+            className={className}
+            page={page + 1}
+            count={pages}
+            renderItem={(item) => (
+                <PaginationItem
+                    components={{
+                        previous: ArrowBackIcon,
+                        next: ArrowForwardIcon
+                    }}
+                    {...item}
+                />
+            )}
+            size="small"
+            onChange={(e, page) => onPageChange(e, page - 1)}
+        />
+    );
+};
 
 type ITablePaginationProps = TablePaginationProps & {
     width: number;
