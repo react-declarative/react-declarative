@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import useProps from "./useProps";
@@ -12,7 +12,6 @@ export const useSelection = () => useContext(SelectionContext);
 interface ISelectionProviderProps {
     children: React.ReactNode;
     selectedRows?: RowId[];
-    ref: React.Ref<ISelectionReloadRef>;
 }
 
 interface IState {
@@ -43,10 +42,10 @@ export interface ISelectionReloadRef {
     reload: (initialChange?: boolean) => void;
 }
 
-export const SelectionProvider = forwardRef(({
+export const SelectionProvider = ({
     children,
     selectedRows,
-}: ISelectionProviderProps, ref: any) => {
+}: ISelectionProviderProps) => {
 
     const [selection, setSelection] = useState(new Set<RowId>(selectedRows));
 
@@ -63,15 +62,6 @@ export const SelectionProvider = forwardRef(({
     };
 
     useEffect(() => {
-        const reload = (initialChange?: boolean) => handleSelectionChange(new Set(), initialChange);
-        if (typeof ref === 'function') {
-            ref({ reload });
-        } else if (ref) {
-            ref.current = { reload };
-        }
-    }, [ref]);
-
-    useEffect(() => {
         if (!selectedRows) {
             return;
         }
@@ -86,6 +76,6 @@ export const SelectionProvider = forwardRef(({
             {children}
         </SelectionContext.Provider>
     );
-});
+};
 
 export default useSelection;

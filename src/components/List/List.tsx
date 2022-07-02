@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { forwardRef } from 'react';
 
 import { ThemeProvider } from '../../styles';
 
@@ -17,7 +16,7 @@ import set from '../../utils/set';
 import GridView from './components/view/GridView';
 import ChooserView from './components/view/ChooserView';
 
-import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
+import { SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ModalSortProvider } from './hooks/useModalSort';
 import { CachedRowsProvider } from './hooks/useCachedRows';
@@ -28,16 +27,15 @@ import scrollManager from './helpers/scrollManager';
 
 const DEFAULT_LIMIT = 10;
 
-export class ListInternal<
+export class List<
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<IAnything>,
-    > extends React.Component<IListProps<FilterData, RowData, Field>, IListState> {
+> extends React.Component<IListProps<FilterData, RowData, Field>, IListState> {
 
     private isMountedFlag = false;
     private isFetchingFlag = false;
 
-    private selectionApiRef = React.createRef<ISelectionReloadRef>();
     private prevState: Partial<IListState> = {};
 
     static defaultProps: Partial<IListProps> = {
@@ -83,6 +81,20 @@ export class ListInternal<
 
     public componentDidUpdate = () => {
         this.handleUpdateRef();
+        this.handleDispatchQueue();
+    };
+
+    public componentDidMount = () => {
+        this.isMountedFlag = true;
+        this.handleEmptyFilters();
+        this.handleUpdateRef();
+    };
+
+    public componentWillUnmount = () => {
+        this.isMountedFlag = false;
+    };
+
+    private handleDispatchQueue = () => {
         const updateQueue = [
             this.handlePageChanged,
             this.handleParamsChanged
@@ -107,21 +119,12 @@ export class ListInternal<
         this.prevState = {...this.state};
     };
 
-    public componentDidMount = () => {
-        this.isMountedFlag = true;
-        this.handleEmptyFilters();
-    };
-
-    public componentWillUnmount = () => {
-        this.isMountedFlag = false;
-    };
-
     private handlePageChanged = () => {
         let isOk = false;
         isOk = isOk || this.prevState.offset === this.state.offset;
         isOk = isOk || this.prevState.limit === this.state.limit;
         if (isOk) {
-            this.handleReload(true);
+            this.handleReload();
         }
         return isOk;
     };
@@ -133,20 +136,19 @@ export class ListInternal<
         isOk = isOk || this.prevState.search === this.state.search;
         if (isOk) {
             this.handleFilter(this.state.filterData, false);
-            this.selectionApiRef.current?.reload();
         }
         return isOk;
     };
 
     private handleUpdateRef = () => {
-        const { ref } = this.props;
+        const { apiRef } = this.props;
         const instance: IListApi = {
             reload: this.handleReload,
         };
-        if (typeof ref === 'function') {
-            ref(instance);
-        } else if (ref) {
-            (ref.current as any) = instance;
+        if (typeof apiRef === 'function') {
+            apiRef(instance);
+        } else if (apiRef) {
+            (apiRef.current as any) = instance;
         }
     };
 
@@ -233,12 +235,10 @@ export class ListInternal<
                 set(newData, name, initialValue(type));
             });
         await this.handleFilter(newData as FilterData);
-        this.selectionApiRef.current?.reload(true);
     };
 
-    private handleReload = async (keepSelection = false) => {
+    private handleReload = async () => {
         await this.handleFilter(this.state.filterData, true);
-        !keepSelection && this.selectionApiRef.current?.reload();
     };
 
     private handlePageChange = (page: number) => {
@@ -345,7 +345,7 @@ export class ListInternal<
         return (
             <ThemeProvider>
                 <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
-                    <SelectionProvider ref={this.selectionApiRef} selectedRows={this.props.selectedRows}>
+                    <SelectionProvider selectedRows={this.props.selectedRows}>
                         <CachedRowsProvider>
                             <SortModelProvider sortModel={this.props.sortModel!}>
                                 <ChipsProvider chips={this.props.chips!}>
@@ -363,18 +363,11 @@ export class ListInternal<
 
 };
 
-export const List = forwardRef<IListApi>((props, ref) => (
-    <ListInternal {...props} ref={ref as any} />
-)) as unknown as typeof ListInternal;
-
-const ListTypedInternal = <
+export const ListTyped = <
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
-    >(
-        props: IListProps<FilterData, RowData, TypedField<FilterData>>,
-        ref: any
-    ) => <List<FilterData, RowData> ref={ref} {...props} />;
-
-export const ListTyped = forwardRef(ListTypedInternal) as typeof ListTypedInternal;
+>(
+    props: IListProps<FilterData, RowData, TypedField<FilterData>>,
+) => <List<FilterData, RowData> {...props} />;
 
 export default List;

@@ -6,11 +6,15 @@ export class Subject<Data = any> {
 
     private emitter = new EventEmitter();
 
-    subscribe = (handler: Function) => {
-        this.emitter.subscribe(SUBJECT_EVENT, handler);
+    subscribe = (callback: Function) => {
+        this.emitter.subscribe(SUBJECT_EVENT, callback);
         return () => {
-            this.emitter.unsubscribe(SUBJECT_EVENT, handler);
+            this.emitter.unsubscribe(SUBJECT_EVENT, callback);
         }
+    };
+
+    once = (callback: Function) => {
+        this.emitter.once(SUBJECT_EVENT, callback);
     };
 
     next = (data: Data) => {

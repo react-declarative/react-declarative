@@ -121,7 +121,7 @@ export interface IListProps<
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
   > {
-  ref?: Ref<IListApi>;
+  apiRef?: Ref<IListApi>;
   className?: string;
   style?: React.CSSProperties;
   title?: string;
