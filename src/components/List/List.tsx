@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import { useState, useCallback, useLayoutEffect, useEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useEffect, useRef } from 'react';
 
 import { ThemeProvider } from '../../styles';
 
@@ -85,7 +85,7 @@ const ListInternal = <
 
   const { isChooser } = state;
 
-  const handleRows = useCallback(async (filterData: FilterData, keepPagination = false): Promise<{
+  const handleRows = async (filterData: FilterData, keepPagination = false): Promise<{
     rows: RowData[];
     total: number | null;
   }> => {
@@ -119,9 +119,12 @@ const ListInternal = <
         };
       }
     }
-  }, [state, handler]);
+  };
 
-  const handleFilter = useCallback(async (filterData: FilterData, keepPagination = false) => {
+  const handleFilter = async (filterData: FilterData, keepPagination = false) => {
+    if (state.loading) {
+      return;
+    }
     setLoading(true);
     try {
       const {
@@ -148,9 +151,9 @@ const ListInternal = <
       setLoading(false);
       onFilterChange(filterData);
     }
-  }, [state]);
+  };
 
-  const handleDefault = useCallback(() => {
+  const handleDefault = () => {
     const newData: Partial<FilterData> = {};
     deepFlat(filters)
       .filter(({ name }) => !!name)
@@ -159,12 +162,12 @@ const ListInternal = <
       });
     handleFilter(newData as FilterData);
     selectionApiRef.current?.reload(true);
-  }, [filters, state.sort, state.chips]);
+  };
 
-  const handleReload = useCallback(async (keepSelection = false) => {
+  const handleReload = async (keepSelection = false) => {
     await handleFilter(state.filterData, true);
     !keepSelection && selectionApiRef.current?.reload();
-  }, [state]);
+  };
 
   useEffect(() => {
     const hasFilters = Array.isArray(filters) && !!filters.length;
@@ -200,32 +203,32 @@ const ListInternal = <
     }));
   };
 
-  const handleSortModel = useCallback((sort: ListHandlerSortModel) => {
+  const handleSortModel = (sort: ListHandlerSortModel) => {
     isMounted.current && setState((prevState) => ({
       ...prevState,
       offset: 0,
       sort,
     }));
     onSortModelChange(sort);
-  }, [state]);
+  };
 
-  const handleChips = useCallback((chips: ListHandlerChips) => {
+  const handleChips = (chips: ListHandlerChips) => {
     isMounted.current && setState((prevState) => ({
       ...prevState,
       offset: 0,
       chips,
     }));
     onChipsChange(chips);
-  }, [state]);
+  };
 
-  const handleSearch = useCallback((search: string) => {
+  const handleSearch = (search: string) => {
     isMounted.current && setState((prevState) => ({
       ...prevState,
       offset: 0,
       search,
     }));
     onSearchChange(search);
-  }, [state]);
+  };
 
   useEffect(() => {
     if (state.initComplete) {

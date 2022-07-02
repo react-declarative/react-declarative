@@ -156,6 +156,7 @@ export const GridView = <
             </TableContainer>
             <TablePagination
               width={width}
+              height={height}
               count={total || -1}
               rowsPerPage={limit}
               page={offset / limit}
