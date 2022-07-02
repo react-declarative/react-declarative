@@ -203,6 +203,9 @@ export { cancelable } from './utils/hof/cancelable';
 export { queued } from './utils/hof/queued';
 export { cached } from './utils/hof/cached';
 
+export { EventEmitter } from './utils/rx/EventEmitter';
+export { Subject } from './utils/rx/Subject';
+
 export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
 
 export { createCustomTag } from './utils/createCustomTag';
