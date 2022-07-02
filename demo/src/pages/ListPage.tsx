@@ -210,8 +210,8 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useArrayPaginator(async (_, {limit}, {}, {}, search) => {
-    console.log(search)
+  const handler = useArrayPaginator(async (_, {limit}, {}, chips, search) => {
+    console.log(search, chips)
     await sleep(5_000)
     return mock;
   });
@@ -307,7 +307,7 @@ export const ListPage = () => {
 
   return (
     <ListTyped<IFilterData, IRowData>
-      ref={(listApi) => (window as any).listApi = listApi}
+      apiRef={(listApi) => (window as any).listApi = listApi}
       title="List Component"
       filterLabel="Filters"
       heightRequest={heightRequest}
@@ -322,7 +322,6 @@ export const ListPage = () => {
       onAction={handleAction}
       onOperation={handleOperation}
       onSelectedRows={handleSelectedRows}
-      selectedRows={selectedRows}
       operations={operations}
       chips={chips}
       withSearch

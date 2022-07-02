@@ -2,14 +2,24 @@ import * as React from 'react';
 
 import { makeStyles } from '../../../../styles';
 
-import MatTablePagination, { TablePaginationProps } from '@mui/material/TablePagination';
-import Box, { BoxProps } from '@mui/material/Box';
+import MatTablePagination from '@mui/material/TablePagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-import useSelection from '../../hooks/useSelection';
+import { TablePaginationProps } from '@mui/material/TablePagination';
+import { BoxProps } from '@mui/material/Box';
+
+import ArrowBackIcon from '@mui/icons-material/KeyboardArrowLeft';
+import ArrowForwardIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import classNames from '../../../../utils/classNames';
+
+import useSelection from '../../hooks/useSelection';
 import useProps from '../../hooks/useProps';
+
+const ACTION_GROW = 500;
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +28,27 @@ const useStyles = makeStyles({
         scrollbarWidth: 'none',
         '&::-webkit-scrollbar': {
             display: 'none',
+        },
+        '& .MuiTablePagination-selectLabel': {
+            display: 'none',
+        },
+        '& .MuiToolbar-root': {
+            paddingLeft: 'unset !important',
+        },
+        '& .MuiToolbar-root > .MuiInputBase-root': {
+            marginRight: 'unset !important',
+        },
+        '& .MuiTablePagination-displayedRows': {
+            display: 'none',
+        },
+        '& .MuiTablePagination-actions': {
+            marginLeft: 'unset !important',
+        },
+        '& .MuiToolbar-root > .MuiPagination-root': {
+            marginLeft: 'unset !important',
+        },
+        '& .MuiToolbar-root > .MuiPagination-root > .MuiPagination-ul': {
+            flexWrap: 'nowrap',
         },
         overflowX: 'auto',
     },
@@ -60,11 +91,59 @@ const TablePaginationContainer = (props: BoxProps) => {
     );
 };
 
-export const TablePagination = (props: TablePaginationProps) => (
-    <MatTablePagination
-        {...props}
-        component={TablePaginationContainer}
+const TableActions = ({
+    className,
+    count,
+    page,
+    onPageChange,
+}: {
+    className?: string;
+    count: number;
+    page: number;
+    onPageChange: (e: any, page: number) => void;
+}) => (
+    <Pagination
+        className={className}
+        page={page + 1}
+        count={count}
+        renderItem={(item) => (
+            <PaginationItem
+                components={{
+                    previous: ArrowBackIcon,
+                    next: ArrowForwardIcon
+                }}
+                {...item}
+            />
+        )}
+        size="small"
+        onChange={(e, page) => onPageChange(e, page - 1)}
     />
 );
+
+type ITablePaginationProps = TablePaginationProps & {
+    width: number;
+    height: number;
+};
+
+export const TablePagination = ({
+    width,
+    height,
+    ...props
+}: ITablePaginationProps) => {
+
+    const isGrow =  width > ACTION_GROW;
+
+    const Actions = isGrow
+        ? TableActions
+        : undefined;
+
+    return (
+        <MatTablePagination
+            {...props}
+            component={TablePaginationContainer}
+            ActionsComponent={Actions}
+        />
+    );
+};
 
 export default TablePagination;

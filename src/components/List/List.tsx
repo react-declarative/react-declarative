@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { forwardRef } from 'react';
-import { useState, useCallback, useLayoutEffect, useEffect, useRef } from 'react';
 
 import { ThemeProvider } from '../../styles';
+
+import { debounce } from '@mui/material';
 
 import IListProps, { IListCallbacks, IListState, ListHandlerChips, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
@@ -18,7 +18,7 @@ import set from '../../utils/set';
 import GridView from './components/view/GridView';
 import ChooserView from './components/view/ChooserView';
 
-import { ISelectionReloadRef, SelectionProvider } from './hooks/useSelection';
+import { SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ModalSortProvider } from './hooks/useModalSort';
 import { CachedRowsProvider } from './hooks/useCachedRows';
@@ -28,299 +28,358 @@ import { PropProvider } from './hooks/useProps';
 import scrollManager from './helpers/scrollManager';
 
 const DEFAULT_LIMIT = 10;
+const LIST_FETCH_DEBOUNCE = 2_000;
 
-const ListInternal = <
-  FilterData extends IAnything = IAnything,
-  RowData extends IRowData = IAnything,
-  Field extends IField = IField<IAnything>,
-  >(props: IListProps<FilterData, RowData, Field>, ref: any) => {
+export class List<
+    FilterData extends IAnything = IAnything,
+    RowData extends IRowData = IAnything,
+    Field extends IField = IField<IAnything>,
+> extends React.Component<IListProps<FilterData, RowData, Field>, IListState> {
 
-  const isMounted = useRef(true);
+    private isMountedFlag = false;
+    private isFetchingFlag = false;
 
-  const selectionApiRef = useRef<ISelectionReloadRef>();
+    private prevState: Partial<IListState> = {};
 
-  useLayoutEffect(() => () => {
-    isMounted.current = false;
-  }, []);
-
-  const {
-    handler = () => [],
-    fallback = (e) => console.error(e),
-    limit: defaultLimit = DEFAULT_LIMIT,
-    isChooser: defaultIsChooser = false,
-    filters = [],
-    columns = [],
-    actions = [],
-    onSortModelChange = () => null,
-    onFilterChange = () => null,
-    onChipsChange = () => null,
-    onSearchChange = () => null,
-    toggleFilters = false,
-    selectedRows,
-    sortModel: upperSortModel = [],
-    chips: upperChips = [],
-  } = props;
-
-  const [state, setState] = useState<IListState<FilterData, RowData>>({
-    initComplete: false,
-    isChooser: defaultIsChooser,
-    filterData: {} as never,
-    rows: [] as never,
-    limit: defaultLimit,
-    offset: 0,
-    total: null,
-    search: "",
-    loading: false,
-    filtersCollapsed: toggleFilters,
-    sort: upperSortModel,
-    chips: upperChips.reduce<ListHandlerChips<RowData>>(
-      (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: enabled }),
-      {} as any,
-    ),
-  });
-
-  const setLoading = (loading: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, loading }));
-
-  const setFiltersCollapsed = (filtersCollapsed: boolean) => isMounted.current && setState((prevState) => ({ ...prevState, filtersCollapsed }));
-
-  const { isChooser } = state;
-
-  const handleRows = useCallback(async (filterData: FilterData, keepPagination = false): Promise<{
-    rows: RowData[];
-    total: number | null;
-  }> => {
-    if (typeof handler === 'function') {
-      const response: ListHandlerResult<RowData> = await Promise.resolve(handler(filterData, {
-        limit: state.limit,
-        offset: keepPagination ? state.offset : 0,
-      }, state.sort, state.chips, state.search));
-      if (Array.isArray(response)) {
-        response.length > state.limit && console.warn("List rows count is more than it's capacity");
-        return {
-          rows: response.slice(0, state.limit),
-          total: null,
-        };
-      } else {
-        const { rows = [], total = null } = response || {};
-        rows.length > state.limit && console.warn("List rows count is more than it's capacity");
-        return { rows: rows.slice(0, state.limit), total };
-      }
-    } else {
-      if (Array.isArray(handler)) {
-        return {
-          rows: handler.slice(state.offset, state.limit + state.offset),
-          total: handler.length,
-        };
-      } else {
-        const { rows = [], total = null } = handler || {};
-        return {
-          rows: rows.slice(state.offset, state.limit + state.offset),
-          total,
-        };
-      }
-    }
-  }, [state, handler]);
-
-  const handleFilter = useCallback(async (filterData: FilterData, keepPagination = false) => {
-    setLoading(true);
-    try {
-      const {
-        rows,
-        total,
-      } = await handleRows(filterData, keepPagination);
-      if (!keepPagination) {
-        scrollManager.scrollTop();
-      }
-      isMounted.current && setState((prevState) => ({
-        ...prevState,
-        initComplete: true,
-        loading: false,
-        filterData,
-        rows,
-        total,
-        ...(!keepPagination && {
-          offset: 0,
-        }),
-      }));
-    } catch (e) {
-      fallback(e as Error);
-    } finally {
-      setLoading(false);
-      onFilterChange(filterData);
-    }
-  }, [state]);
-
-  const handleDefault = useCallback(() => {
-    const newData: Partial<FilterData> = {};
-    deepFlat(filters)
-      .filter(({ name }) => !!name)
-      .map(({ type, name }) => {
-        set(newData, name, initialValue(type));
-      });
-    handleFilter(newData as FilterData);
-    selectionApiRef.current?.reload(true);
-  }, [filters, state.sort, state.chips]);
-
-  const handleReload = useCallback(async (keepSelection = false) => {
-    await handleFilter(state.filterData, true);
-    !keepSelection && selectionApiRef.current?.reload();
-  }, [state]);
-
-  useEffect(() => {
-    const hasFilters = Array.isArray(filters) && !!filters.length;
-    if (!hasFilters) {
-      handleDefault();
-    }
-  }, []);
-
-  useEffect(() => {
-    const instance: IListApi = {
-      reload: handleReload,
+    static defaultProps: Partial<IListProps> = {
+        handler: () => [],
+        fallback: (e) => console.error(e),
+        limit: DEFAULT_LIMIT,
+        isChooser: false,
+        filters: [],
+        columns: [],
+        actions: [],
+        onSortModelChange: () => null,
+        onFilterChange: () => null,
+        onChipsChange: () => null,
+        onSearchChange: () => null,
+        toggleFilters: false,
+        sortModel: [],
+        chips: [],
     };
-    if (typeof ref === 'function') {
-      ref(instance);
-    } else if (ref) {
-      ref.current = instance;
-    }
-  }, [ref, state]);
 
-  const handlePageChange = (page: number) => {
-    isMounted.current && setState((prevState) => ({
-      ...prevState,
-      offset: page * state.limit,
-    }));
-  };
+    constructor(props: IListProps<FilterData, RowData, Field>) {
+        super(props);
+        this.state = {
+            initComplete: false,
+            isChooser: this.props.isChooser!,
+            filterData: {} as never,
+            rows: [] as never,
+            limit: this.props.limit!,
+            offset: 0,
+            total: null,
+            search: "",
+            loading: false,
+            filtersCollapsed: this.props.toggleFilters!,
+            sort: this.props.sortModel!,
+            chips: this.props.chips!.reduce<ListHandlerChips<RowData>>(
+                (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: enabled }),
+                {} as any,
+            ),
+        };
+    };
 
-  const handleLimitChange = (newLimit: number) => {
-    const newPage = Math.floor(state.offset / newLimit);
-    isMounted.current && setState((prevState) => ({
-      ...prevState,
-      offset: newPage * newLimit,
-      limit: newLimit,
-    }));
-  };
+    private setLoading = (loading: boolean) => this.isMountedFlag && this.setState((prevState) => ({ ...prevState, loading }));
+    private setFiltersCollapsed = (filtersCollapsed: boolean) => this.isMountedFlag && this.setState((prevState) => ({ ...prevState, filtersCollapsed }));
 
-  const handleSortModel = useCallback((sort: ListHandlerSortModel) => {
-    isMounted.current && setState((prevState) => ({
-      ...prevState,
-      offset: 0,
-      sort,
-    }));
-    onSortModelChange(sort);
-  }, [state]);
+    public componentDidUpdate = () => {
+        this.handleUpdateRef();
+        this.beginFetchQueue();
+    };
 
-  const handleChips = useCallback((chips: ListHandlerChips) => {
-    isMounted.current && setState((prevState) => ({
-      ...prevState,
-      offset: 0,
-      chips,
-    }));
-    onChipsChange(chips);
-  }, [state]);
+    public componentDidMount = () => {
+        this.isMountedFlag = true;
+        this.handleEmptyFilters();
+        this.handleUpdateRef();
+    };
 
-  const handleSearch = useCallback((search: string) => {
-    isMounted.current && setState((prevState) => ({
-      ...prevState,
-      offset: 0,
-      search,
-    }));
-    onSearchChange(search);
-  }, [state]);
+    public componentWillUnmount = () => {
+        this.isFetchingFlag = false;
+        this.isMountedFlag = false;
+        this.handleFetchQueue.clear();
+    };
 
-  useEffect(() => {
-    if (state.initComplete) {
-      handleReload(true);
-    }
-  }, [state.limit, state.offset]);
+    private beginFetchQueue = () => {
+        if (this.prevState.filtersCollapsed === this.state.filtersCollapsed) {
+            this.handleFetchQueue();
+        } else {
+            this.prevState.filtersCollapsed = this.state.filtersCollapsed;
+        }
+    };
 
-  useEffect(() => {
-    if (state.initComplete) {
-      handleFilter(state.filterData, false);
-      selectionApiRef.current?.reload();
-    }
-  }, [state.sort, state.chips, state.search]);
+    private handleFetchQueue = debounce(() => {
+        const updateQueue = [
+            this.handlePageChanged,
+            this.handleParamsChanged
+        ];
+        let isOk = true;
+        isOk = isOk && !this.state.loading;
+        isOk = isOk && this.state.initComplete;
+        if (isOk) {
+            if (!this.isFetchingFlag) {
+                return;
+            } else {
+                this.isFetchingFlag = false;
+                updateQueue.reduce((acm, cur) => {
+                    if (acm) {
+                        return !cur();
+                    }
+                    return acm;
+                }, true);
+            }
+        }
+        this.prevState = {...this.state};
+    }, LIST_FETCH_DEBOUNCE);
 
-  const handleFiltersCollapsed = (filtersCollapsed: boolean) => setFiltersCollapsed(filtersCollapsed);
+    private handlePageChanged = () => {
+        let isOk = false;
+        isOk = isOk || this.prevState.offset === this.state.offset;
+        isOk = isOk || this.prevState.limit === this.state.limit;
+        if (isOk) {
+            this.handleReload();
+        }
+        return isOk;
+    };
 
-  const callbacks: IListCallbacks<FilterData, RowData> = {
-    handlePageChange,
-    handleLimitChange,
-    handleSortModel,
-    handleDefault,
-    handleFilter,
-    handleReload,
-    handleChips,
-    handleSearch,
-    handleFiltersCollapsed,
-    ready: handleDefault,
-  };
+    private handleParamsChanged = () => {
+        let isOk = false;
+        isOk = isOk || this.prevState.chips === this.state.chips;
+        isOk = isOk || this.prevState.sort === this.state.sort;
+        isOk = isOk || this.prevState.search === this.state.search;
+        if (isOk) {
+            this.handleFilter(this.state.filterData, false);
+        }
+        return isOk;
+    };
 
-  const renderInner = () => {
-    if (isChooser) {
-      return (
-        <ChooserView<FilterData, RowData>
-          {...props}
-          {...state}
-          handler={handler}
-          filters={filters}
-          columns={columns}
-          actions={actions}
-          limit={state.limit}
-          offset={state.offset}
-          listChips={upperChips}
-          {...callbacks}
-        />
-      );
-    } else {
-      return (
-        <GridView<FilterData, RowData>
-          {...props}
-          {...state}
-          handler={handler}
-          filters={filters}
-          columns={columns}
-          actions={actions}
-          limit={state.limit}
-          offset={state.offset}
-          listChips={upperChips}
-          {...callbacks}
-        />
-      );
-    }
-  };
+    private handleUpdateRef = () => {
+        const { apiRef } = this.props;
+        const instance: IListApi = {
+            reload: this.handleReload,
+        };
+        if (typeof apiRef === 'function') {
+            apiRef(instance);
+        } else if (apiRef) {
+            (apiRef.current as any) = instance;
+        }
+    };
 
-  return (
-    <ThemeProvider>
-      <PropProvider {...{ ...props, ...state, ...callbacks }}>
-        <SelectionProvider ref={selectionApiRef} selectedRows={selectedRows}>
-          <CachedRowsProvider>
-            <SortModelProvider sortModel={upperSortModel}>
-              <ChipsProvider chips={upperChips}>
-                <ModalSortProvider>
-                  {renderInner()}
-                </ModalSortProvider>
-              </ChipsProvider>
-            </SortModelProvider>
-          </CachedRowsProvider>
-        </SelectionProvider>
-      </PropProvider>
-    </ThemeProvider>
-  );
+    private handleEmptyFilters = () => {
+        const hasFilters = Array.isArray(this.props.filters) && !!this.props.filters.length;
+        if (!hasFilters) {
+          this.handleDefault();
+        }
+    };
+
+    private handleRows = async (filterData: FilterData, keepPagination = false): Promise<{
+        rows: RowData[];
+        total: number | null;
+    }> => {
+        if (typeof this.props.handler === 'function') {
+            const response: ListHandlerResult<RowData> = await Promise.resolve(this.props.handler(filterData, {
+                limit: this.state.limit,
+                offset: keepPagination ? this.state.offset : 0,
+            }, this.state.sort, this.state.chips, this.state.search));
+            if (Array.isArray(response)) {
+                response.length > this.state.limit && console.warn("List rows count is more than it's capacity");
+                return {
+                    rows: response.slice(0, this.state.limit),
+                    total: null,
+                };
+            } else {
+                const { rows = [], total = null } = response || {};
+                rows.length > this.state.limit && console.warn("List rows count is more than it's capacity");
+                return { rows: rows.slice(0, this.state.limit), total };
+            }
+        } else {
+            if (Array.isArray(this.props.handler)) {
+                return {
+                    rows: this.props.handler.slice(this.state.offset, this.state.limit + this.state.offset),
+                    total: this.props.handler.length,
+                };
+            } else {
+                const { rows = [], total = null } = this.props.handler || {};
+                return {
+                    rows: rows.slice(this.state.offset, this.state.limit + this.state.offset),
+                    total,
+                };
+            }
+        }
+    };
+
+    private handleFilter = async (filterData: FilterData, keepPagination = false) => {
+        if (this.state.loading) {
+            return;
+        }
+        this.setLoading(true);
+        try {
+            const {
+                rows,
+                total,
+            } = await this.handleRows(filterData, keepPagination);
+            if (!keepPagination) {
+                scrollManager.scrollTop();
+            }
+            this.isMountedFlag && this.setState((prevState) => ({
+                ...prevState,
+                initComplete: true,
+                loading: false,
+                filterData,
+                rows,
+                total,
+                ...(!keepPagination && {
+                    offset: 0,
+                }),
+            }));
+        } catch (e) {
+            this.props.fallback!(e as Error);
+        } finally {
+            this.setLoading(false);
+            this.props.onFilterChange!(filterData);
+        }
+    };
+
+    private handleDefault = async () => {
+        const newData: Partial<FilterData> = {};
+        deepFlat(this.props.filters)
+            .filter(({ name }) => !!name)
+            .map(({ type, name }) => {
+                set(newData, name, initialValue(type));
+            });
+        await this.handleFilter(newData as FilterData);
+    };
+
+    private handleReload = async () => {
+        await this.handleFilter(this.state.filterData, true);
+    };
+
+    private handlePageChange = (page: number) => {
+        this.isFetchingFlag = true;
+        this.isMountedFlag && this.setState((prevState) => ({
+            ...prevState,
+            offset: page * this.state.limit,
+        }));
+    };
+
+    private handleLimitChange = (newLimit: number) => {
+        this.isFetchingFlag = true;
+        const newPage = Math.floor(this.state.offset / newLimit);
+        this.isMountedFlag && this.setState((prevState) => ({
+            ...prevState,
+            offset: newPage * newLimit,
+            limit: newLimit,
+        }));
+    };
+
+    private handleSortModel = (sort: ListHandlerSortModel) => {
+        this.isFetchingFlag = true;
+        this.isMountedFlag && this.setState((prevState) => ({
+          ...prevState,
+          offset: 0,
+          sort,
+        }));
+        this.props.onSortModelChange!(sort);
+    };
+
+
+    private handleChips = (chips: ListHandlerChips) => {
+        this.isFetchingFlag = true;
+        this.isMountedFlag && this.setState((prevState) => ({
+          ...prevState,
+          offset: 0,
+          chips,
+        }));
+        this.props.onChipsChange!(chips);
+    };
+
+    private handleSearch = (search: string) => {
+        this.isFetchingFlag = true;
+        this.isMountedFlag && this.setState((prevState) => ({
+          ...prevState,
+          offset: 0,
+          search,
+        }));
+        this.props.onSearchChange!(search);
+    };
+
+    private handleFiltersCollapsed = (filtersCollapsed: boolean) => this.setFiltersCollapsed(filtersCollapsed);
+
+    private getCallbacks = (): IListCallbacks => ({
+        handlePageChange: this.handlePageChange,
+        handleLimitChange: this.handleLimitChange,
+        handleSortModel: this.handleSortModel,
+        handleDefault: this.handleDefault,
+        handleFilter: this.handleFilter,
+        handleReload: this.handleReload,
+        handleChips: this.handleChips,
+        handleSearch: this.handleSearch,
+        handleFiltersCollapsed: this.handleFiltersCollapsed,
+        ready: this.handleDefault,
+    });
+
+    public renderInner = () => {
+        const callbacks = this.getCallbacks();
+        if (this.props.isChooser) {
+            return (
+                <ChooserView<FilterData, RowData>
+                    {...this.props}
+                    {...this.state}
+                    handler={this.props.handler}
+                    filters={this.props.filters}
+                    columns={this.props.columns}
+                    actions={this.props.actions}
+                    limit={this.state.limit}
+                    offset={this.state.offset}
+                    listChips={this.props.chips}
+                    {...callbacks}
+                />
+            );
+        } else {
+            return (
+                <GridView<FilterData, RowData>
+                    {...this.props}
+                    {...this.state}
+                    handler={this.props.handler}
+                    filters={this.props.filters}
+                    columns={this.props.columns}
+                    actions={this.props.actions}
+                    limit={this.state.limit}
+                    offset={this.state.offset}
+                    listChips={this.props.chips}
+                    {...callbacks}
+                />
+            );
+        }
+    };
+
+    public render = () => {
+        const callbacks = this.getCallbacks();
+        return (
+            <ThemeProvider>
+                <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
+                    <SelectionProvider selectedRows={this.props.selectedRows}>
+                        <CachedRowsProvider>
+                            <SortModelProvider sortModel={this.props.sortModel!}>
+                                <ChipsProvider chips={this.props.chips!}>
+                                    <ModalSortProvider>
+                                        {this.renderInner()}
+                                    </ModalSortProvider>
+                                </ChipsProvider>
+                            </SortModelProvider>
+                        </CachedRowsProvider>
+                    </SelectionProvider>
+                </PropProvider>
+            </ThemeProvider>
+        );
+    };
 
 };
 
-export const List = forwardRef(ListInternal) as typeof ListInternal;
-
-const ListTypedInternal = <
-  FilterData extends IAnything = IAnything,
-  RowData extends IRowData = IAnything,
-  >(
+export const ListTyped = <
+    FilterData extends IAnything = IAnything,
+    RowData extends IRowData = IAnything,
+>(
     props: IListProps<FilterData, RowData, TypedField<FilterData>>,
-    ref: any
-  ) => <List<FilterData, RowData> ref={ref} {...props} />;
-
-export const ListTyped = forwardRef(ListTypedInternal) as typeof ListTypedInternal;
-
-(List as any).typed = ListTyped;
+) => <List<FilterData, RowData> {...props} />;
 
 export default List;

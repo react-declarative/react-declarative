@@ -176,7 +176,11 @@ export const Filters = <FilterData extends IAnything>({
           value={search}
           inputRef={searchInputRef}
           onChange={({ target }) => setSearch(target.value)}
-          onBlur={() => onSearchChange(search)}
+          onBlur={() => {
+            if (search !== upperSearch) {
+              onSearchChange(search)
+            }
+          }}
           onKeyDown={({ key }) => {
             if (key === 'Enter' && search !== upperSearch) {
               searchInputRef.current?.blur();
