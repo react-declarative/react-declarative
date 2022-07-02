@@ -99,7 +99,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
 };
 
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
-  handleDefault: ListHandler<FilterData, RowData> | (() => void);
+  handleDefault: () => Promise<void>;
   handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
   handleFilter: (data: FilterData) => void;
   handlePageChange: (page: number) => void;
