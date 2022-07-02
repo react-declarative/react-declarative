@@ -28,7 +28,7 @@ import { PropProvider } from './hooks/useProps';
 import scrollManager from './helpers/scrollManager';
 
 const DEFAULT_LIMIT = 10;
-const LIST_FETCH_DEBOUNCE = 2_000;
+const LIST_FETCH_DEBOUNCE = 1_000;
 
 export class List<
     FilterData extends IAnything = IAnything,
@@ -249,8 +249,8 @@ export class List<
         await this.handleFilter(newData as FilterData);
     };
 
-    private handleReload = async () => {
-        await this.handleFilter(this.state.filterData, true);
+    private handleReload = async (keepPagination = true) => {
+        await this.handleFilter(this.state.filterData, keepPagination);
     };
 
     private handlePageChange = (page: number) => {

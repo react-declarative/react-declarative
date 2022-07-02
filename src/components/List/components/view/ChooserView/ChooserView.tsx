@@ -77,7 +77,7 @@ export const Chooser = <
     limit,
     total,
     loading,
-    showLoader = false,
+    withLoader = false,
   } = props;
 
   const {
@@ -137,7 +137,7 @@ export const Chooser = <
     >
       {({ height, width, payload: { rows, loading } }) => (
         <Box position="relative" style={{ height, width }}>
-          <ModalLoader open={showLoader && loading} />
+          <ModalLoader open={withLoader && loading} />
           {!loading && rows.length === 0 ? (
             <MatListItem className={classes.empty}>
               <ListItemIcon>

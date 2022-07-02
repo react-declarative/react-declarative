@@ -101,12 +101,12 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
 export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: () => Promise<void>;
   handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
-  handleFilter: (data: FilterData) => void;
+  handleFilter: (data: FilterData, keepPagination?: boolean) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
-  handleReload: () => Promise<void>;
+  handleReload: (keepPagination?: boolean) => Promise<void>;
   handleSearch: (search: string) => void;
   ready: () => void;
 };
@@ -131,7 +131,6 @@ export interface IListProps<
   limit?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
-  showLoader?: boolean;
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
@@ -139,12 +138,12 @@ export interface IListProps<
   onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
   onSearchChange?: (search: string) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
-  onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: () => Promise<void>) => void;
-  onRowAction?: (action: string, row: RowData, reload: () => Promise<void>) => void;
-  onRowClick?: (row: RowData,  reload: () => Promise<void>) => void;
+  onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: (keepPagination?: boolean) => Promise<void>) => void;
+  onRowAction?: (action: string, row: RowData, reload: (keepPagination?: boolean) => Promise<void>) => void;
+  onRowClick?: (row: RowData,  reload: (keepPagination?: boolean) => Promise<void>) => void;
   onLoadStart?: (source: string) => void;
   onLoadEnd?: (isOk: boolean, source: string) => void;
-  onAction?: (action: string, selectedRows: RowData[], reload: () => Promise<void>) => void;
+  onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
@@ -153,6 +152,8 @@ export interface IListProps<
   rowActions?: IListRowAction[];
   toggleFilters?: boolean;
   withSearch?: boolean;
+  withLoader?: boolean;
+  withInitialLoader?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
   sortModel?: ListHandlerSortModel<RowData>;

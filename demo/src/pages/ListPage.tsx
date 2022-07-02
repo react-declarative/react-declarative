@@ -325,6 +325,7 @@ export const ListPage = () => {
       operations={operations}
       chips={chips}
       withSearch
+      withInitialLoader={false}
     />
   );
 };

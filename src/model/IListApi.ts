@@ -1,5 +1,5 @@
 export interface IListApi {
-    reload: () => void;
+    reload: (keepPagination?: boolean) => Promise<void>;
 }
 
 export default IListApi;

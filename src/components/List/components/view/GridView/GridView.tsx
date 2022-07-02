@@ -77,7 +77,8 @@ export const GridView = <
     loading,
     total,
     columns = [],
-    showLoader,
+    withLoader = false,
+    withInitialLoader = true,
   } = props;
 
   const {
@@ -94,7 +95,7 @@ export const GridView = <
   const renderPlaceholder = () => (
     <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">
       <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
-        {loading && <CircularProgress size={28} />}
+        {loading && <CircularProgress size={24} />}
         <Typography variant="body1">
           {loading ? "Loading" : "Nothing found"}
         </Typography>
@@ -124,7 +125,7 @@ export const GridView = <
               />
             </TableHead>
             <TableBody>
-              {(showLoader && loading) || (!loading && rows.length === 0) ? (
+              {(withLoader && loading) || (withInitialLoader && loading && rows.length === 0) || (!loading && rows.length === 0) ? (
                 <TableRow>
                   {renderPlaceholder()}
                 </TableRow>

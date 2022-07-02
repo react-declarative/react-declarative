@@ -90,7 +90,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
       <Box className={classes.root} style={{minHeight, minWidth}}>
         <List<IAnything, RowData>
           sizeByParent
-          showLoader
+          withLoader
           isChooser
           handler={handler}
           columns={columns as IColumn<RowData>[]}
