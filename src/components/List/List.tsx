@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { ThemeProvider } from '../../styles';
 
+import { debounce } from '@mui/material';
+
 import IListProps, { IListCallbacks, IListState, ListHandlerChips, ListHandlerResult, ListHandlerSortModel } from '../../model/IListProps';
 import TypedField from '../../model/TypedField';
 import IAnything from '../../model/IAnything';
@@ -26,6 +28,7 @@ import { PropProvider } from './hooks/useProps';
 import scrollManager from './helpers/scrollManager';
 
 const DEFAULT_LIMIT = 10;
+const LIST_FETCH_DEBOUNCE = 2_000;
 
 export class List<
     FilterData extends IAnything = IAnything,
@@ -81,7 +84,7 @@ export class List<
 
     public componentDidUpdate = () => {
         this.handleUpdateRef();
-        this.handleDispatchQueue();
+        this.beginFetchQueue();
     };
 
     public componentDidMount = () => {
@@ -91,10 +94,20 @@ export class List<
     };
 
     public componentWillUnmount = () => {
+        this.isFetchingFlag = false;
         this.isMountedFlag = false;
+        this.handleFetchQueue.clear();
     };
 
-    private handleDispatchQueue = () => {
+    private beginFetchQueue = () => {
+        if (this.prevState.filtersCollapsed === this.state.filtersCollapsed) {
+            this.handleFetchQueue();
+        } else {
+            this.prevState.filtersCollapsed = this.state.filtersCollapsed;
+        }
+    };
+
+    private handleFetchQueue = debounce(() => {
         const updateQueue = [
             this.handlePageChanged,
             this.handleParamsChanged
@@ -102,7 +115,6 @@ export class List<
         let isOk = true;
         isOk = isOk && !this.state.loading;
         isOk = isOk && this.state.initComplete;
-        isOk = isOk && this.prevState.filtersCollapsed === this.state.filtersCollapsed;
         if (isOk) {
             if (!this.isFetchingFlag) {
                 return;
@@ -117,7 +129,7 @@ export class List<
             }
         }
         this.prevState = {...this.state};
-    };
+    }, LIST_FETCH_DEBOUNCE);
 
     private handlePageChanged = () => {
         let isOk = false;
