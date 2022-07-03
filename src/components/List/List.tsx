@@ -169,6 +169,7 @@ export class List<
         if (!hasFilters) {
           this.handleDefault();
         }
+        this.prevState.filtersCollapsed = this.state.filtersCollapsed;
     };
 
     private handleRows = async (filterData: FilterData, keepPagination = false): Promise<{
