@@ -27,6 +27,7 @@ import { PropProvider } from './hooks/useProps';
 
 import scrollManager from './helpers/scrollManager';
 
+const DEFAULT_PAGE = 0;
 const DEFAULT_LIMIT = 10;
 const LIST_FETCH_DEBOUNCE = 1_000;
 
@@ -45,6 +46,7 @@ export class List<
         handler: () => [],
         fallback: (e) => console.error(e),
         limit: DEFAULT_LIMIT,
+        page: DEFAULT_PAGE,
         isChooser: false,
         filters: [],
         columns: [],
@@ -53,6 +55,8 @@ export class List<
         onFilterChange: () => null,
         onChipsChange: () => null,
         onSearchChange: () => null,
+        onPageChange: () => null,
+        onLimitChange: () => null,
         toggleFilters: false,
         sortModel: [],
         chips: [],
@@ -66,7 +70,7 @@ export class List<
             filterData: {} as never,
             rows: [] as never,
             limit: this.props.limit!,
-            offset: 0,
+            offset: this.props.limit! * this.props.page!,
             total: null,
             search: "",
             loading: false,
@@ -260,6 +264,7 @@ export class List<
             ...prevState,
             offset: page * this.state.limit,
         }));
+        this.props.onPageChange!(page);
     };
 
     private handleLimitChange = (newLimit: number) => {
@@ -270,6 +275,7 @@ export class List<
             offset: newPage * newLimit,
             limit: newLimit,
         }));
+        this.props.onLimitChange!(newLimit);
     };
 
     private handleSortModel = (sort: ListHandlerSortModel) => {

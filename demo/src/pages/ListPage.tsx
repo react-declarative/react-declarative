@@ -293,7 +293,7 @@ export const ListPage = () => {
   };
 
   const handleClick = (row: any) => {
-    // alert(JSON.stringify({ row }, null, 2));
+    alert(JSON.stringify({ row }, null, 2));
     setSelectedRows((rows) => [...rows, row.id]);
   };
 

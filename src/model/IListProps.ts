@@ -129,6 +129,7 @@ export interface IListProps<
   actions?: IListAction<RowData>[];
   operations?: IListOperation<RowData>[];
   limit?: number;
+  page?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
   heightRequest?: (height: number) => number;
@@ -141,6 +142,8 @@ export interface IListProps<
   onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: (keepPagination?: boolean) => Promise<void>) => void;
   onRowAction?: (action: string, row: RowData, reload: (keepPagination?: boolean) => Promise<void>) => void;
   onRowClick?: (row: RowData,  reload: (keepPagination?: boolean) => Promise<void>) => void;
+  onPageChange?: (page: number) => void;
+  onLimitChange?: (limit: number) => void;
   onLoadStart?: (source: string) => void;
   onLoadEnd?: (isOk: boolean, source: string) => void;
   onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
