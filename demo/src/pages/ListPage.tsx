@@ -210,9 +210,8 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useArrayPaginator(async (_, {limit}, {}, chips, search) => {
+  const handler = useArrayPaginator((_, {limit}, {}, chips, search) => {
     console.log(search, chips)
-    await sleep(5_000)
     return mock;
   });
 
@@ -310,6 +309,7 @@ export const ListPage = () => {
       apiRef={(listApi) => (window as any).listApi = listApi}
       title="List Component"
       filterLabel="Filters"
+      selectedRows={selectedRows}
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}

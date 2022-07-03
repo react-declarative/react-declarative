@@ -81,6 +81,7 @@ export class List<
                 {} as any,
             ),
         };
+        this.prevState = { ...this.state };
     };
 
     private setLoading = (loading: boolean) => this.isMountedFlag && this.setState((prevState) => ({ ...prevState, loading }));
