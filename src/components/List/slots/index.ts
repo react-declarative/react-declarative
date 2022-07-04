@@ -5,3 +5,7 @@ export * from './BodyRowSlot';
 export * from './CheckboxCellSlot';
 export * from './CommonCellSlot';
 export * from './HeadRowSlot';
+export * from './ActionListSlot';
+export * from './ChipListSlot';
+export * from './FilterListSlot';
+export * from './OperationListSlot';

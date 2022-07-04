@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { useContext } from 'react';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
-import SlotContext, { defaultSlots } from './SlotContext';
+import SlotContext from './SlotContext';
 
 interface ISlotFactoryProps extends ISlotFactoryContext {
     children: React.ReactNode;
@@ -11,10 +12,13 @@ interface ISlotFactoryProps extends ISlotFactoryContext {
 export const SlotFactory = ({
     children,
     ...currentSlots
-}: Partial<ISlotFactoryProps>) => (
-    <SlotContext.Provider value={{...defaultSlots, ...currentSlots}}>
-        {children}
-    </SlotContext.Provider>
-);
+}: Partial<ISlotFactoryProps>) => {
+    const upperSlots = useContext(SlotContext);
+    return (
+        <SlotContext.Provider value={{...upperSlots, ...currentSlots}}>
+            {children}
+        </SlotContext.Provider>
+    );
+};
 
 export default SlotFactory;

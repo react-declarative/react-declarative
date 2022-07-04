@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 import { alpha, decomposeColor, recomposeColor } from '@mui/material';
 import { createTheme, Theme, ThemeProvider } from '@mui/material';
 import { useTheme } from '@mui/material';
@@ -9,18 +9,15 @@ import { useTheme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-import FadeView from '../../../FadeView';
+import FadeView from '../../../../../FadeView';
 
-import IListProps, { IListChip } from '../../../../model/IListProps';
-import IAnything from '../../../../model/IAnything';
-import IRowData from '../../../../model/IRowData';
+import { IListChip } from '../../../../../../model/IListProps';
+import IAnything from '../../../../../../model/IAnything';
+import IRowData from '../../../../../../model/IRowData';
 
-import useChips from '../../hooks/useChips';
+import { IChipListSlot } from '../../../../slots/ChipListSlot';
 
-interface IChipsProps<RowData extends IRowData = IAnything> {
-    listChips: IListProps<RowData>['chips'];
-    loading: boolean;
-}
+import useChips from '../../../../hooks/useChips';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const Chips = <RowData extends IRowData = IAnything>({
+export const ListChipsSlot = <RowData extends IRowData = IAnything>({
     listChips = [],
     loading,
-}: IChipsProps<RowData>) => {
+}: IChipListSlot<RowData>) => {
 
     const theme = useTheme<Theme>();
     const classes = useStyles();
@@ -123,4 +120,4 @@ export const Chips = <RowData extends IRowData = IAnything>({
     );
 };
 
-export default Chips;
+export default ListChipsSlot;

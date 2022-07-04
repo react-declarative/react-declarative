@@ -8,6 +8,11 @@ import ActionAdd from './components/ActionAdd';
 import ActionMenu from './components/ActionMenu';
 import ActionFab from './components/ActionFab';
 
+import ChipListSlot from './components/ChipListSlot';
+import ActionListSlot from './components/ActionListSlot';
+import FilterListSlot from './components/FilterListSlot';
+import OperationListSlot from './components/OperationListSlot';
+
 import ISlotFactoryContext from './ISlotFactoryContext';
 
 export const defaultSlots = {
@@ -18,6 +23,10 @@ export const defaultSlots = {
     ActionAdd,
     ActionMenu,
     ActionFab,
+    ChipListSlot,
+    ActionListSlot,
+    FilterListSlot,
+    OperationListSlot,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);

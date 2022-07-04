@@ -1,22 +1,24 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 
-import { makeStyles } from "../../../../styles";
+import { makeStyles } from "../../../../../../styles";
 
 import Typography from '@mui/material/Typography';
 
-import classNames from '../../../../utils/classNames';
+import classNames from '../../../../../../utils/classNames';
 
-import { IListAction } from '../../../../model/IListProps';
-import ActionType from '../../../../model/ActionType';
-import IAnything from '../../../../model/IAnything';
+import { IListAction } from '../../../../../../model/IListProps';
+import ActionType from '../../../../../../model/ActionType';
+import IAnything from '../../../../../../model/IAnything';
 
-import useCachedRows from '../../hooks/useCachedRows';
-import useProps from '../../hooks/useProps';
+import useCachedRows from '../../../../hooks/useCachedRows';
+import useProps from '../../../../hooks/useProps';
 
-import ActionMenu from '../../slots/ActionMenuSlot';
-import ActionAdd from '../../slots/ActionAddSlot';
-import ActionFab from '../../slots/ActionFabSlot';
+import { IActionListSlot } from '../../../../slots/ActionListSlot';
+
+import ActionMenu from '../../../../slots/ActionMenuSlot';
+import ActionAdd from '../../../../slots/ActionAddSlot';
+import ActionFab from '../../../../slots/ActionFabSlot';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,20 +43,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IActionsProps<FilterData = IAnything> {
-  className?: string;
-  style?: React.CSSProperties;
-  filterData: FilterData;
-  actions: IListAction[];
-  title?: string;
-}
-
-export const Actions = <FilterData extends IAnything>({
+export const ActionListSlot = <FilterData extends IAnything>({
   className,
   actions,
   style,
   title,
-}: IActionsProps<FilterData>) => {
+}: IActionListSlot<FilterData>) => {
   const classes = useStyles();
 
   const { selectedRows } = useCachedRows();
@@ -133,4 +127,4 @@ export const Actions = <FilterData extends IAnything>({
   );
 };
 
-export default Actions;
+export default ActionListSlot;

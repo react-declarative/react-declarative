@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-import { makeStyles } from "../../../../styles";
+import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
 
-import classNames from '../../../../utils/classNames';
+import classNames from '../../../../../../utils/classNames';
 
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -18,10 +18,10 @@ import More from '@mui/icons-material/ExpandMore';
 import Less from '@mui/icons-material/ExpandLess';
 import Search from '@mui/icons-material/Search';
 
-import IAnything from '../../../../model/IAnything';
-import IField from '../../../../model/IField';
+import { IFilterListSlot } from '../../../../slots/FilterListSlot';
+import IAnything from '../../../../../../model/IAnything';
 
-import One from '../../../One';
+import One from '../../../../../One';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,27 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IFiltersProps<FilterData = IAnything> {
-  className?: string;
-  filterData: FilterData;
-  style?: React.CSSProperties;
-  filters: IField<FilterData>[];
-  change: (data: FilterData) => void;
-  onSearchChange?: (search: string) => void;
-  onFilterChange?: (data: FilterData) => void;
-  onCollapsedChange?: (collapsed: boolean) => void;
-  toggleFilters?: boolean;
-  ready: () => void;
-  clean: () => void;
-  loading: boolean;
-  label: string;
-  search: string;
-  withSearch: boolean;
-  height: number;
-  width: number;
-}
-
-export const Filters = <FilterData extends IAnything>({
+export const FilterListSlot = <FilterData extends IAnything>({
   className,
   style,
   height,
@@ -108,7 +88,7 @@ export const Filters = <FilterData extends IAnything>({
   onSearchChange = () => null,
   onFilterChange = () => null,
   onCollapsedChange = () => null,
-}: IFiltersProps<FilterData>) => {
+}: IFilterListSlot<FilterData>) => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchEscapeRef = useRef(false);
@@ -261,4 +241,4 @@ export const Filters = <FilterData extends IAnything>({
   );
 };
 
-export default Filters;
+export default FilterListSlot;

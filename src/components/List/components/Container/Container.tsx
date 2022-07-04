@@ -12,10 +12,10 @@ import IListProps, { IListState, IListCallbacks } from '../../../../model/IListP
 import IAnything from '../../../../model/IAnything';
 import IRowData from '../../../../model/IRowData';
 
-import Operations from "./Operations";
-import Actions from "./Actions";
-import Filters from "./Filters";
-import Chips from "./Chips";
+import OperationListSlot from "../../slots/OperationListSlot";
+import ActionListSlot from "../../slots/ActionListSlot";
+import FilterListSlot from "../../slots/FilterListSlot";
+import ChipListSlot from "../../slots/ChipListSlot";
 
 const AUTOSIZER_DELAY = 50;
 const CONTAINER_MARK = 'react-declarative__containerMark';
@@ -108,14 +108,14 @@ export const Container = <
       {({ height, width, payload }) => (
         <div ref={ref} style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
-            <Actions<FilterData>
+            <ActionListSlot
               title={title}
               filterData={filterData!}
               actions={actions}
             />
           )}
           {Array.isArray(operations) && !! operations.length && (
-            <Operations
+            <OperationListSlot
               operations={operations}
               width={width}
             />
@@ -124,7 +124,7 @@ export const Container = <
             [classes.noElevation]: isChooser,
           })}>
             {!isChooser && Array.isArray(filters) && !!filters.length && (
-              <Filters<FilterData>
+              <FilterListSlot
                 filterData={filterData!}
                 toggleFilters={toggleFilters}
                 onFilterChange={onFilterChange}
@@ -143,7 +143,7 @@ export const Container = <
               />
             )}
             {!isChooser && Array.isArray(listChips) && !!listChips.length && (
-              <Chips<RowData>
+              <ChipListSlot
                 listChips={listChips}
                 loading={loading}
               />

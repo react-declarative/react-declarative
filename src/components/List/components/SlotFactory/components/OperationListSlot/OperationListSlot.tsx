@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 import { useTheme } from '@mui/styles';
 import { Theme } from '@mui/material';
 
@@ -10,26 +10,18 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import FadeView from '../../../FadeView';
-import Async from '../../../Async';
+import FadeView from '../../../../../FadeView';
+import Async from '../../../../../Async';
 
-import IListOperation from '../../../../model/IListOperation';
+import useCachedRows from '../../../../hooks/useCachedRows';
+import useReload from '../../../../hooks/useReload';
+import useProps from '../../../../hooks/useProps';
 
-import useCachedRows from '../../hooks/useCachedRows';
-import useReload from '../../hooks/useReload';
-import useProps from '../../hooks/useProps';
+import { IOperationListSlot } from '../../../../slots/OperationListSlot';
 
-import classNames from '../../../../utils/classNames';
+import classNames from '../../../../../../utils/classNames';
 
 const LOAD_SOURCE = 'list-operations';
-
-interface IOperationsProps {
-    className?: string;
-    style?: React.CSSProperties;
-    operations: IListOperation[];
-    width: number;
-}
-
 const LABEL_SHRINK = 500;
 
 const useStyles = makeStyles({
@@ -63,12 +55,12 @@ const useStyles = makeStyles({
     },
 });
 
-export const Operations = ({
+export const OperationListSlot = ({
     className,
     style,
     operations,
     width,
-}: IOperationsProps) => {
+}: IOperationListSlot) => {
 
     const classes = useStyles();
     const theme = useTheme<Theme>();
@@ -197,4 +189,4 @@ export const Operations = ({
     );
 };
 
-export default Operations;
+export default OperationListSlot;

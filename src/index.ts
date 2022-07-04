@@ -169,6 +169,10 @@ import { IBodyRowSlot as IBodyRowSlotInternal } from './components';
 import { ICheckboxCellSlot as ICheckboxCellSlotInternal } from './components';
 import { ICommonCellSlot as ICommonCellSlotInternal } from './components';
 import { IHeadRowSlot as IHeadRowSlotInternal } from './components';
+import { IActionListSlot as IActionListSlotInternal } from './components';
+import { IChipListSlot as IChipListSlotInternal } from './components';
+import { IFilterListSlot as IFilterListSlotInternal } from './components';
+import { IOperationListSlot as IOperationListSlotInternal } from './components';
 
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;
@@ -189,6 +193,10 @@ export type IBodyRowSlot = IBodyRowSlotInternal;
 export type ICheckboxCellSlot = ICheckboxCellSlotInternal;
 export type ICommonCellSlot = ICommonCellSlotInternal;
 export type IHeadRowSlot = IHeadRowSlotInternal;
+export type IActionListSlot = IActionListSlotInternal;
+export type IChipListSlot = IChipListSlotInternal;
+export type IFilterListSlot = IFilterListSlotInternal;
+export type IOperationListSlot = IOperationListSlotInternal;
 
 export { arrays } from './utils/arrays';
 export { objects } from './utils/objects';
