@@ -11,6 +11,7 @@ export interface IIfProps<T extends any = object> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     payload?: T;
+    deps?: any[];
     throwError?: boolean;
 }
 
@@ -21,6 +22,7 @@ export const If = <T extends any = object>({
     onLoadStart,
     onLoadEnd,
     payload,
+    deps = [],
     throwError = false,
 }: IIfProps<T>) => {
 
@@ -74,7 +76,7 @@ export const If = <T extends any = object>({
         };
 
         process();
-    }, [payload]);
+    }, [payload, ...deps]);
 
 
     if (pass) {

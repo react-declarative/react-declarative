@@ -171,7 +171,7 @@ export const Filters = <FilterData extends IAnything>({
     if (withSearch) {
       return (
         <TextField
-          label={label}
+          label="Search"
           variant="standard"
           value={search}
           inputRef={searchInputRef}
@@ -199,7 +199,7 @@ export const Filters = <FilterData extends IAnything>({
               </InputAdornment>
             )
           }}
-          placeholder="Search"
+          placeholder={label}
           InputLabelProps={{
             shrink: true,
           }}

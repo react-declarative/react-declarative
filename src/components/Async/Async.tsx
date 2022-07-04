@@ -12,6 +12,7 @@ export interface IAsyncProps<T extends any = object> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     payload?: T;
+    deps?: any[];
     throwError?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const Async = <T extends any = object>({
     onLoadStart,
     onLoadEnd,
     payload,
+    deps = [],
     throwError = false,
 }: IAsyncProps<T>) => {
 
@@ -88,7 +90,7 @@ export const Async = <T extends any = object>({
 
         process();
 
-    }, [payload]);
+    }, [payload, ...deps]);
 
 
     if (loading) {

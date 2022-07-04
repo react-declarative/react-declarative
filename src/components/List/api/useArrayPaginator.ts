@@ -112,7 +112,11 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
         limit,
         offset,
     }) => {
-        return rows.slice(offset, limit + offset);
+        if (rows.length > limit) {
+            return rows.slice(offset, limit + offset);
+        } else {
+            return rows;
+        }
     },
     withPagination = true,
     withFilters = true,
