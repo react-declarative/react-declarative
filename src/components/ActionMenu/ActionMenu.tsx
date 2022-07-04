@@ -94,12 +94,16 @@ export const ActionMenu = <T extends any = object>({
         e.preventDefault();
         e.stopPropagation();
         setAnchorEl(e.currentTarget);
-        setLoading((loading) => loading + options.length);
         onToggle && onToggle(true);
     };
 
+    const handleLoadStart = () => {
+        setLoading((loading) => loading + 1);
+        onLoadStart && onLoadStart();
+    };
+
     const handleLoadEnd = (isOk: boolean) => {
-        setLoading((loading) => loading - 1);
+        setLoading((loading) => Math.max(loading - 1, 0));
         onLoadEnd && onLoadEnd(isOk);
     };
 
@@ -107,6 +111,7 @@ export const ActionMenu = <T extends any = object>({
         e.preventDefault();
         e.stopPropagation();
         setAnchorEl(null);
+        setLoading(0);
         onToggle && onToggle(false);
     };
 
@@ -186,7 +191,7 @@ export const ActionMenu = <T extends any = object>({
                                     throwError={throwError}
                                     fallback={fallback}
                                     key={idx}
-                                    onLoadStart={onLoadStart}
+                                    onLoadStart={handleLoadStart}
                                     onLoadEnd={handleLoadEnd}
                                     payload={payload}
                                 >
