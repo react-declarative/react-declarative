@@ -65,6 +65,7 @@ export const ActionAdd = ({
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
             payload={selectedRows}
+            throwError
         >
             {async () => {
                 const visible = await isVisible(selectedRows);

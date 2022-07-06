@@ -154,6 +154,7 @@ export const OperationListSlot = ({
                         fallback={fallback}
                         onLoadStart={handleLoadStart}
                         onLoadEnd={handleLoadEnd}
+                        throwError
                     >
                         {async () => {
                             return await Promise.all(operations.map(async ({

@@ -213,6 +213,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                             onLoadStart={handleLoadStart}
                             onLoadEnd={handleLoadEnd}
                             disabled={loading}
+                            throwError
                         />
                     )}
                 </TableCell>

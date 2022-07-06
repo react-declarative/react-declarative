@@ -64,6 +64,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 fallback={fallback}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
+                throwError
             >
                 {column.compute!}
             </Async>
@@ -105,6 +106,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
                 disabled={loading}
+                throwError
             />
         );
     } else {

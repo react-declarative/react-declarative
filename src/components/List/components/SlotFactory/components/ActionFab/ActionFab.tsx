@@ -66,6 +66,7 @@ export const ActionFab = ({
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
             payload={selectedRows}
+            throwError
         >
             {async () => {
                 const visible = await isVisible(selectedRows);

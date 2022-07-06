@@ -48,6 +48,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
             payload={row}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
+            throwError
         >
             {() => {
                 if (column && column.element) {
@@ -177,6 +178,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                     payload={row}
                     onLoadStart={handleLoadStart}
                     onLoadEnd={handleLoadEnd}
+                    throwError
                 />
             )}
         </MatListItem>
