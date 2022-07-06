@@ -3,7 +3,7 @@ export interface IClearable {
     clear: () => void;
 }
 
-export const singleshot = <T extends (...args: any) => any>(run: T): T & IClearable => {
+export const singleshot = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
     let hasRunned = false;
     let result: ReturnType<T> = null as never;
     const fn = (...args: any) => {

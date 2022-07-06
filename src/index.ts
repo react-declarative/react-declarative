@@ -50,6 +50,7 @@ import { useDate } from './hooks/useDate';
 import { useTime } from './hooks/useTime';
 import { useOne } from './hooks/useOne';
 import { useOneTyped } from './hooks/useOne';
+import { useActualCallback } from './hooks/useActualCallback';
 
 import IAnything from './model/IAnything';
 import IRowData, { RowId } from './model/IRowData';
@@ -140,6 +141,8 @@ export { createField, makeField } from './components';
 
 export { useListProps, useListCachedRows } from './components';
 export { useOneProps, useOneState } from './components';
+
+export { useActualCallback };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };

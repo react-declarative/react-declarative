@@ -13,6 +13,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FadeView from '../../../../../FadeView';
 import Async from '../../../../../Async';
 
+import useActualCallback from '../../../../../../hooks/useActualCallback';
+
 import useCachedRows from '../../../../hooks/useCachedRows';
 import useReload from '../../../../hooks/useReload';
 import useProps from '../../../../hooks/useProps';
@@ -66,7 +68,7 @@ export const OperationListSlot = ({
     const theme = useTheme<Theme>();
 
     const {
-        onOperation,
+        onOperation = () => null,
         fallback,
         onLoadStart,
         onLoadEnd,
@@ -81,8 +83,10 @@ export const OperationListSlot = ({
 
     const conditionPayload = isAll ? 'all' : selectedRows;
 
-    const createHandleOperation = (action: string) => () => {
-        onOperation && onOperation(action, selectedRows, isAll, reload);
+    const handleOperation = useActualCallback(onOperation);
+
+    const createHandleOperationClick = (action: string) => () => {
+        handleOperation(action, selectedRows, isAll, reload);
     };
 
     const AllCheckbox = (
@@ -166,7 +170,7 @@ export const OperationListSlot = ({
                                         key={idx}
                                         available={available}
                                         label={label}
-                                        onClick={createHandleOperation(action)}
+                                        onClick={createHandleOperationClick(action)}
                                     />
                                 );
                             }));

@@ -3,7 +3,7 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     clear(): void;
 };
 
-export const queued = <T extends any = any, P extends any[] = any>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
+export const queued = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
     let lastPromise: Promise<any> = Promise.resolve();
 

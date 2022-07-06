@@ -3,7 +3,7 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     cancel(): void;
 };
 
-export const cancelable = <T extends any = any, P extends any[] = any>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
+export const cancelable = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
     let hasCanceled = false;
 

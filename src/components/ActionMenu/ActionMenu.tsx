@@ -19,6 +19,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Fab from '@mui/material/Fab';
 
 import IOption from '../../model/IOption';
+import useActualCallback from '../../hooks/useActualCallback';
 
 export interface IActionMenuProps<T extends any = object> {
     options?: Partial<IOption>[];
@@ -77,7 +78,7 @@ export const ActionMenu = <T extends any = object>({
     throwError = false,
     fallback,
     onToggle,
-    onAction,
+    onAction = () => null,
     payload,
     className,
     style,
@@ -89,6 +90,8 @@ export const ActionMenu = <T extends any = object>({
     const [loading, setLoading] = useState(0);
 
     const classes = useStyles();
+
+    const handleAction = useActualCallback(onAction);
 
     const handleFocus = (e: any) => {
         e.preventDefault();
@@ -118,7 +121,7 @@ export const ActionMenu = <T extends any = object>({
     const handleClick = (item: string) => (e: any) => {
         e.preventDefault();
         e.stopPropagation();
-        onAction && onAction(item);
+        handleAction(item);
         setAnchorEl(null);
         onToggle && onToggle(false);
     };

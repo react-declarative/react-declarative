@@ -3,7 +3,7 @@ import singleshot, { IClearable } from './singleshot';
 
 const NEVER_VALUE = Symbol('never');
 
-export const cached = <T extends (args?: any[]) => any>(run: T): T & IClearable => {
+export const cached = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
 
     let lastArgs: any = NEVER_VALUE;
     

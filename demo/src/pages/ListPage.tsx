@@ -17,6 +17,7 @@ import {
   ListHandlerPagination,
   ListHandlerSortModel,
   IListOperation,
+  useLastPagination,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -217,10 +218,11 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const handler = useArrayPaginator((_, {limit}, {}, chips, search) => {
-    console.log(search, chips)
+  const { data, handler: wrappedHandler } = useLastPagination(({}, {}, {}, {}, {}) => {
     return mock;
   });
+
+  const handler = useArrayPaginator(wrappedHandler);
 
   const pickerHandler = async ({
     firstName,
@@ -295,6 +297,7 @@ export const ListPage = () => {
     alert(JSON.stringify({
       action,
       rows,
+      data,
     }, null, 2));
   };
 
@@ -308,11 +311,11 @@ export const ListPage = () => {
   };
   
   const handleColumnAction = (field: string, action: string, rows: any[]) => {
-    alert(JSON.stringify({ field, action, rows }, null, 2))
+    alert(JSON.stringify({ field, action, rows, data }, null, 2))
   };
 
   const handleOperation = (action: string, rows: any[], isAll: boolean) => {
-    alert(JSON.stringify({ action, rows, isAll }, null, 2));
+    alert(JSON.stringify({ action, rows, isAll, data }, null, 2));
   };
 
   return (
