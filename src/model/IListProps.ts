@@ -143,6 +143,7 @@ export interface IListProps<
   onRowAction?: (action: string, row: RowData, reload: (keepPagination?: boolean) => Promise<void>) => void;
   onRowClick?: (row: RowData,  reload: (keepPagination?: boolean) => Promise<void>) => void;
   onPageChange?: (page: number) => void;
+  onColumnAction?: (field: string, action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
   onLimitChange?: (limit: number) => void;
   onLoadStart?: (source: string) => void;
   onLoadEnd?: (isOk: boolean, source: string) => void;

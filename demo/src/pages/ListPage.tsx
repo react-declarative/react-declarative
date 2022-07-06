@@ -46,6 +46,13 @@ const columns: IColumn[] = [
     headerName: 'ID',
     secondary: true,
     width: (fullWidth) => Math.max(fullWidth - 650, 200),
+    sortable: true,
+    columnMenu: [
+      {
+        action: 'test-action',
+        label: 'Column action',
+      },
+    ],
   },
   /*{
     type: ColumnType.Text,
@@ -300,6 +307,10 @@ export const ListPage = () => {
     setSelectedRows(selectedRows);
   };
   
+  const handleColumnAction = (field: string, action: string, rows: any[]) => {
+    alert(JSON.stringify({ field, action, rows }, null, 2))
+  };
+
   const handleOperation = (action: string, rows: any[], isAll: boolean) => {
     alert(JSON.stringify({ action, rows, isAll }, null, 2));
   };
@@ -322,6 +333,7 @@ export const ListPage = () => {
       onAction={handleAction}
       onOperation={handleOperation}
       onSelectedRows={handleSelectedRows}
+      onColumnAction={handleColumnAction}
       operations={operations}
       chips={chips}
       withSearch

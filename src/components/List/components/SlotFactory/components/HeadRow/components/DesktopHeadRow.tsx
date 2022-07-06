@@ -4,13 +4,14 @@ import { useMemo, useCallback } from 'react';
 import { makeStyles } from '../../../../../../../styles';
 
 import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import Tooltip from '@mui/material/Tooltip';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import useProps from '../../../../../hooks/useProps';
+import ActionMenu from '../../../../../../ActionMenu';
 
 import IRowData from '../../../../../../../model/IRowData';
 import IAnything from '../../../../../../../model/IAnything';
@@ -20,8 +21,11 @@ import SelectionMode from '../../../../../../../model/SelectionMode';
 
 import { IHeadRowSlot, HeadColumn } from '../../../../../slots/HeadRowSlot';
 
+import useCachedRows from '../../../../../hooks/useCachedRows';
 import useSortModel from '../../../../../hooks/useSortModel';
 import useSelection from '../../../../../hooks/useSelection';
+import useReload from '../../../../../hooks/useReload';
+import useProps from '../../../../../hooks/useProps';
 
 const useStyles = makeStyles((theme) => ({
     cell: {
@@ -29,7 +33,19 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: '0 !important',
         background: `${theme.palette.background.paper} !important`,
     },
+    menu: {
+        margin: '0 !important',
+        padding: '0 !important',
+        width: 'unset !important',
+        height: 'unset !important',
+        '& .MuiSvgIcon-root': {
+            height: '20px !important',
+            width: '20px !important',
+        }
+    },
 }));
+
+const LOAD_SOURCE = 'list-columns';
 
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     fullWidth,
@@ -41,10 +57,17 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     const props = useProps<RowData>();
     const { sortModel, setSortModel } = useSortModel();
     const { selection, setSelection } = useSelection();
+    const { selectedRows } = useCachedRows();
+
+    const reload = useReload();
 
     const {
         selectionMode,
         loading,
+        onColumnAction,
+        onLoadStart,
+        onLoadEnd,
+        fallback,
     } = props;
 
     const isAllSelected = useMemo(() => {
@@ -121,6 +144,10 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         setSortModel(sortModel);
     }, [sortModel]);
 
+    const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+    const createHandleAction = (field: string) => (action: string) => onColumnAction && onColumnAction(field, action, selectedRows, reload);
+
     const content = useMemo(() => {
 
         const renderColumn = (column: HeadColumn, idx: number) => {
@@ -150,16 +177,44 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     style={{ minWidth, maxWidth }}
                     sortDirection={sortDirection}
                 >
-                    {isSortable ? (
-                        <TableSortLabel
-                            active={!!sortTarget}
-                            direction={sortDirection}
-                            onClick={handleClick}
+                    <Box
+                        sx={{
+                            width: 'calc(100% - 40px)',
+                            display: 'inline-block',
+                        }}
+                    >
+                        {isSortable ? (
+                            <TableSortLabel
+                                active={!!sortTarget}
+                                direction={sortDirection}
+                                onClick={handleClick}
+                                disabled={loading}
+                            >
+                                {column.headerName}
+                            </TableSortLabel>
+                        ) : column.headerName}
+                    </Box>
+                    {!!column.columnMenu && (
+                        <ActionMenu
+                            transparent
+                            className={classes.menu}
+                            options={column.columnMenu.map(({
+                                isDisabled = () => false,
+                                isVisible = () => true,
+                                ...other
+                            }) => ({
+                                ...other,
+                                isDisabled: () => isDisabled(selectedRows),
+                                isVisible: () => isVisible(selectedRows),
+                            }))}
+                            onAction={createHandleAction(column.field || 'unset-field')}
+                            fallback={fallback}
+                            payload={selectedRows}
+                            onLoadStart={handleLoadStart}
+                            onLoadEnd={handleLoadEnd}
                             disabled={loading}
-                        >
-                            {column.headerName}
-                        </TableSortLabel>
-                    ) : column.headerName}
+                        />
+                    )}
                 </TableCell>
             );
         };

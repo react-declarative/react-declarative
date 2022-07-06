@@ -47,7 +47,7 @@ export const ActionMenu = ({
         <BaseActionMenu
             options={options.map(({
                 action,
-                isDisabled = () => true,
+                isDisabled = () => false,
                 isVisible = () => true,
                 ...other
             }) => {

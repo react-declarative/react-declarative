@@ -1,8 +1,8 @@
 import ColumnType from "./ColumnType";
 
+import { IListActionOption } from "./IListProps";
 import IAnything from './IAnything';
 import IRowData from './IRowData';
-import IOption from './IOption';
 
 import { Value } from './IField';
 
@@ -20,8 +20,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     tabletHidden?: boolean;
     desktopOrder?: number;
     desktopHidden?: boolean;
-    columnMenu?: IOption[];
-    showColumnMenu?: boolean;
+    columnMenu?: IListActionOption[];
     compute?: (row: RowData) => Promise<Value> | Value;
     element?: React.ComponentType<RowData>;
     sortable?: boolean;

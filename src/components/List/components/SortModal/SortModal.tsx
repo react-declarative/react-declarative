@@ -88,6 +88,10 @@ export const SortModal = ({
         onClose();
     };
 
+    const sortableColumns = columns
+        .map(({ sortable = true, ...other }) => ({ sortable, ...other }))
+        .filter(({ sortable }) => sortable);
+
     return (
         <ModalDialog
             open
@@ -96,7 +100,7 @@ export const SortModal = ({
         >
             <Box className={classes.container}>
                 <List className={classes.list} disablePadding>
-                    {columns.map((column, idx) => {
+                    {sortableColumns.map((column, idx) => {
                         const sortTarget = sortModel.get(column.field || '');
                         const sortDirection = sortTarget?.sort || undefined;
                         const handleClick = () => handleSortToggle(column.field!);
