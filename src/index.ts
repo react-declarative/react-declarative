@@ -43,6 +43,9 @@ import { ListHandlerResult as ListHandlerResultInternal } from './model/IListPro
 import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
+import { useActualCallback } from './hooks/useActualCallback';
+import { useActualState } from './hooks/useActualState';
+
 import { useList } from './hooks/useList';
 import { useModal } from './components/ModalProvider';
 import { useConfirm } from './hooks/useConfirm';
@@ -50,7 +53,6 @@ import { useDate } from './hooks/useDate';
 import { useTime } from './hooks/useTime';
 import { useOne } from './hooks/useOne';
 import { useOneTyped } from './hooks/useOne';
-import { useActualCallback } from './hooks/useActualCallback';
 
 import IAnything from './model/IAnything';
 import IRowData, { RowId } from './model/IRowData';
@@ -143,6 +145,7 @@ export { useListProps, useListCachedRows } from './components';
 export { useOneProps, useOneState } from './components';
 
 export { useActualCallback };
+export { useActualState };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };
