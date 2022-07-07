@@ -20,7 +20,7 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
     };
 
     return  [
-        stateRef.current,
+        stateRef,
         handleState,
     ] as const;
 };
