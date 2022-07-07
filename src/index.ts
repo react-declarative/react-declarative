@@ -178,6 +178,7 @@ import { IHeadRowSlot as IHeadRowSlotInternal } from './components';
 import { IActionListSlot as IActionListSlotInternal } from './components';
 import { IChipListSlot as IChipListSlotInternal } from './components';
 import { IFilterListSlot as IFilterListSlotInternal } from './components';
+import { ISearchSlot as ISearchSlotInternal } from './components';
 import { IOperationListSlot as IOperationListSlotInternal } from './components';
 
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
@@ -202,6 +203,7 @@ export type IHeadRowSlot = IHeadRowSlotInternal;
 export type IActionListSlot = IActionListSlotInternal;
 export type IChipListSlot = IChipListSlotInternal;
 export type IFilterListSlot = IFilterListSlotInternal;
+export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 
 export { arrays } from './utils/arrays';

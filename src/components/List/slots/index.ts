@@ -9,3 +9,4 @@ export * from './ActionListSlot';
 export * from './ChipListSlot';
 export * from './FilterListSlot';
 export * from './OperationListSlot';
+export * from './SearchSlot';

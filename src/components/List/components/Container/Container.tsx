@@ -16,6 +16,7 @@ import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
 import FilterListSlot from "../../slots/FilterListSlot";
 import ChipListSlot from "../../slots/ChipListSlot";
+import SearchSlot from "../../slots/SearchSlot";
 
 const AUTOSIZER_DELAY = 50;
 const CONTAINER_MARK = 'react-declarative__containerMark';
@@ -131,7 +132,7 @@ export const Container = <
                 change={handleFilter}
                 onSearchChange={handleSearch}
                 onCollapsedChange={handleFiltersCollapsed}
-                clean={handleDefault as any}
+                clean={handleDefault}
                 label={filterLabel}
                 filters={filters}
                 ready={ready}
@@ -140,6 +141,17 @@ export const Container = <
                 height={height}
                 width={width}
                 withSearch={withSearch}
+              />
+            )}
+            {!isChooser && (!Array.isArray(filters) || !filters.length) && withSearch && (
+              <SearchSlot
+                onSearchChange={handleSearch}
+                clean={handleDefault}
+                search={search}
+                height={height}
+                width={width}
+                loading={loading}
+                label={filterLabel}
               />
             )}
             {!isChooser && Array.isArray(listChips) && !!listChips.length && (

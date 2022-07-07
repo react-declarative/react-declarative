@@ -12,6 +12,7 @@ import { IActionListSlot } from '../../slots/ActionListSlot';
 import { IChipListSlot } from '../../slots/ChipListSlot';
 import { IFilterListSlot } from '../../slots/FilterListSlot';
 import { IOperationListSlot } from '../../slots/OperationListSlot';
+import { ISearchSlot } from '../../slots/SearchSlot';
 
 export interface ISlotFactoryContext {
     BodyRow: ComponentType<IBodyRowSlot>;
@@ -25,6 +26,7 @@ export interface ISlotFactoryContext {
     FilterListSlot: ComponentType<IFilterListSlot>;
     ChipListSlot: ComponentType<IChipListSlot>;
     OperationListSlot: ComponentType<IOperationListSlot>;
+    SearchSlot: ComponentType<ISearchSlot>;
 }
 
 export default ISlotFactoryContext;

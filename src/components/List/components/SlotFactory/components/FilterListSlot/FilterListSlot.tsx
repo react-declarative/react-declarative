@@ -45,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   controlsWidth: {
-    minWidth: 80,
+    minWidth: 75,
+    marginRight: 5,
+    flexDirection: 'row-reverse',
   },
   title: {
     display: "flex",

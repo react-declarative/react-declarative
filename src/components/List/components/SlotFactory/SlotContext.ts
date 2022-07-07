@@ -12,6 +12,7 @@ import ChipListSlot from './components/ChipListSlot';
 import ActionListSlot from './components/ActionListSlot';
 import FilterListSlot from './components/FilterListSlot';
 import OperationListSlot from './components/OperationListSlot';
+import SearchSlot from './components/SearchSlot';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -27,6 +28,7 @@ export const defaultSlots = {
     ActionListSlot,
     FilterListSlot,
     OperationListSlot,
+    SearchSlot,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);
