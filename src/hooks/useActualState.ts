@@ -10,9 +10,22 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
         stateRef.current = state;
     }, [state])
 
+    const handleState: typeof setState = (dispatch) => {
+        setState((prevState) => {
+            let newState: S;
+            if (typeof dispatch === 'function') {
+                newState = (dispatch as Function)(prevState)
+            } else {
+                newState = dispatch;
+            }
+            stateRef.current = newState;
+            return newState;
+        });
+    };
+
     return  [
         stateRef.current,
-        setState,
+        handleState,
     ] as const;
 };
 
