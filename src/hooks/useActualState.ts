@@ -10,10 +10,10 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
         stateRef.current = state;
     }, [state])
 
-    return  {
-        state: stateRef.current,
+    return  [
+        stateRef.current,
         setState,
-    };
+    ] as const;
 };
 
 export default useActualState;
