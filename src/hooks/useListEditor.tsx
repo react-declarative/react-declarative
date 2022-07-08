@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useRef, Fragment } from "react";
 
 type RowId = number;
 
-export const useListEditor = <Data extends any = undefined>(renderItem: (item: Data) => React.ReactElement, {
+export const useListEditor = <Data extends any = undefined>(renderItem: (id: RowId, item: Data) => React.ReactElement, {
     initialValue = [],
     onChange,
 }: {
@@ -44,9 +44,9 @@ export const useListEditor = <Data extends any = undefined>(renderItem: (item: D
 
     const render = () => (
         <>
-            {itemList.map((item, idx) => (
+            {[...items.entries()].map(([id, item], idx) => (
                 <Fragment key={idx}>
-                    {renderItem(item)}
+                    {renderItem(id, item)}
                 </Fragment>
             ))}
         </>
