@@ -45,6 +45,7 @@ import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
 import { useActualCallback } from './hooks/useActualCallback';
 import { useActualState } from './hooks/useActualState';
+import { useListEditor } from './hooks/useListEditor';
 
 import { useList } from './hooks/useList';
 import { useModal } from './components/ModalProvider';
@@ -146,6 +147,7 @@ export { useOneProps, useOneState } from './components';
 
 export { useActualCallback };
 export { useActualState };
+export { useListEditor };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };
