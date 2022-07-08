@@ -10,6 +10,8 @@ import IAnything from '../../../model/IAnything';
 import IManaged, { PickProp } from '../../../model/IManaged';
 
 import deepClone from '../../../utils/deepClone';
+import objects from '../../../utils/objects';
+import arrays from '../../../utils/arrays';
 
 const FIELD_NEVER_MARGIN = '0';
 
@@ -32,8 +34,8 @@ export const ComponentField = ({
     const { setObject } = useOneState();
     const handleChange = (object: unknown) => setObject(deepClone(object));
     useLayoutEffect(() => {
-        const onChange = (data: Record<string, any>) => handleChange({ ...object, ...data });
-        const props = { ...object, onChange };
+        const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
+        const props = { ...arrays(object), onChange };
         setNode(() => (
             <Element
                 {...props}
