@@ -15,20 +15,28 @@ import useCachedRows from '../../../../hooks/useCachedRows';
 
 import useActualCallback from '../../../../../../hooks/useActualCallback';
 
+import createProvider from '../../../../../../utils/createProvider';
+
 import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 
 const LOAD_SOURCE = 'action-menu';
+const LABEL_SHRINK = 500;
 
 const useStyles = makeStyles({
     button: {
         borderRadius: '50px !important',
         minHeight: '40px !important',
+        paddingLeft: '15px !important',
+        paddingRight: '15px !important',
     },
 });
+
+const [ShrinkProvider, useShrink] = createProvider<boolean>();
 
 export const ActionFab = ({
     action = 'fab-action',
     label,
+    width,
     icon: Icon = SettingsIcon,
     isVisible = () => true,
     isDisabled = () => false,
@@ -58,7 +66,8 @@ export const ActionFab = ({
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
     const Loader = () => {
-        if (label) {
+        const isShrink = useShrink();
+        if (label && !isShrink) {
             return (
                 <Button
                     className={classes.button}
@@ -85,8 +94,9 @@ export const ActionFab = ({
         disabled: boolean
         onClick: (e: any) => void;
     }) => {
+        const isShrink = useShrink();
         const { loading } = useProps();
-        if (label) {
+        if (label && !isShrink) {
             return (
                 <Button
                     className={classes.button}
@@ -108,30 +118,34 @@ export const ActionFab = ({
         }
     };
 
+    const isShrink = width < LABEL_SHRINK;
+
     return (
-        <Async
-            Loader={Loader}
-            fallback={fallback}
-            onLoadStart={handleLoadStart}
-            onLoadEnd={handleLoadEnd}
-            payload={selectedRows}
-            throwError
-        >
-            {async () => {
-                const visible = await isVisible(selectedRows);
-                const disabled = await isDisabled(selectedRows);
-                if (visible) {
-                    return (
-                        <Content
-                            disabled={disabled}
-                            onClick={handleClick}
-                        />
-                    )
-                } else {
-                    return null;
-                }
-            }}
-        </Async>
+        <ShrinkProvider payload={isShrink}>
+            <Async
+                Loader={Loader}
+                fallback={fallback}
+                onLoadStart={handleLoadStart}
+                onLoadEnd={handleLoadEnd}
+                payload={selectedRows}
+                throwError
+            >
+                {async () => {
+                    const visible = await isVisible(selectedRows);
+                    const disabled = await isDisabled(selectedRows);
+                    if (visible) {
+                        return (
+                            <Content
+                                disabled={disabled}
+                                onClick={handleClick}
+                            />
+                        )
+                    } else {
+                        return null;
+                    }
+                }}
+            </Async>
+        </ShrinkProvider>
     );
 };
 

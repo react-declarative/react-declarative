@@ -95,6 +95,7 @@ const actions: IListAction[] = [
   },
   {
     type: ActionType.Fab,
+    label: 'Settings',
   },
   {
     type: ActionType.Menu,

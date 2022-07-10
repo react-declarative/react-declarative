@@ -6,6 +6,8 @@ export interface IActionListSlot<FilterData = IAnything> {
     style?: React.CSSProperties;
     filterData: FilterData;
     actions: IListAction[];
+    height: number;
+    width: number;
     title?: string;
 }
 

@@ -110,6 +110,8 @@ export const Container = <
         <div ref={ref} style={{ height, width }} className={classes.container}>
           {Array.isArray(actions) && !!actions.length && (
             <ActionListSlot
+              height={height}
+              width={width}
               title={title}
               filterData={filterData!}
               actions={actions}

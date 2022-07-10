@@ -48,6 +48,8 @@ export const ActionListSlot = <FilterData extends IAnything>({
   actions,
   style,
   title,
+  height,
+  width,
 }: IActionListSlot<FilterData>) => {
   const classes = useStyles();
 
@@ -72,6 +74,8 @@ export const ActionListSlot = <FilterData extends IAnything>({
           action={action}
           isDisabled={isDisabled}
           isVisible={isVisible}
+          height={height}
+          width={width}
         />
       );
     } else if (type === ActionType.Fab) {
@@ -82,6 +86,8 @@ export const ActionListSlot = <FilterData extends IAnything>({
           icon={icon}
           isDisabled={isDisabled}
           isVisible={isVisible}
+          height={height}
+          width={width}
         />
       )
     } else if (type === ActionType.Menu) {
