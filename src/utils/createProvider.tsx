@@ -2,17 +2,17 @@ import * as React from 'react';
 
 import { createContext, useContext, useMemo } from "react";
 
-export const createProvider = <T extends any, P extends any = T>(createPayload = (p: P) => p as T) => {
+export const createProvider = <P extends any>(createPayload = (p: P) => p) => {
 
-    const Context = createContext<T>(null as never);
-    
+    const Context = createContext<ReturnType<typeof createPayload>>(null as never);
+
     const Provider = ({
         children,
         payload,
     }: React.PropsWithChildren<{
-        payload: P extends T ? P : undefined;
+        payload?: P;
     }>) => {
-        const value = useMemo(() => createPayload(payload as P), [payload]);
+        const value = useMemo(() => createPayload(payload!), [payload]);
         return (
             <Context.Provider value={value}>
                 {children}
