@@ -3,6 +3,7 @@ import IRowData from "../../../../model/IRowData";
 
 export interface IActionAddSlot<RowData extends IRowData = IAnything> {
     action?: string;
+    label?: string;
     isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
     isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
 }

@@ -10,6 +10,8 @@ import useModalSort from '../../../../hooks/useModalSort';
 import useReload from '../../../../hooks/useReload';
 import useCachedRows from '../../../../hooks/useCachedRows';
 
+import useActualCallback from '../../../../../../hooks/useActualCallback';
+
 import IActionMenuSlot from '../../../../slots/ActionMenuSlot/IActionMenuSlot';
 
 const LOAD_SOURCE = 'action-menu';
@@ -31,14 +33,14 @@ export const ActionMenu = ({
         loading,
     } = useProps();
 
-    const handleAction = (action: string) => {
+    const handleAction = useActualCallback((action: string) => {
         if (action === 'update-now') {
             reloadList();
         } else if (action === 'resort-action') {
             showSortModal();
         }
         onAction && onAction(action, selectedRows, reloadList);
-    };
+    });
 
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);

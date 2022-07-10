@@ -91,6 +91,7 @@ const columns: IColumn[] = [
 const actions: IListAction[] = [
   {
     type: ActionType.Add,
+    label: 'Create item'
   },
   {
     type: ActionType.Fab,
@@ -253,9 +254,7 @@ export const ListPage = () => {
     rows = rows.slice(offset, limit + offset);
 
     return {
-      rows: [
-        {}
-      ],
+      rows,
       total,
     };
 

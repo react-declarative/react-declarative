@@ -61,12 +61,14 @@ export const ActionListSlot = <FilterData extends IAnything>({
     options: upperOptions = [],
     isDisabled,
     isVisible,
+    label,
     icon,
     action,
   }: IListAction) => {
     if (type === ActionType.Add) {
       return (
         <ActionAdd
+          label={label}
           action={action}
           isDisabled={isDisabled}
           isVisible={isVisible}
@@ -75,6 +77,7 @@ export const ActionListSlot = <FilterData extends IAnything>({
     } else if (type === ActionType.Fab) {
       return (
         <ActionFab
+          label={label}
           action={action}
           icon={icon}
           isDisabled={isDisabled}
