@@ -211,6 +211,8 @@ export type IOperationListSlot = IOperationListSlotInternal;
 export { arrays } from './utils/arrays';
 export { objects } from './utils/objects';
 
+export { FetchError, fetchApi } from './utils/fetchApi';
+
 export { createProvider } from './utils/createProvider';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
