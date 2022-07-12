@@ -7,6 +7,8 @@ import {
 import abortManager from '../../../helpers/abortManager';
 
 import IAnything from "../../../model/IAnything";
+
+import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
@@ -51,6 +53,9 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
         } catch (e) {
             queuedFetch.clear();
             isOk = false;
+            if (e instanceof FetchError) {
+                e = e.originalError;
+            }
             if (e instanceof DOMException && e.name == "AbortError") {
                 return EMPTY_RESPONSE;
             } else if (fallback) {

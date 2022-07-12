@@ -12,6 +12,8 @@ import abortManager from '../../../helpers/abortManager';
 
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
+
+import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
 export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
@@ -134,6 +136,9 @@ export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData
         } catch (e) {
             queuedFetch.clear();
             isOk = false;
+            if (e instanceof FetchError) {
+                e = e.originalError;
+            }
             if (e instanceof DOMException && e.name == "AbortError") {
                 return { ...EMPTY_RESPONSE };
             } else if (fallback) {
