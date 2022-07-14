@@ -95,7 +95,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
         return rows;
     },
     searchHandler = (rows, search) => {
-        if (rows.length) {
+        if (rows.length && search) {
             const searchEntry = SEARCH_ENTRIES.find((entry) => rows[0][entry]);
             if (searchEntry) {
                 return rows.filter((row) => {
