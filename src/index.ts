@@ -235,4 +235,6 @@ export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';
 
+export { parseBase64Json, stringifyBase64Json } from './utils/base64Json';
+
 export * as typo from './utils/typo';
