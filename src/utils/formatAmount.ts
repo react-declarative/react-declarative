@@ -1,5 +1,4 @@
-export const thinsp = '\u2009';
-export const nbsp = '\u00a0';
+import { nbsp } from "./typo";
 
 export const formatAmount = (
     value: number | string,

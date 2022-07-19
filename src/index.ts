@@ -229,7 +229,7 @@ export { cached } from './utils/hof/cached';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
 
-export { formatAmount, nbsp, thinsp } from './utils/formatAmount';
+export { formatAmount } from './utils/formatAmount';
 
 export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
