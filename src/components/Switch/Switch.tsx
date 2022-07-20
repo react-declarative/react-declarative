@@ -78,12 +78,14 @@ export const Switch = ({
     });
 
     useEffect(() => {
-        const handleLocation = ({ location }: Update) => {
-            const newLocation = { ...location };
-            setLocation(newLocation);
+        const handleLocation = (update: Update) => {
+            if (update.location.pathname !== location.pathname) {
+                const newLocation = { ...update.location };
+                setLocation(newLocation);
+            }
         };
         return history.listen(handleLocation);
-    }, [history]);
+    }, [history, location]);
 
     const handleState = useMemo(() => async () => {
         const { pathname: url = '/' } = location;

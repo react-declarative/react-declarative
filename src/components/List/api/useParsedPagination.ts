@@ -32,15 +32,30 @@ export const DEFAULT_PARSE_RESULT: IParseResult = {
 export const useParsedPagination = <
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
->(query: string): IParseResult<FilterData, RowData> => {
+>(query: string, {
+    filterData: defaultFilterData = DEFAULT_PARSE_RESULT.filterData,
+    sortModel: defaultSortModel = DEFAULT_PARSE_RESULT.sortModel,
+    chips: defaultChips = DEFAULT_PARSE_RESULT.chips,
+    limit: defaultLimit = DEFAULT_PARSE_RESULT.limit,
+    page: defaultPage = DEFAULT_PARSE_RESULT.page,
+    search: defaultSearch = DEFAULT_PARSE_RESULT.search,
+}: Partial<IParseResult<FilterData, RowData>> = {}): IParseResult<FilterData, RowData> => {
     return useMemo(() => {
+        const defaultParseResult = {
+            filterData: defaultFilterData,
+            sortModel: defaultSortModel,
+            chips: defaultChips,
+            limit: defaultLimit,
+            page: defaultPage,
+            search: defaultSearch,
+        };
         const {
-            filterData = DEFAULT_PARSE_RESULT.filterData,
-            sortModel = DEFAULT_PARSE_RESULT.sortModel,
-            chips = DEFAULT_PARSE_RESULT.chips,
-            limit = DEFAULT_PARSE_RESULT.limit,
-            page = DEFAULT_PARSE_RESULT.page,
-            search = DEFAULT_PARSE_RESULT.search,
+            filterData = defaultParseResult.filterData,
+            sortModel = defaultParseResult.sortModel,
+            chips = defaultParseResult.chips,
+            limit = defaultParseResult.limit,
+            page = defaultParseResult.page,
+            search = defaultParseResult.search,
         } = parseBase64Json(query) || {};
         return {
             filterData,
