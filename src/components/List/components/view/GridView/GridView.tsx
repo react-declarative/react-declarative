@@ -55,6 +55,8 @@ interface IGridViewProps<FilterData = IAnything, RowData extends IRowData = IAny
     ref: never;
     limit: never;
     chips: never;
+    search: never;
+    filterData: never;
     isChooser: never;
   }>,
   IListState<FilterData, RowData>,

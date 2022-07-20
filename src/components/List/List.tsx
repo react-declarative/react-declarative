@@ -57,9 +57,11 @@ export class List<
         onSearchChange: () => null,
         onPageChange: () => null,
         onLimitChange: () => null,
+        filterData: {},
         toggleFilters: false,
         sortModel: [],
         chips: [],
+        search: "",
     };
 
     constructor(props: IListProps<FilterData, RowData, Field>) {
@@ -67,12 +69,12 @@ export class List<
         this.state = {
             initComplete: false,
             isChooser: this.props.isChooser!,
-            filterData: {} as never,
+            filterData: this.props.filterData as never,
             rows: [] as never,
             limit: this.props.limit!,
             offset: this.props.limit! * this.props.page!,
             total: null,
-            search: "",
+            search: this.props.search!,
             loading: false,
             filtersCollapsed: this.props.toggleFilters!,
             sort: this.props.sortModel!,

@@ -161,6 +161,8 @@ export interface IListProps<
   withInitialLoader?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
+  search?: string;
+  filterData?: Partial<FilterData>;
   sortModel?: ListHandlerSortModel<RowData>;
   isChooser?: boolean;
 }

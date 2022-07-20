@@ -26,6 +26,8 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
     ref: never;
     limit: never;
     chips: never;
+    search: never;
+    filterData: never;
     isChooser: never;
   }>,
   IListState<FilterData, RowData>,

@@ -15,6 +15,8 @@ interface IPropContext<
     Omit<IListProps<FilterData, RowData, Field>, keyof {
         limit: never;
         chips: never;
+        search: never;
+        filterData: never;
         isChooser: never;
     }>,
     IListState<FilterData, RowData>,

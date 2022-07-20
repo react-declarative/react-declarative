@@ -46,6 +46,8 @@ interface IChooserProps<FilterData = IAnything, RowData extends IRowData = IAnyt
     ref: never;
     limit: never;
     chips: never;
+    search: never;
+    filterData: never;
     isChooser: never;
   }>,
   IListState<FilterData, RowData>,
