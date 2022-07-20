@@ -132,8 +132,11 @@ export { OtherItemsSlot } from './components';
 
 export { useCachedPaginator } from './components';
 export { useArrayPaginator } from './components';
-export { useLastPagination } from './components';
 export { useApiPaginator } from './components';
+
+export { useSerializedPagination } from './components';
+export { useParsedPagination } from './components';
+export { useLastPagination } from './components';
 
 export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
@@ -231,6 +234,7 @@ export { Subject } from './utils/rx/Subject';
 
 export { formatAmount } from './utils/formatAmount';
 
+export { createWindowHistory } from './utils/createWindowHistory';
 export { createCustomTag } from './utils/createCustomTag';
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';

@@ -25,11 +25,13 @@ import { CachedRowsProvider } from './hooks/useCachedRows';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
-import scrollManager from './helpers/scrollManager';
+import {
+    DEFAULT_LIMIT,
+    DEFAULT_PAGE,
+    LIST_FETCH_DEBOUNCE,
+} from './config';
 
-const DEFAULT_PAGE = 0;
-const DEFAULT_LIMIT = 10;
-const LIST_FETCH_DEBOUNCE = 1_000;
+import scrollManager from './helpers/scrollManager';
 
 export class List<
     FilterData extends IAnything = IAnything,
@@ -299,7 +301,10 @@ export class List<
           offset: 0,
           chips,
         }));
-        this.props.onChipsChange!(chips);
+        this.props.onChipsChange!(this.props.chips!.map((chip) => ({
+            ...chip,
+            enabled: chips[chip.name] || false,
+        })));
     };
 
     private handleSearch = (search: string) => {

@@ -137,7 +137,7 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
-  onChipsChange?: (chips: ListHandlerChips<RowData>) => void;
+  onChipsChange?: (chips: IListChip<RowData>[]) => void;
   onSearchChange?: (search: string) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
   onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: (keepPagination?: boolean) => Promise<void>) => void;
