@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
@@ -14,12 +15,14 @@ import { BoxProps } from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/KeyboardArrowLeft';
 import ArrowForwardIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import classNames from '../../../../utils/classNames';
-
+import useActualCallback from '../../../../hooks/useActualCallback';
 import useSelection from '../../hooks/useSelection';
 import useProps from '../../hooks/useProps';
 
+import classNames from '../../../../utils/classNames';
+
 const ACTION_GROW = 500;
+const MIN_PAGES_COUNT = 10;
 
 const useStyles = makeStyles({
     root: {
@@ -106,13 +109,13 @@ const TableActions = ({
     page: number;
     onPageChange: (e: any, page: number) => void;
 }) => {
-    const extraPage = count % rowsPerPage === 0 ? 0 : 1;
-    const pages = Math.floor(count / rowsPerPage) + extraPage;
+    const pages = Math.ceil(count / rowsPerPage);
+    const paginationPage = page + 1;
     return (
         <Pagination
             className={className}
-            page={page + 1}
-            count={pages}
+            page={paginationPage}
+            count={count === -1 ? Math.max(paginationPage + 1, MIN_PAGES_COUNT): pages}
             renderItem={(item) => (
                 <PaginationItem
                     components={{
@@ -141,9 +144,45 @@ export const TablePagination = ({
 
     const isGrow =  width > ACTION_GROW;
 
+    const {
+        withArrowPagination = false,
+        loading,
+    } = useProps();
+
     const Actions = isGrow
         ? TableActions
         : undefined;
+
+    const {
+        count,
+        rowsPerPage,
+        page,
+        onPageChange
+    } = props;
+
+    const handleArrowKeydown = useActualCallback((e: any, go: number) => {
+        if (count === -1) {
+            onPageChange(e, Math.max(page + go, 0));
+        } else {
+            const totalPages = Math.ceil(count / rowsPerPage) - 1;
+            onPageChange(e, Math.min(Math.max(page + go, 0), totalPages));
+        }
+    });
+
+    useEffect(() => {
+        const handler = (e: any) => {
+            const { key } = e;
+            if (key === 'ArrowRight') {
+                handleArrowKeydown(e, 1);
+            } else if (key === 'ArrowLeft') {
+                handleArrowKeydown(e, -1);
+            }
+        };
+        if (withArrowPagination && !loading) {
+            document.addEventListener('keydown', handler);
+        }
+        return () => document.removeEventListener('keydown', handler);
+    }, [withArrowPagination, loading]);
 
     return (
         <MatTablePagination

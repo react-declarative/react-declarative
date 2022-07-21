@@ -158,6 +158,7 @@ export interface IListProps<
   toggleFilters?: boolean;
   withSearch?: boolean;
   withLoader?: boolean;
+  withArrowPagination?: boolean;
   withInitialLoader?: boolean;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];

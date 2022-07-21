@@ -220,11 +220,16 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
-  const { data, handler: wrappedHandler } = useLastPagination(({}, {}, {}, {}, {}) => {
-    return mock;
-  });
+  /*const { data, handler: wrappedHandler } = useLastPagination(({}, {}, {}, {}, {}) => {
+    return {
+      rows: ,
+      total: mock.length,
+    };
+  });*/
 
-  const handler = useArrayPaginator(wrappedHandler);
+  const data = {};
+
+  const handler = useArrayPaginator(mock);
 
   const pickerHandler = async ({
     firstName,
@@ -340,6 +345,7 @@ export const ListPage = () => {
       operations={operations}
       chips={chips}
       withSearch
+      withArrowPagination
       withInitialLoader={false}
     />
   );
