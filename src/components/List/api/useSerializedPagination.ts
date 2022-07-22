@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 import IAnything from "../../../model/IAnything";
 import IListProps from "../../../model/IListProps";
@@ -17,6 +17,7 @@ interface IResultListProps <
     onSortModelChange: IListProps<FilterData, RowData>['onSortModelChange'];
     onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
     onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
+    onChange?: (pagination: string) => void;
 }
 
 interface IResult<
@@ -64,6 +65,7 @@ export const useSerializedPagination = <
         onSortModelChange: handleSortModelChange = () => null,
         onChipsChange: handleChipsChange = () => null,
         onSearchChange: handleSeachChange = () => null,
+        onChange: handleChange = () => null,
     } = otherProps;
 
     const onFilterChange: IResultListProps<FilterData, RowData>['onFilterChange'] = (filterData) => {
@@ -117,6 +119,10 @@ export const useSerializedPagination = <
     const serializedPagination = useMemo(() => {
         return stringifyBase64Json(state);
     }, [state]);
+
+    useEffect(() => {
+        handleChange(serializedPagination);
+    }, [serializedPagination]);
 
     return {
         listProps: {
