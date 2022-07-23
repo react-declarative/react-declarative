@@ -52,6 +52,7 @@ class ServiceManager {
     };
 
     prefetch = singleshot(async (verbose = true) => {
+        this.unload.clear();
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
@@ -71,6 +72,7 @@ class ServiceManager {
     });
 
     unload = singleshot(async (verbose = true) => {
+        this.prefetch.clear();
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
