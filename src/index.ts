@@ -26,10 +26,10 @@ import { IListAction as IListActionInternal } from './model/IListProps';
 import { IListChip as IListChipInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
-import { serviceManager as serviceManagerInternal } from './helpers/serviceManager';
-export const provide = serviceManagerInternal.registerCreator;
-export const inject = serviceManagerInternal.inject;
-export const serviceManager = serviceManagerInternal;
+export { createServiceManager } from './helpers/serviceManager';
+export { serviceManager } from './helpers/serviceManager';
+export { provide } from './helpers/serviceManager';
+export { inject } from './helpers/serviceManager';
 
 import { 
     IMenuGroup as IMenuGroupInternal,

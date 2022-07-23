@@ -1,19 +1,17 @@
-import compose from "../utils/compose";
-
-type Key = string | Symbol;
+type Key = string | symbol;
 
 interface IService {
     prefetch?: () => Promise<void>;
 }
 
-export const serviceManager = new class {
+class ServiceManager {
 
-    _creators = new Map<Key, () => unknown>();
-    _instances = new Map<Key, unknown>();
+    private readonly _creators = new Map<Key, () => unknown>();
+    private readonly _instances = new Map<Key, unknown>();
 
-    _resolutionOrder: Key[] = [];
+    private readonly _resolutionOrder: Key[] = [];
 
-    _checkCircularDependency = (key: Key) => {
+    private _checkCircularDependency = (key: Key) => {
         const lastIndex = this._resolutionOrder.lastIndexOf(key);
         if (lastIndex !== -1) {
             const { length: len } = this._resolutionOrder;
@@ -29,11 +27,11 @@ export const serviceManager = new class {
         this._instances.set(key, inst);
     };
 
-    registerCreator = <T = unknown>(key: Key, ctor: () => T, ...hof: ((t: T) => T)[]) => {
-        this._creators.set(key, compose(...hof, ctor) as () => T);
+    registerCreator = <T = unknown>(key: Key, ctor: () => T) => {
+        this._creators.set(key, ctor);
     };
 
-    inject = <T = unknown>(key: Key): T => {
+    inject = <T = unknown>(key: Key, verbose = true): T => {
         if (this._instances.has(key)) {
             const instance = this._instances.get(key);
             return instance as T;
@@ -43,7 +41,7 @@ export const serviceManager = new class {
             this._instances.set(key, instance);
             return instance as T;
         } else {
-            console.warn('serviceManager unknown service', key);
+            verbose && console.warn('serviceManager unknown service', key);
             return null as never;
         }
     };
@@ -69,4 +67,46 @@ export const serviceManager = new class {
 
 };
 
-export default serviceManager;
+type IServiceManager = {
+    [P in keyof InstanceType<typeof ServiceManager>]: InstanceType<typeof ServiceManager>[P];
+};
+
+export const serviceManager = new class implements IServiceManager {
+    _serviceManager = new ServiceManager();
+    registerInstance = <T = unknown>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
+    registerCreator = <T = unknown>(key: Key, ctor: () => T) => this._serviceManager.registerCreator<T>(key, ctor);
+    prefetch = () => this._serviceManager.prefetch();
+    inject = <T = unknown>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
+    clear = () => this._serviceManager.clear();
+};
+
+const {
+    registerCreator: provide,
+    inject,
+} = serviceManager;
+
+export {
+    provide,
+    inject,
+};
+
+export const createServiceManager = () => {
+    const localServiceManager = new ServiceManager();
+
+    const inject = <T = unknown>(key: Key): T => {
+        const localInstance = localServiceManager.inject<T>(key, false);
+        if (localInstance) {
+            return localInstance;
+        } else {
+            return serviceManager.inject<T>(key);
+        }
+    };
+
+    return {
+        serviceManager: localServiceManager,
+        provide: serviceManager.registerCreator,
+        inject,
+    };
+};
+
+export default createServiceManager;
