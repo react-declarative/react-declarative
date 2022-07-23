@@ -75,7 +75,7 @@ export const serviceManager = new class implements IServiceManager {
     _serviceManager = new ServiceManager();
     registerInstance = <T = unknown>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
     registerCreator = <T = unknown>(key: Key, ctor: () => T) => this._serviceManager.registerCreator<T>(key, ctor);
-    prefetch = () => this._serviceManager.prefetch();
+    prefetch = async () => await this._serviceManager.prefetch();
     inject = <T = unknown>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
     clear = () => this._serviceManager.clear();
 };
