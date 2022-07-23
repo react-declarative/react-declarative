@@ -3,6 +3,7 @@ import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';
 import { IManaged as IManagedInternal } from './model/IManaged';
 import { IColumn as IColumnInternal } from './model/IColumn';
+import { ITab as ITabInternal } from './model/ITab';
 
 import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
 import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from './components/List/api/useArrayPaginator';
@@ -73,6 +74,7 @@ export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;
 export type IEntity<Data = IAnything> = IEntityInternal<Data>;
 export type IManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
+export type ITab = ITabInternal;
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
@@ -107,9 +109,11 @@ export { default as dayjs } from 'dayjs';
 
 export { ConstraintView } from './components';
 export { ScrollView } from './components';
-export { AutoSizer } from './components';
 export { FetchView } from './components';
 export { FadeView } from './components';
+export { TabsView } from './components';
+
+export { AutoSizer } from './components';
 export { ActionMenu } from './components';
 export { Async } from './components';
 export { If } from './components';

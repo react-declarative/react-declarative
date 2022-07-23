@@ -1,6 +1,23 @@
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView } from 'react-declarative';
+import { FadeView, TabsView, ITab } from 'react-declarative';
+
+import sleep from '../utils/sleep';
+
+const tabs: ITab[] = [
+    {
+        label: 'tab1',
+        value: 'tab1',
+        isDisabled: async () => {
+            await sleep(3_000);
+            return true;
+        }
+    },
+    {
+        label: 'tab2',
+        value: 'tab2',
+    },
+];
 
 export const FadePage = () => {
 
@@ -39,6 +56,13 @@ export const FadePage = () => {
                     </p>
                 </FadeView>
             </Grid>
+            <TabsView
+                items={tabs}
+            >
+                {(value) => {
+                    return () => <p>{value}</p>
+                }}
+            </TabsView>
         </>
     );
 }

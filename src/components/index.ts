@@ -11,6 +11,7 @@ export * from './ConstraintView';
 export * from './ScrollView';
 export * from './AutoSizer';
 export * from './FadeView';
+export * from './TabsView';
 export * from './FetchView';
 export * from './Async';
 export * from './If';
