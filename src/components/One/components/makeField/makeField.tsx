@@ -150,7 +150,7 @@ export function makeField(
             } else {
                 const disabled = isDisabled(object);
                 const visible = isVisible(object);
-                const invalid = isInvalid(object);
+                const invalid = isInvalid(object) || null;
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
