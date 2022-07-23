@@ -186,7 +186,7 @@ export function makeField(
                 const target = debouncedValue;
                 const copy = deepClone(object);
                 const check = set(copy, name, target);
-                const invalid = isInvalid(copy);
+                const invalid = isInvalid(copy) || null;
                 setInvalid(invalid);
                 setDirty(true);
                 if (!name) {
