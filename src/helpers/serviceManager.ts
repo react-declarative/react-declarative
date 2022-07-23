@@ -1,7 +1,10 @@
+import singleshot from "../utils/hof/singleshot";
+
 type Key = string | symbol;
 
 interface IService {
     prefetch?: () => Promise<void>;
+    unload?: () => Promise<void>;
 }
 
 class ServiceManager {
@@ -11,12 +14,14 @@ class ServiceManager {
 
     private readonly _resolutionOrder: Key[] = [];
 
+    constructor(private readonly _name = 'root') { }
+
     private _checkCircularDependency = (key: Key) => {
         const lastIndex = this._resolutionOrder.lastIndexOf(key);
         if (lastIndex !== -1) {
             const { length: len } = this._resolutionOrder;
             const path = this._resolutionOrder.slice(Math.max(lastIndex - 1, 0), len);
-            console.warn('react-declarative serviceManager circular dependency', path.join('-'));
+            console.warn(`react-declarative serviceManager "${this._name}" circular dependency`, path.join('->'));
             throw new Error('Circular Dependency detected');
         } else {
             this._resolutionOrder.push(key);
@@ -41,28 +46,54 @@ class ServiceManager {
             this._instances.set(key, instance);
             return instance as T;
         } else {
-            verbose && console.warn('serviceManager unknown service', key);
+            verbose && console.error(`react-declarative serviceManager ${this._name} unknown service`, key);
             return null as never;
         }
     };
 
-    prefetch = async () => {
-        const resolutionSet = new Set(this._resolutionOrder);
-        for (const key of this._resolutionOrder) {
-            const instance = this._instances.get(key)! as IService;
-            instance.prefetch && await instance.prefetch();
-        }
-        for (const key of this._instances.keys()) {
-            if (!resolutionSet.has(key)) {
+    prefetch = singleshot(async (verbose = true) => {
+        try {
+            const resolutionSet = new Set(this._resolutionOrder);
+            for (const key of this._resolutionOrder) {
                 const instance = this._instances.get(key)! as IService;
                 instance.prefetch && await instance.prefetch();
             }
+            for (const key of this._instances.keys()) {
+                if (!resolutionSet.has(key)) {
+                    const instance = this._instances.get(key)! as IService;
+                    instance.prefetch && await instance.prefetch();
+                }
+            }
+        } catch (e) {
+            verbose && console.error(`react-declarative serviceManager ${this._name} prefetch error`, e);
+            throw e;
         }
-    };
+    });
+
+    unload = singleshot(async (verbose = true) => {
+        try {
+            const resolutionSet = new Set(this._resolutionOrder);
+            for (const key of this._resolutionOrder) {
+                const instance = this._instances.get(key)! as IService;
+                instance.unload && await instance.unload();
+            }
+            for (const key of this._instances.keys()) {
+                if (!resolutionSet.has(key)) {
+                    const instance = this._instances.get(key)! as IService;
+                    instance.unload && await instance.unload();
+                }
+            }
+        } catch (e) {
+            verbose && console.error(`react-declarative serviceManager ${this._name} unload error`, e);
+            throw e;
+        }
+    });
 
     clear = () => {
         this._creators.clear();
         this._instances.clear();
+        this.prefetch.clear();
+        this.unload.clear();
     };
 
 };
@@ -71,41 +102,69 @@ type IServiceManager = {
     [P in keyof InstanceType<typeof ServiceManager>]: InstanceType<typeof ServiceManager>[P];
 };
 
-export const serviceManager = new class implements IServiceManager {
+export const serviceManager = new class implements Omit<IServiceManager, keyof {
+    prefetch: never;
+    unload: never;
+}> {
     _serviceManager = new ServiceManager();
     registerInstance = <T = unknown>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
     registerCreator = <T = unknown>(key: Key, ctor: () => T) => this._serviceManager.registerCreator<T>(key, ctor);
-    prefetch = async () => await this._serviceManager.prefetch();
     inject = <T = unknown>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
+    prefetch = async (verbose = true) => await this._serviceManager.prefetch(verbose);
+    unload = async (verbose = true) => await this._serviceManager.unload(verbose);
     clear = () => this._serviceManager.clear();
 };
 
 const {
     registerCreator: provide,
     inject,
+    prefetch,
+    unload,
 } = serviceManager;
 
 export {
     provide,
     inject,
+    prefetch,
+    unload,
 };
 
-export const createServiceManager = () => {
-    const localServiceManager = new ServiceManager();
+export const createServiceManager = (name = 'unknown') => {
+
+    const localServiceManager = new ServiceManager(name);
 
     const inject = <T = unknown>(key: Key): T => {
         const localInstance = localServiceManager.inject<T>(key, false);
         if (localInstance) {
             return localInstance;
         } else {
-            return serviceManager.inject<T>(key);
+            const globalService = serviceManager.inject<T>(key, false);
+            !globalService && console.error(`react-declarative serviceManager ${name} unknown service`, key);
+            return globalService;
         }
+    };
+
+    const prefetch = async () => {
+        await serviceManager.prefetch();
+        await localServiceManager.prefetch();
+    };
+
+    const unload = async () => {
+        await localServiceManager.unload();
+    };
+
+    const dispose = async () => {
+        await localServiceManager.unload();
+        await serviceManager.unload();
     };
 
     return {
         serviceManager: localServiceManager,
         provide: serviceManager.registerCreator,
         inject,
+        prefetch,
+        unload,
+        dispose,
     };
 };
 

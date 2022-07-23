@@ -28,6 +28,10 @@ import { IOption as IOptionInternal } from './model/IOption';
 
 export { createServiceManager } from './helpers/serviceManager';
 export { serviceManager } from './helpers/serviceManager';
+
+export { prefetch } from './helpers/serviceManager';
+export { unload } from './helpers/serviceManager';
+
 export { provide } from './helpers/serviceManager';
 export { inject } from './helpers/serviceManager';
 
