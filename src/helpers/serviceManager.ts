@@ -162,7 +162,7 @@ export const createServiceManager = (name = 'unknown') => {
 
     return {
         serviceManager: localServiceManager,
-        provide: serviceManager.registerCreator,
+        provide: localServiceManager.registerCreator,
         inject,
         prefetch,
         unload,
