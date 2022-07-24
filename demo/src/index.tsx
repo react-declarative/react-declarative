@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider } from 'react-declarative';
+import { ModalProvider, createServiceManager } from 'react-declarative';
 
 import App from './App'
 
@@ -35,3 +35,5 @@ ReactDOM.render(
     </ThemeProvider>,
     document.getElementById('root')
 );
+
+(window as any).createServiceManager = createServiceManager;

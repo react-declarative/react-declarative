@@ -12,7 +12,8 @@ class ServiceManager {
     private readonly _creators = new Map<Key, () => unknown>();
     private readonly _instances = new Map<Key, unknown>();
 
-    private readonly _resolutionOrder: Key[] = [];
+    private _resolutionOrder: Key[] = [];
+    private _reverseCounter = 0;
 
     constructor(private readonly _name = 'root') { }
 
@@ -21,10 +22,21 @@ class ServiceManager {
         if (lastIndex !== -1) {
             const { length: len } = this._resolutionOrder;
             const path = this._resolutionOrder.slice(Math.max(lastIndex - 1, 0), len);
+            if (path.length === 1) {
+                path.push(path[0]);
+            }
             console.warn(`react-declarative serviceManager "${this._name}" circular dependency`, path.join('->'));
             throw new Error('Circular Dependency detected');
         } else {
             this._resolutionOrder.push(key);
+        }
+    };
+
+    private _updateResolutionOrder = (index: number) => {
+        if (this._reverseCounter === 0) {
+            const beforeInstance = this._resolutionOrder.slice(0, index);
+            const afterInstance = this._resolutionOrder.slice(index).reverse();
+            this._resolutionOrder = [...beforeInstance, ...afterInstance];
         }
     };
 
@@ -42,7 +54,11 @@ class ServiceManager {
             return instance as T;
         } else if (this._creators.has(key)) {
             this._checkCircularDependency(key);
+            const index = Math.max(this._resolutionOrder.length - 1, 0);
+            this._reverseCounter++;
             const instance = this._creators.get(key)!();
+            this._reverseCounter--;
+            this._updateResolutionOrder(index);
             this._instances.set(key, instance);
             return instance as T;
         } else {
