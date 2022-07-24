@@ -108,6 +108,8 @@ class ServiceManager {
     });
 
     clear = () => {
+        this._resolutionOrder = [];
+        this._reverseCounter = 0;
         this._creators.clear();
         this._instances.clear();
         this.prefetch.clear();
