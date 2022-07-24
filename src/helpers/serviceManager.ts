@@ -22,9 +22,7 @@ class ServiceManager {
         if (lastIndex !== -1) {
             const { length: len } = this._resolutionOrder;
             const path = this._resolutionOrder.slice(Math.max(lastIndex - 1, 0), len);
-            if (path.length === 1) {
-                path.push(path[0]);
-            }
+            path.push(path[0]);
             console.warn(`react-declarative serviceManager "${this._name}" circular dependency`, path.join('->'));
             throw new Error('Circular Dependency detected');
         } else {
