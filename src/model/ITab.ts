@@ -1,9 +1,13 @@
 import IOption from "./IOption";
 
-export interface ITab extends Omit<IOption, keyof {
+export interface ITab<T extends any = string> extends Omit<IOption, keyof {
     action: never;
+    isVisible: never;
+    isDisabled: never;
 }> {
     value: string;
+    isVisible?: (payload: T) => Promise<boolean> | boolean;
+    isDisabled?: (payload: T) => Promise<boolean> | boolean;
 }
 
 export default ITab;

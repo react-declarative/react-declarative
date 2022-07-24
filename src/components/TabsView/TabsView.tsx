@@ -18,13 +18,13 @@ import ITab from '../../model/ITab';
 
 const TAB_PLACEHOLDER_VALUE = 'placeholder';
 
-interface ITabsViewProps extends Omit<IAsyncProps, keyof {
+interface ITabsViewProps<T extends any = string> extends Omit<IAsyncProps<T>, keyof {
     children: never;
     Error: never;
 }> {
     className?: string;
     style?: React.CSSProperties;
-    items: ITab[];
+    items: ITab<T>[];
     value?: string;
     children: (value: string) => React.ComponentType<any>;
     onChange?: (value: string) => void;
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Fragment = () => <></>;
 
-export const TabsView = ({
+export const TabsView = <T extends any = string>({
     className,
     style,
     centered,
@@ -78,7 +78,7 @@ export const TabsView = ({
     onLoadEnd,
     Loader = Fragment,
     ...otherProps
-}: ITabsViewProps) => {
+}: ITabsViewProps<T>) => {
 
     const classes = useStyles();
 
@@ -155,20 +155,20 @@ export const TabsView = ({
             })} p={3}>
                 {child}
             </Box>
-            <Async
+            <Async<T>
                 {...otherProps}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
             >
-                {async () => {
+                {async (payload) => {
 
                     const tabs = await Promise.all(items.map(async ({
                         isVisible = () => true,
                         isDisabled = () => false,
                         ...other
                     }) => ({
-                        visible: await isVisible(),
-                        disabled: await isDisabled(),
+                        visible: await isVisible(payload),
+                        disabled: await isDisabled(payload),
                         ...other,
                     })));
 
