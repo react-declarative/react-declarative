@@ -41,6 +41,7 @@ interface IBreadcrumbsProps {
   disabled?: boolean;
   title?: string;
   subtitle?: string;
+  withSaveButton?: boolean;
 }
 
 export const Breadcrumbs = ({
@@ -51,6 +52,7 @@ export const Breadcrumbs = ({
   disabled,
   title = 'Title',
   subtitle = 'Subtitle',
+  withSaveButton = false,
 }: IBreadcrumbsProps) => {
   const classes = useStyles();
 
@@ -62,14 +64,16 @@ export const Breadcrumbs = ({
         <Link onClick={onBack} color="inherit">{title}</Link>
         <Typography color="textPrimary">{subtitle}</Typography>
       </MatBreadcrumbs>
-      <Button
-        onClick={handleSave}
-        color="primary"
-        disabled={disabled}
-        variant="contained"
-      >
-        Save
-      </Button>
+      {!!withSaveButton && (
+        <Button
+          onClick={handleSave}
+          color="primary"
+          disabled={disabled}
+          variant="contained"
+        >
+          Save
+        </Button>
+      )}
       {!!actions?.length && (
         <ActionMenu
           options={actions}
