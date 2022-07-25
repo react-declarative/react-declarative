@@ -19,12 +19,14 @@ interface IResult<T extends any = string> {
 
 interface IParams {
     history?: MemoryHistory | BrowserHistory | HashHistory;
+    defaultValue?: string;
 }
 
 const DEFAULT_HISTORY = createWindowHistory();
 
 export const useTabsHashstate = <T extends any = string>({
     history = DEFAULT_HISTORY,
+    defaultValue = "",
 }: IParams = {}): IResult<T> => {
 
     const hashManager = useMemo(() => new class {
@@ -45,7 +47,7 @@ export const useTabsHashstate = <T extends any = string>({
     
     }, [history]);
 
-    const [value, setValue] = useState(hashManager.getValue());
+    const [value, setValue] = useState(hashManager.getValue() || defaultValue);
 
     const onChange = (value: string) => {
         hashManager.setValue(value);
