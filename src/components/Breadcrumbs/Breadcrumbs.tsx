@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 
 import ActionMenu from '../ActionMenu';
 
-import IOption from '../../model/IOption';
+import IBreadcrumbsOption from '../../model/IBreadcrumbsOption';
 
 const BREADCRUMBS_SAVE_DELAY = 500;
 
@@ -33,27 +33,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IBreadcrumbsProps {
+interface IBreadcrumbsProps<T extends any = string> {
   onSave?: () => void;
   onBack?: () => void;
   onAction?: (action: string) => void;
-  actions?: IOption[];
+  actions?: IBreadcrumbsOption<T>[];
   disabled?: boolean;
   title?: string;
   subtitle?: string;
-  withSaveButton?: boolean;
+  withSave?: boolean;
+  payload?: T;
 }
 
-export const Breadcrumbs = ({
+export const Breadcrumbs = <T extends any = string>({
   onSave,
   onBack,
   onAction,
   actions,
   disabled,
+  payload,
   title = 'Title',
   subtitle = 'Subtitle',
-  withSaveButton = false,
-}: IBreadcrumbsProps) => {
+  withSave = false,
+}: IBreadcrumbsProps<T>) => {
   const classes = useStyles();
 
   const handleSave = () => onSave && setTimeout(onSave, BREADCRUMBS_SAVE_DELAY);
@@ -64,7 +66,7 @@ export const Breadcrumbs = ({
         <Link onClick={onBack} color="inherit">{title}</Link>
         <Typography color="textPrimary">{subtitle}</Typography>
       </MatBreadcrumbs>
-      {!!withSaveButton && (
+      {!!withSave && (
         <Button
           onClick={handleSave}
           color="primary"
@@ -76,7 +78,16 @@ export const Breadcrumbs = ({
       )}
       {!!actions?.length && (
         <ActionMenu
-          options={actions}
+          payload={payload}
+          options={actions.map(({
+            isVisible = () => true,
+            isDisabled = () => false,
+            ...other
+          }) => ({
+            ...other,
+            isVisible: () => isVisible(payload!),
+            isDisabled: () => isDisabled(payload!),
+          }))}
           onAction={onAction}
         />
       )}

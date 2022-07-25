@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect, useMemo, useRef } from 'react';
 
-import { BrowserHistory, Location, Update } from 'history';
+import { BrowserHistory, HashHistory, Location, MemoryHistory, Update } from 'history';
 import { Key } from 'path-to-regexp';
 
-import { createBrowserHistory } from 'history';
 import { pathToRegexp } from 'path-to-regexp';
 
 import FetchView, { IFetchViewProps } from '../FetchView';
@@ -14,6 +13,7 @@ import NotFoundDefault from './components/NotFound';
 import LoaderDefault from './components/Loader';
 import ErrorDefault from './components/Error';
 
+import createWindowHistory from '../../utils/createWindowHistory';
 import sleep from '../../utils/sleep';
 
 export interface ISwitchItem {
@@ -30,7 +30,7 @@ export interface ISwitchProps {
     style?: React.CSSProperties;
     items: ISwitchItem[];
     fallback?: (e: Error) => void;
-    history?: BrowserHistory;
+    history?: BrowserHistory | MemoryHistory | HashHistory;
     Forbidden?: React.ComponentType<any>;
     NotFound?: React.ComponentType<any>;
     Loader?: React.ComponentType<any>;
@@ -51,7 +51,7 @@ const canActivate = async (item: ISwitchItem) => {
     }
 };
 
-const defaultHistory = createBrowserHistory();
+const DEFAULT_HISTORY = createWindowHistory();
 
 const Fragment = () => <></>;
 
@@ -63,7 +63,7 @@ export const Switch = ({
     NotFound = NotFoundDefault,
     Error = ErrorDefault,
     animation,
-    history = defaultHistory,
+    history = DEFAULT_HISTORY,
     fallback,
     items,
     onLoadStart,

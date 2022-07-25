@@ -18,7 +18,7 @@ import ITab from '../../model/ITab';
 
 const TAB_PLACEHOLDER_VALUE = 'placeholder';
 
-interface ITabsViewProps<T extends any = string> extends Omit<IAsyncProps<T>, keyof {
+export interface ITabsViewProps<T extends any = string> extends Omit<IAsyncProps<T>, keyof {
     children: never;
     Error: never;
 }> {
@@ -94,11 +94,11 @@ export const TabsView = <T extends any = string>({
     };
 
     useEffect(() => {
-        if (value) {
+        if (value && tabs.current.some((tab) => tab.value === value && tab.visible && !tab.disabled)) {
             const Element = children(value);
             setChild(<Element />);
         }
-    }, [value]);
+    }, [value, tabs.current]);
 
     const handleLoadStart = useActualCallback(() => {
         setLoader((loader) => loader + 1);
@@ -109,7 +109,7 @@ export const TabsView = <T extends any = string>({
     const handleLoadEnd = useActualCallback((isOk: boolean) => {
         if (!value) {
             const tab = tabs.current.find(({ visible, disabled }) => visible && !disabled);
-            setValue(tab?.value || TAB_PLACEHOLDER_VALUE);
+            handleChange(tab?.value || TAB_PLACEHOLDER_VALUE);
         }
         setLoader((loader) => loader - 1);
         onLoadEnd && onLoadEnd(isOk);
@@ -125,30 +125,32 @@ export const TabsView = <T extends any = string>({
                 [classes.underline]: !noUnderline,
                 [classes.none]: !!loader,
             })}>
-                <Tabs
-                    variant={variant}
-                    centered={centered}
-                    value={value}
-                    key={tabs.current.length}
-                    onChange={(_, value) => handleChange(value)}
-                >
-                    {tabs.current.map(({
-                        visible,
-                        label,
-                        disabled,
-                        icon: Icon,
-                        value,
-                    }, idx) => visible ? (
-                            <Tab
-                                key={idx}
-                                label={label}
-                                value={value}
-                                disabled={disabled}
-                                icon={Icon && <Icon />}
-                            />
-                        ) : null
-                    )}
-                </Tabs>
+                {!!value && !!tabs.current.length && (
+                    <Tabs
+                        variant={variant}
+                        centered={centered}
+                        value={value}
+                        key={tabs.current.length}
+                        onChange={(_, value) => handleChange(value)}
+                    >
+                        {tabs.current.map(({
+                            visible,
+                            label,
+                            disabled,
+                            icon: Icon,
+                            value,
+                        }, idx) => visible ? (
+                                <Tab
+                                    key={idx}
+                                    label={label}
+                                    value={value}
+                                    disabled={disabled}
+                                    icon={Icon && <Icon />}
+                                />
+                            ) : null
+                        )}
+                    </Tabs>
+                )}
             </Box>
             <Box className={classNames(classes.content, {
                 [classes.none]: !!loader,

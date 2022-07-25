@@ -1,6 +1,8 @@
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ITab } from 'react-declarative';
+import { FadeView, TabsView, ITab, useTabsHashstate } from 'react-declarative';
+
+import history from '../history';
 
 import sleep from '../utils/sleep';
 
@@ -17,9 +19,19 @@ const tabs: ITab[] = [
         label: 'tab2',
         value: 'tab2',
     },
+    {
+        label: 'tab3',
+        value: 'tab3',
+    },
 ];
 
 export const FadePage = () => {
+
+    const {
+        tabsProps,
+    } = useTabsHashstate({
+        history,
+    });
 
     useEffect(() => {
         console.log('ctor')
@@ -58,6 +70,7 @@ export const FadePage = () => {
             </Grid>
             <TabsView
                 items={tabs}
+                {...tabsProps}
             >
                 {(value) => {
                     return () => <p>{value}</p>

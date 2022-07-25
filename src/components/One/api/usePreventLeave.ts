@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 
 import { BrowserHistory, MemoryHistory, HashHistory } from "history";
-import { createMemoryHistory } from "history";
+
+import createWindowHistory from '../../../utils/createWindowHistory';
 
 import useConfirm from '../../../hooks/useConfirm';
 
@@ -27,10 +28,10 @@ export interface IPreventLeaveReturn<Data = IAnything> {
 }
 
 const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
-const HISTORY_INSTANCE = createMemoryHistory();
+const DEFAULT_HISTORY = createWindowHistory();
 
 export const usePreventLeave = <Data = IAnything>({
-    history = HISTORY_INSTANCE,
+    history = DEFAULT_HISTORY,
     onChange,
     onBlock = () => () => null,
     onSave = () => {},

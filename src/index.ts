@@ -26,6 +26,8 @@ import { IListAction as IListActionInternal } from './model/IListProps';
 import { IListChip as IListChipInternal } from './model/IListProps';
 import { IOption as IOptionInternal } from './model/IOption';
 
+import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from './model/IBreadcrumbsOption';
+
 export { createServiceManager } from './helpers/serviceManager';
 export { serviceManager } from './helpers/serviceManager';
 
@@ -99,6 +101,8 @@ export type IListApi = IListApiInternal;
 export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 
+export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
+
 export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
 export type pickOneFn = ReturnType<typeof useOne>;
 
@@ -150,6 +154,8 @@ export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
+
+export { useTabsHashstate } from './components';
 
 export { createField, makeField } from './components';
 
