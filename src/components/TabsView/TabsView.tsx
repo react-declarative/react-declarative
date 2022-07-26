@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 import { makeStyles } from '../../styles';
 
@@ -82,6 +82,8 @@ export const TabsView = <T extends any = string>({
 
     const classes = useStyles();
 
+    const isMounted = useRef(true);
+
     const [tabs, setTabs] = useActualState<ITabItem[]>([]);
 
     const [child, setChild] = useState<React.ReactElement | null>(null);
@@ -89,8 +91,10 @@ export const TabsView = <T extends any = string>({
     const [loader, setLoader] = useState(0);
 
     const handleChange = (value: string) => {
-        setValue(value);
-        onChange && onChange(value);
+        if (isMounted.current) {
+            setValue(value);
+            onChange && onChange(value);
+        }
     };
 
     useEffect(() => {
@@ -99,6 +103,10 @@ export const TabsView = <T extends any = string>({
             setChild(<Element />);
         }
     }, [value, tabs.current]);
+
+    useLayoutEffect(() => () => {
+        isMounted.current = false;
+    }, []);
 
     const handleLoadStart = useActualCallback(() => {
         setLoader((loader) => loader + 1);
@@ -111,7 +119,7 @@ export const TabsView = <T extends any = string>({
             const tab = tabs.current.find(({ visible, disabled }) => visible && !disabled);
             handleChange(tab?.value || TAB_PLACEHOLDER_VALUE);
         }
-        setLoader((loader) => loader - 1);
+        isMounted.current && setLoader((loader) => loader - 1);
         onLoadEnd && onLoadEnd(isOk);
     });
 
@@ -125,7 +133,7 @@ export const TabsView = <T extends any = string>({
                 [classes.underline]: !noUnderline,
                 [classes.none]: !!loader,
             })}>
-                {!!value && !!tabs.current.length && (
+                {!!value && !loader && !!tabs.current.length && (
                     <Tabs
                         variant={variant}
                         centered={centered}
@@ -133,13 +141,14 @@ export const TabsView = <T extends any = string>({
                         key={tabs.current.length}
                         onChange={(_, value) => handleChange(value)}
                     >
-                        {tabs.current.map(({
-                            visible,
-                            label,
-                            disabled,
-                            icon: Icon,
-                            value,
-                        }, idx) => visible ? (
+                        {tabs.current
+                            .filter(({ visible }) => visible)
+                            .map(({
+                                label,
+                                disabled,
+                                icon: Icon,
+                                value,
+                            }, idx) => (
                                 <Tab
                                     key={idx}
                                     label={label}
@@ -147,8 +156,8 @@ export const TabsView = <T extends any = string>({
                                     disabled={disabled}
                                     icon={Icon && <Icon />}
                                 />
-                            ) : null
-                        )}
+                            ))
+                        }
                     </Tabs>
                 )}
             </Box>
