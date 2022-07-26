@@ -109,8 +109,8 @@ export const TabsView = <T extends any = string>({
     }, []);
 
     const handleLoadStart = useActualCallback(() => {
-        setLoader((loader) => loader + 1);
-        setTabs([]);
+        isMounted.current && setLoader((loader) => loader + 1);
+        isMounted.current && setTabs([]);
         onLoadStart && onLoadStart();
     });
 
@@ -183,7 +183,7 @@ export const TabsView = <T extends any = string>({
                         ...other,
                     })));
 
-                    setTabs(tabs);
+                    isMounted.current && setTabs(tabs);
                 }}
             </Async>
         </Box>
