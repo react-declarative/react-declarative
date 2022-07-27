@@ -1,9 +1,22 @@
 import { useMemo } from 'react';
+
+import { ListHandler } from '../../../model/IListProps';
+import IAnything from '../../../model/IAnything';
+import IRowData from '../../../model/IRowData';
+
 import singleshot from '../../../utils/hof/singleshot';
 
-import useArrayPaginator from "./useArrayPaginator"
+import useArrayPaginator, { IArrayPaginatorParams } from "./useArrayPaginator"
 
-export const useCachedPaginator: typeof useArrayPaginator = (handler, params) => {
+interface IResult<FilterData = IAnything, RowData extends IRowData = IAnything> {
+    handler: ListHandler<FilterData, RowData>;
+    clear: () => void;
+}
+
+export const useCachedPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything> (
+    handler: ListHandler<FilterData, RowData>,
+    params: IArrayPaginatorParams<FilterData, RowData>
+): IResult<FilterData, RowData> => {
     const rowsHandler = useMemo(() => singleshot((...args: any[]) => {
         if (typeof handler === 'function') {
             return (handler as Function)(...args);
@@ -11,7 +24,10 @@ export const useCachedPaginator: typeof useArrayPaginator = (handler, params) =>
             return handler;
         }
     }), []);
-    return useArrayPaginator(rowsHandler, params);
+    return {
+        handler: useArrayPaginator<FilterData, RowData>(rowsHandler, params),
+        clear: rowsHandler.clear,
+    };
 };
 
 export default useCachedPaginator;
