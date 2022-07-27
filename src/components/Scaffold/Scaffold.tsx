@@ -66,7 +66,6 @@ export const Scaffold = <T extends any = string> ({
                 option.roles = await roles(payload!);
             }
         }));
-        console.log({result})
         return result;
     }, [options, payload]);
 
