@@ -23,7 +23,7 @@ const options: IMenuGroup[] = [
         label: 'Layout grid',
         isVisible: async () => {
           await sleep(5_000);
-          return false;
+          return true;
         },
       },
       {

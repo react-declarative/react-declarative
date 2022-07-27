@@ -7,7 +7,7 @@ import { ModalProvider, createServiceManager } from 'react-declarative';
 import App from './App'
 
 const theme = createTheme({
-    /*palette: {
+    palette: {
         mode: 'dark',
         primary: {
             main: '#90cbf9',
@@ -24,7 +24,7 @@ const theme = createTheme({
             paper: "#424242",
             default: "#212121",
         },
-    },*/
+    },
 });
 
 ReactDOM.render(
