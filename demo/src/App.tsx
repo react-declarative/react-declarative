@@ -21,6 +21,10 @@ const options: IMenuGroup[] = [
       {
         name: "layout-page",
         label: 'Layout grid',
+        /*isVisible: async () => {
+          await sleep(5_000);
+          return false;
+        },*/
       },
       {
         name: "validation-page",
@@ -57,7 +61,7 @@ const options: IMenuGroup[] = [
 const routes: ISwitchItem[] = [
   {
     path: '/',
-    redirect: '/layout-page'
+    redirect: '/layout-page',
   },
   {
     path: '/layout-page',

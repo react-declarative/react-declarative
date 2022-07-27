@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../styles';
+import { makeStyles } from '../../../styles';
 
-import classNames from '../../utils/classNames';
+import classNames from '../../../utils/classNames';
 
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ButtonBase from "@mui/material/ButtonBase";
 
-import { IMenuOption } from '../../model/IMenuGroup';
+import { IMenuOption } from '../../../model/IMenuGroup';
 
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 import Dot from "@mui/icons-material/FiberManualRecord";

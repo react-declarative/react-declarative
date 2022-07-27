@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import List from "@mui/material/List";
 
-import IMenuGroup from '../../model/IMenuGroup';
+import IMenuGroup from '../../../model/IMenuGroup';
 
 import MenuOption from './MenuOption';
 
