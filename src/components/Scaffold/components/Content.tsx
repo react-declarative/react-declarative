@@ -93,14 +93,14 @@ const filerFlatMenu = (options: IScaffoldOption[], {
   currentRoles?: string[];
 }) => options
   .filter(item => item.label.toLowerCase().includes(keyword))
-  .filter(({ roles = [] }) => !currentRoles || roles.find((role) => currentRoles.includes(role)))
+  .filter(({ roles = [] }) => !currentRoles || roles.some((role) => currentRoles.includes(role)))
   .filter(({ visible = true }) => visible);
 
 const cleanupMenu = (entry: Partial<IScaffoldGroup>, allowed: Set<IScaffoldGroup>) =>
   entry.options = entry.options?.filter((option: any) => {
-    if (option.options?.length) {
+    if (option.options?.length && option.visible !== false) {
       cleanupMenu(option, allowed);
-      return flatifyMenu(option.options).find((o) => allowed.has(o));
+      return flatifyMenu(option.options).some((o) => allowed.has(o));
     } else if (allowed.has(option)) {
       return true;
     } else {

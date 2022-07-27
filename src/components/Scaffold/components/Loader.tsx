@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { makeStyles } from '../../../styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
         top: 0,
@@ -18,8 +18,9 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 9999,
+        background: theme.palette.background.paper,
     }
-});
+}));
 
 export const Loader = () => {
     const classes = useStyles();

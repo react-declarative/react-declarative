@@ -21,10 +21,10 @@ const options: IMenuGroup[] = [
       {
         name: "layout-page",
         label: 'Layout grid',
-        /*isVisible: async () => {
+        isVisible: async () => {
           await sleep(5_000);
           return false;
-        },*/
+        },
       },
       {
         name: "validation-page",
