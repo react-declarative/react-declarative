@@ -16,7 +16,7 @@ export const initialValue = (type: FieldType) => {
     } else if (type === FieldType.Combo) {
       return null;
     } else if (type === FieldType.Items) {
-      return [];
+      return null;
     } else if (type === FieldType.Rating) {
       return 3;
     } else if (type === FieldType.Typography) {
