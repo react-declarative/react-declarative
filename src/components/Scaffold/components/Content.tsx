@@ -25,10 +25,10 @@ import Menu from "@mui/icons-material/Menu";
 import Search from "@mui/icons-material/Search";
 
 import IScaffoldGroup, { IScaffoldOption } from "../model/IScaffoldGroup";
+import IScaffoldProps from "../model/IScaffoldProps";
 
 import SideMenu from "./SideMenu";
 import ScrollView from "../../ScrollView";
-import IScaffoldProps from "../model/IScaffoldProps";
 
 const DRAWER_WIDTH = 256;
 
