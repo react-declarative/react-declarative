@@ -355,6 +355,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   object,
   columns,
   columnsOverride,
+  sx,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -379,11 +380,13 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       <Group
         className={classes.container}
         columnsOverride={columnsOverride}
+        sx={sx}
       >
         <AutoSizer
           className={classes.content}
           delay={AUTOSIZER_DELAY}
           target={document.body}
+          payload={object}
           disableHeight
           disableWidth
           keepFlow

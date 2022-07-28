@@ -44,6 +44,9 @@ const fields: TypedField[] = [
                 defaultValue: 'Tripolsky',
                 description: 'Your last name',
                 name: 'lastName',
+                /*sx: {
+                    background: 'green'
+                }*/
             },
             {
                 type: FieldType.Text,

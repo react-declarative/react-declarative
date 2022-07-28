@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 export const PaperLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,
+  sx,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -61,6 +62,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
       <Paper
         className={classes.content}
         columnsOverride={columnsOverride}
+        sx={sx}
         style={{ padding }}
       >
         {children}

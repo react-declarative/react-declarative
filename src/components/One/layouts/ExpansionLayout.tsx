@@ -31,6 +31,7 @@ const useStyles = makeStyles({
 export const ExpansionLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,
+  sx,
   phoneColumns,
   tabletColumns,
   desktopColumns,
@@ -58,6 +59,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
             <Expansion 
                 className={classes.content}
                 columnsOverride={columnsOverride}
+                sx={sx}
                 title={title}
                 description={description}
             >

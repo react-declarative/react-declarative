@@ -4,6 +4,7 @@ import { ISizeCallback } from './ISize';
 
 import FieldType from './FieldType';
 import IAnything from './IAnything';
+import { SxProps } from '@mui/material';
 
 export type Value = string | string[] | number | boolean | null;
 
@@ -263,6 +264,11 @@ export interface IField<Data = IAnything> {
     phoneColumns?: string;
     tabletColumns?: string;
     desktopColumns?: string;
+
+    /**
+     * Специальное поле только для MUI
+     */
+    sx?: SxProps<any>;
 
     /**
      * Произвольное количество колонок в строке

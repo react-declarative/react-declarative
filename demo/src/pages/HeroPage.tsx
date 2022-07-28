@@ -1,6 +1,6 @@
 import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
-import { Paper } from '@mui/material';
+import { Paper, Theme } from '@mui/material';
 
 const fields: TypedField[] = [
   {

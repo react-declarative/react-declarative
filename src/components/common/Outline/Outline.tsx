@@ -38,6 +38,7 @@ export interface IOutlineProps<Data = IAnything> {
 interface IOutlinePrivate<Data = IAnything> {
   children: React.ReactChild;
   columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
+  sx?: PickProp<IField<Data>, 'sx'>;
 }
 
 export const Outline = ({
@@ -45,6 +46,7 @@ export const Outline = ({
   columnsOverride,
   style,
   children,
+  sx,
 }: IOutlineProps & IOutlinePrivate) => {
   const classes = useStyles();
   return (
@@ -54,6 +56,7 @@ export const Outline = ({
           columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"
+          sx={sx}
         >
           {children}
         </Group>

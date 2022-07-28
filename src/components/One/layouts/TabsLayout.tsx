@@ -111,6 +111,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     tabIndex: tabIndexDefault = 0,
     columns,
     columnsOverride,
+    sx,
     phoneColumns,
     tabletColumns,
     desktopColumns,
@@ -141,6 +142,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
             desktopColumns={desktopColumns}
             fieldRightMargin={fieldRightMargin}
             fieldBottomMargin={fieldBottomMargin}
+            sx={sx}
         >
             <Box className={classNames(classes.root, {
                 [classes.keepFlow]: tabKeepFlow,

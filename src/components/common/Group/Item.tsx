@@ -45,6 +45,7 @@ const useStyles = makeStyles({
 export const Item = ({
   className,
   style,
+  sx,
   columns = "",
   phoneColumns = "",
   tabletColumns = "",
@@ -67,6 +68,7 @@ export const Item = ({
       md={n(tabletColumns || columns || FULL_ROW)}
       lg={n(desktopColumns || columns || FULL_ROW)}
       xl={n(desktopColumns || columns || FULL_ROW)}
+      sx={sx}
     >
       <Box
         className={classes.container}

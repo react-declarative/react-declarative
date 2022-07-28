@@ -70,6 +70,7 @@ export function makeField(
 ) {
     const component = <Data extends IAnything = IAnything>({
         className = '',
+        sx,
         columns = '',
         phoneColumns = '',
         tabletColumns = '',
@@ -272,6 +273,7 @@ export function makeField(
         };
 
         const groupProps: IGroupProps<Data> = {
+            sx,
             columns,
             phoneColumns,
             tabletColumns,

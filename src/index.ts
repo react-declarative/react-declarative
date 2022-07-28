@@ -54,8 +54,10 @@ import { useActualCallback } from './hooks/useActualCallback';
 import { useActualState } from './hooks/useActualState';
 import { useListEditor } from './hooks/useListEditor';
 
-import { useList } from './hooks/useList';
 import { useModal } from './components/ModalProvider';
+import { useSize } from './components/SizeProvider';
+
+import { useList } from './hooks/useList';
 import { useConfirm } from './hooks/useConfirm';
 import { useDate } from './hooks/useDate';
 import { useTime } from './hooks/useTime';
@@ -133,6 +135,8 @@ export { Translate } from './components';
 export { register as registerTr } from './components/Translate';
 
 export { ModalProvider } from './components';
+export { SizeProvider } from './components';
+
 export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
@@ -170,6 +174,7 @@ export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
 export { useModal };
+export { useSize };
 export { useList };
 
 import { IOnePublicProps as IOnePublicPropsInternal } from './model/IOnePublicProps';

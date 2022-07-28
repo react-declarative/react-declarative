@@ -33,6 +33,7 @@ export interface IPaperProps<Data = IAnything> {
 interface IPaperPrivate<Data = IAnything> {
   children: React.ReactChild;
   columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
+  sx?: PickProp<IField<Data>, 'sx'>;
 }
 
 export const Paper = ({
@@ -40,6 +41,7 @@ export const Paper = ({
   style,
   children,
   columnsOverride,
+  sx,
 }: IPaperProps & IPaperPrivate) => {
   const classes = useStyles();
   return (
@@ -49,6 +51,7 @@ export const Paper = ({
           columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"
+          sx={sx}
         >
           {children}
         </Group>

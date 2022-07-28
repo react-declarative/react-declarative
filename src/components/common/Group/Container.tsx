@@ -10,6 +10,7 @@ interface IContainerProps {
   className: PickProp<IField, 'className'>;
   style: PickProp<IField, 'style'>;
   columnsOverride?: PickProp<IField, 'columnsOverride'>;
+  sx?: PickProp<IField, 'sx'>;
   children: React.ReactChild;
   onFocus?: () => void;
 }
@@ -22,6 +23,7 @@ export const Container = ({
   children,
   onFocus,
   columnsOverride,
+  sx,
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
   <Grid
     ref={ref}
@@ -31,6 +33,7 @@ export const Container = ({
     style={style}
     onFocus={onFocus}
     columns={columnsOverride && n(columnsOverride)}
+    sx={sx}
   >
     {children}
   </Grid>

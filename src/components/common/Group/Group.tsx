@@ -43,6 +43,7 @@ export const Group = (
     isItem = false,
     style,
     columnsOverride,
+    sx,
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
     onFocus,
@@ -63,6 +64,7 @@ export const Group = (
         fieldRightMargin={fieldRightMargin}
         fieldBottomMargin={fieldBottomMargin}
         onFocus={onFocus}
+        sx={sx}
       >
         {children}
       </Item>
@@ -75,6 +77,7 @@ export const Group = (
         columnsOverride={columnsOverride}
         style={style}
         onFocus={onFocus}
+        sx={sx}
       >
         {children}
       </Container>
