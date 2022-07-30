@@ -347,7 +347,10 @@ export const ListPage = () => {
       chips={chips}
       withSearch
       withArrowPagination
-      selectionLabel={(size) => `${size} ${v4()}`}
+      selectionLabel={async (size) => {
+        await sleep(5_000);
+        return `${size} ${v4()}`
+      }}
     />
   );
 };

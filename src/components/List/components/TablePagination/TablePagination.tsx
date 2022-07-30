@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { makeStyles } from '../../../../styles';
 
 import MatTablePagination from '@mui/material/TablePagination';
+import CircularProgress from '@mui/material/CircularProgress';
 import PaginationItem from '@mui/material/PaginationItem';
 import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
@@ -80,6 +81,12 @@ const selectionLabelDefault = (size: number) => {
     })}`;
 };
 
+const SelectionLabelLoader = () => (
+    <CircularProgress
+        size="16px"
+    />
+);
+
 const TablePaginationContainer = (props: BoxProps) => {
     const classes = useStyles();
     const { selection } = useSelection();
@@ -97,6 +104,7 @@ const TablePaginationContainer = (props: BoxProps) => {
                 className={classes.label}
             >
                 <Async
+                    Loader={SelectionLabelLoader}
                     deps={[selection, rows]}
                     fallback={fallback}
                     throwError
