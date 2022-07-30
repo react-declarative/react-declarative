@@ -60,7 +60,7 @@ export class List<
         onPageChange: () => null,
         onLimitChange: () => null,
         filterData: {},
-        toggleFilters: false,
+        withToggledFilters: false,
         sortModel: [],
         chips: [],
         search: "",
@@ -78,7 +78,7 @@ export class List<
             total: null,
             search: this.props.search!,
             loading: false,
-            filtersCollapsed: this.props.toggleFilters!,
+            filtersCollapsed: this.props.withToggledFilters!,
             sort: this.props.sortModel!,
             chips: this.props.chips!.reduce<ListHandlerChips<RowData>>(
                 (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: enabled }),

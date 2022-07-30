@@ -70,6 +70,7 @@ import IRowData, { RowId } from './model/IRowData';
 export type { IRowData, RowId };
 
 import { ISwitchItem as ISwitchItemInternal } from './components';
+import { IScaffoldOption as IScaffoldOptionInternal  } from './components';
 
 export type ISwitchItem = ISwitchItemInternal;
 
@@ -104,6 +105,7 @@ export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 
 export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
+export type IScaffoldOption = IScaffoldOptionInternal;
 
 export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
 export type pickOneFn = ReturnType<typeof useOne>;
@@ -137,10 +139,11 @@ export { register as registerTr } from './components/Translate';
 export { ModalProvider } from './components';
 export { SizeProvider } from './components';
 
+export { Scaffold } from './components';
+
 export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
-export { Scaffold } from './components';
 export { Switch } from './components';
 
 export { OtherComboSlot } from './components';

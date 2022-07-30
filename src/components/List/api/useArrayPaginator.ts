@@ -10,6 +10,8 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+import { IState as ILastPaginationState } from './useLastPagination';
+
 import queued from '../../../utils/hof/queued';
 
 const EMPTY_RESPONSE = {
@@ -39,6 +41,7 @@ export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends I
     withSearch?: boolean;
     keepClean?: boolean;
     fallback?: (e: Error) => void;
+    onData?: (rows: RowData[], state: ILastPaginationState<FilterData, RowData>) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
 }
@@ -128,6 +131,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
     fallback,
     onLoadStart,
     onLoadEnd,
+    onData,
 }: IArrayPaginatorParams<FilterData, RowData> = {}): ListHandler<FilterData, RowData> => {
 
     const queuedResolve = useMemo(() => queued(async (
@@ -150,6 +154,13 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
             onLoadStart && onLoadStart();
             const data = await queuedResolve(filterData, pagination, sort, chips, search);
             let rows = Array.isArray(data) ? data : data.rows;
+            onData && onData(rows, {
+                filterData,
+                pagination,
+                sort,
+                chips,
+                search
+            });
             if (withFilters && !keepClean) {
                 rows = filterHandler(rows.slice(0), filterData);
             }

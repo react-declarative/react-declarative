@@ -15,7 +15,7 @@ interface IResult<FilterData = IAnything, RowData extends IRowData = IAnything> 
     handler: ListHandler<FilterData, RowData>;
 }
 
-interface IState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IState<FilterData = IAnything, RowData extends IRowData = IAnything> {
     filterData: FilterData;
     pagination: ListHandlerPagination;
     sort: ListHandlerSortModel<RowData>;

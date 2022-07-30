@@ -15,11 +15,14 @@ import { BoxProps } from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/KeyboardArrowLeft';
 import ArrowForwardIcon from '@mui/icons-material/KeyboardArrowRight';
 
+import Async from '../../../Async';
+
 import useActualCallback from '../../../../hooks/useActualCallback';
 import useSelection from '../../hooks/useSelection';
 import useProps from '../../hooks/useProps';
 
 import classNames from '../../../../utils/classNames';
+import wordForm from '../../../../utils/wordForm';
 
 const ACTION_GROW = 500;
 const MIN_PAGES_COUNT = 10;
@@ -70,10 +73,18 @@ const useStyles = makeStyles({
     },
 });
 
+const selectionLabelDefault = (size: number) => {
+    return `Selected: ${wordForm(size, {
+        one: 'item',
+        many: 'items',
+    })}`;
+};
+
 const TablePaginationContainer = (props: BoxProps) => {
     const classes = useStyles();
     const { selection } = useSelection();
-    const { loading } = useProps();
+    const { loading, selectionLabel = selectionLabelDefault, fallback, rows } = useProps();
+    const getSelectionLabel = useActualCallback(() => selectionLabel(selection.size));
     return (
         <Box
             {...props}
@@ -81,16 +92,18 @@ const TablePaginationContainer = (props: BoxProps) => {
                 [classes.disabled]: loading,
             })}
         >   
-            {selection.size ? (
-                <Typography
-                    variant="body1"
-                    className={classes.label}
+            <Typography
+                variant="body1"
+                className={classes.label}
+            >
+                <Async
+                    deps={[selection, rows]}
+                    fallback={fallback}
+                    throwError
                 >
-                    {`Selected: ${selection.size} ${selection.size === 1 ? 'item' : 'items'}`}
-                </Typography>
-            ) : (
-                <Box flex="1" />
-            )}
+                    {getSelectionLabel}
+                </Async>
+            </Typography>
             {props.children}
         </Box>
     );
@@ -146,6 +159,7 @@ export const TablePagination = ({
 
     const {
         withArrowPagination = false,
+        rowsPerPage: rowsPerPageOptions,
         loading,
     } = useProps();
 
@@ -188,6 +202,7 @@ export const TablePagination = ({
         <MatTablePagination
             {...props}
             component={TablePaginationContainer}
+            rowsPerPageOptions={rowsPerPageOptions}
             ActionsComponent={Actions}
         />
     );

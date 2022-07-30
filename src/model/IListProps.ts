@@ -155,11 +155,13 @@ export interface IListProps<
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
   rowActions?: IListRowAction[];
-  toggleFilters?: boolean;
+  withToggledFilters?: boolean;
   withSearch?: boolean;
   withLoader?: boolean;
   withArrowPagination?: boolean;
   withInitialLoader?: boolean;
+  selectionLabel?: (size: number) => string | Promise<string>;
+  rowsPerPage?: Array<number | { value: number; label: string }>;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
   search?: string;

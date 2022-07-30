@@ -1,13 +1,13 @@
 interface IWordForm {
   one: string;
-  two: string;
+  two?: string;
   many: string;
 }
 
 export const wordForm = (value: number, {
   one,
-  two,
   many,
+  two = many,
 }: IWordForm) => {
 
   const getWord = () => {

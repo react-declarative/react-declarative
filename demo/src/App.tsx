@@ -1,4 +1,4 @@
-import { Scaffold, Switch, IMenuGroup, ISwitchItem } from 'react-declarative';
+import { Scaffold, Switch, IMenuGroup, ISwitchItem, IScaffoldOption } from 'react-declarative';
 
 import SamplePage from './pages/SamplePage';
 import LayoutGrid from './pages/LayoutPage';
@@ -58,6 +58,8 @@ const options: IMenuGroup[] = [
   },
 ];
 
+
+
 const routes: ISwitchItem[] = [
   {
     path: '/',
@@ -109,6 +111,13 @@ const routes: ISwitchItem[] = [
   }
 ];
 
+const actions: IScaffoldOption[] = [
+  {
+    action: 'export-action',
+    label: 'Export data',
+  },
+];
+
 const App = () => {
 
   const handleOptionClick = (path: string) => history.push(`/${path}`);
@@ -117,6 +126,7 @@ const App = () => {
     <Scaffold
       title="Scaffold"
       options={options}
+      actions={actions}
       onOptionClick={handleOptionClick}
     >
       <Switch

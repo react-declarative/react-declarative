@@ -26,6 +26,7 @@ import Add from '@mui/icons-material/Add';
 import mock from './mock/list';
 import sleep from '../utils/sleep';
 import { useState } from 'react';
+import { v4 } from 'uuid';
 
 const filters: TypedField[] = [
   {
@@ -346,7 +347,7 @@ export const ListPage = () => {
       chips={chips}
       withSearch
       withArrowPagination
-      withInitialLoader={false}
+      selectionLabel={(size) => `${size} ${v4()}`}
     />
   );
 };

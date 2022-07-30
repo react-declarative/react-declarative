@@ -85,7 +85,7 @@ export const FilterListSlot = <FilterData extends IAnything>({
   label,
   loading,
   withSearch,
-  toggleFilters,
+  withToggledFilters,
   search: upperSearch,
   onSearchChange = () => null,
   onFilterChange = () => null,
@@ -97,7 +97,7 @@ export const FilterListSlot = <FilterData extends IAnything>({
 
   const classes = useStyles();
 
-  const [collapsed, setCollapsed] = useState(!!toggleFilters);
+  const [collapsed, setCollapsed] = useState(!!withToggledFilters);
   const [disabled, setDisabled] = useState(false);
 
   const [search, setSearch] = useState(upperSearch);
@@ -228,12 +228,12 @@ export const FilterListSlot = <FilterData extends IAnything>({
         </Collapse>
       </div>
       <div className={classNames(classes.controls, {
-        [classes.controlsWidth]: !toggleFilters,
+        [classes.controlsWidth]: !withToggledFilters,
       })}>
         <IconButton disabled={loading} onClick={clean}>
           <Restore />
         </IconButton>
-        {!toggleFilters && (
+        {!withToggledFilters && (
           <IconButton disabled={disabled} onClick={handleCollapse}>
             {collapsed ? <Less /> : <More />}
           </IconButton>

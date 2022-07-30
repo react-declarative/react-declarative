@@ -10,7 +10,7 @@ export interface IFilterListSlot<FilterData = IAnything> {
     onSearchChange?: (search: string) => void;
     onFilterChange?: (data: FilterData) => void;
     onCollapsedChange?: (collapsed: boolean) => void;
-    toggleFilters?: boolean;
+    withToggledFilters?: boolean;
     ready: () => void;
     clean: () => void;
     loading: boolean;

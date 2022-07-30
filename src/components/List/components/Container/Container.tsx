@@ -83,7 +83,7 @@ export const Container = <
     isChooser,
     ready,
     loading,
-    toggleFilters,
+    withToggledFilters,
     onFilterChange,
     withSearch = false,
     search,
@@ -131,7 +131,7 @@ export const Container = <
             {!isChooser && Array.isArray(filters) && !!filters.length && (
               <FilterListSlot
                 filterData={filterData!}
-                toggleFilters={toggleFilters}
+                withToggledFilters={withToggledFilters}
                 onFilterChange={onFilterChange}
                 change={handleFilter}
                 onSearchChange={handleSearch}

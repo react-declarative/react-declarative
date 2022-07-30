@@ -24,11 +24,15 @@ import { makeStyles } from "../../../styles";
 import Menu from "@mui/icons-material/Menu";
 import Search from "@mui/icons-material/Search";
 
+import ScrollView from "../../ScrollView";
+import ActionMenu from "../../ActionMenu";
+
 import IScaffoldGroup, { IScaffoldOption } from "../model/IScaffoldGroup";
 import IScaffoldProps from "../model/IScaffoldProps";
 
+import useActualCallback from "../../../hooks/useActualCallback";
+
 import SideMenu from "./SideMenu";
-import ScrollView from "../../ScrollView";
 
 const DRAWER_WIDTH = 256;
 
@@ -108,16 +112,15 @@ const cleanupMenu = (entry: Partial<IScaffoldGroup>, allowed: Set<IScaffoldGroup
     }
   });
 
-interface IContentProps extends Omit<IScaffoldProps, keyof {
+interface IContentProps<T extends any = string> extends Omit<IScaffoldProps<T>, keyof {
   roles: never;
-  payload: never;
   throwError: never;
   fallback: never;
 }> {
   roles?: string[];
 }
 
-export const Content = ({
+export const Content = <T extends any = string>({
   children,
   className,
   style,
@@ -126,9 +129,12 @@ export const Content = ({
   options = [],
   colored = true,
   loader = false,
+  actions,
+  payload,
   roles: currentRoles,
   onOptionClick,
-}: IContentProps) => {
+  onAction = () => null,
+}: IContentProps<T>) => {
 
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -180,6 +186,8 @@ export const Content = ({
     return () => elements.forEach((el) => el.removeEventListener('touchmove', preventScroll));
   });
 
+  const handleAction = useActualCallback(onAction);
+
   return (
     <Box ref={rootRef} className={classNames(className, classes.root)} style={style}>
       <CssBaseline />
@@ -218,7 +226,7 @@ export const Content = ({
         })}
         position="fixed"
       >
-        <Toolbar>
+        <Toolbar disableGutters>
           <IconButton
             color="inherit"
             onClick={handleMenuToggle}
@@ -231,6 +239,22 @@ export const Content = ({
           >
             {title}
           </Typography>
+          {!!actions?.length && (
+            <ActionMenu
+              transparent
+              payload={payload}
+              options={actions.map(({
+                isVisible = () => true,
+                isDisabled = () => false,
+                ...other
+              }) => ({
+                ...other,
+                isVisible: () => isVisible(payload!),
+                isDisabled: () => isDisabled(payload!),
+              }))}
+              onAction={handleAction}
+            />
+          )}
         </Toolbar>
         {loader && (
           <Box className={classes.loaderBar}>

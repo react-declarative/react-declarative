@@ -80,10 +80,11 @@ export const Scaffold = <T extends any = string> ({
                 const roles = await resolveRoles();
                 const options = await resolveOptions();
                 return (
-                    <Content
+                    <Content<T>
                         {...props}
                         roles={roles}
                         options={options}
+                        payload={payload}
                     />
                 );
             }}
