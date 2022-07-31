@@ -7,7 +7,7 @@ import { stringifyBase64Json } from '../../../utils/base64Json';
 
 import { DEFAULT_PARSE_RESULT, IParseResult } from "./useParsedPagination";
 
-interface IResultListProps <
+export interface IResultListProps <
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
 > {
@@ -28,7 +28,7 @@ interface IResult<
     serializedPagination: string;
 }
 
-interface IParams<
+export interface IParams<
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
 > extends
@@ -40,7 +40,7 @@ export const useSerializedPagination = <
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
 >({
-    chips = DEFAULT_PARSE_RESULT.chips,
+    chipData = DEFAULT_PARSE_RESULT.chipData,
     filterData = DEFAULT_PARSE_RESULT.filterData,
     limit = DEFAULT_PARSE_RESULT.limit,
     page = DEFAULT_PARSE_RESULT.page,
@@ -50,7 +50,7 @@ export const useSerializedPagination = <
 }: IParams<FilterData, RowData> = {}): IResult<FilterData, RowData> => {
 
     const [state, setState] = useState<IParseResult<FilterData, RowData>>({
-        chips,
+        chipData,
         filterData,
         limit,
         page,
@@ -100,12 +100,12 @@ export const useSerializedPagination = <
         handleSortModelChange(sortModel);
     };
 
-    const onChipsChange: IResultListProps<FilterData, RowData>['onChipsChange'] = (chips) => {
+    const onChipsChange: IResultListProps<FilterData, RowData>['onChipsChange'] = (chipData) => {
         setState((prevState) => ({
             ...prevState,
-            chips
+            chipData
         }));
-        handleChipsChange(chips);
+        handleChipsChange(chipData);
     };
 
     const onSearchChange: IResultListProps<FilterData, RowData>['onSearchChange'] = (search) => {

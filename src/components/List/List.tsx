@@ -12,6 +12,8 @@ import IField from '../../model/IField';
 import IListApi from '../../model/IListApi';
 
 import initialValue from '../One/config/initialValue';
+
+import deepMerge from '../../utils/deepMerge';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
 
@@ -37,7 +39,7 @@ export class List<
     FilterData extends IAnything = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<IAnything>,
-> extends React.Component<IListProps<FilterData, RowData, Field>, IListState> {
+> extends React.Component<IListProps<FilterData, RowData, Field>, IListState<FilterData, RowData>> {
 
     private isMountedFlag = false;
     private isFetchingFlag = false;
@@ -63,6 +65,7 @@ export class List<
         withToggledFilters: false,
         sortModel: [],
         chips: [],
+        chipData: {},
         search: "",
     };
 
@@ -81,7 +84,7 @@ export class List<
             filtersCollapsed: this.props.withToggledFilters!,
             sort: this.props.sortModel!,
             chips: this.props.chips!.reduce<ListHandlerChips<RowData>>(
-                (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: enabled }),
+                (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: this.props.chipData![chip] || enabled }),
                 {} as any,
             ),
         };
@@ -176,7 +179,7 @@ export class List<
     private handleEmptyFilters = () => {
         const hasFilters = Array.isArray(this.props.filters) && !!this.props.filters.length;
         if (!hasFilters) {
-          this.handleDefault();
+          this.handleDefault(true);
         }
         this.prevState.filtersCollapsed = this.state.filtersCollapsed;
     };
@@ -249,14 +252,17 @@ export class List<
         }
     };
 
-    private handleDefault = async () => {
+    private handleDefault = async (initialCall = false) => {
         const newData: Partial<FilterData> = {};
         deepFlat(this.props.filters)
             .filter(({ name }) => !!name)
             .map(({ type, name }) => {
                 set(newData, name, initialValue(type));
             });
-        await this.handleFilter(newData as FilterData);
+        if (initialCall) {
+            deepMerge(newData, this.props.filterData!);
+        }
+        await this.handleFilter(newData as FilterData, initialCall);
     };
 
     private handleReload = async (keepPagination = true) => {
@@ -293,7 +299,6 @@ export class List<
         this.props.onSortModelChange!(sort);
     };
 
-
     private handleChips = (chips: ListHandlerChips) => {
         this.isFetchingFlag = true;
         this.isMountedFlag && this.setState((prevState) => ({
@@ -301,10 +306,7 @@ export class List<
           offset: 0,
           chips,
         }));
-        this.props.onChipsChange!(this.props.chips!.map((chip) => ({
-            ...chip,
-            enabled: chips[chip.name] || false,
-        })));
+        this.props.onChipsChange!({...this.state.chips, ...chips});
     };
 
     private handleSearch = (search: string) => {
@@ -329,7 +331,7 @@ export class List<
         handleChips: this.handleChips,
         handleSearch: this.handleSearch,
         handleFiltersCollapsed: this.handleFiltersCollapsed,
-        ready: this.handleDefault,
+        ready: () => this.handleDefault(true),
     });
 
     public renderInner = () => {
@@ -375,7 +377,7 @@ export class List<
                     <SelectionProvider selectedRows={this.props.selectedRows}>
                         <CachedRowsProvider>
                             <SortModelProvider sortModel={this.props.sortModel!}>
-                                <ChipsProvider chips={this.props.chips!}>
+                                <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
                                     <ModalSortProvider>
                                         {this.renderInner()}
                                     </ModalSortProvider>

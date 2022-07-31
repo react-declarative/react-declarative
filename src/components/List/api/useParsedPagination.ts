@@ -14,16 +14,21 @@ export interface IParseResult<
 > {
     filterData: IListProps<FilterData, RowData>['filterData'];
     sortModel: IListProps<FilterData, RowData>['sortModel'];
-    chips: IListProps<FilterData, RowData>['chips'];
+    chipData: IListProps<FilterData, RowData>['chipData'];
     limit: IListProps<FilterData, RowData>['limit'];
     page: IListProps<FilterData, RowData>['page'];
     search: IListProps<FilterData, RowData>['search'];
 }
 
+export type IParams<
+    FilterData extends IAnything = IAnything,
+    RowData extends IRowData = IAnything,
+> = IParseResult<FilterData, RowData>;
+
 export const DEFAULT_PARSE_RESULT: IParseResult = {
     filterData: {},
     sortModel: [],
-    chips: [],
+    chipData: {},
     limit: DEFAULT_LIMIT,
     page: DEFAULT_PAGE,
     search: "",
@@ -35,16 +40,16 @@ export const useParsedPagination = <
 >(query: string, {
     filterData: defaultFilterData = DEFAULT_PARSE_RESULT.filterData,
     sortModel: defaultSortModel = DEFAULT_PARSE_RESULT.sortModel,
-    chips: defaultChips = DEFAULT_PARSE_RESULT.chips,
+    chipData: defaultChips = DEFAULT_PARSE_RESULT.chipData,
     limit: defaultLimit = DEFAULT_PARSE_RESULT.limit,
     page: defaultPage = DEFAULT_PARSE_RESULT.page,
     search: defaultSearch = DEFAULT_PARSE_RESULT.search,
-}: Partial<IParseResult<FilterData, RowData>> = {}): IParseResult<FilterData, RowData> => {
+}: Partial<IParams<FilterData, RowData>> = {}): IParseResult<FilterData, RowData> => {
     return useMemo(() => {
         const defaultParseResult = {
             filterData: defaultFilterData,
             sortModel: defaultSortModel,
-            chips: defaultChips,
+            chipData: defaultChips,
             limit: defaultLimit,
             page: defaultPage,
             search: defaultSearch,
@@ -52,7 +57,7 @@ export const useParsedPagination = <
         const {
             filterData = defaultParseResult.filterData,
             sortModel = defaultParseResult.sortModel,
-            chips = defaultParseResult.chips,
+            chipData = defaultParseResult.chipData,
             limit = defaultParseResult.limit,
             page = defaultParseResult.page,
             search = defaultParseResult.search,
@@ -60,7 +65,7 @@ export const useParsedPagination = <
         return {
             filterData,
             sortModel,
-            chips,
+            chipData,
             limit,
             page,
             search

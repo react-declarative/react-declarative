@@ -158,7 +158,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
                 filterData,
                 pagination,
                 sort,
-                chips,
+                chipData: chips,
                 search
             });
             if (withFilters && !keepClean) {

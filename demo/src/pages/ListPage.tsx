@@ -17,7 +17,7 @@ import {
   ListHandlerPagination,
   ListHandlerSortModel,
   IListOperation,
-  useLastPagination,
+  //useHashstatePagination,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -27,6 +27,8 @@ import mock from './mock/list';
 import sleep from '../utils/sleep';
 import { useState } from 'react';
 import { v4 } from 'uuid';
+
+import history from '../history'
 
 const filters: TypedField[] = [
   {
@@ -166,7 +168,6 @@ const chips: IListChip[] = [
   {
     label: 'The chip1_enabled is true',
     name: 'chip1_enabled',
-    enabled: true,
     color: '#4caf50',
   },
   {
@@ -210,6 +211,7 @@ interface IRowData {
   firstName: string;
   color: string;
   age: string;
+  chip2_enabled: boolean;
 }
 
 interface IFilterData {
@@ -220,6 +222,10 @@ interface IFilterData {
 export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
+
+  /*const { listProps } = useHashstatePagination({
+    history,
+  });*/
 
   /*const { data, handler: wrappedHandler } = useLastPagination(({}, {}, {}, {}, {}) => {
     return {

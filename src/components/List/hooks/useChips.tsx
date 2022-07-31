@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext, useContext, useState } from 'react';
 
-import { IListChip } from '../../../model/IListProps';
+import { IListChip, ListHandlerChips } from '../../../model/IListProps';
 
 import useProps from "./useProps";
 
@@ -12,6 +12,7 @@ export const useChips = () => useContext(ChipsContext);
 interface IChipsProviderProps {
     children: React.ReactNode;
     chips: IListChip[];
+    chipData: ListHandlerChips;
 }
 
 interface IState {
@@ -22,9 +23,10 @@ interface IState {
 export const ChipsProvider = ({
     children,
     chips: upperChips,
+    chipData,
 }: IChipsProviderProps) => {
     const [chips, setChips] = useState(new Map<string, boolean>(
-        upperChips.map(({ name: chip, enabled = false }) => [chip.toString(), enabled]),
+        upperChips.map(({ name: chip, enabled = false }) => [chip.toString(), chipData[chip] || enabled]),
     ));
 
     const {

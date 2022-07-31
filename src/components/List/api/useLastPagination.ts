@@ -19,14 +19,14 @@ export interface IState<FilterData = IAnything, RowData extends IRowData = IAnyt
     filterData: FilterData;
     pagination: ListHandlerPagination;
     sort: ListHandlerSortModel<RowData>;
-    chips: ListHandlerChips<RowData>;
+    chipData: ListHandlerChips<RowData>;
     search: string;
 }
 
 export const useLastPagination = <FilterData = IAnything, RowData extends IRowData = IAnything>(upperHandler: ListHandler<FilterData, RowData>): IResult => {
     const [data, setData] = useState<IState<FilterData, RowData>>({
         filterData: {} as FilterData,
-        chips: {} as ListHandlerChips<RowData>,
+        chipData: {} as ListHandlerChips<RowData>,
         sort: [],
         pagination: {
             offset: 0,
@@ -34,9 +34,9 @@ export const useLastPagination = <FilterData = IAnything, RowData extends IRowDa
         },
         search: "",
     });
-    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chips, search) => {
-        setData({ filterData, pagination, sort, chips, search });
-        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chips, search): upperHandler;
+    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chipData, search) => {
+        setData({ filterData, pagination, sort, chipData, search });
+        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chipData, search): upperHandler;
     };
     return {
         handler,

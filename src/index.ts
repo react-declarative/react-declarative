@@ -153,9 +153,11 @@ export { useCachedPaginator } from './components';
 export { useArrayPaginator } from './components';
 export { useApiPaginator } from './components';
 
-export { useSerializedPagination } from './components';
-export { useParsedPagination } from './components';
 export { useLastPagination } from './components';
+
+/*export { useSerializedPagination } from './components';
+export { useParsedPagination } from './components';
+export { useHashstatePagination } from './components';*/
 
 export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';

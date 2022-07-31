@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, createServiceManager } from 'react-declarative';
+import { ModalProvider, createServiceManager, parseBase64Json } from 'react-declarative';
 
 import App from './App'
 
@@ -35,5 +35,7 @@ ReactDOM.render(
     </ThemeProvider>,
     document.getElementById('root')
 );
+
+(window as any).parseBase64Json = parseBase64Json;
 
 (window as any).createServiceManager = createServiceManager;

@@ -72,7 +72,7 @@ export type ListHandlerPagination = {
   offset: number;
 };
 
-export type ListHandlerChips<RowData extends IRowData = IAnything> = Record<keyof RowData, boolean>;
+export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<Record<keyof RowData, boolean>>;
 
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
@@ -137,7 +137,7 @@ export interface IListProps<
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
-  onChipsChange?: (chips: IListChip<RowData>[]) => void;
+  onChipsChange?: (data: ListHandlerChips<RowData>) => void;
   onSearchChange?: (search: string) => void;
   onSortModelChange?: (sort: ListHandlerSortModel<RowData>) => void;
   onOperation?: (action: string, selectedRows: RowData[], isAll: boolean, reload: (keepPagination?: boolean) => Promise<void>) => void;
@@ -164,6 +164,7 @@ export interface IListProps<
   rowsPerPage?: Array<number | { value: number; label: string }>;
   selectionMode?: SelectionMode;
   chips?: IListChip<RowData>[];
+  chipData?: ListHandlerChips<RowData>;
   search?: string;
   filterData?: Partial<FilterData>;
   sortModel?: ListHandlerSortModel<RowData>;
