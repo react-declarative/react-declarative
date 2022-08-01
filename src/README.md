@@ -36,6 +36,6 @@ In order of composition during execution
 
 1. **IEntity** - A field connected to the instance of the `One` component
 
-2. **IMaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
+2. **IManaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
 
 **IMPORTANT:** TypedField only checks at the time of static type checking. The internal implementation of the One component performs exactly the composition of objects without any typecheck
