@@ -266,3 +266,4 @@ export { cacheSrc } from './utils/cacheSrc';
 export { parseBase64Json, stringifyBase64Json } from './utils/base64Json';
 
 export * as typo from './utils/typo';
+export * as datetime from './utils/datetime';
