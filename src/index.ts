@@ -51,7 +51,10 @@ import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
 import { useActualCallback } from './hooks/useActualCallback';
+import { useInitialValue } from './hooks/useInitialValue';
+import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
+
 import { useListEditor } from './hooks/useListEditor';
 
 import { useModal } from './components/ModalProvider';
@@ -172,7 +175,10 @@ export { useListProps, useListCachedRows } from './components';
 export { useOneProps, useOneState } from './components';
 
 export { useActualCallback };
+export { useInitialValue };
+export { useActualValue };
 export { useActualState };
+
 export { useListEditor };
 
 export { useOne, useOneTyped };
