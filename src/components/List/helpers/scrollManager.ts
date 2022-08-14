@@ -1,4 +1,4 @@
-export const scrollManager = new class {
+export const createScrollManager = () => new class {
 
     _currentElement?: HTMLElement;
 
@@ -36,4 +36,4 @@ export const scrollManager = new class {
 
 };
 
-export default scrollManager;
+export default createScrollManager;

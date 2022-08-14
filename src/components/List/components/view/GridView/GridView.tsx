@@ -28,7 +28,8 @@ import BodyRow from "./components/BodyRow";
 import HeadRow from "./components/HeadRow";
 
 import constraintManager from "../../../helpers/constraintManager";
-import scrollManager from "../../../helpers/scrollManager";
+
+import useScrollManager from "../../../hooks/useScrollManager";
 
 import Container from "../../Container";
 
@@ -72,6 +73,8 @@ export const GridView = <
   >(props: IGridViewProps<FilterData, RowData>) => {
 
   const classes = useStyles();
+
+  const scrollManager = useScrollManager();
 
   const {
     limit,

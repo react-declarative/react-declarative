@@ -20,6 +20,7 @@ import set from '../../utils/set';
 import GridView from './components/view/GridView';
 import ChooserView from './components/view/ChooserView';
 
+import { ScrollManagerProvider } from './hooks/useScrollManager';
 import { SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ModalSortProvider } from './hooks/useModalSort';
@@ -33,7 +34,7 @@ import {
     LIST_FETCH_DEBOUNCE,
 } from './config';
 
-import scrollManager from './helpers/scrollManager';
+import createScrollManager from './helpers/scrollManager';
 
 export class List<
     FilterData extends IAnything = IAnything,
@@ -45,6 +46,8 @@ export class List<
     private isFetchingFlag = false;
 
     private prevState: Partial<IListState> = {};
+
+    private scrollManager = createScrollManager();
 
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
@@ -231,7 +234,7 @@ export class List<
                 total,
             } = await this.handleRows(filterData, keepPagination);
             if (!keepPagination) {
-                scrollManager.scrollTop();
+                this.scrollManager.scrollTop();
             }
             this.isMountedFlag && this.setState((prevState) => ({
                 ...prevState,
@@ -374,17 +377,19 @@ export class List<
         return (
             <ThemeProvider>
                 <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
-                    <SelectionProvider selectedRows={this.props.selectedRows}>
-                        <CachedRowsProvider>
-                            <SortModelProvider sortModel={this.props.sortModel!}>
-                                <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
-                                    <ModalSortProvider>
-                                        {this.renderInner()}
-                                    </ModalSortProvider>
-                                </ChipsProvider>
-                            </SortModelProvider>
-                        </CachedRowsProvider>
-                    </SelectionProvider>
+                    <ScrollManagerProvider payload={this.scrollManager}>
+                        <SelectionProvider selectedRows={this.props.selectedRows}>
+                            <CachedRowsProvider>
+                                <SortModelProvider sortModel={this.props.sortModel!}>
+                                    <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
+                                        <ModalSortProvider>
+                                            {this.renderInner()}
+                                        </ModalSortProvider>
+                                    </ChipsProvider>
+                                </SortModelProvider>
+                            </CachedRowsProvider>
+                        </SelectionProvider>
+                    </ScrollManagerProvider>
                 </PropProvider>
             </ThemeProvider>
         );
