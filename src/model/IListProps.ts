@@ -159,6 +159,7 @@ export interface IListProps<
   withSearch?: boolean;
   withLoader?: boolean;
   withArrowPagination?: boolean;
+  withRangePagination?: boolean;
   withInitialLoader?: boolean;
   selectionLabel?: (size: number) => string | Promise<string>;
   rowsPerPage?: Array<number | { value: number; label: string }>;

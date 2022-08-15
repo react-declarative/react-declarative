@@ -163,13 +163,14 @@ export const TablePagination = ({
     ...props
 }: ITablePaginationProps) => {
 
-    const isGrow =  width > ACTION_GROW;
-
     const {
         withArrowPagination = false,
+        withRangePagination = false,
         rowsPerPage: rowsPerPageOptions,
         loading,
     } = useProps();
+
+    const isGrow =  width > ACTION_GROW && withRangePagination;
 
     const Actions = isGrow
         ? TableActions
