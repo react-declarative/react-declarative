@@ -163,6 +163,10 @@ export function makeField(
                     inputUpdate.current = true;
                     setValue(newValue);
                     setInvalid(invalid);
+                    invalid !== null && invalidity(name, invalid);
+                    change(object, {
+                        [fieldName.current]: !!invalid,
+                    });
                 }
                 setDisabled(disabled);
                 setVisible(visible);
