@@ -114,7 +114,7 @@ export function makeField(
         const inputUpdate = useRef(false);
         const objectUpdate = useRef(false);
 
-        const fieldName = useRef(`${prefix}(${name})`);
+        const fieldName = useRef(`${prefix}(${name || 'unknown'})`);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
