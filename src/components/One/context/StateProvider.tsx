@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createContext, useContext } from 'react';
+import { useContext, useRef } from 'react';
+import { createContext } from 'react';
 
 import useResolved from '../hooks/useResolved';
 
@@ -14,7 +15,7 @@ interface IStateProviderProps<Data = IAnything, Field extends IField<Data> = IFi
 
 interface IState<Data = IAnything> {
     object: Data | null;
-    setObject: (data: Data) => void;
+    setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
 }
 
 const StateContext = createContext<IState>(null as never);
@@ -23,6 +24,8 @@ export const StateProvider = <Data extends IAnything, Field extends IField<Data>
     children,
     ...otherProps
 }: IStateProviderProps<Data, Field>) => {
+
+    const oneInvalidMapRef = useRef<Record<string, boolean>>({});
 
     const {
         fields = [],
@@ -44,9 +47,15 @@ export const StateProvider = <Data extends IAnything, Field extends IField<Data>
         loadEnd,
     });
 
-    const setObject = (data: Data) => {
+    const setObject = (data: Data, fieldInvalidMap: Record<string, boolean>) => {
+        const { current: oneInvalidMap } = oneInvalidMapRef;
         setObjectHook(data);
-        change!(data, false);
+        Object.entries(fieldInvalidMap).forEach(([key, value]) => {
+            oneInvalidMap[key] = value;
+        });
+        if (!Object.values(oneInvalidMap).some((isTrue) => isTrue)) {
+            change!(data, false);
+        }
     };
 
     const managed: IState<Data> = {

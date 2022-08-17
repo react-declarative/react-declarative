@@ -87,6 +87,7 @@ export function makeField(
         focus,
         blur,
         invalidity,
+        prefix,
         dirty: upperDirty = false,
         disabled: fieldDisabled = false,
         readonly: fieldReadonly = false,
@@ -112,6 +113,8 @@ export function makeField(
 
         const inputUpdate = useRef(false);
         const objectUpdate = useRef(false);
+
+        const fieldName = useRef(`${prefix}(${name})`);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
@@ -197,9 +200,13 @@ export function makeField(
                     throw new Error(`One error invalid name specified "${name}"`);
                 } else if (invalid !== null) {
                     invalidity(invalid);
-                    return;
+                    change(object, {
+                        [fieldName.current]: !!invalid,
+                    });
                 } else if (!deepCompare(object, copy) || wasInvalid) {
-                    change(copy);
+                    change(copy, {
+                        [fieldName.current]: !!invalid,
+                    });
                 }
             }
         }, [debouncedValue, object]);
@@ -297,6 +304,7 @@ export function makeField(
             dirty,
             loading,
             object,
+            prefix,
             ...otherProps,
         };
 

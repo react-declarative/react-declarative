@@ -59,8 +59,8 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
      * Изменяем локальный объект, сообщаем вышестоящему
      * компоненту о изменениях
      */
-    const handleChange = useCallback((v: Data) => {
-        setObject(v);
+    const handleChange = useCallback((v: Data, invalidMap: Record<string, boolean>) => {
+        setObject(v, invalidMap);
     }, []);
     /**
      * Отображение только после отрисовки всех полей
@@ -81,6 +81,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
                         const entity: IEntity<Data> = {
                             invalidity: field.invalidity || invalidity,
                             readonly: readonly || field.readonly,
+                            prefix: currentPath,
                             change: handleChange,
                             ready: handleReady,
                             fallback,

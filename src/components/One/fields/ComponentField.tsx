@@ -32,7 +32,7 @@ export const ComponentField = ({
 }: IComponentFieldProps & IComponentFieldPrivate) => {
     const [ node, setNode ] = useState<JSX.Element | null>(null);
     const { setObject } = useOneState();
-    const handleChange = (object: unknown) => setObject(deepClone(object));
+    const handleChange = (object: unknown) => setObject(deepClone(object), {});
     useLayoutEffect(() => {
         const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
         const props = { ...arrays(object), onChange };

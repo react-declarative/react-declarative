@@ -11,10 +11,11 @@ type exclude = 'defaultValue'
  * всего целевого объекта, следуя паттерну immutable
  */
 export interface IEntity<Data = IAnything> extends Omit<IField<Data>, exclude> {
-  change?: (object: Data) => void;
+  change?: (object: Data, invalidMap: Record<string, boolean>) => void;
   invalidity: (msg: string) => void;
   fallback: (e: Error) => void;
   dirty?: boolean;
+  prefix: string;
   ready: () => void;
   object: Data;
 }
