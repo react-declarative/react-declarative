@@ -31,8 +31,8 @@ export interface IField<Data = IAnything> {
      * программиста, а не работа с полем ввода
      * (например, обновление ссылки на изображение)
      */
-    focus?: () => void;
-    blur?: () => void;
+    focus?: (name: string) => void;
+    blur?: (name: string) => void;
 
     /**
      * Флаг только на чтение и "круглой окаймовки". У
@@ -315,7 +315,7 @@ export interface IField<Data = IAnything> {
      * Коллбек, вызываемый у поля при не прохождении
      * валидации
      */
-    invalidity?: (e: string) => void;
+    invalidity?: (name: string, e: string) => void;
 
     /**
      * Значение по-умолчанию для поля

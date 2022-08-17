@@ -199,7 +199,7 @@ export function makeField(
                 } else if (!check) {
                     throw new Error(`One error invalid name specified "${name}"`);
                 } else if (invalid !== null) {
-                    invalidity(invalid);
+                    invalidity(name, invalid);
                     change(object, {
                         [fieldName.current]: !!invalid,
                     });
@@ -271,12 +271,12 @@ export function makeField(
                     flush();
                 }
                 if (blur) {
-                    blur();
+                    blur(name);
                 }
                 setReadonly(true);
             });
             if (focus) {
-                focus();
+                focus(name);
             }
         };
 

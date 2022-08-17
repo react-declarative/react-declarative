@@ -96,7 +96,7 @@ export const useResolved = <Data = IAnything>({
                     loadEnd && loadEnd(isOk, LOAD_SOURCE);
                     isRoot.current = true;
                 }
-            } else if (!deepCompare(data, handler)) {
+            } else if (handler && !deepCompare(data, handler)) {
                 isMounted.current && setData(objects(assign({}, buildObj(fields, roles), handler)));
             }
         };

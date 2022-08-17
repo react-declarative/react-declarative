@@ -18,6 +18,4 @@ export const deepCompare = (obj1: any, obj2: any) => {
     }
 }
 
-window['deepCompare'] = deepCompare;
-
 export default deepCompare;
