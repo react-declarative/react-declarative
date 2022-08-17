@@ -43,6 +43,7 @@ const countStatefull = (fields?: IField<any>[]) => {
 export const OneInternal = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>({
     fields,
     roles,
+    dirty,
     ready = () => null,
     prefix = 'root',
     invalidity = () => null,
@@ -74,7 +75,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
         return (
             <Fragment>
                 {fields
-                    ?.filter((field) => !roles || !field.roles || field.roles.find((role) => roles.includes(role)))
+                    ?.filter((field) => !roles || !field.roles || field.roles.some((role) => roles.includes(role)))
                     ?.map((field, index) => {
                         const currentPath = `${prefix}.${field.type}[${index}]`;
                         const entity: IEntity<Data> = {
@@ -87,6 +88,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
                             blur,
                             ...field,
                             object,
+                            dirty,
                         };
                         const fields: IField<Data>[] = field.child ? 
                             [ field.child ]
@@ -100,6 +102,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
                             invalidity,
                             focus,
                             blur,
+                            dirty,
                         };
                         if (field.type === FieldType.Group) {
                             return (

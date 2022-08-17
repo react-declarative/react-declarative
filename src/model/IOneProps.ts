@@ -18,6 +18,10 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    */
   className?: string;
   /**
+   * Если флаг включен, показываем валидацию до фокусировки по полю
+   */
+  dirty?: boolean;
+  /**
    * Список ролей, ограничивающий отображение полей
    */
   roles?: string[];

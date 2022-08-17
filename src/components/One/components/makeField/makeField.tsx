@@ -87,6 +87,7 @@ export function makeField(
         focus,
         blur,
         invalidity,
+        dirty: upperDirty = false,
         disabled: fieldDisabled = false,
         readonly: fieldReadonly = false,
         autoFocus,
@@ -107,7 +108,7 @@ export function makeField(
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
         const [loading, setLoading] = useState<boolean>(false);
-        const [dirty, setDirty] = useState<boolean>(false);
+        const [dirty, setDirty] = useState<boolean>(upperDirty);
 
         const inputUpdate = useRef(false);
         const objectUpdate = useRef(false);

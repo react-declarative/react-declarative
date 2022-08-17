@@ -111,6 +111,7 @@ export const ValidationPage = () => {
         <Fragment>
             <Breadcrumbs onSave={afterSave} onAction={action} disabled={!data} actions={actions} />
             <OneTyped<IOneData>
+                dirty
                 fields={fields}
                 {...oneProps}
             />
