@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { FetchView } from "react-declarative";
 import sleep from "../utils/sleep";
 

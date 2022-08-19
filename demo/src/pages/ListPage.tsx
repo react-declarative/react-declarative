@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   ListTyped,
   FieldType,
@@ -332,7 +334,6 @@ export const ListPage = () => {
 
   return (
     <ListTyped<IFilterData, IRowData>
-      apiRef={(listApi) => (window as any).listApi = listApi}
       title="List Component"
       filterLabel="Filters"
       selectedRows={selectedRows}

@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 export const _mock: {
     id: string;
@@ -25,7 +25,5 @@ for (let i = 0; i !== MOCK_TOTAL; i++) {
         color: faker.datatype.number(3) % 2 === 0 ? 'green' : 'red',
     })
 }
-
-(window as any).mock = _mock;
 
 export default _mock;

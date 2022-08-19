@@ -1,3 +1,5 @@
+import React from 'react';
+
 const str = (obj: any) => JSON.stringify(obj, Object.keys(obj).sort(), 2);
 
 export const Logger = (props: any) => (

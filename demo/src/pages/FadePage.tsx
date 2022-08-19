@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate } from 'react-declarative';

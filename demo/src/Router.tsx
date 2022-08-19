@@ -1,3 +1,5 @@
+import React from 'react';
+
 import SamplePage from './pages/SamplePage';
 import LayoutGrid from './pages/LayoutPage';
 import GalleryPage from './pages/GalleryPage';

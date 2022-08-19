@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ReactDOM from 'react-dom'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -35,7 +37,3 @@ ReactDOM.render(
     </ThemeProvider>,
     document.getElementById('root')
 );
-
-(window as any).parseBase64Json = parseBase64Json;
-
-(window as any).createServiceManager = createServiceManager;

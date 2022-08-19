@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Scaffold, Switch, IMenuGroup, ISwitchItem, IScaffoldOption } from 'react-declarative';
 
 import SamplePage from './pages/SamplePage';
