@@ -1,10 +1,11 @@
 const rimraf = require('rimraf');
+const path = require('path');
 const fs = require('fs');
 
 try {
-    const package = JSON.parse(fs.readFileSync('./package.json').toString())
+    const package = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')).toString())
     Object.keys(package.peerDependencies).forEach((name) => {
-        rimraf(`./node_modules/${name}`, () => null);
+        rimraf(path.join(__dirname, `../node_modules/${name}`), () => null)
     })
 } catch {
 }
