@@ -136,8 +136,6 @@ interface IContentProps<T extends any = string> extends Omit<IScaffoldProps<T>, 
   roles?: string[];
 }
 
-const Fragment = () => <></>;
-
 export const Content = <T extends any = string>({
   children,
   className,
@@ -152,8 +150,8 @@ export const Content = <T extends any = string>({
   roles: currentRoles,
   onOptionClick,
   onAction = () => null,
-  BeforeSearch = Fragment,
-  AfterSearch = Fragment,
+  BeforeSearch,
+  AfterSearch,
 }: IContentProps<T>) => {
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -216,9 +214,11 @@ export const Content = <T extends any = string>({
         open={opened}
         onClose={() => setOpened(false)}
       >
-        <Box className={classes.beforeSearch}>
-          <BeforeSearch />
-        </Box>
+        {BeforeSearch && (
+          <Box className={classes.beforeSearch}>
+            <BeforeSearch />
+          </Box>
+        )}
         <Box className={classes.searchBox}>
           <TextField
             variant="standard"
@@ -241,9 +241,11 @@ export const Content = <T extends any = string>({
             type="text"
           />
         </Box>
-        <Box className={classes.afterSearch}>
-          <AfterSearch />
-        </Box>
+        {AfterSearch && (
+          <Box className={classes.afterSearch}>
+            <AfterSearch />
+          </Box>
+        )}
         <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
       </Drawer>
       <AppBar

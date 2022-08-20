@@ -58,7 +58,7 @@ export const SideMenu = ({
 
     if (paddingLeft === 0) {
         return (
-            <List>
+            <List disablePadding>
                 {child}
             </List>
         );
