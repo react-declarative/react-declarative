@@ -1,5 +1,5 @@
-import { createWindowHistory } from 'react-declarative';
+import { createMemoryHistory } from 'history';
 
-export const history = createWindowHistory();
+export const history = createMemoryHistory();
 
 export default history;
