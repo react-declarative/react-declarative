@@ -266,7 +266,10 @@ export { Subject } from './utils/rx/Subject';
 export { formatAmount } from './utils/formatAmount';
 
 export { createWindowHistory } from './utils/createWindowHistory';
+export { createLsManager } from './utils/createLsManager';
+export { createSsManager } from './utils/createSsManager';
 export { createCustomTag } from './utils/createCustomTag';
+
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';
 
