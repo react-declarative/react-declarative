@@ -1,5 +1,7 @@
 const path = require("path");
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/index.tsx"),
@@ -7,17 +9,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-          },
+        test: /\.tsx?$/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "tsx",
+          target: "es2015",
+          tsconfigRaw: require('./tsconfig.json')
         },
       },
     ],
@@ -38,7 +35,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-        template: path.join(__dirname, './public', 'index.html')
-    })
+      template: path.join(__dirname, './public', 'index.html')
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        configFile: './tsconfig.json',
+      },
+    }),
   ],
 };
