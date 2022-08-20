@@ -39,7 +39,6 @@ export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends I
     withSort?: boolean;
     withTotal?: boolean;
     withSearch?: boolean;
-    keepClean?: boolean;
     fallback?: (e: Error) => void;
     onData?: (rows: RowData[], state: ILastPaginationState<FilterData, RowData>) => void;
     onLoadStart?: () => void;
@@ -127,7 +126,6 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
     withSort = true,
     withTotal = true,
     withSearch = true,
-    keepClean = false,
     fallback,
     onLoadStart,
     onLoadEnd,
@@ -153,7 +151,8 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
         try {
             onLoadStart && onLoadStart();
             const data = await queuedResolve(filterData, pagination, sort, chips, search);
-            let rows = Array.isArray(data) ? data : data.rows;
+            const keepClean = !Array.isArray(data);
+            let rows = keepClean ? data.rows : data;
             onData && onData(rows, {
                 filterData,
                 pagination,
@@ -177,7 +176,7 @@ export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowDa
             if (withPagination && !keepClean) {
                 rows = paginationHandler(rows.slice(0), pagination);
             }
-            const total = Array.isArray(data) ? totalLength : (data.total || null);
+            const total = keepClean ? (data.total || null) : totalLength;
             return {
                 rows,
                 total: withTotal ? total : null,
