@@ -29,4 +29,4 @@ export const ErrorPlaceholder = createPlaceholder('An error acquired', {
     fontSize: 24,
 });
 
-export const Loaderlaceholder = createPlaceholder('Loading data');
+export const LoaderPlaceholder = createPlaceholder('Loading data');

@@ -5,7 +5,7 @@ import { makeStyles } from '../../styles';
 
 import Async, { IAsyncProps } from '../Async';
 
-import { Loaderlaceholder } from './components/Placeholder';
+import { LoaderPlaceholder } from './components/Placeholder';
 import { ErrorPlaceholder } from './components/Placeholder';
 import Reveal, { IRevealProps } from './components/Reveal';
 
@@ -35,7 +35,7 @@ export const FetchView = <P extends any = object> ({
     animation,
     className,
     style,
-    Loader = Loaderlaceholder,
+    Loader = LoaderPlaceholder,
     Error = ErrorPlaceholder,
     onLoadEnd,
     onLoadStart,

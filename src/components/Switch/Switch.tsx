@@ -43,7 +43,7 @@ export interface ISwitchProps {
 
 const canActivate = async (item: ISwitchItem) => {
     const { guard = () => true } = item;
-    let isAvailable = guard();
+    const isAvailable = guard();
     if (isAvailable instanceof Promise) {
         return await isAvailable;
     } else {
