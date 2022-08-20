@@ -14,6 +14,8 @@ export interface IScaffoldProps<T extends any = string> {
     payload?: T;
     throwError?: boolean;
     fallback?: (e: Error) => void;
+    BeforeSearch?: React.ComponentType<any>;
+    AfterSearch?: React.ComponentType<any>;
     roles?: string[] | ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
     onOptionClick?: (name: string) => void;
     onAction?: (name: string) => void;

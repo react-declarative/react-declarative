@@ -75,6 +75,22 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
   },
+  beforeSearch: {
+    width: 'calc(100% - 10px)',
+    margin: '5px',
+    marginBottom: '0px',
+    '& > *': {
+      width: '100%',
+    },
+  },
+  afterSearch: {
+    width: 'calc(100% - 10px)',
+    margin: '5px',
+    marginTop: '0px',
+    '& > *': {
+      width: '100%',
+    },
+  },
   preventScroll: {},
 }));
 
@@ -120,6 +136,8 @@ interface IContentProps<T extends any = string> extends Omit<IScaffoldProps<T>, 
   roles?: string[];
 }
 
+const Fragment = () => <></>;
+
 export const Content = <T extends any = string>({
   children,
   className,
@@ -134,6 +152,8 @@ export const Content = <T extends any = string>({
   roles: currentRoles,
   onOptionClick,
   onAction = () => null,
+  BeforeSearch = Fragment,
+  AfterSearch = Fragment,
 }: IContentProps<T>) => {
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -196,6 +216,9 @@ export const Content = <T extends any = string>({
         open={opened}
         onClose={() => setOpened(false)}
       >
+        <Box className={classes.beforeSearch}>
+          <BeforeSearch />
+        </Box>
         <Box className={classes.searchBox}>
           <TextField
             variant="standard"
@@ -217,6 +240,9 @@ export const Content = <T extends any = string>({
             name="search"
             type="text"
           />
+        </Box>
+        <Box className={classes.afterSearch}>
+          <AfterSearch />
         </Box>
         <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
       </Drawer>
