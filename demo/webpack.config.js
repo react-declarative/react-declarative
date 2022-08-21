@@ -26,11 +26,15 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "./public"),
     },
+    historyApiFallback: {
+      index: '/'
+    },
     compress: false,
     port: 3000,
   },
   output: {
     filename: 'app.js',
+    publicPath: '/',
     path: path.join(__dirname, "./build"),
   },
   plugins: [
