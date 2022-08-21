@@ -4,6 +4,8 @@ import { createContext } from 'react';
 
 import useResolved from '../hooks/useResolved';
 
+import useActualValue from '../../../hooks/useActualValue';
+
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
@@ -26,6 +28,7 @@ export const StateProvider = <Data extends IAnything, Field extends IField<Data>
 }: IStateProviderProps<Data, Field>) => {
 
     const oneInvalidMapRef = useRef<Record<string, boolean>>({});
+    const wasInvalidRef = useRef(false);
 
     const {
         fields = [],
@@ -47,14 +50,22 @@ export const StateProvider = <Data extends IAnything, Field extends IField<Data>
         loadEnd,
     });
 
+    const object$ = useActualValue(object);
+
     const setObject = (data: Data, fieldInvalidMap: Record<string, boolean>) => {
         const { current: oneInvalidMap } = oneInvalidMapRef;
+        const { current: object } = object$;
         setObjectHook(data);
         Object.entries(fieldInvalidMap).forEach(([key, value]) => {
             oneInvalidMap[key] = value;
         });
         if (!Object.values(oneInvalidMap).some((isTrue) => isTrue)) {
-            change!(data, false);
+            if (data !== object || wasInvalidRef.current) {
+                wasInvalidRef.current = false;
+                change!(data, false);
+            }
+        } else {
+            wasInvalidRef.current = true;
         }
     };
 
