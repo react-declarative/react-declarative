@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import Async from '../Async';
 
 import Content from './components/Content';
-import Loader from './components/Loader';
+import LoaderDefault from './components/Loader';
 
 import deepClone from '../../utils/deepClone';
 import objects from '../../utils/objects';
@@ -33,6 +33,7 @@ export const Scaffold = <T extends any = string> ({
     throwError,
     fallback,
     options,
+    Loader = LoaderDefault,
     ...props
 }: IScaffoldProps<T>) => {
 

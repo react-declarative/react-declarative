@@ -144,7 +144,7 @@ export const Content = <T extends any = string>({
   title = 'Scaffold',
   options = [],
   colored = true,
-  loader = false,
+  loaderLine = false,
   actions,
   payload,
   roles: currentRoles,
@@ -284,7 +284,7 @@ export const Content = <T extends any = string>({
             />
           )}
         </Toolbar>
-        {loader && (
+        {loaderLine && (
           <Box className={classes.loaderBar}>
             <LinearProgress color="secondary" />
           </Box>

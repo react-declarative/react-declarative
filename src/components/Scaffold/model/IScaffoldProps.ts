@@ -6,7 +6,7 @@ export interface IScaffoldProps<T extends any = string> {
     className?: string;
     style?: React.CSSProperties;
     title?: string;
-    loader?: boolean;
+    loaderLine?: boolean;
     colored?: boolean;
     selected?: string;
     options?: IMenuGroup[];
@@ -16,6 +16,7 @@ export interface IScaffoldProps<T extends any = string> {
     fallback?: (e: Error) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
+    Loader?: React.ComponentType<any>;
     roles?: string[] | ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
     onOptionClick?: (name: string) => void;
     onAction?: (name: string) => void;
