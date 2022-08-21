@@ -10,8 +10,9 @@ import deepClone from '../../utils/deepClone';
 import objects from '../../utils/objects';
 import arrays from '../../utils/arrays';
 
-import IScaffoldProps from './model/IScaffoldProps';
+import { LoaderProvider } from './hooks/useLoader';
 
+import IScaffoldProps from './model/IScaffoldProps';
 import IMenuGroup, { IMenuOption } from '../../model/IMenuGroup';
 
 const deepFlat = <T extends any = string>(arr: IMenuGroup<T>[] = []) => {
@@ -33,6 +34,7 @@ export const Scaffold = <T extends any = string> ({
     throwError,
     fallback,
     options,
+    loaderLine = false,
     Loader = LoaderDefault,
     ...props
 }: IScaffoldProps<T>) => {
@@ -71,25 +73,27 @@ export const Scaffold = <T extends any = string> ({
     }, [options, payload]);
 
     return (
-        <Async
-            throwError={throwError}
-            fallback={fallback}
-            payload={payload}
-            Loader={Loader}
-        >
-            {async () => {
-                const roles = await resolveRoles();
-                const options = await resolveOptions();
-                return (
-                    <Content<T>
-                        {...props}
-                        roles={roles}
-                        options={options}
-                        payload={payload}
-                    />
-                );
-            }}
-        </Async>
+        <LoaderProvider payload={loaderLine}>
+            <Async
+                throwError={throwError}
+                fallback={fallback}
+                payload={payload}
+                Loader={Loader}
+            >
+                {async () => {
+                    const roles = await resolveRoles();
+                    const options = await resolveOptions();
+                    return (
+                        <Content<T>
+                            {...props}
+                            roles={roles}
+                            options={options}
+                            payload={payload}
+                        />
+                    );
+                }}
+            </Async>
+        </LoaderProvider>
     );
 };
 
