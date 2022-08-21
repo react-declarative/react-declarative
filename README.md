@@ -155,6 +155,14 @@ const fields: TypedField[] = [
 ];
 ```
 
+## See also
+
+There is a `create-react-app` available [in this repository](https://github.com/react-declarative/cra-template-react-declarative)
+
+```bash
+npx create-react-app . --template=react-declarative
+```
+
 ## License
 
 MIT © [tripolskypetr](https://github.com/tripolskypetr)
