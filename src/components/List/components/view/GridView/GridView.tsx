@@ -83,7 +83,7 @@ export const GridView = <
     total,
     columns = [],
     withLoader = false,
-    withInitialLoader = true,
+    withInitialLoader = false,
   } = props;
 
   const {

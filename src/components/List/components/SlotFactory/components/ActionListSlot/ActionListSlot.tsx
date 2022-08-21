@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: theme.palette.primary.main,
+    marginLeft: 'unset !important',
     fontWeight: 'bold',
   },
 }));
