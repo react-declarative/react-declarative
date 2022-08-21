@@ -67,7 +67,12 @@ const useStyles = makeStyles((theme) => ({
   loaderBar: {
     marginTop: -4,
   },
-  offset: theme.mixins.toolbar,
+  offsetRegular: {
+    minHeight: 64,
+  },
+  offsetDense: {
+    minHeight: 48,
+  },
   searchBox: {
     display: 'inline-flex',
     margin: 5,
@@ -297,7 +302,10 @@ export const Content = <T extends any = string>({
           </Box>
         )}
       </AppBar>
-      <div className={classNames(classes.offset, classes.preventScroll)} />
+      <div className={classNames({
+        [classes.offsetRegular]: !dense,
+        [classes.offsetDense]: dense,
+      }, classes.preventScroll)} />
       <ScrollView className={classes.container}>
         <Box p={1}>
           {children}
