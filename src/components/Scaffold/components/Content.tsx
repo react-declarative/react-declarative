@@ -149,6 +149,7 @@ export const Content = <T extends any = string>({
   selected,
   title = 'Scaffold',
   options = [],
+  dense = false,
   colored = true,
   loaderLine = false,
   actions,
@@ -260,7 +261,7 @@ export const Content = <T extends any = string>({
         })}
         position="fixed"
       >
-        <Toolbar disableGutters>
+        <Toolbar disableGutters variant={dense ? "dense" : "regular"}>
           <IconButton
             color="inherit"
             onClick={handleMenuToggle}

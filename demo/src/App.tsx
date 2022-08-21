@@ -126,6 +126,7 @@ const App = () => {
 
   return (
     <Scaffold
+      dense
       title="Scaffold"
       options={options}
       actions={actions}

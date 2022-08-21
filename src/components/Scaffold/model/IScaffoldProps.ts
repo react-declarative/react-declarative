@@ -4,6 +4,7 @@ import IScaffoldOption from "./IScaffoldOption";
 export interface IScaffoldProps<T extends any = string> {
     children: React.ReactChild;
     className?: string;
+    dense?: boolean;
     style?: React.CSSProperties;
     title?: string;
     loaderLine?: boolean;
