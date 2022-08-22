@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     shrink: 1,
   },
+  button: {
+    borderRadius: '50px !important',
+    minHeight: '40px !important',
+    paddingLeft: '15px !important',
+    paddingRight: '15px !important',
+  },
 }));
 
 interface IBreadcrumbsProps<T extends any = string> {
@@ -38,7 +44,7 @@ interface IBreadcrumbsProps<T extends any = string> {
   onBack?: () => void;
   onAction?: (action: string) => void;
   actions?: IBreadcrumbsOption<T>[];
-  disabled?: boolean;
+  saveDisabled?: boolean;
   title?: string;
   subtitle?: string;
   withSave?: boolean;
@@ -50,7 +56,7 @@ export const Breadcrumbs = <T extends any = string>({
   onBack,
   onAction,
   actions,
-  disabled,
+  saveDisabled,
   payload,
   title = 'Title',
   subtitle = 'Subtitle',
@@ -68,10 +74,12 @@ export const Breadcrumbs = <T extends any = string>({
       </MatBreadcrumbs>
       {!!withSave && (
         <Button
+          className={classes.button}
+          variant="contained"
+          size="small"
           onClick={handleSave}
           color="primary"
-          disabled={disabled}
-          variant="contained"
+          disabled={saveDisabled}
         >
           Save
         </Button>
