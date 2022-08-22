@@ -14,6 +14,8 @@ export interface IItemsFieldProps<Data = IAnything> {
   outlined?: PickProp<IField<Data>, "outlined">;
   itemList?: PickProp<IField<Data>, "itemList">;
   keepSync?: PickProp<IField<Data>, "keepSync">;
+  readonly?: PickProp<IField<Data>, "readonly">;
+  disabled?: PickProp<IField<Data>, "disabled">;
   title?: PickProp<IField<Data>, "title">;
   tr?: PickProp<IField<Data>, "tr">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
@@ -22,8 +24,6 @@ export interface IItemsFieldProps<Data = IAnything> {
 export interface IItemsFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   value: PickProp<IManaged<Data>, 'value'>;
-  disabled: PickProp<IManaged<Data>, "disabled">;
-  readonly: PickProp<IManaged<Data>, "readonly">;
   fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;

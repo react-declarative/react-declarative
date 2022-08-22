@@ -12,10 +12,11 @@ export interface IRadioFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, "title">;
   radioValue?: PickProp<IField<Data>, "radioValue">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
+  readonly?: PickProp<IField<Data>, "readonly">;
+  disabled?: PickProp<IField<Data>, "disabled">;
 }
 
 export interface IRadioFieldPrivate<Data = IAnything> {
-  disabled: PickProp<IManaged<Data>, "disabled">;
   value: PickProp<IManaged<Data>, "value">;
   onChange: PickProp<IManaged<Data>, "onChange">;
   name?: PickProp<IManaged<Data>, 'name'>;

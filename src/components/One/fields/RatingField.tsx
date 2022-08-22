@@ -12,12 +12,12 @@ export interface IRatingFieldProps<Data = IAnything> {
   readonly?: PickProp<IField<Data>, "readonly">;
   title?: PickProp<IField<Data>, "title">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
+  disabled?: PickProp<IField<Data>, "disabled">;
 }
 
 export interface IRatingFieldPrivate<Data = IAnything> {
   name?: string;
   value: PickProp<IManaged<Data>, "value">;
-  disabled: PickProp<IManaged<Data>, "disabled">;
   fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
 }

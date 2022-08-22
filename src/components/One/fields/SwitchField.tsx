@@ -11,11 +11,12 @@ import IField from '../../../model/IField';
 export interface ISwitchFieldProps<Data = IAnything>  {
   title?: PickProp<IField<Data>, 'title'>;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
+  readonly?: PickProp<IField<Data>, "readonly">;
+  disabled?: PickProp<IField<Data>, "disabled">;
 }
 
 export interface ISwitchFieldPrivate<Data = IAnything>  {
   onChange: PickProp<IManaged<Data>, 'onChange'>;
-  disabled: PickProp<IManaged<Data>, 'disabled'>;
   value: PickProp<IManaged<Data>, 'value'>;
 }
 

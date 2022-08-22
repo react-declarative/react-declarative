@@ -21,6 +21,8 @@ export interface ISliderFieldProps<Data = IAnything>  {
   sliderTrackColor?: PickProp<IField<Data>, 'sliderTrackColor'>;
   sliderRailColor?: PickProp<IField<Data>, 'sliderRailColor'>;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
+  readonly?: PickProp<IField<Data>, "readonly">;
+  disabled?: PickProp<IField<Data>, "disabled">;
 }
 
 export interface ISliderFieldPrivate<Data = IAnything>  {

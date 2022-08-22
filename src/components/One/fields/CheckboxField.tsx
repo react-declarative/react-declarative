@@ -10,12 +10,13 @@ import IField from '../../../model/IField';
 
 export interface ICheckboxFieldProps<Data = IAnything> {
   title?: PickProp<IField<Data>, 'title'>;
+  readonly?: PickProp<IField<Data>, "readonly">;
+  disabled?: PickProp<IField<Data>, "disabled">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
 }
 
 export interface ICheckboxFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, 'value'>;
-  disabled: PickProp<IManaged<Data>, 'disabled'>;
   onChange: PickProp<IManaged<Data>, 'onChange'>;
 }
 
