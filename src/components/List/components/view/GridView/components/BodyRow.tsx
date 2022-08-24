@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import useProps from '../../../../hooks/useProps';
+import useConstraintManager from '../../../../hooks/useConstraintManager';
 
 import IAnything from "../../../../../../model/IAnything";
 import IRowData from "../../../../../../model/IRowData";
@@ -9,8 +10,6 @@ import IRowData from "../../../../../../model/IRowData";
 import DisplayMode from "../../../../../../model/DisplayMode";
 
 import { BodyRowSlot, BodyColumn } from '../../../../slots/BodyRowSlot';
-
-import wrapColumns from '../../../../helpers/wrapColumns';
 
 export interface IBodyRowProps<RowData extends IRowData = IAnything> {
     fullWidth: number;
@@ -27,6 +26,10 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
     const {
         columns: listColumns,
     } = useProps();
+
+    const {
+        wrapColumns,
+    } = useConstraintManager();
 
     const columns = useMemo(() => {
 

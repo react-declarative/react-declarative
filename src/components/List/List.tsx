@@ -20,6 +20,7 @@ import set from '../../utils/set';
 import GridView from './components/view/GridView';
 import ChooserView from './components/view/ChooserView';
 
+import { ConstraintManagerProvider } from './hooks/useConstraintManager';
 import { ScrollManagerProvider } from './hooks/useScrollManager';
 import { SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
@@ -34,7 +35,8 @@ import {
     LIST_FETCH_DEBOUNCE,
 } from './config';
 
-import createScrollManager from './helpers/scrollManager';
+import createScrollManager from './helpers/createScrollManager';
+import createConstraintManager from './helpers/createConstraintManager';
 
 export class List<
     FilterData extends IAnything = IAnything,
@@ -48,6 +50,7 @@ export class List<
     private prevState: Partial<IListState> = {};
 
     private scrollManager = createScrollManager();
+    private constraintManager = createConstraintManager();
 
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
@@ -378,17 +381,19 @@ export class List<
             <ThemeProvider>
                 <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
                     <ScrollManagerProvider payload={this.scrollManager}>
-                        <SelectionProvider selectedRows={this.props.selectedRows}>
-                            <CachedRowsProvider>
-                                <SortModelProvider sortModel={this.props.sortModel!}>
-                                    <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
-                                        <ModalSortProvider>
-                                            {this.renderInner()}
-                                        </ModalSortProvider>
-                                    </ChipsProvider>
-                                </SortModelProvider>
-                            </CachedRowsProvider>
-                        </SelectionProvider>
+                        <ConstraintManagerProvider payload={this.constraintManager}>
+                            <SelectionProvider selectedRows={this.props.selectedRows}>
+                                <CachedRowsProvider>
+                                    <SortModelProvider sortModel={this.props.sortModel!}>
+                                        <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
+                                            <ModalSortProvider>
+                                                {this.renderInner()}
+                                            </ModalSortProvider>
+                                        </ChipsProvider>
+                                    </SortModelProvider>
+                                </CachedRowsProvider>
+                            </SelectionProvider>
+                        </ConstraintManagerProvider>
                     </ScrollManagerProvider>
                 </PropProvider>
             </ThemeProvider>

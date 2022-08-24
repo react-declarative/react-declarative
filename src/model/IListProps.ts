@@ -158,6 +158,7 @@ export interface IListProps<
   withToggledFilters?: boolean;
   withSearch?: boolean;
   withLoader?: boolean;
+  withMobile?: boolean;
   withArrowPagination?: boolean;
   withRangePagination?: boolean;
   withInitialLoader?: boolean;

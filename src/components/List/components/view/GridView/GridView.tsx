@@ -27,9 +27,8 @@ import DisplayMode from "../../../../../model/DisplayMode";
 import BodyRow from "./components/BodyRow";
 import HeadRow from "./components/HeadRow";
 
-import constraintManager from "../../../helpers/constraintManager";
-
 import useScrollManager from "../../../hooks/useScrollManager";
+import useConstraintManager from "../../../hooks/useConstraintManager";
 
 import Container from "../../Container";
 
@@ -75,6 +74,8 @@ export const GridView = <
   const classes = useStyles();
 
   const scrollManager = useScrollManager();
+
+  const { constraintManager } = useConstraintManager();
 
   const {
     limit,

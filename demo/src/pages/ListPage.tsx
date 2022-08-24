@@ -334,6 +334,7 @@ export const ListPage = () => {
 
   return (
     <ListTyped<IFilterData, IRowData>
+      withMobile
       title="List Component"
       filterLabel="Filters"
       selectedRows={selectedRows}

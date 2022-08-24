@@ -1,6 +1,6 @@
 import { createStatelessProvider } from "../../../utils/createProvider";
 
-import createScrollManager from "../helpers/scrollManager";
+import createScrollManager from "../helpers/createScrollManager";
 
 type ScrollManager = ReturnType<typeof createScrollManager>;
 
