@@ -129,6 +129,8 @@ export { FetchView } from './components';
 export { FadeView } from './components';
 export { TabsView } from './components';
 
+export { ErrorBoundary } from './components';
+
 export { AutoSizer } from './components';
 export { ActionMenu } from './components';
 export { Async } from './components';
