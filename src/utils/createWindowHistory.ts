@@ -1,6 +1,6 @@
-import { createBrowserHistory, createMemoryHistory } from "history";
+import { BrowserHistory, createBrowserHistory, createMemoryHistory, MemoryHistory } from "history";
 
-export const createWindowHistory = () => {
+export const createWindowHistory = (): MemoryHistory | BrowserHistory => {
     if (window.location.protocol === 'file:') {
         return createMemoryHistory();
     } else {
