@@ -31,6 +31,8 @@ import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from './model/IBread
 export { createServiceManager } from './helpers/serviceManager';
 export { serviceManager } from './helpers/serviceManager';
 
+export { createRouteManager } from './helpers/routeManager'
+
 export { prefetch } from './helpers/serviceManager';
 export { unload } from './helpers/serviceManager';
 
@@ -243,6 +245,10 @@ export type IChipListSlot = IChipListSlotInternal;
 export type IFilterListSlot = IFilterListSlotInternal;
 export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
+
+export { getRouteParams } from './utils/getRouteParams';
+export { getElementFromXPath } from './utils/getElementFromXPath';
+export { getXPathFromElement } from './utils/getXPathFromElement';
 
 export { arrays } from './utils/arrays';
 export { objects } from './utils/objects';
