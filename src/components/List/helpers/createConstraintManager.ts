@@ -14,6 +14,8 @@ export interface IParams {
     mode: DisplayMode;
 }
 
+const CHECKBOX_WIDTH = 75;
+
 type Dimension = string | number | boolean;
 
 export const createConstraintManager = () => {
@@ -79,9 +81,10 @@ export const createConstraintManager = () => {
         column,
         idx,
     }: IComputeParams) => {
+        const rowWidth = Math.max(fullWidth - CHECKBOX_WIDTH, 1);
         const compute = () => {
             const field = column.width;
-            const result = typeof field === 'function' ? field(fullWidth) : field;
+            const result = typeof field === 'function' ? field(rowWidth) : field;
             return typeof result === 'number' ? `${result}px` : result;
         };
         return constraintManager.memoize(`column-width-${fullWidth}-${idx}`, compute) as string;
