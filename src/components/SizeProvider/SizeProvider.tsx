@@ -14,6 +14,7 @@ import ISize from '../../model/ISize';
 interface ISizeProvider extends Omit<BoxProps, keyof {
     ref: never;
 }> {
+    target?: HTMLElement;
 }
 
 const useStyles = makeStyles({
@@ -37,6 +38,7 @@ const [
 export const SizeProvider = ({
     children,
     className,
+    target,
     ...props
 }: ISizeProvider) => {
 
@@ -51,12 +53,14 @@ export const SizeProvider = ({
 
     useEffect(() => {
 
-        if (!rootRef) {
+        const elementRef = target || rootRef;
+
+        if (!elementRef) {
             return;
         }
 
         const handleResize = debounce(() => {
-            const { height, width } = rootRef.getBoundingClientRect();
+            const { height, width } = elementRef.getBoundingClientRect();
             setSize({ height, width });
         });
 
@@ -64,10 +68,10 @@ export const SizeProvider = ({
 
         handleResize();
 
-        observer.observe(rootRef);
+        observer.observe(elementRef);
 
         return () => {
-            observer.unobserve(rootRef);
+            observer.unobserve(elementRef);
             handleResize.clear();
         };
 
