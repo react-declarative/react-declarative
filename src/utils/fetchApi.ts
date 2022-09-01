@@ -9,12 +9,12 @@ export class FetchError extends Error {
     }
 };
 
-export const fetchApi = async <T = any>(input: RequestInfo | URL, init?: RequestInit) => {
+export const fetchApi = async <T = any>(input: RequestInfo | URL, init?: RequestInit): Promise<T> => {
     const request = input instanceof URL ? input.toString() : input;
     let response: Response | undefined = undefined;
     try {
         response = await fetch(request, init);
-        return await response.json() as T;
+        return await response.json();
     } catch (error: any) {
         throw new FetchError(
             error,
