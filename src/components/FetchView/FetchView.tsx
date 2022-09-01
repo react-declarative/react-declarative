@@ -23,7 +23,7 @@ export interface IFetchViewProps<P extends any = object, A = any, B = any, C = a
         | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?])
         | ((payload: P) => Promise<A>)
         | ((payload: P) => A);
-    children: (a: A, b: B, c: C, d: D, e: E) => React.ReactNode;
+    children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => React.ReactNode;
 };
 
 const useStyles = makeStyles({
@@ -50,16 +50,16 @@ export const FetchView = <P extends any = object, A = any, B = any, C = any, D =
 
     const [appear, setAppear] = useState(false);
 
-    const handleData = async (payload: P): Promise<[A, B, C, D, E]>  => {
+    const handleData = async (payload: P): Promise<[A, B, C, D, E, F, G, H, I, J]>  => {
         if (typeof state === 'function') {
             const result = state(payload);
             if (Array.isArray(result)) {
-                return await Promise.all(result) as unknown as [A, B, C, D, E];
+                return await Promise.all(result) as unknown as [A, B, C, D, E, F, G, H, I, J];
             } else {
-                return [await result] as unknown as [A, B, C, D, E];
+                return [await result] as unknown as [A, B, C, D, E, F, G, H, I, J];
             }
         } else {
-            return [] as unknown as [A, B, C, D, E];
+            return [] as unknown as [A, B, C, D, E, F, G, H, I, J];
         }
     };
 
