@@ -11,18 +11,19 @@ import Reveal, { IRevealProps } from './components/Reveal';
 
 import classNames from '../../utils/classNames';
 
-import IAnything from '../../model/IAnything';
-
-type FetchState<T extends any = object> = ((payload: T) => Promise<IAnything>) | ((payload: T) => IAnything);
-
-export interface IFetchViewProps<P extends any = object> extends Omit<IAsyncProps<P>, keyof {
+export interface IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     animation?: IRevealProps['animation'];
     className?: string;
     style?: React.CSSProperties;
-    state: FetchState<P> | (FetchState<P>[]);
-    children: (...data: IAnything[]) => React.ReactNode;
+    state: ((payload: P) => readonly [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?])
+        | ((payload: P) => readonly [A?, B?, C?, D?, E?])
+        | ((payload: P) => [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?])
+        | ((payload: P) => [A?, B?, C?, D?, E?])
+        | ((payload: P) => Promise<A>)
+        | ((payload: P) => A);
+    children: (a: A, b: B, c: C, d: D, e: E) => React.ReactNode;
 };
 
 const useStyles = makeStyles({
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const FetchView = <P extends any = object> ({
+export const FetchView = <P extends any = object, A = any, B = any, C = any, D = any, E = any> ({
     animation,
     className,
     style,
@@ -43,17 +44,22 @@ export const FetchView = <P extends any = object> ({
     state,
     payload,
     ...otherProps
-}: IFetchViewProps<P>) => {
+}: IFetchViewProps<P, A, B, C, D, E>) => {
 
     const classes = useStyles();
 
     const [appear, setAppear] = useState(false);
 
-    const handleData = async (payload: P): Promise<IAnything[]>  => {
-        if (Array.isArray(state)) {
-            return await Promise.all(state.map((item) => item(payload)));
+    const handleData = async (payload: P): Promise<[A, B, C, D, E]>  => {
+        if (typeof state === 'function') {
+            const result = state(payload);
+            if (Array.isArray(result)) {
+                return await Promise.all(result) as unknown as [A, B, C, D, E];
+            } else {
+                return [await result] as unknown as [A, B, C, D, E];
+            }
         } else {
-            return [await state(payload)];
+            return [] as unknown as [A, B, C, D, E];
         }
     };
 

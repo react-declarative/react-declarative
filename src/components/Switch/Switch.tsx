@@ -51,6 +51,11 @@ const canActivate = async (item: ISwitchItem) => {
     }
 };
 
+interface ISwitchResult {
+    element: React.ComponentType<any>
+    params?: Record<string, any>; 
+}
+
 const DEFAULT_HISTORY = createWindowHistory();
 
 const Fragment = () => <></>;
@@ -87,7 +92,7 @@ export const Switch = ({
         return history.listen(handleLocation);
     }, [history, location]);
 
-    const handleState = useMemo(() => async () => {
+    const handleState = useMemo(() => async (): Promise<ISwitchResult> => {
         const { pathname: url = '/' } = location;
         unloadRef.current && await unloadRef.current();
         for (const item of items) {
@@ -151,20 +156,20 @@ export const Switch = ({
                     return {
                         element,
                         params,
-                    }
+                    };
                 }
                 return {
                     element: Forbidden,
-                }
+                };
             }
         }
         return {
             element: NotFound,
-        }
+        };
     }, [location]);
 
     return (
-        <FetchView<Location>
+        <FetchView<Location, ISwitchResult>
             className={className}
             style={style}
             state={handleState}
@@ -177,7 +182,7 @@ export const Switch = ({
             onLoadEnd={onLoadEnd}
             throwError={throwError}
         >
-            {async (data: Record<string, any>) => {
+            {async (data) => {
                 const { element: Element = Fragment, params } = data;
                 /* delay to prevent sync execution for appear animation */
                 await sleep(0);

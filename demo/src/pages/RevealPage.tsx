@@ -5,16 +5,16 @@ import sleep from "../utils/sleep";
 
 export const RevealPage = () => {
 
-    const state = [
-        () => sleep(1_000).then(() => 'string'),
-        () => sleep(3_000).then(() => 1),
-        () => sleep(2_000).then(() => false),
-        /*() => Promise.reject('error'),*/
-    ];
+    const state = () => [
+        sleep(1_000).then(() => 'string'),
+        sleep(3_000).then(() => 1),
+        sleep(2_000).then(() => false),
+        // Promise.reject('error'),
+    ] as const;
 
     return (
         <FetchView state={state}>
-            {(str: string, num: number, bool: boolean) => (
+            {(str, num, bool) => (
                 <span style={{ color: 'green' }}>
                     {JSON.stringify({
                         str,
