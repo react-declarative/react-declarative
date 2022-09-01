@@ -11,16 +11,16 @@ import Reveal, { IRevealProps } from './components/Reveal';
 
 import classNames from '../../utils/classNames';
 
-export interface IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any> extends Omit<IAsyncProps<P>, keyof {
+export interface IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     animation?: IRevealProps['animation'];
     className?: string;
     style?: React.CSSProperties;
-    state: ((payload: P) => readonly [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?])
-        | ((payload: P) => readonly [A?, B?, C?, D?, E?])
-        | ((payload: P) => [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?])
-        | ((payload: P) => [A?, B?, C?, D?, E?])
+    state: ((payload: P) => readonly [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?, Promise<F>?, Promise<G>?, Promise<H>?, Promise<I>?, Promise<J>?])
+        | ((payload: P) => readonly [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?])
+        | ((payload: P) => [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?, Promise<F>?, Promise<G>?, Promise<H>?, Promise<I>?, Promise<J>?])
+        | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?])
         | ((payload: P) => Promise<A>)
         | ((payload: P) => A);
     children: (a: A, b: B, c: C, d: D, e: E) => React.ReactNode;
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const FetchView = <P extends any = object, A = any, B = any, C = any, D = any, E = any> ({
+export const FetchView = <P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> ({
     animation,
     className,
     style,
@@ -44,7 +44,7 @@ export const FetchView = <P extends any = object, A = any, B = any, C = any, D =
     state,
     payload,
     ...otherProps
-}: IFetchViewProps<P, A, B, C, D, E>) => {
+}: IFetchViewProps<P, A, B, C, D, E, F, G, H, I, J>) => {
 
     const classes = useStyles();
 
