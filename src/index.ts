@@ -130,6 +130,7 @@ export { ScaleView } from './components';
 export { FetchView } from './components';
 export { FadeView } from './components';
 export { TabsView } from './components';
+export { WaitView } from './components';
 
 export { ErrorBoundary } from './components';
 
