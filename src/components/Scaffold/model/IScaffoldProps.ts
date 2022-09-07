@@ -8,6 +8,7 @@ export interface IScaffoldProps<T extends any = string> {
     style?: React.CSSProperties;
     title?: string;
     loaderLine?: boolean;
+    loader?: number;
     colored?: boolean;
     selected?: string;
     options?: IMenuGroup[];

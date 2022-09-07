@@ -31,6 +31,8 @@ import IScaffoldGroup, { IScaffoldOption } from "../model/IScaffoldGroup";
 import IScaffoldProps from "../model/IScaffoldProps";
 
 import useActualCallback from "../../../hooks/useActualCallback";
+
+import useLoaderLine from "../hooks/useLoaderLine";
 import useLoader from "../hooks/useLoader";
 
 import SideMenu from "./SideMenu";
@@ -168,7 +170,8 @@ export const Content = <T extends any = string>({
 
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const loaderLine = useLoader();
+  const loaderLine = useLoaderLine();
+  const loader = useLoader();
 
   const [opened, setOpened] = useState(false);
   const classes = useStyles();
@@ -300,7 +303,11 @@ export const Content = <T extends any = string>({
         </Toolbar>
         {loaderLine && (
           <Box className={classes.loaderBar}>
-            <LinearProgress color="secondary" />
+            <LinearProgress
+              variant={loader === -1 ? "indeterminate" : "determinate"}
+              value={loader === -1 ? undefined : loader}
+              color="primary"
+            />
           </Box>
         )}
       </AppBar>

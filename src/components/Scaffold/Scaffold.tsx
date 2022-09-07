@@ -11,6 +11,7 @@ import objects from '../../utils/objects';
 import arrays from '../../utils/arrays';
 
 import { LoaderProvider } from './hooks/useLoader';
+import { LoaderLineProvider } from './hooks/useLoaderLine';
 
 import IScaffoldProps from './model/IScaffoldProps';
 import IMenuGroup, { IMenuOption } from '../../model/IMenuGroup';
@@ -35,6 +36,7 @@ export const Scaffold = <T extends any = string> ({
     fallback,
     options,
     loaderLine = false,
+    loader = -1,
     Loader = LoaderDefault,
     ...props
 }: IScaffoldProps<T>) => {
@@ -73,26 +75,28 @@ export const Scaffold = <T extends any = string> ({
     }, [options, payload]);
 
     return (
-        <LoaderProvider payload={loaderLine}>
-            <Async
-                throwError={throwError}
-                fallback={fallback}
-                payload={payload}
-                Loader={Loader}
-            >
-                {async () => {
-                    const roles = await resolveRoles();
-                    const options = await resolveOptions();
-                    return (
-                        <Content<T>
-                            {...props}
-                            roles={roles}
-                            options={options}
-                            payload={payload}
-                        />
-                    );
-                }}
-            </Async>
+        <LoaderProvider payload={loader}>
+            <LoaderLineProvider payload={loaderLine}>
+                <Async
+                    throwError={throwError}
+                    fallback={fallback}
+                    payload={payload}
+                    Loader={Loader}
+                >
+                    {async () => {
+                        const roles = await resolveRoles();
+                        const options = await resolveOptions();
+                        return (
+                            <Content<T>
+                                {...props}
+                                roles={roles}
+                                options={options}
+                                payload={payload}
+                            />
+                        );
+                    }}
+                </Async>
+            </LoaderLineProvider>
         </LoaderProvider>
     );
 };
