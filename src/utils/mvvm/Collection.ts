@@ -1,5 +1,5 @@
-import { makeObservable } from 'mobx';
-import { observable, computed, action } from 'mobx';
+// import { makeObservable } from 'mobx';
+// import { observable, computed, action } from 'mobx';
 
 import EventEmitter from '../rx/EventEmitter';
 import debounce from '../hof/debounce';
@@ -11,7 +11,7 @@ import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE } from './Entity';
  */
 export class Collection<T extends IEntity = any> extends EventEmitter {
 
-    public readonly _items = new Map<number, Entity<T>>();
+    private readonly _items = new Map<number, Entity<T>>();
 
     get items(): Entity<T>[] {
         return [...this._items.entries()]
@@ -29,7 +29,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             this._items.set(idx, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         });
-        makeObservable(this, {
+        /*makeObservable(this, {
             _items: observable,
             items: computed,
             isEmpty: computed,
@@ -39,7 +39,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             push: action('Collection push'),
             remove: action('Collection remove'),
             removeById: action('Collection removeById'),
-        });
+        });*/
     };
 
     get isEmpty() {
@@ -68,20 +68,11 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     map = <V = any>(callbackfn: (value: Entity<T>) => V) => {
-        const map: { [key: number]: V } = {}
-        for (const [key, value] of this._items.entries()) {
-            map[key] = callbackfn(value);
-        }
-        return Object.entries(map)
-            .sort(([a], [b]) => Number(a) - Number(b))
-            .map((value) => value[1]);
+        return this.items.map(callbackfn);
     };
 
     forEach = (callbackfn: (value: Entity<T>) => void) => {
-        return Object.entries(this._items)
-            .sort(([a], [b]) => Number(a) - Number(b))
-            .map((value) => value[1])
-            .forEach(callbackfn);
+        return this.items.forEach(callbackfn);
     };
 
     push = (...entities: Entity<T>[]) => {

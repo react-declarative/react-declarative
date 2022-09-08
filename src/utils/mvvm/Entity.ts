@@ -1,5 +1,5 @@
-import { makeObservable } from 'mobx';
-import { observable, computed, action } from 'mobx';
+// import { makeObservable } from 'mobx';
+// import { observable, computed, action } from 'mobx';
 
 import EventEmitter from '../rx/EventEmitter';
 import debounce from '../hof/debounce';
@@ -9,7 +9,7 @@ export interface IEntity {
 }
 
 export const CHANGE_SYMBOL = Symbol('change');
-export const CHANGE_DEBOUNCE = 1_000;
+export const CHANGE_DEBOUNCE = 100;
 
 /**
  * @description MVVM Object wrapper. Emmits change after setData
@@ -24,14 +24,14 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         return { ...this._data };
     };
 
-    constructor(public _data: T) {
+    constructor(private _data: T) {
         super();
-        makeObservable(this, {
+        /*makeObservable(this, {
             _data: observable,
             data: computed,
             id: computed,
             setData: action('Entity setData'),
-        });
+        });*/
     };
 
     setData = (data: T) => {
