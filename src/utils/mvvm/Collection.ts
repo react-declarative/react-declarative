@@ -72,21 +72,22 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         return this.items.forEach(callbackfn);
     };
 
-    push = (...entities: Entity<T>[]) => {
+    push = (...items: T[]) => {
         const lastId = Math.max(...this._items.keys()) + 1;
-        for (let i = 0; i !== entities.length; i++) {
-            const entity = entities[i];
+        for (let i = 0; i !== items.length; i++) {
+            const item = items[i];
+            const entity = new Entity(item);
             this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         }
         this._change();
     };
 
-    remove = (entity: Entity<T>) => {
-        this.removeById(entity.id);
+    remove = (item: IEntity) => {
+        this.removeById(item.id);
     };
 
-    removeById = (id: string | number) => {
+    removeById = (id: IEntity['id']) => {
         for (const [key, value] of this._items.entries()) {
             if (value.id === id) {
                 this._items.delete(key);
