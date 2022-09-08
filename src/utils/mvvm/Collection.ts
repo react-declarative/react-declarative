@@ -2,8 +2,9 @@ import { makeObservable } from 'mobx';
 import { observable, computed, action } from 'mobx';
 
 import EventEmitter from '../rx/EventEmitter';
+import debounce from '../hof/debounce';
 
-import Entity, { IEntity, CHANGE_SYMBOL } from './Entity';
+import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE } from './Entity';
 
 /**
  * @description MVVM Array wrapper. Emmits `change` after push/pop/change of new element
@@ -110,8 +111,12 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     handleChange = (change: (item: Collection<T>) => void) => {
-        this.subscribe(CHANGE_SYMBOL, change);
-        return () => this.unsubscribe(CHANGE_SYMBOL, change);
+        const fn = debounce(change, CHANGE_DEBOUNCE);
+        this.subscribe(CHANGE_SYMBOL, fn);
+        return () => {
+            this.unsubscribe(CHANGE_SYMBOL, fn);
+            fn.clear();
+        };
     };
 
 };

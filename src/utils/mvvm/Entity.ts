@@ -2,12 +2,14 @@ import { makeObservable } from 'mobx';
 import { observable, computed, action } from 'mobx';
 
 import EventEmitter from '../rx/EventEmitter';
+import debounce from '../hof/debounce';
 
 export interface IEntity {
     id: string | number;
 }
 
 export const CHANGE_SYMBOL = Symbol('change');
+export const CHANGE_DEBOUNCE = 1_000;
 
 /**
  * @description MVVM Object wrapper. Emmits change after setData
@@ -38,8 +40,12 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
     };
 
     handleChange = (change: (item: Entity<T>) => void) => {
-        this.subscribe(CHANGE_SYMBOL, change);
-        return () => this.unsubscribe(CHANGE_SYMBOL, change);
+        const fn = debounce(change, CHANGE_DEBOUNCE);
+        this.subscribe(CHANGE_SYMBOL, fn);
+        return () => {
+            this.unsubscribe(CHANGE_SYMBOL, fn);
+            fn.clear();
+        };
     };
 
 };
