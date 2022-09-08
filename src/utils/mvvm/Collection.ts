@@ -46,18 +46,15 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         return this.items.length === 0;
     };
 
-    setData = (entities: Entity<T>[]) => {
+    setData = (items: T[]) => {
         this.clear();
-        for (let i = 0; i !== entities.length; i++) {
-            const entity = entities[i];
+        for (let i = 0; i !== items.length; i++) {
+            const item = items[i];
+            const entity = new Entity(item);
             this._items.set(i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         };
         this._change();
-    };
-
-    setRawData = (items: T[]) => {
-        this.setData(items.map((item) => new Entity(item)));
     };
 
     clear = () => {
