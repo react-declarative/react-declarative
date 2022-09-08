@@ -26,7 +26,9 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     constructor(entities: Entity<T>[] | Collection<T> = []) {
         super();
         if (entities instanceof Collection) {
-            entities = entities.items;
+            const { items } = entities;
+            entities.clear();
+            entities = items;
         }
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
