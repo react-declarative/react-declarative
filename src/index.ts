@@ -272,6 +272,9 @@ export { cached } from './utils/hof/cached';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
 
+export { Collection } from './utils/mvvm/Collection';
+export { Entity } from './utils/mvvm/Entity';
+
 export { formatAmount } from './utils/formatAmount';
 
 export { createWindowHistory } from './utils/createWindowHistory';
