@@ -94,15 +94,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     remove = (entity: Entity<T>) => {
-        for (const [key, value] of this._items.entries()) {
-            if (value.id === entity.id) {
-                this._items.delete(key);
-                value.unsubscribe(CHANGE_SYMBOL, this._change);
-                this._change();
-                return;
-            }
-        }
-        throw new Error(`Unknown entity ${entity.id}`);
+        this.removeById(entity.id);
     };
 
     removeById = (id: string | number) => {
