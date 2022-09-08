@@ -23,8 +23,11 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
-    constructor(entities: Entity<T>[] = []) {
+    constructor(entities: Entity<T>[] | Collection<T> = []) {
         super();
+        if (entities instanceof Collection) {
+            entities = entities.items;
+        }
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
