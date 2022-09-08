@@ -23,13 +23,20 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
-    constructor(entities: Entity<T>[] | Collection<T> = []) {
+    constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
         super();
         if (entities instanceof Collection) {
             const { items } = entities;
             entities.clear();
             entities = items;
         }
+        entities = entities.map((e) => {
+            if (e instanceof Entity) {
+                return e;
+            } else {
+                return new Entity(e);
+            }
+        });
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
@@ -48,7 +55,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     get isEmpty() {
-        return this.items.length === 0;
+        return this._items.size === 0;
     };
 
     setData = (items: T[]) => {

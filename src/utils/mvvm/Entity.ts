@@ -16,6 +16,8 @@ export const CHANGE_DEBOUNCE = 100;
  */
 export class Entity<T extends IEntity = any> extends EventEmitter {
 
+    private _data: T;
+
     get id() {
         return this._data.id;
     };
@@ -24,8 +26,17 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         return { ...this._data };
     };
 
-    constructor(private _data: T) {
+    private _change = () => {
+        this.emit(CHANGE_SYMBOL, this);
+    };
+
+    constructor(_data: T | Entity<T>) {
         super();
+        if (_data instanceof Entity) {
+            this._data = _data.data;
+        } else {
+            this._data = _data;
+        }
         /*makeObservable(this, {
             _data: observable,
             data: computed,
@@ -36,7 +47,7 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
 
     setData = (data: T) => {
         this._data = data;
-        this.emit(CHANGE_SYMBOL, this);
+        this._change();
     };
 
     handleChange = (change: (item: Entity<T>) => void) => {
