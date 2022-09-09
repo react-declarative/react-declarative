@@ -23,11 +23,18 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
+    private _dispose = () => {
+        for (const entity of this._items.values()) {
+            entity.unsubscribe(CHANGE_SYMBOL, this._change);
+        }
+        this._items.clear();
+    };
+
     constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
         super();
         if (entities instanceof Collection) {
             const { items } = entities;
-            entities.clear();
+            entities._dispose();
             entities = items;
         }
         entities = entities.map((e) => {
@@ -74,6 +81,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             entity.unsubscribe(CHANGE_SYMBOL, this._change);
         }
         this._items.clear();
+        this._change();
     };
 
     map = <V = any>(callbackfn: (value: Entity<T>) => V) => {
