@@ -57,6 +57,7 @@ import { useInitialValue } from './hooks/useInitialValue';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
+import { useItemEntity } from './hooks/useItemEntity';
 import { useListEditor } from './hooks/useListEditor';
 import { useListCollection } from './hooks/useListCollection';
 
@@ -186,6 +187,7 @@ export { useInitialValue };
 export { useActualValue };
 export { useActualState };
 
+export { useItemEntity };
 export { useListEditor };
 export { useListCollection };
 

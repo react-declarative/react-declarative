@@ -44,10 +44,9 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         } else {
             entities = entities.map((e) => {
                 if (e instanceof Entity) {
-                    return e;
-                } else {
-                    return new Entity(e);
+                    e = e.data;
                 }
+                return new Entity(e);
             });
         }
         entities.forEach((entity, idx) => {
