@@ -6,6 +6,8 @@ import debounce from '../hof/debounce';
 
 import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE } from './Entity';
 
+import { v4 as uuid } from 'uuid';
+
 /**
  * @description MVVM Array wrapper. Emmits `change` after push/pop/change of new element
  */
@@ -30,7 +32,8 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._items.clear();
     };
 
-    public createNewId = () => Math.max(...this._items.keys()) + 1;
+    public createPendingId = () => `pending_${uuid()}`;
+    public testPendingId = (id: string) => !!id.match(/(?:pending_)/g);
 
     constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
         super();
@@ -96,11 +99,11 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     push = (...items: T[]) => {
-        const newId = this.createNewId();
+        const lastId = Math.max(...this._items.keys()) + 1;
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
             const entity = new Entity(item);
-            this._items.set(newId + i, entity);
+            this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         }
         this._change();
