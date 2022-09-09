@@ -30,6 +30,8 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._items.clear();
     };
 
+    public createNewId = () => Math.max(...this._items.keys()) + 1;
+
     constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
         super();
         if (entities instanceof Collection) {
@@ -94,11 +96,11 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     push = (...items: T[]) => {
-        const lastId = Math.max(...this._items.keys()) + 1;
+        const newId = this.createNewId();
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
             const entity = new Entity(item);
-            this._items.set(lastId + i, entity);
+            this._items.set(newId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         }
         this._change();
