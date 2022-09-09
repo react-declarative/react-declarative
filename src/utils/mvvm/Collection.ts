@@ -36,14 +36,15 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             const { items } = entities;
             entities._dispose();
             entities = items;
+        } else {
+            entities = entities.map((e) => {
+                if (e instanceof Entity) {
+                    return e;
+                } else {
+                    return new Entity(e);
+                }
+            });
         }
-        entities = entities.map((e) => {
-            if (e instanceof Entity) {
-                return e;
-            } else {
-                return new Entity(e);
-            }
-        });
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
