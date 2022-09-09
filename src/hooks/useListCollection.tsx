@@ -3,9 +3,23 @@ import { useState, useEffect } from 'react';
 import Collection from "../utils/mvvm/Collection";
 import Entity, { IEntity } from "../utils/mvvm/Entity";
 
-export const useListCollection = <T extends IEntity>(initialValue: T[] | Entity<T>[] = []) => {
+import useActualCallback from './useActualCallback';
+
+interface IParams<T extends IEntity = any> {
+    initialValue?: T[] | Entity<T>[] | Collection<T>;
+    onChange?: (item: Collection<T>, target: Entity<T> | null) => void;
+}
+
+export const useListCollection = <T extends IEntity = any>({
+    initialValue = [],
+    onChange = () => null,
+}: IParams<T>) => {
     const [collection, setCollection] = useState(() => new Collection(initialValue));
-    useEffect(() => collection.handleChange((collection) => setCollection(collection)), [collection]);
+    const handleChange = useActualCallback(onChange);
+    useEffect(() => collection.handleChange((collection, target) => {
+        setCollection(new Collection(collection))
+        handleChange(collection, target);
+    }), [collection]);
     return collection;
 };
 

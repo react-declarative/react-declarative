@@ -6,8 +6,6 @@ import debounce from '../hof/debounce';
 
 import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE } from './Entity';
 
-import { v4 as uuid } from 'uuid';
-
 /**
  * @description MVVM Array wrapper. Emmits `change` after push/pop/change of new element
  */
@@ -21,8 +19,8 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             .map((value) => value[1]);
     };
 
-    private _change = () => {
-        this.emit(CHANGE_SYMBOL, this);
+    private _change = (target?: Entity<T>) => {
+        this.emit(CHANGE_SYMBOL, this, target || null);
     };
 
     private _dispose = () => {
@@ -31,9 +29,6 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         }
         this._items.clear();
     };
-
-    public createPendingId = () => `pending_${uuid()}`;
-    public testPendingId = (id: string) => !!id.match(/(?:pending_)/g);
 
     constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
         super();
@@ -82,10 +77,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     clear = () => {
-        for (const entity of this._items.values()) {
-            entity.unsubscribe(CHANGE_SYMBOL, this._change);
-        }
-        this._items.clear();
+        this._dispose();
         this._change();
     };
 
@@ -124,7 +116,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         throw new Error(`Unknown entity id ${id}`);
     };
 
-    handleChange = (change: (item: Collection<T>) => void) => {
+    handleChange = (change: (item: Collection<T>, target: Entity<T> | null) => void) => {
         const fn = debounce(change, CHANGE_DEBOUNCE);
         this.subscribe(CHANGE_SYMBOL, fn);
         return () => {
