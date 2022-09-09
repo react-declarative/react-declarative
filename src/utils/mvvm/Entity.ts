@@ -59,6 +59,8 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         };
     };
 
+    toObject = () => this.data;
+
 };
 
 export default Entity;

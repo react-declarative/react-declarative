@@ -125,7 +125,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         };
     };
 
-    toArray = () => this.map((item) => item.data);
+    toArray = () => this.map((item) => item.toObject());
 
 };
 
