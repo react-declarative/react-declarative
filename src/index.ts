@@ -57,9 +57,9 @@ import { useInitialValue } from './hooks/useInitialValue';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
-import { useItemEntity } from './hooks/useItemEntity';
+import { useEntity } from './hooks/useEntity';
 import { useListEditor } from './hooks/useListEditor';
-import { useListCollection } from './hooks/useListCollection';
+import { useCollection } from './hooks/useCollection';
 
 import { useModal } from './components/ModalProvider';
 import { useSize } from './components/SizeProvider';
@@ -187,9 +187,9 @@ export { useInitialValue };
 export { useActualValue };
 export { useActualState };
 
-export { useItemEntity };
+export { useEntity };
 export { useListEditor };
-export { useListCollection };
+export { useCollection };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };

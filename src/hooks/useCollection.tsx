@@ -10,7 +10,7 @@ interface IParams<T extends IEntity = any> {
     onChange?: (item: Collection<T>, target: Entity<T> | null) => void;
 }
 
-export const useListCollection = <T extends IEntity = any>({
+export const useCollection = <T extends IEntity = any>({
     initialValue = [],
     onChange = () => null,
 }: IParams<T>) => {
@@ -23,4 +23,4 @@ export const useListCollection = <T extends IEntity = any>({
     return collection;
 };
 
-export default useListCollection;
+export default useCollection;

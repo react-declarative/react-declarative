@@ -9,7 +9,7 @@ interface IParams<T extends IEntity = any> {
     onChange?: (item: Entity<T>) => void;
 }
 
-export const useItemEntity = <T extends IEntity = any>({
+export const useEntity = <T extends IEntity = any>({
     initialValue,
     onChange = () => null,
 }: IParams<T>) => {
@@ -22,4 +22,4 @@ export const useItemEntity = <T extends IEntity = any>({
     return entity;
 };
 
-export default useItemEntity;
+export default useEntity;
