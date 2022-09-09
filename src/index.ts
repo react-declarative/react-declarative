@@ -58,6 +58,7 @@ import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
 import { useListEditor } from './hooks/useListEditor';
+import { useListCollection } from './hooks/useListCollection';
 
 import { useModal } from './components/ModalProvider';
 import { useSize } from './components/SizeProvider';
@@ -186,6 +187,7 @@ export { useActualValue };
 export { useActualState };
 
 export { useListEditor };
+export { useListCollection };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };

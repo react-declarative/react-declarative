@@ -67,7 +67,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     setData = (items: T[]) => {
-        this.clear();
+        this._dispose();
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
             const entity = new Entity(item);
