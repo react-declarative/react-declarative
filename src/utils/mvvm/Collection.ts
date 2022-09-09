@@ -120,6 +120,8 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         };
     };
 
+    toArray = () => this.map((item) => item.data);
+
 };
 
 export default Collection;
