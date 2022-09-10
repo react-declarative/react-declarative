@@ -9,7 +9,7 @@ export interface IEntity {
 }
 
 export const CHANGE_SYMBOL = Symbol('change');
-export const CHANGE_DEBOUNCE = 500;
+export const CHANGE_DEBOUNCE = 1_000;
 
 /**
  * @description MVVM Object wrapper. Emmits change after setData
