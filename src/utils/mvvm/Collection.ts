@@ -6,8 +6,10 @@ import debounce from '../hof/debounce';
 
 import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE } from './Entity';
 
+export const REORDER_SYMBOL = Symbol('reorder');
+
 /**
- * @description MVVM Array wrapper. Emmits `change` after push/pop/change of new element
+ * @description MVVM Array wrapper. Emmits `change` after push/pop/change of element
  */
 export class Collection<T extends IEntity = any> extends EventEmitter {
 
@@ -19,8 +21,16 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             .map((value) => value[1]);
     };
 
-    private _change = (target?: Entity<T>) => {
+    get ids() {
+        return this.map(({ id }) => id);
+    };
+
+    private _change = (target: Entity<T>) => {
         this.emit(CHANGE_SYMBOL, this, target || null);
+    };
+
+    private _reorder = () => {
+        this.emit(REORDER_SYMBOL, this, null);
     };
 
     private _dispose = () => {
@@ -73,12 +83,12 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             this._items.set(i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         };
-        this._change();
+        this._reorder();
     };
 
     clear = () => {
         this._dispose();
-        this._change();
+        this._reorder();
     };
 
     map = <V = any>(callbackfn: (value: Entity<T>) => V) => {
@@ -97,7 +107,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
         }
-        this._change();
+        this._reorder();
     };
 
     remove = (item: IEntity) => {
@@ -109,18 +119,20 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             if (value.id === id) {
                 this._items.delete(key);
                 value.unsubscribe(CHANGE_SYMBOL, this._change);
-                this._change();
+                this._reorder();
                 return;
             }
         }
         throw new Error(`Unknown entity id ${id}`);
     };
 
-    handleChange = (change: (item: Collection<T>, target: Entity<T> | null) => void) => {
+    handleChange = (change: (collection: Collection<T>, target: Entity<T> | null) => void) => {
         const fn = debounce(change, CHANGE_DEBOUNCE);
         this.subscribe(CHANGE_SYMBOL, fn);
+        this.subscribe(REORDER_SYMBOL, change);
         return () => {
             this.unsubscribe(CHANGE_SYMBOL, fn);
+            this.unsubscribe(REORDER_SYMBOL, change);
             fn.clear();
         };
     };

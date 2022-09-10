@@ -9,7 +9,7 @@ export interface IEntity {
 }
 
 export const CHANGE_SYMBOL = Symbol('change');
-export const CHANGE_DEBOUNCE = 1_000;
+export const CHANGE_DEBOUNCE = 500;
 
 /**
  * @description MVVM Object wrapper. Emmits change after setData
@@ -46,7 +46,10 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
     };
 
     setData = (data: T) => {
-        this._data = data;
+        this._data = {
+            ...data,
+            id: this.id,
+        };
         this._change();
     };
 

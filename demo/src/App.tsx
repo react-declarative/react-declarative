@@ -11,6 +11,7 @@ import HeroPage from './pages/HeroPage';
 import ListPage from './pages/ListPage';
 import FadePage from './pages/FadePage';
 import RevealPage from './pages/RevealPage';
+import MvvmPage from './pages/MvvmPage';
 
 import history from './history';
 
@@ -55,6 +56,10 @@ const options: IMenuGroup[] = [
       {
         name: "reveal-page",
         label: 'Reveal page',
+      },
+      {
+        name: "mvvm-page",
+        label: 'Mvvm page',
       },
     ],
   },
@@ -110,6 +115,10 @@ const routes: ISwitchItem[] = [
   {
     path: '/reveal-page',
     element: () => <RevealPage />,
+  },
+  {
+    path: '/mvvm-page',
+    element: () => <MvvmPage />,
   }
 ];
 

@@ -13,12 +13,13 @@ interface IParams<T extends IEntity = any> {
 export const useCollection = <T extends IEntity = any>({
     initialValue = [],
     onChange = () => null,
-}: IParams<T>) => {
+}: IParams<T> = {}) => {
     const [collection, setCollection] = useState(() => new Collection(initialValue));
     const handleChange = useActualCallback(onChange);
     useEffect(() => collection.handleChange((collection, target) => {
-        setCollection(new Collection(collection))
-        handleChange(collection, target);
+        const newCollection = new Collection(collection);
+        setCollection(newCollection);
+        handleChange(newCollection, target);
     }), [collection]);
     return collection;
 };

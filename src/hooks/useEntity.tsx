@@ -16,8 +16,9 @@ export const useEntity = <T extends IEntity = any>({
     const [entity, setEntity] = useState(() => new Entity(initialValue));
     const handleChange = useActualCallback(onChange);
     useEffect(() => entity.handleChange((entity) => {
-        setEntity(new Entity(entity));
-        handleChange(entity);
+        const newEntity = new Entity(entity);
+        setEntity(newEntity);
+        handleChange(newEntity);
     }), [entity]);
     return entity;
 };
