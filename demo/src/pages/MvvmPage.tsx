@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCollection, Entity } from "react-declarative";
+import { useCollection, useModel, Entity } from "react-declarative";
 
 const ListItem = ({ entity }: { entity: Entity }) => {
   const handleIncrement = () => {
@@ -28,6 +28,30 @@ const ListItem = ({ entity }: { entity: Entity }) => {
     </div>
   );
 };
+
+const ItemModel = () => {
+
+  const model = useModel({
+    initialValue: () => ({
+      counter: 0,
+    }),
+    onChange: (model) => console.log({
+      model,
+    }),
+  });
+
+  const handleIncrement = () => {
+    model.setData({
+      counter: model.data.counter + 1,
+    });
+  };
+
+  return (
+    <button onClick={handleIncrement}>
+      {`Item without ID ${model.data.counter}`}
+    </button>
+  )
+}
 
 export const App = () => {
   const collection = useCollection({
@@ -57,6 +81,8 @@ export const App = () => {
         <ListItem key={entity.id} entity={entity} />
       ))}
       <button onClick={handleAdd}>Add item</button>
+      <br />
+      <ItemModel />
     </>
   );
 };

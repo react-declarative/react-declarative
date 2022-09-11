@@ -57,6 +57,7 @@ import { useInitialValue } from './hooks/useInitialValue';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
+import { useModel } from './hooks/useModel';
 import { useEntity } from './hooks/useEntity';
 import { useListEditor } from './hooks/useListEditor';
 import { useCollection } from './hooks/useCollection';
@@ -187,6 +188,7 @@ export { useInitialValue };
 export { useActualValue };
 export { useActualState };
 
+export { useModel };
 export { useEntity };
 export { useListEditor };
 export { useCollection };
@@ -278,6 +280,7 @@ export { Subject } from './utils/rx/Subject';
 
 export { Collection } from './utils/mvvm/Collection';
 export { Entity } from './utils/mvvm/Entity';
+export { Model } from './utils/mvvm/Model';
 
 export { formatAmount } from './utils/formatAmount';
 
