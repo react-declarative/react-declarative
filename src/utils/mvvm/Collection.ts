@@ -26,7 +26,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     private _change = (target: Entity<T>) => {
-        this.emit(CHANGE_SYMBOL, this, target || null);
+        this.emit(CHANGE_SYMBOL, this, target);
     };
 
     private _refresh = (target: Entity<T>) => {
