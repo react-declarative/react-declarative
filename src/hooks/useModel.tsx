@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Model from "../utils/mvvm/Model";
+import Model, { REFRESH_SYMBOL } from "../utils/mvvm/Model";
 
 import useActualCallback from './useActualCallback';
 
@@ -19,6 +19,9 @@ export const useModel = <T extends {} = any>({
         const newModel = new Model(model);
         setModel(newModel);
         handleChange(newModel);
+    }), [model]);
+    useEffect(() => model.once(REFRESH_SYMBOL, () => {
+        setModel(new Model(model));
     }), [model]);
     return model;
 };

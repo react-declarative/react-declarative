@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Entity, { IEntity } from "../utils/mvvm/Entity";
+import Entity, { IEntity, REFRESH_SYMBOL } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
@@ -19,6 +19,9 @@ export const useEntity = <T extends IEntity = any>({
         const newEntity = new Entity(entity);
         setEntity(newEntity);
         handleChange(newEntity);
+    }), [entity]);
+    useEffect(() => entity.once(REFRESH_SYMBOL, () => {
+        setEntity(new Entity(entity));
     }), [entity]);
     return entity;
 };

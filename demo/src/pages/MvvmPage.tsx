@@ -44,6 +44,7 @@ const ItemModel = () => {
     model.setData({
       counter: model.data.counter + 1,
     });
+    model.refresh()
   };
 
   return (

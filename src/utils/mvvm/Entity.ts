@@ -3,7 +3,7 @@
 
 import Model from "./Model";
 
-export { CHANGE_DEBOUNCE, CHANGE_SYMBOL } from './Model';
+export { CHANGE_DEBOUNCE, CHANGE_SYMBOL, REFRESH_SYMBOL } from './Model';
 
 export interface IEntity {
     id: string | number;

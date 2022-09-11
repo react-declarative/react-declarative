@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Collection from "../utils/mvvm/Collection";
-import Entity, { IEntity } from "../utils/mvvm/Entity";
+import Entity, { IEntity, REFRESH_SYMBOL } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
@@ -20,6 +20,9 @@ export const useCollection = <T extends IEntity = any>({
         const newCollection = new Collection(collection);
         setCollection(newCollection);
         handleChange(newCollection, target);
+    }), [collection]);
+    useEffect(() => collection.once(REFRESH_SYMBOL, () => {
+        setCollection(new Collection(collection));
     }), [collection]);
     return collection;
 };

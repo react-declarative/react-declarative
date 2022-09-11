@@ -3,6 +3,7 @@ import EventEmitter from "../rx/EventEmitter";
 import debounce from '../hof/debounce';
 
 export const CHANGE_SYMBOL = Symbol('change');
+export const REFRESH_SYMBOL = Symbol('refresh');
 export const CHANGE_DEBOUNCE = 1_000;
 
 export class Model<T extends {} = any> extends EventEmitter {
@@ -52,6 +53,8 @@ export class Model<T extends {} = any> extends EventEmitter {
             fn.clear();
         };
     };
+
+    public refresh = () => this.emit(REFRESH_SYMBOL);
 
     public toObject = () => this.data;
 
