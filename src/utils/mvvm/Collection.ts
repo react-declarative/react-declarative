@@ -40,12 +40,14 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._items.clear();
     };
 
-    constructor(entities: T[] | Entity<T>[] | Collection<T> = []) {
+    constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = []) {
         super();
         if (entities instanceof Collection) {
             const { items } = entities;
             entities._dispose();
             entities = items;
+        } else if (typeof entities === 'function') {
+            entities = entities().map((data) => new Entity(data));
         } else {
             entities = entities.map((e) => {
                 if (e instanceof Entity) {
