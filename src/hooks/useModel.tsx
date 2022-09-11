@@ -21,7 +21,9 @@ export const useModel = <T extends {} = any>({
         handleChange(newModel);
     }), [model]);
     useEffect(() => model.once(REFRESH_SYMBOL, () => {
-        setModel(new Model(model));
+        const newModel = new Model(model);
+        setModel(newModel);
+        handleChange(newModel);
     }), [model]);
     return model;
 };

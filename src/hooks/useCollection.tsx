@@ -22,7 +22,9 @@ export const useCollection = <T extends IEntity = any>({
         handleChange(newCollection, target);
     }), [collection]);
     useEffect(() => collection.once(REFRESH_SYMBOL, () => {
-        setCollection(new Collection(collection));
+        const newCollection = new Collection(collection);
+        setCollection(newCollection);
+        handleChange(newCollection, null);
     }), [collection]);
     return collection;
 };

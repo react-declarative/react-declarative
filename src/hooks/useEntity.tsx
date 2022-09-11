@@ -21,7 +21,9 @@ export const useEntity = <T extends IEntity = any>({
         handleChange(newEntity);
     }), [entity]);
     useEffect(() => entity.once(REFRESH_SYMBOL, () => {
-        setEntity(new Entity(entity));
+        const newEntity = new Entity(entity);
+        setEntity(newEntity);
+        handleChange(newEntity);
     }), [entity]);
     return entity;
 };
