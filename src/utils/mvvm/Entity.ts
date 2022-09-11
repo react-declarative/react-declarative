@@ -51,6 +51,7 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         this._data = {
             ...this._data,
             ...data,
+            id: this.id,
         };
         this._change();
     };
