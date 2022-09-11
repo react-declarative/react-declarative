@@ -30,10 +30,12 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
-    constructor(_data: T | Entity<T>) {
+    constructor(_data: T | Entity<T> | (() => T)) {
         super();
         if (_data instanceof Entity) {
             this._data = _data.data;
+        } else if (typeof _data === 'function') {
+            this._data = _data();
         } else {
             this._data = _data;
         }
@@ -45,10 +47,10 @@ export class Entity<T extends IEntity = any> extends EventEmitter {
         });*/
     };
 
-    setData = (data: T) => {
+    setData = (data: Partial<T>) => {
         this._data = {
+            ...this._data,
             ...data,
-            id: this.id,
         };
         this._change();
     };
