@@ -20,7 +20,7 @@ export const useModel = <T extends {} = any>({
         setModel(newModel);
         handleChange(newModel);
     }), [model]);
-    useEffect(() => model.once(REFRESH_SYMBOL, () => {
+    useEffect(() => model.once(REFRESH_SYMBOL, (model) => {
         const newModel = new Model(model);
         setModel(newModel);
         handleChange(newModel);

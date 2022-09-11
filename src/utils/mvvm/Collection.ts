@@ -29,6 +29,10 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this, target || null);
     };
 
+    private _refresh = (target: Entity<T>) => {
+        this.emit(REFRESH_SYMBOL, this, target);
+    };
+
     private _reorder = () => {
         this.emit(REORDER_SYMBOL, this, null);
     };
@@ -36,6 +40,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     private _dispose = () => {
         for (const entity of this._items.values()) {
             entity.unsubscribe(CHANGE_SYMBOL, this._change);
+            entity.unsubscribe(REFRESH_SYMBOL, this._refresh);
         }
         this._items.clear();
     };
@@ -59,6 +64,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
+            entity.subscribe(REFRESH_SYMBOL, this._refresh);
         });
         /*makeObservable(this, {
             _items: observable,
@@ -84,6 +90,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             const entity = new Entity(item);
             this._items.set(i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
+            entity.subscribe(REFRESH_SYMBOL, this._refresh);
         };
         this._reorder();
     };
@@ -108,6 +115,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             const entity = new Entity(item);
             this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
+            entity.subscribe(REFRESH_SYMBOL, this._refresh);
         }
         this._reorder();
     };
@@ -121,6 +129,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             if (value.id === id) {
                 this._items.delete(key);
                 value.unsubscribe(CHANGE_SYMBOL, this._change);
+                value.unsubscribe(REFRESH_SYMBOL, this._refresh);
                 this._reorder();
                 return;
             }
@@ -139,7 +148,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         };
     };
 
-    public refresh = () => this.emit(REFRESH_SYMBOL);
+    public refresh = () => this.emit(REFRESH_SYMBOL, this, null);
 
     public toArray = () => this.map((item) => item.toObject());
 

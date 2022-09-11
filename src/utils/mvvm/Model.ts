@@ -54,7 +54,7 @@ export class Model<T extends {} = any> extends EventEmitter {
         };
     };
 
-    public refresh = () => this.emit(REFRESH_SYMBOL);
+    public refresh = () => this.emit(REFRESH_SYMBOL, this);
 
     public toObject = () => this.data;
 

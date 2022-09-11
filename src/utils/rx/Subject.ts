@@ -2,6 +2,8 @@ import EventEmitter from "./EventEmitter";
 
 const SUBJECT_EVENT = Symbol('react-declarative-subject');
 
+type Function = (...args: any[]) => void;
+
 export class Subject<Data = any> {
 
     private emitter = new EventEmitter();

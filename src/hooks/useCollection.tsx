@@ -21,10 +21,10 @@ export const useCollection = <T extends IEntity = any>({
         setCollection(newCollection);
         handleChange(newCollection, target);
     }), [collection]);
-    useEffect(() => collection.once(REFRESH_SYMBOL, () => {
+    useEffect(() => collection.once(REFRESH_SYMBOL, (collection, target) => {
         const newCollection = new Collection(collection);
         setCollection(newCollection);
-        handleChange(newCollection, null);
+        handleChange(newCollection, target);
     }), [collection]);
     return collection;
 };

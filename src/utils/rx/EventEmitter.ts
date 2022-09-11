@@ -1,5 +1,6 @@
 
 type EventKey = string | symbol;
+type Function = (...args: any[]) => void;
 
 export class EventEmitter {
 

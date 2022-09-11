@@ -20,7 +20,7 @@ export const useEntity = <T extends IEntity = any>({
         setEntity(newEntity);
         handleChange(newEntity);
     }), [entity]);
-    useEffect(() => entity.once(REFRESH_SYMBOL, () => {
+    useEffect(() => entity.once(REFRESH_SYMBOL, (entity) => {
         const newEntity = new Entity(entity);
         setEntity(newEntity);
         handleChange(newEntity);
