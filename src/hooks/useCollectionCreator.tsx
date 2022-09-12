@@ -9,7 +9,7 @@ import useCollection, { IParams as ICollectionParams } from "./useCollection";
 interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (collection: React.MutableRefObject<Collection<T>>, begin: () => void) => () => void;
+    creator: (collection: React.MutableRefObject<Collection<T>>, begin: () => void) => (() => void) | void;
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
 }
 

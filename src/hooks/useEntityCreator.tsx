@@ -8,7 +8,7 @@ import useEntity, { IParams as IEntityParams } from "./useEntity";
 interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (entity: React.MutableRefObject<Entity<T>>, begin: () => void) => () => void;
+    creator: (entity: React.MutableRefObject<Entity<T>>, begin: () => void) => (() => void) | void;
     initialValue: T | Entity<T> | (() => T);
 }
 

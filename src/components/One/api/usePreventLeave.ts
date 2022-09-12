@@ -12,7 +12,7 @@ import IAnything from "../../../model/IAnything";
 export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     onChange?: IOneProps<Data>['change'];
-    onBlock?: () => () => void;
+    onBlock?: () => (() => void) | void;
     onSave?: (data: Data) => void | (Promise<void>);
     fallback?: (e: Error) => void;
 }
@@ -68,7 +68,10 @@ export const usePreventLeave = <Data = IAnything>({
             ({ retry }) => handleNavigate(retry)
         );
 
-        const createLayoutSubject = onBlock;
+        const createLayoutSubject = () => {
+            const dispose = onBlock && onBlock();
+            return () => dispose && dispose();
+        };
 
         const createUnloadSubject = () => {
             const handler = (e: any) => {

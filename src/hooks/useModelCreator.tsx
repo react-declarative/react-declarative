@@ -8,7 +8,7 @@ import useModel, { IParams as IModelParams } from "./useModel";
 interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (model: React.MutableRefObject<Model<T>>, begin: () => void) => () => void;
+    creator: (model: React.MutableRefObject<Model<T>>, begin: () => void) => (() => void) | void;
     initialValue?: T | Model<T> | (() => T);
 }
 
