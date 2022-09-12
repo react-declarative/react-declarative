@@ -21,6 +21,9 @@ export class EventEmitter {
             this.unsubscribe(eventName, subscriber);
         };
         this.subscribe(eventName, subscriber);
+        return () => {
+            this.unsubscribe(eventName, subscriber);
+        };
     };
 
     emit = (eventName: EventKey, ...args: any[]) => {

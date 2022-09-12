@@ -16,7 +16,7 @@ export class Subject<Data = any> {
     };
 
     once = (callback: Function) => {
-        this.emitter.once(SUBJECT_EVENT, callback);
+        return this.emitter.once(SUBJECT_EVENT, callback);
     };
 
     next = (data: Data) => {
