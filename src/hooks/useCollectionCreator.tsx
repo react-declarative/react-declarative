@@ -19,7 +19,7 @@ export const useCollectionCreator = <T extends IEntity = any>({
     initialValue = [],
 }: IParams<T>) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const collection = useCollection({
         initialValue,
@@ -30,7 +30,8 @@ export const useCollectionCreator = <T extends IEntity = any>({
 
     useEffect(() => {
         return creator(collection$, () => {
-            setLoading(true);
+            collection$.current.refresh();
+            setLoading(false);
         });
     }, []);
 

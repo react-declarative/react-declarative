@@ -18,7 +18,7 @@ export const useModelCreator = <T extends {} = any>({
     initialValue = {} as T,
 }: IParams<T>) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const model = useModel({
         initialValue,
@@ -29,7 +29,8 @@ export const useModelCreator = <T extends {} = any>({
 
     useEffect(() => {
         return creator(model$, () => {
-            setLoading(true);
+            model$.current.refresh();
+            setLoading(false);
         });
     }, []);
 

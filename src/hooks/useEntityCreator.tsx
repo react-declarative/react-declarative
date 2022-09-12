@@ -18,7 +18,7 @@ export const useEntityCreator = <T extends IEntity = any>({
     initialValue,
 }: IParams<T>) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const entity = useEntity({
         initialValue,
@@ -29,7 +29,8 @@ export const useEntityCreator = <T extends IEntity = any>({
 
     useEffect(() => {
         return creator(entity$, () => {
-            setLoading(true);
+            entity$.current.refresh();
+            setLoading(false);
         });
     }, []);
 
