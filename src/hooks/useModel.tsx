@@ -4,7 +4,7 @@ import Model, { REFRESH_SYMBOL } from "../utils/mvvm/Model";
 
 import useActualCallback from './useActualCallback';
 
-interface IParams<T extends {} = any> {
+export interface IParams<T extends {} = any> {
     initialValue: T | Model<T> | (() => T);
     onChange?: (item: Model<T>) => void;
 }

@@ -5,7 +5,7 @@ import Entity, { IEntity, REFRESH_SYMBOL } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
-interface IParams<T extends IEntity = any> {
+export interface IParams<T extends IEntity = any> {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
     onChange?: (item: Collection<T>, target: Entity<T> | null) => void;
 }

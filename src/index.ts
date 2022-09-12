@@ -61,6 +61,9 @@ import { useModel } from './hooks/useModel';
 import { useEntity } from './hooks/useEntity';
 import { useListEditor } from './hooks/useListEditor';
 import { useCollection } from './hooks/useCollection';
+import { useModelCreator } from './hooks/useModelCreator';
+import { useEntityCreator } from './hooks/useEntityCreator';
+import { useCollectionCreator } from './hooks/useCollectionCreator';
 
 import { useModal } from './components/ModalProvider';
 import { useSize } from './components/SizeProvider';
@@ -192,6 +195,9 @@ export { useModel };
 export { useEntity };
 export { useListEditor };
 export { useCollection };
+export { useModelCreator };
+export { useEntityCreator };
+export { useCollectionCreator };
 
 export { useOne, useOneTyped };
 export { useDate, useTime };
