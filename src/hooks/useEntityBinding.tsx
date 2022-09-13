@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 import Entity, { IEntity } from "../utils/mvvm/Entity";
+import Subject from "../utils/rx/Subject";
 
 import useActualValue from "./useActualValue";
+import useChangeSubject from "./useChangeSubject";
 import useEntity, { IParams as IEntityParams } from "./useEntity";
 
 interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (entity: React.MutableRefObject<Entity<T>>, begin: () => void) => (() => void) | void;
+    creator: (entity: React.MutableRefObject<Entity<T>>, change: Subject<Entity<T>>, begin: () => void) => (() => void) | void;
     initialValue: Partial<T> | Entity<T> | (() => Partial<T>);
 }
 
@@ -27,8 +29,10 @@ export const useEntityBinding = <T extends IEntity = any>({
 
     const entity$ = useActualValue(entity);
 
+    const subject = useChangeSubject(entity);
+
     useEffect(() => {
-        return creator(entity$, () => {
+        return creator(entity$, subject, () => {
             entity$.current.refresh();
             setLoading(false);
         });
