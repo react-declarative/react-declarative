@@ -56,6 +56,7 @@ import { useActualCallback } from './hooks/useActualCallback';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
+import { useChangeSubject } from './hooks/useChangeSubject';
 import { useSingleton } from './hooks/useSingleton';
 import { useChange } from './hooks/useChange';
 
@@ -199,6 +200,7 @@ export { useActualCallback };
 export { useActualValue };
 export { useActualState };
 
+export { useChangeSubject };
 export { useSingleton };
 export { useChange };
 
