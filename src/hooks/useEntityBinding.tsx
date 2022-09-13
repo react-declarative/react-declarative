@@ -9,7 +9,7 @@ interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof 
     initialValue: never;
 }> {
     creator: (entity: React.MutableRefObject<Entity<T>>, begin: () => void) => (() => void) | void;
-    initialValue: T | Entity<T> | (() => T);
+    initialValue: Partial<T> | Entity<T> | (() => Partial<T>);
 }
 
 export const useEntityBinding = <T extends IEntity = any>({
@@ -20,8 +20,8 @@ export const useEntityBinding = <T extends IEntity = any>({
 
     const [loading, setLoading] = useState(true);
 
-    const entity = useEntity({
-        initialValue,
+    const entity = useEntity<T>({
+        initialValue: initialValue as T,
         onChange,
     });
 

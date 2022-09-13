@@ -9,19 +9,19 @@ interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue: never;
 }> {
     creator: (model: React.MutableRefObject<Model<T>>, begin: () => void) => (() => void) | void;
-    initialValue?: T | Model<T> | (() => T);
+    initialValue?: Partial<T> | Model<T> | (() => Partial<T>);
 }
 
 export const useModelBinding = <T extends {} = any>({
     creator,
     onChange,
-    initialValue = {} as T,
+    initialValue = {},
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
 
-    const model = useModel({
-        initialValue,
+    const model = useModel<T>({
+        initialValue: initialValue as T,
         onChange,
     });
 
