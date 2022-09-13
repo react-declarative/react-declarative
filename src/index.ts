@@ -322,3 +322,5 @@ import * as datetimeInternal from './utils/datetime';
 
 export const typo = { ...typoInternal };
 export const datetime = { ...datetimeInternal };
+
+export { compose } from './utils/compose';

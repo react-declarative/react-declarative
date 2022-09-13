@@ -1,4 +1,5 @@
-export const compose = (...funcs: Function[]) => {
+export const compose = (...funcs: Function[][] | Function[]) => {
+    funcs = funcs.flat();
     if (funcs.length === 0) {
         return <T>(arg: T) => arg
     }
