@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, IActionFilter } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, IActionFilter, useSnack } from 'react-declarative';
 
 import history from '../history';
 
@@ -92,6 +92,8 @@ export const FadePage = () => {
         history,
     });
 
+    const notify = useSnack();
+
     useEffect(() => {
         console.log('ctor')
         return () => {
@@ -100,8 +102,8 @@ export const FadePage = () => {
     }, []);
 
     const handleClick = async () => {
-        console.log('click');
         await sleep(3_000);
+        notify('click');
     };
 
     return (

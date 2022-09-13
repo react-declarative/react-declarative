@@ -11,6 +11,7 @@ export * from './ActionFilter';
 
 export * from './SizeProvider';
 export * from './ModalProvider';
+export * from './SnackProvider';
 
 export * from './ConstraintView';
 export * from './ScrollView';

@@ -69,6 +69,7 @@ import { useEntityBinding } from './hooks/useEntityBinding';
 import { useCollectionBinding } from './hooks/useCollectionBinding';
 
 import { useModal } from './components/ModalProvider';
+import { useSnack } from './components/SnackProvider';
 import { useSize } from './components/SizeProvider';
 
 import { useList } from './hooks/useList';
@@ -163,6 +164,7 @@ export { register as registerTr } from './components/Translate';
 
 export { ModalProvider } from './components';
 export { SizeProvider } from './components';
+export { SnackProvider } from './components';
 
 export { Scaffold } from './components';
 
@@ -215,6 +217,7 @@ export { useCollectionBinding };
 export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
+export { useSnack };
 export { useModal };
 export { useSize };
 export { useList };
