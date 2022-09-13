@@ -71,6 +71,7 @@ import { useModal } from './components/ModalProvider';
 import { useSize } from './components/SizeProvider';
 
 import { useList } from './hooks/useList';
+import { useFile } from './hooks/useFile';
 import { useConfirm } from './hooks/useConfirm';
 import { useDate } from './hooks/useDate';
 import { useTime } from './hooks/useTime';
@@ -215,6 +216,7 @@ export { useConfirm };
 export { useModal };
 export { useSize };
 export { useList };
+export { useFile };
 
 import { IOnePublicProps as IOnePublicPropsInternal } from './model/IOnePublicProps';
 export type IOnePublicProps<Data = IAnything, Field extends IField<Data> = IField<Data>> = IOnePublicPropsInternal<Data, Field>;

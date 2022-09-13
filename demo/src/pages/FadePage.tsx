@@ -152,7 +152,7 @@ export const FadePage = () => {
             <ActionButton sx={{ m: 1 }} onClick={handleClick}>
                 Action button
             </ActionButton>
-            <ActionFilter sx={{ m: 1 }} actions={actions} onChange={console.log} />
+            <ActionFilter sx={{ m: 1 }} data={{ 'first-filter': 'second-item' }} actions={actions} onChange={console.log} />
         </>
     );
 }
