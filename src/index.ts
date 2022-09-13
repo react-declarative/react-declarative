@@ -53,9 +53,11 @@ import { ListHandler as ListHandlerInternal } from './model/IListProps';
 import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 
 import { useActualCallback } from './hooks/useActualCallback';
-import { useInitialValue } from './hooks/useInitialValue';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
+
+import { useSingleton } from './hooks/useSingleton';
+import { useChange } from './hooks/useChange';
 
 import { useModel } from './hooks/useModel';
 import { useEntity } from './hooks/useEntity';
@@ -81,9 +83,11 @@ import IRowData, { RowId } from './model/IRowData';
 export type { IRowData, RowId };
 
 import { ISwitchItem as ISwitchItemInternal } from './components';
+import { IActionFilter as IActionFilterInternal } from './components';
 import { IScaffoldOption as IScaffoldOptionInternal  } from './components';
 
 export type ISwitchItem = ISwitchItemInternal;
+export type IActionFilter = IActionFilterInternal;
 
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
@@ -142,8 +146,10 @@ export { ErrorBoundary } from './components';
 
 export { AutoSizer } from './components';
 
+export { ActionFilter } from './components';
 export { ActionButton } from './components';
 export { ActionMenu } from './components';
+
 export { Async } from './components';
 export { If } from './components';
 
@@ -189,9 +195,11 @@ export { useListProps, useListCachedRows } from './components';
 export { useOneProps, useOneState } from './components';
 
 export { useActualCallback };
-export { useInitialValue };
 export { useActualValue };
 export { useActualState };
+
+export { useSingleton };
+export { useChange };
 
 export { useModel };
 export { useEntity };

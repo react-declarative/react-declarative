@@ -7,6 +7,7 @@ export * from './ActionMenu';
 export * from './Breadcrumbs';
 export * from './ActionButton';
 export * from './ErrorBoundary';
+export * from './ActionFilter';
 
 export * from './SizeProvider';
 export * from './ModalProvider';

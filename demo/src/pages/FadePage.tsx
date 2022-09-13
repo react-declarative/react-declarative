@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, IActionFilter } from 'react-declarative';
 
 import history from '../history';
 
@@ -24,6 +24,63 @@ const tabs: ITab[] = [
     {
         label: 'tab3',
         value: 'tab3',
+    },
+];
+
+const actions: IActionFilter[] = [
+    {
+        action: 'first-filter',
+        label: 'First filter',
+        items: [
+            {
+                label: 'First item',
+                value: 'first-item',
+            },
+            {
+                label: 'Second item',
+                value: 'second-item',
+            },
+            {
+                label: 'Third item',
+                value: 'third-item',
+            }
+        ],
+    },
+    {
+        action: 'second-filter',
+        label: 'Second filter',
+        items: [
+            {
+                label: 'First item',
+                value: 'first-item',
+            },
+            {
+                label: 'Second item',
+                value: 'second-item',
+            },
+            {
+                label: 'Third item',
+                value: 'third-item',
+            }
+        ],
+    },
+    {
+        action: 'third-filter',
+        label: 'Third filter',
+        items: [
+            {
+                label: 'First item',
+                value: 'first-item',
+            },
+            {
+                label: 'Second item',
+                value: 'second-item',
+            },
+            {
+                label: 'Third item',
+                value: 'third-item',
+            }
+        ],
     },
 ];
 
@@ -95,6 +152,7 @@ export const FadePage = () => {
             <ActionButton sx={{ m: 1 }} onClick={handleClick}>
                 Action button
             </ActionButton>
+            <ActionFilter sx={{ m: 1 }} actions={actions} onChange={console.log} />
         </>
     );
 }

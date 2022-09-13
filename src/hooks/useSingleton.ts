@@ -2,7 +2,7 @@ import { useRef } from 'react'
 
 const EMPTY_VALUE = Symbol('empty-value')
 
-export const useInitialValue = <T = undefined>(value: T | (() => T)): T => {
+export const useSingleton = <T = undefined>(value: T | (() => T)): T => {
   const resolveRef = useRef(() => {
     if (typeof value === 'function') {
       return (value as Function)() as T
@@ -17,4 +17,4 @@ export const useInitialValue = <T = undefined>(value: T | (() => T)): T => {
   return resultRef.current
 }
 
-export default useInitialValue
+export default useSingleton
