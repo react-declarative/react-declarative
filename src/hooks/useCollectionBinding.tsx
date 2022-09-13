@@ -13,7 +13,7 @@ interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, ke
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
 }
 
-export const useCollectionCreator = <T extends IEntity = any>({
+export const useCollectionBinding = <T extends IEntity = any>({
     creator,
     onChange,
     initialValue = [],
@@ -43,4 +43,4 @@ export const useCollectionCreator = <T extends IEntity = any>({
 
 }
 
-export default useCollectionCreator;
+export default useCollectionBinding;

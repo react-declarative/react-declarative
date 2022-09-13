@@ -12,7 +12,7 @@ interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue?: T | Model<T> | (() => T);
 }
 
-export const useModelCreator = <T extends {} = any>({
+export const useModelBinding = <T extends {} = any>({
     creator,
     onChange,
     initialValue = {} as T,
@@ -42,4 +42,4 @@ export const useModelCreator = <T extends {} = any>({
 
 }
 
-export default useModelCreator;
+export default useModelBinding;

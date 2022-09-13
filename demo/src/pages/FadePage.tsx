@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton } from 'react-declarative';
 
 import history from '../history';
 
@@ -41,6 +41,11 @@ export const FadePage = () => {
             console.log('dtor')
         };
     }, []);
+
+    const handleClick = async () => {
+        console.log('click');
+        await sleep(3_000);
+    };
 
     return (
         <>
@@ -87,6 +92,9 @@ export const FadePage = () => {
                     }}
                 />
             </ScaleView>
+            <ActionButton sx={{ m: 1 }} onClick={handleClick}>
+                Action button
+            </ActionButton>
         </>
     );
 }

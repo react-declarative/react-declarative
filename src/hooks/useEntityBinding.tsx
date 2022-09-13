@@ -12,7 +12,7 @@ interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof 
     initialValue: T | Entity<T> | (() => T);
 }
 
-export const useEntityCreator = <T extends IEntity = any>({
+export const useEntityBinding = <T extends IEntity = any>({
     creator,
     onChange,
     initialValue,
@@ -42,4 +42,4 @@ export const useEntityCreator = <T extends IEntity = any>({
 
 }
 
-export default useEntityCreator;
+export default useEntityBinding;
