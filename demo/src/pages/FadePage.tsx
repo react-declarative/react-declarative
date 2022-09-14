@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, ActionTrigger, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
+
+import AddIcon from '@mui/icons-material/Add';
 
 import history from '../history';
 
@@ -184,6 +186,9 @@ export const FadePage = () => {
             </ActionButton>
             <ActionFilter sx={{ m: 1 }} data={{ 'first-filter': 'second-item' }} actions={actions_filter} onChange={console.log} />
             <ActionTrigger sx={{ m: 1 }} actions={actions_trigger} onAction={handleClick} />
+            <ActionIcon sx={{ m: 1 }} onClick={handleClick}>
+                <AddIcon />
+            </ActionIcon>
         </>
     );
 }

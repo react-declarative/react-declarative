@@ -155,6 +155,7 @@ export { ActionTrigger } from './components';
 export { ActionFilter } from './components';
 export { ActionButton } from './components';
 export { ActionMenu } from './components';
+export { ActionIcon } from './components';
 
 export { Async } from './components';
 export { If } from './components';

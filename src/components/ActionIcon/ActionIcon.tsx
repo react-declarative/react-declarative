@@ -2,38 +2,13 @@ import * as React from 'react';
 import { useState, useRef, useLayoutEffect } from 'react';
 
 import CircularProgress from '@mui/material/CircularProgress';
-import Button, { ButtonProps } from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 
 import useActualValue from '../../hooks/useActualValue';
 
-const ProgressDefault = ({
-    loading,
-    children,
-}: {
-    children: React.ReactNode;
-    loading: boolean;
-}) => (
-    <Stack direction="row" alignItems="center" spacing={1}>
-        {!!loading && (
-            <Box display="flex" alignItems="center">
-                <CircularProgress
-                    size="16px"
-                    color="inherit"
-                />
-            </Box>
-        )}
-        <Box>
-            {children}
-        </Box>
-    </Stack>
-);
-
-interface IActionButtonProps extends Omit<ButtonProps, keyof {
+interface IActionIconProps extends Omit<IconButtonProps, keyof {
     onClick: never;
 }> {
-    Progress?: typeof ProgressDefault;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
@@ -41,8 +16,7 @@ interface IActionButtonProps extends Omit<ButtonProps, keyof {
     throwError?: boolean;
 };
 
-export const ActionButton = ({
-    Progress = ProgressDefault,
+export const ActionIcon = ({
     onClick = () => { },
     onLoadStart,
     onLoadEnd,
@@ -50,9 +24,8 @@ export const ActionButton = ({
     children,
     disabled,
     throwError = false,
-    variant = "outlined",
     ...otherProps
-}: IActionButtonProps) => {
+}: IActionIconProps) => {
 
     const [loading, setLoading] = useState(0);
 
@@ -88,17 +61,29 @@ export const ActionButton = ({
     };
 
     return (
-        <Button
+        <IconButton
             {...otherProps}
             onClick={handleClick}
             disabled={!!loading || disabled}
-            variant={variant}
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...otherProps.sx,
+            }}
         >
-            <Progress loading={!!loading}>
-                {children}
-            </Progress>
-        </Button>
+            {loading ? (
+                <CircularProgress
+                    size="24px"
+                    color="inherit"
+                />
+            ) : (
+                <>
+                    {children}
+                </>
+            )}
+        </IconButton>
     );
 };
 
-export default ActionButton;
+export default ActionIcon;
