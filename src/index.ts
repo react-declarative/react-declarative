@@ -87,10 +87,12 @@ export type { IRowData, RowId };
 
 import { ISwitchItem as ISwitchItemInternal } from './components';
 import { IActionFilter as IActionFilterInternal } from './components';
+import { IActionTrigger as IActionTriggerInternal } from './components';
 import { IScaffoldOption as IScaffoldOptionInternal  } from './components';
 
 export type ISwitchItem = ISwitchItemInternal;
 export type IActionFilter = IActionFilterInternal;
+export type IActionTrigger<Data extends object = any> = IActionTriggerInternal<Data>;
 
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;
@@ -149,6 +151,7 @@ export { ErrorBoundary } from './components';
 
 export { AutoSizer } from './components';
 
+export { ActionTrigger } from './components';
 export { ActionFilter } from './components';
 export { ActionButton } from './components';
 export { ActionMenu } from './components';

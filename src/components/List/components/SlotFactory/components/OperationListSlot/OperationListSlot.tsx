@@ -105,12 +105,13 @@ export const OperationListSlot = ({
 
     const Loader = () => (
         <>
-            {operations.map(({ label }, idx) => (
+            {operations.map(({ label, icon: Icon }, idx) => (
                 <Button
                     disabled
                     key={idx}
                     size="small"
                     variant="contained"
+                    startIcon={Icon && <Icon />}
                 >
                     <Stack direction="row" alignItems="center" spacing={1}>
                             <Box display="flex" alignItems="center">
@@ -135,10 +136,12 @@ export const OperationListSlot = ({
         available,
         onClick,
         label,
+        icon: Icon,
     }: {
         available: boolean;
         onClick: () => void;
         label: string;
+        icon?: React.ComponentType<any>;
     }) => {
         const { loading } = useProps();
         return (
@@ -147,6 +150,7 @@ export const OperationListSlot = ({
                 size="small"
                 variant="contained"
                 onClick={onClick}
+                startIcon={Icon && <Icon />}
             >
                 {label}
             </Button>
@@ -172,6 +176,7 @@ export const OperationListSlot = ({
                             return await Promise.all(operations.map(async ({
                                 action,
                                 label,
+                                icon,
                                 isAvailable = true,
                             }, idx) => {
                                 const handleAvailable = () => typeof isAvailable === 'function'
@@ -183,6 +188,7 @@ export const OperationListSlot = ({
                                         key={idx}
                                         available={available}
                                         label={label}
+                                        icon={icon}
                                         onClick={createHandleOperationClick(action)}
                                     />
                                 );

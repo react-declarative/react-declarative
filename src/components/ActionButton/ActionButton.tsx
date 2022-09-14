@@ -30,17 +30,20 @@ const ProgressDefault = ({
     </Stack>
 );
 
-interface IActionButtonProps extends ButtonProps {
+interface IActionButtonProps extends Omit<ButtonProps, keyof {
+    onClick: never;
+}> {
     Progress?: typeof ProgressDefault;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
 };
 
 export const ActionButton = ({
     Progress = ProgressDefault,
-    onClick = () => null,
+    onClick = () => { },
     onLoadStart,
     onLoadEnd,
     fallback,

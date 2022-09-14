@@ -71,7 +71,6 @@ export const ActionFilter = ({
         <Box
             {...otherProps}
             sx={{
-                ...otherProps.sx,
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: {
@@ -79,6 +78,7 @@ export const ActionFilter = ({
                     sm: 'row',
                 },
                 gap: 1,
+                ...otherProps.sx,
             }}
         >
             {actions.map((action, idx) => {

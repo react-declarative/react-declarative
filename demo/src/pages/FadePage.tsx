@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, IActionFilter, useSnack } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionFilter, ActionTrigger, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
 
 import history from '../history';
 
@@ -27,7 +27,7 @@ const tabs: ITab[] = [
     },
 ];
 
-const actions: IActionFilter[] = [
+const actions_filter: IActionFilter[] = [
     {
         action: 'first-filter',
         label: 'First filter',
@@ -84,6 +84,33 @@ const actions: IActionFilter[] = [
     },
 ];
 
+const actions_trigger: IActionTrigger[] = [
+    {
+        action: 'first-action',
+        label: 'First action',
+        isAvailable: async () => {
+            await sleep(3_000);
+            return true;
+        },
+    },
+    {
+        action: 'second-action',
+        label: 'Second action',
+        isAvailable: async () => {
+            await sleep(3_000);
+            return false;
+        },
+    },
+    {
+        action: 'third-action',
+        label: 'Third action',
+        isAvailable: async () => {
+            await sleep(3_000);
+            return true;
+        },
+    },
+];
+
 export const FadePage = () => {
 
     const {
@@ -101,8 +128,9 @@ export const FadePage = () => {
         };
     }, []);
 
-    const handleClick = async () => {
+    const handleClick = async (data: any) => {
         await sleep(3_000);
+        console.log({ data })
         notify('click');
     };
 
@@ -154,7 +182,8 @@ export const FadePage = () => {
             <ActionButton sx={{ m: 1 }} onClick={handleClick}>
                 Action button
             </ActionButton>
-            <ActionFilter sx={{ m: 1 }} data={{ 'first-filter': 'second-item' }} actions={actions} onChange={console.log} />
+            <ActionFilter sx={{ m: 1 }} data={{ 'first-filter': 'second-item' }} actions={actions_filter} onChange={console.log} />
+            <ActionTrigger sx={{ m: 1 }} actions={actions_trigger} onAction={handleClick} />
         </>
     );
 }
