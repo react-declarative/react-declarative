@@ -85,6 +85,7 @@ export const ActionTrigger = <T extends any = object>({
         icon?: React.ComponentType<any>;
     }) => (
         <ActionButton
+            {...asyncProps}
             disabled={!available}
             size={size}
             variant={variant}
