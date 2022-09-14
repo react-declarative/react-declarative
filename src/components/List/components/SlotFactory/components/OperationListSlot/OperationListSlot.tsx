@@ -6,8 +6,10 @@ import { useTheme } from '@mui/styles';
 import { Theme } from '@mui/material';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import FadeView from '../../../../../FadeView';
@@ -110,7 +112,17 @@ export const OperationListSlot = ({
                     size="small"
                     variant="contained"
                 >
-                    {label}
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                            <Box display="flex" alignItems="center">
+                                <CircularProgress
+                                    size="16px"
+                                    color="inherit"
+                                />
+                            </Box>
+                        <Box>
+                            {label}
+                        </Box>
+                    </Stack>
                 </Button>
             ))}
         </>
