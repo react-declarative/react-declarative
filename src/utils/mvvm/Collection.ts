@@ -45,7 +45,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._items.clear();
     };
 
-    constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = []) {
+    constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = [], protected _debounce = CHANGE_DEBOUNCE) {
         super();
         if (entities instanceof Collection) {
             const { items } = entities;
@@ -138,7 +138,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     public handleChange = (change: (collection: Collection<T>, target: Entity<T> | null) => void) => {
-        const fn = debounce(change, CHANGE_DEBOUNCE);
+        const fn = debounce(change, this._debounce);
         this.subscribe(CHANGE_SYMBOL, fn);
         this.subscribe(REORDER_SYMBOL, change);
         return () => {

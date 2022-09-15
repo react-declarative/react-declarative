@@ -38,13 +38,14 @@ const ItemModel = () => {
     onChange: (model) => console.log({
       model,
     }),
+    debounce: 100,
   });
 
   const handleIncrement = () => {
     model.setData({
       counter: model.data.counter + 1,
     });
-    model.refresh()
+    // model.refresh()
   };
 
   return (

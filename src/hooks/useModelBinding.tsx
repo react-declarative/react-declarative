@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Model from "../utils/mvvm/Model";
+import Model, { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
 import Subject from "../utils/rx/Subject";
 
 import useActualValue from "./useActualValue";
@@ -18,6 +18,7 @@ export const useModelBinding = <T extends {} = any>({
     creator,
     onChange,
     initialValue = {},
+    debounce = CHANGE_DEBOUNCE,
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
@@ -25,6 +26,7 @@ export const useModelBinding = <T extends {} = any>({
     const model = useModel<T>({
         initialValue: initialValue as T,
         onChange,
+        debounce,
     });
 
     const model$ = useActualValue(model);

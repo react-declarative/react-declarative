@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Subject from "../utils/rx/Subject";
 import Collection from "../utils/mvvm/Collection";
-import Entity, { IEntity } from "../utils/mvvm/Entity";
+import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
 import useActualValue from "./useActualValue";
 import useChangeSubject from "./useChangeSubject";
@@ -19,6 +19,7 @@ export const useCollectionBinding = <T extends IEntity = any>({
     creator,
     onChange,
     initialValue = [],
+    debounce = CHANGE_DEBOUNCE
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export const useCollectionBinding = <T extends IEntity = any>({
     const collection = useCollection({
         initialValue,
         onChange,
+        debounce,
     });
 
     const collection$ = useActualValue(collection);

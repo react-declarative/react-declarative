@@ -18,7 +18,7 @@ export class Model<T extends {} = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
-    constructor(_data: T | Model<T> | (() => T)) {
+    constructor(_data: T | Model<T> | (() => T), protected _debounce = CHANGE_DEBOUNCE) {
         super();
         if (_data instanceof Model) {
             this._data = _data.data;
@@ -46,7 +46,7 @@ export class Model<T extends {} = any> extends EventEmitter {
     };
 
     public handleChange(change: (item: Model<T>) => void) {
-        const fn = debounce(change, CHANGE_DEBOUNCE);
+        const fn = debounce(change, this._debounce);
         this.subscribe(CHANGE_SYMBOL, fn);
         return () => {
             this.unsubscribe(CHANGE_SYMBOL, fn);
