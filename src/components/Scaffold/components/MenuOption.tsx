@@ -4,6 +4,7 @@ import { makeStyles } from '../../../styles';
 
 import classNames from '../../../utils/classNames';
 
+import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -12,14 +13,14 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { IMenuOption } from '../../../model/IMenuGroup';
 
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
-import Dot from "@mui/icons-material/FiberManualRecord";
 
 interface IMenuOptionProps {
     option: IMenuOption;
+    icon?: React.ComponentType<any>;
     style?: React.CSSProperties;
     selected?: string;
     className?: string;
-    parent?: boolean;
+    currentPadding: number;
     onClick: (name: string) => void;
 }
 
@@ -58,10 +59,11 @@ const useStyles = makeStyles((theme) => ({
 export const MenuOption: React.FC<IMenuOptionProps> = ({
     option,
     style,
-    parent,
+    icon,
     selected,
     className,
-    onClick
+    onClick,
+    currentPadding: paddingLeft,
 }) => {
     const classes = useStyles();
 
@@ -72,17 +74,17 @@ export const MenuOption: React.FC<IMenuOptionProps> = ({
     });
 
     const handleClick = () => {
-        const { name } = option;
-        name && onClick(name);
+        onClick(option.name || 'unknown');
     };
 
-    const Icon = option.icon || (parent ? Dot : OutlinedFlag);
+    const Icon = icon || OutlinedFlag;
 
     return (
         <ButtonBase  
             className={classNames(classes.root, linkClasses, className)}
             style={style}
         >
+            <Box style={{ paddingLeft }} />
             <ListItem
                 onClick={handleClick}
             >

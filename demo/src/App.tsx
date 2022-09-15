@@ -20,6 +20,7 @@ import sleep from './utils/sleep';
 const options: IMenuGroup[] = [
   {
     label: 'Use cases',
+    lifted: true,
     options: [
       {
         name: "layout-page",
@@ -60,6 +61,15 @@ const options: IMenuGroup[] = [
       {
         name: "mvvm-page",
         label: 'Mvvm page',
+      },
+      {
+        label: 'Use cases',
+        options: [
+          {
+            name: "test-page",
+            label: 'Test page',
+          },
+        ]
       },
     ],
   },

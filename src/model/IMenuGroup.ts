@@ -4,6 +4,7 @@ export interface IMenuOption<T extends any = string> {
     name?: string;
     label: string;
     icon?: React.ComponentType<any>;
+    lifted?: boolean;
     roles?: string[];
     bold?: boolean;
     visible?: boolean;

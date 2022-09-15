@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 import classNames from "../../../utils/classNames";
 
@@ -36,6 +36,7 @@ import useLoaderLine from "../hooks/useLoaderLine";
 import useLoader from "../hooks/useLoader";
 
 import SideMenu from "./SideMenu";
+import { LiftedProvider } from "../hooks/useLifted";
 
 const DRAWER_WIDTH = 256;
 
@@ -105,7 +106,6 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
   },
-  preventScroll: {},
 }));
 
 const flatifyMenu = (items: IScaffoldGroup[]) => {
@@ -168,8 +168,6 @@ export const Content = <T extends any = string>({
   AfterSearch,
 }: IContentProps<T>) => {
 
-  const rootRef = useRef<HTMLDivElement>(null);
-
   const loaderLine = useLoaderLine();
   const loader = useLoader();
 
@@ -208,119 +206,108 @@ export const Content = <T extends any = string>({
     return entry.options;
   }, [filterText, currentRoles]);
 
-  useEffect(() => {
-    const { current: root } = rootRef;
-    const elements = root?.querySelectorAll(`.${classes.preventScroll}`) || [];
-    const preventScroll = (e: any) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-    elements.forEach((el) => el.addEventListener('touchmove', preventScroll, {
-      passive: false,
-    }));
-    return () => elements.forEach((el) => el.removeEventListener('touchmove', preventScroll));
-  });
-
   const handleAction = useActualCallback(onAction);
 
   return (
-    <Box ref={rootRef} className={classNames(className, classes.root)} style={style}>
-      <CssBaseline />
-      <Drawer
-        className={classes.drawer}
-        open={opened}
-        onClose={() => setOpened(false)}
-      >
-        {BeforeSearch && (
-          <Box className={classes.beforeSearch}>
-            <BeforeSearch />
-          </Box>
-        )}
-        <Box className={classes.searchBox}>
-          <TextField
-            variant="standard"
-            onChange={({ target }) => setFilterText(target.value.toString())}
-            value={filterText}
-            placeholder="Search"
-            InputProps={{
-              autoComplete: 'off',
-              endAdornment: (
-                <InputAdornment position="end">
-                  <div style={{ marginRight: -10 }}>
-                    <IconButton>
-                      <Search />
-                    </IconButton>
-                  </div>
-                </InputAdornment>
-              ),
-            }}
-            name="search"
-            type="text"
-          />
-        </Box>
-        {AfterSearch && (
-          <Box className={classes.afterSearch}>
-            <AfterSearch />
-          </Box>
-        )}
-        <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
-      </Drawer>
-      <AppBar
-        className={classNames(classes.preventScroll, {
-          [classes.appBarSolidPaper]: !colored,
-        })}
-        position="fixed"
-      >
-        <Toolbar disableGutters variant={dense ? "dense" : "regular"}>
-          <IconButton
-            color="inherit"
-            onClick={handleMenuToggle}
-          >
-            <Menu />
-          </IconButton>
-          <Typography
-            variant="h6"
-            className={classes.title}
-          >
-            {title}
-          </Typography>
-          {!!actions?.length && (
-            <ActionMenu
-              transparent
-              payload={payload}
-              options={actions.map(({
-                isVisible = () => true,
-                isDisabled = () => false,
-                ...other
-              }) => ({
-                ...other,
-                isVisible: () => isVisible(payload!),
-                isDisabled: () => isDisabled(payload!),
-              }))}
-              onAction={handleAction}
-            />
+    <LiftedProvider payload={!!filterText}>
+      <Box className={classNames(className, classes.root)} style={style}>
+        <CssBaseline />
+        <Drawer
+          className={classes.drawer}
+          open={opened}
+          onClose={() => setOpened(false)}
+        >
+          {BeforeSearch && (
+            <Box className={classes.beforeSearch}>
+              <BeforeSearch />
+            </Box>
           )}
-        </Toolbar>
-        {loaderLine && (
-          <Box className={classes.loaderBar}>
-            <LinearProgress
-              variant={loader === -1 ? "indeterminate" : "determinate"}
-              value={loader === -1 ? undefined : loader}
-              color="primary"
+          <Box className={classes.searchBox}>
+            <TextField
+              variant="standard"
+              onChange={({ target }) => setFilterText(target.value.toString())}
+              value={filterText}
+              placeholder="Search"
+              InputProps={{
+                autoComplete: 'off',
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <div style={{ marginRight: -10 }}>
+                      <IconButton>
+                        <Search />
+                      </IconButton>
+                    </div>
+                  </InputAdornment>
+                ),
+              }}
+              name="search"
+              type="text"
             />
           </Box>
-        )}
-      </AppBar>
-      <div className={classNames({
-        [classes.offsetRegular]: !dense,
-        [classes.offsetDense]: dense,
-      }, classes.preventScroll)} />
-      <ScrollView className={classes.container}>
-        <Box p={1}>
-          {children}
-        </Box>
-      </ScrollView>
-    </Box>
+          {AfterSearch && (
+            <Box className={classes.afterSearch}>
+              <AfterSearch />
+            </Box>
+          )}
+          <SideMenu selected={selected} onClick={handleClick} options={filteredMenuOptions} />
+        </Drawer>
+        <AppBar
+          className={classNames({
+            [classes.appBarSolidPaper]: !colored,
+          })}
+          position="fixed"
+        >
+          <Toolbar disableGutters variant={dense ? "dense" : "regular"}>
+            <IconButton
+              color="inherit"
+              onClick={handleMenuToggle}
+            >
+              <Menu />
+            </IconButton>
+            <Typography
+              variant="h6"
+              className={classes.title}
+            >
+              {title}
+            </Typography>
+            {!!actions?.length && (
+              <ActionMenu
+                transparent
+                payload={payload}
+                options={actions.map(({
+                  isVisible = () => true,
+                  isDisabled = () => false,
+                  ...other
+                }) => ({
+                  ...other,
+                  isVisible: () => isVisible(payload!),
+                  isDisabled: () => isDisabled(payload!),
+                }))}
+                onAction={handleAction}
+              />
+            )}
+          </Toolbar>
+          {loaderLine && (
+            <Box className={classes.loaderBar}>
+              <LinearProgress
+                variant={loader === -1 ? "indeterminate" : "determinate"}
+                value={loader === -1 ? undefined : loader}
+                color="primary"
+              />
+            </Box>
+          )}
+        </AppBar>
+        <div className={classNames({
+          [classes.offsetRegular]: !dense,
+          [classes.offsetDense]: dense,
+        })} />
+        <ScrollView className={classes.container}>
+          <Box p={1}>
+            {children}
+          </Box>
+        </ScrollView>
+      </Box>
+    </LiftedProvider>
   );
 };
 
