@@ -6,21 +6,21 @@ type Function = (...args: any[]) => void;
 
 export class Subject<Data = any> {
 
-    private emitter = new EventEmitter();
+    private _emitter = new EventEmitter();
 
-    subscribe = (callback: Function) => {
-        this.emitter.subscribe(SUBJECT_EVENT, callback);
+    public subscribe = (callback: Function) => {
+        this._emitter.subscribe(SUBJECT_EVENT, callback);
         return () => {
-            this.emitter.unsubscribe(SUBJECT_EVENT, callback);
+            this._emitter.unsubscribe(SUBJECT_EVENT, callback);
         }
     };
 
-    once = (callback: Function) => {
-        return this.emitter.once(SUBJECT_EVENT, callback);
+    public once = (callback: Function) => {
+        return this._emitter.once(SUBJECT_EVENT, callback);
     };
 
-    next = (data: Data) => {
-        this.emitter.emit(SUBJECT_EVENT, data);
+    public next = (data: Data) => {
+        this._emitter.emit(SUBJECT_EVENT, data);
     };
 
 };
