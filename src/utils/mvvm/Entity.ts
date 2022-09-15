@@ -29,7 +29,7 @@ export class Entity<T extends IEntity = any> extends Model<T> {
         });
     };
 
-    public handleChange = (change: (item: Entity<T>) => void) => {
+    public handleChange = (change: (item: Entity<T>) => void): () => void => {
         return super.handleChange(change as (item: Model<T>) => void);
     };
 
