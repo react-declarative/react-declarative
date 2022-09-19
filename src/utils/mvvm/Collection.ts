@@ -2,6 +2,8 @@
 // import { observable, computed, action } from 'mobx';
 
 import EventEmitter from '../rx/EventEmitter';
+import Subject from '../rx/Subject';
+
 import debounce from '../hof/debounce';
 
 import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE, REFRESH_SYMBOL } from './Entity';
@@ -14,6 +16,8 @@ export const REORDER_SYMBOL = Symbol('reorder');
 export class Collection<T extends IEntity = any> extends EventEmitter {
 
     private readonly _items = new Map<number, Entity<T>>();
+
+    private _dropChanges = new Subject<void>();
 
     public get items(): Entity<T>[] {
         return [...this._items.entries()]
@@ -52,13 +56,13 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             entities._dispose();
             entities = items;
         } else if (typeof entities === 'function') {
-            entities = entities().map((data) => new Entity(data));
+            entities = entities().map((data) => new Entity(data, this._debounce));
         } else {
             entities = entities.map((e) => {
                 if (e instanceof Entity) {
                     e = e.data;
                 }
-                return new Entity(e);
+                return new Entity(e, this._debounce);
             });
         }
         entities.forEach((entity, idx) => {
@@ -87,7 +91,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._dispose();
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
-            const entity = new Entity(item);
+            const entity = new Entity(item, this._debounce);
             this._items.set(i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
@@ -112,7 +116,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         const lastId = Math.max(...this._items.keys()) + 1;
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
-            const entity = new Entity(item);
+            const entity = new Entity(item, this._debounce);
             this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
@@ -139,13 +143,19 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
 
     public handleChange = (change: (collection: Collection<T>, target: Entity<T> | null) => void) => {
         const fn = debounce(change, this._debounce);
+        const drop = this._dropChanges.subscribe(fn.clear);
         this.subscribe(CHANGE_SYMBOL, fn);
         this.subscribe(REORDER_SYMBOL, change);
         return () => {
             this.unsubscribe(CHANGE_SYMBOL, fn);
             this.unsubscribe(REORDER_SYMBOL, change);
             fn.clear();
+            drop();
         };
+    };
+
+    public handleDropChanges = () => {
+        this._dropChanges.next();
     };
 
     public refresh = () => this.emit(REFRESH_SYMBOL, this, null);

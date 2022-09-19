@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 
 import Model, { REFRESH_SYMBOL, CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
 
 import useActualCallback from './useActualCallback';
+import useActualValue from './useActualValue';
 
 export interface IParams<T extends {} = any> {
     initialValue: T | Model<T> | (() => T);
@@ -27,6 +28,11 @@ export const useModel = <T extends {} = any>({
         setModel(newModel);
         handleChange(newModel);
     }), [model]);
+    const model$ = useActualValue(model);
+    useLayoutEffect(() => () => {
+        const { current: model } = model$;
+        model.handleDropChanges();
+    }, []);
     return model;
 };
 

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
+import { useActualValue } from '..';
 
 import Collection from "../utils/mvvm/Collection";
 import Entity, { IEntity, REFRESH_SYMBOL, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
@@ -28,6 +29,11 @@ export const useCollection = <T extends IEntity = any>({
         setCollection(newCollection);
         handleChange(newCollection, target);
     }), [collection]);
+    const collection$ = useActualValue(collection);
+    useLayoutEffect(() => () => {
+        const { current: collection } = collection$;
+        collection.handleDropChanges();
+    }, []);
     return collection;
 };
 

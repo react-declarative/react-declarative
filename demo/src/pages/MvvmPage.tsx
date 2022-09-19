@@ -62,6 +62,7 @@ export const App = () => {
       target,
     }),
     initialValue: [], // await fetch()
+    // debounce: 10_000,
   });
 
   const handleAdd = () => {

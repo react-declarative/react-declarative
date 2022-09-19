@@ -63,7 +63,7 @@ const options: IMenuGroup[] = [
         label: 'Mvvm page',
       },
       {
-        label: 'Use cases',
+        label: 'Test group',
         options: [
           {
             name: "test-page",

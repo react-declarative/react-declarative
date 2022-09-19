@@ -1,4 +1,5 @@
 import EventEmitter from "../rx/EventEmitter";
+import Subject from "../rx/Subject";
 
 import debounce from '../hof/debounce';
 
@@ -7,6 +8,8 @@ export const REFRESH_SYMBOL = Symbol('refresh');
 export const CHANGE_DEBOUNCE = 1_000;
 
 export class Model<T extends {} = any> extends EventEmitter {
+
+    protected _dropChanges = new Subject<void>();
 
     protected _data: T;
 
@@ -47,11 +50,17 @@ export class Model<T extends {} = any> extends EventEmitter {
 
     public handleChange(change: (item: Model<T>) => void) {
         const fn = debounce(change, this._debounce);
+        const drop = this._dropChanges.subscribe(fn.clear);
         this.subscribe(CHANGE_SYMBOL, fn);
         return () => {
             this.unsubscribe(CHANGE_SYMBOL, fn);
             fn.clear();
+            drop();
         };
+    };
+
+    public handleDropChanges = () => {
+        this._dropChanges.next();
     };
 
     public refresh = () => this.emit(REFRESH_SYMBOL, this);
