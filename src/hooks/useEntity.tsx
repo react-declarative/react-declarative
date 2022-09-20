@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 
-import Entity, { IEntity, REFRESH_SYMBOL, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
+import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 import useActualValue from './useActualValue';
@@ -19,11 +19,6 @@ export const useEntity = <T extends IEntity = any>({
     const [entity, setEntity] = useState(() => new Entity(initialValue, debounce));
     const handleChange = useActualCallback(onChange);
     useEffect(() => entity.handleChange((entity) => {
-        const newEntity = new Entity(entity, debounce);
-        setEntity(newEntity);
-        handleChange(newEntity);
-    }), [entity]);
-    useEffect(() => entity.once(REFRESH_SYMBOL, (entity) => {
         const newEntity = new Entity(entity, debounce);
         setEntity(newEntity);
         handleChange(newEntity);

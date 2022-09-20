@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 import { useActualValue } from '..';
 
 import Collection from "../utils/mvvm/Collection";
-import Entity, { IEntity, REFRESH_SYMBOL, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
+import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
@@ -20,11 +20,6 @@ export const useCollection = <T extends IEntity = any>({
     const [collection, setCollection] = useState(() => new Collection(initialValue, debounce));
     const handleChange = useActualCallback(onChange);
     useEffect(() => collection.handleChange((collection, target) => {
-        const newCollection = new Collection(collection, debounce);
-        setCollection(newCollection);
-        handleChange(newCollection, target);
-    }), [collection]);
-    useEffect(() => collection.once(REFRESH_SYMBOL, (collection, target) => {
         const newCollection = new Collection(collection, debounce);
         setCollection(newCollection);
         handleChange(newCollection, target);

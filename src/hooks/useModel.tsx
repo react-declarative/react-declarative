@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 
-import Model, { REFRESH_SYMBOL, CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
+import Model, { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
 
 import useActualCallback from './useActualCallback';
 import useActualValue from './useActualValue';
@@ -19,11 +19,6 @@ export const useModel = <T extends {} = any>({
     const [model, setModel] = useState(() => new Model(initialValue, debounce));
     const handleChange = useActualCallback(onChange);
     useEffect(() => model.handleChange((model) => {
-        const newModel = new Model(model, debounce);
-        setModel(newModel);
-        handleChange(newModel);
-    }), [model]);
-    useEffect(() => model.once(REFRESH_SYMBOL, (model) => {
         const newModel = new Model(model, debounce);
         setModel(newModel);
         handleChange(newModel);

@@ -145,9 +145,11 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         const fn = debounce(change, this._debounce);
         const drop = this._dropChanges.subscribe(fn.clear);
         this.subscribe(CHANGE_SYMBOL, fn);
+        this.subscribe(REFRESH_SYMBOL, change);
         this.subscribe(REORDER_SYMBOL, change);
         return () => {
             this.unsubscribe(CHANGE_SYMBOL, fn);
+            this.unsubscribe(REFRESH_SYMBOL, change);
             this.unsubscribe(REORDER_SYMBOL, change);
             fn.clear();
             drop();
