@@ -113,7 +113,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     public push = (...items: T[]) => {
-        const lastId = Math.max(...this._items.keys()) + 1;
+        const lastId = Math.max(...this._items.keys(), 0) + 1;
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
             const entity = new Entity(item, this._debounce);
