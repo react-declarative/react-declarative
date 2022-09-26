@@ -1,5 +1,5 @@
-import { createStatelessProvider } from "../../../utils/createProvider";
+import createProvider from "../../../utils/createProvider";
 
-export const [LiftedProvider, useLifted] = createStatelessProvider<boolean>();
+export const [LiftedProvider, useLifted] = createProvider<boolean>();
 
 export default useLifted;

@@ -1,10 +1,10 @@
-import { createStatelessProvider } from "../../../utils/createProvider";
-
 import createConstraintManager from "../helpers/createConstraintManager";
+
+import createProvider from "../../../utils/createProvider";
 
 type ConstraintManager = ReturnType<typeof createConstraintManager>;
 
-const [ ConstraintManagerProvider, useConstraintManager ] = createStatelessProvider<ConstraintManager>();
+const [ ConstraintManagerProvider, useConstraintManager ] = createProvider<ConstraintManager>();
 
 export { ConstraintManagerProvider, useConstraintManager };
 

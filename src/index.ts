@@ -289,7 +289,6 @@ export { objects } from './utils/objects';
 
 export { FetchError, fetchApi } from './utils/fetchApi';
 
-export { createStatelessProvider } from './utils/createProvider';
 export { createProvider } from './utils/createProvider';
 
 export { formatText } from './utils/formatText';

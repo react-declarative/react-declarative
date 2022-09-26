@@ -15,7 +15,7 @@ import useCachedRows from '../../../../hooks/useCachedRows';
 
 import useActualCallback from '../../../../../../hooks/useActualCallback';
 
-import { createStatelessProvider } from '../../../../../../utils/createProvider';
+import createProvider from '../../../../../../utils/createProvider';
 
 import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     },
 });
 
-const [ShrinkProvider, useShrink] = createStatelessProvider<boolean>();
+const [ShrinkProvider, useShrink] = createProvider<boolean>();
 
 export const ActionFab = ({
     action = 'fab-action',

@@ -6,7 +6,7 @@ import { debounce } from '@mui/material';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
-import { createStatelessProvider } from '../../utils/createProvider';
+import createProvider from '../../utils/createProvider';
 import classNames from '../../utils/classNames';
 
 import ISize from '../../model/ISize';
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 const [
     SizeContextProvider,
     useSize,
-] = createStatelessProvider<ISize>();
+] = createProvider<ISize>();
 
 export const SizeProvider = ({
     children,

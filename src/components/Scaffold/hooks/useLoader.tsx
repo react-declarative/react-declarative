@@ -1,5 +1,5 @@
-import { createStatelessProvider } from "../../../utils/createProvider";
+import createProvider from "../../../utils/createProvider";
 
-export const [LoaderProvider, useLoader] = createStatelessProvider<number>();
+export const [LoaderProvider, useLoader] = createProvider<number>();
 
 export default useLoader;
