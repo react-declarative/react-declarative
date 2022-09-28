@@ -16,6 +16,9 @@ export const useEntity = <T extends IEntity = any>({
     debounce = CHANGE_DEBOUNCE,
 }: IParams<T>) => {
     const entity$ = useRef<Entity<T>>(null as never);
+    const handlePrevData = useCallback(() => {
+        return entity$.current.data;
+    }, []);
     const [entity, setEntity] = useState(() => new Entity(initialValue, debounce, handlePrevData));
     entity$.current = entity;
     const handleChange = useActualCallback(onChange);
@@ -27,9 +30,6 @@ export const useEntity = <T extends IEntity = any>({
     useLayoutEffect(() => () => {
         const { current: entity } = entity$;
         entity.handleDropChanges();
-    }, []);
-    const handlePrevData = useCallback(() => {
-        return entity$.current.data;
     }, []);
     return entity;
 };

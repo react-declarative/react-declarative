@@ -17,6 +17,9 @@ export const useCollection = <T extends IEntity = any>({
     debounce = CHANGE_DEBOUNCE,
 }: IParams<T> = {}) => {
     const collection$ = useRef<Collection<T>>(null as never);
+    const handlePrevData = useCallback(() => {
+        return collection$.current.items;
+    }, []);
     const [collection, setCollection] = useState(() => new Collection<T>(initialValue, debounce, handlePrevData));
     collection$.current = collection;
     const handleChange = useActualCallback(onChange);
@@ -28,9 +31,6 @@ export const useCollection = <T extends IEntity = any>({
     useLayoutEffect(() => () => {
         const { current: collection } = collection$;
         collection.handleDropChanges();
-    }, []);
-    const handlePrevData = useCallback(() => {
-        return collection$.current.items;
     }, []);
     return collection;
 };

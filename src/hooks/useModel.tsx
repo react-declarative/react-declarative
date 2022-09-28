@@ -16,6 +16,9 @@ export const useModel = <T extends {} = any>({
     debounce = CHANGE_DEBOUNCE
 }: IParams<T>) => {
     const model$ = useRef<Model<T>>(null as never);
+    const handlePrevData = useCallback(() => {
+        return model$.current.data;
+    }, []);
     const [model, setModel] = useState(() => new Model(initialValue, debounce, handlePrevData));
     model$.current = model;
     const handleChange = useActualCallback(onChange);
@@ -27,9 +30,6 @@ export const useModel = <T extends {} = any>({
     useLayoutEffect(() => () => {
         const { current: model } = model$;
         model.handleDropChanges();
-    }, []);
-    const handlePrevData = useCallback(() => {
-        return model$.current.data;
     }, []);
     return model;
 };
