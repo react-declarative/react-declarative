@@ -104,8 +104,20 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._reorder();
     };
 
-    public map = <V = any>(callbackfn: (value: Entity<T>) => V) => {
+    public map = <V = any>(callbackfn: (value: Entity<T>, idx: number) => V) => {
         return this.items.map(callbackfn);
+    };
+
+    public filter = (predicate: (value: Entity<T>, idx: number) => boolean) => {
+        return this.items.filter(predicate);
+    };
+
+    public find = (predicate: (value: Entity<T>, idx: number) => boolean) => {
+        return this.items.find(predicate);
+    };
+
+    public some = (predicate: (value: Entity<T>, idx: number) => boolean) => {
+        return this.items.some(predicate);
     };
 
     public forEach = (callbackfn: (value: Entity<T>) => void) => {

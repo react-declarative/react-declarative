@@ -14,7 +14,7 @@ export class Model<T extends {} = any> extends EventEmitter {
     protected _data: T;
 
     public get data(): T {
-        return { ...this._data };
+        return Object.freeze(this._data);
     };
 
     private _change = () => {
