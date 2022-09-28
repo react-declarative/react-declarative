@@ -29,6 +29,16 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         return this.map(({ id }) => id);
     };
 
+    private _prevEntity = (initialData: T) => (): T => {
+        const items = this._prevData();
+        const prevEntity = items.find((item) => item.id === initialData.id);
+        if (prevEntity) {
+            return prevEntity.data;
+        } else {
+            return initialData;
+        }
+    };
+
     private _change = (target: Entity<T>) => {
         this.emit(CHANGE_SYMBOL, this, target);
     };
@@ -49,20 +59,20 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._items.clear();
     };
 
-    constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = [], protected _debounce = CHANGE_DEBOUNCE) {
+    constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = [], protected _debounce = CHANGE_DEBOUNCE, protected _prevData = () => this.items) {
         super();
         if (entities instanceof Collection) {
             const { items } = entities;
             entities._dispose();
             entities = items;
         } else if (typeof entities === 'function') {
-            entities = entities().map((data) => new Entity(data, this._debounce));
+            entities = entities().map((data) => new Entity<T>(data, this._debounce, this._prevEntity(data)));
         } else {
             entities = entities.map((e) => {
                 if (e instanceof Entity) {
                     e = e.data;
                 }
-                return new Entity(e, this._debounce);
+                return new Entity<T>(e, this._debounce, this._prevEntity(e));
             });
         }
         entities.forEach((entity, idx) => {
@@ -91,7 +101,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         this._dispose();
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
-            const entity = new Entity(item, this._debounce);
+            const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
             this._items.set(i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
@@ -128,7 +138,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         const lastId = Math.max(...this._items.keys(), 0) + 1;
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
-            const entity = new Entity(item, this._debounce);
+            const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
             this._items.set(lastId + i, entity);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);

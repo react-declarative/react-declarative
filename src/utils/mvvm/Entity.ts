@@ -18,11 +18,14 @@ export class Entity<T extends IEntity = any> extends Model<T> {
         return this._data.id;
     };
 
-    constructor(_data: T | Entity<T> | (() => T), _debounce = CHANGE_DEBOUNCE) {
-        super(_data, _debounce);
+    constructor(_data: T | Entity<T> | (() => T), _debounce = CHANGE_DEBOUNCE, _prevData = () => this._data) {
+        super(_data, _debounce, _prevData);
     };
 
-    public setData = (data: Partial<T>) => {
+    public setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        if (typeof data === 'function') {
+            data = data(this._prevData());
+        }
         super.setData({
             ...data,
             id: this.id,

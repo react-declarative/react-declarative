@@ -1,9 +1,8 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 
 import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
-import useActualValue from './useActualValue';
 
 export interface IParams<T extends IEntity = any> {
     initialValue: T | Entity<T> | (() => T);
@@ -16,17 +15,21 @@ export const useEntity = <T extends IEntity = any>({
     onChange = () => null,
     debounce = CHANGE_DEBOUNCE,
 }: IParams<T>) => {
-    const [entity, setEntity] = useState(() => new Entity(initialValue, debounce));
+    const entity$ = useRef<Entity<T>>(null as never);
+    const [entity, setEntity] = useState(() => new Entity(initialValue, debounce, handlePrevData));
+    entity$.current = entity;
     const handleChange = useActualCallback(onChange);
     useEffect(() => entity.handleChange((entity) => {
-        const newEntity = new Entity(entity, debounce);
+        const newEntity = new Entity(entity, debounce, handlePrevData);
         setEntity(newEntity);
         handleChange(newEntity);
     }), [entity]);
-    const entity$ = useActualValue(entity);
     useLayoutEffect(() => () => {
         const { current: entity } = entity$;
         entity.handleDropChanges();
+    }, []);
+    const handlePrevData = useCallback(() => {
+        return entity$.current.data;
     }, []);
     return entity;
 };

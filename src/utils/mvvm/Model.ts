@@ -21,7 +21,7 @@ export class Model<T extends {} = any> extends EventEmitter {
         this.emit(CHANGE_SYMBOL, this);
     };
 
-    constructor(_data: T | Model<T> | (() => T), protected _debounce = CHANGE_DEBOUNCE) {
+    constructor(_data: T | Model<T> | (() => T), protected _debounce = CHANGE_DEBOUNCE, protected _prevData = () => this._data) {
         super();
         if (_data instanceof Model) {
             this._data = _data.data;
@@ -40,7 +40,10 @@ export class Model<T extends {} = any> extends EventEmitter {
         });*/
     };
 
-    public setData(data: Partial<T>) {
+    public setData(data: Partial<T> | ((prevData: T) => Partial<T>)) {
+        if (typeof data === 'function') {
+            data = data(this._prevData());
+        }
         this._data = {
             ...this._data,
             ...data,

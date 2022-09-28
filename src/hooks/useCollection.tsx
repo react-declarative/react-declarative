@@ -1,5 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
-import { useActualValue } from '..';
+import { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 
 import Collection from "../utils/mvvm/Collection";
 import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
@@ -17,17 +16,21 @@ export const useCollection = <T extends IEntity = any>({
     onChange = () => null,
     debounce = CHANGE_DEBOUNCE,
 }: IParams<T> = {}) => {
-    const [collection, setCollection] = useState(() => new Collection(initialValue, debounce));
+    const collection$ = useRef<Collection<T>>(null as never);
+    const [collection, setCollection] = useState(() => new Collection<T>(initialValue, debounce, handlePrevData));
+    collection$.current = collection;
     const handleChange = useActualCallback(onChange);
     useEffect(() => collection.handleChange((collection, target) => {
-        const newCollection = new Collection(collection, debounce);
+        const newCollection = new Collection<T>(collection, debounce, handlePrevData);
         setCollection(newCollection);
         handleChange(newCollection, target);
     }), [collection]);
-    const collection$ = useActualValue(collection);
     useLayoutEffect(() => () => {
         const { current: collection } = collection$;
         collection.handleDropChanges();
+    }, []);
+    const handlePrevData = useCallback(() => {
+        return collection$.current.items;
     }, []);
     return collection;
 };
