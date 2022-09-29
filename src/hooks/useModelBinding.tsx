@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import Model, { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
+import { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
 import Subject from "../utils/rx/Subject";
 
-import useActualValue from "./useActualValue";
 import useChangeSubject from "./useChangeSubject";
-import useModel, { IParams as IModelParams } from "./useModel";
+import useModel, { IParams as IModelParams, ModelAdapter } from "./useModel";
 
 interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (model: React.MutableRefObject<Model<T>>, change: Subject<Model<T>>, begin: () => void) => (() => void) | void;
-    initialValue?: Partial<T> | Model<T> | (() => Partial<T>);
+    creator: (model: ModelAdapter<T>, change: Subject<ModelAdapter<T>>, begin: () => void) => (() => void) | void;
+    initialValue?: Partial<T> | (() => Partial<T>);
 }
 
 export const useModelBinding = <T extends {} = any>({
@@ -29,13 +28,11 @@ export const useModelBinding = <T extends {} = any>({
         debounce,
     });
 
-    const model$ = useActualValue(model);
-
     const subject = useChangeSubject(model);
 
     useEffect(() => {
-        return creator(model$, subject, () => {
-            model$.current.refresh();
+        return creator(model, subject, () => {
+            model.refresh();
             setLoading(false);
         });
     }, []);

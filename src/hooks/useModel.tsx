@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
+import { useRef, useState, useMemo, useEffect, useLayoutEffect, useCallback } from 'react';
 
 import Model, { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
 
@@ -9,6 +9,18 @@ export interface IParams<T extends {} = any> {
     onChange?: (item: Model<T>) => void;
     debounce?: number;
 }
+
+export class ModelAdapter<T extends {} = any> {
+    constructor(private model$: React.MutableRefObject<Model<T>>) { }
+    get data() {
+        return this.model$.current.data;
+    };
+    setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        return this.model$.current.setData(data);
+    };
+    toObject = () => this.model$.current.toObject();
+    refresh = () => this.model$.current.refresh();
+};
 
 export const useModel = <T extends {} = any>({
     initialValue,
@@ -31,7 +43,7 @@ export const useModel = <T extends {} = any>({
         const { current: model } = model$;
         model.handleDropChanges();
     }, []);
-    return model;
+    return useMemo(() => new ModelAdapter<T>(model$), [model]);
 };
 
 export default useModel;

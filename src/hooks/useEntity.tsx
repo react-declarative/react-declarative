@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
 
 import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
@@ -9,6 +9,21 @@ export interface IParams<T extends IEntity = any> {
     onChange?: (item: Entity<T>) => void;
     debounce?: number;
 }
+
+export class EntityAdapter<T extends IEntity = any> {
+    constructor(private entity$: React.MutableRefObject<Entity<T>>) { }
+    get data() {
+        return this.entity$.current.data;
+    };
+    get id() {
+        return this.entity$.current.id;
+    };
+    setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        return this.entity$.current.setData(data as any);
+    };
+    toObject = () => this.entity$.current.toObject();
+    refresh = () => this.entity$.current.refresh();
+};
 
 export const useEntity = <T extends IEntity = any>({
     initialValue,
@@ -31,7 +46,7 @@ export const useEntity = <T extends IEntity = any>({
         const { current: entity } = entity$;
         entity.handleDropChanges();
     }, []);
-    return entity;
+    return useMemo(() => new EntityAdapter<T>(entity$), [entity]);
 };
 
 export default useEntity;

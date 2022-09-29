@@ -16,6 +16,7 @@ export const REORDER_SYMBOL = Symbol('reorder');
 export class Collection<T extends IEntity = any> extends EventEmitter {
 
     private readonly _items = new Map<number, Entity<T>>();
+    private readonly _ids = new Map<IEntity['id'], number>();
 
     private _dropChanges = new Subject<void>();
 
@@ -26,7 +27,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
     };
 
     public get ids() {
-        return this.map(({ id }) => id);
+        return [...this._ids.keys()];
     };
 
     private _prevEntity = (initialData: T) => (): T => {
@@ -57,6 +58,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             entity.unsubscribe(REFRESH_SYMBOL, this._refresh);
         }
         this._items.clear();
+        this._ids.clear();
     };
 
     constructor(entities: T[] | (() => T[]) | Entity<T>[] | Collection<T> = [], protected _debounce = CHANGE_DEBOUNCE, protected _prevData = () => this.items) {
@@ -77,6 +79,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         }
         entities.forEach((entity, idx) => {
             this._items.set(idx, entity);
+            this._ids.set(entity.id, idx);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
         });
@@ -103,6 +106,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             const item = items[i];
             const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
             this._items.set(i, entity);
+            this._ids.set(entity.id, i);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
         };
@@ -130,16 +134,18 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         return this.items.some(predicate);
     };
 
-    public forEach = (callbackfn: (value: Entity<T>) => void) => {
+    public forEach = (callbackfn: (value: Entity<T>, idx: number) => void) => {
         return this.items.forEach(callbackfn);
     };
 
     public push = (...items: T[]) => {
-        const lastId = Math.max(...this._items.keys(), 0) + 1;
+        const lastIdx = Math.max(...this._items.keys(), 0) + 1;
         for (let i = 0; i !== items.length; i++) {
             const item = items[i];
             const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
-            this._items.set(lastId + i, entity);
+            const pendingIdx = lastIdx + i;
+            this._items.set(pendingIdx, entity);
+            this._ids.set(entity.id, pendingIdx);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
         }
@@ -154,13 +160,22 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
         for (const [key, value] of this._items.entries()) {
             if (value.id === id) {
                 this._items.delete(key);
+                this._ids.delete(id);
                 value.unsubscribe(CHANGE_SYMBOL, this._change);
                 value.unsubscribe(REFRESH_SYMBOL, this._refresh);
                 this._reorder();
                 return;
             }
         }
-        throw new Error(`Unknown entity id ${id}`);
+        throw new Error(`removeById unknown entity id ${id}`);
+    };
+
+    public findById = (id: IEntity['id']) => {
+        if (this._ids.has(id)) {
+            const idx = this._ids.get(id)!;
+            return this._items.get(idx)!;
+        }
+        throw new Error(`findById unknown entity id ${id}`);
     };
 
     public handleChange = (change: (collection: Collection<T>, target: Entity<T> | null) => void) => {

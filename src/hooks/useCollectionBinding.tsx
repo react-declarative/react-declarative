@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Subject from "../utils/rx/Subject";
-import Collection from "../utils/mvvm/Collection";
-import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
+import { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
-import useActualValue from "./useActualValue";
 import useChangeSubject from "./useChangeSubject";
-import useCollection, { IParams as ICollectionParams } from "./useCollection";
+import useCollection, { IParams as ICollectionParams, CollectionAdapter } from "./useCollection";
 
 interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, keyof {
     initialValue: never;
 }> {
-    creator: (collection: React.MutableRefObject<Collection<T>>, change: Subject<Collection<T>>, begin: () => void) => (() => void) | void;
-    initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
+    creator: (collection: CollectionAdapter<T>, change: Subject<CollectionAdapter<T>>, begin: () => void) => (() => void) | void;
+    initialValue?: T[] | (() => T[]);
 }
 
 export const useCollectionBinding = <T extends IEntity = any>({
@@ -25,18 +23,16 @@ export const useCollectionBinding = <T extends IEntity = any>({
     const [loading, setLoading] = useState(true);
 
     const collection = useCollection({
-        initialValue,
+        initialValue: initialValue as unknown as T[],
         onChange,
         debounce,
     });
 
-    const collection$ = useActualValue(collection);
-
     const subject = useChangeSubject(collection);
 
     useEffect(() => {
-        return creator(collection$, subject, () => {
-            collection$.current.refresh();
+        return creator(collection, subject, () => {
+            collection.refresh();
             setLoading(false);
         });
     }, []);
