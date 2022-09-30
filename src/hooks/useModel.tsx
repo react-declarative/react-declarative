@@ -1,25 +1,43 @@
 import { useRef, useState, useMemo, useEffect, useLayoutEffect, useCallback } from 'react';
 
-import Model, { CHANGE_DEBOUNCE } from "../utils/mvvm/Model";
+import Model, { CHANGE_DEBOUNCE, IModelAdapter } from "../utils/mvvm/Model";
 
 import useActualCallback from './useActualCallback';
 
 export interface IParams<T extends {} = any> {
     initialValue: T | Model<T> | (() => T);
-    onChange?: (item: Model<T>) => void;
+    onChange?: (item: ModelAdapter<T>) => void;
     debounce?: number;
 }
 
-export class ModelAdapter<T extends {} = any> {
+const WAIT_FOR_LISTENERS_DELAY = 10;
+
+export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
+    private _waitForListeners = () => new Promise<void>((res) => {
+        const process = () => {
+            if (this.model$.current.hasListeners) {
+                res();
+            } else {
+                setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+            }
+        }
+        process();
+    });
     constructor(private model$: React.MutableRefObject<Model<T>>) { }
-    get data() {
+    public get data() {
         return this.model$.current.data;
     };
-    setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
-        return this.model$.current.setData(data);
+    public setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        await this._waitForListeners().then(() => {
+            this.model$.current.setData(data);
+        });
     };
-    toObject = () => this.model$.current.toObject();
-    refresh = () => this.model$.current.refresh();
+    public refresh = async () => {
+        await this._waitForListeners().then(() => {
+            this.model$.current.refresh();
+        });
+    };
+    public toObject = () => this.model$.current.toObject();
 };
 
 export const useModel = <T extends {} = any>({
@@ -37,7 +55,7 @@ export const useModel = <T extends {} = any>({
     useEffect(() => model.handleChange((model) => {
         const newModel = new Model(model, debounce, handlePrevData);
         setModel(newModel);
-        handleChange(newModel);
+        handleChange(new ModelAdapter(model$));
     }), [model]);
     useLayoutEffect(() => () => {
         const { current: model } = model$;

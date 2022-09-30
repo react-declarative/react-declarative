@@ -101,9 +101,9 @@ export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
 export type IField<Data = IAnything> = IFieldInternal<Data>;
-export type IEntity<Data = IAnything> = IEntityInternal<Data>;
-export type IManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
-export type ITab = ITabInternal;
+export type IFieldEntity<Data = IAnything> = IEntityInternal<Data>;
+export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
+export type ITab<T extends unknown = string> = ITabInternal<T>;
 
 export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
@@ -303,6 +303,14 @@ export { cached } from './utils/hof/cached';
 
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
+
+import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from './utils/mvvm/Entity';
+import { ICollectionAdapter as ICollectionAdapterInternal } from './utils/mvvm/Collection';
+import { IModelAdapter as IModelAdapterInternal } from './utils/mvvm/Model';
+
+export type ICollectionAdapter<T extends IMvvmEntity = any> = ICollectionAdapterInternal<T>;
+export type IEntityAdapter<T extends IMvvmEntity = any> = IEntityAdapterInternal<T>;
+export type IModelAdapter<T extends {} = any> = IModelAdapterInternal<T>;
 
 export { Collection } from './utils/mvvm/Collection';
 export { Entity } from './utils/mvvm/Entity';

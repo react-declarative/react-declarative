@@ -1,16 +1,28 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
 
-import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
+import Entity, { IEntity, CHANGE_DEBOUNCE, IEntityAdapter } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
 export interface IParams<T extends IEntity = any> {
     initialValue: T | Entity<T> | (() => T);
-    onChange?: (item: Entity<T>) => void;
+    onChange?: (item: IEntityAdapter<T>) => void;
     debounce?: number;
 }
 
-export class EntityAdapter<T extends IEntity = any> {
+const WAIT_FOR_LISTENERS_DELAY = 10;
+
+export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
+    private _waitForListeners = () => new Promise<void>((res) => {
+        const process = () => {
+            if (this.entity$.current.hasListeners) {
+                res();
+            } else {
+                setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+            }
+        }
+        process();
+    });
     constructor(private entity$: React.MutableRefObject<Entity<T>>) { }
     get data() {
         return this.entity$.current.data;
@@ -18,11 +30,17 @@ export class EntityAdapter<T extends IEntity = any> {
     get id() {
         return this.entity$.current.id;
     };
-    setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
-        return this.entity$.current.setData(data as any);
+    setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        await this._waitForListeners().then(() => {
+            this.entity$.current.setData(data as any);
+        });
+    };
+    refresh = async () => {
+        await this._waitForListeners().then(() => {    
+            this.entity$.current.refresh();
+        });
     };
     toObject = () => this.entity$.current.toObject();
-    refresh = () => this.entity$.current.refresh();
 };
 
 export const useEntity = <T extends IEntity = any>({
@@ -40,7 +58,7 @@ export const useEntity = <T extends IEntity = any>({
     useEffect(() => entity.handleChange((entity) => {
         const newEntity = new Entity(entity, debounce, handlePrevData);
         setEntity(newEntity);
-        handleChange(newEntity);
+        handleChange(new EntityAdapter(entity$));
     }), [entity]);
     useLayoutEffect(() => () => {
         const { current: entity } = entity$;

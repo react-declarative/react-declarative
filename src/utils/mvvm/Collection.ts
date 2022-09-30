@@ -6,14 +6,36 @@ import Subject from '../rx/Subject';
 
 import debounce from '../hof/debounce';
 
-import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE, REFRESH_SYMBOL } from './Entity';
+import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE, REFRESH_SYMBOL, IEntityAdapter } from './Entity';
 
 export const REORDER_SYMBOL = Symbol('reorder');
+
+export interface ICollectionAdapter<T extends IEntity = any> {
+    items: IEntityAdapter<T>[];
+    ids: IEntity['id'][];
+    isEmpty: boolean;
+    setData(items: T[]): void;
+    map<V = any>(callbackfn: (value: IEntityAdapter<T>, idx: number) => V): V[];
+    filter(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T>[];
+    find(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T> | undefined;
+    some(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): boolean;
+    forEach(callbackfn: (value: IEntityAdapter<T>, idx: number) => void): void;
+    push(...items: T[]): void;
+    remove(item: IEntity): void;
+    removeById(id: IEntity['id']): void;
+    findById(id: IEntity['id']): IEntityAdapter<T>;
+    clear(): void;
+    refresh(): void;
+    toArray(): T[];
+}
+
+export class EntityNotFoundError extends Error {
+};
 
 /**
  * @description MVVM Array wrapper. Emmits `change` after push/pop/change of element
  */
-export class Collection<T extends IEntity = any> extends EventEmitter {
+export class Collection<T extends IEntity = any> extends EventEmitter implements ICollectionAdapter<T> {
 
     private readonly _items = new Map<number, Entity<T>>();
     private readonly _ids = new Map<IEntity['id'], number>();
@@ -167,7 +189,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
                 return;
             }
         }
-        throw new Error(`removeById unknown entity id ${id}`);
+        throw new EntityNotFoundError(`removeById unknown entity id ${id}`);
     };
 
     public findById = (id: IEntity['id']) => {
@@ -175,7 +197,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter {
             const idx = this._ids.get(id)!;
             return this._items.get(idx)!;
         }
-        throw new Error(`findById unknown entity id ${id}`);
+        throw new EntityNotFoundError(`findById unknown entity id ${id}`);
     };
 
     public handleChange = (change: (collection: Collection<T>, target: Entity<T> | null) => void) => {

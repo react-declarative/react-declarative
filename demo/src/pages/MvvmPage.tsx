@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useCollection, useModel, Entity } from "react-declarative";
+import { useCollection, useModel, IEntityAdapter } from "react-declarative";
 
-const ListItem = ({ entity }: { entity: Entity }) => {
+const ListItem = ({ entity }: { entity: IEntityAdapter }) => {
   const handleIncrement = () => {
     /*
     await fetch(`/api/v1/counters/${entity.id}`, {

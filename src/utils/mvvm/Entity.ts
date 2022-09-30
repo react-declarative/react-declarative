@@ -9,10 +9,18 @@ export interface IEntity {
     id: string | number;
 }
 
+export interface IEntityAdapter<T extends IEntity = any> {
+    id: IEntity['id'];
+    setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    data: T;
+    refresh(): void;
+    toObject(): T;
+};
+
 /**
  * @description MVVM Object wrapper. Emmits change after setData
  */
-export class Entity<T extends IEntity = any> extends Model<T> {
+export class Entity<T extends IEntity = any> extends Model<T> implements IEntityAdapter<T> {
 
     public get id() {
         return this._data.id;

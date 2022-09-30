@@ -1,37 +1,80 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
 
-import Collection from "../utils/mvvm/Collection";
-import Entity, { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
+import EventEmitter from '../utils/rx/EventEmitter';
+import Collection, { ICollectionAdapter, EntityNotFoundError } from "../utils/mvvm/Collection";
+import Entity, { IEntity, IEntityAdapter, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
 import useActualCallback from './useActualCallback';
 
 export interface IParams<T extends IEntity = any> {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
-    onChange?: (item: Collection<T>, target: Entity<T> | null) => void;
+    onChange?: (item: ICollectionAdapter<T>, target: IEntityAdapter<T> | null) => void;
     debounce?: number;
 }
 
-class CollectionEntityAdapter<T extends IEntity = any> {
+class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
+    private _waitForListeners = (target: EventEmitter) => new Promise<void>((res) => {
+        const process = () => {
+            if (target.hasListeners) {
+                res();
+            } else {
+                setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+            }
+        }
+        process();
+    });
     constructor(public readonly id: IEntity['id'], private collection$: React.MutableRefObject<Collection<T>>) { }
-    get data() {
+    public get data() {
         const entity = this.collection$.current.findById(this.id);
         return entity.data;
     };
-    setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
-        const entity = this.collection$.current.findById(this.id);
-        return entity.setData(data);
+    public setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
+        try {
+            const entity = this.collection$.current.findById(this.id);
+            await this._waitForListeners(entity).then(() => {
+                entity.setData(data);
+            });
+        } catch (e) {
+            if (e instanceof EntityNotFoundError) {
+                console.error(`Entity (ID ${this.id}) not found in collection (setData)`);
+            } else {
+                throw e;
+            }
+        }
     };
-    toObject = () => {
+    public refresh = async () => {
+        try {
+            const entity = this.collection$.current.findById(this.id);
+            await this._waitForListeners(entity).then(() => {
+                entity.refresh();
+            });
+        } catch (e) {
+            if (e instanceof EntityNotFoundError) {
+                console.error(`Entity (ID ${this.id}) not found in collection (setData)`);
+            } else {
+                throw e;
+            }
+        }
+    };
+    public toObject = () => {
         const entity = this.collection$.current.findById(this.id);
         return entity.toObject();
     };
-    refresh = () => {
-        const entity = this.collection$.current.findById(this.id);
-        return entity.refresh();
-    };
 };
 
-export class CollectionAdapter<T extends IEntity = any> {
+const WAIT_FOR_LISTENERS_DELAY = 10;
+
+export class CollectionAdapter<T extends IEntity = any> implements ICollectionAdapter<T> {
+    private _waitForListeners = () => new Promise<void>((res) => {
+        const process = () => {
+            if (this.collection$.current.hasListeners) {
+                res();
+            } else {
+                setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+            }
+        }
+        process();
+    });
     constructor(private collection$: React.MutableRefObject<Collection<T>>) { }
     get ids() {
         return this.collection$.current.ids;
@@ -43,34 +86,56 @@ export class CollectionAdapter<T extends IEntity = any> {
     get isEmpty() {
         return this.collection$.current.isEmpty;
     };
-    setData = (items: T[]) => {
-        return this.collection$.current.setData(items);
+    setData = async (items: T[]) => {
+        await this._waitForListeners().then(() => {
+            this.collection$.current.setData(items);
+        });
     };
-    clear = () => this.collection$.current.clear();
-    push = (...items: T[]) => this.collection$.current.push(...items);
-    remove = (entity: IEntity) => this.collection$.current.remove(entity);
-    removeById = (id: string | number) => this.collection$.current.removeById(id);
+    refresh = async () => {
+        await this._waitForListeners().then(() => {
+            this.collection$.current.refresh();
+        });
+    };
+    clear = async () => {
+        await this._waitForListeners().then(() => {
+            this.collection$.current.clear();
+        });
+    };
+    push = async (...items: T[]) => {
+        await this._waitForListeners().then(() => {
+            this.collection$.current.push(...items)
+        });
+    };
+    remove = async (entity: IEntity) => {
+        await this._waitForListeners().then(() => {
+            this.collection$.current.remove(entity);
+        });
+    };
+    removeById = async (id: string | number) => {
+        await this._waitForListeners().then(() => {  
+            this.collection$.current.removeById(id);
+        });
+    };
     findById = (id: string | number) => {
         const entity = this.collection$.current.findById(id);
         return new CollectionEntityAdapter(entity.id, this.collection$);
     };
-    some = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
+    some = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.some(fn);
     };
-    forEach = (fn: (value: CollectionEntityAdapter<T>, idx: number) => void) => {
+    forEach = (fn: (value: IEntityAdapter<T>, idx: number) => void) => {
         this.items.forEach(fn);
     };
-    find = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
+    find = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.find(fn);
     };
-    filter = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
+    filter = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.filter(fn);
     };
-    map = <V extends any = any>(fn: (value: CollectionEntityAdapter<T>, idx: number) => V) => {
+    map = <V extends any = any>(fn: (value: IEntityAdapter<T>, idx: number) => V) => {
         return this.items.map<V>(fn);
     };
     toArray = () => this.collection$.current.toArray();
-    refresh = () => this.collection$.current.refresh();
 };
 
 export const useCollection = <T extends IEntity = any>({
@@ -88,7 +153,7 @@ export const useCollection = <T extends IEntity = any>({
     useEffect(() => collection.handleChange((collection, target) => {
         const newCollection = new Collection<T>(collection, debounce, handlePrevData);
         setCollection(newCollection);
-        handleChange(newCollection, target);
+        handleChange(new CollectionAdapter<T>(collection$), target ? new CollectionEntityAdapter(target.id, collection$) : null);
     }), [collection]);
     useLayoutEffect(() => () => {
         const { current: collection } = collection$;

@@ -7,7 +7,14 @@ export const CHANGE_SYMBOL = Symbol('change');
 export const REFRESH_SYMBOL = Symbol('refresh');
 export const CHANGE_DEBOUNCE = 1_000;
 
-export class Model<T extends {} = any> extends EventEmitter {
+export interface IModelAdapter <T extends {} = any>  {
+    data: T;
+    setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    refresh(): void;
+    toObject(): T;
+};
+
+export class Model<T extends {} = any> extends EventEmitter implements IModelAdapter<T> {
 
     protected _dropChanges = new Subject<void>();
 
