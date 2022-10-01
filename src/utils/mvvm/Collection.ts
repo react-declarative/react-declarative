@@ -216,7 +216,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
     };
 
     public handleDropChanges = () => {
-        for (const entity of this.items) {
+        for (const entity of this._items.values()) {
             entity.handleDropChanges();
         }
         this._dropChanges.next();
