@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 import Subject from "../utils/rx/Subject";
 
-import useChangeSubject from "./useChangeSubject";
 import useEntity, { IParams as IEntityParams, EntityAdapter } from "./useEntity";
+import useChangeSubject from "./useChangeSubject";
+import useSingleton from "./useSingleton";
+import useChange from "./useChange";
 
 interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof {
     initialValue: never;
@@ -22,6 +24,7 @@ export const useEntityBinding = <T extends IEntity = any>({
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
+    const initComplete = useRef(false);
 
     const entity = useEntity<T>({
         initialValue: initialValue as T,
@@ -29,10 +32,24 @@ export const useEntityBinding = <T extends IEntity = any>({
         debounce,
     });
 
-    const subject = useChangeSubject(entity);
+    const emit = useChangeSubject(entity);
+    const change = useSingleton(() => new Subject<EntityAdapter<T>>());
+
+    useEffect(() => emit.subscribe((model) => {
+        if (!loading && initComplete.current) {
+            change.next(model);
+        }
+    }), [loading]);
+
+    useChange(() => {
+        if (!loading) {
+            initComplete.current = true;
+        }
+    }, [entity]);
 
     useEffect(() => {
-        return creator(entity, subject, () => {
+        return creator(entity, change, () => {
+            entity.toEntity().handleDropChanges();
             entity.refresh();
             setLoading(false);
         });

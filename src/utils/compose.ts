@@ -1,3 +1,5 @@
+type Function = (...args: any[]) => any;
+
 export const compose = (...funcs: Function[][] | Function[]) => {
     funcs = funcs.flat();
     if (funcs.length === 0) {

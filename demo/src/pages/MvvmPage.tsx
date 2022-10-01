@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCollection, useModel, IEntityAdapter } from "react-declarative";
+import { useCollection, useModelBinding, useModel, IEntityAdapter, compose } from "react-declarative";
 
 const ListItem = ({ entity }: { entity: IEntityAdapter }) => {
   const handleIncrement = () => {
@@ -55,6 +55,44 @@ const ItemModel = () => {
   )
 }
 
+const ModelBinding = () => {
+
+  const model = useModelBinding({
+    creator: (model, change, begin) => {
+
+      model.setData({
+        test: 1,
+      });
+
+      begin();
+
+      return compose([
+        change.subscribe(() => {
+          console.log({
+            binding: model.data,
+          });
+        }),
+      ]);
+    },
+    onChange: () => {
+      console.log({
+        change: model.data,
+      });
+    }
+  });
+
+  if (!model) {
+    return null;
+  }
+
+  return (
+    <button onClick={() => model.setData(({ test }) => ({ test: test + 1 }))}>
+      {`Binding ${model.data.test}`}
+    </button>
+  );
+
+};
+
 export const App = () => {
   const collection = useCollection({
     onChange: (collection, target) => console.log({
@@ -86,6 +124,8 @@ export const App = () => {
       <button onClick={handleAdd}>Add item</button>
       <br />
       <ItemModel />
+      <br />
+      <ModelBinding />
     </>
   );
 };

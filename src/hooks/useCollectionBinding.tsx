@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import Subject from "../utils/rx/Subject";
 import { IEntity, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
 
-import useChangeSubject from "./useChangeSubject";
 import useCollection, { IParams as ICollectionParams, CollectionAdapter } from "./useCollection";
+import useChangeSubject from "./useChangeSubject";
+import useSingleton from "./useSingleton";
+import useChange from "./useChange";
 
 interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, keyof {
     initialValue: never;
@@ -21,6 +23,7 @@ export const useCollectionBinding = <T extends IEntity = any>({
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
+    const initComplete = useRef(false);
 
     const collection = useCollection({
         initialValue: initialValue as unknown as T[],
@@ -28,10 +31,24 @@ export const useCollectionBinding = <T extends IEntity = any>({
         debounce,
     });
 
-    const subject = useChangeSubject(collection);
+    const emit = useChangeSubject(collection);
+    const change = useSingleton(() => new Subject<CollectionAdapter<T>>());
+
+    useEffect(() => emit.subscribe((model) => {
+        if (!loading && initComplete.current) {
+            change.next(model);
+        }
+    }), [loading]);
+
+    useChange(() => {
+        if (!loading) {
+            initComplete.current = true;
+        }
+    }, [collection]);
 
     useEffect(() => {
-        return creator(collection, subject, () => {
+        return creator(collection, change, () => {
+            collection.toCollection().handleDropChanges();
             collection.refresh();
             setLoading(false);
         });
