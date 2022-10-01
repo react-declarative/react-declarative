@@ -17,7 +17,7 @@ export const useCollectionBinding = <T extends IEntity = any>({
     creator,
     onChange,
     initialValue = [],
-    debounce = CHANGE_DEBOUNCE
+    debounce = CHANGE_DEBOUNCE,
 }: IParams<T>) => {
 
     const [loading, setLoading] = useState(true);
@@ -43,6 +43,6 @@ export const useCollectionBinding = <T extends IEntity = any>({
         return collection;
     }
 
-}
+};
 
 export default useCollectionBinding;

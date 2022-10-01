@@ -43,6 +43,6 @@ export const useModelBinding = <T extends {} = any>({
         return model;
     }
 
-}
+};
 
 export default useModelBinding;
