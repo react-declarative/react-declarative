@@ -26,7 +26,7 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
             } else {
                 setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
             }
-        }
+        };
         process();
     });
     constructor(private _model$: React.MutableRefObject<Model<T>>, private _dispose: Subject<true>) { }

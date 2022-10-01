@@ -26,7 +26,7 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
             } else {
                 setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
             }
-        }
+        };
         process();
     });
     constructor(private _entity$: React.MutableRefObject<Entity<T>>, private _dispose: Subject<true>) { }

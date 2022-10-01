@@ -115,7 +115,7 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
             } else {
                 setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
             }
-        }
+        };
         process();
     });
     constructor(private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: Subject<true>) { }
