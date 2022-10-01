@@ -17,7 +17,6 @@ export interface IModelAdapter <T extends {} = any>  {
 export class Model<T extends {} = any> extends EventEmitter implements IModelAdapter<T> {
 
     protected _dropChanges = new Subject<void>();
-
     protected _data: T;
 
     public get data(): T {
