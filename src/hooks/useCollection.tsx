@@ -89,6 +89,17 @@ class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter
             }
         }
     };
+    public toEntity = () => {
+        try {
+            return this._collection$.current.findById(this.id);
+        } catch (e) {
+            if (e instanceof EntityNotFoundError) {
+                throw new Error(`Entity (ID ${this.id}) not found in collection (toEntity)`);
+            } else {
+                throw e;
+            }
+        }
+    };
 };
 
 const WAIT_FOR_LISTENERS_DELAY = 10;
