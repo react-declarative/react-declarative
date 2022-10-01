@@ -10,9 +10,11 @@ import useChange from "./useChange";
 
 interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue: never;
+    onChange: never;
 }> {
     creator: (model: ModelAdapter<T>, change: Subject<ModelAdapter<T>>, begin: () => void) => (() => void) | void;
     initialValue?: Partial<T> | (() => Partial<T>);
+    onChange?: (item: ModelAdapter<T>, initial: boolean) => void;
 }
 
 export const useModelBinding = <T extends {} = any>({
@@ -25,9 +27,11 @@ export const useModelBinding = <T extends {} = any>({
     const [loading, setLoading] = useState(true);
     const initComplete = useRef(false);
 
+    const handleChange = (item: ModelAdapter<T>) => onChange && onChange(item, !initComplete.current);
+
     const model = useModel<T>({
         initialValue: initialValue as T,
-        onChange,
+        onChange: handleChange,
         debounce,
     });
 

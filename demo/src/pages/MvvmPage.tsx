@@ -74,9 +74,10 @@ const ModelBinding = () => {
         }),
       ]);
     },
-    onChange: () => {
+    onChange: (model, initial) => {
       console.log({
         change: model.data,
+        initial,
       });
     }
   });

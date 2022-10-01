@@ -10,10 +10,11 @@ import useChange from "./useChange";
 
 interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof {
     initialValue: never;
+    onChange: never;
 }> {
     creator: (entity: EntityAdapter<T>, change: Subject<EntityAdapter<T>>, begin: () => void) => (() => void) | void;
     initialValue: Partial<T> | (() => Partial<T>);
-    debounce?: number;
+    onChange?: (item: EntityAdapter<T>, initial: boolean) => void;
 }
 
 export const useEntityBinding = <T extends IEntity = any>({
@@ -26,9 +27,11 @@ export const useEntityBinding = <T extends IEntity = any>({
     const [loading, setLoading] = useState(true);
     const initComplete = useRef(false);
 
+    const handleChange = (item: EntityAdapter<T>) => onChange && onChange(item, !initComplete.current);
+
     const entity = useEntity<T>({
         initialValue: initialValue as T,
-        onChange,
+        onChange: handleChange,
         debounce,
     });
 

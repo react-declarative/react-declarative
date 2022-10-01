@@ -9,7 +9,7 @@ import useSingleton from './useSingleton';
 
 export interface IParams<T extends IEntity = any> {
     initialValue: T | Entity<T> | (() => T);
-    onChange?: (item: IEntityAdapter<T>) => void;
+    onChange?: (item: EntityAdapter<T>) => void;
     debounce?: number;
 }
 

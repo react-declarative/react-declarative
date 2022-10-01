@@ -12,11 +12,11 @@ import useSingleton from './useSingleton';
 
 export interface IParams<T extends IEntity = any> {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
-    onChange?: (item: ICollectionAdapter<T>, target: IEntityAdapter<T> | null) => void;
+    onChange?: (item: CollectionAdapter<T>, target: CollectionEntityAdapter<T> | null) => void;
     debounce?: number;
 }
 
-class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
+export class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
     private _waitForListeners = (target: EventEmitter) => new Promise<boolean>((res) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
@@ -181,19 +181,19 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
         const entity = this._collection$.current.findById(id);
         return new CollectionEntityAdapter(entity.id, this._collection$, this._dispose);
     };
-    some = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
+    some = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.some(fn);
     };
-    forEach = (fn: (value: IEntityAdapter<T>, idx: number) => void) => {
+    forEach = (fn: (value: CollectionEntityAdapter<T>, idx: number) => void) => {
         this.items.forEach(fn);
     };
-    find = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
+    find = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.find(fn);
     };
-    filter = (fn: (value: IEntityAdapter<T>, idx: number) => boolean) => {
+    filter = (fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean) => {
         return this.items.filter(fn);
     };
-    map = <V extends any = any>(fn: (value: IEntityAdapter<T>, idx: number) => V) => {
+    map = <V extends any = any>(fn: (value: CollectionEntityAdapter<T>, idx: number) => V) => {
         return this.items.map<V>(fn);
     };
     toArray = () => this._collection$.current.toArray();
