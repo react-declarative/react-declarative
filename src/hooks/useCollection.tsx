@@ -186,6 +186,7 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
         return this.items.map<V>(fn);
     };
     toArray = () => this._collection$.current.toArray();
+    toCollection = () => this._collection$.current;
 };
 
 export const useCollection = <T extends IEntity = any>({

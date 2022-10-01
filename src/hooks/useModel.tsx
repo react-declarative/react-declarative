@@ -50,6 +50,7 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
         });
     };
     public toObject = () => this._model$.current.toObject();
+    public toModel = () => this._model$.current;
 };
 
 export const useModel = <T extends {} = any>({

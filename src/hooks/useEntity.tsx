@@ -53,6 +53,7 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
         });
     };
     toObject = () => this._entity$.current.toObject();
+    toEntity = () => this._entity$.current;
 };
 
 export const useEntity = <T extends IEntity = any>({
