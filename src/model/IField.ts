@@ -98,7 +98,7 @@ export interface IField<Data = IAnything> {
     /**
      * Разрешенные к вводу символы
      */
-    inputFormatterAllowed?: RegExp;
+    inputFormatterAllowed?: RegExp | ((char: string, idx: number) => boolean);
 
     inputAutocomplete?: keyof {
       'new-password': never,

@@ -1,6 +1,6 @@
 interface IParams {
     symbol?: string;
-    allowed?: RegExp
+    allowed?: RegExp | ((char: string, idx: number) => boolean);
 }
 
 export const formatText = (raw: string, template: string, {
@@ -11,10 +11,23 @@ export const formatText = (raw: string, template: string, {
         return raw;
     }
     if (allowed) {
-        const lastChar = raw.slice(raw.length - 1, raw.length);
-        if (!lastChar.match(allowed)) {
-            return raw.slice(0, raw.length - 1);
+        const pendingRemoveIdx = new Set<number>();
+        if (typeof allowed === 'function') {
+            for (let i = 0; i !== raw.length; i++) {
+                const lastChar = raw[i];
+                if (!allowed(lastChar, i)) {
+                    pendingRemoveIdx.add(i);
+                }
+            }
+        } else {
+            for (let i = 0; i !== raw.length; i++) {
+                const lastChar = raw[i];
+                if (!lastChar.match(allowed)) {
+                    pendingRemoveIdx.add(i);
+                }
+            }
         }
+        raw = raw.split('').filter((_, idx) => !pendingRemoveIdx.has(idx)).join('');
     }
     let idx = 0;
     let result = '';
@@ -32,4 +45,4 @@ export const formatText = (raw: string, template: string, {
     return result;
 };
 
-export default formatText
+export default formatText;
