@@ -79,6 +79,26 @@ export interface IField<Data = IAnything> {
     };
 
     /**
+     * Паттерн для MatTextField
+     * (inputmode: 'decimal' и pattern: '[0-9.,]+' добавят запятую на iOS клавиатуре)
+     */
+    inputPattern?: string;
+
+    /**
+     * Поле inputmode для MatTextField
+     */
+    inputMode?: keyof {
+      'none': never;
+      'text': never;
+      'tel': never;
+      'url': never;
+      'email': never;
+      'numeric': never;
+      'decimal': never;
+      'search': never;
+    };
+
+    /**
      * Форматтер, преобразующий пользовательский
      * ввод к нужному шаблону
      */
@@ -99,6 +119,12 @@ export interface IField<Data = IAnything> {
      * Разрешенные к вводу символы
      */
     inputFormatterAllowed?: RegExp | ((char: string, idx: number) => boolean);
+
+    /**
+     * Замена символов для форматерра, например
+     * запятую на точку в числе
+     */
+    inputFormatterReplace?: (char: string) => string | null;
 
     inputAutocomplete?: keyof {
       'new-password': never,

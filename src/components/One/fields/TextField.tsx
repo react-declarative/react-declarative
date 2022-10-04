@@ -10,11 +10,14 @@ import IField from "../../../model/IField";
 
 export interface ITextFieldProps<Data = IAnything> {
   inputType?: PickProp<IField<Data>, "inputType">;
+  inputMode?: PickProp<IField<Data>, "inputMode">;
+  inputPattern?: PickProp<IField<Data>, "inputPattern">;
   inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
   inputFormatter?: PickProp<IField<Data>, "inputFormatter">;
   inputFormatterSymbol?: PickProp<IField<Data>, "inputFormatterSymbol">;
   inputFormatterAllowed?: PickProp<IField<Data>, "inputFormatterAllowed">;
   inputFormatterTemplate?: PickProp<IField<Data>, "inputFormatterTemplate">;
+  inputFormatterReplace?: PickProp<IField<Data>, "inputFormatterReplace">;
   description?: PickProp<IField<Data>, "description">;
   outlined?: PickProp<IField<Data>, "outlined">;
   title?: PickProp<IField<Data>, "title">;

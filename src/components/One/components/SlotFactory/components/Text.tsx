@@ -92,6 +92,8 @@ export const Text = ({
     disabled,
     readonly,
     inputType = "text",
+    inputMode = "text",
+    inputPattern = undefined,
     description = "",
     outlined = true,
     title = "",
@@ -104,10 +106,12 @@ export const Text = ({
     inputAutocomplete: autoComplete = "off",
     inputFormatterSymbol: symbol = '0',
     inputFormatterAllowed: allowed,
+    inputFormatterReplace: replace,
     inputFormatterTemplate: template = '',
     inputFormatter = (raw) => formatText(raw, template, {
         symbol,
         allowed,
+        replace,
     }),
     dirty,
     loading,
@@ -125,8 +129,12 @@ export const Text = ({
         InputProps={{
             autoComplete: autoComplete,
             readOnly: readonly,
+            inputMode,
             autoFocus,
             ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
+        }}
+        inputProps={{
+            pattern: inputPattern,
         }}
         type={inputType}
         focused={autoFocus}
