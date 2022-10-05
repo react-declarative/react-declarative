@@ -69,20 +69,21 @@ export const ConstraintView = <T extends IAnything = IAnything>({
     }
 
     const renderContent = ({ width, payload }: IChildParams<T>) => {
+        const params = typeof payload === 'object' ? payload : { payload };
         if (isPhone(width)) {
             handleView('phone');
             return (
-                <Phone {...payload} />
+                <Phone {...params} />
             );
         } else if (isTablet(width)) {
             handleView('tablet');
             return (
-                <Tablet {...payload} />
+                <Tablet {...params} />
             );
         } else {
             handleView('desktop');
             return (
-                <Desktop {...payload} />
+                <Desktop {...params} />
             );
         }
     };
