@@ -65,11 +65,12 @@ export const FadeView = <T extends any = any>({
   zIndex,
   disableBottom,
   disableRight,
+  payload,
 }: IFadeViewProps<T>) => {
   const classes = useStyles();
   return (
     <Box className={className} style={style}>
-      <AutoSizer className={classes.root}>
+      <AutoSizer className={classes.root} payload={payload}>
         {({ height, width }) => (
           <FadeContainer
             className={classes.container}

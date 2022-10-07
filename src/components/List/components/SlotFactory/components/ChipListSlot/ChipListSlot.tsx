@@ -105,6 +105,7 @@ export const ListChipsSlot = <RowData extends IRowData = IAnything>({
             className={classes.root}
             color={fadeColor}
             disableBottom
+            payload={`${enabledChips.length}-${disabledChips.length}`}
         >
             <Stack
                 alignItems="center"

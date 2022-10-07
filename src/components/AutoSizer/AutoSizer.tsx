@@ -2,6 +2,8 @@ import * as React from "react";
 
 import createDetectElementResize from "./detectElementResize";
 
+import deepCompare from "../../utils/deepCompare";
+
 import ISize from "../../model/ISize";
 
 export interface IChildParams<T extends any = unknown> extends ISize {
@@ -57,18 +59,18 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
   _detectElementResize?: DetectElementResize;
 
   shouldComponentUpdate(nextProps: IAutoSizerProps<T>, nextState: State) {
-    if (this.state !== nextState) {
+    if (this.state.height !== nextState.height || this.state.width !== nextState.width) {
       return true;
     } else {
       let isUpdatePending = false;
       isUpdatePending = isUpdatePending || nextProps.className !== this.props.className;
       isUpdatePending = isUpdatePending || nextProps.withContainerHeight !== this.props.withContainerHeight;
       isUpdatePending = isUpdatePending || nextProps.withContainerWidth !== this.props.withContainerWidth;
-      isUpdatePending = isUpdatePending || nextProps.style !== this.props.style;
+      isUpdatePending = isUpdatePending || !deepCompare(nextProps.style, this.props.style);
       isUpdatePending = isUpdatePending || nextProps.payload !== this.props.payload;
       return isUpdatePending;
     }
-  };
+  }
 
   componentDidMount() {
 
