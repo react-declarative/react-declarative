@@ -1,73 +1,107 @@
-import * as React from 'react';
+import * as React from "react";
 
-import FadeContainer, { IFadeContainerProps } from './components/FadeContainer';
+import { makeStyles } from "../../styles";
 
-import ScrollView from '../ScrollView';
-import AutoSizer, { IAutoSizerProps } from '../AutoSizer';
+import Box from "@mui/material/Box";
 
-import IAnything from '../../model/IAnything';
+import AutoSizer, { IAutoSizerProps } from "../AutoSizer";
 
-type FadeContainerT = Pick<IFadeContainerProps, keyof {
+import FadeContainer, {
+  IFadeContainerProps,
+  SCROLL_VIEW_TARGER,
+} from "./components/FadeContainer";
+
+import classNames from "../../utils/classNames";
+
+type FadeContainerT = Pick<
+  IFadeContainerProps,
+  keyof {
     Fade: never;
     color: never;
     zIndex: never;
     disableBottom: never;
     disableRight: never;
-}>;
+  }
+>;
 
-interface IFadeView<T extends IAnything = IAnything> extends FadeContainerT {
-    className?: string;
-    style?: React.CSSProperties;
-    children: React.ReactChild;
-    payload?: IAutoSizerProps<T>["payload"];
-    heightRequest?: IAutoSizerProps<T>["heightRequest"];
-    widthRequest?: IAutoSizerProps<T>["widthRequest"];
+interface IFadeViewProps<T extends any = unknown> extends FadeContainerT {
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactChild;
+  payload?: IAutoSizerProps<T>["payload"];
 }
 
-export const FadeView = <T extends IAnything = IAnything>({
-    className,
-    style,
-    children,
-    Fade,
-    color,
-    zIndex,
-    disableBottom,
-    disableRight,
-    payload,
-    heightRequest,
-    widthRequest,
-}: IFadeView<T>) => {
-    return (
-        <div className={className} style={style}>
-            <AutoSizer
-                payload={payload}
-                heightRequest={heightRequest}
-                widthRequest={widthRequest}
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    height: '100%',
+    width: '100%',
+  },
+  container: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    flex: 1,
+  },
+  content: {
+    position: 'relative',
+    overflow: "auto !important",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    flex: 1,
+  },
+});
+
+export const FadeView = <T extends any = any>({
+  className,
+  style,
+  children,
+  Fade,
+  color,
+  zIndex,
+  disableBottom,
+  disableRight,
+}: IFadeViewProps<T>) => {
+  const classes = useStyles();
+  return (
+    <Box className={className} style={style}>
+      <AutoSizer className={classes.root}>
+        {({ height, width }) => (
+          <FadeContainer
+            className={classes.container}
+            Fade={Fade}
+            color={color}
+            zIndex={zIndex}
+            disableBottom={disableBottom}
+            disableRight={disableRight}
+          >
+            <Box
+              className={classNames(SCROLL_VIEW_TARGER, classes.content)}
+              sx={{
+                '& > *': {
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    minHeight: height,
+                    minWidth: width,
+                },
+                maxHeight: height,
+                maxWidth: width,
+                height: '100%',
+                width: '100%',
+              }}
             >
-                {({ height, width, payload }) => (
-                    <FadeContainer
-                        Fade={Fade}
-                        color={color}
-                        zIndex={zIndex}
-                        disableBottom={disableBottom}
-                        disableRight={disableRight}
-                    >
-                        <ScrollView
-                            style={{ 
-                                height,
-                                width,
-                            }}
-                            payload={payload}
-                            heightRequest={heightRequest}
-                            widthRequest={widthRequest}
-                        >
-                            {children}
-                        </ScrollView>
-                    </FadeContainer>
-                )}
-            </AutoSizer>
-        </div>
-    );
+                {children}
+            </Box>
+          </FadeContainer>
+        )}
+      </AutoSizer>
+    </Box>
+  );
 };
 
 export default FadeView;

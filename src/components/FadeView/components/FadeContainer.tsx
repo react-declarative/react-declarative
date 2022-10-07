@@ -9,10 +9,9 @@ import classNames from '../../../utils/classNames';
 
 import DefaultFade from './DefaultFade';
 
-import { SCROLL_VIEW_TARGER } from '../../ScrollView';
-
 const FADE_ANIMATION_DELAY = 50;
 const FADE_MARK = 'react-declarative__fadeMark';
+export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 
 const useStyles = makeStyles({
     root: {

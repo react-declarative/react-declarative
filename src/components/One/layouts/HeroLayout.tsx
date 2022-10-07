@@ -25,7 +25,6 @@ const DEFAULT_E_SIZE = 'unset';
 
 const GRID_MAX_WIDTH = 9999999999999999;
 const FIELD_NEVER_MARGIN = '0';
-const AUTOSIZER_DELAY = 500;
 
 interface IHeroTop<Data = IAnything>  {
   top?: PickProp<IField<Data>, 'top'>;
@@ -384,12 +383,8 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       >
         <AutoSizer
           className={classes.content}
-          delay={AUTOSIZER_DELAY}
           target={document.body}
           payload={object}
-          disableHeight
-          disableWidth
-          keepFlow
         >
           {({ width, height }) => width ? (
             <Container<Data>

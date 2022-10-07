@@ -1,235 +1,192 @@
 import * as React from "react";
-import { useState, useLayoutEffect, useRef } from "react";
 
-import { debounce } from "@mui/material";
-import { makeStyles } from '../../styles';
-
-import ResizeEmitter from "./ResizeEmitter";
-
-import classNames from "../../utils/classNames";
-import waitForFlush from "../../utils/waitForFlush";
+import createDetectElementResize from "./detectElementResize";
 
 import ISize from "../../model/ISize";
 
-export interface IChildParams<T extends unknown = object> extends ISize {
+export interface IChildParams<T extends any = unknown> extends ISize {
   payload: T;
 }
 
-export interface IAutoSizerProps<T extends unknown = object> {
+export interface IAutoSizerProps<T extends any = unknown> {
   children: (s: IChildParams<T>) => any;
   className?: string;
   defaultHeight?: number;
   defaultWidth?: number;
-  disableHeight?: boolean;
-  disableWidth?: boolean;
+  withContainerHeight?: boolean;
+  withContainerWidth?: boolean;
+  heightRequest?: (h: number) => number;
+  widthRequest?: (w: number) => number;
   onResize?: (s: ISize) => void;
-  heightRequest?: (height: number) => number;
-  widthRequest?: (width: number) => number;
   style?: React.CSSProperties;
-  keepFlow?: boolean;
+  payload?: T;
   target?: HTMLElement;
-  delay?: number;
   closest?: string;
   selector?: string;
-  payload?: T;
 }
 
-const useStyles = makeStyles({
-  root: {
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  container: {
-    position: 'absolute',
-    minWidth: '100%',
-    minHeight: '100%',
-    top: 0,
-    left: 0,
-  },
-});
-
-const EMPTY_PAYLOAD = Object.freeze({});
-
-export const AutoSizer = <T extends unknown = object>({
-  defaultHeight = 0,
-  defaultWidth = 0,
-  onResize = () => null,
-  disableHeight = false,
-  disableWidth = false,
-  heightRequest = (v) => v,
-  widthRequest = (v) => v,
-  style = {},
-  className,
-  children,
-  target,
-  payload = EMPTY_PAYLOAD as T,
-  keepFlow = false,
-  delay = 100,
-  closest,
-  selector,
-}: IAutoSizerProps<T>) => {
-
-  const autoSizer = useRef<HTMLDivElement>(null as never);
-
-  const initialPayload = useRef(true);
-  const isMounted = useRef(true);
-
-  const classes = useStyles();
-
-  const [state, setState] = useState<ISize>({
-    height: defaultHeight,
-    width: defaultWidth,
-  });
-
-  const stateRef = useRef<ISize>(state);
-
-  useLayoutEffect(() => {
-    const { current } = autoSizer;
-    const { parentElement } = current;
-
-    let element = target || parentElement;
-
-    if (closest) {
-      element = element?.closest(closest) || null;
-    }
-
-    if (selector) {
-      element = element?.querySelector(selector) || null;
-    }
-
-    if (!element) {
-      console.warn('AutoSizer null parent element');
-      return;
-    }
-
-    const removeCurrentSize = () => {
-      !disableHeight && current.style.removeProperty('height');
-      !disableWidth && current.style.removeProperty('width');
-    };
-
-    const rollbackSize = (height: number, width: number) => {
-      !disableHeight && current.style.setProperty('height', `${height}px`);
-      !disableWidth && current.style.setProperty('width', `${width}px`);
-    };
-
-    const handler = () => {
-
-      const { current: state } = stateRef;
-
-      removeCurrentSize();
-
-      let { height, width } = element!.getBoundingClientRect();
-      const style = getComputedStyle(element!);
-
-      width -= parseFloat(style.paddingLeft);
-      width -= parseFloat(style.paddingRight);
-
-      height -= parseFloat(style.paddingTop);
-      height -= parseFloat(style.paddingBottom);
-
-      height = heightRequest(height);
-      width = widthRequest(width);
-
-      let isOk = isMounted.current;
-      isOk = isOk && (state.height !== height || state.width !== width);
-
-      if (isOk) {
-        const newSize = { height, width };
-        stateRef.current = newSize;
-        setState(newSize);
-        onResize(newSize);
-      } else {
-        rollbackSize(height, width);
-      }
-
-      if (isOk) {
-        waitForFlush().then(handler);
-      }
-
-    };
-
-    const { _emitters: emitters } = AutoSizer;
-    let observer: ResizeEmitter;
-
-    if (emitters.has(element)) {
-      observer = emitters.get(element)!;
-    } else {
-      observer = new ResizeEmitter(element, () => {
-        emitters.delete(element!);
-      });
-      emitters.set(element, observer);
-    }
-
-    const handlerD = debounce(handler, delay);
-    observer.subscribe(handlerD);
-    handler();
-
-    window.addEventListener('resize', handlerD as any);
-
-    return () => {
-      window.removeEventListener('resize', handlerD as any);
-      observer.unsubscribe(handlerD);
-      handlerD.clear();
-    };
-  }, [disableHeight, disableWidth, heightRequest, widthRequest, state, delay, onResize, closest, selector]);
-
-  useLayoutEffect(() => {
-    if (payload !== EMPTY_PAYLOAD && !initialPayload.current) {
-      setState((state) => ({...state}));
-    } else {
-      initialPayload.current = false;
-    }
-  }, [payload]);
-
-  useLayoutEffect(() => () => {
-    isMounted.current = false;
-  }, []);
-
-  const { height, width } = state;
-
-  const outerStyle: React.CSSProperties = {
-    height,
-    width,
-  };
-
-  const childParams: IChildParams<T> = { height, width, payload };
-
-  if (disableHeight) {
-    outerStyle.height = style.height;
-  }
-
-  if (disableWidth) {
-    outerStyle.width = style.width;
-  }
-
-  const renderInner = () => {
-    if (!keepFlow) {
-      return (
-        <div className={classes.container}>
-          {children(childParams)}
-        </div>
-      );
-    } else {
-      return children(childParams);
-    }
-  };
-
-  return (
-    <div
-      className={classNames(className, {
-        [classes.root]: !keepFlow,
-      })}
-      ref={autoSizer}
-      style={{
-        ...style,
-        ...outerStyle,
-      }}
-    >
-      {renderInner()}
-    </div>
-  );
+type State = {
+  height: number,
+  width: number,
 };
 
-AutoSizer._emitters = new WeakMap<HTMLElement, ResizeEmitter>();
+type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
+
+type DetectElementResize = {
+  addResizeListener: ResizeHandler,
+  removeResizeListener: ResizeHandler,
+};
+
+export class AutoSizer<T extends unknown = object> extends React.Component<IAutoSizerProps<T>, State> {
+  static defaultProps: Partial<IAutoSizerProps<any>> = {
+    onResize: () => {},
+    heightRequest: (h) => h,
+    widthRequest: (w) => w,
+    withContainerHeight: false,
+    withContainerWidth: false,
+    style: {},
+  };
+
+  state = {
+    height: this.props.defaultHeight || 0,
+    width: this.props.defaultWidth || 0,
+  };
+
+  _parentNode?: HTMLElement;
+  _autoSizer?: HTMLElement | null;
+  _detectElementResize?: DetectElementResize;
+
+  shouldComponentUpdate(nextProps: IAutoSizerProps<T>, nextState: State) {
+    if (this.state !== nextState) {
+      return true;
+    } else {
+      let isUpdatePending = false;
+      isUpdatePending = isUpdatePending || nextProps.className !== this.props.className;
+      isUpdatePending = isUpdatePending || nextProps.withContainerHeight !== this.props.withContainerHeight;
+      isUpdatePending = isUpdatePending || nextProps.withContainerWidth !== this.props.withContainerWidth;
+      isUpdatePending = isUpdatePending || nextProps.style !== this.props.style;
+      isUpdatePending = isUpdatePending || nextProps.payload !== this.props.payload;
+      return isUpdatePending;
+    }
+  };
+
+  componentDidMount() {
+
+    let element = this.props.target || this._autoSizer;
+
+    if (this.props.closest) {
+      element = element?.closest(this.props.closest) || null;
+    }
+
+    if (this.props.selector) {
+      element = element?.querySelector(this.props.selector) || null;
+    }
+
+    if (
+      element &&
+      element.parentNode &&
+      element.parentNode.ownerDocument &&
+      element.parentNode.ownerDocument.defaultView &&
+      element.parentNode instanceof
+        element.parentNode.ownerDocument.defaultView.HTMLElement
+    ) {
+      this._parentNode = element.parentNode;
+
+      this._detectElementResize = createDetectElementResize();
+      this._detectElementResize.addResizeListener(
+        this._parentNode,
+        this._onResize
+      );
+
+      this._onResize();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._detectElementResize && this._parentNode) {
+      this._detectElementResize.removeResizeListener(
+        this._parentNode,
+        this._onResize
+      );
+    }
+  }
+
+  render() {
+    const {
+      children,
+      className,
+      withContainerHeight,
+      withContainerWidth,
+      style,
+    } = this.props;
+    const { height, width } = this.state;
+
+    const outerStyle: React.CSSProperties = { overflow: 'visible' };
+    const childParams: Partial<IChildParams<T>> = { payload: this.props.payload };
+
+    let bailoutOnChildren = false;
+
+    if (height === 0) {
+      bailoutOnChildren = true;
+    }
+    if (withContainerHeight) {
+      outerStyle.height = height;
+    }
+    childParams.height = this.props.heightRequest!(height);
+
+    if (width === 0) {
+      bailoutOnChildren = true;
+    }
+    if (withContainerWidth) {
+      outerStyle.width = width;
+    }
+    childParams.width = this.props.widthRequest!(width);
+
+    return (
+      <div
+        className={className}
+        ref={this._setRef}
+        style={{
+          ...outerStyle,
+          ...style,
+        }}
+      >
+        {!bailoutOnChildren && children(childParams as IChildParams<T>)}
+      </div>
+    );
+  }
+
+  _onResize = () => {
+    const { onResize } = this.props;
+
+    if (this._parentNode) {
+
+      const height = this._parentNode.offsetHeight || 0;
+      const width = this._parentNode.offsetWidth || 0;
+
+      const style = window.getComputedStyle(this._parentNode) || {};
+      const paddingLeft = parseInt(style.paddingLeft, 10) || 0;
+      const paddingRight = parseInt(style.paddingRight, 10) || 0;
+      const paddingTop = parseInt(style.paddingTop, 10) || 0;
+      const paddingBottom = parseInt(style.paddingBottom, 10) || 0;
+
+      const newHeight = height - paddingTop - paddingBottom;
+      const newWidth = width - paddingLeft - paddingRight;
+
+      if (this.state.height !== newHeight || this.state.width !== newWidth) {
+        this.setState({
+          height: height - paddingTop - paddingBottom,
+          width: width - paddingLeft - paddingRight,
+        });
+        onResize!({ height, width });
+      }
+    }
+  };
+
+  _setRef = (autoSizer: HTMLElement | null) => {
+    this._autoSizer = autoSizer;
+  }
+
+}
 
 export default AutoSizer;

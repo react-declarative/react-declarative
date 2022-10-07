@@ -139,7 +139,13 @@ export const FadePage = () => {
     return (
         <>
             <Grid item xs={12}>
-                <FadeView disableRight heightRequest={() => 150} widthRequest={() => window.innerWidth - 50}>
+                <FadeView
+                    disableRight
+                    style={{
+                        height: 100,
+                        width: 'calc(100% - 50px)'
+                    }}
+                >
                     <p>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
@@ -152,7 +158,13 @@ export const FadePage = () => {
                 </FadeView>
             </Grid>
             <Grid item xs={12}>
-                <FadeView disableBottom heightRequest={() => 150} widthRequest={() => window.innerWidth - 50}>
+                <FadeView
+                    disableBottom
+                    style={{
+                        height: 50,
+                        width: 'calc(100% - 50px)'
+                    }}
+                >
                     <p style={{ whiteSpace: 'nowrap' }}>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,

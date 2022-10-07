@@ -12,22 +12,26 @@ export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 
 const useStyles = makeStyles({
     root: {
-        overflow: 'auto !important',
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+    },
+    container: {
+        flex: 1,
+        position: 'relative',
         scrollbarWidth: 'none',
+        overflow: 'auto !important',
         '&::-webkit-scrollbar': {
             display: 'none',
         },
-    },
-    container: {
-        position: 'relative',
     },
     content: {
         position: 'absolute',
         top: 0,
         left: 0,
-        display: 'flex',
     },
     stretch: {
+        display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
         '& > *': {
@@ -35,6 +39,7 @@ const useStyles = makeStyles({
         },
     },
     center: {
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -46,8 +51,6 @@ interface IScrollViewProps<T extends IAnything = IAnything> {
     style?: React.CSSProperties;
     center?: boolean;
     payload?: IAutoSizerProps<T>["payload"];
-    heightRequest?: IAutoSizerProps<T>["heightRequest"];
-    widthRequest?: IAutoSizerProps<T>["widthRequest"];
 }
 
 export const ScrollView = <T extends IAnything = IAnything> ({
@@ -55,33 +58,27 @@ export const ScrollView = <T extends IAnything = IAnything> ({
     className,
     style,
     payload,
-    heightRequest,
-    widthRequest,
     center = false,
 }: IScrollViewProps<T>) => {
     const classes = useStyles();
     return (
-        <div className={className} style={style}>
+        <div className={classNames(className, classes.root)} style={style}>
             <AutoSizer
-                className={classNames(classes.root, SCROLL_VIEW_TARGER)}
-                heightRequest={heightRequest}
-                widthRequest={widthRequest}
+                className={classNames(classes.container, SCROLL_VIEW_TARGER)}
                 payload={payload}
             >
                 {({ height, width }) => (
-                    <div className={classes.container}>
-                        <div
-                            className={classNames(classes.content, {
-                                [classes.stretch]: !center,
-                                [classes.center]: center,
-                            })}
-                            style={{
-                                minHeight: height,
-                                minWidth: width,
-                            }}
-                        >
-                            {children}
-                        </div>
+                    <div
+                        className={classNames(classes.content, {
+                            [classes.stretch]: !center,
+                            [classes.center]: center,
+                        })}
+                        style={{
+                            minHeight: height,
+                            minWidth: width,
+                        }}
+                    >
+                        {children}
                     </div>
                 )}
             </AutoSizer>
