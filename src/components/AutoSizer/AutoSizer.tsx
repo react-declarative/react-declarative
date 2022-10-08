@@ -126,19 +126,11 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     const outerStyle: React.CSSProperties = { overflow: 'visible' };
     const childParams: Partial<IChildParams<T>> = { payload: this.props.payload };
 
-    let bailoutOnChildren = false;
-
-    if (height === 0) {
-      bailoutOnChildren = true;
-    }
     if (withContainerHeight) {
       outerStyle.height = height;
     }
     childParams.height = this.props.heightRequest!(height);
 
-    if (width === 0) {
-      bailoutOnChildren = true;
-    }
     if (withContainerWidth) {
       outerStyle.width = width;
     }
@@ -153,7 +145,7 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
           ...style,
         }}
       >
-        {!bailoutOnChildren && children(childParams as IChildParams<T>)}
+        {children(childParams as IChildParams<T>)}
       </div>
     );
   }
