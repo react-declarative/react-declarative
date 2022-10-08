@@ -24,7 +24,7 @@ interface ISortModalProps {
     onClose: () => void;
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()((theme, _, classes) => ({
     inactive: {
         opacity: 0.5,
     },
@@ -33,7 +33,7 @@ const useStyles = makeStyles()((theme) => ({
         height: 340,
     },
     list: {
-        '& > $item:nth-of-type(2n)': {
+        [`& > ${classes["item"]}:nth-of-type(2n)`]: {
             background: alpha(
                 theme.palette.getContrastText(theme.palette.background.paper),
                 0.04

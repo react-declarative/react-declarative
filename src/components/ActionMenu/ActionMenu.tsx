@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import { alpha } from '@mui/material';
 import { makeStyles } from '../../styles';
 
 import classNames from '../../utils/classNames';
+import sleep from '../../utils/sleep';
 
 import Async, { IAsyncProps } from '../Async';
 
@@ -15,13 +16,15 @@ import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import CircularProgress from '@mui/material/CircularProgress';
 
+import useActualCallback from '../../hooks/useActualCallback';
+
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Fab from '@mui/material/Fab';
 
 import IOption from '../../model/IOption';
-import useActualCallback from '../../hooks/useActualCallback';
 
 export interface IActionMenuProps<T extends any = object> {
+    keepMounted?: boolean;
     options?: Partial<IOption>[];
     transparent?: boolean;
     disabled?: boolean;
@@ -35,6 +38,8 @@ export interface IActionMenuProps<T extends any = object> {
     onLoadStart?: IAsyncProps<T>['onLoadStart'];
     onLoadEnd?: IAsyncProps<T>['onLoadEnd'];
 };
+
+const MENU_MIN_WIDTH = 225;
 
 const useStyles = makeStyles()((theme) => ({
     root: {
@@ -84,9 +89,12 @@ export const ActionMenu = <T extends any = object>({
     style,
     onLoadStart,
     onLoadEnd,
+    keepMounted,
 }: IActionMenuProps<T>) => {
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const targetRef = useRef<HTMLButtonElement | null>(null);
+
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [loading, setLoading] = useState(0);
 
     const { classes } = useStyles();
@@ -96,7 +104,7 @@ export const ActionMenu = <T extends any = object>({
     const handleFocus = (e: any) => {
         e.preventDefault();
         e.stopPropagation();
-        setAnchorEl(e.currentTarget);
+        setAnchorEl(targetRef.current);
         onToggle && onToggle(true);
     };
 
@@ -129,6 +137,7 @@ export const ActionMenu = <T extends any = object>({
     return (
         <>
             <Fab
+                ref={targetRef}
                 className={classNames(className, classes.root, {
                     [classes.transparent]: transparent,
                 })}
@@ -145,9 +154,14 @@ export const ActionMenu = <T extends any = object>({
                 <MoreVertIcon color="inherit" />
             </Fab>
             <Menu
+                keepMounted={keepMounted}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
                 }}
                 anchorEl={disabled ? null : anchorEl}
                 open={!!anchorEl && !disabled}
@@ -175,7 +189,8 @@ export const ActionMenu = <T extends any = object>({
                             const Placeholder = () => (
                                 <MenuItem
                                     sx={{
-                                        visibility: 'hidden'
+                                        visibility: 'hidden',
+                                        minWidth: MENU_MIN_WIDTH,
                                     }}
                                 >
                                     {!!Icon && (
@@ -199,6 +214,8 @@ export const ActionMenu = <T extends any = object>({
                                     payload={payload}
                                 >
                                     {async () => {
+                                        /** mui v5 menu invalid position quickfix */
+                                        await sleep(0);
                                         const disabled = await isDisabled();
                                         const visible = await isVisible();
                                         if (visible) {

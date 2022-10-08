@@ -36,7 +36,7 @@ interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children: React.ReactNode;
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()((theme, _, classes) => ({
     root: {
         position: 'relative',
         display: "flex",
@@ -49,10 +49,10 @@ const useStyles = makeStyles()((theme) => ({
     },
     keepFlow: {
         overflow: "initial !important",
-        '& $container': {
+        [`& ${classes["container"]}`]: {
             position: 'static !important' as any,
         },
-        '& $content': {
+        [`& ${classes["content"]}`]: {
             overflow: 'hidden !important' as any,
         },
     },
