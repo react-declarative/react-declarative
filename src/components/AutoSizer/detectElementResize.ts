@@ -8,9 +8,13 @@ export const createDetectElementResize = () => {
   
   const eventManager = new EventEmitter();
 
-  const observer = new ResizeObserver(() => eventManager.emit(RESIZE_EVENT));
+  const emit = () => eventManager.emit(RESIZE_EVENT);
+  const observer = new ResizeObserver(emit);
 
   const addResizeListener = (element: HTMLElement, fn: Function) => {
+    if (!eventManager.hasListeners) {
+      window.addEventListener('resize', emit);
+    }
     observer.observe(element);
     eventManager.subscribe(RESIZE_EVENT, fn);
   };
@@ -18,6 +22,9 @@ export const createDetectElementResize = () => {
   const removeResizeListener = (element: HTMLElement, fn: Function) => {
     observer.unobserve(element);
     eventManager.unsubscribe(RESIZE_EVENT, fn);
+    if (!eventManager.hasListeners) {
+      window.removeEventListener('resize', emit);
+    }
   };
 
   return {

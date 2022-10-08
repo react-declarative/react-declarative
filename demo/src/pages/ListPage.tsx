@@ -292,7 +292,10 @@ export const ListPage = () => {
     ],
   });
 
-  const heightRequest = () => window.innerHeight - 100;
+  const heightRequest = () => {
+    console.log('here')
+    return window.innerHeight - 100;
+  }
 
   const handleRowActionsClick = (action: string, row: any) => {
     alert(JSON.stringify({ row, action }, null, 2));

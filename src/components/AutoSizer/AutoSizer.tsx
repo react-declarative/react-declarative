@@ -28,8 +28,10 @@ export interface IAutoSizerProps<T extends any = unknown> {
 }
 
 type State = {
-  height: number,
-  width: number,
+  height: number;
+  width: number;
+  childHeight: number;
+  childWidth: number;
 };
 
 type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
@@ -40,6 +42,7 @@ type DetectElementResize = {
 };
 
 export class AutoSizer<T extends unknown = object> extends React.Component<IAutoSizerProps<T>, State> {
+
   static defaultProps: Partial<IAutoSizerProps<any>> = {
     onResize: () => {},
     heightRequest: (h) => h,
@@ -49,9 +52,23 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     style: {},
   };
 
+  lastHeightRequest = this.props.heightRequest!;
+  lastWidthRequest = this.props.widthRequest!;
+
+  private _patchSizeRequest = (nextProps: IAutoSizerProps<T>) => {
+    if (nextProps.heightRequest) {
+      this.lastHeightRequest = nextProps.heightRequest;
+    }
+    if (nextProps.widthRequest) {
+      this.lastWidthRequest = nextProps.widthRequest;
+    }
+  };
+
   state = {
     height: this.props.defaultHeight || 0,
     width: this.props.defaultWidth || 0,
+    childHeight: this.props.defaultHeight || 0,
+    childWidth: this.props.defaultWidth || 0,
   };
 
   _parentNode?: HTMLElement;
@@ -59,7 +76,13 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
   _detectElementResize?: DetectElementResize;
 
   shouldComponentUpdate(nextProps: IAutoSizerProps<T>, nextState: State) {
-    if (this.state.height !== nextState.height || this.state.width !== nextState.width) {
+    this._patchSizeRequest(nextProps);
+    let isStateChanged = false;
+    isStateChanged = isStateChanged || this.state.height !== nextState.height;
+    isStateChanged = isStateChanged || this.state.width !== nextState.width;
+    isStateChanged = isStateChanged || this.state.childHeight !== nextState.childHeight;
+    isStateChanged = isStateChanged || this.state.childWidth !== nextState.childWidth;
+    if (isStateChanged) {
       return true;
     } else {
       let isUpdatePending = false;
@@ -121,7 +144,7 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
       withContainerWidth,
       style,
     } = this.props;
-    const { height, width } = this.state;
+    const { height, width, childHeight, childWidth } = this.state;
 
     const outerStyle: React.CSSProperties = { overflow: 'visible' };
     const childParams: Partial<IChildParams<T>> = { payload: this.props.payload };
@@ -129,12 +152,12 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     if (withContainerHeight) {
       outerStyle.height = height;
     }
-    childParams.height = this.props.heightRequest!(height);
+    childParams.height = childHeight;
 
     if (withContainerWidth) {
       outerStyle.width = width;
     }
-    childParams.width = this.props.widthRequest!(width);
+    childParams.width = childWidth;
 
     return (
       <div
@@ -164,13 +187,23 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
       const paddingTop = parseInt(style.paddingTop, 10) || 0;
       const paddingBottom = parseInt(style.paddingBottom, 10) || 0;
 
-      const newHeight = height - paddingTop - paddingBottom;
-      const newWidth = width - paddingLeft - paddingRight;
+      const pendingHeight = height - paddingTop - paddingBottom;
+      const pendingWidth = width - paddingLeft - paddingRight;
+      const childHeight = this.lastHeightRequest(pendingHeight);
+      const childWidth = this.lastWidthRequest(pendingWidth);
 
-      if (this.state.height !== newHeight || this.state.width !== newWidth) {
+      let isStateChanged = false;
+      isStateChanged = isStateChanged || this.state.height !== pendingHeight;
+      isStateChanged = isStateChanged || this.state.width !== pendingWidth;
+      isStateChanged = isStateChanged || this.state.childHeight !== childHeight;
+      isStateChanged = isStateChanged || this.state.childWidth !== childWidth;
+
+      if (isStateChanged) {
         this.setState({
-          height: height - paddingTop - paddingBottom,
-          width: width - paddingLeft - paddingRight,
+          height: pendingHeight,
+          width: pendingWidth,
+          childHeight,
+          childWidth,
         });
         onResize!({ height, width });
       }
