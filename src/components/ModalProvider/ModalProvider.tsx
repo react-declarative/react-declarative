@@ -1,7 +1,8 @@
 import * as React from 'react';
-
-import { createContext, createElement } from 'react';
 import { useEffect, useContext, useState, useCallback } from 'react';
+import { createContext, createElement } from 'react';
+
+import NoSsr from '../NoSsr';
 
 import randomString from '../../utils/randomString';
 
@@ -45,12 +46,14 @@ export const ModalProvider = ({
     };
 
     return (
-        <ThemeProvider>
-            <ModalContext.Provider value={value}>
-                {children}
-                {element}
-            </ModalContext.Provider>
-        </ThemeProvider>
+        <NoSsr>
+            <ThemeProvider>
+                <ModalContext.Provider value={value}>
+                    {children}
+                    {element}
+                </ModalContext.Provider>
+            </ThemeProvider>
+        </NoSsr>
     );
 };
 

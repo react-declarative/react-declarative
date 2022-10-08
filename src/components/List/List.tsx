@@ -13,6 +13,8 @@ import IListApi from '../../model/IListApi';
 
 import initialValue from '../One/config/initialValue';
 
+import NoSsr from '../NoSsr';
+
 import deepMerge from '../../utils/deepMerge';
 import deepFlat from '../../utils/deepFlat';
 import set from '../../utils/set';
@@ -378,25 +380,27 @@ export class List<
     public render = () => {
         const callbacks = this.getCallbacks();
         return (
-            <ThemeProvider>
-                <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
-                    <ScrollManagerProvider payload={this.scrollManager}>
-                        <ConstraintManagerProvider payload={this.constraintManager}>
-                            <SelectionProvider selectedRows={this.props.selectedRows}>
-                                <CachedRowsProvider>
-                                    <SortModelProvider sortModel={this.props.sortModel!}>
-                                        <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
-                                            <ModalSortProvider>
-                                                {this.renderInner()}
-                                            </ModalSortProvider>
-                                        </ChipsProvider>
-                                    </SortModelProvider>
-                                </CachedRowsProvider>
-                            </SelectionProvider>
-                        </ConstraintManagerProvider>
-                    </ScrollManagerProvider>
-                </PropProvider>
-            </ThemeProvider>
+            <NoSsr>
+                <ThemeProvider>
+                    <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
+                        <ScrollManagerProvider payload={this.scrollManager}>
+                            <ConstraintManagerProvider payload={this.constraintManager}>
+                                <SelectionProvider selectedRows={this.props.selectedRows}>
+                                    <CachedRowsProvider>
+                                        <SortModelProvider sortModel={this.props.sortModel!}>
+                                            <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
+                                                <ModalSortProvider>
+                                                    {this.renderInner()}
+                                                </ModalSortProvider>
+                                            </ChipsProvider>
+                                        </SortModelProvider>
+                                    </CachedRowsProvider>
+                                </SelectionProvider>
+                            </ConstraintManagerProvider>
+                        </ScrollManagerProvider>
+                    </PropProvider>
+                </ThemeProvider>
+            </NoSsr>
         );
     };
 

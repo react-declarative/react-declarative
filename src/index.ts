@@ -176,6 +176,7 @@ export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
 export { Switch } from './components';
+export { NoSsr } from './components';
 
 export { OtherComboSlot } from './components';
 export { OtherItemsSlot } from './components';

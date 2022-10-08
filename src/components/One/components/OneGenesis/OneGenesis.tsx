@@ -8,6 +8,8 @@ import { makeStyles, ThemeProvider } from '../../../../styles';
 import OneInternal from '../OneInternal';
 import Group from '../../../common/Group';
 
+import NoSsr from '../../../NoSsr';
+
 import IOneProps from '../../../../model/IOneProps';
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
@@ -79,18 +81,20 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
   };
 
   return (
-    <ThemeProvider>
-      <StateProvider<Data, Field> {...stateParams}>
-        <Group
-          className={classNames(className, {
-            [classes.hidden]: !visible,
-          })}
-          style={style}
-        >
-          <OneInternal {...viewParams} />
-        </Group>
-      </StateProvider>
-    </ThemeProvider>
+    <NoSsr>
+      <ThemeProvider>
+        <StateProvider<Data, Field> {...stateParams}>
+          <Group
+            className={classNames(className, {
+              [classes.hidden]: !visible,
+            })}
+            style={style}
+          >
+            <OneInternal {...viewParams} />
+          </Group>
+        </StateProvider>
+      </ThemeProvider>
+    </NoSsr>
   );
 };
 
