@@ -27,7 +27,7 @@ import useSelection from '../../../../../hooks/useSelection';
 import useReload from '../../../../../hooks/useReload';
 import useProps from '../../../../../hooks/useProps';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     cell: {
         paddingLeft: '4px !important',
         paddingRight: '0 !important',
@@ -52,7 +52,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     columns,
 }: IHeadRowSlot) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const props = useProps<RowData>();
     const { sortModel, setSortModel } = useSortModel();

@@ -19,11 +19,11 @@ const n = (v: string) => Number(v) as any;
 interface IItemProps extends IManagedLayout {
   className: PickProp<IField, 'className'>;
   style: PickProp<IField, 'style'>;
-  children: React.ReactChild;
+  children: React.ReactNode;
   onFocus?: () => void;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -55,7 +55,7 @@ export const Item = ({
   children,
   onFocus,
 }: IItemProps, ref: React.Ref<HTMLDivElement>) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Grid
       ref={ref}

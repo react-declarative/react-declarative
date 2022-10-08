@@ -40,7 +40,7 @@ import { LiftedProvider } from "../hooks/useLifted";
 
 const DRAWER_WIDTH = 256;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'stretch',
@@ -172,7 +172,7 @@ export const Content = <T extends any = string>({
   const loader = useLoader();
 
   const [opened, setOpened] = useState(false);
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const handleMenuToggle = () => setOpened(!opened);
 

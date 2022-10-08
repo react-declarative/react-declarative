@@ -2,7 +2,7 @@ import IMenuGroup from "../../../model/IMenuGroup";
 import IScaffoldOption from "./IScaffoldOption";
 
 export interface IScaffoldProps<T extends any = string> {
-    children: React.ReactChild;
+    children: React.ReactNode;
     className?: string;
     dense?: boolean;
     style?: React.CSSProperties;

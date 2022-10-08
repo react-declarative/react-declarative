@@ -27,11 +27,11 @@ type FadeContainerT = Pick<
 interface IFadeViewProps<T extends any = unknown> extends FadeContainerT {
   className?: string;
   style?: React.CSSProperties;
-  children: React.ReactChild;
+  children: React.ReactNode;
   payload?: IAutoSizerProps<T>["payload"];
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     display: "flex",
     alignItems: "stretch",
@@ -67,7 +67,7 @@ export const FadeView = <T extends any = any>({
   disableRight,
   payload,
 }: IFadeViewProps<T>) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Box className={className} style={style}>
       <AutoSizer className={classes.root} payload={payload}>

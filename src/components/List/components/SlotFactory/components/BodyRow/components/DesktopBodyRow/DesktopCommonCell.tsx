@@ -8,7 +8,7 @@ import CommonCellSlot, { ICommonCellSlot } from '../../../../../../slots/CommonC
 
 import ColumnType from '../../../../../../../../model/ColumnType';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         overflow: 'hidden',
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 export const DesktopCommonCell = (props: ICommonCellSlot) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const { column } = props;
 

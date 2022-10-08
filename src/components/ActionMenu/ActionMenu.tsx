@@ -36,7 +36,7 @@ export interface IActionMenuProps<T extends any = object> {
     onLoadEnd?: IAsyncProps<T>['onLoadEnd'];
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         zIndex: 'unset !important',
     },
@@ -89,7 +89,7 @@ export const ActionMenu = <T extends any = object>({
     const [anchorEl, setAnchorEl] = useState(null);
     const [loading, setLoading] = useState(0);
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const handleAction = useActualCallback(onAction);
 

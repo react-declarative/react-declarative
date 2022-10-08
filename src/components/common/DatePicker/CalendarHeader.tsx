@@ -18,7 +18,7 @@ const getWeekdaysMin = () => {
   return result.map((d) => d.slice(0, 1).toUpperCase());
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   switchHeader: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -52,7 +52,7 @@ export const CalendarHeader = ({
   currentMonth = dayjs(),
   onMonthChange = (month: any) => console.log({month}),
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const selectNextMonth = () => onMonthChange(currentMonth.clone().add(1, 'months'));
   const selectPreviousMonth = () => onMonthChange(currentMonth.clone().subtract(1, 'months'));
   return (

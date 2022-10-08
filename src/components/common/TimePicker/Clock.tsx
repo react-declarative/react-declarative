@@ -6,7 +6,7 @@ import { getMinutes, getHours, MINUTES, HOURS } from './time';
 
 import ClockPointer from './ClockPointer';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   container: {
     display: 'flex',
     justifyContent: 'center',
@@ -52,7 +52,7 @@ const touch = new class {
 interface IClockProps {
   type: string;
   value: number;
-  children: React.ReactChild[];
+  children: React.ReactNode[];
   onChange: (value: any) => void;
 }
 
@@ -62,7 +62,7 @@ export const Clock = ({
   children,
   onChange = (value: any) => console.log({value}),
 }: IClockProps) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const setTime = (e: any) => {
     const value = type === MINUTES

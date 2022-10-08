@@ -65,7 +65,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
     );
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
     },
@@ -85,7 +85,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
 }: IChooserListItemProps<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const {
         columns = [],

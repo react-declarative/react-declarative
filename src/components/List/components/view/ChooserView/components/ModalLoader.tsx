@@ -12,7 +12,7 @@ interface IModalLoaderProps {
     open: boolean;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'absolute',
         top: 0,
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 export const ModalLoader = ({
     open,
 }: IModalLoaderProps) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <Box className={classNames(classes.root, {
             [classes.hidden]: !open,

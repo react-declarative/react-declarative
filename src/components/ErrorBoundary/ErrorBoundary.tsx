@@ -5,7 +5,7 @@ import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
 interface IErrorBoundaryProps {
   onError?: (error: Error, errorInfo: any) => void;
   history: MemoryHistory | BrowserHistory | HashHistory;
-  children?: React.ReactChild;
+  children?: React.ReactNode;
 }
 
 interface IErrorBoundaryState {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../styles';
+import { makeStyles, keyframes } from '../../../styles';
 
 import classNames from '../../../utils/classNames';
 
@@ -9,41 +9,38 @@ export interface IRevealProps extends React.HTMLProps<HTMLDivElement> {
     appear?: boolean;
 }
 
-const useStyles = makeStyles({
-    "@keyframes slideDown": {
-        from: {
-            opacity: 0,
-            transform: "translateY(-10px)",
-        },
-        to: {
-            opacity: 1,
-            transform: "translateY(0)",
-        },
-    },
-    "@keyframes fadeIn": {
-        from: {
-            opacity: 0,
-        },
-        to: {
-            opacity: 1,
-        },
-    },
-    "@keyframes scale": {
-        from: {
-            transform: "scale(0.4)",
-        },
-        to: {
-            transform: "scale(1)",
-        },
-    },
+const useStyles = makeStyles()({
     slideDown: {
-        animation: "$slideDown 250ms ease-out",
+        animation: `${keyframes`
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `} 250ms ease-out`
     },
     fadeIn: {
-        animation: "$fadeIn 250ms ease-out",
+        animation: `${keyframes`
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        `} 250ms ease-out`,
     },
     scale: {
-        animation: "$scale 250ms ease-out",
+        animation: `${keyframes`
+            0% {
+                transform: scale(0.4);
+            }
+            100% {
+                transform: scale(1);
+            }
+        `} 250ms ease-out`,
     },
 });
 
@@ -54,7 +51,7 @@ export const Reveal = ({
     appear = true,
     ...otherProps
 }: IRevealProps) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const animationMap: Record<string, any> = {
         slideDown: classes.slideDown,

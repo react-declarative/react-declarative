@@ -35,7 +35,7 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
   rowActions?: IListRowAction[];
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     "& .MuiPaper-root": {
       background: "transparent",
@@ -59,7 +59,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
   rowActions,
 }: IListPickerProps<RowData>) => {
   const [selectedRows, setSelectedRows] = useState(selectedRowsDefault);
-  const classes = useStyles();
+  const { classes } = useStyles();
   const handleChange = (rows: RowId[], initialChange: boolean) => {
     if (!initialChange) {
       setSelectedRows(rows);

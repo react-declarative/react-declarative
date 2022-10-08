@@ -5,7 +5,7 @@ import { makeStyles } from "../../../styles";
 
 import classNames from '../../../utils/classNames';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   pointer: {
     width: 2,
     backgroundColor: theme.palette.primary.main,
@@ -36,7 +36,7 @@ export const ClockPointer = ({
   value = 0,
   max = 0,
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const getAngleStyle = useCallback(() => {
     const angle = (360 / max) * value;
     return {

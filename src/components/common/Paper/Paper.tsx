@@ -12,7 +12,7 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   strech: {
     position: "relative",
     display: "flex",
@@ -31,7 +31,7 @@ export interface IPaperProps<Data = IAnything> {
 }
 
 interface IPaperPrivate<Data = IAnything> {
-  children: React.ReactChild;
+  children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
   sx?: PickProp<IField<Data>, 'sx'>;
 }
@@ -43,7 +43,7 @@ export const Paper = ({
   columnsOverride,
   sx,
 }: IPaperProps & IPaperPrivate) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <MatPaper className={classNames(className, classes.strech)} style={style}>
       <Box className={classes.content}>

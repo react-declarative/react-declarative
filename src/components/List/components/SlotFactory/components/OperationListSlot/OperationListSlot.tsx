@@ -2,8 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { makeStyles } from '../../../../../../styles';
-import { useTheme } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -28,7 +27,7 @@ import classNames from '../../../../../../utils/classNames';
 const LOAD_SOURCE = 'list-operations';
 const LABEL_SHRINK = 500;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         display: 'flex',
         alignItems: 'stretch',
@@ -66,8 +65,8 @@ export const OperationListSlot = ({
     width,
 }: IOperationListSlot) => {
 
-    const classes = useStyles();
-    const theme = useTheme<Theme>();
+    const { classes } = useStyles();
+    const theme = useTheme();
 
     const {
         onOperation = () => null,

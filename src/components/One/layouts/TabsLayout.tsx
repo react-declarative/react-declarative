@@ -33,10 +33,10 @@ export interface ITabsLayoutProps<Data = IAnything> extends IGroupProps<Data> {
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
 
 interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactChild;
+    children: React.ReactNode;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'relative',
         display: "flex",
@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
     keepFlow: {
         overflow: "initial !important",
         '& $container': {
-            position: 'static !important',
+            position: 'static !important' as any,
         },
         '& $content': {
-            overflow: 'hidden !important',
+            overflow: 'hidden !important' as any,
         },
     },
     minSize: {
@@ -118,7 +118,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     fieldRightMargin = '0',
     fieldBottomMargin = '0',
 }: ITabsLayoutProps<Data> & ITabsLayoutPrivate<Data>) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     const [tabIndex, setTabIndex] = useState(tabIndexDefault);
     const handleTabChange = (_: unknown, tabIndex: number) => {
         tabChange && tabChange(tabIndex);

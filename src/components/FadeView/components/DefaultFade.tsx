@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
-import { makeStyles } from '../../../styles';
+import { makeStyles, keyframes } from '../../../styles';
 
 import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material';
@@ -17,7 +17,7 @@ interface IDefaultFadeProps {
     none: boolean;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()(() => ({
     root: {
         pointerEvents: 'none',
         touchAction: 'none',
@@ -26,28 +26,26 @@ const useStyles = makeStyles((theme) => ({
         display: "none",
     },
     visible: {
-        animation: `$visible 500ms ${theme.transitions.easing.easeInOut}`,
+        animation: `${keyframes`
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        `} 500ms ease-in-out`,
         opacity: 1,
     },
     hidden: {
-        animation: `$hidden 500ms ${theme.transitions.easing.easeInOut}`,
+        animation: `${keyframes`
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        `} 500ms ease-in-out`,
         opacity: 0,
-    },
-    "@keyframes visible": {
-        "0%": {
-            opacity: 0,
-        },
-        "100%": {
-            opacity: 1,
-        },
-    },
-    "@keyframes hidden": {
-        "0%": {
-            opacity: 1,
-        },
-        "100%": {
-            opacity: 0,
-        },
     },
 }));
 
@@ -59,7 +57,7 @@ export const DefaultFade = ({
     position,
     zIndex,
 }: IDefaultFadeProps) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     const theme = useTheme();
 
     const bg = useMemo(() => {

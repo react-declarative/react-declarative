@@ -34,7 +34,7 @@ export interface IAutoSizerProps<T extends unknown = object> {
   payload?: T;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: 'relative',
     overflow: 'hidden',
@@ -74,7 +74,7 @@ export const AutoSizer = <T extends unknown = object>({
   const initialPayload = useRef(true);
   const isMounted = useRef(true);
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [state, setState] = useState<ISize>({
     height: defaultHeight,

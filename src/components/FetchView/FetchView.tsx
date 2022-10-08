@@ -11,6 +11,8 @@ import Reveal, { IRevealProps } from './components/Reveal';
 
 import classNames from '../../utils/classNames';
 
+type Result = React.ReactNode | void;
+
 export interface IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
@@ -23,10 +25,10 @@ export interface IFetchViewProps<P extends any = object, A = any, B = any, C = a
         | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?])
         | ((payload: P) => Promise<A>)
         | ((payload: P) => A);
-    children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => React.ReactNode;
+    children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => Promise<Result> | Result;
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         width: '100%',
     },
@@ -46,7 +48,7 @@ export const FetchView = <P extends any = object, A = any, B = any, C = any, D =
     ...otherProps
 }: IFetchViewProps<P, A, B, C, D, E, F, G, H, I, J>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const [appear, setAppear] = useState(false);
 

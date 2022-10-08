@@ -1,11 +1,11 @@
-import { makeStyles as makeMuiStyles } from "@mui/styles";
-import { Theme } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 
-import { StyleRulesCallback, StyleRules } from "@mui/styles";
+import { createMakeAndWithStyles, keyframes } from 'tss-react';
 
-type Props = {};
+export const { makeStyles } = createMakeAndWithStyles({
+  useTheme,
+});
 
-export const makeStyles = (cb: StyleRules<Props> | StyleRulesCallback<Theme, Props>) =>
-    makeMuiStyles((theme: Theme) => typeof cb === 'function' ? cb(theme) : cb);
+export { useTheme, keyframes };
 
 export default makeStyles;

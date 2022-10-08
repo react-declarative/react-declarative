@@ -4,9 +4,7 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import classNames from '../../../utils/classNames';
 import waitForSize from '../../../utils/wairForSize';
 
-import { withTheme } from '@mui/styles';
-import { makeStyles } from '../../../styles';
-import { Theme } from '@mui/material';
+import { makeStyles, useTheme } from '../../../styles';
 
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
@@ -120,7 +118,7 @@ type IHeroRegistry<D = IAnything> =
     & IHeroMaxHeight<D>
     & IHeroStyle<D>;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -159,8 +157,7 @@ export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data>,
 }
 
 interface IHeroLayoutPrivate {
-  children: React.ReactChild;
-  theme?: Theme;
+  children: React.ReactNode;
 }
 
 interface IBreakpoints {
@@ -172,7 +169,7 @@ interface IBreakpoints {
 }
 
 interface IContainerProps<Data extends IAnything> {
-  children: React.ReactChild;
+  children: React.ReactNode;
   className: string;
   bpoints: IBreakpoints;
   height: number;
@@ -348,7 +345,6 @@ const Container = <Data extends IAnything>({
 
 export const HeroLayout = <Data extends IAnything = IAnything>({
   children,
-  theme,
   className,
   style,
   object,
@@ -360,9 +356,9 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   desktopColumns,
   ...otherProps
 }: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
-  const { breakpoints: { values: bpoints } } = theme!;
+  const { breakpoints: { values: bpoints } } = useTheme();
   const groupRef: React.MutableRefObject<any> = useRef(null);
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Group
       className={classNames(className, classes.root)}
@@ -407,4 +403,4 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
 
 HeroLayout.displayName = 'HeroLayout';
 
-export default withTheme(HeroLayout) as typeof HeroLayout;
+export default HeroLayout;

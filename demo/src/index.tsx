@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -29,13 +29,18 @@ const theme = createTheme({
     },
 });
 
-ReactDOM.render(
+const container = document.getElementById('root');
+
+const wrappedApp = (
     <ThemeProvider theme={theme}>
         <ModalProvider>
             <SnackProvider>
                 <App />
             </SnackProvider>
         </ModalProvider>
-    </ThemeProvider>,
-    document.getElementById('root')
+    </ThemeProvider>
 );
+
+const root = createRoot(container);
+
+root.render(wrappedApp);

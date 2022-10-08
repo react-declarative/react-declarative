@@ -19,7 +19,7 @@ import { IChipListSlot } from '../../../../slots/ChipListSlot';
 
 import useChips from '../../../../hooks/useChips';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         height: 48,
         width: '100%',
@@ -36,7 +36,7 @@ export const ListChipsSlot = <RowData extends IRowData = IAnything>({
 }: IChipListSlot<RowData>) => {
 
     const theme = useTheme<Theme>();
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const fadeColor = useMemo(() => {
         const a = 0.05;

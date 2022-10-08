@@ -36,7 +36,7 @@ const PAGINATION_HEIGHT = 52;
 
 const ROWS_PER_PAGE = [10, 25, 50];
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     position: 'relative',
     background: theme.palette.background.paper,
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IGridViewProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
+interface IGridViewProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
@@ -67,11 +67,11 @@ interface IGridViewProps<FilterData = IAnything, RowData extends IRowData = IAny
 }
 
 export const GridView = <
-  FilterData extends IAnything = IAnything,
+  FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   >(props: IGridViewProps<FilterData, RowData>) => {
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const scrollManager = useScrollManager();
 

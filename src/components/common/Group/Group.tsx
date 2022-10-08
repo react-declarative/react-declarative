@@ -18,12 +18,12 @@ export interface IGroupProps<Data = IAnything> extends IManagedLayout {
 }
 
 interface IGroupPrivate {
-  children: React.ReactChild;
+  children: React.ReactNode;
   isItem?: boolean;
   onFocus?: () => void;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     '& > *': {
@@ -50,7 +50,7 @@ export const Group = (
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
 ) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   if (isItem) {
     return (
       <Item

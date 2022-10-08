@@ -21,7 +21,7 @@ import SearchSlot from "../../slots/SearchSlot";
 const AUTOSIZER_DELAY = 50;
 const CONTAINER_MARK = 'react-declarative__containerMark';
 
-interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
+interface IContainerProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
@@ -41,7 +41,7 @@ interface IContainerProps<FilterData = IAnything, RowData extends IRowData = IAn
   onResize?: IAutoSizerProps['onResize'];
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {},
   container: {
     display: "flex",
@@ -59,11 +59,11 @@ const useStyles = makeStyles({
 });
 
 export const Container = <
-  FilterData extends IAnything = IAnything,
+  FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
 >(props: IContainerProps<FilterData, RowData>, ref: any) => {
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const {
     className,

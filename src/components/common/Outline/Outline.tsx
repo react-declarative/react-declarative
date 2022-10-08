@@ -13,7 +13,7 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   strech: {
     position: "relative",
     display: "flex",
@@ -36,7 +36,7 @@ export interface IOutlineProps<Data = IAnything> {
 }
 
 interface IOutlinePrivate<Data = IAnything> {
-  children: React.ReactChild;
+  children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
   sx?: PickProp<IField<Data>, 'sx'>;
 }
@@ -48,7 +48,7 @@ export const Outline = ({
   children,
   sx,
 }: IOutlineProps & IOutlinePrivate) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Box className={classNames(className, classes.strech)} style={style}>
       <Box className={classes.content}>

@@ -11,7 +11,7 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -31,7 +31,7 @@ export interface IExpansionProps<Data = IAnything> {
 }
 
 interface IExpansionPrivate<Data = IAnything> {
-  children: React.ReactChild;
+  children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
   sx?: PickProp<IField<Data>, 'sx'>;
 }
@@ -45,7 +45,7 @@ export const Expansion = ({
   style,
   children,
 }: IExpansionProps & IExpansionPrivate) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Accordion className={className} style={style}>
       <AccordionSummary expandIcon={<ExpandMore />}>

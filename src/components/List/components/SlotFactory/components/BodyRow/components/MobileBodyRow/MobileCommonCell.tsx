@@ -20,7 +20,7 @@ interface IMobileCommonCellProps extends ICommonCellSlot {
 
 const COMPONENT_MIN_HEIGHT = 70;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         paddingBottom: '0 !important',
@@ -57,7 +57,7 @@ export const MobileCommonCell = ({
     ...props
 }: IMobileCommonCellProps) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const { column } = props;
 

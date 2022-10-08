@@ -16,7 +16,7 @@ export interface IAsyncProps<T extends any = object> {
     throwError?: boolean;
 }
 
-type Result = React.ReactNode;
+type Result = React.ReactNode | void;
 
 export const Async = <T extends any = object>({
     children,

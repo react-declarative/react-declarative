@@ -19,7 +19,7 @@ import useProps from "../../../../hooks/useProps";
 
 const LOAD_SOURCE = 'list-item';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     stretch: {
         position: 'absolute',
         top: 0,
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        '& > *:nth-child(1)': {
+        '& > *:nth-of-type(1)': {
             flex: 1,
         },
     },
@@ -42,7 +42,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
     onAction,
 }: ICommonCellSlot<RowData>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const {
         fallback,

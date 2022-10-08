@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 
 import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../../../slots/CheckboxCellSlot';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         width: 48,
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 export const MobileCheckboxBodyCell = (props: ICheckboxCellSlot) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <TableCell className={classes.root} padding="checkbox">
             <CheckboxCellSlot {...props} />

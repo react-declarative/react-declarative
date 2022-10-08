@@ -8,7 +8,7 @@ import IField from '../../../model/IField';
 import IRowData from '../../../model/IRowData';
 
 interface IPropContext<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<FilterData>
 > extends
@@ -21,13 +21,13 @@ interface IPropContext<
     }>,
     IListState<FilterData, RowData>,
     IListCallbacks<FilterData, RowData> {
-    children: React.ReactChild;
+    children: React.ReactNode;
 }
 
 const PropContext = React.createContext<IPropContext>(null as never);
 
 export const PropProvider = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<FilterData>
 >(props: IPropContext<FilterData, RowData, Field>) => (
@@ -37,7 +37,7 @@ export const PropProvider = <
 );
 
 export const useProps = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<FilterData>
 > () => useContext(PropContext) as IPropContext<FilterData, RowData, Field>;

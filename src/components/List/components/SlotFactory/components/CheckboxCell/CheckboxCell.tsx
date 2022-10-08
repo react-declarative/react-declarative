@@ -20,7 +20,7 @@ export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
     },
@@ -37,7 +37,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
     row,
 }: ICheckboxCellProps<RowData>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const { selection } = useSelection();
 

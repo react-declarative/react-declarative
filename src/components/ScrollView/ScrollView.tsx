@@ -10,7 +10,7 @@ import IAnything from '../../model/IAnything';
 
 export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         display: 'flex',
         alignItems: 'stretch',
@@ -60,7 +60,7 @@ export const ScrollView = <T extends IAnything = IAnything> ({
     payload,
     center = false,
 }: IScrollViewProps<T>) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <div className={classNames(className, classes.root)} style={style}>
             <AutoSizer

@@ -16,10 +16,10 @@ export interface IOutlineLayoutProps<Data = IAnything> extends IOutlineProps<Dat
 }
 
 interface IOutlineLayoutPrivate {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -46,7 +46,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
   fieldBottomMargin = '0',
   innerPadding: padding = '18px',
 }: IOutlineLayoutProps<Data> & IOutlineLayoutPrivate) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Group
       className={classNames(className, classes.root)}

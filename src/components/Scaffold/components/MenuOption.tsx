@@ -24,7 +24,7 @@ interface IMenuOptionProps {
     onClick: (name: string) => void;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     selected: {
         color: `${theme.palette.primary.main} !important`,
         '& .MuiListItemIcon-root': {
@@ -65,7 +65,7 @@ export const MenuOption: React.FC<IMenuOptionProps> = ({
     onClick,
     currentPadding: paddingLeft,
 }) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const linkClasses = classNames(classes.navLink, {
         [classes.selected]: option.name && option.name === selected,

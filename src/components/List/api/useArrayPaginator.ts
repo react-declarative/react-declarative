@@ -26,7 +26,7 @@ const SEARCH_ENTRIES = [
     "description",
 ];
 
-export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
@@ -45,7 +45,7 @@ export interface IArrayPaginatorParams<FilterData = IAnything, RowData extends I
     onLoadEnd?: (isOk: boolean) => void;
 }
 
-export const useArrayPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
+export const useArrayPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;

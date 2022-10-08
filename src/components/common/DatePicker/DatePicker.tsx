@@ -11,7 +11,7 @@ import ToolbarButton from '../ToolbarButton';
 import YearSelection from './YearSelection';
 import Calendar from './Calendar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     width: 300,
     height: 420,
@@ -36,7 +36,7 @@ export const DatePicker = ({
   openToYearSelection = false,
 }) => {
   const [showYearSelection, setShowYearSelection] = useState(openToYearSelection);
-  const classes = useStyles();
+  const { classes } = useStyles();
   const openYearSelection = () => setShowYearSelection(true);
   const openCalendar = () => setShowYearSelection(false);
   const startOfDay = date.startOf('day');

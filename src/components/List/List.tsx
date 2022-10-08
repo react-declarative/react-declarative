@@ -41,7 +41,7 @@ import createScrollManager from './helpers/createScrollManager';
 import createConstraintManager from './helpers/createConstraintManager';
 
 export class List<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Field extends IField = IField<IAnything>,
 > extends React.Component<IListProps<FilterData, RowData, Field>, IListState<FilterData, RowData>> {
@@ -407,7 +407,7 @@ export class List<
 };
 
 export const ListTyped = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 >(
     props: IListProps<FilterData, RowData, TypedField<FilterData>>,

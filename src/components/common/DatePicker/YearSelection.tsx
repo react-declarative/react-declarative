@@ -7,7 +7,7 @@ import classNames from '../../../utils/classNames';
 
 import dayjs from 'dayjs';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     maxHeight: 320,
     overflowY: 'auto',
@@ -50,7 +50,7 @@ export const YearSelection = ({
   disableFuture = false,
   animateYearScrolling = true,
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const rootRef = useRef<HTMLDivElement>(null);
   const currentYear = date.get('year');
 
@@ -64,7 +64,7 @@ export const YearSelection = ({
     }
   }, [animateYearScrolling]);
 
-  const onYearSelect = useCallback((year) => {
+  const onYearSelect = useCallback((year: number) => {
     const newDate = date.clone().set('year', year);
     onChange(newDate);
   }, [date, onChange]);

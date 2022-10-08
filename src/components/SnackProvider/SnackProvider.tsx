@@ -14,7 +14,7 @@ interface ISnack {
 const AUTO_HIDE_DURATION = 5000;
 
 interface ISnackProviderProps {
-    children: React.ReactChild;
+    children: React.ReactNode;
     delay?: number;
 }
 

@@ -10,12 +10,12 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
-interface IResult<FilterData = IAnything, RowData extends IRowData = IAnything> {
+interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     data: IState<FilterData, RowData>;
     handler: ListHandler<FilterData, RowData>;
 }
 
-export interface IState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     filterData: FilterData;
     pagination: ListHandlerPagination;
     sort: ListHandlerSortModel<RowData>;
@@ -23,7 +23,7 @@ export interface IState<FilterData = IAnything, RowData extends IRowData = IAnyt
     search: string;
 }
 
-export const useLastPagination = <FilterData = IAnything, RowData extends IRowData = IAnything>(upperHandler: ListHandler<FilterData, RowData>): IResult => {
+export const useLastPagination = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(upperHandler: ListHandler<FilterData, RowData>): IResult => {
     const [data, setData] = useState<IState<FilterData, RowData>>({
         filterData: {} as FilterData,
         chipData: {} as ListHandlerChips<RowData>,

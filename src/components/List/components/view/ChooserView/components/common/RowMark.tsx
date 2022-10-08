@@ -13,7 +13,7 @@ interface IRowMarkProps<RowData extends IRowData = IAnything> {
     row: RowData,
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     mark: {
         position: 'absolute',
         top: 0,
@@ -27,7 +27,7 @@ const RowMark = <RowData extends IRowData = IAnything>({
     row
 }: IRowMarkProps<RowData>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const background = useRowMark({ row });
 

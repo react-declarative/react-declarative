@@ -14,7 +14,7 @@ import IBreadcrumbsOption from '../../model/IBreadcrumbsOption';
 
 const BREADCRUMBS_SAVE_DELAY = 500;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "10px",
     paddingBottom: "10px",
     flex: 1,
-    '& > *:nth-child(n + 1)': {
+    '& > *:nth-of-type(n + 1)': {
       marginLeft: theme.spacing(1),
     },
   },
@@ -62,7 +62,7 @@ export const Breadcrumbs = <T extends any = string>({
   subtitle = 'Subtitle',
   withSave = false,
 }: IBreadcrumbsProps<T>) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const handleSave = () => onSave && setTimeout(onSave, BREADCRUMBS_SAVE_DELAY);
 

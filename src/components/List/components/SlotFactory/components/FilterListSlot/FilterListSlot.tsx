@@ -19,11 +19,10 @@ import Less from '@mui/icons-material/ExpandLess';
 import Search from '@mui/icons-material/Search';
 
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
-import IAnything from '../../../../../../model/IAnything';
 
 import One from '../../../../../One';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "stretch",
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   labelContent: {
     display: 'flex',
     minHeight: '60px',
-    '& > *:nth-child(1)': {
+    '& > *:nth-of-type(1)': {
       flex: 1,
     },
     padding: theme.spacing(1),
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FilterListSlot = <FilterData extends IAnything>({
+export const FilterListSlot = <FilterData extends {}>({
   className,
   style,
   height,
@@ -95,7 +94,7 @@ export const FilterListSlot = <FilterData extends IAnything>({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchEscapeRef = useRef(false);
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [collapsed, setCollapsed] = useState(!!withToggledFilters);
   const [disabled, setDisabled] = useState(false);
