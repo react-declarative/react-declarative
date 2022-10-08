@@ -29,7 +29,7 @@ const theme = createTheme({
     },
 });
 
-const container = document.getElementById('root');
+const container = document.getElementById('root')!;
 
 const wrappedApp = (
     <ThemeProvider theme={theme}>
