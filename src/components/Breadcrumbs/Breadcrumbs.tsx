@@ -49,6 +49,8 @@ interface IBreadcrumbsProps<T extends any = string> {
   subtitle?: string;
   withSave?: boolean;
   payload?: T;
+  BeforeMenuContent?: React.ComponentType<any>;
+  AfterMenuContent?: React.ComponentType<any>;
 }
 
 export const Breadcrumbs = <T extends any = string>({
@@ -61,6 +63,8 @@ export const Breadcrumbs = <T extends any = string>({
   title = 'Title',
   subtitle = 'Subtitle',
   withSave = false,
+  BeforeMenuContent,
+  AfterMenuContent,
 }: IBreadcrumbsProps<T>) => {
   const { classes } = useStyles();
 
@@ -97,6 +101,8 @@ export const Breadcrumbs = <T extends any = string>({
             isDisabled: () => isDisabled(payload!),
           }))}
           onAction={onAction}
+          BeforeContent={BeforeMenuContent}
+          AfterContent={AfterMenuContent}
         />
       )}
     </Box>

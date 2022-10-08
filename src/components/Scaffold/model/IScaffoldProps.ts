@@ -18,6 +18,8 @@ export interface IScaffoldProps<T extends any = string> {
     fallback?: (e: Error) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
+    BeforeMenuContent?: React.ComponentType<any>;
+    AfterMenuContent?: React.ComponentType<any>;
     Loader?: React.ComponentType<any>;
     roles?: string[] | ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
     onOptionClick?: (name: string) => void;

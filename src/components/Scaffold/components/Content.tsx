@@ -166,6 +166,8 @@ export const Content = <T extends any = string>({
   onAction = () => null,
   BeforeSearch,
   AfterSearch,
+  AfterMenuContent,
+  BeforeMenuContent,
 }: IContentProps<T>) => {
 
   const loaderLine = useLoaderLine();
@@ -284,6 +286,8 @@ export const Content = <T extends any = string>({
                   isDisabled: () => isDisabled(payload!),
                 }))}
                 onAction={handleAction}
+                AfterContent={AfterMenuContent}
+                BeforeContent={BeforeMenuContent}
               />
             )}
           </Toolbar>
