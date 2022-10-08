@@ -1,12 +1,12 @@
 import * as React from "react";
 
 interface INoSsrProps {
-    ServerView?: React.ComponentType<any>;
-    children?: React.ReactNode;
+  ServerView?: React.ComponentType<any>;
+  children?: React.ReactNode;
 }
 
 interface State {
-    canRender: boolean;
+  canRender: boolean;
 }
 
 const Fragment = () => <></>;
@@ -28,9 +28,9 @@ export class NoSsr extends React.Component<INoSsrProps, State> {
     const { children, ServerView = Fragment } = this.props;
     const { canRender } = this.state;
     if (canRender) {
-        return <>{children}</>;
+      return <>{children}</>;
     } else {
-        return <ServerView />
+      return <ServerView />
     }
   };
 

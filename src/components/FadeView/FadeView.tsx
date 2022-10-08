@@ -84,11 +84,8 @@ export const FadeView = <T extends any = any>({
               className={classNames(SCROLL_VIEW_TARGER, classes.content)}
               sx={{
                 '& > *': {
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    minHeight: height,
-                    minWidth: width,
+                  minHeight: height,
+                  minWidth: width,
                 },
                 maxHeight: height,
                 maxWidth: width,
@@ -96,7 +93,21 @@ export const FadeView = <T extends any = any>({
                 width: '100%',
               }}
             >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  justifyContent: 'stretch',
+                  '& > *': {
+                    flex: 1,
+                  },
+                }}
+              >
                 {children}
+              </Box>
             </Box>
           </FadeContainer>
         )}
