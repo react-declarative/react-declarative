@@ -1,8 +1,11 @@
 import { useRef, useState, useMemo, useEffect, useLayoutEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 
 import Model, { CHANGE_DEBOUNCE, IModelAdapter } from "../utils/mvvm/Model";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
 import Subject from '../utils/rx/Subject';
+
+import sleep from '../utils/sleep';
 
 import useActualCallback from './useActualCallback';
 import useSingleton from './useSingleton';
@@ -16,9 +19,11 @@ export interface IParams<T extends {} = any> {
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
 export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
-    private _waitForListeners = () => new Promise<boolean>((res) => {
+    private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe(() => isDisposed = true);
+        /** react-18 prevent batching */
+        await sleep(0);
         const process = () => {
             if (this._model$.current.hasListeners || isDisposed) {
                 cleanup();
@@ -38,7 +43,7 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
             if (isDisposed) {
                 return;
             }
-            this._model$.current.setData(data);
+            this._model$.current.setData(data)
         });
     };
     public refresh = async () => {
@@ -68,9 +73,11 @@ export const useModel = <T extends {} = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => model.handleChange((model) => {
         if (!dispose$.data) {
-            const newModel = new Model(model, debounce, handlePrevData);
-            setModel(newModel);
-            handleChange(new ModelAdapter(model$, dispose$));
+            flushSync(() => {
+                const newModel = new Model(model, debounce, handlePrevData);
+                setModel(newModel);
+                handleChange(new ModelAdapter(model$, dispose$));
+            });
         } 
     }), [model]);
     useLayoutEffect(() => () => {

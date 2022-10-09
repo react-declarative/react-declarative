@@ -1,8 +1,11 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 
 import Entity, { IEntity, CHANGE_DEBOUNCE, IEntityAdapter } from "../utils/mvvm/Entity";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
 import Subject from '../utils/rx/Subject';
+
+import sleep from '../utils/sleep';
 
 import useActualCallback from './useActualCallback';
 import useSingleton from './useSingleton';
@@ -16,9 +19,11 @@ export interface IParams<T extends IEntity = any> {
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
 export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
-    private _waitForListeners = () => new Promise<boolean>((res) => {
+    private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
+        /** react-18 prevent batching */
+        await sleep(0);
         const process = () => {
             if (this._entity$.current.hasListeners || isDisposed) {
                 cleanup();
@@ -48,7 +53,7 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
         await this._waitForListeners().then((isDisposed) => { 
             if (isDisposed) {
                 return;
-            }   
+            }
             this._entity$.current.refresh();
         });
     };
@@ -71,9 +76,11 @@ export const useEntity = <T extends IEntity = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => entity.handleChange((entity) => {
         if (!dispose$.data) {
-            const newEntity = new Entity(entity, debounce, handlePrevData);
-            setEntity(newEntity);
-            handleChange(new EntityAdapter(entity$, dispose$));
+            flushSync(() => {
+                const newEntity = new Entity(entity, debounce, handlePrevData);
+                setEntity(newEntity);
+                handleChange(new EntityAdapter(entity$, dispose$));
+            });
         }
     }), [entity]);
     useLayoutEffect(() => () => {

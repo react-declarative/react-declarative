@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
-import EventEmitter from '../utils/rx/EventEmitter';
 import Subject from '../utils/rx/Subject';
+
+import sleep from '../utils/sleep';
 
 import Collection, { ICollectionAdapter, EntityNotFoundError } from "../utils/mvvm/Collection";
 import Entity, { IEntity, IEntityAdapter, CHANGE_DEBOUNCE } from "../utils/mvvm/Entity";
@@ -17,17 +19,24 @@ export interface IParams<T extends IEntity = any> {
 }
 
 export class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
-    private _waitForListeners = (target: EventEmitter) => new Promise<boolean>((res) => {
+    private _waitForListeners = () => new Promise<boolean>(async (res, rej) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
+        /** react-18 prevent batching */
+        await sleep(0);
         const process = () => {
-            if (target.hasListeners || isDisposed) {
-                cleanup();
-                res(isDisposed);
-            } else {
-                setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+            try {
+                const target = this._collection$.current.findById(this.id);
+                if (target.hasListeners || isDisposed) {
+                    cleanup();
+                    res(isDisposed);
+                } else {
+                    setTimeout(process, WAIT_FOR_LISTENERS_DELAY);
+                }
+            } catch (e: any) {
+                rej(e)
             }
-        }
+        };
         process();
     });
     constructor(public readonly id: IEntity['id'], private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: Subject<true>) { }
@@ -45,8 +54,8 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
     };
     public setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
         try {
-            const entity = this._collection$.current.findById(this.id);
-            await this._waitForListeners(entity).then((isDisposed) => {
+            await this._waitForListeners().then((isDisposed) => {
+                const entity = this._collection$.current.findById(this.id);
                 if (isDisposed) {
                     return;
                 }
@@ -62,8 +71,8 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
     };
     public refresh = async () => {
         try {
-            const entity = this._collection$.current.findById(this.id);
-            await this._waitForListeners(entity).then((isDisposed) => {
+            await this._waitForListeners().then((isDisposed) => {
+                const entity = this._collection$.current.findById(this.id);
                 if (isDisposed) {
                     return;
                 }
@@ -105,9 +114,11 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
 export class CollectionAdapter<T extends IEntity = any> implements ICollectionAdapter<T> {
-    private _waitForListeners = () => new Promise<boolean>((res) => {
+    private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
+        /** react-18 prevent batching */
+        await sleep(0);
         const process = () => {
             if (this._collection$.current.hasListeners || isDisposed) {
                 cleanup();
@@ -158,7 +169,7 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
             if (isDisposed) {
                 return;
             }
-            this._collection$.current.push(...items)
+            this._collection$.current.push(...items);
         });
     };
     remove = async (entity: IEntity) => {
@@ -215,9 +226,11 @@ export const useCollection = <T extends IEntity = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => collection.handleChange((collection, target) => {
         if (!dispose$.data) {
-            const newCollection = new Collection<T>(collection, debounce, handlePrevData);
-            setCollection(newCollection);
-            handleChange(new CollectionAdapter<T>(collection$, dispose$), target ? new CollectionEntityAdapter(target.id, collection$, dispose$) : null);
+            flushSync(() => {
+                const newCollection = new Collection<T>(collection, debounce, handlePrevData);
+                setCollection(newCollection);
+                handleChange(new CollectionAdapter<T>(collection$, dispose$), target ? new CollectionEntityAdapter(target.id, collection$, dispose$) : null);
+            });
         }
     }), [collection]);
     useLayoutEffect(() => () => {
