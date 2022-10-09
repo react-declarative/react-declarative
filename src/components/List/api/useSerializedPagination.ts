@@ -8,7 +8,7 @@ import { stringifyBase64Json } from '../../../utils/base64Json';
 import { DEFAULT_PARSE_RESULT, IParseResult } from "./useParsedPagination";
 
 export interface IResultListProps <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > {
     onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
@@ -21,7 +21,7 @@ export interface IResultListProps <
 }
 
 interface IResult<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > {
     listProps: IResultListProps<FilterData, RowData>;
@@ -29,7 +29,7 @@ interface IResult<
 }
 
 export interface IParams<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > extends
     Partial<IParseResult<FilterData, RowData>>,
@@ -37,7 +37,7 @@ export interface IParams<
 }
 
 export const useSerializedPagination = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 >({
     chipData = DEFAULT_PARSE_RESULT.chipData,

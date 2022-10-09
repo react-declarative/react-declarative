@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import cancelable, { IWrappedFn } from '../../utils/hof/cancelable';
 
@@ -16,7 +17,7 @@ export interface IAsyncProps<T extends any = object> {
     throwError?: boolean;
 }
 
-type Result = React.ReactNode;
+type Result = React.ReactNode | void;
 
 export const Async = <T extends any = object>({
     children,
@@ -75,7 +76,12 @@ export const Async = <T extends any = object>({
             try {
                 const result = await execute();
                 executionRef.current = null;
-                isMounted.current && setChild(result);
+                if (isMounted.current) {
+                    /** react-18 prevent batching */
+                    queueMicrotask(() => flushSync(() => {
+                        setChild(result);
+                    }));
+                }
             } catch (e) {
                 isMounted.current && setError(true);
                 if (!throwError) {

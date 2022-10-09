@@ -22,7 +22,7 @@ import IActionAddSlot from '../../../../slots/ActionAddSlot/IActionAddSlot';
 const LOAD_SOURCE = 'action-menu';
 const LABEL_SHRINK = 500;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     button: {
         borderRadius: '50px !important',
         minHeight: '40px !important',
@@ -41,7 +41,7 @@ export const ActionAdd = ({
     isDisabled = () => false,
 }: IActionAddSlot) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const listProps = useProps();
 

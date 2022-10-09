@@ -28,7 +28,7 @@ const globalStyles = (theme: Theme) => ({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   ...globalStyles(theme),
   toolbar: {
     ...globalStyles(theme).toolbar,
@@ -53,12 +53,12 @@ export const TimePicker = ({
   onChange = (change: any) => console.log({change}),
   date = dayjs(),
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [state, setState] = useState({
     meridiemMode: date.format('a'),
     isHourViewShown: true,
   });
-  const handleChange = useCallback((time) => {
+  const handleChange = useCallback((time: dayjs.Dayjs) => {
     if (time.format('a') !== state.meridiemMode) {
       const hours = state.meridiemMode === 'am'
         ? time.hour() - 12

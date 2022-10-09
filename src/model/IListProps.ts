@@ -76,7 +76,7 @@ export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<Rec
 
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
-export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
+export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
   data: FilterData,
   pagination: ListHandlerPagination,
   sort: ListHandlerSortModel<RowData>,
@@ -84,7 +84,7 @@ export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnyt
   search: string,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
-export interface IListState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IListState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
   filterData: FilterData;
   isChooser: boolean;
@@ -99,7 +99,7 @@ export interface IListState<FilterData = IAnything, RowData extends IRowData = I
   chips: ListHandlerChips<RowData>;
 };
 
-export interface IListCallbacks<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IListCallbacks<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: () => Promise<void>;
   handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
   handleFilter: (data: FilterData, keepPagination?: boolean) => void;
@@ -118,7 +118,7 @@ export interface IListSortItem<RowData extends IRowData = IAnything> {
 }
 
 export interface IListProps<
-  FilterData extends IAnything = IAnything,
+  FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
   > {

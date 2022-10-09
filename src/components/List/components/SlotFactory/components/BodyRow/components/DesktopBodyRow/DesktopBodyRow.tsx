@@ -16,7 +16,7 @@ import useProps from '../../../../../../hooks/useProps';
 import useReload from '../../../../../../hooks/useReload';
 import useSelection from '../../../../../../hooks/useSelection';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
     },
 });
@@ -29,7 +29,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 }: IBodyRowSlot<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const props = useProps<RowData>();
     const reload = useReload();

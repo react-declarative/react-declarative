@@ -9,7 +9,7 @@ import { parseBase64Json } from "../../../utils/base64Json";
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
 
 export interface IParseResult<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > {
     filterData: IListProps<FilterData, RowData>['filterData'];
@@ -21,7 +21,7 @@ export interface IParseResult<
 }
 
 export type IParams<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > = IParseResult<FilterData, RowData>;
 
@@ -35,7 +35,7 @@ export const DEFAULT_PARSE_RESULT: IParseResult = {
 };
 
 export const useParsedPagination = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 >(query: string, {
     filterData: defaultFilterData = DEFAULT_PARSE_RESULT.filterData,

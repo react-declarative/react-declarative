@@ -11,7 +11,7 @@ interface IContainerProps {
   style: PickProp<IField, 'style'>;
   columnsOverride?: PickProp<IField, 'columnsOverride'>;
   sx?: PickProp<IField, 'sx'>;
-  children: React.ReactChild;
+  children: React.ReactNode;
   onFocus?: () => void;
 }
 

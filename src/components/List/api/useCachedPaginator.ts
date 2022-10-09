@@ -8,12 +8,12 @@ import singleshot from '../../../utils/hof/singleshot';
 
 import useArrayPaginator, { IArrayPaginatorParams } from "./useArrayPaginator"
 
-interface IResult<FilterData = IAnything, RowData extends IRowData = IAnything> {
+interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     handler: ListHandler<FilterData, RowData>;
     clear: () => void;
 }
 
-export const useCachedPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything> (
+export const useCachedPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything> (
     handler: ListHandler<FilterData, RowData>,
     params: IArrayPaginatorParams<FilterData, RowData>
 ): IResult<FilterData, RowData> => {

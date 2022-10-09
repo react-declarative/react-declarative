@@ -22,7 +22,7 @@ import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 const LOAD_SOURCE = 'action-menu';
 const LABEL_SHRINK = 500;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     button: {
         borderRadius: '50px !important',
         minHeight: '40px !important',
@@ -42,7 +42,7 @@ export const ActionFab = ({
     isDisabled = () => false,
 }: IActionFabSlot) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const listProps = useProps();
 

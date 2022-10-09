@@ -105,7 +105,7 @@ export type IFieldEntity<Data = IAnything> = IEntityInternal<Data>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
 export type ITab<T extends unknown = string> = ITabInternal<T>;
 
-export type ListHandler<FilterData = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
+export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
 export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
 

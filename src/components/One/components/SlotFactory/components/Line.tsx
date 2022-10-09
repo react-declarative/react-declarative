@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { ILineSlot } from '../../../slots/LineSlot';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         height: 72,
         display: 'flex',
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export const Line = ({
     title = "",
 }: ILineSlot) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <Box className={classes.root}>
             <Typography variant="h5">{title}</Typography>

@@ -9,7 +9,6 @@ import classNames from '../../../../../../utils/classNames';
 
 import { IListAction } from '../../../../../../model/IListProps';
 import ActionType from '../../../../../../model/ActionType';
-import IAnything from '../../../../../../model/IAnything';
 
 import useCachedRows from '../../../../hooks/useCachedRows';
 import useProps from '../../../../hooks/useProps';
@@ -20,13 +19,13 @@ import ActionMenu from '../../../../slots/ActionMenuSlot';
 import ActionAdd from '../../../../slots/ActionAddSlot';
 import ActionFab from '../../../../slots/ActionFabSlot';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
     justifyContent: "stretch",
     minHeight: 70,
-    '& > *:nth-child(n + 1)': {
+    '& > *:nth-of-type(n + 1)': {
       marginLeft: theme.spacing(1),
     },
     marginBottom: 5,
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ActionListSlot = <FilterData extends IAnything>({
+export const ActionListSlot = <FilterData extends {}>({
   className,
   actions,
   style,
@@ -52,7 +51,7 @@ export const ActionListSlot = <FilterData extends IAnything>({
   height,
   width,
 }: IActionListSlot<FilterData>) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const { selectedRows } = useCachedRows();
   const { operations } = useProps();

@@ -41,7 +41,7 @@ interface ITabItem extends Omit<ITab, keyof {
     disabled: boolean;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         width: '100%',
     },
@@ -80,7 +80,7 @@ export const TabsView = <T extends any = string>({
     ...otherProps
 }: ITabsViewProps<T>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const isMounted = useRef(true);
 
@@ -184,6 +184,8 @@ export const TabsView = <T extends any = string>({
                     })));
 
                     isMounted.current && setTabs(tabs);
+
+                    return;
                 }}
             </Async>
         </Box>

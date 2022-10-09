@@ -1,7 +1,7 @@
 import IAnything from "../../../../model/IAnything";
 import IField from "../../../../model/IField";
 
-export interface IFilterListSlot<FilterData = IAnything> {
+export interface IFilterListSlot<FilterData extends {} = IAnything> {
     className?: string;
     filterData: FilterData;
     style?: React.CSSProperties;

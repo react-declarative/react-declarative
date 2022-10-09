@@ -12,7 +12,7 @@ import createWindowHistory from '../../../utils/createWindowHistory';
 import createHashstateManager from '../../../helpers/hashstateManager';
 
 interface IParams<
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > extends ISerializedPaginationParams<FilterData, RowData> {
     history?: MemoryHistory | BrowserHistory | HashHistory;
@@ -21,7 +21,7 @@ interface IParams<
 const DEFAULT_HISTORY = createWindowHistory();
 
 export const useHashstatePagination = <
-    FilterData extends IAnything = IAnything,
+    FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 >({
     history = DEFAULT_HISTORY,

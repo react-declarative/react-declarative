@@ -23,9 +23,9 @@ import useProps from '../../../../../../hooks/useProps';
 import useSelection from '../../../../../../hooks/useSelection';
 import useReload from '../../../../../../hooks/useReload';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
-        '&:nth-child(2n)': {
+        '&:nth-of-type(2n)': {
             background: alpha(
                 theme.palette.getContrastText(theme.palette.background.paper),
                 0.04
@@ -48,7 +48,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 }: IBodyRowSlot<RowData>) => {
 
     const [menuOpened, setMenuOpened] = useState(false);
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const props = useProps<RowData>();
     const reload = useReload();

@@ -12,7 +12,7 @@ import classNames from '../../../utils/classNames';
 
 import CalendarHeader from './CalendarHeader';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   calendar: {
     marginTop: 10,
     display: 'grid',
@@ -44,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    '& :nth-child(7n)': {
+    '& :nth-of-type(7n)': {
       justifyContent: 'flex-end',
     },
-    '& :nth-child(7n + 1)': {
+    '& :nth-of-type(7n + 1)': {
       justifyContent: 'flex-start',
     },
   },
@@ -77,11 +77,11 @@ export const Calendar = ({
   disableFuture = false,
   date = dayjs(),
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [currentMonth, setCurrentMonth] = useState(
     date.clone().startOf('month')
   );
-  const renderDays = useCallback((week) => {
+  const renderDays = useCallback((week: dayjs.Dayjs) => {
     const end = week.clone().endOf('week');
     const currentMonthNumber = currentMonth.get('month');
     return getDays(week, end)

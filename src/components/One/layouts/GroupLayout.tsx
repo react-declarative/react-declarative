@@ -11,10 +11,10 @@ import IAnything from "../../../model/IAnything";
 export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {}
 
 interface IGroupLayoutPrivate {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -40,7 +40,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
   className,
   children,
 }: IGroupLayoutProps<Data> & IGroupLayoutPrivate) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <Group
             className={classNames(className, classes.root)}

@@ -19,6 +19,10 @@ export class Subject<Data = any> {
         }
     };
 
+    unsubscribeAll = () => {
+        this._emitter.unsubscribeAll();
+    };
+
     public once = (callback: Function) => {
         return this._emitter.once(SUBJECT_EVENT, callback);
     };

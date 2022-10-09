@@ -17,14 +17,14 @@ interface ISizeProvider extends Omit<BoxProps, keyof {
     target?: HTMLElement;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         width: '100%',
         height: '100%',
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        '& > *:nth-child(1)': {
+        '& > *:nth-of-type(1)': {
             flex: 1,
         },
     },
@@ -42,7 +42,7 @@ export const SizeProvider = ({
     ...props
 }: ISizeProvider) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const [rootRef, setRootRef] = useState<HTMLElement | null>(null);
     

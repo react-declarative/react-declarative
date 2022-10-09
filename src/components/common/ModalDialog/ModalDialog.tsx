@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   dialog: {
     '&:first-child': {
       padding: 0,
@@ -32,7 +32,7 @@ export const ModalDialog = ({
   onDismiss = () => console.log('dismiss'),
   ...other
 }: IModalDialogProps) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Dialog {...other}>
       <DialogContent dividers={dividers} className={classes.dialog}>

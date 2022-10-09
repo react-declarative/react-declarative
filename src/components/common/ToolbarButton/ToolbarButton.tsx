@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 import classNames from '../../../utils/classNames';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   toolbarBtn: {
     cursor: 'pointer',
     color: theme.palette.text.secondary,
@@ -22,7 +22,7 @@ export const ToolbarButton = ({
   label = '',
   ...other
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Typography
       className={classNames(classes.toolbarBtn, className, {

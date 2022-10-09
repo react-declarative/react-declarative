@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { makeStyles } from '../../../styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'fixed',
         top: 0,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Loader = () => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <Box className={classes.root}>
             <CircularProgress />

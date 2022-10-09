@@ -150,6 +150,7 @@ const App = () => {
       options={options}
       actions={actions}
       onOptionClick={handleOptionClick}
+      AfterMenuContent={() => <p>123</p>}
     >
       <Switch
         Loader={() => <p>Checking permissions (mock)</p>}

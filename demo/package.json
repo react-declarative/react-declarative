@@ -4,8 +4,8 @@
   "private": true,
   "devDependencies": {
     "@types/node": "16.11.51",
-    "@types/react": "17.0.48",
-    "@types/react-dom": "17.0.17",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
     "esbuild-loader": "2.19.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "html-webpack-plugin": "5.5.0",
@@ -15,21 +15,18 @@
     "webpack-dev-server": "4.10.0"
   },
   "dependencies": {
-    "@emotion/react": "11.8.1",
-    "@emotion/styled": "11.8.1",
-    "@faker-js/faker": "^7.4.0",
-    "@mui/icons-material": "5.5.0",
-    "@mui/material": "5.5.0",
-    "@mui/styles": "5.5.0",
+    "@faker-js/faker": "7.4.0",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
+    "@mui/icons-material": "5.10.6",
+    "@mui/material": "5.10.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tss-react": "4.3.4",
+    "react-window": "1.8.7",
     "dayjs": "1.10.8",
     "history": "5.3.0",
-    "path-to-regexp": "6.2.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-scripts": "5.0.1",
-    "react-window": "1.8.6",
-    "rimraf": "3.0.2",
-    "uuid": "8.3.2"
+    "path-to-regexp": "6.2.0"
   },
   "scripts": {
     "start": "webpack-cli serve",

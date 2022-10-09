@@ -16,10 +16,10 @@ export interface IStretchLayoutProps<Data = IAnything> {
 }
 
 interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactChild;
+    children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         overflowY: 'auto',
@@ -49,7 +49,7 @@ export const StretchLayout = <Data extends IAnything = IAnything>({
     style,
     innerPadding: padding = '0px',
 }: IStretchLayoutProps<Data> & IStretchLayoutPrivate<Data>) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <div className={classNames(classes.root, className)} style={style}>
             <div className={classes.container} style={{ padding }}>

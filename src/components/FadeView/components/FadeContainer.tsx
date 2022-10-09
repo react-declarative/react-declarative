@@ -13,7 +13,7 @@ const FADE_ANIMATION_DELAY = 50;
 const FADE_MARK = 'react-declarative__fadeMark';
 export const SCROLL_VIEW_TARGER = 'react-declarative__scrollViewTarget';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         display: 'flex',
@@ -45,7 +45,7 @@ export interface IFadeContainerProps {
     className?: string;
     Fade?: typeof DefaultFade;
     style?: React.CSSProperties;
-    children: React.ReactChild;
+    children: React.ReactNode;
     color?: string;
     selector?: string;
     zIndex?: number;
@@ -71,7 +71,7 @@ export const FadeContainer = ({
     Fade = DefaultFade,
     selector = `.${SCROLL_VIEW_TARGER}`,
 }: IFadeContainerProps) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const [elementRef, setElementRef] = useState<HTMLDivElement>();
 

@@ -28,7 +28,7 @@ const SCROLL_DELTA = 10;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     background: theme.palette.background.paper,
   },
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IChooserProps<FilterData = IAnything, RowData extends IRowData = IAnything> extends
+interface IChooserProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> extends
   Omit<IListProps<FilterData, RowData>, keyof {
     ref: never;
     limit: never;
@@ -57,20 +57,20 @@ interface IChooserProps<FilterData = IAnything, RowData extends IRowData = IAnyt
   listChips: IListProps['chips'];
 }
 
-interface IChooserState<FilterData = IAnything, RowData extends IRowData = IAnything> {
+interface IChooserState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   rows: IChooserProps<FilterData, RowData>["rows"];
   filterData: IChooserProps<FilterData, RowData>["filterData"];
 };
 
 export const Chooser = <
-  FilterData extends IAnything = IAnything,
+  FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   >(props: IChooserProps<FilterData, RowData>) => {
 
   const innerRef = useRef<HTMLElement>(null);
   const outerRef = useRef<HTMLElement>(null);
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const {
     rows: upperRows,

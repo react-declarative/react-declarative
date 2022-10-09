@@ -17,7 +17,7 @@ export const useModalSort = () => useContext(ModalSortContext);
 const ModalSortContext = createContext<() => void>(null as never);
 
 interface IModalSortProviderProps {
-    children: React.ReactChild;
+    children: React.ReactNode;
 }
 
 const InternalProvider = ({

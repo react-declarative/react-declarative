@@ -16,10 +16,10 @@ export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, 
 }
 
 interface IPaperLayoutPrivate {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -46,7 +46,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   fieldBottomMargin = '0',
   innerPadding: padding = '18px',
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <Group
       className={classNames(className, classes.root)}

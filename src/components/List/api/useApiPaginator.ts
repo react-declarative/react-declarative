@@ -16,7 +16,7 @@ import IRowData from "../../../model/IRowData";
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
-export interface IApiPaginatorParams<FilterData = IAnything, RowData extends IRowData = IAnything> {
+export interface IApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     origin?: string;
     fetch?: typeof window.fetch;
     requestMap?: (url: URL) => URL;
@@ -44,7 +44,7 @@ const EMPTY_RESPONSE = {
     total: null,
 };
 
-export const useApiPaginator = <FilterData = IAnything, RowData extends IRowData = IAnything>(path: string, {
+export const useApiPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(path: string, {
     fetch = window.fetch,
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,

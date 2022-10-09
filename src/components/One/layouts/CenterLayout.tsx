@@ -26,10 +26,10 @@ export interface ICenterLayoutProps<Data = IAnything> extends IGroupProps<Data> 
 }
 
 interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactChild;
+    children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         display: 'flex',
         alignItems: 'stretch',
@@ -68,7 +68,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     fieldRightMargin = '0',
     fieldBottomMargin = '0',
 }: ICenterLayoutProps<Data> & ICenterLayoutPrivate<Data>) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const [groupRef, setGroupRef] = useState<HTMLDivElement>();
     const [marginRight, setMarginRight] = useState(0);

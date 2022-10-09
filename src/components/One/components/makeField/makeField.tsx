@@ -32,7 +32,7 @@ const stretch = {
     justifyContent: 'stretch',
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
       ...stretch,
       '& > *': {
@@ -101,7 +101,7 @@ export function makeField(
 
         const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
 
-        const classes = useStyles();
+        const { classes } = useStyles();
 
         const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
         const [readonly, setReadonly] = useState<boolean>(true);

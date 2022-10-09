@@ -12,10 +12,10 @@ import IAnything from "../../../model/IAnything";
 export interface IExpansionLayoutProps<Data = IAnything> extends IExpansionProps<Data>, IGroupProps<Data> {}
 
 interface IExpansionLayoutPrivate {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     position: "relative",
     display: "flex",
@@ -43,7 +43,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   title,
   description,
 }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
     return (
         <Group
             className={classNames(className, classes.root)}

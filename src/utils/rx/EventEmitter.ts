@@ -20,6 +20,10 @@ export class EventEmitter {
         this._events[eventName] = this._events[eventName].filter(eventCallback => callback !== eventCallback);
     };
 
+    unsubscribeAll = () => {
+        this._events = {};
+    };
+
     once = (eventName: EventKey, callback: Function) => {
         const subscriber = (...args: any[]) => {
             callback(...args);

@@ -20,7 +20,7 @@ const positions = [
   [-54.5, 19.6],
 ];
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   clockNumber: {
     width: 32,
     height: 32,
@@ -44,7 +44,7 @@ export const ClockNumber = ({
   index = 0,
   ...otherProps
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const className = classNames(classes.clockNumber, {
     [classes.selected]: selected,
   });

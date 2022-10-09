@@ -14,12 +14,12 @@ const SCALE_DEBOUNCE = 1_000;
 interface IScaleViewProps {
     className?: string;
     style?: React.CSSProperties;
-    children?: React.ReactChild;
+    children?: React.ReactNode;
     stretch?: boolean;
     center?: boolean;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     root: {
         position: 'relative',
         overflow: 'hidden',
@@ -56,7 +56,7 @@ export const ScaleView = ({
     stretch = false,
     center = false,
 }: IScaleViewProps) => {
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const [rootRef, setRootRef] = useState<HTMLDivElement | null>(null);
 
@@ -70,7 +70,7 @@ export const ScaleView = ({
             if (!rootRef) {
                 return;
             }
-            const contentRef = rootRef.querySelector(`.${SCALE_CONTAINER} > *:nth-child(1)`);
+            const contentRef = rootRef.querySelector(`.${SCALE_CONTAINER} > *:nth-of-type(1)`);
             if (!contentRef) {
                 return;
             }

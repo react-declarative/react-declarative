@@ -40,7 +40,7 @@ import { LiftedProvider } from "../hooks/useLifted";
 
 const DRAWER_WIDTH = 256;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'stretch',
@@ -166,13 +166,15 @@ export const Content = <T extends any = string>({
   onAction = () => null,
   BeforeSearch,
   AfterSearch,
+  AfterMenuContent,
+  BeforeMenuContent,
 }: IContentProps<T>) => {
 
   const loaderLine = useLoaderLine();
   const loader = useLoader();
 
   const [opened, setOpened] = useState(false);
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const handleMenuToggle = () => setOpened(!opened);
 
@@ -284,6 +286,8 @@ export const Content = <T extends any = string>({
                   isDisabled: () => isDisabled(payload!),
                 }))}
                 onAction={handleAction}
+                AfterContent={AfterMenuContent}
+                BeforeContent={BeforeMenuContent}
               />
             )}
           </Toolbar>

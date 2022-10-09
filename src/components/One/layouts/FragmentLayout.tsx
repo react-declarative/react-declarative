@@ -11,7 +11,7 @@ export interface IFragmentLayoutProps<Data = IAnything> {
 }
 
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactChild;
+    children: React.ReactNode;
     ready: PickProp<IEntity<Data>, 'ready'>;
     object: PickProp<IEntity<Data>, 'object'>;
 }

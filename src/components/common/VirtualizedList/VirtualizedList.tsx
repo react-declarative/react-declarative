@@ -49,7 +49,7 @@ interface IState {
     totalHeight: number;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
     container: {
         position: 'relative',
     },
@@ -76,7 +76,7 @@ export const VirtualizedList = <Data extends IAnything>({
     onScroll = () => null,
 }: IVirtualizedListProps<Data>) => {
 
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const listWrapperRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);

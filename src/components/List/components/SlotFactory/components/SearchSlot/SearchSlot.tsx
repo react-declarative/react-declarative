@@ -16,7 +16,7 @@ import Search from '@mui/icons-material/Search';
 
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "stretch",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   labelContent: {
     display: 'flex',
     minHeight: '60px',
-    '& > *:nth-child(1)': {
+    '& > *:nth-of-type(1)': {
       flex: 1,
     },
     padding: theme.spacing(1),
@@ -68,7 +68,7 @@ export const SearchSlot = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchEscapeRef = useRef(false);
 
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [search, setSearch] = useState(upperSearch);
 

@@ -20,7 +20,7 @@ import arrays from '../../../../utils/arrays';
 
 import StateProvider from '../../context/StateProvider';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   hidden: {
     display: 'none',
   },
@@ -43,7 +43,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
   } = props;
 
   const fieldsSnapshot = useMemo(() => fields, []);
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   useLayoutEffect(() => () => {
     isMounted.current = false;
