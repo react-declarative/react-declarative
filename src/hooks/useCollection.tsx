@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
-import { flushSync } from 'react-dom';
+// import { flushSync } from 'react-dom';
 
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
 import Subject from '../utils/rx/Subject';
@@ -226,11 +226,12 @@ export const useCollection = <T extends IEntity = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => collection.handleChange((collection, target) => {
         if (!dispose$.data) {
-            flushSync(() => {
-                const newCollection = new Collection<T>(collection, debounce, handlePrevData);
+            const newCollection = new Collection<T>(collection, debounce, handlePrevData);
+            collection$.current = newCollection;
+            // flushSync(() => {
                 setCollection(newCollection);
-                handleChange(new CollectionAdapter<T>(collection$, dispose$), target ? new CollectionEntityAdapter(target.id, collection$, dispose$) : null);
-            });
+            // })
+            handleChange(new CollectionAdapter<T>(collection$, dispose$), target ? new CollectionEntityAdapter(target.id, collection$, dispose$) : null);
         }
     }), [collection]);
     useLayoutEffect(() => () => {

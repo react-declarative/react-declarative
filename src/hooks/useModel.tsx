@@ -1,5 +1,5 @@
 import { useRef, useState, useMemo, useEffect, useLayoutEffect, useCallback } from 'react';
-import { flushSync } from 'react-dom';
+// import { flushSync } from 'react-dom';
 
 import Model, { CHANGE_DEBOUNCE, IModelAdapter } from "../utils/mvvm/Model";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
@@ -73,11 +73,12 @@ export const useModel = <T extends {} = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => model.handleChange((model) => {
         if (!dispose$.data) {
-            flushSync(() => {
-                const newModel = new Model(model, debounce, handlePrevData);
+            const newModel = new Model(model, debounce, handlePrevData);
+            model$.current = newModel;
+            // flushSync(() => {
                 setModel(newModel);
-                handleChange(new ModelAdapter(model$, dispose$));
-            });
+            // });
+            handleChange(new ModelAdapter(model$, dispose$));
         } 
     }), [model]);
     useLayoutEffect(() => () => {

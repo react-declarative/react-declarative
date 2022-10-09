@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } from 'react';
-import { flushSync } from 'react-dom';
+// import { flushSync } from 'react-dom';
 
 import Entity, { IEntity, CHANGE_DEBOUNCE, IEntityAdapter } from "../utils/mvvm/Entity";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
@@ -76,11 +76,12 @@ export const useEntity = <T extends IEntity = any>({
     const handleChange = useActualCallback(onChange);
     useEffect(() => entity.handleChange((entity) => {
         if (!dispose$.data) {
-            flushSync(() => {
-                const newEntity = new Entity(entity, debounce, handlePrevData);
+            const newEntity = new Entity(entity, debounce, handlePrevData);
+            entity$.current = newEntity;
+            // flushSync(() => {
                 setEntity(newEntity);
-                handleChange(new EntityAdapter(entity$, dispose$));
-            });
+            // });
+            handleChange(new EntityAdapter(entity$, dispose$));
         }
     }), [entity]);
     useLayoutEffect(() => () => {
