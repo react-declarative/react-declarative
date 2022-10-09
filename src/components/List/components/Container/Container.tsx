@@ -112,7 +112,7 @@ export const Container = <
 
   const sizer = {
     ...(!sizeByParent && {
-      target: document.documentElement,
+      target: document.body,
     }),
   };
 
