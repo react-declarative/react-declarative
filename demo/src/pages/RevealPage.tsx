@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FetchView } from "react-declarative";
+import { FetchView, DragDropView } from "react-declarative";
 import sleep from "../utils/sleep";
 
 export const RevealPage = () => {
@@ -15,13 +15,19 @@ export const RevealPage = () => {
     return (
         <FetchView state={state}>
             {(str, num, bool) => (
-                <span style={{ color: 'green' }}>
-                    {JSON.stringify({
-                        str,
-                        num,
-                        bool,
-                    }, null, 2)}
-                </span>
+                <>
+                    <span style={{ color: 'green' }}>
+                        {JSON.stringify({
+                            str,
+                            num,
+                            bool,
+                        }, null, 2)}
+                    </span>
+                    <DragDropView
+                        onData={(files) => console.log({ files })}
+                    />
+                </>
+
             )}
         </FetchView>
     );

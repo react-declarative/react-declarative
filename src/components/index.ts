@@ -17,6 +17,7 @@ export * from './ModalProvider';
 export * from './SnackProvider';
 
 export * from './ConstraintView';
+export * from './DragDropView';
 export * from './ScrollView';
 export * from './ScaleView';
 export * from './AutoSizer';

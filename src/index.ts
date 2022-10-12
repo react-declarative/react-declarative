@@ -140,6 +140,7 @@ export type pickConfirmFn = ReturnType<typeof useConfirm>;
 export { default as dayjs } from 'dayjs';
 
 export { ConstraintView } from './components';
+export { DragDropView } from './components';
 export { ScrollView } from './components';
 export { ScaleView } from './components';
 export { FetchView } from './components';
