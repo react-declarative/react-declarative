@@ -128,7 +128,7 @@ export const TabsView = <T extends any = string>({
             className={classNames(classes.root, className)}
             style={style}
         >
-            {!!loader && <Loader />}
+            {!!loader && <Loader payload={otherProps.payload} />}
             <Box className={classNames(classes.container, {
                 [classes.underline]: !noUnderline,
                 [classes.none]: !!loader,

@@ -8,8 +8,8 @@ import cancelable, { IWrappedFn } from '../../utils/hof/cancelable';
 export interface IAsyncProps<T extends any = object> {
     children: (p: T) => (Result | Promise<Result>);
     fallback?: (e: Error) => void;
-    Loader?: React.ComponentType;
-    Error?: React.ComponentType;
+    Loader?: React.ComponentType<any>;
+    Error?: React.ComponentType<any>;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     payload?: T;
@@ -100,9 +100,9 @@ export const Async = <T extends any = object>({
 
 
     if (loading) {
-        return <Loader />;
+        return <Loader payload={payload} />;
     } else if (error) {
-        return <Error />;
+        return <Error payload={payload} />;
     } else {
         return (
             <>
