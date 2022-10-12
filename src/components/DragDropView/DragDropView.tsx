@@ -105,6 +105,7 @@ export const DragDropView = ({
   const setDragActive = (dragActive: boolean) => setState((prevState) => ({ ...prevState, dragActive }));
 
   const allowedTypes = useMemo(() => new Set(accept.split(", ")), [accept]);
+  const acceptAll = useMemo(() => accept === '*', [accept]);
 
   const handleDrag = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -121,7 +122,7 @@ export const DragDropView = ({
     event.stopPropagation();
     setDragActive(false);
     const files = Array.from(event.dataTransfer.files || []);
-    if (files.length && files.every((file) => allowedTypes.has(file.type))) {
+    if (files.length && (files.every((file) => allowedTypes.has(file.type)) || acceptAll)) {
       onData(files);
     }
   };
@@ -130,7 +131,7 @@ export const DragDropView = ({
     event.preventDefault();
     event.stopPropagation();
     const files = Array.from(event.target.files || []);
-    if (files.length && files.every((file) => allowedTypes.has(file.type))) {
+    if (files.length && (files.every((file) => allowedTypes.has(file.type)) || acceptAll)) {
       onData(files);
     }
   };
