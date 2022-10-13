@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { useState, useLayoutEffect, useRef, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 
-/* eslint-disable react/no-multi-comp */
-
-import { makeStyles, ThemeProvider } from '../../../../styles';
+import { ThemeProvider } from '../../../../styles';
 
 import OneInternal from '../OneInternal';
 import Group from '../../../common/Group';
@@ -14,22 +12,14 @@ import IOneProps from '../../../../model/IOneProps';
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
 
-import classNames from '../../../../utils/classNames';
 import deepFlat from '../../../../utils/deepFlat';
 import arrays from '../../../../utils/arrays';
 
 import StateProvider from '../../context/StateProvider';
 
-const useStyles = makeStyles()({
-  hidden: {
-    display: 'none',
-  },
-});
-
 export const OneGenesis = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Field>) => {
 
-  const [visible, setVisible] = useState(false);
-  const isMounted = useRef(true);
+  const isReady = useRef(false);
 
   const {
     change = (data) => console.log({ data }),
@@ -43,15 +33,10 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
   } = props;
 
   const fieldsSnapshot = useMemo(() => fields, []);
-  const { classes } = useStyles();
-
-  useLayoutEffect(() => () => {
-    isMounted.current = false;
-  }, []);
 
   const handleReady = () => {
-    if (isMounted.current) {
-      setVisible(true);
+    if (!isReady.current) {
+      isReady.current = true;
       ready();
     }
   };
@@ -85,9 +70,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
       <ThemeProvider>
         <StateProvider<Data, Field> {...stateParams}>
           <Group
-            className={classNames(className, {
-              [classes.hidden]: !visible,
-            })}
+            className={className}
             style={style}
           >
             <OneInternal {...viewParams} />
