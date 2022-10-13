@@ -18,7 +18,8 @@ interface IDragDropViewProps {
   sx?: SxProps;
   multiple?: boolean;
   accept?: string;
-  onData?: (files: File[]) => void | Promise<void>;
+  onData?: (files: File[]) => void;
+  onReject?: (files: File[]) => void;
 }
 
 interface IState {
@@ -92,7 +93,8 @@ export const DragDropView = ({
   sx,
   multiple = false,
   accept = ACCEPT_DEFAULT,
-  onData = () => { }
+  onData = () => { },
+  onReject = () => { },
 }: IDragDropViewProps) => {
 
   const { classes } = useStyles();
@@ -124,6 +126,8 @@ export const DragDropView = ({
     const files = Array.from(event.dataTransfer.files || []);
     if (files.length && (files.every((file) => allowedTypes.has(file.type)) || acceptAll)) {
       onData(files);
+    } else if (files.length) {
+      onReject(files);
     }
   };
 
@@ -133,6 +137,8 @@ export const DragDropView = ({
     const files = Array.from(event.target.files || []);
     if (files.length && (files.every((file) => allowedTypes.has(file.type)) || acceptAll)) {
       onData(files);
+    } else if (files.length) {
+      onReject(files);
     }
   };
 
