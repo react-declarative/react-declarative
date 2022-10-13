@@ -17,6 +17,7 @@ import Restore from '@mui/icons-material/Restore';
 import More from '@mui/icons-material/ExpandMore';
 import Less from '@mui/icons-material/ExpandLess';
 import Search from '@mui/icons-material/Search';
+import Close from '@mui/icons-material/Close';
 
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
 
@@ -148,6 +149,11 @@ export const FilterListSlot = <FilterData extends {}>({
     searchEscapeRef.current = true;
   };
 
+  const handleSearchCleanup = () => {
+    setSearch("");
+    searchEscapeRef.current = true;
+  };
+
   const renderLabel = () => {
     if (withSearch) {
       return (
@@ -178,7 +184,12 @@ export const FilterListSlot = <FilterData extends {}>({
               <InputAdornment position="start">
                 <Search />
               </InputAdornment>
-            )
+            ),
+            endAdornment: !!search && (
+              <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
+                <Close />
+              </InputAdornment>
+            ),
           }}
           placeholder={label}
           InputLabelProps={{

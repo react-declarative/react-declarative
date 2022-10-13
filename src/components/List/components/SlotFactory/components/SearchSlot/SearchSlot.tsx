@@ -13,6 +13,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Restore from '@mui/icons-material/Restore';
 import Search from '@mui/icons-material/Search';
+import Close from '@mui/icons-material/Close';
 
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
@@ -88,6 +89,11 @@ export const SearchSlot = ({
     searchEscapeRef.current = true;
   };
 
+  const handleSearchCleanup = () => {
+    setSearch("");
+    searchEscapeRef.current = true;
+  };
+
   return (
     <div className={classNames(className, classes.root)} style={style}>
       <div className={classes.container}>
@@ -119,7 +125,12 @@ export const SearchSlot = ({
                 <InputAdornment position="start">
                   <Search />
                 </InputAdornment>
-              )
+              ),
+              endAdornment: !!search && (
+                <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
+                  <Close />
+                </InputAdornment>
+              ),
             }}
             placeholder={label}
             InputLabelProps={{

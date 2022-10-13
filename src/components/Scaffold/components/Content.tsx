@@ -22,6 +22,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { makeStyles } from "../../../styles";
 
 import Menu from "@mui/icons-material/Menu";
+import Close from '@mui/icons-material/Close';
 import Search from "@mui/icons-material/Search";
 
 import ScrollView from "../../ScrollView";
@@ -235,8 +236,12 @@ export const Content = <T extends any = string>({
                 endAdornment: (
                   <InputAdornment position="end">
                     <div style={{ marginRight: -10 }}>
-                      <IconButton>
-                        <Search />
+                      <IconButton onClick={() => setFilterText('')}>
+                        {filterText ? (
+                          <Close />
+                        ) : (
+                          <Search />
+                        )}
                       </IconButton>
                     </div>
                   </InputAdornment>
