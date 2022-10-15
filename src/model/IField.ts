@@ -243,6 +243,12 @@ export interface IField<Data = IAnything> {
     itemList?: string[] | ((data: Data) => string[]) | ((data: Data) => Promise<string[]>),
 
     /**
+     * Позволяет указать условия перезагрузки списка
+     * элементов
+     */
+    shouldUpdateItemList?: (prevData: Data | null, nextData: Data) => boolean,
+
+    /**
      * Позволяет перевести значения у ComboField и ItemsField
      * из поле itemList на человеческий, если
      * используются константы

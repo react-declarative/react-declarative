@@ -1,6 +1,6 @@
 {
     "name": "react-declarative",
-    "version": "2.1.15",
+    "version": "2.1.17",
     "description": "A React form builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (IntelliSense available). This tool is based on material-ui components, so your application will look beautiful on any device...",
     "private": false,
     "author": {
@@ -66,7 +66,6 @@
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",
         "@types/react-window": "1.8.5",
-        "@types/sha.js": "2.4.0",
         "@types/uuid": "8.3.4",
         "dts-bundle": "0.7.3",
         "dts-minify": "0.3.0",

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 
 import Async from '../../../../Async';
 
@@ -9,8 +9,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
 
-import arrays from '../../../../../utils/arrays';
 import randomString from '../../../../../utils/randomString';
+import arrays from '../../../../../utils/arrays';
 
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
@@ -18,6 +18,11 @@ import { useOneProps } from '../../../context/PropsProvider';
 import { IComboSlot } from '../../../slots/ComboSlot';
 
 const EMPTY_ARRAY = [] as any;
+
+const getArrayHash = (value: any) =>
+  Array.from<string>(value)
+    .sort((a, b) => b.localeCompare(a))
+    .join('-');
 
 export const Combo = ({
   value,
@@ -32,16 +37,32 @@ export const Combo = ({
   dirty,
   invalid,
   tr = (s) => s.toString(),
+  shouldUpdateItemList: shouldUpdate = () => false,
   onChange,
 }: IComboSlot) => {
 
-  const { object } = useOneState();
+  const { object: upperObject } = useOneState();
+
   const { fallback = (e: Error) => {
     throw e;
   } } = useOneProps();
 
+  const initialObject = useRef(upperObject);
+  const prevObject = useRef<any>(null);
+
+  const object = useMemo(() => {
+    if (!shouldUpdate(prevObject.current, upperObject)) {
+      return prevObject.current || initialObject.current;
+    } else {
+      prevObject.current = upperObject;
+      return prevObject.current;
+    }
+  }, [upperObject]);
+
+  const valueHash = getArrayHash(value);
+
   const reloadCondition = useMemo(() => randomString(), [
-    value,
+    valueHash,
     disabled,
     dirty,
     invalid,

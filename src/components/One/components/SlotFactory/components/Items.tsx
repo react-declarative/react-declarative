@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef } from 'react';
 
 import { AutocompleteRenderGetTagProps } from "@mui/material/Autocomplete";
 import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
@@ -12,9 +12,9 @@ import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
 
-import arrays from '../../../../../utils/arrays';
-import objects from '../../../../../utils/objects';
 import randomString from '../../../../../utils/randomString';
+import objects from '../../../../../utils/objects';
+import arrays from '../../../../../utils/arrays';
 
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
@@ -22,6 +22,11 @@ import { useOneProps } from '../../../context/PropsProvider';
 import { IItemsSlot } from '../../../slots/ItemsSlot';
 
 const EMPTY_ARRAY = [] as any;
+
+const getArrayHash = (value: any) =>
+  Array.from<string>(value)
+    .sort((a, b) => b.localeCompare(a))
+    .join('-');
 
 export const Items = ({
     value,
@@ -36,16 +41,32 @@ export const Items = ({
     invalid,
     title,
     tr = (s) => s.toString(),
+    shouldUpdateItemList: shouldUpdate = () => false,
     onChange,
 }: IItemsSlot) => {
 
-    const { object } = useOneState();
+    const { object: upperObject } = useOneState();
+
     const { fallback = (e: Error) => {
         throw e;
     } } = useOneProps();
 
+    const initialObject = useRef(upperObject);
+    const prevObject = useRef<any>(null);
+  
+    const object = useMemo(() => {
+      if (!shouldUpdate(prevObject.current, upperObject)) {
+        return prevObject.current || initialObject.current;
+      } else {
+        prevObject.current = upperObject;
+        return prevObject.current;
+      }
+    }, [upperObject]);
+
+    const valueHash = getArrayHash(value);
+
     const reloadCondition = useMemo(() => randomString(), [
-        value,
+        valueHash,
         disabled,
         dirty,
         invalid,

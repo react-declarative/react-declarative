@@ -13,6 +13,7 @@ export interface IComboFieldProps<Data = IAnything> {
   placeholder?: PickProp<IField<Data>, "placeholder">;
   outlined?: PickProp<IField<Data>, "outlined">;
   itemList?: PickProp<IField<Data>, "itemList">;
+  shouldUpdateItemList?: PickProp<IField<Data>, "shouldUpdateItemList">;
   keepSync?: PickProp<IField<Data>, "keepSync">;
   readonly?: PickProp<IField<Data>, "readonly">;
   disabled?: PickProp<IField<Data>, "disabled">;

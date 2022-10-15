@@ -16,6 +16,7 @@ export interface IItemsFieldProps<Data = IAnything> {
   keepSync?: PickProp<IField<Data>, "keepSync">;
   readonly?: PickProp<IField<Data>, "readonly">;
   disabled?: PickProp<IField<Data>, "disabled">;
+  shouldUpdateItemList?: PickProp<IField<Data>, "shouldUpdateItemList">;
   title?: PickProp<IField<Data>, "title">;
   tr?: PickProp<IField<Data>, "tr">;
   groupRef?: PickProp<IField<Data>, 'groupRef'>;
