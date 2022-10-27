@@ -3,7 +3,7 @@ export interface IClearable {
 }
 
 export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_000): T & IClearable => {
-    let timeout: NodeJS.Timeout;
+    let timeout: any;
     
     const wrappedFn = (...args: any[]) => {
       clearTimeout(timeout);

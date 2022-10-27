@@ -7,7 +7,7 @@ const createFlushAwaiter = (delay: number) => new Promise<void>((res) => {
     };
 
     const delayManager = new class {
-        _delay?: NodeJS.Timeout;
+        _delay?: any;
         push = () => {
             this.clear();
             this._delay = setTimeout(() => {
