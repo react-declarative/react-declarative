@@ -13,7 +13,21 @@ import deepClone from '../../../utils/deepClone';
 import objects from '../../../utils/objects';
 import arrays from '../../../utils/arrays';
 
+type FieldIgnoreParam = keyof Omit<IManaged, keyof IField>;
+
 const FIELD_NEVER_MARGIN = '0';
+
+const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
+    "dirty",
+    "fallback",
+    "fieldReadonly",
+    "invalid",
+    "loading",
+    "object",
+    "onChange",
+    "prefix",
+    "value",
+];
 
 export interface IComponentFieldProps<Data = IAnything> {
     element?: PickProp<IField<Data>, 'element'>;
@@ -29,13 +43,19 @@ interface IComponentFieldPrivate<Data = IAnything> {
 export const ComponentField = ({
     element: Element = () => <Fragment />,
     object,
+    ...otherProps
 }: IComponentFieldProps & IComponentFieldPrivate) => {
     const [ node, setNode ] = useState<JSX.Element | null>(null);
     const { setObject } = useOneState();
     const handleChange = (object: unknown) => setObject(deepClone(object), {});
     useLayoutEffect(() => {
+        const _fieldParams = Object.entries(otherProps as IField)
+            .filter(([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam))
+            .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
+        _fieldParams.readonly = otherProps["fieldReadonly"] || false;
         const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
-        const props = { ...arrays(object), onChange };
+        const _fieldData = arrays(object);
+        const props = { ..._fieldData, onChange, _fieldParams, _fieldData };
         setNode(() => (
             <Element
                 {...props}

@@ -20,7 +20,7 @@ import { IComboSlot } from '../../../slots/ComboSlot';
 const EMPTY_ARRAY = [] as any;
 
 const getArrayHash = (value: any) =>
-  Array.from<string>(value)
+  Array.from<string>(value || [])
     .sort((a, b) => b.localeCompare(a))
     .join('-');
 

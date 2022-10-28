@@ -35,9 +35,7 @@ export interface IField<Data = IAnything> {
     blur?: (name: string) => void;
 
     /**
-     * Флаг только на чтение и "круглой окаймовки". У
-     * компонента List филды принудительно получают
-     * значения false.
+     * Флаг только на чтение и "круглой окаймовки"
      */
     readonly?: boolean;
     outlined?: boolean;
