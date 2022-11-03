@@ -25,6 +25,7 @@ interface IActionIconProps extends Omit<IconButtonProps, keyof {
     throwError?: boolean;
     size?: number;
     thickness?: number;
+    noProgress?: boolean;
 };
 
 const useStyles = makeStyles<{
@@ -69,6 +70,7 @@ export const ActionIcon = ({
     className,
     style,
     sx,
+    noProgress = false,
     throwError = false,
     disabled = false,
     onLoadStart,
@@ -128,7 +130,7 @@ export const ActionIcon = ({
             disabled={!!loading || disabled}
             onClick={handleClick}
         >
-            {!!loading && (
+            {(!!loading && !noProgress) && (
                 <div className={classes.spinner}>
                     <CircularProgress
                         size={size}

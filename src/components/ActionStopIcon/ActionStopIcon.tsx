@@ -5,8 +5,8 @@ import { SxProps } from '@mui/material';
 
 import { makeStyles } from "../../styles";
 
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
-import IconButton from '@mui/material/IconButton';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,17 +18,19 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
-interface IActionStopButtonProps extends Omit<CircularProgressProps, keyof {
+interface IActionStopIconProps extends Omit<IconButtonProps, keyof {
     className: never;
     style: never;
     sx: never;
     size: never;
     thickness: never;
+    onClick: never;
 }> {
+    children?: React.ReactNode;
     sx?: SxProps;
     className?: string;
     style?: React.CSSProperties;
-    withProgress?: boolean;
+    noProgress?: boolean;
     disabled?: boolean;
     size?: number;
     thickness?: number;
@@ -77,21 +79,22 @@ const useStyles = makeStyles<{
     },
 }));
 
-export const ActionStopButton = ({
+export const ActionStopIcon = ({
     className,
     style,
     sx,
     size = DEFAULT_SIZE,
     thickness = DEFAULT_THICKNESS,
-    withProgress = false,
+    noProgress = false,
     throwError = false,
     disabled = false,
     onLoadStart,
     onLoadEnd,
     fallback,
     onClick = () => { },
+    children = <CloseIcon />,
     ...otherProps
-}: IActionStopButtonProps) => {
+}: IActionStopIconProps) => {
 
     const { classes } = useStyles({
         size,
@@ -132,26 +135,26 @@ export const ActionStopButton = ({
 
     return (
         <IconButton
+            {...otherProps}
             className={classNames(className, classes.root)}
             disabled={!!loading || disabled}
             style={style}
             sx={sx}
             onClick={handleClick}
         >
-            {withProgress && (
+            {!noProgress && (
                 <div className={classes.spinner}>
                     <CircularProgress
-                        {...otherProps}
                         size={size}
                         thickness={thickness}
                     />
                 </div>
             )}
             <Box className={classes.icon}>
-                <CloseIcon />
+                {children}
             </Box>
         </IconButton>
     );
 };
 
-export default ActionStopButton;
+export default ActionStopIcon;

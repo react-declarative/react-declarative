@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopButton, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
 
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import history from '../history';
 
@@ -201,8 +202,11 @@ export const FadePage = () => {
             <ActionIcon sx={{ m: 1 }} onClick={handleClick}>
                 <AddIcon />
             </ActionIcon>
-            <ActionStopButton onClick={handleClick} sx={{ m: 1 }} />
-            <ActionStopButton onClick={handleClick} withProgress sx={{ m: 1 }} />
+            <ActionStopIcon onClick={handleClick} sx={{ m: 1 }}>
+                <DeleteIcon />
+            </ActionStopIcon>
+            <ActionStopIcon onClick={handleClick} sx={{ m: 1 }} />
+            <ActionStopIcon onClick={handleClick} noProgress sx={{ m: 1 }} />
         </>
     );
 }
