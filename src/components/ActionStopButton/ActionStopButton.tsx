@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { useState, useRef, useLayoutEffect } from 'react';
 
+import { SxProps } from '@mui/material';
+
 import { makeStyles } from "../../styles";
 
-import CircularProgress from '@mui/material/CircularProgress';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+
+import CloseIcon from '@mui/icons-material/Close';
 
 import useActualValue from '../../hooks/useActualValue';
 
@@ -14,17 +18,25 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
-interface IActionIconProps extends Omit<IconButtonProps, keyof {
-    onClick: never;
+interface IActionStopButtonProps extends Omit<CircularProgressProps, keyof {
+    className: never;
+    style: never;
+    sx: never;
     size: never;
+    thickness: never;
 }> {
+    sx?: SxProps;
+    className?: string;
+    style?: React.CSSProperties;
+    withProgress?: boolean;
+    disabled?: boolean;
+    size?: number;
+    thickness?: number;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
-    size?: number;
-    thickness?: number;
 };
 
 const useStyles = makeStyles<{
@@ -65,27 +77,26 @@ const useStyles = makeStyles<{
     },
 }));
 
-export const ActionIcon = ({
+export const ActionStopButton = ({
     className,
     style,
     sx,
+    size = DEFAULT_SIZE,
+    thickness = DEFAULT_THICKNESS,
+    withProgress = false,
     throwError = false,
     disabled = false,
     onLoadStart,
     onLoadEnd,
-    onClick = () => { },
     fallback,
-    children,
-    size = DEFAULT_SIZE,
-    thickness = DEFAULT_THICKNESS,
+    onClick = () => { },
     ...otherProps
-}: IActionIconProps) => {
+}: IActionStopButtonProps) => {
 
     const { classes } = useStyles({
         size,
         thickness,
     });
-
     const [loading, setLoading] = useState(0);
 
     const isMounted = useRef(true);
@@ -121,26 +132,26 @@ export const ActionIcon = ({
 
     return (
         <IconButton
-            {...otherProps}
             className={classNames(className, classes.root)}
+            disabled={!!loading || disabled}
             style={style}
             sx={sx}
-            disabled={!!loading || disabled}
             onClick={handleClick}
         >
-            {!!loading && (
+            {withProgress && (
                 <div className={classes.spinner}>
                     <CircularProgress
+                        {...otherProps}
                         size={size}
                         thickness={thickness}
                     />
                 </div>
             )}
             <Box className={classes.icon}>
-                {children}
+                <CloseIcon />
             </Box>
         </IconButton>
     );
 };
 
-export default ActionIcon;
+export default ActionStopButton;

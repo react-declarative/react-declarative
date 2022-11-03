@@ -152,6 +152,7 @@ export { ErrorBoundary } from './components';
 
 export { AutoSizer } from './components';
 
+export { ActionStopButton } from './components';
 export { ActionTrigger } from './components';
 export { ActionFilter } from './components';
 export { ActionButton } from './components';

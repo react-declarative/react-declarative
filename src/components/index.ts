@@ -7,6 +7,7 @@ export * from './Translate';
 export * from './ActionMenu';
 export * from './Breadcrumbs';
 export * from './ActionButton';
+export * from './ActionStopButton';
 export * from './ErrorBoundary';
 export * from './ActionFilter';
 export * from './ActionTrigger';
