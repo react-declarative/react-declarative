@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 
 import Async, { IAsyncProps } from '../Async';
 
-interface IWaitViewProps<T extends any = object> extends Omit<IAsyncProps<T>, keyof {
+interface IWaitViewProps<P extends any = object, T extends any = object> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     Content: React.ComponentType<any>;
-    condition: () => Promise<boolean> | boolean;
+    condition: () => Promise<boolean> | boolean | Promise<T> | T;
     onDone?: (attempts: number) => void;
     totalAttempts?: number;
     delay?: number;
@@ -21,7 +21,7 @@ interface IState<T extends any = object> {
 
 const Fragment = () => <></>;
 
-export const WaitView = <T extends any = object>({
+export const WaitView = <P extends any = object, T extends any = object>({
     onDone,
     condition,
     Loader = Fragment,
@@ -31,9 +31,9 @@ export const WaitView = <T extends any = object>({
     totalAttempts = Number.POSITIVE_INFINITY,
     payload,
     ...otherProps
-}: IWaitViewProps<T>) => {
+}: IWaitViewProps<P, T>) => {
 
-    const [state, setState] = useState<IState<T>>({
+    const [state, setState] = useState<IState<P>>({
         payload,
         attempt: 0,
         initComplete: false,
@@ -57,7 +57,7 @@ export const WaitView = <T extends any = object>({
                     const result = await condition();
                     if (result) {
                         onDone && onDone(attempt);
-                        return <Content payload={payload} />;
+                        return <Content payload={payload} condition={result} />;
                     } else if (attempt > totalAttempts) {
                         return <Error payload={payload} />;
                     } else {
