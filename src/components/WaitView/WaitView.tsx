@@ -62,7 +62,7 @@ export const WaitView = <P extends any = object, T extends any = object>({
                         return <Error payload={payload} />;
                     } else {
                         handleDelay();
-                        return <Loader payload={payload} />;
+                        return <Loader payload={payload} attempt={attempt} />;
                     }
                 }}
             </Async>
