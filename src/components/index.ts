@@ -26,6 +26,9 @@ export * from './FadeView';
 export * from './TabsView';
 export * from './FetchView';
 export * from './WaitView';
+export * from './PingView';
+export * from './OfflineView';
+
 export * from './Async';
 export * from './If';
 

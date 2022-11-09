@@ -147,6 +147,8 @@ export { FetchView } from './components';
 export { FadeView } from './components';
 export { TabsView } from './components';
 export { WaitView } from './components';
+export { PingView } from './components';
+export { OfflineView } from './components';
 
 export { ErrorBoundary } from './components';
 

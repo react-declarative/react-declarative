@@ -8,6 +8,7 @@ interface IWaitViewProps<P extends any = object, T extends any = object> extends
 }> {
     Content: React.ComponentType<any>;
     condition: () => Promise<boolean> | boolean | Promise<T> | T | Promise<null> | null;
+    conditionMap?: (result: T) => boolean;
     onDone?: (attempts: number) => void;
     totalAttempts?: number;
     delay?: number;
@@ -29,6 +30,7 @@ export const WaitView = <P extends any = object, T extends any = object>({
     Error = Fragment,
     delay = 1_000,
     totalAttempts = Number.POSITIVE_INFINITY,
+    conditionMap = (result) => !!result,
     payload,
     ...otherProps
 }: IWaitViewProps<P, T>) => {
@@ -55,14 +57,19 @@ export const WaitView = <P extends any = object, T extends any = object>({
             <Async {...otherProps} payload={state} Loader={Loader}>
                 {async ({ payload, attempt }) => {
                     const result = await condition();
-                    if (result) {
+                    const params = {
+                        condition: result,
+                        attempt,
+                        payload,
+                    };
+                    if (conditionMap(result as unknown as T)) {
                         onDone && onDone(attempt);
-                        return <Content payload={payload} condition={result} />;
+                        return <Content {...params} />;
                     } else if (attempt > totalAttempts) {
-                        return <Error payload={payload} />;
+                        return <Error {...params} />;
                     } else {
                         handleDelay();
-                        return <Loader payload={payload} attempt={attempt} />;
+                        return <Loader {...params} />;
                     }
                 }}
             </Async>
@@ -72,4 +79,4 @@ export const WaitView = <P extends any = object, T extends any = object>({
     }
 };
 
-export default WaitView
+export default WaitView;
