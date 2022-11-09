@@ -40,6 +40,8 @@ import {
 import createScrollManager from './helpers/createScrollManager';
 import createConstraintManager from './helpers/createConstraintManager';
 
+import SlotFactory from './components/SlotFactory';
+
 export class List<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -75,6 +77,7 @@ export class List<
         chips: [],
         chipData: {},
         search: "",
+        slots: {},
     };
 
     constructor(props: IListProps<FilterData, RowData, Field>) {
@@ -390,7 +393,9 @@ export class List<
                                         <SortModelProvider sortModel={this.props.sortModel!}>
                                             <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
                                                 <ModalSortProvider>
-                                                    {this.renderInner()}
+                                                    <SlotFactory {...this.props.slots}>
+                                                        {this.renderInner()}
+                                                    </SlotFactory>
                                                 </ModalSortProvider>
                                             </ChipsProvider>
                                         </SortModelProvider>

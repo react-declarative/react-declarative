@@ -3,6 +3,7 @@ import React from 'react';
 import IField from './IField';
 import IEntity from './IEntity';
 import IAnything from './IAnything';
+import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
 
 type DataOrNull<Data = IAnything> = Data | null;
 
@@ -76,6 +77,10 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Отключает ввод данных
    */
   readonly?: boolean;
+  /**
+   * Слоты для полей ввода
+   */
+  slots?: Partial<ISlotFactoryContext>;
 }
 
 export default IOneProps;

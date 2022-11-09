@@ -44,12 +44,16 @@ export const PingView = <P extends any = object>({
 
     useEffect(() => {
         let timeout: any = null;
+        let isDisposed = false;
         const process = async () => {
             try {
                 const isOnline = await ping(payload);
+                if (isDisposed) {
+                    return;
+                }
                 setIsOnline(!!isOnline);
             } catch (e) {
-                setIsOnline(false);
+                !isDisposed && setIsOnline(false);
                 if (throwError) {
                     throw e;
                 } else {
@@ -61,6 +65,7 @@ export const PingView = <P extends any = object>({
         };
         process();
         return () => {
+            isDisposed = true;
             if (timeout !== null) {
                 clearTimeout(timeout);
             }

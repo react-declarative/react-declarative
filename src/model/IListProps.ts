@@ -14,6 +14,8 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 
+import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
+
 interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
@@ -171,6 +173,7 @@ export interface IListProps<
   filterData?: Partial<FilterData>;
   sortModel?: ListHandlerSortModel<RowData>;
   isChooser?: boolean;
+  slots?: Partial<ISlotFactoryContext>;
 }
 
 export default IListProps;

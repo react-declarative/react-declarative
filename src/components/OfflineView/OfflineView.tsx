@@ -78,18 +78,23 @@ const createConnectionManager = ({
       url,
     } = config;
     let pollingId: any = null;
+    let isDisposed = false;
     const process = async () => {
       try {
         const isOnline = await handlePing({ url, timeout, method });
+        if (isDisposed) {
+          return;
+        }
         isOnline ? onOnline() : onOffline();
       } catch {
-        onOffline();
+        !isDisposed && onOffline();
       } finally {
         pollingId = setTimeout(process, interval)
       }
     };
     process();
     return () => {
+      isDisposed = true;
       if (pollingId !== null) {
         clearInterval(pollingId);
       }
