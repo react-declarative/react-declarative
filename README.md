@@ -1,6 +1,6 @@
-# react-declarative
+<img src="./assets/icons/logo.svg" height="35px" align="right">
 
-<img src="./assets/icons/logo.svg" height="60px" align="right">
+# react-declarative
 
 > [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) for more samples...
 
@@ -249,7 +249,7 @@ const rowActions: IListRowAction[] = [
 ...
 
 return (
-  <ListTyped<IFilterData, IRowData>
+  <ListTyped
     withMobile
     withSearch
     withArrowPagination
@@ -346,6 +346,30 @@ const PostList = () => {
     </FetchView>
   );
 };
+```
+
+## Build-in router
+
+> Link to [source code](./demo/src/App.tsx)
+
+```tsx
+import { Switch } from 'react-declarative';
+
+...
+
+const routes = [
+  {
+    path: '/sample-page',
+    prefetch: roleApiManager.init,
+    unload: roleApiManager.dispose,
+  },
+];
+
+...
+
+const App = () => (
+  <Switch history={history} items={routes} />
+);
 ```
 
 ## See also
