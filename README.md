@@ -1,7 +1,3 @@
-<br />
-
-<img src="./assets/icons/logo.svg" height="35px" align="right">
-
 # ⚛️ react-declarative
 
 > [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) for more samples...
@@ -11,6 +7,8 @@
 ![meme](./meme.png)
 
 A React form builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
+
+<img src="./assets/icons/logo.svg" height="35px" align="right">
 
 ## Quick start
 
