@@ -1,6 +1,6 @@
-<img src="./assets/icons/logo.svg" height="60px" align="right">
-
 # react-declarative
+
+<img src="./assets/icons/logo.svg" height="60px" align="right">
 
 > [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) for more samples...
 
