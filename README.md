@@ -395,6 +395,7 @@ import { OfflineView } from 'react-declarative';
 2. [DI](https://angular.io/guide/dependency-injection) - `provide`, `inject`
 3. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`
 4. [Command](https://en.wikipedia.org/wiki/Command_pattern) - `ActionTrigger`, `ActionFilter`, `ActionButton`, `ActionToggle`, `ActionMenu`, `ActionIcon`
+5. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) - `FetchView`, `WaitView`, `PingView`, `Async`, `If`
 
 ## License
 
