@@ -362,8 +362,9 @@ import { Switch } from 'react-declarative';
 const routes = [
   {
     path: '/sample-page',
-    prefetch: roleApiManager.init,
-    unload: roleApiManager.dispose,
+    guard: async () => await roleApiManager.has('admin'),
+    prefetch: async () => await roleApiManager.init(),
+    unload: async () => await roleApiManager.dispose(),
   },
 ];
 
