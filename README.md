@@ -393,6 +393,7 @@ import { OfflineView } from 'react-declarative';
 1. [MVVM](https://backbonejs.org/#Collection) - `useCollection`
 2. [DI](https://angular.io/guide/dependency-injection) - `provide`, `inject`
 3. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`
+4. [Command](https://en.wikipedia.org/wiki/Command_pattern) - `ActionTrigger`, `ActionFilter`, `ActionButton`, `ActionToggle`, `ActionMenu`, `ActionIcon`
 
 ## License
 

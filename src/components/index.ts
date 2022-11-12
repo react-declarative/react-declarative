@@ -12,6 +12,7 @@ export * from './ErrorBoundary';
 export * from './ActionFilter';
 export * from './ActionTrigger';
 export * from './ActionIcon';
+export * from './ActionToggle';
 
 export * from './SizeProvider';
 export * from './ModalProvider';
