@@ -7,7 +7,7 @@ interface IWaitViewProps<P extends any = object, T extends any = object> extends
     children: never;
 }> {
     Content: React.ComponentType<any>;
-    condition: () => Promise<boolean> | boolean | Promise<T> | T | Promise<null> | null;
+    condition: () => (Promise<boolean> | boolean | Promise<T> | T | Promise<null> | null);
     conditionMap?: (result: T) => boolean;
     onDone?: (attempts: number) => void;
     totalAttempts?: number;
