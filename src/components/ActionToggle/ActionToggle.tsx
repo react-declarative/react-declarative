@@ -40,6 +40,9 @@ const useStyles = makeStyles()({
     disabled: {
         opacity: 0.5,
     },
+    active: {
+        cursor: 'pointer',
+    },
 });
 
 export const ActionToggle = ({
@@ -105,6 +108,7 @@ export const ActionToggle = ({
             {...otherProps}
             className={classNames(className, classes.root, {
                 [classes.disabled]: isDisabled,
+                [classes.active]: !isDisabled,
             })}
             onClick={handleChange}
         >

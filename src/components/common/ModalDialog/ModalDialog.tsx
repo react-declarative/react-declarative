@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 const useStyles = makeStyles()({
   dialog: {
-    '&:first-child': {
+    '&:first-of-type': {
       padding: 0,
     },
     overflow: 'hidden',
