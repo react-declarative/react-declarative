@@ -46,6 +46,13 @@ export const PromptPicker = ({
           sx={{ width: '100%' }}
           placeholder={placeholder}
           onChange={({ target }) => setValue(target.value)}
+          onKeyDown={({ key }) => {
+            if (key === 'Enter') {
+              handleAccept();
+            } else if (key === 'Escape') {
+              handleDismiss();
+            }
+          }}
         />
       </Box>
     </ModalDialog>
