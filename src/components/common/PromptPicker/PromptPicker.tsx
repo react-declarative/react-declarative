@@ -42,6 +42,7 @@ export const PromptPicker = ({
       </DialogTitle>
       <Box p={3}>
         <InputBase
+          autoFocus
           sx={{ width: '100%' }}
           placeholder={placeholder}
           onChange={({ target }) => setValue(target.value)}
