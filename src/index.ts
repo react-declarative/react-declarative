@@ -75,6 +75,7 @@ import { useSize } from './components/SizeProvider';
 import { useList } from './hooks/useList';
 import { useFile } from './hooks/useFile';
 import { useConfirm } from './hooks/useConfirm';
+import { usePrompt } from './hooks/usePrompt';
 import { useDate } from './hooks/useDate';
 import { useTime } from './hooks/useTime';
 import { useOne } from './hooks/useOne';
@@ -136,6 +137,8 @@ export type pickTimeFn = ReturnType<typeof useTime>;
 export type pickListFn = ReturnType<typeof useList>;
 
 export type pickConfirmFn = ReturnType<typeof useConfirm>;
+
+export type pickPromptFn = ReturnType<typeof usePrompt>;
 
 export { default as dayjs } from 'dayjs';
 
@@ -227,6 +230,7 @@ export { useCollectionBinding };
 export { useOne, useOneTyped };
 export { useDate, useTime };
 export { useConfirm };
+export { usePrompt };
 export { useSnack };
 export { useModal };
 export { useSize };

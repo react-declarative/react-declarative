@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt } from 'react-declarative';
 
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -124,6 +124,8 @@ export const FadePage = () => {
 
     const notify = useSnack();
 
+    const pickPrompt = usePrompt();
+
     useEffect(() => {
         console.log('ctor')
         return () => {
@@ -135,6 +137,10 @@ export const FadePage = () => {
         await sleep(3_000);
         console.log({ data })
         notify('click');
+    };
+
+    const handlePrompt = () => {
+        pickPrompt().then(console.log);
     };
 
     return (
@@ -208,6 +214,9 @@ export const FadePage = () => {
             <ActionStopIcon onClick={handleClick} sx={{ m: 1 }} />
             <ActionStopIcon onClick={handleClick} noProgress sx={{ m: 1 }} />
             <ActionToggle onClick={handleClick} defaultChecked sx={{ m: 1 }} />
+            <Button sx={{ m: 1 }} onClick={handlePrompt}>
+                Prompt
+            </Button>
         </>
     );
 }
