@@ -397,7 +397,7 @@ import { OfflineView } from 'react-declarative';
 
 1. [MVVM](https://backbonejs.org/#Collection) - `useCollection`
 2. [DI](https://angular.io/guide/dependency-injection) - `provide`, `inject`
-3. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`
+3. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`, `Subject`
 4. [Command](https://en.wikipedia.org/wiki/Command_pattern) - `ActionTrigger`, `ActionFilter`, `ActionButton`, `ActionToggle`, `ActionMenu`, `ActionIcon`
 5. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) - `FetchView`, `WaitView`, `PingView`, `Async`, `If`
 6. [Monad](https://en.wikipedia.org/wiki/Monad_(functional_programming)) - `singleshot`, `cancelable`, `queued`, `cached`, `debounce`, `compose`
