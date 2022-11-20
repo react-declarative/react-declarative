@@ -318,6 +318,8 @@ const ProfilePage = () => {
 };
 ```
 
+<img src="./assets/icons/monade.svg" height="35px" align="right">
+
 ## Animated view transition
 
 > Link to [source code](./demo/src/pages/RevealPage.tsx)
@@ -349,6 +351,8 @@ const PostList = () => {
   );
 };
 ```
+
+<img src="./assets/icons/chaos.svg" height="35px" align="right">
 
 ## Build-in router
 
