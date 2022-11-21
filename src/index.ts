@@ -58,6 +58,7 @@ import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
 import { useChangeSubject } from './hooks/useChangeSubject';
+import { useReloadTrigger } from './hooks/useReloadTrigger';
 import { useSingleton } from './hooks/useSingleton';
 import { useChange } from './hooks/useChange';
 
@@ -218,6 +219,7 @@ export { useActualValue };
 export { useActualState };
 
 export { useChangeSubject };
+export { useReloadTrigger };
 export { useSingleton };
 export { useChange };
 
