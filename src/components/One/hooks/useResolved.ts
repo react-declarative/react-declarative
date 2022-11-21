@@ -16,8 +16,12 @@ import set from '../../../utils/set';
 import get from '../../../utils/get';
 
 import IAnything from '../../../model/IAnything';
-import { PickProp } from '../../../model/IManaged';
 import IOneProps from '../../../model/IOneProps';
+import IOneApi from '../../../model/IOneApi';
+
+import { PickProp } from '../../../model/IManaged';
+
+import { useApiRef } from '../context/ApiProvider';
 
 const LOAD_SOURCE = 'one-resolve';
 
@@ -65,6 +69,7 @@ export const useResolved = <Data = IAnything>({
     loadEnd,
 }: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
+    const apiRef = useApiRef();
     const isMounted = useRef(true);
     const isRoot = useRef(false);
     useLayoutEffect(() => {
@@ -100,7 +105,19 @@ export const useResolved = <Data = IAnything>({
                 isMounted.current && setData(objects(assign({}, buildObj(fields, roles), handler)));
             }
         };
+        const handleUpdateRef = () => {
+            const instance: IOneApi<Data> = {
+                reload: tryResolve,
+                change: (data) => setData(data),
+            };
+            if (typeof apiRef === 'function') {
+                apiRef(instance);
+            } else if (apiRef) {
+                (apiRef.current as any) = instance;
+            }
+        };
         tryResolve();
+        handleUpdateRef();
     }, [handler]);
     useLayoutEffect(() => () => {
         isMounted.current = false;

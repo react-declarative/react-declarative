@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import ApiProvider from './context/ApiProvider';
 import OneGenesis from './components/OneGenesis';
 import PropsProvider from './context/PropsProvider';
 
@@ -15,6 +16,7 @@ export const One = <Data extends IAnything = IAnything, Field = IField<Data>>(pr
 
     const {
         createField = createFieldInternal,
+        apiRef,
     } = props;
 
     const {
@@ -45,13 +47,15 @@ export const One = <Data extends IAnything = IAnything, Field = IField<Data>>(pr
     } as unknown as IOneProps<Data, IField<Data>>;
 
     return (
-        <PropsProvider<Data, IField<Data>>
-            {...genesisProps}
-        >
-            <OneGenesis<Data, IField<Data>>
+        <ApiProvider apiRef={apiRef}>
+            <PropsProvider<Data, IField<Data>>
                 {...genesisProps}
-            />
-        </PropsProvider>
+            >
+                <OneGenesis<Data, IField<Data>>
+                    {...genesisProps}
+                />
+            </PropsProvider>
+        </ApiProvider>
     );
 };
 

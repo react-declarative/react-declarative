@@ -3,6 +3,8 @@ import React from 'react';
 import IField from './IField';
 import IEntity from './IEntity';
 import IAnything from './IAnything';
+import IOneApi from './IOneApi';
+
 import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
 
 type DataOrNull<Data = IAnything> = Data | null;
@@ -10,6 +12,10 @@ type DataOrNull<Data = IAnything> = Data | null;
 export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
 
 export interface IOneProps<Data = IAnything, Field = IField<Data>> {
+  /**
+   * Ссылка на объект API
+   */
+  apiRef?: React.Ref<IOneApi>;
   /**
    * Фабрика для создания полей пользователя
    */

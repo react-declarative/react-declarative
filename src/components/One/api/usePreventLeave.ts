@@ -11,7 +11,6 @@ import IAnything from "../../../model/IAnything";
 
 export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
-    initialData?: Data | null;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
     onSave?: (data: Data) => void | (Promise<void>);
@@ -33,14 +32,13 @@ const DEFAULT_HISTORY = createWindowHistory();
 
 export const usePreventLeave = <Data = IAnything>({
     history = DEFAULT_HISTORY,
-    initialData = null,
     onChange,
     onBlock = () => () => null,
     onSave = () => {},
     fallback,
 }: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
 
-    const [data, setData] = useState<Data | null>(initialData);
+    const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
 
     const unsubscribeRef = useRef<Function | null>();
