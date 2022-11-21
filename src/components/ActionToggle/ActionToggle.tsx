@@ -18,7 +18,7 @@ interface IActionToggleProps extends Omit<BoxProps, keyof {
 }> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
-    onClick?: (value: boolean) => void | Promise<void>;
+    onClick?: (value: boolean) => (void | Promise<void>);
     fallback?: (e: Error) => void;
     checked?: boolean;
     disabled?: boolean;

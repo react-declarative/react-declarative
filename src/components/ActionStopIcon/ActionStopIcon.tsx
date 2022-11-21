@@ -36,7 +36,7 @@ interface IActionStopIconProps extends Omit<IconButtonProps, keyof {
     thickness?: number;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (void | Promise<void>);
     fallback?: (e: Error) => void;
     throwError?: boolean;
 };

@@ -15,7 +15,7 @@ export interface IActionTriggerProps<T extends any = object> extends Omit<IAsync
     children: never;
 }> {
     actions: IActionTrigger[];
-    onAction?: (action: string) => void | Promise<void>;
+    onAction?: (action: string) => (void | Promise<void>);
     variant?: ButtonProps['variant'];
     size?: ButtonProps['size'];
 };

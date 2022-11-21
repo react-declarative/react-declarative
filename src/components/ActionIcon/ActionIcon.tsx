@@ -20,7 +20,7 @@ interface IActionIconProps extends Omit<IconButtonProps, keyof {
 }> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (void | Promise<void>);
     fallback?: (e: Error) => void;
     throwError?: boolean;
     size?: number;
