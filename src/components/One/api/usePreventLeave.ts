@@ -13,7 +13,7 @@ export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
-    onSave?: (data: Data) => void | (Promise<void>);
+    onSave?: (data: Data) => (boolean | Promise<boolean>);
     fallback?: (e: Error) => void;
 }
 
@@ -34,7 +34,7 @@ export const usePreventLeave = <Data = IAnything>({
     history = DEFAULT_HISTORY,
     onChange,
     onBlock = () => () => null,
-    onSave = () => {},
+    onSave = () => true,
     fallback,
 }: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
 
@@ -129,9 +129,9 @@ export const usePreventLeave = <Data = IAnything>({
     const beginSave = async () => {
         if (data) {
             try {
-                await Promise.resolve(onSave(data));
-                afterSave();
-                return true;
+                const result = await Promise.resolve(onSave(data));
+                result && afterSave();
+                return result;
             } catch (e) {
                 unsubscribeRef.current && unsubscribeRef.current();
                 if (fallback) {
