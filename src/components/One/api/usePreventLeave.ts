@@ -19,7 +19,7 @@ export interface IPreventLeaveParams<Data = IAnything> {
 
 export interface IPreventLeaveReturn<Data = IAnything> {
     oneProps: {
-        change: IOneProps<Data>['change'];
+        change: (data: Data, initial?: boolean) => void;
         invalidity: IOneProps<Data>['invalidity'];
     };
     data: Data | null;
@@ -109,7 +109,7 @@ export const usePreventLeave = <Data = IAnything>({
         return unsubscribe;
     }, [data, invalid]);
 
-    const handleChange = (data: Data, initial: boolean) => {
+    const handleChange = (data: Data, initial = false) => {
         if (!initial) {
             isMounted.current && setData(data);
             isMounted.current && setInvalid(false);
