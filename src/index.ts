@@ -19,6 +19,7 @@ import { ActionType as ActionTypeInternal } from './model/ActionType';
 import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
 
 import { IListApi as IListApiInternal } from './model/IListApi';
+import { IOneApi as IOneApiInternal } from './model/IOneApi';
 
 import { IListOperation as IListOperationInternal } from './model/IListOperation';
 import { IListRowAction as IListRowActionInternal } from './model/IListRowAction';
@@ -122,6 +123,7 @@ export type IListAction  = IListActionInternal;
 export type IMenuOption = IMenuOptionInternal;
 export type IMenuGroup = IMenuGroupInternal;
 export type IListApi = IListApiInternal;
+export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 
