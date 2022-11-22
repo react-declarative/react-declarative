@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 
 import { ThemeProvider } from '../../styles';
 
@@ -50,6 +51,7 @@ export class List<
 
     private isMountedFlag = false;
     private isFetchingFlag = false;
+    private isRerenderFlag = false;
 
     private prevState: Partial<IListState> = {};
 
@@ -98,6 +100,7 @@ export class List<
                 (acm, { name: chip, enabled = false }) => ({ ...acm, [chip]: this.props.chipData![chip] || enabled }),
                 {} as any,
             ),
+            rerender: false,
         };
         this.prevState = { ...this.state };
     };
@@ -107,7 +110,11 @@ export class List<
 
     public componentDidUpdate = () => {
         this.handleUpdateRef();
-        this.beginFetchQueue();
+        if (this.state.rerender) {
+            this.beginRerender();
+        } else {
+            this.beginFetchQueue();
+        }
     };
 
     public componentDidMount = () => {
@@ -120,6 +127,16 @@ export class List<
         this.isFetchingFlag = false;
         this.isMountedFlag = false;
         this.handleFetchQueue.clear();
+    };
+
+    private beginRerender = () => {
+        queueMicrotask(() => flushSync(() => {
+            this.isMountedFlag && this.setState((prevState) => ({
+                ...prevState,
+                rerender: false,
+            }));
+            this.isRerenderFlag = true;
+        }));
     };
 
     private beginFetchQueue = () => {
@@ -141,6 +158,8 @@ export class List<
         if (isOk) {
             if (!this.isFetchingFlag) {
                 return;
+            } else if (this.isRerenderFlag) {
+                this.isRerenderFlag = false;
             } else {
                 this.isFetchingFlag = false;
                 updateQueue.reduce((acm, cur) => {
@@ -177,8 +196,12 @@ export class List<
 
     private handleUpdateRef = () => {
         const { apiRef } = this.props;
-        const instance: IListApi = {
+        const instance: IListApi<FilterData, RowData> = {
             reload: this.handleReload,
+            setLimit: this.handleLimitChange,
+            setPage: this.handlePageChange,
+            setRows: this.handleRowsChange,
+            getState: () => ({ ...this.state }),
         };
         if (typeof apiRef === 'function') {
             apiRef(instance);
@@ -300,6 +323,14 @@ export class List<
         this.props.onLimitChange!(newLimit);
     };
 
+    private handleRowsChange = (rows: RowData[]) => {
+        this.isMountedFlag && this.setState((prevState) => ({
+            ...prevState,
+            rows: rows.slice(0, this.state.limit),
+        }));
+        this.handleRerender();
+    };
+
     private handleSortModel = (sort: ListHandlerSortModel) => {
         this.isFetchingFlag = true;
         this.isMountedFlag && this.setState((prevState) => ({
@@ -330,6 +361,16 @@ export class List<
         this.props.onSearchChange!(search);
     };
 
+    private handleRerender = () => {
+        /** handleReload не перезагружает строки, если id не изменились */
+        queueMicrotask(() => flushSync(() => {
+            this.isMountedFlag && this.setState((prevState) => ({
+                ...prevState,
+                rerender: true,
+            }));
+        }));
+    };
+
     private handleFiltersCollapsed = (filtersCollapsed: boolean) => this.setFiltersCollapsed(filtersCollapsed);
 
     private getCallbacks = (): IListCallbacks => ({
@@ -341,7 +382,9 @@ export class List<
         handleReload: this.handleReload,
         handleChips: this.handleChips,
         handleSearch: this.handleSearch,
+        handleRowsChange: this.handleRowsChange,
         handleFiltersCollapsed: this.handleFiltersCollapsed,
+        handleRerender: this.handleRerender,
         ready: () => this.handleDefault(true),
     });
 

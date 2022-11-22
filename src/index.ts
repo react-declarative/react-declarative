@@ -121,10 +121,11 @@ export type IListChip<RowData extends IRowData = IAnything> = IListChipInternal<
 export type IListOperation = IListOperationInternal;
 export type IListAction  = IListActionInternal;
 
+export type IListApi<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IListApiInternal<FilterData, RowData>;
+export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
+
 export type IMenuOption = IMenuOptionInternal;
 export type IMenuGroup = IMenuGroupInternal;
-export type IListApi = IListApiInternal;
-export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 export type IOption = IOptionInternal;
 export type IColumn = IColumnInternal;
 

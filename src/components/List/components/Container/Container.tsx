@@ -108,6 +108,7 @@ export const Container = <
     handleSearch,
     handleFiltersCollapsed,
     sizeByParent = true,
+    rerender = false,
   } = props;
 
   const sizer = {
@@ -181,9 +182,11 @@ export const Container = <
                 <ChipListSlot listChips={listChips} loading={loading} />
               )}
               <div className={classNames(classes.content, classes.stretch)}>
-                <AutoSizer payload={payload} onResize={props.onResize}>
-                  {children}
-                </AutoSizer>
+                {!rerender && (
+                  <AutoSizer payload={payload} onResize={props.onResize}>
+                    {children}
+                  </AutoSizer>
+                )}
               </div>
             </Paper>
           </div>

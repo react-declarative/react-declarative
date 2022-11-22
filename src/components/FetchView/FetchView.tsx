@@ -22,13 +22,8 @@ type TupleState<P extends any = object, A = any, B = any, C = any, D = any, E = 
         | ((payload: P) => [Promise<A>?, Promise<B>?, Promise<C>?, Promise<D>?, Promise<E>?, Promise<F>?, Promise<G>?, Promise<H>?, Promise<I>?, Promise<J>?])
         | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?]);
 
-type UnknownState<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any>  = 
-    ObjectState<P, A>
-        | TupleState<P, A, B, C, D, E, F, G, H, I, J>;
-
-type Fn = (...args: any) => any;
-
-export interface IFetchViewProps<P extends any = object, 
+export interface IFetchViewBaseProps<
+    P extends any = object, 
     A = any,
     B = any,
     C = any,
@@ -38,17 +33,31 @@ export interface IFetchViewProps<P extends any = object,
     G = any,
     H = any,
     I = any,
-    J = any,
-    FN extends Fn = UnknownState<P, A, B, C, D, E, F, G, H, I, J>
+    J = any
 > extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
     animation?: IRevealProps['animation'];
     className?: string;
     style?: React.CSSProperties;
-    state: ReturnType<FN> extends A | Promise<A> ? TupleState<P, A, B, C, D, E, F, J, H, I, J> : ObjectState<P, A>;
     children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => Promise<Result> | Result;
 };
+
+export type IFetchViewObjectProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> = 
+    IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J>
+    & {
+        state: ObjectState<P, A>;
+    };
+
+export type IFetchViewTupleProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> = 
+    IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J>
+    & {
+        state: TupleState<P, A, B, C, D, E, F, G, H, I, J>;
+    };
+
+export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> =
+    IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>
+        | IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J>;
 
 const useStyles = makeStyles()({
     root: {

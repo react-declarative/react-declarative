@@ -19,6 +19,8 @@ import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
 import IOneApi from '../../../model/IOneApi';
 
+import useActualValue from '../../../hooks/useActualValue';
+
 import { PickProp } from '../../../model/IManaged';
 
 import { useApiRef } from '../context/ApiProvider';
@@ -69,6 +71,7 @@ export const useResolved = <Data = IAnything>({
     loadEnd,
 }: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
+    const data$ = useActualValue(data);
     const apiRef = useApiRef();
     const isMounted = useRef(true);
     const isRoot = useRef(false);
@@ -109,6 +112,7 @@ export const useResolved = <Data = IAnything>({
             const instance: IOneApi<Data> = {
                 reload: tryResolve,
                 change: (data) => setData(data),
+                getData: () => ({...data$.current || ({} as Data)}),
             };
             if (typeof apiRef === 'function') {
                 apiRef(instance);

@@ -337,6 +337,9 @@ export const ListPage = () => {
 
   return (
     <ListTyped<IFilterData, IRowData>
+      apiRef={(api) => {
+        (window as any).api = api
+      }}
       withMobile
       title="List Component"
       filterLabel="Filters"

@@ -99,6 +99,7 @@ export interface IListState<FilterData extends {} = IAnything, RowData extends I
   filtersCollapsed: boolean;
   sort: ListHandlerSortModel<RowData>;
   chips: ListHandlerChips<RowData>;
+  rerender: boolean;
 };
 
 export interface IListCallbacks<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
@@ -107,10 +108,12 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
   handleFilter: (data: FilterData, keepPagination?: boolean) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
+  handleRowsChange: (rows: RowData[]) => void;
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   handleChips: (chips: ListHandlerChips) => void;
   handleReload: (keepPagination?: boolean) => Promise<void>;
   handleSearch: (search: string) => void;
+  handleRerender: () => void;
   ready: () => void;
 };
 
@@ -124,7 +127,7 @@ export interface IListProps<
   RowData extends IRowData = IAnything,
   Field extends IField = IField<FilterData>,
   > {
-  apiRef?: Ref<IListApi>;
+  apiRef?: Ref<IListApi<FilterData, RowData>>;
   className?: string;
   style?: React.CSSProperties;
   title?: string;
