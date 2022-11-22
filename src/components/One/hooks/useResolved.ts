@@ -111,7 +111,10 @@ export const useResolved = <Data = IAnything>({
         const handleUpdateRef = () => {
             const instance: IOneApi<Data> = {
                 reload: tryResolve,
-                change: (data) => setData(data),
+                change: (data) => {
+                    setData(data);
+                    change!(data, false);
+                },
                 getData: () => ({...data$.current || ({} as Data)}),
             };
             if (typeof apiRef === 'function') {
