@@ -409,13 +409,14 @@ import { OfflineView } from 'react-declarative';
 
 ## Patterns inside
 
-1. [MVVM](https://backbonejs.org/#Collection) - `useCollection`
+1. [MVVM](https://backbonejs.org/#Collection) - `useCollection`, `useModel`
 2. [DI](https://angular.io/guide/dependency-injection) - `provide`, `inject`
-3. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`, `Subject`
-4. [Command](https://en.wikipedia.org/wiki/Command_pattern) - `ActionTrigger`, `ActionFilter`, `ActionButton`, `ActionToggle`, `ActionMenu`, `ActionIcon`
-5. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) - `FetchView`, `WaitView`, `PingView`, `Async`, `If`
-6. [Routing](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) - `Switch`, `getRouteParams`
-7. [Monad](https://en.wikipedia.org/wiki/Monad_(functional_programming)) - `singleshot`, `cancelable`, `queued`, `cached`, `debounce`, `compose`
+3. [Builder](https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=net-7.0) - `useListEditor`
+4. [Observer](https://en.wikipedia.org/wiki/Observer_pattern) - `useChangeSubject`, `Subject`, `EventEmitter`
+5. [Command](https://en.wikipedia.org/wiki/Command_pattern) - `ActionTrigger`, `ActionFilter`, `ActionButton`, `ActionToggle`, `ActionMenu`, `ActionIcon`
+6. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) - `FetchView`, `WaitView`, `PingView`, `Async`, `If`
+7. [Routing](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) - `Switch`, `getRouteParams`
+8. [Monad](https://en.wikipedia.org/wiki/Monad_(functional_programming)) - `singleshot`, `cancelable`, `queued`, `cached`, `debounce`, `compose`
 
 ## License
 
