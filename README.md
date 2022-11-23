@@ -365,10 +365,20 @@ import { Switch } from 'react-declarative';
 
 const routes = [
   {
-    path: '/sample-page',
-    guard: async () => await roleApiManager.has('admin'),
-    prefetch: async () => await roleApiManager.init(),
-    unload: async () => await roleApiManager.dispose(),
+    path: '/mint-page',
+    guard: async () => await ioc.roleService.has('whitelist'),
+    prefetch: async () => await ioc.ethersService.init(),
+    unload: async () => await ioc.ethersService.dispose(),
+    redirect: () => {
+      let isOk = true;
+      isOk = isOk && ioc.ethersService.isMetamaskAvailable;
+      isOk = isOk && ioc.ethersService.isProviderConnected;
+      isOk = isOk && ioc.ethersService.isAccountEnabled;
+      if (isOk) {
+        return "/connect-page";
+      }
+      return null;
+    },
   },
 ];
 
