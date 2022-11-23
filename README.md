@@ -352,7 +352,7 @@ const PostList = () => {
 };
 ```
 
-<img src="./assets/icons/chaos.svg" height="35px" align="right">
+<img src="./assets/icons/positron.svg" height="35px" align="right">
 
 ## Build-in router
 
@@ -378,6 +378,8 @@ const App = () => (
   <Switch history={history} items={routes} />
 );
 ```
+
+<img src="./assets/icons/chaos.svg" height="35px" align="right">
 
 ## See also
 
