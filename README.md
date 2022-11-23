@@ -418,6 +418,8 @@ import { OfflineView } from 'react-declarative';
 7. [Routing](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) - `Switch`, `getRouteParams`
 8. [Monad](https://en.wikipedia.org/wiki/Monad_(functional_programming)) - `singleshot`, `cancelable`, `queued`, `cached`, `debounce`, `compose`
 
+<img src="./assets/icons/atom.svg" height="35px" align="right">
+
 ## License
 
 MIT © [tripolskypetr](https://github.com/tripolskypetr)
