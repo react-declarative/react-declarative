@@ -405,6 +405,8 @@ import { PingView } from 'react-declarative';
 import { OfflineView } from 'react-declarative';
 ```
 
+<img src="./assets/icons/consciousness.svg" height="35px" align="right">
+
 ## Patterns inside
 
 1. [MVVM](https://backbonejs.org/#Collection) - `useCollection`
