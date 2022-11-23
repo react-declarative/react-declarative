@@ -142,7 +142,7 @@ export const Switch = ({
                         };
                     }
                     if (typeof redirect === 'function') {
-                        const result = redirect(params);
+                        const result = redirect(params) || null;
                         if (result !== null) {
                             setLocation((location) => ({
                                 ...location,
