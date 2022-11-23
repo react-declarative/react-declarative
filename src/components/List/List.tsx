@@ -52,6 +52,7 @@ export class List<
     private isMountedFlag = false;
     private isFetchingFlag = false;
     private isRerenderFlag = false;
+    private isPatchingFlag = false;
 
     private prevState: Partial<IListState> = {};
 
@@ -160,6 +161,8 @@ export class List<
                 return;
             } else if (this.isRerenderFlag) {
                 this.isRerenderFlag = false;
+            } else if (this.isPatchingFlag) {
+                this.isPatchingFlag = false;
             } else {
                 this.isFetchingFlag = false;
                 updateQueue.reduce((acm, cur) => {
@@ -202,6 +205,7 @@ export class List<
             setPage: this.handlePageChange,
             setRows: this.handleRowsChange,
             getState: () => ({ ...this.state }),
+            rerender: this.handleRerender,
         };
         if (typeof apiRef === 'function') {
             apiRef(instance);
@@ -324,11 +328,12 @@ export class List<
     };
 
     private handleRowsChange = (rows: RowData[]) => {
+        this.isPatchingFlag = true;
         this.isMountedFlag && this.setState((prevState) => ({
             ...prevState,
-            rows: rows.slice(0, this.state.limit),
+            rows: rows.slice(0, this.state.limit)
+                .map((row) => ({ ...row })),
         }));
-        this.handleRerender();
     };
 
     private handleSortModel = (sort: ListHandlerSortModel) => {
@@ -362,7 +367,6 @@ export class List<
     };
 
     private handleRerender = () => {
-        /** handleReload не перезагружает строки, если id не изменились */
         queueMicrotask(() => flushSync(() => {
             this.isMountedFlag && this.setState((prevState) => ({
                 ...prevState,
