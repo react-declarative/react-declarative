@@ -12,6 +12,7 @@ import arrays from '../../utils/arrays';
 
 import { LoaderProvider } from './hooks/useLoader';
 import { LoaderLineProvider } from './hooks/useLoaderLine';
+import { PassthroughProvider } from './hooks/usePassthrough';
 
 import IScaffoldProps from './model/IScaffoldProps';
 import IMenuGroup, { IMenuOption } from '../../model/IMenuGroup';
@@ -38,6 +39,7 @@ export const Scaffold = <T extends any = string> ({
     loaderLine = false,
     loader = -1,
     Loader = LoaderDefault,
+    withPassthrough = false,
     ...props
 }: IScaffoldProps<T>) => {
 
@@ -77,25 +79,27 @@ export const Scaffold = <T extends any = string> ({
     return (
         <LoaderProvider payload={loader}>
             <LoaderLineProvider payload={loaderLine}>
-                <Async
-                    throwError={throwError}
-                    fallback={fallback}
-                    payload={payload}
-                    Loader={Loader}
-                >
-                    {async () => {
-                        const roles = await resolveRoles();
-                        const options = await resolveOptions();
-                        return (
-                            <Content<T>
-                                {...props}
-                                roles={roles}
-                                options={options}
-                                payload={payload}
-                            />
-                        );
-                    }}
-                </Async>
+                <PassthroughProvider payload={withPassthrough}>
+                    <Async
+                        throwError={throwError}
+                        fallback={fallback}
+                        payload={payload}
+                        Loader={Loader}
+                    >
+                        {async () => {
+                            const roles = await resolveRoles();
+                            const options = await resolveOptions();
+                            return (
+                                <Content<T>
+                                    {...props}
+                                    roles={roles}
+                                    options={options}
+                                    payload={payload}
+                                />
+                            );
+                        }}
+                    </Async>
+                </PassthroughProvider>
             </LoaderLineProvider>
         </LoaderProvider>
     );

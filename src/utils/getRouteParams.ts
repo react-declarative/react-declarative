@@ -4,7 +4,7 @@ export interface ISwitchItem {
     path: string;
 }
 
-export const getRouteParams = <T = Record<string, any>>(routes: ISwitchItem[], pathname: string): T => {
+export const getRouteParams = <T = Record<string, any>>(routes: ISwitchItem[], pathname: string): T | null => {
     for (const { path } of routes) {
         const params = {} as T;
         const keys: Key[] = [];
@@ -18,7 +18,7 @@ export const getRouteParams = <T = Record<string, any>>(routes: ISwitchItem[], p
             return params;
         }
     }
-    return {} as T;
+    return null;
 };
 
 export default getRouteParams;

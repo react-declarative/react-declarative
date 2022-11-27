@@ -33,6 +33,7 @@ import IScaffoldProps from "../model/IScaffoldProps";
 
 import useActualCallback from "../../../hooks/useActualCallback";
 
+import usePassthrough from "../hooks/usePassthrough";
 import useLoaderLine from "../hooks/useLoaderLine";
 import useLoader from "../hooks/useLoader";
 
@@ -171,6 +172,7 @@ export const Content = <T extends any = string>({
   BeforeMenuContent,
 }: IContentProps<T>) => {
 
+  const withPassthrough = usePassthrough();
   const loaderLine = useLoaderLine();
   const loader = useLoader();
 
@@ -210,6 +212,14 @@ export const Content = <T extends any = string>({
   }, [filterText, currentRoles]);
 
   const handleAction = useActualCallback(onAction);
+
+  if (withPassthrough) {
+    return (
+      <>
+        {children}
+      </>
+    );
+  }
 
   return (
     <LiftedProvider payload={!!filterText}>

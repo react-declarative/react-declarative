@@ -5,6 +5,7 @@ export interface IScaffoldProps<T extends any = string> {
     children: React.ReactNode;
     className?: string;
     dense?: boolean;
+    withPassthrough?: boolean;
     style?: React.CSSProperties;
     title?: string;
     loaderLine?: boolean;

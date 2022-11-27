@@ -156,6 +156,7 @@ export { TabsView } from './components';
 export { WaitView } from './components';
 export { PingView } from './components';
 export { OfflineView } from './components';
+export { RevealView } from './components';
 
 export { ErrorBoundary } from './components';
 
@@ -296,6 +297,8 @@ export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 
 export { getRouteParams } from './utils/getRouteParams';
+export { getRouteItem } from './utils/getRouteItem';
+
 export { getElementFromXPath } from './utils/getElementFromXPath';
 export { getXPathFromElement } from './utils/getXPathFromElement';
 

@@ -29,6 +29,7 @@ export * from './FetchView';
 export * from './WaitView';
 export * from './PingView';
 export * from './OfflineView';
+export * from './RevealView';
 
 export * from './Async';
 export * from './If';

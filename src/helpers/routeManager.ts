@@ -3,11 +3,11 @@ import getRouteParams, { ISwitchItem } from "../utils/getRouteParams";
 
 export class RouteManager<T = Record<string, any>> {
 
-    private _params: T = {} as T;
+    private _params: T | null = null;
     private _unsubscribe: () => void;
 
-    get params(): T {
-        return {...this._params};
+    get params(): T | null {
+        return this._params;
     };
 
     constructor(routes: ISwitchItem[], history: MemoryHistory | BrowserHistory | HashHistory) {

@@ -403,6 +403,7 @@ import { TabsView } from 'react-declarative';
 import { WaitView } from 'react-declarative';
 import { PingView } from 'react-declarative';
 import { OfflineView } from 'react-declarative';
+import { RevealView } from 'react-declarative';
 ```
 
 <img src="./assets/icons/consciousness.svg" height="35px" align="right">
