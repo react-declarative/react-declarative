@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { makeStyles } from '../../styles';
 
@@ -17,7 +17,7 @@ interface IRevealViewProps {
     children: React.ReactNode;
 }
 
-const REVEAL_DELAY = 300;
+const REVEAL_DELAY = 250;
 
 const useStyles = makeStyles()({
     root: {
@@ -44,7 +44,7 @@ export const RevealView = ({
       isMounted.current = false;
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         upperAppear && sleep(delay).then(() => {
             if (isMounted.current) {
                 setAppear(true);
@@ -59,7 +59,11 @@ export const RevealView = ({
             animation={animation}
             appear={appear}
         >
-            {children}
+            {appear && (
+                <>
+                    {children}
+                </>
+            )}
         </Reveal>
     );
 
