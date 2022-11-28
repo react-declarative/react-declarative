@@ -1,8 +1,6 @@
 import { Key, pathToRegexp } from "path-to-regexp";
 
-export interface ISwitchItem {
-    path: string;
-}
+import { ISwitchItem } from './getRouteParams';
 
 export const getRouteItem = <T extends ISwitchItem = ISwitchItem>(routes: T[], pathname: string): T | null => {
     for (const route of routes) {
@@ -16,3 +14,5 @@ export const getRouteItem = <T extends ISwitchItem = ISwitchItem>(routes: T[], p
     }
     return null;
 };
+
+export default getRouteItem;

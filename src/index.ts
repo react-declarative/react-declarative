@@ -32,7 +32,13 @@ import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from './model/IBread
 export { createServiceManager } from './helpers/serviceManager';
 export { serviceManager } from './helpers/serviceManager';
 
-export { createRouteManager } from './helpers/routeManager'
+export { createRouteItemManager } from './helpers/routeManager';
+export { createRouteParamsManager } from './helpers/routeManager';
+
+export { useRouteItem } from './hooks/useRouteItem';
+export { useRouteParams } from './hooks/useRouteParams';
+
+export { RouteManager } from './helpers/routeManager';
 
 export { prefetch } from './helpers/serviceManager';
 export { unload } from './helpers/serviceManager';

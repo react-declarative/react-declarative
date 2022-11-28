@@ -1,8 +1,13 @@
 import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+
+import getRouteItem from "../utils/getRouteItem";
 import getRouteParams, { ISwitchItem } from "../utils/getRouteParams";
 
-export class RouteManager<T = Record<string, any>> {
+import Subject from "../utils/rx/Subject";
 
+export class RouteManager<T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem> extends Subject<void> {
+
+    private _item: I | null = null;
     private _params: T | null = null;
     private _unsubscribe: () => void;
 
@@ -10,23 +15,39 @@ export class RouteManager<T = Record<string, any>> {
         return this._params;
     };
 
-    constructor(routes: ISwitchItem[], history: MemoryHistory | BrowserHistory | HashHistory) {
+    get item(): I | null {
+        return this._item;
+    }
+
+    constructor(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) {
+        super();
         this._unsubscribe = history.listen(({ location }) => {
-            this._params = getRouteParams(routes, location.pathname);
+            this._params = getRouteParams<T>(routes, location.pathname);
+            this._item = getRouteItem<I>(routes, location.pathname);
+            this.next();
         });
     };
 
     dispose = () => {
-        this._unsubscribe;
+        this._unsubscribe();
     };
 
 };
 
-export const createRouteManager = <T = Record<string, any>>(routes: ISwitchItem[], history: MemoryHistory | BrowserHistory | HashHistory) => {
-    const routeManager = new RouteManager<T>(routes, history);
+export const createRouteParamsManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
+    const routeManager = new RouteManager<T, I>(routes, history);
     const fn = () => routeManager.params;
-    fn.clear = routeManager.dispose;
+    fn.clear = routeManager.dispose();
     return fn;
 };
+
+export const createRouteItemManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
+    const routeManager = new RouteManager<T, I>(routes, history);
+    const fn = () => routeManager.item;
+    fn.clear = routeManager.dispose();
+    return fn;
+};
+
+export { ISwitchItem };
 
 export default RouteManager;
