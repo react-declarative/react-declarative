@@ -17,7 +17,7 @@ interface IRevealViewProps {
     children: React.ReactNode;
 }
 
-const REVEAL_DELAY = 250;
+const REVEAL_DELAY = 0;
 
 const useStyles = makeStyles()({
     root: {
