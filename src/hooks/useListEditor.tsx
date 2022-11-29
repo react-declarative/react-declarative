@@ -20,6 +20,7 @@ export const useListEditor = <Data extends any = undefined>(renderItem: (id: Row
         const id = createId();
         items.set(id, data);
         setItems(new Map(items));
+        return id;
     };
 
     const onRemoveItem = (id: RowId) => {
