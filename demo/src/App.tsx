@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Scaffold, Switch, IMenuGroup, ISwitchItem, IScaffoldOption } from 'react-declarative';
+import { Scaffold, Switch, IMenuGroup, ISwitchItem, IScaffoldOption, SecretView } from 'react-declarative';
 
 import SamplePage from './pages/SamplePage';
 import LayoutGrid from './pages/LayoutPage';
@@ -144,21 +144,23 @@ const App = () => {
   const handleOptionClick = (path: string) => history.push(`/${path}`);
 
   return (
-    <Scaffold
-      dense
-      title="Scaffold"
-      options={options}
-      actions={actions}
-      onOptionClick={handleOptionClick}
-      AfterMenuContent={() => <p>123</p>}
-    >
-      <Switch
-        Loader={() => <p>Checking permissions (mock)</p>}
-        NotFound={() => <p>Not found(</p>}
-        history={history}
-        items={routes}
-      />
-    </Scaffold>
+    <SecretView onCode={console.log}>
+      <Scaffold
+        dense
+        title="Scaffold"
+        options={options}
+        actions={actions}
+        onOptionClick={handleOptionClick}
+        AfterMenuContent={() => <p>123</p>}
+      >
+        <Switch
+          Loader={() => <p>Checking permissions (mock)</p>}
+          NotFound={() => <p>Not found(</p>}
+          history={history}
+          items={routes}
+        />
+      </Scaffold>
+    </SecretView>
   );
 };
 

@@ -17,6 +17,9 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
             stateRef.current = newState;
             return newState;
         });
+        if (typeof dispatch !== 'function') {
+            stateRef.current = dispatch;
+        }
     };
 
     return  [

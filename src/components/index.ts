@@ -30,6 +30,7 @@ export * from './WaitView';
 export * from './PingView';
 export * from './OfflineView';
 export * from './RevealView';
+export * from './SecretView';
 
 export * from './Async';
 export * from './If';
