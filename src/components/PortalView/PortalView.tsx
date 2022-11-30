@@ -3,41 +3,22 @@ import * as ReactDOM from "react-dom";
 
 interface IPortalViewProps {
   children: React.ReactNode;
-  selector?: string;
 }
 
 export class PortalView extends React.Component<IPortalViewProps> {
 
-  static defaultProps = {
-    selector: '#modal-root'
-  };
+  element: HTMLDivElement | null = null;
 
-  modalRoot?: HTMLElement;
-  element = document.createDocumentFragment();
-
-  private initModalRoot = () => {
-    const modalRoot = document.querySelector<HTMLElement>(this.props.selector!);
-    if (modalRoot) {
-      this.modalRoot = modalRoot;
-    } else {
-      throw new Error(`react-declarative PortalView ${this.props.selector} not found`);
+  componentWillUnmount() {
+    if (this.element) {
+      document.body.removeChild(this.element);
     }
+    this.element = null;
   };
 
-  constructor(props: IPortalViewProps) {
-    super(props);
-    this.initModalRoot();
-  };
-
-  componentDidMount = () => {
-    this.modalRoot!.appendChild(this.element);
-  };
-
-  componentWillUnmount = () => {
-    this.modalRoot!.removeChild(this.element);
-  };
-
-  render = () => {
+  render() {
+    this.element = document.createElement('div');
+    document.body.appendChild(this.element);
     return ReactDOM.createPortal(
       this.props.children,
       this.element
