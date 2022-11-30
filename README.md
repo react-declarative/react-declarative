@@ -405,6 +405,7 @@ import { PingView } from 'react-declarative';
 import { OfflineView } from 'react-declarative';
 import { RevealView } from 'react-declarative';
 import { SecretView } from 'react-declarative';
+import { PortalView } from 'react-declarative';
 ```
 
 <img src="./assets/icons/consciousness.svg" height="35px" align="right">

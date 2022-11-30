@@ -164,6 +164,7 @@ export { PingView } from './components';
 export { OfflineView } from './components';
 export { RevealView } from './components';
 export { SecretView } from './components';
+export { PortalView } from './components';
 
 export { ErrorBoundary } from './components';
 
