@@ -39,6 +39,7 @@ export interface ISwitchProps {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk?: boolean) => void;
     throwError?: boolean;
+    children?: (result: ISwitchResult) => React.ReactNode;
 }
 
 const canActivate = async (item: ISwitchItem) => {
@@ -52,11 +53,21 @@ const canActivate = async (item: ISwitchItem) => {
 };
 
 interface ISwitchResult {
-    element: React.ComponentType<any>
+    element: React.ComponentType<any>;
+    path: string;
     params?: Record<string, any>; 
 }
 
 const DEFAULT_HISTORY = createWindowHistory();
+
+const DEFAULT_CHILD_FN = ({
+    element: Element = Fragment,
+    params
+}: ISwitchResult) => (
+    <Element
+        {...params}
+    />
+);
 
 const Fragment = () => <></>;
 
@@ -69,6 +80,7 @@ export const Switch = ({
     Error = ErrorDefault,
     animation,
     history = DEFAULT_HISTORY,
+    children = DEFAULT_CHILD_FN,
     fallback,
     items,
     onLoadStart,
@@ -139,6 +151,7 @@ export const Switch = ({
                         }));
                         return {
                             element: Fragment,
+                            path,
                         };
                     }
                     if (typeof redirect === 'function') {
@@ -150,21 +163,25 @@ export const Switch = ({
                             }));
                             return {
                                 element: Fragment,
+                                path,
                             };
                         }
                     }
                     return {
                         element,
                         params,
+                        path,
                     };
                 }
                 return {
                     element: Forbidden,
+                    path,
                 };
             }
         }
         return {
             element: NotFound,
+            path: url,
         };
     }, [location]);
 
@@ -183,14 +200,9 @@ export const Switch = ({
             throwError={throwError}
         >
             {async (data) => {
-                const { element: Element = Fragment, params } = data;
                 /* delay to prevent sync execution for appear animation */
                 await sleep(0);
-                return (
-                    <Element
-                        {...params}
-                    />
-                );
+                return children(data);
             }}
         </FetchView>
     );
