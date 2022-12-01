@@ -389,7 +389,7 @@ const App = () => (
 );
 ```
 
-<img src="./assets/icons/chaos.svg" height="35px" align="right">
+<img src="./assets/icons/eye.svg" height="35px" align="right">
 
 ## See also
 
