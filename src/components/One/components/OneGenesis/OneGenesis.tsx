@@ -33,6 +33,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
   const {
     className,
     style,
+    sx,
   } = props;
 
   const fieldsSnapshot = useMemo(() => fields, []);
@@ -76,6 +77,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
             <Group
               className={className}
               style={style}
+              sx={sx}
             >
               <OneInternal {...viewParams} />
             </Group>

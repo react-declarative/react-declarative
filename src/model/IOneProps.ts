@@ -6,6 +6,7 @@ import IAnything from './IAnything';
 import IOneApi from './IOneApi';
 
 import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
+import { SxProps } from '@mui/material';
 
 type DataOrNull<Data = IAnything> = Data | null;
 
@@ -36,6 +37,10 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Стиль корневой группы
    */
   style?: React.CSSProperties;
+  /**
+   * SX для корневой группы
+   */
+  sx?: SxProps;
   /**
    * Позволяет загружать данные в компонент
    */
