@@ -93,7 +93,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
                         };
                         const fields: IField<Data>[] = field.child ? 
                             [ field.child ]
-                            : field.fields!;
+                            : field.fields || [];
                         const one: IOneProps<Data> = {
                             ready: handleReady,
                             prefix: currentPath,
