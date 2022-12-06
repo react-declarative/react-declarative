@@ -144,7 +144,7 @@ const App = () => {
   const handleOptionClick = (path: string) => history.push(`/${path}`);
 
   return (
-    <SecretView onCode={console.log}>
+    <SecretView enabled={false} onCode={console.log}>
       <Scaffold
         dense
         title="Scaffold"

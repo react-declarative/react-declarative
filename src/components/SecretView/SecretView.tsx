@@ -27,6 +27,7 @@ const DIALOG_CONTAINER = 'MuiDialog-container';
 interface ISecretViewProps {
   children?: React.ReactNode;
   onCode?: (code: number) => void;
+  enabled?: boolean;
   title?: string;
   description?: string;
   digits?: number;
@@ -40,6 +41,7 @@ interface IState {
 
 export const SecretView = ({
   children,
+  enabled = true,
   title = "Service menu",
   description = "Please type a secret\ncode to continue",
   digits = DEFAULT_TOTAL_DIGITS,
@@ -52,6 +54,12 @@ export const SecretView = ({
     ...state.current,
     ...INITIAL_STATE,
   });
+
+  useEffect(() => {
+    if (!enabled) {
+      handleClose();
+    }
+  }, [enabled]);
 
   const setOpen = (open: boolean) => setState({
     ...state.current,
@@ -70,6 +78,9 @@ export const SecretView = ({
 
   const handleKeydown = useActualCallback((key: string) => {
     if (state.current.approved) {
+      return;
+    }
+    if (!enabled) {
       return;
     }
     if (key === 'Escape') {
@@ -113,6 +124,9 @@ export const SecretView = ({
       isOk = isOk || e.target === document.body;
       isOk = isOk || (state.current.open && e.target.classList.contains(DIALOG_CONTAINER))
       if (!isOk) {
+        return;
+      }
+      if (!enabled) {
         return;
       }
       handleKeydown(e.key);
