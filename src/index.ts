@@ -355,6 +355,7 @@ export { cacheSrc } from './utils/cacheSrc';
 
 export { parseBase64Json, stringifyBase64Json } from './utils/base64Json';
 export { parseAsciiParams, serializeAsciiParams } from './utils/asciiParams';
+export { fromBytes32, toBytes32 } from './utils/asciiParams';
 
 import * as typoInternal from './utils/typo';
 import * as datetimeInternal from './utils/datetime';

@@ -1,5 +1,4 @@
-
-
+import { terminator } from "./typo";
 
 export const parseAsciiParams = <T extends {} = Record<string, any>>(state: number[]): T | null => {
   try {
@@ -32,4 +31,38 @@ export const serializeAsciiParams = <T extends {} = Record<string, any>>(state: 
     .map(([key, value]) => `${key}=${value}`)
     .join(';');
   return [...stringParams].map((char) => char.charCodeAt(0));
+};
+
+const isHexStrict = (hex: string) => {
+  return typeof hex === 'string' && /^(-)?0x[0-9a-f]*$/i.test(hex);
+};
+
+export const toBytes32 = (str: string) => {
+  const data = [...new Array(32)].fill(terminator);
+  for (let i = 0; i !== str.length; i++) {
+    data[i] = str[i]
+  }
+  str = data.join('');
+  let hex = "";
+  for(let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    const n = code.toString(16);
+    hex += n.length < 2 ? '0' + n : n;
+  }
+  return "0x" + hex;
+};
+
+export const fromBytes32 = (hex: string) => {
+  if (!isHexStrict(hex))
+      throw new Error('The parameter must be a valid HEX string.');
+  let str = "";
+  let i = 0, l = hex.length;
+  if (hex.substring(0, 2) === '0x') {
+      i = 2;
+  }
+  for (; i < l; i+=2) {
+      const code = parseInt(hex.slice(i, i + 2), 16);
+      str += String.fromCharCode(code);
+  }
+  return str.split('').filter((c) => c !== terminator).join('');
 };
