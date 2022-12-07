@@ -29,6 +29,7 @@ import { SelectionProvider } from './hooks/useSelection';
 import { SortModelProvider } from './hooks/useSortModel';
 import { ModalSortProvider } from './hooks/useModalSort';
 import { CachedRowsProvider } from './hooks/useCachedRows';
+import { PayloadProvider } from './hooks/usePayload';
 import { ChipsProvider } from './hooks/useChips';
 import { PropProvider } from './hooks/useProps';
 
@@ -61,6 +62,7 @@ export class List<
 
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
+        payload: {},
         fallback: (e) => console.error(e),
         limit: DEFAULT_LIMIT,
         page: DEFAULT_PAGE,
@@ -441,7 +443,9 @@ export class List<
                                             <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
                                                 <ModalSortProvider>
                                                     <SlotFactory {...this.props.slots}>
-                                                        {this.renderInner()}
+                                                        <PayloadProvider payload={this.props.payload!}>
+                                                            {this.renderInner()}
+                                                        </PayloadProvider>
                                                     </SlotFactory>
                                                 </ModalSortProvider>
                                             </ChipsProvider>

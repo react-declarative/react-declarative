@@ -157,6 +157,7 @@ export interface IListProps<
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
+  payload?: Record<string, any>;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
   rowActions?: IListRowAction[];

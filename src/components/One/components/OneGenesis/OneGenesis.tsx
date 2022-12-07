@@ -18,6 +18,7 @@ import arrays from '../../../../utils/arrays';
 import StateProvider from '../../context/StateProvider';
 
 import SlotFactory from '../SlotFactory';
+import PayloadProvider from '../../context/PayloadProvider';
 
 export const OneGenesis = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Field>) => {
 
@@ -28,6 +29,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
     ready = () => null,
     fields = [],
     slots = {},
+    payload = {},
   } = props;
 
   const {
@@ -74,13 +76,15 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
       <ThemeProvider>
         <StateProvider<Data, Field> {...stateParams}>
           <SlotFactory {...slots}>
-            <Group
-              className={className}
-              style={style}
-              sx={sx}
-            >
-              <OneInternal {...viewParams} />
-            </Group>
+            <PayloadProvider payload={payload}>
+              <Group
+                className={className}
+                style={style}
+                sx={sx}
+              >
+                <OneInternal {...viewParams} />
+              </Group>
+            </PayloadProvider>
           </SlotFactory>
         </StateProvider>
       </ThemeProvider>

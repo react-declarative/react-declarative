@@ -46,6 +46,11 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    */
   handler?: OneHandler<Data>;
   /**
+   * Объект, передающийся в пользовательские
+   * поля через контекст
+   */
+  payload?: Record<string, any>;
+  /**
    * Вызывается при ошибке в handler
    */
   fallback?: (e: Error) => void;

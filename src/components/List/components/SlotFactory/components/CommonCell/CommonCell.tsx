@@ -16,6 +16,7 @@ import ColumnType from '../../../../../../model/ColumnType';
 import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
 import useProps from "../../../../hooks/useProps";
+import usePayload from '../../../../hooks/usePayload';
 
 const LOAD_SOURCE = 'list-item';
 
@@ -43,6 +44,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
 }: ICommonCellSlot<RowData>) => {
 
     const { classes } = useStyles();
+    const _payload = usePayload();
 
     const {
         fallback,
@@ -83,7 +85,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
         } = column;
         return (
             <Box className={classes.stretch}>
-                <Element {...row} />
+                <Element {...{...row, _payload}} />
             </Box>
         );
     } else if (column.type === ColumnType.Action) {
