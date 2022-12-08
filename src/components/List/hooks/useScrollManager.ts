@@ -1,9 +1,9 @@
 import createScrollManager from "../helpers/createScrollManager";
-import createProvider from "../../../utils/createProvider";
+import createValueProvider from "../../../utils/createValueProvider";
 
 type ScrollManager = ReturnType<typeof createScrollManager>;
 
-const [ ScrollManagerProvider, useScrollManager ] = createProvider<ScrollManager>();
+const [ ScrollManagerProvider, useScrollManager ] = createValueProvider<ScrollManager>();
 
 export { ScrollManagerProvider, useScrollManager };
 

@@ -1,5 +1,5 @@
-import createProvider from "../../../utils/createProvider";
+import createValueProvider from "../../../utils/createValueProvider";
 
-export const [LiftedProvider, useLifted] = createProvider<boolean>();
+export const [LiftedProvider, useLifted] = createValueProvider<boolean>();
 
 export default useLifted;

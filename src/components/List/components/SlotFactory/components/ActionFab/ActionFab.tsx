@@ -15,7 +15,7 @@ import useCachedRows from '../../../../hooks/useCachedRows';
 
 import useActualCallback from '../../../../../../hooks/useActualCallback';
 
-import createProvider from '../../../../../../utils/createProvider';
+import createValueProvider from '../../../../../../utils/createValueProvider';
 
 import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles()({
     },
 });
 
-const [ShrinkProvider, useShrink] = createProvider<boolean>();
+const [ShrinkProvider, useShrink] = createValueProvider<boolean>();
 
 export const ActionFab = ({
     action = 'fab-action',

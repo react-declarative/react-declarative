@@ -1,10 +1,10 @@
 import createConstraintManager from "../helpers/createConstraintManager";
 
-import createProvider from "../../../utils/createProvider";
+import createValueProvider from "../../../utils/createValueProvider";
 
 type ConstraintManager = ReturnType<typeof createConstraintManager>;
 
-const [ ConstraintManagerProvider, useConstraintManager ] = createProvider<ConstraintManager>();
+const [ ConstraintManagerProvider, useConstraintManager ] = createValueProvider<ConstraintManager>();
 
 export { ConstraintManagerProvider, useConstraintManager };
 

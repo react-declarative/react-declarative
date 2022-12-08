@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import Snackbar from "@mui/material/Snackbar";
 
 import randomString from '../../utils/randomString';
-import createProvider from '../../utils/createProvider';
+import createValueProvider from '../../utils/createValueProvider';
 
 interface ISnack {
     key: string;
@@ -18,7 +18,7 @@ interface ISnackProviderProps {
     delay?: number;
 }
 
-const [Provider, useSnack] = createProvider<(msg: string) => void>();
+const [Provider, useSnack] = createValueProvider<(msg: string) => void>();
 
 export const SnackProvider = ({
     children,

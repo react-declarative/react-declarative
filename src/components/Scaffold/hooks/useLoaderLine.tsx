@@ -1,5 +1,5 @@
-import createProvider from "../../../utils/createProvider";
+import createValueProvider from "../../../utils/createValueProvider";
 
-export const [LoaderLineProvider, useLoaderLine] = createProvider<boolean>();
+export const [LoaderLineProvider, useLoaderLine] = createValueProvider<boolean>();
 
 export default useLoaderLine;

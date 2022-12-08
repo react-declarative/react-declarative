@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext, useContext } from "react";
 
-export const createProvider = <P extends any = object>() => {
+export const createValueProvider = <P extends any = object>() => {
 
   const Context = createContext<P>(null as never);
 
@@ -22,4 +22,4 @@ export const createProvider = <P extends any = object>() => {
   return [Provider, usePayload] as const;
 };
 
-export default createProvider;
+export default createValueProvider;
