@@ -56,8 +56,8 @@ export type IFetchViewTupleProps<P extends any = object, A = any, B = any, C = a
     };
 
 export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> =
-    IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>
-        | IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J>;
+    IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J>
+        | IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>;
 
 const useStyles = makeStyles()({
     root: {
@@ -129,5 +129,19 @@ export const FetchView = <P extends any = object, A = any, B = any, C = any, D =
         </Reveal>
     );
 };
+
+/*const state = () => [
+    Promise.resolve('string'),
+    Promise.resolve(1),
+    Promise.resolve(true),
+] as const;
+
+const test = (
+    <FetchView state={state}>
+    {(str, num, bool) => (
+        <></>
+    )}
+    </FetchView>
+);*/
 
 export default FetchView;
