@@ -4,15 +4,17 @@ export * from './NoSsr';
 export * from './Switch';
 export * from './Scaffold';
 export * from './Translate';
-export * from './ActionMenu';
 export * from './Breadcrumbs';
+export * from './ErrorBoundary';
+
+export * from './ActionMenu';
 export * from './ActionButton';
 export * from './ActionStopIcon';
-export * from './ErrorBoundary';
 export * from './ActionFilter';
 export * from './ActionTrigger';
 export * from './ActionIcon';
 export * from './ActionToggle';
+export * from './ActionModal';
 
 export * from './SizeProvider';
 export * from './ModalProvider';

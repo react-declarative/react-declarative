@@ -177,6 +177,7 @@ export { ActionButton } from './components';
 export { ActionToggle } from './components';
 export { ActionMenu } from './components';
 export { ActionIcon } from './components';
+export { ActionModal, useActionModal, useActionModalTyped } from './components';
 
 export { Async } from './components';
 export { If } from './components';
