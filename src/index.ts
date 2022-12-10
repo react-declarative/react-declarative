@@ -63,6 +63,8 @@ import { useActualCallback } from './hooks/useActualCallback';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 
+import { useMediaContext } from './hooks/useMediaContext';
+import { useAudioPlayer } from './hooks/useAudioPlayer';
 import { useChangeSubject } from './hooks/useChangeSubject';
 import { useReloadTrigger } from './hooks/useReloadTrigger';
 import { useSingleton } from './hooks/useSingleton';
@@ -233,6 +235,9 @@ export { useActualState };
 
 export { useChangeSubject };
 export { useReloadTrigger };
+
+export { useMediaContext };
+export { useAudioPlayer };
 
 export { useBehaviorSubject };
 export { useSingleton };
