@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Button } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType, useMediaContext } from 'react-declarative';
 
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -115,6 +115,12 @@ const actions_trigger: IActionTrigger[] = [
 ];
 
 export const FadePage = () => {
+
+    const {
+        isPhone,
+        isTablet,
+        isDesktop,
+    } = useMediaContext();
 
     const {
         pickData,
@@ -243,6 +249,9 @@ export const FadePage = () => {
             <Button sx={{ m: 1 }} onClick={handleModal}>
                 Modal
             </Button>
+            {isPhone && "Phone"}
+            {isTablet && "Tablet"}
+            {isDesktop && "Desktop"}
             {render()}
         </>
     );
