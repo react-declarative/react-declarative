@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
 
+import useReloadTrigger from './useReloadTrigger';
+
 interface IParams {
     src: string;
 }
@@ -10,9 +12,11 @@ export const useAudioPlayer = ({
 }: IParams) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const { doReload, reloadTrigger } = useReloadTrigger();
 
     const handleStart = () => {
         setIsPlaying(true);
+        doReload();
     };
 
     const handleEnd = () => {
@@ -23,6 +27,7 @@ export const useAudioPlayer = ({
         <>
             {isPlaying && (
                 <audio
+                    key={reloadTrigger}
                     ref={audioRef}
                     src={src}
                     controls
