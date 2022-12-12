@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
 
@@ -6,21 +6,16 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
 
     const stateRef = useRef(state);
 
-    const handleState: typeof setState = (dispatch) => {
-        setState((prevState) => {
-            let newState: S;
-            if (typeof dispatch === 'function') {
-                newState = (dispatch as Function)(prevState)
-            } else {
-                newState = dispatch;
-            }
-            stateRef.current = newState;
-            return newState;
-        });
-        if (typeof dispatch !== 'function') {
-            stateRef.current = dispatch;
+    const handleState: typeof setState = useCallback((dispatch) => {
+        let newState: S;
+        if (typeof dispatch === 'function') {
+            newState = (dispatch as Function)(stateRef.current);
+        } else {
+            newState = dispatch;
         }
-    };
+        stateRef.current = newState;
+        setState(newState);
+    }, []);
 
     return  [
         stateRef,
