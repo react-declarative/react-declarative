@@ -105,7 +105,7 @@ import { IScaffoldOption as IScaffoldOptionInternal  } from './components';
 
 export type ISwitchItem = ISwitchItemInternal;
 export type IActionFilter = IActionFilterInternal;
-export type IActionTrigger<Data extends object = any> = IActionTriggerInternal<Data>;
+export type IActionTrigger<Data extends any = any> = IActionTriggerInternal<Data>;
 
 export const FieldType = FieldTypeInternal;
 export const ColumnType = ColumnTypeInternal;

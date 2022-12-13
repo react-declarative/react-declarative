@@ -1,7 +1,7 @@
 import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
-export interface IActionTrigger<Data extends object = IAnything> extends Omit<IOption, keyof {
+export interface IActionTrigger<Data extends any = IAnything> extends Omit<IOption, keyof {
     isVisible: never;
     isDisabled: never;
 }> {
