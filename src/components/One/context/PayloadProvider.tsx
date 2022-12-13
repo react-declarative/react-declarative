@@ -20,6 +20,6 @@ export const PayloadProvider = ({
     </PayloadContext.Provider>
 );
 
-export const usePayload = () => useContext(PayloadContext);
+export const useOnePayload = () => useContext(PayloadContext);
 
 export default PayloadProvider;

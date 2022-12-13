@@ -74,6 +74,8 @@ export type ListHandlerPagination = {
   offset: number;
 };
 
+export type ListPayload = Record<string, any>;
+
 export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<Record<keyof RowData, boolean>>;
 
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
@@ -157,7 +159,7 @@ export interface IListProps<
   columns: IColumn<RowData>[];
   filters?: Field[];
   handler: ListHandler;
-  payload?: Record<string, any>;
+  payload?: ListPayload;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
   rowActions?: IListRowAction[];

@@ -2,12 +2,15 @@ import { useState, useLayoutEffect, useRef } from "react";
 import { useOneProps } from "../context/PropsProvider";
 
 import IField from "../../../model/IField";
+import { useOneState } from "../context/StateProvider";
 
 const LOAD_SOURCE = 'items-field';
 
 interface IParams {
   itemList: IField<any>['itemList'];
   tr: IField<any>['tr'];
+  payload: Record<string, any>;
+  object: Record<string, any>;
   defaultList?: string[];
 }
 
@@ -27,10 +30,12 @@ interface IState extends IItemsState, ILoadingState {
 const fetchState = async ({
   itemList = [],
   tr = v => v,
+  payload = {},
+  object = {},
 }: Partial<IParams>): Promise<IItemsState> => {
   const labels: Record<string, string> = {};
-  const items = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(null as never)) : itemList);
-  await Promise.all(items.map(async (item) => labels[item] = await Promise.resolve(tr(item))));
+  const items = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
+  await Promise.all(items.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
   return {
     labels,
     items,
@@ -49,7 +54,12 @@ export const useItemList = ({
     loadStart,
     loadEnd,
     fallback,
+    payload,
   } = useOneProps();
+
+  const {
+    object,
+  } = useOneState<any>();
 
   const [state, setState] = useState<IState>({
     items: defaultList,
@@ -67,6 +77,8 @@ export const useItemList = ({
           const newState = await fetchState({
             itemList,
             tr,
+            object,
+            payload,
           });
           if (mountedRef.current) {
             setState({

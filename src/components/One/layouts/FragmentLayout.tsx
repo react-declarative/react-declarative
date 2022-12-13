@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect, Fragment } from 'react';
 
+import { useOnePayload } from '../context/PayloadProvider';
+
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
@@ -27,8 +29,9 @@ export const FragmentLayout = <Data extends IAnything = IAnything>({
     ready,
 }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>) => {
     const [visible, setVisible] = useState(true);
+    const payload = useOnePayload();
     useEffect(() => {
-        const visible = isVisible(object);
+        const visible = isVisible(object, payload);
         if (!visible) {
             ready();
         }

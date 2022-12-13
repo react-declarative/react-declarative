@@ -68,7 +68,13 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 onLoadEnd={handleLoadEnd}
                 throwError
             >
-                {column.compute!}
+                {async (data) => {
+                    if (column.compute) {
+                        return await column.compute(data, _payload);
+                    } else {
+                        return null;
+                    }
+                }}
             </Async>
         );
     } else if (column.type === ColumnType.CheckBox) {

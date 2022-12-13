@@ -10,6 +10,8 @@ import objects from '../../../utils/objects';
 
 import { IItemsSlot } from '../slots/ItemsSlot';
 
+import { useOneProps } from '../context/PropsProvider';
+import { useOneState } from '../context/StateProvider';
 import useItemList from './useItemList';
 
 export const OtherItemsSlot = ({
@@ -26,6 +28,8 @@ export const OtherItemsSlot = ({
     tr = (s) => s.toString(),
     onChange,
 }: IItemsSlot) => {
+    const { payload = {} } = useOneProps();
+    const { object } = useOneState<any>();
     const {
         items: options,
         labels,
@@ -33,6 +37,8 @@ export const OtherItemsSlot = ({
         loaded,
     } = useItemList({
         itemList: arrays(itemList) || [],
+        payload,
+        object,
         tr,
     });
     return (

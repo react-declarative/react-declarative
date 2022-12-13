@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 
 import If from '../../If';
 
+import { useOnePayload } from '../context/PayloadProvider';
+
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
@@ -34,13 +36,19 @@ export const ConditionLayout = <Data extends IAnything = IAnything>({
     ready,
 }: IConditionLayoutProps<Data> & IConditionLayoutPrivate<Data>) => {
 
+    const payload = useOnePayload();
+
     useEffect(() => {
         ready();
     }, [object]);
 
+    const handleCondition = async (data: Data) => {
+        return await condition(data, payload);
+    };
+
     return (
         <If
-            condition={condition}
+            condition={handleCondition}
             fallback={fallback}
             payload={object}
         >

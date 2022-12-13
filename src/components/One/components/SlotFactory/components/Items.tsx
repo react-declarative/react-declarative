@@ -18,6 +18,7 @@ import arrays from '../../../../../utils/arrays';
 
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
+import { useOnePayload } from '../../../context/PayloadProvider';
 
 import { IItemsSlot } from '../../../slots/ItemsSlot';
 
@@ -46,6 +47,7 @@ export const Items = ({
 }: IItemsSlot) => {
 
     const { object: upperObject } = useOneState();
+    const payload = useOnePayload();
 
     const { fallback = (e: Error) => {
         throw e;
@@ -55,7 +57,7 @@ export const Items = ({
     const prevObject = useRef<any>(null);
   
     const object = useMemo(() => {
-      if (!shouldUpdate(prevObject.current, upperObject)) {
+      if (!shouldUpdate(prevObject.current, upperObject, payload)) {
         return prevObject.current || initialObject.current;
       } else {
         prevObject.current = upperObject;
@@ -178,8 +180,8 @@ export const Items = ({
 
                 const labels: Record<string, string> = {};
                 itemList = arrays(itemList) || [];
-                const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object)) : itemList);
-                await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item))));
+                const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
+                await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
 
                 return (
                     <Content

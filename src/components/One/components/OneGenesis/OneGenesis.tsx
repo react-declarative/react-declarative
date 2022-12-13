@@ -52,7 +52,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
     deepFlat(fields).forEach(({
       isInvalid = () => null
     }: any) => {
-      isValid = isValid && (isInvalid(newData) || null) === null;
+      isValid = isValid && (isInvalid(newData, payload) || null) === null;
     });
     if (isValid) {
       change(arrays(newData), initial);

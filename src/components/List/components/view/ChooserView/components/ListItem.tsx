@@ -18,6 +18,7 @@ import IColumn from "../../../../../../model/IColumn";
 import useReload from '../../../../hooks/useReload';
 import useProps from '../.../../../../../hooks/useProps';
 import useSelection from '../../../../hooks/useSelection';
+import usePayload from '../../../../hooks/usePayload';
 
 import RowCheckbox from './common/RowCheckbox';
 import RowMark from './common/RowMark';
@@ -39,6 +40,8 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
         onLoadEnd,
     } = useProps();
 
+    const payload = usePayload();
+
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
@@ -54,7 +57,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
                 if (column && column.element) {
                     return createElement(column.element, row);
                 } else  if (column && column.compute) {
-                    return column.compute(row);
+                    return column.compute(row, payload);
                 } else if (column && column.field) {
                     return row[column.field];
                 } else {

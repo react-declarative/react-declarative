@@ -13,6 +13,7 @@ import waitForBlur from '../../../../utils/wairForBlur';
 
 import { makeStyles } from '../../../../styles';
 
+import { useOnePayload } from '../../context/PayloadProvider';
 import useDebounce from '../../hooks/useDebounce';
 
 import Group, { IGroupProps } from '../../../common/Group';
@@ -100,6 +101,7 @@ export function makeField(
     }: IEntity<Data>) => {
 
         const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
+        const payload = useOnePayload();
 
         const { classes } = useStyles();
 
@@ -140,7 +142,7 @@ export function makeField(
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             if (compute) {
-                const result = compute(arrays(object));
+                const result = compute(arrays(object), payload);
                 if (result instanceof Promise) {
                     setLoading(true)
                     result
@@ -153,9 +155,9 @@ export function makeField(
             } else if (!name) {
                 // void(0);
             } else {
-                const disabled = isDisabled(object);
-                const visible = isVisible(object);
-                const invalid = isInvalid(object) || null;
+                const disabled = isDisabled(object, payload);
+                const visible = isVisible(object, payload);
+                const invalid = isInvalid(object, payload) || null;
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
@@ -195,7 +197,7 @@ export function makeField(
                 const target = debouncedValue;
                 const copy = deepClone(object);
                 const check = set(copy, name, target);
-                const invalid = isInvalid(copy) || null;
+                const invalid = isInvalid(copy, payload) || null;
                 setInvalid(invalid);
                 setDirty(true);
                 if (!name) {

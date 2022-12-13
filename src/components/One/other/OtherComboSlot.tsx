@@ -8,6 +8,8 @@ import arrays from '../../../utils/arrays';
 
 import { IComboSlot } from '../slots/ComboSlot';
 
+import { useOneProps } from '../context/PropsProvider';
+import { useOneState } from '../context/StateProvider';
 import useItemList from './useItemList';
 
 export const OtherComboSlot = ({
@@ -24,6 +26,8 @@ export const OtherComboSlot = ({
   tr = (s) => s.toString(),
   onChange,
 }: IComboSlot) => {
+  const { payload = {} } = useOneProps();
+  const { object } = useOneState<any>();
   const {
     items: options,
     labels,
@@ -31,6 +35,8 @@ export const OtherComboSlot = ({
     loaded,
   } = useItemList({
     itemList: arrays(itemList) || [],
+    payload,
+    object,
     tr,
   });
   return (

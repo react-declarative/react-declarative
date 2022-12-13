@@ -5,6 +5,7 @@ import { ISizeCallback } from './ISize';
 import FieldType from './FieldType';
 import IAnything from './IAnything';
 import { SxProps } from '@mui/material';
+import { OnePayload } from './IOneProps';
 
 export type Value = string | string[] | number | boolean | null;
 
@@ -238,20 +239,20 @@ export interface IField<Data = IAnything> {
     /**
      * Варианты выбора для ComboField и ItemsField
      */
-    itemList?: string[] | ((data: Data) => string[]) | ((data: Data) => Promise<string[]>),
+    itemList?: string[] | ((data: Data, payload: OnePayload) => string[]) | ((data: Data, payload: OnePayload) => Promise<string[]>),
 
     /**
      * Позволяет указать условия перезагрузки списка
      * элементов
      */
-    shouldUpdateItemList?: (prevData: Data | null, nextData: Data) => boolean,
+    shouldUpdateItemList?: (prevData: Data | null, nextData: Data, payload: OnePayload) => boolean,
 
     /**
      * Позволяет перевести значения у ComboField и ItemsField
      * из поле itemList на человеческий, если
      * используются константы
      */
-    tr?: ((s: string) => string) | ((s: string) => Promise<string>),
+    tr?: ((s: string, data: Data, payload: OnePayload) => string) | ((s: string, data: Data, payload: OnePayload) => Promise<string>),
 
     /**
      * Флаг для FieldType.Items и FieldType.Combo, который разрешает сабмит по изменению
@@ -316,25 +317,25 @@ export interface IField<Data = IAnything> {
      * возвращаемое значение не равно null, считается за
      * ошибкую
      */
-    isInvalid?: (v: Data) => null | string;
+    isInvalid?: (v: Data, payload: OnePayload) => null | string;
 
     /**
      * Функция, позволяющая скрыть поле, исходя из целевого
      * объекта
      */
-    isVisible?: (v: Data) => boolean;
+    isVisible?: (v: Data, payload: OnePayload) => boolean;
 
     /**
      * Функция, позволяющая отключить поле, исходя из целевого
      * объекта
      */
-    isDisabled?: (v: Data) => boolean;
+    isDisabled?: (v: Data, payload: OnePayload) => boolean;
 
     /**
      * Функция, применяемая если значение поля вычисляется динамически.
      * Включает readonly.
      */
-    compute?: (v: Data) => Promise<Value> | Value;
+    compute?: (v: Data, payload: OnePayload) => Promise<Value> | Value;
 
     /**
      * Инъекция JSX для ComponentField
@@ -378,7 +379,7 @@ export interface IField<Data = IAnything> {
     /**
      * Предикат для компоновки Condition
      */
-    condition?: ((payload: Data) => boolean) | ((payload: Data) => Promise<boolean>)
+    condition?: ((data: Data, payload: OnePayload) => boolean) | ((data: Data, payload: OnePayload) => Promise<boolean>)
 
     /**
      * Свойства для компоновки Hero - инструмента настройки отступов
