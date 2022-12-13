@@ -16,6 +16,7 @@ interface IDragDropViewProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
+  disabled?: boolean;
   multiple?: boolean;
   accept?: string;
   onData?: (files: File[]) => void;
@@ -85,12 +86,17 @@ const useStyles = makeStyles()((theme) => ({
   dragActive: {
     background: alpha(theme.palette.background.paper, 0.2),
   },
+  disabled: {
+    pointerEvents: 'none',
+    opacity: 0.5,
+  },
 }));
 
 export const DragDropView = ({
   className,
   style,
   sx,
+  disabled = false,
   multiple = false,
   accept = ACCEPT_DEFAULT,
   onData = () => { },
@@ -112,7 +118,9 @@ export const DragDropView = ({
   const handleDrag = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    if (event.type === "dragenter" || event.type === "dragover") {
+    if (disabled) {
+      return;
+    } else if (event.type === "dragenter" || event.type === "dragover") {
       setDragActive(true);
     } else if (event.type === "dragleave") {
       setDragActive(false);
@@ -120,6 +128,9 @@ export const DragDropView = ({
   };
 
   const handleDrop = (event: React.DragEvent) => {
+    if (disabled) {
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
     setDragActive(false);
@@ -132,6 +143,9 @@ export const DragDropView = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
     const files = Array.from(event.target.files || []);
@@ -145,7 +159,13 @@ export const DragDropView = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => event.preventDefault();
 
   return (
-    <Box className={classNames(className, classes.root)} style={style} sx={sx}>
+    <Box
+      className={classNames(className, classes.root, {
+        [classes.disabled]: disabled,
+      })}
+      style={style}
+      sx={sx}
+    >
       <Box
         component="form"
         className={classNames(classes.container, {
