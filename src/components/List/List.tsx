@@ -47,8 +47,9 @@ import SlotFactory from './components/SlotFactory';
 export class List<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Field extends IField = IField<IAnything>,
-> extends React.Component<IListProps<FilterData, RowData, Field>, IListState<FilterData, RowData>> {
+    Payload extends IAnything = IAnything,
+    Field extends IField = IField<FilterData, Payload>,
+> extends React.Component<IListProps<FilterData, RowData, Payload, Field>, IListState<FilterData, RowData>> {
 
     private isMountedFlag = false;
     private isFetchingFlag = false;
@@ -85,7 +86,7 @@ export class List<
         slots: {},
     };
 
-    constructor(props: IListProps<FilterData, RowData, Field>) {
+    constructor(props: IListProps<FilterData, RowData, Payload, Field>) {
         super(props);
         this.state = {
             initComplete: false,

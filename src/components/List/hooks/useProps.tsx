@@ -10,9 +10,10 @@ import IRowData from '../../../model/IRowData';
 interface IPropContext<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Field extends IField = IField<FilterData>
+    Payload extends IAnything = IAnything,
+    Field extends IField = IField<FilterData, Payload>
 > extends
-    Omit<IListProps<FilterData, RowData, Field>, keyof {
+    Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
         limit: never;
         chips: never;
         search: never;
@@ -29,8 +30,9 @@ const PropContext = React.createContext<IPropContext>(null as never);
 export const PropProvider = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Field extends IField = IField<FilterData>
->(props: IPropContext<FilterData, RowData, Field>) => (
+    Payload extends IAnything = IAnything,
+    Field extends IField = IField<FilterData, Payload>,
+>(props: IPropContext<FilterData, RowData, Payload, Field>) => (
     <PropContext.Provider value={props}>
         {props.children}
     </PropContext.Provider>
@@ -39,7 +41,8 @@ export const PropProvider = <
 export const useProps = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Field extends IField = IField<FilterData>
-> () => useContext(PropContext) as IPropContext<FilterData, RowData, Field>;
+    Payload extends IAnything = IAnything,
+    Field extends IField = IField<FilterData, Payload>,
+> () => useContext(PropContext) as IPropContext<FilterData, RowData, Payload, Field>;
 
 export default useProps;

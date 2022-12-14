@@ -137,7 +137,7 @@ export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 export type IMenuOption = IMenuOptionInternal;
 export type IMenuGroup = IMenuGroupInternal;
 export type IOption = IOptionInternal;
-export type IColumn = IColumnInternal;
+export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
 
 export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
 export type IScaffoldOption = IScaffoldOptionInternal;

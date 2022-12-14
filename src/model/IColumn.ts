@@ -1,12 +1,12 @@
 import ColumnType from "./ColumnType";
 
-import { IListActionOption, ListPayload } from "./IListProps";
+import { IListActionOption } from "./IListProps";
 import IAnything from './IAnything';
 import IRowData from './IRowData';
 
 import { Value } from './IField';
 
-export interface IColumn<RowData extends IRowData = IAnything> {
+export interface IColumn<RowData extends IRowData = IAnything, Payload = IAnything> {
     type: ColumnType;
     field?: string;
     primary?: boolean;
@@ -21,7 +21,7 @@ export interface IColumn<RowData extends IRowData = IAnything> {
     desktopOrder?: number;
     desktopHidden?: boolean;
     columnMenu?: IListActionOption[];
-    compute?: (row: RowData, payload: ListPayload) => Promise<Value> | Value;
+    compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
     element?: React.ComponentType<RowData>;
     sortable?: boolean;
 }

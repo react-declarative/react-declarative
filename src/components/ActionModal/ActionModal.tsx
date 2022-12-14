@@ -16,15 +16,17 @@ import classNames from "../../utils/classNames";
 
 import IField from "../../model/IField";
 import IAnything from "../../model/IAnything";
-import { OneHandler } from "../../model/IOneProps";
+import IOneProps, { OneHandler } from "../../model/IOneProps";
 
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
+  Payload = IAnything,
   Field = IField<Data>
 > {
   fields: Field[];
   title?: string;
   handler?: OneHandler<Data>;
+  payload?: IOneProps<Data, Payload>['payload'];
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -65,6 +67,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export const ActionModal = <
   Data extends IAnything = IAnything,
+  Payload = IAnything,
   Field = IField<Data>
 >({
   onSubmit = () => true,
@@ -73,11 +76,12 @@ export const ActionModal = <
   fallback,
   fields,
   handler,
+  payload,
   title,
   open = true,
   throwError = false,
   submitLabel = "Submit",
-}: IActionModalProps<Data, Field>) => {
+}: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
 
   const [data, setData] = useState<Data | null>(null);
@@ -152,6 +156,7 @@ export const ActionModal = <
           readonly={!!loading.current}
           change={handleChange}
           handler={handler}
+          payload={payload}
           fields={fields}
         />
         <ActionButton

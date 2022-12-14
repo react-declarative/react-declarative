@@ -19,6 +19,8 @@ import Less from '@mui/icons-material/ExpandLess';
 import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
+import usePayload from '../../../../hooks/usePayload';
+
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
 
 import One from '../../../../../One';
@@ -91,6 +93,8 @@ export const FilterListSlot = <FilterData extends {}>({
   onFilterChange = () => null,
   onCollapsedChange = () => null,
 }: IFilterListSlot<FilterData>) => {
+
+  const payload = usePayload();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchEscapeRef = useRef(false);
@@ -224,6 +228,7 @@ export const FilterListSlot = <FilterData extends {}>({
           >
             <One<FilterData>
               handler={filterData}
+              payload={payload}
               fields={filters}
               change={handleChange}
               ready={ready}

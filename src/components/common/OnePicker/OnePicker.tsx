@@ -9,23 +9,25 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
-import { OneHandler } from '../../../model/IOneProps';
+import IOneProps, { OneHandler } from '../../../model/IOneProps';
 
-interface IOnePickerProps<Data = IAnything> {
+interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data>;
+  payload?: IOneProps<Data, Payload>['payload'];
   title?: string;
   fields: IField[];
   open?: boolean;
 }
 
-export const OnePicker = <Data extends IAnything = IAnything>({
+export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnything>({
   onChange = (data: Data | null) => console.log({ data }),
   fields,
   handler,
+  payload,
   title,
   open = true,
-}: IOnePickerProps<Data>) => {
+}: IOnePickerProps<Data, Payload>) => {
   const [data, setData] = useState<Data | null>(null);
   const handleChange = (data: Data) => setData(data);
   const handleAccept = () => onChange(data);
@@ -47,6 +49,7 @@ export const OnePicker = <Data extends IAnything = IAnything>({
         <One
           change={handleChange}
           handler={handler}
+          payload={payload}
           fields={fields}
         />
       </Box>
