@@ -5,9 +5,9 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
-export interface IDivLayoutProps<Data = IAnything> {
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
+export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> {
+    className?: PickProp<IField<Data, Payload>, 'className'>;
+    style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
 interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {

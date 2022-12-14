@@ -9,10 +9,10 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
-export interface IStretchLayoutProps<Data = IAnything> {
-    innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
+export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> {
+    innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
+    className?: PickProp<IField<Data, Payload>, 'className'>;
+    style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
 interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {

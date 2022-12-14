@@ -8,7 +8,7 @@ import classNames from "../../../utils/classNames";
 
 import IAnything from "../../../model/IAnything";
 
-export interface IGroupLayoutProps<Data = IAnything> extends IGroupProps<Data> {}
+export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {}
 
 interface IGroupLayoutPrivate {
   children: React.ReactNode;

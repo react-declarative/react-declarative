@@ -8,30 +8,30 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
-export interface ITextFieldProps<Data = IAnything> {
-  inputType?: PickProp<IField<Data>, "inputType">;
-  inputMode?: PickProp<IField<Data>, "inputMode">;
-  inputPattern?: PickProp<IField<Data>, "inputPattern">;
-  inputAutocomplete?: PickProp<IField<Data>, "inputAutocomplete">;
-  inputFormatter?: PickProp<IField<Data>, "inputFormatter">;
-  inputFormatterSymbol?: PickProp<IField<Data>, "inputFormatterSymbol">;
-  inputFormatterAllowed?: PickProp<IField<Data>, "inputFormatterAllowed">;
-  inputFormatterTemplate?: PickProp<IField<Data>, "inputFormatterTemplate">;
-  inputFormatterReplace?: PickProp<IField<Data>, "inputFormatterReplace">;
-  description?: PickProp<IField<Data>, "description">;
-  outlined?: PickProp<IField<Data>, "outlined">;
-  title?: PickProp<IField<Data>, "title">;
-  leadingIcon?: PickProp<IField<Data>, "leadingIcon">;
-  trailingIcon?: PickProp<IField<Data>, "trailingIcon">;
-  leadingIconClick?: PickProp<IField<Data>, "leadingIconClick">;
-  trailingIconClick?: PickProp<IField<Data>, "trailingIconClick">;
-  inputRows?: PickProp<IField<Data>, "inputRows">;
-  placeholder?: PickProp<IField<Data>, "placeholder">;
-  readonly?: PickProp<IField<Data>, "readonly">;
-  autoFocus?: PickProp<IField<Data>, "autoFocus">;
-  disabled?: PickProp<IField<Data>, "disabled">;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
-  inputRef?: PickProp<IField<Data>, 'inputRef'>;
+export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
+  inputType?: PickProp<IField<Data, Payload>, "inputType">;
+  inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
+  inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+  inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+  inputFormatter?: PickProp<IField<Data, Payload>, "inputFormatter">;
+  inputFormatterSymbol?: PickProp<IField<Data, Payload>, "inputFormatterSymbol">;
+  inputFormatterAllowed?: PickProp<IField<Data, Payload>, "inputFormatterAllowed">;
+  inputFormatterTemplate?: PickProp<IField<Data, Payload>, "inputFormatterTemplate">;
+  inputFormatterReplace?: PickProp<IField<Data, Payload>, "inputFormatterReplace">;
+  description?: PickProp<IField<Data, Payload>, "description">;
+  outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  title?: PickProp<IField<Data, Payload>, "title">;
+  leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
+  trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
+  leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
+  trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
+  inputRows?: PickProp<IField<Data, Payload>, "inputRows">;
+  placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
+  disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
 }
 
 export interface ITextFieldPrivate<Data = IAnything> {

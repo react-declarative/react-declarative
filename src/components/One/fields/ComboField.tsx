@@ -8,18 +8,18 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
-export interface IComboFieldProps<Data = IAnything> {
-  description?: PickProp<IField<Data>, "description">;
-  placeholder?: PickProp<IField<Data>, "placeholder">;
-  outlined?: PickProp<IField<Data>, "outlined">;
-  itemList?: PickProp<IField<Data>, "itemList">;
-  shouldUpdateItemList?: PickProp<IField<Data>, "shouldUpdateItemList">;
-  keepSync?: PickProp<IField<Data>, "keepSync">;
-  readonly?: PickProp<IField<Data>, "readonly">;
-  disabled?: PickProp<IField<Data>, "disabled">;
-  title?: PickProp<IField<Data>, "title">;
-  tr?: PickProp<IField<Data>, "tr">;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
+export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
+  description?: PickProp<IField<Data, Payload>, "description">;
+  placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  itemList?: PickProp<IField<Data, Payload>, "itemList">;
+  shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
+  keepSync?: PickProp<IField<Data, Payload>, "keepSync">;
+  readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  title?: PickProp<IField<Data, Payload>, "title">;
+  tr?: PickProp<IField<Data, Payload>, "tr">;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
 export interface IComboFieldPrivate<Data = IAnything>  {

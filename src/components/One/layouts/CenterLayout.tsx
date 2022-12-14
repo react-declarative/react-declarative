@@ -19,10 +19,10 @@ const CENTER_DEBOUNCE = 250;
 
 declare var ResizeObserver: any;
 
-export interface ICenterLayoutProps<Data = IAnything> extends IGroupProps<Data> {
-    innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
+export interface ICenterLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data> {
+    innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
+    className?: PickProp<IField<Data, Payload>, 'className'>;
+    style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
 interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {

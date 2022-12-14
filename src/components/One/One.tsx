@@ -12,7 +12,7 @@ import IOnePublicProps from "../../model/IOnePublicProps";
 
 import createFieldInternal from './config/createField';
 
-export const One = <Data extends IAnything = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Field>) => {
+export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Payload, Field>) => {
 
     const {
         createField = createFieldInternal,
@@ -61,8 +61,8 @@ export const One = <Data extends IAnything = IAnything, Field = IField<Data>>(pr
 
 One.displayName = 'One';
 
-export const OneTyped = <Data extends IAnything = IAnything, Field = TypedField<Data>>(props: IOnePublicProps<Data, Field>) =>
-  <One<Data, Field> {...props} />;
+export const OneTyped = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = TypedField<Data>>(props: IOnePublicProps<Data, Payload, Field>) =>
+  <One<Data, Payload, Field> {...props} />;
 
 OneTyped.displayName = 'OneTyped';
 

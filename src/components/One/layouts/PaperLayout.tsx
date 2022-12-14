@@ -11,8 +11,8 @@ import { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
-export interface IPaperLayoutProps<Data = IAnything> extends IPaperProps<Data>, IGroupProps<Data> {
-  innerPadding?: PickProp<IField<Data>, 'innerPadding'>;
+export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything> extends IPaperProps<Data, Payload>, IGroupProps<Data, Payload> {
+  innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
 }
 
 interface IPaperLayoutPrivate {

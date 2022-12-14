@@ -9,7 +9,7 @@ import classNames from '../../../utils/classNames';
 
 import IAnything from "../../../model/IAnything";
 
-export interface IExpansionLayoutProps<Data = IAnything> extends IExpansionProps<Data>, IGroupProps<Data> {}
+export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {}
 
 interface IExpansionLayoutPrivate {
   children: React.ReactNode;

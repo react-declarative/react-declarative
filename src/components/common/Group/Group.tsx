@@ -12,9 +12,9 @@ import classNames from '../../../utils/classNames';
 import Item from "./Item";
 import Container from "./Container";
 
-export interface IGroupProps<Data = IAnything> extends IManagedLayout {
-  style?: PickProp<IField<Data>, 'style'>;
-  className?: PickProp<IField<Data>, 'className'>;
+export interface IGroupProps<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data, Payload> {
+  style?: PickProp<IField<Data, Payload>, 'style'>;
+  className?: PickProp<IField<Data, Payload>, 'className'>;
 }
 
 interface IGroupPrivate {

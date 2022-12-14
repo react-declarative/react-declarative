@@ -25,15 +25,15 @@ const useStyles = makeStyles()({
   },
 });
 
-export interface IPaperProps<Data = IAnything> {
-  className?: PickProp<IField<Data>, 'className'>;
-  style?: PickProp<IField<Data>, 'style'>;
+export interface IPaperProps<Data = IAnything, Payload = IAnything> {
+  className?: PickProp<IField<Data, Payload>, 'className'>;
+  style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
-interface IPaperPrivate<Data = IAnything> {
+interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
   children: React.ReactNode;
-  columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
-  sx?: PickProp<IField<Data>, 'sx'>;
+  columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
+  sx?: PickProp<IField<Data, Payload>, 'sx'>;
 }
 
 export const Paper = ({

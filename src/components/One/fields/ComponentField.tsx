@@ -31,11 +31,11 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
     "value",
 ];
 
-export interface IComponentFieldProps<Data = IAnything> {
-    element?: PickProp<IField<Data>, 'element'>;
-    groupRef?: PickProp<IField<Data>, 'groupRef'>;
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
+export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+    element?: PickProp<IField<Data, Payload>, 'element'>;
+    groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+    className?: PickProp<IField<Data, Payload>, 'className'>;
+    style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
 interface IComponentFieldPrivate<Data = IAnything> {

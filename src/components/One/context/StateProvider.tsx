@@ -10,8 +10,8 @@ import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
 
-interface IStateProviderProps<Data = IAnything, Field extends IField<Data> = IField<Data>> extends 
-    IOneProps<Data, Field> {
+interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends 
+    IOneProps<Data, Payload, Field> {
     children: React.ReactElement;
 }
 
@@ -22,10 +22,10 @@ interface IState<Data = IAnything> {
 
 const StateContext = createContext<IState>(null as never);
 
-export const StateProvider = <Data extends IAnything, Field extends IField<Data> = IField<Data>>({
+export const StateProvider = <Data extends IAnything, Payload extends IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>>({
     children,
     ...otherProps
-}: IStateProviderProps<Data, Field>) => {
+}: IStateProviderProps<Data, Payload, Field>) => {
 
     const oneInvalidMapRef = useRef<Record<string, boolean>>({});
     const wasInvalidRef = useRef(false);
@@ -40,7 +40,7 @@ export const StateProvider = <Data extends IAnything, Field extends IField<Data>
         loadEnd,
     } = otherProps;
 
-    const [object, setObjectHook] = useResolved<Data>({
+    const [object, setObjectHook] = useResolved<Data, Payload>({
         handler,
         fallback,
         fields,

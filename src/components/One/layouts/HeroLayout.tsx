@@ -24,85 +24,85 @@ const DEFAULT_E_SIZE = 'unset';
 const GRID_MAX_WIDTH = 9999999999999999;
 const FIELD_NEVER_MARGIN = '0';
 
-interface IHeroTop<Data = IAnything>  {
-  top?: PickProp<IField<Data>, 'top'>;
-  phoneTop?: PickProp<IField<Data>, 'phoneTop'>;
-  tabletTop?: PickProp<IField<Data>, 'tabletTop'>;
-  desktopTop?: PickProp<IField<Data>, 'desktopTop'>;
+interface IHeroTop<Data = IAnything, Payload = IAnything>  {
+  top?: PickProp<IField<Data, Payload>, 'top'>;
+  phoneTop?: PickProp<IField<Data, Payload>, 'phoneTop'>;
+  tabletTop?: PickProp<IField<Data, Payload>, 'tabletTop'>;
+  desktopTop?: PickProp<IField<Data, Payload>, 'desktopTop'>;
 }
 
-interface IHeroLeft<Data = IAnything>  {
-  left?: PickProp<IField<Data>, 'left'>;
-  phoneLeft?: PickProp<IField<Data>, 'phoneLeft'>;
-  tabletLeft?: PickProp<IField<Data>, 'tabletLeft'>;
-  desktopLeft?: PickProp<IField<Data>, 'desktopLeft'>;
+interface IHeroLeft<Data = IAnything, Payload = IAnything>  {
+  left?: PickProp<IField<Data, Payload>, 'left'>;
+  phoneLeft?: PickProp<IField<Data, Payload>, 'phoneLeft'>;
+  tabletLeft?: PickProp<IField<Data, Payload>, 'tabletLeft'>;
+  desktopLeft?: PickProp<IField<Data, Payload>, 'desktopLeft'>;
 }
 
-interface IHeroRight<Data = IAnything>  {
-  right?: PickProp<IField<Data>, 'right'>;
-  phoneRight?: PickProp<IField<Data>, 'phoneRight'>;
-  tabletRight?: PickProp<IField<Data>, 'tabletRight'>;
-  desktopRight?: PickProp<IField<Data>, 'desktopRight'>;
+interface IHeroRight<Data = IAnything, Payload = IAnything>  {
+  right?: PickProp<IField<Data, Payload>, 'right'>;
+  phoneRight?: PickProp<IField<Data, Payload>, 'phoneRight'>;
+  tabletRight?: PickProp<IField<Data, Payload>, 'tabletRight'>;
+  desktopRight?: PickProp<IField<Data, Payload>, 'desktopRight'>;
 }
 
-interface IHeroBottom<Data = IAnything>  {
-  bottom?: PickProp<IField<Data>, 'bottom'>;
-  phoneBottom?: PickProp<IField<Data>, 'phoneBottom'>;
-  tabletBottom?: PickProp<IField<Data>, 'tabletBottom'>;
-  desktopBottom?: PickProp<IField<Data>, 'desktopBottom'>;
+interface IHeroBottom<Data = IAnything, Payload = IAnything>  {
+  bottom?: PickProp<IField<Data, Payload>, 'bottom'>;
+  phoneBottom?: PickProp<IField<Data, Payload>, 'phoneBottom'>;
+  tabletBottom?: PickProp<IField<Data, Payload>, 'tabletBottom'>;
+  desktopBottom?: PickProp<IField<Data, Payload>, 'desktopBottom'>;
 }
 
-interface IHeroHeight<Data = IAnything>  {
-  height?: PickProp<IField<Data>, 'height'>;
-  phoneHeight?: PickProp<IField<Data>, 'phoneHeight'>;
-  tabletHeight?: PickProp<IField<Data>, 'tabletHeight'>;
-  desktopHeight?: PickProp<IField<Data>, 'desktopHeight'>;
+interface IHeroHeight<Data = IAnything, Payload = IAnything>  {
+  height?: PickProp<IField<Data, Payload>, 'height'>;
+  phoneHeight?: PickProp<IField<Data, Payload>, 'phoneHeight'>;
+  tabletHeight?: PickProp<IField<Data, Payload>, 'tabletHeight'>;
+  desktopHeight?: PickProp<IField<Data, Payload>, 'desktopHeight'>;
 }
 
-interface IHeroMinHeight<Data = IAnything>  {
-  minHeight?: PickProp<IField<Data>, 'minHeight'>;
-  phoneMinHeight?: PickProp<IField<Data>, 'phoneMinHeight'>;
-  tabletMinHeight?: PickProp<IField<Data>, 'tabletMinHeight'>;
-  desktopMinHeight?: PickProp<IField<Data>, 'desktopMinHeight'>;
+interface IHeroMinHeight<Data = IAnything, Payload = IAnything>  {
+  minHeight?: PickProp<IField<Data, Payload>, 'minHeight'>;
+  phoneMinHeight?: PickProp<IField<Data, Payload>, 'phoneMinHeight'>;
+  tabletMinHeight?: PickProp<IField<Data, Payload>, 'tabletMinHeight'>;
+  desktopMinHeight?: PickProp<IField<Data, Payload>, 'desktopMinHeight'>;
 }
 
-interface IHeroMaxHeight<Data = IAnything>  {
-  maxHeight?: PickProp<IField<Data>, 'maxHeight'>;
-  phoneMaxHeight?: PickProp<IField<Data>, 'phoneMaxHeight'>;
-  tabletMaxHeight?: PickProp<IField<Data>, 'tabletMaxHeight'>;
-  desktopMaxHeight?: PickProp<IField<Data>, 'desktopMaxHeight'>;
+interface IHeroMaxHeight<Data = IAnything, Payload = IAnything>  {
+  maxHeight?: PickProp<IField<Data, Payload>, 'maxHeight'>;
+  phoneMaxHeight?: PickProp<IField<Data, Payload>, 'phoneMaxHeight'>;
+  tabletMaxHeight?: PickProp<IField<Data, Payload>, 'tabletMaxHeight'>;
+  desktopMaxHeight?: PickProp<IField<Data, Payload>, 'desktopMaxHeight'>;
 }
 
-interface IHeroWidth<Data = IAnything>  {
-  width?: PickProp<IField<Data>, 'width'>;
-  phoneWidth?: PickProp<IField<Data>, 'phoneWidth'>;
-  tabletWidth?: PickProp<IField<Data>, 'tabletWidth'>;
-  desktopWidth?: PickProp<IField<Data>, 'desktopWidth'>;
+interface IHeroWidth<Data = IAnything, Payload = IAnything>  {
+  width?: PickProp<IField<Data, Payload>, 'width'>;
+  phoneWidth?: PickProp<IField<Data, Payload>, 'phoneWidth'>;
+  tabletWidth?: PickProp<IField<Data, Payload>, 'tabletWidth'>;
+  desktopWidth?: PickProp<IField<Data, Payload>, 'desktopWidth'>;
 }
 
-interface IHeroMinWidth<Data = IAnything>  {
-  minWidth?: PickProp<IField<Data>, 'minWidth'>;
-  phoneMinWidth?: PickProp<IField<Data>, 'phoneMinWidth'>;
-  tabletMinWidth?: PickProp<IField<Data>, 'tabletMinWidth'>;
-  desktopMinWidth?: PickProp<IField<Data>, 'desktopMinWidth'>;
+interface IHeroMinWidth<Data = IAnything, Payload = IAnything>  {
+  minWidth?: PickProp<IField<Data, Payload>, 'minWidth'>;
+  phoneMinWidth?: PickProp<IField<Data, Payload>, 'phoneMinWidth'>;
+  tabletMinWidth?: PickProp<IField<Data, Payload>, 'tabletMinWidth'>;
+  desktopMinWidth?: PickProp<IField<Data, Payload>, 'desktopMinWidth'>;
 }
 
-interface IHeroMaxWidth<Data = IAnything>  {
-  maxWidth?: PickProp<IField<Data>, 'maxWidth'>;
-  phoneMaxWidth?: PickProp<IField<Data>, 'phoneMaxWidth'>;
-  tabletMaxWidth?: PickProp<IField<Data>, 'tabletMaxWidth'>;
-  desktopMaxWidth?: PickProp<IField<Data>, 'desktopMaxWidth'>;
+interface IHeroMaxWidth<Data = IAnything, Payload = IAnything>  {
+  maxWidth?: PickProp<IField<Data, Payload>, 'maxWidth'>;
+  phoneMaxWidth?: PickProp<IField<Data, Payload>, 'phoneMaxWidth'>;
+  tabletMaxWidth?: PickProp<IField<Data, Payload>, 'tabletMaxWidth'>;
+  desktopMaxWidth?: PickProp<IField<Data, Payload>, 'desktopMaxWidth'>;
 }
 
-interface IHeroStyle<Data = IAnything>  {
-  heroOuterStyle?: PickProp<IField<Data>, 'heroOuterStyle'>;
-  heroOuterPhoneStyle?: PickProp<IField<Data>, 'heroOuterPhoneStyle'>;
-  heroOuterTabletStyle?: PickProp<IField<Data>, 'heroOuterTabletStyle'>;
-  heroOuterDesktopStyle?: PickProp<IField<Data>, 'heroOuterDesktopStyle'>;
-  heroInnerStyle?: PickProp<IField<Data>, 'heroInnerStyle'>;
-  heroInnerPhoneStyle?: PickProp<IField<Data>, 'heroInnerPhoneStyle'>;
-  heroInnerTabletStyle?: PickProp<IField<Data>, 'heroInnerTabletStyle'>;
-  heroInnerDesktopStyle?: PickProp<IField<Data>, 'heroInnerDesktopStyle'>;
+interface IHeroStyle<Data = IAnything, Payload = IAnything>  {
+  heroOuterStyle?: PickProp<IField<Data, Payload>, 'heroOuterStyle'>;
+  heroOuterPhoneStyle?: PickProp<IField<Data, Payload>, 'heroOuterPhoneStyle'>;
+  heroOuterTabletStyle?: PickProp<IField<Data, Payload>, 'heroOuterTabletStyle'>;
+  heroOuterDesktopStyle?: PickProp<IField<Data, Payload>, 'heroOuterDesktopStyle'>;
+  heroInnerStyle?: PickProp<IField<Data, Payload>, 'heroInnerStyle'>;
+  heroInnerPhoneStyle?: PickProp<IField<Data, Payload>, 'heroInnerPhoneStyle'>;
+  heroInnerTabletStyle?: PickProp<IField<Data, Payload>, 'heroInnerTabletStyle'>;
+  heroInnerDesktopStyle?: PickProp<IField<Data, Payload>, 'heroInnerDesktopStyle'>;
 }
 
 type IHeroRegistry<D = IAnything> = 
@@ -150,9 +150,9 @@ type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
   fieldBottomMargin: never;
 }>;
 
-export interface IHeroLayoutProps<Data = IAnything> extends IHeroRegistry<Data>, Group<Data>{
-  className?: PickProp<IField<Data>, 'className'>;
-  style?: PickProp<IField<Data>, 'style'>;
+export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data>{
+  className?: PickProp<IField<Data, Payload>, 'className'>;
+  style?: PickProp<IField<Data, Payload>, 'style'>;
   object: PickProp<IEntity<Data>, 'object'>;
 }
 

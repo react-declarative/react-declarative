@@ -10,7 +10,7 @@ import Logger from '../components/Logger';
 
 import sleep from '../utils/sleep';
 
-const fields: TypedField[] = [
+const fields: TypedField<any, null>[] = [
     {
         type: FieldType.Line,
         title: 'User info',

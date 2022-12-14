@@ -30,15 +30,15 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export interface IOutlineProps<Data = IAnything> {
-  className?: PickProp<IField<Data>, 'className'>;
-  style?: PickProp<IField<Data>, 'style'>;
+export interface IOutlineProps<Data = IAnything, Payload = IAnything> {
+  className?: PickProp<IField<Data, Payload>, 'className'>;
+  style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
-interface IOutlinePrivate<Data = IAnything> {
+interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
   children: React.ReactNode;
-  columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
-  sx?: PickProp<IField<Data>, 'sx'>;
+  columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
+  sx?: PickProp<IField<Data, Payload>, 'sx'>;
 }
 
 export const Outline = ({

@@ -8,11 +8,11 @@ import IManaged, { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
-export interface ICheckboxFieldProps<Data = IAnything> {
-  title?: PickProp<IField<Data>, 'title'>;
-  readonly?: PickProp<IField<Data>, "readonly">;
-  disabled?: PickProp<IField<Data>, "disabled">;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
+export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
+  title?: PickProp<IField<Data, Payload>, 'title'>;
+  readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
 export interface ICheckboxFieldPrivate<Data = IAnything>  {

@@ -3,8 +3,8 @@ import IField from "./IField";
 
 import IOneProps from "./IOneProps";
 
-export interface IOnePublicProps<Data = IAnything, Field = IField<Data>>
-    extends IOneProps<Data, Field> {
+export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>>
+    extends IOneProps<Data, Payload, Field> {
     onFocus?: IOneProps<Data, Field>['focus'];
     onBlur?: IOneProps<Data, Field>['blur'];
     onReady?: IOneProps<Data, Field>['ready'];

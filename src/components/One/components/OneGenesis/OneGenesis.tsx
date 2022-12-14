@@ -20,7 +20,9 @@ import StateProvider from '../../context/StateProvider';
 import SlotFactory from '../SlotFactory';
 import PayloadProvider from '../../context/PayloadProvider';
 
-export const OneGenesis = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Field>) => {
+import useSingleton from '../../../../hooks/useSingleton';
+
+export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Payload, Field>) => {
 
   const isReady = useRef(false);
 
@@ -29,8 +31,10 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
     ready = () => null,
     fields = [],
     slots = {},
-    payload = {},
+    payload: upperPayload = {} as Payload,
   } = props;
+
+  const payload = useSingleton(upperPayload);
 
   const {
     className,
@@ -63,18 +67,20 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
     ...props,
     fields: fieldsSnapshot,
     change: handleChange,
+    payload,
   };
 
   const viewParams = {
     ...props,
     fields: fieldsSnapshot,
     ready: handleReady,
+    payload,
   };
 
   return (
     <NoSsr>
       <ThemeProvider>
-        <StateProvider<Data, Field> {...stateParams}>
+        <StateProvider<Data, Payload, Field> {...stateParams}>
           <SlotFactory {...slots}>
             <PayloadProvider payload={payload}>
               <Group
@@ -82,7 +88,7 @@ export const OneGenesis = <Data extends IAnything = IAnything, Field extends IFi
                 style={style}
                 sx={sx}
               >
-                <OneInternal {...viewParams} />
+                <OneInternal<Data, Payload, Field> {...viewParams} />
               </Group>
             </PayloadProvider>
           </SlotFactory>

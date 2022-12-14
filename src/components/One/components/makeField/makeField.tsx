@@ -165,7 +165,7 @@ export function makeField(
                     inputUpdate.current = true;
                     setValue(newValue);
                     setInvalid(invalid);
-                    invalid !== null && invalidity(name, invalid);
+                    invalid !== null && invalidity(name, invalid, payload);
                     change(object, {
                         [fieldName.current]: !!invalid,
                     });
@@ -205,7 +205,7 @@ export function makeField(
                 } else if (!check) {
                     throw new Error(`One error invalid name specified "${name}"`);
                 } else if (invalid !== null) {
-                    invalidity(name, invalid);
+                    invalidity(name, invalid, payload);
                     change(object, {
                         [fieldName.current]: !!invalid,
                     });
@@ -277,12 +277,12 @@ export function makeField(
                     flush();
                 }
                 if (blur) {
-                    blur(name);
+                    blur(name, payload);
                 }
                 setReadonly(true);
             });
             if (focus) {
-                focus(name);
+                focus(name, payload);
             }
         };
 

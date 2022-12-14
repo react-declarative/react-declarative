@@ -36,10 +36,10 @@ import { ISwitchFieldProps } from '../components/One/fields/SwitchField';
 import { ITextFieldProps } from '../components/One/fields/TextField';
 import { ITypographyFieldProps } from '../components/One/fields/TypographyField';
 
-type Exclude<Data = IAnything> = Omit<IManaged<Data>, keyof IEntity<Data>>;
+type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
 
-type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything> = {
-  [Prop in keyof Omit<Fields, keyof Exclude<Data>>]?: Fields[Prop];
+type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
+  [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
 } & {
   type: Type;
 };
@@ -48,62 +48,63 @@ type TypedFieldFactoryShallow<
   Type extends FieldType,
   Fields extends {},
   Data = IAnything,
-> = IManagedShallow<Data> & TypedFieldFactory<Type, Fields, Data>;
+  Payload = IAnything,
+> = IManagedShallow<Data, Payload> & TypedFieldFactory<Type, Fields, Data, Payload>;
 
-type Group<Data = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data>, Data>;
-type Paper<Data = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data>, Data>;
-type Outline<Data = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data>, Data>;
-type Expansion<Data = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data>, Data>;
-type Fragment<Data = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data>, Data>;
-type Div<Data = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data>, Data>;
-type Tabs<Data = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps<Data>, Data>;
-type Hero<Data = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data>, Data>;
-type Center<Data = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data>, Data>;
-type Stretch<Data = IAnything> = TypedFieldFactory<FieldType.Stretch, IStretchLayoutProps<Data>, Data>;
-type Condition<Data = IAnything> = TypedFieldFactory<FieldType.Condition, IConditionLayoutProps<Data>, Data>;
+type Group<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data, Payload>, Data, Payload>;
+type Paper<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data, Payload>, Data, Payload>;
+type Outline<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data, Payload>, Data, Payload>;
+type Expansion<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data, Payload>, Data, Payload>;
+type Fragment<Data = IAnything, Payload = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data, Payload>, Data, Payload>;
+type Div<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data, Payload>, Data, Payload>;
+type Tabs<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps<Data, Payload>, Data, Payload>;
+type Hero<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data, Payload>, Data, Payload>;
+type Center<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data, Payload>, Data, Payload>;
+type Stretch<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Stretch, IStretchLayoutProps<Data, Payload>, Data, Payload>;
+type Condition<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Condition, IConditionLayoutProps<Data, Payload>, Data, Payload>;
 
-type Line<Data = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data>, Data>;
+type Line<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data, Payload>, Data, Payload>;
 
-type Checkbox<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data>, Data>;
-type Combo<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data>, Data>;
-type Component<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data>, Data>;
-type Items<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data>, Data>;
-type Progress<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps<Data>, Data>;
-type Radio<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps<Data>, Data>;
-type Rating<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps<Data>, Data>;
-type Slider<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps<Data>, Data>;
-type Switch<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps<Data>, Data>;
-type Text<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data>, Data>;
-type Typography<Data = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data>, Data>;
+type Checkbox<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data, Payload>, Data, Payload>;
+type Combo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data, Payload>, Data, Payload>;
+type Component<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data, Payload>, Data, Payload>;
+type Items<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data, Payload>, Data, Payload>;
+type Progress<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Progress, IProgressFieldProps<Data, Payload>, Data, Payload>;
+type Radio<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Radio, IRadioFieldProps<Data, Payload>, Data, Payload>;
+type Rating<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Rating, IRatingFieldProps<Data, Payload>, Data, Payload>;
+type Slider<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Slider, ISliderFieldProps<Data, Payload>, Data, Payload>;
+type Switch<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps<Data, Payload>, Data, Payload>;
+type Text<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data, Payload>, Data, Payload>;
+type Typography<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data, Payload>, Data, Payload>;
 
 /**
  * Логическое ветвление компонентов
  * Typescript type-guard
  */
-export type TypedFieldRegistry<Data = IAnything, Target = any> =
-  Target extends Expansion<Data> ? Expansion<Data>
-  : Target extends Group<Data> ? Group<Data>
-  : Target extends Paper<Data> ? Paper<Data>
-  : Target extends Outline<Data> ? Outline<Data>
-  : Target extends Checkbox<Data> ? Checkbox<Data>
-  : Target extends Combo<Data> ? Combo<Data>
-  : Target extends Component<Data> ? Component<Data>
-  : Target extends Items<Data> ? Items<Data>
-  : Target extends Line<Data> ? Line<Data>
-  : Target extends Progress<Data> ? Progress<Data>
-  : Target extends Radio<Data> ? Radio<Data>
-  : Target extends Rating<Data> ? Rating<Data>
-  : Target extends Slider<Data> ? Slider<Data>
-  : Target extends Switch<Data> ? Switch<Data>
-  : Target extends Text<Data> ? Text<Data>
-  : Target extends Typography<Data> ? Typography<Data>
-  : Target extends Fragment<Data> ? Fragment<Data>
-  : Target extends Div<Data> ? Div<Data>
-  : Target extends Tabs<Data> ? Tabs<Data>
-  : Target extends Center<Data> ? Center<Data>
-  : Target extends Stretch<Data> ? Stretch<Data>
-  : Target extends Hero<Data> ? Hero<Data>
-  : Target extends Condition<Data> ? Condition<Data>
+export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> =
+  Target extends Expansion<Data, Payload> ? Expansion<Data, Payload>
+  : Target extends Group<Data, Payload> ? Group<Data, Payload>
+  : Target extends Paper<Data, Payload> ? Paper<Data, Payload>
+  : Target extends Outline<Data, Payload> ? Outline<Data, Payload>
+  : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload>
+  : Target extends Combo<Data, Payload> ? Combo<Data, Payload>
+  : Target extends Component<Data, Payload> ? Component<Data, Payload>
+  : Target extends Items<Data, Payload> ? Items<Data, Payload>
+  : Target extends Line<Data, Payload> ? Line<Data, Payload>
+  : Target extends Progress<Data, Payload> ? Progress<Data, Payload>
+  : Target extends Radio<Data, Payload> ? Radio<Data, Payload>
+  : Target extends Rating<Data, Payload> ? Rating<Data, Payload>
+  : Target extends Slider<Data, Payload> ? Slider<Data, Payload>
+  : Target extends Switch<Data, Payload> ? Switch<Data, Payload>
+  : Target extends Text<Data, Payload> ? Text<Data, Payload>
+  : Target extends Typography<Data, Payload> ? Typography<Data, Payload>
+  : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload>
+  : Target extends Div<Data, Payload> ? Div<Data, Payload>
+  : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload>
+  : Target extends Center<Data, Payload> ? Center<Data, Payload>
+  : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload>
+  : Target extends Hero<Data, Payload> ? Hero<Data, Payload>
+  : Target extends Condition<Data, Payload> ? Condition<Data, Payload>
   : never;
 
 /**
@@ -111,10 +112,10 @@ export type TypedFieldRegistry<Data = IAnything, Target = any> =
  * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
  * IntelliSense после указания *type* или методом исключения
  */
-export type TypedField<Data = IAnything> = TypedFieldRegistry<Data> & {
+export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldRegistry<Data, Payload> & {
   name?: string;
-  fields?: TypedField<Data>[];
-  child?: TypedField<Data>;
+  fields?: TypedField<Data, Payload>[];
+  child?: TypedField<Data, Payload>;
 };
 
 export default TypedField;

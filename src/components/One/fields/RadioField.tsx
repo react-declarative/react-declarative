@@ -8,12 +8,12 @@ import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
 
-export interface IRadioFieldProps<Data = IAnything> {
-  title?: PickProp<IField<Data>, "title">;
-  radioValue?: PickProp<IField<Data>, "radioValue">;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
-  readonly?: PickProp<IField<Data>, "readonly">;
-  disabled?: PickProp<IField<Data>, "disabled">;
+export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
+  title?: PickProp<IField<Data, Payload>, "title">;
+  radioValue?: PickProp<IField<Data, Payload>, "radioValue">;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 
 export interface IRadioFieldPrivate<Data = IAnything> {

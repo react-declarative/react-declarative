@@ -8,11 +8,11 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
-export interface IRatingFieldProps<Data = IAnything> {
-  readonly?: PickProp<IField<Data>, "readonly">;
-  title?: PickProp<IField<Data>, "title">;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
-  disabled?: PickProp<IField<Data>, "disabled">;
+export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
+  readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  title?: PickProp<IField<Data, Payload>, "title">;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 
 export interface IRatingFieldPrivate<Data = IAnything> {

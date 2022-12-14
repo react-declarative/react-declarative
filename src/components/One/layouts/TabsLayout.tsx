@@ -17,17 +17,17 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
-export interface ITabsLayoutProps<Data = IAnything> extends IGroupProps<Data> {
-    className?: PickProp<IField<Data>, 'className'>;
-    style?: PickProp<IField<Data>, 'style'>;
-    tabLine?: PickProp<IField<Data>, 'tabLine'>;
-    tabList?: PickProp<IField<Data>, 'tabList'>;
-    tabIndex?: PickProp<IField<Data>, 'tabIndex'>;
-    tabColor?: PickProp<IField<Data>, 'tabColor'>;
-    tabChange?: PickProp<IField<Data>, 'tabChange'>;
-    tabVariant?: PickProp<IField<Data>, 'tabVariant'>;
-    tabKeepFlow?: PickProp<IField<Data>, 'tabKeepFlow'>;
-    tabBackground?: PickProp<IField<Data>, 'tabBackground'>;
+export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {
+    className?: PickProp<IField<Data, Payload>, 'className'>;
+    style?: PickProp<IField<Data, Payload>, 'style'>;
+    tabLine?: PickProp<IField<Data, Payload>, 'tabLine'>;
+    tabList?: PickProp<IField<Data, Payload>, 'tabList'>;
+    tabIndex?: PickProp<IField<Data, Payload>, 'tabIndex'>;
+    tabColor?: PickProp<IField<Data, Payload>, 'tabColor'>;
+    tabChange?: PickProp<IField<Data, Payload>, 'tabChange'>;
+    tabVariant?: PickProp<IField<Data, Payload>, 'tabVariant'>;
+    tabKeepFlow?: PickProp<IField<Data, Payload>, 'tabKeepFlow'>;
+    tabBackground?: PickProp<IField<Data, Payload>, 'tabBackground'>;
 }
 
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';

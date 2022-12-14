@@ -8,8 +8,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
-export interface IFragmentLayoutProps<Data = IAnything> {
-    isVisible?: PickProp<IField<Data>, 'isVisible'>;
+export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
+    isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
 }
 
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {

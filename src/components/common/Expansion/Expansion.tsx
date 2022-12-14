@@ -23,17 +23,17 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export interface IExpansionProps<Data = IAnything> {
-  title?: PickProp<IField<Data>, 'title'>;
-  style?: PickProp<IField<Data>, 'style'>;
-  description?: PickProp<IField<Data>, 'description'>;
-  className?: PickProp<IField<Data>, 'className'>;
+export interface IExpansionProps<Data = IAnything, Payload = IAnything> {
+  title?: PickProp<IField<Data, Payload>, 'title'>;
+  style?: PickProp<IField<Data, Payload>, 'style'>;
+  description?: PickProp<IField<Data, Payload>, 'description'>;
+  className?: PickProp<IField<Data, Payload>, 'className'>;
 }
 
-interface IExpansionPrivate<Data = IAnything> {
+interface IExpansionPrivate<Data = IAnything,  Payload = IAnything> {
   children: React.ReactNode;
-  columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
-  sx?: PickProp<IField<Data>, 'sx'>;
+  columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
+  sx?: PickProp<IField<Data, Payload>, 'sx'>;
 }
 
 export const Expansion = ({

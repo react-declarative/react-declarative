@@ -10,9 +10,9 @@ import IField from '../../../model/IField';
 
 const FIELD_NEVER_MARGIN = '0';
 
-export interface ILineFieldProps<Data = IAnything> {
-  title?: PickProp<IField<Data>, 'title'>;
-  groupRef?: PickProp<IField<Data>, 'groupRef'>;
+export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
+  title?: PickProp<IField<Data, Payload>, 'title'>;
+  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
 export const LineField = ({

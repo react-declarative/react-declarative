@@ -11,16 +11,16 @@ export type DeepPartial<T> = {
 /**
  * Типизацию компоновки следует вынести отдельно
  */
-export interface IManagedLayout<Data = IAnything> {
-    columnsOverride?: PickProp<IField<Data>, 'columnsOverride'>;
-    sx?: PickProp<IField<Data>, 'sx'>;
-    columns?: PickProp<IField<Data>, 'columns'>;
-    roles?: PickProp<IField<Data>, 'roles'>;
-    phoneColumns?: PickProp<IField<Data>, 'phoneColumns'>;
-    tabletColumns?: PickProp<IField<Data>, 'tabletColumns'>;
-    desktopColumns?: PickProp<IField<Data>, 'desktopColumns'>;
-    fieldRightMargin?: PickProp<IField<Data>, 'fieldRightMargin'>;
-    fieldBottomMargin?: PickProp<IField<Data>, 'fieldBottomMargin'>;
+export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
+    columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
+    sx?: PickProp<IField<Data, Payload>, 'sx'>;
+    columns?: PickProp<IField<Data, Payload>, 'columns'>;
+    roles?: PickProp<IField<Data, Payload>, 'roles'>;
+    phoneColumns?: PickProp<IField<Data, Payload>, 'phoneColumns'>;
+    tabletColumns?: PickProp<IField<Data, Payload>, 'tabletColumns'>;
+    desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
+    fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
+    fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
 }
 
 /**
@@ -28,15 +28,15 @@ export interface IManagedLayout<Data = IAnything> {
  * перехватывает управление над свойствами
  * поля
  */
-export interface IManagedShallow<Data = IAnything> extends IManagedLayout<Data> {
-    isDisabled?: PickProp<IField<Data>, 'isDisabled'>;
-    isVisible?: PickProp<IField<Data>, 'isVisible'>;
-    isInvalid?: PickProp<IField<Data>, 'isInvalid'>;
-    invalidity?: PickProp<IField<Data>, 'invalidity'>;
-    compute?: PickProp<IField<Data>, 'compute'>;
-    focus?: PickProp<IField<Data>, 'focus'>;
-    blur?: PickProp<IField<Data>, 'blur'>;
-    defaultValue?: PickProp<IField<Data>, 'defaultValue'>;
+export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data> {
+    isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
+    isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+    isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
+    invalidity?: PickProp<IField<Data, Payload>, 'invalidity'>;
+    compute?: PickProp<IField<Data, Payload>, 'compute'>;
+    focus?: PickProp<IField<Data, Payload>, 'focus'>;
+    blur?: PickProp<IField<Data, Payload>, 'blur'>;
+    defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
 }
 
 /**

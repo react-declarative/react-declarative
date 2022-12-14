@@ -12,9 +12,7 @@ type DataOrNull<Data = IAnything> = Data | null;
 
 export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
 
-export type OnePayload = Record<string, any>;
-
-export interface IOneProps<Data = IAnything, Field = IField<Data>> {
+export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   /**
    * Ссылка на объект API
    */
@@ -51,7 +49,7 @@ export interface IOneProps<Data = IAnything, Field = IField<Data>> {
    * Объект, передающийся в пользовательские
    * поля через контекст
    */
-  payload?: OnePayload;
+  payload?: Payload | (() => Payload);
   /**
    * Вызывается при ошибке в handler
    */

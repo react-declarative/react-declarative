@@ -40,7 +40,7 @@ const countStatefull = (fields?: IField<any>[]) => {
     }
 };
 
-export const OneInternal = <Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>>({
+export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>>({
     fields,
     roles,
     dirty,
@@ -52,7 +52,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Field extends IF
     focus,
     blur,
     createField = createFieldInternal,
-}: IOneProps<Data, Field>) => {
+}: IOneProps<Data, Payload, Field>) => {
     const waitingReady = useRef(countStatefull(fields));
     const { object, setObject } = useOneState<Data>();
     /**

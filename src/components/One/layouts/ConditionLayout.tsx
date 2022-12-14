@@ -10,8 +10,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
-export interface IConditionLayoutProps<Data = IAnything> {
-    condition?: PickProp<IField<Data>, 'condition'>;
+export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> {
+    condition?: PickProp<IField<Data, Payload>, 'condition'>;
 }
 
 interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {

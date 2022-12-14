@@ -112,9 +112,9 @@ export const ColumnType = ColumnTypeInternal;
 export const ActionType = ActionTypeInternal;
 export const SelectionMode = SelectionModeInternal;
 
-export type TypedField<Data = IAnything> = TypedFieldInternal<Data>;
-export type IField<Data = IAnything> = IFieldInternal<Data>;
-export type IFieldEntity<Data = IAnything> = IEntityInternal<Data>;
+export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldInternal<Data, Payload>;
+export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
+export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
 export type ITab<T extends unknown = string> = ITabInternal<T>;
 

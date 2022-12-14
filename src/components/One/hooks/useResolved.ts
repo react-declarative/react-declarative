@@ -27,14 +27,14 @@ import { useApiRef } from '../context/ApiProvider';
 
 const LOAD_SOURCE = 'one-resolve';
 
-interface IResolvedHookProps<Data = IAnything> {
-    handler: PickProp<IOneProps<Data>, 'handler'>;
-    fallback: PickProp<IOneProps<Data>, 'fallback'>;
-    fields: PickProp<IOneProps<Data>, 'fields'>;
-    roles: PickProp<IOneProps<Data>, 'roles'>;
-    change: PickProp<IOneProps<Data>, 'change'>;
-    loadStart: PickProp<IOneProps<Data>, 'loadStart'>;
-    loadEnd: PickProp<IOneProps<Data>, 'loadEnd'>;
+interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
+    handler: PickProp<IOneProps<Data, Payload>, 'handler'>;
+    fallback: PickProp<IOneProps<Data, Payload>, 'fallback'>;
+    fields: PickProp<IOneProps<Data, Payload>, 'fields'>;
+    roles: PickProp<IOneProps<Data, Payload>, 'roles'>;
+    change: PickProp<IOneProps<Data, Payload>, 'change'>;
+    loadStart: PickProp<IOneProps<Data, Payload>, 'loadStart'>;
+    loadEnd: PickProp<IOneProps<Data, Payload>, 'loadEnd'>;
 }
 
 const buildObj = <Data = IAnything>(fields: IField<Data>[], roles?: string[]) => {
@@ -61,7 +61,7 @@ const buildObj = <Data = IAnything>(fields: IField<Data>[], roles?: string[]) =>
  * один раз. Для дочерних One компонентов осуществляется
  * подписка на изменения
  */
-export const useResolved = <Data = IAnything>({
+export const useResolved = <Data = IAnything, Payload = IAnything>({
     handler,
     fallback,
     fields,
@@ -69,7 +69,7 @@ export const useResolved = <Data = IAnything>({
     change,
     loadStart,
     loadEnd,
-}: IResolvedHookProps<Data>): [Data | null, (v: Data) => void] => {
+}: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const data$ = useActualValue(data);
     const apiRef = useApiRef();
