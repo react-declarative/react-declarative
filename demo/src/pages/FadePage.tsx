@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Button } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType, useMediaContext } from 'react-declarative';
+import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, RecordView, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType, useMediaContext } from 'react-declarative';
 
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,6 +10,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import history from '../history';
 
 import sleep from '../utils/sleep';
+
+const recordData = {
+    foo: 'bar',
+    bar: {
+      baz: 'foo',
+      omg: 'test',
+      fff: 'ttt',
+    },
+    baz: {
+      baz: 'foo',
+      omg: 'test',
+    },
+    test: 'omg',
+};
 
 const tabs: ITab[] = [
     {
@@ -253,6 +267,7 @@ export const FadePage = () => {
             {isTablet && "Tablet"}
             {isDesktop && "Desktop"}
             {render()}
+            <RecordView sx={{ minHeight: '300px' }} withExpandAll data={recordData} />
         </>
     );
 }

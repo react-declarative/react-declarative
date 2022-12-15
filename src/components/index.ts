@@ -34,6 +34,7 @@ export * from './OfflineView';
 export * from './RevealView';
 export * from './SecretView';
 export * from './PortalView';
+export * from './RecordView';
 
 export * from './Async';
 export * from './If';
