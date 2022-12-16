@@ -4,6 +4,7 @@ import IData from './IData';
 
 export interface IRecordViewProps<Data = IData> extends BoxProps {
     data: Data;
+    search?: string;
     keyWidth?: GridSize;
     valueWidth?: GridSize;
     totalWidth?: number;
@@ -19,6 +20,7 @@ export interface IRecordViewProps<Data = IData> extends BoxProps {
         key: string,
         path: string,
     ) => React.ReactNode;
+    onSearchChanged?: (search: string) => void;
 }
 
 export default IRecordViewProps;

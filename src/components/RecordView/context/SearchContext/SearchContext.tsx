@@ -14,6 +14,7 @@ import get from '../../../../utils/get';
 import set from '../../../../utils/set';
 import keyToTitle from '../../utils/keyToTitle';
 import countDots from '../../utils/countDots';
+import useActualCallback from '../../../../hooks/useActualCallback';
 
 const SearchContext = createContext<Context>(null as never);
 
@@ -33,10 +34,12 @@ export interface State {
 
 export interface Props {
   data: IData;
+  search: string;
   withExpandAll: boolean;
   withExpandRoot: boolean;
   withExpandLevel: number;
   children: React.ReactNode;
+  onSearchChanged?: (search: string) => void;
 }
 
 export interface Hook extends Omit<Context, keyof {
@@ -47,11 +50,16 @@ export interface Hook extends Omit<Context, keyof {
 
 export const SearchProvider = ({
   children,
+  search: initialSearch = '',
   withExpandAll = false,
   withExpandRoot = false,
   withExpandLevel = 0,
   data: upperData,
+  onSearchChanged = () => undefined,
 }: Props) => {
+
+  const onSearchChanged$ = useActualCallback(onSearchChanged);
+
   const getExpandAllNamespaces = useCallback(
     () =>
       deepFlat(upperData)
@@ -123,7 +131,7 @@ export const SearchProvider = ({
   const [state, setState] = useState<State>(() => ({
     checked: new Set(getInitialExpand()),
     data: upperData,
-    search: "",
+    search: initialSearch,
   }));
 
   useEffect(() => {
@@ -154,6 +162,10 @@ export const SearchProvider = ({
     });
     setState((prevState) => ({ ...prevState, data }));
   }, [state.search, upperData]);
+
+  useEffect(() => {
+    onSearchChanged$(state.search);
+  }, [state.search, onSearchChanged$]);
 
   const setSearch = useCallback(
     (search: string) => setState((prevState) => ({ ...prevState, search })),

@@ -11,6 +11,8 @@ import keyToTitle from "./utils/keyToTitle";
 
 export const RecordView = <Data extends any = IData>({
   data = {} as Data,
+  search = '',
+  onSearchChanged,
   formatValue = (_, value) => value,
   formatKey = (key) => `${keyToTitle(key)}: `,
   withExpandAll = false,
@@ -22,10 +24,12 @@ export const RecordView = <Data extends any = IData>({
   ...otherProps
 }: IRecordViewProps<Data>) => (
   <SearchProvider
+    search={search}
     data={data as IData}
     withExpandAll={withExpandAll}
     withExpandRoot={withExpandRoot}
     withExpandLevel={withExpandLevel}
+    onSearchChanged={onSearchChanged}
   >
     <Container
       formatValue={formatValue}
