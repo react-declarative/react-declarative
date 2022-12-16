@@ -13,6 +13,7 @@ import IRecordViewProps from '../../model/IRecordViewProps';
 
 import replaceString from '../../utils/replaceString';
 import classNames from '../../../../utils/classNames';
+import isObject from '../../../../utils/isObject';
 import keyToTitle from '../../utils/keyToTitle';
 
 export interface IItemProps extends Pick<IRecordViewProps, keyof {
@@ -32,11 +33,11 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
 }
 
 const row = (value: React.ReactNode) => {
-  if (value == null || value === '' || value === 'null') {
+  if (value == null || value === undefined || value === '' || value === 'null') {
     return '—';
   } else if (typeof value === 'boolean') {
     return String(value);
-  } else if (typeof value === 'object') {
+  } else if (isObject(value)) {
     return (
       <pre>
         {JSON.stringify(value, null , 2)}
@@ -115,8 +116,8 @@ export const Item = ({
       typeof upperValue === 'boolean'
         ? upperValue
         : null;
-    return formatValue(replaceString(path, 'root.', ''), currentValue);
-  }, [path, upperValue, formatValue]);
+    return formatValue(itemKey, currentValue, replaceString(path, 'root.', ''));
+  }, [itemKey, path, upperValue, formatValue]);
 
   return (
     <Grid

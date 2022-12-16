@@ -7,16 +7,21 @@ import Container from "./components/Container";
 import IData from "./model/IData";
 import IRecordViewProps from "./model/IRecordViewProps";
 
-export const RecordView = <Data extends IData = IData>({
+export const RecordView = <Data extends any = IData>({
   data = {} as Data,
   formatValue = (_, value) => value,
   withExpandAll = false,
+  withExpandRoot = false,
   keyWidth = 2,
   valueWidth = 10,
   totalWidth,
   ...otherProps
 }: IRecordViewProps<Data>) => (
-  <SearchProvider data={data} withExpandAll={withExpandAll}>
+  <SearchProvider
+    data={data as IData}
+    withExpandAll={withExpandAll}
+    withExpandRoot={withExpandRoot}
+  >
     <Container
       formatValue={formatValue}
       keyWidth={keyWidth}

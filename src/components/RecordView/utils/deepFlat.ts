@@ -1,3 +1,5 @@
+import isObject from '../../../utils/isObject';
+
 import IData from '../model/IData';
 
 type IDataRecords = Array<[keyof IData, IData[keyof IData]]>;
@@ -15,7 +17,7 @@ export const deepFlat = (record: IData) => {
     entries.forEach((entry) => {
       const [key, value] = entry;
       const name = `${prefix}.${String(key)}`;
-      if (typeof value === 'object') {
+      if (isObject(value)) {
         result.push({ path: name, value: '', deepIndex: pendingDeepIndex });
         pendingDeepIndex += 1;
         process(Object.entries(value), name);

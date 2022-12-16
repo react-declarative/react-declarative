@@ -14,9 +14,12 @@ import Item from '../Item';
 import IRecordViewProps from '../../model/IRecordViewProps';
 
 import classNames from '../../../../utils/classNames';
+import isObject from '../../../../utils/isObject';
 import keyToTitle from '../../utils/keyToTitle';
 
 import useSearch from '../../context/SearchContext';
+
+import IData from '../../model/IData';
 
 export interface IContentProps extends Pick<IRecordViewProps, keyof {
   keyWidth: never;
@@ -81,7 +84,7 @@ export const Content = ({
     () =>
       Object.entries(data).map(([key, value], index) => {
         const prefix = `${path}.${key}`;
-        if (typeof value === 'object') {
+        if (isObject(value)) {
           return (
             <Grid
               key={prefix}
@@ -104,7 +107,7 @@ export const Content = ({
               <Grid item xs={valueWidth} sx={{ mt: 3, mb: 3 }}>
                 <Content
                   withDarkParent={index % 2 === 0}
-                  data={value}
+                  data={value as IData}
                   keyWidth={keyWidth}
                   valueWidth={valueWidth}
                   totalWidth={totalWidth}

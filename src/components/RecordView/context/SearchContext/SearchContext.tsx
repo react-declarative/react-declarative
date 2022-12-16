@@ -8,9 +8,11 @@ import replaceString from '../../utils/replaceString';
 
 import IData from '../../model/IData';
 
+import isObject from '../../../../utils/isObject';
 import create from '../../../../utils/create';
 import get from '../../../../utils/get';
 import set from '../../../../utils/set';
+import keyToTitle from '../../utils/keyToTitle';
 
 const SearchContext = createContext<Context>(null as never);
 
@@ -31,6 +33,7 @@ export interface State {
 export interface Props {
   data: IData;
   withExpandAll: boolean;
+  withExpandRoot: boolean;
   children: React.ReactNode;
 }
 
@@ -43,19 +46,47 @@ export interface Hook extends Omit<Context, keyof {
 export const SearchProvider = ({
   children,
   withExpandAll = false,
+  withExpandRoot = false,
   data: upperData,
 }: Props) => {
+
+  const getExpandAllNamespaces = useCallback(
+    () =>
+      deepFlat(upperData)
+        .map(({ path }) => replaceString(path, 'root.', ''))
+        .filter((path) => {
+          const value = get(upperData, path);
+          return isObject(value);
+        }),
+    [upperData],
+  );
+
+  const getExpandRootNamespaces = useCallback(
+    () =>
+      deepFlat(upperData)
+        .map(({ path }) => replaceString(path, 'root.', ''))
+        .filter((path) => {
+          const value = get(upperData, path);
+          let isOk = true;
+          isOk = isOk && isObject(value);
+          isOk = isOk && !path.includes('.');
+          return isOk;
+        }),
+    [upperData],
+  );
+
+  const getInitialExpand = useCallback(() => {
+    if (withExpandAll) {
+      return getExpandAllNamespaces();
+    }
+    if (withExpandRoot) {
+      return getExpandRootNamespaces();
+    }
+    return [];
+  }, [withExpandAll, withExpandRoot, getExpandAllNamespaces, getExpandRootNamespaces]);
+
   const [state, setState] = useState<State>(() => ({
-    checked: new Set(
-      withExpandAll
-        ? deepFlat(upperData)
-            .map(({ path }) => replaceString(path, 'root.', ''))
-            .filter((path) => {
-              const value = get(upperData, path);
-              return typeof value === 'object';
-            })
-        : [],
-    ),
+    checked: new Set(getInitialExpand()),
     data: upperData,
     search: '',
   }));
@@ -72,6 +103,7 @@ export const SearchProvider = ({
         let isOk = false;
         isOk = isOk || value.toLowerCase().includes(search);
         isOk = isOk || path.toLowerCase().includes(search);
+        isOk = isOk || keyToTitle(replaceString(path, '.', ' ')).toLowerCase().includes(search);
         return isOk;
       })
       .flatMap(({ path }) => getNamespaces(path));
@@ -80,7 +112,7 @@ export const SearchProvider = ({
     );
     namespaces.forEach((path) => {
       const value = get(upperData, path);
-      if (typeof value !== 'object') {
+      if (!isObject(value)) {
         create(data, path);
         set(data, path, value);
       }
