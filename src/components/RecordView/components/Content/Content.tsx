@@ -15,7 +15,6 @@ import IRecordViewProps from '../../model/IRecordViewProps';
 
 import classNames from '../../../../utils/classNames';
 import isObject from '../../../../utils/isObject';
-import keyToTitle from '../../utils/keyToTitle';
 
 import useSearch from '../../context/SearchContext';
 
@@ -27,6 +26,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   totalWidth: never;
 }> {
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
+  formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   data: IRecordViewProps['data'];
   path?: string;
   className?: string;
@@ -60,6 +60,8 @@ export const Content = ({
   keyWidth,
   valueWidth,
   totalWidth,
+  formatValue,
+  formatKey,
   withDarkParent = false,
   ...otherProps
 }: IContentProps) => {
@@ -101,12 +103,14 @@ export const Content = ({
                   className={classes.groupKey}
                   variant="body1"
                 >
-                  {keyToTitle(key)}:{' '}
+                  {formatKey(key, prefix)}
                 </Typography>
               </Grid>
               <Grid item xs={valueWidth} sx={{ mt: 3, mb: 3 }}>
                 <Content
                   withDarkParent={index % 2 === 0}
+                  formatValue={formatValue}
+                  formatKey={formatKey}
                   data={value as IData}
                   keyWidth={keyWidth}
                   valueWidth={valueWidth}
@@ -121,6 +125,8 @@ export const Content = ({
         return (
           <Item
             withDarkParent={withDarkParent}
+            formatValue={formatValue}
+            formatKey={formatKey}
             key={prefix}
             path={prefix}
             itemKey={key}
@@ -142,6 +148,8 @@ export const Content = ({
       valueWidth,
       totalWidth,
       withDarkParent,
+      formatValue,
+      formatKey,
     ],
   );
 

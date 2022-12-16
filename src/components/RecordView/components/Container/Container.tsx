@@ -20,10 +20,12 @@ export interface IContainerProps extends BoxProps {
   valueWidth: GridSize;
   totalWidth: number | undefined;
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
+  formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
 }
 
 export const Container = ({
   formatValue,
+  formatKey,
   keyWidth,
   valueWidth,
   totalWidth,
@@ -63,6 +65,7 @@ export const Container = ({
       <Content
         data={data}
         formatValue={formatValue}
+        formatKey={formatKey}
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}

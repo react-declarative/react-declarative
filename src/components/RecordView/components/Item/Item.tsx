@@ -13,7 +13,6 @@ import IRecordViewProps from '../../model/IRecordViewProps';
 
 import classNames from '../../../../utils/classNames';
 import isObject from '../../../../utils/isObject';
-import keyToTitle from '../../utils/keyToTitle';
 
 export interface IItemProps extends Pick<IRecordViewProps, keyof {
   keyWidth: never;
@@ -21,6 +20,7 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   totalWidth: never;
 }> {
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
+  formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   index: number;
   path: string;
   itemKey: string;
@@ -97,6 +97,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export const Item = ({
   formatValue,
+  formatKey,
   keyWidth,
   valueWidth,
   totalWidth,
@@ -141,7 +142,7 @@ export const Item = ({
       )}
     >
       <Grid item xs={keyWidth}>
-        <Typography variant="body1" sx={{ ml: 1 }}>{keyToTitle(itemKey)}: </Typography>
+        <Typography variant="body1" sx={{ ml: 1 }}>{formatKey(itemKey, path)}</Typography>
       </Grid>
       <Grid item xs={valueWidth}>
         <Typography variant="body1">

@@ -7,9 +7,12 @@ import Container from "./components/Container";
 import IData from "./model/IData";
 import IRecordViewProps from "./model/IRecordViewProps";
 
+import keyToTitle from "./utils/keyToTitle";
+
 export const RecordView = <Data extends any = IData>({
   data = {} as Data,
   formatValue = (_, value) => value,
+  formatKey = (key) => `${keyToTitle(key)}: `,
   withExpandAll = false,
   withExpandRoot = false,
   withExpandLevel = 0,
@@ -26,6 +29,7 @@ export const RecordView = <Data extends any = IData>({
   >
     <Container
       formatValue={formatValue}
+      formatKey={formatKey}
       keyWidth={keyWidth}
       valueWidth={valueWidth}
       totalWidth={totalWidth}

@@ -15,6 +15,10 @@ export interface IRecordViewProps<Data = IData> extends BoxProps {
         value: boolean | number | string | null,
         path: string,
     ) => React.ReactNode;
+    formatKey?: (
+        key: string,
+        path: string,
+    ) => React.ReactNode;
 }
 
 export default IRecordViewProps;
