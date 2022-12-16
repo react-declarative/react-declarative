@@ -52,22 +52,27 @@ export const SearchProvider = ({
   withExpandLevel = 0,
   data: upperData,
 }: Props) => {
-
   const getExpandAllNamespaces = useCallback(
     () =>
       deepFlat(upperData)
-        .map(({ path }) => replaceString(path, 'root.', ''))
+        .map(({ path }) =>
+          path.startsWith("root.") ? path.replace("root.", "") : path
+        )
+        .filter((path) => path !== "root")
         .filter((path) => {
           const value = get(upperData, path);
           return isObject(value);
         }),
-    [upperData],
+    [upperData]
   );
 
   const getExpandRootNamespaces = useCallback(
     () =>
       deepFlat(upperData)
-        .map(({ path }) => replaceString(path, 'root.', ''))
+        .map(({ path }) =>
+          path.startsWith('root.') ? path.replace('root.', '') : path,
+        )
+        .filter((path) => path !== "root")
         .filter((path) => {
           const value = get(upperData, path);
           let isOk = true;
@@ -81,7 +86,10 @@ export const SearchProvider = ({
   const getExpandLevelNamespaces = useCallback(
     () =>
       deepFlat(upperData)
-        .map(({ path }) => replaceString(path, 'root.', ''))
+        .map(({ path }) =>
+          path.startsWith('root.') ? path.replace('root.', '') : path,
+        )
+        .filter((path) => path !== "root")
         .filter((path) => {
           const value = get(upperData, path);
           let isOk = true;
@@ -89,7 +97,7 @@ export const SearchProvider = ({
           isOk = isOk && countDots(path) <= withExpandLevel;
           return isOk;
         }),
-    [upperData],
+    [upperData, withExpandLevel],
   );
 
   const getInitialExpand = useCallback(() => {
@@ -103,19 +111,26 @@ export const SearchProvider = ({
       return getExpandLevelNamespaces();
     }
     return [];
-  }, [withExpandAll, withExpandRoot, withExpandLevel, getExpandAllNamespaces, getExpandRootNamespaces, getExpandLevelNamespaces]);
+  }, [
+    withExpandAll,
+    withExpandRoot,
+    withExpandLevel,
+    getExpandAllNamespaces,
+    getExpandRootNamespaces,
+    getExpandLevelNamespaces,
+  ]);
 
   const [state, setState] = useState<State>(() => ({
     checked: new Set(getInitialExpand()),
     data: upperData,
-    search: '',
+    search: "",
   }));
 
   useEffect(() => {
     const data: IData = {};
     const rawNamespaces = deepFlat(upperData)
       .map(({ value, path }) => ({
-        path: replaceString(path, 'root.', ''),
+        path: path.startsWith('root.') ? path.replace('root.', '') : path,
         value,
       }))
       .filter(({ value, path }) => {
@@ -128,7 +143,7 @@ export const SearchProvider = ({
       })
       .flatMap(({ path }) => getNamespaces(path));
     const namespaces = removeDuplicates(rawNamespaces).filter(
-      (path) => path !== 'root',
+      (path) => path !== "root"
     );
     namespaces.forEach((path) => {
       const value = get(upperData, path);
@@ -142,23 +157,23 @@ export const SearchProvider = ({
 
   const setSearch = useCallback(
     (search: string) => setState((prevState) => ({ ...prevState, search })),
-    [],
+    []
   );
 
   const isChecked = useCallback(
     (path: string) => {
-      const normalPath = path.includes('root.')
-        ? replaceString(path, 'root.', '')
+      const normalPath = path.startsWith('root.')
+        ? path.replace('root.', '')
         : path;
       return state.checked.has(normalPath);
     },
-    [state.checked],
+    [state.checked]
   );
 
   const setIsChecked = useCallback(
     (path: string, checked: boolean) => {
-      const normalPath = path.includes('root.')
-        ? replaceString(path, 'root.', '')
+      const normalPath = path.startsWith('root.')
+        ? path.replace('root.', '')
         : path;
       if (checked) {
         state.checked.add(normalPath);
@@ -170,7 +185,7 @@ export const SearchProvider = ({
         checked: new Set(state.checked),
       }));
     },
-    [state.checked],
+    [state.checked]
   );
 
   const context = useMemo(
@@ -181,7 +196,7 @@ export const SearchProvider = ({
       isChecked,
       setIsChecked,
     }),
-    [state, isChecked, setSearch, setIsChecked],
+    [state, isChecked, setSearch, setIsChecked]
   );
 
   return (

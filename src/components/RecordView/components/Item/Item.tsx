@@ -11,7 +11,6 @@ import { SxProps } from '@mui/system';
 
 import IRecordViewProps from '../../model/IRecordViewProps';
 
-import replaceString from '../../utils/replaceString';
 import classNames from '../../../../utils/classNames';
 import isObject from '../../../../utils/isObject';
 import keyToTitle from '../../utils/keyToTitle';
@@ -116,7 +115,11 @@ export const Item = ({
       typeof upperValue === 'boolean'
         ? upperValue
         : null;
-    return formatValue(itemKey, currentValue, replaceString(path, 'root.', ''));
+    return formatValue(
+      itemKey,
+      currentValue,
+      path.startsWith('root.') ? path.replace('root.', '') : path,
+    );
   }, [itemKey, path, upperValue, formatValue]);
 
   return (

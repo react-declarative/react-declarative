@@ -58,7 +58,7 @@ export const Container = ({
         type="text"
       />
       {Object.keys(data).length === 0 && (
-        <Typography variant="h3">Nothing found</Typography>
+        <Typography variant="body1">Nothing found</Typography>
       )}
       <Content
         data={data}
