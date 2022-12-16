@@ -9,6 +9,7 @@ export interface IRecordViewProps<Data = IData> extends BoxProps {
     totalWidth?: number;
     withExpandAll?: boolean;
     withExpandRoot?: boolean;
+    withExpandLevel?: number;
     formatValue?: (
         key: string,
         value: boolean | number | string | null,

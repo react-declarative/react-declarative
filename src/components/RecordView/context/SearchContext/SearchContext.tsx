@@ -13,6 +13,7 @@ import create from '../../../../utils/create';
 import get from '../../../../utils/get';
 import set from '../../../../utils/set';
 import keyToTitle from '../../utils/keyToTitle';
+import countDots from '../../utils/countDots';
 
 const SearchContext = createContext<Context>(null as never);
 
@@ -34,6 +35,7 @@ export interface Props {
   data: IData;
   withExpandAll: boolean;
   withExpandRoot: boolean;
+  withExpandLevel: number;
   children: React.ReactNode;
 }
 
@@ -47,6 +49,7 @@ export const SearchProvider = ({
   children,
   withExpandAll = false,
   withExpandRoot = false,
+  withExpandLevel = 0,
   data: upperData,
 }: Props) => {
 
@@ -75,6 +78,20 @@ export const SearchProvider = ({
     [upperData],
   );
 
+  const getExpandLevelNamespaces = useCallback(
+    () =>
+      deepFlat(upperData)
+        .map(({ path }) => replaceString(path, 'root.', ''))
+        .filter((path) => {
+          const value = get(upperData, path);
+          let isOk = true;
+          isOk = isOk && isObject(value);
+          isOk = isOk && countDots(path) <= withExpandLevel;
+          return isOk;
+        }),
+    [upperData],
+  );
+
   const getInitialExpand = useCallback(() => {
     if (withExpandAll) {
       return getExpandAllNamespaces();
@@ -82,8 +99,11 @@ export const SearchProvider = ({
     if (withExpandRoot) {
       return getExpandRootNamespaces();
     }
+    if (withExpandLevel) {
+      return getExpandLevelNamespaces();
+    }
     return [];
-  }, [withExpandAll, withExpandRoot, getExpandAllNamespaces, getExpandRootNamespaces]);
+  }, [withExpandAll, withExpandRoot, withExpandLevel, getExpandAllNamespaces, getExpandRootNamespaces, getExpandLevelNamespaces]);
 
   const [state, setState] = useState<State>(() => ({
     checked: new Set(getInitialExpand()),

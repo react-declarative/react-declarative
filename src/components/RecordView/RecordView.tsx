@@ -12,6 +12,7 @@ export const RecordView = <Data extends any = IData>({
   formatValue = (_, value) => value,
   withExpandAll = false,
   withExpandRoot = false,
+  withExpandLevel = 0,
   keyWidth = 2,
   valueWidth = 10,
   totalWidth,
@@ -21,6 +22,7 @@ export const RecordView = <Data extends any = IData>({
     data={data as IData}
     withExpandAll={withExpandAll}
     withExpandRoot={withExpandRoot}
+    withExpandLevel={withExpandLevel}
   >
     <Container
       formatValue={formatValue}
