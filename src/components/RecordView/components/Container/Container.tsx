@@ -21,6 +21,7 @@ export interface IContainerProps extends BoxProps {
   totalWidth: number | undefined;
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
+  background?: IRecordViewProps['background'];
 }
 
 export const Container = ({
@@ -29,6 +30,7 @@ export const Container = ({
   keyWidth,
   valueWidth,
   totalWidth,
+  background,
   ...otherProps
 }: IContainerProps) => {
   const { data, search, isSearching, setSearch } = useSearch();
@@ -69,6 +71,7 @@ export const Container = ({
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}
+        background={background}
       />
     </Box>
   );

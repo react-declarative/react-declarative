@@ -21,6 +21,7 @@ export const RecordView = <Data extends any = IData>({
   keyWidth = 2,
   valueWidth = 10,
   totalWidth,
+  background,
   ...otherProps
 }: IRecordViewProps<Data>) => (
   <SearchProvider
@@ -37,6 +38,7 @@ export const RecordView = <Data extends any = IData>({
       keyWidth={keyWidth}
       valueWidth={valueWidth}
       totalWidth={totalWidth}
+      background={background}
       {...otherProps}
     />
   </SearchProvider>

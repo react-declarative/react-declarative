@@ -3,6 +3,7 @@ import { GridSize, BoxProps } from "@mui/material";
 import IData from './IData';
 
 export interface IRecordViewProps<Data = IData> extends BoxProps {
+    background?: string;
     data: Data;
     search?: string;
     keyWidth?: GridSize;

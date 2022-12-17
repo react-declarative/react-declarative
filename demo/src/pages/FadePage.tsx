@@ -17,6 +17,9 @@ const recordData = {
       baz: 'foo',
       omg: 'test',
       fff: 'ttt',
+      brrr: {
+        bzzz: 'ffff',
+      },
     },
     baz: {
       baz: 'foo',

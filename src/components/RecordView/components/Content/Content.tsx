@@ -25,6 +25,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   valueWidth: never;
   totalWidth: never;
 }> {
+  background?: IRecordViewProps['background'];
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   data: IRecordViewProps['data'];
@@ -35,7 +36,11 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   withDarkParent?: boolean;
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles<{
+  background?: string
+}>()((theme, {
+  background = theme.palette.background.default,
+}) => ({
   group: {
     borderRadius: '4px',
   },
@@ -45,12 +50,12 @@ const useStyles = makeStyles()((theme) => ({
   },
   groupBlack: {
     background: alpha(
-      theme.palette.getContrastText(theme.palette.background.default),
+      theme.palette.getContrastText(background),
       0.05
     ),
   },
   groupWrite: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: background,
   },
 }));
 
@@ -63,9 +68,10 @@ export const Content = ({
   formatValue,
   formatKey,
   withDarkParent = false,
+  background,
   ...otherProps
 }: IContentProps) => {
-  const { classes } = useStyles();
+  const { classes } = useStyles({ background });
 
   const { isSearching, isChecked, setIsChecked } = useSearch();
 
@@ -108,6 +114,7 @@ export const Content = ({
               </Grid>
               <Grid item xs={valueWidth} sx={{ mt: 3, mb: 3 }}>
                 <Content
+                  background={background}
                   withDarkParent={index % 2 === 0}
                   formatValue={formatValue}
                   formatKey={formatKey}
@@ -124,6 +131,7 @@ export const Content = ({
         }
         return (
           <Item
+            background={background}
             withDarkParent={withDarkParent}
             formatValue={formatValue}
             formatKey={formatKey}
@@ -150,6 +158,7 @@ export const Content = ({
       withDarkParent,
       formatValue,
       formatKey,
+      background,
     ],
   );
 

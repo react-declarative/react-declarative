@@ -19,6 +19,7 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   valueWidth: never;
   totalWidth: never;
 }> {
+  background?: IRecordViewProps['background'];
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   index: number;
@@ -74,24 +75,28 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   withDarkParent?: boolean;
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles<{
+  background?: string;
+}>()((theme, {
+  background = theme.palette.background.default,
+}) => ({
   key: {
     borderRadius: '4px',
     '&:hover': {
       background: alpha(
-        theme.palette.getContrastText(theme.palette.background.default),
+        theme.palette.getContrastText(background),
         0.02
       ),
     },
   },
   keyBlack: {
     background: alpha(
-      theme.palette.getContrastText(theme.palette.background.default),
+      theme.palette.getContrastText(background),
       0.05
     ),
   },
   keyWhite: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: background,
   },
 }));
 
@@ -105,9 +110,10 @@ export const Item = ({
   itemKey,
   path,
   index,
+  background,
   withDarkParent = false,
 }: IItemProps) => {
-  const { classes } = useStyles();
+  const { classes } = useStyles({ background });
 
   const value = useMemo(() => {
     const currentValue =
