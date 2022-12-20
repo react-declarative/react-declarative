@@ -30,6 +30,7 @@ export interface IActionModalProps<
   handler?: OneHandler<Data>;
   payload?: IOneProps<Data, Payload>['payload'];
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+  onChange?: (data: Data, initial: boolean) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -73,6 +74,7 @@ export const ActionModal = <
   Field = IField<Data>
 >({
   onSubmit = () => true,
+  onChange = () => undefined,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -90,8 +92,9 @@ export const ActionModal = <
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useActualState(0);
 
-  const handleChange = (newData: Data) => {
+  const handleChange = (newData: Data, initial: boolean) => {
     setData(newData);
+    onChange(newData, initial);
   };
 
   const handleLoadStart = () => {
@@ -165,7 +168,7 @@ export const ActionModal = <
         />
         <ActionButton
           className={classes.submit}
-          disabled={!!loading.current}
+          disabled={!!loading.current || !data}
           size="large"
           variant="contained"
           color="info"

@@ -25,6 +25,9 @@ export const useActionModal = <
   fields,
   handler,
   fallback,
+  apiRef,
+  payload,
+  onChange,
   onLoadEnd,
   onLoadStart,
   submitLabel,
@@ -49,9 +52,12 @@ export const useActionModal = <
     () => (
       <ActionModal
         open={open}
+        apiRef={apiRef}
         fields={fields}
         handler={handler}
+        payload={payload}
         fallback={fallback}
+        onChange={onChange}
         onLoadEnd={onLoadEnd}
         onLoadStart={onLoadStart}
         submitLabel={submitLabel}
@@ -63,8 +69,11 @@ export const useActionModal = <
     [
       open,
       fields,
+      apiRef,
       handler,
+      payload,
       fallback,
+      onChange,
       onLoadEnd,
       onLoadStart,
       handleSubmit,
