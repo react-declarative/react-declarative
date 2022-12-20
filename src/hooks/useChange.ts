@@ -1,20 +1,41 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 
-const Destructor = () => { };
+const Destructor = () => undefined;
 
-export const useChange = (effect: React.EffectCallback, deps?: React.DependencyList) => {
+export const useChange = (
+  effect: React.EffectCallback,
+  deps: React.DependencyList = [],
+  stopWatchByDefault = false,
+) => {
+  const initialChange = useRef(true);
+  const stopWatch = useRef(stopWatchByDefault);
 
-    const initialChange = useRef(true);
+  useEffect(() => {
+    if (initialChange.current) {
+      initialChange.current = false;
+      return Destructor;
+    }
+    if (stopWatch.current) {
+      return Destructor;
+    }
+    return effect() || Destructor;
+  }, deps);
 
-    useEffect(() => {
-        if (initialChange.current) {
-            initialChange.current = false;
-            return Destructor;
-        } else {
-            return effect() || Destructor;
-        }
-    }, deps);
-
+  return useMemo(
+    () => ({
+      resetWatcher: () => {
+        initialChange.current = true;
+      },
+      beginWatch: () => {
+        initialChange.current = false;
+        stopWatch.current = false;
+      },
+      stopWatch: () => {
+        stopWatch.current = true;
+      },
+    }),
+    [],
+  );
 };
 
 export default useChange;

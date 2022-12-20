@@ -15,6 +15,7 @@ import useActualState from "../../hooks/useActualState";
 import classNames from "../../utils/classNames";
 
 import IField from "../../model/IField";
+import IOneApi from "../../model/IOneApi";
 import IAnything from "../../model/IAnything";
 import IOneProps, { OneHandler } from "../../model/IOneProps";
 
@@ -23,6 +24,7 @@ export interface IActionModalProps<
   Payload = IAnything,
   Field = IField<Data>
 > {
+  apiRef?: React.Ref<IOneApi>;
   fields: Field[];
   title?: string;
   handler?: OneHandler<Data>;
@@ -78,6 +80,7 @@ export const ActionModal = <
   handler,
   payload,
   title,
+  apiRef,
   open = true,
   throwError = false,
   submitLabel = "Submit",
@@ -150,6 +153,7 @@ export const ActionModal = <
           </Typography>
         </div>
         <One
+          apiRef={apiRef}
           className={classNames({
             [classes.disabled]: !!loading.current,
           })}
