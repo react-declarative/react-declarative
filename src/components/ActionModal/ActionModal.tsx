@@ -31,6 +31,7 @@ export interface IActionModalProps<
   payload?: IOneProps<Data, Payload>['payload'];
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
   onChange?: (data: Data, initial: boolean) => void;
+  onInvalid?: (name: string, msg: string) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -75,6 +76,7 @@ export const ActionModal = <
 >({
   onSubmit = () => true,
   onChange = () => undefined,
+  onInvalid = () => undefined,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -95,6 +97,11 @@ export const ActionModal = <
   const handleChange = (newData: Data, initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
+  };
+
+  const handleInvalid = (name: string, msg: string) => {
+    setData(null);
+    onInvalid(name, msg);
   };
 
   const handleLoadStart = () => {
@@ -161,6 +168,7 @@ export const ActionModal = <
             [classes.disabled]: !!loading.current,
           })}
           readonly={!!loading.current}
+          invalidity={handleInvalid}
           change={handleChange}
           handler={handler}
           payload={payload}

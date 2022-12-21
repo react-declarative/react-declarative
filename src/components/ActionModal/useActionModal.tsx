@@ -30,6 +30,7 @@ export const useActionModal = <
   onChange,
   onLoadEnd,
   onLoadStart,
+  onInvalid,
   submitLabel,
   throwError,
   title,
@@ -58,6 +59,7 @@ export const useActionModal = <
         payload={payload}
         fallback={fallback}
         onChange={onChange}
+        onInvalid={onInvalid}
         onLoadEnd={onLoadEnd}
         onLoadStart={onLoadStart}
         submitLabel={submitLabel}
@@ -74,6 +76,7 @@ export const useActionModal = <
       payload,
       fallback,
       onChange,
+      onInvalid,
       onLoadEnd,
       onLoadStart,
       handleSubmit,

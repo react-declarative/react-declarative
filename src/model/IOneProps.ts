@@ -58,13 +58,13 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Коллбек, вызываемый при не прохождении
    * валидации
    */
-  invalidity?: (name: string, e: string) => void;
+  invalidity?: (name: string, msg: string, payload: Payload) => void;
   /**
    * Вызываются при фокусировки по филду
    * в компоненте и потере фокуса
    */
-  focus?: (name: string) => void;
-  blur?: (name: string) => void;
+  focus?: (name: string, payload: Payload) => void;
+  blur?: (name: string, payload: Payload) => void;
   /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы
