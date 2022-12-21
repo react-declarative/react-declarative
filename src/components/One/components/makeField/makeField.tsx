@@ -95,8 +95,8 @@ export function makeField(
         autoFocus,
         style,
         groupRef: ref = () => null,
-        fieldRightMargin,
-        fieldBottomMargin,
+        fieldRightMargin = config.defaultProps?.fieldRightMargin,
+        fieldBottomMargin = config.defaultProps?.fieldBottomMargin,
         ...otherProps
     }: IEntity<Data>) => {
 
@@ -287,14 +287,14 @@ export function makeField(
         };
 
         const groupProps: IGroupProps<Data> = {
-            sx,
+            ...config.defaultProps,
             columns,
             phoneColumns,
             tabletColumns,
             desktopColumns,
             fieldRightMargin,
             fieldBottomMargin,
-            ...config.defaultProps,
+            sx: { ...sx, ...config.defaultProps?.sx },
         };
 
         const managedProps: IManaged<Data> = {
