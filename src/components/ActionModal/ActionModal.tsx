@@ -27,6 +27,7 @@ export interface IActionModalProps<
   apiRef?: React.Ref<IOneApi>;
   fields: Field[];
   title?: string;
+  dirty?: boolean;
   handler?: OneHandler<Data>;
   payload?: IOneProps<Data, Payload>['payload'];
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
@@ -86,6 +87,7 @@ export const ActionModal = <
   title,
   apiRef,
   open = true,
+  dirty = false,
   throwError = false,
   submitLabel = "Submit",
 }: IActionModalProps<Data, Payload, Field>) => {
@@ -173,6 +175,7 @@ export const ActionModal = <
           handler={handler}
           payload={payload}
           fields={fields}
+          dirty={dirty}
         />
         <ActionButton
           className={classes.submit}

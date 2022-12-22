@@ -33,6 +33,7 @@ export const useActionModal = <
   onInvalid,
   submitLabel,
   throwError,
+  dirty,
   title,
 }: IParams<Data, Field>) => {
   const [open, setOpen] = useState(false);
@@ -66,10 +67,12 @@ export const useActionModal = <
         throwError={throwError}
         onSubmit={handleSubmit}
         title={title}
+        dirty={dirty}
       />
     ),
     [
       open,
+      dirty,
       fields,
       apiRef,
       handler,
