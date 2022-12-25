@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
 export const TIME_PLACEHOLDER = 'HH:MM';
 
@@ -11,6 +13,9 @@ export class Time {
     toString = () => {
         return serializeTime(this);
     };
+    toStamp = () => {
+        return this.hour * 60 + this.minute;
+    };
 };
 
 export class Date {
@@ -21,6 +26,18 @@ export class Date {
     ) { }
     toString = () => {
         return serializeDate(this);
+    };
+    toStamp = () => {
+        const start = dayjs('1970-01-01');
+        const now = dayjs();
+        now.set('date', this.day);
+        now.set('month', this.month - 1);
+        now.set('year', this.year);
+        if (now.isValid()) {
+            return Math.max(now.diff(start, 'day'), -1);
+        } else {
+            return -1;
+        }
     };
 };
 
@@ -84,10 +101,30 @@ export const serializeTime = (time: Time) => {
 
 export const currentDate = () => {
     const now = new window.Date();
-    return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
+    const date = new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
+    return serializeDate(date);
 };
 
 export const currentTime = () => {
     const now = new window.Date();
-    return new Time(now.getHours(), now.getMinutes());
+    const time = new Time(now.getHours(), now.getMinutes());
+    return serializeTime(time);
+};
+
+export const timeStamp = (str: string) => {
+    const time = parseTime(str);
+    if (time) {
+        return time.toStamp();
+    } else {
+        return -1;
+    }
+};
+
+export const dateStamp = (str: string) => {
+    const date = parseDate(str);
+    if (date) {
+        return date.toStamp();
+    } else {
+        return -1;
+    }
 };

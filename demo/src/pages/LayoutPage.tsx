@@ -4,7 +4,7 @@ import { useState, Fragment } from 'react';
 
 import { Face } from '@mui/icons-material';
 
-import { TypedField, FieldType, OneTyped, OneSlotFactory, OtherComboSlot, OtherItemsSlot } from 'react-declarative';
+import { TypedField, FieldType, OneTyped, OneSlotFactory, OtherComboSlot, OtherItemsSlot, datetime } from 'react-declarative';
 
 import Logger from '../components/Logger';
 
@@ -27,7 +27,7 @@ const fields: TypedField<any, null>[] = [
         type: FieldType.Date,
         title: 'Date field',
         description: 'type a date',
-        // defaultValue: '10.06.1999',
+        defaultValue: datetime.currentDate(),
         name: 'date',
     },
     {
