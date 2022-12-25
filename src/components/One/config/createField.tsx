@@ -19,6 +19,7 @@ import ItemsField from "../fields/ItemsField";
 import RatingField from "../fields/RatingField";
 import TypographyField from "../fields/TypographyField";
 import DateField from "../fields/DateField";
+import TimeField from "../fields/TimeField";
 
 export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
   const { type } = entity;
@@ -48,7 +49,9 @@ export const createField = <Data extends IAnything = IAnything>(entity: IEntity<
     return <TypographyField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Date) {
     return <DateField<Data> {...entity} key={currentPath} />;
-  } else {
+  } else if (type === FieldType.Time) {
+    return <TimeField<Data> {...entity} key={currentPath} />;
+  }else {
     throw new Error("FieldFactory unknown key type");
   }
 };

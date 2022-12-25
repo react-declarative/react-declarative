@@ -10,6 +10,7 @@ import Rating from './components/Rating';
 import Typography from './components/Typography';
 import Text from './components/Text';
 import Date from './components/Date';
+import Time from './components/Time';
 import Switch from './components/Switch';
 import Slider from './components/Slider';
 
@@ -26,6 +27,7 @@ export const defaultSlots = {
     Typography,
     Text,
     Date,
+    Time,
     Switch,
     Slider,
 };

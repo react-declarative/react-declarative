@@ -35,6 +35,7 @@ import { ISliderFieldProps } from '../components/One/fields/SliderField';
 import { ISwitchFieldProps } from '../components/One/fields/SwitchField';
 import { ITextFieldProps } from '../components/One/fields/TextField';
 import { IDateFieldProps } from '../components/One/fields/DateField';
+import { ITimeFieldProps } from '../components/One/fields/TimeField';
 import { ITypographyFieldProps } from '../components/One/fields/TypographyField';
 
 type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
@@ -77,6 +78,7 @@ type Slider<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fi
 type Switch<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Switch, ISwitchFieldProps<Data, Payload>, Data, Payload>;
 type Text<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data, Payload>, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
+type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
 type Typography<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data, Payload>, Data, Payload>;
 
 /**
@@ -100,6 +102,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Switch<Data, Payload> ? Switch<Data, Payload>
   : Target extends Text<Data, Payload> ? Text<Data, Payload>
   : Target extends Date<Data, Payload> ? Date<Data, Payload>
+  : Target extends Time<Data, Payload> ? Time<Data, Payload>
   : Target extends Typography<Data, Payload> ? Typography<Data, Payload>
   : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload>
   : Target extends Div<Data, Payload> ? Div<Data, Payload>

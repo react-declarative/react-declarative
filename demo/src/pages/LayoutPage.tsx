@@ -31,6 +31,13 @@ const fields: TypedField<any, null>[] = [
         name: 'date',
     },
     {
+        type: FieldType.Time,
+        title: 'Time field',
+        description: 'type a time',
+        defaultValue: datetime.currentTime(),
+        name: 'time',
+    },
+    {
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',
