@@ -24,6 +24,13 @@ const fields: TypedField<any, null>[] = [
         }
     },
     {
+        type: FieldType.Date,
+        title: 'Date field',
+        description: 'type a date',
+        // defaultValue: '10.06.1999',
+        name: 'date',
+    },
+    {
         type: FieldType.Group,
         phoneColumns: '12',
         tabletColumns: '6',
@@ -61,7 +68,8 @@ const fields: TypedField<any, null>[] = [
                 type: FieldType.Text,
                 title: 'Snils',
                 name: 'snils',
-                inputFormatterTemplate: '000-000-000 00',
+                inputFormatterTemplate: '###-###-### ##',
+                inputFormatterSymbol: '#',
                 inputFormatterAllowed: /^[0-9]/,
             }
         ],

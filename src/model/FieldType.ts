@@ -8,6 +8,7 @@ export enum FieldType {
     Radio = 'radio-field',
     Checkbox = 'checkbox-field',
     Text = 'text-field',
+    Date = 'date-field',
     Progress = 'progress-field',
     Component = 'component-field',
     Slider = 'slider-field',

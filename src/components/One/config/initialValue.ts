@@ -11,6 +11,7 @@ const initialValueMap = {
   [FieldType.Items]: null,
   [FieldType.Rating]: 3,
   [FieldType.Typography]: '',
+  [FieldType.Date]: '',
 };
 
 type InitialValue = typeof initialValueMap;

@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
+export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
+export const TIME_PLACEHOLDER = 'HH:MM';
 
-export const DATE_TEMPLATE = 'DD.MM.YYYY';
-export const TIME_TEMPLATE = 'HH:MM';
+export const DATE_REGEXP = /(?:\d\d\/\d\d\/\d\d\d\d)/g;
 
 export class Time {
     constructor(
@@ -13,20 +13,46 @@ export class Time {
     };
 };
 
-export const parseDate = (str: string): dayjs.Dayjs | null => {
-    const result = dayjs(str, DATE_TEMPLATE);
-    if (result.isValid()) {
-        return result;
-    }
-    return null;
+export class Date {
+    constructor(
+        public readonly day: number,
+        public readonly month: number,
+        public readonly year: number,
+    ) { }
+    toString = () => {
+        return serializeDate(this);
+    };
 };
 
-export const serializeDate = (date: Date | dayjs.Dayjs) => {
-    const result = dayjs(date);
-    if (result.isValid()) {
-        return result.format(DATE_TEMPLATE);
+export const parseDate = (date: string): Date | null => {
+    if (date.match(DATE_REGEXP)) {
+        const [day, month, year] = date.split('/');
+        const d = parseInt(day);
+        const m = parseInt(month);
+        const y = parseInt(year);
+        if (isNaN(d) || isNaN(m) || isNaN(y)) {
+            return null;
+        }
+        return new Date(d, m, y);
+    } else {
+        return null;
     }
-    return null;
+};
+
+export const serializeDate = (date: Date) => {
+    let day = '';
+    let month = '';
+    let year = '';
+    if (date instanceof Date) {
+        day = date.day.toString();
+        month = date.month.toString();
+        year = date.year.toString();
+    } else {
+        return null;
+    }
+    day = day.length === 1 ? '0' + day : day;
+    month = month.length === 1 ? '0' + month : month;
+    return `${day}/${month}/${year}`;
 };
 
 export const parseTime = (time: string): Time | null => {
@@ -42,22 +68,10 @@ export const parseTime = (time: string): Time | null => {
     return null;
 };
 
-export const serializeTime = (time: Time | Date | dayjs.Dayjs) => {
+export const serializeTime = (time: Time) => {
     let hour = '';
     let minute = '';
-    if (dayjs.isDayjs(time)) {
-        if (!time.isValid()) {
-            return null;
-        }
-        hour = time.get('hour').toString();
-        minute = time.get('minute').toString();
-    } else if (time instanceof Date) {
-        if (!isFinite(Number(time))) {
-            return null;
-        }
-        hour = time.getHours().toString();
-        minute = time.getMinutes().toString();
-    } else if (time instanceof Time) {
+    if (time instanceof Time) {
         hour = time.hour.toString();
         minute = time.minute.toString();
     } else {
@@ -66,4 +80,14 @@ export const serializeTime = (time: Time | Date | dayjs.Dayjs) => {
     hour = hour.length === 1 ? '0' + hour : hour;
     minute = minute.length === 1 ? '0' + minute : minute;
     return `${hour}:${minute}`;
+};
+
+export const currentDate = () => {
+    const now = new window.Date();
+    return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
+};
+
+export const currentTime = () => {
+    const now = new window.Date();
+    return new Time(now.getHours(), now.getMinutes());
 };

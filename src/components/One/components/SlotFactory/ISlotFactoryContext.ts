@@ -9,6 +9,7 @@ import { IRadioSlot } from '../../slots/RadioSlot';
 import { IRatingSlot } from '../../slots/RatingSlot';
 import { ITypographySlot } from '../../slots/TypographySlot';
 import { ITextSlot } from '../../slots/TextSlot';
+import { IDateSlot } from '../../slots/DateSlot';
 import { ISwitchSlot } from '../../slots/SwitchSlot';
 import { ISliderSlot } from '../../slots/SliderSlot';
 
@@ -22,6 +23,7 @@ export interface ISlotFactoryContext {
     Rating: ComponentType<IRatingSlot>;
     Typography: ComponentType<ITypographySlot>;
     Text: ComponentType<ITextSlot>;
+    Date: ComponentType<IDateSlot>;
     Switch: ComponentType<ISwitchSlot>;
     Slider: ComponentType<ISliderSlot>;
 }
