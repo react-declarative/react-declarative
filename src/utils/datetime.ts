@@ -3,8 +3,6 @@ import dayjs from 'dayjs';
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
 export const TIME_PLACEHOLDER = 'HH:MM';
 
-export const DATE_REGEXP = /(?:\d\d\/\d\d\/\d\d\d\d)/g;
-
 export class Time {
     constructor(
         public readonly hour: number,
@@ -42,18 +40,17 @@ export class Date {
 };
 
 export const parseDate = (date: string): Date | null => {
-    if (date.match(DATE_REGEXP)) {
-        const [day, month, year] = date.split('/');
-        const d = parseInt(day);
-        const m = parseInt(month);
-        const y = parseInt(year);
-        if (isNaN(d) || isNaN(m) || isNaN(y)) {
-            return null;
-        }
-        return new Date(d, m, y);
-    } else {
+    const [day = '', month = '', year = ''] = date.split('/');
+    if (day.length === 2 && month.length === 2 && year.length === 4) {
+      const d = parseInt(day, 10);
+      const m = parseInt(month, 10);
+      const y = parseInt(year, 10);
+      if (Number.isNaN(d) || Number.isNaN(m) || Number.isNaN(y)) {
         return null;
+      }
+      return new Date(d, m, y);
     }
+    return null;
 };
 
 export const serializeDate = (date: Date) => {
