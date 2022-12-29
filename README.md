@@ -407,6 +407,8 @@ import { RevealView } from 'react-declarative';
 import { SecretView } from 'react-declarative';
 import { PortalView } from 'react-declarative';
 import { RecordView } from 'react-declarative';
+import { ErrorView } from 'react-declarative';
+import { AuthView } from 'react-declarative';
 ```
 
 <img src="./assets/icons/consciousness.svg" height="35px" align="right">

@@ -35,6 +35,8 @@ export * from './RevealView';
 export * from './SecretView';
 export * from './PortalView';
 export * from './RecordView';
+export * from './ErrorView';
+export * from './AuthView';
 
 export * from './Async';
 export * from './If';
