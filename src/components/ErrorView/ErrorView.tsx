@@ -45,10 +45,33 @@ const useStyles = makeStyles()((theme) => ({
 interface IErrorViewProps {
     appName?: string;
     Logo?: React.ComponentType<any>;
+    buttonLabel?: React.ReactNode;
+    contentLabel?: React.ReactNode;
+    onButtonClick?: () => void;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
 }
+
+const handleReload = () => {
+    const { href, origin, protocol } = window.location;
+    if (protocol !== 'file:') {
+        const url = new URL(href, origin);
+        url.pathname = '/';
+        url.search = '';
+        url.hash = '';
+        window.location.href = url.toString();
+    } else {
+        window.location.reload();
+    }
+};
+
+const contentDefault = (
+    <>
+        It looks like this app finished with uncaught exception<br />
+        Please reload this page and try again
+    </>
+);
 
 export const ErrorView = ({
     appName = 'AppName',
@@ -56,13 +79,11 @@ export const ErrorView = ({
     className,
     style,
     sx,
+    buttonLabel = "Reload page",
+    contentLabel = contentDefault,
+    onButtonClick = handleReload,
 }: IErrorViewProps) => {
     const { classes } = useStyles();
-
-    const handleReload = () => {
-        window.location.reload();
-    };
-
     return (
         <PortalView>
             <Box
@@ -75,14 +96,13 @@ export const ErrorView = ({
                         <Stack direction='column' gap="15px">
                             <Logo appName={appName} />
                             <span>
-                                It looks like this app finished with uncaught exception<br />
-                                Please reload this page and try again
+                                {contentLabel}
                             </span>
                             <Button
                                 variant="contained"
-                                onClick={handleReload}
+                                onClick={onButtonClick}
                             >
-                                Reload page
+                                {buttonLabel}
                             </Button>
                         </Stack>
                     </Paper>
