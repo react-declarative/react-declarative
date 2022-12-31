@@ -15,6 +15,12 @@ A React form builder which interacts with a JSON endpoint to generate nested 12-
 > There is a `create-react-app` template available [in this repository](https://github.com/react-declarative/cra-template-react-declarative)
 
 ```bash
+yarn create react-app --template cra-template-react-declarative .
+```
+
+or
+
+```bash
 npx create-react-app . --template=react-declarative
 ```
 
