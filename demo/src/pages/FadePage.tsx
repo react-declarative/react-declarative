@@ -151,6 +151,12 @@ export const FadePage = () => {
             },
         ],
         title: 'Example modal',
+        onSubmit: async (data) => {
+            console.log({ data });
+            notify('click');
+            await sleep(3_000);
+            return true;
+        },
     });
 
     const {
@@ -181,12 +187,7 @@ export const FadePage = () => {
     };
 
     const handleModal = () => {
-        pickData(async (data) => {
-            console.log({ data });
-            notify('click');
-            await sleep(3_000);
-            return true;
-        });
+        pickData();
     };
 
     return (
@@ -263,7 +264,10 @@ export const FadePage = () => {
             <Button sx={{ m: 1 }} onClick={handlePrompt}>
                 Prompt
             </Button>
-            <Button sx={{ m: 1 }} onClick={handleModal}>
+            <Button 
+                sx={{ m: 1 }}
+                onClick={handleModal}
+            >
                 Modal
             </Button>
             {isPhone && "Phone"}

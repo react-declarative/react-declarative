@@ -1,19 +1,18 @@
 import * as React from "react";
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 import ActionModal, { IActionModalProps } from "./ActionModal";
 
+import useActualCallback from "../../hooks/useActualCallback";
+
+import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
-import TypedField from "../../model/TypedField";
-
-type Fn<Data = IAnything> = IActionModalProps<Data>["onSubmit"];
 
 interface IParams<Data extends IAnything = IAnything, Field = IField<Data>>
   extends Omit<
     IActionModalProps<Data, Field>,
     keyof {
-      onSubmit: never;
       open: never;
     }
   > {}
@@ -28,6 +27,7 @@ export const useActionModal = <
   apiRef,
   payload,
   onChange,
+  onSubmit = () => true,
   onLoadEnd,
   onLoadStart,
   onInvalid,
@@ -37,17 +37,13 @@ export const useActionModal = <
   title,
 }: IParams<Data, Field>) => {
   const [open, setOpen] = useState(false);
-  const changeRef = useRef<Fn<Data>>(null as never);
+
+  const onSubmit$ = useActualCallback(onSubmit);
 
   const handleSubmit = useCallback(async (data: Data | null) => {
-    const { current } = changeRef;
-    if (current) {
-      const result = await current(data);
-      setOpen(!result);
-      return result;
-    } else {
-      return false;
-    }
+    const result = await onSubmit$(data);
+    setOpen(!result);
+    return result;
   }, []);
 
   const render = useCallback(
@@ -89,8 +85,7 @@ export const useActionModal = <
     ]
   );
 
-  const pickData = useCallback((onSubmit: Fn<Data>) => {
-    changeRef.current = onSubmit;
+  const pickData = useCallback(() => {
     setOpen(true);
   }, []);
 
