@@ -61,6 +61,8 @@ export class List<
     private scrollManager = createScrollManager();
     private constraintManager = createConstraintManager();
 
+    private unReloadSubject?: () => void;
+
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
         payload: {},
@@ -131,6 +133,7 @@ export class List<
         this.isFetchingFlag = false;
         this.isMountedFlag = false;
         this.handleFetchQueue.clear();
+        this.unReloadSubject && this.unReloadSubject();
     };
 
     private beginRerender = () => {
@@ -214,6 +217,11 @@ export class List<
             apiRef(instance);
         } else if (apiRef) {
             (apiRef.current as any) = instance;
+        }
+        if (this.props.reloadSubject) {
+            this.unReloadSubject && this.unReloadSubject();
+            this.unReloadSubject = this.props.reloadSubject
+                .subscribe(this.handleReload);
         }
     };
 

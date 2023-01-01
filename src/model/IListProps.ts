@@ -14,6 +14,8 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 
+import Subject from '../utils/rx/Subject';
+
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
 
 interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
@@ -161,6 +163,7 @@ export interface IListProps<
   payload?: Payload;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
+  reloadSubject?: Subject<void>;
   rowActions?: IListRowAction[];
   withToggledFilters?: boolean;
   withSearch?: boolean;
