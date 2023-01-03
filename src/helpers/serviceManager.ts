@@ -2,7 +2,7 @@ import singleshot from "../utils/hof/singleshot";
 
 type Key = string | symbol;
 
-interface IService {
+export interface IService {
     prefetch?: () => Promise<void>;
     unload?: () => Promise<void>;
 }

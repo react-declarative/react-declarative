@@ -32,6 +32,9 @@ import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from './model/IBread
 export { createServiceManager } from './helpers/serviceManager';
 export { serviceManager } from './helpers/serviceManager';
 
+import { IService as IServiceInternal } from './helpers/serviceManager';
+export type IService = IServiceInternal;
+
 export { createRouteItemManager } from './helpers/routeManager';
 export { createRouteParamsManager } from './helpers/routeManager';
 

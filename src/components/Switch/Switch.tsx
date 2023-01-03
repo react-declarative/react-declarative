@@ -38,6 +38,8 @@ export interface ISwitchProps {
     animation?: IFetchViewProps['animation'];
     onLoadStart?: () => void;
     onLoadEnd?: (isOk?: boolean) => void;
+    onInit?: () => void;
+    onDispose?: () => void;
     throwError?: boolean;
     children?: (result: ISwitchResult) => React.ReactNode;
 }
@@ -85,14 +87,60 @@ export const Switch = ({
     items,
     onLoadStart,
     onLoadEnd,
+    onInit = () => undefined,
+    onDispose = () => undefined,
     throwError = false,
 }: ISwitchProps) => {
+
+    const [initComplete, setInitComplete] = useState(false);
 
     const unloadRef = useRef<(() => Promise<void>) | null>(null);
 
     const [location, setLocation] = useState<Location>({
         ...history.location,
     });
+
+    const handleInit = async () => {
+        let isOk = true;
+        onLoadStart && onLoadStart();
+        try {
+            await onInit();
+        } catch (e) {
+            isOk = false;
+            if (!throwError) {
+                fallback && fallback(e as Error);
+            } else {
+                throw e;
+            }
+        } finally {
+            onLoadEnd && onLoadEnd(isOk);
+            setInitComplete(true);
+        }
+    };
+
+    const handleDispose = async () => {
+        let isOk = true;
+        onLoadStart && onLoadStart();
+        try {
+            await onDispose();
+        } catch (e) {
+            isOk = false;
+            if (!throwError) {
+                fallback && fallback(e as Error);
+            } else {
+                throw e;
+            }
+        } finally {
+            onLoadEnd && onLoadEnd(isOk);
+        }
+    };
+
+    useEffect(() => {
+        handleInit();
+        return () => {
+            handleDispose();
+        };
+    }, []);
 
     useEffect(() => {
         const handleLocation = (update: Update) => {
@@ -184,6 +232,12 @@ export const Switch = ({
             path: url,
         };
     }, [location]);
+
+    if (!initComplete) {
+        return (
+            <Loader />
+        );
+    }
 
     return (
         <FetchView<Location, ISwitchResult>
