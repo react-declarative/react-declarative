@@ -70,11 +70,13 @@ class ServiceManager {
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
+                verbose && console.info(`react-declarative serviceManager prefetch ${String(key)}`);
                 const instance = this._instances.get(key)! as IService;
                 instance.prefetch && await instance.prefetch();
             }
             for (const key of this._instances.keys()) {
                 if (!resolutionSet.has(key)) {
+                    verbose && console.info(`react-declarative serviceManager prefetch ${String(key)}`);
                     const instance = this._instances.get(key)! as IService;
                     instance.prefetch && await instance.prefetch();
                 }
@@ -90,11 +92,13 @@ class ServiceManager {
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
+                verbose && console.info(`react-declarative serviceManager unload ${String(key)}`);
                 const instance = this._instances.get(key)! as IService;
                 instance.unload && await instance.unload();
             }
             for (const key of this._instances.keys()) {
                 if (!resolutionSet.has(key)) {
+                    verbose && console.info(`react-declarative serviceManager unload ${String(key)}`);
                     const instance = this._instances.get(key)! as IService;
                     instance.unload && await instance.unload();
                 }
