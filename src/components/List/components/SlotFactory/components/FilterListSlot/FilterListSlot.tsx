@@ -20,6 +20,7 @@ import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
 import usePayload from '../../../../hooks/usePayload';
+import useActualValue from '../../../../../../hooks/useActualValue';
 
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
 
@@ -106,6 +107,8 @@ export const FilterListSlot = <FilterData extends {}>({
 
   const [search, setSearch] = useState(upperSearch);
 
+  const search$ = useActualValue(search);
+
   const isInitialized = useRef(false);
 
   const handleCollapse = () => setCollapsed(!collapsed);
@@ -155,7 +158,8 @@ export const FilterListSlot = <FilterData extends {}>({
 
   const handleSearchCleanup = () => {
     setSearch("");
-    searchEscapeRef.current = true;
+    onSearchChange("");
+    searchInputRef.current?.blur();
   };
 
   const renderLabel = () => {
@@ -168,7 +172,7 @@ export const FilterListSlot = <FilterData extends {}>({
           inputRef={searchInputRef}
           onChange={({ target }) => setSearch(target.value)}
           onBlur={() => {
-            if (search !== upperSearch) {
+            if (search$.current !== upperSearch) {
               onSearchChange(search)
             }
           }}

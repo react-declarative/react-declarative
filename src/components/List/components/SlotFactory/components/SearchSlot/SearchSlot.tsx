@@ -15,6 +15,8 @@ import Restore from '@mui/icons-material/Restore';
 import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
+import useActualValue from '../../../../../../hooks/useActualValue';
+
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
 const useStyles = makeStyles()((theme) => ({
@@ -73,6 +75,8 @@ export const SearchSlot = ({
 
   const [search, setSearch] = useState(upperSearch);
 
+  const search$ = useActualValue(search);
+
   useEffect(() => {
     setSearch(upperSearch);
   }, [upperSearch]);
@@ -91,7 +95,8 @@ export const SearchSlot = ({
 
   const handleSearchCleanup = () => {
     setSearch("");
-    searchEscapeRef.current = true;
+    onSearchChange("");
+    searchInputRef.current?.blur();
   };
 
   return (
@@ -105,7 +110,7 @@ export const SearchSlot = ({
             inputRef={searchInputRef}
             onChange={({ target }) => setSearch(target.value)}
             onBlur={() => {
-              if (search !== upperSearch) {
+              if (search$.current !== upperSearch) {
                 onSearchChange(search)
               }
             }}
