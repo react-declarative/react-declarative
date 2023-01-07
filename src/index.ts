@@ -351,6 +351,8 @@ export { BehaviorSubject } from './utils/rx/BehaviorSubject';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
 
+export { getErrorMessage } from './utils/getErrorMessage';
+
 import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from './utils/mvvm/Entity';
 import { ICollectionAdapter as ICollectionAdapterInternal } from './utils/mvvm/Collection';
 import { IModelAdapter as IModelAdapterInternal } from './utils/mvvm/Model';
