@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useEffect } from "react";
 
+import { SxProps } from "@mui/system";
+
 import ModalDialog from "../common/ModalDialog";
 
 import Box from "@mui/material/Box";
@@ -31,6 +33,9 @@ interface ISecretViewProps {
   title?: string;
   description?: string;
   digits?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  sx?: SxProps;
 }
 
 interface IState {
@@ -40,6 +45,9 @@ interface IState {
 }
 
 export const SecretView = ({
+  className,
+  style,
+  sx,
   children,
   enabled = true,
   title = "Service menu",
@@ -139,6 +147,9 @@ export const SecretView = ({
     <>
       {children}
       <ModalDialog
+        className={className}
+        style={style}
+        sx={sx}
         canCancel
         noSave
         open={state.current.open}

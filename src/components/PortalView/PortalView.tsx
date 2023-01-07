@@ -17,8 +17,10 @@ export class PortalView extends React.Component<IPortalViewProps> {
   };
 
   render() {
-    this.element = document.createElement('div');
-    document.body.appendChild(this.element);
+    if (!this.element) {
+      this.element = document.createElement('div');
+      document.body.appendChild(this.element);
+    }
     return ReactDOM.createPortal(
       this.props.children,
       this.element
