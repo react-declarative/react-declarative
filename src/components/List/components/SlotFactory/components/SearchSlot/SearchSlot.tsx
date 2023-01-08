@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -15,7 +15,7 @@ import Restore from '@mui/icons-material/Restore';
 import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
-import useActualValue from '../../../../../../hooks/useActualValue';
+import useActualState from '../../../../../../hooks/useActualState';
 
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
@@ -73,9 +73,7 @@ export const SearchSlot = ({
 
   const { classes } = useStyles();
 
-  const [search, setSearch] = useState(upperSearch);
-
-  const search$ = useActualValue(search);
+  const [search$, setSearch] = useActualState(upperSearch);
 
   useEffect(() => {
     setSearch(upperSearch);
@@ -86,7 +84,7 @@ export const SearchSlot = ({
       searchEscapeRef.current = false;
       searchInputRef.current?.blur();
     }
-  }, [search]);
+  }, [search$.current]);
 
   const handleSearchEscape = () => {
     setSearch(upperSearch);
@@ -106,16 +104,16 @@ export const SearchSlot = ({
           <TextField
             label="Search"
             variant="standard"
-            value={search}
+            value={search$.current}
             inputRef={searchInputRef}
             onChange={({ target }) => setSearch(target.value)}
             onBlur={() => {
               if (search$.current !== upperSearch) {
-                onSearchChange(search)
+                onSearchChange(search$.current)
               }
             }}
             onKeyDown={({ key }) => {
-              if (key === 'Enter' && search !== upperSearch) {
+              if (key === 'Enter' && search$.current !== upperSearch) {
                 searchInputRef.current?.blur();
               } else if (key === 'Escape') {
                 handleSearchEscape();
@@ -131,7 +129,7 @@ export const SearchSlot = ({
                   <Search />
                 </InputAdornment>
               ),
-              endAdornment: !!search && (
+              endAdornment: !!search$.current && (
                 <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
                   <Close />
                 </InputAdornment>
