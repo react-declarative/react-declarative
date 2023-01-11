@@ -177,6 +177,9 @@ export { RecordView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
 
+import { recordToExcelExport } from './components/RecordView';
+export { recordToExcelExport };
+
 export { ErrorBoundary } from './components';
 
 export { AutoSizer } from './components';

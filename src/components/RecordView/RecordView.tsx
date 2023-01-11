@@ -8,6 +8,7 @@ import IData from "./model/IData";
 import IRecordViewProps from "./model/IRecordViewProps";
 
 import keyToTitle from "./utils/keyToTitle";
+import excelExport from "./helpers/excelExport";
 
 export const RecordView = <Data extends any = IData>({
   data = {} as Data,
@@ -43,5 +44,7 @@ export const RecordView = <Data extends any = IData>({
     />
   </SearchProvider>
 );
+
+RecordView.excelExport = excelExport;
 
 export default RecordView;
