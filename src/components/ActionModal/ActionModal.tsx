@@ -30,6 +30,8 @@ export interface IActionModalProps<
   dirty?: boolean;
   handler?: OneHandler<Data>;
   payload?: IOneProps<Data, Payload>['payload'];
+  changeSubject?: IOneProps<Data, Payload>['changeSubject'];
+  reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
   onChange?: (data: Data, initial: boolean) => void;
   onInvalid?: (name: string, msg: string) => void;
@@ -86,6 +88,8 @@ export const ActionModal = <
   payload,
   title,
   apiRef,
+  changeSubject,
+  reloadSubject,
   open = true,
   dirty = false,
   throwError = false,
@@ -166,6 +170,8 @@ export const ActionModal = <
         </div>
         <One
           apiRef={apiRef}
+          changeSubject={changeSubject}
+          reloadSubject={reloadSubject}
           className={classNames({
             [classes.disabled]: !!loading.current,
           })}

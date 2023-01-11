@@ -20,6 +20,7 @@ import IOneProps from '../../../model/IOneProps';
 import IOneApi from '../../../model/IOneApi';
 
 import useActualValue from '../../../hooks/useActualValue';
+import useSubject from '../../../hooks/useSubject';
 
 import { PickProp } from '../../../model/IManaged';
 
@@ -72,9 +73,15 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
 }: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const data$ = useActualValue(data);
-    const apiRef = useApiRef();
+    const { 
+        apiRef, 
+        changeSubject: upperChangeSubject,
+        reloadSubject: upperReloadSubject,
+    } = useApiRef();
     const isMounted = useRef(true);
     const isRoot = useRef(false);
+    const changeSubject = useSubject(upperChangeSubject);
+    const reloadSubject = useSubject(upperReloadSubject);
     useLayoutEffect(() => {
         const tryResolve = async () => {
             if (isRoot.current) {
@@ -122,6 +129,10 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
             } else if (apiRef) {
                 (apiRef.current as any) = instance;
             }
+            reloadSubject.unsubscribeAll();
+            reloadSubject.subscribe(instance.reload);
+            changeSubject.unsubscribeAll();
+            changeSubject.subscribe(instance.change);
         };
         tryResolve();
         handleUpdateRef();

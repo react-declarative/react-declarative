@@ -25,6 +25,8 @@ export const useActionModal = <
   handler,
   fallback,
   apiRef,
+  changeSubject,
+  reloadSubject,
   payload,
   onChange,
   onSubmit = () => true,
@@ -51,6 +53,8 @@ export const useActionModal = <
       <ActionModal
         open={open}
         apiRef={apiRef}
+        changeSubject={changeSubject}
+        reloadSubject={reloadSubject}
         fields={fields}
         handler={handler}
         payload={payload}
@@ -71,6 +75,8 @@ export const useActionModal = <
       dirty,
       fields,
       apiRef,
+      changeSubject,
+      reloadSubject,
       handler,
       payload,
       fallback,
