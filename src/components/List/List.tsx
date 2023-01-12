@@ -62,6 +62,10 @@ export class List<
     private constraintManager = createConstraintManager();
 
     private unReloadSubject?: () => void;
+    private unRerenderSubject?: () => void;
+    private unSetLimitSubject?: () => void;
+    private unSetPageSubject?: () => void;
+    private unSetRowsSubject?: () => void;
 
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
@@ -134,6 +138,10 @@ export class List<
         this.isMountedFlag = false;
         this.handleFetchQueue.clear();
         this.unReloadSubject && this.unReloadSubject();
+        this.unRerenderSubject && this.unRerenderSubject();
+        this.unSetLimitSubject && this.unSetLimitSubject();
+        this.unSetPageSubject && this.unSetPageSubject();
+        this.unSetRowsSubject && this.unSetRowsSubject();
     };
 
     private beginRerender = () => {
@@ -222,6 +230,26 @@ export class List<
             this.unReloadSubject && this.unReloadSubject();
             this.unReloadSubject = this.props.reloadSubject
                 .subscribe(this.handleReload);
+        }
+        if (this.props.rerenderSubject) {
+            this.unRerenderSubject && this.unRerenderSubject();
+            this.unRerenderSubject = this.props.rerenderSubject
+                .subscribe(this.handleRerender);
+        }
+        if (this.props.setLimitSubject) {
+            this.unSetLimitSubject && this.unSetLimitSubject();
+            this.unSetLimitSubject = this.props.setLimitSubject
+                .subscribe(this.handleLimitChange);
+        }
+        if (this.props.setPageSubject) {
+            this.unSetPageSubject && this.unSetPageSubject();
+            this.unSetPageSubject = this.props.setPageSubject
+                .subscribe(this.handlePageChange);
+        }
+        if (this.props.setRowsSubject) {
+            this.unSetRowsSubject && this.unSetRowsSubject();
+            this.unSetRowsSubject = this.props.setRowsSubject
+                .subscribe(this.handleRowsChange);
         }
     };
 

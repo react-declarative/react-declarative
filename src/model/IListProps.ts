@@ -164,6 +164,10 @@ export interface IListProps<
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
   reloadSubject?: Subject<void>;
+  rerenderSubject?: Subject<void>;
+  setLimitSubject?: Subject<number>;
+  setPageSubject?: Subject<number>;
+  setRowsSubject?: Subject<RowData[]>;
   rowActions?: IListRowAction[];
   withToggledFilters?: boolean;
   withSearch?: boolean;
