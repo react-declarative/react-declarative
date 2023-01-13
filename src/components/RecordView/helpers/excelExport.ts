@@ -1,4 +1,4 @@
-import XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 
 import isObject from '../../../utils/isObject';
 import IData, { Value } from '../model/IData';
