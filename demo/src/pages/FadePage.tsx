@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, Paper } from '@mui/material';
 import { useEffect } from 'react';
-import { FadeView, TabsView, ScaleView, ITab, useTabsHashstate, RecordView, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType, useMediaContext } from 'react-declarative';
+import { InfiniteView, FadeView, TabsView, ScaleView, ITab, useTabsHashstate, RecordView, ActionButton, ActionIcon, ActionFilter, ActionTrigger, ActionStopIcon, ActionToggle, IActionFilter, IActionTrigger, useSnack, usePrompt, useActionModal, FieldType, useMediaContext } from 'react-declarative';
+import { v4 as uuid } from 'uuid';
 
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -132,6 +133,14 @@ const actions_trigger: IActionTrigger[] = [
 ];
 
 export const FadePage = () => {
+
+    const [items, setItems] = useState(() => [
+        uuid(),
+        uuid(),
+        uuid(),
+        uuid(),
+        uuid(),
+    ]);
 
     const {
         isPhone,
@@ -273,6 +282,31 @@ export const FadePage = () => {
             {isPhone && "Phone"}
             {isTablet && "Tablet"}
             {isDesktop && "Desktop"}
+            <Paper
+                sx={{
+                    width: '100%',
+                    height: 250,
+                }}
+            >
+                <InfiniteView
+                    onDataRequest={() => setItems((items) => [
+                        ...items,
+                        ...[
+                            uuid(),
+                            uuid(),
+                            uuid(),
+                            uuid(),
+                            uuid(),
+                        ],
+                    ])}
+                >
+                    {items.map((item) => (
+                        <span key={item}>
+                            {item}
+                        </span>
+                    ))}
+                </InfiniteView>
+            </Paper>
             {render()}
             <RecordView sx={{ minHeight: '300px' }} withExpandAll data={recordData} />
         </>
