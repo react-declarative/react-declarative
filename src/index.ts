@@ -65,6 +65,7 @@ import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 import { useActualCallback } from './hooks/useActualCallback';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
+import { useRenderWaiter } from './hooks/useRenderWaiter';
 
 import { useMediaContext } from './hooks/useMediaContext';
 import { useAudioPlayer } from './hooks/useAudioPlayer';
@@ -243,6 +244,7 @@ export { useOneProps, useOneState } from './components';
 export { useActualCallback };
 export { useActualValue };
 export { useActualState };
+export { useRenderWaiter };
 
 export { useChangeSubject };
 export { useReloadTrigger };
