@@ -14,7 +14,9 @@ import get from '../../../../utils/get';
 import set from '../../../../utils/set';
 import keyToTitle from '../../utils/keyToTitle';
 import countDots from '../../utils/countDots';
+
 import useActualCallback from '../../../../hooks/useActualCallback';
+import useActualValue from '../../../../hooks/useActualValue';
 
 const SearchContext = createContext<Context>(null as never);
 
@@ -38,6 +40,7 @@ export interface Props {
   withExpandAll: boolean;
   withExpandRoot: boolean;
   withExpandLevel: number;
+  expandList?: string[];
   children: React.ReactNode;
   onSearchChanged?: (search: string) => void;
 }
@@ -54,6 +57,7 @@ export const SearchProvider = ({
   withExpandAll = false,
   withExpandRoot = false,
   withExpandLevel = 0,
+  expandList,
   data: upperData,
   onSearchChanged = () => undefined,
 }: Props) => {
@@ -118,6 +122,11 @@ export const SearchProvider = ({
     if (withExpandLevel) {
       return getExpandLevelNamespaces();
     }
+    if (expandList) {
+      return expandList.map((path) =>
+        path.startsWith('root.') ? path.replace('root.', '') : path,
+      );
+    }
     return [];
   }, [
     withExpandAll,
@@ -126,6 +135,7 @@ export const SearchProvider = ({
     getExpandAllNamespaces,
     getExpandRootNamespaces,
     getExpandLevelNamespaces,
+    expandList,
   ]);
 
   const [state, setState] = useState<State>(() => ({
@@ -133,6 +143,17 @@ export const SearchProvider = ({
     data: upperData,
     search: initialSearch,
   }));
+
+  const state$ = useActualValue(state);
+
+  useEffect(() => {
+    if (!state$.current.search && expandList) {
+      setState((prevState) => ({
+        ...prevState,
+        checked: new Set(getInitialExpand()),
+      }));
+    }
+  }, [expandList]);
 
   useEffect(() => {
     const data: IData = {};
