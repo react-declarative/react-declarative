@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, SnackProvider } from 'react-declarative';
+import { ModalProvider, SnackProvider, createWebComponent } from 'react-declarative';
 
 import App from './App'
 
@@ -40,6 +40,14 @@ const wrappedApp = (
         </ModalProvider>
     </ThemeProvider>
 );
+
+/*
+createWebComponent("frontend-widget", (params) => (
+    <pre>
+        {JSON.stringify(params, null, 2)}
+    </pre>
+));
+*/
 
 const root = createRoot(container);
 
