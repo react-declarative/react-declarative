@@ -27,13 +27,11 @@ jobs:
         npm install
         npm run build
 
-    - name: Archive build result artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist-with-build-result
-        path: |
-          dist
-          package.json
-          package-lock.json
-
-
+#    - name: Archive build result artifacts
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: dist-with-build-result
+#        path: |
+#          dist
+#          package.json
+#          package-lock.json
