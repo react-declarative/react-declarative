@@ -12,6 +12,7 @@ export const REORDER_SYMBOL = Symbol('reorder');
 
 export interface ICollectionAdapter<T extends IEntity = any> {
     items: IEntityAdapter<T>[];
+    lastIdx: number;
     ids: IEntity['id'][];
     isEmpty: boolean;
     setData(items: T[]): void;
@@ -47,6 +48,10 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
         return [...this._items.entries()]
             .sort(([a], [b]) => Number(a) - Number(b))
             .map((value) => value[1]);
+    };
+
+    get lastIdx() {
+        return Math.max(...this._items.keys(), -1) + 1;
     };
 
     public get ids() {
@@ -163,7 +168,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
 
     public push = (...items: (T[] | T[][])) => {
         const itemList = items.flat() as T[];
-        const lastIdx = Math.max(...this._items.keys(), -1) + 1;
+        const lastIdx = this.lastIdx;
         for (let i = 0; i !== itemList.length; i++) {
             const pendingIdx = lastIdx + i;
             const item = itemList[i];

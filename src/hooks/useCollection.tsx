@@ -133,6 +133,9 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
     get ids() {
         return this._collection$.current.ids;
     };
+    get lastIdx() {
+        return this._collection$.current.lastIdx;
+    };
     get items() {
         return this._collection$.current.items
             .map(({ id }) => new CollectionEntityAdapter(id, this._collection$, this._dispose));

@@ -72,7 +72,7 @@ export const App = () => {
     }).then((data) => data.json());
     */
     collection.push({
-      // id: Math.max(...collection.ids as number[], 0) + 1,
+      id: collection.lastIdx,
       counter: 0,
       // ...data
     });
