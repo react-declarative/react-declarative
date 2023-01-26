@@ -20,7 +20,8 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     find(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T> | undefined;
     some(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): boolean;
     forEach(callbackfn: (value: IEntityAdapter<T>, idx: number) => void): void;
-    push(...items: T[]): void;
+    push(...items: (T[] | T[][])): void;
+    upsert(...items: (T[] | T[][])): void;
     remove(item: IEntity): void;
     removeById(id: IEntity['id']): void;
     findById(id: IEntity['id']): IEntityAdapter<T>;
@@ -160,18 +161,36 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
         return this.items.forEach(callbackfn);
     };
 
-    public push = (...items: T[]) => {
-        const lastIdx = Math.max(...this._items.keys(), 0) + 1;
-        for (let i = 0; i !== items.length; i++) {
-            const item = items[i];
-            const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
+    public push = (...items: (T[] | T[][])) => {
+        const itemList = items.flat() as T[];
+        const lastIdx = Math.max(...this._items.keys(), -1) + 1;
+        for (let i = 0; i !== itemList.length; i++) {
             const pendingIdx = lastIdx + i;
+            const item = itemList[i];
+            if (item.id === undefined) {
+                item.id = pendingIdx;
+            }
+            const entity = new Entity<T>(item, this._debounce, this._prevEntity(item));
             this._items.set(pendingIdx, entity);
             this._ids.set(entity.id, pendingIdx);
             entity.subscribe(CHANGE_SYMBOL, this._change);
             entity.subscribe(REFRESH_SYMBOL, this._refresh);
         }
         this._reorder();
+    };
+
+    public upsert = (...items: T[] | T[][]) => {
+        const itemList = items.flat() as T[];
+        const itemMap = new Map(itemList.map((item) => [item.id, item]));
+        const updateSet = new Set<T["id"]>();
+        for (const currentItem of this._items.values()) {
+            const pendingItem = itemMap.get(currentItem.id);
+            if (pendingItem) {
+                currentItem.setData(pendingItem);
+                updateSet.add(currentItem.id);
+            }
+        }
+        this.push(...itemList.filter(({ id }) => !updateSet.has(id)))
     };
 
     public remove = (item: IEntity) => {

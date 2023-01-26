@@ -164,12 +164,20 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
             this._collection$.current.clear();
         });
     };
-    push = async (...items: T[]) => {
+    push = async (...items: (T[] | T[][])) => {
         await this._waitForListeners().then((isDisposed) => {
             if (isDisposed) {
                 return;
             }
             this._collection$.current.push(...items);
+        });
+    };
+    upsert = async (...items: (T[] | T[][])) => {
+        await this._waitForListeners().then((isDisposed) => {
+            if (isDisposed) {
+                return;
+            }
+            this._collection$.current.upsert(...items);
         });
     };
     remove = async (entity: IEntity) => {

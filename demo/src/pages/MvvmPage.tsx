@@ -72,10 +72,26 @@ export const App = () => {
     }).then((data) => data.json());
     */
     collection.push({
-      id: Math.max(...collection.ids as number[], 0) + 1,
+      // id: Math.max(...collection.ids as number[], 0) + 1,
       counter: 0,
       // ...data
     });
+  };
+
+  const handleUpsert = () => {
+    const updateItems = collection.items.map(({ data }) => ({
+      ...data,
+      counter: data.counter + 1,
+    }));
+    const pendingItems = [
+      { counter: 1 },
+      { counter: 2 },
+      { counter: 3 },
+    ];
+    collection.upsert([
+      ...updateItems,
+      ...pendingItems,
+    ]);
   };
 
   return (
@@ -84,6 +100,7 @@ export const App = () => {
         <ListItem key={entity.id} entity={entity} />
       ))}
       <button onClick={handleAdd}>Add item</button>
+      <button onClick={handleUpsert}>Upsert items</button>
       <br />
       <ItemModel />
     </>

@@ -1,6 +1,8 @@
 // import { makeObservable } from 'mobx';
 // import { observable, computed, action } from 'mobx';
 
+import randomString from "../randomString";
+
 import Model, { CHANGE_DEBOUNCE } from "./Model";
 
 export { CHANGE_DEBOUNCE, CHANGE_SYMBOL, REFRESH_SYMBOL } from './Model';
@@ -34,9 +36,11 @@ export class Entity<T extends IEntity = any> extends Model<T> implements IEntity
         if (typeof data === 'function') {
             data = data(this._prevData());
         }
+        if (data.id === undefined) {
+            data.id = randomString();
+        }
         super.setData({
             ...data,
-            id: this.id,
         });
     };
 
