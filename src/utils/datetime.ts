@@ -3,6 +3,9 @@ import dayjs from 'dayjs';
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
 export const TIME_PLACEHOLDER = 'HH:MM';
 
+export const DATE_EXPR = /(?:\d\d\/\d\d\/\d\d\d\d)/g;
+export const TIME_EXPR = /(?:\d\d:\d\d)/g;
+
 export class Time {
     constructor(
         public readonly hour: number,

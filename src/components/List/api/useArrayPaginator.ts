@@ -10,6 +10,9 @@ import {
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+import { dateStamp, timeStamp } from '../../../utils/datetime';
+import { DATE_EXPR, TIME_EXPR } from '../../../utils/datetime';
+
 import { IState as ILastPaginationState } from './useLastPagination';
 
 import queued from '../../../utils/hof/queued';
@@ -52,6 +55,12 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         } else if (typeof a === 'boolean' && typeof b === 'boolean') {
             return  (a ? 1 : 0) - (b ? 1 : 0);
         } else if (typeof a === 'string' && typeof b === 'string') {
+            if (a.match(DATE_EXPR) && b.match(DATE_EXPR)) {
+                return dateStamp(a) - dateStamp(b);
+            }
+            if (a.match(TIME_EXPR) && b.match(TIME_EXPR)) {
+                return timeStamp(a) - timeStamp(b);
+            }
             return a.localeCompare(b);
         } else {
             return 0;

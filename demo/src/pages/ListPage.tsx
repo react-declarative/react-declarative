@@ -51,7 +51,7 @@ const columns: IColumn[] = [
     field: 'id',
     headerName: 'ID',
     secondary: true,
-    width: (fullWidth) => Math.max(fullWidth - 650, 200),
+    width: (fullWidth) => Math.max((fullWidth - 650) / 3, 200),
     sortable: true,
     columnMenu: [
       {
@@ -59,6 +59,20 @@ const columns: IColumn[] = [
         label: 'Column action',
       },
     ],
+  },
+  {
+    type: ColumnType.Text,
+    field: 'firstName',
+    headerName: 'First name',
+    width: (fullWidth) => Math.max((fullWidth - 650) / 3, 200),
+    sortable: true,
+  },
+  {
+    type: ColumnType.Text,
+    field: 'lastName',
+    headerName: 'Last name',
+    width: (fullWidth) => Math.max((fullWidth - 650) / 3, 200),
+    sortable: true,
   },
   /*{
     type: ColumnType.Text,
