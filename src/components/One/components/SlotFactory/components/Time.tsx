@@ -7,8 +7,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 import { ITimeSlot } from "../../../slots/TimeSlot";
 
-import useActualValue from "../../../../../hooks/useActualValue";
-
 import formatText from "../../../../../utils/formatText";
 import { parseTime, serializeTime, TIME_PLACEHOLDER } from "../../../../../utils/datetime";
 
@@ -32,26 +30,31 @@ export const Time = ({
   name,
 }: ITimeSlot) => {
 
-  const pendingUpdate = useRef(false);
-  const upperValue$ = useActualValue(upperValue);
+  const incomingUpdate = useRef(false);
+  const outgoingUpdate = useRef(false);
 
-  const [value, setValue] = useState(upperValue);
+  const [value, setValue] = useState(
+    parseTime(upperValue || '') ? upperValue : '',
+  );
 
   useEffect(() => {
-    if (pendingUpdate.current) {
-      pendingUpdate.current = false;
+    if (outgoingUpdate.current) {
+      outgoingUpdate.current = false;
     } else if (parseTime(upperValue || "")) {
+      incomingUpdate.current = true;
       setValue(upperValue);
     } else {
+      incomingUpdate.current = true;
       setValue("");
     }
   }, [upperValue]);
 
   useEffect(() => {
-    const { current: upperValue } = upperValue$;
-    if (value !== upperValue) {
+    if (incomingUpdate.current) {
+      incomingUpdate.current = false;
+    } else {
       const pendingDate = parseTime(value || "");
-      pendingUpdate.current = true;
+      outgoingUpdate.current = true;
       if (pendingDate) {
         onChange(serializeTime(pendingDate));
       } else {
