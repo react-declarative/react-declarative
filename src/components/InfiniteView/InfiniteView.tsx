@@ -26,7 +26,7 @@ interface IInfiniteViewProps extends BoxProps {
 const useStyles = makeStyles()({
   root: {
     position: 'relative',
-    height: '100%',
+    minHeight: '50px',
     width: '100%',
     overflowY: 'auto',
   },
@@ -120,7 +120,6 @@ export const InfiniteView = ({
   return (
     <Box
       {...otherProps}
-      component="div"
       className={classNames(className, classes.root)}
       style={style}
       sx={sx}

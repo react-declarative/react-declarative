@@ -312,48 +312,44 @@ export const FadePage = () => {
       {isPhone && "Phone"}
       {isTablet && "Tablet"}
       {isDesktop && "Desktop"}
-      <Paper
+      <InfiniteView
+        component={Paper}
         sx={{
           width: "100%",
           height: 250,
           mb: 1,
         }}
+        onDataRequest={() => {
+          console.log('data-request');
+          setItems1((items) => [
+            ...items,
+            ...[uuid(), uuid(), uuid(), uuid(), uuid()],
+          ]);
+        }}
       >
-        <InfiniteView
-          onDataRequest={() => {
-            console.log('data-request');
-            setItems1((items) => [
-              ...items,
-              ...[uuid(), uuid(), uuid(), uuid(), uuid()],
-            ]);
-          }}
-        >
-          {items1.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </InfiniteView>
-      </Paper>
-      <Paper
+        {items1.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </InfiniteView>
+      <VirtualView
+        component={Paper}
         sx={{
           width: "100%",
           height: 250,
           mb: 1,
         }}
+        onDataRequest={() => {
+          console.log('data-request');
+          setItems2((items) => [
+            ...items,
+            ...[uuid(), uuid(), uuid(), uuid(), uuid()],
+          ]);
+        }}
       >
-        <VirtualView
-          onDataRequest={() => {
-            console.log('data-request');
-            setItems2((items) => [
-              ...items,
-              ...[uuid(), uuid(), uuid(), uuid(), uuid()],
-            ]);
-          }}
-        >
-          {items2.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </VirtualView>
-      </Paper>
+        {items2.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </VirtualView>
       {render()}
       <RecordView sx={{ minHeight: "300px" }} withExpandAll data={recordData} />
     </>

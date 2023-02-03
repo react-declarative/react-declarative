@@ -40,8 +40,8 @@ const useStyles = makeStyles()({
   root: {
     position: "relative",
     overflowY: 'auto',
-    height: "100%",
     width: "100%",
+    minHeight: '50px',
   },
 });
 
@@ -195,6 +195,14 @@ export const VirtualView = ({
           element.dataset[DATASET_ID] = String(elementIdx);
           resizeObserver.observe(element);
           elementRefMap.set(elementIdx, element);
+          setRowHeightMap((rowHeightMap) => {
+            if (rowHeightMap.get(elementIdx) !== element.offsetHeight) {
+              rowHeightMap.set(elementIdx, element.offsetHeight);
+              return new Map(rowHeightMap);
+            } else {
+              return rowHeightMap;
+            }
+          });
         },
         style: {
           position: "absolute",

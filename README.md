@@ -272,6 +272,36 @@ return (
 
 ```
 
+<img src="./assets/icons/chaos.svg" height="35px" align="right">
+
+## DOM Frames with infinite scroll and `transparent-api virtualization`
+
+> You can use [InfiniteView](./src/components/InfiniteView/) for always-mounted or [VirtualView](./src/components/VirtualView/) for virtualized infinite lists 
+
+![virtualization](./assets/virtualization.gif)
+
+```tsx
+<VirtualView
+  component={Paper}
+  sx={{
+    width: "100%",
+    height: 250,
+    mb: 1,
+  }}
+  onDataRequest={() => {
+    console.log('data-request');
+    setItems((items) => [
+      ...items,
+      ...[uuid(), uuid(), uuid(), uuid(), uuid()],
+    ]);
+  }}
+>
+  {items.map((item) => (
+    <span key={item}>{item}</span>
+  ))}
+</VirtualView>
+```
+
 <img src="./assets/icons/cubes.svg" height="35px" align="right">
 
 ## Async pipe port
