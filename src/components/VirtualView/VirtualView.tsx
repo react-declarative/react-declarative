@@ -250,7 +250,7 @@ export const VirtualView = ({
   const handleRef = useCallback((element: HTMLDivElement | null) => {
     if (element) {
       element.addEventListener("scroll", throttle((e: any) => {
-        setScrollPosition(e.target.scrollTop)
+        setScrollPosition(e.target.scrollTop);
       }, 50));
       setContainerHeight(element.offsetHeight);
     }
