@@ -39,6 +39,7 @@ export * from './ErrorView';
 export * from './AuthView';
 export * from './InfiniteView';
 
+export * from './Search';
 export * from './Async';
 export * from './If';
 

@@ -12,7 +12,9 @@ import keyToTitle from "./utils/keyToTitle";
 import excelExport from "./helpers/excelExport";
 import objectToEntries from "./utils/objectToEntries";
 
-export const RecordView = <Data extends any = IData>({
+import IAnything from "../../model/IAnything";
+
+export const RecordView = <Data extends any = IData, Payload = IAnything>({
   data: upperData = {} as Data,
   search = '',
   onSearchChanged,
@@ -26,8 +28,11 @@ export const RecordView = <Data extends any = IData>({
   valueWidth = 10,
   totalWidth,
   background,
+  BeforeSearch,
+  AfterSearch,
+  payload,
   ...otherProps
-}: IRecordViewProps<Data>) => {
+}: IRecordViewProps<Data, Payload>) => {
   const data = useMemo(() => objectToEntries(upperData as IData), [upperData]);
   return (
     <SearchProvider
@@ -46,6 +51,9 @@ export const RecordView = <Data extends any = IData>({
         valueWidth={valueWidth}
         totalWidth={totalWidth}
         background={background}
+        BeforeSearch={BeforeSearch}
+        AfterSearch={AfterSearch}
+        payload={payload}
         {...otherProps}
       />
     </SearchProvider>

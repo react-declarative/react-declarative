@@ -1,8 +1,10 @@
+import * as React from "react";
 import { GridSize, BoxProps } from "@mui/material";
 
 import IData from './IData';
+import IAnything from "../../../model/IAnything";
 
-export interface IRecordViewProps<Data = IData> extends BoxProps {
+export interface IRecordViewProps<Data = IData, Payload = IAnything> extends BoxProps {
     background?: string;
     data: Data;
     search?: string;
@@ -23,6 +25,9 @@ export interface IRecordViewProps<Data = IData> extends BoxProps {
         path: string,
     ) => React.ReactNode;
     onSearchChanged?: (search: string) => void;
+    BeforeSearch?: React.ComponentType<any>;
+    AfterSearch?: React.ComponentType<any>;
+    payload?: Payload;
 }
 
 export default IRecordViewProps;

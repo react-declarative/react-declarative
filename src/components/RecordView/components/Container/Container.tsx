@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { GridSize, BoxProps } from '@mui/material';
 
+import { makeStyles } from '../../../../styles';
+
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -22,7 +24,35 @@ export interface IContainerProps extends BoxProps {
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   background?: IRecordViewProps['background'];
+  BeforeSearch?: IRecordViewProps['BeforeSearch'];
+  AfterSearch?: IRecordViewProps['AfterSearch'];
+  payload?: IRecordViewProps['payload'];
 }
+
+const useStyles = makeStyles()({
+  beforeSearch: {
+    width: 'calc(100% - 10px)',
+    margin: '5px',
+    marginBottom: '0px',
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    '& > *': {
+      flex: 1,
+    },
+  },
+  afterSearch: {
+    width: 'calc(100% - 10px)',
+    margin: '5px',
+    marginTop: '0px',
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    '& > *': {
+      flex: 1,
+    },
+  },
+});
 
 export const Container = ({
   formatValue,
@@ -31,14 +61,23 @@ export const Container = ({
   valueWidth,
   totalWidth,
   background,
+  BeforeSearch,
+  AfterSearch,
+  payload,
   ...otherProps
 }: IContainerProps) => {
+  const { classes } = useStyles();
   const { data, search, isSearching, setSearch } = useSearch();
   return (
     <Box
       {...otherProps}
       sx={{ ...otherProps.sx, position: 'relative', maxWidth: '100%' }}
     >
+      {BeforeSearch && (
+        <Box className={classes.beforeSearch}>
+          <BeforeSearch payload={payload} />
+        </Box>
+      )}
       <TextField
         fullWidth
         sx={{ mb: 1 }}
@@ -61,6 +100,11 @@ export const Container = ({
         name="search"
         type="text"
       />
+      {AfterSearch && (
+        <Box className={classes.afterSearch}>
+          <AfterSearch payload={payload} />
+        </Box>
+      )}
       {Object.keys(data).length === 0 && (
         <Typography variant="body1">Nothing found</Typography>
       )}
