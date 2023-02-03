@@ -38,6 +38,7 @@ export * from './RecordView';
 export * from './ErrorView';
 export * from './AuthView';
 export * from './InfiniteView';
+export * from './VirtualView';
 
 export * from './Search';
 export * from './Async';

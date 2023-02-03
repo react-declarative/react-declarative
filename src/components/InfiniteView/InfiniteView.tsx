@@ -127,7 +127,7 @@ export const InfiniteView = ({
     >
       <Box className={classes.container}>
         {children}
-        <div ref={handleRef} />
+        <div style={{ height: 1 }} ref={handleRef} />
       </Box>
     </Box>
   );

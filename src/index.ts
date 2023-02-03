@@ -178,6 +178,7 @@ export { RecordView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
 export { InfiniteView } from './components';
+export { VirtualView } from './components';
 
 import { recordToExcelExport } from './components/RecordView';
 export { recordToExcelExport };
