@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -15,7 +15,7 @@ const DEFAULT_BUFFER_SIZE = 5;
 
 const ROOT_ELEMENT = "virtual-view-root";
 const CHILD_ELEMENT = "virtual-view-child";
-const DATASET_ID = "list_item_id";
+const DATASET_ID = "list_item_idx";
 
 interface IVirtualViewProps
   extends Omit<
@@ -42,6 +42,13 @@ const useStyles = makeStyles()({
     overflowY: 'auto',
     width: "100%",
     minHeight: '50px',
+  },
+  adjust: {
+    position: 'absolute',
+    visibility: 'hidden',
+    height: 1,
+    width: 1,
+    left: 0,
   },
 });
 
@@ -159,6 +166,19 @@ export const VirtualView = ({
     [rowHeightMap, minHeight]
   );
 
+  const scrollAdjust = useMemo(() => {
+    const children = React.Children.toArray(upperChildren);
+    let totalHeight = 0;
+    for (let idx = 0; idx !== children.length; idx++) {
+      totalHeight += rowHeightMap.get(idx) || minHeight;
+    }
+    return totalHeight;
+  }, [
+    rowHeightMap,
+    upperChildren,
+    minHeight,
+  ]);
+
   const visibleChildren = React.useMemo(() => {
     const children = React.Children.toArray(upperChildren);
 
@@ -257,6 +277,12 @@ export const VirtualView = ({
       ref={handleRef}
     >
       {visibleChildren}
+      <div
+        className={classes.adjust}
+        style={{
+          top: scrollAdjust,
+        }}
+      />
     </Box>
   );
 };
