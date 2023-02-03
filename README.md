@@ -276,7 +276,7 @@ return (
 
 ## DOM Frames with infinite scroll and `transparent-api virtualization`
 
-> You can use [InfiniteView](./src/components/InfiniteView/) for always-mounted or [VirtualView](./src/components/VirtualView/) for virtualized infinite lists 
+> You can use [InfiniteView](./src/components/InfiniteView/InfiniteView.tsx) for always-mounted or [VirtualView](./src/components/VirtualView/VirtualView.tsx) for virtualized infinite lists 
 
 ![virtualization](./assets/virtualization.gif)
 
