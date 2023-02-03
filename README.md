@@ -416,6 +416,7 @@ import { RecordView } from 'react-declarative';
 import { ErrorView } from 'react-declarative';
 import { AuthView } from 'react-declarative';
 import { InfiniteView } from 'react-declarative';
+import { VirtualView } from 'react-declarative';
 ```
 
 <img src="./assets/icons/consciousness.svg" height="35px" align="right">

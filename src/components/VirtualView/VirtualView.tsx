@@ -1,14 +1,14 @@
 import * as React from "react";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useLayoutEffect, useRef } from "react";
 
 import { makeStyles } from "../../styles";
 
 import Box, { BoxProps } from "@mui/material/Box";
 
+import useActualCallback from "../../hooks/useActualCallback";
 import useSingleton from "../../hooks/useSingleton";
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
-import useActualCallback from "../../hooks/useActualCallback";
 
 const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
@@ -24,11 +24,16 @@ interface IVirtualViewProps
       ref: never;
     }
   > {
+  loading?: boolean;
   hasMore?: boolean;
   minHeight?: number;
   bufferSize?: number;
   children: React.ReactElement[];
-  onDataRequest?: () => void;
+  onDataRequest?: () => Promise<void> | void;
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  fallback?: (e: Error) => void;
+  throwError?: boolean;
 }
 
 const useStyles = makeStyles()({
@@ -46,16 +51,48 @@ export const VirtualView = ({
   bufferSize = DEFAULT_BUFFER_SIZE,
   children: upperChildren,
   hasMore = true,
+  loading: upperLoading = false,
   onDataRequest = () => undefined,
+  onLoadStart,
+  onLoadEnd,
+  fallback,
+  throwError = false,
   ...otherProps
 }: IVirtualViewProps) => {
   const { classes } = useStyles();
+  const isMounted = useRef(true);
+
+  const [loading, setLoading] = useState(0);
 
   const [rowHeightMap, setRowHeightMap] = useState(
     () => new Map<number, number>()
   );
 
-  const onDataRequest$ = useActualCallback(onDataRequest);
+  const currentLoading = !!loading || upperLoading;
+
+  const handleDataRequest = useActualCallback(async () => {
+    if (currentLoading) {
+      return;
+    }
+    let isOk = true;
+    try {
+      onLoadStart && onLoadStart();
+      isMounted.current && setLoading((loading) => loading + 1);
+      if (onDataRequest) {
+        await onDataRequest();
+      }
+    } catch (e: any) {
+      isOk = false;
+      if (!throwError) {
+        fallback && fallback(e as Error);
+      } else {
+        throw e;
+      }
+    } finally {
+      onLoadEnd && onLoadEnd(isOk);
+      isMounted.current && setLoading((loading) => loading - 1);
+    }
+  });
 
   const elementRefMap = useSingleton(() => new Map<number, HTMLDivElement>());
 
@@ -137,11 +174,12 @@ export const VirtualView = ({
 
     let isBottomReached = true;
     isBottomReached = isBottomReached && hasMore;
-    isBottomReached = isBottomReached && scrollPosition > containerHeight;
+    isBottomReached = isBottomReached && !currentLoading;
+    isBottomReached = isBottomReached && scrollPosition > containerHeight - 10;
     isBottomReached = isBottomReached && children.length === endIndex + 1;
 
     if (isBottomReached) {
-      onDataRequest$();
+      handleDataRequest();
     }
 
     return children.slice(startIndex, endIndex + 1).map((child, index) =>
@@ -162,13 +200,14 @@ export const VirtualView = ({
           position: "absolute",
           top: getTopPos(startIndex + index),
           minHeight: minHeight,
+          minWidth: '100%',
           left: 0,
-          right: 0,
         },
       })
     );
   }, [
     hasMore,
+    currentLoading,
     upperChildren,
     containerHeight,
     minHeight,
@@ -177,7 +216,7 @@ export const VirtualView = ({
     getStartIndex,
     getEndIndex,
     getTopPos,
-    onDataRequest$,
+    handleDataRequest,
   ]);
 
   const handleRef = useCallback((element: HTMLDivElement | null) => {
@@ -192,6 +231,13 @@ export const VirtualView = ({
   useEffect(
     () => () => {
       resizeObserver.disconnect();
+    },
+    []
+  );
+
+  useLayoutEffect(
+    () => () => {
+      isMounted.current = false;
     },
     []
   );

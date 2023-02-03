@@ -155,7 +155,15 @@ const actions_trigger: IActionTrigger[] = [
 ];
 
 export const FadePage = () => {
-  const [items, setItems] = useState(() => [
+  const [items1, setItems1] = useState(() => [
+    uuid(),
+    uuid(),
+    uuid(),
+    uuid(),
+    uuid(),
+  ]);
+
+  const [items2, setItems2] = useState(() => [
     uuid(),
     uuid(),
     uuid(),
@@ -308,18 +316,19 @@ export const FadePage = () => {
         sx={{
           width: "100%",
           height: 250,
+          mb: 1,
         }}
       >
         <InfiniteView
           onDataRequest={() => {
             console.log('data-request');
-            setItems((items) => [
+            setItems1((items) => [
               ...items,
               ...[uuid(), uuid(), uuid(), uuid(), uuid()],
             ]);
           }}
         >
-          {items.map((item) => (
+          {items1.map((item) => (
             <span key={item}>{item}</span>
           ))}
         </InfiniteView>
@@ -328,20 +337,21 @@ export const FadePage = () => {
         sx={{
           width: "100%",
           height: 250,
+          mb: 1,
         }}
       >
-        <VirtualView>
-          {new Array(3)
-            .fill({})
-            .map((_, index) => ({ id: index }))
-            .map((it) => (
-              <li
-                className="row"
-                key={it.id}
-              >
-                {it.id}
-              </li>
-            ))}
+        <VirtualView
+          onDataRequest={() => {
+            console.log('data-request');
+            setItems2((items) => [
+              ...items,
+              ...[uuid(), uuid(), uuid(), uuid(), uuid()],
+            ]);
+          }}
+        >
+          {items2.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
         </VirtualView>
       </Paper>
       {render()}
