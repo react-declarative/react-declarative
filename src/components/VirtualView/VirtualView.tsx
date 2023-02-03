@@ -216,7 +216,10 @@ export const VirtualView = ({
           resizeObserver.observe(element);
           elementRefMap.set(elementIdx, element);
           setRowHeightMap((rowHeightMap) => {
-            if (rowHeightMap.get(elementIdx) !== element.offsetHeight) {
+            let isChanged = true;
+            isChanged = isChanged && element.offsetHeight > minHeight;
+            isChanged = isChanged && rowHeightMap.get(elementIdx) !== element.offsetHeight;
+            if (isChanged) {
               rowHeightMap.set(elementIdx, element.offsetHeight);
               return new Map(rowHeightMap);
             } else {
