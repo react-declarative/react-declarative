@@ -54,7 +54,7 @@ const useStyles = makeStyles()((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: 20,
     maxHeight: "80%",
-    overflowY: "scroll",
+    overflowY: "auto",
     borderRadius: 5,
   },
   title: {
