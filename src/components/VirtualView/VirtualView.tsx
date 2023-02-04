@@ -9,6 +9,7 @@ import useActualCallback from "../../hooks/useActualCallback";
 import useSingleton from "../../hooks/useSingleton";
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
+import Subject from "../../utils/rx/Subject";
 
 const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
@@ -29,6 +30,7 @@ interface IVirtualViewProps
   minHeight?: number;
   bufferSize?: number;
   children: React.ReactNode;
+  scrollXSubject?: Subject<number>;
   onDataRequest?: () => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -63,6 +65,7 @@ export const VirtualView = ({
   onLoadStart,
   onLoadEnd,
   fallback,
+  scrollXSubject,
   throwError = false,
   ...otherProps
 }: IVirtualViewProps) => {
@@ -259,6 +262,16 @@ export const VirtualView = ({
         setScrollPosition(e.target.scrollTop);
       }, 50));
       setContainerHeight(element.offsetHeight);
+      if (scrollXSubject) {
+        scrollXSubject.subscribe((scrollX) => {
+          if (element.scrollLeft !== scrollX) {
+            element.scrollTo(
+              Math.min(scrollX, element.scrollWidth),
+              element.scrollTop,
+            );
+          }
+        });
+      }
     }
   }, []);
 
