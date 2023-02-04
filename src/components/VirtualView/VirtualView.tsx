@@ -57,7 +57,7 @@ const useStyles = makeStyles()({
 export const VirtualView = ({
   className,
   minHeight = DEFAULT_MIN_HEIGHT,
-  bufferSize = DEFAULT_BUFFER_SIZE,
+  bufferSize: upperBufferSize = DEFAULT_BUFFER_SIZE,
   children: upperChildren,
   hasMore = true,
   loading: upperLoading = false,
@@ -108,6 +108,11 @@ export const VirtualView = ({
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
+
+  const bufferSize = useMemo(
+    () => Math.max(Math.floor(containerHeight / minHeight), upperBufferSize),
+    [minHeight, upperBufferSize, containerHeight],
+  );
 
   const resizeObserver = useSingleton(
     () =>
@@ -202,7 +207,7 @@ export const VirtualView = ({
     isBottomReached = isBottomReached && children.length === endIndex + 1;
 
     if (isBottomReached) {
-      handleDataRequest();
+      queueMicrotask(() => handleDataRequest());
     }
 
     return children.slice(startIndex, endIndex + 1).map((child, index) =>
