@@ -28,7 +28,7 @@ interface IVirtualViewProps
   hasMore?: boolean;
   minHeight?: number;
   bufferSize?: number;
-  children: React.ReactElement[];
+  children: React.ReactNode;
   onDataRequest?: () => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
