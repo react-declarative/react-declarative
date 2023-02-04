@@ -139,7 +139,7 @@ export const VirtualView = ({
       }
       return Math.max(idx - bufferSize, 0);
     },
-    [rowHeightMap, bufferSize]
+    [rowHeightMap, bufferSize, minHeight]
   );
 
   const getEndIndex = useCallback(
@@ -152,7 +152,7 @@ export const VirtualView = ({
       }
       return Math.min(idx - 1 + bufferSize, totalLength - 1);
     },
-    [rowHeightMap, bufferSize, containerHeight]
+    [rowHeightMap, bufferSize, containerHeight, minHeight]
   );
 
   const getTopPos = useCallback(
