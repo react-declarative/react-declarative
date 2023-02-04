@@ -17,6 +17,7 @@ export class EventEmitter {
     };
 
     unsubscribe = (eventName: EventKey, callback: Function) => {
+        !this._events[eventName] && (this._events[eventName] = []);
         this._events[eventName] = this._events[eventName].filter(eventCallback => callback !== eventCallback);
     };
 

@@ -14,7 +14,7 @@ const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
 
 const ROOT_ELEMENT = "virtual-view-root";
-const CHILD_ELEMENT = "virtual-view-child";
+export const CHILD_ELEMENT = "virtual-view-child";
 const DATASET_ID = "list_item_idx";
 
 interface IVirtualViewProps
@@ -210,6 +210,9 @@ export const VirtualView = ({
           }
           const elementIdx = startIndex + index;
           const prevElement = elementRefMap.get(elementIdx);
+          if (prevElement === element) {
+            return;
+          }
           prevElement && resizeObserver.unobserve(prevElement);
           element.classList.add(CHILD_ELEMENT);
           element.dataset[DATASET_ID] = String(elementIdx);
