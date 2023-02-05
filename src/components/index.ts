@@ -40,6 +40,7 @@ export * from './AuthView';
 export * from './InfiniteView';
 export * from './VirtualView';
 
+export * from './Grid';
 export * from './Search';
 export * from './Async';
 export * from './If';

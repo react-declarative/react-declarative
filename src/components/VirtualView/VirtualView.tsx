@@ -18,7 +18,7 @@ const ROOT_ELEMENT = "virtual-view-root";
 export const CHILD_ELEMENT = "virtual-view-child";
 const DATASET_ID = "list_item_idx";
 
-interface IVirtualViewProps
+export interface IVirtualViewProps
   extends Omit<
     BoxProps,
     keyof {
