@@ -199,7 +199,7 @@ export const VirtualView = ({
     const startIndex = getStartIndex(scrollPosition);
     const endIndex = getEndIndex(scrollPosition, children.length);
 
-    const elementEntries = [...elementRefMap.entries()];
+    const elementEntries = Array.from(elementRefMap.entries());
 
     elementEntries.forEach(([index, element]) => {
       if (index < startIndex || index > endIndex) {
