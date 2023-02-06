@@ -72,6 +72,11 @@ export const VirtualView = ({
   const { classes } = useStyles();
   const isMounted = useRef(true);
 
+  const children = useMemo(
+    () => React.Children.toArray(upperChildren),
+    [upperChildren],
+  );
+
   const [loading, setLoading] = useState(0);
 
   const [rowHeightMap, setRowHeightMap] = useState(
@@ -141,64 +146,67 @@ export const VirtualView = ({
     (scrollPosition: number) => {
       let startScrollPos = scrollPosition;
       let idx = 0;
-      while (startScrollPos >= 0) {
-        startScrollPos -= rowHeightMap.get(idx) || minHeight;
-        idx++;
-      }
+      children.forEach(() => {
+        if (startScrollPos >= 0) {
+          startScrollPos -= rowHeightMap.get(idx) || minHeight;
+          idx += 1;
+        }
+      });
       return Math.max(idx - bufferSize, 0);
     },
-    [rowHeightMap, bufferSize, minHeight]
+    [rowHeightMap, bufferSize, minHeight, children]
   );
 
   const getEndIndex = useCallback(
     (scrollPosition: number, totalLength: number) => {
       let endScrollPos = scrollPosition + containerHeight;
       let idx = 0;
-      while (endScrollPos >= 0) {
-        endScrollPos -= rowHeightMap.get(idx) || minHeight;
-        idx++;
-      }
+      children.forEach(() => {
+        if (endScrollPos >= 0) {
+          endScrollPos -= rowHeightMap.get(idx) || minHeight;
+          idx += 1;
+        }
+      });
       return Math.min(idx - 1 + bufferSize, totalLength - 1);
     },
-    [rowHeightMap, bufferSize, containerHeight, minHeight]
+    [rowHeightMap, bufferSize, containerHeight, minHeight, children]
   );
 
   const getTopPos = useCallback(
     (elementIndex: number) => {
       let totalTop = 0;
-      for (let idx = 0; idx !== elementIndex; idx++) {
+      children.slice(0, elementIndex).forEach((_, idx) => {
         totalTop += rowHeightMap.get(idx) || minHeight;
-      }
+      });
       return totalTop;
     },
-    [rowHeightMap, minHeight]
+    [rowHeightMap, minHeight, children]
   );
 
   const scrollAdjust = useMemo(() => {
-    const children = React.Children.toArray(upperChildren);
     let totalHeight = 0;
-    for (let idx = 0; idx !== children.length; idx++) {
+    children.forEach((_, idx) => {
       totalHeight += rowHeightMap.get(idx) || minHeight;
-    }
+    });
     return totalHeight;
   }, [
     rowHeightMap,
-    upperChildren,
+    children,
     minHeight,
   ]);
 
   const visibleChildren = React.useMemo(() => {
-    const children = React.Children.toArray(upperChildren);
-
     const startIndex = getStartIndex(scrollPosition);
     const endIndex = getEndIndex(scrollPosition, children.length);
 
-    for (const [index, element] of elementRefMap.entries()) {
+    const elementEntries = [...elementRefMap.entries()];
+
+    elementEntries.forEach(([index, element]) => {
       if (index < startIndex || index > endIndex) {
         resizeObserver.unobserve(element);
         elementRefMap.delete(index);
       }
-    }
+    });
 
     let isBottomReached = true;
     isBottomReached = isBottomReached && hasMore;
@@ -250,7 +258,7 @@ export const VirtualView = ({
   }, [
     hasMore,
     currentLoading,
-    upperChildren,
+    children,
     containerHeight,
     minHeight,
     scrollPosition,
