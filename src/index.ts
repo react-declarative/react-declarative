@@ -144,6 +144,16 @@ export type IMenuGroup = IMenuGroupInternal;
 export type IOption = IOptionInternal;
 export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
 
+import {
+    TGridSort as TGridSortInternal,
+    IGridColumn as IGridColumnInternal,
+    IGridAction as IGridActionInternal,
+} from './components';
+
+export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
+export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
+export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
+
 export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
 export type IScaffoldOption = IScaffoldOptionInternal;
 

@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import {
   InfiniteView,
   VirtualView,
+  Grid as RdGrid,
+  IGridColumn,
+  IGridAction,
   FadeView,
   TabsView,
   ScaleView,
@@ -33,6 +36,34 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import history from "../history";
 
 import sleep from "../utils/sleep";
+
+import mock from './mock/list';
+
+const columns: IGridColumn<typeof mock[0]>[] = [
+  {
+    field: 'id',
+    label: 'Id',
+  },
+  {
+    field: 'firstName',
+    label: 'First Name',
+  },
+  {
+    field: 'lastName',
+    label: 'Last Name',
+  },
+  {
+    field: 'age',
+    label: 'Age',
+  },
+];
+
+const actions: IGridAction[] = [
+  {
+    action: 'test-action',
+    label: 'Test action',
+  }
+];
 
 const recordData = {
   foo: "bar",
@@ -350,6 +381,15 @@ export const FadePage = () => {
           <span key={item}>{item}</span>
         ))}
       </VirtualView>
+      <RdGrid
+        shortHeight
+        columns={columns}
+        rowActions={actions}
+        data={mock}
+        sx={{
+          mb: 1,
+        }}
+      />
       {render()}
       <RecordView sx={{ minHeight: "300px" }} withExpandAll data={recordData} />
     </>

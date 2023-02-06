@@ -1,4 +1,4 @@
 export * from './Grid';
-export * from './model/IColumn';
-export * from './model/IListRowAction';
-export * from './model/TSort';
+export { IColumn as IGridColumn } from './model/IColumn';
+export { IGridAction } from './model/IGridAction';
+export { TSort as TGridSort } from './model/TSort';

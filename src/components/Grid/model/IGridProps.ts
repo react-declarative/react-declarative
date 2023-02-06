@@ -3,7 +3,7 @@ import { SxProps } from '@mui/system';
 
 import IColumn from './IColumn';
 import RowData from './RowData';
-import IListRowAction from './IListRowAction';
+import IGridAction from './IGridAction';
 import TSort from './TSort';
 
 import { IVirtualViewProps } from '../../VirtualView';
@@ -18,7 +18,7 @@ export interface IGridProps<T = RowData> {
   data: Array<T>;
   columns: Array<IColumn<T>>;
   onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
-  rowActions?: Array<IListRowAction<T>>;
+  rowActions?: Array<IGridAction<T>>;
   rowActionsPayload?: IActionMenuProps['payload'];
   onRowAction?: (row: T, action: string) => void;
   recomputeSubject?: Subject<void>;

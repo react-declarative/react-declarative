@@ -26,6 +26,7 @@ interface Props {
 const useStyles = makeStyles()({
   container: {
     height: "calc(100vh - 200px)",
+    width: "100%",
     overflow: "hidden",
   },
   containerShort: {
