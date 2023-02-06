@@ -126,6 +126,9 @@ export const ContentRow = forwardRef(
                 [classes.alignCenter]: column.align === "center",
                 [classes.alignStretch]: column.align === "stretch",
               })}
+              onClick={(e) => {
+                onTableRowClick && onTableRowClick(e, row);
+              }}
               key={cellId}
               column={column}
               idx={idx}
