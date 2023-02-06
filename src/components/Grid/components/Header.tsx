@@ -50,6 +50,9 @@ const useStyles = makeStyles()((theme) => ({
       0.23
     )}`,
     scrollbarWidth: "none",
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   headerCell: {
     display: "flex",
