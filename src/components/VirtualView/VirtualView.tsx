@@ -6,7 +6,9 @@ import { makeStyles } from "../../styles";
 import Box, { BoxProps } from "@mui/material/Box";
 
 import useActualCallback from "../../hooks/useActualCallback";
+import useActualValue from "../../hooks/useActualValue";
 import useSingleton from "../../hooks/useSingleton";
+
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
 import Subject from "../../utils/rx/Subject";
@@ -84,6 +86,9 @@ export const VirtualView = ({
   );
 
   const currentLoading = !!loading || upperLoading;
+
+  const hasMore$ = useActualValue(hasMore);
+  const currentLoading$ = useActualValue(currentLoading);
 
   const handleDataRequest = useActualCallback(async () => {
     if (currentLoading) {
@@ -209,8 +214,8 @@ export const VirtualView = ({
     });
 
     let isBottomReached = true;
-    isBottomReached = isBottomReached && hasMore;
-    isBottomReached = isBottomReached && !currentLoading;
+    isBottomReached = isBottomReached && hasMore$.current;
+    isBottomReached = isBottomReached && !currentLoading$.current;
     isBottomReached = isBottomReached && scrollPosition > containerHeight - 10;
     isBottomReached = isBottomReached && children.length === endIndex + 1;
 
@@ -256,8 +261,8 @@ export const VirtualView = ({
       })
     );
   }, [
-    hasMore,
-    currentLoading,
+    hasMore$,
+    currentLoading$,
     children,
     containerHeight,
     minRowHeight,
