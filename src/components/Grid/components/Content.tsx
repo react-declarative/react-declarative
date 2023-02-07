@@ -83,8 +83,10 @@ export const Content = ({
       style={style}
       sx={sx}
       scrollXSubject={scrollXSubject}
-      minHeight={minRowHeight}
+      minRowHeight={minRowHeight}
       bufferSize={bufferSize}
+      loading={loading}
+      hasMore={hasMore}
       onDataRequest={() => {
         if (onSkip && hasMore) {
           onSkip();
@@ -128,7 +130,7 @@ export const Content = ({
           />
         );
       })}
-      {data.length > 0 && !errorMessage && onButtonSkip && hasMore && (
+      {data.length > 0 && !errorMessage && onButtonSkip && !loading && hasMore && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
           <div className={classes.noData}>
             <Button variant="outlined" onClick={onButtonSkip}>

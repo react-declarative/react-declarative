@@ -29,8 +29,8 @@ export interface IGridProps<T = RowData> {
   rowKey?: keyof T;
   sort?: TSort<T>;
   errorMessage?: string | null;
-  onClickHeaderColumn?: (value?: IColumn<T>['field']) => void;
-  minRowHeight?: IVirtualViewProps['minHeight'];
+  onClickHeaderColumn?: (value: keyof T) => void;
+  minRowHeight?: IVirtualViewProps['minRowHeight'];
   bufferSize?: IVirtualViewProps['bufferSize'];
   shortHeight?: boolean;
 }

@@ -27,7 +27,7 @@ export interface IVirtualViewProps
   > {
   loading?: boolean;
   hasMore?: boolean;
-  minHeight?: number;
+  minRowHeight?: number;
   bufferSize?: number;
   children: React.ReactNode;
   scrollXSubject?: Subject<number>;
@@ -43,7 +43,7 @@ const useStyles = makeStyles()({
     position: "relative",
     overflowY: 'auto',
     width: "100%",
-    minHeight: '50px',
+    minRowHeight: '50px',
   },
   adjust: {
     position: 'absolute',
@@ -56,7 +56,7 @@ const useStyles = makeStyles()({
 
 export const VirtualView = ({
   className,
-  minHeight = DEFAULT_MIN_HEIGHT,
+  minRowHeight = DEFAULT_MIN_HEIGHT,
   bufferSize: upperBufferSize = DEFAULT_BUFFER_SIZE,
   children: upperChildren,
   hasMore = true,
@@ -115,8 +115,8 @@ export const VirtualView = ({
   const [containerHeight, setContainerHeight] = useState(0);
 
   const bufferSize = useMemo(
-    () => Math.max(Math.floor(containerHeight / minHeight), upperBufferSize),
-    [minHeight, upperBufferSize, containerHeight],
+    () => Math.max(Math.floor(containerHeight / minRowHeight), upperBufferSize),
+    [minRowHeight, upperBufferSize, containerHeight],
   );
 
   const resizeObserver = useSingleton(
@@ -132,7 +132,7 @@ export const VirtualView = ({
         if (element.classList.contains(CHILD_ELEMENT)) {
           const elementId = Number(element.dataset[DATASET_ID]);
           const { offsetHeight } = element;
-          if (!Number.isNaN(elementId) && offsetHeight > minHeight) {
+          if (!Number.isNaN(elementId) && offsetHeight > minRowHeight) {
             setRowHeightMap((rowHeightMap) => {
               rowHeightMap.set(elementId, element.offsetHeight);
               return new Map(rowHeightMap);
@@ -148,13 +148,13 @@ export const VirtualView = ({
       let idx = 0;
       children.forEach(() => {
         if (startScrollPos >= 0) {
-          startScrollPos -= rowHeightMap.get(idx) || minHeight;
+          startScrollPos -= rowHeightMap.get(idx) || minRowHeight;
           idx += 1;
         }
       });
       return Math.max(idx - bufferSize, 0);
     },
-    [rowHeightMap, bufferSize, minHeight, children]
+    [rowHeightMap, bufferSize, minRowHeight, children]
   );
 
   const getEndIndex = useCallback(
@@ -163,36 +163,36 @@ export const VirtualView = ({
       let idx = 0;
       children.forEach(() => {
         if (endScrollPos >= 0) {
-          endScrollPos -= rowHeightMap.get(idx) || minHeight;
+          endScrollPos -= rowHeightMap.get(idx) || minRowHeight;
           idx += 1;
         }
       });
       return Math.min(idx - 1 + bufferSize, totalLength - 1);
     },
-    [rowHeightMap, bufferSize, containerHeight, minHeight, children]
+    [rowHeightMap, bufferSize, containerHeight, minRowHeight, children]
   );
 
   const getTopPos = useCallback(
     (elementIndex: number) => {
       let totalTop = 0;
       children.slice(0, elementIndex).forEach((_, idx) => {
-        totalTop += rowHeightMap.get(idx) || minHeight;
+        totalTop += rowHeightMap.get(idx) || minRowHeight;
       });
       return totalTop;
     },
-    [rowHeightMap, minHeight, children]
+    [rowHeightMap, minRowHeight, children]
   );
 
   const scrollAdjust = useMemo(() => {
     let totalHeight = 0;
     children.forEach((_, idx) => {
-      totalHeight += rowHeightMap.get(idx) || minHeight;
+      totalHeight += rowHeightMap.get(idx) || minRowHeight;
     });
     return totalHeight;
   }, [
     rowHeightMap,
     children,
-    minHeight,
+    minRowHeight,
   ]);
 
   const visibleChildren = React.useMemo(() => {
@@ -236,7 +236,7 @@ export const VirtualView = ({
           elementRefMap.set(elementIdx, element);
           setRowHeightMap((rowHeightMap) => {
             let isChanged = true;
-            isChanged = isChanged && element.offsetHeight > minHeight;
+            isChanged = isChanged && element.offsetHeight > minRowHeight;
             isChanged = isChanged && rowHeightMap.get(elementIdx) !== element.offsetHeight;
             if (isChanged) {
               rowHeightMap.set(elementIdx, element.offsetHeight);
@@ -249,7 +249,7 @@ export const VirtualView = ({
         style: {
           position: "absolute",
           top: getTopPos(startIndex + index),
-          minHeight: minHeight,
+          minRowHeight: minRowHeight,
           minWidth: '100%',
           left: 0,
         },
@@ -260,7 +260,7 @@ export const VirtualView = ({
     currentLoading,
     children,
     containerHeight,
-    minHeight,
+    minRowHeight,
     scrollPosition,
     rowHeightMap,
     getStartIndex,
