@@ -67,6 +67,7 @@ import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 import { useRenderWaiter } from './hooks/useRenderWaiter';
 
+import { useAsyncAction } from './hooks/useAsyncAction';
 import { useMediaContext } from './hooks/useMediaContext';
 import { useAudioPlayer } from './hooks/useAudioPlayer';
 import { useChangeSubject } from './hooks/useChangeSubject';
@@ -262,6 +263,7 @@ export { useRenderWaiter };
 export { useChangeSubject };
 export { useReloadTrigger };
 
+export { useAsyncAction };
 export { useMediaContext };
 export { useAudioPlayer };
 
