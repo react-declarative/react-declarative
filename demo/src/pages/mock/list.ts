@@ -9,6 +9,7 @@ export const _mock: {
     chip3_enabled: boolean;
     color: string;
     age: string;
+    content: string;
 }[] = [];
 
 export const MOCK_TOTAL = 10_000;
@@ -23,6 +24,7 @@ for (let i = 0; i !== MOCK_TOTAL; i++) {
         chip2_enabled: faker.datatype.number(3) === 1,
         chip3_enabled: faker.datatype.number(3) === 2,
         color: faker.datatype.number(3) % 2 === 0 ? 'green' : 'red',
+        content: faker.random.words(faker.datatype.number(25)),
     })
 }
 

@@ -53,6 +53,10 @@ const columns: IGridColumn<typeof mock[0]>[] = [
     label: 'Last Name',
   },
   {
+    field: 'content',
+    label: 'Comment',
+  },
+  {
     field: 'age',
     label: 'Age',
   },
