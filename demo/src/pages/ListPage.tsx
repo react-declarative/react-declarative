@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Copy,
   ListTyped,
   FieldType,
   TypedField,
@@ -45,13 +46,14 @@ const filters: TypedField[] = [
   }
 ];
 
-const columns: IColumn[] = [
+const columns: IColumn<IRowData>[] = [
   {
-    type: ColumnType.Text,
+    type: ColumnType.Component,
     field: 'id',
     headerName: 'ID',
     secondary: true,
     width: (fullWidth) => Math.max((fullWidth - 650) / 3, 200),
+    element: ({ id }) => <Copy content={id} />,
     sortable: true,
     columnMenu: [
       {

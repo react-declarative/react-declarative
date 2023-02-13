@@ -11,6 +11,7 @@ import {
   FadeView,
   TabsView,
   ScaleView,
+  Copy,
   ITab,
   useTabsHashstate,
   RecordView,
@@ -43,6 +44,7 @@ const columns: IGridColumn<typeof mock[0]>[] = [
   {
     field: 'id',
     label: 'Id',
+    format: ({ id }) => <Copy content={id} />,
   },
   {
     field: 'firstName',

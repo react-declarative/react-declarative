@@ -43,6 +43,7 @@ export * from './VirtualView';
 export * from './Grid';
 export * from './Search';
 export * from './Async';
+export * from './Copy';
 export * from './If';
 
 // export * from './common/VirtualizedList';
