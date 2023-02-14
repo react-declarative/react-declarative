@@ -14,7 +14,7 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 
-import Subject from '../utils/rx/Subject';
+import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
 
@@ -163,11 +163,11 @@ export interface IListProps<
   payload?: Payload;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
-  reloadSubject?: Subject<void>;
-  rerenderSubject?: Subject<void>;
-  setLimitSubject?: Subject<number>;
-  setPageSubject?: Subject<number>;
-  setRowsSubject?: Subject<RowData[]>;
+  reloadSubject?: TSubject<void>;
+  rerenderSubject?: TSubject<void>;
+  setLimitSubject?: TSubject<number>;
+  setPageSubject?: TSubject<number>;
+  setRowsSubject?: TSubject<RowData[]>;
   rowActions?: IListRowAction[];
   withToggledFilters?: boolean;
   withSearch?: boolean;

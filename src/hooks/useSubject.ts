@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import Subject from "../utils/rx/Subject";
+
+import Subject, { TSubject } from "../utils/rx/Subject";
 
 import useSingleton from "./useSingleton";
 
-export const useSubject = <Data = any>(upperSubject?: Subject<Data> | null) => {
+export const useSubject = <Data = any>(upperSubject?: TSubject<Data> | null) => {
     const result = useSingleton(() => new Subject<Data>());
     useEffect(() => {
         let dtor: any = undefined;

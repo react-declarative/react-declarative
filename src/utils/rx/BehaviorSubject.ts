@@ -1,6 +1,8 @@
 import Subject from "./Subject";
 
-export class BehaviorSubject<Data = any> extends Subject<Data> {
+import TBehaviorSubject from "../../model/TBehaviorSubject";
+
+export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data> {
 
     constructor(private _data: Data | null = null) {
         super();
@@ -16,5 +18,7 @@ export class BehaviorSubject<Data = any> extends Subject<Data> {
     };
 
 };
+
+export { TBehaviorSubject };
 
 export default BehaviorSubject;

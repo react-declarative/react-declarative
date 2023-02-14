@@ -11,7 +11,7 @@ import useSingleton from "../../hooks/useSingleton";
 
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
-import Subject from "../../utils/rx/Subject";
+import { TSubject } from "../../utils/rx/Subject";
 
 const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
@@ -32,7 +32,7 @@ export interface IVirtualViewProps
   minRowHeight?: number;
   bufferSize?: number;
   children: React.ReactNode;
-  scrollXSubject?: Subject<number>;
+  scrollXSubject?: TSubject<number>;
   onDataRequest?: () => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;

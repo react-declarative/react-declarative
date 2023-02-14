@@ -229,7 +229,7 @@ export class List<
         if (this.props.reloadSubject) {
             this.unReloadSubject && this.unReloadSubject();
             this.unReloadSubject = this.props.reloadSubject
-                .subscribe(this.handleReload);
+                .subscribe(this.handleReload as () => void);
         }
         if (this.props.rerenderSubject) {
             this.unRerenderSubject && this.unRerenderSubject();

@@ -9,7 +9,7 @@ import TSort from './TSort';
 import { IVirtualViewProps } from '../../VirtualView';
 import { IActionMenuProps } from '../../ActionMenu';
 
-import Subject from '../../../utils/rx/Subject';
+import { TSubject } from '../../../utils/rx/Subject';
 
 export interface IGridProps<T = RowData> {
   className?: string;
@@ -21,7 +21,7 @@ export interface IGridProps<T = RowData> {
   rowActions?: Array<IGridAction<T>>;
   rowActionsPayload?: IActionMenuProps['payload'];
   onRowAction?: (row: T, action: string) => void;
-  recomputeSubject?: Subject<void>;
+  recomputeSubject?: TSubject<void>;
   loading?: boolean;
   hasMore?: boolean;
   onSkip?: () => void;

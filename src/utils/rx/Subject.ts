@@ -1,10 +1,12 @@
 import EventEmitter from "./EventEmitter";
 
+import TSubject from "../../model/TSubject";
+
 export const SUBJECT_EVENT = Symbol('react-declarative-subject');
 
 type Function = (...args: any[]) => void;
 
-export class Subject<Data = any> {
+export class Subject<Data = any> implements TSubject<Data> {
 
     private _emitter = new EventEmitter();
 
@@ -32,5 +34,7 @@ export class Subject<Data = any> {
     };
 
 };
+
+export { TSubject };
 
 export default Subject;

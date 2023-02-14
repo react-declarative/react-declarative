@@ -373,6 +373,14 @@ export { BehaviorSubject } from './utils/rx/BehaviorSubject';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
 
+import TSubjectInternal from './model/TSubject';
+
+export type TSubject<Data = unknown> = TSubjectInternal<Data>;
+
+import TBehaviorSubjectInternal from './model/TBehaviorSubject';
+
+export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
+
 export { getErrorMessage } from './utils/getErrorMessage';
 
 import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from './utils/mvvm/Entity';

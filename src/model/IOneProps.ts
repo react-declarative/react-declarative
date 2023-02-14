@@ -7,7 +7,7 @@ import IEntity from './IEntity';
 import IAnything from './IAnything';
 import IOneApi from './IOneApi';
 
-import Subject from '../utils/rx/Subject';
+import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
 
@@ -23,11 +23,11 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   /**
    * Эмиттер для запроса данных
    */
-  reloadSubject?: Subject<void>;
+  reloadSubject?: TSubject<void>;
   /**
    * Эмиттер для записи данных
    */
-  changeSubject?: Subject<Data>;
+  changeSubject?: TSubject<Data>;
   /**
    * Фабрика для создания полей пользователя
    */
