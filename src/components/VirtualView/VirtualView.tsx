@@ -116,6 +116,7 @@ export const VirtualView = ({
 
   const elementRefMap = useSingleton(() => new Map<number, HTMLDivElement>());
 
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
 
@@ -200,6 +201,20 @@ export const VirtualView = ({
     minRowHeight,
   ]);
 
+  const getBottomReached = useCallback(() => {
+    if (container) {
+      if (container.clientHeight >= container.scrollHeight) {
+        return false;
+      }
+      return (
+        Math.abs(
+          container.scrollHeight - container.scrollTop - container.clientHeight,
+        ) < 10
+      );
+    }
+    return false;
+  }, [container]);
+
   const visibleChildren = React.useMemo(() => {
     const startIndex = getStartIndex(scrollPosition);
     const endIndex = getEndIndex(scrollPosition, children.length);
@@ -216,7 +231,7 @@ export const VirtualView = ({
     let isBottomReached = true;
     isBottomReached = isBottomReached && hasMore$.current;
     isBottomReached = isBottomReached && !currentLoading$.current;
-    isBottomReached = isBottomReached && scrollPosition > containerHeight - 10;
+    isBottomReached = isBottomReached && getBottomReached();
     isBottomReached = isBottomReached && children.length === endIndex + 1;
 
     if (isBottomReached) {
@@ -264,13 +279,13 @@ export const VirtualView = ({
     hasMore$,
     currentLoading$,
     children,
-    containerHeight,
     minRowHeight,
     scrollPosition,
     rowHeightMap,
     getStartIndex,
     getEndIndex,
     getTopPos,
+    getBottomReached,
     handleDataRequest,
   ]);
 
@@ -290,6 +305,7 @@ export const VirtualView = ({
           }
         });
       }
+      setContainer(element);
     }
   }, []);
 
