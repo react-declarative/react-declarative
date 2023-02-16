@@ -256,7 +256,7 @@ export const VirtualView = ({
           element.dataset[DATASET_ID] = String(elementIdx);
           resizeObserver.observe(element);
           elementRefMap.set(elementIdx, element);
-          requestAnimationFrame(() => setRowHeightMap((rowHeightMap) => {
+          setRowHeightMap((rowHeightMap) => {
             let isChanged = true;
             isChanged = isChanged && element.offsetHeight >= minRowHeight;
             isChanged = isChanged && rowHeightMap.get(elementIdx) !== element.offsetHeight;
@@ -266,7 +266,7 @@ export const VirtualView = ({
             } else {
               return rowHeightMap;
             }
-          }));
+          });
         },
         style: {
           position: "absolute",
