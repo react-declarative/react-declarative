@@ -15,6 +15,8 @@ import { ContainerSizeProvider } from "../hooks/useContainerSize";
 import useSingleton from "../../../hooks/useSingleton";
 import classNames from "../../../utils/classNames";
 
+import { SCROLLBAR_TALL } from "../config";
+
 interface Props {
   className?: string;
   style?: React.CSSProperties;
@@ -54,8 +56,8 @@ export const Container = ({
         if (target) {
           constraintManager.clear();
           setSize({
-            height: target.offsetHeight,
-            width: target.offsetWidth,
+            height: Math.max(target.offsetHeight - SCROLLBAR_TALL, 0),
+            width: Math.max(target.offsetWidth - SCROLLBAR_TALL, 0),
           });
         }
       })

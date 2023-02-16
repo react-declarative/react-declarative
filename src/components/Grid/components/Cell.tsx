@@ -6,10 +6,11 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import { IColumn } from '../model/IColumn';
 
+import { useGridProps } from '../hooks/useGridProps';
 import { useContainerSize } from '../hooks/useContainerSize';
 import { useConstraintManager } from '../hooks/useConstraintManager';
 
-import { DEFAULT_ROW_WIDTH } from '../config';
+import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
 
 interface ICellProps extends BoxProps {
   className?: string;
@@ -30,7 +31,9 @@ export const Cell = ({
   ...otherProps
 }: ICellProps) => {
   const constraintManager = useConstraintManager();
-  const { width: containerWidth } = useContainerSize();
+  const { width: fullWidth } = useContainerSize();
+  const { rowActions } = useGridProps();
+  const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0), 0), [fullWidth, rowActions]);
 
   const computedWidth = useMemo(() => {
     const compute = () => {

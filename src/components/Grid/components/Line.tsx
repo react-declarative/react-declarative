@@ -6,8 +6,13 @@ import Box from '@mui/material/Box';
 
 import IColumn from '../model/IColumn';
 
+import useGridProps from '../hooks/useGridProps';
 import useContainerSize from '../hooks/useContainerSize';
 import useConstraintManager from '../hooks/useConstraintManager';
+
+import { VIRTUAL_VIEW_CHILD } from '../../VirtualView';
+
+import classNames from '../../../utils/classNames';
 
 import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
 
@@ -26,7 +31,9 @@ export const Line = forwardRef(
     ref,
   ) => {
     const constraintManager = useConstraintManager();
-    const { width: containerWidth } = useContainerSize();
+    const { width: fullWidth } = useContainerSize();
+    const { rowActions } = useGridProps();
+    const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0), 0), [fullWidth, rowActions]);
 
     const computedWidth = useMemo(() => {
       const compute = (column: IColumn) => () => {
@@ -54,7 +61,7 @@ export const Line = forwardRef(
     return (
       <Box
         ref={ref}
-        className={className}
+        className={classNames(className, VIRTUAL_VIEW_CHILD)}
         style={style}
         sx={{
           ...sx,

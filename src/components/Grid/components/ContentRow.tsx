@@ -80,7 +80,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   alignStretch: {
     alignItems: "stretch",
-    "& > *:nth-child(1)": {
+    "& > *:nth-of-type(1)": {
       flex: 1,
     },
   },
@@ -133,11 +133,10 @@ export const ContentRow = forwardRef(
               column={column}
               idx={idx}
             >
-              {/* eslint-disable-next-line no-nested-ternary */}
               {column.format
                 ? column.format(row)
                 : column.field
-                ? get(row, column.field)
+                ? String(get(row, column.field))
                 : null}
             </Cell>
           );

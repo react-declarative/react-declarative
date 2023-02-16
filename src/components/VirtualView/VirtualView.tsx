@@ -16,8 +16,9 @@ import { TSubject } from "../../utils/rx/Subject";
 const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
 
-const ROOT_ELEMENT = "virtual-view-root";
+export const ROOT_ELEMENT = "virtual-view-root";
 export const CHILD_ELEMENT = "virtual-view-child";
+
 const DATASET_ID = "list_item_idx";
 
 export interface IVirtualViewProps
@@ -45,7 +46,7 @@ const useStyles = makeStyles()({
     position: "relative",
     overflowY: 'auto',
     width: "100%",
-    minRowHeight: '50px',
+    minHeight: '50px',
   },
   adjust: {
     position: 'absolute',
@@ -88,6 +89,7 @@ export const VirtualView = ({
   const currentLoading = !!loading || upperLoading;
 
   const hasMore$ = useActualValue(hasMore);
+  const minRowHeight$ = useActualValue(minRowHeight);
   const currentLoading$ = useActualValue(currentLoading);
 
   const handleDataRequest = useActualCallback(async () => {
@@ -127,25 +129,25 @@ export const VirtualView = ({
 
   const resizeObserver = useSingleton(
     () =>
-      new ResizeObserver(([record]) => {
+      new ResizeObserver((entries) => entries.forEach((record) => {
         const element = record.target as HTMLDivElement;
         if (!element) {
           return;
         }
+        const { height } = record.contentRect;
         if (element.classList.contains(ROOT_ELEMENT)) {
-          setContainerHeight(element.offsetHeight);
+          setContainerHeight(height);
         }
         if (element.classList.contains(CHILD_ELEMENT)) {
           const elementId = Number(element.dataset[DATASET_ID]);
-          const { offsetHeight } = element;
-          if (!Number.isNaN(elementId) && offsetHeight > minRowHeight) {
+          if (!Number.isNaN(elementId) && height >= minRowHeight$.current) {
             setRowHeightMap((rowHeightMap) => {
-              rowHeightMap.set(elementId, element.offsetHeight);
+              rowHeightMap.set(elementId, height);
               return new Map(rowHeightMap);
             });
           }
         }
-      })
+      }))
   );
 
   const getStartIndex = useCallback(
@@ -254,9 +256,9 @@ export const VirtualView = ({
           element.dataset[DATASET_ID] = String(elementIdx);
           resizeObserver.observe(element);
           elementRefMap.set(elementIdx, element);
-          setRowHeightMap((rowHeightMap) => {
+          requestAnimationFrame(() => setRowHeightMap((rowHeightMap) => {
             let isChanged = true;
-            isChanged = isChanged && element.offsetHeight > minRowHeight;
+            isChanged = isChanged && element.offsetHeight >= minRowHeight;
             isChanged = isChanged && rowHeightMap.get(elementIdx) !== element.offsetHeight;
             if (isChanged) {
               rowHeightMap.set(elementIdx, element.offsetHeight);
@@ -264,12 +266,12 @@ export const VirtualView = ({
             } else {
               return rowHeightMap;
             }
-          });
+          }));
         },
         style: {
           position: "absolute",
           top: getTopPos(startIndex + index),
-          minRowHeight: minRowHeight,
+          minHeight: minRowHeight,
           minWidth: '100%',
           left: 0,
         },

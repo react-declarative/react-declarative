@@ -6,6 +6,7 @@ export interface IColumn<T = RowData> {
   label: string;
   align?: 'center' | 'left' | 'right' | 'stretch';
   format?: (row: T) => React.ReactElement | string;
+  minWidth?: number;
   width?: Dimension | ((containerWidth: number) => Dimension);
 }
 

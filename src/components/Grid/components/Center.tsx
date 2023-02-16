@@ -17,7 +17,8 @@ export const Center = ({ className, style, sx, children }: ICenterProps) => (
     sx={{
       ...sx,
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'center !important',
+      alignItems: 'center !important',
     }}
   >
     {children}

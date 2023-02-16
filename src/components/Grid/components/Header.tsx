@@ -37,22 +37,31 @@ interface IHeaderProps<T = RowData> {
 }
 
 const useStyles = makeStyles()((theme) => ({
-  headerRow: {
-    display: "flex",
-    alignItems: "stretch",
-    justifyContent: "stretch",
+  root: {
+    position: "relative",
     overflowX: "auto",
     overflowY: "hidden",
-    maxWidth: "100%",
+    width: "100%",
     height: "35px",
     borderBottom: `1px solid ${alpha(
       theme.palette.getContrastText(theme.palette.background.default),
       0.23
     )}`,
     scrollbarWidth: "none",
-    '&::-webkit-scrollbar': {
-      display: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
+  },
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    height: '100%',
+    minWidth: '100%',
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
   },
   headerCell: {
     display: "flex",
@@ -81,6 +90,9 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
+    '&>*:nth-of-type(n+1)': {
+      marginLeft: theme.spacing(1),
+    },
   },
 }));
 
@@ -113,7 +125,7 @@ export const Header = <T extends RowData>({
   return (
     <Box
       ref={handleRef}
-      className={classNames(className, classes.headerRow)}
+      className={classNames(className, classes.root)}
       style={style}
       sx={sx}
       onScroll={(e) => {
@@ -123,52 +135,55 @@ export const Header = <T extends RowData>({
         }
       }}
     >
-      {columns.map((column, idx) => {
-        const rowId = `${String(column.field)}-${idx}`;
-        return (
-          <Cell
-            key={rowId}
-            className={classNames(classes.headerCell, {
-              [classes.headerCellClick]: Boolean(onClickHeaderColumn),
-              [classes.coloredHeaderCell]: sort && sort.value === column.field,
-            })}
-            column={column}
-            idx={idx}
-            onClick={() => {
-              if (onClickHeaderColumn) {
-                onClickHeaderColumn(column.field as unknown as keyof T);
-              }
+      <Box className={classes.container}>
+        {columns.map((column, idx) => {
+          const rowId = `${String(column.field)}-${idx}`;
+          return (
+            <Cell
+              key={rowId}
+              className={classNames(classes.headerCell, {
+                [classes.headerCellClick]: Boolean(onClickHeaderColumn),
+                [classes.coloredHeaderCell]:
+                  sort && sort.value === column.field,
+              })}
+              column={column}
+              idx={idx}
+              onClick={() => {
+                if (onClickHeaderColumn) {
+                  onClickHeaderColumn(column.field as unknown as keyof T);
+                }
+              }}
+            >
+              <div
+                className={classNames({
+                  [classes.headerCellSortable]: Boolean(sort),
+                })}
+              >
+                {column.label}
+                {sort && sort.value === column.field ? (
+                  sort?.sortDirection === "ASC" ? (
+                    <ArrowDropUpIcon />
+                  ) : (
+                    <ArrowDropDownIcon />
+                  )
+                ) : null}
+              </div>
+            </Cell>
+          );
+        })}
+        {!!rowActions?.length && (
+          <Center
+            className={classes.headerCell}
+            key={ROW_ACTIONS_UNIQUE_KEY}
+            sx={{
+              minWidth: ACTIONS_WIDTH,
+              maxWidth: ACTIONS_WIDTH,
             }}
           >
-            <div
-              className={classNames({
-                [classes.headerCellSortable]: Boolean(sort),
-              })}
-            >
-              {column.label} {/* eslint-disable-next-line no-nested-ternary */}
-              {sort && sort.value === column.field ? (
-                sort?.sortDirection === "ASC" ? (
-                  <ArrowDropUpIcon />
-                ) : (
-                  <ArrowDropDownIcon />
-                )
-              ) : null}
-            </div>
-          </Cell>
-        );
-      })}
-      {!!rowActions?.length && (
-        <Center
-          className={classes.headerCell}
-          key={ROW_ACTIONS_UNIQUE_KEY}
-          sx={{
-            minWidth: ACTIONS_WIDTH,
-            maxWidth: ACTIONS_WIDTH,
-          }}
-        >
-          Actions
-        </Center>
-      )}
+            Actions
+          </Center>
+        )}
+      </Box>
     </Box>
   );
 };
