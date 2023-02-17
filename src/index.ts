@@ -394,7 +394,7 @@ export type ICollectionAdapter<T extends IMvvmEntity = any> = ICollectionAdapter
 export type IEntityAdapter<T extends IMvvmEntity = any> = IEntityAdapterInternal<T>;
 export type IModelAdapter<T extends {} = any> = IModelAdapterInternal<T>;
 
-export { Collection } from './utils/mvvm/Collection';
+export { Collection, EntityNotFoundError } from './utils/mvvm/Collection';
 export { Entity } from './utils/mvvm/Entity';
 export { Model } from './utils/mvvm/Model';
 
