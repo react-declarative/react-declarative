@@ -207,6 +207,7 @@ export class List<
         isOk = isOk || this.prevState.search === this.state.search;
         if (isOk) {
             this.handleFilter(this.state.filterData, false);
+            this.props.onPageChange!(0);
         }
         return isOk;
     };
@@ -340,10 +341,12 @@ export class List<
             deepMerge(newData, this.props.filterData!);
         }
         await this.handleFilter(newData as FilterData, initialCall);
+        !initialCall && this.props.onPageChange!(0);
     };
 
     private handleReload = async (keepPagination = true) => {
         await this.handleFilter(this.state.filterData, keepPagination);
+        !keepPagination && this.props.onPageChange!(0);
     };
 
     private handlePageChange = (page: number) => {
@@ -383,6 +386,7 @@ export class List<
           sort,
         }));
         this.props.onSortModelChange!(sort);
+        this.props.onPageChange!(0);
     };
 
     private handleChips = (chips: ListHandlerChips) => {
@@ -393,6 +397,7 @@ export class List<
           chips,
         }));
         this.props.onChipsChange!({...this.state.chips, ...chips});
+        this.props.onPageChange!(0);
     };
 
     private handleSearch = (search: string) => {
@@ -403,6 +408,7 @@ export class List<
           search,
         }));
         this.props.onSearchChange!(search);
+        this.props.onPageChange!(0);
     };
 
     private handleRerender = () => {
