@@ -199,6 +199,14 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
             this._collection$.current.removeById(id);
         });
     };
+    removeAll = async () => {
+        await this._waitForListeners().then((isDisposed) => {
+            if (isDisposed) {
+                return;
+            }
+            this._collection$.current.removeAll();
+        });
+    };
     findById = (id: string | number) => {
         const entity = this._collection$.current.findById(id);
         return new CollectionEntityAdapter(entity.id, this._collection$, this._dispose);

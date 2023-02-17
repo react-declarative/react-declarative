@@ -152,8 +152,11 @@ export const VirtualView = ({
           const elementId = Number(element.dataset[DATASET_ID]);
           if (!Number.isNaN(elementId) && height >= minRowHeight$.current) {
             setRowHeightMap((rowHeightMap) => {
-              rowHeightMap.set(elementId, height);
-              return new Map(rowHeightMap);
+              if (element.offsetHeight !== height) {
+                rowHeightMap.set(elementId, height);
+                return new Map(rowHeightMap);
+              }
+              return rowHeightMap;
             });
           }
         }

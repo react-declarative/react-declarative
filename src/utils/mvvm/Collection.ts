@@ -25,6 +25,7 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     upsert(...items: (T[] | T[][])): void;
     remove(item: IEntity): void;
     removeById(id: IEntity['id']): void;
+    removeAll(): void;
     findById(id: IEntity['id']): IEntityAdapter<T>;
     clear(): void;
     refresh(): void;
@@ -214,6 +215,16 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
             }
         }
         throw new EntityNotFoundError(`removeById unknown entity id ${id}`);
+    };
+
+    public removeAll = () => {
+        for (const [key, value] of this._items.entries()) {
+            this._items.delete(key);
+            this._ids.delete(value.id);
+            value.unsubscribe(CHANGE_SYMBOL, this._change);
+            value.unsubscribe(REFRESH_SYMBOL, this._refresh);
+        }
+        this._reorder();
     };
 
     public findById = (id: IEntity['id']) => {

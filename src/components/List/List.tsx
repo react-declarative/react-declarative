@@ -18,6 +18,7 @@ import NoSsr from '../NoSsr';
 
 import deepMerge from '../../utils/deepMerge';
 import deepFlat from '../../utils/deepFlat';
+import sleep from '../../utils/sleep';
 import set from '../../utils/set';
 
 import GridView from './components/view/GridView';
@@ -266,6 +267,8 @@ export class List<
         rows: RowData[];
         total: number | null;
     }> => {
+        /** react-18 prevent batching */
+        await sleep(0);
         if (typeof this.props.handler === 'function') {
             const response: ListHandlerResult<RowData> = await Promise.resolve(this.props.handler(filterData, {
                 limit: this.state.limit,
