@@ -1,9 +1,7 @@
 import * as React from "react";
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { makeStyles } from '../../../../../styles';
-
-import { FixedSizeList, ListOnScrollProps } from "react-window";
 
 import Box from '@mui/material/Box';
 import MatListItem from '@mui/material/ListItem';
@@ -16,15 +14,16 @@ import IListProps, { IListState, IListCallbacks } from '../../../../../model/ILi
 import IAnything from '../../../../../model/IAnything';
 import IRowData from '../../../../../model/IRowData';
 
-import classNames from "../../../../../utils/classNames";
+import useSubject from "../../../../../hooks/useSubject";
+import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 
 import ModalLoader from "./components/ModalLoader";
 import ListItem from "./components/ListItem";
 
 import Container from "../../Container";
+import VirtualView from "../../../../VirtualView";
 
 const DEFAULT_ITEM_SIZE = 75;
-const SCROLL_DELTA = 10;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -67,10 +66,9 @@ export const Chooser = <
   RowData extends IRowData = IAnything,
   >(props: IChooserProps<FilterData, RowData>) => {
 
-  const innerRef = useRef<HTMLElement>(null);
-  const outerRef = useRef<HTMLElement>(null);
-
   const { classes } = useStyles();
+
+  const scrollYSubject = useSubject<number>();
 
   const {
     rows: upperRows,
@@ -92,12 +90,11 @@ export const Chooser = <
   });
 
   const handleCleanRows = useCallback(() => {
-    const { current } = outerRef;
     setState(() => ({
       rows: upperRows,
       filterData: upperFilterData,
     }));
-    current && current.scrollTo(current.scrollLeft || 0, 0);
+    scrollYSubject.next(0);
   }, [upperRows, upperFilterData]);
 
   const handleAppendRows = useCallback(() => setState(({
@@ -114,21 +111,20 @@ export const Chooser = <
   useEffect(() => handleAppendRows(), [upperRows]);
   useEffect(() => handleCleanRows(), [upperFilterData]);
 
-  const createScrollHandler = (height: number) => ({
-    scrollDirection,
-    scrollOffset,
-  }: ListOnScrollProps) => {
-    if (scrollDirection === 'forward') {
-      const { current } = innerRef;
-      if (current && !loading) {
-        const { height: scrollHeight } = current.getBoundingClientRect();
-        const pendingPage = Math.floor(offset / limit) + 1;
-        if (Math.ceil(height + scrollOffset) + SCROLL_DELTA >= scrollHeight && scrollHeight !== 0) {
-          if (!total || pendingPage * limit < total) {
-            handlePageChange(pendingPage);
-          }
-        }
-      }
+  const pendingPage = Math.floor(offset / limit) + 1;
+  const hasMore = !total || pendingPage * limit < total;
+
+  const waitForRequest = useRenderWaiter([
+    loading,
+  ]);
+
+  const handleDataRequest = async () => {
+    let isOk = true;
+    isOk = isOk && hasMore;
+    isOk = isOk && !loading;
+    if (isOk) {
+      handlePageChange(pendingPage);
+      await waitForRequest();
     }
   };
 
@@ -139,37 +135,31 @@ export const Chooser = <
     >
       {({ height, width, payload: { rows, loading } }) => (
         <Box position="relative" style={{ height, width }}>
-          <ModalLoader open={withLoader && loading} />
-          {!loading && rows.length === 0 ? (
-            <MatListItem className={classes.empty}>
-              <ListItemIcon>
-                <NotInterested />
-              </ListItemIcon>
-              <ListItemText
-                primary="Empty"
-                secondary="Nothing found"
-              />
-            </MatListItem>
-          ) : (
-            <FixedSizeList
-              className={classNames(classes.root, MOBILE_LIST_ROOT)}
-              height={height}
-              width={width}
-              itemCount={rows.length}
-              onScroll={createScrollHandler(height)}
-              innerRef={innerRef}
-              outerRef={outerRef}
-              itemSize={DEFAULT_ITEM_SIZE}
-            >
-              {({ index, style }) => (
-                <ListItem
-                  key={index}
-                  row={rows[index]}
-                  style={style}
+          <VirtualView
+            scrollYSubject={scrollYSubject}
+            minRowHeight={DEFAULT_ITEM_SIZE}
+            onDataRequest={handleDataRequest}
+            sx={{ height, width }}
+          >
+            {!loading && rows.length === 0 && (
+              <MatListItem className={classes.empty}>
+                <ListItemIcon>
+                  <NotInterested />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Empty"
+                  secondary="Nothing found"
                 />
-              )}
-            </FixedSizeList>
-          )}
+              </MatListItem>
+            )} 
+            {rows.map((row, idx) => (
+              <ListItem
+                key={`${row.id}-${idx}`}
+                row={row}
+              />
+            ))}
+          </VirtualView>
+          <ModalLoader open={withLoader && loading} />
         </Box>
       )}
     </Container>

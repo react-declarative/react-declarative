@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, useCallback, useState, useLayoutEffect } from "react";
+import { useRef, useCallback, useState, useMemo, useLayoutEffect, useEffect } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -16,7 +16,7 @@ interface IInfiniteViewProps extends BoxProps {
   children?: React.ReactNode;
   hasMore?: boolean;
   loading?: boolean;
-  onDataRequest?: () => Promise<void> | void;
+  onDataRequest?: (initial: boolean) => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -49,7 +49,7 @@ export const InfiniteView = ({
   loading: upperLoading = false,
   throwError = false,
   hasMore = true,
-  children,
+  children: upperChildren,
   onDataRequest,
   onLoadStart,
   onLoadEnd,
@@ -62,6 +62,12 @@ export const InfiniteView = ({
   const observer = useRef<IntersectionObserver>();
 
   const isMounted = useRef(true);
+  const isChildrenChanged = useRef(false);
+
+  const children = useMemo(() => {
+    isChildrenChanged.current = true;
+    return upperChildren;
+  }, [upperChildren]);
 
   useLayoutEffect(
     () => () => {
@@ -72,7 +78,7 @@ export const InfiniteView = ({
 
   const currentLoading = !!loading || upperLoading;
 
-  const handleDataRequest = useActualCallback(async () => {
+  const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
       return;
     }
@@ -81,7 +87,7 @@ export const InfiniteView = ({
       onLoadStart && onLoadStart();
       isMounted.current && setLoading((loading) => loading + 1);
       if (onDataRequest) {
-        await onDataRequest();
+        await onDataRequest(initial);
       }
     } catch (e: any) {
       isOk = false;
@@ -106,9 +112,10 @@ export const InfiniteView = ({
       }
       observer.current = new IntersectionObserver((entries) => {
         const [entry] = entries;
-        if (entry?.isIntersecting && hasMore) {
-          handleDataRequest();
+        if (entry?.isIntersecting && hasMore && !isChildrenChanged.current) {
+          handleDataRequest(false);
         }
+        isChildrenChanged.current = false;
       });
       if (node) {
         observer.current.observe(node);
@@ -116,6 +123,10 @@ export const InfiniteView = ({
     },
     [hasMore, currentLoading, onDataRequest]
   );
+
+  useEffect(() => {
+    handleDataRequest(true);
+  }, []);
 
   return (
     <Box

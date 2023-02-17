@@ -8,6 +8,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";
 import useSingleton from "../../hooks/useSingleton";
+import useSubject from "../../hooks/useSubject";
 
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
@@ -34,7 +35,8 @@ export interface IVirtualViewProps
   bufferSize?: number;
   children: React.ReactNode;
   scrollXSubject?: TSubject<number>;
-  onDataRequest?: () => Promise<void> | void;
+  scrollYSubject?: TSubject<number>;
+  onDataRequest?: (initial?: boolean) => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -68,15 +70,23 @@ export const VirtualView = ({
   onLoadStart,
   onLoadEnd,
   fallback,
-  scrollXSubject,
+  scrollXSubject: upperScrollXSubject,
+  scrollYSubject: upperScrollYSubject,
   throwError = false,
   ...otherProps
 }: IVirtualViewProps) => {
   const { classes } = useStyles();
   const isMounted = useRef(true);
+  const isChildrenChanged = useRef(false);
+
+  const scrollXSubject = useSubject(upperScrollXSubject);
+  const scrollYSubject = useSubject(upperScrollYSubject);
 
   const children = useMemo(
-    () => React.Children.toArray(upperChildren),
+    () => {
+      isChildrenChanged.current = true;
+      return React.Children.toArray(upperChildren);
+    },
     [upperChildren],
   );
 
@@ -92,7 +102,7 @@ export const VirtualView = ({
   const minRowHeight$ = useActualValue(minRowHeight);
   const currentLoading$ = useActualValue(currentLoading);
 
-  const handleDataRequest = useActualCallback(async () => {
+  const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
       return;
     }
@@ -101,7 +111,7 @@ export const VirtualView = ({
       onLoadStart && onLoadStart();
       isMounted.current && setLoading((loading) => loading + 1);
       if (onDataRequest) {
-        await onDataRequest();
+        await onDataRequest(initial);
       }
     } catch (e: any) {
       isOk = false;
@@ -208,11 +218,8 @@ export const VirtualView = ({
       if (container.clientHeight >= container.scrollHeight) {
         return false;
       }
-      return (
-        Math.abs(
-          container.scrollHeight - container.scrollTop - container.clientHeight,
-        ) < 10
-      );
+      const scrollPos = container.scrollHeight - container.scrollTop - container.clientHeight;
+      return Math.abs(scrollPos) < 10;
     }
     return false;
   }, [container]);
@@ -236,9 +243,11 @@ export const VirtualView = ({
     isBottomReached = isBottomReached && getBottomReached();
     isBottomReached = isBottomReached && children.length === endIndex + 1;
 
-    if (isBottomReached) {
-      queueMicrotask(() => handleDataRequest());
+    if (isBottomReached && !isChildrenChanged.current) {
+      queueMicrotask(() => handleDataRequest(false));
     }
+
+    isChildrenChanged.current = false;
 
     return children.slice(startIndex, endIndex + 1).map((child, index) =>
       React.cloneElement(child as React.ReactElement, {
@@ -297,16 +306,24 @@ export const VirtualView = ({
         setScrollPosition(e.target.scrollTop);
       }, 50));
       setContainerHeight(element.offsetHeight);
-      if (scrollXSubject) {
-        scrollXSubject.subscribe((scrollX) => {
-          if (element.scrollLeft !== scrollX) {
-            element.scrollTo(
-              Math.min(scrollX, element.scrollWidth),
-              element.scrollTop,
-            );
-          }
-        });
-      }
+      scrollXSubject.unsubscribeAll();
+      scrollXSubject.subscribe((scrollX) => {
+        if (element.scrollLeft !== scrollX) {
+          element.scrollTo(
+            Math.min(scrollX, element.scrollWidth),
+            element.scrollTop,
+          );
+        }
+      });
+      scrollYSubject.unsubscribeAll();
+      scrollYSubject.subscribe((scrollX) => {
+        if (element.scrollLeft !== scrollX) {
+          element.scrollTo(
+            Math.min(scrollX, element.scrollWidth),
+            element.scrollTop,
+          );
+        }
+      });
       setContainer(element);
     }
   }, []);
@@ -314,9 +331,15 @@ export const VirtualView = ({
   useEffect(
     () => () => {
       resizeObserver.disconnect();
+      scrollXSubject.unsubscribeAll();
+      scrollYSubject.unsubscribeAll();
     },
     []
   );
+
+  useEffect(() => {
+    handleDataRequest(true);
+  }, []);
 
   useLayoutEffect(
     () => () => {
