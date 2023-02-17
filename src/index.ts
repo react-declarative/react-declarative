@@ -99,6 +99,12 @@ import { useTime } from './hooks/useTime';
 import { useOne } from './hooks/useOne';
 import { useOneTyped } from './hooks/useOne';
 
+import { useSearchParams } from './hooks/useSearchParams';
+import { useSearchState } from './hooks/useSearchState';
+
+export { useSearchParams };
+export { useSearchState };
+
 import IAnything from './model/IAnything';
 import IRowData, { RowId } from './model/IRowData';
 
@@ -239,10 +245,7 @@ export { useArrayPaginator } from './components';
 export { useApiPaginator } from './components';
 
 export { useLastPagination } from './components';
-
-/*export { useSerializedPagination } from './components';
-export { useParsedPagination } from './components';
-export { useHashstatePagination } from './components';*/
+export { useQueryPagination } from './components';
 
 export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';

@@ -20,7 +20,7 @@ import {
   ListHandlerPagination,
   ListHandlerSortModel,
   IListOperation,
-  //useHashstatePagination,
+  useQueryPagination,
 } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
@@ -241,6 +241,8 @@ export const ListPage = () => {
 
   const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
 
+  const { listProps } = useQueryPagination();
+
   /*const { listProps } = useHashstatePagination({
     history,
   });*/
@@ -381,6 +383,7 @@ export const ListPage = () => {
         await sleep(5_000);
         return `${size} ${v4()}`
       }}
+      {...listProps}
     />
   );
 };
