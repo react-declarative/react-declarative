@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 
 import IColumn from '../model/IColumn';
 
-import useGridProps from '../hooks/useGridProps';
 import useContainerSize from '../hooks/useContainerSize';
 import useConstraintManager from '../hooks/useConstraintManager';
 
@@ -32,8 +31,11 @@ export const Line = forwardRef(
   ) => {
     const constraintManager = useConstraintManager();
     const { width: fullWidth } = useContainerSize();
-    const { rowActions } = useGridProps();
-    const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0), 0), [fullWidth, rowActions]);
+
+    const containerWidth = useMemo(
+      () => Math.max(fullWidth - (withRowActions ? ACTIONS_WIDTH : 0), 0),
+      [fullWidth, withRowActions],
+    );
 
     const computedWidth = useMemo(() => {
       const compute = (column: IColumn) => () => {
