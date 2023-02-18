@@ -36,7 +36,7 @@ export interface IVirtualViewProps
   children: React.ReactNode;
   scrollXSubject?: TSubject<number>;
   scrollYSubject?: TSubject<number>;
-  onDataRequest?: (initial?: boolean) => Promise<void> | void;
+  onDataRequest?: (initial: boolean) => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;

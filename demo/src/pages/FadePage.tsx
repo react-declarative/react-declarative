@@ -28,6 +28,7 @@ import {
   useActionModal,
   FieldType,
   useMediaContext,
+  Search,
 } from "react-declarative";
 import { v4 as uuid } from "uuid";
 
@@ -318,6 +319,17 @@ export const FadePage = () => {
           }}
         />
       </ScaleView>
+      <Search
+        handler={() => new Array(10).fill(0).map(() => {
+          const item = uuid();
+          return {
+            label: item,
+            value: item,
+          };
+        })}
+        onChange={console.log}
+        skipStep={10}
+      />
       <ActionButton sx={{ m: 1 }} onClick={handleClick}>
         Action button
       </ActionButton>
