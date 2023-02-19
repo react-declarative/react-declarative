@@ -127,11 +127,14 @@ export const Search = ({
         if (!searchText) {
           return true;
         }
+        if (typeof handler === 'function') {
+          return true;
+        }
         return item.label
           .toLocaleLowerCase()
           .includes(searchText.toLowerCase());
       }),
-    [items, searchText, upperValue]
+    [items, searchText, upperValue, handler]
   );
 
   const { classes } = useStyles();
@@ -269,7 +272,7 @@ export const Search = ({
               key="none"
               value="none"
             >
-              {loading ? "Loading" : "Nothing found"}
+              {loading ? "Loading..." : "Nothing found"}
             </MenuItem>
           )}
           {upperValue && (
