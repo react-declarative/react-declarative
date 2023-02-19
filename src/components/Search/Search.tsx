@@ -7,18 +7,20 @@ import { makeStyles } from "../../styles";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl, { FormControlProps } from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import ListSubheader from "@mui/material/ListSubheader";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 
 import VirtualView from "../VirtualView";
 
-import useChangeSubject from "../../hooks/useChangeSubject";
 import useActualCallback from "../../hooks/useActualCallback";
-import useChange from "../../hooks/useChange";
+import debounce from '../../utils/hof/debounce';
+import useReloadTrigger from "../../hooks/useReloadTrigger";
 
 const ITEM_HEIGHT = 60;
 const MAX_ITEMS_COUNT = 4;
@@ -45,7 +47,8 @@ interface ISearchProps
   handler:
     | IItem[]
     | ((search: string, skip: number) => IItem[] | Promise<IItem[]>);
-  value?: string;
+  value?: IItem | null;
+  label?: React.ReactNode;
   sx?: SxProps;
   skipStep?: number;
   onChange: (item: IItem | null) => void;
@@ -68,6 +71,8 @@ const useStyles = makeStyles()({
 
 export const Search = ({
   handler,
+  value: upperValue = null,
+  label = "Search",
   onChange,
   onLoadStart,
   onLoadEnd,
@@ -80,13 +85,13 @@ export const Search = ({
 
   const [value, setValue] = useState<IItem | null>(null);
 
+  const { reloadTrigger, doReload } = useReloadTrigger();
+
   const [state, setState] = useState<IState>({
     searchText: "",
     open: false,
     skip: 0,
   });
-
-  const stateChangeSubject = useChangeSubject(state);
 
   const { searchText, skip, open } = state;
 
@@ -116,6 +121,9 @@ export const Search = ({
   const options = useMemo(
     () =>
       items.filter((item) => {
+        if (item.value === upperValue?.value) {
+          return false;
+        }
         if (!searchText) {
           return true;
         }
@@ -123,14 +131,14 @@ export const Search = ({
           .toLocaleLowerCase()
           .includes(searchText.toLowerCase());
       }),
-    [items, searchText]
+    [items, searchText, upperValue]
   );
 
   const { classes } = useStyles();
 
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (typeof handler === "function") {
-      const items = await handler(searchText, skip);
+      const items = await handler(searchText, initial ? 0 : (skip + skipStep));
       setHasMore(items.length >= skipStep);
       setItems((prevItems) => {
         const prevItemMap = new Map(
@@ -146,7 +154,7 @@ export const Search = ({
           ...items.filter(({ value }) => !prevItemMap.has(value)),
         ];
       });
-      setSkip(skip + skipStep);
+      setSkip(initial ? 0 : (skip + skipStep));
     } else if (initial) {
       setItems(handler);
     }
@@ -162,34 +170,10 @@ export const Search = ({
     onLoadEnd && onLoadEnd(isOk);
   });
 
-  useChange(
-    () =>
-      stateChangeSubject.once(async () => {
-        if (!open) {
-          return;
-        }
-        let isOk = true;
-        try {
-          handleLoadStart();
-          await handleDataRequest(true);
-        } catch (e: any) {
-          isOk = false;
-          if (!throwError) {
-            fallback && fallback(e as Error);
-          } else {
-            throw e;
-          }
-        } finally {
-          handleLoadEnd(isOk);
-        }
-      }),
-    [searchText]
-  );
-
-  const handleChangeSearch = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChangeSearch = useMemo(() =>
+    debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setSearchText(e.target.value);
-    },
+    }, 500),
     []
   );
 
@@ -203,7 +187,7 @@ export const Search = ({
   );
 
   const handleChange = useCallback(
-    (value: string) => {
+    (value: string | null) => {
       const item = options.find((option) => option.value === value) || null;
       setValue(item);
       onChange && onChange(item);
@@ -221,7 +205,7 @@ export const Search = ({
       }}
       {...props}
     >
-      <InputLabel>Search</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Select
         open={open}
         MenuProps={{ autoFocus: false }}
@@ -239,13 +223,27 @@ export const Search = ({
           }}
         >
           <TextField
+            key={reloadTrigger}
             autoFocus
             fullWidth
-            value={searchText}
+            disabled={!!loading}
+            defaultValue={searchText}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    disabled={!!loading}
+                    onClick={() => {
+                      setSearchText("");
+                      doReload();
+                    }}>
+                    <CloseIcon />
+                  </IconButton>
                 </InputAdornment>
               ),
             }}
@@ -255,6 +253,7 @@ export const Search = ({
           />
         </ListSubheader>
         <VirtualView
+          key={searchText}
           className={classes.container}
           onDataRequest={handleDataRequest}
           onLoadStart={handleLoadStart}
@@ -265,12 +264,28 @@ export const Search = ({
           hasMore={hasMore}
           minRowHeight={ITEM_HEIGHT}
         >
-          {options.length === 0 && (
+          {open && options.length === 0 && !upperValue && (
             <MenuItem
-              key="not-found"
-              value="not-found"
+              key="none"
+              value="none"
             >
-              Nothing found
+              {loading ? "Loading" : "Nothing found"}
+            </MenuItem>
+          )}
+          {upperValue && (
+            <MenuItem
+              key={upperValue.value}
+              value={upperValue.value}
+            >
+              {upperValue.label}
+            </MenuItem>
+          )}
+          {!open && !upperValue && (
+            <MenuItem
+              key="none"
+              value="none"
+            >
+              Search
             </MenuItem>
           )}
           {options.map((option) => (

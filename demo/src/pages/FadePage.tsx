@@ -210,6 +210,8 @@ export const FadePage = () => {
     uuid(),
   ]);
 
+  const [value, setValue] = useState<any>(null);
+
   const { isPhone, isTablet, isDesktop } = useMediaContext();
 
   const { pickData, render } = useActionModal({
@@ -320,14 +322,19 @@ export const FadePage = () => {
         />
       </ScaleView>
       <Search
-        handler={() => new Array(10).fill(0).map(() => {
-          const item = uuid();
-          return {
-            label: item,
-            value: item,
-          };
-        })}
-        onChange={console.log}
+        handler={async (search: string, skip: number) => {
+          console.log({ search, skip });
+          await sleep(3_000);
+          return new Array(10).fill(0).map(() => {
+            const item = uuid();
+            return {
+              label: item,
+              value: item,
+            };
+          });
+        }}
+        value={value}
+        onChange={(v) => setValue(v)}
         skipStep={10}
       />
       <ActionButton sx={{ m: 1 }} onClick={handleClick}>
