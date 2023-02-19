@@ -32,6 +32,7 @@ interface IItem {
 interface IState {
   searchText: string;
   skip: number;
+  open: boolean;
 }
 
 interface ISearchProps
@@ -60,7 +61,7 @@ const useStyles = makeStyles()({
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "stretch",
-    minHeight: `${ITEM_HEIGHT}px`,
+    height: ITEM_HEIGHT * MAX_ITEMS_COUNT,
     width: "100%",
   },
 });
@@ -78,21 +79,27 @@ export const Search = ({
 }: ISearchProps) => {
 
   const [value, setValue] = useState<IItem | null>(null);
-  const [open, setOpen] = useState(false);
 
   const [state, setState] = useState<IState>({
     searchText: "",
+    open: false,
     skip: 0,
   });
 
   const stateChangeSubject = useChangeSubject(state);
 
-  const { searchText, skip } = state;
+  const { searchText, skip, open } = state;
 
   const setSkip = (skip: number) =>
     setState((prevState) => ({
       ...prevState,
       skip,
+    }));
+
+  const setOpen = (open: boolean) =>
+    setState((prevState) => ({
+      ...prevState,
+      open,
     }));
 
   const setSearchText = (searchText: string) =>
@@ -158,6 +165,9 @@ export const Search = ({
   useChange(
     () =>
       stateChangeSubject.once(async () => {
+        if (!open) {
+          return;
+        }
         let isOk = true;
         try {
           handleLoadStart();
@@ -217,7 +227,10 @@ export const Search = ({
         MenuProps={{ autoFocus: false }}
         value={value?.value || "none"}
         onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setSearchText("");
+          setOpen(false);
+        }}
         renderValue={() => value?.label || "Search"}
       >
         <ListSubheader
@@ -228,6 +241,7 @@ export const Search = ({
           <TextField
             autoFocus
             fullWidth
+            value={searchText}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -242,12 +256,6 @@ export const Search = ({
         </ListSubheader>
         <VirtualView
           className={classes.container}
-          sx={{
-            height: Math.min(
-              options.length * ITEM_HEIGHT,
-              ITEM_HEIGHT * MAX_ITEMS_COUNT
-            ),
-          }}
           onDataRequest={handleDataRequest}
           onLoadStart={handleLoadStart}
           onLoadEnd={handleLoadEnd}

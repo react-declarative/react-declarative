@@ -378,7 +378,7 @@ export { Subject } from './utils/rx/Subject';
 
 import TSubjectInternal from './model/TSubject';
 
-export type TSubject<Data = unknown> = TSubjectInternal<Data>;
+export type TSubject<Data = void> = TSubjectInternal<Data>;
 
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 
