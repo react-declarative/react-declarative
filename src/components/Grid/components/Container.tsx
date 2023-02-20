@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { SxProps } from "@mui/system";
 
 import { makeStyles } from "../../../styles";
@@ -11,11 +11,10 @@ import { ISize } from "../model/ISize";
 
 import useConstraintManager from "../hooks/useConstraintManager";
 import { ContainerSizeProvider } from "../hooks/useContainerSize";
+import { getScrollbarWidth } from "../helpers/getScrollbarWidth";
 
 import useSingleton from "../../../hooks/useSingleton";
 import classNames from "../../../utils/classNames";
-
-import { SCROLLBAR_TALL } from "../config";
 
 interface Props {
   className?: string;
@@ -45,6 +44,7 @@ export const Container = ({
 }: Props) => {
   const { classes } = useStyles();
   const constraintManager = useConstraintManager();
+  const scrollBarWidth = useMemo(() => getScrollbarWidth(), []);
   const [size, setSize] = useState<ISize>({
     height: 0,
     width: 0,
@@ -56,8 +56,8 @@ export const Container = ({
         if (target) {
           constraintManager.clear();
           setSize({
-            height: Math.max(target.offsetHeight - SCROLLBAR_TALL, 0),
-            width: Math.max(target.offsetWidth - SCROLLBAR_TALL, 0),
+            height: Math.max(target.offsetHeight - scrollBarWidth, 0),
+            width: Math.max(target.offsetWidth - scrollBarWidth, 0),
           });
         }
       })
@@ -68,12 +68,12 @@ export const Container = ({
         return;
       }
       setSize({
-        height: ref.offsetHeight,
-        width: ref.offsetWidth,
+        height: Math.max(ref.offsetHeight - scrollBarWidth, 0),
+        width: Math.max(ref.offsetWidth - scrollBarWidth, 0),
       });
       resizeObserver.observe(ref);
     },
-    [resizeObserver]
+    [resizeObserver, scrollBarWidth]
   );
   useEffect(
     () => () => {
