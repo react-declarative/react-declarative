@@ -64,24 +64,21 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     () =>
       upperColumns.map(
         ({ width: upperWidth = defaultWidthFn, minWidth = 0, ...other }) => {
-          let width = upperWidth;
-          if (minWidth) {
-            width = (fullWidth) => {
-              const dimension =
-                typeof upperWidth === 'function'
-                  ? upperWidth(fullWidth)
-                  : upperWidth;
-              const value =
-                typeof dimension === 'string'
-                  ? parseFloat(dimension)
-                  : dimension;
-              const adjust =
-                typeof upperWidth === 'function'
-                  ? CELL_MARGIN
-                  : 0;
-              return Math.max(value - adjust, minWidth, DEFAULT_ROW_WIDTH);
-            };
-          }
+          const width = (fullWidth: number) => {
+            const dimension =
+              typeof upperWidth === 'function'
+                ? upperWidth(fullWidth)
+                : upperWidth;
+            const value =
+              typeof dimension === 'string'
+                ? parseFloat(dimension)
+                : dimension;
+            const adjust =
+              typeof upperWidth === 'function'
+                ? CELL_MARGIN
+                : 0;
+            return Math.max(value - adjust, minWidth, DEFAULT_ROW_WIDTH);
+          };
           return {
             minWidth,
             width,
