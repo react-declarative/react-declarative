@@ -333,9 +333,11 @@ export const FadePage = () => {
             };
           });
         }}
+        sx={{ m: 1 }}
         value={value}
         onChange={(v) => setValue(v)}
         skipStep={10}
+        noCleanIcon
       />
       <ActionButton sx={{ m: 1 }} onClick={handleClick}>
         Action button

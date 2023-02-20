@@ -1,17 +1,19 @@
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import { SxProps } from "@mui/system";
 
 import { makeStyles } from "../../styles";
 
 import InputLabel from "@mui/material/InputLabel";
-import FormControl, { FormControlProps } from "@mui/material/FormControl";
+import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import Box, { BoxProps } from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import ListSubheader from "@mui/material/ListSubheader";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,12 +21,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import VirtualView from "../VirtualView";
 
 import useActualCallback from "../../hooks/useActualCallback";
-import debounce from '../../utils/hof/debounce';
 import useReloadTrigger from "../../hooks/useReloadTrigger";
+
+import classNames from "../../utils/classNames";
+import debounce from "../../utils/hof/debounce";
 
 const ITEM_HEIGHT = 60;
 const MAX_ITEMS_COUNT = 4;
 const DEFAULT_SKIP_STEP = 25;
+const SEARCH_DEBOUNCE = 1_500;
 
 interface IItem {
   value: string;
@@ -37,28 +42,28 @@ interface IState {
   open: boolean;
 }
 
-interface ISearchProps
-  extends Omit<
-    FormControlProps,
-    keyof {
-      onChange: never;
-    }
-  > {
-  handler:
-    | IItem[]
-    | ((search: string, skip: number) => IItem[] | Promise<IItem[]>);
+interface ISearchProps extends Omit<BoxProps, keyof {
+  onChange: never;
+}> {
+  handler: IItem[] | ((search: string, skip: number) => IItem[] | Promise<IItem[]>);
   value?: IItem | null;
   label?: React.ReactNode;
-  sx?: SxProps;
   skipStep?: number;
   onChange: (item: IItem | null) => void;
   fallback?: (e: Error) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   throwError?: boolean;
+  noCleanIcon?: boolean;
 }
 
 const useStyles = makeStyles()({
+  root: {
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    flexDirection: 'row',
+  },
   container: {
     display: "flex",
     flexDirection: "column",
@@ -67,9 +72,13 @@ const useStyles = makeStyles()({
     height: ITEM_HEIGHT * MAX_ITEMS_COUNT,
     width: "100%",
   },
+  listHeader: {
+    background: 'transparent',
+  },
 });
 
 export const Search = ({
+  className,
   handler,
   value: upperValue = null,
   label = "Search",
@@ -78,10 +87,13 @@ export const Search = ({
   onLoadEnd,
   fallback,
   throwError = false,
+  noCleanIcon = false,
   skipStep = DEFAULT_SKIP_STEP,
   sx,
   ...props
 }: ISearchProps) => {
+
+  const { classes } = useStyles();
 
   const [value, setValue] = useState<IItem | null>(null);
 
@@ -127,7 +139,7 @@ export const Search = ({
         if (!searchText) {
           return true;
         }
-        if (typeof handler === 'function') {
+        if (typeof handler === "function") {
           return true;
         }
         return item.label
@@ -137,11 +149,9 @@ export const Search = ({
     [items, searchText, upperValue, handler]
   );
 
-  const { classes } = useStyles();
-
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (typeof handler === "function") {
-      const items = await handler(searchText, initial ? 0 : (skip + skipStep));
+      const items = await handler(searchText, initial ? 0 : skip + skipStep);
       setHasMore(items.length >= skipStep);
       setItems((prevItems) => {
         const prevItemMap = new Map(
@@ -157,7 +167,7 @@ export const Search = ({
           ...items.filter(({ value }) => !prevItemMap.has(value)),
         ];
       });
-      setSkip(initial ? 0 : (skip + skipStep));
+      setSkip(initial ? 0 : skip + skipStep);
     } else if (initial) {
       setItems(handler);
     }
@@ -173,10 +183,14 @@ export const Search = ({
     onLoadEnd && onLoadEnd(isOk);
   });
 
-  const handleChangeSearch = useMemo(() =>
-    debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setSearchText(e.target.value);
-    }, 500),
+  const handleChangeSearch = useMemo(
+    () =>
+      debounce(
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+          setSearchText(e.target.value);
+        },
+        SEARCH_DEBOUNCE
+      ),
     []
   );
 
@@ -199,113 +213,133 @@ export const Search = ({
   );
 
   return (
-    <FormControl
-      sx={{
-        minWidth: 512,
-        p: 1,
-        mt: 1,
-        ...sx,
-      }}
+    <Box
+      className={classNames(classes.root, className)}
+      sx={sx}
       {...props}
     >
-      <InputLabel>{label}</InputLabel>
-      <Select
-        open={open}
-        MenuProps={{ autoFocus: false }}
-        value={value?.value || "none"}
-        onOpen={() => setOpen(true)}
-        onClose={() => {
-          setSearchText("");
-          setOpen(false);
+      <FormControl
+        sx={{
+          minWidth: 512,
+          pt: 1,
+          pb: 1,
+          mt: 1,
         }}
-        renderValue={() => value?.label || "Search"}
+        fullWidth
       >
-        <ListSubheader
+        <InputLabel>{label}</InputLabel>
+        <Select
+          open={open}
+          MenuProps={{ autoFocus: false }}
+          value={value?.value || "none"}
+          onOpen={() => setOpen(true)}
+          onClose={() => {
+            setSearchText("");
+            setOpen(false);
+          }}
+          fullWidth
+          renderValue={() => value?.label || "Search"}
+        >
+          <ListSubheader className={classes.listHeader}>
+            <TextField
+              key={reloadTrigger}
+              autoFocus
+              fullWidth
+              disabled={!!loading}
+              defaultValue={searchText}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      disabled={!!loading}
+                      onClick={() => {
+                        if (!loading) {
+                          setSearchText("");
+                          doReload();
+                        }
+                      }}
+                    >
+                      {loading ? <CircularProgress size={24} /> : <CloseIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleChangeSearch}
+              onKeyDown={handleKeySearch}
+              sx={{ mb: 1 }}
+            />
+          </ListSubheader>
+          <VirtualView
+            key={searchText}
+            className={classes.container}
+            onDataRequest={handleDataRequest}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            fallback={fallback}
+            loading={!!loading}
+            throwError={throwError}
+            hasMore={hasMore}
+            minRowHeight={ITEM_HEIGHT}
+          >
+            {open && options.length === 0 && !upperValue && (
+              <MenuItem disabled key="none" value="none">
+                {loading ? "Loading..." : "Nothing found"}
+              </MenuItem>
+            )}
+            {upperValue && (
+              <MenuItem disabled key={upperValue.value} value={upperValue.value}>
+                {upperValue.label}
+              </MenuItem>
+            )}
+            {!open && !upperValue && (
+              <MenuItem key="none" value="none">
+                Search
+              </MenuItem>
+            )}
+            {options.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                onClick={() => {
+                  setOpen(false);
+                  handleChange(option.value);
+                }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </VirtualView>
+        </Select>
+      </FormControl>
+      {!noCleanIcon && (
+        <Box
           sx={{
-            background: "transparent",
+            mt: 2,
+            mb: 1,
+            ml: 1,
           }}
         >
-          <TextField
-            key={reloadTrigger}
-            autoFocus
-            fullWidth
-            disabled={!!loading}
-            defaultValue={searchText}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    disabled={!!loading}
-                    onClick={() => {
-                      setSearchText("");
-                      doReload();
-                    }}>
-                    <CloseIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
+          <Button
+            disabled={!upperValue}
+            variant="outlined"
+            onClick={() => {
+              handleChange(null);
+              setOpen(false)
             }}
-            onChange={handleChangeSearch}
-            onKeyDown={handleKeySearch}
-            sx={{ mb: 1 }}
-          />
-        </ListSubheader>
-        <VirtualView
-          key={searchText}
-          className={classes.container}
-          onDataRequest={handleDataRequest}
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-          fallback={fallback}
-          loading={!!loading}
-          throwError={throwError}
-          hasMore={hasMore}
-          minRowHeight={ITEM_HEIGHT}
-        >
-          {open && options.length === 0 && !upperValue && (
-            <MenuItem
-              key="none"
-              value="none"
-            >
-              {loading ? "Loading..." : "Nothing found"}
-            </MenuItem>
-          )}
-          {upperValue && (
-            <MenuItem
-              key={upperValue.value}
-              value={upperValue.value}
-            >
-              {upperValue.label}
-            </MenuItem>
-          )}
-          {!open && !upperValue && (
-            <MenuItem
-              key="none"
-              value="none"
-            >
-              Search
-            </MenuItem>
-          )}
-          {options.map((option) => (
-            <MenuItem
-              key={option.value}
-              value={option.value}
-              onClick={() => {
-                setOpen(false);
-                handleChange(option.value);
-              }}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </VirtualView>
-      </Select>
-    </FormControl>
+            sx={{
+              height: '100%',
+            }}
+          >
+            <CloseIcon />
+          </Button>
+        </Box>
+      )}
+    </Box>
   );
 };
 
