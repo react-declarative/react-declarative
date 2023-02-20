@@ -18,7 +18,7 @@ import useSingleton from '../../hooks/useSingleton';
 import useSubject from '../../hooks/useSubject';
 import throttle from '../../utils/hof/throttle';
 
-import { DEFAULT_ROW_WIDTH } from './config';
+import { DEFAULT_ROW_WIDTH, CELL_MARGIN } from './config';
 
 const createDefaultWidthFn = (columnsLength: number) => (fullWidth: number) => {
   const pendingWidth = Math.floor(fullWidth / columnsLength);
@@ -63,7 +63,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
   const columns = useMemo(
     () =>
       upperColumns.map(
-        ({ width: upperWidth = defaultWidthFn, minWidth, ...other }) => {
+        ({ width: upperWidth = defaultWidthFn, minWidth = 0, ...other }) => {
           let width = upperWidth;
           if (minWidth) {
             width = (fullWidth) => {
@@ -75,7 +75,11 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
                 typeof dimension === 'string'
                   ? parseFloat(dimension)
                   : dimension;
-              return Math.max(value, minWidth, DEFAULT_ROW_WIDTH, 0);
+              const adjust =
+                typeof upperWidth === 'function'
+                  ? CELL_MARGIN
+                  : 0;
+              return Math.max(value - adjust, minWidth, DEFAULT_ROW_WIDTH);
             };
           }
           return {
