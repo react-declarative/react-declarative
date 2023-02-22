@@ -8,6 +8,7 @@ import { SxProps } from "@mui/system";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import classNames from "../../utils/classNames";
+import useActualValue from "../../hooks/useActualValue";
 
 interface IInfiniteViewProps extends BoxProps {
   className?: string;
@@ -78,6 +79,9 @@ export const InfiniteView = ({
 
   const currentLoading = !!loading || upperLoading;
 
+  const currentLoading$ = useActualValue(currentLoading);
+  const hasMore$ = useActualValue(hasMore);
+
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
       return;
@@ -112,7 +116,10 @@ export const InfiniteView = ({
       }
       observer.current = new IntersectionObserver((entries) => {
         const [entry] = entries;
-        if (entry?.isIntersecting && hasMore && !isChildrenChanged.current) {
+        let isBottomReached = true;
+        isBottomReached = isBottomReached && hasMore$.current;
+        isBottomReached = isBottomReached && !currentLoading$.current;
+        if (entry?.isIntersecting && isBottomReached && !isChildrenChanged.current) {
           handleDataRequest(false);
         }
         isChildrenChanged.current = false;
