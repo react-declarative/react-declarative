@@ -228,6 +228,7 @@ export { SizeProvider } from './components';
 export { SnackProvider } from './components';
 
 export { Scaffold } from './components';
+export { Countdown } from './components';
 export { Search } from './components';
 export { Grid } from './components';
 export { Copy } from './components';

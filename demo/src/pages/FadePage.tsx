@@ -29,6 +29,7 @@ import {
   FieldType,
   useMediaContext,
   Search,
+  Countdown,
 } from "react-declarative";
 import { v4 as uuid } from "uuid";
 
@@ -420,6 +421,7 @@ export const FadePage = () => {
       />
       {render()}
       <RecordView sx={{ minHeight: "300px" }} withExpandAll data={recordData} />
+      <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
     </>
   );
 };
