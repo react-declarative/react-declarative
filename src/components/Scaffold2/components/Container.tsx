@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
+import { useMediaQuery, useTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 
@@ -8,8 +9,6 @@ import ThemeProvider from "./ThemeProvider";
 
 import Navigator from "./Navigator";
 import Header from "./Header";
-
-import useMediaContext from "../../../hooks/useMediaContext";
 
 import { IScaffold2InternalProps } from "../model/IScaffold2Props";
 import Payload from "../model/Payload";
@@ -34,15 +33,9 @@ export const Container = <T extends Payload = Payload>({
   children,
 }: IScaffold2InternalProps<T>) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const mediaContext = useMediaContext();
 
-  const isMobile = useMemo(() => {
-    let isMobile = false;
-    isMobile = isMobile || mediaContext.isPhone;
-    isMobile = isMobile || mediaContext.isTablet;
-    isMobile = isMobile || mediaContext.isDesktop;
-    return isMobile;
-  }, [mediaContext.isPhone, mediaContext.isTablet, mediaContext.isDesktop]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
 
   const handleDrawerToggle = () => {
     setMobileOpen((mobileOpen) => !mobileOpen);
@@ -64,7 +57,6 @@ export const Container = <T extends Payload = Payload>({
             <Navigator<T>
               PaperProps={{ style: { width: DRAWER_WIDTH } }}
               options={options}
-              activeOption={activeOption}
               payload={payload}
               appName={appName}
               variant="temporary"
@@ -74,22 +66,24 @@ export const Container = <T extends Payload = Payload>({
               onOptionClick={onOptionClick}
             />
           )}
-          <Navigator<T>
-            PaperProps={{ style: { width: DRAWER_WIDTH } }}
-            sx={{ display: { sm: "block", xs: "none" } }}
-            payload={payload}
-            options={options}
-            activeOption={activeOption}
-            appName={appName}
-            onOptionGroupClick={onOptionGroupClick}
-            onOptionClick={onOptionClick}
-          />
+          {!isMobile && (
+            <Navigator<T>
+              PaperProps={{ style: { width: DRAWER_WIDTH } }}
+              sx={{ display: { sm: "block", xs: "none" } }}
+              payload={payload}
+              options={options}
+              appName={appName}
+              onOptionGroupClick={onOptionGroupClick}
+              onOptionClick={onOptionClick}
+            />
+          )}
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <Header<T>
             payload={payload}
             options={options}
             actions={actions}
+            isMobile={isMobile}
             BeforeMenuContent={BeforeMenuContent}
             AfterMenuContent={AfterMenuContent}
             activeOption={activeOption}

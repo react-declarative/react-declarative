@@ -28,6 +28,7 @@ interface IHeaderProps<T = Payload> extends StackProps {
   style?: React.CSSProperties;
   sx?: SxProps;
   payload?: T;
+  isMobile: boolean;
   options: IScaffold2GroupInternal<T>[];
   actions?: IScaffold2Action<T>[];
   BeforeMenuContent?: React.ComponentType<any>;
@@ -43,6 +44,7 @@ export const Header = <T extends Payload = Payload>({
   sx,
   payload,
   options,
+  isMobile,
   activeOption,
   onDrawerToggle,
   onAction,
@@ -99,7 +101,7 @@ export const Header = <T extends Payload = Payload>({
         elevation={0}
         sx={{
           zIndex: 0,
-          pb: !!actions?.length ? 2 : 0,
+          pb: (!!actions?.length && !isMobile) ? 2 : 0,
         }}
       >
         <Toolbar>
@@ -167,7 +169,7 @@ export const Header = <T extends Payload = Payload>({
                   minWidth: 128,
                 }}
                 key={`${id}-${idx}`}
-                label={label}
+                label={label || idToLabel(id)}
                 disabled={disabled}
                 icon={Icon && <Icon />}
               />

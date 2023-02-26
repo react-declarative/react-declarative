@@ -44,6 +44,14 @@ const options: IScaffold2Group[] = [
             label: 'Tab2',
           },
         ],
+        options: [
+          {
+            id: 'tab1',
+          },
+          {
+            id: 'tab2',
+          }
+        ],
       },
       { id: 'Database', icon: DnsRoundedIcon, },
       { id: 'Storage', icon: PermMediaOutlinedIcon, },

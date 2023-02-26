@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { useTheme } from "@mui/material";
 import {
   ThemeProvider as MuiThemeProvider,
-  darken,
   createTheme,
 } from "@mui/material/styles";
 
@@ -18,13 +17,6 @@ export const ThemeProvider = ({ children }: IThemeProviderProvider) => {
     const theme = createTheme(upperTheme);
     theme.components = {
       ...theme.components,
-      MuiDrawer: {
-        styleOverrides: {
-          paper: {
-            backgroundColor: darken(theme.palette.background.paper, 0.06),
-          },
-        },
-      },
       MuiTabs: {
         styleOverrides: {
           root: {
