@@ -1,6 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 
-import { Scaffold, Switch, IMenuGroup, ISwitchItem, IScaffoldOption, SecretView } from 'react-declarative';
+import { Scaffold2, Switch, IScaffold2Group, ISwitchItem, IScaffoldOption, SecretView } from 'react-declarative';
 
 import SamplePage from './pages/SamplePage';
 import LayoutGrid from './pages/LayoutPage';
@@ -13,64 +14,63 @@ import FadePage from './pages/FadePage';
 import RevealPage from './pages/RevealPage';
 import MvvmPage from './pages/MvvmPage';
 
+import PeopleIcon from '@mui/icons-material/People';
+import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
+import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
+import PublicIcon from '@mui/icons-material/Public';
+import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
+import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
+import TimerIcon from '@mui/icons-material/Timer';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+
 import history from './history';
 
 import sleep from './utils/sleep';
 
-const options: IMenuGroup[] = [
+const options: IScaffold2Group[] = [
   {
-    label: 'Use cases',
-    lifted: true,
-    options: [
+    id: 'build',
+    children: [
       {
-        name: "layout-page",
-        label: 'Layout grid',
-        isVisible: async () => {
-          await sleep(5_000);
-          return true;
-        },
-      },
-      {
-        name: "validation-page",
-        label: 'Form validation',
-      },
-      {
-        name: "gallery-page",
-        label: 'Gallery of controls',
-      },
-      {
-        name: "sample-page",
-        label: 'Example page',
-      },
-      {
-        name: "hero-page",
-        label: 'Hero page',
-      },
-      {
-        name: "list-page",
-        label: 'List page',
-      },
-      {
-        name: "fade-page",
-        label: 'Fade page',
-      },
-      {
-        name: "reveal-page",
-        label: 'Reveal page',
-      },
-      {
-        name: "mvvm-page",
-        label: 'Mvvm page',
-      },
-      {
-        label: 'Test group',
+        id: 'authentication',
+        icon: PeopleIcon,
+        tabs: [
+          {
+            id: 'tab1',
+            label: 'Tab1',
+          },
+          {
+            id: 'tab2',
+            label: 'Tab2',
+          },
+        ],
         options: [
           {
-            name: "test-page",
-            label: 'Test page',
+            id: 'tab1',
           },
-        ]
+          {
+            id: 'tab2',
+          }
+        ],
       },
+      { id: 'Database', icon: DnsRoundedIcon, },
+      { id: 'Storage', icon: PermMediaOutlinedIcon, },
+      { id: 'Hosting', icon: PublicIcon, },
+      { id: 'Functions', icon: SettingsEthernetIcon, },
+      {
+        id: 'Machine learning',
+        icon: SettingsInputComponentIcon,
+      },
+    ],
+    
+  },
+  {
+    id: 'Quality',
+    children: [
+      { id: 'Analytics', icon: SettingsIcon, },
+      { id: 'Performance', icon: TimerIcon, },
+      { id: 'Test Lab', icon: PhonelinkSetupIcon, },
     ],
   },
 ];
@@ -141,16 +141,20 @@ const actions: IScaffoldOption[] = [
 
 const App = () => {
 
+  const [activeTabId, setActiveTabId] = useState("tab1");
+
   const handleOptionClick = (path: string) => history.push(`/${path}`);
 
   return (
     <SecretView enabled={false} onCode={console.log}>
-      <Scaffold
-        dense
-        title="Scaffold"
+      <Scaffold2
+        activeOptionPath="root.build.authentication"
+        activeTabId={activeTabId}
+        appName="Scaffold"
         options={options}
         actions={actions}
         onOptionClick={handleOptionClick}
+        onTabChange={(_, tabId) => setActiveTabId(tabId)}
         AfterMenuContent={() => <p>123</p>}
       >
         <Switch
@@ -159,7 +163,7 @@ const App = () => {
           history={history}
           items={routes}
         />
-      </Scaffold>
+      </Scaffold2>
     </SecretView>
   );
 };
