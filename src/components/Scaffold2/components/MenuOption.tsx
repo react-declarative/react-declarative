@@ -9,12 +9,15 @@ import OptionItem from "./OptionItem";
 import { IScaffold2OptionInternal } from "../model/IScaffold2Option";
 
 import useStateContext from "../context/StateContext";
+import useActualCallback from "../../../hooks/useActualCallback";
 
 interface IMenuOptionProps {
   option: IScaffold2OptionInternal | IScaffold2OptionInternal[];
   disabled?: boolean;
   paddingLeft?: number;
-  onClick: (name: string) => void;
+  activeOptionPath: string;
+  onClick: (path: string, id: string) => void;
+  onGroupClick: (path: string, id: string) => void;
 }
 
 const PADDING_LEFT_STEP = 12;
@@ -28,22 +31,28 @@ const MenuGroup = ({
   option,
   currentPadding,
   disabled,
+  activeOptionPath,
   onClick,
+  onGroupClick,
 }: {
   option: Required<IScaffold2OptionInternal>;
-  onClick: (name: string) => void;
+  activeOptionPath: string;
+  onClick: (path: string, id: string) => void;
+  onGroupClick: (path: string, id: string) => void;
   disabled: boolean;
   currentPadding: number;
 }) => {
   const upperLifted = useLifted();
 
-  const [lifted, setLifted] = useState(option.lifted || false);
+  const computeLifted = useActualCallback(() => option.lifted || activeOptionPath.includes(option.path));
+
+  const [lifted, setLifted] = useState(computeLifted());
 
   useEffect(() => {
     if (upperLifted) {
       setLifted(true);
     } else {
-      setLifted(option.lifted || false);
+      setLifted(computeLifted());
     }
   }, [upperLifted]);
 
@@ -53,6 +62,7 @@ const MenuGroup = ({
 
   const handleClick = () => {
     setLifted((lifted) => !lifted);
+    onGroupClick(option.path, option.id);
   };
 
   if (!option.visible) {
@@ -68,6 +78,7 @@ const MenuGroup = ({
           disabled: option.disabled || disabled,
           icon,
         }}
+        activeOptionPath={activeOptionPath}
         onClick={handleClick}
         currentPadding={currentPadding}
       />
@@ -75,8 +86,10 @@ const MenuGroup = ({
         <MenuOption
           option={option.options}
           paddingLeft={currentPadding}
+          activeOptionPath={activeOptionPath}
           disabled={disabled}
           onClick={onClick}
+          onGroupClick={onGroupClick}
         />
       )}
     </React.Fragment>
@@ -87,7 +100,9 @@ export const MenuOption = ({
   paddingLeft = -PADDING_LEFT_STEP,
   option,
   disabled = false,
+  activeOptionPath,
   onClick,
+  onGroupClick,
 }: IMenuOptionProps) => {
 
   const options = useMemo(() => Array.isArray(option) ? option : [option], [option]);
@@ -101,7 +116,9 @@ export const MenuOption = ({
           <MenuGroup
             key={`${option.id}-${idx}`}
             option={option as Required<IScaffold2OptionInternal>}
+            activeOptionPath={activeOptionPath}
             disabled={disabled}
+            onGroupClick={onGroupClick}
             onClick={onClick}
             currentPadding={currentPadding}
           />
@@ -114,6 +131,7 @@ export const MenuOption = ({
               ...option,
               disabled: disabled || option.disabled,
             }}
+            activeOptionPath={activeOptionPath}
             onClick={onClick}
             currentPadding={currentPadding}
           />

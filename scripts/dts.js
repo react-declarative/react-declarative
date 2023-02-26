@@ -11,9 +11,9 @@ dts.bundle({
     main: 'dist/types/index.d.ts',
 });
 
-const typedef = minifier.minify(fs.readFileSync('dist/types/react-declarative.d.ts').toString());
-
-fs.writeFileSync('dist/types/react-declarative.d.ts', typedef);
+// @description remove this comment to enable d.ts minification
+// const typedef = minifier.minify(fs.readFileSync('dist/types/react-declarative.d.ts').toString());
+// fs.writeFileSync('dist/types/react-declarative.d.ts', typedef);
 
 fs.copyFileSync(
     'dist/types/react-declarative.d.ts',

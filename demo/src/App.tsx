@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 import { Scaffold2, Switch, IScaffold2Group, ISwitchItem, IScaffoldOption, SecretView } from 'react-declarative';
 
@@ -29,10 +30,10 @@ import sleep from './utils/sleep';
 
 const options: IScaffold2Group[] = [
   {
-    id: 'Build',
+    id: 'build',
     children: [
       {
-        id: 'Authentication',
+        id: 'authentication',
         icon: PeopleIcon,
         tabs: [
           {
@@ -140,16 +141,20 @@ const actions: IScaffoldOption[] = [
 
 const App = () => {
 
+  const [activeTabId, setActiveTabId] = useState("tab1");
+
   const handleOptionClick = (path: string) => history.push(`/${path}`);
 
   return (
     <SecretView enabled={false} onCode={console.log}>
       <Scaffold2
-        activeOption="Authentication"
+        activeOptionPath="root.build.authentication"
+        activeTabId={activeTabId}
         appName="Scaffold"
         options={options}
         actions={actions}
         onOptionClick={handleOptionClick}
+        onTabChange={(_, tabId) => setActiveTabId(tabId)}
         AfterMenuContent={() => <p>123</p>}
       >
         <Switch

@@ -33,11 +33,12 @@ const itemCategory = {
 interface INavigatorProps<T = Payload> extends DrawerProps {
   appName?: string;
   payload?: T;
+  activeOptionPath: string;
   options: IScaffold2GroupInternal<T>[];
   BeforeSearch?: React.ComponentType<any>;
   AfterSearch?: React.ComponentType<any>;
-  onOptionClick?: (name: string) => void;
-  onOptionGroupClick?: (name: string) => void;
+  onOptionClick?: (path: string, id: string) => void;
+  onOptionGroupClick?: (path: string, id: string) => void;
 }
 
 export const Navigator = <T extends Payload = Payload>({
@@ -45,6 +46,7 @@ export const Navigator = <T extends Payload = Payload>({
   options,
   appName,
   payload,
+  activeOptionPath,
   BeforeSearch,
   AfterSearch,
   onOptionClick = () => undefined,
@@ -109,7 +111,7 @@ export const Navigator = <T extends Payload = Payload>({
         {options
           .filter(({ visible }) => visible)
           .map(
-            ({ id, label, disabled: upperDisabled, icon: Icon, children }) => (
+            ({ id, path, label, disabled: upperDisabled, icon: Icon, children }) => (
               <Box
                 key={id}
                 sx={{
@@ -118,7 +120,7 @@ export const Navigator = <T extends Payload = Payload>({
               >
                 <ListItem sx={{ py: 2, px: 3 }}>
                   <ListItemButton
-                    onClick={() => onOptionGroupClick(id)}
+                    onClick={() => onOptionGroupClick(path, id)}
                     disabled={upperDisabled}
                     sx={{
                       pointerEvents: "none",
@@ -141,8 +143,10 @@ export const Navigator = <T extends Payload = Payload>({
                   .map((option, idx) => (
                     <MenuOption
                       key={`${option.id}-${idx}`}
+                      activeOptionPath={activeOptionPath}
                       option={option}
                       onClick={onOptionClick}
+                      onGroupClick={onOptionGroupClick}
                     />
                   )
                 )}

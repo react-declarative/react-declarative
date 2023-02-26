@@ -20,8 +20,9 @@ interface IOptionItemProps {
   style?: React.CSSProperties;
   sx?: SxProps;
   option: IScaffold2OptionInternal;
+  activeOptionPath: string;
   currentPadding: number;
-  onClick: (name: string) => void;
+  onClick: (path: string, id: string) => void;
 }
 
 export const OptionItem = ({
@@ -30,6 +31,7 @@ export const OptionItem = ({
   sx,
   option,
   onClick,
+  activeOptionPath,
   currentPadding: paddingLeft,
 }: IOptionItemProps) => {
   const Icon = option.icon || OutlinedFlag;
@@ -42,8 +44,8 @@ export const OptionItem = ({
     >
       <ListItemButton
         disabled={option.disabled}
-        selected={option.selected}
-        onClick={() => onClick(option.id)}
+        selected={option.path === activeOptionPath}
+        onClick={() => onClick(option.path, option.id)}
         sx={{
           overfloxX: 'hidden',
           maxWidth: DRAWER_WIDTH,

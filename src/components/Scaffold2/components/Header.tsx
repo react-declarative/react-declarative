@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { SxProps } from "@mui/system";
 
 import IconButton from "@mui/material/IconButton";
@@ -15,10 +15,12 @@ import Typography from "@mui/material/Typography";
 import ActionMenu from "../../ActionMenu";
 
 import { IScaffold2GroupInternal } from "../model/IScaffold2Group";
+import { IScaffold2TabInternal } from "../model/IScaffold2Tab";
+
 import IScaffold2Action from "../model/IScaffold2Action";
 import Payload from "../model/Payload";
 
-import randomString from "../../../utils/randomString";
+import deepFlat from "../utils/deepFlat";
 import idToLabel from "../utils/idToLabel";
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -33,9 +35,11 @@ interface IHeaderProps<T = Payload> extends StackProps {
   actions?: IScaffold2Action<T>[];
   BeforeMenuContent?: React.ComponentType<any>;
   AfterMenuContent?: React.ComponentType<any>;
-  activeOption: string;
+  activeOptionPath: string;
+  activeTabId: string;
   onDrawerToggle: () => void;
   onAction?: (name: string) => void;
+  onTabChange?: (path: string, tab: string, id: string) => void;
 }
 
 export const Header = <T extends Payload = Payload>({
@@ -45,36 +49,34 @@ export const Header = <T extends Payload = Payload>({
   payload,
   options,
   isMobile,
-  activeOption,
+  activeOptionPath,
+  activeTabId,
   onDrawerToggle,
   onAction,
+  onTabChange,
   BeforeMenuContent,
   AfterMenuContent,
   actions = [],
   ...otherProps
 }: IHeaderProps<T>) => {
-  const [tabIndex, setTabIndex] = useState(0);
-
-  const { id, label, tabs } = useMemo(() => {
-    const totalOptions = options.flatMap(({ children }) => children);
+  const { id, path, label, tabs } = useMemo(() => {
+    const totalOptions = deepFlat(options);
     const {
-      id = randomString(),
+      id = "unknown",
+      path = "unknown",
       label = idToLabel(id),
       tabs = [],
-    } = totalOptions.find(({ id }) => activeOption === id) || {};
+    } = totalOptions.find(({ path }) => activeOptionPath === path) || {};
     return {
       id,
+      path,
       label,
-      tabs,
+      tabs: tabs as IScaffold2TabInternal[],
     };
-  }, [activeOption, options]);
+  }, [activeOptionPath, options]);
 
-  useEffect(() => {
-    setTabIndex(0);
-  }, [id]);
-
-  const handleChange = useCallback((_: any, tabIndex: number) => {
-    setTabIndex(tabIndex);
+  const handleTabChange = useCallback((tabId: string) => {
+    onTabChange && onTabChange(path, tabId, id);
   }, []);
 
   return (
@@ -101,7 +103,7 @@ export const Header = <T extends Payload = Payload>({
         elevation={0}
         sx={{
           zIndex: 0,
-          pb: (!!actions?.length && !isMobile) ? 2 : 0,
+          pb: (!!tabs?.length && !isMobile) ? 2 : 0,
         }}
       >
         <Toolbar>
@@ -158,8 +160,7 @@ export const Header = <T extends Payload = Payload>({
           sx={{ zIndex: 0 }}
         >
           <Tabs
-            value={tabIndex}
-            onChange={handleChange}
+            value={activeTabId}
             textColor="inherit"
             indicatorColor="secondary"
           >
@@ -171,7 +172,9 @@ export const Header = <T extends Payload = Payload>({
                       minWidth: 128,
                     }}
                     key={`${id}-${idx}`}
+                    value={id}
                     label={label || idToLabel(id)}
+                    onClick={() => handleTabChange(id)}
                     disabled={disabled}
                     icon={Icon && <Icon />}
                   />

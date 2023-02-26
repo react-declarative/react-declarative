@@ -20,7 +20,8 @@ export const Container = <T extends Payload = Payload>({
   style,
   sx,
   options,
-  activeOption,
+  activeOptionPath,
+  activeTabId,
   actions,
   payload,
   appName,
@@ -29,6 +30,7 @@ export const Container = <T extends Payload = Payload>({
   Copyright,
   onOptionGroupClick,
   onOptionClick,
+  onTabChange,
   onAction,
   children,
 }: IScaffold2InternalProps<T>) => {
@@ -56,6 +58,7 @@ export const Container = <T extends Payload = Payload>({
           {isMobile && (
             <Navigator<T>
               PaperProps={{ style: { width: DRAWER_WIDTH } }}
+              activeOptionPath={activeOptionPath}
               options={options}
               payload={payload}
               appName={appName}
@@ -70,6 +73,7 @@ export const Container = <T extends Payload = Payload>({
             <Navigator<T>
               PaperProps={{ style: { width: DRAWER_WIDTH } }}
               sx={{ display: { sm: "block", xs: "none" } }}
+              activeOptionPath={activeOptionPath}
               payload={payload}
               options={options}
               appName={appName}
@@ -86,8 +90,10 @@ export const Container = <T extends Payload = Payload>({
             isMobile={isMobile}
             BeforeMenuContent={BeforeMenuContent}
             AfterMenuContent={AfterMenuContent}
-            activeOption={activeOption}
+            activeOptionPath={activeOptionPath}
+            activeTabId={activeTabId}
             onDrawerToggle={handleDrawerToggle}
+            onTabChange={onTabChange}
             onAction={onAction}
           />
           <Box component="main" sx={{ flex: 1, p: 1 }}>
