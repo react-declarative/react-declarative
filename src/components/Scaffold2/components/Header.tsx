@@ -163,17 +163,20 @@ export const Header = <T extends Payload = Payload>({
             textColor="inherit"
             indicatorColor="secondary"
           >
-            {tabs.map(({ id, label, icon: Icon, disabled }, idx) => (
-              <Tab
-                sx={{
-                  minWidth: 128,
-                }}
-                key={`${id}-${idx}`}
-                label={label || idToLabel(id)}
-                disabled={disabled}
-                icon={Icon && <Icon />}
-              />
-            ))}
+              {tabs
+                .filter(({ visible }) => visible)
+                .map(({ id, label, icon: Icon, disabled }, idx) => (
+                  <Tab
+                    sx={{
+                      minWidth: 128,
+                    }}
+                    key={`${id}-${idx}`}
+                    label={label || idToLabel(id)}
+                    disabled={disabled}
+                    icon={Icon && <Icon />}
+                  />
+                )
+              )}
           </Tabs>
         </AppBar>
       )}

@@ -19,6 +19,7 @@ export interface IScaffold2OptionInternal<T = Payload> extends Omit<IScaffold2Op
     options: never;
     tabs: never;
 }> {
+    path: string;
     visible: boolean;
     disabled: boolean;
     selected: boolean;

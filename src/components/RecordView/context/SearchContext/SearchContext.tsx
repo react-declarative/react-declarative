@@ -68,7 +68,7 @@ export const SearchProvider = ({
     () =>
       deepFlat(upperData)
         .map(({ path }) =>
-          path.startsWith("root.") ? path.replace("root.", "") : path
+          path.startsWith("root.") ? path.slice(5) : path
         )
         .filter((path) => path !== "root")
         .filter((path) => {

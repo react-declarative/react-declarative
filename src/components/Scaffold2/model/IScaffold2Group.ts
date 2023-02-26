@@ -17,6 +17,7 @@ export interface IScaffold2GroupInternal<T = Payload> extends Omit<IScaffold2Gro
     isDisabled: never;
     children: never;
 }> {
+    path: string;
     visible: boolean;
     disabled: boolean;
     children: IScaffold2OptionInternal<T>[];

@@ -6,9 +6,9 @@ import LessIcon from "@mui/icons-material/ExpandLess";
 
 import OptionItem from "./OptionItem";
 
-// import useLifted from '../hooks/useLifted';
-
 import { IScaffold2OptionInternal } from "../model/IScaffold2Option";
+
+import useStateContext from "../context/StateContext";
 
 interface IMenuOptionProps {
   option: IScaffold2OptionInternal | IScaffold2OptionInternal[];
@@ -19,7 +19,10 @@ interface IMenuOptionProps {
 
 const PADDING_LEFT_STEP = 12;
 
-const useLifted = () => false;
+const useLifted = () => {
+  const { searchText } = useStateContext();
+  return !!searchText;
+};
 
 const MenuGroup = ({
   option,
@@ -51,6 +54,10 @@ const MenuGroup = ({
   const handleClick = () => {
     setLifted((lifted) => !lifted);
   };
+
+  if (!option.visible) {
+    return null;
+  }
 
   return (
     <React.Fragment>
@@ -85,32 +92,36 @@ export const MenuOption = ({
 
   const options = useMemo(() => Array.isArray(option) ? option : [option], [option]);
 
-  const child = options.map((option, idx) => {
-    const currentPadding = paddingLeft + PADDING_LEFT_STEP;
-    if (option.options?.length) {
-      return (
-        <MenuGroup
-          key={`${option.id}-${idx}`}
-          option={option as Required<IScaffold2OptionInternal>}
-          disabled={disabled}
-          onClick={onClick}
-          currentPadding={currentPadding}
-        />
-      );
-    } else {
-      return (
-        <OptionItem
-          key={`${option.id}-${idx}`}
-          option={{
-            ...option,
-            disabled: disabled || option.disabled,
-          }}
-          onClick={onClick}
-          currentPadding={currentPadding}
-        />
-      );
-    }
-  });
+  const child = options
+    .filter((option) => option.visible)
+    .map((option, idx) => {
+      const currentPadding = paddingLeft + PADDING_LEFT_STEP;
+      if (option.options?.length) {
+        return (
+          <MenuGroup
+            key={`${option.id}-${idx}`}
+            option={option as Required<IScaffold2OptionInternal>}
+            disabled={disabled}
+            onClick={onClick}
+            currentPadding={currentPadding}
+          />
+        );
+      } else if (option.visible) {
+        return (
+          <OptionItem
+            key={`${option.id}-${idx}`}
+            option={{
+              ...option,
+              disabled: disabled || option.disabled,
+            }}
+            onClick={onClick}
+            currentPadding={currentPadding}
+          />
+        );
+      } else {
+        return null;
+      }
+    });
 
   return <>{child}</>;
 };

@@ -24,6 +24,11 @@ export interface IScaffold2Props<T = Payload> {
     onOptionClick?: (name: string) => void;
     onOptionGroupClick?: (name: string) => void;
     children: React.ReactNode;
+    onInit?: () => (void | Promise<void>);
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (e: Error) => void;
+    throwError?: boolean;
 }
 
 export interface IScaffold2InternalProps<T = Payload> extends Omit<IScaffold2Props<T>, keyof {

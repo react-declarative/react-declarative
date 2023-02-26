@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useState } from "react";
 import { SxProps } from "@mui/system";
 
 import InputBase from "@mui/material/InputBase";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
+
+import useStateContext from "../context/StateContext";
 
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -19,7 +20,7 @@ export const Search = ({
   style,
   sx,
 }: ISearchProps) => {
-  const [filterText, setFilterText] = useState("");
+  const { searchText, setSearchText } = useStateContext();
   return (
     <InputBase
       className={className}
@@ -29,14 +30,14 @@ export const Search = ({
         ...sx
       }}
       fullWidth
-      onChange={({ target }) => setFilterText(target.value.toString())}
-      value={filterText}
+      onChange={({ target }) => setSearchText(target.value.toString())}
+      value={searchText}
       placeholder="Search"
       autoComplete="off"
-      endAdornment={!!filterText ? (
+      endAdornment={!!searchText ? (
         <InputAdornment position="end">
           <div style={{ marginRight: -10 }}>
-            <IconButton onClick={() => setFilterText("")}>
+            <IconButton onClick={() => setSearchText("")}>
               <CloseIcon />
             </IconButton>
           </div>

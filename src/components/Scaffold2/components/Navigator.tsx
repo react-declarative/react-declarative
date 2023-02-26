@@ -96,45 +96,60 @@ export const Navigator = <T extends Payload = Payload>({
             <AfterSearch payload={payload} />
           </ListItem>
         )}
-        {options.map(
-          ({ id, label, disabled: upperDisabled, icon: Icon, children }) => (
-            <Box
-              key={id}
-              sx={{
-                bgcolor: (theme: Theme) => theme.palette.background.paper,
-              }}
-            >
-              <ListItem sx={{ py: 2, px: 3 }}>
-                <ListItemButton
-                  onClick={() => onOptionGroupClick(id)}
-                  disabled={upperDisabled}
-                  sx={{
-                    pointerEvents: "none",
-                    touchAction: "none",
-                  }}
-                  disableTouchRipple
-                  disableRipple
-                  disableGutters
-                >
-                  {!!Icon && (
-                    <ListItemIcon>
-                      <Icon />
-                    </ListItemIcon>
-                  )}
-                  <ListItemText>{label || idToLabel(id)}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-              {children.map((option, idx) => (
-                <MenuOption
-                  key={`${option.id}-${idx}`}
-                  option={option}
-                  onClick={onOptionClick}
-                />
-              ))}
-              <Divider sx={{ mt: 2 }} />
-            </Box>
-          )
+        {!options.some(({ visible }) => visible) && (
+          <ListItem
+            disablePadding
+            sx={{ py: 2, px: 3 }}
+          >
+            <ListItemText>
+              Nothing found
+            </ListItemText>
+          </ListItem>
         )}
+        {options
+          .filter(({ visible }) => visible)
+          .map(
+            ({ id, label, disabled: upperDisabled, icon: Icon, children }) => (
+              <Box
+                key={id}
+                sx={{
+                  bgcolor: (theme: Theme) => theme.palette.background.paper,
+                }}
+              >
+                <ListItem sx={{ py: 2, px: 3 }}>
+                  <ListItemButton
+                    onClick={() => onOptionGroupClick(id)}
+                    disabled={upperDisabled}
+                    sx={{
+                      pointerEvents: "none",
+                      touchAction: "none",
+                    }}
+                    disableTouchRipple
+                    disableRipple
+                    disableGutters
+                  >
+                    {!!Icon && (
+                      <ListItemIcon>
+                        <Icon />
+                      </ListItemIcon>
+                    )}
+                    <ListItemText>{label || idToLabel(id)}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+                {children
+                  .filter(({ visible }) => visible)
+                  .map((option, idx) => (
+                    <MenuOption
+                      key={`${option.id}-${idx}`}
+                      option={option}
+                      onClick={onOptionClick}
+                    />
+                  )
+                )}
+                <Divider sx={{ mt: 2 }} />
+              </Box>
+            )
+          )}
       </List>
     </Paper>
   </Drawer>
