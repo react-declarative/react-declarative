@@ -3,6 +3,7 @@ export * from './List';
 export * from './NoSsr';
 export * from './Switch';
 export * from './Scaffold';
+export * from './Scaffold2';
 export * from './Translate';
 export * from './Breadcrumbs';
 export * from './ErrorBoundary';

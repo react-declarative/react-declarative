@@ -227,7 +227,19 @@ export { ModalProvider } from './components';
 export { SizeProvider } from './components';
 export { SnackProvider } from './components';
 
+import { IScaffold2Option as IScaffold2OptionInternal } from './components/Scaffold2';
+import { IScaffold2Action as IScaffold2ActionInternal } from './components/Scaffold2';
+import { IScaffold2Group as IScaffold2GroupInternal } from './components/Scaffold2';
+import { IScaffold2Tab as IScaffold2TabInternal } from './components/Scaffold2';
+
+export type IScaffold2Action<T = any> = IScaffold2ActionInternal<T>;
+export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
+export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
+export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
+
 export { Scaffold } from './components';
+export { Scaffold2 } from './components';
+
 export { Countdown } from './components';
 export { Search } from './components';
 export { Grid } from './components';
