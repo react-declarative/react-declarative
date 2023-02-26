@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 
-import { alpha } from "@mui/material";
+import { SxProps, alpha, Theme } from "@mui/material";
 import { makeStyles } from "../../styles";
 
 import classNames from "../../utils/classNames";
@@ -34,6 +34,7 @@ export interface IActionMenuProps<T extends any = object> {
   throwError?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  sx?: SxProps;
   payload?: IAsyncProps<T>["payload"];
   onLoadStart?: IAsyncProps<T>["onLoadStart"];
   onLoadEnd?: IAsyncProps<T>["onLoadEnd"];
@@ -43,17 +44,9 @@ export interface IActionMenuProps<T extends any = object> {
 
 const MENU_MIN_WIDTH = 225;
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()({
   root: {
     zIndex: "unset !important",
-  },
-  transparent: {
-    boxShadow: "none !important",
-    background: "transparent !important",
-    color: `${alpha(
-      theme.palette.getContrastText(theme.palette.background.default),
-      0.4
-    )} !important`,
   },
   container: {
     position: "relative",
@@ -97,7 +90,7 @@ const useStyles = makeStyles()((theme) => ({
       flex: 1,
     },
   },
-}));
+});
 
 export const ActionMenu = <T extends any = object>({
   options = [],
@@ -110,6 +103,7 @@ export const ActionMenu = <T extends any = object>({
   payload,
   className,
   style,
+  sx,
   onLoadStart,
   onLoadEnd,
   keepMounted,
@@ -162,9 +156,19 @@ export const ActionMenu = <T extends any = object>({
     <>
       <Fab
         ref={targetRef}
-        className={classNames(className, classes.root, {
-          [classes.transparent]: transparent,
-        })}
+        className={classNames(className, classes.root)}
+        style={style}
+        sx={{
+          ...(transparent ? ({
+            boxShadow: "none !important",
+            background: "transparent !important",
+            color: (theme: Theme) => `${alpha(
+              theme.palette.getContrastText(theme.palette.background.default),
+              0.4
+            )} !important`,
+          }) : undefined),
+          ...sx,
+        }}
         disableFocusRipple={transparent}
         disableRipple={transparent}
         disabled={disabled}
@@ -173,7 +177,6 @@ export const ActionMenu = <T extends any = object>({
         aria-label="more"
         aria-haspopup="true"
         onClick={handleFocus}
-        style={style}
       >
         <MoreVertIcon color="inherit" />
       </Fab>
