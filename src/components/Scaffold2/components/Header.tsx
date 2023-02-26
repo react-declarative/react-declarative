@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useEffect } from "react";
 import { SxProps } from "@mui/system";
 
 import IconButton from "@mui/material/IconButton";
@@ -75,9 +75,18 @@ export const Header = <T extends Payload = Payload>({
     };
   }, [activeOptionPath, options]);
 
+  useEffect(() => {
+    const availableTabs = tabs
+      .filter(({ visible }) => visible)
+      .filter(({ disabled }) => !disabled);
+    if (!!availableTabs.length && !availableTabs.some(({ id }) => activeTabId === id)) {
+      onTabChange && onTabChange(path, availableTabs[0].id, id);
+    }
+  }, [activeTabId, tabs]);
+
   const handleTabChange = useCallback((tabId: string) => {
     onTabChange && onTabChange(path, tabId, id);
-  }, []);
+  }, [path, id]);
 
   return (
     <Stack
