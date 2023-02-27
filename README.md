@@ -312,7 +312,7 @@ return (
 
 ```
 
-<img src="./assets/icons/chaos.svg" height="35px" align="right">
+<img src="./assets/icons/cosmos.svg" height="35px" align="right">
 
 ## DOM Frames with infinite scroll and `transparent-api virtualization`
 
