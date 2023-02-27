@@ -40,7 +40,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 
 This tool also provide it's own way of rapid application development by simplifying app state managament. New features appear frequently, so you should be able to [read the project's storybook](https://github.com/react-declarative/react-declarative-storybook), browse [an organization with sample projects](https://github.com/react-declarative), and [read the source code](https://github.com/react-declarative/react-declarative).
 
-<img src="./assets/icons/fallen.svg" height="45px" align="right">
+<img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
 
