@@ -12,6 +12,8 @@ import Payload from './model/Payload';
 export const Scaffold2 = <T extends Payload = Payload>({
     children,
     appName = "Scaffold2",
+    noSearch = false,
+    noAppName = false,
     onInit,
     onLoadStart,
     onLoadEnd,
@@ -41,6 +43,8 @@ export const Scaffold2 = <T extends Payload = Payload>({
         <StateContextProvider value={stateContext}>
             <Container<T>
                 appName={appName}
+                noSearch={noSearch}
+                noAppName={noAppName}
                 payload={payload}
                 options={stateContext.filteredGroups}
                 {...otherProps}

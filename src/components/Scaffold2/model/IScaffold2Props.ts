@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { SxProps } from "@mui/system";
 
@@ -7,10 +7,12 @@ import IScaffold2Action from "./IScaffold2Action";
 import Payload from "./Payload";
 
 export interface IScaffold2Props<T = Payload> {
+    noAppName?: boolean;
+    noSearch?: boolean;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
-    appName?: string;
+    appName?: React.ReactNode;
     options: IScaffold2Group<T>[];
     actions?: IScaffold2Action<T>[];
     payload?: T;

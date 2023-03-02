@@ -301,7 +301,7 @@ declare module 'react-declarative' {
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
     export { singleshot } from 'react-declarative/utils/hof/singleshot';
-    export { cancelable } from 'react-declarative/utils/hof/cancelable';
+    export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
     export { cached } from 'react-declarative/utils/hof/cached';
@@ -2120,9 +2120,10 @@ declare module 'react-declarative/utils/hof/singleshot' {
 
 declare module 'react-declarative/utils/hof/cancelable' {
     export interface IWrappedFn<T extends any = any, P extends any[] = any> {
-        (...args: P): Promise<T>;
+        (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
         cancel(): void;
     }
+    export const CANCELED_SYMBOL: unique symbol;
     export const cancelable: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default cancelable;
 }
@@ -3511,7 +3512,7 @@ declare module 'react-declarative/components/Translate/Translate' {
 
 declare module 'react-declarative/components/Scaffold2/Scaffold2' {
     import IScaffold2Props from 'react-declarative/components/Scaffold2/model/IScaffold2Props';
-    export const Scaffold2: <T extends unknown = any>({ children, appName, onInit, onLoadStart, onLoadEnd, fallback, options, payload, throwError, Loader, ...otherProps }: IScaffold2Props<T>) => JSX.Element;
+    export const Scaffold2: <T extends unknown = any>({ children, appName, noSearch, noAppName, onInit, onLoadStart, onLoadEnd, fallback, options, payload, throwError, Loader, ...otherProps }: IScaffold2Props<T>) => JSX.Element;
     export default Scaffold2;
 }
 
@@ -4970,16 +4971,18 @@ declare module 'react-declarative/components/RecordView/model/IRecordViewProps' 
 }
 
 declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
-    import React from "react";
+    import * as React from "react";
     import { SxProps } from "@mui/system";
     import IScaffold2Group, { IScaffold2GroupInternal } from "react-declarative/components/Scaffold2/model/IScaffold2Group";
     import IScaffold2Action from "react-declarative/components/Scaffold2/model/IScaffold2Action";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
     export interface IScaffold2Props<T = Payload> {
+        noAppName?: boolean;
+        noSearch?: boolean;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
-        appName?: string;
+        appName?: React.ReactNode;
         options: IScaffold2Group<T>[];
         actions?: IScaffold2Action<T>[];
         payload?: T;

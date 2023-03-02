@@ -25,6 +25,8 @@ export const Container = <T extends Payload = Payload>({
   actions,
   payload,
   appName,
+  noAppName,
+  noSearch,
   BeforeMenuContent,
   AfterMenuContent,
   Copyright,
@@ -62,6 +64,8 @@ export const Container = <T extends Payload = Payload>({
               options={options}
               payload={payload}
               appName={appName}
+              noAppName={noAppName}
+              noSearch={noSearch}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
@@ -77,6 +81,8 @@ export const Container = <T extends Payload = Payload>({
               payload={payload}
               options={options}
               appName={appName}
+              noAppName={noAppName}
+              noSearch={noSearch}
               onOptionGroupClick={onOptionGroupClick}
               onOptionClick={onOptionClick}
             />

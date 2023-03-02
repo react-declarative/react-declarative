@@ -31,7 +31,9 @@ const itemCategory = {
 };
 
 interface INavigatorProps<T = Payload> extends DrawerProps {
-  appName?: string;
+  appName?: React.ReactNode;
+  noAppName?: boolean;
+  noSearch?: boolean;
   payload?: T;
   activeOptionPath: string;
   options: IScaffold2GroupInternal<T>[];
@@ -45,6 +47,8 @@ export const Navigator = <T extends Payload = Payload>({
   sx,
   options,
   appName,
+  noAppName,
+  noSearch,
   payload,
   activeOptionPath,
   BeforeSearch,
@@ -66,52 +70,58 @@ export const Navigator = <T extends Payload = Payload>({
     <Paper
       sx={{
         flex: 1,
-        bgColor: (theme: Theme) => darken(theme.palette.background.paper, 0.06)
+        bgColor: (theme: Theme) => darken(theme.palette.background.paper, 0.06),
       }}
     >
       <List disablePadding>
-        <ListItem
-          sx={{
-            ...itemCategory,
-            py: 2,
-            fontSize: 22,
-            bgcolor: (theme: Theme) => theme.palette.background.paper,
-          }}
-        >
-          {appName}
-        </ListItem>
+        {!noAppName && (
+          <ListItem
+            sx={{
+              ...itemCategory,
+              py: 2,
+              fontSize: 22,
+              bgcolor: (theme: Theme) => theme.palette.background.paper,
+            }}
+          >
+            {appName}
+          </ListItem>
+        )}
         {BeforeSearch && (
           <ListItem>
             <BeforeSearch payload={payload} />
           </ListItem>
         )}
-        <ListItem sx={itemCategory}>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText>
-            <Search />
-          </ListItemText>
-        </ListItem>
+        {!noSearch && (
+          <ListItem sx={itemCategory}>
+            <ListItemIcon>
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Search />
+            </ListItemText>
+          </ListItem>
+        )}
         {AfterSearch && (
           <ListItem>
             <AfterSearch payload={payload} />
           </ListItem>
         )}
         {!options.some(({ visible }) => visible) && (
-          <ListItem
-            disablePadding
-            sx={{ py: 2, px: 3 }}
-          >
-            <ListItemText>
-              Nothing found
-            </ListItemText>
+          <ListItem disablePadding sx={{ py: 2, px: 3 }}>
+            <ListItemText>Nothing found</ListItemText>
           </ListItem>
         )}
         {options
           .filter(({ visible }) => visible)
           .map(
-            ({ id, path, label, disabled: upperDisabled, icon: Icon, children }) => (
+            ({
+              id,
+              path,
+              label,
+              disabled: upperDisabled,
+              icon: Icon,
+              children,
+            }) => (
               <Box
                 key={id}
                 sx={{
@@ -148,8 +158,7 @@ export const Navigator = <T extends Payload = Payload>({
                       onClick={onOptionClick}
                       onGroupClick={onOptionGroupClick}
                     />
-                  )
-                )}
+                  ))}
                 <Divider sx={{ mt: 2 }} />
               </Box>
             )

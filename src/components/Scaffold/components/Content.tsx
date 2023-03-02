@@ -290,6 +290,9 @@ export const Content = <T extends any = string>({
             {!!actions?.length && (
               <ActionMenu
                 transparent
+                sx={{
+                  color: 'inherit',
+                }}
                 payload={payload}
                 options={actions.map(({
                   isVisible = () => true,

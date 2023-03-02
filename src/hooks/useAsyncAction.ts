@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, useCallback } from 'react';
 
-import cancelable, { IWrappedFn } from '../utils/hof/cancelable';
+import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../utils/hof/cancelable';
 
 interface IParams {
     fallback?: (e: Error) => void;
@@ -61,8 +61,14 @@ export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Pro
         isMounted.current && setLoading(true);
         isMounted.current && setError(false);
 
+        let isCanceled = false;
+
         try {
             const result = await execution();
+            if (result === CANCELED_SYMBOL) {
+                isCanceled = true;
+                return;
+            }
             executionRef.current = null;
             return result;
         } catch (e) {
@@ -73,7 +79,9 @@ export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Pro
                 throw e;
             }
         } finally {
-            isMounted.current && setLoading(false);
+            if (!isCanceled) {
+                isMounted.current && setLoading(false);
+            }
         }
 
     }, [

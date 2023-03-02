@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
-import cancelable, { IWrappedFn } from '../../utils/hof/cancelable';
+import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
 export interface IAsyncProps<T extends any = object> {
     children: (p: T) => (Result | Promise<Result>);
@@ -71,10 +71,15 @@ export const Async = <T extends any = object>({
         executionRef.current = execute;
 
         const process = async () => {
+            let isCanceled = false;
             isMounted.current && setLoading(true);
             isMounted.current && setError(false);
             try {
                 const result = await execute();
+                if (result === CANCELED_SYMBOL) {
+                    isCanceled = true;
+                    return;
+                }
                 executionRef.current = null;
                 if (isMounted.current) {
                     /** react-18 prevent batching */
@@ -90,7 +95,9 @@ export const Async = <T extends any = object>({
                     throw e;
                 }
             } finally {
-                isMounted.current && setLoading(false);
+                if (!isCanceled) {
+                    isMounted.current && setLoading(false);
+                }
             }
         };
 

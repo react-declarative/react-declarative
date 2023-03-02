@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
-import cancelable, { IWrappedFn } from '../../utils/hof/cancelable';
+import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
 export interface IIfProps<T extends any = object> {
     condition:  boolean | ((payload: T) => boolean | Promise<boolean>);
@@ -63,6 +63,9 @@ export const If = <T extends any = object>({
         const process = async () => {
             try {
                 const result = await execute();
+                if (result === CANCELED_SYMBOL) {
+                    return;
+                }
                 executionRef.current = null;
                 isMounted.current && setPass(result);
             } catch (e) {

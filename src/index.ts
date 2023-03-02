@@ -382,7 +382,7 @@ export { roundTicks } from './utils/roundTicks';
 export { wordForm } from './utils/wordForm';
 
 export { singleshot } from './utils/hof/singleshot';
-export { cancelable } from './utils/hof/cancelable';
+export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from './utils/hof/cancelable';
 export { debounce } from './utils/hof/debounce';
 export { queued } from './utils/hof/queued';
 export { cached } from './utils/hof/cached';
