@@ -5360,6 +5360,8 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         sx?: SxProps;
         data: Array<T>;
         columns: Array<IColumn<T>>;
+        scrollXSubject?: TSubject<number>;
+        scrollYSubject?: TSubject<number>;
         onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
         rowActions?: Array<IGridAction<T>>;
         rowActionsPayload?: IActionMenuProps['payload'];

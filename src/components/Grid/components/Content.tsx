@@ -15,7 +15,6 @@ import ContentRow from './ContentRow';
 
 import VirtualView from '../../VirtualView';
 
-import Subject from '../../../utils/rx/Subject';
 import classNames from '../../../utils/classNames';
 import get from '../../../utils/get';
 
@@ -25,7 +24,8 @@ interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  scrollXSubject: Subject<number>;
+  scrollXSubject: IGridProps['scrollYSubject'];
+  scrollYSubject: IGridProps['scrollXSubject'];
   columns: Array<IColumn>;
   rowKey: IGridProps['rowKey'];
   loading: IGridProps['loading'];
@@ -60,6 +60,7 @@ export const Content = ({
   style,
   sx,
   scrollXSubject,
+  scrollYSubject,
   columns,
   loading,
   data,
@@ -83,6 +84,7 @@ export const Content = ({
       style={style}
       sx={sx}
       scrollXSubject={scrollXSubject}
+      scrollYSubject={scrollYSubject}
       minRowHeight={minRowHeight}
       bufferSize={bufferSize}
       loading={loading}

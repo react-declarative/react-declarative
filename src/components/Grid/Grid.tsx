@@ -49,11 +49,13 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     onTableRowClick,
     recomputeSubject,
     shortHeight,
+    scrollXSubject: upperScrollXSubject,
+    scrollYSubject,
   } = props;
 
   const constraintManager = useSingleton(() => createConstraintManager());
 
-  const scrollXSubject = useSubject<number>();
+  const scrollXSubject = useSubject<number>(upperScrollXSubject);
 
   const defaultWidthFn = useMemo(
     () => createDefaultWidthFn(upperColumns.length),
@@ -151,6 +153,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
             onButtonSkip={onButtonSkip}
             onScrollX={handleScrollX}
             scrollXSubject={scrollXSubject}
+            scrollYSubject={scrollYSubject}
           />
         </Container>
       </GridPropsProvider>
