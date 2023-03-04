@@ -5,6 +5,8 @@ import { SxProps } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 import Stack, { StackProps } from "@mui/material/Stack";
 
 import Tab from "@mui/material/Tab";
@@ -29,6 +31,7 @@ interface IHeaderProps<T = Payload> extends StackProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
+  loader?: number;
   payload?: T;
   isMobile: boolean;
   options: IScaffold2GroupInternal<T>[];
@@ -47,6 +50,7 @@ export const Header = <T extends Payload = Payload>({
   style,
   sx,
   payload,
+  loader,
   options,
   isMobile,
   activeOptionPath,
@@ -191,6 +195,19 @@ export const Header = <T extends Payload = Payload>({
               )}
           </Tabs>
         </AppBar>
+      )}
+      {!!loader && (
+        <Box
+          sx={{
+            marginTop: '-4px',
+          }}
+        >
+          <LinearProgress
+            variant={loader > 1 ? "determinate" : "indeterminate"}
+            value={loader > 1 ? loader : undefined}
+            color="primary"
+          />
+        </Box>
       )}
     </Stack>
   );

@@ -4985,6 +4985,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         appName?: React.ReactNode;
         options: IScaffold2Group<T>[];
         actions?: IScaffold2Action<T>[];
+        loader?: number;
         payload?: T;
         activeOptionPath: string;
         activeTabId: string;

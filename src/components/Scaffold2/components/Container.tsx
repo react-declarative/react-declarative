@@ -24,6 +24,7 @@ export const Container = <T extends Payload = Payload>({
   activeTabId,
   actions,
   payload,
+  loader,
   appName,
   noAppName,
   noSearch,
@@ -93,6 +94,7 @@ export const Container = <T extends Payload = Payload>({
             payload={payload}
             options={options}
             actions={actions}
+            loader={loader}
             isMobile={isMobile}
             BeforeMenuContent={BeforeMenuContent}
             AfterMenuContent={AfterMenuContent}
