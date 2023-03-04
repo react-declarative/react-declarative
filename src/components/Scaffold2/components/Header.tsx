@@ -31,7 +31,7 @@ interface IHeaderProps<T = Payload> extends StackProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  loader?: number;
+  loader?: boolean | number;
   payload?: T;
   isMobile: boolean;
   options: IScaffold2GroupInternal<T>[];
@@ -204,7 +204,7 @@ export const Header = <T extends Payload = Payload>({
         >
           <LinearProgress
             variant={loader > 1 ? "determinate" : "indeterminate"}
-            value={loader > 1 ? loader : undefined}
+            value={loader > 1 ? Number(loader) : undefined}
             color="primary"
           />
         </Box>

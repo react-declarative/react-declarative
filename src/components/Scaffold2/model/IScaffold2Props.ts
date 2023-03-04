@@ -15,7 +15,7 @@ export interface IScaffold2Props<T = Payload> {
     appName?: React.ReactNode;
     options: IScaffold2Group<T>[];
     actions?: IScaffold2Action<T>[];
-    loader?: number;
+    loader?: boolean | number;
     payload?: T;
     activeOptionPath: string;
     activeTabId: string;
