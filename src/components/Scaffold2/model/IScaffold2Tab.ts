@@ -15,6 +15,7 @@ export interface IScaffold2TabInternal<T = Payload> extends Omit<IScaffold2Tab<T
     isDisabled: never;
 }> {
     id: string;
+    path: string;
     label?: string;
     icon?: React.ComponentType<any>;
     visible: boolean;

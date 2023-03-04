@@ -31,7 +31,7 @@ const itemCategory = {
 };
 
 interface INavigatorProps<T = Payload> extends DrawerProps {
-  appName?: React.ReactNode;
+  appName?: string;
   noAppName?: boolean;
   noSearch?: boolean;
   payload?: T;
@@ -87,7 +87,15 @@ export const Navigator = <T extends Payload = Payload>({
           </ListItem>
         )}
         {BeforeSearch && (
-          <ListItem>
+          <ListItem
+            sx={{
+              bgcolor: (theme: Theme) => theme.palette.background.paper,
+              boxShadow: (theme: Theme) => {
+                const color = alpha(theme.palette.background.default, 0.1);
+                return `0 -1px 0 ${color} inset`;
+              },
+            }}
+          >
             <BeforeSearch payload={payload} />
           </ListItem>
         )}
@@ -102,7 +110,15 @@ export const Navigator = <T extends Payload = Payload>({
           </ListItem>
         )}
         {AfterSearch && (
-          <ListItem>
+          <ListItem
+            sx={{
+              bgcolor: (theme: Theme) => theme.palette.background.paper,
+              boxShadow: (theme: Theme) => {
+                const color = alpha(theme.palette.background.default, 0.1);
+                return `0 -1px 0 ${color} inset`;
+              },
+            }}
+          >
             <AfterSearch payload={payload} />
           </ListItem>
         )}

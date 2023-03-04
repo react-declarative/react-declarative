@@ -26,6 +26,8 @@ export class RouteManager<T extends Record<string, any> = Record<string, any>, I
             this._item = getRouteItem<I>(routes, location.pathname);
             this.next();
         });
+        this._params = getRouteParams<T>(routes, location.pathname);
+        this._item = getRouteItem<I>(routes, location.pathname);
     };
 
     dispose = () => {

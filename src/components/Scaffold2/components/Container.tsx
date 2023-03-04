@@ -21,13 +21,15 @@ export const Container = <T extends Payload = Payload>({
   sx,
   options,
   activeOptionPath,
-  activeTabId,
+  activeTabPath = activeOptionPath,
   actions,
   payload,
   loader,
   appName,
   noAppName,
   noSearch,
+  BeforeSearch,
+  AfterSearch,
   BeforeMenuContent,
   AfterMenuContent,
   Copyright,
@@ -69,6 +71,8 @@ export const Container = <T extends Payload = Payload>({
               noSearch={noSearch}
               variant="temporary"
               open={mobileOpen}
+              BeforeSearch={BeforeSearch}
+              AfterSearch={AfterSearch}
               onClose={handleDrawerToggle}
               onOptionGroupClick={onOptionGroupClick}
               onOptionClick={onOptionClick}
@@ -84,6 +88,8 @@ export const Container = <T extends Payload = Payload>({
               appName={appName}
               noAppName={noAppName}
               noSearch={noSearch}
+              BeforeSearch={BeforeSearch}
+              AfterSearch={AfterSearch}
               onOptionGroupClick={onOptionGroupClick}
               onOptionClick={onOptionClick}
             />
@@ -95,11 +101,12 @@ export const Container = <T extends Payload = Payload>({
             options={options}
             actions={actions}
             loader={loader}
+            appName={appName}
             isMobile={isMobile}
             BeforeMenuContent={BeforeMenuContent}
             AfterMenuContent={AfterMenuContent}
             activeOptionPath={activeOptionPath}
-            activeTabId={activeTabId}
+            activeTabPath={activeTabPath}
             onDrawerToggle={handleDrawerToggle}
             onTabChange={onTabChange}
             onAction={onAction}

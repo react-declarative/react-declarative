@@ -34,12 +34,13 @@ interface IHeaderProps<T = Payload> extends StackProps {
   loader?: boolean | number;
   payload?: T;
   isMobile: boolean;
+  appName?: string;
   options: IScaffold2GroupInternal<T>[];
   actions?: IScaffold2Action<T>[];
   BeforeMenuContent?: React.ComponentType<any>;
   AfterMenuContent?: React.ComponentType<any>;
   activeOptionPath: string;
-  activeTabId: string;
+  activeTabPath: string;
   onDrawerToggle: () => void;
   onAction?: (name: string) => void;
   onTabChange?: (path: string, tab: string, id: string) => void;
@@ -53,8 +54,9 @@ export const Header = <T extends Payload = Payload>({
   loader,
   options,
   isMobile,
+  appName,
   activeOptionPath,
-  activeTabId,
+  activeTabPath,
   onDrawerToggle,
   onAction,
   onTabChange,
@@ -74,19 +76,19 @@ export const Header = <T extends Payload = Payload>({
     return {
       id,
       path,
-      label,
+      label: id === 'unknown' ? appName : label,
       tabs: tabs as IScaffold2TabInternal[],
     };
-  }, [activeOptionPath, options]);
+  }, [activeOptionPath, options, appName]);
 
   useEffect(() => {
     const availableTabs = tabs
       .filter(({ visible }) => visible)
       .filter(({ disabled }) => !disabled);
-    if (!!availableTabs.length && !availableTabs.some(({ id }) => activeTabId === id)) {
+    if (!!availableTabs.length && !availableTabs.some(({ path }) => activeTabPath === path)) {
       onTabChange && onTabChange(path, availableTabs[0].id, id);
     }
-  }, [activeTabId, tabs]);
+  }, [activeTabPath, tabs]);
 
   const handleTabChange = useCallback((tabId: string) => {
     onTabChange && onTabChange(path, tabId, id);
@@ -133,7 +135,7 @@ export const Header = <T extends Payload = Payload>({
             </Grid>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                {label}
+                {label || appName}
               </Typography>
             </Grid>
             {!!actions?.length && (
@@ -173,7 +175,7 @@ export const Header = <T extends Payload = Payload>({
           sx={{ zIndex: 0 }}
         >
           <Tabs
-            value={activeTabId}
+            value={activeTabPath}
             textColor="inherit"
             indicatorColor="secondary"
           >

@@ -108,6 +108,7 @@ export const createStateManager = ({
                     } else {
                       tab.disabled = false;
                     }
+                    tab.path = `${entry.path}.${tab.id}`;
                     return tab;
                   }
                 )

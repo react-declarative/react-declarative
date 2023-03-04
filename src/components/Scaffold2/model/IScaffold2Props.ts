@@ -12,13 +12,13 @@ export interface IScaffold2Props<T = Payload> {
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
-    appName?: React.ReactNode;
+    appName?: string;
     options: IScaffold2Group<T>[];
     actions?: IScaffold2Action<T>[];
     loader?: boolean | number;
     payload?: T;
     activeOptionPath: string;
-    activeTabId: string;
+    activeTabPath?: string;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
     BeforeMenuContent?: React.ComponentType<any>;
