@@ -1,13 +1,16 @@
 import * as React from "react";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 
 import { makeStyles } from "../../styles";
 
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import VirtualView from "../VirtualView";
 
+import Operations from "./components/Operations";
 import CardItem from "./components/CardItem";
+import Search from "./components/Search";
 
 import ICardViewProps from "./model/ICardViewProps";
 import IItemData from "./model/IItemData";
@@ -17,6 +20,7 @@ import { PropsContextProvider } from "./context/PropsContext";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useSubject from "../../hooks/useSubject";
+import useChange from "../../hooks/useChange";
 
 import classNames from "../../utils/classNames";
 
@@ -24,12 +28,12 @@ const DEFAULT_SKIP_STEP = 25;
 
 const useStyles = makeStyles()({
   root: {
-    position: 'relative',
+    position: "relative",
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "stretch",
-    width: '100%',
+    width: "100%",
   },
   container: {
     flex: 1,
@@ -37,9 +41,14 @@ const useStyles = makeStyles()({
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "stretch",
+    gap: 5,
   },
   content: {
     flex: 1,
+  },
+  placeholder: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
 
@@ -50,13 +59,16 @@ export const CardView = <ItemData extends IItemData = any>(
     className,
     style,
     sx,
+    operations,
     handler,
+    reloadSubject: upperReloadSubject,
     scrollXSubject: upperScrollXSubject,
     scrollYSubject,
     onLoadStart,
     onLoadEnd,
     fallback,
     skipStep = DEFAULT_SKIP_STEP,
+    noSearch = false,
     throwError = false,
   } = props;
   const { classes } = useStyles();
@@ -74,6 +86,7 @@ export const CardView = <ItemData extends IItemData = any>(
     (loading: boolean) => setState((prevState) => ({ ...prevState, loading })),
     []
   );
+  const reloadSubject = useSubject(upperReloadSubject);
   const scrollXSubject = useSubject(upperScrollXSubject);
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (state.loading) {
@@ -95,7 +108,8 @@ export const CardView = <ItemData extends IItemData = any>(
       onLoadStart && onLoadStart();
       setLoading(true);
       if (typeof handler === "function") {
-        const items = await handler(state.search, state.skip);
+        const currentSkip = initial ? 0 : state.skip;
+        const items = await handler(state.search, currentSkip);
         setState((prevState) => {
           const prevItemMap = new Map(
             prevState.items.map((item) => [item.id, item])
@@ -108,7 +122,7 @@ export const CardView = <ItemData extends IItemData = any>(
           const pendingItems = items.filter(({ id }) => !prevItemMap.has(id));
           return {
             ...prevState,
-            skip: prevState.skip + skipStep,
+            skip: currentSkip + skipStep,
             hasMore: pendingItems.length >= skipStep,
             items: [...prevItemMap.values(), ...pendingItems],
           };
@@ -132,6 +146,15 @@ export const CardView = <ItemData extends IItemData = any>(
       setLoading(false);
     }
   });
+  useChange(() => {
+    handleDataRequest(true);
+  }, [state.search]);
+  useEffect(
+    reloadSubject.subscribe(() => {
+      handleDataRequest(true);
+    }),
+    [reloadSubject]
+  );
   const stateContext = useMemo(
     () => ({
       state,
@@ -139,6 +162,8 @@ export const CardView = <ItemData extends IItemData = any>(
         setSearch: (search: string) =>
           setState((prevState) => ({
             ...prevState,
+            selectedIds: new Set(),
+            skip: 0,
             search,
           })),
         setIsAllSelected: (isAllSelected: boolean) =>
@@ -169,6 +194,12 @@ export const CardView = <ItemData extends IItemData = any>(
           sx={sx}
         >
           <Box className={classes.container}>
+            {!noSearch && (
+              <Search disabled={state.loading} />
+            )}
+            {!!operations?.length && (
+              <Operations disabled={state.loading} items={state.items} />
+            )}
             <VirtualView
               className={classes.content}
               loading={state.loading}
@@ -177,11 +208,13 @@ export const CardView = <ItemData extends IItemData = any>(
               scrollXSubject={scrollXSubject}
               scrollYSubject={scrollYSubject}
             >
+              {!state.items.length && (
+                <Typography className={classes.placeholder}>
+                  {state.loading ? "Loading" : "Nothing found"}
+                </Typography>
+              )}
               {state.items.map((item, idx) => (
-                <CardItem
-                  key={`${item.id}-${idx}`}
-                  item={item}
-                />
+                <CardItem key={`${item.id}-${idx}`} item={item} />
               ))}
             </VirtualView>
           </Box>

@@ -41,38 +41,38 @@ import history from "../history";
 
 import sleep from "../utils/sleep";
 
-import mock from './mock/list';
+import mock from "./mock/list";
 
 const columns: IGridColumn<typeof mock[0]>[] = [
   {
-    field: 'id',
-    label: 'Id',
+    field: "id",
+    label: "Id",
     format: ({ id }) => <Copy content={id} />,
   },
   {
-    field: 'firstName',
-    label: 'First Name',
+    field: "firstName",
+    label: "First Name",
   },
   {
-    field: 'lastName',
-    label: 'Last Name',
+    field: "lastName",
+    label: "Last Name",
   },
   {
-    field: 'content',
-    label: 'Comment',
+    field: "content",
+    label: "Comment",
   },
   {
-    field: 'age',
-    align: 'center',
-    label: 'Age',
+    field: "age",
+    align: "center",
+    label: "Age",
   },
 ];
 
 const actions: IGridAction[] = [
   {
-    action: 'test-action',
-    label: 'Test action',
-  }
+    action: "test-action",
+    label: "Test action",
+  },
 ];
 
 const recordData = {
@@ -381,7 +381,7 @@ export const FadePage = () => {
           mb: 1,
         }}
         onDataRequest={() => {
-          console.log('data-request');
+          console.log("data-request");
           setItems1((items) => [
             ...items,
             ...[uuid(), uuid(), uuid(), uuid(), uuid()],
@@ -400,7 +400,7 @@ export const FadePage = () => {
           mb: 1,
         }}
         onDataRequest={() => {
-          console.log('data-request');
+          console.log("data-request");
           setItems2((items) => [
             ...items,
             ...[uuid(), uuid(), uuid(), uuid(), uuid()],
@@ -426,38 +426,60 @@ export const FadePage = () => {
         sx={{
           height: 300,
         }}
-        handler={[
+        handler={async (search, skip) => {
+          console.log("cardview", { search, skip });
+          await sleep(3_000);
+          return [
+            {
+              id: uuid(),
+              idx: 0,
+              foo: "1",
+              bar: "1",
+              baz: "1",
+            },
+            {
+              id: uuid(),
+              idx: 1,
+              foo: "1",
+              bar: "1",
+              baz: "1",
+            },
+            {
+              id: uuid(),
+              idx: 2,
+              foo: "1",
+              bar: "1",
+              baz: "1",
+            },
+            {
+              id: uuid(),
+              idx: 3,
+              foo: "1",
+              bar: "1",
+              baz: "1",
+            },
+            {
+              id: uuid(),
+              idx: 4,
+              foo: "1",
+              bar: "1",
+              baz: "1",
+            },
+          ];
+        }}
+        operations={[
           {
-            id: 0,
-            foo: '1',
-            bar: '1',
-            baz: '1',
+            action: "test1-action",
+            label: "test1",
+            isAvailable: (items) => items.some(({ idx }) => idx % 2 === 0),
           },
           {
-            id: 1,
-            foo: '1',
-            bar: '1',
-            baz: '1',
-          },
-          {
-            id: 2,
-            foo: '1',
-            bar: '1',
-            baz: '1',
-          },
-          {
-            id: 3,
-            foo: '1',
-            bar: '1',
-            baz: '1',
-          },
-          {
-            id: 4,
-            foo: '1',
-            bar: '1',
-            baz: '1',
+            action: "test2-action",
+            label: "test2",
+            isAvailable: (items) => items.some(({ idx }) => idx % 2 === 1),
           },
         ]}
+        skipStep={5}
       />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
     </>

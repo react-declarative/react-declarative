@@ -158,6 +158,11 @@ declare module 'react-declarative' {
     export { AuthView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
+    import { ICardViewItemData } from 'react-declarative/components/CardView';
+    import { ICardViewAction as ICardViewActionInternal } from 'react-declarative/components/CardView';
+    import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
+    export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
+    export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
     import { recordToExcelExport } from 'react-declarative/components/RecordView';
     export { recordToExcelExport };
     export { ErrorBoundary } from 'react-declarative/components';
@@ -1989,6 +1994,14 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Countdown';
 }
 
+declare module 'react-declarative/components/CardView' {
+    export * from 'react-declarative/components/CardView/CardView';
+    export * from 'react-declarative/components/CardView/model/ICardViewAction';
+    export * from 'react-declarative/components/CardView/model/ICardViewOperation';
+    export { IItemData as ICardViewItemData } from 'react-declarative/components/CardView/model/IItemData';
+    export { default } from 'react-declarative/components/CardView/CardView';
+}
+
 declare module 'react-declarative/components/RecordView' {
     export * from 'react-declarative/components/RecordView/RecordView';
     export { excelExport as recordToExcelExport } from 'react-declarative/components/RecordView/helpers/excelExport';
@@ -3431,11 +3444,6 @@ declare module 'react-declarative/components/AuthView' {
     export { default } from 'react-declarative/components/AuthView/AuthView';
 }
 
-declare module 'react-declarative/components/CardView' {
-    export * from 'react-declarative/components/CardView/CardView';
-    export { default } from 'react-declarative/components/CardView/CardView';
-}
-
 declare module 'react-declarative/components/InfiniteView' {
     export * from 'react-declarative/components/InfiniteView/InfiniteView';
     export { default } from 'react-declarative/components/InfiniteView/InfiniteView';
@@ -3478,6 +3486,44 @@ declare module 'react-declarative/components/If' {
 declare module 'react-declarative/components/Countdown' {
     export * from 'react-declarative/components/Countdown/Countdown';
     export { default } from 'react-declarative/components/Countdown/Countdown';
+}
+
+declare module 'react-declarative/components/CardView/CardView' {
+    import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData>) => JSX.Element;
+    export default CardView;
+}
+
+declare module 'react-declarative/components/CardView/model/ICardViewAction' {
+    import IOption from "react-declarative/model/IOption";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export interface ICardViewAction<ItemData extends IItemData = any> extends Omit<IOption, keyof {
+        isVisible: never;
+        isDisabled: never;
+    }> {
+        isVisible?: (row: ItemData) => Promise<boolean> | boolean;
+        isDisabled?: (row: ItemData) => Promise<boolean> | boolean;
+    }
+    export default ICardViewAction;
+}
+
+declare module 'react-declarative/components/CardView/model/ICardViewOperation' {
+    import { IActionTrigger } from "react-declarative/components/ActionTrigger";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export interface ICardViewOperation<ItemData extends IItemData = any> extends Omit<IActionTrigger, keyof {
+        isAvailable: never;
+    }> {
+        isAvailable: (selectedItems: ItemData[], isAllSelected: boolean) => (boolean | Promise<boolean>);
+    }
+    export default ICardViewOperation;
+}
+
+declare module 'react-declarative/components/CardView/model/IItemData' {
+    export interface IItemData {
+        id: string | number;
+    }
+    export default IItemData;
 }
 
 declare module 'react-declarative/components/RecordView/RecordView' {
@@ -4771,13 +4817,6 @@ declare module 'react-declarative/components/AuthView/AuthView' {
     export default AuthView;
 }
 
-declare module 'react-declarative/components/CardView/CardView' {
-    import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
-    import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData>) => JSX.Element;
-    export default CardView;
-}
-
 declare module 'react-declarative/components/InfiniteView/InfiniteView' {
     import * as React from "react";
     import { BoxProps } from "@mui/material/Box";
@@ -4952,6 +4991,35 @@ declare module 'react-declarative/components/Countdown/Countdown' {
     }
     export const Countdown: ({ className, expireAt, onExpire, ...otherProps }: ICountdownProps) => JSX.Element;
     export default Countdown;
+}
+
+declare module 'react-declarative/components/CardView/model/ICardViewProps' {
+    import React from "react";
+    import { BoxProps } from "@mui/system";
+    import TSubject from "react-declarative/model/TSubject";
+    import ICardViewOperation from "react-declarative/components/CardView/model/ICardViewOperation";
+    import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export interface ICardViewProps<ItemData extends IItemData = any> extends BoxProps {
+        handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
+        scrollXSubject?: TSubject<number>;
+        scrollYSubject?: TSubject<number>;
+        reloadSubject?: TSubject<void>;
+        cardActions?: ICardViewAction<ItemData>[];
+        operations?: ICardViewOperation<ItemData>[];
+        formatKey?: (key: keyof ItemData) => React.ReactNode;
+        formatValue?: (key: keyof ItemData, value: ItemData[keyof ItemData]) => React.ReactNode;
+        onOperation?: (operation: string, selectedItems: ItemData[], isAllSelected: boolean) => (void | Promise<void>);
+        onAction?: (action: string, item: ItemData) => void;
+        onCardClick?: (item: ItemData) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        skipStep?: number;
+        throwError?: boolean;
+        noSearch?: boolean;
+    }
+    export default ICardViewProps;
 }
 
 declare module 'react-declarative/components/RecordView/model/IData' {
@@ -5361,34 +5429,6 @@ declare module 'react-declarative/components/FetchView/components/Reveal' {
     }
     export const Reveal: ({ children, className, animation, appear, ...otherProps }: IRevealProps) => JSX.Element;
     export default Reveal;
-}
-
-declare module 'react-declarative/components/CardView/model/ICardViewProps' {
-    import { BoxProps } from "@mui/system";
-    import TSubject from "react-declarative/model/TSubject";
-    import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
-    import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export interface ICardViewProps<ItemData extends IItemData = any> extends BoxProps {
-        handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
-        scrollXSubject?: TSubject<number>;
-        scrollYSubject?: TSubject<number>;
-        cardActions?: ICardViewAction<ItemData>[];
-        onAction?: (action: string, item: ItemData) => void;
-        onCardClick?: (item: ItemData) => void;
-        onLoadStart?: () => void;
-        onLoadEnd?: (isOk: boolean) => void;
-        fallback?: (e: Error) => void;
-        skipStep?: number;
-        throwError?: boolean;
-    }
-    export default ICardViewProps;
-}
-
-declare module 'react-declarative/components/CardView/model/IItemData' {
-    export interface IItemData {
-        id: string | number;
-    }
-    export default IItemData;
 }
 
 declare module 'react-declarative/components/Grid/model/IGridProps' {
@@ -5878,19 +5918,6 @@ declare module 'react-declarative/components/FadeView/components/DefaultFade' {
     }
     export const DefaultFade: ({ className, visible, color, none, position, zIndex, }: IDefaultFadeProps) => JSX.Element;
     export default DefaultFade;
-}
-
-declare module 'react-declarative/components/CardView/model/ICardViewAction' {
-    import IOption from "react-declarative/model/IOption";
-    import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export interface ICardViewAction<ItemData extends IItemData = any> extends Omit<IOption, keyof {
-        isVisible: never;
-        isDisabled: never;
-    }> {
-        isVisible?: (row: ItemData) => Promise<boolean> | boolean;
-        isDisabled?: (row: ItemData) => Promise<boolean> | boolean;
-    }
-    export default ICardViewAction;
 }
 
 declare module 'react-declarative/model/DisplayMode' {

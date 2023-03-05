@@ -199,6 +199,13 @@ export { AuthView } from './components';
 export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
+import { ICardViewItemData } from './components/CardView';
+import { ICardViewAction as ICardViewActionInternal } from './components/CardView';
+import { ICardViewOperation as ICardViewOperationInternal } from './components/CardView';
+
+export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
+export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
+
 import { recordToExcelExport } from './components/RecordView';
 export { recordToExcelExport };
 

@@ -17,6 +17,7 @@ import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
 
 import classNames from "../../../utils/classNames";
+import keyToTitle from "../utils/keyToTitle";
 
 interface ICardItemProps<ItemData extends IItemData = any> extends PaperProps {
   item: ItemData;
@@ -84,6 +85,8 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     fallback,
     onLoadStart,
     onLoadEnd,
+    formatKey = (k) => keyToTitle(String(k)),
+    formatValue = (_, v) => String(v),
     onCardClick = () => undefined,
     onAction = () => undefined,
     throwError = false,
@@ -135,8 +138,8 @@ const CardItemInternal = <ItemData extends IItemData = any>(
             <ListItemText
               className={classes.textWrap}
               key={`${key}-${idx}`}
-              primary={key}
-              secondary={value}
+              primary={formatKey(key)}
+              secondary={formatValue(key, value)}
             />
           ))}
         </Box>
