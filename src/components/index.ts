@@ -38,6 +38,7 @@ export * from './PortalView';
 export * from './RecordView';
 export * from './ErrorView';
 export * from './AuthView';
+export * from './CardView';
 export * from './InfiniteView';
 export * from './VirtualView';
 

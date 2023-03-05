@@ -7,8 +7,12 @@ import Box, { BoxProps } from "@mui/material/Box";
 import { SxProps } from "@mui/system";
 
 import useActualCallback from "../../hooks/useActualCallback";
-import classNames from "../../utils/classNames";
 import useActualValue from "../../hooks/useActualValue";
+import useSubject from "../../hooks/useSubject";
+
+import TSubject from "../../model/TSubject";
+
+import classNames from "../../utils/classNames";
 
 interface IInfiniteViewProps extends BoxProps {
   className?: string;
@@ -17,6 +21,8 @@ interface IInfiniteViewProps extends BoxProps {
   children?: React.ReactNode;
   hasMore?: boolean;
   loading?: boolean;
+  scrollXSubject?: TSubject<number>;
+  scrollYSubject?: TSubject<number>;
   onDataRequest?: (initial: boolean) => Promise<void> | void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -51,6 +57,8 @@ export const InfiniteView = ({
   throwError = false,
   hasMore = true,
   children: upperChildren,
+  scrollXSubject: upperScrollXSubject,
+  scrollYSubject: upperScrollYSubject,
   onDataRequest,
   onLoadStart,
   onLoadEnd,
@@ -58,6 +66,9 @@ export const InfiniteView = ({
   ...otherProps
 }: IInfiniteViewProps) => {
   const { classes } = useStyles();
+
+  const scrollXSubject = useSubject(upperScrollXSubject);
+  const scrollYSubject = useSubject(upperScrollYSubject);
 
   const [loading, setLoading] = useState(0);
   const observer = useRef<IntersectionObserver>();
@@ -135,12 +146,48 @@ export const InfiniteView = ({
     handleDataRequest(true);
   }, []);
 
+  useEffect(
+    () => () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      scrollXSubject.unsubscribeAll();
+      scrollYSubject.unsubscribeAll();
+    },
+    []
+  );
+
+  const handleScroll = useCallback((node: HTMLDivElement | null) => {
+    if (!node) {
+      return;
+    }
+    scrollXSubject.unsubscribeAll();
+    scrollXSubject.subscribe((scrollX) => {
+      if (node.scrollLeft !== scrollX) {
+        node.scrollTo(
+          Math.min(scrollX, node.scrollWidth),
+          node.scrollTop,
+        );
+      }
+    });
+    scrollYSubject.unsubscribeAll();
+    scrollYSubject.subscribe((scrollX) => {
+      if (node.scrollLeft !== scrollX) {
+        node.scrollTo(
+          Math.min(scrollX, node.scrollWidth),
+          node.scrollTop,
+        );
+      }
+    });
+  }, []);
+
   return (
     <Box
       {...otherProps}
       className={classNames(className, classes.root)}
       style={style}
       sx={sx}
+      ref={handleScroll}
     >
       <Box className={classes.container}>
         {children}

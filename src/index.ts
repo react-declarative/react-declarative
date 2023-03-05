@@ -193,6 +193,7 @@ export { RevealView } from './components';
 export { SecretView } from './components';
 export { PortalView } from './components';
 export { RecordView } from './components';
+export { CardView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
 export { InfiniteView } from './components';

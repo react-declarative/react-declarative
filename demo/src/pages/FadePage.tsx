@@ -30,6 +30,7 @@ import {
   useMediaContext,
   Search,
   Countdown,
+  CardView,
 } from "react-declarative";
 import { v4 as uuid } from "uuid";
 
@@ -421,6 +422,43 @@ export const FadePage = () => {
       />
       {render()}
       <RecordView sx={{ minHeight: "300px" }} withExpandAll data={recordData} />
+      <CardView
+        sx={{
+          height: 300,
+        }}
+        handler={[
+          {
+            id: 0,
+            foo: '1',
+            bar: '1',
+            baz: '1',
+          },
+          {
+            id: 1,
+            foo: '1',
+            bar: '1',
+            baz: '1',
+          },
+          {
+            id: 2,
+            foo: '1',
+            bar: '1',
+            baz: '1',
+          },
+          {
+            id: 3,
+            foo: '1',
+            bar: '1',
+            baz: '1',
+          },
+          {
+            id: 4,
+            foo: '1',
+            bar: '1',
+            baz: '1',
+          },
+        ]}
+      />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
     </>
   );

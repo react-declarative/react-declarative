@@ -153,6 +153,7 @@ declare module 'react-declarative' {
     export { SecretView } from 'react-declarative/components';
     export { PortalView } from 'react-declarative/components';
     export { RecordView } from 'react-declarative/components';
+    export { CardView } from 'react-declarative/components';
     export { ErrorView } from 'react-declarative/components';
     export { AuthView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
@@ -1977,6 +1978,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/RecordView';
     export * from 'react-declarative/components/ErrorView';
     export * from 'react-declarative/components/AuthView';
+    export * from 'react-declarative/components/CardView';
     export * from 'react-declarative/components/InfiniteView';
     export * from 'react-declarative/components/VirtualView';
     export * from 'react-declarative/components/Grid';
@@ -3429,6 +3431,11 @@ declare module 'react-declarative/components/AuthView' {
     export { default } from 'react-declarative/components/AuthView/AuthView';
 }
 
+declare module 'react-declarative/components/CardView' {
+    export * from 'react-declarative/components/CardView/CardView';
+    export { default } from 'react-declarative/components/CardView/CardView';
+}
+
 declare module 'react-declarative/components/InfiniteView' {
     export * from 'react-declarative/components/InfiniteView/InfiniteView';
     export { default } from 'react-declarative/components/InfiniteView/InfiniteView';
@@ -4764,10 +4771,18 @@ declare module 'react-declarative/components/AuthView/AuthView' {
     export default AuthView;
 }
 
+declare module 'react-declarative/components/CardView/CardView' {
+    import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData>) => JSX.Element;
+    export default CardView;
+}
+
 declare module 'react-declarative/components/InfiniteView/InfiniteView' {
     import * as React from "react";
     import { BoxProps } from "@mui/material/Box";
     import { SxProps } from "@mui/system";
+    import TSubject from "react-declarative/model/TSubject";
     interface IInfiniteViewProps extends BoxProps {
         className?: string;
         style?: React.CSSProperties;
@@ -4775,13 +4790,15 @@ declare module 'react-declarative/components/InfiniteView/InfiniteView' {
         children?: React.ReactNode;
         hasMore?: boolean;
         loading?: boolean;
+        scrollXSubject?: TSubject<number>;
+        scrollYSubject?: TSubject<number>;
         onDataRequest?: (initial: boolean) => Promise<void> | void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const InfiniteView: ({ className, style, sx, loading: upperLoading, throwError, hasMore, children: upperChildren, onDataRequest, onLoadStart, onLoadEnd, fallback, ...otherProps }: IInfiniteViewProps) => JSX.Element;
+    export const InfiniteView: ({ className, style, sx, loading: upperLoading, throwError, hasMore, children: upperChildren, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, onDataRequest, onLoadStart, onLoadEnd, fallback, ...otherProps }: IInfiniteViewProps) => JSX.Element;
     export default InfiniteView;
 }
 
@@ -5344,6 +5361,30 @@ declare module 'react-declarative/components/FetchView/components/Reveal' {
     }
     export const Reveal: ({ children, className, animation, appear, ...otherProps }: IRevealProps) => JSX.Element;
     export default Reveal;
+}
+
+declare module 'react-declarative/components/CardView/model/ICardViewProps' {
+    import { BoxProps } from "@mui/system";
+    import TSubject from "react-declarative/model/TSubject";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export interface ICardViewProps<ItemData extends IItemData = any> extends BoxProps {
+        handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
+        scrollXSubject?: TSubject<number>;
+        scrollYSubject?: TSubject<number>;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        skipStep?: number;
+        throwError?: boolean;
+    }
+    export default ICardViewProps;
+}
+
+declare module 'react-declarative/components/CardView/model/IItemData' {
+    export interface IItemData {
+        id: string | number;
+    }
+    export default IItemData;
 }
 
 declare module 'react-declarative/components/Grid/model/IGridProps' {

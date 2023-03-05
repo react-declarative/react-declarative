@@ -141,7 +141,7 @@ const actions: IScaffoldOption[] = [
 
 const App = () => {
 
-  const [activeTabId, setActiveTabId] = useState("tab1");
+  const [activeTabPath, setActiveTabId] = useState("tab1");
 
   const handleOptionClick = (path: string) => history.push(`/${path}`);
 
@@ -149,7 +149,7 @@ const App = () => {
     <SecretView enabled={false} onCode={console.log}>
       <Scaffold2
         activeOptionPath="root.build.authentication"
-        activeTabId={activeTabId}
+        activeTabPath={activeTabPath}
         appName="Scaffold"
         options={options}
         actions={actions}
