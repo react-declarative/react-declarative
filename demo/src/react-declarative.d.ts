@@ -5013,6 +5013,7 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
         onAction?: (action: string, item: ItemData) => void;
         onCardClick?: (item: ItemData) => void;
         onLoadStart?: () => void;
+        pickFields?: (keyof ItemData)[];
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
         skipStep?: number;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forwardRef, useCallback } from "react";
+import { forwardRef, useCallback, useMemo } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -110,6 +110,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
   const { state, action } = useStateContext();
   const { 
     cardActions,
+    pickFields,
     fallback,
     onLoadStart,
     onLoadEnd,
@@ -120,7 +121,14 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     throwError = false,
   } = usePropsContext();
   const { isPhone, isTablet, isDesktop } = useMediaContext();
-  const entries = Object.entries(item);
+
+  const entries = useMemo(() => {
+    let result = Object.entries(item);
+    if (pickFields) {
+      result.filter(([key]) => pickFields.includes(key));
+    }
+    return result;
+  }, [pickFields]);
 
   const handleCheckboxToggle = useCallback(() => {
     const pendingSelectedIds = new Set(state.selectedIds);
