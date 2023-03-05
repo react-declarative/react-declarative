@@ -4,8 +4,9 @@ import { forwardRef, useCallback, useMemo } from "react";
 import { makeStyles } from "../../../styles";
 
 import Paper, { PaperProps } from "@mui/material/Paper";
-import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
 import ActionMenu from "../../ActionMenu";
@@ -25,23 +26,24 @@ interface ICardItemProps<ItemData extends IItemData = any> extends PaperProps {
 }
 
 const defaultFormatter = (value: React.ReactNode) => {
-  if (value == null || value === undefined || value === '' || value === 'null') {
-    return '—';
-  } else if (typeof value === 'boolean') {
+  if (
+    value == null ||
+    value === undefined ||
+    value === "" ||
+    value === "null"
+  ) {
+    return "—";
+  } else if (typeof value === "boolean") {
     return String(value);
   } else if (isObject(value)) {
-    return (
-      <pre>
-        {JSON.stringify(value, null , 2)}
-      </pre>
-    );
-  } else if (value.toString().startsWith('http')) {
+    return <pre>{JSON.stringify(value, null, 2)}</pre>;
+  } else if (value.toString().startsWith("http")) {
     return (
       <a
         href={value.toString()}
         target="_blank"
         rel="noreferrer"
-        style={{ wordBreak: 'break-all' }}
+        style={{ wordBreak: "break-all" }}
       >
         {value}
       </a>
@@ -95,10 +97,13 @@ const useStyles = makeStyles()(() => ({
     right: 3,
   },
   textWrap: {
-    whiteSpace: 'break-spaces',
-    overflowWrap: 'break-word',
-    textOverflow: 'ellipsis',
-    fontWeight: 'bold',
+    whiteSpace: "break-spaces",
+    overflowWrap: "break-word",
+    textOverflow: "ellipsis",
+    fontWeight: "bold",
+  },
+  opacity: {
+    opacity: 0.6,
   },
 }));
 
@@ -108,7 +113,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
 ) => {
   const { classes } = useStyles();
   const { state, action } = useStateContext();
-  const { 
+  const {
     cardActions,
     pickFields,
     fallback,
@@ -154,10 +159,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
       sx={sx}
       {...otherProps}
     >
-      <Paper
-        className={classes.container}
-        onClick={handleClick}
-      >
+      <Paper className={classes.container} onClick={handleClick}>
         <Checkbox
           className={classes.checkbox}
           onClick={handleCheckboxToggle}
@@ -171,12 +173,12 @@ const CardItemInternal = <ItemData extends IItemData = any>(
           })}
         >
           {entries.map(([key, value], idx) => (
-            <ListItemText
-              className={classes.textWrap}
-              key={`${key}-${idx}`}
-              primary={formatKey(key)}
-              secondary={formatValue(key, value)}
-            />
+            <Stack className={classes.textWrap} key={`${key}-${idx}`}>
+              <Typography className={classes.opacity} variant="caption">
+                {formatKey(key)}
+              </Typography>
+              <Typography variant="body1">{formatValue(key, value)}</Typography>
+            </Stack>
           ))}
         </Box>
         {!!cardActions?.length && (
