@@ -10,6 +10,7 @@ import VirtualView from "../VirtualView";
 
 import Operations from "./components/Operations";
 import CardItem from "./components/CardItem";
+import Footer from "./components/Footer";
 import Search from "./components/Search";
 
 import ICardViewProps from "./model/ICardViewProps";
@@ -69,6 +70,7 @@ export const CardView = <ItemData extends IItemData = any>(
     fallback,
     skipStep = DEFAULT_SKIP_STEP,
     noSearch = false,
+    noFooter = false,
     throwError = false,
   } = props;
   const { classes } = useStyles();
@@ -217,6 +219,9 @@ export const CardView = <ItemData extends IItemData = any>(
                 <CardItem key={`${item.id}-${idx}`} item={item} />
               ))}
             </VirtualView>
+            {!noFooter && (
+              <Footer />
+            )}
           </Box>
         </Box>
       </StateContextProvider>

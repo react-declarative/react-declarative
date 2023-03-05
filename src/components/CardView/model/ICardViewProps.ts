@@ -26,6 +26,7 @@ export interface ICardViewProps<ItemData extends IItemData = any> extends BoxPro
     skipStep?: number;
     throwError?: boolean;
     noSearch?: boolean;
+    noFooter?: boolean;
 }
 
 export default ICardViewProps;

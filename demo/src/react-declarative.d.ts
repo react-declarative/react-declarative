@@ -5019,6 +5019,7 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
         skipStep?: number;
         throwError?: boolean;
         noSearch?: boolean;
+        noFooter?: boolean;
     }
     export default ICardViewProps;
 }
