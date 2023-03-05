@@ -13,6 +13,7 @@ import useSubject from "../../hooks/useSubject";
 import throttle from "../../utils/hof/throttle";
 import classNames from "../../utils/classNames";
 import { TSubject } from "../../utils/rx/Subject";
+import sleep from "../../utils/sleep";
 
 const DEFAULT_MIN_HEIGHT = 60;
 const DEFAULT_BUFFER_SIZE = 5;
@@ -111,6 +112,8 @@ export const VirtualView = ({
       onLoadStart && onLoadStart();
       isMounted.current && setLoading((loading) => loading + 1);
       if (onDataRequest) {
+        /** react-18 prevent batching */
+        await sleep(0);
         await onDataRequest(initial);
       }
     } catch (e: any) {

@@ -13,6 +13,7 @@ import useSubject from "../../hooks/useSubject";
 import TSubject from "../../model/TSubject";
 
 import classNames from "../../utils/classNames";
+import sleep from "../../utils/sleep";
 
 interface IInfiniteViewProps extends BoxProps {
   className?: string;
@@ -102,6 +103,8 @@ export const InfiniteView = ({
       onLoadStart && onLoadStart();
       isMounted.current && setLoading((loading) => loading + 1);
       if (onDataRequest) {
+        /** react-18 prevent batching */
+        await sleep(0);
         await onDataRequest(initial);
       }
     } catch (e: any) {
