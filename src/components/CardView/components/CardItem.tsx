@@ -17,11 +17,39 @@ import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
 
 import classNames from "../../../utils/classNames";
+import isObject from "../../../utils/isObject";
 import keyToTitle from "../utils/keyToTitle";
 
 interface ICardItemProps<ItemData extends IItemData = any> extends PaperProps {
   item: ItemData;
 }
+
+const defaultFormatter = (value: React.ReactNode) => {
+  if (value == null || value === undefined || value === '' || value === 'null') {
+    return '—';
+  } else if (typeof value === 'boolean') {
+    return String(value);
+  } else if (isObject(value)) {
+    return (
+      <pre>
+        {JSON.stringify(value, null , 2)}
+      </pre>
+    );
+  } else if (value.toString().startsWith('http')) {
+    return (
+      <a
+        href={value.toString()}
+        target="_blank"
+        rel="noreferrer"
+        style={{ wordBreak: 'break-all' }}
+      >
+        {value}
+      </a>
+    );
+  } else {
+    return value;
+  }
+};
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -86,7 +114,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     onLoadStart,
     onLoadEnd,
     formatKey = (k) => keyToTitle(String(k)),
-    formatValue = (_, v) => String(v),
+    formatValue = (_, v) => defaultFormatter(v),
     onCardClick = () => undefined,
     onAction = () => undefined,
     throwError = false,
