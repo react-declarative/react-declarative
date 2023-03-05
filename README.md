@@ -483,6 +483,7 @@ import { RevealView } from 'react-declarative';
 import { SecretView } from 'react-declarative';
 import { PortalView } from 'react-declarative';
 import { RecordView } from 'react-declarative';
+import { CardView } from 'react-declarative';
 import { ErrorView } from 'react-declarative';
 import { AuthView } from 'react-declarative';
 import { InfiniteView } from 'react-declarative';
