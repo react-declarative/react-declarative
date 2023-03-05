@@ -67,6 +67,7 @@ export const CardView = <ItemData extends IItemData = any>(
     search: "",
     skip: 0,
     isAllSelected: false,
+    menuOpened: false,
     selectedIds: new Set(),
   }));
   const setLoading = useCallback(
@@ -149,6 +150,11 @@ export const CardView = <ItemData extends IItemData = any>(
           setState((prevState) => ({
             ...prevState,
             selectedIds,
+          })),
+        setMenuOpened: (menuOpened: boolean) =>
+          setState((prevState) => ({
+            ...prevState,
+            menuOpened,
           })),
       },
     }),

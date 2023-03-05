@@ -5366,11 +5366,15 @@ declare module 'react-declarative/components/FetchView/components/Reveal' {
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
     import { BoxProps } from "@mui/system";
     import TSubject from "react-declarative/model/TSubject";
+    import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
     export interface ICardViewProps<ItemData extends IItemData = any> extends BoxProps {
         handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
         scrollXSubject?: TSubject<number>;
         scrollYSubject?: TSubject<number>;
+        cardActions?: ICardViewAction<ItemData>[];
+        onAction?: (action: string, item: ItemData) => void;
+        onCardClick?: (item: ItemData) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
@@ -5874,6 +5878,19 @@ declare module 'react-declarative/components/FadeView/components/DefaultFade' {
     }
     export const DefaultFade: ({ className, visible, color, none, position, zIndex, }: IDefaultFadeProps) => JSX.Element;
     export default DefaultFade;
+}
+
+declare module 'react-declarative/components/CardView/model/ICardViewAction' {
+    import IOption from "react-declarative/model/IOption";
+    import IItemData from "react-declarative/components/CardView/model/IItemData";
+    export interface ICardViewAction<ItemData extends IItemData = any> extends Omit<IOption, keyof {
+        isVisible: never;
+        isDisabled: never;
+    }> {
+        isVisible?: (row: ItemData) => Promise<boolean> | boolean;
+        isDisabled?: (row: ItemData) => Promise<boolean> | boolean;
+    }
+    export default ICardViewAction;
 }
 
 declare module 'react-declarative/model/DisplayMode' {

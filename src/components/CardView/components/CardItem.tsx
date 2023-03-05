@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -13,6 +13,8 @@ import ActionMenu from "../../ActionMenu";
 import IItemData from "../model/IItemData";
 
 import useMediaContext from "../../../hooks/useMediaContext";
+import useStateContext from "../context/StateContext";
+import usePropsContext from "../context/PropsContext";
 
 import classNames from "../../../utils/classNames";
 
@@ -40,6 +42,8 @@ const useStyles = makeStyles()(() => ({
   },
   content: {
     display: "grid",
+    gridRowGap: "10px",
+    gridColumnGap: "10px",
     flex: 1,
   },
   phone: {
@@ -61,6 +65,12 @@ const useStyles = makeStyles()(() => ({
     top: 3,
     right: 3,
   },
+  textWrap: {
+    whiteSpace: 'break-spaces',
+    overflowWrap: 'break-word',
+    textOverflow: 'ellipsis',
+    fontWeight: 'bold',
+  },
 }));
 
 const CardItemInternal = <ItemData extends IItemData = any>(
@@ -68,8 +78,35 @@ const CardItemInternal = <ItemData extends IItemData = any>(
   ref: React.Ref<HTMLDivElement>
 ) => {
   const { classes } = useStyles();
+  const { state, action } = useStateContext();
+  const { 
+    cardActions,
+    fallback,
+    onLoadStart,
+    onLoadEnd,
+    onCardClick = () => undefined,
+    onAction = () => undefined,
+    throwError = false,
+  } = usePropsContext();
   const { isPhone, isTablet, isDesktop } = useMediaContext();
   const entries = Object.entries(item);
+
+  const handleCheckboxToggle = useCallback(() => {
+    const pendingSelectedIds = new Set(state.selectedIds);
+    if (pendingSelectedIds.has(item.id)) {
+      pendingSelectedIds.delete(item.id);
+    } else {
+      pendingSelectedIds.add(item.id);
+    }
+    action.setSelectedIds(pendingSelectedIds);
+  }, [state, action, item]);
+
+  const handleClick = useCallback(() => {
+    if (!state.menuOpened) {
+      onCardClick(item);
+    }
+  }, [state, item, onCardClick]);
+
   return (
     <Box
       ref={ref}
@@ -78,28 +115,57 @@ const CardItemInternal = <ItemData extends IItemData = any>(
       sx={sx}
       {...otherProps}
     >
-      <Paper className={classes.container}>
-        <Checkbox className={classes.checkbox} />
-        <Box className={classNames(classes.content, {
+      <Paper
+        className={classes.container}
+        onClick={handleClick}
+      >
+        <Checkbox
+          className={classes.checkbox}
+          onClick={handleCheckboxToggle}
+          checked={state.selectedIds.has(item.id)}
+        />
+        <Box
+          className={classNames(classes.content, {
             [classes.phone]: isPhone,
             [classes.tablet]: isTablet,
             [classes.desktop]: isDesktop,
-        })}>
+          })}
+        >
           {entries.map(([key, value], idx) => (
             <ListItemText
+              className={classes.textWrap}
               key={`${key}-${idx}`}
               primary={key}
               secondary={value}
             />
           ))}
         </Box>
-        <ActionMenu
-          className={classes.menu}
-          transparent
-          sx={{
-            color: "inherit",
-          }}
-        />
+        {!!cardActions?.length && (
+          <ActionMenu
+            className={classes.menu}
+            options={cardActions.map(
+              ({
+                isDisabled = () => false,
+                isVisible = () => true,
+                ...other
+              }) => ({
+                ...other,
+                isVisible: () => isVisible(item),
+                isDisabled: () => isDisabled(item),
+              })
+            )}
+            onToggle={action.setMenuOpened}
+            onAction={(action) => onAction(action, item)}
+            fallback={fallback}
+            payload={item}
+            onLoadStart={onLoadStart}
+            onLoadEnd={onLoadEnd}
+            throwError={throwError}
+            sx={{
+              color: "inherit",
+            }}
+          />
+        )}
       </Paper>
     </Box>
   );

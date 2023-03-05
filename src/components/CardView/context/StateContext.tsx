@@ -10,6 +10,7 @@ export interface IState<ItemData extends IItemData = any> {
     search: string;
     skip: number;
     isAllSelected: boolean;
+    menuOpened: boolean;
     selectedIds: Set<IItemData['id']>;
 }
 
@@ -19,6 +20,7 @@ interface IContext<ItemData extends IItemData = any>  {
         setSearch: (search: string) => void;
         setIsAllSelected: (isAllSelected: boolean) => void;
         setSelectedIds: (selectedIds: Set<IItemData['id']>) => void;
+        setMenuOpened: (menuOpened: boolean) => void;
     };
 }
 
