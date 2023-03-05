@@ -35,7 +35,7 @@ export const Container = <T extends Payload = Payload>({
   Copyright,
   onOptionGroupClick,
   onOptionClick,
-  onTabChange,
+  onTabChange = onOptionClick,
   onAction,
   children,
 }: IScaffold2InternalProps<T>) => {
