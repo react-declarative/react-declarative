@@ -14,6 +14,7 @@ import ActionMenu from "../../ActionMenu";
 
 import IItemData from "../model/IItemData";
 
+import useSelectionContext from "../context/SelectionContext";
 import useMediaContext from "../../../hooks/useMediaContext";
 import usePayloadContext from "../context/PayloadContext";
 import useStateContext from "../context/StateContext";
@@ -67,6 +68,7 @@ const useStyles = makeStyles()((theme) => ({
   container: {
     flex: 1,
     position: "relative",
+    overflow: "hidden",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -144,6 +146,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     throwError = false,
   } = usePropsContext();
   const { isPhone, isTablet, isDesktop } = useMediaContext();
+  const { toggleSelection } = useSelectionContext();
 
   const entries = useMemo(() => {
     let result = Object.entries(item);
@@ -152,16 +155,6 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     }
     return result;
   }, [pickFields]);
-
-  const handleCheckboxToggle = useCallback(() => {
-    const pendingSelectedIds = new Set(state.selectedIds);
-    if (pendingSelectedIds.has(item.id)) {
-      pendingSelectedIds.delete(item.id);
-    } else {
-      pendingSelectedIds.add(item.id);
-    }
-    action.setSelectedIds(pendingSelectedIds);
-  }, [state, action, item]);
 
   const handleClick = useCallback(() => {
     if (!state.menuOpened) {
@@ -180,7 +173,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
       <Paper className={classNames(classes.container)} onClick={handleClick}>
         <Box className={classes.header}>
           <Checkbox
-            onClick={handleCheckboxToggle}
+            onClick={() => toggleSelection(item.id)}
             checked={state.selectedIds.has(item.id)}
           />
           <Typography variant="body1">{formatCardLabel(item)}</Typography>

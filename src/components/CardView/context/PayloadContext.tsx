@@ -11,7 +11,7 @@ const PayloadContext = createContext<Payload>(null as never);
 
 interface IPayloadContextProviderProps {
     children: React.ReactNode;
-    value?: Exclude<ICardViewProps['payload'], undefined>;
+    value: Exclude<ICardViewProps['payload'], undefined>;
 }
 
 export const PayloadContextProvider = ({

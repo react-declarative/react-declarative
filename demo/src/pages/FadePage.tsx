@@ -485,6 +485,7 @@ export const FadePage = () => {
             label: 'Test action',
           },
         ]}
+        onOperation={console.log}
         skipStep={5}
       />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />

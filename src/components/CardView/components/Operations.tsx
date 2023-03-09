@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import Box, { BoxProps } from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -12,14 +12,12 @@ import ActionTrigger from "../../ActionTrigger";
 import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
 import usePayloadContext from "../context/PayloadContext";
+import useSelectionContext from "../context/SelectionContext";
 
 import classNames from "../../../utils/classNames";
 
-import IItemData from "../model/IItemData";
-
-interface IOperationsProps<ItemData extends IItemData = any> extends BoxProps {
+interface IOperationsProps extends BoxProps {
   disabled: boolean;
-  items: ItemData[];
 }
 
 const useStyles = makeStyles()({
@@ -40,16 +38,16 @@ const useStyles = makeStyles()({
   },
 });
 
-export const Operations = <ItemData extends IItemData = any>({
+export const Operations = ({
   className,
   style,
   sx,
-  items,
   disabled,
-}: IOperationsProps<ItemData>) => {
+}: IOperationsProps) => {
   const [loading, setLoading] = useState(false);
   const { classes } = useStyles();
   const { state, action } = useStateContext();
+  const { selectedItems } = useSelectionContext();
   const payload = usePayloadContext();
   const {
     operations = [],
@@ -59,18 +57,6 @@ export const Operations = <ItemData extends IItemData = any>({
     onOperation = () => undefined,
     throwError = false,
   } = usePropsContext();
-  const selectedIds = useMemo(
-    () => [...state.selectedIds],
-    [state.selectedIds]
-  );
-  const itemsMap = useMemo(
-    () => new Map(items.map((item) => [item.id, item])),
-    [items]
-  );
-  const selectedItems = useMemo(
-    () => selectedIds.map((id) => itemsMap.get(id)),
-    [selectedIds, itemsMap]
-  );
   return (
     <Box className={classNames(classes.root, className)} style={style} sx={sx}>
       <ActionTrigger
@@ -83,7 +69,7 @@ export const Operations = <ItemData extends IItemData = any>({
             ...operation,
           })
         )}
-        deps={[payload, selectedIds, state.isAllSelected]}
+        deps={[payload, selectedItems, state.isAllSelected]}
         onAction={(action) =>
           onOperation(action, selectedItems, state.isAllSelected)
         }

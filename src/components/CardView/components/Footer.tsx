@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
+import useSelectionContext from "../context/SelectionContext";
 import useStateContext from "../context/StateContext";
 
 import wordForm from "../../../utils/wordForm";
@@ -22,7 +23,8 @@ const useStyles = makeStyles()({
 
 export const Footer = () => {
   const { classes } = useStyles();
-  const { state, action } = useStateContext();
+  const { state } = useStateContext();
+  const { dropSelection } = useSelectionContext();
   return (
     <Box className={classes.root}>
       {!!state.selectedIds.size && (
@@ -33,11 +35,10 @@ export const Footer = () => {
                     many: "items",
                 })}`}
             </Typography>
-            <Link href="#" onClick={() => action.setSelectedIds(new Set())}>
+            <Link href="#" onClick={dropSelection}>
                 Deselect
             </Link>
         </>
-
       )}
     </Box>
   );
