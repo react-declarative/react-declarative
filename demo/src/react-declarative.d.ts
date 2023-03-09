@@ -1130,11 +1130,11 @@ declare module 'react-declarative/model/IListOperation' {
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
     import IOption from "react-declarative/model/IOption";
-    export interface IListOperation<RowData extends IRowData = IAnything> extends Omit<IOption, keyof {
+    export interface IListOperation<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
-        isAvailable?: ((rowIds: RowData[], isAll: boolean) => boolean | Promise<boolean>) | boolean;
+        isAvailable?: ((rowIds: RowData[], isAll: boolean, payload: Payload) => boolean | Promise<boolean>) | boolean;
     }
     export default IListOperation;
 }
@@ -1143,12 +1143,12 @@ declare module 'react-declarative/model/IListRowAction' {
     import IOption from "react-declarative/model/IOption";
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
-    export interface IListRowAction<RowData extends IRowData = IAnything> extends Omit<IOption, keyof {
+    export interface IListRowAction<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
-        isVisible?: (row: RowData) => Promise<boolean> | boolean;
-        isDisabled?: (row: RowData) => Promise<boolean> | boolean;
+        isVisible?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
         enabled?: boolean;
     }
     export default IListRowAction;
@@ -1184,19 +1184,19 @@ declare module 'react-declarative/model/IListProps' {
         label?: IOption['label'];
         icon?: IOption['icon'];
     }
-    export interface IListActionOption<RowData extends IRowData = IAnything> extends Omit<IOption, keyof {
+    export interface IListActionOption<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
-        isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-        isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
     }
-    export interface IListAction<RowData extends IRowData = IAnything> {
+    export interface IListAction<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
         type: ActionType;
         action?: string;
         label?: string;
-        isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-        isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
         icon?: React.ComponentType<any>;
         options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData>)[];
     }
@@ -1260,8 +1260,8 @@ declare module 'react-declarative/model/IListProps' {
         style?: React.CSSProperties;
         title?: string;
         filterLabel?: string;
-        actions?: IListAction<RowData>[];
-        operations?: IListOperation<RowData>[];
+        actions?: IListAction<RowData, Payload>[];
+        operations?: IListOperation<RowData, Payload>[];
         limit?: number;
         page?: number;
         sizeByParent?: boolean;
@@ -1285,7 +1285,7 @@ declare module 'react-declarative/model/IListProps' {
         columns: IColumn<RowData, Payload>[];
         filters?: Field[];
         handler: ListHandler;
-        payload?: Payload;
+        payload?: Payload | (() => Payload);
         rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
         fallback?: (e: Error) => void;
         reloadSubject?: TSubject<void>;
@@ -1585,6 +1585,8 @@ declare module 'react-declarative/hooks/useMediaContext' {
         isPhone: boolean;
         isTablet: boolean;
         isDesktop: boolean;
+        isWide: boolean;
+        isMobile: boolean;
     };
     export default useMediaContext;
 }
@@ -3491,19 +3493,19 @@ declare module 'react-declarative/components/Countdown' {
 declare module 'react-declarative/components/CardView/CardView' {
     import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData>) => JSX.Element;
+    export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData, any>) => JSX.Element;
     export default CardView;
 }
 
 declare module 'react-declarative/components/CardView/model/ICardViewAction' {
     import IOption from "react-declarative/model/IOption";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export interface ICardViewAction<ItemData extends IItemData = any> extends Omit<IOption, keyof {
+    export interface ICardViewAction<ItemData extends IItemData = any, Payload extends any = any> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
-        isVisible?: (row: ItemData) => Promise<boolean> | boolean;
-        isDisabled?: (row: ItemData) => Promise<boolean> | boolean;
+        isVisible?: (row: ItemData, payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (row: ItemData, payload: Payload) => Promise<boolean> | boolean;
     }
     export default ICardViewAction;
 }
@@ -3511,10 +3513,10 @@ declare module 'react-declarative/components/CardView/model/ICardViewAction' {
 declare module 'react-declarative/components/CardView/model/ICardViewOperation' {
     import { IActionTrigger } from "react-declarative/components/ActionTrigger";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export interface ICardViewOperation<ItemData extends IItemData = any> extends Omit<IActionTrigger, keyof {
+    export interface ICardViewOperation<ItemData extends IItemData = any, Payload extends any = any> extends Omit<IActionTrigger, keyof {
         isAvailable: never;
     }> {
-        isAvailable: (selectedItems: ItemData[], isAllSelected: boolean) => (boolean | Promise<boolean>);
+        isAvailable: (selectedItems: ItemData[], isAllSelected: boolean, payload: Payload) => (boolean | Promise<boolean>);
     }
     export default ICardViewOperation;
 }
@@ -3696,11 +3698,11 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({ row, }: import("./components/CheckboxCell").ICheckboxCellProps<RowData_1>) => JSX.Element;
         CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({ column, row, onMenuToggle, onAction, }: import("../..").ICommonCellSlot<RowData_2>) => any;
         HeadRow: (props: import("../..").IHeadRowSlot<any>) => JSX.Element;
-        ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any>) => JSX.Element;
-        ActionMenu: ({ options, }: import("../..").IActionMenuSlot) => JSX.Element;
-        ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any>) => JSX.Element;
+        ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
+        ActionMenu: ({ options, deps, }: import("../..").IActionMenuSlot) => JSX.Element;
+        ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
         ChipListSlot: <RowData_3 extends import("../../../..").IRowData = any>({ listChips, loading, }: import("../..").IChipListSlot<RowData_3>) => JSX.Element;
-        ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
+        ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, deps, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
         FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, clean, label, loading, withSearch, withToggledFilters, search: upperSearch, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
         OperationListSlot: ({ className, style, operations, width, }: import("../..").IOperationListSlot) => JSX.Element;
         SearchSlot: ({ className, style, label, loading, clean, search: upperSearch, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
@@ -4270,6 +4272,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         onAction?: (action: string) => void;
         onToggle?: (opened: boolean) => void;
         fallback?: (e: Error) => void;
+        deps?: any[];
         throwError?: boolean;
         className?: string;
         style?: React.CSSProperties;
@@ -4280,7 +4283,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         BeforeContent?: React.ComponentType<any>;
         AfterContent?: React.ComponentType<any>;
     }
-    export const ActionMenu: <T extends unknown = object>({ options, transparent, disabled, throwError, fallback, onToggle, onAction, payload, className, style, sx, onLoadStart, onLoadEnd, keepMounted, BeforeContent, AfterContent, }: IActionMenuProps<T>) => JSX.Element;
+    export const ActionMenu: <T extends unknown = object>({ options, transparent, disabled, throwError, fallback, onToggle, onAction, payload, className, style, sx, deps, onLoadStart, onLoadEnd, keepMounted, BeforeContent, AfterContent, }: IActionMenuProps<T>) => JSX.Element;
     export default ActionMenu;
 }
 
@@ -5000,13 +5003,15 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
     import ICardViewOperation from "react-declarative/components/CardView/model/ICardViewOperation";
     import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
-    export interface ICardViewProps<ItemData extends IItemData = any> extends BoxProps {
+    export interface ICardViewProps<ItemData extends IItemData = any, Payload extends any = any> extends BoxProps {
         handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
         scrollXSubject?: TSubject<number>;
         scrollYSubject?: TSubject<number>;
         reloadSubject?: TSubject<void>;
-        cardActions?: ICardViewAction<ItemData>[];
-        operations?: ICardViewOperation<ItemData>[];
+        cardActions?: ICardViewAction<ItemData, Payload>[];
+        operations?: ICardViewOperation<ItemData, Payload>[];
+        payload?: (() => Payload) | Payload;
+        formatCardLabel?: (item: ItemData) => React.ReactNode;
         formatKey?: (key: keyof ItemData) => React.ReactNode;
         formatValue?: (key: keyof ItemData, value: ItemData[keyof ItemData]) => React.ReactNode;
         onOperation?: (operation: string, selectedItems: ItemData[], isAllSelected: boolean) => (void | Promise<void>);
@@ -5577,13 +5582,13 @@ declare module 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot'
 declare module 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot' {
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
-    export interface IActionAddSlot<RowData extends IRowData = IAnything> {
+    export interface IActionAddSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
         action?: string;
         label?: string;
         height: number;
         width: number;
-        isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-        isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
     }
     export default IActionAddSlot;
 }
@@ -5595,9 +5600,11 @@ declare module 'react-declarative/components/List/slots/ActionAddSlot/ActionAddS
 }
 
 declare module 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot' {
+    import IAnything from "react-declarative/model/IAnything";
     import { IListActionOption } from "react-declarative/model/IListProps";
     export interface IActionMenuSlot {
         options?: Partial<IListActionOption>[];
+        deps?: IAnything[];
     }
     export default IActionMenuSlot;
 }
@@ -5612,14 +5619,14 @@ declare module 'react-declarative/components/List/slots/ActionFabSlot/IActionFab
     import React from "react";
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
-    export interface IActionFabSlot<RowData extends IRowData = IAnything> {
+    export interface IActionFabSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
         action?: string;
         label?: string;
         icon?: React.ComponentType<any>;
         height: number;
         width: number;
-        isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-        isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
     }
     export default IActionFabSlot;
 }
@@ -5638,6 +5645,7 @@ declare module 'react-declarative/components/List/slots/ActionListSlot/IActionLi
         style?: React.CSSProperties;
         filterData: FilterData;
         actions: IListAction[];
+        deps?: any[];
         height: number;
         width: number;
         title?: string;

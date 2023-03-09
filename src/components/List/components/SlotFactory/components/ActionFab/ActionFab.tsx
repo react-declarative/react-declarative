@@ -12,6 +12,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import useProps from "../../../../hooks/useProps";
 import useReload from '../../../../hooks/useReload';
 import useCachedRows from '../../../../hooks/useCachedRows';
+import usePayload from '../../../../hooks/usePayload';
 
 import useActualCallback from '../../../../../../hooks/useActualCallback';
 
@@ -45,6 +46,7 @@ export const ActionFab = ({
     const { classes } = useStyles();
 
     const listProps = useProps();
+    const payload = usePayload();
 
     const reload = useReload();
 
@@ -128,11 +130,12 @@ export const ActionFab = ({
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
                 payload={selectedRows}
+                deps={[payload]}
                 throwError
             >
                 {async () => {
-                    const visible = await isVisible(selectedRows);
-                    const disabled = await isDisabled(selectedRows);
+                    const visible = await isVisible(selectedRows, payload);
+                    const disabled = await isDisabled(selectedRows, payload);
                     if (visible) {
                         return (
                             <Content

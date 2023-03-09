@@ -31,6 +31,7 @@ export interface IActionMenuProps<T extends any = object> {
   onAction?: (action: string) => void;
   onToggle?: (opened: boolean) => void;
   fallback?: (e: Error) => void;
+  deps?: any[];
   throwError?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -104,6 +105,7 @@ export const ActionMenu = <T extends any = object>({
   className,
   style,
   sx,
+  deps,
   onLoadStart,
   onLoadEnd,
   keepMounted,
@@ -252,6 +254,7 @@ export const ActionMenu = <T extends any = object>({
                     key={idx}
                     onLoadStart={handleLoadStart}
                     onLoadEnd={handleLoadEnd}
+                    deps={deps}
                     payload={payload}
                   >
                     {async () => {

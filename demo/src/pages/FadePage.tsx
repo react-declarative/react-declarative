@@ -479,6 +479,12 @@ export const FadePage = () => {
             isAvailable: (items) => items.some(({ idx }) => idx % 2 === 1),
           },
         ]}
+        cardActions={[
+          {
+            action: 'test2-action',
+            label: 'Test action',
+          },
+        ]}
         skipStep={5}
       />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />

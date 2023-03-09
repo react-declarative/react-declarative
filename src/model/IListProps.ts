@@ -36,20 +36,20 @@ interface IResortOption<RowData extends IRowData = IAnything> extends Omit<IList
   icon?: IOption['icon'];
 }
 
-export interface IListActionOption<RowData extends IRowData = IAnything> extends Omit<IOption, keyof {
+export interface IListActionOption<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
   isVisible: never;
   isDisabled: never;
 }> {
-  isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-  isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+  isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+  isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
 };
 
-export interface IListAction<RowData extends IRowData = IAnything> {
+export interface IListAction<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
   type: ActionType;
   action?: string;
   label?: string;
-  isVisible?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
-  isDisabled?: (selectedRows: RowData[]) => Promise<boolean> | boolean;
+  isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+  isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
   icon?: React.ComponentType<any>;
   options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData>)[];
 }
@@ -135,8 +135,8 @@ export interface IListProps<
   style?: React.CSSProperties;
   title?: string;
   filterLabel?: string;
-  actions?: IListAction<RowData>[];
-  operations?: IListOperation<RowData>[];
+  actions?: IListAction<RowData, Payload>[];
+  operations?: IListOperation<RowData, Payload>[];
   limit?: number;
   page?: number;
   sizeByParent?: boolean;
@@ -160,7 +160,7 @@ export interface IListProps<
   columns: IColumn<RowData, Payload>[];
   filters?: Field[];
   handler: ListHandler;
-  payload?: Payload;
+  payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;
   reloadSubject?: TSubject<void>;

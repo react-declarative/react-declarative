@@ -11,6 +11,7 @@ import Add from '@mui/icons-material/Add';
 
 import useProps from "../../../../hooks/useProps";
 import useReload from '../../../../hooks/useReload';
+import usePayload from '../../../../hooks/usePayload';
 import useCachedRows from '../../../../hooks/useCachedRows';
 
 import useActualCallback from '../../../../../../hooks/useActualCallback';
@@ -42,6 +43,7 @@ export const ActionAdd = ({
 }: IActionAddSlot) => {
 
     const { classes } = useStyles();
+    const payload = usePayload();
 
     const listProps = useProps();
 
@@ -127,11 +129,12 @@ export const ActionAdd = ({
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
                 payload={selectedRows}
+                deps={[payload]}
                 throwError
             >
                 {async () => {
-                    const visible = await isVisible(selectedRows);
-                    const disabled = await isDisabled(selectedRows);
+                    const visible = await isVisible(selectedRows, payload);
+                    const disabled = await isDisabled(selectedRows, payload);
                     if (visible) {
                         return (
                             <Content

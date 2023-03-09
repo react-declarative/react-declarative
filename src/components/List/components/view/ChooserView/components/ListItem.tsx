@@ -102,6 +102,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     } = useProps();
 
     const reload = useReload();
+    const payload = usePayload();
 
     const { selection } = useSelection();
 
@@ -172,13 +173,14 @@ export const ListItem = <RowData extends IRowData = IAnything>({
                         ...other
                     }) => ({
                         ...other,
-                        isVisible: () => isVisible(row),
-                        isDisabled: () => isDisabled(row),
+                        isVisible: () => isVisible(row, payload),
+                        isDisabled: () => isDisabled(row, payload),
                     }))}
                     onToggle={handleMenuToggle}
                     onAction={handleAction}
                     fallback={fallback}
                     payload={row}
+                    deps={[payload]}
                     onLoadStart={handleLoadStart}
                     onLoadEnd={handleLoadEnd}
                     throwError

@@ -17,6 +17,7 @@ import Async from '../../../../../Async';
 import useActualCallback from '../../../../../../hooks/useActualCallback';
 
 import useCachedRows from '../../../../hooks/useCachedRows';
+import usePayload from '../../../../hooks/usePayload';
 import useReload from '../../../../hooks/useReload';
 import useProps from '../../../../hooks/useProps';
 
@@ -67,6 +68,8 @@ export const OperationListSlot = ({
 
     const { classes } = useStyles();
     const theme = useTheme();
+
+    const payload = usePayload();
 
     const {
         onOperation = () => null,
@@ -165,6 +168,7 @@ export const OperationListSlot = ({
                 <Box className={classes.content}>
                     <Async 
                         payload={conditionPayload}
+                        deps={[payload]}
                         Loader={Loader}
                         fallback={fallback}
                         onLoadStart={handleLoadStart}
@@ -179,7 +183,7 @@ export const OperationListSlot = ({
                                 isAvailable = true,
                             }, idx) => {
                                 const handleAvailable = () => typeof isAvailable === 'function'
-                                    ? isAvailable(selectedRows, isAll)
+                                    ? isAvailable(selectedRows, isAll, payload)
                                     : isAvailable;
                                 const available = nothingFound ? false : await handleAvailable();
                                 return (

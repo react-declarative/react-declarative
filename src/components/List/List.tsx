@@ -489,7 +489,7 @@ export class List<
                                             <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
                                                 <ModalSortProvider>
                                                     <SlotFactory {...this.props.slots}>
-                                                        <PayloadProvider payload={this.props.payload!}>
+                                                        <PayloadProvider value={this.props.payload!}>
                                                             {this.renderInner()}
                                                         </PayloadProvider>
                                                     </SlotFactory>

@@ -8,11 +8,18 @@ export const useMediaContext = () => {
     const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between("sm", "lg"));
     const isDesktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
+    const isWide = isTablet || isDesktop;
+    const isMobile = isPhone;
+
     return useMemo(() => ({
         isPhone,
         isTablet,
         isDesktop,
+        isWide,
+        isMobile,
     }), [
+        isWide,
+        isMobile,
         isPhone,
         isTablet,
         isDesktop,

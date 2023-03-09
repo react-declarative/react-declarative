@@ -26,6 +26,7 @@ import useSortModel from '../../../../../hooks/useSortModel';
 import useSelection from '../../../../../hooks/useSelection';
 import useReload from '../../../../../hooks/useReload';
 import useProps from '../../../../../hooks/useProps';
+import usePayload from '../../../../../hooks/usePayload';
 
 const useStyles = makeStyles()((theme) => ({
     cell: {
@@ -58,6 +59,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     const { sortModel, setSortModel } = useSortModel();
     const { selection, setSelection } = useSelection();
     const { selectedRows } = useCachedRows();
+    const payload = usePayload();
 
     const reload = useReload();
 
@@ -204,8 +206,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                                 ...other
                             }) => ({
                                 ...other,
-                                isDisabled: () => isDisabled(selectedRows),
-                                isVisible: () => isVisible(selectedRows),
+                                isDisabled: () => isDisabled(selectedRows, payload),
+                                isVisible: () => isVisible(selectedRows, payload),
                             }))}
                             onAction={createHandleAction(column.field || 'unset-field')}
                             fallback={fallback}
@@ -213,6 +215,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                             onLoadStart={handleLoadStart}
                             onLoadEnd={handleLoadEnd}
                             disabled={loading}
+                            deps={[payload]}
                             throwError
                         />
                     )}

@@ -11,6 +11,7 @@ import { IListAction } from '../../../../../../model/IListProps';
 import ActionType from '../../../../../../model/ActionType';
 
 import useCachedRows from '../../../../hooks/useCachedRows';
+import usePayload from '../../../../hooks/usePayload';
 import useProps from '../../../../hooks/useProps';
 
 import { IActionListSlot } from '../../../../slots/ActionListSlot';
@@ -50,11 +51,13 @@ export const ActionListSlot = <FilterData extends {}>({
   title,
   height,
   width,
+  deps = [],
 }: IActionListSlot<FilterData>) => {
   const { classes } = useStyles();
 
   const { selectedRows } = useCachedRows();
   const { operations } = useProps();
+  const payload = usePayload();
 
   const hasOperations = Array.isArray(operations) && !!operations.length;
 
@@ -97,12 +100,13 @@ export const ActionListSlot = <FilterData extends {}>({
         ...other
       }) => ({
         ...other,
-        isDisabled: () => isDisabled(selectedRows),
-        isVisible: () => isVisible(selectedRows),
+        isDisabled: () => isDisabled(selectedRows, payload),
+        isVisible: () => isVisible(selectedRows, payload),
       }));
       return (
         <ActionMenu
           options={options}
+          deps={[...deps, payload]}
         />
       );
     } else {

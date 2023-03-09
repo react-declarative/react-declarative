@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import VirtualView from "../VirtualView";
 
 import Operations from "./components/Operations";
-import CardItem from "./components/CardItem";
+import CardItem, { MIN_ROW_HEIGHT } from "./components/CardItem";
 import Footer from "./components/Footer";
 import Search from "./components/Search";
 
@@ -17,6 +17,7 @@ import ICardViewProps from "./model/ICardViewProps";
 import IItemData from "./model/IItemData";
 
 import { StateContextProvider, IState } from "./context/StateContext";
+import { PayloadContextProvider } from "./context/PayloadContext";
 import { PropsContextProvider } from "./context/PropsContext";
 
 import useActualCallback from "../../hooks/useActualCallback";
@@ -48,8 +49,8 @@ const useStyles = makeStyles()({
     flex: 1,
   },
   placeholder: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
 });
 
@@ -72,6 +73,7 @@ export const CardView = <ItemData extends IItemData = any>(
     noSearch = false,
     noFooter = false,
     throwError = false,
+    payload,
   } = props;
   const { classes } = useStyles();
   const [state, setState] = useState<IState<ItemData>>(() => ({
@@ -189,42 +191,41 @@ export const CardView = <ItemData extends IItemData = any>(
   );
   return (
     <PropsContextProvider value={props}>
-      <StateContextProvider<ItemData> value={stateContext}>
-        <Box
-          className={classNames(className, classes.root)}
-          style={style}
-          sx={sx}
-        >
-          <Box className={classes.container}>
-            {!noSearch && (
-              <Search disabled={state.loading} />
-            )}
-            {!!operations?.length && (
-              <Operations disabled={state.loading} items={state.items} />
-            )}
-            <VirtualView
-              className={classes.content}
-              loading={state.loading}
-              hasMore={state.hasMore}
-              onDataRequest={handleDataRequest}
-              scrollXSubject={scrollXSubject}
-              scrollYSubject={scrollYSubject}
-            >
-              {!state.items.length && (
-                <Typography className={classes.placeholder}>
-                  {state.loading ? "Loading" : "Nothing found"}
-                </Typography>
+      <PayloadContextProvider value={payload}>
+        <StateContextProvider<ItemData> value={stateContext}>
+          <Box
+            className={classNames(className, classes.root)}
+            style={style}
+            sx={sx}
+          >
+            <Box className={classes.container}>
+              {!noSearch && <Search disabled={state.loading} />}
+              {!!operations?.length && (
+                <Operations disabled={state.loading} items={state.items} />
               )}
-              {state.items.map((item, idx) => (
-                <CardItem key={`${item.id}-${idx}`} item={item} />
-              ))}
-            </VirtualView>
-            {!noFooter && (
-              <Footer />
-            )}
+              <VirtualView
+                className={classes.content}
+                loading={state.loading}
+                hasMore={state.hasMore}
+                onDataRequest={handleDataRequest}
+                scrollXSubject={scrollXSubject}
+                scrollYSubject={scrollYSubject}
+                minRowHeight={MIN_ROW_HEIGHT}
+              >
+                {!state.items.length && (
+                  <Typography className={classes.placeholder}>
+                    {state.loading ? "Loading" : "Nothing found"}
+                  </Typography>
+                )}
+                {state.items.map((item, idx) => (
+                  <CardItem key={`${item.id}-${idx}`} item={item} />
+                ))}
+              </VirtualView>
+              {!noFooter && <Footer />}
+            </Box>
           </Box>
-        </Box>
-      </StateContextProvider>
+        </StateContextProvider>
+      </PayloadContextProvider>
     </PropsContextProvider>
   );
 };

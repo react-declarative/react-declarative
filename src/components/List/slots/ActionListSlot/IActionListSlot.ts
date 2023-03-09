@@ -6,6 +6,7 @@ export interface IActionListSlot<FilterData extends {} = IAnything> {
     style?: React.CSSProperties;
     filterData: FilterData;
     actions: IListAction[];
+    deps?: any[];
     height: number;
     width: number;
     title?: string;

@@ -6,6 +6,7 @@ import Refresh from '@mui/icons-material/Refresh';
 import Sort from '@mui/icons-material/Sort';
 
 import useProps from "../../../../hooks/useProps";
+import usePayload from '../../../../hooks/usePayload';
 import useModalSort from '../../../../hooks/useModalSort';
 import useReload from '../../../../hooks/useReload';
 import useCachedRows from '../../../../hooks/useCachedRows';
@@ -18,12 +19,14 @@ const LOAD_SOURCE = 'action-menu';
 
 export const ActionMenu = ({
     options = [],
+    deps = [],
 }: IActionMenuSlot) => {
 
     const { selectedRows } = useCachedRows();
 
     const showSortModal = useModalSort();
     const reloadList = useReload();
+    const payload = usePayload();
 
     const {
         onAction,
@@ -58,8 +61,8 @@ export const ActionMenu = ({
                         action,
                         ...other,
                         icon: Refresh,
-                        isDisabled: () => isDisabled(selectedRows),
-                        isVisible: () => isVisible(selectedRows),
+                        isDisabled: () => isDisabled(selectedRows, payload),
+                        isVisible: () => isVisible(selectedRows, payload),
                         label: 'Refresh manually'
                     }
                 } else if (action === 'resort-action') {
@@ -67,22 +70,23 @@ export const ActionMenu = ({
                         action,
                         ...other,
                         icon: Sort,
-                        isDisabled: () => isDisabled(selectedRows),
-                        isVisible: () => isVisible(selectedRows),
+                        isDisabled: () => isDisabled(selectedRows, payload),
+                        isVisible: () => isVisible(selectedRows, payload),
                         label: 'Change sort order'
                     }
                 } else {
                     return {
                         action,
                         ...other,
-                        isDisabled: () => isDisabled(selectedRows),
-                        isVisible: () => isVisible(selectedRows),
+                        isDisabled: () => isDisabled(selectedRows, payload),
+                        isVisible: () => isVisible(selectedRows, payload),
                     }
                 }
             })}
             onAction={handleAction}
             fallback={fallback}
             payload={selectedRows}
+            deps={[...deps, payload]}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
             disabled={loading}

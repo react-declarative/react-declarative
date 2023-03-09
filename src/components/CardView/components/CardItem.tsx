@@ -2,6 +2,7 @@ import * as React from "react";
 import { forwardRef, useCallback, useMemo } from "react";
 
 import { makeStyles } from "../../../styles";
+import { darken } from "@mui/material";
 
 import Paper, { PaperProps } from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -14,12 +15,15 @@ import ActionMenu from "../../ActionMenu";
 import IItemData from "../model/IItemData";
 
 import useMediaContext from "../../../hooks/useMediaContext";
+import usePayloadContext from "../context/PayloadContext";
 import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
 
 import classNames from "../../../utils/classNames";
 import isObject from "../../../utils/isObject";
 import keyToTitle from "../utils/keyToTitle";
+
+export const MIN_ROW_HEIGHT = 225;
 
 interface ICardItemProps<ItemData extends IItemData = any> extends PaperProps {
   item: ItemData;
@@ -53,11 +57,12 @@ const defaultFormatter = (value: React.ReactNode) => {
   }
 };
 
-const useStyles = makeStyles()(() => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
+    minHeight: MIN_ROW_HEIGHT,
   },
   container: {
     flex: 1,
@@ -65,36 +70,44 @@ const useStyles = makeStyles()(() => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    paddingLeft: 50,
-    paddingRight: 50,
     paddingTop: 5,
     paddingBottom: 5,
     marginBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  header: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 45,
+    width: "100%",
+    background: darken(theme.palette.background.paper, 0.06),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "stretch",
   },
   content: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  },
+  inner: {
     display: "grid",
     gridRowGap: "10px",
     gridColumnGap: "10px",
-    flex: 1,
+    paddingTop: 45,
   },
-  phone: {
+  innerPhone: {
     gridTemplateColumns: "1fr",
   },
-  tablet: {
+  innerTablet: {
     gridTemplateColumns: "1fr 1fr",
   },
-  desktop: {
+  innerDesktop: {
     gridTemplateColumns: "1fr 1fr 1fr",
-  },
-  checkbox: {
-    position: "absolute",
-    top: 3,
-    left: 3,
-  },
-  menu: {
-    position: "absolute",
-    top: 3,
-    right: 3,
   },
   textWrap: {
     whiteSpace: "break-spaces",
@@ -105,6 +118,9 @@ const useStyles = makeStyles()(() => ({
   opacity: {
     opacity: 0.6,
   },
+  stretch: {
+    flex: 1,
+  },
 }));
 
 const CardItemInternal = <ItemData extends IItemData = any>(
@@ -113,6 +129,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
 ) => {
   const { classes } = useStyles();
   const { state, action } = useStateContext();
+  const payload = usePayloadContext();
   const {
     cardActions,
     pickFields,
@@ -121,6 +138,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     onLoadEnd,
     formatKey = (k) => keyToTitle(String(k)),
     formatValue = (_, v) => defaultFormatter(v),
+    formatCardLabel = ({ id }) => `Id: ${id}`,
     onCardClick = () => undefined,
     onAction = () => undefined,
     throwError = false,
@@ -159,54 +177,62 @@ const CardItemInternal = <ItemData extends IItemData = any>(
       sx={sx}
       {...otherProps}
     >
-      <Paper className={classes.container} onClick={handleClick}>
-        <Checkbox
-          className={classes.checkbox}
-          onClick={handleCheckboxToggle}
-          checked={state.selectedIds.has(item.id)}
-        />
-        <Box
-          className={classNames(classes.content, {
-            [classes.phone]: isPhone,
-            [classes.tablet]: isTablet,
-            [classes.desktop]: isDesktop,
-          })}
-        >
-          {entries.map(([key, value], idx) => (
-            <Stack className={classes.textWrap} key={`${key}-${idx}`}>
-              <Typography className={classes.opacity} variant="caption">
-                {formatKey(key)}
-              </Typography>
-              <Typography variant="body1">{formatValue(key, value)}</Typography>
-            </Stack>
-          ))}
-        </Box>
-        {!!cardActions?.length && (
-          <ActionMenu
-            className={classes.menu}
-            options={cardActions.map(
-              ({
-                isDisabled = () => false,
-                isVisible = () => true,
-                ...other
-              }) => ({
-                ...other,
-                isVisible: () => isVisible(item),
-                isDisabled: () => isDisabled(item),
-              })
-            )}
-            onToggle={action.setMenuOpened}
-            onAction={(action) => onAction(action, item)}
-            fallback={fallback}
-            payload={item}
-            onLoadStart={onLoadStart}
-            onLoadEnd={onLoadEnd}
-            throwError={throwError}
-            sx={{
-              color: "inherit",
-            }}
+      <Paper className={classNames(classes.container)} onClick={handleClick}>
+        <Box className={classes.header}>
+          <Checkbox
+            onClick={handleCheckboxToggle}
+            checked={state.selectedIds.has(item.id)}
           />
-        )}
+          <Typography variant="body1">{formatCardLabel(item)}</Typography>
+          <div className={classes.stretch} />
+          {!!cardActions?.length && (
+            <ActionMenu
+              transparent
+              options={cardActions.map(
+                ({
+                  isDisabled = () => false,
+                  isVisible = () => true,
+                  ...other
+                }) => ({
+                  ...other,
+                  isVisible: () => isVisible(item, payload),
+                  isDisabled: () => isDisabled(item, payload),
+                })
+              )}
+              onToggle={action.setMenuOpened}
+              onAction={(action) => onAction(action, item)}
+              fallback={fallback}
+              payload={item}
+              onLoadStart={onLoadStart}
+              onLoadEnd={onLoadEnd}
+              throwError={throwError}
+              sx={{
+                color: "inherit",
+              }}
+              deps={[payload]}
+            />
+          )}
+        </Box>
+        <Box className={classes.content}>
+          <Box
+            className={classNames(classes.inner, {
+              [classes.innerPhone]: isPhone,
+              [classes.innerTablet]: isTablet,
+              [classes.innerDesktop]: isDesktop,
+            })}
+          >
+            {entries.map(([key, value], idx) => (
+              <Stack className={classes.textWrap} key={`${key}-${idx}`}>
+                <Typography className={classes.opacity} variant="caption">
+                  {formatKey(key)}
+                </Typography>
+                <Typography variant="body1">
+                  {formatValue(key, value)}
+                </Typography>
+              </Stack>
+            ))}
+          </Box>
+        </Box>
       </Paper>
     </Box>
   );

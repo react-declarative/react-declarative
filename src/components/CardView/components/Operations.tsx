@@ -11,6 +11,7 @@ import ActionTrigger from "../../ActionTrigger";
 
 import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
+import usePayloadContext from "../context/PayloadContext";
 
 import classNames from "../../../utils/classNames";
 
@@ -49,6 +50,7 @@ export const Operations = <ItemData extends IItemData = any>({
   const [loading, setLoading] = useState(false);
   const { classes } = useStyles();
   const { state, action } = useStateContext();
+  const payload = usePayloadContext();
   const {
     operations = [],
     fallback,
@@ -77,10 +79,11 @@ export const Operations = <ItemData extends IItemData = any>({
         })}
         actions={operations.map(
           ({ isAvailable = () => true, ...operation }) => ({
-            isAvailable: () => isAvailable(selectedItems, state.isAllSelected),
+            isAvailable: () => isAvailable(selectedItems, state.isAllSelected, payload),
             ...operation,
           })
         )}
+        deps={[payload, selectedIds, state.isAllSelected]}
         onAction={(action) =>
           onOperation(action, selectedItems, state.isAllSelected)
         }
@@ -94,7 +97,6 @@ export const Operations = <ItemData extends IItemData = any>({
         }}
         fallback={fallback}
         throwError={throwError}
-        deps={[selectedIds, state.isAllSelected]}
       />
       <FormControlLabel
         disabled={loading || disabled}

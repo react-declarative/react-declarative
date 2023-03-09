@@ -63,6 +63,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
         return (
             <Async
                 payload={row}
+                deps={[_payload]}
                 fallback={fallback}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
@@ -104,13 +105,14 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                     ...other
                 }) => ({
                     ...other,
-                    isVisible: () => isVisible(row),
-                    isDisabled: () => isDisabled(row),
+                    isVisible: () => isVisible(row, _payload),
+                    isDisabled: () => isDisabled(row, _payload),
                 }))}
                 onToggle={onMenuToggle}
                 onAction={onAction}
                 fallback={fallback}
                 payload={row}
+                deps={[_payload]}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
                 disabled={loading}

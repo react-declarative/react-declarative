@@ -3,6 +3,7 @@ import * as React from "react";
 import { makeStyles } from "../../../styles";
 
 import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 import useStateContext from "../context/StateContext";
@@ -13,6 +14,7 @@ const useStyles = makeStyles()({
   root: {
     display: "flex",
     alignItems: "center",
+    gap: 10,
     minHeight: 35,
     maxHeight: 35,
   },
@@ -20,16 +22,22 @@ const useStyles = makeStyles()({
 
 export const Footer = () => {
   const { classes } = useStyles();
-  const { state } = useStateContext();
+  const { state, action } = useStateContext();
   return (
     <Box className={classes.root}>
       {!!state.selectedIds.size && (
-        <Typography variant="body1">
-          {`Selected: ${wordForm(state.selectedIds.size, {
-            one: "item",
-            many: "items",
-          })}`}
-        </Typography>
+        <>
+            <Typography variant="body1">
+                {`Selected: ${wordForm(state.selectedIds.size, {
+                    one: "item",
+                    many: "items",
+                })}`}
+            </Typography>
+            <Link href="#" onClick={() => action.setSelectedIds(new Set())}>
+                Deselect
+            </Link>
+        </>
+
       )}
     </Box>
   );
