@@ -170,7 +170,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
       sx={sx}
       {...otherProps}
     >
-      <Paper className={classNames(classes.container)} onClick={handleClick}>
+      <Paper className={classNames(classes.container)}>
         <Box className={classes.header}>
           <Checkbox
             onClick={() => toggleSelection(item.id)}
@@ -206,7 +206,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
             />
           )}
         </Box>
-        <Box className={classes.content}>
+        <Box className={classes.content} onClick={handleClick}>
           <Box
             className={classNames(classes.inner, {
               [classes.innerPhone]: isPhone,

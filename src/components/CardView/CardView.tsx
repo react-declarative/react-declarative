@@ -65,8 +65,8 @@ export const CardView = <ItemData extends IItemData = any>(
     operations,
     handler,
     reloadSubject: upperReloadSubject,
-    scrollXSubject: upperScrollXSubject,
-    scrollYSubject,
+    scrollXSubject,
+    scrollYSubject: upperScrollYSubject,
     onLoadStart,
     onLoadEnd,
     fallback,
@@ -92,12 +92,12 @@ export const CardView = <ItemData extends IItemData = any>(
     []
   );
   const reloadSubject = useSubject(upperReloadSubject);
-  const scrollXSubject = useSubject(upperScrollXSubject);
+  const scrollYSubject = useSubject(upperScrollYSubject);
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (state.loading) {
       return;
     }
-    if (!state.hasMore) {
+    if (!state.hasMore && !initial) {
       return;
     }
     if (initial) {
@@ -105,7 +105,7 @@ export const CardView = <ItemData extends IItemData = any>(
         ...prevState,
         items: [],
       }));
-      scrollXSubject.next(0);
+      scrollYSubject.next(0);
     }
     let isOk = true;
     try {

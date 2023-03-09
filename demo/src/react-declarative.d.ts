@@ -3516,7 +3516,7 @@ declare module 'react-declarative/components/CardView/model/ICardViewOperation' 
     export interface ICardViewOperation<ItemData extends IItemData = any, Payload extends any = any> extends Omit<IActionTrigger, keyof {
         isAvailable: never;
     }> {
-        isAvailable: (selectedItems: ItemData[], isAllSelected: boolean, payload: Payload) => (boolean | Promise<boolean>);
+        isAvailable?: (selectedItems: ItemData[], isAllSelected: boolean, payload: Payload) => (boolean | Promise<boolean>);
     }
     export default ICardViewOperation;
 }
