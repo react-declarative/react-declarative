@@ -117,6 +117,12 @@ const useStyles = makeStyles()((theme) => ({
     textOverflow: "ellipsis",
     fontWeight: "bold",
   },
+  titleLabel: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    maxWidth: "calc(100% - 80px)",
+  },
   opacity: {
     opacity: 0.6,
   },
@@ -176,7 +182,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
             onClick={() => toggleSelection(item.id)}
             checked={state.selectedIds.has(item.id)}
           />
-          <Typography variant="body1">{formatCardLabel(item)}</Typography>
+          <Typography className={classes.titleLabel} variant="body1">{formatCardLabel(item)}</Typography>
           <div className={classes.stretch} />
           {!!cardActions?.length && (
             <ActionMenu
