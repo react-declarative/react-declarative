@@ -26,7 +26,7 @@ If you studied computer science you must know that everything in software [is bu
 
 My idea is simple. If `C/C++ language` is declarative to `assembly`, `JavaScript` is declarative to `C++`, `React` is declarative to `JavaScript` why don't we build something which will reduce cost of app development when using React (`DOM API` -> `HTML` -> `Plain JS objects` -> `JSX`)?
 
-As a result I had implemented a framework which can handle [the most cases of material guidelines](https://m2.material.io/components) usage with avalibility to fallback into vanilla JSX way of React development. That tool makes your code more functional because It removes the mostly used imperative parts of the virgin source code.
+As a result I had implemented a framework which can handle [the most usecases of the material guidelines](https://m2.material.io/components) usage with avalibility to fallback into vanilla JSX way of React development. That tool makes your code more functional because It removes the mostly used imperative parts of the virgin source code.
 
 So this is definitely the next step on the direction based on top of historical evolution of the UI development way. The community has come up with a new term to define this phenomenon, It called [low code](https://en.wikipedia.org/wiki/Low-code_development_platform).
 
