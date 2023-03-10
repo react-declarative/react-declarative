@@ -70,7 +70,7 @@ Also, several starter kits available
 yarn create react-app --template cra-template-react-declarative .
 ```
 
-**1. Ethers.js/React Starter**
+**2. Ethers.js/React Starter**
 
 > GitHub repo: [https://github.com/react-declarative/cra-template-solidity](https://github.com/react-declarative/cra-template-solidity)
 
@@ -78,7 +78,7 @@ yarn create react-app --template cra-template-react-declarative .
 yarn create react-app --template cra-template-solidity .
 ```
 
-**2. AppWrite/React Starter**
+**3. AppWrite/React Starter**
 
 > GitHub repo: [https://github.com/react-declarative/cra-template-appwrite](https://github.com/react-declarative/cra-template-appwrite)
 
