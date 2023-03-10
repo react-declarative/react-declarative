@@ -60,10 +60,10 @@
 <line y1="-2.25" x2="77.6778" y2="-2.25" transform="matrix(-0.445092 0.895485 -0.883094 -0.469196 213.508 146.153)" stroke="black" stroke-width="4.5"/>
 <line y1="-2.25" x2="75.9911" y2="-2.25" transform="matrix(-0.430379 -0.902649 0.890955 -0.454092 215.377 148.085)" stroke="black" stroke-width="4.5"/>
 <line x1="111.656" y1="80.1398" x2="181.738" y2="80.1398" stroke="black" stroke-width="4.5"/>
-<line y1="-3" x2="157.057" y2="-3" transform="matrix(0.452168 -0.891933 0.879204 0.476445 7 148.085)" stroke="black" stroke-width="6"/>
+<!--line y1="-3" x2="157.057" y2="-3" transform="matrix(0.452168 -0.891933 0.879204 0.476445 7 148.085)" stroke="black" stroke-width="6"/>
 <line x1="72.4099" y1="7.89832" x2="220.049" y2="7.89832" stroke="black" stroke-width="6"/>
 <line x1="218.052" y1="6.64134" x2="289.675" y2="147.641" stroke="black" stroke-width="6"/>
 <line x1="218.303" y1="290.687" x2="289.303" y2="144.839" stroke="black" stroke-width="6"/>
 <line x1="221.918" y1="289.237" x2="73.3443" y2="289.237" stroke="black" stroke-width="6"/>
-<line y1="-3" x2="163.118" y2="-3" transform="matrix(-0.435368 -0.900253 0.888324 -0.459218 78.0164 289.136)" stroke="black" stroke-width="6"/>
+<line y1="-3" x2="163.118" y2="-3" transform="matrix(-0.435368 -0.900253 0.888324 -0.459218 78.0164 289.136)" stroke="black" stroke-width="6"/-->
 </svg>
