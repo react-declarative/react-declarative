@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import Container from './components/Container';
 import LoaderDefault from './components/Loader';
@@ -39,6 +39,20 @@ export const Scaffold2 = <T extends Payload = Payload>({
         stateContext.doInit();
     }, []);
 
+    const renderInner = useCallback(() => {
+        if (stateContext.loading) {
+            return (
+                <Loader />
+            );
+        } else {
+            return (
+                <>
+                    {children}
+                </>
+            );
+        }
+    }, [stateContext.loading, Loader, children]);
+
     return (
         <StateContextProvider value={stateContext}>
             <Container<T>
@@ -49,11 +63,8 @@ export const Scaffold2 = <T extends Payload = Payload>({
                 options={stateContext.filteredGroups}
                 {...otherProps}
             >
-                {children}
+                {renderInner()}
             </Container>
-            {stateContext.loading && (
-                <Loader />
-            )}
         </StateContextProvider>
     );
 };

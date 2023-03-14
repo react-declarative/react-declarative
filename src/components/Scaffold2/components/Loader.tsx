@@ -3,6 +3,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
+import PortalView from '../../PortalView';
+
 import { makeStyles } from '../../../styles';
 
 const useStyles = makeStyles()((theme) => ({
@@ -25,9 +27,11 @@ const useStyles = makeStyles()((theme) => ({
 export const Loader = () => {
     const { classes } = useStyles();
     return (
-        <Box className={classes.root}>
-            <CircularProgress />
-        </Box>
+        <PortalView>
+            <Box className={classes.root}>
+                <CircularProgress />
+            </Box>
+        </PortalView>
     );
 };
 
