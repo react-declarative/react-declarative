@@ -376,6 +376,7 @@ declare module 'react-declarative/model/TypedField' {
         */
     import { IFragmentLayoutProps } from 'react-declarative/components/One/layouts/FragmentLayout';
     import { IDivLayoutProps } from 'react-declarative/components/One/layouts/DivLayout';
+    import { IBoxLayoutProps } from 'react-declarative/components/One/layouts/BoxLayout';
     import { ITabsLayoutProps } from 'react-declarative/components/One/layouts/TabsLayout';
     import { ICenterLayoutProps } from 'react-declarative/components/One/layouts/CenterLayout';
     import { IStretchLayoutProps } from 'react-declarative/components/One/layouts/StretchLayout';
@@ -415,6 +416,7 @@ declare module 'react-declarative/model/TypedField' {
     type Expansion<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data, Payload>, Data, Payload>;
     type Fragment<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data, Payload>, Data, Payload>;
     type Div<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data, Payload>, Data, Payload>;
+    type Box<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Box, IBoxLayoutProps<Data, Payload>, Data, Payload>;
     type Tabs<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps<Data, Payload>, Data, Payload>;
     type Hero<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data, Payload>, Data, Payload>;
     type Center<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data, Payload>, Data, Payload>;
@@ -438,7 +440,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1063,6 +1065,7 @@ declare module 'react-declarative/model/FieldType' {
         Typography = "typography-field",
         Fragment = "fragment-layout",
         Div = "div-layout",
+        Box = "box-layout",
         Tabs = "tabs-layout",
         Hero = "hero-layout",
         Center = "center-layout",
@@ -2484,6 +2487,27 @@ declare module 'react-declarative/components/One/layouts/DivLayout' {
         displayName: string;
     };
     export default DivLayout;
+}
+
+declare module 'react-declarative/components/One/layouts/BoxLayout' {
+    import * as React from 'react';
+    import IField from 'react-declarative/model/IField';
+    import IEntity from 'react-declarative/model/IEntity';
+    import IAnything from 'react-declarative/model/IAnything';
+    import { PickProp } from 'react-declarative/model/IManaged';
+    export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> {
+        className?: PickProp<IField<Data, Payload>, 'className'>;
+        style?: PickProp<IField<Data, Payload>, 'style'>;
+        sx?: PickProp<IField<Data, Payload>, 'sx'>;
+    }
+    interface IBoxLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+        children: React.ReactNode;
+    }
+    export const BoxLayout: {
+        <Data extends unknown = any>({ children, className, style, sx, }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default BoxLayout;
 }
 
 declare module 'react-declarative/components/One/layouts/TabsLayout' {

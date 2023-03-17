@@ -10,6 +10,7 @@ import IAnything from './IAnything';
  */
 import { IFragmentLayoutProps } from '../components/One/layouts/FragmentLayout';
 import { IDivLayoutProps } from '../components/One/layouts/DivLayout';
+import { IBoxLayoutProps } from '../components/One/layouts/BoxLayout';
 import { ITabsLayoutProps } from '../components/One/layouts/TabsLayout';
 import { ICenterLayoutProps } from '../components/One/layouts/CenterLayout';
 import { IStretchLayoutProps } from '../components/One/layouts/StretchLayout';
@@ -59,6 +60,7 @@ type Outline<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldTyp
 type Expansion<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data, Payload>, Data, Payload>;
 type Fragment<Data = IAnything, Payload = IAnything>  = TypedFieldFactory<FieldType.Fragment, IFragmentLayoutProps<Data, Payload>, Data, Payload>;
 type Div<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Div, IDivLayoutProps<Data, Payload>, Data, Payload>;
+type Box<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Box, IBoxLayoutProps<Data, Payload>, Data, Payload>;
 type Tabs<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Tabs, ITabsLayoutProps<Data, Payload>, Data, Payload>;
 type Hero<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Hero, IHeroLayoutProps<Data, Payload>, Data, Payload>;
 type Center<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Center, ICenterLayoutProps<Data, Payload>, Data, Payload>;
@@ -106,6 +108,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Typography<Data, Payload> ? Typography<Data, Payload>
   : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload>
   : Target extends Div<Data, Payload> ? Div<Data, Payload>
+  : Target extends Box<Data, Payload> ? Box<Data, Payload>
   : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload>
   : Target extends Center<Data, Payload> ? Center<Data, Payload>
   : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload>

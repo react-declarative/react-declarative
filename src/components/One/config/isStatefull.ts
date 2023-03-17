@@ -3,6 +3,7 @@ import IField from '../../../model/IField';
 
 const layouts: FieldType[] = [
     FieldType.Group,
+    FieldType.Box,
     FieldType.Paper,
     FieldType.Outline,
     FieldType.Expansion,

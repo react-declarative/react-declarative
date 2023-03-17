@@ -19,6 +19,7 @@ export enum FieldType {
     Typography = 'typography-field',
     Fragment = 'fragment-layout',
     Div = 'div-layout',
+    Box = 'box-layout',
     Tabs = 'tabs-layout',
     Hero = 'hero-layout',
     Center = 'center-layout',
