@@ -339,7 +339,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Инъекция JSX для ComponentField
      */
-    element?: React.ComponentType<Data>;
+    element?: React.ComponentType<Data & { onChange: (data: Data) => void; }>;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении
