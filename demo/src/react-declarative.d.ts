@@ -311,6 +311,7 @@ declare module 'react-declarative' {
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
     export { cached } from 'react-declarative/utils/hof/cached';
+    export { sleep } from 'react-declarative/utils/sleep';
     export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
     export { Subject } from 'react-declarative/utils/rx/Subject';
@@ -2171,6 +2172,11 @@ declare module 'react-declarative/utils/hof/cached' {
     import { IClearable } from 'react-declarative/utils/hof/singleshot';
     export const cached: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default cached;
+}
+
+declare module 'react-declarative/utils/sleep' {
+    export const sleep: (timeout?: number) => Promise<void>;
+    export default sleep;
 }
 
 declare module 'react-declarative/utils/rx/BehaviorSubject' {

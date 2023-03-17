@@ -395,6 +395,8 @@ export { debounce } from './utils/hof/debounce';
 export { queued } from './utils/hof/queued';
 export { cached } from './utils/hof/cached';
 
+export { sleep } from './utils/sleep';
+
 export { BehaviorSubject } from './utils/rx/BehaviorSubject';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Subject } from './utils/rx/Subject';
