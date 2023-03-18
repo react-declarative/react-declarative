@@ -40,6 +40,7 @@ export const Scaffold = <T extends any = string> ({
     loader = -1,
     Loader = LoaderDefault,
     withPassthrough = false,
+    onInit = () => undefined,
     ...props
 }: IScaffoldProps<T>) => {
 
@@ -87,6 +88,7 @@ export const Scaffold = <T extends any = string> ({
                         Loader={Loader}
                     >
                         {async () => {
+                            await onInit();
                             const roles = await resolveRoles();
                             const options = await resolveOptions();
                             return (

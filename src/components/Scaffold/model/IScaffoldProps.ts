@@ -25,6 +25,7 @@ export interface IScaffoldProps<T extends any = string> {
     roles?: string[] | ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
     onOptionClick?: (name: string) => void;
     onAction?: (name: string) => void;
+    onInit?: () => (void | Promise<void>)
 }
 
 export default IScaffoldProps;

@@ -4201,7 +4201,7 @@ declare module 'react-declarative/components/Switch/Switch' {
 
 declare module 'react-declarative/components/Scaffold/Scaffold' {
     import IScaffoldProps from 'react-declarative/components/Scaffold/model/IScaffoldProps';
-    export const Scaffold: <T extends unknown = string>({ roles, payload, throwError, fallback, options, loaderLine, loader, Loader, withPassthrough, ...props }: IScaffoldProps<T>) => JSX.Element;
+    export const Scaffold: <T extends unknown = string>({ roles, payload, throwError, fallback, options, loaderLine, loader, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
     export default Scaffold;
 }
 
@@ -4232,6 +4232,7 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldProps' {
         roles?: string[] | ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
         onOptionClick?: (name: string) => void;
         onAction?: (name: string) => void;
+        onInit?: () => (void | Promise<void>);
     }
     export default IScaffoldProps;
 }
