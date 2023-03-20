@@ -540,6 +540,18 @@ import { VirtualView } from 'react-declarative';
 12. [Functional](https://en.wikipedia.org/wiki/Functional_programming) - `useActualValue`, `useActualCallback`, `useActualState`, `useSearchParams`, `useSearchState`, `useChange`
 13. [Declarative](https://en.wikipedia.org/wiki/Declarative_programming) - `One`, `List`, `Scaffold`, `Scaffold2`, `RecordView`, `CardView`
 
+<img src="./assets/icons/cosmos.svg" height="35px" align="right">
+
+## Philosophy notes
+
+1. [React: declarative vs imperative](./NOTES.md#react-declarative-vs-imperative)
+
+    Declarative programming is when a more qualified specialist writing code in a way when its behavior can be changed by using external config which represent oriented graph of objects
+
+2. [Fractal pattern](./NOTES.md#fractal-pattern-fractal-project-structure)
+
+    Fractal pattern conveys that similar patterns recur progressively and the same thought process is applied to the structuring of codebase i.e All units repeat themselves.
+
 <img src="./assets/icons/atom.svg" height="35px" align="right">
 
 ## License
