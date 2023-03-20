@@ -28,13 +28,13 @@ In comparison with imperative programming in declarative programming we are not 
 
 > Fractal pattern conveys that similar patterns recur progressively and the same thought process is applied to the structuring of codebase i.e All units repeat themselves.
 
-Pros of fractal
+**Pros of fractal**
 
 1. All pros of [Domain driven design](https://en.wikipedia.org/wiki/Domain-driven_design)
 
 2. Easy migration to [Microfrontend](https://en.wikipedia.org/wiki/Microfrontend)
 
-Cons of fractal
+**Cons of fractal**
 
 1. In Windows NT maximum path length is [260 symbols](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
 
