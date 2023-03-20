@@ -38,7 +38,7 @@ In comparison with imperative programming in declarative programming we are not 
 
 1. In Windows NT maximum path length is [260 symbols](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
 
-2. The CRA works slower with fractal architecture (due to WebPack usage). When the bundle size increase we need to use [monorepo](https://github.com/nrwl/nx) with [module federation](https://webpack.js.org/concepts/module-federation/)
+2. [CRA](https://create-react-app.dev/) works slower with fractal architecture (due to WebPack usage). When the bundle size increase we need to use [monorepo](https://github.com/nrwl/nx) with [module federation](https://webpack.js.org/concepts/module-federation/)
 
 ```text
 ├── src                       # Application source code
