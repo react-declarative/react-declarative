@@ -23,3 +23,38 @@ So this is definitely the next step on the direction based on top of historical 
 The `react-declarative` framework is the best low code solution because you still have `webpack`, `node_modules`, `package.json` and the full control on the source code.
 
 In comparison with imperative programming in declarative programming we are not creating component instances manually by using [new operator](https://doc.qt.io/qt-6/qwidget.html#details) or similar (see [Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)). The difference is in more [SOLID](https://en.wikipedia.org/wiki/SOLID) way when using declarative constructions instead of imperative code.
+
+## Fractal pattern (fractal project structure)
+
+> Fractal pattern conveys that similar patterns recur progressively and the same thought process is applied to the structuring of codebase i.e All units repeat themselves.
+
+Pros of fractal
+
+1. All pros of [Domain driven design](https://en.wikipedia.org/wiki/Domain-driven_design)
+
+2. Easy migration to [Microfrontend](https://en.wikipedia.org/wiki/Microfrontend)
+
+Cons of fractal
+
+1. In Windows NT maximum path length is [260 symbols](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
+
+2. The CRA works slower with fractal architecture (due to WebPack usage). When the bundle size increase we need to use [monorepo](https://github.com/nrwl/nx) with [module federation](https://webpack.js.org/concepts/module-federation/)
+
+```text
+├── src                       # Application source code
+│   ├── components            # Reusable Presentational Components
+│   ├── assets                # Required assets
+│   ├── layouts               # Components that dictate major page structure
+│   └── routes                # Main route definitions and async split points
+│       ├── index.js          # Bootstrap main application routes with store
+│       │
+│       └── Route1
+│       │    ├── index.js     # Route definitions and async split points
+│       │    ├── components   # Presentational React Components
+│       │    ├── assets       # Assets required to render components
+│       │
+│       └── Route2
+│       │    ├── index.js     # Route definitions and async split points
+│       │    ├── components   # Presentational React Components
+│       │    ├── assets       # Assets required to render components
+```
