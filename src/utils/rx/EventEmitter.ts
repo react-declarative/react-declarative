@@ -11,21 +11,21 @@ export class EventEmitter {
         return !isEmpty(this._events);
     };
 
-    subscribe = (eventName: EventKey, callback: Function) => {
+    public subscribe = (eventName: EventKey, callback: Function) => {
         !this._events[eventName] && (this._events[eventName] = []);
         this._events[eventName].push(callback);
     };
 
-    unsubscribe = (eventName: EventKey, callback: Function) => {
+    public unsubscribe = (eventName: EventKey, callback: Function) => {
         !this._events[eventName] && (this._events[eventName] = []);
         this._events[eventName] = this._events[eventName].filter(eventCallback => callback !== eventCallback);
     };
 
-    unsubscribeAll = () => {
+    public unsubscribeAll = () => {
         this._events = {};
     };
 
-    once = (eventName: EventKey, callback: Function) => {
+    public once = (eventName: EventKey, callback: Function) => {
         const subscriber = (...args: any[]) => {
             callback(...args);
             this.unsubscribe(eventName, subscriber);
@@ -36,7 +36,7 @@ export class EventEmitter {
         };
     };
 
-    emit = (eventName: EventKey, ...args: any[]) => {
+    public emit = (eventName: EventKey, ...args: any[]) => {
         const event = this._events[eventName];
         event && event.forEach(callback => callback(...args));
     };

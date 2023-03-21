@@ -402,13 +402,17 @@ export { EventEmitter } from './utils/rx/EventEmitter';
 export { Observer } from './utils/rx/Observer';
 export { Subject } from './utils/rx/Subject';
 
+export { fromPromise } from './utils/rx/PromiseSubject';
+
 import TSubjectInternal from './model/TSubject';
+import TPromiseSubjectInternal from './model/TPromiseSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';
 
 export type TSubject<Data = void> = TSubjectInternal<Data>;
 export type TObserver<Data = void> = TObserverInternal<Data>;
 export type TObservable<Data = void> = TObservableInternal<Data>;
+export type TPromiseSubject<Data = void> = TPromiseSubjectInternal<Data>;
 export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
 
 export { getErrorMessage } from './utils/getErrorMessage';

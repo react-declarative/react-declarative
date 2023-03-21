@@ -23,6 +23,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.map(callbackfn);
     };
 
+    public mapAsync = <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void): TObserver<T> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.mapAsync(callbackfn, fallbackfn);
+    };
+
     public filter = (callbackfn: (value: Data) => boolean): TObserver<Data> => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());

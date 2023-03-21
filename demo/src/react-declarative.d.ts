@@ -316,12 +316,15 @@ declare module 'react-declarative' {
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
     export { Observer } from 'react-declarative/utils/rx/Observer';
     export { Subject } from 'react-declarative/utils/rx/Subject';
+    export { fromPromise } from 'react-declarative/utils/rx/PromiseSubject';
     import TSubjectInternal from 'react-declarative/model/TSubject';
+    import TPromiseSubjectInternal from 'react-declarative/model/TPromiseSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
     export type TSubject<Data = void> = TSubjectInternal<Data>;
     export type TObserver<Data = void> = TObserverInternal<Data>;
     export type TObservable<Data = void> = TObservableInternal<Data>;
+    export type TPromiseSubject<Data = void> = TPromiseSubjectInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
     export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
     import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
@@ -2215,12 +2218,13 @@ declare module 'react-declarative/utils/rx/Observer' {
     export const OBSERVER_EVENT: unique symbol;
     type Fn = (...args: any[]) => void;
     export class Observer<Data = any> implements TObserver<Data> {
-        readonly unsubscribe: Fn;
-        constructor(unsubscribe: Fn);
+        constructor(dispose: Fn);
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
         emit: (data: Data) => void;
+        unsubscribe: () => void;
     }
     export { TObserver };
     export default Observer;
@@ -2234,6 +2238,7 @@ declare module 'react-declarative/utils/rx/Subject' {
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
+        mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
         subscribe: (callback: Function) => () => void;
@@ -2245,6 +2250,20 @@ declare module 'react-declarative/utils/rx/Subject' {
     export default Subject;
 }
 
+declare module 'react-declarative/utils/rx/PromiseSubject' {
+    import Subject from "react-declarative/utils/rx/Subject";
+    import TPromiseSubject from "react-declarative/model/TPromiseSubject";
+    import { TObservable } from "react-declarative/model/TObserver";
+    type Fn = (...args: any[]) => void;
+    class PromiseSubject<Data = any> extends Subject<Data> implements TPromiseSubject<Data>, TObservable<Data> {
+        readonly cancel: Fn;
+        constructor(cancel: Fn);
+    }
+    export const fromPromise: <Data = any>(callbackfn: Promise<Data> | (() => Promise<Data>), fallbackfn?: ((e: Error) => void) | undefined) => PromiseSubject<Data>;
+    export { TPromiseSubject };
+    export default PromiseSubject;
+}
+
 declare module 'react-declarative/model/TSubject' {
     export interface TSubject<Data = unknown> {
         subscribe: (callback: (data: Data) => void) => () => void;
@@ -2252,6 +2271,14 @@ declare module 'react-declarative/model/TSubject' {
         next: (data: Data) => void;
     }
     export default TSubject;
+}
+
+declare module 'react-declarative/model/TPromiseSubject' {
+    import TSubject from "react-declarative/model/TSubject";
+    export interface TPromiseSubject<Data = unknown> extends TSubject<Data> {
+        cancel(): void;
+    }
+    export default TPromiseSubject;
 }
 
 declare module 'react-declarative/model/TBehaviorSubject' {
@@ -2266,6 +2293,7 @@ declare module 'react-declarative/model/TObserver' {
     export interface TObserver<Data = unknown> {
         unsubscribe: () => void;
         map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
+        mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
     }

@@ -12,51 +12,95 @@ export class Observer<Data = any> implements TObserver<Data> {
 
     private readonly broadcast = new EventEmitter();
 
-    constructor(public readonly unsubscribe: Fn) { }
+    constructor(private readonly dispose: Fn) { }
 
-    map = <T = any>(callbackfn: (value: Data) => T): Observer<T> => {
+    private tryDispose =  () => {
+        if (!this.broadcast.hasListeners) {
+            this.dispose();
+        }
+    };
+
+    public map = <T = any>(callbackfn: (value: Data) => T): Observer<T> => {
+        let unsubscribeRef: Fn;
         const dispose = compose(
-            () => this.unsubscribe(),
-            () => this.broadcast.unsubscribeAll(),
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
         );
         const observer = new Observer<T>(dispose);
-        this.broadcast.subscribe(OBSERVER_EVENT, (value: Data) => {
+        const handler = (value: Data) => {
             const pendingValue = callbackfn(value);
             observer.emit(pendingValue);
-        });
+        };
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
         return observer;
     };
 
-    filter = (callbackfn: (value: Data) => boolean): Observer<Data> => {
+    public mapAsync = <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void): Observer<T> => {
+        let unsubscribeRef: Fn;
         const dispose = compose(
-            () => this.unsubscribe(),
-            () => this.broadcast.unsubscribeAll(),
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<T>(dispose);
+        const handler = async (value: Data) => {
+            try {
+                const pendingValue = await callbackfn(value);
+                observer.emit(pendingValue);
+            } catch (e: any) {
+                if (fallbackfn) {
+                    fallbackfn(e);
+                } else {
+                    throw e;
+                }
+            }
+        };
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
+        return observer;
+    };
+
+    public filter = (callbackfn: (value: Data) => boolean): Observer<Data> => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
         );
         const observer = new Observer<Data>(dispose);
-        this.broadcast.subscribe(OBSERVER_EVENT, (value: Data) => {
+        const handler = (value: Data) => {
             const delegate = callbackfn(value);
             if (delegate) {
                 observer.emit(value);
             }
-        });
+        };
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
         return observer;
     };
 
-    tap = (callbackfn: (value: Data) => void): Observer<Data> => {
+    public tap = (callbackfn: (value: Data) => void): Observer<Data> => {
+        let unsubscribeRef: Fn;
         const dispose = compose(
-            () => this.unsubscribe(),
-            () => this.broadcast.unsubscribeAll(),
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
         );
         const observer = new Observer<Data>(dispose);
-        this.broadcast.subscribe(OBSERVER_EVENT, (value: Data) => {
+        const handler = (value: Data) => {
             callbackfn(value);
             observer.emit(value);
-        });
+        };
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
         return observer;
     };
 
-    emit = (data: Data) => {
+    public emit = (data: Data) => {
         this.broadcast.emit(OBSERVER_EVENT, data);
+    };
+
+    public unsubscribe = () => {
+        this.broadcast.unsubscribeAll();
+        this.dispose();
     };
 };
 
