@@ -77,7 +77,7 @@ In comparison with imperative programming in declarative programming we are not 
 
 4. **[Interface segregation principle](https://en.wikipedia.org/wiki/Interface_segregation_principle)**
 
-    [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts) extends [Subject](./src/utils/tx/Subject.ts), which using an [Observer](./src/utils/rx/Observer.ts). But if you check it's source code you will notice than it implements [TBehaviorSubject](./src/model/TBehaviorSubject.ts) and [TObservable](./src/model/TObserver.ts) both. This posible due to the interfaces don't overlap each other
+    [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts) extends [Subject](./src/utils/tx/Subject.ts), which using an [Observer](./src/utils/rx/Observer.ts). But if you check it's source code you will notice than it implements [TBehaviorSubject](./src/model/TBehaviorSubject.ts) and [TObservable](./src/model/TObserver.ts) both. This is posible due to the interfaces don't overlap each other
 
 5. **[Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)**
 
