@@ -79,5 +79,5 @@ In comparison with imperative programming in declarative programming we are not 
 
 5. **[Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)**
 
-    When you are using [IField](./src/model/IField.ts) object tree provided to [<One />](./src/components/One/) props you are not making component instances manually. The declarative programming makes dependency inversion. If answer is not good enough, see [provide and inject](./src/helpers/serviceManager.ts) and [Angular2 dependency injection](https://angular.io/guide/dependency-injection)
+    When you are using [IField](./src/model/IField.ts) object tree provided to [<One />](./src/components/One/) props you are not making component instances manually. The declarative programming makes dependency inversion by itself. If the answer is not good enough, see [provide and inject](./src/helpers/serviceManager.ts) and [Angular2 dependency injection](https://angular.io/guide/dependency-injection)
     
