@@ -71,11 +71,11 @@ In comparison with imperative programming in declarative programming we are not 
 
 3. **[Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle)**
 
-    The components props (for example, [IOneProps](./src/model/IOneProps.ts#26)) are using [TSubject](./src/model/TSubject.ts) instead of [Subject](./src/utils/rx/Subject.ts) so the developer can easy use [rxjs](https://rxjs.dev/) or similar realisation
+    The components props (for example, [IOneProps](./src/model/IOneProps.ts#26)) are using [TSubject](./src/model/TSubject.ts) instead of [Subject](./src/utils/rx/Subject.ts) so the developer can easy use [rxjs](https://rxjs.dev/) or similar implementation
 
 4. **[Interface segregation principle](https://en.wikipedia.org/wiki/Interface_segregation_principle)**
 
-    [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts) is extended by [Subject](./src/utils/tx/Subject.ts), which using an [Observer](./src/utils/rx/Observer.ts). But if you check it's source code you will notice than it implements [TSubject](./src/model/TSubject.ts) and [TObservable](./src/model/TObservable.ts) both. This posible due to they don't overlap each other
+    [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts) is extended by [Subject](./src/utils/tx/Subject.ts), which using an [Observer](./src/utils/rx/Observer.ts). But if you check it's source code you will notice than it implements [TSubject](./src/model/TSubject.ts) and [TObservable](./src/model/TObservable.ts) both. This posible due to the interfaces don't overlap each other
 
 5. **[Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)**
 
