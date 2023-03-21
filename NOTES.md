@@ -58,3 +58,26 @@ In comparison with imperative programming in declarative programming we are not 
 │       │    ├── components   # Presentational React Components
 │       │    ├── assets       # Assets required to render components
 ```
+
+## SOLID in react-declarative
+
+1. [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle)
+
+    The [EventEmitter](./src/utils/rx/EventEmitter.ts) does only event broadcast. Subscription management and event filtering implemented in [Subject](./src/utils/rx/Subject.ts) and [Observer](./src/utils/rx/Observer.ts)
+
+2. [Open–closed principle](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
+
+    The latest value of [Subject](./src/utils/rx/Subject.ts) is stored in [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts)
+
+3. [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
+
+    The components props (for example, [IOneProps](./src/model/IOneProps.ts#26)) are using [TSubject](./src/model/TSubject.ts) instead of [Subject](./src/utils/rx/Subject.ts) so the developer can easy use [rxjs](https://rxjs.dev/) or similar realisation
+
+4. [Interface segregation principle](https://en.wikipedia.org/wiki/Interface_segregation_principle)
+
+    [BehaviorSubject](./src/utils/rx/BehaviorSubject.ts) is extended by [Subject](./src/utils/tx/Subject.ts), which using an [Observer](./src/utils/rx/Observer.ts). But if you check it's source code you will notice than it implements [TSubject](./src/model/TSubject.ts) and [TObservable](./src/model/TObservable.ts) both. This posible due to they don't overlap each other
+
+5. [Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
+
+    When you are using [IField](./src/model/IField.ts) object tree provided to [<One />](./src/components/One/) props you are not making component instances manually. The declarative programming makes dependency inversion. If answer is not good enough, see [provide and inject](./src/helpers/serviceManager.ts)
+    

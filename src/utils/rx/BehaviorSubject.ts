@@ -1,8 +1,9 @@
 import Subject from "./Subject";
 
 import TBehaviorSubject from "../../model/TBehaviorSubject";
+import { TObservable } from "../../model/TObserver";
 
-export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data> {
+export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data>, TObservable<Data>  {
 
     constructor(private _data: Data | null = null) {
         super();

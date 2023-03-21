@@ -1,17 +1,40 @@
 import EventEmitter from "./EventEmitter";
+import Observer from "./Observer";
 
 import TSubject from "../../model/TSubject";
+import TObserver, { TObservable } from "../../model/TObserver";
 
 export const SUBJECT_EVENT = Symbol('react-declarative-subject');
 
 type Function = (...args: any[]) => void;
 
-export class Subject<Data = any> implements TSubject<Data> {
+export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
 
     private _emitter = new EventEmitter();
 
     constructor() {
         this.next = this.next.bind(this);
+    };
+
+    public map = <T = any>(callbackfn: (value: Data) => T): TObserver<T> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.map(callbackfn);
+    };
+
+    public filter = (callbackfn: (value: Data) => boolean): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.filter(callbackfn);
+    };
+
+    public tap = (callbackfn: (value: Data) => void): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.tap(callbackfn);
     };
 
     public subscribe = (callback: Function) => {
@@ -21,7 +44,7 @@ export class Subject<Data = any> implements TSubject<Data> {
         }
     };
 
-    unsubscribeAll = () => {
+    public unsubscribeAll = () => {
         this._emitter.unsubscribeAll();
     };
 

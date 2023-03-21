@@ -314,10 +314,14 @@ declare module 'react-declarative' {
     export { sleep } from 'react-declarative/utils/sleep';
     export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
+    export { Observer } from 'react-declarative/utils/rx/Observer';
     export { Subject } from 'react-declarative/utils/rx/Subject';
     import TSubjectInternal from 'react-declarative/model/TSubject';
-    export type TSubject<Data = void> = TSubjectInternal<Data>;
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
+    import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
+    export type TSubject<Data = void> = TSubjectInternal<Data>;
+    export type TObserver<Data = void> = TObserverInternal<Data>;
+    export type TObservable<Data = void> = TObservableInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
     export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
     import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
@@ -2182,7 +2186,8 @@ declare module 'react-declarative/utils/sleep' {
 declare module 'react-declarative/utils/rx/BehaviorSubject' {
     import Subject from "react-declarative/utils/rx/Subject";
     import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
-    export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data> {
+    import { TObservable } from "react-declarative/model/TObserver";
+    export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data>, TObservable<Data> {
         constructor(_data?: Data | null);
         get data(): Data | null;
         next: (data: Data) => void;
@@ -2205,12 +2210,32 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
     export default EventEmitter;
 }
 
+declare module 'react-declarative/utils/rx/Observer' {
+    import TObserver from "react-declarative/model/TObserver";
+    export const OBSERVER_EVENT: unique symbol;
+    type Fn = (...args: any[]) => void;
+    export class Observer<Data = any> implements TObserver<Data> {
+        readonly unsubscribe: Fn;
+        constructor(unsubscribe: Fn);
+        map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
+        tap: (callbackfn: (value: Data) => void) => Observer<Data>;
+        emit: (data: Data) => void;
+    }
+    export { TObserver };
+    export default Observer;
+}
+
 declare module 'react-declarative/utils/rx/Subject' {
     import TSubject from "react-declarative/model/TSubject";
+    import TObserver, { TObservable } from "react-declarative/model/TObserver";
     export const SUBJECT_EVENT: unique symbol;
     type Function = (...args: any[]) => void;
-    export class Subject<Data = any> implements TSubject<Data> {
+    export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         constructor();
+        map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
+        filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
+        tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
         once: (callback: Function) => () => void;
@@ -2235,6 +2260,19 @@ declare module 'react-declarative/model/TBehaviorSubject' {
         data: Data | null;
     }
     export default TBehaviorSubject;
+}
+
+declare module 'react-declarative/model/TObserver' {
+    export interface TObserver<Data = unknown> {
+        unsubscribe: () => void;
+        map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
+        filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
+        tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+    }
+    export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
+        unsubscribe: never;
+    }>;
+    export default TObserver;
 }
 
 declare module 'react-declarative/utils/getErrorMessage' {
