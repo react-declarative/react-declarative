@@ -61,6 +61,8 @@ In comparison with imperative programming in declarative programming we are not 
 
 ## SOLID in react-declarative
 
+> SOLID principles described by simple words with examples in a source code
+
 1. **[Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle)**
 
     The [EventEmitter](./src/utils/rx/EventEmitter.ts) does only event broadcast. Subscription management and event filtering implemented in [Subject](./src/utils/rx/Subject.ts) and [Observer](./src/utils/rx/Observer.ts)
