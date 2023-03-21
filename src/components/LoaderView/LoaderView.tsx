@@ -13,7 +13,7 @@ interface ILoaderViewProps extends Omit<BoxProps, keyof {
 }> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
-    handler: () => (Promise<void> | void);
+    handler?: () => (Promise<void> | void);
     fallback?: (e: Error) => void;
     throwError?: boolean;
     size?: number | string;
@@ -41,6 +41,9 @@ export const LoaderView = ({
     const { classes } = useStyles();
 
     useEffect(() => {
+        if (!handler) {
+            return;
+        }
         const process = async () => {
             let isOk = true;
             try {
