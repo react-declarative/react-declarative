@@ -228,6 +228,16 @@ export function makeField(
         }, [groupRef]);
 
         /**
+         * Если всплытие события клика не сработает, флаг dirty уберется при
+         * первом изменением значения
+         */
+        useEffect(() => {
+            const handler = () => setDirty(true);
+            groupRef && groupRef.addEventListener('click', handler);
+            return () => groupRef && groupRef.removeEventListener('click', handler);
+        }, [groupRef]);
+
+        /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
          * на чтение
