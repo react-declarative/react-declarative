@@ -42,6 +42,7 @@ export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';
 
 export { RouteManager } from './helpers/routeManager';
+export { toRouteUrl } from './utils/toRouteUrl';
 
 export { prefetch } from './helpers/serviceManager';
 export { unload } from './helpers/serviceManager';
@@ -196,6 +197,7 @@ export { RecordView } from './components';
 export { CardView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
+export { LoaderView } from './components';
 export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 

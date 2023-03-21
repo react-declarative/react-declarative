@@ -45,6 +45,7 @@ declare module 'react-declarative' {
     export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
     export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
     export { RouteManager } from 'react-declarative/helpers/routeManager';
+    export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
     export { prefetch } from 'react-declarative/helpers/serviceManager';
     export { unload } from 'react-declarative/helpers/serviceManager';
     export { provide } from 'react-declarative/helpers/serviceManager';
@@ -156,6 +157,7 @@ declare module 'react-declarative' {
     export { CardView } from 'react-declarative/components';
     export { ErrorView } from 'react-declarative/components';
     export { AuthView } from 'react-declarative/components';
+    export { LoaderView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { ICardViewItemData } from 'react-declarative/components/CardView';
@@ -1427,6 +1429,11 @@ declare module 'react-declarative/hooks/useRouteParams' {
     export default useRouteParams;
 }
 
+declare module 'react-declarative/utils/toRouteUrl' {
+    export const toRouteUrl: (template: string, params: object) => string;
+    export default toRouteUrl;
+}
+
 declare module 'react-declarative/model/IMenuGroup' {
     import * as React from 'react';
     export interface IMenuOption<T extends any = string> {
@@ -2001,6 +2008,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/CardView';
     export * from 'react-declarative/components/InfiniteView';
     export * from 'react-declarative/components/VirtualView';
+    export * from 'react-declarative/components/LoaderView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Async';
@@ -3556,6 +3564,11 @@ declare module 'react-declarative/components/VirtualView' {
     export { default } from 'react-declarative/components/VirtualView/VirtualView';
 }
 
+declare module 'react-declarative/components/LoaderView' {
+    export * from 'react-declarative/components/LoaderView/LoaderView';
+    export { default } from 'react-declarative/components/LoaderView/LoaderView';
+}
+
 declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
@@ -4967,6 +4980,22 @@ declare module 'react-declarative/components/VirtualView/VirtualView' {
     }
     export const VirtualView: ({ className, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
     export default VirtualView;
+}
+
+declare module 'react-declarative/components/LoaderView/LoaderView' {
+    import { BoxProps } from "@mui/material/Box";
+    interface ILoaderViewProps extends Omit<BoxProps, keyof {
+        children: never;
+    }> {
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        handler: () => (Promise<void> | void);
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+        size?: number | string;
+    }
+    export const LoaderView: ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, ...otherProps }: ILoaderViewProps) => JSX.Element;
+    export default LoaderView;
 }
 
 declare module 'react-declarative/components/Grid/Grid' {

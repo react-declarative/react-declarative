@@ -41,6 +41,7 @@ export * from './AuthView';
 export * from './CardView';
 export * from './InfiniteView';
 export * from './VirtualView';
+export * from './LoaderView';
 
 export * from './Grid';
 export * from './Search';
