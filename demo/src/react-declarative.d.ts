@@ -4989,7 +4989,7 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
     }> {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
-        handler: () => (Promise<void> | void);
+        handler?: () => (Promise<void> | void);
         fallback?: (e: Error) => void;
         throwError?: boolean;
         size?: number | string;
