@@ -113,6 +113,7 @@ export class Observer<Data = any> implements TObserver<Data> {
 
     public share = () => {
         this._isShared = true;
+        return this;
     };
 
     public merge = <T = any>(observer: TObservable<T>): Observer<Data | T>  => {

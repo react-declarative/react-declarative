@@ -17,7 +17,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         observers.forEach((observer) => {
             root = root.merge(observer);
         });
-        return root as TObservable<T>;
+        return root as TObserver<T>;
     };
 
     constructor() {

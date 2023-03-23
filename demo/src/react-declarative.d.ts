@@ -2234,7 +2234,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
         emit: (data: Data) => void;
         connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
-        share: () => void;
+        share: () => this;
         merge: <T = any>(observer: TObservable<T>) => Observer<Data | T>;
         unsubscribe: () => void;
     }
@@ -2248,7 +2248,7 @@ declare module 'react-declarative/utils/rx/Subject' {
     export const SUBJECT_EVENT: unique symbol;
     type Function = (...args: any[]) => void;
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
-        static combine: <T = any>(...observers: TObservable<unknown>[]) => TObservable<T>;
+        static combine: <T = any>(...observers: TObservable<unknown>[]) => TObserver<T>;
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
