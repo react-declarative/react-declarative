@@ -32,6 +32,8 @@ or
 npx create-react-app . --template=react-declarative
 ```
 
+<img src="./assets/icons/tower.svg" height="35px" align="right">
+
 ## Installation
 
 > There is a sample app avalible in [demo](./demo/src/index.tsx) folder...
@@ -39,6 +41,8 @@ npx create-react-app . --template=react-declarative
 ```bash
 npm install --save react-declarative tss-react @mui/material @emotion/react @emotion/styled
 ```
+
+<img src="./assets/icons/evil.svg" height="35px" align="right">
 
 ## Demos
 
