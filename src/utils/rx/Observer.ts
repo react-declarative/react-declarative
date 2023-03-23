@@ -1,6 +1,6 @@
 import EventEmitter from "./EventEmitter";
 
-import TObserver from "../../model/TObserver";
+import TObserver, { TObservable } from "../../model/TObserver";
 
 import compose from '../compose';
 
@@ -11,11 +11,16 @@ type Fn = (...args: any[]) => void;
 export class Observer<Data = any> implements TObserver<Data> {
 
     private readonly broadcast = new EventEmitter();
+    private _isShared = false;
+
+    public get isShared() {
+        return this._isShared;
+    };
 
     constructor(private readonly dispose: Fn) { }
 
     private tryDispose =  () => {
-        if (!this.broadcast.hasListeners) {
+        if (!this.broadcast.hasListeners && !this._isShared) {
             this.dispose();
         }
     };
@@ -96,6 +101,37 @@ export class Observer<Data = any> implements TObserver<Data> {
 
     public emit = (data: Data) => {
         this.broadcast.emit(OBSERVER_EVENT, data);
+    };
+
+    public connect = (callbackfn: (value: Data) => void) => { 
+        this.broadcast.subscribe(OBSERVER_EVENT, callbackfn);
+        return compose(
+            () => this.tryDispose(),
+            () => this.broadcast.unsubscribe(OBSERVER_EVENT, callbackfn),
+        );
+    };
+
+    public share = () => {
+        this._isShared = true;
+    };
+
+    public merge = <T = any>(observer: TObservable<T>): Observer<Data | T>  => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const merged = new Observer<Data | T>(dispose);
+        const handler = (value: Data | T) => {
+            merged.emit(value);
+        };
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        const subscription = observer.tap(handler);
+        unsubscribeRef = compose(
+            () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler),
+            () => subscription.unsubscribe(),
+        );
+        return merged;
     };
 
     public unsubscribe = () => {

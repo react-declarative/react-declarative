@@ -44,6 +44,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.tap(callbackfn);
     };
 
+    public merge = <T = any>(observer: TObservable<T>): TObserver<Data | T> => {
+        let unsubscribeRef: Function;
+        const merged = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(merged.emit);
+        return merged.merge(observer);
+    };
+
     public subscribe = (callback: Function) => {
         this._emitter.subscribe(SUBJECT_EVENT, callback);
         return () => {

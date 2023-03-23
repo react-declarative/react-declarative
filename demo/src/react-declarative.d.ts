@@ -2222,16 +2222,20 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
 }
 
 declare module 'react-declarative/utils/rx/Observer' {
-    import TObserver from "react-declarative/model/TObserver";
+    import TObserver, { TObservable } from "react-declarative/model/TObserver";
     export const OBSERVER_EVENT: unique symbol;
     type Fn = (...args: any[]) => void;
     export class Observer<Data = any> implements TObserver<Data> {
+        get isShared(): boolean;
         constructor(dispose: Fn);
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
         emit: (data: Data) => void;
+        connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
+        share: () => void;
+        merge: <T = any>(observer: TObservable<T>) => Observer<Data | T>;
         unsubscribe: () => void;
     }
     export { TObserver };
@@ -2249,6 +2253,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        merge: <T = any>(observer: TObservable<T>) => TObserver<Data | T>;
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
         once: (callback: Function) => () => void;
@@ -2304,9 +2309,13 @@ declare module 'react-declarative/model/TObserver' {
         mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        connect: (callbackfn: (value: Data) => void) => () => void;
+        share: () => void;
     }
     export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
         unsubscribe: never;
+        connect: never;
+        share: never;
     }>;
     export default TObserver;
 }
