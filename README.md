@@ -32,7 +32,7 @@ or
 npx create-react-app . --template=react-declarative
 ```
 
-<img src="./assets/icons/tower.svg" height="35px" align="right">
+<img src="./assets/icons/babylon.svg" height="35px" align="right">
 
 ## Installation
 
@@ -42,7 +42,7 @@ npx create-react-app . --template=react-declarative
 npm install --save react-declarative tss-react @mui/material @emotion/react @emotion/styled
 ```
 
-<img src="./assets/icons/evil.svg" height="35px" align="right">
+<img src="./assets/icons/world.svg" height="35px" align="right">
 
 ## Demos
 
