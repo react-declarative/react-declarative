@@ -8,7 +8,9 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
     let lastPromise: Promise<any> = Promise.resolve();
 
     const wrappedFn = (...args: P) => {
-        lastPromise = lastPromise.then(() => promise(...args));
+        lastPromise = lastPromise
+            .then(() => promise(...args))
+            .finally(() => wrappedFn.clear());
         return lastPromise;
     };
 

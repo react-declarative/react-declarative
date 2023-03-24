@@ -3,6 +3,7 @@ import EventEmitter from "./EventEmitter";
 import TObserver, { TObservable } from "../../model/TObserver";
 
 import compose from '../compose';
+import queued from "../hof/queued";
 
 export const OBSERVER_EVENT = Symbol('react-declarative-observer');
 
@@ -48,9 +49,10 @@ export class Observer<Data = any> implements TObserver<Data> {
             () => unsubscribeRef(),
         );
         const observer = new Observer<T>(dispose);
+        const iteraction = queued(callbackfn);
         const handler = async (value: Data) => {
             try {
-                const pendingValue = await callbackfn(value);
+                const pendingValue = await iteraction(value);
                 observer.emit(pendingValue);
             } catch (e: any) {
                 if (fallbackfn) {
@@ -61,7 +63,10 @@ export class Observer<Data = any> implements TObserver<Data> {
             }
         };
         this.broadcast.subscribe(OBSERVER_EVENT, handler);
-        unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = compose(
+            () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler),
+            () => iteraction.clear(),
+        );
         return observer;
     };
 
