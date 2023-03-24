@@ -1,3 +1,5 @@
+import "./polyfills";
+
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';

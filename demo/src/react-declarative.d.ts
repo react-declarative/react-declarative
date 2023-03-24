@@ -12,6 +12,7 @@
 //   ../../@mui/system
 
 declare module 'react-declarative' {
+    import "./polyfills";
     import { TypedField as TypedFieldInternal } from 'react-declarative/model/TypedField';
     import { IField as IFieldInternal } from 'react-declarative/model/IField';
     import { IEntity as IEntityInternal } from 'react-declarative/model/IEntity';
