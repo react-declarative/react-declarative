@@ -12,12 +12,37 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
 
     private _emitter = new EventEmitter();
 
-    public static combine = <T = any>(...observers: TObservable<unknown>[]) => {
-        let root: TObservable<unknown> = new Subject<T>();
+    public static combine = <
+        A = void,
+        B = void,
+        C = void,
+        D = void,
+        E = void,
+        F = void,
+        G = void,
+        H = void,
+        I = void,
+        J = void
+    >(
+        a: TObservable<A>,
+        b?: TObservable<B>,
+        c?: TObservable<C>,
+        d?: TObservable<D>,
+        e?: TObservable<E>,
+        f?: TObservable<F>,
+        g?: TObservable<G>,
+        h?: TObservable<H>,
+        i?: TObservable<I>,
+        j?: TObservable<J>,
+    ) => {
+        const observers = [a, b, c, d, e, f, g, h, i, j];
+        let root: TObservable<unknown> = new Subject<void>();
         observers.forEach((observer) => {
-            root = root.merge(observer);
+            if (observer) {
+                root = root.merge<unknown>(observer);
+            }
         });
-        return root as TObserver<T>;
+        return root as TObserver<A | B | C | D | E | F | G | H | I | J>;
     };
 
     constructor() {
