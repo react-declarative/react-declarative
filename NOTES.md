@@ -82,4 +82,19 @@ In comparison with imperative programming in declarative programming we are not 
 5. **[Dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)**
 
     When you are using [IField](./src/model/IField.ts) object tree provided to [<One />](./src/components/One/) props you are not making component instances manually. The declarative programming makes dependency inversion by itself. If the answer is not good enough, see [provide and inject](./src/helpers/serviceManager.ts) and [Angular2 dependency injection](https://angular.io/guide/dependency-injection)
-    
+
+## Product-oriented principles
+
+> These principles will help you to keep the code as clean as possible when you need to make a [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) immediately
+
+1. **Keep UI [Responsiveness](https://en.wikipedia.org/wiki/Responsiveness)**
+
+    It easy enough to make UI [reactive for user action](https://en.wikipedia.org/wiki/Reactive_user_interface) while extended computer operation in progress if you use [FetchView](./src/components/FetchView), [ActionButton](./src/components/ActionButton) and intermediate progress bars.
+
+2. **Don't overingeneer things**
+
+    If you got a lack of time you should [keep it simple](https://en.wikipedia.org/wiki/KISS_principle). Use [Event-driven programming](https://en.wikipedia.org/wiki/Event-driven_programming) (see `Subject`, `Observer`), declarative state management (`FetchView`, `Async`, `One`, `useActionModal`) whenever it's possible
+
+3. **Product first, infrastructure second**
+
+    The `react-declarative` includes everything you need to build a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). Avoid [R&D](https://en.wikipedia.org/wiki/Research_and_development), it cost a lot. Use build-in components. If not good enough for first look then overthink the layout, not a code

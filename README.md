@@ -562,6 +562,10 @@ import { VirtualView } from 'react-declarative';
 
     SOLID principles described by simple words with examples in a source code
 
+4. [Product-oriented principles](./NOTES.md#product-oriented-principles)
+
+    These principles will help you to keep the code as clean as possible when you need to make a MVP immediately
+
 <img src="./assets/icons/atom.svg" height="35px" align="right">
 
 ## License
