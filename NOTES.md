@@ -97,4 +97,4 @@ In comparison with imperative programming in declarative programming we are not 
 
 3. **Product first, infrastructure second**
 
-    The `react-declarative` includes everything you need to build a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). Avoid [R&D](https://en.wikipedia.org/wiki/Research_and_development), it cost a lot. Use build-in components. If not good enough for first look then overthink the layout, not a code
+    The `react-declarative` includes everything you need to build a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). Avoid [R&D](https://en.wikipedia.org/wiki/Research_and_development), it cost a lot. Use build-in components. If not good enough for a first look then overthink the layout, not a code
