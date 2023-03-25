@@ -48,6 +48,16 @@ export const Container = <T extends Payload = Payload>({
     setMobileOpen((mobileOpen) => !mobileOpen);
   };
 
+  const handleOptionGroupClick = (path: string, id: string) => {
+    setMobileOpen(false);
+    onOptionGroupClick && onOptionGroupClick(path, id);
+  };
+
+  const handleOptionClick = (path: string, id: string) => {
+    setMobileOpen(false);
+    onOptionClick && onOptionClick(path, id);
+  };
+
   return (
     <ThemeProvider>
       <Box
@@ -74,8 +84,8 @@ export const Container = <T extends Payload = Payload>({
               BeforeSearch={BeforeSearch}
               AfterSearch={AfterSearch}
               onClose={handleDrawerToggle}
-              onOptionGroupClick={onOptionGroupClick}
-              onOptionClick={onOptionClick}
+              onOptionGroupClick={handleOptionGroupClick}
+              onOptionClick={handleOptionClick}
             />
           )}
           {!isMobile && (
@@ -90,8 +100,8 @@ export const Container = <T extends Payload = Payload>({
               noSearch={noSearch}
               BeforeSearch={BeforeSearch}
               AfterSearch={AfterSearch}
-              onOptionGroupClick={onOptionGroupClick}
-              onOptionClick={onOptionClick}
+              onOptionGroupClick={handleOptionGroupClick}
+              onOptionClick={handleOptionClick}
             />
           )}
         </Box>
