@@ -1,4 +1,4 @@
-export const getErrorMessage = <T extends Record<string, any> = any>(error: T) => {
+export const getErrorMessage = (error: any) => {
     let errorMessage = 'Unknown error';
     if (typeof error === 'string') {
       errorMessage = error;

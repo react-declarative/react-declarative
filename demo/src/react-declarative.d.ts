@@ -2324,7 +2324,7 @@ declare module 'react-declarative/model/TObserver' {
 }
 
 declare module 'react-declarative/utils/getErrorMessage' {
-    export const getErrorMessage: <T extends Record<string, any> = any>(error: T) => string;
+    export const getErrorMessage: (error: any) => string;
     export default getErrorMessage;
 }
 
