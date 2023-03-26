@@ -73,4 +73,6 @@ export const LoaderView = ({
     );
 };
 
+LoaderView.createLoader = (size: number) => () => <LoaderView size={size} />;
+
 export default LoaderView;
