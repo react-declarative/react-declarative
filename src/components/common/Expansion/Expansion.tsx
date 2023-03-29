@@ -28,6 +28,7 @@ export interface IExpansionProps<Data = IAnything, Payload = IAnything> {
   style?: PickProp<IField<Data, Payload>, 'style'>;
   description?: PickProp<IField<Data, Payload>, 'description'>;
   className?: PickProp<IField<Data, Payload>, 'className'>;
+  expansionOpened?: PickProp<IField<Data, Payload>, 'expansionOpened'>;
 }
 
 interface IExpansionPrivate<Data = IAnything,  Payload = IAnything> {
@@ -44,10 +45,11 @@ export const Expansion = ({
   sx,
   style,
   children,
+  expansionOpened: expanded,
 }: IExpansionProps & IExpansionPrivate) => {
   const { classes } = useStyles();
   return (
-    <Accordion className={className} style={style}>
+    <Accordion expanded={expanded} className={className} style={style}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{title}</Typography>
         <Typography className={classes.secondaryHeading}>{description}</Typography>

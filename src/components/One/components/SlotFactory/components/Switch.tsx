@@ -18,7 +18,7 @@ export const Switch = ({
                 {title}
             </Typography>
         </Box>
-        <MatSwitch disabled={disabled} checked={Boolean(value)} onChange={() => onChange(!value)} />
+        <MatSwitch disabled={disabled} checked={Boolean(value)} onChange={(_, checked) => onChange(checked)} />
     </Box>
 );
 

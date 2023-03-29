@@ -44,4 +44,5 @@ RatingField.displayName = 'RatingField';
 
 export default makeField(RatingField, {
   skipDebounce: true,
+  skipClickListener: true,
 });

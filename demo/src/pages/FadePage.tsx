@@ -31,6 +31,8 @@ import {
   Search,
   Countdown,
   CardView,
+  FeatureView,
+  IFeatureGroup,
 } from "react-declarative";
 import { v4 as uuid } from "uuid";
 
@@ -42,6 +44,57 @@ import history from "../history";
 import sleep from "../utils/sleep";
 
 import mock from "./mock/list";
+
+const features: IFeatureGroup[] = [
+  {
+    title: 'Moderations',
+    expanded: true,
+    children: [
+      {
+        name: 'moderations1',
+        label: 'Moderations',
+        description: 'Toggle moderation notifications',
+      },
+      {
+        name: 'moderations2',
+        label: 'Moderations',
+        description: 'Toggle moderation notifications',
+      },
+      {
+        name: 'moderations3',
+        label: 'Moderations',
+        description: 'Toggle moderation notifications',
+      },
+    ],
+  },
+  {
+    title: 'Payments',
+    expanded: true,
+    children: [
+      {
+        name: 'payments1',
+        label: 'Payments',
+        description: 'Toggle payments notifications',
+      },
+      {
+        name: 'payments2',
+        label: 'Payments',
+        description: 'Toggle payments notifications',
+      },
+    ],
+  },
+  {
+    title: 'Withdraws',
+    expanded: true,
+    children: [
+      {
+        name: 'withdraws1',
+        label: 'Withdraws',
+        description: 'Toggle withdraw notifications',
+      },
+    ],
+  },
+];
 
 const columns: IGridColumn<typeof mock[0]>[] = [
   {
@@ -488,6 +541,7 @@ export const FadePage = () => {
         onOperation={console.log}
         skipStep={5}
       />
+      <FeatureView features={features} />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
     </>
   );

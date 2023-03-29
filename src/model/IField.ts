@@ -376,6 +376,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     };
 
     /**
+     * Поле для ExpansionLayout
+     */
+    expansionOpened?: boolean;
+
+    /**
      * Предикат для компоновки Condition
      */
     condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>)

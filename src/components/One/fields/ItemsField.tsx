@@ -68,4 +68,5 @@ ItemsField.displayName = 'ItemsField';
 
 export default makeField(ItemsField, {
   skipDebounce: true,
+  skipClickListener: true,
 });

@@ -51,6 +51,7 @@ const useStyles = makeStyles()({
 
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
+    skipClickListener?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -65,6 +66,7 @@ interface IConfig<Data = IAnything> {
 export function makeField(
     Component: React.FC<IManaged>,
     config: IConfig = {
+        skipClickListener: false,
         skipDebounce: false,
         defaultProps: { },
     },
@@ -232,9 +234,12 @@ export function makeField(
          * первом изменением значения
          */
         useEffect(() => {
-            const handler = () => setDirty(true);
-            groupRef && groupRef.addEventListener('click', handler);
-            return () => groupRef && groupRef.removeEventListener('click', handler);
+            if (!config.skipClickListener) {
+                const handler = () => setDirty(true);
+                groupRef && groupRef.addEventListener('click', handler, { passive: true });
+                return () => groupRef && groupRef.removeEventListener('click', handler);
+            }
+            return undefined;
         }, [groupRef]);
 
         /**

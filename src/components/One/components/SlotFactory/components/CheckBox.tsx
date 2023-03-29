@@ -17,7 +17,7 @@ export const CheckBox = ({
             control={<Checkbox
                 disabled={disabled}
                 checked={Boolean(value)}
-                onChange={() => onChange(!value)}
+                onChange={(_, checked) => onChange(checked)}
             />}
             label={title || ''} />
     </FormGroup>

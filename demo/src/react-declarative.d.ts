@@ -159,6 +159,7 @@ declare module 'react-declarative' {
     export { ErrorView } from 'react-declarative/components';
     export { AuthView } from 'react-declarative/components';
     export { LoaderView } from 'react-declarative/components';
+    export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { ICardViewItemData } from 'react-declarative/components/CardView';
@@ -166,6 +167,10 @@ declare module 'react-declarative' {
     import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
     export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
     export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
+    import { IFeatureGroup as IFeatureGroupInternal } from 'react-declarative/components/FeatureView';
+    import { IFeature as IFeatureInternal } from 'react-declarative/components/FeatureView';
+    export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
+    export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
     import { recordToExcelExport } from 'react-declarative/components/RecordView';
     export { recordToExcelExport };
     export { ErrorBoundary } from 'react-declarative/components';
@@ -785,6 +790,10 @@ declare module 'react-declarative/model/IField' {
                     body1: 'body1';
                     body2: 'body2';
             };
+            /**
+                * Поле для ExpansionLayout
+                */
+            expansionOpened?: boolean;
             /**
                 * Предикат для компоновки Condition
                 */
@@ -2010,6 +2019,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/InfiniteView';
     export * from 'react-declarative/components/VirtualView';
     export * from 'react-declarative/components/LoaderView';
+    export * from 'react-declarative/components/FeatureView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Async';
@@ -2024,6 +2034,13 @@ declare module 'react-declarative/components/CardView' {
     export * from 'react-declarative/components/CardView/model/ICardViewOperation';
     export { IItemData as ICardViewItemData } from 'react-declarative/components/CardView/model/IItemData';
     export { default } from 'react-declarative/components/CardView/CardView';
+}
+
+declare module 'react-declarative/components/FeatureView' {
+    export * from 'react-declarative/components/FeatureView/FeatureView';
+    export * from 'react-declarative/components/FeatureView/model/IFeature';
+    export * from 'react-declarative/components/FeatureView/model/IFeatureGroup';
+    export { default } from 'react-declarative/components/FeatureView/FeatureView';
 }
 
 declare module 'react-declarative/components/RecordView' {
@@ -2743,7 +2760,7 @@ declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
         children: React.ReactNode;
     }
     export const ExpansionLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default ExpansionLayout;
@@ -3134,11 +3151,12 @@ declare module 'react-declarative/components/One/fields/SwitchField' {
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
     }
     export interface ISwitchFieldPrivate<Data = IAnything> {
+        fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
         onChange: PickProp<IManaged<Data>, 'onChange'>;
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
-        ({ disabled, value, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        ({ disabled, value, fieldReadonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3649,6 +3667,38 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
         id: string | number;
     }
     export default IItemData;
+}
+
+declare module 'react-declarative/components/FeatureView/FeatureView' {
+    import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
+    export const FeatureView: <Data extends unknown = any, Payload = any>({ features, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
+    export default FeatureView;
+}
+
+declare module 'react-declarative/components/FeatureView/model/IFeature' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IFeature<Data extends IAnything = IAnything, Payload = IAnything> {
+        name: string;
+        label?: string;
+        description?: string;
+        defaultValue?: boolean;
+        isDisabled?: IField<Data, Payload>['isDisabled'];
+    }
+    export default IFeature;
+}
+
+declare module 'react-declarative/components/FeatureView/model/IFeatureGroup' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    import IFeature from "react-declarative/components/FeatureView/model/IFeature";
+    export interface IFeatureGroup<Data extends IAnything = IAnything, Payload = IAnything> {
+        title: string;
+        expanded?: boolean;
+        children: IFeature<Data, Payload>[];
+        isVisible?: IField<Data, Payload>['isVisible'];
+    }
+    export default IFeatureGroup;
 }
 
 declare module 'react-declarative/components/RecordView/RecordView' {
@@ -5006,7 +5056,10 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
         throwError?: boolean;
         size?: number | string;
     }
-    export const LoaderView: ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, ...otherProps }: ILoaderViewProps) => JSX.Element;
+    export const LoaderView: {
+        ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, ...otherProps }: ILoaderViewProps): JSX.Element;
+        createLoader(size: number): () => JSX.Element;
+    };
     export default LoaderView;
 }
 
@@ -5169,6 +5222,18 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
     export default ICardViewProps;
 }
 
+declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IOneProps from "react-declarative/model/IOneProps";
+    import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
+    export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
+        fields: never;
+    }> {
+        features: IFeatureGroup<Data, Payload>[];
+    }
+    export default IFeatureViewProps;
+}
+
 declare module 'react-declarative/components/RecordView/model/IData' {
     export type Value = boolean | number | string;
     export interface IData {
@@ -5326,6 +5391,7 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
         style?: PickProp<IField<Data, Payload>, 'style'>;
         description?: PickProp<IField<Data, Payload>, 'description'>;
         className?: PickProp<IField<Data, Payload>, 'className'>;
+        expansionOpened?: PickProp<IField<Data, Payload>, 'expansionOpened'>;
     }
     interface IExpansionPrivate<Data = IAnything, Payload = IAnything> {
         children: React.ReactNode;
@@ -5333,7 +5399,7 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
     }
     export const Expansion: {
-        ({ title, description, className, columnsOverride, sx, style, children, }: IExpansionProps & IExpansionPrivate): JSX.Element;
+        ({ title, description, className, columnsOverride, sx, style, children, expansionOpened: expanded, }: IExpansionProps & IExpansionPrivate): JSX.Element;
         displayName: string;
     };
     export default Expansion;
@@ -5497,6 +5563,7 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
     import IField from 'react-declarative/model/IField';
     interface IConfig<Data = IAnything> {
         skipDebounce?: boolean;
+        skipClickListener?: boolean;
         defaultProps?: Partial<Omit<IField<Data>, keyof {
             fields: never;
             child: never;

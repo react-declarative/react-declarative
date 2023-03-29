@@ -42,6 +42,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   children,
   title,
   description,
+  expansionOpened,
 }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate) => {
     const { classes } = useStyles();
     return (
@@ -59,6 +60,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
             <Expansion 
                 className={classes.content}
                 columnsOverride={columnsOverride}
+                expansionOpened={expansionOpened}
                 sx={sx}
                 title={title}
                 description={description}

@@ -38,4 +38,5 @@ CheckboxField.displayName = 'CheckboxField';
 
 export default makeField(CheckboxField, {
   skipDebounce: true,
+  skipClickListener: true,
 });

@@ -16,6 +16,7 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
 }
 
 export interface ISwitchFieldPrivate<Data = IAnything>  {
+  fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   onChange: PickProp<IManaged<Data>, 'onChange'>;
   value: PickProp<IManaged<Data>, 'value'>;
 }
@@ -23,10 +24,12 @@ export interface ISwitchFieldPrivate<Data = IAnything>  {
 export const SwitchField = ({
   disabled,
   value,
+  fieldReadonly,
   onChange,
   title,
 }: ISwitchFieldProps & ISwitchFieldPrivate) => (
   <Switch
+    fieldReadonly={fieldReadonly}
     disabled={disabled}
     value={value}
     onChange={onChange}
@@ -38,4 +41,5 @@ SwitchField.displayName = 'SwitchField';
 
 export default makeField(SwitchField, {
   skipDebounce: true,
+  skipClickListener: true,
 });

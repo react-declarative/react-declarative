@@ -68,4 +68,5 @@ ComboField.displayName = "ComboField";
 
 export default makeField(ComboField, {
   skipDebounce: true,
+  skipClickListener: true,
 });
