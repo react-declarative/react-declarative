@@ -5399,7 +5399,7 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
     }
     export const Expansion: {
-        ({ title, description, className, columnsOverride, sx, style, children, expansionOpened: expanded, }: IExpansionProps & IExpansionPrivate): JSX.Element;
+        ({ title, description, className, columnsOverride, sx, style, children, expansionOpened, }: IExpansionProps & IExpansionPrivate): JSX.Element;
         displayName: string;
     };
     export default Expansion;

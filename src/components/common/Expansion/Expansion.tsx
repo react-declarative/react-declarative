@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
@@ -45,11 +46,12 @@ export const Expansion = ({
   sx,
   style,
   children,
-  expansionOpened: expanded,
+  expansionOpened,
 }: IExpansionProps & IExpansionPrivate) => {
   const { classes } = useStyles();
+  const [expanded, setExpanded] = useState(expansionOpened);
   return (
-    <Accordion expanded={expanded} className={className} style={style}>
+    <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)} className={className} style={style}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{title}</Typography>
         <Typography className={classes.secondaryHeading}>{description}</Typography>
