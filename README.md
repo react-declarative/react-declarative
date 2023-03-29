@@ -566,6 +566,10 @@ import { VirtualView } from 'react-declarative';
 
     These principles will help you to keep the code as clean as possible when you need to make a MVP immediately
 
+5. [Oriented graphs: reduce algoritm difficullty](./NOTES.md#reduce-algoritm-difficullty-when-working-with-oriented-graphs)
+
+    The real useful note for working with oriented graphs
+
 <img src="./assets/icons/atom.svg" height="35px" align="right">
 
 ## License

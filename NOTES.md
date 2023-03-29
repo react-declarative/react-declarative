@@ -98,3 +98,9 @@ In comparison with imperative programming in declarative programming we are not 
 3. **Product first, infrastructure second**
 
     The `react-declarative` includes everything you need to build a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). Avoid [R&D](https://en.wikipedia.org/wiki/Research_and_development), it cost a lot. Use build-in components. If not good enough for a first look then overthink the layout, not a code
+
+## Reduce algoritm difficullty when working with oriented graphs
+
+> The real useful note for working with oriented graphs
+
+Hey! If you need to implement context search in something with nested groups go check [src/components/RecordView/context/SearchContext](./src/components/RecordView/context/SearchContext/SearchContext.tsx). There is a quite usefull [deepFlat](./src/components/RecordView/utils/deepFlat.ts) utils which helps to iterate oriented graph nodes with `O(N)` difficulty. As a first attempt, try It with [TDD](https://en.wikipedia.org/wiki/Test-driven_development). FYN for experiments there is a [test unit with mock oriented graph](./src/utils/__tests__/deepFlat.test.ts)
