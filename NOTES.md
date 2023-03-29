@@ -103,4 +103,8 @@ In comparison with imperative programming in declarative programming we are not 
 
 > The real useful note for working with oriented graphs
 
-Hey! If you need to implement context search in something with nested groups go check [src/components/RecordView/context/SearchContext](./src/components/RecordView/context/SearchContext/SearchContext.tsx). There is a quite usefull [deepFlat](./src/components/RecordView/utils/deepFlat.ts) utils which helps to iterate oriented graph nodes with `O(N)` difficulty. As a first attempt, try It with [TDD](https://en.wikipedia.org/wiki/Test-driven_development). FYN for experiments there is a [test unit with mock oriented graph](./src/utils/__tests__/deepFlat.test.ts)
+Hey! If you need to implement context search in something with nested groups go check [src/components/RecordView/context/SearchContext](./src/components/RecordView/context/SearchContext/SearchContext.tsx).
+
+There is a quite usefull [deepFlat](./src/components/RecordView/utils/deepFlat.ts) utils which helps to iterate oriented graph nodes with `O(N)` difficulty. As a first attempt, try It with [TDD](https://en.wikipedia.org/wiki/Test-driven_development).
+
+FYN for experiments there is a [test unit with mock oriented graph](./src/utils/__tests__/deepFlat.test.ts)
