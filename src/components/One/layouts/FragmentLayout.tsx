@@ -7,6 +7,7 @@ import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
+import { useOneState } from '../context/StateProvider';
 
 export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
@@ -15,7 +16,6 @@ export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children: React.ReactNode;
     ready: PickProp<IEntity<Data>, 'ready'>;
-    object: PickProp<IEntity<Data>, 'object'>;
 }
 
 /**
@@ -25,17 +25,19 @@ interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 export const FragmentLayout = <Data extends IAnything = IAnything>({
     children,
     isVisible = () => true,
-    object,
     ready,
 }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>) => {
     const [visible, setVisible] = useState(true);
     const payload = useOnePayload();
+    const { object } = useOneState<Data>();
     useEffect(() => {
-        const visible = isVisible(object, payload);
-        if (!visible) {
-            ready();
+        if (object) {
+            const visible = isVisible(object, payload);
+            if (!visible) {
+                ready();
+            }
+            setVisible(visible);
         }
-        setVisible(visible);
     }, [object]);
     if (visible) {
         return (
@@ -50,4 +52,4 @@ export const FragmentLayout = <Data extends IAnything = IAnything>({
 
 FragmentLayout.displayName = 'FragmentLayout';
 
-export default FragmentLayout;
+export default FragmentLayout as typeof FragmentLayout;

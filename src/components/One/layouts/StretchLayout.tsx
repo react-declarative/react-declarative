@@ -9,6 +9,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> {
     innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     className?: PickProp<IField<Data, Payload>, 'className'>;
@@ -61,4 +63,4 @@ export const StretchLayout = <Data extends IAnything = IAnything>({
 
 StretchLayout.displayName = 'StretchLayout';
 
-export default StretchLayout;
+export default makeLayout(StretchLayout) as typeof StretchLayout;

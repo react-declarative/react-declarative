@@ -17,6 +17,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
@@ -183,4 +185,4 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
 
 TabsLayout.displayName = 'TabsLayout';
 
-export default TabsLayout;
+export default makeLayout(TabsLayout) as typeof TabsLayout;

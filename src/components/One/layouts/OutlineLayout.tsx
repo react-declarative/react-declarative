@@ -11,6 +11,8 @@ import { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+import makeLayout from "../components/makeLayout/makeLayout";
+
 export interface IOutlineLayoutProps<Data = IAnything, Payload = IAnything> extends IOutlineProps<Data, Payload>, IGroupProps<Data, Payload> {
   innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
 }
@@ -73,4 +75,4 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
 
 OutlineLayout.displayName = 'OutlineLayout';
 
-export default OutlineLayout;
+export default makeLayout(OutlineLayout) as typeof OutlineLayout;

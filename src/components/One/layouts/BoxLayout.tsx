@@ -7,6 +7,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
@@ -34,4 +36,4 @@ export const BoxLayout = <Data extends IAnything = IAnything>({
 
 BoxLayout.displayName = 'BoxLayout';
 
-export default BoxLayout;
+export default makeLayout(BoxLayout) as typeof BoxLayout;

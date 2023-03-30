@@ -9,6 +9,8 @@ import classNames from '../../../utils/classNames';
 
 import IAnything from "../../../model/IAnything";
 
+import makeLayout from "../components/makeLayout/makeLayout";
+
 export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {}
 
 interface IExpansionLayoutPrivate {
@@ -73,4 +75,4 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
 
 ExpansionLayout.displayName = 'ExpansionLayout';
 
-export default ExpansionLayout;
+export default makeLayout(ExpansionLayout) as typeof ExpansionLayout;

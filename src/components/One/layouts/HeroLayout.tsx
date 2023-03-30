@@ -17,6 +17,8 @@ import Group, { IGroupProps } from '../../../components/common/Group';
 import { ISizeCallback } from '../../../model/ISize';
 import IEntity from '../../../model/IEntity';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 const DEFAULT_MARGIN = '0px';
 const DEFAULT_SIZE = '100%';
 const DEFAULT_E_SIZE = 'unset';
@@ -403,4 +405,4 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
 
 HeroLayout.displayName = 'HeroLayout';
 
-export default HeroLayout;
+export default makeLayout(HeroLayout) as typeof HeroLayout;

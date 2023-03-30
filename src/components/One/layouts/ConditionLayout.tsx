@@ -10,6 +10,8 @@ import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> {
     condition?: PickProp<IField<Data, Payload>, 'condition'>;
 }
@@ -59,4 +61,4 @@ export const ConditionLayout = <Data extends IAnything = IAnything>({
 
 ConditionLayout.displayName = 'ConditionLayout';
 
-export default ConditionLayout;
+export default makeLayout(ConditionLayout) as typeof ConditionLayout;

@@ -15,6 +15,8 @@ import { PickProp } from '../../../model/IManaged';
 import Group, { IGroupProps } from "../../../components/common/Group";
 import AutoSizer from '../../../components/AutoSizer';
 
+import makeLayout from '../components/makeLayout/makeLayout';
+
 const CENTER_DEBOUNCE = 250;
 
 declare var ResizeObserver: any;
@@ -152,4 +154,4 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
 
 CenterLayout.displayName = 'CenterLayout';
 
-export default CenterLayout;
+export default makeLayout(CenterLayout) as typeof CenterLayout;

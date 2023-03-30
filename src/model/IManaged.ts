@@ -21,6 +21,9 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
     desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
+    disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
+    isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+    isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
 }
 
 /**

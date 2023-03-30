@@ -9,6 +9,7 @@ import Logger from '../components/Logger';
 const fields: TypedField[] = [
     {
         type: FieldType.Center,
+        isDisabled: () => true,
         style: {
             minHeight: 150,
         },
@@ -213,6 +214,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
+        isDisabled: () => true,
         innerPadding: '0',
         child: {
             type: FieldType.Tabs,

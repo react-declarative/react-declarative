@@ -897,6 +897,9 @@ declare module 'react-declarative/model/IManaged' {
             desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
             fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
             fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
+            disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
+            isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+            isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
     }
     /**
         * Компонент высшего порядка makeField
@@ -2567,17 +2570,20 @@ declare module 'react-declarative/components/One/layouts/FragmentLayout' {
     interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children: React.ReactNode;
         ready: PickProp<IEntity<Data>, 'ready'>;
-        object: PickProp<IEntity<Data>, 'object'>;
     }
     /**
       * Компоновка, которую можно скрыть, используя isVisible.
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        <Data extends unknown = any>({ children, isVisible, object, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
+        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
         displayName: string;
     };
-    export default FragmentLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/DivLayout' {
@@ -2597,7 +2603,11 @@ declare module 'react-declarative/components/One/layouts/DivLayout' {
         <Data extends unknown = any>({ children, className, style, }: IDivLayoutProps<Data, any> & IDivLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default DivLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, }: IDivLayoutProps<Data, any> & IDivLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/BoxLayout' {
@@ -2618,7 +2628,11 @@ declare module 'react-declarative/components/One/layouts/BoxLayout' {
         <Data extends unknown = any>({ children, className, style, sx, }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default BoxLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, sx, }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/TabsLayout' {
@@ -2647,7 +2661,11 @@ declare module 'react-declarative/components/One/layouts/TabsLayout' {
         <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default TabsLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/CenterLayout' {
@@ -2669,7 +2687,11 @@ declare module 'react-declarative/components/One/layouts/CenterLayout' {
         <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default CenterLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/StretchLayout' {
@@ -2690,7 +2712,11 @@ declare module 'react-declarative/components/One/layouts/StretchLayout' {
         <Data extends unknown = any>({ children, className, style, innerPadding: padding, }: IStretchLayoutProps<Data, any> & IStretchLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default StretchLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, innerPadding: padding, }: IStretchLayoutProps<Data, any> & IStretchLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/GroupLayout' {
@@ -2706,7 +2732,11 @@ declare module 'react-declarative/components/One/layouts/GroupLayout' {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
         displayName: string;
     };
-    export default GroupLayout;
+    const _default: {
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/OutlineLayout' {
@@ -2726,7 +2756,11 @@ declare module 'react-declarative/components/One/layouts/OutlineLayout' {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
         displayName: string;
     };
-    export default OutlineLayout;
+    const _default: {
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/PaperLayout' {
@@ -2746,7 +2780,11 @@ declare module 'react-declarative/components/One/layouts/PaperLayout' {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
-    export default PaperLayout;
+    const _default: {
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
@@ -2763,7 +2801,11 @@ declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
-    export default ExpansionLayout;
+    const _default: {
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/HeroLayout' {
@@ -2860,7 +2902,11 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
         <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
-    export default HeroLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/layouts/ConditionLayout' {
@@ -2887,7 +2933,11 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
         <Data extends unknown = any>({ children, condition, fallback, object, ready, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
-    export default ConditionLayout;
+    const _default: {
+        <Data extends unknown = any>({ children, condition, fallback, object, ready, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
 }
 
 declare module 'react-declarative/components/One/fields/CheckboxField' {
