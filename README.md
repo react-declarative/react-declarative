@@ -80,7 +80,7 @@ yarn create react-app --template cra-template-appwrite .
 
 ## Declarative Scaffold component
 
-> Link to [source code](./demo/src/App.Scaffold2.tsx)
+> Link to the [source code](./demo/src/App.Scaffold2.tsx)
 
 The `<Scaffold2 />` implements the basic Material Design visual layout structure by using config instead of manual ui elements composition. 
 
@@ -120,7 +120,7 @@ const options: IScaffold2Group[] = [
 
 **1. Layout grid**
 
-> Link to [source code](./demo/src/pages/LayoutPage.tsx)
+> Link to the [source code](./demo/src/pages/LayoutPage.tsx)
 
 ![layout-grid](./assets/layout.gif)
 
@@ -161,7 +161,7 @@ const fields: TypedField[] = [
 
 **2. Form validation**
 
-> Link to [source code](./demo/src/pages/ValidationPage.tsx)
+> Link to the [source code](./demo/src/pages/ValidationPage.tsx)
 
 ![form-validation](./assets/validation.gif)
 
@@ -205,7 +205,7 @@ const fields: TypedField[] = [
 
 **3. Gallery of controls**
 
-> Link to [source code](./demo/src/pages/GalleryPage.tsx)
+> Link to the [source code](./demo/src/pages/GalleryPage.tsx)
 
 ![gallery](./assets/gallery.gif)
 
@@ -237,7 +237,7 @@ const fields: TypedField[] = [
 
 **4. JSX Injection**
 
-> Link to [source code](./demo/src/pages/GalleryPage.tsx)
+> Link to the [source code](./demo/src/pages/GalleryPage.tsx)
 
 ```tsx
 const fields: TypedField[] = [
@@ -246,7 +246,7 @@ const fields: TypedField[] = [
     fields: [
       {
         type: FieldType.Component,
-        element: (props) => <Logger {...(props || {})}/>, 
+        element: (props) => <Logger {...props}/>, 
       },
     ],
   },
@@ -256,11 +256,28 @@ const fields: TypedField[] = [
 ];
 ```
 
+**5. UI-Kit override**
+
+> Link to the [source code](./src/components/One/components/SlotFactory)
+
+```tsx
+<OneSlotFactory
+  CheckBox={MyCheckBox}
+  Text={MyInput}
+  ...
+>
+  <One
+    ...
+  />
+  ...
+</OneSlotFactory>
+```
+
 <img src="./assets/icons/saturn.svg" height="35px" align="right">
 
 ## JSON-templated grid engine
 
-> Link to [source code](./demo/src/pages/ListPage.tsx)
+> Link to the [source code](./demo/src/pages/ListPage.tsx)
 
 Adaptive json-configurable data grid with build-in mobile device support
 
@@ -434,7 +451,7 @@ const ProfilePage = () => {
 
 ## Animated view transition
 
-> Link to [source code](./demo/src/pages/RevealPage.tsx)
+> Link to the [source code](./demo/src/pages/RevealPage.tsx)
 
 ```tsx
 import { FetchView } from 'react-declarative'
@@ -468,7 +485,7 @@ const PostList = () => {
 
 ## Build-in router
 
-> Link to [source code](./demo/src/App.tsx)
+> Link to the [source code](./demo/src/App.tsx)
 
 ```tsx
 import { Switch } from 'react-declarative';
