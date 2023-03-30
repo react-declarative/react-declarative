@@ -99,7 +99,7 @@ In comparison with imperative programming in declarative programming we are not 
 
     The `react-declarative` includes everything you need to build a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). Avoid [R&D](https://en.wikipedia.org/wiki/Research_and_development), it cost a lot. Use build-in components. If not good enough for a first look then overthink the layout, not a code
 
-## Reduce algoritm difficullty when working with oriented graphs
+## Reduce algoritm difficulty when working with oriented graphs
 
 > The real useful note for working with oriented graphs
 
