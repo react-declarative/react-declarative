@@ -260,6 +260,7 @@ export { Scaffold } from './components';
 export { Scaffold2 } from './components';
 
 export { Countdown } from './components';
+export { Spinner } from './components'; 
 export { Search } from './components';
 export { Grid } from './components';
 export { Copy } from './components';

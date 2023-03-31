@@ -46,6 +46,7 @@ export * from './FeatureView';
 
 export * from './Grid';
 export * from './Search';
+export * from './Spinner';
 export * from './Async';
 export * from './Copy';
 export * from './If';

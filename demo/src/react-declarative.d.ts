@@ -203,6 +203,7 @@ declare module 'react-declarative' {
     export { Scaffold } from 'react-declarative/components';
     export { Scaffold2 } from 'react-declarative/components';
     export { Countdown } from 'react-declarative/components';
+    export { Spinner } from 'react-declarative/components';
     export { Search } from 'react-declarative/components';
     export { Grid } from 'react-declarative/components';
     export { Copy } from 'react-declarative/components';
@@ -2025,6 +2026,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/FeatureView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
+    export * from 'react-declarative/components/Spinner';
     export * from 'react-declarative/components/Async';
     export * from 'react-declarative/components/Copy';
     export * from 'react-declarative/components/If';
@@ -3661,6 +3663,11 @@ declare module 'react-declarative/components/Search' {
     export { default } from 'react-declarative/components/Search/Search';
 }
 
+declare module 'react-declarative/components/Spinner' {
+    export * from 'react-declarative/components/Spinner/Spinner';
+    export { default } from 'react-declarative/components/Spinner/Spinner';
+}
+
 declare module 'react-declarative/components/Async' {
     export * from 'react-declarative/components/Async/Async';
     export { default } from 'react-declarative/components/Async/Async';
@@ -5178,6 +5185,16 @@ declare module 'react-declarative/components/Search/Search' {
     }
     export const Search: ({ className, handler, value: upperValue, label, onChange, onLoadStart, onLoadEnd, fallback, throwError, noCleanIcon, skipStep, sx, ...props }: ISearchProps) => JSX.Element;
     export default Search;
+}
+
+declare module 'react-declarative/components/Spinner/Spinner' {
+    import { BoxProps } from "@mui/material/Box";
+    interface ISpinnerProps extends Omit<BoxProps, keyof {
+        children: never;
+    }> {
+    }
+    export const Spinner: ({ className, ...otherProps }: ISpinnerProps) => JSX.Element;
+    export default Spinner;
 }
 
 declare module 'react-declarative/components/Async/Async' {

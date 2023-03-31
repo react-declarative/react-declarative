@@ -29,6 +29,7 @@ import {
   FieldType,
   useMediaContext,
   Search,
+  Spinner,
   Countdown,
   CardView,
   FeatureView,
@@ -543,6 +544,7 @@ export const FadePage = () => {
       />
       <FeatureView features={features} />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
+      <Spinner />
     </>
   );
 };
