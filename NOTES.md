@@ -166,7 +166,7 @@ export const MyForm = () => {
 }
 ```
 
-This code do the same but It defenitely more extendable (declarative way). For example, we can split the single long procedure to multiple handlers placed in different hooks. I have seen the similar solution in some project with live preview of [AutoCAD 3D model](https://www.autodesk.co.uk/products/autocad-architecture)
+This code do the same but It defenitely more extendable (declarative way). For example, we can split the single long procedure to multiple handlers placed in different hooks. I have seen the similar solution in some project with live previewed [AutoCAD 3D model](https://www.autodesk.co.uk/products/autocad-architecture)
 
 MyForm/MyForm.tsx
 ```typescript
