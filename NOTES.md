@@ -111,7 +111,7 @@ FYN for experiments there is a [unit test with mock oriented graph](./src/utils/
 
 ## Using underected data flow for building software product line
 
-> Useful snippets to split procedure code with inversion of control pattern
+> Useful snippets to split procedure code with the inversion of control pattern
 
 As a capitalists we don't need to build solid things which work for decades. We need to build maintainable things which can be controlled by the power of a capital, what means industry.
 

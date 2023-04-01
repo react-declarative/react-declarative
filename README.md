@@ -589,7 +589,7 @@ import { VirtualView } from 'react-declarative';
 
 6. [Using underected data flow for building software product line](./NOTES.md#using-underected-data-flow-for-building-software-product-line)
 
-    Useful snippets to split procedure code with inversion of control pattern
+    Useful snippets to split procedure code with the inversion of control pattern
 
 <img src="./assets/icons/atom.svg" height="35px" align="right">
 
