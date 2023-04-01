@@ -154,7 +154,7 @@ import { fields, groupFocusSubject } from './MyForm.fields';
 export const MyForm = () => {
 
     useSubscription(groupFocusSubject, () => {
-        // some view updated
+        // some view update
     });
 
     return (
@@ -193,7 +193,7 @@ useSubscription(3dModelSubject, (data) => {
 });
 ```
 
-As you can see displaying the one of dimensions on a blueprint can be disabled [by a feature flag](https://en.wikipedia.org/wiki/Feature-oriented_programming). If you remember, thats the way of pushing updates to clients which Microsoft started to use since Windows 10. That paradign is better because It [turns the software design into manufacturing](https://en.wikipedia.org/wiki/Software_product_lines)
+As you can see displaying the one of dimensions on a blueprint can be hidden [by a feature flag](https://en.wikipedia.org/wiki/Feature-oriented_programming). If you remember, thats the way of pushing updates to clients which Microsoft started to use since Windows 10. That paradign is better because It [turns the software design into manufacturing](https://en.wikipedia.org/wiki/Software_product_lines)
 
 MyForm/hooks/useSideViewHandler.ts
 ```typescript
