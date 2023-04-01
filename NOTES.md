@@ -117,7 +117,7 @@ As a capitalists we don't need to build solid things which work for decades. We 
 
 So than you thinking about [strictly typed centralized state management](https://medium.com/webf/contemporary-front-end-architectures-fb5b500b0231) in your project you must known the payback. If this is one-time project, you wrong. I think any project since 201X is temporary thing for getting money
 
-MyForm/MyForm.fields.ts
+**MyForm/MyForm.fields.ts**
 ```tsx
 import { IField, FieldType, Subject } from 'react-declarative';
 
@@ -145,7 +145,7 @@ const fields: IField[] = [
 
 Normally we are going to await for a group of fields focus event by using `onFocus` callback. But if this handler contains too many business logic we are going to apply `useCallback`. I think this is imperative way of solving problem. I found the better solution
 
-MyForm/MyForm.tsx
+**MyForm/MyForm.tsx**
 ```tsx
 import { One, useSubscription } from 'react-declarative';
 
@@ -168,7 +168,7 @@ export const MyForm = () => {
 
 This code do the same but It defenitely more extendable (declarative way). For example, we can split the single long procedure to multiple handlers placed in different hooks. I have seen the similar solution in some project with live previewed [AutoCAD 3D model](https://www.autodesk.co.uk/products/autocad-architecture)
 
-MyForm/MyForm.tsx
+**MyForm/MyForm.tsx**
 ```typescript
 import { useSubject, useSubscription } from 'react-declarative';
 
@@ -195,7 +195,7 @@ useSubscription(3dModelSubject, (data) => {
 
 As you can see displaying the one of dimensions on a blueprint can be disabled [by a feature flag](https://en.wikipedia.org/wiki/Feature-oriented_programming). If you remember, thats the way of pushing updates to clients which Microsoft started to use since Windows 10. That paradign is better because It [turns the software design into manufacturing](https://en.wikipedia.org/wiki/Software_product_lines)
 
-MyForm/hooks/useSideViewHandler.ts
+**MyForm/hooks/useSideViewHandler.ts**
 ```typescript
 const useSideViewHandler = () => {
 
