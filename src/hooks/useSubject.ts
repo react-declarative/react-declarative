@@ -10,9 +10,15 @@ type Target<Data = any> = TSubject<Data> | TObserver<Data> | null;
 export const useSubject = <Data = any>(target?: Target<Data> | (() => Target<Data>)) => {
     const result = useSingleton(() => new Subject<Data>());
     const value = useSingleton(target);
-    if (target && value !== target && 'connect' in target) {
-        target.unsubscribe();
-    }
+    useEffect(() => {
+        let isDirty = true;
+        isDirty = isDirty && typeof target !== 'function';
+        isDirty = isDirty && value !== target;
+        isDirty = isDirty && target ? ('connect' in target) : false;
+        if (isDirty) {
+            target && (target as TObserver<Data>).unsubscribe();
+        }
+    }, [target]);
     useEffect(() => {
         let dtor: any = undefined;
         if (value) {

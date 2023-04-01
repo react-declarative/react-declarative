@@ -11,9 +11,15 @@ type Fn = () => void;
 export const useSubscription = <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, ...deps: any[]) => {
     const value = useSingleton(target);
     const disposeRef = useRef<Fn>();
-    if (value !== target && 'connect' in target) {
-        target.unsubscribe();
-    }
+    useEffect(() => {
+        let isDirty = true;
+        isDirty = isDirty && typeof target !== 'function';
+        isDirty = isDirty && value !== target;
+        isDirty = isDirty && target ? ('connect' in target) : false;
+        if (isDirty) {
+            (target as TObserver<Data>).unsubscribe();
+        }
+    }, [target]);
     useEffect(() => {
         let dtor: any = undefined;
         if ('subscribe' in value) {
