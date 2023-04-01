@@ -1668,14 +1668,16 @@ declare module 'react-declarative/hooks/useBehaviorSubject' {
 declare module 'react-declarative/hooks/useSubscription' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
     import TObserver from "react-declarative/model/TObserver";
-    export const useSubscription: <Data = any>(target: TSubject<Data> | TObserver<Data>, callbackfn: (data: Data) => void, ...deps: any[]) => void;
+    type Target<Data = any> = TSubject<Data> | TObserver<Data>;
+    export const useSubscription: <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, ...deps: any[]) => void;
     export default useSubscription;
 }
 
 declare module 'react-declarative/hooks/useSubject' {
     import Subject, { TSubject } from "react-declarative/utils/rx/Subject";
     import TObserver from "react-declarative/model/TObserver";
-    export const useSubject: <Data = any>(upperSubject?: TSubject<Data> | TObserver<Data> | null | undefined) => Subject<Data>;
+    type Target<Data = any> = TSubject<Data> | TObserver<Data> | null;
+    export const useSubject: <Data = any>(target?: Target<Data> | (() => Target<Data>) | undefined) => Subject<Data>;
     export default useSubject;
 }
 
@@ -2282,7 +2284,7 @@ declare module 'react-declarative/utils/rx/Subject' {
     export const SUBJECT_EVENT: unique symbol;
     type Function = (...args: any[]) => void;
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
-        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(a: TObservable<A>, b?: TObservable<B> | undefined, c?: TObservable<C> | undefined, d?: TObservable<D> | undefined, e?: TObservable<E> | undefined, f?: TObservable<F> | undefined, g?: TObservable<G> | undefined, h?: TObservable<H> | undefined, i?: TObservable<I> | undefined, j?: TObservable<J> | undefined) => TObserver<A | B | C | D | E | F | G | H | I | J>;
+        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(a: TObservable<A>, b?: TObservable<B> | undefined, c?: TObservable<C> | undefined, d?: TObservable<D> | undefined, e?: TObservable<E> | undefined, f?: TObservable<F> | undefined, g?: TObservable<G> | undefined, h?: TObservable<H> | undefined, i?: TObservable<I> | undefined, j?: TObservable<J> | undefined) => void;
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
@@ -2294,6 +2296,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         unsubscribeAll: () => void;
         once: (callback: Function) => () => void;
         next(data: Data): void;
+        toObserver: () => TObserver<Data>;
     }
     export { TSubject };
     export default Subject;

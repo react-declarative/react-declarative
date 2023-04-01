@@ -36,13 +36,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         j?: TObservable<J>,
     ) => {
         const observers = [a, b, c, d, e, f, g, h, i, j];
-        let root: TObservable<unknown> = new Subject<void>();
+        let root = new Subject<A | B | C | D | E | F | G | H | I | J>().toObserver();
         observers.forEach((observer) => {
             if (observer) {
-                root = root.merge<unknown>(observer);
+                root = root.merge<any>(observer);
             }
         });
-        return root as TObserver<A | B | C | D | E | F | G | H | I | J>;
+        return root.share();
     };
 
     constructor() {
@@ -108,6 +108,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
 
     public next(data: Data) {
         this._emitter.emit(SUBJECT_EVENT, data);
+    };
+
+    public toObserver = (): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer;
     };
 
 };

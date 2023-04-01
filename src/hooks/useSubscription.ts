@@ -3,17 +3,25 @@ import { useEffect } from "react";
 import { TSubject } from "../utils/rx/Subject";
 import TObserver from "../model/TObserver";
 
-export const useSubscription = <Data = any>(target: TSubject<Data> | TObserver<Data>, callbackfn: (data: Data) => void, ...deps: any[]) => {
+import useSingleton from "./useSingleton";
+
+type Target<Data = any> = TSubject<Data> | TObserver<Data>;
+
+export const useSubscription = <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, ...deps: any[]) => {
+    const value = useSingleton(target);
+    if (value !== target && 'connect' in target) {
+        target.unsubscribe();
+    }
     useEffect(() => {
         let dtor: any = undefined;
-        if ('subscribe' in target) {
-            dtor = target.subscribe(callbackfn);
+        if ('subscribe' in value) {
+            dtor = value.subscribe(callbackfn);
         }
-        if ('connect' in target) {
-            dtor = target.connect(callbackfn);
+        if ('connect' in value) {
+            dtor = value.connect(callbackfn);
         }
         return dtor;
-    }, [target, ...deps]);
+    }, [value, ...deps]);
 };
 
 export default useSubscription;

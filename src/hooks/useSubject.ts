@@ -5,20 +5,26 @@ import TObserver from "../model/TObserver";
 
 import useSingleton from "./useSingleton";
 
-export const useSubject = <Data = any>(upperSubject?: TSubject<Data> | TObserver<Data> | null) => {
+type Target<Data = any> = TSubject<Data> | TObserver<Data> | null;
+
+export const useSubject = <Data = any>(target?: Target<Data> | (() => Target<Data>)) => {
     const result = useSingleton(() => new Subject<Data>());
+    const value = useSingleton(target);
+    if (target && value !== target && 'connect' in target) {
+        target.unsubscribe();
+    }
     useEffect(() => {
         let dtor: any = undefined;
-        if (upperSubject) {
-            if ('subscribe' in upperSubject) {
-                dtor = upperSubject.subscribe(result.next);
+        if (value) {
+            if ('subscribe' in value) {
+                dtor = value.subscribe(result.next);
             }
-            if ('connect' in upperSubject) {
-                dtor = upperSubject.connect(result.next);
+            if ('connect' in value) {
+                dtor = value.connect(result.next);
             }
         }
         return dtor;
-    }, [upperSubject]);
+    }, [value]);
     return result;
 };
 
