@@ -108,3 +108,102 @@ Hey! If you need to implement context search in something with nested groups go 
 There is a quite usefull [deepFlat](./src/components/RecordView/utils/deepFlat.ts) utils which helps to iterate oriented graph nodes with `O(N)` difficulty. As a first attempt, try It with [TDD](https://en.wikipedia.org/wiki/Test-driven_development).
 
 FYN for experiments there is a [unit test with mock oriented graph](./src/utils/__tests__/deepFlat.test.ts)
+
+## Using underected data flow for building software product line
+
+> Useful snippets to split procedure code with inversion of control pattern
+
+As a capitalists we don't need to build solid things which work for decades. We need to build maintainable things which can be controlled by the power of a capital, what means industry.
+
+So than you thinking about [strictly typed centralized state management](https://medium.com/webf/contemporary-front-end-architectures-fb5b500b0231) in your project you must known the payback. If this is one-time project, you wrong. I think any project since 201X is temporary thing for getting money
+
+MyForm/MyForm.fields.ts
+```tsx
+import { IField, FieldType, Subject } from 'react-declarative';
+
+export const groupFocusSubject = new Subject();
+
+const fields: IField[] = [
+    {
+        type: FieldType.Group,
+        focus: () => groupFocusSubject.next(),
+        fields: [
+            {
+                type: FieldType.Text,
+                name: 'firstName',
+                title: 'First name',
+            },
+            {
+                type: FieldType.Text,
+                name: 'lastName',
+                title: 'Last name',
+            },
+        ],
+    },
+];
+```
+
+Normally we are going to await for a group of fields focus event by using `onFocus` callback. But if this handler contains too many business logic we will apply `useCallback`. I think this is imperative way of solving problem. I found the better solution
+
+MyForm/MyForm.tsx
+```tsx
+import { One, useSubscription } from 'react-declarative';
+
+import { fields, groupFocusSubject } from './MyForm.fields';
+
+export const MyForm = () => {
+
+    useSubscription(groupFocusSubject, () => {
+        // some view updated
+    });
+
+    return (
+        <One
+            fields={fields}
+            ...
+        />
+    );
+}
+```
+
+This code do the same but It defenitely more extendable (declarative way). For example, we can split the single long procedure to multiple handlers placed in different hooks. I have seen the similar solution in some project with live preview of [AutoCAD 3D model](https://www.autodesk.co.uk/products/autocad-architecture)
+
+MyForm/MyForm.tsx
+```typescript
+import { useSubject, useSubscription } from 'react-declarative';
+
+...
+
+const 3dModelSubject = useSubject(
+    groupFocusSubject.mapAsync(
+        async (groupName: string) => await fetchRawData(groupName),
+    )
+);
+
+useSubscription(3dModelSubject, (data) => {
+    displayBlueprintFrontView(data);
+});
+
+useSubscription(3dModelSubject, (data) => {
+    displayBlueprintTopView(data);
+});
+
+useSubscription(3dModelSubject, (data) => {
+    displayBlueprintSideView(data);
+});
+```
+
+As you can see displaying the one of dimensions on a blueprint can be disabled [by a feature flag](https://en.wikipedia.org/wiki/Feature-oriented_programming). If you remember, thats the way of pushing updates to clients which Microsoft started to use since Windows 10. That paradign is better because It [turns the software design into manufacturing](https://en.wikipedia.org/wiki/Software_product_lines)
+
+MyForm/hooks/useSideViewHandler.ts
+```typescript
+const useSideViewHandler = () => {
+    useSubscription(3dModelSubject, (data) => {
+        if (hasPaymentForSideView) {
+            displayBlueprintSideView(data);
+        }
+    }, [hasPaymentForSideView]);
+};
+```
+
+This code split guide will free you from solving [Git Merge conflicts](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts) when you [start getting payed from customers by subscription model](https://en.wikipedia.org/wiki/Software_as_a_service)

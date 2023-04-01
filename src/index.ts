@@ -77,6 +77,7 @@ import { useChangeSubject } from './hooks/useChangeSubject';
 import { useReloadTrigger } from './hooks/useReloadTrigger';
 import { useSingleton } from './hooks/useSingleton';
 import { useBehaviorSubject } from './hooks/useBehaviorSubject';
+import { useSubscription } from './hooks/useSubscription';
 import { useSubject } from './hooks/useSubject';
 import { useChange } from './hooks/useChange';
 
@@ -306,6 +307,7 @@ export { useMediaContext };
 export { useAudioPlayer };
 
 export { useBehaviorSubject };
+export { useSubscription };
 export { useSingleton };
 export { useSubject };
 export { useChange };

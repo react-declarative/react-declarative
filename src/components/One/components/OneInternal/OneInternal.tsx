@@ -86,9 +86,15 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
                             change: handleChange,
                             ready: handleReady,
                             fallback,
-                            focus,
-                            blur,
                             ...field,
+                            focus(name, payload) {
+                                field.focus && field.focus(name, payload);
+                                focus && focus(name, payload);
+                            },
+                            blur(name, payload) {
+                                field.blur && field.blur(name, payload);
+                                blur && blur(name, payload);
+                            },
                             object,
                             dirty,
                         };

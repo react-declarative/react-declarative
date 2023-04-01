@@ -69,6 +69,7 @@ declare module 'react-declarative' {
     import { useReloadTrigger } from 'react-declarative/hooks/useReloadTrigger';
     import { useSingleton } from 'react-declarative/hooks/useSingleton';
     import { useBehaviorSubject } from 'react-declarative/hooks/useBehaviorSubject';
+    import { useSubscription } from 'react-declarative/hooks/useSubscription';
     import { useSubject } from 'react-declarative/hooks/useSubject';
     import { useChange } from 'react-declarative/hooks/useChange';
     import { useModel } from 'react-declarative/hooks/useModel';
@@ -237,6 +238,7 @@ declare module 'react-declarative' {
     export { useMediaContext };
     export { useAudioPlayer };
     export { useBehaviorSubject };
+    export { useSubscription };
     export { useSingleton };
     export { useSubject };
     export { useChange };
@@ -1663,9 +1665,17 @@ declare module 'react-declarative/hooks/useBehaviorSubject' {
     export default useBehaviorSubject;
 }
 
+declare module 'react-declarative/hooks/useSubscription' {
+    import { TSubject } from "react-declarative/utils/rx/Subject";
+    import TObserver from "react-declarative/model/TObserver";
+    export const useSubscription: <Data = any>(target: TSubject<Data> | TObserver<Data>, callbackfn: (data: Data) => void, ...deps: any[]) => void;
+    export default useSubscription;
+}
+
 declare module 'react-declarative/hooks/useSubject' {
     import Subject, { TSubject } from "react-declarative/utils/rx/Subject";
-    export const useSubject: <Data = any>(upperSubject?: TSubject<Data> | null | undefined) => Subject<Data>;
+    import TObserver from "react-declarative/model/TObserver";
+    export const useSubject: <Data = any>(upperSubject?: TSubject<Data> | TObserver<Data> | null | undefined) => Subject<Data>;
     export default useSubject;
 }
 
