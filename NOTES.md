@@ -213,3 +213,19 @@ const useSideViewHandler = () => {
 ```
 
 This code split guide will free you from solving [Git Merge conflicts](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts) when you [start getting payed from customers by subscription model](https://en.wikipedia.org/wiki/Software_as_a_service)
+
+
+```typescript
+const [text, setText] = useState("");
+
+const textChanged = useChangeSubject(text);
+
+useSubscription(textChanged.debounce(), () => {
+    // Easy money
+});
+
+...
+
+```
+
+P.S. Have you ever implemented state change debounce yet? :-)

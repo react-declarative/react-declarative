@@ -2265,6 +2265,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
+        debounce: (delay?: number | undefined) => Observer<Data>;
         emit: (data: Data) => void;
         connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
         share: () => this;
@@ -2287,6 +2288,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        debounce: (delay?: number | undefined) => TObserver<Data>;
         merge: <T = any>(observer: TObservable<T>) => TObserver<Data | T>;
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
@@ -2344,6 +2346,7 @@ declare module 'react-declarative/model/TObserver' {
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         merge: <T = unknown>(observer: TObservable<T>) => TObserver<Data | T>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        debounce: (delay?: number) => TObserver<Data>;
         connect: (callbackfn: (value: Data) => void) => () => void;
         share: () => void;
     }

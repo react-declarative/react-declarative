@@ -5,6 +5,7 @@ export interface TObserver<Data = unknown> {
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     merge: <T = unknown>(observer: TObservable<T>) => TObserver<Data | T>;
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+    debounce: (delay?: number) => TObserver<Data>;
     connect: (callbackfn: (value: Data) => void) => () => void;
     share: () => void;
 }

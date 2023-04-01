@@ -77,6 +77,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.tap(callbackfn);
     };
 
+    public debounce = (delay?: number): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.debounce(delay);
+    };
+
     public merge = <T = any>(observer: TObservable<T>): TObserver<Data | T> => {
         let unsubscribeRef: Function;
         const merged = new Observer<Data>(() => unsubscribeRef());

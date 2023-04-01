@@ -4,6 +4,7 @@ import TObserver, { TObservable } from "../../model/TObserver";
 
 import compose from '../compose';
 import queued from "../hof/queued";
+import debounce from "../hof/debounce";
 
 export const OBSERVER_EVENT = Symbol('react-declarative-observer');
 
@@ -101,6 +102,24 @@ export class Observer<Data = any> implements TObserver<Data> {
         };
         this.broadcast.subscribe(OBSERVER_EVENT, handler);
         unsubscribeRef = () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler);
+        return observer;
+    };
+
+    public debounce = (delay?: number): Observer<Data> => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<Data>(dispose);
+        const handler = debounce((value: Data) => {
+            observer.emit(value);
+        }, delay);
+        this.broadcast.subscribe(OBSERVER_EVENT, handler);
+        unsubscribeRef = compose(
+            () => handler.clear(),
+            () => this.broadcast.unsubscribe(OBSERVER_EVENT, handler),
+        );
         return observer;
     };
 
