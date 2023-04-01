@@ -198,11 +198,17 @@ As you can see displaying the one of dimensions on a blueprint can be hidden [by
 MyForm/hooks/useSideViewHandler.ts
 ```typescript
 const useSideViewHandler = () => {
+
+    ...
+
     useSubscription(3dModelSubject, (data) => {
         if (hasPaymentForSideView) {
             displayBlueprintSideView(data);
         }
     }, [hasPaymentForSideView]);
+
+    ...
+
 };
 ```
 
