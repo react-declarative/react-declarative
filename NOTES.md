@@ -143,7 +143,7 @@ const fields: IField[] = [
 ];
 ```
 
-Normally we are going to await for a group of fields focus event by using `onFocus` callback. But if this handler contains too many business logic we will apply `useCallback`. I think this is imperative way of solving problem. I found the better solution
+Normally we are going to await for a group of fields focus event by using `onFocus` callback. But if this handler contains too many business logic we are going to apply `useCallback`. I think this is imperative way of solving problem. I found the better solution
 
 MyForm/MyForm.tsx
 ```tsx
