@@ -10,12 +10,6 @@
 
 A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
 
-<!--
-## Developer notes
-
-1. [React: declarative vs imperative](./NOTES.md#react-declarative-vs-imperative)
--->
-
 <img src="./assets/icons/triquetrum.svg" height="45px" align="right">
 
 ## Quick start
