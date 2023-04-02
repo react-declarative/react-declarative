@@ -125,7 +125,7 @@ export class Source {
     };
 
     public static createCold = <Data = any>(emitter: (next: (data: Data) => void) => () => void) => {
-        let unsubscribeRef: Function;
+        let unsubscribeRef: Function = () => undefined;
         const observer = new Observer<Data>(() => unsubscribeRef());
         observer[LISTEN_CONNECT](() => {
             unsubscribeRef = emitter(observer.emit);
