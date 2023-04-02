@@ -327,16 +327,16 @@ declare module 'react-declarative' {
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
     export { Observer } from 'react-declarative/utils/rx/Observer';
     export { Subject } from 'react-declarative/utils/rx/Subject';
-    export { fromPromise } from 'react-declarative/utils/rx/PromiseSubject';
+    export { Source } from 'react-declarative/utils/rx/Source';
     import TSubjectInternal from 'react-declarative/model/TSubject';
-    import TPromiseSubjectInternal from 'react-declarative/model/TPromiseSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
+    import TCancelableSubjectInternal from 'react-declarative/model/TCancelableSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
     export type TSubject<Data = void> = TSubjectInternal<Data>;
     export type TObserver<Data = void> = TObserverInternal<Data>;
     export type TObservable<Data = void> = TObservableInternal<Data>;
-    export type TPromiseSubject<Data = void> = TPromiseSubjectInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
+    export type TCancelableSubject<Data = void> = TCancelableSubjectInternal<Data>;
     export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
     import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
     import { ICollectionAdapter as ICollectionAdapterInternal } from 'react-declarative/utils/mvvm/Collection';
@@ -2258,11 +2258,14 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
 
 declare module 'react-declarative/utils/rx/Observer' {
     import TObserver, { TObservable } from "react-declarative/model/TObserver";
-    export const OBSERVER_EVENT: unique symbol;
+    export const LISTEN_CONNECT: unique symbol;
+    export const LISTEN_DISCONNECT: unique symbol;
     type Fn = (...args: any[]) => void;
     export class Observer<Data = any> implements TObserver<Data> {
         get isShared(): boolean;
         constructor(dispose: Fn);
+        [LISTEN_CONNECT](fn: () => void): void;
+        [LISTEN_DISCONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
@@ -2279,17 +2282,11 @@ declare module 'react-declarative/utils/rx/Observer' {
 }
 
 declare module 'react-declarative/utils/rx/Subject' {
-    import Observer from "react-declarative/utils/rx/Observer";
     import TSubject from "react-declarative/model/TSubject";
     import TObserver, { TObservable } from "react-declarative/model/TObserver";
     export const SUBJECT_EVENT: unique symbol;
     type Function = (...args: any[]) => void;
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
-        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(a: TObservable<A>, b?: TObservable<B> | undefined, c?: TObservable<C> | undefined, d?: TObservable<D> | undefined, e?: TObservable<E> | undefined, f?: TObservable<F> | undefined, g?: TObservable<G> | undefined, h?: TObservable<H> | undefined, i?: TObservable<I> | undefined, j?: TObservable<J> | undefined) => void;
-        static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>({ observers, buffer, }: {
-            observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?];
-            buffer: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?];
-        }) => Observer<[A, B, C, D, E, F, G, H, I, J]>;
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
@@ -2307,18 +2304,23 @@ declare module 'react-declarative/utils/rx/Subject' {
     export default Subject;
 }
 
-declare module 'react-declarative/utils/rx/PromiseSubject' {
-    import Subject from "react-declarative/utils/rx/Subject";
-    import TPromiseSubject from "react-declarative/model/TPromiseSubject";
-    import { TObservable } from "react-declarative/model/TObserver";
-    type Fn = (...args: any[]) => void;
-    class PromiseSubject<Data = any> extends Subject<Data> implements TPromiseSubject<Data>, TObservable<Data> {
-        readonly cancel: Fn;
-        constructor(cancel: Fn);
+declare module 'react-declarative/utils/rx/Source' {
+    import Observer from "react-declarative/utils/rx/Observer";
+    import TObserver, { TObservable } from "react-declarative/model/TObserver";
+    export class Source {
+        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(a: TObservable<A>, b?: TObservable<B> | undefined, c?: TObservable<C> | undefined, d?: TObservable<D> | undefined, e?: TObservable<E> | undefined, f?: TObservable<F> | undefined, g?: TObservable<G> | undefined, h?: TObservable<H> | undefined, i?: TObservable<I> | undefined, j?: TObservable<J> | undefined) => void;
+        static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>({ observers, race, buffer, }: {
+            observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?];
+            buffer: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?];
+            race?: boolean | undefined;
+        }) => Observer<[A, B, C, D, E, F, G, H, I, J]>;
+        static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
+        static createCold: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
+        static create: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
+        static fromPromise: <Data = any>(callbackfn: Promise<Data> | (() => Promise<Data>), fallbackfn?: ((e: Error) => void) | undefined) => import("./PromiseSubject").default<Data>;
+        static fromInterval: (delay: number) => import("./IntervalSubject").default;
     }
-    export const fromPromise: <Data = any>(callbackfn: Promise<Data> | (() => Promise<Data>), fallbackfn?: ((e: Error) => void) | undefined) => PromiseSubject<Data>;
-    export { TPromiseSubject };
-    export default PromiseSubject;
+    export default Source;
 }
 
 declare module 'react-declarative/model/TSubject' {
@@ -2330,20 +2332,20 @@ declare module 'react-declarative/model/TSubject' {
     export default TSubject;
 }
 
-declare module 'react-declarative/model/TPromiseSubject' {
-    import TSubject from "react-declarative/model/TSubject";
-    export interface TPromiseSubject<Data = unknown> extends TSubject<Data> {
-        cancel(): void;
-    }
-    export default TPromiseSubject;
-}
-
 declare module 'react-declarative/model/TBehaviorSubject' {
     import TSubject from "react-declarative/model/TSubject";
     export interface TBehaviorSubject<Data = unknown> extends TSubject<Data> {
         data: Data | null;
     }
     export default TBehaviorSubject;
+}
+
+declare module 'react-declarative/model/TCancelableSubject' {
+    import TSubject from "react-declarative/model/TSubject";
+    export interface TCancelableSubject<Data = unknown> extends TSubject<Data> {
+        cancel(): void;
+    }
+    export default TCancelableSubject;
 }
 
 declare module 'react-declarative/model/TObserver' {

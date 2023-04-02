@@ -1,11 +1,11 @@
 import Subject from "./Subject";
 
-import TPromiseSubject from "../../model/TPromiseSubject";
+import TCancelableSubject from "../../model/TCancelableSubject";
 import { TObservable } from "../../model/TObserver";
 
 type Fn = (...args: any[]) => void;
 
-class PromiseSubject<Data = any> extends Subject<Data> implements TPromiseSubject<Data>, TObservable<Data> {
+class PromiseSubject<Data = any> extends Subject<Data> implements TCancelableSubject<Data>, TObservable<Data> {
 
     constructor(public readonly cancel: Fn) { 
         super();
@@ -37,7 +37,5 @@ export const fromPromise = <Data = any>(callbackfn: (() => Promise<Data>) | Prom
     process();
     return subject;
 };
-
-export { TPromiseSubject };
 
 export default PromiseSubject;
