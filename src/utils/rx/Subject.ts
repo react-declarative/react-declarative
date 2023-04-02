@@ -4,6 +4,8 @@ import Observer from "./Observer";
 import TSubject from "../../model/TSubject";
 import TObserver, { TObservable } from "../../model/TObserver";
 
+import compose from "../compose";
+
 export const SUBJECT_EVENT = Symbol('react-declarative-subject');
 
 type Function = (...args: any[]) => void;
@@ -43,6 +45,75 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
             }
         });
         return root.share();
+    };
+
+    public static join = <
+        A = void,
+        B = void,
+        C = void,
+        D = void,
+        E = void,
+        F = void,
+        G = void,
+        H = void,
+        I = void,
+        J = void
+    >({
+        observers,
+        buffer,
+    }: {
+        observers: [
+            TObserver<A>,
+            TObserver<B>?,
+            TObserver<C>?,
+            TObserver<D>?,
+            TObserver<E>?,
+            TObserver<F>?,
+            TObserver<G>?,
+            TObserver<H>?,
+            TObserver<I>?,
+            TObserver<J>?
+        ],
+        buffer: [
+            A,
+            B?,
+            C?,
+            D?,
+            E?,
+            F?,
+            G?,
+            H?,
+            I?,
+            J?,
+        ],
+    }) => {
+        let disposeRef: Function;
+        const observer = new Observer<[A, B, C, D, E, F, G, H, I, J]>(
+            () => disposeRef(),
+        );
+
+        observers = observers.filter((value) => !!value) as any;
+        buffer = [...new Array(observers.length)].map((_, idx) => buffer[idx]) as any;
+        const subscriptions: Function[] = [];
+
+        const next = () => {
+            if (buffer.every((value) => value !== undefined)) {
+                observer.emit(buffer as any);
+            }
+        };
+
+        observers.forEach((observer, idx) => {
+            if (observer) {
+                const unsubscribe = observer.connect((value) => {
+                    buffer[idx] = value;
+                    next();
+                });
+                subscriptions.push(() => unsubscribe());
+            }
+        });
+        disposeRef = compose(subscriptions);
+
+        return observer.share();
     };
 
     constructor() {
