@@ -30,7 +30,7 @@ export const useSubject = <Data = any>(target?: Target<Data> | (() => Target<Dat
             }
         }
         return dtor;
-    }, [value]);
+    }, []);
     return result;
 };
 

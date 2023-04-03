@@ -170,25 +170,25 @@ This code do the same but It defenitely more extendable (declarative way). For e
 
 **MyForm/MyForm.tsx**
 ```typescript
-import { useSubject, useSubscription } from 'react-declarative';
+import { useSource, useSubscription } from 'react-declarative';
 
 ...
 
-const 3dModelSubject = useSubject(
+const 3dModelSource = useSource(
     groupFocusSubject.mapAsync(
         async (groupName: string) => await fetchRawData(groupName),
     )
 );
 
-useSubscription(3dModelSubject, (data) => {
+useSubscription(3dModelSource, (data) => {
     displayBlueprintFrontView(data);
 });
 
-useSubscription(3dModelSubject, (data) => {
+useSubscription(3dModelSource, (data) => {
     displayBlueprintTopView(data);
 });
 
-useSubscription(3dModelSubject, (data) => {
+useSubscription(3dModelSource, (data) => {
     displayBlueprintSideView(data);
 });
 ```
@@ -201,7 +201,7 @@ const useSideViewHandler = () => {
 
     ...
 
-    useSubscription(3dModelSubject, (data) => {
+    useSubscription(3dModelSource, (data) => {
         if (hasPaymentForSideView) {
             displayBlueprintSideView(data);
         }

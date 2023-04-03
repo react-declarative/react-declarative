@@ -34,10 +34,13 @@ export const useSubscription = <Data = any>(target: Target<Data> | (() => Target
             return;
         }
         return dtor;
-    }, [value, ...deps]);
+    }, deps);
     useEffect(() => () => {
+        if ('unsubscribe' in target) {
+            target.unsubscribe();
+        }
         disposeRef.current && disposeRef.current();
-    }, [])
+    }, []);
 };
 
 export default useSubscription;
