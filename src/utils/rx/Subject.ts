@@ -81,7 +81,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());
         unsubscribeRef = this.subscribe(observer.emit);
-        return observer;
+        return observer.share();
     };
 
 };
