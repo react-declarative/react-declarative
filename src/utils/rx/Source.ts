@@ -3,8 +3,9 @@ import Observer, { LISTEN_CONNECT } from "./Observer";
 import TObserver, { TObservable } from "../../model/TObserver";
 import Subject from "./Subject";
 
-import { fromPromise } from "./PromiseSubject";
-import { fromInterval } from "./IntervalSubject";
+import fromInterval from "./source/fromInterval";
+import fromPromise from "./source/fromPromise";
+import fromDelay from './source/fromDelay';
 
 import compose from "../compose";
 
@@ -135,9 +136,9 @@ export class Source {
 
     public static create = this.createCold;
 
-    public static fromPromise = fromPromise;
-
     public static fromInterval = fromInterval;
+    public static fromPromise = fromPromise;
+    public static fromDelay = fromDelay;
 
 };
 

@@ -419,14 +419,12 @@ export { Source } from './utils/rx/Source';
 
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
-import TCancelableSubjectInternal from './model/TCancelableSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';
 
 export type TSubject<Data = void> = TSubjectInternal<Data>;
 export type TObserver<Data = void> = TObserverInternal<Data>;
 export type TObservable<Data = void> = TObservableInternal<Data>;
 export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
-export type TCancelableSubject<Data = void> = TCancelableSubjectInternal<Data>;
 
 export { getErrorMessage } from './utils/getErrorMessage';
 

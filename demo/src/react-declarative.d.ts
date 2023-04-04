@@ -330,13 +330,11 @@ declare module 'react-declarative' {
     export { Source } from 'react-declarative/utils/rx/Source';
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
-    import TCancelableSubjectInternal from 'react-declarative/model/TCancelableSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
     export type TSubject<Data = void> = TSubjectInternal<Data>;
     export type TObserver<Data = void> = TObserverInternal<Data>;
     export type TObservable<Data = void> = TObservableInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
-    export type TCancelableSubject<Data = void> = TCancelableSubjectInternal<Data>;
     export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
     import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
     import { ICollectionAdapter as ICollectionAdapterInternal } from 'react-declarative/utils/mvvm/Collection';
@@ -2315,8 +2313,9 @@ declare module 'react-declarative/utils/rx/Source' {
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static createCold: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static create: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
-        static fromPromise: <Data = any>(callbackfn: Promise<Data> | (() => Promise<Data>), fallbackfn?: ((e: Error) => void) | undefined) => import("./PromiseSubject").default<Data>;
-        static fromInterval: (delay: number) => import("./IntervalSubject").default;
+        static fromInterval: (delay: number) => TObserver<number>;
+        static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
+        static fromDelay: (delay: number) => TObserver<void>;
     }
     export default Source;
 }
@@ -2336,14 +2335,6 @@ declare module 'react-declarative/model/TBehaviorSubject' {
         data: Data | null;
     }
     export default TBehaviorSubject;
-}
-
-declare module 'react-declarative/model/TCancelableSubject' {
-    import TSubject from "react-declarative/model/TSubject";
-    export interface TCancelableSubject<Data = unknown> extends TSubject<Data> {
-        cancel(): void;
-    }
-    export default TCancelableSubject;
 }
 
 declare module 'react-declarative/model/TObserver' {
