@@ -1,7 +1,7 @@
 import Observer, { LISTEN_CONNECT } from "./Observer";
 
 import TObserver from "../../model/TObserver";
-import Subject from "./Subject";
+import Subject, { TSubject } from "./Subject";
 
 import fromInterval from "./source/fromInterval";
 import fromPromise from "./source/fromPromise";
@@ -147,6 +147,19 @@ export class Source {
     };
 
     public static create = this.createCold;
+
+    public static pipe = <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => () => void) => {
+        let unsubscribeRef: Function = () => undefined;
+        const observer = new Observer<Output>(() => unsubscribeRef());
+        const subject = new Subject<Data>();
+        const unsubscribeTarget = target.connect(subject.next);
+        const unsubscribeEmitter = emitter(subject, observer.emit) || (() => undefined);
+        unsubscribeRef = compose(
+            () => unsubscribeEmitter(),
+            () => unsubscribeTarget(),
+        );
+        return observer;
+    };
 
     public static fromInterval = fromInterval;
     public static fromPromise = fromPromise;
