@@ -1,6 +1,6 @@
 import EventEmitter from "./EventEmitter";
 
-import TObserver, { TObservable } from "../../model/TObserver";
+import TObserver from "../../model/TObserver";
 
 import compose from '../compose';
 import queued from "../hof/queued";
@@ -8,10 +8,8 @@ import debounce from "../hof/debounce";
 
 const OBSERVER_EVENT = Symbol('observer-subscribe');
 const CONNECT_EVENT = Symbol('observer-connect');
-const DISCONNECT_EVENT = Symbol('observer-disconnect');
 
 export const LISTEN_CONNECT = Symbol('observer-connect-listen');
-export const LISTEN_DISCONNECT = Symbol('observer-disconnect-listen');
 
 type Fn = (...args: any[]) => void;
 
@@ -30,18 +28,15 @@ export class Observer<Data = any> implements TObserver<Data> {
         this.broadcast.once(CONNECT_EVENT, fn);
     };
 
-    [LISTEN_DISCONNECT](fn: () => void) {
-        this.broadcast.once(DISCONNECT_EVENT, fn);
-    };
-
-    private _subscribe = (callback: Fn) => {
+    private _subscribe = <T = any>(observer: TObserver<T>, callback: Fn) => {
         this.broadcast.subscribe(OBSERVER_EVENT, callback);
-        this.broadcast.emit(CONNECT_EVENT);
+        observer[LISTEN_CONNECT](() => {
+            this.broadcast.emit(CONNECT_EVENT);
+        });
     };
 
     private _unsubscribe = (callback: Fn) => {
         this.broadcast.unsubscribe(OBSERVER_EVENT, callback);
-        this.broadcast.emit(DISCONNECT_EVENT);
     };
 
     private tryDispose =  () => {
@@ -61,7 +56,28 @@ export class Observer<Data = any> implements TObserver<Data> {
             const pendingValue = callbackfn(value);
             observer.emit(pendingValue);
         };
-        this._subscribe(handler);
+        this._subscribe(observer, handler);
+        unsubscribeRef = () => this._unsubscribe(handler);
+        return observer;
+    };
+
+    public split = <D extends number = 1>(): Observer<ReadonlyArray<FlatArray<Data, D>>> => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer(dispose);
+        const handler = (data: Data) => {
+            if (Array.isArray(data)) {
+                data.forEach((item) => {
+                    observer.emit(item);
+                });
+            } else {
+                observer.emit(data);
+            }
+        };
+        this._subscribe(observer, handler);
         unsubscribeRef = () => this._unsubscribe(handler);
         return observer;
     };
@@ -86,7 +102,7 @@ export class Observer<Data = any> implements TObserver<Data> {
                 }
             }
         };
-        this._subscribe(handler);
+        this._subscribe(observer, handler);
         unsubscribeRef = compose(
             () => this._unsubscribe(handler),
             () => iteraction.clear(),
@@ -107,7 +123,7 @@ export class Observer<Data = any> implements TObserver<Data> {
                 observer.emit(value);
             }
         };
-        this._subscribe(handler);
+        this._subscribe(observer, handler);
         unsubscribeRef = () => this._unsubscribe(handler);
         return observer;
     };
@@ -123,7 +139,7 @@ export class Observer<Data = any> implements TObserver<Data> {
             callbackfn(value);
             observer.emit(value);
         };
-        this._subscribe(handler);
+        this._subscribe(observer, handler);
         unsubscribeRef = () => this._unsubscribe(handler);
         return observer;
     };
@@ -138,7 +154,7 @@ export class Observer<Data = any> implements TObserver<Data> {
         const handler = debounce((value: Data) => {
             observer.emit(value);
         }, delay);
-        this._subscribe(handler);
+        this._subscribe(observer, handler);
         unsubscribeRef = compose(
             () => handler.clear(),
             () => this._unsubscribe(handler),
@@ -151,7 +167,8 @@ export class Observer<Data = any> implements TObserver<Data> {
     };
 
     public connect = (callbackfn: (value: Data) => void) => { 
-        this._subscribe(callbackfn);
+        this.broadcast.subscribe(OBSERVER_EVENT, callbackfn);
+        this.broadcast.emit(CONNECT_EVENT);
         return compose(
             () => this.tryDispose(),
             () => this._unsubscribe(callbackfn),
@@ -163,7 +180,7 @@ export class Observer<Data = any> implements TObserver<Data> {
         return this;
     };
 
-    public merge = <T = any>(observer: TObservable<T>): Observer<Data | T>  => {
+    public merge = <T = any>(observer: TObserver<T>): Observer<Data | T>  => {
         let unsubscribeRef: Fn;
         const dispose = compose(
             () => this.tryDispose(),
@@ -173,11 +190,14 @@ export class Observer<Data = any> implements TObserver<Data> {
         const handler = (value: Data | T) => {
             merged.emit(value);
         };
-        this._subscribe(handler);
-        const subscription = observer.tap(handler);
+        this._subscribe(merged, handler);
+        let unsubscribe: Fn = () => undefined;
+        merged[LISTEN_CONNECT](() => {
+            unsubscribe = observer.connect(handler) || (() => undefined);
+        });
         unsubscribeRef = compose(
             () => this._unsubscribe(handler),
-            () => subscription.unsubscribe(),
+            () => unsubscribe(),
         );
         return merged;
     };

@@ -1,6 +1,6 @@
 import Observer, { LISTEN_CONNECT } from "./Observer";
 
-import TObserver, { TObservable } from "../../model/TObserver";
+import TObserver from "../../model/TObserver";
 import Subject from "./Subject";
 
 import fromInterval from "./source/fromInterval";
@@ -24,19 +24,18 @@ export class Source {
         H = void,
         I = void,
         J = void
-    >(
-        a: TObservable<A>,
-        b?: TObservable<B>,
-        c?: TObservable<C>,
-        d?: TObservable<D>,
-        e?: TObservable<E>,
-        f?: TObservable<F>,
-        g?: TObservable<G>,
-        h?: TObservable<H>,
-        i?: TObservable<I>,
-        j?: TObservable<J>,
-    ): TObserver<A | B | C | D | E | F | G | H | I | J> => {
-        const observers = [a, b, c, d, e, f, g, h, i, j];
+    >(observers: [
+        TObserver<A>,
+        TObserver<B>?,
+        TObserver<C>?,
+        TObserver<D>?,
+        TObserver<E>?,
+        TObserver<F>?,
+        TObserver<G>?,
+        TObserver<H>?,
+        TObserver<I>?,
+        TObserver<J>?
+    ]): TObserver<A | B | C | D | E | F | G | H | I | J> => {
         let root = new Subject<A | B | C | D | E | F | G | H | I | J>().toObserver();
         observers.forEach((observer) => {
             if (observer) {
@@ -57,24 +56,22 @@ export class Source {
         H = void,
         I = void,
         J = void
-    >({
-        observers,
+    >(observers: [
+        TObserver<A>,
+        TObserver<B>?,
+        TObserver<C>?,
+        TObserver<D>?,
+        TObserver<E>?,
+        TObserver<F>?,
+        TObserver<G>?,
+        TObserver<H>?,
+        TObserver<I>?,
+        TObserver<J>?
+    ], {
         race = false,
-        buffer,
+        buffer = [] as any,
     }: {
-        observers: [
-            TObserver<A>,
-            TObserver<B>?,
-            TObserver<C>?,
-            TObserver<D>?,
-            TObserver<E>?,
-            TObserver<F>?,
-            TObserver<G>?,
-            TObserver<H>?,
-            TObserver<I>?,
-            TObserver<J>?
-        ],
-        buffer: [
+        buffer?: [
             A,
             B?,
             C?,
@@ -87,7 +84,7 @@ export class Source {
             J?,
         ],
         race?: boolean;
-    }): TObserver<[A, B, C, D, E, F, G, H, I, J]> => {
+    } = {}): TObserver<[A, B, C, D, E, F, G, H, I, J]> => {
         let disposeRef: Function;
         const observer = new Observer<[A, B, C, D, E, F, G, H, I, J]>(
             () => disposeRef(),
@@ -104,16 +101,18 @@ export class Source {
             }
         };
 
-        observers.forEach((observer, idx) => {
-            if (observer) {
-                const unsubscribe = observer.connect((value) => {
-                    buffer[idx] = value;
-                    next();
-                });
-                subscriptions.push(() => unsubscribe());
-            }
+        observer[LISTEN_CONNECT](() => {
+            observers.forEach((observer, idx) => {
+                if (observer) {
+                    const unsubscribe = observer.connect((value) => {
+                        buffer[idx] = value;
+                        next();
+                    });
+                    subscriptions.push(() => unsubscribe());
+                }
+            });
+            disposeRef = compose(subscriptions);
         });
-        disposeRef = compose(subscriptions);
 
         return observer.share();
     };
@@ -129,9 +128,9 @@ export class Source {
         let unsubscribeRef: Function = () => undefined;
         const observer = new Observer<Data>(() => unsubscribeRef());
         observer[LISTEN_CONNECT](() => {
-            unsubscribeRef = emitter(observer.emit);
+            unsubscribeRef = emitter(observer.emit) || (() => undefined);
         });
-        return observer;
+        return observer.share();
     };
 
     public static create = this.createCold;

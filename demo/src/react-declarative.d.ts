@@ -2253,16 +2253,15 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
 }
 
 declare module 'react-declarative/utils/rx/Observer' {
-    import TObserver, { TObservable } from "react-declarative/model/TObserver";
+    import TObserver from "react-declarative/model/TObserver";
     export const LISTEN_CONNECT: unique symbol;
-    export const LISTEN_DISCONNECT: unique symbol;
     type Fn = (...args: any[]) => void;
     export class Observer<Data = any> implements TObserver<Data> {
         get isShared(): boolean;
         constructor(dispose: Fn);
         [LISTEN_CONNECT](fn: () => void): void;
-        [LISTEN_DISCONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        split: <D extends number = 1>() => Observer<readonly FlatArray<Data, D>[]>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
@@ -2270,7 +2269,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         emit: (data: Data) => void;
         connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
         share: () => this;
-        merge: <T = any>(observer: TObservable<T>) => Observer<Data | T>;
+        merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
         unsubscribe: () => void;
     }
     export { TObserver };
@@ -2278,6 +2277,7 @@ declare module 'react-declarative/utils/rx/Observer' {
 }
 
 declare module 'react-declarative/utils/rx/Subject' {
+    import Observer from "react-declarative/utils/rx/Observer";
     import TSubject from "react-declarative/model/TSubject";
     import TObserver, { TObservable } from "react-declarative/model/TObserver";
     export const SUBJECT_EVENT: unique symbol;
@@ -2288,8 +2288,9 @@ declare module 'react-declarative/utils/rx/Subject' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        split: <D extends number = 1>() => Observer<readonly FlatArray<Data, D>[]>;
         debounce: (delay?: number | undefined) => TObserver<Data>;
-        merge: <T = any>(observer: TObservable<T>) => TObserver<Data | T>;
+        merge: <T = any>(observer: TObserver<T>) => TObserver<Data | T>;
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
         once: (callback: Function) => () => void;
@@ -2302,12 +2303,11 @@ declare module 'react-declarative/utils/rx/Subject' {
 
 declare module 'react-declarative/utils/rx/Source' {
     import Observer from "react-declarative/utils/rx/Observer";
-    import TObserver, { TObservable } from "react-declarative/model/TObserver";
+    import TObserver from "react-declarative/model/TObserver";
     export class Source {
-        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(a: TObservable<A>, b?: TObservable<B> | undefined, c?: TObservable<C> | undefined, d?: TObservable<D> | undefined, e?: TObservable<E> | undefined, f?: TObservable<F> | undefined, g?: TObservable<G> | undefined, h?: TObservable<H> | undefined, i?: TObservable<I> | undefined, j?: TObservable<J> | undefined) => TObserver<A | B | C | D | E | F | G | H | I | J>;
-        static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>({ observers, race, buffer, }: {
-            observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?];
-            buffer: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?];
+        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
+        static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?], { race, buffer, }?: {
+            buffer?: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?] | undefined;
             race?: boolean | undefined;
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
@@ -2343,8 +2343,9 @@ declare module 'react-declarative/model/TObserver' {
         map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
         mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
-        merge: <T = unknown>(observer: TObservable<T>) => TObserver<Data | T>;
+        merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        split: <D extends number = 1>() => TObserver<ReadonlyArray<FlatArray<Data, D>>>;
         debounce: (delay?: number) => TObserver<Data>;
         connect: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;

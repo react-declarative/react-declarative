@@ -44,6 +44,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.tap(callbackfn);
     };
 
+    public split = <D extends number = 1>(): Observer<ReadonlyArray<FlatArray<Data, D>>> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.split();
+    };
+
     public debounce = (delay?: number): TObserver<Data> => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());
@@ -51,7 +58,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.debounce(delay);
     };
 
-    public merge = <T = any>(observer: TObservable<T>): TObserver<Data | T> => {
+    public merge = <T = any>(observer: TObserver<T>): TObserver<Data | T> => {
         let unsubscribeRef: Function;
         const merged = new Observer<Data>(() => unsubscribeRef());
         unsubscribeRef = this.subscribe(merged.emit);
