@@ -1669,15 +1669,13 @@ declare module 'react-declarative/hooks/useSubscription' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
     import TObserver from "react-declarative/model/TObserver";
     type Target<Data = any> = TSubject<Data> | TObserver<Data>;
-    export const useSubscription: <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, ...deps: any[]) => void;
+    export const useSubscription: <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, deps?: any[]) => void;
     export default useSubscription;
 }
 
 declare module 'react-declarative/hooks/useSubject' {
     import Subject, { TSubject } from "react-declarative/utils/rx/Subject";
-    import TObserver from "react-declarative/model/TObserver";
-    type Target<Data = any> = TSubject<Data> | TObserver<Data> | null;
-    export const useSubject: <Data = any>(target?: Target<Data> | (() => Target<Data>) | undefined) => Subject<Data>;
+    export const useSubject: <Data = any>(target?: TSubject<Data> | null | undefined) => Subject<Data>;
     export default useSubject;
 }
 

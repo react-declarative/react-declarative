@@ -10,9 +10,8 @@ export const useSource = <Data = any>(target: TObserver<Data> | (() => TObserver
         let isDirty = true;
         isDirty = isDirty && typeof target !== 'function';
         isDirty = isDirty && value !== target;
-        isDirty = isDirty && !!target;
         if (isDirty) {
-            target && (target as TObserver<Data>).unsubscribe();
+            (target as TObserver<Data>).unsubscribe();
         }
     }, [target]);
     useEffect(() => () => {

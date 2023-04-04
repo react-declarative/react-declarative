@@ -8,7 +8,7 @@ import useSingleton from "./useSingleton";
 type Target<Data = any> = TSubject<Data> | TObserver<Data>;
 type Fn = () => void;
 
-export const useSubscription = <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, ...deps: any[]) => {
+export const useSubscription = <Data = any>(target: Target<Data> | (() => Target<Data>), callbackfn: (data: Data) => void, deps: any[] = []) => {
     const value = useSingleton(target);
     const disposeRef = useRef<Fn>();
     useEffect(() => {
@@ -36,8 +36,8 @@ export const useSubscription = <Data = any>(target: Target<Data> | (() => Target
         return dtor;
     }, deps);
     useEffect(() => () => {
-        if ('unsubscribe' in target) {
-            target.unsubscribe();
+        if ('unsubscribe' in value) {
+            value.unsubscribe();
         }
         disposeRef.current && disposeRef.current();
     }, []);
