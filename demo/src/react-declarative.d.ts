@@ -2304,6 +2304,7 @@ declare module 'react-declarative/utils/rx/Subject' {
 declare module 'react-declarative/utils/rx/Source' {
     import Observer from "react-declarative/utils/rx/Observer";
     import TObserver from "react-declarative/model/TObserver";
+    import { TSubject } from "react-declarative/utils/rx/Subject";
     export class Source {
         static merge: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
         static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?], { race, buffer, }?: {
@@ -2314,6 +2315,7 @@ declare module 'react-declarative/utils/rx/Source' {
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static createCold: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static create: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
+        static pipe: <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => () => void) => Observer<Output>;
         static fromInterval: (delay: number) => TObserver<number>;
         static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
         static fromDelay: (delay: number) => TObserver<void>;
