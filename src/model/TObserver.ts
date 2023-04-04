@@ -7,7 +7,7 @@ export interface TObserver<Data = unknown> {
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
     debounce: (delay?: number) => TObserver<Data>;
     connect: (callbackfn: (value: Data) => void) => () => void;
-    share: () => void;
+    share: () => TObserver<Data>;
 }
 
 export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {

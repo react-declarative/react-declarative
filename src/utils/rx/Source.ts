@@ -35,7 +35,7 @@ export class Source {
         h?: TObservable<H>,
         i?: TObservable<I>,
         j?: TObservable<J>,
-    ) => {
+    ): TObserver<A | B | C | D | E | F | G | H | I | J> => {
         const observers = [a, b, c, d, e, f, g, h, i, j];
         let root = new Subject<A | B | C | D | E | F | G | H | I | J>().toObserver();
         observers.forEach((observer) => {
@@ -87,7 +87,7 @@ export class Source {
             J?,
         ],
         race?: boolean;
-    }) => {
+    }): TObserver<[A, B, C, D, E, F, G, H, I, J]> => {
         let disposeRef: Function;
         const observer = new Observer<[A, B, C, D, E, F, G, H, I, J]>(
             () => disposeRef(),
