@@ -13,7 +13,7 @@ type Function = (...args: any[]) => void;
 
 export class Source {
 
-    public static combine = <
+    public static merge = <
         A = void,
         B = void,
         C = void,
@@ -42,7 +42,7 @@ export class Source {
                 root = root.merge<any>(observer);
             }
         });
-        return root.share();
+        return root;
     };
 
     public static join = <
@@ -114,8 +114,21 @@ export class Source {
             disposeRef = compose(subscriptions);
         });
 
-        return observer.share();
+        return observer;
     };
+
+    public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> => ({
+        tap: (callbackfn) => factory().tap(callbackfn),
+        debounce: (delay) => factory().debounce(delay),
+        filter: (callbackfn) => factory().filter(callbackfn),
+        map: (callbackfn) => factory().map(callbackfn),
+        mapAsync: (callbackfn, fallbackfn) => factory().mapAsync(callbackfn, fallbackfn),
+        merge: (observer) => factory().merge(observer),
+        split: () => factory().split(),
+        connect: (callbackfn) => factory().connect(callbackfn),
+        unsubscribe: () => factory().unsubscribe(),
+        share: () => factory().share(),
+    });
 
     public static createHot = <Data = any>(emitter: (next: (data: Data) => void) => () => void) => {
         let unsubscribeRef: Function;
@@ -130,7 +143,7 @@ export class Source {
         observer[LISTEN_CONNECT](() => {
             unsubscribeRef = emitter(observer.emit) || (() => undefined);
         });
-        return observer.share();
+        return observer;
     };
 
     public static create = this.createCold;

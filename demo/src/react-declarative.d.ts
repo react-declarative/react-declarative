@@ -2305,11 +2305,12 @@ declare module 'react-declarative/utils/rx/Source' {
     import Observer from "react-declarative/utils/rx/Observer";
     import TObserver from "react-declarative/model/TObserver";
     export class Source {
-        static combine: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
+        static merge: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
         static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?], { race, buffer, }?: {
             buffer?: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?] | undefined;
             race?: boolean | undefined;
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
+        static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data>;
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static createCold: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
         static create: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
