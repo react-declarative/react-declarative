@@ -85,7 +85,7 @@ export class Source {
         ],
         race?: boolean;
     } = {}): TObserver<[A, B, C, D, E, F, G, H, I, J]> => {
-        let disposeRef: Function;
+        let disposeRef: Function = () => undefined;
         const observer = new Observer<[A, B, C, D, E, F, G, H, I, J]>(
             () => disposeRef(),
         );
