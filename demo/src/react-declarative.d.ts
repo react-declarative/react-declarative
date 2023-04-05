@@ -2321,6 +2321,7 @@ declare module 'react-declarative/utils/rx/Source' {
         static fromInterval: (delay: number) => TObserver<number>;
         static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
         static fromDelay: (delay: number) => TObserver<void>;
+        static fromArray: <Data = any>(data: Data) => TObserver<readonly (Data extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? any : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : Data)[]>;
     }
     export default Source;
 }

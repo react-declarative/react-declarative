@@ -6,6 +6,7 @@ import Subject, { TSubject } from "./Subject";
 import fromInterval from "./source/fromInterval";
 import fromPromise from "./source/fromPromise";
 import fromDelay from './source/fromDelay';
+import fromArray from './source/fromArray';
 
 import compose from "../compose";
 
@@ -167,6 +168,7 @@ export class Source {
     public static fromInterval = fromInterval;
     public static fromPromise = fromPromise;
     public static fromDelay = fromDelay;
+    public static fromArray = fromArray;
 
 };
 
