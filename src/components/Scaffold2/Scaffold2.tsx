@@ -5,25 +5,28 @@ import Container from './components/Container';
 import LoaderDefault from './components/Loader';
 
 import { createStateManager, StateContextProvider } from './context/StateContext';
+import { PropsContextProvider } from './context/PropsContext';
 
 import IScaffold2Props from './model/IScaffold2Props';
 import Payload from './model/Payload';
 
-export const Scaffold2 = <T extends Payload = Payload>({
-    children,
-    appName = "Scaffold2",
-    noSearch = false,
-    noAppName = false,
-    onInit,
-    onLoadStart,
-    onLoadEnd,
-    fallback,
-    options,
-    payload,
-    throwError,
-    Loader = LoaderDefault,
-    ...otherProps
-}: IScaffold2Props<T>) => {
+export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>) => {
+
+    const {
+        children,
+        appName = "Scaffold2",
+        noSearch = false,
+        noAppName = false,
+        onInit,
+        onLoadStart,
+        onLoadEnd,
+        fallback,
+        options,
+        payload,
+        throwError,
+        Loader = LoaderDefault,
+        ...otherProps
+    } = props;
 
     const stateContext = createStateManager({
         onInit,
@@ -55,16 +58,18 @@ export const Scaffold2 = <T extends Payload = Payload>({
 
     return (
         <StateContextProvider value={stateContext}>
-            <Container<T>
-                appName={appName}
-                noSearch={noSearch}
-                noAppName={noAppName}
-                payload={payload}
-                options={stateContext.filteredGroups}
-                {...otherProps}
-            >
-                {renderInner()}
-            </Container>
+            <PropsContextProvider value={props}>
+                <Container<T>
+                    appName={appName}
+                    noSearch={noSearch}
+                    noAppName={noAppName}
+                    payload={payload}
+                    options={stateContext.filteredGroups}
+                    {...otherProps}
+                >
+                    {renderInner()}
+                </Container>
+            </PropsContextProvider>  
         </StateContextProvider>
     );
 };

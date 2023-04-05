@@ -3816,7 +3816,7 @@ declare module 'react-declarative/components/Translate/Translate' {
 
 declare module 'react-declarative/components/Scaffold2/Scaffold2' {
     import IScaffold2Props from 'react-declarative/components/Scaffold2/model/IScaffold2Props';
-    export const Scaffold2: <T extends unknown = any>({ children, appName, noSearch, noAppName, onInit, onLoadStart, onLoadEnd, fallback, options, payload, throwError, Loader, ...otherProps }: IScaffold2Props<T>) => JSX.Element;
+    export const Scaffold2: <T extends unknown = any>(props: IScaffold2Props<T>) => JSX.Element;
     export default Scaffold2;
 }
 
@@ -5363,6 +5363,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
     export interface IScaffold2Props<T = Payload> {
         noAppName?: boolean;
         noSearch?: boolean;
+        dense?: boolean;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;

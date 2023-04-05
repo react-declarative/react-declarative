@@ -9,6 +9,7 @@ import Payload from "./Payload";
 export interface IScaffold2Props<T = Payload> {
     noAppName?: boolean;
     noSearch?: boolean;
+    dense?: boolean;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;

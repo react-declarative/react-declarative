@@ -10,6 +10,8 @@ import ThemeProvider from "./ThemeProvider";
 import Navigator from "./Navigator";
 import Header from "./Header";
 
+import usePropsContext from "../context/PropsContext";
+
 import { IScaffold2InternalProps } from "../model/IScaffold2Props";
 import Payload from "../model/Payload";
 
@@ -39,10 +41,12 @@ export const Container = <T extends Payload = Payload>({
   onAction,
   children,
 }: IScaffold2InternalProps<T>) => {
+  const { dense } = usePropsContext();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+  const isMobileQuery = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+  const isMobile = isMobileQuery || !!dense;
 
   const handleDrawerToggle = () => {
     setMobileOpen((mobileOpen) => !mobileOpen);
@@ -68,7 +72,7 @@ export const Container = <T extends Payload = Payload>({
         <CssBaseline />
         <Box
           component="nav"
-          sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
+          sx={{ width: !dense ? { sm: DRAWER_WIDTH } : undefined, flexShrink: { sm: 0 } }}
         >
           {isMobile && (
             <Navigator<T>

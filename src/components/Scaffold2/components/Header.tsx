@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 
 import ActionMenu from "../../ActionMenu";
 
+import usePropsContext from "../context/PropsContext";
+
 import { IScaffold2GroupInternal } from "../model/IScaffold2Group";
 import { IScaffold2TabInternal } from "../model/IScaffold2Tab";
 
@@ -65,6 +67,9 @@ export const Header = <T extends Payload = Payload>({
   actions = [],
   ...otherProps
 }: IHeaderProps<T>) => {
+
+  const { dense = false } = usePropsContext();
+
   const { id, path, label, tabs } = useMemo(() => {
     const totalOptions = deepFlat(options);
     const {
@@ -121,9 +126,9 @@ export const Header = <T extends Payload = Payload>({
           pb: (!!tabs?.length && !isMobile) ? 2 : 0,
         }}
       >
-        <Toolbar>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
+        <Toolbar variant={dense ? "dense" : "regular"}>
+          <Grid container alignItems="center" wrap="nowrap" spacing={1}>
+            <Grid sx={{ display: !dense ? { sm: 'none', xs: 'block' } : undefined }} item>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -134,9 +139,44 @@ export const Header = <T extends Payload = Payload>({
               </IconButton>
             </Grid>
             <Grid item xs>
-              <Typography color="inherit" variant="h5" component="h1">
-                {label || appName}
-              </Typography>
+              {dense ? (
+                <>
+                  {!tabs.length && (
+                    <Typography color="inherit" variant="h5" component="h1">
+                      {label || appName}
+                    </Typography>
+                  )}
+                  {!!tabs.length && (
+                    <Tabs
+                      value={activeTabPath}
+                      textColor="inherit"
+                      indicatorColor="secondary"
+                    >
+                        {tabs
+                          .filter(({ visible }) => visible)
+                          .map(({ id, label, icon: Icon, disabled }, idx) => (
+                            <Tab
+                              sx={{
+                                minWidth: 128,
+                                fontWeight: 'bold',
+                              }}
+                              key={`${id}-${idx}`}
+                              value={id}
+                              label={label || idToLabel(id)}
+                              onClick={() => handleTabChange(id)}
+                              disabled={disabled}
+                              icon={Icon && <Icon />}
+                            />
+                          )
+                        )}
+                    </Tabs>
+                  )}
+                </>
+              ) : (
+                <Typography color="inherit" variant="h5" component="h1">
+                  {label || appName}
+                </Typography>
+              )}
             </Grid>
             {!!actions?.length && (
               <Grid item>
@@ -167,7 +207,7 @@ export const Header = <T extends Payload = Payload>({
           </Grid>
         </Toolbar>
       </AppBar>
-      {!!tabs.length && (
+      {!!tabs.length && !dense && (
         <AppBar
           component="div"
           position="static"
