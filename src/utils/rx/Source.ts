@@ -117,7 +117,10 @@ export class Source {
         return observer;
     };
 
-    public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> => ({
+    public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
+        isMulticasted: true;
+    } => ({
+        isMulticasted: true,
         tap: (callbackfn) => factory().tap(callbackfn),
         debounce: (delay) => factory().debounce(delay),
         filter: (callbackfn) => factory().filter(callbackfn),
@@ -130,14 +133,14 @@ export class Source {
         share: () => factory().share(),
     });
 
-    public static createHot = <Data = any>(emitter: (next: (data: Data) => void) => () => void) => {
+    public static createHot = <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());
-        unsubscribeRef = emitter(observer.emit);
+        unsubscribeRef = emitter(observer.emit) || (() => undefined);
         return observer;
     };
 
-    public static createCold = <Data = any>(emitter: (next: (data: Data) => void) => () => void) => {
+    public static createCold = <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => {
         let unsubscribeRef: Function = () => undefined;
         const observer = new Observer<Data>(() => unsubscribeRef());
         observer[LISTEN_CONNECT](() => {
@@ -148,7 +151,7 @@ export class Source {
 
     public static create = this.createCold;
 
-    public static pipe = <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => () => void) => {
+    public static pipe = <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => ((() => void) | void)) => {
         let unsubscribeRef: Function = () => undefined;
         const observer = new Observer<Output>(() => unsubscribeRef());
         const subject = new Subject<Data>();
@@ -168,3 +171,11 @@ export class Source {
 };
 
 export default Source;
+
+/*
+Source.join([
+    Source.create<string>((next) => next("1")),
+    Source.create<number>((next) => next(2)),
+    Source.create<boolean>((next) => next(false)),
+]).split().connect((value) => console.log(value));
+*/

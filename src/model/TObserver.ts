@@ -5,7 +5,7 @@ export interface TObserver<Data = unknown> {
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
-    split: <D extends number = 1>() => TObserver<ReadonlyArray<FlatArray<Data, D>>>;
+    split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
     debounce: (delay?: number) => TObserver<Data>;
     connect: (callbackfn: (value: Data) => void) => () => void;
     share: () => TObserver<Data>;

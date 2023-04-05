@@ -44,7 +44,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.tap(callbackfn);
     };
 
-    public split = <D extends number = 1>(): Observer<ReadonlyArray<FlatArray<Data, D>>> => {
+    public split = (): Observer<ReadonlyArray<FlatArray<Data[], 20>>> => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());
         unsubscribeRef = this.subscribe(observer.emit);

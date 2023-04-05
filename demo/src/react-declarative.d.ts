@@ -2261,7 +2261,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         constructor(dispose: Fn);
         [LISTEN_CONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
-        split: <D extends number = 1>() => Observer<readonly FlatArray<Data, D>[]>;
+        split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
@@ -2288,7 +2288,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
-        split: <D extends number = 1>() => Observer<readonly FlatArray<Data, D>[]>;
+        split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number | undefined) => TObserver<Data>;
         merge: <T = any>(observer: TObserver<T>) => TObserver<Data | T>;
         subscribe: (callback: Function) => () => void;
@@ -2311,11 +2311,13 @@ declare module 'react-declarative/utils/rx/Source' {
             buffer?: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?] | undefined;
             race?: boolean | undefined;
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
-        static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data>;
-        static createHot: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
-        static createCold: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
-        static create: <Data = any>(emitter: (next: (data: Data) => void) => () => void) => Observer<Data>;
-        static pipe: <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => () => void) => Observer<Output>;
+        static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
+            isMulticasted: true;
+        };
+        static createHot: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;
+        static createCold: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;
+        static create: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;
+        static pipe: <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => ((() => void) | void)) => Observer<Output>;
         static fromInterval: (delay: number) => TObserver<number>;
         static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
         static fromDelay: (delay: number) => TObserver<void>;
@@ -2348,7 +2350,7 @@ declare module 'react-declarative/model/TObserver' {
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
-        split: <D extends number = 1>() => TObserver<ReadonlyArray<FlatArray<Data, D>>>;
+        split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number) => TObserver<Data>;
         connect: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;

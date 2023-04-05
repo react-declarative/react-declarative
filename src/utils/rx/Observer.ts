@@ -61,7 +61,7 @@ export class Observer<Data = any> implements TObserver<Data> {
         return observer;
     };
 
-    public split = <D extends number = 1>(): Observer<ReadonlyArray<FlatArray<Data, D>>> => {
+    public split = (): Observer<ReadonlyArray<FlatArray<Data[], 20>>> => {
         let unsubscribeRef: Fn;
         const dispose = compose(
             () => this.tryDispose(),
@@ -70,7 +70,7 @@ export class Observer<Data = any> implements TObserver<Data> {
         const observer = new Observer(dispose);
         const handler = (data: Data) => {
             if (Array.isArray(data)) {
-                data.forEach((item) => {
+                data.flat(Number.POSITIVE_INFINITY).forEach((item) => {
                     observer.emit(item);
                 });
             } else {
