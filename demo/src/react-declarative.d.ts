@@ -4418,7 +4418,7 @@ declare module 'react-declarative/components/Switch/Switch' {
 
 declare module 'react-declarative/components/Scaffold/Scaffold' {
     import IScaffoldProps from 'react-declarative/components/Scaffold/model/IScaffoldProps';
-    export const Scaffold: <T extends unknown = string>({ roles, payload, throwError, fallback, options, loaderLine, loader, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
+    export const Scaffold: <T extends unknown = string>({ roles, payload, throwError, fallback, options, loadingLine, loading, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
     export default Scaffold;
 }
 
@@ -4432,8 +4432,8 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldProps' {
         withPassthrough?: boolean;
         style?: React.CSSProperties;
         title?: string;
-        loaderLine?: boolean;
-        loader?: number;
+        loadingLine?: boolean;
+        loading?: number;
         colored?: boolean;
         selected?: string;
         options?: IMenuGroup[];
@@ -5370,7 +5370,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         appName?: string;
         options: IScaffold2Group<T>[];
         actions?: IScaffold2Action<T>[];
-        loader?: boolean | number;
+        loading?: boolean | number;
         payload?: T;
         activeOptionPath: string;
         activeTabPath?: string;

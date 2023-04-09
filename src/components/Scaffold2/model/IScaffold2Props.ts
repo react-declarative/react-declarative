@@ -16,7 +16,7 @@ export interface IScaffold2Props<T = Payload> {
     appName?: string;
     options: IScaffold2Group<T>[];
     actions?: IScaffold2Action<T>[];
-    loader?: boolean | number;
+    loading?: boolean | number;
     payload?: T;
     activeOptionPath: string;
     activeTabPath?: string;

@@ -33,7 +33,7 @@ interface IHeaderProps<T = Payload> extends StackProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  loader?: boolean | number;
+  loading?: boolean | number;
   payload?: T;
   isMobile: boolean;
   appName?: string;
@@ -53,7 +53,7 @@ export const Header = <T extends Payload = Payload>({
   style,
   sx,
   payload,
-  loader,
+  loading,
   options,
   isMobile,
   appName,
@@ -238,15 +238,15 @@ export const Header = <T extends Payload = Payload>({
           </Tabs>
         </AppBar>
       )}
-      {!!loader && (
+      {!!loading && (
         <Box
           sx={{
             marginTop: '-4px',
           }}
         >
           <LinearProgress
-            variant={loader > 1 ? "determinate" : "indeterminate"}
-            value={loader > 1 ? Number(loader) : undefined}
+            variant={loading > 1 ? "determinate" : "indeterminate"}
+            value={loading > 1 ? Number(loading) : undefined}
             color="primary"
           />
         </Box>

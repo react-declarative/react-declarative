@@ -36,8 +36,8 @@ export const Scaffold = <T extends any = string> ({
     throwError,
     fallback,
     options,
-    loaderLine = false,
-    loader = -1,
+    loadingLine = false,
+    loading = -1,
     Loader = LoaderDefault,
     withPassthrough = false,
     onInit = () => undefined,
@@ -78,8 +78,8 @@ export const Scaffold = <T extends any = string> ({
     }, [options, payload]);
 
     return (
-        <LoaderProvider payload={loader}>
-            <LoaderLineProvider payload={loaderLine}>
+        <LoaderProvider payload={loading}>
+            <LoaderLineProvider payload={loadingLine}>
                 <PassthroughProvider payload={withPassthrough}>
                     <Async
                         throwError={throwError}
