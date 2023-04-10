@@ -2,6 +2,7 @@ import Observer, { LISTEN_CONNECT } from "./Observer";
 
 import TObserver from "../../model/TObserver";
 import Subject, { TSubject } from "./Subject";
+import { TBehaviorSubject } from "./BehaviorSubject";
 
 import fromInterval from "./source/fromInterval";
 import fromPromise from "./source/fromPromise";
@@ -169,6 +170,23 @@ export class Source {
     public static fromPromise = fromPromise;
     public static fromDelay = fromDelay;
     public static fromArray = fromArray;
+
+    public static fromSubject = <Data = any>(subject: TSubject<Data>) => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = subject.subscribe(observer.emit);
+        return observer;
+    };
+
+    public static fromBehaviorSubject = <Data = any>(subject: TBehaviorSubject<Data>) => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        observer[LISTEN_CONNECT](() => {
+            subject.data && observer.emit(subject.data);
+        });
+        unsubscribeRef = subject.subscribe(observer.emit);
+        return observer;
+    };
 
 };
 

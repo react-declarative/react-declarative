@@ -14,6 +14,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
 
     constructor() {
         this.next = this.next.bind(this);
+        this.toObserver = this.toObserver.bind(this);
     };
 
     public map = <T = any>(callbackfn: (value: Data) => T): TObserver<T> => {
@@ -84,11 +85,11 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         this._emitter.emit(SUBJECT_EVENT, data);
     };
 
-    public toObserver = (): TObserver<Data> => {
+    public toObserver(): TObserver<Data> {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());
         unsubscribeRef = this.subscribe(observer.emit);
-        return observer.share();
+        return observer;
     };
 
 };
