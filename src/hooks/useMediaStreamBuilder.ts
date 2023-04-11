@@ -34,7 +34,7 @@ export const useMediaStreamBuilder = ({
     withInitialAudio = false,
     compressFrame = COMPRESS_FRAME,
     maxFps = MAX_FPS,
-}: IParams) => {
+}: IParams = {}) => {
 
     const [audioCaptureId, setAudioCaptureId] = useState("");
     const [cameraCaptureId, setCameraCaptureId] = useState("");

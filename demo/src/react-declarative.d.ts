@@ -1759,7 +1759,7 @@ declare module 'react-declarative/hooks/useMediaStreamBuilder' {
         withInitialVideo?: boolean;
         withInitialAudio?: boolean;
     }
-    export const useMediaStreamBuilder: ({ fallback, onLoadStart, onLoadEnd, onChange, throwError, withInitialVideo, withInitialAudio, compressFrame, maxFps, }: IParams) => {
+    export const useMediaStreamBuilder: ({ fallback, onLoadStart, onLoadEnd, onChange, throwError, withInitialVideo, withInitialAudio, compressFrame, maxFps, }?: IParams) => {
         mediaStream: MediaStream;
         hasAudioCapture: boolean;
         hasCameraCapture: boolean;
@@ -2310,8 +2310,8 @@ declare module 'react-declarative/utils/rx/Source' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
     import { TBehaviorSubject } from "react-declarative/utils/rx/BehaviorSubject";
     export class Source {
-        static merge: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
-        static join: <A = void, B = void, C = void, D = void, E = void, F = void, G = void, H = void, I = void, J = void>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?], { race, buffer, }?: {
+        static merge: <A = never, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?]) => TObserver<A | B | C | D | E | F | G | H | I | J>;
+        static join: <A = never, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(observers: [TObserver<A>, (TObserver<B> | undefined)?, (TObserver<C> | undefined)?, (TObserver<D> | undefined)?, (TObserver<E> | undefined)?, (TObserver<F> | undefined)?, (TObserver<G> | undefined)?, (TObserver<H> | undefined)?, (TObserver<I> | undefined)?, (TObserver<J> | undefined)?], { race, buffer, }?: {
             buffer?: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?] | undefined;
             race?: boolean | undefined;
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;

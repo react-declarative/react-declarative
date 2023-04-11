@@ -16,16 +16,16 @@ type Function = (...args: any[]) => void;
 export class Source {
 
     public static merge = <
-        A = void,
-        B = void,
-        C = void,
-        D = void,
-        E = void,
-        F = void,
-        G = void,
-        H = void,
-        I = void,
-        J = void
+        A = never,
+        B = never,
+        C = never,
+        D = never,
+        E = never,
+        F = never,
+        G = never,
+        H = never,
+        I = never,
+        J = never
     >(observers: [
         TObserver<A>,
         TObserver<B>?,
@@ -48,16 +48,16 @@ export class Source {
     };
 
     public static join = <
-        A = void,
-        B = void,
-        C = void,
-        D = void,
-        E = void,
-        F = void,
-        G = void,
-        H = void,
-        I = void,
-        J = void
+        A = never,
+        B = never,
+        C = never,
+        D = never,
+        E = never,
+        F = never,
+        G = never,
+        H = never,
+        I = never,
+        J = never
     >(observers: [
         TObserver<A>,
         TObserver<B>?,
