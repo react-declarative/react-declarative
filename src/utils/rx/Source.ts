@@ -127,6 +127,7 @@ export class Source {
         debounce: (delay) => factory().debounce(delay),
         filter: (callbackfn) => factory().filter(callbackfn),
         map: (callbackfn) => factory().map(callbackfn),
+        reduce: (callbackfn, begin) => factory().reduce(callbackfn, begin),
         mapAsync: (callbackfn, fallbackfn) => factory().mapAsync(callbackfn, fallbackfn),
         merge: (observer) => factory().merge(observer),
         split: () => factory().split(),

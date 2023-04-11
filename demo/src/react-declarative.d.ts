@@ -2262,6 +2262,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         constructor(dispose: Fn);
         [LISTEN_CONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => Observer<T>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
         filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
@@ -2286,6 +2287,7 @@ declare module 'react-declarative/utils/rx/Subject' {
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
+        reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
@@ -2351,6 +2353,7 @@ declare module 'react-declarative/model/TObserver' {
     export interface TObserver<Data = unknown> {
         unsubscribe: () => void;
         map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
+        reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
         mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;

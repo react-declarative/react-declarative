@@ -61,6 +61,24 @@ export class Observer<Data = any> implements TObserver<Data> {
         return observer;
     };
 
+    public reduce = <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T): Observer<T> => {
+        let unsubscribeRef: Fn;
+        let acm: T = begin;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<T>(dispose);
+        const handler = (value: Data) => {
+            const pendingValue = callbackfn(acm, value);
+            acm = pendingValue;
+            observer.emit(pendingValue);
+        };
+        this._subscribe(observer, handler);
+        unsubscribeRef = () => this._unsubscribe(handler);
+        return observer;
+    };
+
     public split = (): Observer<ReadonlyArray<FlatArray<Data[], 20>>> => {
         let unsubscribeRef: Fn;
         const dispose = compose(
