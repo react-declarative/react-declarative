@@ -9,12 +9,14 @@ export interface TObserver<Data = unknown> {
     split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
     debounce: (delay?: number) => TObserver<Data>;
     connect: (callbackfn: (value: Data) => void) => () => void;
+    once: (callbackfn: (value: Data) => void) => () => void;
     share: () => TObserver<Data>;
 }
 
 export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
     unsubscribe: never;
     connect: never;
+    once: never;
     share: never;
 }>;
 

@@ -2270,6 +2270,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         debounce: (delay?: number | undefined) => Observer<Data>;
         emit: (data: Data) => void;
         connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
+        once: (callbackfn: (value: Data) => void) => Fn;
         share: () => this;
         merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
         unsubscribe: () => void;
@@ -2361,11 +2362,13 @@ declare module 'react-declarative/model/TObserver' {
         split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number) => TObserver<Data>;
         connect: (callbackfn: (value: Data) => void) => () => void;
+        once: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;
     }
     export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
         unsubscribe: never;
         connect: never;
+        once: never;
         share: never;
     }>;
     export default TObserver;

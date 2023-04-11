@@ -193,6 +193,16 @@ export class Observer<Data = any> implements TObserver<Data> {
         );
     };
 
+    public once = (callbackfn: (value: Data) => void) => { 
+        let unsubscribeRef: Fn;
+        const handler = (value: Data) => {
+            callbackfn(value);
+            unsubscribeRef();
+        };
+        unsubscribeRef = this.connect(handler);
+        return unsubscribeRef;
+    };
+
     public share = () => {
         this._isShared = true;
         return this;

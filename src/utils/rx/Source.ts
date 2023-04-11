@@ -132,6 +132,7 @@ export class Source {
         merge: (observer) => factory().merge(observer),
         split: () => factory().split(),
         connect: (callbackfn) => factory().connect(callbackfn),
+        once: (callbackfn) => factory().once(callbackfn),
         unsubscribe: () => factory().unsubscribe(),
         share: () => factory().share(),
     });
