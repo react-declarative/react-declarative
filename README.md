@@ -70,6 +70,24 @@ yarn create react-app --template cra-template-solidity .
 yarn create react-app --template cra-template-appwrite .
 ```
 
+and several quite interesting demo projects
+
+**1. ERC-20 Payment gateway**
+
+> GitHub repo: [https://github.com/react-declarative/erc20-payment-gateway](https://github.com/react-declarative/erc20-payment-gateway)
+
+```bash
+git clone https://github.com/react-declarative/erc20-payment-gateway.git
+```
+
+**2. React Face KYC**
+
+> GitHub repo: [https://github.com/react-declarative/react-face-kyc](https://github.com/react-declarative/react-face-kyc)
+
+```bash
+git clone https://github.com/react-declarative/react-face-kyc.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
