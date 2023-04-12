@@ -70,7 +70,7 @@ yarn create react-app --template cra-template-solidity .
 yarn create react-app --template cra-template-appwrite .
 ```
 
-and several quite interesting demo projects
+and few more quite interesting demo projects
 
 **1. ERC-20 Payment gateway**
 
