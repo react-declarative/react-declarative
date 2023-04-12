@@ -11,6 +11,10 @@ export class EventEmitter {
         return !isEmpty(this._events);
     };
 
+    public getListeners = (key: EventKey) => {
+        return this._events[key] || [];
+    };
+
     public subscribe = (eventName: EventKey, callback: Function) => {
         !this._events[eventName] && (this._events[eventName] = []);
         this._events[eventName].push(callback);

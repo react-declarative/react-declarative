@@ -2244,6 +2244,7 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
     type Function = (...args: any[]) => void;
     export class EventEmitter {
         get hasListeners(): boolean;
+        getListeners: (key: EventKey) => Function[];
         subscribe: (eventName: EventKey, callback: Function) => void;
         unsubscribe: (eventName: EventKey, callback: Function) => void;
         unsubscribeAll: () => void;
@@ -2256,11 +2257,14 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
 declare module 'react-declarative/utils/rx/Observer' {
     import TObserver from "react-declarative/model/TObserver";
     export const LISTEN_CONNECT: unique symbol;
+    export const LISTEN_DISCONNECT: unique symbol;
     type Fn = (...args: any[]) => void;
     export class Observer<Data = any> implements TObserver<Data> {
         get isShared(): boolean;
+        get hasListeners(): boolean;
         constructor(dispose: Fn);
         [LISTEN_CONNECT](fn: () => void): void;
+        [LISTEN_DISCONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => Observer<T>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
@@ -2320,6 +2324,10 @@ declare module 'react-declarative/utils/rx/Source' {
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
         static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
             isMulticasted: true;
+        };
+        static unicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
+            isUnicasted: true;
+            getRef: any;
         };
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;
         static createCold: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;

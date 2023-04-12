@@ -7,9 +7,12 @@ import queued from "../hof/queued";
 import debounce from "../hof/debounce";
 
 const OBSERVER_EVENT = Symbol('observer-subscribe');
+
 const CONNECT_EVENT = Symbol('observer-connect');
+const DISCONNECT_EVENT = Symbol('observer-disconnect');
 
 export const LISTEN_CONNECT = Symbol('observer-connect-listen');
+export const LISTEN_DISCONNECT = Symbol('observer-disconnect-listen');
 
 type Fn = (...args: any[]) => void;
 
@@ -22,16 +25,29 @@ export class Observer<Data = any> implements TObserver<Data> {
         return this._isShared;
     };
 
+    public get hasListeners() {
+        return !!this.broadcast.getListeners(OBSERVER_EVENT).length;
+    };
+
     constructor(private readonly dispose: Fn) { }
 
     [LISTEN_CONNECT](fn: () => void) {
         this.broadcast.once(CONNECT_EVENT, fn);
     };
 
+    [LISTEN_DISCONNECT](fn: () => void) {
+        this.broadcast.once(DISCONNECT_EVENT, fn);
+    };
+
     private _subscribe = <T = any>(observer: TObserver<T>, callback: Fn) => {
         this.broadcast.subscribe(OBSERVER_EVENT, callback);
         observer[LISTEN_CONNECT](() => {
             this.broadcast.emit(CONNECT_EVENT);
+        });
+        observer[LISTEN_DISCONNECT](() => {
+            if (!this.hasListeners) {
+                this.broadcast.emit(DISCONNECT_EVENT);
+            }
         });
     };
 
@@ -40,8 +56,9 @@ export class Observer<Data = any> implements TObserver<Data> {
     };
 
     private tryDispose =  () => {
-        if (!this.broadcast.hasListeners && !this._isShared) {
+        if (!this.hasListeners && !this._isShared) {
             this.dispose();
+            this.broadcast.emit(DISCONNECT_EVENT);
         }
     };
 
@@ -222,7 +239,7 @@ export class Observer<Data = any> implements TObserver<Data> {
                 clearTimeout(timeout);
             }
             observer.emit(value);
-            if (this.broadcast.hasListeners) {
+            if (this.hasListeners) {
                 timeout = setTimeout(handler, interval, value);
             }
         };
@@ -255,6 +272,7 @@ export class Observer<Data = any> implements TObserver<Data> {
 
     public unsubscribe = () => {
         this.broadcast.unsubscribeAll();
+        this.broadcast.emit(DISCONNECT_EVENT);
         this.dispose();
     };
 };

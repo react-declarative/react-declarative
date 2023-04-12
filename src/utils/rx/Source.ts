@@ -1,4 +1,4 @@
-import Observer, { LISTEN_CONNECT } from "./Observer";
+import Observer, { LISTEN_CONNECT, LISTEN_DISCONNECT } from "./Observer";
 
 import TObserver from "../../model/TObserver";
 import Subject, { TSubject } from "./Subject";
@@ -8,6 +8,8 @@ import fromInterval from "./source/fromInterval";
 import fromPromise from "./source/fromPromise";
 import fromDelay from './source/fromDelay';
 import fromArray from './source/fromArray';
+
+import createObserver from "./helpers/createObserver";
 
 import compose from "../compose";
 
@@ -122,21 +124,29 @@ export class Source {
     public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
         isMulticasted: true;
     } => ({
+        ...createObserver(factory),
         isMulticasted: true,
-        tap: (callbackfn) => factory().tap(callbackfn),
-        debounce: (delay) => factory().debounce(delay),
-        repeat: (interval) => factory().repeat(interval),
-        filter: (callbackfn) => factory().filter(callbackfn),
-        map: (callbackfn) => factory().map(callbackfn),
-        reduce: (callbackfn, begin) => factory().reduce(callbackfn, begin),
-        mapAsync: (callbackfn, fallbackfn) => factory().mapAsync(callbackfn, fallbackfn),
-        merge: (observer) => factory().merge(observer),
-        split: () => factory().split(),
-        connect: (callbackfn) => factory().connect(callbackfn),
-        once: (callbackfn) => factory().once(callbackfn),
-        unsubscribe: () => factory().unsubscribe(),
-        share: () => factory().share(),
     });
+
+    public static unicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
+        isUnicasted: true;
+        getRef: any;
+    } => {
+        let observer: TObserver<Data> | undefined;
+        return {
+            ...createObserver(() => {
+                if (!observer) {
+                    observer = factory();
+                    observer[LISTEN_DISCONNECT](() => {
+                        observer = undefined;
+                    });
+                }
+                return observer;
+            }),
+            getRef: () => observer,
+            isUnicasted: true,
+        };
+    };
 
     public static createHot = <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => {
         let unsubscribeRef: Function;
@@ -203,4 +213,17 @@ Source.join([
     Source.create<number>((next) => next(2)),
     Source.create<boolean>((next) => next(false)),
 ]).split().connect((value) => console.log(value));
+*/
+
+/*
+const { Source } = require('.')
+const unicast = Source.unicast(() => Source.create(() => {
+    console.log('ctor');
+    return () => console.log('dtor');
+}));
+const c1 = unicast.connect((v) => console.log(v))
+const c2 = unicast.connect((v) => console.log(v))
+c1()
+c2()
+const c3 = unicast.connect((v) => console.log(v))
 */
