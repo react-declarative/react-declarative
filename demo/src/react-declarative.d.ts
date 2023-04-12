@@ -2322,11 +2322,11 @@ declare module 'react-declarative/utils/rx/Source' {
             buffer?: [A, (B | undefined)?, (C | undefined)?, (D | undefined)?, (E | undefined)?, (F | undefined)?, (G | undefined)?, (H | undefined)?, (I | undefined)?, (J | undefined)?] | undefined;
             race?: boolean | undefined;
         }) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
-        static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
-            isMulticasted: true;
-        };
         static unicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
             isUnicasted: true;
+        };
+        static multicast: <Data = any>(factory: () => TObserver<Data>) => TObserver<Data> & {
+            isMulticasted: true;
             getRef: any;
         };
         static createHot: <Data = any>(emitter: (next: (data: Data) => void) => ((() => void) | void)) => Observer<Data>;

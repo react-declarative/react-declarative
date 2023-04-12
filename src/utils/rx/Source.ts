@@ -121,15 +121,15 @@ export class Source {
         return observer;
     };
 
-    public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
-        isMulticasted: true;
-    } => ({
-        ...createObserver(factory),
-        isMulticasted: true,
-    });
-
     public static unicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
         isUnicasted: true;
+    } => ({
+        ...createObserver(factory),
+        isUnicasted: true,
+    });
+
+    public static multicast = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> & {
+        isMulticasted: true;
         getRef: any;
     } => {
         let observer: TObserver<Data> | undefined;
@@ -144,7 +144,7 @@ export class Source {
                 return observer;
             }),
             getRef: () => observer,
-            isUnicasted: true,
+            isMulticasted: true,
         };
     };
 
@@ -217,13 +217,13 @@ Source.join([
 
 /*
 const { Source } = require('.')
-const unicast = Source.unicast(() => Source.create(() => {
+const multicast = Source.multicast(() => Source.create(() => {
     console.log('ctor');
     return () => console.log('dtor');
 }));
-const c1 = unicast.connect((v) => console.log(v))
-const c2 = unicast.connect((v) => console.log(v))
+const c1 = multicast.connect((v) => console.log(v))
+const c2 = multicast.connect((v) => console.log(v))
 c1()
 c2()
-const c3 = unicast.connect((v) => console.log(v))
+const c3 = multicast.connect((v) => console.log(v))
 */
