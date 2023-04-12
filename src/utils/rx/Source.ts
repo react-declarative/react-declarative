@@ -159,13 +159,15 @@ export class Source {
     public static pipe = <Data = any, Output = any>(target: TObserver<Data>, emitter: (subject: TSubject<Data>, next: (output: Output) => void) => ((() => void) | void)) => {
         let unsubscribeRef: Function = () => undefined;
         const observer = new Observer<Output>(() => unsubscribeRef());
-        const subject = new Subject<Data>();
-        const unsubscribeTarget = target.connect(subject.next);
-        const unsubscribeEmitter = emitter(subject, observer.emit) || (() => undefined);
-        unsubscribeRef = compose(
-            () => unsubscribeEmitter(),
-            () => unsubscribeTarget(),
-        );
+        observer[LISTEN_CONNECT](() => {
+            const subject = new Subject<Data>();
+            const unsubscribeTarget = target.connect(subject.next);
+            const unsubscribeEmitter = emitter(subject, observer.emit) || (() => undefined);
+            unsubscribeRef = compose(
+                () => unsubscribeEmitter(),
+                () => unsubscribeTarget(),
+            );
+        });
         return observer;
     };
 
