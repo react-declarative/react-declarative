@@ -8,6 +8,7 @@ export interface TObserver<Data = unknown> {
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
     split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
     debounce: (delay?: number) => TObserver<Data>;
+    repeat: (interval?: number) => TObserver<Data>;
     connect: (callbackfn: (value: Data) => void) => () => void;
     once: (callbackfn: (value: Data) => void) => () => void;
     share: () => TObserver<Data>;

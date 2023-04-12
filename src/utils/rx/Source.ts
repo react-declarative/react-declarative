@@ -125,6 +125,7 @@ export class Source {
         isMulticasted: true,
         tap: (callbackfn) => factory().tap(callbackfn),
         debounce: (delay) => factory().debounce(delay),
+        repeat: (interval) => factory().repeat(interval),
         filter: (callbackfn) => factory().filter(callbackfn),
         map: (callbackfn) => factory().map(callbackfn),
         reduce: (callbackfn, begin) => factory().reduce(callbackfn, begin),

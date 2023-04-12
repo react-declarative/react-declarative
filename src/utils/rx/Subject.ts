@@ -66,6 +66,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.debounce(delay);
     };
 
+    public repeat = (interval?: number): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.repeat(interval);
+    };
+
     public merge = <T = any>(observer: TObserver<T>): TObserver<Data | T> => {
         let unsubscribeRef: Function;
         const merged = new Observer<Data>(() => unsubscribeRef());

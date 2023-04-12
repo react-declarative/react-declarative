@@ -2272,6 +2272,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
         once: (callbackfn: (value: Data) => void) => Fn;
         share: () => this;
+        repeat: (interval?: number) => Observer<Data>;
         merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
         unsubscribe: () => void;
     }
@@ -2294,6 +2295,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number | undefined) => TObserver<Data>;
+        repeat: (interval?: number | undefined) => TObserver<Data>;
         merge: <T = any>(observer: TObserver<T>) => TObserver<Data | T>;
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
@@ -2361,6 +2363,7 @@ declare module 'react-declarative/model/TObserver' {
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
         split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number) => TObserver<Data>;
+        repeat: (interval?: number) => TObserver<Data>;
         connect: (callbackfn: (value: Data) => void) => () => void;
         once: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;

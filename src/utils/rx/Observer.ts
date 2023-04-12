@@ -208,6 +208,28 @@ export class Observer<Data = any> implements TObserver<Data> {
         return this;
     };
 
+    public repeat = (interval = 1_000) => {
+        let unsubscribeRef: Fn;
+        let timeout: number;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<Data>(dispose);
+        const handler = (value: Data) => {
+            if (timeout !== undefined) {
+                clearTimeout(timeout);
+            }
+            observer.emit(value);
+            if (this.broadcast.hasListeners) {
+                timeout = setTimeout(handler, interval, value);
+            }
+        };
+        this._subscribe(observer, handler);
+        unsubscribeRef = () => this._unsubscribe(handler);
+        return observer;
+    };
+
     public merge = <T = any>(observer: TObserver<T>): Observer<Data | T>  => {
         let unsubscribeRef: Fn;
         const dispose = compose(
