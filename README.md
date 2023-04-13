@@ -530,8 +530,6 @@ const App = () => (
 );
 ```
 
-<!--
-
 <img src="./assets/icons/assignation.svg" height="35px" align="right">
 
 ## MapReduce Data Pipelines
@@ -613,8 +611,6 @@ return (
   </>
 );
 ```
-
--->
 
 <img src="./assets/icons/eye.svg" height="35px" align="right">
 
