@@ -565,6 +565,53 @@ const verifyCompleteEmitter = Source.multicast(() =>
 );
 ```
 
+<img src="./assets/icons/chronos.svg" height="35px" align="right">
+
+## Ref-managed MVVM collection
+
+> Link to the [source code](./demo/src/pages/MvvmPage.tsx)
+
+```tsx
+import { useCollection } from "react-declarative";
+
+...
+
+const collection = useCollection({
+  onChange: (collection, target) => console.log({
+    collection,
+    target,
+  }),
+  initialValue: [],
+});
+
+const handleAdd = async () => {
+  const { id, ...data } = await fetchApi("/api/v1/counters/create", {
+    method: "POST",
+  });
+  collection.push({
+    id,
+    ...data,
+  });
+};
+
+const handleUpsert = async () => {
+  const updatedItems = await fetchApi("/api/v1/counters/list");
+  collection.upsert(updatedItems);
+};
+
+return (
+  <>
+    <button onClick={handleAdd}>Add item</button>
+    <button onClick={handleUpsert}>Upsert items</button>
+    <ul>
+      {collection.map((entity) => (
+        <ListItem key={entity.id} entity={entity} />
+      ))}
+    </ul>
+  </>
+);
+```
+
 <img src="./assets/icons/eye.svg" height="35px" align="right">
 
 ## See also
