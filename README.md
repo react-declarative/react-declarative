@@ -530,6 +530,41 @@ const App = () => (
 );
 ```
 
+<img src="./assets/icons/assignation.svg" height="35px" align="right">
+
+## MapReduce Data Pipelines
+
+> Link to the [source code](https://github.com/react-declarative/react-face-kyc/blob/master/src/hooks/useFaceWasm/emitters.ts)
+
+```tsx
+import { Source } from 'react-declarative';
+
+...
+
+const verifyCompleteEmitter = Source.multicast(() =>
+  Source
+    .join([
+      captureStateEmitter,
+      Source.fromInterval(1_000),
+    ])
+    .reduce((acm, [{ state: isValid }]) => {
+      if (isValid) {
+        return acm + 1;
+      }
+      return 0;
+    }, 0)
+    .tap((ticker) => {
+      if (ticker === 1) {
+        mediaRecorderInstance.beginCapture();
+      }
+    })
+    .filter((ticker) => ticker === CC_SECONDS_TO_VERIFY)
+    .tap(() => {
+      mediaRecorderInstance.endCapture();
+    })
+);
+```
+
 <img src="./assets/icons/eye.svg" height="35px" align="right">
 
 ## See also
@@ -574,6 +609,7 @@ import { VirtualView } from 'react-declarative';
 13. [Functional](https://en.wikipedia.org/wiki/Functional_programming) - `useActualValue`, `useActualCallback`, `useActualState`, `useSearchParams`, `useSearchState`, `useChange`
 14. [Declarative](https://en.wikipedia.org/wiki/Declarative_programming) - `One`, `List`, `Scaffold`, `Scaffold2`, `RecordView`, `CardView`
 15. [Reactive](https://en.wikipedia.org/wiki/ReactiveX) - `EventEmitter`, `Subject`, `BehaviorSubject`, `Observer`
+16. [Lambda Architecture](https://en.wikipedia.org/wiki/Lambda_architecture) - `Source`, `useSource`, `useSubscription`
 
 <img src="./assets/icons/cosmos.svg" height="35px" align="right">
 
