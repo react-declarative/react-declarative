@@ -532,6 +532,8 @@ const App = () => (
 
 <img src="./assets/icons/assignation.svg" height="35px" align="right">
 
+<!--
+
 ## MapReduce Data Pipelines
 
 > Link to the [source code](https://github.com/react-declarative/react-face-kyc/blob/master/src/hooks/useFaceWasm/emitters.ts)
@@ -611,6 +613,8 @@ return (
   </>
 );
 ```
+
+-->
 
 <img src="./assets/icons/eye.svg" height="35px" align="right">
 
@@ -692,4 +696,4 @@ import { VirtualView } from 'react-declarative';
 
 > P.S. Got a question? Feel free to [write It in issues](https://github.com/react-declarative/react-declarative/issues), I need traffic
 
-MIT © [tripolskypetr](https://github.com/tripolskypetr)
+
