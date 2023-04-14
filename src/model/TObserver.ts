@@ -3,6 +3,7 @@ export interface TObserver<Data = unknown> {
     map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
     reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
     mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
+    operator: <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>) => TObserver<T>;
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;

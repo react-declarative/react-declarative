@@ -186,6 +186,18 @@ export class Source {
     public static fromDelay = fromDelay;
     public static fromArray = fromArray;
 
+    public static fromValue = <Data = any>(data: Data | (() => Data)): TObserver<Data> => {
+        const observer = new Observer<Data>(() => undefined);
+        observer[LISTEN_CONNECT](() => {
+            if (typeof data === 'function') {
+                observer.emit((data as () => Data)());
+            } else {
+                observer.emit(data);
+            }
+        });
+        return observer;
+    };
+
     public static fromSubject = <Data = any>(subject: TSubject<Data>) => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());

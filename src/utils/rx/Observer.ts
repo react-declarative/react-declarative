@@ -78,6 +78,10 @@ export class Observer<Data = any> implements TObserver<Data> {
         return observer;
     };
 
+    public operator = <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>): TObserver<T> => {
+        return callbackfn(this);
+    };
+
     public reduce = <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T): Observer<T> => {
         let unsubscribeRef: Fn;
         let acm: T = begin;

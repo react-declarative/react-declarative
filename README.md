@@ -690,6 +690,6 @@ import { VirtualView } from 'react-declarative';
 
 ## License
 
-MIT © [tripolskypetr](https://github.com/tripolskypetr)
+> P.S. Got a question? Feel free to [write It in issues](https://github.com/react-declarative/react-declarative/issues), I need traffic
 
-P.S. Got a question? Feel free to [write It in issues](https://github.com/react-declarative/react-declarative/issues), I need traffic
+MIT © [tripolskypetr](https://github.com/tripolskypetr)

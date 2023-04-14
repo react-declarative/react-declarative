@@ -52,6 +52,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.tap(callbackfn);
     };
 
+    public operator = <T = any>(callbackfn: (value: TObserver<Data>) => TObserver<T>): TObserver<T> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.operator(callbackfn);
+    };
+
     public split = (): Observer<ReadonlyArray<FlatArray<Data[], 20>>> => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());

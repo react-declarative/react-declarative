@@ -2266,6 +2266,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         [LISTEN_CONNECT](fn: () => void): void;
         [LISTEN_DISCONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        operator: <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>) => TObserver<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => Observer<T>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => Observer<T>;
@@ -2297,6 +2298,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+        operator: <T = any>(callbackfn: (value: TObserver<Data>) => TObserver<T>) => TObserver<T>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
         debounce: (delay?: number | undefined) => TObserver<Data>;
         repeat: (interval?: number | undefined) => TObserver<Data>;
@@ -2337,6 +2339,7 @@ declare module 'react-declarative/utils/rx/Source' {
         static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
         static fromDelay: (delay: number) => TObserver<void>;
         static fromArray: <Data = any>(data: Data) => TObserver<readonly (Data extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? any : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : Data)[]>;
+        static fromValue: <Data = any>(data: Data | (() => Data)) => TObserver<Data>;
         static fromSubject: <Data = any>(subject: TSubject<Data>) => Observer<Data>;
         static fromBehaviorSubject: <Data = any>(subject: TBehaviorSubject<Data>) => Observer<Data>;
     }
@@ -2366,6 +2369,7 @@ declare module 'react-declarative/model/TObserver' {
         map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
         mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
+        operator: <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
         merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
         tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
