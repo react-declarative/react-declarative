@@ -414,6 +414,7 @@ export { sleep } from './utils/sleep';
 export { BehaviorSubject } from './utils/rx/BehaviorSubject';
 export { EventEmitter } from './utils/rx/EventEmitter';
 export { Observer } from './utils/rx/Observer';
+export { Operator } from './utils/rx/Operator';
 export { Subject } from './utils/rx/Subject';
 export { Source } from './utils/rx/Source';
 

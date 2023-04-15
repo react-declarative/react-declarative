@@ -326,6 +326,7 @@ declare module 'react-declarative' {
     export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
     export { Observer } from 'react-declarative/utils/rx/Observer';
+    export { Operator } from 'react-declarative/utils/rx/Operator';
     export { Subject } from 'react-declarative/utils/rx/Subject';
     export { Source } from 'react-declarative/utils/rx/Source';
     import TSubjectInternal from 'react-declarative/model/TSubject';
@@ -2283,6 +2284,13 @@ declare module 'react-declarative/utils/rx/Observer' {
     }
     export { TObserver };
     export default Observer;
+}
+
+declare module 'react-declarative/utils/rx/Operator' {
+    export class Operator {
+        static take: <T = any>(count: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
+    }
+    export default Operator;
 }
 
 declare module 'react-declarative/utils/rx/Subject' {
