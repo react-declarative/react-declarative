@@ -13,6 +13,7 @@ export interface TObserver<Data = unknown> {
     connect: (callbackfn: (value: Data) => void) => () => void;
     once: (callbackfn: (value: Data) => void) => () => void;
     share: () => TObserver<Data>;
+    toPromise: () => Promise<Data>;
 }
 
 export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {

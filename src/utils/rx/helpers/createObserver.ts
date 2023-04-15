@@ -15,6 +15,7 @@ export const createObserver = <Data = any>(factory: () => TObserver<Data>): TObs
     once: (callbackfn) => factory().once(callbackfn),
     unsubscribe: () => factory().unsubscribe(),
     share: () => factory().share(),
+    toPromise: () => factory().toPromise(),
 });
 
 export default createObserver;

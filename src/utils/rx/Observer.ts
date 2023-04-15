@@ -279,6 +279,11 @@ export class Observer<Data = any> implements TObserver<Data> {
         this.broadcast.emit(DISCONNECT_EVENT);
         this.dispose();
     };
+
+    public toPromise = () => new Promise<Data>((res) => {
+        this.once((data) => res(data));
+    });
+
 };
 
 export { TObserver };

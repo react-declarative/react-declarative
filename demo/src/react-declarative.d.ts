@@ -2281,6 +2281,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         repeat: (interval?: number) => Observer<Data>;
         merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
         unsubscribe: () => void;
+        toPromise: () => Promise<Data>;
     }
     export { TObserver };
     export default Observer;
@@ -2316,6 +2317,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         once: (callback: Function) => () => void;
         next(data: Data): void;
         toObserver(): TObserver<Data>;
+        toPromise: () => Promise<Data>;
     }
     export { TSubject };
     export default Subject;
@@ -2387,6 +2389,7 @@ declare module 'react-declarative/model/TObserver' {
         connect: (callbackfn: (value: Data) => void) => () => void;
         once: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;
+        toPromise: () => Promise<Data>;
     }
     export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
         unsubscribe: never;

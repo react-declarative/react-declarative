@@ -113,6 +113,8 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer;
     };
 
+    public toPromise = () => this.toObserver().toPromise();
+
 };
 
 export { TSubject };
