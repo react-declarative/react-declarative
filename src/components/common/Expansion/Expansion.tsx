@@ -51,13 +51,13 @@ export const Expansion = ({
   const { classes } = useStyles();
   const [expanded, setExpanded] = useState(expansionOpened);
   return (
-    <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)} className={className} style={style}>
+    <Accordion sx={sx} expanded={expanded} onChange={() => setExpanded(!expanded)} className={className} style={style}>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{title}</Typography>
         <Typography className={classes.secondaryHeading}>{description}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Group columnsOverride={columnsOverride} sx={sx}>
+        <Group columnsOverride={columnsOverride}>
           {children}
         </Group>
       </AccordionDetails>

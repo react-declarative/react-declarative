@@ -50,13 +50,12 @@ export const Outline = ({
 }: IOutlineProps & IOutlinePrivate) => {
   const { classes } = useStyles();
   return (
-    <Box className={classNames(className, classes.strech)} style={style}>
+    <Box className={classNames(className, classes.strech)} sx={sx} style={style}>
       <Box className={classes.content}>
         <Group
           columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"
-          sx={sx}
         >
           {children}
         </Group>

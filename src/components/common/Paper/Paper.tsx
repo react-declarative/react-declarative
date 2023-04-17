@@ -45,13 +45,12 @@ export const Paper = ({
 }: IPaperProps & IPaperPrivate) => {
   const { classes } = useStyles();
   return (
-    <MatPaper className={classNames(className, classes.strech)} style={style}>
+    <MatPaper sx={sx} className={classNames(className, classes.strech)} style={style}>
       <Box className={classes.content}>
         <Group
           columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"
-          sx={sx}
         >
           {children}
         </Group>
