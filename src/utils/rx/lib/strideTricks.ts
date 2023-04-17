@@ -1,8 +1,9 @@
 import { TObserver } from "../Observer";
 
-export const strideTricks = <T = any>(strideSize: number, step = Math.floor(strideSize / 2)) => (target: TObserver<T[]>): TObserver<T[]> => {
+export const strideTricks = <T = any>(strideSize: number, step = Math.floor(strideSize / 2)) => (target: TObserver<T[]>): TObserver<T[][]> => {
   let windowSize = -1;
   let totalSteps = -1;
+  let resultSize = -1;
   let needExtraStep = false;
   return target
     .tap((buffer) => {
@@ -10,6 +11,7 @@ export const strideTricks = <T = any>(strideSize: number, step = Math.floor(stri
         windowSize = buffer.length;
         totalSteps = Math.ceil((windowSize - strideSize) / step);
         needExtraStep = totalSteps * strideSize !== windowSize;
+        resultSize = totalSteps + (needExtraStep ? 1 : 0);
         if (strideSize > windowSize || step > strideSize) throw new Error('react-declarative strideTricks too big stride');
       }
     })
@@ -44,6 +46,14 @@ export const strideTricks = <T = any>(strideSize: number, step = Math.floor(stri
       }
     }, [])
     .filter((acm) => acm.length === strideSize)
+    .reduce<T[][]>((acm, cur) => {
+      if (acm.length === resultSize) {
+        return [cur];
+      } else {
+        return [...acm, cur];
+      }
+    }, [])
+    .filter((acm) => acm.length === resultSize)
 };
 
 export default strideTricks;
