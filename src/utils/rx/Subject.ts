@@ -24,6 +24,13 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return observer.map(callbackfn);
     };
 
+    public flatMap = <T = any>(callbackfn: (value: Data) => T[]): TObserver<T> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.flatMap(callbackfn);
+    };
+
     public reduce = <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T): TObserver<T> => {
         let unsubscribeRef: Function;
         const observer = new Observer<Data>(() => unsubscribeRef());

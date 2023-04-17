@@ -78,6 +78,28 @@ export class Observer<Data = any> implements TObserver<Data> {
         return observer;
     };
 
+    public flatMap = <T = any>(callbackfn: (value: Data) => T[]): Observer<T> => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<T>(dispose);
+        const handler = (value: Data) => {
+            const pendingValue = callbackfn(value);
+            if (Array.isArray(pendingValue)) {
+                pendingValue.forEach((value) => {
+                    observer.emit(value);
+                });
+            } else {
+                observer.emit(pendingValue);
+            }
+        };
+        this._subscribe(observer, handler);
+        unsubscribeRef = () => this._unsubscribe(handler);
+        return observer;
+    };
+
     public operator = <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>): TObserver<T> => {
         return callbackfn(this);
     };

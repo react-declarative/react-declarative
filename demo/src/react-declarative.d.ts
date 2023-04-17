@@ -2267,6 +2267,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         [LISTEN_CONNECT](fn: () => void): void;
         [LISTEN_DISCONNECT](fn: () => void): void;
         map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+        flatMap: <T = any>(callbackfn: (value: Data) => T[]) => Observer<T>;
         operator: <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>) => TObserver<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => Observer<T>;
         split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
@@ -2290,6 +2291,10 @@ declare module 'react-declarative/utils/rx/Observer' {
 declare module 'react-declarative/utils/rx/Operator' {
     export class Operator {
         static take: <T = any>(count: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
+        static skip: <T = any>(the: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
+        static pair: <T = any>() => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<[T, T]>;
+        static group: <T = any>(by: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T[]>;
+        static strideTricks: <T = any>(strideSize: number, step?: number) => (target: import("./Observer").TObserver<T[]>) => import("./Observer").TObserver<T[]>;
     }
     export default Operator;
 }
@@ -2303,6 +2308,7 @@ declare module 'react-declarative/utils/rx/Subject' {
     export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         constructor();
         map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
+        flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
         mapAsync: <T = any>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<T>;
         filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
@@ -2377,6 +2383,7 @@ declare module 'react-declarative/model/TObserver' {
     export interface TObserver<Data = unknown> {
         unsubscribe: () => void;
         map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
+        flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
         reduce: <T = any>(callbackfn: (acm: T, cur: Data) => T, begin: T) => TObserver<T>;
         mapAsync: <T = unknown>(callbackfn: (value: Data) => Promise<T>, fallbackfn?: (e: Error) => void) => TObserver<T>;
         operator: <T = any>(callbackfn: (target: TObserver<Data>) => TObserver<T>) => TObserver<T>;

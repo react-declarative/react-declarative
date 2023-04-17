@@ -6,6 +6,7 @@ export const createObserver = <Data = any>(factory: () => TObserver<Data>): TObs
     repeat: (interval) => factory().repeat(interval),
     filter: (callbackfn) => factory().filter(callbackfn),
     map: (callbackfn) => factory().map(callbackfn),
+    flatMap: (callbackfn) => factory().flatMap(callbackfn),
     operator: (callbackfn) => factory().operator(callbackfn),
     reduce: (callbackfn, begin) => factory().reduce(callbackfn, begin),
     mapAsync: (callbackfn, fallbackfn) => factory().mapAsync(callbackfn, fallbackfn),
