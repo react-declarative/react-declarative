@@ -2295,6 +2295,7 @@ declare module 'react-declarative/utils/rx/Operator' {
         static pair: <T = any>() => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<[T, T]>;
         static group: <T = any>(by: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T[]>;
         static strideTricks: <T = any>(strideSize: number, step?: number) => (target: import("./Observer").TObserver<T[]>) => import("./Observer").TObserver<T[][]>;
+        static distinct: <T = any>() => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
     }
     export default Operator;
 }
