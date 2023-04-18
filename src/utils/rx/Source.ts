@@ -100,7 +100,7 @@ export class Source {
 
         const next = () => {
             if (buffer.every((value) => value !== undefined)) {
-                observer.emit(buffer as any);
+                observer.emit([...buffer] as any);
                 !race && buffer.fill(undefined);
             }
         };
