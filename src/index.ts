@@ -11,9 +11,9 @@ import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components
 import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from './components/List/api/useArrayPaginator';
 import { IApiHandlerParams as IApiHandlerParamsInternal } from './components/One/api/useApiHandler';
 
-export type IListApiPaginatorParams = IApiPaginatorParamsInternal;
-export type ILastArrayPaginatorParams = IArrayPaginatorParamsInternal;
-export type IOneApiHandlerParams = IApiHandlerParamsInternal;
+export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything>  = IApiPaginatorParamsInternal<FilterData, RowData>;
+export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything>  = IArrayPaginatorParamsInternal<FilterData, RowData>;
+export type IOneApiHandlerParams<Data = any>  = IApiHandlerParamsInternal<Data>;
 
 import { FieldType as FieldTypeInternal } from './model/FieldType';
 import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
@@ -145,14 +145,14 @@ export type ListHandlerChips<RowData extends IRowData = IAnything> = ListHandler
 
 export type IListRowAction<RowData extends IRowData = IAnything>  = IListRowActionInternal<RowData>;
 export type IListChip<RowData extends IRowData = IAnything> = IListChipInternal<RowData>;
-export type IListOperation = IListOperationInternal;
-export type IListAction  = IListActionInternal;
+export type IListOperation<Data extends IRowData = any> = IListOperationInternal<Data>;
+export type IListAction<Data extends IRowData = any>  = IListActionInternal<Data>;
 
 export type IListApi<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IListApiInternal<FilterData, RowData>;
 export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 
-export type IMenuOption = IMenuOptionInternal;
-export type IMenuGroup = IMenuGroupInternal;
+export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
+export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
 export type IOption = IOptionInternal;
 export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
 
@@ -166,8 +166,8 @@ export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowDat
 export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
 export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
 
-export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
-export type IScaffoldOption = IScaffoldOptionInternal;
+export type IBreadcrumbsOption<Data = any> = IBreadcrumbsOptionInternal<Data>;
+export type IScaffoldOption<Data = any> = IScaffoldOptionInternal<Data>;
 
 export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
 export type pickOneFn = ReturnType<typeof useOne>;

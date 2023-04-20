@@ -1,6 +1,6 @@
 import IOption from "./IOption";
 
-export interface IBreadcrumbsOption<T extends any = string> extends Omit<IOption, keyof {
+export interface IBreadcrumbsOption<T extends any = any> extends Omit<IOption, keyof {
     isVisible: never;
     isDisabled: never;
 }> {

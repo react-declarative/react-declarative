@@ -22,9 +22,9 @@ declare module 'react-declarative' {
     import { IApiPaginatorParams as IApiPaginatorParamsInternal } from 'react-declarative/components/List/api/useApiPaginator';
     import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from 'react-declarative/components/List/api/useArrayPaginator';
     import { IApiHandlerParams as IApiHandlerParamsInternal } from 'react-declarative/components/One/api/useApiHandler';
-    export type IListApiPaginatorParams = IApiPaginatorParamsInternal;
-    export type ILastArrayPaginatorParams = IArrayPaginatorParamsInternal;
-    export type IOneApiHandlerParams = IApiHandlerParamsInternal;
+    export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IApiPaginatorParamsInternal<FilterData, RowData>;
+    export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IArrayPaginatorParamsInternal<FilterData, RowData>;
+    export type IOneApiHandlerParams<Data = any> = IApiHandlerParamsInternal<Data>;
     import { FieldType as FieldTypeInternal } from 'react-declarative/model/FieldType';
     import { ColumnType as ColumnTypeInternal } from 'react-declarative/model/ColumnType';
     import { ActionType as ActionTypeInternal } from 'react-declarative/model/ActionType';
@@ -120,20 +120,20 @@ declare module 'react-declarative' {
     export type ListHandlerChips<RowData extends IRowData = IAnything> = ListHandlerChipsInternal<RowData>;
     export type IListRowAction<RowData extends IRowData = IAnything> = IListRowActionInternal<RowData>;
     export type IListChip<RowData extends IRowData = IAnything> = IListChipInternal<RowData>;
-    export type IListOperation = IListOperationInternal;
-    export type IListAction = IListActionInternal;
+    export type IListOperation<Data extends IRowData = any> = IListOperationInternal<Data>;
+    export type IListAction<Data extends IRowData = any> = IListActionInternal<Data>;
     export type IListApi<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IListApiInternal<FilterData, RowData>;
     export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
-    export type IMenuOption = IMenuOptionInternal;
-    export type IMenuGroup = IMenuGroupInternal;
+    export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
+    export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
     export type IOption = IOptionInternal;
     export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
     import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from 'react-declarative/components';
     export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
     export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
     export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
-    export type IBreadcrumbsOption = IBreadcrumbsOptionInternal;
-    export type IScaffoldOption = IScaffoldOptionInternal;
+    export type IBreadcrumbsOption<Data = any> = IBreadcrumbsOptionInternal<Data>;
+    export type IScaffoldOption<Data = any> = IScaffoldOptionInternal<Data>;
     export type pickOneTypedFn = ReturnType<typeof useOneTyped>;
     export type pickOneFn = ReturnType<typeof useOne>;
     export type pickDateFn = ReturnType<typeof useDate>;
@@ -1361,7 +1361,7 @@ declare module 'react-declarative/model/IOption' {
 
 declare module 'react-declarative/model/IBreadcrumbsOption' {
     import IOption from "react-declarative/model/IOption";
-    export interface IBreadcrumbsOption<T extends any = string> extends Omit<IOption, keyof {
+    export interface IBreadcrumbsOption<T extends any = any> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
