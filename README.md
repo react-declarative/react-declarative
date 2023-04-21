@@ -88,6 +88,14 @@ git clone https://github.com/react-declarative/erc20-payment-gateway.git
 git clone https://github.com/react-declarative/react-face-kyc.git
 ```
 
+**3. BrainJS Cryptocurrency Trend**
+
+> GitHub repo: [https://github.com/react-declarative/brainjs-cryptocurrency-trend](https://github.com/react-declarative/brainjs-cryptocurrency-trend)
+
+```bash
+git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
