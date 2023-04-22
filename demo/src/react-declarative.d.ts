@@ -155,6 +155,7 @@ declare module 'react-declarative' {
     export { RevealView } from 'react-declarative/components';
     export { SecretView } from 'react-declarative/components';
     export { PortalView } from 'react-declarative/components';
+    export { ReloadView } from 'react-declarative/components';
     export { RecordView } from 'react-declarative/components';
     export { CardView } from 'react-declarative/components';
     export { ErrorView } from 'react-declarative/components';
@@ -2030,6 +2031,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ErrorView';
     export * from 'react-declarative/components/AuthView';
     export * from 'react-declarative/components/CardView';
+    export * from 'react-declarative/components/ReloadView';
     export * from 'react-declarative/components/InfiniteView';
     export * from 'react-declarative/components/VirtualView';
     export * from 'react-declarative/components/LoaderView';
@@ -3706,6 +3708,11 @@ declare module 'react-declarative/components/AuthView' {
     export { default } from 'react-declarative/components/AuthView/AuthView';
 }
 
+declare module 'react-declarative/components/ReloadView' {
+    export * from 'react-declarative/components/ReloadView/ReloadView';
+    export { default } from 'react-declarative/components/ReloadView/ReloadView';
+}
+
 declare module 'react-declarative/components/InfiniteView' {
     export * from 'react-declarative/components/InfiniteView/InfiniteView';
     export { default } from 'react-declarative/components/InfiniteView/InfiniteView';
@@ -5121,6 +5128,24 @@ declare module 'react-declarative/components/AuthView/AuthView' {
     }
     export const AuthView: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ className, style, sx, appName, Logo, fields, onLoadStart, onLoadEnd, throwError, handler, fallback, onAuth, }: IAuthViewProps<Data, Payload, Field>) => JSX.Element;
     export default AuthView;
+}
+
+declare module 'react-declarative/components/ReloadView/ReloadView' {
+    import * as React from 'react';
+    import TSubject from 'react-declarative/model/TSubject';
+    interface IReloadViewProps {
+        reloadTrigger: TSubject<any>;
+        children?: React.ReactNode;
+    }
+    export class ReloadView extends React.Component<IReloadViewProps> {
+        _disconnectListener: (() => void) | undefined;
+        doSubscribe: () => void;
+        componentDidMount: () => void;
+        componentDidUpdate: () => void;
+        componentWillUnmount: () => void;
+        return: () => JSX.Element;
+    }
+    export default ReloadView;
 }
 
 declare module 'react-declarative/components/InfiniteView/InfiniteView' {

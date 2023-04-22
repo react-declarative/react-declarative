@@ -196,6 +196,7 @@ export { OfflineView } from './components';
 export { RevealView } from './components';
 export { SecretView } from './components';
 export { PortalView } from './components';
+export { ReloadView } from './components';
 export { RecordView } from './components';
 export { CardView } from './components';
 export { ErrorView } from './components';
