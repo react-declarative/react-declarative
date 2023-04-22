@@ -96,6 +96,14 @@ git clone https://github.com/react-declarative/react-face-kyc.git
 git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
 ```
 
+**4. NFT Mint Tool**
+
+> GitHub repo: [https://github.com/react-declarative/nft-mint-tool](https://github.com/react-declarative/nft-mint-tool)
+
+```bash
+git clone https://github.com/react-declarative/nft-mint-tool.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component

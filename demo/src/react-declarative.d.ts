@@ -318,6 +318,7 @@ declare module 'react-declarative' {
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
     export { singleshot } from 'react-declarative/utils/hof/singleshot';
+    export { singlerun } from 'react-declarative/utils/hof/singlerun';
     export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
@@ -2186,6 +2187,14 @@ declare module 'react-declarative/utils/hof/singleshot' {
     }
     export const singleshot: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default singleshot;
+}
+
+declare module 'react-declarative/utils/hof/singlerun' {
+    export interface IClearable {
+        clear: () => void;
+    }
+    export const singlerun: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
+    export default singlerun;
 }
 
 declare module 'react-declarative/utils/hof/cancelable' {
