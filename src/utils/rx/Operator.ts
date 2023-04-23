@@ -1,5 +1,6 @@
 import distinct from "./lib/distinct";
 import group from "./lib/group";
+import liveness from "./lib/liveness";
 import pair from "./lib/pair";
 import skip from "./lib/skip";
 import strideTricks from "./lib/strideTricks";
@@ -12,6 +13,7 @@ export class Operator {
   public static group = group;
   public static strideTricks = strideTricks;
   public static distinct = distinct;
+  public static liveness = liveness;
 };
 
 export default Operator;
