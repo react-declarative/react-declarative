@@ -702,7 +702,7 @@ import { VirtualView } from 'react-declarative';
 
     Useful snippets to split procedure code with the inversion of control pattern
 
-<img src="./assets/icons/tree.svg" height="35px" align="right">
+<img src="./assets/icons/tree.svg" height="65px" align="right">
 
 ## License
 
