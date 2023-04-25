@@ -26,7 +26,7 @@ or
 npx create-react-app . --template=react-declarative
 ```
 
-<img src="./assets/icons/babylon.svg" height="35px" align="right">
+<img src="./assets/icons/babylon.svg" height="40px" align="right">
 
 ## Installation
 
