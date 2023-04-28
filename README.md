@@ -1,4 +1,4 @@
-<!--img src="./assets/icons/logo.svg" height="35px" align="right"-->
+<img src="./assets/icons/logo.svg" height="85px" align="right">
 
 # ⚛️ react-declarative
 
@@ -628,7 +628,7 @@ return (
 );
 ```
 
-<img src="./assets/icons/eye.svg" height="35px" align="right">
+<img src="./assets/icons/heraldry.svg" height="35px" align="right">
 
 ## See also
 
