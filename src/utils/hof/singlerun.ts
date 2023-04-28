@@ -2,7 +2,7 @@ export interface IClearable {
     clear: () => void;
 }
 
-class Task {
+export class Task {
     private _status: "pending" | "fulfilled" | "rejected" = "pending";
     get status() {
         return this._status;
