@@ -111,7 +111,7 @@ declare module 'react-declarative' {
     export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
     export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
     export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
-    export type ITab<T extends unknown = string> = ITabInternal<T>;
+    export type ITab<T extends unknown = any> = ITabInternal<T>;
     export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
     export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
@@ -202,6 +202,12 @@ declare module 'react-declarative' {
     export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
     export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
     export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
+    import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from 'react-declarative/components/Breadcrumbs2';
+    import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from 'react-declarative/components/Breadcrumbs2';
+    import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from 'react-declarative/components/Breadcrumbs2';
+    export const Breadcrumbs2Type: typeof Breadcrumbs2TypeInternal;
+    export type IBreadcrumbs2Action<Data = any> = IBreadcrumbs2ActionInternal<Data>;
+    export type IBreadcrumbs2Option<Data = any> = IBreadcrumbs2OptionInternal<Data>;
     export { Scaffold } from 'react-declarative/components';
     export { Scaffold2 } from 'react-declarative/components';
     export { Countdown } from 'react-declarative/components';
@@ -212,6 +218,7 @@ declare module 'react-declarative' {
     export { OneSlotFactory, OneDefaultSlots } from 'react-declarative/components';
     export { ListSlotFactory, ListDefaultSlots } from 'react-declarative/components';
     export { Breadcrumbs } from 'react-declarative/components';
+    export { Breadcrumbs2 } from 'react-declarative/components';
     export { Switch } from 'react-declarative/components';
     export { NoSsr } from 'react-declarative/components';
     export { OtherComboSlot } from 'react-declarative/components';
@@ -984,7 +991,7 @@ declare module 'react-declarative/model/IColumn' {
 
 declare module 'react-declarative/model/ITab' {
     import IOption from "react-declarative/model/IOption";
-    export interface ITab<T extends any = string> extends Omit<IOption, keyof {
+    export interface ITab<T extends any = any> extends Omit<IOption, keyof {
         action: never;
         isVisible: never;
         isDisabled: never;
@@ -1367,8 +1374,8 @@ declare module 'react-declarative/model/IBreadcrumbsOption' {
         isVisible: never;
         isDisabled: never;
     }> {
-        isVisible?: (payload: T) => Promise<boolean> | boolean;
-        isDisabled?: (payload: T) => Promise<boolean> | boolean;
+        isVisible?: (payload: T) => (Promise<boolean> | boolean);
+        isDisabled?: (payload: T) => (Promise<boolean> | boolean);
     }
     export default IBreadcrumbsOption;
 }
@@ -1453,7 +1460,7 @@ declare module 'react-declarative/utils/toRouteUrl' {
 
 declare module 'react-declarative/model/IMenuGroup' {
     import * as React from 'react';
-    export interface IMenuOption<T extends any = string> {
+    export interface IMenuOption<T extends any = any> {
         name?: string;
         label: string;
         icon?: React.ComponentType<any>;
@@ -1467,7 +1474,7 @@ declare module 'react-declarative/model/IMenuGroup' {
         isDisabled?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
         isVisible?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
     }
-    export interface IMenuGroup<T extends any = string> extends IMenuOption<T> {
+    export interface IMenuGroup<T extends any = any> extends IMenuOption<T> {
         options?: IMenuGroup<T>[];
     }
     export default IMenuGroup;
@@ -2001,6 +2008,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Scaffold2';
     export * from 'react-declarative/components/Translate';
     export * from 'react-declarative/components/Breadcrumbs';
+    export * from 'react-declarative/components/Breadcrumbs2';
     export * from 'react-declarative/components/ErrorBoundary';
     export * from 'react-declarative/components/ActionMenu';
     export * from 'react-declarative/components/ActionButton';
@@ -2078,6 +2086,14 @@ declare module 'react-declarative/components/Scaffold2' {
     export * from 'react-declarative/components/Scaffold2/model/IScaffold2Option';
     export * from 'react-declarative/components/Scaffold2/model/IScaffold2Tab';
     export { default } from 'react-declarative/components/Scaffold2/Scaffold2';
+}
+
+declare module 'react-declarative/components/Breadcrumbs2' {
+    export * from 'react-declarative/components/Breadcrumbs2/Breadcrumbs2';
+    export * from 'react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type';
+    export * from 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action';
+    export * from 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option';
+    export { default } from 'react-declarative/components/Breadcrumbs2/Breadcrumbs2';
 }
 
 declare module 'react-declarative/model/IOnePublicProps' {
@@ -3976,6 +3992,58 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Tab' {
     export default IScaffold2Tab;
 }
 
+declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
+    import * as React from "react";
+    import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
+    import IBreadcrumbs2Option from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option";
+    interface IBreadcrumbs2Props<T extends any = any> {
+        onAction?: (action: string) => void;
+        actions?: IBreadcrumbs2Action<T>[];
+        items: IBreadcrumbs2Option<T>[];
+        payload?: T;
+        BeforeMenuContent?: React.ComponentType<any>;
+        AfterMenuContent?: React.ComponentType<any>;
+    }
+    export const Breadcrumbs2: <T extends unknown = any>({ onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbs2Props<T>) => JSX.Element;
+    export default Breadcrumbs2;
+}
+
+declare module 'react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type' {
+    export enum Breadcrumbs2Type {
+        Link = "breadcrumbs2-link",
+        Button = "breadcrumbs2-button"
+    }
+    export default Breadcrumbs2Type;
+}
+
+declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IOption from "react-declarative/model/IOption";
+    export interface IBreadcrumbs2Action<Data = IAnything> extends Omit<IOption, keyof {
+        isVisible: never;
+        isDisabled: never;
+    }> {
+        isVisible?: (payload: Data) => (Promise<boolean> | boolean);
+        isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
+    }
+    export default IBreadcrumbs2Action;
+}
+
+declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IOption from "react-declarative/model/IOption";
+    import Breadcrumbs2Type from "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type";
+    export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, keyof {
+        isVisible: never;
+        isDisabled: never;
+    }> {
+        type: Breadcrumbs2Type;
+        isVisible?: (payload: Data) => (Promise<boolean> | boolean);
+        isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
+    }
+    export default IBreadcrumbs2Option;
+}
+
 declare module 'react-declarative/components/common/Group' {
     export * from 'react-declarative/components/common/Group/Group';
     export { default } from 'react-declarative/components/common/Group/Group';
@@ -4484,14 +4552,14 @@ declare module 'react-declarative/components/Switch/Switch' {
 
 declare module 'react-declarative/components/Scaffold/Scaffold' {
     import IScaffoldProps from 'react-declarative/components/Scaffold/model/IScaffoldProps';
-    export const Scaffold: <T extends unknown = string>({ roles, payload, throwError, fallback, options, loadingLine, loading, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
+    export const Scaffold: <T extends unknown = any>({ roles, payload, throwError, fallback, options, loadingLine, loading, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
     export default Scaffold;
 }
 
 declare module 'react-declarative/components/Scaffold/model/IScaffoldProps' {
     import IMenuGroup from "react-declarative/model/IMenuGroup";
     import IScaffoldOption from "react-declarative/components/Scaffold/model/IScaffoldOption";
-    export interface IScaffoldProps<T extends any = string> {
+    export interface IScaffoldProps<T extends any = any> {
         children: React.ReactNode;
         className?: string;
         dense?: boolean;
@@ -4522,7 +4590,7 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldProps' {
 
 declare module 'react-declarative/components/Scaffold/model/IScaffoldOption' {
     import IOption from "react-declarative/model/IOption";
-    export interface IScaffoldOption<T extends any = string> extends Omit<IOption, keyof {
+    export interface IScaffoldOption<T extends any = any> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
     }> {
@@ -4535,7 +4603,7 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldOption' {
 declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
     import * as React from 'react';
     import IBreadcrumbsOption from 'react-declarative/model/IBreadcrumbsOption';
-    interface IBreadcrumbsProps<T extends any = string> {
+    interface IBreadcrumbsProps<T extends any = any> {
         onSave?: () => void;
         onBack?: () => void;
         onAction?: (action: string) => void;
@@ -4548,7 +4616,7 @@ declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
         BeforeMenuContent?: React.ComponentType<any>;
         AfterMenuContent?: React.ComponentType<any>;
     }
-    export const Breadcrumbs: <T extends unknown = string>({ onSave, onBack, onAction, actions, saveDisabled, payload, title, subtitle, withSave, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbsProps<T>) => JSX.Element;
+    export const Breadcrumbs: <T extends unknown = any>({ onSave, onBack, onAction, actions, saveDisabled, payload, title, subtitle, withSave, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbsProps<T>) => JSX.Element;
     export default Breadcrumbs;
 }
 
@@ -4930,7 +4998,7 @@ declare module 'react-declarative/components/TabsView/TabsView' {
     import { TabsProps } from '@mui/material/Tabs';
     import { IAsyncProps } from 'react-declarative/components/Async';
     import ITab from 'react-declarative/model/ITab';
-    export interface ITabsViewProps<T extends any = string> extends Omit<IAsyncProps<T>, keyof {
+    export interface ITabsViewProps<T extends any = any> extends Omit<IAsyncProps<T>, keyof {
         children: never;
         Error: never;
     }> {
@@ -4944,14 +5012,14 @@ declare module 'react-declarative/components/TabsView/TabsView' {
         variant?: TabsProps['variant'];
         noUnderline?: boolean;
     }
-    export const TabsView: <T extends unknown = string>({ className, style, centered, variant, items, value: defaultValue, noUnderline, children, onChange, onLoadStart, onLoadEnd, Loader, ...otherProps }: ITabsViewProps<T>) => JSX.Element;
+    export const TabsView: <T extends unknown = any>({ className, style, centered, variant, items, value: defaultValue, noUnderline, children, onChange, onLoadStart, onLoadEnd, Loader, ...otherProps }: ITabsViewProps<T>) => JSX.Element;
     export default TabsView;
 }
 
 declare module 'react-declarative/components/TabsView/api/useTabsHashstate' {
     import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
     import { ITabsViewProps } from 'react-declarative/components/TabsView/TabsView';
-    interface IResult<T extends any = string> {
+    interface IResult<T extends any = any> {
         tabsProps: {
             value: ITabsViewProps<T>['value'];
             onChange: ITabsViewProps<T>['onChange'];
@@ -4965,7 +5033,7 @@ declare module 'react-declarative/components/TabsView/api/useTabsHashstate' {
         history?: MemoryHistory | BrowserHistory | HashHistory;
         defaultValue?: string;
     }
-    export const useTabsHashstate: <T extends unknown = string>({ history, defaultValue, }?: IParams) => IResult<T>;
+    export const useTabsHashstate: <T extends unknown = any>({ history, defaultValue, }?: IParams) => IResult<T>;
     export default useTabsHashstate;
 }
 

@@ -674,6 +674,7 @@ import { VirtualView } from 'react-declarative';
 15. [Declarative](https://en.wikipedia.org/wiki/Declarative_programming) - `One`, `List`, `Scaffold`, `Scaffold2`, `RecordView`, `CardView`
 16. [Reactive](https://en.wikipedia.org/wiki/ReactiveX) - `EventEmitter`, `Subject`, `BehaviorSubject`, `Observer`
 17. [Lambda Architecture](https://en.wikipedia.org/wiki/Lambda_architecture) - `Source`, `useSource`, `useSubscription`
+18. [Aspect Oriented](https://en.wikipedia.org/wiki/Aspect-oriented_programming) - `serviceManager`, `Source`
 
 <img src="./assets/icons/cosmos.svg" height="35px" align="right">
 

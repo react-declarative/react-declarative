@@ -4,8 +4,8 @@ export interface IBreadcrumbsOption<T extends any = any> extends Omit<IOption, k
     isVisible: never;
     isDisabled: never;
 }> {
-    isVisible?: (payload: T) => Promise<boolean> | boolean;
-    isDisabled?: (payload: T) => Promise<boolean> | boolean;
+    isVisible?: (payload: T) => (Promise<boolean> | boolean);
+    isDisabled?: (payload: T) => (Promise<boolean> | boolean);
 };
 
 export default IBreadcrumbsOption;

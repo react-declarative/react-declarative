@@ -1,6 +1,6 @@
 import { IMenuOption } from "../../../model/IMenuGroup";
 
-export interface IScaffoldOption<T extends any = string> extends Omit<IMenuOption<T>, keyof {
+export interface IScaffoldOption<T extends any = any> extends Omit<IMenuOption<T>, keyof {
     disabled: never;
     visible: never;
     roles: never;
@@ -15,7 +15,7 @@ export interface IScaffoldOption<T extends any = string> extends Omit<IMenuOptio
     bold?: boolean;
 }
 
-export interface IScaffoldGroup<T extends any = string> extends IScaffoldOption<T> {
+export interface IScaffoldGroup<T extends any = any> extends IScaffoldOption<T> {
     options?: IScaffoldGroup<T>[];
 }
 

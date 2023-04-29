@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ModalProvider, SnackProvider, createWebComponent } from 'react-declarative';
 
-import App from './App.Scaffold2'
+import App from './App'
 
 const theme = createTheme({
     palette: {

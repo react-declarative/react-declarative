@@ -144,7 +144,7 @@ const cleanupMenu = (entry: Partial<IScaffoldGroup>, allowed: Set<IScaffoldGroup
     }
   });
 
-interface IContentProps<T extends any = string> extends Omit<IScaffoldProps<T>, keyof {
+interface IContentProps<T extends any = any> extends Omit<IScaffoldProps<T>, keyof {
   roles: never;
   throwError: never;
   fallback: never;
@@ -152,7 +152,7 @@ interface IContentProps<T extends any = string> extends Omit<IScaffoldProps<T>, 
   roles?: string[];
 }
 
-export const Content = <T extends any = string>({
+export const Content = <T extends any = any>({
   children,
   className,
   style,

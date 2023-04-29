@@ -17,7 +17,7 @@ import { PassthroughProvider } from './hooks/usePassthrough';
 import IScaffoldProps from './model/IScaffoldProps';
 import IMenuGroup, { IMenuOption } from '../../model/IMenuGroup';
 
-const deepFlat = <T extends any = string>(arr: IMenuGroup<T>[] = []) => {
+const deepFlat = <T extends any = any>(arr: IMenuGroup<T>[] = []) => {
     const result: IMenuOption<T>[] = [];
     const process = (entries: any[] = []) => entries.forEach((entry) => {
         const options = entry['options'] || [];
@@ -30,7 +30,7 @@ const deepFlat = <T extends any = string>(arr: IMenuGroup<T>[] = []) => {
 
 const cloneDeep = (src: any) => arrays(deepClone(objects(src))); 
 
-export const Scaffold = <T extends any = string> ({
+export const Scaffold = <T extends any = any> ({
     roles,
     payload,
     throwError,

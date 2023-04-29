@@ -18,7 +18,7 @@ import ITab from '../../model/ITab';
 
 const TAB_PLACEHOLDER_VALUE = 'placeholder';
 
-export interface ITabsViewProps<T extends any = string> extends Omit<IAsyncProps<T>, keyof {
+export interface ITabsViewProps<T extends any = any> extends Omit<IAsyncProps<T>, keyof {
     children: never;
     Error: never;
 }> {
@@ -64,7 +64,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const Fragment = () => <></>;
 
-export const TabsView = <T extends any = string>({
+export const TabsView = <T extends any = any>({
     className,
     style,
     centered,

@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react';
 
 import { Email } from '@mui/icons-material';
 
-import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs, usePreventLeave } from 'react-declarative';
+import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs2, usePreventLeave, IBreadcrumbs2Option, IBreadcrumbs2Action, Breadcrumbs2Type } from 'react-declarative';
 
 import Logger from '../components/Logger';
 
@@ -74,11 +74,30 @@ const fields: TypedField<IOneData>[] = [
     },
 ];
 
-const actions: IOption[] = [
+const actions: IBreadcrumbs2Action[] = [
     {
         label: 'Sample action',
         action: 'sample-action',
     }
+];
+
+const items: IBreadcrumbs2Option<IOneData>[] = [
+    {
+        type: Breadcrumbs2Type.Link,
+        label: 'title',
+        action: 'title-action',
+    },
+    {
+        type: Breadcrumbs2Type.Link,
+        label: 'subtitle',
+        action: 'subtitle-action',
+    },
+    {
+        type: Breadcrumbs2Type.Button,
+        isDisabled: (data) => data === null,
+        label: 'Save',
+        action: 'button-action',
+    },
 ];
 
 interface IOneData {
@@ -107,11 +126,15 @@ export const ValidationPage = () => {
         }
     };*/
 
-    const action = (action: string) => alert(action); 
+    const onAction = (action: string) => {
+        if (action === "button-action") {
+            afterSave();
+        }
+    };
 
     return (
         <Fragment>
-            <Breadcrumbs withSave onSave={afterSave} onAction={action} saveDisabled={!data} actions={actions} />
+            <Breadcrumbs2 payload={data} onAction={onAction} actions={actions} items={items} />
             <OneTyped<IOneData>
                 fields={fields}
                 {...oneProps}

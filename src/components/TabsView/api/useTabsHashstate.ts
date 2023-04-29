@@ -7,7 +7,7 @@ import { ITabsViewProps } from '../TabsView';
 import createWindowHistory from '../../../utils/createWindowHistory';
 import createHashstateManager from '../../../helpers/hashstateManager';
 
-interface IResult<T extends any = string> {
+interface IResult<T extends any = any> {
     tabsProps: {
         value: ITabsViewProps<T>['value'];
         onChange: ITabsViewProps<T>['onChange'];
@@ -25,7 +25,7 @@ interface IParams {
 
 const DEFAULT_HISTORY = createWindowHistory();
 
-export const useTabsHashstate = <T extends any = string>({
+export const useTabsHashstate = <T extends any = any>({
     history = DEFAULT_HISTORY,
     defaultValue = "",
 }: IParams = {}): IResult<T> => {

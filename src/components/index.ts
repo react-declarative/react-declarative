@@ -6,6 +6,7 @@ export * from './Scaffold';
 export * from './Scaffold2';
 export * from './Translate';
 export * from './Breadcrumbs';
+export * from './Breadcrumbs2';
 export * from './ErrorBoundary';
 
 export * from './ActionMenu';

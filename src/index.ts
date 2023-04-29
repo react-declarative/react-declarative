@@ -133,7 +133,7 @@ export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldIntern
 export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
 export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
-export type ITab<T extends unknown = string> = ITabInternal<T>;
+export type ITab<T extends unknown = any> = ITabInternal<T>;
 
 export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
@@ -258,6 +258,14 @@ export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
 export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
 export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
 
+import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from './components/Breadcrumbs2';
+import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from './components/Breadcrumbs2';
+import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from './components/Breadcrumbs2';
+
+export const Breadcrumbs2Type = Breadcrumbs2TypeInternal;
+export type IBreadcrumbs2Action<Data = any> = IBreadcrumbs2ActionInternal<Data>;
+export type IBreadcrumbs2Option<Data = any> = IBreadcrumbs2OptionInternal<Data>;
+
 export { Scaffold } from './components';
 export { Scaffold2 } from './components';
 
@@ -270,6 +278,7 @@ export { Copy } from './components';
 export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
+export { Breadcrumbs2 } from './components';
 export { Switch } from './components';
 export { NoSsr } from './components';
 

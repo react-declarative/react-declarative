@@ -39,7 +39,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface IBreadcrumbsProps<T extends any = string> {
+interface IBreadcrumbsProps<T extends any = any> {
   onSave?: () => void;
   onBack?: () => void;
   onAction?: (action: string) => void;
@@ -53,7 +53,7 @@ interface IBreadcrumbsProps<T extends any = string> {
   AfterMenuContent?: React.ComponentType<any>;
 }
 
-export const Breadcrumbs = <T extends any = string>({
+export const Breadcrumbs = <T extends any = any>({
   onSave,
   onBack,
   onAction,

@@ -1,6 +1,6 @@
 import IOption from "../../../model/IOption";
 
-export interface IScaffoldOption<T extends any = string> extends Omit<IOption, keyof {
+export interface IScaffoldOption<T extends any = any> extends Omit<IOption, keyof {
     isVisible: never;
     isDisabled: never;
 }> {

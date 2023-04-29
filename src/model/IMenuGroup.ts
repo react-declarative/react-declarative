@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface IMenuOption<T extends any = string> {
+export interface IMenuOption<T extends any = any> {
     name?: string;
     label: string;
     icon?: React.ComponentType<any>;
@@ -15,7 +15,7 @@ export interface IMenuOption<T extends any = string> {
     isVisible?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
 }
 
-export interface IMenuGroup<T extends any = string> extends IMenuOption<T> {
+export interface IMenuGroup<T extends any = any> extends IMenuOption<T> {
     options?: IMenuGroup<T>[];
 }
 
