@@ -1,5 +1,7 @@
 import TObserver from "../../../model/TObserver";
 
+const NEVER_VALUE = Symbol('never');
+
 export const skip = <T = any>(the: number) => (target: TObserver<T>): TObserver<T> => {
   return target
     .reduce<{
@@ -9,7 +11,7 @@ export const skip = <T = any>(the: number) => (target: TObserver<T>): TObserver<
       value: cur,
       idx: acm.idx + 1,
     }), {
-      value: null as never,
+      value: NEVER_VALUE as never,
       idx: 0
     })
     .filter(({ idx }) => idx > the)
