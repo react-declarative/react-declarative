@@ -158,6 +158,7 @@ declare module 'react-declarative' {
     export { ReloadView } from 'react-declarative/components';
     export { RecordView } from 'react-declarative/components';
     export { CardView } from 'react-declarative/components';
+    export { HtmlView } from 'react-declarative/components';
     export { ErrorView } from 'react-declarative/components';
     export { AuthView } from 'react-declarative/components';
     export { LoaderView } from 'react-declarative/components';
@@ -2034,6 +2035,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/FetchView';
     export * from 'react-declarative/components/WaitView';
     export * from 'react-declarative/components/PingView';
+    export * from 'react-declarative/components/HtmlView';
     export * from 'react-declarative/components/OfflineView';
     export * from 'react-declarative/components/RevealView';
     export * from 'react-declarative/components/SecretView';
@@ -3704,6 +3706,11 @@ declare module 'react-declarative/components/PingView' {
     export { default } from 'react-declarative/components/PingView/PingView';
 }
 
+declare module 'react-declarative/components/HtmlView' {
+    export * from 'react-declarative/components/HtmlView/HtmlView';
+    export { default } from 'react-declarative/components/HtmlView/HtmlView';
+}
+
 declare module 'react-declarative/components/OfflineView' {
     export * from 'react-declarative/components/OfflineView/OfflineView';
     export { default } from 'react-declarative/components/OfflineView/OfflineView';
@@ -5100,6 +5107,23 @@ declare module 'react-declarative/components/PingView/PingView' {
     }
     export const PingView: <P extends unknown = object>({ ping, children, onOnline, onOffline, Offline, fallback, throwError, delay, payload, }: IPingViewProps<P>) => JSX.Element | null;
     export default PingView;
+}
+
+declare module 'react-declarative/components/HtmlView/HtmlView' {
+    import * as React from 'react';
+    import { BoxProps } from '@mui/material/Box';
+    interface IHtmlViewProps<T extends any = object> extends BoxProps {
+        children: React.ReactNode;
+        handler: (p: T) => (string | Promise<string>);
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        payload?: T;
+        deps?: any[];
+        throwError?: boolean;
+    }
+    export const HtmlView: ({ children, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps) => JSX.Element;
+    export default HtmlView;
 }
 
 declare module 'react-declarative/components/OfflineView/OfflineView' {

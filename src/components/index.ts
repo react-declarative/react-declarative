@@ -32,6 +32,7 @@ export * from './TabsView';
 export * from './FetchView';
 export * from './WaitView';
 export * from './PingView';
+export * from './HtmlView';
 export * from './OfflineView';
 export * from './RevealView';
 export * from './SecretView';

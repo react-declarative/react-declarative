@@ -199,6 +199,7 @@ export { PortalView } from './components';
 export { ReloadView } from './components';
 export { RecordView } from './components';
 export { CardView } from './components';
+export { HtmlView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
 export { LoaderView } from './components';
