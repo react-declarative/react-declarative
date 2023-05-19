@@ -34,10 +34,11 @@ export class Translate {
             if (this._transformed.has(key)) {
                 return this._transformed.get(key)!;
             } else {
-                const result = this.applyMark(this.transform(key));
+                const result = this.transform(key);
                 if (result !== key) {
-                    this._transformed.set(key, result);
-                    return result;
+                    const transformed = this.applyMark(result);
+                    this._transformed.set(key, transformed);
+                    return transformed;
                 } else {
                     return null;
                 }
@@ -67,7 +68,7 @@ export class Translate {
         if (transformed !== null) {
             return transformed;
         }
-        this._skip.add(this.applyMark(key));
+        this._skip.add(key);
         return key;
     };
 
