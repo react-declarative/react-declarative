@@ -48,8 +48,9 @@ export class Translate {
     };
 
     private applyMark = (value: string) => {
-        value[TRANSLATE_MARK] = true;
-        return value;
+        const wrapper = new String(value);
+        wrapper[TRANSLATE_MARK] = true;
+        return wrapper as string;
     };
 
     private tr = (key: string): string => {
