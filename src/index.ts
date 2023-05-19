@@ -241,8 +241,10 @@ export { If } from './components';
 export { List, ListTyped } from './components';
 export { One, OneTyped } from './components';
 
-export { Translate } from './components';
-export { register as registerTr } from './components/Translate';
+import { Translate } from './components';
+
+export { Translate };
+export const registerTr = Translate.install;
 
 export { ModalProvider } from './components';
 export { SizeProvider } from './components';

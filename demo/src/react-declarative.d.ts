@@ -189,8 +189,11 @@ declare module 'react-declarative' {
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped } from 'react-declarative/components';
-    export { Translate } from 'react-declarative/components';
-    export { register as registerTr } from 'react-declarative/components/Translate';
+    import { Translate } from 'react-declarative/components';
+    export { Translate };
+    export const registerTr: (locale?: {
+        [x: string]: string;
+    } | undefined, transform?: ((str: string) => string) | undefined) => Translate;
     export { ModalProvider } from 'react-declarative/components';
     export { SizeProvider } from 'react-declarative/components';
     export { SnackProvider } from 'react-declarative/components';
@@ -2074,11 +2077,6 @@ declare module 'react-declarative/components/RecordView' {
     export { default } from 'react-declarative/components/RecordView/RecordView';
 }
 
-declare module 'react-declarative/components/Translate' {
-    export * from 'react-declarative/components/Translate/Translate';
-    export { default } from 'react-declarative/components/Translate/Translate';
-}
-
 declare module 'react-declarative/components/Scaffold2' {
     export * from 'react-declarative/components/Scaffold2/Scaffold2';
     export * from 'react-declarative/components/Scaffold2/model/IScaffold2Action';
@@ -3597,6 +3595,11 @@ declare module 'react-declarative/components/Scaffold' {
     export { default } from "react-declarative/components/Scaffold/Scaffold";
 }
 
+declare module 'react-declarative/components/Translate' {
+    export * from 'react-declarative/components/Translate/Translate';
+    export { default } from 'react-declarative/components/Translate/Translate';
+}
+
 declare module 'react-declarative/components/Breadcrumbs' {
     export * from 'react-declarative/components/Breadcrumbs/Breadcrumbs';
     export { default } from 'react-declarative/components/Breadcrumbs/Breadcrumbs';
@@ -3874,27 +3877,6 @@ declare module 'react-declarative/components/RecordView/helpers/excelExport' {
     import IData from 'react-declarative/components/RecordView/model/IData';
     export const excelExport: (data: IData, sheetName?: string) => void;
     export default excelExport;
-}
-
-declare module 'react-declarative/components/Translate/Translate' {
-    import * as React from 'react';
-    interface IAttributeCollection {
-        [name: string]: unknown;
-    }
-    type Locale = Record<string, string>;
-    export class Translate {
-        readonly transform?: ((str: string) => string) | undefined;
-        get skipList(): string[];
-        constructor(locale?: Locale, transform?: ((str: string) => string) | undefined);
-        createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
-    }
-    global {
-        interface Window {
-            Translate: Translate;
-        }
-    }
-    export const register: (locale?: Locale, transform?: ((str: string) => string) | undefined) => void;
-    export default Translate;
 }
 
 declare module 'react-declarative/components/Scaffold2/Scaffold2' {
@@ -4599,6 +4581,28 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldOption' {
         isDisabled?: (payload: T) => Promise<boolean> | boolean;
     }
     export default IScaffoldOption;
+}
+
+declare module 'react-declarative/components/Translate/Translate' {
+    import * as React from 'react';
+    interface IAttributeCollection {
+        [name: string]: unknown;
+    }
+    type Locale = Record<string, string>;
+    export class Translate {
+        readonly transform?: ((str: string) => string) | undefined;
+        get skipList(): string[];
+        constructor(locale?: Locale, transform?: ((str: string) => string) | undefined);
+        createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
+        jss: (type: string, props: IAttributeCollection | null) => React.DOMElement<IAttributeCollection, Element>;
+        static install: (locale?: Locale | undefined, transform?: ((str: string) => string) | undefined) => Translate;
+    }
+    global {
+        interface Window {
+            Translate: Translate;
+        }
+    }
+    export default Translate;
 }
 
 declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {

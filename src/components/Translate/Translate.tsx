@@ -8,6 +8,8 @@ type Locale = Record<string, string>;
 
 const createElementRef = React.createElement;
 
+const TRANSLATE_MARK = Symbol('translated');
+
 export class Translate {
 
     private readonly _skip = new Set<string>();
@@ -24,7 +26,7 @@ export class Translate {
         locale: Locale = {},
         readonly transform?: (str: string) => string,
     ) {
-        Object.entries(locale).forEach(([k, v]) => this._map.set(k, v));
+        Object.entries(locale).forEach(([k, v]) => this._map.set(k, this.applyMark(v)));
     };
 
     private tryTransform = (key: string): string | null => {
@@ -32,7 +34,7 @@ export class Translate {
             if (this._transformed.has(key)) {
                 return this._transformed.get(key)!;
             } else {
-                const result = this.transform(key);
+                const result = this.applyMark(this.transform(key));
                 if (result !== key) {
                     this._transformed.set(key, result);
                     return result;
@@ -45,7 +47,15 @@ export class Translate {
         }
     };
 
+    private applyMark = (value: string) => {
+        value[TRANSLATE_MARK] = true;
+        return value;
+    };
+
     private tr = (key: string): string => {
+        if (key[TRANSLATE_MARK]) {
+            return key;
+        }
         if (this._skip.has(key)) {
             return key;
         }
@@ -56,7 +66,7 @@ export class Translate {
         if (transformed !== null) {
             return transformed;
         }
-        this._skip.add(key);
+        this._skip.add(this.applyMark(key));
         return key;
     };
 
@@ -73,30 +83,29 @@ export class Translate {
         return createElementRef(type, props, ...children);
     };
 
+    public jss = (
+        type: string,
+        props: IAttributeCollection | null,
+    ) => {
+        const children = Array.isArray(props?.children) ? props?.children || [] : [props?.children];
+        return this.createElement(type, props, ...children);
+    };
+
+    public static install = (...params: ConstructorParameters<typeof Translate>) => {
+        const translate = new Translate(...params);
+        window.Translate = translate;
+        Object.assign(React, {
+            createElement: translate.createElement,
+        });
+        return translate;
+    };
+
 };
 
 declare global {
     interface Window {
         Translate: Translate;
     }
-};
-
-export const register = (locale: Locale = {}, transform?: (str: string) => string) => {
-    const translate = new Translate(locale, transform);
-    Object.assign(React, {
-        createElement: (
-            type: string,
-            props: IAttributeCollection | null,
-            ...children: any[]
-        ) => {
-            return translate.createElement(
-                type,
-                props,
-                ...children
-            );
-        }
-    });
-    window.Translate = translate;
 };
 
 export default Translate;
