@@ -4603,6 +4603,7 @@ declare module 'react-declarative/components/Translate/Translate' {
         createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
         jss: (type: string, props: IAttributeCollection | null) => React.DOMElement<IAttributeCollection, Element>;
         static install: (locale?: Locale | undefined, transform?: ((str: string) => string) | undefined) => Translate;
+        clear: () => void;
     }
     global {
         interface Window {

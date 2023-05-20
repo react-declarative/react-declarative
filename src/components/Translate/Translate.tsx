@@ -55,6 +55,9 @@ export class Translate {
     };
 
     private tr = (key: string): string => {
+        if (!key) {
+            return key;
+        }
         if (key[TRANSLATE_MARK]) {
             return key;
         }
@@ -100,6 +103,11 @@ export class Translate {
             createElement: translate.createElement,
         });
         return translate;
+    };
+
+    public clear = () => {
+        this._skip.clear();
+        this._transformed.clear();
     };
 
 };
