@@ -317,6 +317,7 @@ declare module 'react-declarative' {
     export type IFilterListSlot = IFilterListSlotInternal;
     export type ISearchSlot = ISearchSlotInternal;
     export type IOperationListSlot = IOperationListSlotInternal;
+    export { openBlank } from 'react-declarative/utils/openBlank';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
     export { getRouteItem } from 'react-declarative/utils/getRouteItem';
     export { getElementFromXPath } from 'react-declarative/utils/getElementFromXPath';
@@ -2110,6 +2111,11 @@ declare module 'react-declarative/model/IOnePublicProps' {
         onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
     }
     export default IOnePublicProps;
+}
+
+declare module 'react-declarative/utils/openBlank' {
+    export const openBlank: (url: string) => void;
+    export default openBlank;
 }
 
 declare module 'react-declarative/utils/getRouteParams' {

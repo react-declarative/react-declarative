@@ -398,6 +398,8 @@ export type IFilterListSlot = IFilterListSlotInternal;
 export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 
+export { openBlank } from './utils/openBlank';
+
 export { getRouteParams } from './utils/getRouteParams';
 export { getRouteItem } from './utils/getRouteItem';
 
