@@ -2333,7 +2333,7 @@ declare module 'react-declarative/utils/rx/Operator' {
         static pair: <T = any>(by?: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<[T, T]>;
         static group: <T = any>(by: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T[]>;
         static strideTricks: <T = any>(strideSize: number, step?: number) => (target: import("./Observer").TObserver<T[]>) => import("./Observer").TObserver<T[][]>;
-        static distinct: <T = any>() => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
+        static distinct: <T = any, V = any>(getCompareValue?: (value: T) => V) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
         static liveness: <T = any>(fallbackfn: () => void, waitFor?: number) => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<T>;
         static count: <T = any>() => (target: import("./Observer").TObserver<T>) => import("./Observer").TObserver<import("./lib/count").ICounted<T>>;
     }
