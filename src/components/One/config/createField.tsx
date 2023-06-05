@@ -20,11 +20,14 @@ import RatingField from "../fields/RatingField";
 import TypographyField from "../fields/TypographyField";
 import DateField from "../fields/DateField";
 import TimeField from "../fields/TimeField";
+import FileField from "../fields/FileField";
 
 export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
   const { type } = entity;
   if (type === FieldType.Text) {
     return <TextField<Data> {...entity} key={currentPath} />;
+  } else if (type === FieldType.File) {
+    return <FileField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Line) {
     return <LineField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Radio) {

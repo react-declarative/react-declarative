@@ -13,6 +13,7 @@ import { IDateSlot } from '../../slots/DateSlot';
 import { ITimeSlot } from '../../slots/TimeSlot';
 import { ISwitchSlot } from '../../slots/SwitchSlot';
 import { ISliderSlot } from '../../slots/SliderSlot';
+import { IFileSlot } from '../../slots/FileSlot/IFileSlot';
 
 export interface ISlotFactoryContext {
     CheckBox: ComponentType<ICheckBoxSlot>;
@@ -28,6 +29,7 @@ export interface ISlotFactoryContext {
     Time: ComponentType<ITimeSlot>;
     Switch: ComponentType<ISwitchSlot>;
     Slider: ComponentType<ISliderSlot>;
+    File: ComponentType<IFileSlot>;
 }
 
 export default ISlotFactoryContext;

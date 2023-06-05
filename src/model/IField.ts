@@ -386,6 +386,16 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>)
 
     /**
+     * mime тип выбираемого файла
+     */
+    fileAccept?: string;
+
+    /**
+     * Функция для загрузки файла на сервер
+     */
+    upload?: (file: File, data: Data, payload: Payload) => (Promise<string> | string);
+
+    /**
      * Свойства для компоновки Hero - инструмента настройки отступов
      */
     top?: string | ISizeCallback<Data>;

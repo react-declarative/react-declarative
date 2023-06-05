@@ -1,6 +1,7 @@
 export enum FieldType {
     Switch = 'switch-field',
     Line = 'line-field',
+    File = 'file-field',
     Group = 'group-layout',
     Paper = 'paper-layout',
     Outline = 'outline-layout',

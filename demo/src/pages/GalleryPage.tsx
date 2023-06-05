@@ -278,6 +278,12 @@ const fields: TypedField[] = [
         typoVariant: 'h2',
         placeholder: 'Another hidden field',
     },
+    {
+        type: FieldType.File,
+        title: 'Document',
+        description: 'Select document',
+        name: 'file',
+    },
 ];
 
 export const GalleryPage = () => (

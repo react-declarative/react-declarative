@@ -13,6 +13,7 @@ import Date from './components/Date';
 import Time from './components/Time';
 import Switch from './components/Switch';
 import Slider from './components/Slider';
+import File from './components/File';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -30,6 +31,7 @@ export const defaultSlots = {
     Time,
     Switch,
     Slider,
+    File,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);

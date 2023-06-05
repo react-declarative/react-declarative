@@ -399,6 +399,7 @@ export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 
 export { openBlank } from './utils/openBlank';
+export { chooseFile } from './utils/chooseFile';
 export { reloadPage } from './utils/reloadPage';
 
 export { getRouteParams } from './utils/getRouteParams';
