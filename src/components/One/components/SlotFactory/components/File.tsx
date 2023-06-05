@@ -3,6 +3,10 @@ import { useState } from 'react';
 
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+
+import CloseIcon from '@mui/icons-material/Close';
 
 import ActionButton from '../../../../ActionButton';
 
@@ -54,8 +58,21 @@ export const Text = ({
                 error={dirty && invalid !== null}
                 InputProps={{
                     readOnly: readonly,
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                edge="end"
+                                disabled={disabled || !value}
+                                onClick={() => {
+                                    onChange(null);
+                                }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                        </InputAdornment>
+                    ),
                 }}
-                value={loading ? LOADING_LABEL : String(value)}
+                value={loading ? LOADING_LABEL : value ? String(value) : ""}
                 placeholder={placeholder}
                 label={title}
                 disabled={disabled}

@@ -13,7 +13,7 @@ const initialValueMap = {
   [FieldType.Typography]: '',
   [FieldType.Date]: '',
   [FieldType.Time]: '',
-  [FieldType.File]: '',
+  [FieldType.File]: null,
 };
 
 type InitialValue = typeof initialValueMap;
