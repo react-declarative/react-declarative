@@ -67,4 +67,7 @@ export const FileField = ({
 
 FileField.displayName = 'FileField';
 
-export default makeField(FileField);
+export default makeField(FileField, {
+  skipClickListener: true,
+  skipDebounce: true,
+});
