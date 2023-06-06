@@ -277,6 +277,9 @@ declare module 'react-declarative' {
     import { ILineSlot as ILineSlotInternal } from 'react-declarative/components';
     import { IProgressSlot as IProgressSlotInternal } from 'react-declarative/components';
     import { IRadioSlot as IRadioSlotInternal } from 'react-declarative/components';
+    import { IDateSlot as IDateSlotInternal } from 'react-declarative/components';
+    import { ITimeSlot as ITimeSlotInternal } from 'react-declarative/components';
+    import { IFileSlot as IFileSlotInternal } from 'react-declarative/components';
     import { IRatingSlot as IRatingSlotInternal } from 'react-declarative/components';
     import { ISliderSlot as ISliderSlotInternal } from 'react-declarative/components';
     import { ISwitchSlot as ISwitchSlotInternal } from 'react-declarative/components';
@@ -304,6 +307,9 @@ declare module 'react-declarative' {
     export type ISliderSlot = ISliderSlotInternal;
     export type ISwitchSlot = ISwitchSlotInternal;
     export type ITextSlot = ITextSlotInternal;
+    export type IDateSlot = IDateSlotInternal;
+    export type ITimeSlot = ITimeSlotInternal;
+    export type IFileSlot = IFileSlotInternal;
     export type ITypographySlot = ITypographySlotInternal;
     export type IActionAddSlot = IActionAddSlotInternal;
     export type IActionFabSlot = IActionFabSlotInternal;
@@ -4202,11 +4208,11 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
         Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
-        Date: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../../slots/DateSlot").IDateSlot) => JSX.Element;
-        Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../../slots/TimeSlot").ITimeSlot) => JSX.Element;
+        Date: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").IDateSlot) => JSX.Element;
+        Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
-        File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, name, }: import("../../slots/FileSlot").IFileSlot) => JSX.Element;
+        File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, name, }: import("../..").IFileSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -4310,6 +4316,9 @@ declare module 'react-declarative/components/One/slots' {
     export * from 'react-declarative/components/One/slots/SwitchSlot';
     export * from 'react-declarative/components/One/slots/TextSlot';
     export * from 'react-declarative/components/One/slots/TypographySlot';
+    export * from 'react-declarative/components/One/slots/DateSlot';
+    export * from 'react-declarative/components/One/slots/TimeSlot';
+    export * from 'react-declarative/components/One/slots/FileSlot';
 }
 
 declare module 'react-declarative/components/One/config/createField' {
@@ -5900,6 +5909,12 @@ declare module 'react-declarative/components/One/slots/FileSlot/IFileSlot' {
     export default IFileSlot;
 }
 
+declare module 'react-declarative/components/One/slots/FileSlot' {
+    export * from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
+    export * from 'react-declarative/components/One/slots/FileSlot/FileSlot';
+    export { default } from 'react-declarative/components/One/slots/FileSlot/FileSlot';
+}
+
 declare module 'react-declarative/components/One/components/makeField/makeField' {
     import * as React from 'react';
     import IAnything from 'react-declarative/model/IAnything';
@@ -6467,6 +6482,12 @@ declare module 'react-declarative/components/One/slots/SliderSlot/SliderSlot' {
     import ISliderSlot from 'react-declarative/components/One/slots/SliderSlot/ISliderSlot';
     export const SliderSlot: (props: ISliderSlot) => JSX.Element;
     export default SliderSlot;
+}
+
+declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {
+    import IFileSlot from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
+    export const FileSlot: (props: IFileSlot) => JSX.Element;
+    export default FileSlot;
 }
 
 declare module 'react-declarative/components/FadeView/components/DefaultFade' {

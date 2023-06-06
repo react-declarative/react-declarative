@@ -9,3 +9,6 @@ export * from './SliderSlot';
 export * from './SwitchSlot';
 export * from './TextSlot';
 export * from './TypographySlot';
+export * from './DateSlot';
+export * from './TimeSlot';
+export * from './FileSlot';
