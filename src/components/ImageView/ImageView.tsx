@@ -1,12 +1,18 @@
 import * as React from 'react';
 
 import { makeStyles } from '../../styles';
-
-import Box, { BoxProps } from '@mui/material/Box';
-import classNames from '../../utils/classNames';
 import { darken } from '@mui/system';
 
+import Box, { BoxProps } from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+
+import classNames from '../../utils/classNames';
+import openBlank from '../../utils/openBlank';
+
 interface IImageViewProps extends BoxProps {
+    withFullScreen?: boolean;
     src: string;
 }
 
@@ -33,9 +39,16 @@ const useStyles = makeStyles()((theme) => ({
         margin: '6px',
         flex: 1,
     },
+    fab: {
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        zIndex: 2,
+    },
 }));
 
 export const ImageView = ({
+    withFullScreen = false,
     className,
     src,
     ...otherProps
@@ -51,6 +64,16 @@ export const ImageView = ({
                     src={src}
                 />
             </div>
+            {withFullScreen && (
+                <Fab
+                    className={classes.fab}
+                    color="primary"
+                    size="small"
+                    onClick={() => openBlank(src)}
+                >
+                    <FullscreenIcon />
+                </Fab>
+            )}
         </Box>
     );
 };

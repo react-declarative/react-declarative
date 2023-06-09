@@ -547,8 +547,8 @@ export const FadePage = () => {
       <FeatureView features={features} />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
       <Spinner />
-      <DocumentView sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
-      <ImageView sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
+      <DocumentView withFullScreen sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
+      <ImageView withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
     </>
   );
 };

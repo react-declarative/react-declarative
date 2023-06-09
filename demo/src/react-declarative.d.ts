@@ -5416,20 +5416,22 @@ declare module 'react-declarative/components/DocumentView/DocumentView' {
     import * as React from 'react';
     import { BoxProps } from '@mui/material/Box';
     interface IDocumentViewProps extends BoxProps {
+        withFullScreen?: boolean;
         className?: string;
         style?: React.CSSProperties;
         src: string;
     }
-    export const DocumentView: ({ className, style, src, ...otherProps }: IDocumentViewProps) => JSX.Element;
+    export const DocumentView: ({ withFullScreen, className, style, src, ...otherProps }: IDocumentViewProps) => JSX.Element;
     export default DocumentView;
 }
 
 declare module 'react-declarative/components/ImageView/ImageView' {
     import { BoxProps } from '@mui/material/Box';
     interface IImageViewProps extends BoxProps {
+        withFullScreen?: boolean;
         src: string;
     }
-    export const ImageView: ({ className, src, ...otherProps }: IImageViewProps) => JSX.Element;
+    export const ImageView: ({ withFullScreen, className, src, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
 }
 
