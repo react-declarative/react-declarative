@@ -6,6 +6,7 @@ import createWindowHistory from '../../../utils/createWindowHistory';
 
 import useConfirm from '../../../hooks/useConfirm';
 import useRenderWaiter from '../../../hooks/useRenderWaiter';
+import useSubject from '../../../hooks/useSubject';
 
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
@@ -46,9 +47,17 @@ export const usePreventLeave = <Data = IAnything>({
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
 
+    const leaveSubject = useSubject<void>();
+
+    useEffect(() => () => {
+        leaveSubject.next();
+    }, []);
+
     const unsubscribeRef = useRef<Function | null>();
 
     const waitForRender = useRenderWaiter([data, invalid], 500);
+
+    const waitForLeave = () => leaveSubject.toPromise();
 
     const pickConfirm = useConfirm({
         title: 'Continue?',
@@ -132,7 +141,10 @@ export const usePreventLeave = <Data = IAnything>({
         if (isMounted.current) {
             setData(null);
             setInvalid(false);
-            await waitForRender();
+            await Promise.race([
+                waitForRender(),
+                waitForLeave(),
+            ]);
         }
     };
 
