@@ -145,7 +145,7 @@ export const usePreventLeave = <Data = IAnything>({
                 if (result) {
                     await afterSave();
                 }
-                return result;
+                isOk = !!result;
             } catch (e) {
                 isOk = false;
                 unsubscribeRef.current && unsubscribeRef.current();
@@ -157,7 +157,7 @@ export const usePreventLeave = <Data = IAnything>({
             } finally {
                 onLoadEnd && onLoadEnd(isOk);
             }
-            return false;
+            return isOk;
         } else {
             return false;
         }
