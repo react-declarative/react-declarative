@@ -5,6 +5,7 @@ import { BrowserHistory, MemoryHistory, HashHistory } from "history";
 import createWindowHistory from '../../../utils/createWindowHistory';
 
 import useConfirm from '../../../hooks/useConfirm';
+import useRenderWaiter from '../../../hooks/useRenderWaiter';
 
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
@@ -14,6 +15,8 @@ export interface IPreventLeaveParams<Data = IAnything> {
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
     onSave?: (data: Data) => (boolean | Promise<boolean>);
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
 }
 
@@ -33,6 +36,8 @@ const DEFAULT_HISTORY = createWindowHistory();
 export const usePreventLeave = <Data = IAnything>({
     history = DEFAULT_HISTORY,
     onChange,
+    onLoadStart,
+    onLoadEnd,
     onBlock = () => () => null,
     onSave = () => true,
     fallback,
@@ -42,6 +47,8 @@ export const usePreventLeave = <Data = IAnything>({
     const [invalid, setInvalid] = useState(false);
 
     const unsubscribeRef = useRef<Function | null>();
+
+    const waitForRender = useRenderWaiter([data, invalid], 500);
 
     const pickConfirm = useConfirm({
         title: 'Continue?',
@@ -121,24 +128,34 @@ export const usePreventLeave = <Data = IAnything>({
         setInvalid(true);
     };
 
-    const afterSave = () => {
-        isMounted.current && setData(null);
-        isMounted.current && setInvalid(false);
+    const afterSave = async () => {
+        if (isMounted.current) {
+            setData(null);
+            setInvalid(false);
+            await waitForRender();
+        }
     };
 
     const beginSave = async () => {
         if (data) {
+            let isOk = true;
+            onLoadStart && onLoadStart();
             try {
                 const result = await Promise.resolve(onSave(data));
-                result && afterSave();
+                if (result) {
+                    await afterSave();
+                }
                 return result;
             } catch (e) {
+                isOk = false;
                 unsubscribeRef.current && unsubscribeRef.current();
                 if (fallback) {
                     fallback(e as Error);
                 } else {
                     throw e;
                 }
+            } finally {
+                onLoadEnd && onLoadEnd(isOk);
             }
             return false;
         } else {

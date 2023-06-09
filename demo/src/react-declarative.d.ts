@@ -4427,6 +4427,8 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
         onSave?: (data: Data) => (boolean | Promise<boolean>);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
     }
     export interface IPreventLeaveReturn<Data = IAnything> {
@@ -4438,7 +4440,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
-    export const usePreventLeave: <Data = any>({ history, onChange, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any>({ history, onChange, onLoadStart, onLoadEnd, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
