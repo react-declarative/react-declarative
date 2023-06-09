@@ -46,6 +46,8 @@ export * from './InfiniteView';
 export * from './VirtualView';
 export * from './LoaderView';
 export * from './FeatureView';
+export * from './DocumentView';
+export * from './ImageView';
 
 export * from './Grid';
 export * from './Search';

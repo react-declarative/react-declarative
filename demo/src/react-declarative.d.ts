@@ -142,6 +142,8 @@ declare module 'react-declarative' {
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export type pickPromptFn = ReturnType<typeof usePrompt>;
     export { default as dayjs } from 'dayjs';
+    export { DocumentView } from 'react-declarative/components';
+    export { ImageView } from 'react-declarative/components';
     export { ConstraintView } from 'react-declarative/components';
     export { DragDropView } from 'react-declarative/components';
     export { ScrollView } from 'react-declarative/components';
@@ -2069,6 +2071,8 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/VirtualView';
     export * from 'react-declarative/components/LoaderView';
     export * from 'react-declarative/components/FeatureView';
+    export * from 'react-declarative/components/DocumentView';
+    export * from 'react-declarative/components/ImageView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Spinner';
@@ -3834,6 +3838,16 @@ declare module 'react-declarative/components/LoaderView' {
     export { default } from 'react-declarative/components/LoaderView/LoaderView';
 }
 
+declare module 'react-declarative/components/DocumentView' {
+    export * from 'react-declarative/components/DocumentView/DocumentView';
+    export { default } from 'react-declarative/components/DocumentView/DocumentView';
+}
+
+declare module 'react-declarative/components/ImageView' {
+    export * from 'react-declarative/components/ImageView/ImageView';
+    export { default } from 'react-declarative/components/ImageView/ImageView';
+}
+
 declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
@@ -5396,6 +5410,27 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
         createLoader(size: number): () => JSX.Element;
     };
     export default LoaderView;
+}
+
+declare module 'react-declarative/components/DocumentView/DocumentView' {
+    import * as React from 'react';
+    import { BoxProps } from '@mui/material/Box';
+    interface IDocumentViewProps extends BoxProps {
+        className?: string;
+        style?: React.CSSProperties;
+        src: string;
+    }
+    export const DocumentView: ({ className, style, src, ...otherProps }: IDocumentViewProps) => JSX.Element;
+    export default DocumentView;
+}
+
+declare module 'react-declarative/components/ImageView/ImageView' {
+    import { BoxProps } from '@mui/material/Box';
+    interface IImageViewProps extends BoxProps {
+        src: string;
+    }
+    export const ImageView: ({ className, src, ...otherProps }: IImageViewProps) => JSX.Element;
+    export default ImageView;
 }
 
 declare module 'react-declarative/components/Grid/Grid' {
