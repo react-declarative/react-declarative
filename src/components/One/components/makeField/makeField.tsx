@@ -25,6 +25,8 @@ import IField, { Value } from '../../../../model/IField';
 
 import classNames from '../../../../utils/classNames';
 
+import nameToTitle from '../../helpers/nameToTitle';
+
 const DEBOUNCE_SPEED = 800;
 
 const stretch = {
@@ -87,6 +89,7 @@ export function makeField(
         compute,
         object,
         name = '',
+        title = nameToTitle(name) || undefined,
         focus,
         blur,
         invalidity,
@@ -336,6 +339,7 @@ export function makeField(
         const componentProps = {
             ...config.defaultProps,
             ...managedProps,
+            ...title && { title },
         };
 
         return (
