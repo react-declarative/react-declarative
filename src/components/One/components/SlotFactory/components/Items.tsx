@@ -85,7 +85,7 @@ export const Items = ({
         ))
     };
 
-    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || '';
+    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || `${v} (unknown)`;
 
     const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
         <MatTextField

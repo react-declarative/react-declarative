@@ -92,7 +92,7 @@ export const Combo = ({
     />
   );
 
-  const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || '';
+  const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || `${v} (unknown)`;
 
   const Loader = () => (
     <Autocomplete
@@ -147,7 +147,7 @@ export const Combo = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={({ }, v) => handleChange(v)}
-        getOptionLabel={(v) => labels[v] || ''}
+        getOptionLabel={createGetOptionLabel(labels)}
         options={options}
         disabled={disabled}
         readOnly={readonly || unfocused}

@@ -33,6 +33,7 @@ interface IParams<
     onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
     onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
     onChange?: (pagination: string) => void;
+    fallback?: (e: Error) => void;
 }
 
 interface IResult<
@@ -60,6 +61,7 @@ export const useQueryPagination = <
     onChipsChange: handleChipsChange = () => null,
     onSearchChange: handleSeachChange = () => null,
     onChange: handleChange = () => null,
+    fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
     const [state, setState] = useSearchState(() => ({
@@ -142,6 +144,7 @@ export const useQueryPagination = <
             onSortModelChange,
             onChipsChange,
             onSearchChange,
+            ...fallback && { fallback },
             ...query,
         },
         pagination: state,

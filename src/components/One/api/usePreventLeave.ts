@@ -25,6 +25,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
     oneProps: {
         change: (data: Data, initial?: boolean) => void;
         invalidity: IOneProps<Data>['invalidity'];
+        fallback?: (e: Error) => void;
     };
     data: Data | null;
     beginSave: () => Promise<boolean>;
@@ -181,6 +182,7 @@ export const usePreventLeave = <Data = IAnything>({
         oneProps: {
             change: handleChange,
             invalidity: handleInvalid,
+            ...fallback && { fallback },
         },
         data : invalid ? null : data,
     };

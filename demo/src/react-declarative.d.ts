@@ -4435,6 +4435,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         oneProps: {
             change: (data: Data, initial?: boolean) => void;
             invalidity: IOneProps<Data>['invalidity'];
+            fallback?: (e: Error) => void;
         };
         data: Data | null;
         beginSave: () => Promise<boolean>;
@@ -4535,9 +4536,10 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
         onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
         onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
         onChange?: (pagination: string) => void;
+        fallback?: (e: Error) => void;
     }
     export const DEFAULT_QUERY: IQuery;
-    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, }?: Partial<IParams<FilterData, RowData>>) => {
+    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         listProps: {
             filterData: Partial<FilterData> | undefined;
             sortModel: import("../../../model/IListProps").ListHandlerSortModel<RowData> | undefined;
@@ -4545,6 +4547,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             limit: number | undefined;
             page: number | undefined;
             search: string | undefined;
+            fallback?: ((e: Error) => void) | undefined;
             onFilterChange: (data: FilterData) => void;
             onLimitChange: (limit: number) => void;
             onPageChange: (page: number) => void;
