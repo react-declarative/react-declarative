@@ -5588,6 +5588,7 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
         cardActions?: ICardViewAction<ItemData, Payload>[];
         operations?: ICardViewOperation<ItemData, Payload>[];
         payload?: (() => Payload) | Payload;
+        formatMedia?: (item: ItemData) => React.ReactNode;
         formatCardLabel?: (item: ItemData) => React.ReactNode;
         formatKey?: (key: keyof ItemData) => React.ReactNode;
         formatValue?: (key: keyof ItemData, value: ItemData[keyof ItemData]) => React.ReactNode;

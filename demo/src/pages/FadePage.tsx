@@ -482,6 +482,7 @@ export const FadePage = () => {
         sx={{
           height: 300,
         }}
+        formatMedia={() => <div style={{ background: '#333', height: '100px' }}></div>}
         handler={async (search, skip) => {
           console.log("cardview", { search, skip });
           await sleep(3_000);

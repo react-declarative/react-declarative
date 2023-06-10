@@ -101,6 +101,7 @@ const useStyles = makeStyles()((theme) => ({
     gridRowGap: "10px",
     gridColumnGap: "10px",
     paddingTop: 45,
+    paddingBottom: 15,
   },
   innerPhone: {
     gridTemplateColumns: "1fr",
@@ -110,6 +111,21 @@ const useStyles = makeStyles()((theme) => ({
   },
   innerDesktop: {
     gridTemplateColumns: "1fr 1fr 1fr",
+  },
+  media: {
+    width: '100%',
+  },
+  mediaPhone: {
+    gridColumnStart: 1,
+    gridColumnEnd: 2,
+  },
+  mediaTablet: {
+    gridColumnStart: 1,
+    gridColumnEnd: 3,
+  },
+  mediaDesktop: {
+    gridColumnStart: 1,
+    gridColumnEnd: 4,
   },
   textWrap: {
     whiteSpace: "break-spaces",
@@ -144,6 +160,7 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     fallback,
     onLoadStart,
     onLoadEnd,
+    formatMedia = () => undefined,
     formatKey = (k) => keyToTitle(String(k)),
     formatValue = (_, v) => defaultFormatter(v),
     formatCardLabel = ({ id }) => `Id: ${id}`,
@@ -161,6 +178,10 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     }
     return result;
   }, [pickFields]);
+
+  const cardMedia = useMemo(() => {
+    return formatMedia(item);
+  }, [item])
 
   const handleClick = useCallback(() => {
     if (!state.menuOpened) {
@@ -220,6 +241,17 @@ const CardItemInternal = <ItemData extends IItemData = any>(
               [classes.innerDesktop]: isDesktop,
             })}
           >
+            {!!cardMedia && (
+              <Box
+                className={classNames(classes.media, {
+                  [classes.mediaPhone]: isPhone,
+                  [classes.mediaTablet]: isTablet,
+                  [classes.mediaDesktop]: isDesktop,
+                })}
+              >
+                {cardMedia}
+              </Box>
+            )}
             {entries.map(([key, value], idx) => (
               <Stack className={classes.textWrap} key={`${key}-${idx}`}>
                 <Typography className={classes.opacity} variant="caption">
