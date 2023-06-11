@@ -64,6 +64,8 @@ interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
+    BeforeSubmit?: React.ComponentType<any>;
+    AfterSubmit?: React.ComponentType<any>;
 }
 
 const defaultFields: IField[] = [
@@ -113,6 +115,8 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
     handler,
     fallback,
     onAuth = () => undefined,
+    BeforeSubmit,
+    AfterSubmit,
 }: IAuthViewProps<Data, Payload, Field>) => {
 
     const { classes } = useStyles();
@@ -161,6 +165,7 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
                     onLoadEnd={onLoadEnd}
                     fallback={fallback}
                 />
+                {BeforeSubmit && <BeforeSubmit data={data} onAuth={handleAuth} />}
                 <ActionButton
                     disabled={!data}
                     variant="contained"
@@ -171,6 +176,7 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
                 >
                     Sign in
                 </ActionButton>
+                {AfterSubmit && <AfterSubmit data={data} onAuth={handleAuth} />}
             </>
         );
 

@@ -5358,8 +5358,10 @@ declare module 'react-declarative/components/AuthView/AuthView' {
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
         throwError?: boolean;
+        BeforeSubmit?: React.ComponentType<any>;
+        AfterSubmit?: React.ComponentType<any>;
     }
-    export const AuthView: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ className, style, sx, appName, Logo, fields, onLoadStart, onLoadEnd, throwError, handler, fallback, onAuth, }: IAuthViewProps<Data, Payload, Field>) => JSX.Element;
+    export const AuthView: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ className, style, sx, appName, Logo, fields, onLoadStart, onLoadEnd, throwError, handler, fallback, onAuth, BeforeSubmit, AfterSubmit, }: IAuthViewProps<Data, Payload, Field>) => JSX.Element;
     export default AuthView;
 }
 
