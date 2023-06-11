@@ -49,6 +49,26 @@ const useStyles = makeStyles()((theme) => ({
     reveal: {
         width: 'unset !important',
     },
+    beforeSubmit: {
+        width: "100%",
+        display: "flex",
+        alignItems: "stretch",
+        justifyContent: "stretch",
+        "& > *": {
+            flex: 1,
+        },
+        marginBottom: "-10px",
+    },
+    afterSubmit: {
+        width: "100%",
+        display: "flex",
+        alignItems: "stretch",
+        justifyContent: "stretch",
+        "& > *": {
+            flex: 1,
+        },
+        marginTop: "-10px",
+    },
 }));
 
 interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
@@ -148,7 +168,7 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
         const handleChange = (data: Data) => {
             setData(data);
         };
-    
+
         const handleInvalid = () => {
             setData(null);
         };
@@ -165,7 +185,14 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
                     onLoadEnd={onLoadEnd}
                     fallback={fallback}
                 />
-                {BeforeSubmit && <BeforeSubmit data={data} onAuth={handleAuth} />}
+                {BeforeSubmit && (
+                    <div className={classes.beforeSubmit}>
+                        <BeforeSubmit
+                            data={data}
+                            onAuth={handleAuth}
+                        />
+                    </div>
+                )}
                 <ActionButton
                     disabled={!data}
                     variant="contained"
@@ -176,7 +203,14 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
                 >
                     Sign in
                 </ActionButton>
-                {AfterSubmit && <AfterSubmit data={data} onAuth={handleAuth} />}
+                {AfterSubmit && (
+                    <div className={classes.afterSubmit}>
+                        <AfterSubmit
+                            data={data}
+                            onAuth={handleAuth} 
+                        />
+                    </div>
+                )}
             </>
         );
 
