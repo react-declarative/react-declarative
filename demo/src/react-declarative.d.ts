@@ -8,8 +8,8 @@
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/styles
-//   ../../@mui/material/Tabs
 //   ../../@mui/system
+//   ../../@mui/material/Tabs
 
 declare module 'react-declarative' {
     import "./polyfills";
@@ -146,6 +146,7 @@ declare module 'react-declarative' {
     export { ImageView } from 'react-declarative/components';
     export { ConstraintView } from 'react-declarative/components';
     export { DragDropView } from 'react-declarative/components';
+    export { FilesView } from 'react-declarative/components';
     export { ScrollView } from 'react-declarative/components';
     export { ScaleView } from 'react-declarative/components';
     export { FetchView } from 'react-declarative/components';
@@ -2049,6 +2050,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/SnackProvider';
     export * from 'react-declarative/components/ConstraintView';
     export * from 'react-declarative/components/DragDropView';
+    export * from 'react-declarative/components/FilesView';
     export * from 'react-declarative/components/ScrollView';
     export * from 'react-declarative/components/ScaleView';
     export * from 'react-declarative/components/AutoSizer';
@@ -3740,6 +3742,11 @@ declare module 'react-declarative/components/DragDropView' {
     export { default } from 'react-declarative/components/DragDropView/DragDropView';
 }
 
+declare module 'react-declarative/components/FilesView' {
+    export * from 'react-declarative/components/FilesView/FilesView';
+    export { default } from 'react-declarative/components/FilesView/FilesView';
+}
+
 declare module 'react-declarative/components/ScrollView' {
     export * from 'react-declarative/components/ScrollView/ScrollView';
     export { default } from 'react-declarative/components/ScrollView/ScrollView';
@@ -4993,8 +5000,33 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
         onData?: (files: File[]) => void;
         onReject?: (files: File[]) => void;
     }
+    export const ACCEPT_DEFAULT = ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel";
     export const DragDropView: ({ className, style, sx, disabled, multiple, accept, onData, onReject, }: IDragDropViewProps) => JSX.Element;
     export default DragDropView;
+}
+
+declare module 'react-declarative/components/FilesView/FilesView' {
+    import * as React from 'react';
+    import { SxProps } from '@mui/system';
+    interface IFilesViewProps {
+        items?: string[];
+        disabled?: boolean;
+        onUpload?: (file: File) => (string | Promise<string>);
+        onRemove?: (item: string) => (void | Promise<void>);
+        onChange?: (items: string[]) => void;
+        onClick?: (item: string) => void;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        accept?: string;
+        multiple?: boolean;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+    }
+    export const FilesView: ({ items, className, style, sx, disabled: upperDisabled, onUpload, onRemove, onChange, onClick, accept, multiple, onLoadStart, onLoadEnd, fallback, throwError, }: IFilesViewProps) => JSX.Element;
+    export default FilesView;
 }
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {

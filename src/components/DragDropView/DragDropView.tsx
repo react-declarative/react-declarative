@@ -28,7 +28,7 @@ interface IState {
   dragActive: boolean;
 }
 
-const ACCEPT_DEFAULT = ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel";
+export const ACCEPT_DEFAULT = ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
