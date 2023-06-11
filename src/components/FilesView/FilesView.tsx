@@ -75,7 +75,7 @@ export const FilesView = ({
         isMounted.current = false;
     }, []);
 
-    const [uploads, setUploads] = useState<string[]>([]);
+    const [uploads, setUploads] = useState<String[]>([]);
 
     const items$ = useActualValue(items);
     const onChange$ = useActualCallback(onChange);
@@ -103,10 +103,11 @@ export const FilesView = ({
         try {
             handleLoadStart();
             for (const file of files) {
-                isMounted.current && setUploads((prevUploads) => [...prevUploads, file.name]);
-                const name = await onUpload(file);
-                isMounted.current && setUploads((prevUploads) => prevUploads.filter((item) => item !== file.name));
-                onChange$([...items$.current, name]);
+                const fileName = new String(file.name);
+                isMounted.current && setUploads((prevUploads) => [...prevUploads, fileName]);
+                const docName = await onUpload(file);
+                isMounted.current && setUploads((prevUploads) => prevUploads.filter((item) => item !== fileName));
+                onChange$([...items$.current, docName]);
             }
         } catch (e: any) {
             isOk = false;
