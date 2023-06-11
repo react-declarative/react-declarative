@@ -11,7 +11,7 @@ export interface IColumn<RowData extends IRowData = IAnything, Payload = IAnythi
     field?: string;
     primary?: boolean;
     secondary?: boolean;
-    headerName: string;
+    headerName?: string;
     width: string | ((width: number) => string | number);
     minHeight?: string | number;
     phoneOrder?: number;

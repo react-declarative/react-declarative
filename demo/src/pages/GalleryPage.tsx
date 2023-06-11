@@ -287,7 +287,7 @@ const fields: TypedField[] = [
 ];
 
 export const GalleryPage = () => (
-    <OneTyped roles={["user"]} fields={fields}/>
+    <OneTyped readonly roles={["user"]} fields={fields}/>
 );
 
 export default GalleryPage;

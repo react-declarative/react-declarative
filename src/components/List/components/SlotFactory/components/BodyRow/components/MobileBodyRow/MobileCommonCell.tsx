@@ -10,6 +10,8 @@ import CommonCellSlot, { ICommonCellSlot } from '../../../../../../slots/CommonC
 
 import ColumnType from '../../../../../../../../model/ColumnType';
 
+import fieldToHeader from '../../../../../../helpers/fieldToHeader';
+
 import classNames from '../../../../../../../../utils/classNames';
 
 interface IMobileCommonCellProps extends ICommonCellSlot {
@@ -64,6 +66,8 @@ export const MobileCommonCell = ({
     const { minHeight: minHeightCol } = column;
     const minHeight = minHeightCol || (column.type === ColumnType.Component ? COMPONENT_MIN_HEIGHT : undefined);
 
+    const { headerName = fieldToHeader(column.field || '') || 'Unknown' } = column;
+
     return (
         <TableCell
             className={classNames(classes.root, {
@@ -75,7 +79,7 @@ export const MobileCommonCell = ({
             <Box className={classes.container}>
                 {withLabel && (
                     <Typography variant="body1">
-                        {column.headerName}
+                        {headerName}
                     </Typography>
                 )}
                 <Box 

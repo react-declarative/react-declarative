@@ -25,6 +25,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
     oneProps: {
         change: (data: Data, initial?: boolean) => void;
         invalidity: IOneProps<Data>['invalidity'];
+        readonly: IOneProps<Data>['readonly'];
         fallback?: (e: Error) => void;
     };
     data: Data | null;
@@ -47,6 +48,18 @@ export const usePreventLeave = <Data = IAnything>({
 
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
+
+    const [loading, setLoading] = useState(0);
+
+    const handleLoadStart = () => {
+        onLoadStart && onLoadStart();
+        setLoading((loading) => loading + 1);
+    };
+
+    const handleLoadEnd = (isOk: boolean) => {
+        onLoadEnd && onLoadEnd(isOk);
+        setLoading((loading) => loading - 1);
+    };
 
     const leaveSubject = useSubject<void>();
 
@@ -152,7 +165,7 @@ export const usePreventLeave = <Data = IAnything>({
     const beginSave = async () => {
         if (data) {
             let isOk = true;
-            onLoadStart && onLoadStart();
+            handleLoadStart();
             try {
                 const result = await Promise.resolve(onSave(data));
                 if (result) {
@@ -168,7 +181,7 @@ export const usePreventLeave = <Data = IAnything>({
                     throw e;
                 }
             } finally {
-                onLoadEnd && onLoadEnd(isOk);
+                handleLoadEnd(isOk);
             }
             return isOk;
         } else {
@@ -182,6 +195,7 @@ export const usePreventLeave = <Data = IAnything>({
         oneProps: {
             change: handleChange,
             invalidity: handleInvalid,
+            readonly: !!loading,
             ...fallback && { fallback },
         },
         data : invalid ? null : data,

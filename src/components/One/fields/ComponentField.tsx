@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { useState, useLayoutEffect } from 'react';
 
+import { makeStyles } from "../../../styles";
+
+import Box from '@mui/material/Box';
+
 import makeField from '../components/makeField';
 
 import { useOneState } from '../../../components/One/context/StateProvider';
@@ -11,6 +15,7 @@ import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IManaged, { PickProp } from '../../../model/IManaged';
 
+import classNames from '../../../utils/classNames';
 import deepClone from '../../../utils/deepClone';
 import objects from '../../../utils/objects';
 import arrays from '../../../utils/arrays';
@@ -34,23 +39,48 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
 export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
     element?: PickProp<IField<Data, Payload>, 'element'>;
     groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-    className?: PickProp<IField<Data, Payload>, 'className'>;
-    style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
 interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, 'object'>;
+    disabled: PickProp<IManaged<Data>, 'disabled'>;
+    readonly: PickProp<IManaged<Data>, 'readonly'>;
 }
 
+const useStyles = makeStyles()({
+    root: {
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        '& > *': {
+            flex: 1,
+        },
+    },
+    disabled: {
+        pointerEvents: 'none',
+        opacity: 0.5,
+    },
+    readonly: {
+        pointerEvents: 'none',
+    },
+});
+
 export const ComponentField = ({
+    disabled,
+    readonly,
     element: Element = () => <Fragment />,
     object,
     ...otherProps
 }: IComponentFieldProps & IComponentFieldPrivate) => {
+
+    const { classes } = useStyles();
+
     const [ node, setNode ] = useState<JSX.Element | null>(null);
     const { setObject } = useOneState();
     const _payload = useOnePayload();
+
     const handleChange = (object: unknown) => setObject(deepClone(object), {});
+
     useLayoutEffect(() => {
         const _fieldParams = Object.entries(otherProps as IField)
             .filter(([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam))
@@ -65,7 +95,17 @@ export const ComponentField = ({
             />
         ));
     }, [object]);
-    return node;
+
+    return (
+        <Box
+            className={classNames({
+                [classes.disabled]: disabled,
+                [classes.readonly]: readonly,
+            })}
+        >
+            {node}
+        </Box>
+    );
 };
 
 ComponentField.displayName = 'ComponentField';

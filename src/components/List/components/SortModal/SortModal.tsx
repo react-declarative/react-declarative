@@ -14,6 +14,8 @@ import ModalDialog from '../../../common/ModalDialog';
 
 import IColumn from '../../../../model/IColumn';
 
+import fieldToHeader from '../../helpers/fieldToHeader';
+
 import ArrowUpIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
 
@@ -115,6 +117,8 @@ export const SortModal = ({
                             />
                         );
 
+                        const { headerName = fieldToHeader(column.field || '') || 'Unknown' } = column;
+
                         return (
                             <ListItem
                                 key={idx}
@@ -124,7 +128,7 @@ export const SortModal = ({
                                 component={ListItemButton}
                             >
                                 <ListItemText
-                                    primary={column.headerName}
+                                    primary={headerName}
                                 />
                             </ListItem>
                         );

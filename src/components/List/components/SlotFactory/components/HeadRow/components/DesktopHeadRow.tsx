@@ -21,6 +21,8 @@ import SelectionMode from '../../../../../../../model/SelectionMode';
 
 import { IHeadRowSlot, HeadColumn } from '../../../../../slots/HeadRowSlot';
 
+import fieldToHeader from '../../../../../helpers/fieldToHeader';
+
 import useCachedRows from '../../../../../hooks/useCachedRows';
 import useSortModel from '../../../../../hooks/useSortModel';
 import useSelection from '../../../../../hooks/useSelection';
@@ -170,6 +172,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
             const maxWidth = minWidth;
     
             const align = column.type === ColumnType.Action ? 'center' : 'left';
+
+            const { headerName = fieldToHeader(column.field || '') || 'Unknown' } = column;
     
             return (
                 <TableCell
@@ -192,9 +196,9 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                                 onClick={handleClick}
                                 disabled={loading}
                             >
-                                {column.headerName}
+                                {headerName}
                             </TableSortLabel>
-                        ) : column.headerName}
+                        ) : headerName}
                     </Box>
                     {!!column.columnMenu && (
                         <ActionMenu

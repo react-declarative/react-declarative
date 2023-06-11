@@ -997,7 +997,7 @@ declare module 'react-declarative/model/IColumn' {
         field?: string;
         primary?: boolean;
         secondary?: boolean;
-        headerName: string;
+        headerName?: string;
         width: string | ((width: number) => string | number);
         minHeight?: string | number;
         phoneOrder?: number;
@@ -3181,14 +3181,14 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
     export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
         element?: PickProp<IField<Data, Payload>, 'element'>;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-        className?: PickProp<IField<Data, Payload>, 'className'>;
-        style?: PickProp<IField<Data, Payload>, 'style'>;
     }
     interface IComponentFieldPrivate<Data = IAnything> {
         object: PickProp<IManaged<Data>, 'object'>;
+        disabled: PickProp<IManaged<Data>, 'disabled'>;
+        readonly: PickProp<IManaged<Data>, 'readonly'>;
     }
     export const ComponentField: {
-        ({ element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element | null;
+        ({ disabled, readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4435,6 +4435,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         oneProps: {
             change: (data: Data, initial?: boolean) => void;
             invalidity: IOneProps<Data>['invalidity'];
+            readonly: IOneProps<Data>['readonly'];
             fallback?: (e: Error) => void;
         };
         data: Data | null;
