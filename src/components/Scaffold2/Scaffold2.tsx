@@ -23,6 +23,7 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
         fallback,
         options,
         payload,
+        deps = [],
         throwError,
         Loader = LoaderDefault,
         ...otherProps
@@ -35,6 +36,7 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
         fallback,
         options,
         payload,
+        deps,
         throwError,
     });
 

@@ -18,6 +18,7 @@ export interface IScaffold2Props<T = Payload> {
     actions?: IScaffold2Action<T>[];
     loading?: boolean | number;
     payload?: T;
+    deps?: any[];
     activeOptionPath: string;
     activeTabPath?: string;
     BeforeSearch?: React.ComponentType<any>;

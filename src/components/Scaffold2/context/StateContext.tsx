@@ -40,6 +40,7 @@ interface IParams {
   throwError?: boolean;
   options: IScaffold2Group[];
   payload: Payload;
+  deps: any[];
 }
 
 interface IResult {
@@ -57,6 +58,7 @@ export const createStateManager = ({
   fallback,
   options,
   payload,
+  deps,
   throwError = false,
 }: IParams): IResult => {
   const [loading, setLoading] = useState(0);
@@ -108,6 +110,11 @@ export const createStateManager = ({
                     } else {
                       tab.disabled = false;
                     }
+                    if (tab.isActive) {
+                      tab.active = await tab.isActive(payload);
+                    } else {
+                      tab.active = false;
+                    }
                     tab.path = `${entry.path}.${tab.id}`;
                     return tab;
                   }
@@ -129,7 +136,7 @@ export const createStateManager = ({
         isMounted.current && setLoading((loading) => loading - 1);
       }
     },
-    [options, payload]
+    [options, payload, ...deps]
   );
 
   const doInit = useCallback(async () => {
@@ -154,7 +161,7 @@ export const createStateManager = ({
 
   useChange(() => {
     buildGroups(payload);
-  }, [payload]);
+  }, [payload, ...deps]);
 
   const filteredGroups = useMemo(() => {
     const result: IScaffold2GroupInternal[] = arrays(deepClone(objects(groups)));

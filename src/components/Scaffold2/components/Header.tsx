@@ -58,7 +58,7 @@ export const Header = <T extends Payload = Payload>({
   isMobile,
   appName,
   activeOptionPath,
-  activeTabPath,
+  activeTabPath: upperActiveTabPath,
   onDrawerToggle,
   onAction,
   onTabChange,
@@ -85,6 +85,14 @@ export const Header = <T extends Payload = Payload>({
       tabs: tabs as IScaffold2TabInternal[],
     };
   }, [activeOptionPath, options, appName]);
+
+  const activeTabPath = useMemo(() => {
+    const activeTab = tabs.find(({ active }) => active);
+    if (activeTab) {
+      return activeTab.path;
+    }
+    return upperActiveTabPath;
+  }, [tabs, upperActiveTabPath]);
 
   useEffect(() => {
     const availableTabs = tabs
@@ -245,8 +253,8 @@ export const Header = <T extends Payload = Payload>({
           }}
         >
           <LinearProgress
-            variant={loading > 1 ? "determinate" : "indeterminate"}
-            value={loading > 1 ? Number(loading) : undefined}
+            variant={loading as unknown as number > 1 ? "determinate" : "indeterminate"}
+            value={loading as unknown as number > 1 ? Number(loading) : undefined}
             color="primary"
           />
         </Box>

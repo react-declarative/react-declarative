@@ -13,6 +13,7 @@ import IAnything from "../../../model/IAnything";
 
 export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
+    readonly?: boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
     onSave?: (data: Data) => (boolean | Promise<boolean>);
@@ -38,6 +39,7 @@ const DEFAULT_HISTORY = createWindowHistory();
 
 export const usePreventLeave = <Data = IAnything>({
     history = DEFAULT_HISTORY,
+    readonly = false,
     onChange,
     onLoadStart,
     onLoadEnd,
@@ -195,7 +197,7 @@ export const usePreventLeave = <Data = IAnything>({
         oneProps: {
             change: handleChange,
             invalidity: handleInvalid,
-            readonly: !!loading,
+            readonly: !!loading || readonly,
             ...fallback && { fallback },
         },
         data : invalid ? null : data,

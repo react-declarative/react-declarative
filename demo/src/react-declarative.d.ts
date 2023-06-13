@@ -4057,12 +4057,14 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Tab' {
         id: string;
         label?: string;
         icon?: React.ComponentType<any>;
-        isVisible?: (payload: T) => Promise<boolean> | boolean;
-        isDisabled?: (payload: T) => Promise<boolean> | boolean;
+        isVisible?: (payload: T) => (Promise<boolean> | boolean);
+        isDisabled?: (payload: T) => (Promise<boolean> | boolean);
+        isActive?: (payload: T) => (Promise<boolean> | boolean);
     }
     export interface IScaffold2TabInternal<T = Payload> extends Omit<IScaffold2Tab<T>, keyof {
         isVisible: never;
         isDisabled: never;
+        isActive: never;
     }> {
         id: string;
         path: string;
@@ -4070,6 +4072,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Tab' {
         icon?: React.ComponentType<any>;
         visible: boolean;
         disabled: boolean;
+        active: boolean;
     }
     export default IScaffold2Tab;
 }
@@ -4431,6 +4434,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     import IAnything from "react-declarative/model/IAnything";
     export interface IPreventLeaveParams<Data = IAnything> {
         history?: BrowserHistory | MemoryHistory | HashHistory;
+        readonly?: boolean;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
         onSave?: (data: Data) => (boolean | Promise<boolean>);
@@ -4449,7 +4453,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
-    export const usePreventLeave: <Data = any>({ history, onChange, onLoadStart, onLoadEnd, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
@@ -5709,6 +5713,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         actions?: IScaffold2Action<T>[];
         loading?: boolean | number;
         payload?: T;
+        deps?: any[];
         activeOptionPath: string;
         activeTabPath?: string;
         BeforeSearch?: React.ComponentType<any>;
