@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback, useEffect } from "react";
+import { useMemo, useCallback } from "react";
 import { SxProps } from "@mui/system";
 
 import IconButton from "@mui/material/IconButton";
@@ -94,16 +94,11 @@ export const Header = <T extends Payload = Payload>({
     return upperActiveTabPath;
   }, [tabs, upperActiveTabPath]);
 
-  useEffect(() => {
-    const availableTabs = tabs
-      .filter(({ visible }) => visible)
-      .filter(({ disabled }) => !disabled);
-    if (!!availableTabs.length && !availableTabs.some(({ path }) => activeTabPath === path)) {
-      onTabChange && onTabChange(path, availableTabs[0].id, id);
-    }
-  }, [activeTabPath, tabs]);
+  const hasTabs = useMemo(() => {
+    return !!tabs.filter(({ visible }) => visible).length;
+  }, [tabs]);
 
-  const handleTabChange = useCallback((tabId: string) => {
+  const handleTabChange = useCallback((path: string, tabId: string) => {
     onTabChange && onTabChange(path, tabId, id);
   }, [path, id]);
 
@@ -131,7 +126,7 @@ export const Header = <T extends Payload = Payload>({
         elevation={0}
         sx={{
           zIndex: 0,
-          pb: (!!tabs?.length && !isMobile) ? 2 : 0,
+          pb: (hasTabs && !isMobile) ? 2 : 0,
         }}
       >
         <Toolbar variant={dense ? "dense" : "regular"}>
@@ -154,7 +149,7 @@ export const Header = <T extends Payload = Payload>({
                       {label || appName}
                     </Typography>
                   )}
-                  {!!tabs.length && (
+                  {hasTabs && (
                     <Tabs
                       value={activeTabPath}
                       textColor="inherit"
@@ -162,16 +157,16 @@ export const Header = <T extends Payload = Payload>({
                     >
                         {tabs
                           .filter(({ visible }) => visible)
-                          .map(({ id, label, icon: Icon, disabled }, idx) => (
+                          .map(({ id, label, icon: Icon, disabled, path }, idx) => (
                             <Tab
                               sx={{
                                 minWidth: 128,
                                 fontWeight: 'bold',
                               }}
                               key={`${id}-${idx}`}
-                              value={id}
+                              value={path}
                               label={label || idToLabel(id)}
-                              onClick={() => handleTabChange(id)}
+                              onClick={() => handleTabChange(path, id)}
                               disabled={disabled}
                               icon={Icon && <Icon />}
                             />
@@ -215,7 +210,7 @@ export const Header = <T extends Payload = Payload>({
           </Grid>
         </Toolbar>
       </AppBar>
-      {!!tabs.length && !dense && (
+      {hasTabs && !dense && (
         <AppBar
           component="div"
           position="static"
@@ -229,15 +224,15 @@ export const Header = <T extends Payload = Payload>({
           >
               {tabs
                 .filter(({ visible }) => visible)
-                .map(({ id, label, icon: Icon, disabled }, idx) => (
+                .map(({ id, label, icon: Icon, disabled, path }, idx) => (
                   <Tab
                     sx={{
                       minWidth: 128,
                     }}
                     key={`${id}-${idx}`}
-                    value={id}
+                    value={path}
                     label={label || idToLabel(id)}
-                    onClick={() => handleTabChange(id)}
+                    onClick={() => handleTabChange(path, id)}
                     disabled={disabled}
                     icon={Icon && <Icon />}
                   />

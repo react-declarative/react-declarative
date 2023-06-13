@@ -9,6 +9,7 @@ export const singleshot = <T extends (...args: any[]) => any>(run: T): T & IClea
     const fn = (...args: any) => {
         if (!hasRunned) {
             result = run(...args);
+            hasRunned = true;
         }
         return result;
     };
