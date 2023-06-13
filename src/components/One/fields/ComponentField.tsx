@@ -114,5 +114,7 @@ export default makeField(ComponentField, {
     defaultProps: {
         fieldRightMargin: FIELD_NEVER_MARGIN,
         fieldBottomMargin: FIELD_NEVER_MARGIN,
-    }
+    },
+    skipClickListener: true,
+    skipDebounce: true,
 });
