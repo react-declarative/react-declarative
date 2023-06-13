@@ -44,7 +44,7 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
 interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, 'object'>;
     disabled: PickProp<IManaged<Data>, 'disabled'>;
-    readonly: PickProp<IManaged<Data>, 'readonly'>;
+    fieldReadonly: PickProp<IManaged<Data>, 'fieldReadonly'>;
 }
 
 const useStyles = makeStyles()({
@@ -67,7 +67,7 @@ const useStyles = makeStyles()({
 
 export const ComponentField = ({
     disabled,
-    readonly,
+    fieldReadonly: readonly,
     element: Element = () => <Fragment />,
     object,
     ...otherProps

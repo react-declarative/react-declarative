@@ -3187,10 +3187,10 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
     interface IComponentFieldPrivate<Data = IAnything> {
         object: PickProp<IManaged<Data>, 'object'>;
         disabled: PickProp<IManaged<Data>, 'disabled'>;
-        readonly: PickProp<IManaged<Data>, 'readonly'>;
+        fieldReadonly: PickProp<IManaged<Data>, 'fieldReadonly'>;
     }
     export const ComponentField: {
-        ({ disabled, readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
+        ({ disabled, fieldReadonly: readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
