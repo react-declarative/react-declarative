@@ -8,7 +8,6 @@ import { ISwitchSlot } from '../../../slots/SwitchSlot';
 
 export const Switch = ({
     disabled,
-    readonly,
     value,
     onChange,
     title,
@@ -19,15 +18,7 @@ export const Switch = ({
                 {title}
             </Typography>
         </Box>
-        <MatSwitch
-            disabled={disabled}
-            checked={Boolean(value)}
-            onChange={(_, checked) => {
-                if (!readonly) {
-                    onChange(checked)
-                }
-            }}
-        />
+        <MatSwitch disabled={disabled} checked={Boolean(value)} onChange={(_, checked) => onChange(checked)} />
     </Box>
 );
 

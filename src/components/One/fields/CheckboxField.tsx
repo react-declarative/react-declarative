@@ -22,14 +22,12 @@ export interface ICheckboxFieldPrivate<Data = IAnything>  {
 
 export const CheckboxField = ({
   disabled,
-  readonly,
   value,
   onChange,
   title
 }: ICheckboxFieldProps & ICheckboxFieldPrivate) => (
   <CheckBox
     disabled={disabled}
-    readonly={readonly}
     value={value}
     onChange={onChange}
     title={title}

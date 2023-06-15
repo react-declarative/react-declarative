@@ -11,18 +11,13 @@ export const CheckBox = ({
     onChange,
     title,
     value,
-    readonly,
 }: ICheckBoxSlot) => (
     <FormGroup>
         <FormControlLabel
             control={<Checkbox
                 disabled={disabled}
                 checked={Boolean(value)}
-                onChange={(_, checked) => {
-                    if (!readonly) {
-                        onChange(checked)
-                    }
-                }}
+                onChange={(_, checked) => onChange(checked)}
             />}
             label={title || ''} />
     </FormGroup>
