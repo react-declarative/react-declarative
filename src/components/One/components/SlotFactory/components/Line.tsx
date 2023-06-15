@@ -27,12 +27,15 @@ const useStyles = makeStyles()((theme) => ({
 
 export const Line = ({
     title = "",
+    lineTransparent = false,
 }: ILineSlot) => {
     const { classes } = useStyles();
     return (
         <Box className={classes.root}>
             <Typography variant="h5">{title}</Typography>
-            <Box className={classes.line}></Box>
+            {!lineTransparent && (
+                <Box className={classes.line} />
+            )}
         </Box>
     );
 };

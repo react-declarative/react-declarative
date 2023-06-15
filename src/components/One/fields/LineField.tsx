@@ -12,13 +12,16 @@ const FIELD_NEVER_MARGIN = '0';
 
 export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, 'title'>;
+  lineTransparent?: PickProp<IField<Data, Payload>, 'lineTransparent'>;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
 export const LineField = ({
   title = '',
+  lineTransparent = false,
 }: ILineFieldProps) => (
   <Line
+    lineTransparent={lineTransparent}
     title={title}
   />
 );

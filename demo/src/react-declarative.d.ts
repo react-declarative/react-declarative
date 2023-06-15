@@ -668,6 +668,10 @@ declare module 'react-declarative/model/IField' {
                 */
             maxPercent?: number;
             /**
+                * Отключает отчерк у линии
+                */
+            lineTransparent?: boolean;
+            /**
                 * Показывает процент числом слева
                 */
             showPercentLabel?: boolean;
@@ -3241,10 +3245,11 @@ declare module 'react-declarative/components/One/fields/LineField' {
     import IField from 'react-declarative/model/IField';
     export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
         title?: PickProp<IField<Data, Payload>, 'title'>;
+        lineTransparent?: PickProp<IField<Data, Payload>, 'lineTransparent'>;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
     }
     export const LineField: {
-        ({ title, }: ILineFieldProps): JSX.Element;
+        ({ title, lineTransparent, }: ILineFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4225,7 +4230,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
         Combo: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
         Items: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
-        Line: ({ title, }: import("../..").ILineSlot) => JSX.Element;
+        Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, fieldReadonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;

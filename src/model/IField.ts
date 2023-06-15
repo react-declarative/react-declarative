@@ -199,6 +199,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     maxPercent?: number;
 
     /**
+     * Отключает отчерк у линии
+     */
+    lineTransparent?: boolean;
+
+    /**
      * Показывает процент числом слева
      */
     showPercentLabel?: boolean;
