@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useRef, useMemo } from 'react';
 
+import { makeStyles } from '../../../../styles';
+
 import { ThemeProvider } from '../../../../styles';
 
 import OneInternal from '../OneInternal';
@@ -12,6 +14,7 @@ import IOneProps from '../../../../model/IOneProps';
 import IAnything from '../../../../model/IAnything';
 import IField from '../../../../model/IField';
 
+import classNames from '../../../../utils/classNames';
 import deepFlat from '../../../../utils/deepFlat';
 import arrays from '../../../../utils/arrays';
 
@@ -22,9 +25,18 @@ import PayloadProvider from '../../context/PayloadProvider';
 
 import useSingleton from '../../../../hooks/useSingleton';
 
+const useStyles = makeStyles()({
+  readonly: {
+    pointerEvents: 'none',
+    opacity: 0.5,
+  },
+});
+
 export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Payload, Field>) => {
 
   const isReady = useRef(false);
+
+  const { classes } = useStyles();
 
   const {
     change = (data) => console.log({ data }),
@@ -84,7 +96,9 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
           <SlotFactory {...slots}>
             <PayloadProvider payload={payload}>
               <Group
-                className={className}
+                className={classNames(className, {
+                  [classes.readonly]: props.readonly,
+                })}
                 style={style}
                 sx={sx}
               >
