@@ -3310,7 +3310,6 @@ declare module 'react-declarative/components/One/fields/RatingField' {
     import IField from "react-declarative/model/IField";
     export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
-        title?: PickProp<IField<Data, Payload>, "title">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
     }
@@ -3321,7 +3320,7 @@ declare module 'react-declarative/components/One/fields/RatingField' {
         onChange: PickProp<IManaged<Data>, "onChange">;
     }
     export const RatingField: {
-        ({ value, disabled, fieldReadonly, title, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
+        ({ value, disabled, fieldReadonly, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4228,7 +4227,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Items: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
-        Rating: ({ value, disabled, fieldReadonly, title, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
+        Rating: ({ value, disabled, fieldReadonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
         Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;

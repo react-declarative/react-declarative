@@ -10,6 +10,7 @@ import set from '../../../../utils/set';
 import get from '../../../../utils/get';
 import deepCompare from '../../../../utils/deepCompare';
 import waitForBlur from '../../../../utils/wairForBlur';
+import waitForMove from '../../../../utils/waitForMove';
 
 import { makeStyles } from '../../../../styles';
 
@@ -139,6 +140,16 @@ export function makeField(
         useLayoutEffect(() => () => {
           isMounted.current = false;
         }, []);
+
+        /**
+         * Если пользователь убрал мышь с поля ввода, следует
+         * применить изменения
+         */
+        useEffect(() => waitForMove(() => {
+            if (pending()) {
+                flush();
+            }
+        }), []);
 
         /**
          * Эффект входящего изменения.

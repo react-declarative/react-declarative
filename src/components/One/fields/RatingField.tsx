@@ -10,7 +10,6 @@ import IField from "../../../model/IField";
 
 export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
-  title?: PickProp<IField<Data, Payload>, "title">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
@@ -26,7 +25,6 @@ export const RatingField = ({
   value,
   disabled,
   fieldReadonly,
-  title,
   name,
   onChange,
 }: IRatingFieldProps & IRatingFieldPrivate) => (
@@ -34,7 +32,6 @@ export const RatingField = ({
     value={value}
     disabled={disabled}
     fieldReadonly={fieldReadonly}
-    title={title}
     name={name}
     onChange={onChange}
   />
