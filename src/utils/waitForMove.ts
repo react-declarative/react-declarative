@@ -17,25 +17,28 @@ const scrollSource = Source.create((handler) => {
     return () => document.removeEventListener('scroll', handler);
 });
 
-const moveSource = Source.unicast(() =>
-    Source.merge([
+const moveSource = Source.unicast(() => {
+    let count = 0;
+    return Source.merge([
         mouseSource,
         touchSource,
         scrollSource,
     ])
-    .share()
-);
-
-export const waitForMove = (fn: () => void) => {
-    let count = 0;
-    return moveSource.connect(() => {
+    .filter(() => {
         if (count !== MOVE_DELTA) {
             count = count + 1;
-            return;
+            return false;
         }
+        return true;
+    })
+    .tap(() => {
         count = 0;
-        fn();
-    });
+    })
+    .share()
+});
+
+export const waitForMove = (fn: () => void) => {
+    return moveSource.connect(fn);
 };
 
 export default waitForMove;
