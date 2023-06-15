@@ -9,8 +9,10 @@ import arrays from '../../../../utils/arrays';
 import set from '../../../../utils/set';
 import get from '../../../../utils/get';
 import deepCompare from '../../../../utils/deepCompare';
+
 import waitForBlur from '../../../../utils/wairForBlur';
 import waitForMove from '../../../../utils/waitForMove';
+import waitForTouch from '../../../../utils/waitForTouch';
 
 import { makeStyles } from '../../../../styles';
 
@@ -146,6 +148,16 @@ export function makeField(
          * применить изменения
          */
         useEffect(() => waitForMove(() => {
+            if (pending()) {
+                flush();
+            }
+        }), []);
+
+        /**
+         * Перед событием клика на сенсорных экранах
+         * следует применить изменение
+         */
+        useEffect(() => waitForTouch(() => {
             if (pending()) {
                 flush();
             }
