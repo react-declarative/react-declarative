@@ -25,11 +25,13 @@ export const SwitchField = ({
   disabled,
   value,
   fieldReadonly,
+  readonly,
   onChange,
   title,
 }: ISwitchFieldProps & ISwitchFieldPrivate) => (
   <Switch
     fieldReadonly={fieldReadonly}
+    readonly={readonly}
     disabled={disabled}
     value={value}
     onChange={onChange}

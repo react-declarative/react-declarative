@@ -24,6 +24,9 @@ export const ThemeProvider = ({ children }: IThemeProviderProvider) => {
           },
           indicator: {
             height: 3,
+            background: theme.palette.mode === 'dark'
+              ? theme.palette.primary.main
+              : theme.palette.background.default
           },
         },
       },

@@ -3095,7 +3095,7 @@ declare module 'react-declarative/components/One/fields/CheckboxField' {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const CheckboxField: {
-        ({ disabled, value, onChange, title }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
+        ({ disabled, readonly, value, onChange, title }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3382,7 +3382,7 @@ declare module 'react-declarative/components/One/fields/SwitchField' {
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
-        ({ disabled, value, fieldReadonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        ({ disabled, value, fieldReadonly, readonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4223,7 +4223,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotFact
 declare module 'react-declarative/components/One/components/SlotFactory/SlotContext' {
     import ISlotFactoryContext from 'react-declarative/components/One/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
-        CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
+        CheckBox: ({ disabled, onChange, title, value, readonly, }: import("../..").ICheckBoxSlot) => JSX.Element;
         Combo: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
         Items: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, }: import("../..").ILineSlot) => JSX.Element;
@@ -4234,7 +4234,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
         Date: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").IDateSlot) => JSX.Element;
         Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
-        Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
+        Switch: ({ disabled, readonly, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, name, }: import("../..").IFileSlot) => JSX.Element;
     };
