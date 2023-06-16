@@ -24,8 +24,8 @@ interface IFilesViewProps {
     disabled?: boolean;
     onUpload?: (file: File) => (string | Promise<string>);
     onRemove?: (item: string) => (void | Promise<void>);
-    onChange?: (items: string[]) => void;
-    onClick?: (item: string) => void;
+    onChange?: (items: string[]) => (void | Promise<void>);
+    onClick?: (item: string) => (void | Promise<void>);
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
@@ -85,7 +85,7 @@ export const FilesView = ({
         try {
             handleLoadStart();
             await onRemove(item);
-            onChange$(items$.current.filter((it) => it !== item));
+            await onChange$(items$.current.filter((it) => it !== item));
         } catch (e: any) {
             isOk = false;
             if (!throwError) {
@@ -107,8 +107,25 @@ export const FilesView = ({
                 isMounted.current && setUploads((prevUploads) => [...prevUploads, fileName]);
                 const docName = await onUpload(file);
                 isMounted.current && setUploads((prevUploads) => prevUploads.filter((item) => item !== fileName));
-                onChange$([...items$.current, docName]);
+                await onChange$([...items$.current, docName]);
             }
+        } catch (e: any) {
+            isOk = false;
+            if (!throwError) {
+                fallback && fallback(e as Error);
+            } else {
+                throw e;
+            }
+        } finally {
+            handleLoadEnd(isOk);
+        }
+    };
+
+    const handleClick = async (file: string) => {
+        let isOk = true;
+        try {
+            handleLoadStart();
+            await onClick(file);
         } catch (e: any) {
             isOk = false;
             if (!throwError) {
@@ -136,7 +153,7 @@ export const FilesView = ({
                 multiple={multiple}
                 onData={handleData}
             />
-            <List dense disablePadding>
+            <List dense disablePadding sx={{ mt: 1 }}>
                 {uploads.map((item, idx) => (
                     <ListItem
                         disableGutters
@@ -147,9 +164,11 @@ export const FilesView = ({
                             </ActionStopIcon>
                         }
                     >
-                        <ListItemText
-                            primary={item}
-                        />
+                        <ListItemButton>
+                            <ListItemText
+                                primary={item}
+                            />
+                        </ListItemButton>
                     </ListItem>
                 ))}
                 {items.map((item, idx) => (
@@ -162,7 +181,7 @@ export const FilesView = ({
                             </ActionIcon>
                         }
                     >
-                        <ListItemButton onClick={() => onClick(item)}>
+                        <ListItemButton onClick={() => handleClick(item)}>
                             <ListItemText
                                 primary={item}
                             />
