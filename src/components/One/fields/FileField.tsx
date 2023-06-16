@@ -19,6 +19,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   upload?: PickProp<IField<Data, Payload>, 'upload'>;
+  view?: PickProp<IField<Data, Payload>, 'view'>;
 }
 
 export interface IFileFieldPrivate<Data = IAnything> {
@@ -41,6 +42,7 @@ export const FileField = ({
   title = "",
   placeholder = "",
   upload,
+  view,
   dirty,
   loading,
   onChange,
@@ -58,6 +60,7 @@ export const FileField = ({
     title={title}
     placeholder={placeholder}
     upload={upload}
+    view={view}
     dirty={dirty}
     loading={loading}
     onChange={onChange}

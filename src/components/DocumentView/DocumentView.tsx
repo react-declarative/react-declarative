@@ -9,15 +9,19 @@ import Fab from '@mui/material/Fab';
 import { AutoSizer } from '../AutoSizer';
 
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import classNames from '../../utils/classNames';
 import openBlank from '../../utils/openBlank';
 
 interface IDocumentViewProps extends BoxProps {
     withFullScreen?: boolean;
+    withDelete?: boolean;
     className?: string;
     style?: React.CSSProperties;
     src: string;
+    onFullScreenClick?: () => void;
+    onDeleteClick?: () => void;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -39,19 +43,28 @@ const useStyles = makeStyles()((theme) => ({
         background: 'none transparent',
         border: '0px solid transparent',
     },
-    fab: {
+    fabFullscreen: {
         position: 'absolute',
         bottom: 10,
         right: 10,
+        zIndex: 2,
+    },
+    fabDelete: {
+        position: 'absolute',
+        bottom: 10,
+        right: 60,
         zIndex: 2,
     },
 }));
 
 export const DocumentView = ({
     withFullScreen = false,
+    withDelete = false,
     className,
     style,
     src,
+    onFullScreenClick = () => openBlank(src),
+    onDeleteClick = () => undefined,
     ...otherProps
 }: IDocumentViewProps) => {
     const { classes } = useStyles();
@@ -72,14 +85,24 @@ export const DocumentView = ({
                     />
                 )}
             </AutoSizer>
-            {withFullScreen && (
+            {withDelete && (
                 <Fab
-                    className={classes.fab}
+                    className={classes.fabDelete}
                     color="primary"
                     size="small"
-                    onClick={() => openBlank(src)}
+                    onClick={onDeleteClick}
                 >
-                    <FullscreenIcon />
+                    <DeleteIcon color="inherit" />
+                </Fab>
+            )}
+            {withFullScreen && (
+                <Fab
+                    className={classes.fabFullscreen}
+                    color="primary"
+                    size="small"
+                    onClick={onFullScreenClick}
+                >
+                    <FullscreenIcon color="inherit" />
                 </Fab>
             )}
         </Box>

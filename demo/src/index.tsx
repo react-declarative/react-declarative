@@ -9,7 +9,7 @@ import { ModalProvider, SnackProvider, createWebComponent } from 'react-declarat
 import App from './App'
 
 const theme = createTheme({
-    palette: {
+    /*palette: {
         mode: 'dark',
         primary: {
             main: '#90cbf9',
@@ -26,7 +26,7 @@ const theme = createTheme({
             paper: "#424242",
             default: "#212121",
         },
-    },
+    },*/
 });
 
 const container = document.getElementById('root')!;

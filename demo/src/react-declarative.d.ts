@@ -236,6 +236,7 @@ declare module 'react-declarative' {
     export { useLastPagination } from 'react-declarative/components';
     export { useQueryPagination } from 'react-declarative/components';
     export { useStaticHandler } from 'react-declarative/components';
+    export { usePreventNavigate } from 'react-declarative/components';
     export { usePreventLeave } from 'react-declarative/components';
     export { useLocalHandler } from 'react-declarative/components';
     export { useApiHandler } from 'react-declarative/components';
@@ -839,6 +840,7 @@ declare module 'react-declarative/model/IField' {
                 * Функция для загрузки файла на сервер
                 */
             upload?: (file: File, data: Data, payload: Payload) => (Promise<string> | string);
+            view?: (file: string, data: Data, payload: Payload) => (Promise<void> | void);
             /**
                 * Свойства для компоновки Hero - инструмента настройки отступов
                 */
@@ -3124,6 +3126,7 @@ declare module 'react-declarative/components/One/fields/FileField' {
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
         upload?: PickProp<IField<Data, Payload>, 'upload'>;
+        view?: PickProp<IField<Data, Payload>, 'view'>;
     }
     export interface IFileFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -3135,7 +3138,7 @@ declare module 'react-declarative/components/One/fields/FileField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const FileField: {
-        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, upload, dirty, loading, onChange, inputRef, name, }: IFileFieldProps & IFileFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, upload, view, dirty, loading, onChange, inputRef, name, }: IFileFieldProps & IFileFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3748,6 +3751,7 @@ declare module 'react-declarative/components/DragDropView' {
 
 declare module 'react-declarative/components/FilesView' {
     export * from 'react-declarative/components/FilesView/FilesView';
+    export * from 'react-declarative/components/FilesView/api/usePreventNavigate';
     export { default } from 'react-declarative/components/FilesView/FilesView';
 }
 
@@ -4240,7 +4244,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
-        File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, name, }: import("../..").IFileSlot) => JSX.Element;
+        File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -5021,8 +5025,8 @@ declare module 'react-declarative/components/FilesView/FilesView' {
         disabled?: boolean;
         onUpload?: (file: File) => (string | Promise<string>);
         onRemove?: (item: string) => (void | Promise<void>);
-        onChange?: (items: string[]) => void;
-        onClick?: (item: string) => void;
+        onChange?: (items: string[]) => (void | Promise<void>);
+        onClick?: (item: string) => (void | Promise<void>);
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
@@ -5035,6 +5039,16 @@ declare module 'react-declarative/components/FilesView/FilesView' {
     }
     export const FilesView: ({ items, className, style, sx, disabled: upperDisabled, onUpload, onRemove, onChange, onClick, accept, multiple, onLoadStart, onLoadEnd, fallback, throwError, }: IFilesViewProps) => JSX.Element;
     export default FilesView;
+}
+
+declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
+    import { MemoryHistory, BrowserHistory, HashHistory } from 'history';
+    interface IParams {
+        history: MemoryHistory | BrowserHistory | HashHistory;
+        check: () => boolean;
+    }
+    export const usePreventNavigate: ({ history, check, }: IParams) => void;
+    export default usePreventNavigate;
 }
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {
@@ -5465,11 +5479,14 @@ declare module 'react-declarative/components/DocumentView/DocumentView' {
     import { BoxProps } from '@mui/material/Box';
     interface IDocumentViewProps extends BoxProps {
         withFullScreen?: boolean;
+        withDelete?: boolean;
         className?: string;
         style?: React.CSSProperties;
         src: string;
+        onFullScreenClick?: () => void;
+        onDeleteClick?: () => void;
     }
-    export const DocumentView: ({ withFullScreen, className, style, src, ...otherProps }: IDocumentViewProps) => JSX.Element;
+    export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, ...otherProps }: IDocumentViewProps) => JSX.Element;
     export default DocumentView;
 }
 
@@ -5477,9 +5494,12 @@ declare module 'react-declarative/components/ImageView/ImageView' {
     import { BoxProps } from '@mui/material/Box';
     interface IImageViewProps extends BoxProps {
         withFullScreen?: boolean;
+        withDelete?: boolean;
         src: string;
+        onFullScreenClick?: () => void;
+        onDeleteClick?: () => void;
     }
-    export const ImageView: ({ withFullScreen, className, src, ...otherProps }: IImageViewProps) => JSX.Element;
+    export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
 }
 

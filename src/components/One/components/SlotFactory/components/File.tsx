@@ -16,6 +16,7 @@ import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneState } from '../../../context/StateProvider';
 
 import chooseFile from '../../../../../utils/chooseFile';
+import openBlank from '../../../../../utils/openBlank';
 
 const LOADING_LABEL = 'Loading';
 
@@ -38,6 +39,9 @@ export const Text = ({
             return file.name;
         }
         return name;
+    },
+    view = (filePath) => {
+        openBlank(filePath);
     },
     name,
 }: IFileSlot) => {
@@ -92,8 +96,20 @@ export const Text = ({
                 {loading && "Uploading"}
                 {!loading && "Choose"}
             </ActionButton>
+            {!!value && (
+                <ActionButton
+                    variant="outlined"
+                    onLoadStart={() => setCurrentLoading(true)}
+                    onLoadEnd={() => setCurrentLoading(false)}
+                    onClick={async () => {
+                        await view(value, object, payload);
+                    }}
+                >
+                    {loading && "Uploading"}
+                    {!loading && "Choose"}
+                </ActionButton>
+            )}
         </Stack>
-    
     );
 }
 

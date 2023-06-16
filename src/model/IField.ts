@@ -399,6 +399,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Функция для загрузки файла на сервер
      */
     upload?: (file: File, data: Data, payload: Payload) => (Promise<string> | string);
+    view?: (file: string, data: Data, payload: Payload) => (Promise<void> | void);
 
     /**
      * Свойства для компоновки Hero - инструмента настройки отступов

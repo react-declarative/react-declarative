@@ -66,6 +66,7 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: "column",
     gap: 15,
     padding: theme.spacing(1),
+    color: theme.palette.action.active,
   },
   dragZone: {
     position: "absolute",

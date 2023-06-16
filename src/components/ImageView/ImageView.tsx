@@ -7,13 +7,17 @@ import Box, { BoxProps } from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import classNames from '../../utils/classNames';
 import openBlank from '../../utils/openBlank';
 
 interface IImageViewProps extends BoxProps {
     withFullScreen?: boolean;
+    withDelete?: boolean;
     src: string;
+    onFullScreenClick?: () => void;
+    onDeleteClick?: () => void;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -39,18 +43,27 @@ const useStyles = makeStyles()((theme) => ({
         margin: '6px',
         flex: 1,
     },
-    fab: {
+    fabFullscreen: {
         position: 'absolute',
         bottom: 10,
         right: 10,
+        zIndex: 2,
+    },
+    fabDelete: {
+        position: 'absolute',
+        bottom: 10,
+        right: 60,
         zIndex: 2,
     },
 }));
 
 export const ImageView = ({
     withFullScreen = false,
+    withDelete = false,
     className,
     src,
+    onFullScreenClick = () => openBlank(src),
+    onDeleteClick = () => undefined,
     ...otherProps
 }: IImageViewProps) => {
     const { classes } = useStyles();
@@ -64,12 +77,22 @@ export const ImageView = ({
                     src={src}
                 />
             </div>
-            {withFullScreen && (
+            {withDelete && (
                 <Fab
-                    className={classes.fab}
+                    className={classes.fabDelete}
                     color="primary"
                     size="small"
-                    onClick={() => openBlank(src)}
+                    onClick={onDeleteClick}
+                >
+                    <DeleteIcon />
+                </Fab>
+            )}
+            {withFullScreen && (
+                <Fab
+                    className={classes.fabFullscreen}
+                    color="primary"
+                    size="small"
+                    onClick={onFullScreenClick}
                 >
                     <FullscreenIcon />
                 </Fab>

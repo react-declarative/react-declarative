@@ -28,7 +28,7 @@ import useSingleton from '../../../../hooks/useSingleton';
 const useStyles = makeStyles()({
   readonly: {
     pointerEvents: 'none',
-    opacity: 0.5,
+    cursor: 'not-allowed',
   },
 });
 

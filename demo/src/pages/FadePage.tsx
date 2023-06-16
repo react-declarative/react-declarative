@@ -550,7 +550,7 @@ export const FadePage = () => {
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
       <Spinner />
       <DocumentView withFullScreen sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
-      <ImageView withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
+      <ImageView withDelete withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
       <FilesView accept=".png" items={["1.png", "2.png", "3.png"]} />
     </>
   );

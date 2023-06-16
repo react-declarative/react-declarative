@@ -299,6 +299,7 @@ export { useLastPagination } from './components';
 export { useQueryPagination } from './components';
 
 export { useStaticHandler } from './components';
+export { usePreventNavigate } from './components';
 export { usePreventLeave } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
