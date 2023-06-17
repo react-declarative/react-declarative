@@ -13,7 +13,7 @@ import IOneProps, { OneHandler } from '../../../model/IOneProps';
 
 interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
-  handler?: OneHandler<Data>;
+  handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload>['payload'];
   title?: string;
   fields: IField[];

@@ -25,6 +25,7 @@ import useSubject from '../../../hooks/useSubject';
 import { PickProp } from '../../../model/IManaged';
 
 import { useApiRef } from '../context/ApiProvider';
+import usePayloadContext from '../../CardView/context/PayloadContext';
 
 const LOAD_SOURCE = 'one-resolve';
 
@@ -73,6 +74,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
 }: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const data$ = useActualValue(data);
+    const payload = usePayloadContext();
     const { 
         apiRef, 
         changeSubject: upperChangeSubject,
@@ -90,7 +92,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                 let isOk = true;
                 loadStart && loadStart(LOAD_SOURCE);
                 try {
-                    const result = (handler as Function)();
+                    const result = (handler as Function)(payload);
                     if (result instanceof Promise) {
                         const newData = objects(assign({}, buildObj<Data>(fields, roles), deepClone(await result)));
                         change!(newData, true);

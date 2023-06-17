@@ -77,7 +77,7 @@ interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything
     sx?: SxProps;
     appName?: string;
     fields?: Field[];
-    handler?: OneHandler<Data>;
+    handler?: OneHandler<Data, Payload>;
     Logo?: React.ComponentType<any>;
     onAuth?: (data: Data) => (void | Promise<void>);
     onLoadStart?: () => void;

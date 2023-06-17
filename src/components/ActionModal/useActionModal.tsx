@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import ActionModal, { IActionModalProps } from "./ActionModal";
 
@@ -14,22 +14,25 @@ interface IParams<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
   Field = IField<Data>,
-  Param = void,
+  Param = any,
 >
   extends Omit<
     IActionModalProps<Data, Payload, Field, Param>,
     keyof {
       open: never;
     }
-  > {}
+  > {
+    param?: Param;
+  }
 
 export const useActionModal = <
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
   Field = IField<Data>,
-  Param = void,
+  Param = any,
 >({
   fields,
+  param: upperParam,
   handler,
   fallback,
   apiRef,
@@ -47,7 +50,11 @@ export const useActionModal = <
   title,
 }: IParams<Data, Payload, Field, Param>) => {
   const [open, setOpen] = useState(false);
-  const [param, setParam] = useState<Param>(null as never);
+  const [param, setParam] = useState<Param>(upperParam as never);
+
+  useEffect(() => {
+    setParam(upperParam as never);
+  }, [upperParam]);
 
   const onSubmit$ = useActualCallback(onSubmit);
   const param$ = useActualValue(param);
@@ -78,6 +85,7 @@ export const useActionModal = <
         onSubmit={handleSubmit}
         title={title}
         dirty={dirty}
+        param={param}
       />
     ),
     [

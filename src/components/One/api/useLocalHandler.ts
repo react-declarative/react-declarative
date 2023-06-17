@@ -6,7 +6,8 @@ import IOneProps, {
 
 import IAnything from "../../../model/IAnything";
 
-export interface ILocalHandlerParams<Data extends IAnything = IAnything> {
+export interface ILocalHandlerParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
+    payload?: Payload;
     resultMap?: (json: Record<string, any> | null) => Data | null;
     onLoadBegin?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -20,17 +21,18 @@ export interface ILocalHandlerResult<Data extends IAnything = IAnything> {
 
 const EMPTY_RESPONSE = null;
 
-const resolveHandler = async <Data = IAnything>(handler: OneHandler<Data>): Promise<Data | null> => {
+const resolveHandler = async <Data = IAnything, Payload = IAnything>(handler: OneHandler<Data, Payload>, payload: Payload): Promise<Data | null> => {
     if (typeof handler === 'function') {
-        const result = (handler as Function)();
+        const result = (handler as Function)(payload);
         return result instanceof Promise ? (await result) : result;
     } else {
         return handler;
     }
 };
 
-export const useLocalHandler = <Data extends IAnything = IAnything>(handler: OneHandler<Data>, {
+export const useLocalHandler = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything>(handler: OneHandler<Data, Payload>, {
     resultMap = (data) => data as Data,
+    payload,
     onLoadBegin,
     onLoadEnd,
     fallback,
@@ -43,7 +45,7 @@ export const useLocalHandler = <Data extends IAnything = IAnything>(handler: One
             onLoadBegin && onLoadBegin();
             let isOk = true;
             try {
-                const data = await resolveHandler<Data>(handler);
+                const data = await resolveHandler<Data>(handler, payload);
                 setData(resultMap((data || {}) as Record<string, any>));
             } catch (e) {
                 isOk = false;

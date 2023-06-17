@@ -13,7 +13,7 @@ import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
 
 type DataOrNull<Data = IAnything> = Data | null;
 
-export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
+export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload: Payload) => DataOrNull<Data>) | ((payload: Payload) => Promise<DataOrNull<Data>>) | null;
 
 export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   /**
@@ -55,7 +55,7 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   /**
    * Позволяет загружать данные в компонент
    */
-  handler?: OneHandler<Data>;
+  handler?: OneHandler<Data, Payload>;
   /**
    * Объект, передающийся в пользовательские
    * поля через контекст

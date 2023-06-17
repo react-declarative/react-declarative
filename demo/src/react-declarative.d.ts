@@ -1111,7 +1111,7 @@ declare module 'react-declarative/components/One/api/useApiHandler' {
         abortSignal?: AbortSignal;
         fetch?: typeof window.fetch;
     }
-    export const useApiHandler: <Data extends unknown = any>(path: string, { fetch, origin, abortSignal: signal, requestMap, responseMap, onLoadBegin, onLoadEnd, withAbortSignal, fetchParams, fallback, }?: IApiHandlerParams<Data>) => OneHandler<Data>;
+    export const useApiHandler: <Data extends unknown = any>(path: string, { fetch, origin, abortSignal: signal, requestMap, responseMap, onLoadBegin, onLoadEnd, withAbortSignal, fetchParams, fallback, }?: IApiHandlerParams<Data>) => OneHandler<Data, any>;
     export default useApiHandler;
 }
 
@@ -1527,7 +1527,7 @@ declare module 'react-declarative/model/IOneProps' {
     import { TSubject } from 'react-declarative/utils/rx/Subject';
     import { ISlotFactoryContext } from 'react-declarative/components/One/components/SlotFactory';
     type DataOrNull<Data = IAnything> = Data | null;
-    export type OneHandler<Data = IAnything> = Data | (() => DataOrNull<Data>) | (() => Promise<DataOrNull<Data>>) | null;
+    export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload: Payload) => DataOrNull<Data>) | ((payload: Payload) => Promise<DataOrNull<Data>>) | null;
     export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
             /**
                 * Ссылка на объект API
@@ -1568,7 +1568,7 @@ declare module 'react-declarative/model/IOneProps' {
             /**
                 * Позволяет загружать данные в компонент
                 */
-            handler?: OneHandler<Data>;
+            handler?: OneHandler<Data, Payload>;
             /**
                 * Объект, передающийся в пользовательские
                 * поля через контекст
@@ -1999,7 +1999,7 @@ declare module 'react-declarative/hooks/useOne' {
     interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
         fields: Field[];
         title?: string;
-        handler?: OneHandler<Data>;
+        handler?: OneHandler<Data, Payload>;
         payload?: IOneProps<Data, Payload, Field>['payload'];
     }
     export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
@@ -4425,7 +4425,8 @@ declare module 'react-declarative/components/One/other/OtherItemsSlot' {
 declare module 'react-declarative/components/One/api/useLocalHandler' {
     import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
     import IAnything from "react-declarative/model/IAnything";
-    export interface ILocalHandlerParams<Data extends IAnything = IAnything> {
+    export interface ILocalHandlerParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
+        payload?: Payload;
         resultMap?: (json: Record<string, any> | null) => Data | null;
         onLoadBegin?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -4435,7 +4436,7 @@ declare module 'react-declarative/components/One/api/useLocalHandler' {
         data: Data | null;
         change: IOneProps<Data>['change'];
     }
-    export const useLocalHandler: <Data extends unknown = any>(handler: OneHandler<Data>, { resultMap, onLoadBegin, onLoadEnd, fallback, }?: ILocalHandlerParams<Data>) => ILocalHandlerResult<Data>;
+    export const useLocalHandler: <Data extends unknown = any, Payload extends unknown = any>(handler: OneHandler<Data, Payload>, { resultMap, payload, onLoadBegin, onLoadEnd, fallback, }?: ILocalHandlerParams<Data, any>) => ILocalHandlerResult<Data>;
     export default useLocalHandler;
 }
 
@@ -4448,7 +4449,7 @@ declare module 'react-declarative/components/One/api/useStaticHandler' {
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
     }
-    export const useStaticHandler: <Data extends unknown = any>(handler: OneHandler<Data>, { resultMap, onLoadBegin, onLoadEnd, fallback, }?: IStaticHandlerParams<Data>) => OneHandler<Data>;
+    export const useStaticHandler: <Data extends unknown = any, Payload = any>(handler: OneHandler<Data, Payload>, { resultMap, onLoadBegin, onLoadEnd, fallback, }?: IStaticHandlerParams<Data>) => OneHandler<Data, Payload>;
     export default useStaticHandler;
 }
 
@@ -4974,13 +4975,14 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IField from "react-declarative/model/IField";
     import IOneApi from "react-declarative/model/IOneApi";
     import IAnything from "react-declarative/model/IAnything";
-    import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
-    export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = void> {
+    import IOneProps from "react-declarative/model/IOneProps";
+    export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
         apiRef?: React.Ref<IOneApi>;
         fields: Field[];
         title?: string;
         dirty?: boolean;
-        handler?: OneHandler<Data>;
+        param?: Param;
+        handler?: IOneProps<Data, Payload>['handler'];
         payload?: IOneProps<Data, Payload>['payload'];
         changeSubject?: IOneProps<Data, Payload>['changeSubject'];
         reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
@@ -4994,7 +4996,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, void>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5003,17 +5005,18 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     import TypedField from "react-declarative/model/TypedField";
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
-    interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = void> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
+    interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = any> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
         open: never;
     }> {
+        param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = void>({ fields, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Payload, Field, Param>) => {
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
     };
-    export const useActionModalTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data, any>, IField<Data, any>, void>) => {
+    export const useActionModalTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data, any>, IField<Data, any>, any>) => {
         render: () => JSX.Element;
-        pickData: (param?: void | undefined) => void;
+        pickData: (param?: any) => void;
     };
     export default useActionModal;
 }
@@ -5428,7 +5431,7 @@ declare module 'react-declarative/components/AuthView/AuthView' {
         sx?: SxProps;
         appName?: string;
         fields?: Field[];
-        handler?: OneHandler<Data>;
+        handler?: OneHandler<Data, Payload>;
         Logo?: React.ComponentType<any>;
         onAuth?: (data: Data) => (void | Promise<void>);
         onLoadStart?: () => void;

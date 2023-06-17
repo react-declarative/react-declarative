@@ -15,26 +15,26 @@ export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
 
 const EMPTY_RESPONSE = null;
 
-const resolveHandler = async <Data = IAnything>(handler: OneHandler<Data>): Promise<Data | null> => {
+const resolveHandler = async <Data = IAnything, Payload = IAnything>(handler: OneHandler<Data, Payload>, payload: Payload): Promise<Data | null> => {
     if (typeof handler === 'function') {
-        const result = (handler as Function)();
+        const result = (handler as Function)(payload);
         return result instanceof Promise ? (await result) : result;
     } else {
         return handler;
     }
 };
 
-export const useStaticHandler = <Data extends IAnything = IAnything>(handler: OneHandler<Data>, {
+export const useStaticHandler = <Data extends IAnything = IAnything, Payload = IAnything>(handler: OneHandler<Data, Payload>, {
     resultMap = (data) => data as Data,
     onLoadBegin,
     onLoadEnd,
     fallback,
-}: IStaticHandlerParams<Data> = {}): OneHandler<Data> => {
-    const resultHandler: OneHandler<Data> = useMemo(() => async () => {
+}: IStaticHandlerParams<Data> = {}): OneHandler<Data, Payload> => {
+    const resultHandler: OneHandler<Data> = useMemo(() => async (payload: Payload) => {
         onLoadBegin && onLoadBegin();
         let isOk = true;
         try {
-            const data = await resolveHandler<Data>(handler);
+            const data = await resolveHandler<Data>(handler, payload);
             return resultMap((data || {}) as Record<string, any>);
         } catch (e) {
             isOk = false;

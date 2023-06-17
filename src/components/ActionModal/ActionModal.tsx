@@ -17,19 +17,20 @@ import classNames from "../../utils/classNames";
 import IField from "../../model/IField";
 import IOneApi from "../../model/IOneApi";
 import IAnything from "../../model/IAnything";
-import IOneProps, { OneHandler } from "../../model/IOneProps";
+import IOneProps from "../../model/IOneProps";
 
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,
   Field = IField<Data>,
-  Param = void,
+  Param = any,
 > {
   apiRef?: React.Ref<IOneApi>;
   fields: Field[];
   title?: string;
   dirty?: boolean;
-  handler?: OneHandler<Data>;
+  param?: Param;
+  handler?: IOneProps<Data, Payload>['handler'];
   payload?: IOneProps<Data, Payload>['payload'];
   changeSubject?: IOneProps<Data, Payload>['changeSubject'];
   reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
@@ -85,6 +86,7 @@ export const ActionModal = <
   onLoadEnd,
   fallback,
   fields,
+  param,
   handler,
   payload,
   title,
@@ -127,7 +129,7 @@ export const ActionModal = <
     try {
       handleLoadStart()
       if (isEnabled) {
-        await onSubmit(data);
+        await onSubmit(data, param);
       }
     } catch (e: any) {
       isOk = false;
@@ -147,7 +149,7 @@ export const ActionModal = <
     try {
       handleLoadStart()
       if (isEnabled) {
-        await onSubmit(null);
+        await onSubmit(null, param);
       }
     } catch (e: any) {
       isOk = false;

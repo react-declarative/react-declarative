@@ -17,7 +17,7 @@ type Fn<Data = IAnything> = (d: Data | null) => void;
 interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   fields: Field[];
   title?: string;
-  handler?: OneHandler<Data>;
+  handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>['payload'];
 }
 
