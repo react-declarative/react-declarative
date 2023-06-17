@@ -20,6 +20,8 @@ const useStyles = makeStyles()({
     width: 260,
     position: 'relative',
     pointerEvents: 'none',
+    userSelect: "none",
+    cursor: "pointer",
   },
   squareMask: {
     width: '100%',

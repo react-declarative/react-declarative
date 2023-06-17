@@ -51,8 +51,9 @@ const useStyles = makeStyles()((theme) => ({
 
 export const TimePicker = ({
   onChange = (change: any) => console.log({change}),
-  date = dayjs(),
+  date: upperDate = dayjs(),
 }) => {
+  const [date, setDate] = useState(upperDate);
   const { classes } = useStyles();
   const [state, setState] = useState({
     meridiemMode: date.format('a'),
@@ -65,6 +66,7 @@ export const TimePicker = ({
         : time.hour() + 12;
       time = time.clone().hour(hours);
     }
+    setDate(time);
     onChange(time);
   }, [state]);
   const setMeridiemMode = (mode: any) => () => setState((p) => ({...p, meridiemMode: mode }));

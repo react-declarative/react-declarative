@@ -27,7 +27,7 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 export const DatePicker = ({
-  date = dayjs(),
+  date: upperDate = dayjs(),
   minDate = '1900-01-01',
   maxDate = '2100-01-01',
   onChange = (change: any) => console.log({ change }),
@@ -35,14 +35,19 @@ export const DatePicker = ({
   animateYearScrolling = true,
   openToYearSelection = false,
 }) => {
+  const [date, setDate] = useState(upperDate);
   const [showYearSelection, setShowYearSelection] = useState(openToYearSelection);
   const { classes } = useStyles();
   const openYearSelection = () => setShowYearSelection(true);
   const openCalendar = () => setShowYearSelection(false);
   const startOfDay = date.startOf('day');
+  const handleChange = (date: any) => {
+    setDate(date);
+    onChange(date);
+  };
   const onYearChange = (date: any) => {
     setShowYearSelection(false);
-    onChange(date);
+    handleChange(date);
   };
   return (
     <div className={classes.container}>
@@ -74,7 +79,7 @@ export const DatePicker = ({
           :
           <Calendar
             date={startOfDay}
-            onChange={onChange}
+            onChange={handleChange}
             disableFuture={disableFuture}
           />
       }
