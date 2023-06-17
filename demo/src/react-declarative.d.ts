@@ -4399,6 +4399,7 @@ declare module 'react-declarative/components/One/context/StateProvider' {
     import IAnything from 'react-declarative/model/IAnything';
     import IOneProps from 'react-declarative/model/IOneProps';
     interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends IOneProps<Data, Payload, Field> {
+        payload: Payload;
         children: React.ReactElement;
     }
     interface IState<Data = IAnything> {

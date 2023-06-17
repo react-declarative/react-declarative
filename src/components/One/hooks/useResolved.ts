@@ -25,7 +25,6 @@ import useSubject from '../../../hooks/useSubject';
 import { PickProp } from '../../../model/IManaged';
 
 import { useApiRef } from '../context/ApiProvider';
-import usePayloadContext from '../../CardView/context/PayloadContext';
 
 const LOAD_SOURCE = 'one-resolve';
 
@@ -33,6 +32,7 @@ interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
     handler: PickProp<IOneProps<Data, Payload>, 'handler'>;
     fallback: PickProp<IOneProps<Data, Payload>, 'fallback'>;
     fields: PickProp<IOneProps<Data, Payload>, 'fields'>;
+    payload: Payload;
     roles: PickProp<IOneProps<Data, Payload>, 'roles'>;
     change: PickProp<IOneProps<Data, Payload>, 'change'>;
     loadStart: PickProp<IOneProps<Data, Payload>, 'loadStart'>;
@@ -68,13 +68,13 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
     fallback,
     fields,
     roles,
+    payload,
     change,
     loadStart,
     loadEnd,
 }: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const data$ = useActualValue(data);
-    const payload = usePayloadContext();
     const { 
         apiRef, 
         changeSubject: upperChangeSubject,

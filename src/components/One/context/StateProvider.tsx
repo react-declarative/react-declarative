@@ -12,6 +12,7 @@ import IOneProps from '../../../model/IOneProps';
 
 interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends 
     IOneProps<Data, Payload, Field> {
+    payload: Payload;
     children: React.ReactElement;
 }
 
@@ -36,6 +37,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         change = () => null,
         fallback = () => null,
         handler = () => ({} as Data),
+        payload,
         loadStart,
         loadEnd,
     } = otherProps;
@@ -45,6 +47,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         fallback,
         fields,
         roles,
+        payload,
         change,
         loadStart,
         loadEnd,
