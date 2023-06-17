@@ -8,6 +8,7 @@
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
+//   ../../@mui/material/Stack
 //   ../../@mui/material/styles
 //   ../../@mui/system
 //   ../../@mui/material/Tabs
@@ -144,6 +145,7 @@ declare module 'react-declarative' {
     export type pickPromptFn = ReturnType<typeof usePrompt>;
     export { default as dayjs } from 'dayjs';
     export { DocumentView } from 'react-declarative/components';
+    export { AlertView } from 'react-declarative/components';
     export { ImageView } from 'react-declarative/components';
     export { ConstraintView } from 'react-declarative/components';
     export { DragDropView } from 'react-declarative/components';
@@ -2058,6 +2060,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ModalProvider';
     export * from 'react-declarative/components/SnackProvider';
     export * from 'react-declarative/components/ConstraintView';
+    export * from 'react-declarative/components/AlertView';
     export * from 'react-declarative/components/DragDropView';
     export * from 'react-declarative/components/FilesView';
     export * from 'react-declarative/components/ScrollView';
@@ -3752,6 +3755,11 @@ declare module 'react-declarative/components/ConstraintView' {
     export { default } from 'react-declarative/components/ConstraintView/ConstraintView';
 }
 
+declare module 'react-declarative/components/AlertView' {
+    export * from 'react-declarative/components/AlertView/AlertView';
+    export { default } from 'react-declarative/components/AlertView/AlertView';
+}
+
 declare module 'react-declarative/components/DragDropView' {
     export * from 'react-declarative/components/DragDropView/DragDropView';
     export { default } from 'react-declarative/components/DragDropView/DragDropView';
@@ -5025,6 +5033,20 @@ declare module 'react-declarative/components/ConstraintView/ConstraintView' {
     }
     export const ConstraintView: <T extends unknown = any>({ desktopView: Desktop, tabletView: Tablet, phoneView: Phone, onViewChanged, params, ...otherProps }: IConstraintViewProps<T>) => JSX.Element;
     export default ConstraintView;
+}
+
+declare module 'react-declarative/components/AlertView/AlertView' {
+    import { StackProps } from '@mui/material/Stack';
+    interface IAlert {
+        color: 'success' | 'info' | 'warning' | 'error';
+        content: string;
+    }
+    interface IAlertViewProps extends StackProps {
+        items?: IAlert[];
+        variant?: 'standard' | 'filled' | 'outlined';
+    }
+    export const AlertView: ({ className, items, variant, ...otherProps }: IAlertViewProps) => JSX.Element;
+    export default AlertView;
 }
 
 declare module 'react-declarative/components/DragDropView/DragDropView' {
