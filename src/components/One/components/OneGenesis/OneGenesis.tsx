@@ -92,9 +92,9 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
   return (
     <NoSsr>
       <ThemeProvider>
-        <StateProvider<Data, Payload, Field> {...stateParams}>
-          <SlotFactory {...slots}>
-            <PayloadProvider payload={payload}>
+        <PayloadProvider payload={payload}>
+          <StateProvider<Data, Payload, Field> {...stateParams}>
+            <SlotFactory {...slots}>
               <Group
                 className={classNames(className, {
                   [classes.readonly]: props.readonly,
@@ -104,9 +104,9 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
               >
                 <OneInternal<Data, Payload, Field> {...viewParams} />
               </Group>
-            </PayloadProvider>
-          </SlotFactory>
-        </StateProvider>
+            </SlotFactory>
+          </StateProvider>
+        </PayloadProvider>
       </ThemeProvider>
     </NoSsr>
   );
