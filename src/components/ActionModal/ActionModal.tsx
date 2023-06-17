@@ -22,7 +22,8 @@ import IOneProps, { OneHandler } from "../../model/IOneProps";
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,
-  Field = IField<Data>
+  Field = IField<Data>,
+  Param = void,
 > {
   apiRef?: React.Ref<IOneApi>;
   fields: Field[];
@@ -32,7 +33,7 @@ export interface IActionModalProps<
   payload?: IOneProps<Data, Payload>['payload'];
   changeSubject?: IOneProps<Data, Payload>['changeSubject'];
   reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
-  onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (data: Data | null, param: Param) => Promise<boolean> | boolean;
   onChange?: (data: Data, initial: boolean) => void;
   onInvalid?: (name: string, msg: string) => void;
   onLoadStart?: () => void;

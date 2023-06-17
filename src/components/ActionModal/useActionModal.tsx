@@ -4,14 +4,20 @@ import { useState, useCallback } from "react";
 import ActionModal, { IActionModalProps } from "./ActionModal";
 
 import useActualCallback from "../../hooks/useActualCallback";
+import useActualValue from "../../hooks/useActualValue";
 
 import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 
-interface IParams<Data extends IAnything = IAnything, Field = IField<Data>>
+interface IParams<
+  Data extends IAnything = IAnything,
+  Payload extends IAnything = IAnything,
+  Field = IField<Data>,
+  Param = void,
+>
   extends Omit<
-    IActionModalProps<Data, Field>,
+    IActionModalProps<Data, Payload, Field, Param>,
     keyof {
       open: never;
     }
@@ -19,7 +25,9 @@ interface IParams<Data extends IAnything = IAnything, Field = IField<Data>>
 
 export const useActionModal = <
   Data extends IAnything = IAnything,
-  Field = IField<Data>
+  Payload extends IAnything = IAnything,
+  Field = IField<Data>,
+  Param = void,
 >({
   fields,
   handler,
@@ -37,13 +45,15 @@ export const useActionModal = <
   throwError,
   dirty,
   title,
-}: IParams<Data, Field>) => {
+}: IParams<Data, Payload, Field, Param>) => {
   const [open, setOpen] = useState(false);
+  const [param, setParam] = useState<Param>(null as never);
 
   const onSubmit$ = useActualCallback(onSubmit);
+  const param$ = useActualValue(param);
 
   const handleSubmit = useCallback(async (data: Data | null) => {
-    const result = await onSubmit$(data);
+    const result = await onSubmit$(data, param$.current);
     setOpen(!result);
     return result;
   }, []);
@@ -91,7 +101,8 @@ export const useActionModal = <
     ]
   );
 
-  const pickData = useCallback(() => {
+  const pickData = useCallback((param?: Param) => {
+    setParam(param as Param);
     setOpen(true);
   }, []);
 

@@ -4975,7 +4975,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IOneApi from "react-declarative/model/IOneApi";
     import IAnything from "react-declarative/model/IAnything";
     import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
-    export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>> {
+    export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = void> {
         apiRef?: React.Ref<IOneApi>;
         fields: Field[];
         title?: string;
@@ -4984,7 +4984,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         payload?: IOneProps<Data, Payload>['payload'];
         changeSubject?: IOneProps<Data, Payload>['changeSubject'];
         reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
-        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (data: Data | null, param: Param) => Promise<boolean> | boolean;
         onChange?: (data: Data, initial: boolean) => void;
         onInvalid?: (name: string, msg: string) => void;
         onLoadStart?: () => void;
@@ -4994,7 +4994,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, void>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5003,17 +5003,17 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     import TypedField from "react-declarative/model/TypedField";
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
-    interface IParams<Data extends IAnything = IAnything, Field = IField<Data>> extends Omit<IActionModalProps<Data, Field>, keyof {
+    interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = void> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
         open: never;
     }> {
     }
-    export const useActionModal: <Data extends unknown = any, Field = IField<Data, any>>({ fields, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Field>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = void>({ fields, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Payload, Field, Param>) => {
         render: () => JSX.Element;
-        pickData: () => void;
+        pickData: (param?: Param | undefined) => void;
     };
-    export const useActionModalTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data, any>>) => {
+    export const useActionModalTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data, any>, IField<Data, any>, void>) => {
         render: () => JSX.Element;
-        pickData: () => void;
+        pickData: (param?: void | undefined) => void;
     };
     export default useActionModal;
 }
