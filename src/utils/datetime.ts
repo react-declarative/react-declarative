@@ -30,10 +30,10 @@ export class Date {
     };
     toStamp = () => {
         const start = dayjs('1970-01-01');
-        const now = dayjs();
-        now.set('date', this.day);
-        now.set('month', this.month - 1);
-        now.set('year', this.year);
+        let now = dayjs();
+        now = now.set('date', this.day);
+        now = now.set('month', this.month - 1);
+        now = now.set('year', this.year);
         if (now.isValid()) {
             return Math.max(now.diff(start, 'day'), -1);
         } else {
