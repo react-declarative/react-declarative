@@ -39,6 +39,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   active: {
     color: theme.palette.primary.main,
+    fontWeight: 'bold',
   },
   cell: {
     display: 'flex',
@@ -90,7 +91,7 @@ export const Calendar = ({
           [classes.hidden]: day.get('month') !== currentMonthNumber,
           [classes.selected]: day.toString() === date.toString(),
           [classes.disabled]: disableFuture && day.isAfter(dayjs()),
-          [classes.active]: dayjs().isSame(day, 'date')
+          [classes.active]: date.isSame(day, 'date')
         });
         return (
           <IconButton

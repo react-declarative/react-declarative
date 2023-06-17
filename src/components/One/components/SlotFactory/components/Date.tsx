@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import dayjs from "dayjs";
 
 import Popover from "@mui/material/Popover";
@@ -85,6 +85,21 @@ export const Date = ({
     setValue(pendingValue);
   };
 
+  const dayjsValue = useMemo(() => {
+    if (value) {
+      const date = datetime.parseDate(value);
+      if (!date) {
+        return undefined;
+      }
+      let now = dayjs();
+      now = now.set('date', date.day);
+      now = now.set('month', date.month - 1);
+      now = now.set('year', date.year);
+      return now;
+    }
+    return undefined;
+  }, [value]);
+
   return (
     <>
       <TextField
@@ -121,6 +136,7 @@ export const Date = ({
         }}
       >
         <DatePicker
+          date={dayjsValue}
           onChange={(value: dayjs.Dayjs | null) => {
             if (value) {
               const day = value.get('date');

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import dayjs from "dayjs";
 
 import Popover from "@mui/material/Popover";
@@ -86,6 +86,20 @@ export const Time = ({
     setValue(pendingValue);
   };
 
+  const dayjsValue = useMemo(() => {
+    if (value) {
+      const date = datetime.parseTime(value);
+      if (!date) {
+        return undefined;
+      }
+      let now = dayjs();
+      now = now.set('hour', date.hour);
+      now = now.set('minute', date.minute);
+      return now;
+    }
+    return undefined;
+  }, [value]);
+
   return (
     <>
       <TextField
@@ -122,6 +136,7 @@ export const Time = ({
         }}
       >
         <TimePicker
+          date={dayjsValue}
           onChange={(value: dayjs.Dayjs | null) => {
             if (value) {
               const hour = value.get('hour');
