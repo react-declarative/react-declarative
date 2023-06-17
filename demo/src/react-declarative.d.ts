@@ -5073,11 +5073,11 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
     import { MemoryHistory, BrowserHistory, HashHistory } from 'history';
     interface IParams {
         history: MemoryHistory | BrowserHistory | HashHistory;
+        withConfirm?: boolean;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
-        check?: () => boolean;
     }
-    export const usePreventNavigate: ({ history, check, onLoadStart, onLoadEnd, }: IParams) => {
+    export const usePreventNavigate: ({ history, withConfirm, onLoadStart, onLoadEnd, }: IParams) => {
         handleLoadStart: () => void;
         handleLoadEnd: (isOk: boolean) => void;
     };
