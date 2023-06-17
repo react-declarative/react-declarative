@@ -17,6 +17,7 @@ import {
   RecordView,
   ActionButton,
   ActionIcon,
+  ActionFab,
   ActionFilter,
   ActionTrigger,
   ActionStopIcon,
@@ -421,6 +422,9 @@ export const FadePage = () => {
       <ActionStopIcon onClick={handleClick} sx={{ m: 1 }} />
       <ActionStopIcon onClick={handleClick} noProgress sx={{ m: 1 }} />
       <ActionToggle onClick={handleClick} defaultChecked sx={{ m: 1 }} />
+      <ActionFab sx={{ m: 1 }} onClick={handleClick}>
+        <AddIcon />
+      </ActionFab>
       <Button sx={{ m: 1 }} onClick={handlePrompt}>
         Prompt
       </Button>

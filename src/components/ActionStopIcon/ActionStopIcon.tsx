@@ -50,9 +50,16 @@ const useStyles = makeStyles<{
 }) => ({
     root: {
         display: 'inline-flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        height: size,
+        width: size,
+    },
+    container: {
         position: 'relative',
         height: size,
         width: size,
+        flex: 1,
     },
     icon: {
         position: 'absolute',
@@ -134,26 +141,30 @@ export const ActionStopIcon = ({
     };
 
     return (
-        <IconButton
-            {...otherProps}
+        <Box
             className={classNames(className, classes.root)}
-            disabled={!!loading || disabled}
             style={style}
             sx={sx}
-            onClick={handleClick}
         >
-            {!noProgress && (
-                <div className={classes.spinner}>
-                    <CircularProgress
-                        size={size}
-                        thickness={thickness}
-                    />
-                </div>
-            )}
-            <Box className={classes.icon}>
-                {children}
-            </Box>
-        </IconButton>
+            <IconButton
+                {...otherProps}
+                className={classes.container}
+                disabled={!!loading || disabled}
+                onClick={handleClick}
+            >
+                {!noProgress && (
+                    <div className={classes.spinner}>
+                        <CircularProgress
+                            size={size}
+                            thickness={thickness}
+                        />
+                    </div>
+                )}
+                <Box className={classes.icon}>
+                    {children}
+                </Box>
+            </IconButton>
+        </Box>
     );
 };
 

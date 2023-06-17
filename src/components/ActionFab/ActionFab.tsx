@@ -4,7 +4,7 @@ import { useState, useRef, useLayoutEffect } from 'react';
 import { makeStyles } from "../../styles";
 
 import CircularProgress from '@mui/material/CircularProgress';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import Fab, { FabProps } from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 
 import useActualValue from '../../hooks/useActualValue';
@@ -14,27 +14,24 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
-interface IActionIconProps extends Omit<IconButtonProps, keyof {
+interface IActionFabProps extends Omit<FabProps, keyof {
     onClick: never;
-    size: never;
+    size?: never;
 }> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (void | Promise<void>);
     fallback?: (e: Error) => void;
     throwError?: boolean;
-    size?: number;
     thickness?: number;
+    size?: number;
     noProgress?: boolean;
 };
 
 const useStyles = makeStyles<{
     size: number;
     thickness: number;
-}>()((_, {
-    size,
-    // thickness,
-}) => ({
+}>()((_, { size }) => ({
     root: {
         display: 'inline-flex',
         alignItems: 'stretch',
@@ -73,22 +70,23 @@ const useStyles = makeStyles<{
     },
 }));
 
-export const ActionIcon = ({
+export const ActionFab = ({
     className,
     style,
     sx,
     noProgress = false,
     throwError = false,
     disabled = false,
+    size = DEFAULT_SIZE,
+    thickness = DEFAULT_THICKNESS,
+    color = "primary",
     onLoadStart,
     onLoadEnd,
     onClick = () => { },
     fallback,
     children,
-    size = DEFAULT_SIZE,
-    thickness = DEFAULT_THICKNESS,
     ...otherProps
-}: IActionIconProps) => {
+}: IActionFabProps) => {
 
     const { classes } = useStyles({
         size,
@@ -134,11 +132,12 @@ export const ActionIcon = ({
             style={style}
             sx={sx}
         >
-            <IconButton
+            <Fab
                 {...otherProps}
                 className={classes.container}
                 disabled={!!loading || disabled}
                 onClick={handleClick}
+                color={color}
             >
                 {(!!loading && !noProgress) && (
                     <div className={classes.spinner}>
@@ -151,9 +150,9 @@ export const ActionIcon = ({
                 <Box className={classes.icon}>
                     {children}
                 </Box>
-            </IconButton>
+            </Fab>
         </Box>
     );
 };
 
-export default ActionIcon;
+export default ActionFab;

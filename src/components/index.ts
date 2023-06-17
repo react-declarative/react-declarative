@@ -12,6 +12,7 @@ export * from './ErrorBoundary';
 export * from './ActionMenu';
 export * from './ActionButton';
 export * from './ActionStopIcon';
+export * from './ActionFab';
 export * from './ActionFilter';
 export * from './ActionTrigger';
 export * from './ActionIcon';

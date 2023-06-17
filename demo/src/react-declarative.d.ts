@@ -7,6 +7,7 @@
 //   ../../@mui/material/Box
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
+//   ../../@mui/material/Fab
 //   ../../@mui/material/styles
 //   ../../@mui/system
 //   ../../@mui/material/Tabs
@@ -188,6 +189,7 @@ declare module 'react-declarative' {
     export { ActionToggle } from 'react-declarative/components';
     export { ActionMenu } from 'react-declarative/components';
     export { ActionIcon } from 'react-declarative/components';
+    export { ActionFab } from 'react-declarative/components';
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -2046,6 +2048,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ActionMenu';
     export * from 'react-declarative/components/ActionButton';
     export * from 'react-declarative/components/ActionStopIcon';
+    export * from 'react-declarative/components/ActionFab';
     export * from 'react-declarative/components/ActionFilter';
     export * from 'react-declarative/components/ActionTrigger';
     export * from 'react-declarative/components/ActionIcon';
@@ -3711,6 +3714,11 @@ declare module 'react-declarative/components/ActionStopIcon' {
     export { default } from 'react-declarative/components/ActionStopIcon/ActionStopIcon';
 }
 
+declare module 'react-declarative/components/ActionFab' {
+    export * from 'react-declarative/components/ActionFab/ActionFab';
+    export { default } from 'react-declarative/components/ActionFab/ActionFab';
+}
+
 declare module 'react-declarative/components/ActionFilter' {
     export * from 'react-declarative/components/ActionFilter/ActionFilter';
     export * from 'react-declarative/components/ActionFilter/model/IActionFilter';
@@ -4851,6 +4859,26 @@ declare module 'react-declarative/components/ActionStopIcon/ActionStopIcon' {
     export default ActionStopIcon;
 }
 
+declare module 'react-declarative/components/ActionFab/ActionFab' {
+    import * as React from 'react';
+    import { FabProps } from '@mui/material/Fab';
+    interface IActionFabProps extends Omit<FabProps, keyof {
+        onClick: never;
+        size?: never;
+    }> {
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (void | Promise<void>);
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+        thickness?: number;
+        size?: number;
+        noProgress?: boolean;
+    }
+    export const ActionFab: ({ className, style, sx, noProgress, throwError, disabled, size, thickness, color, onLoadStart, onLoadEnd, onClick, fallback, children, ...otherProps }: IActionFabProps) => JSX.Element;
+    export default ActionFab;
+}
+
 declare module 'react-declarative/components/ActionFilter/ActionFilter' {
     import { BoxProps as MatBoxProps } from '@mui/material/Box';
     import IActionFilterProps from 'react-declarative/components/ActionFilter/model/IActionFilterProps';
@@ -5045,9 +5073,14 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
     import { MemoryHistory, BrowserHistory, HashHistory } from 'history';
     interface IParams {
         history: MemoryHistory | BrowserHistory | HashHistory;
-        check: () => boolean;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        check?: () => boolean;
     }
-    export const usePreventNavigate: ({ history, check, }: IParams) => void;
+    export const usePreventNavigate: ({ history, check, onLoadStart, onLoadEnd, }: IParams) => {
+        handleLoadStart: () => void;
+        handleLoadEnd: (isOk: boolean) => void;
+    };
     export default usePreventNavigate;
 }
 
@@ -5483,10 +5516,14 @@ declare module 'react-declarative/components/DocumentView/DocumentView' {
         className?: string;
         style?: React.CSSProperties;
         src: string;
-        onFullScreenClick?: () => void;
-        onDeleteClick?: () => void;
+        onFullScreenClick?: () => (Promise<void> | void);
+        onDeleteClick?: () => (Promise<void> | void);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
     }
-    export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, ...otherProps }: IDocumentViewProps) => JSX.Element;
+    export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: IDocumentViewProps) => JSX.Element;
     export default DocumentView;
 }
 
@@ -5496,10 +5533,14 @@ declare module 'react-declarative/components/ImageView/ImageView' {
         withFullScreen?: boolean;
         withDelete?: boolean;
         src: string;
-        onFullScreenClick?: () => void;
-        onDeleteClick?: () => void;
+        onFullScreenClick?: () => (Promise<void> | void);
+        onDeleteClick?: () => (Promise<void> | void);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
     }
-    export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, ...otherProps }: IImageViewProps) => JSX.Element;
+    export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
 }
 

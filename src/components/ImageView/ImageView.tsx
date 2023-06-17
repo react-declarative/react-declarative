@@ -4,7 +4,8 @@ import { makeStyles } from '../../styles';
 import { darken } from '@mui/system';
 
 import Box, { BoxProps } from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
+
+import ActionFab from '../ActionFab';
 
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -12,12 +13,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import classNames from '../../utils/classNames';
 import openBlank from '../../utils/openBlank';
 
+const FAB_SIZE = 48;
+
 interface IImageViewProps extends BoxProps {
     withFullScreen?: boolean;
     withDelete?: boolean;
     src: string;
-    onFullScreenClick?: () => void;
-    onDeleteClick?: () => void;
+    onFullScreenClick?: () => (Promise<void> | void);
+    onDeleteClick?: () => (Promise<void> | void);
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (e: Error) => void;
+    throwError?: boolean;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -52,7 +59,7 @@ const useStyles = makeStyles()((theme) => ({
     fabDelete: {
         position: 'absolute',
         bottom: 10,
-        right: 60,
+        right: 68,
         zIndex: 2,
     },
 }));
@@ -64,6 +71,10 @@ export const ImageView = ({
     src,
     onFullScreenClick = () => openBlank(src),
     onDeleteClick = () => undefined,
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    throwError = false,
     ...otherProps
 }: IImageViewProps) => {
     const { classes } = useStyles();
@@ -78,24 +89,32 @@ export const ImageView = ({
                 />
             </div>
             {withDelete && (
-                <Fab
+                <ActionFab
                     className={classes.fabDelete}
                     color="primary"
-                    size="small"
+                    size={FAB_SIZE}
                     onClick={onDeleteClick}
+                    onLoadStart={onLoadStart}
+                    onLoadEnd={onLoadEnd}
+                    fallback={fallback}
+                    throwError={throwError}
                 >
-                    <DeleteIcon />
-                </Fab>
+                    <DeleteIcon color="inherit" />
+                </ActionFab>
             )}
             {withFullScreen && (
-                <Fab
+                <ActionFab
                     className={classes.fabFullscreen}
                     color="primary"
-                    size="small"
+                    size={FAB_SIZE}
                     onClick={onFullScreenClick}
+                    onLoadStart={onLoadStart}
+                    onLoadEnd={onLoadEnd}
+                    fallback={fallback}
+                    throwError={throwError}
                 >
-                    <FullscreenIcon />
-                </Fab>
+                    <FullscreenIcon color="inherit" />
+                </ActionFab>
             )}
         </Box>
     );
