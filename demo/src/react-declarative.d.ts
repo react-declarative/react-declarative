@@ -2013,7 +2013,7 @@ declare module 'react-declarative/hooks/useOne' {
 }
 
 declare module 'react-declarative/hooks/useSearchParams' {
-    export type Value = string | number | boolean | null | undefined;
+    export type Value = string | number | boolean | null | undefined | Value[];
     export const useSearchParams: <T = Record<string, Value>>(defaultValues?: Partial<T> | (() => Partial<T>)) => T;
     export default useSearchParams;
 }

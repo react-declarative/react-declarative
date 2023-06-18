@@ -8,6 +8,10 @@ export const useSearchState = <T extends Record<string, Value>>(defaultValues: P
     useEffect(() => {
         const url = new URL(window.location.pathname, window.location.origin);
         Object.entries(state).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+                url.searchParams.set(key, JSON.stringify(value));
+                return;
+            }
             url.searchParams.set(key, String(value));
         });
         window.history.pushState(null, '', url.toString());
