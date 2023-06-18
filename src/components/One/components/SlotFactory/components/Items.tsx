@@ -13,6 +13,7 @@ import Chip from "@mui/material/Chip";
 import Async from '../../../../Async';
 
 import randomString from '../../../../../utils/randomString';
+import isObject from '../../../../../utils/isObject';
 import objects from '../../../../../utils/objects';
 import arrays from '../../../../../utils/arrays';
 
@@ -49,7 +50,13 @@ export const Items = ({
     const { object: upperObject } = useOneState();
     const payload = useOnePayload();
 
-    const value = useMemo(() => upperValue ? Object.values<string>(upperValue) : [], [upperValue]);
+    const value = useMemo(() => {
+        if (upperValue) {
+            const result = Object.values(upperValue);
+            return isObject(result) ? [] : result;
+        }
+        return [];
+    }, [upperValue]);
 
     const { fallback = (e: Error) => {
         throw e;
@@ -154,7 +161,7 @@ export const Items = ({
 
         const handleChange = (value: any) => {
             if (keepSync) {
-                onChange(value)
+                onChange(value?.length ? objects(value) : null)
             }
             setValue(value);
         };
@@ -165,7 +172,7 @@ export const Items = ({
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 readOnly={readonly || unfocused}
-                onChange={({ }, v) => handleChange(v.length ? objects(v) : null)}
+                onChange={({ }, value) => handleChange(value)}
                 getOptionLabel={createGetOptionLabel(labels)}
                 value={value}
                 options={options}

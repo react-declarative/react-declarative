@@ -197,6 +197,9 @@ export const LayoutGrid = () => {
         >
             <Fragment>
                 <OneTyped
+                    handler={() => ({
+                        lists: { 0: "default" }
+                    }) as any}
                     fields={fields}
                     change={(newData) => setData(newData)}
                 />
