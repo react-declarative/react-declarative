@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import useSearchParams, { Value } from './useSearchParams';
 
+import isObject from '../utils/isObject';
+
 export const useSearchState = <T extends Record<string, Value>>(defaultValues: Partial<T> | (() => Partial<T>) = {}) => {
     const initialValue = useSearchParams(defaultValues);
     const [state, setState] = useState(initialValue);
@@ -9,6 +11,10 @@ export const useSearchState = <T extends Record<string, Value>>(defaultValues: P
         const url = new URL(window.location.pathname, window.location.origin);
         Object.entries(state).forEach(([key, value]) => {
             if (Array.isArray(value)) {
+                url.searchParams.set(key, JSON.stringify(value));
+                return;
+            }
+            if (isObject(value)) {
                 url.searchParams.set(key, JSON.stringify(value));
                 return;
             }

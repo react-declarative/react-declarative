@@ -30,7 +30,7 @@ const getArrayHash = (value: any) =>
     .join('-');
 
 export const Items = ({
-    value,
+    value: upperValue,
     disabled,
     fieldReadonly,
     description,
@@ -48,6 +48,8 @@ export const Items = ({
 
     const { object: upperObject } = useOneState();
     const payload = useOnePayload();
+
+    const value = useMemo(() => upperValue ? Object.values<string>(upperValue) : [], [upperValue]);
 
     const { fallback = (e: Error) => {
         throw e;
@@ -165,7 +167,7 @@ export const Items = ({
                 readOnly={readonly || unfocused}
                 onChange={({ }, v) => handleChange(v.length ? objects(v) : null)}
                 getOptionLabel={createGetOptionLabel(labels)}
-                value={value ? Object.values<string>(value) : []}
+                value={value}
                 options={options}
                 disabled={disabled}
                 renderTags={createRenderTags(labels)}
