@@ -82,6 +82,7 @@ export const Items = ({
         dirty,
         invalid,
         object,
+        fieldReadonly,
     ]);
 
     const createRenderTags = (labels: Record<string, any>) => (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {

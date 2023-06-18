@@ -69,6 +69,7 @@ export const Combo = ({
     dirty,
     invalid,
     object,
+    fieldReadonly,
   ]);
 
   const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
