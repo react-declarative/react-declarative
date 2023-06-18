@@ -42,6 +42,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     withSort?: boolean;
     withTotal?: boolean;
     withSearch?: boolean;
+    searchEntries?: string[];
     fallback?: (e: Error) => void;
     onData?: (rows: RowData[], state: ILastPaginationState<FilterData, RowData>) => void;
     onLoadStart?: () => void;
@@ -49,6 +50,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
 }
 
 export const useArrayPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
+    searchEntries = SEARCH_ENTRIES,
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
@@ -68,7 +70,15 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     },
     filterHandler = (rows, filterData) => {
         Object.entries(filterData).forEach(([key, value]) => {
-            if (value) {
+            if (Array.isArray(value)) {
+                value.forEach((value) => {
+                    const templateValue = String(value).toLocaleLowerCase();
+                    rows = rows.filter((row) => {
+                        const rowValue = String(row[key as keyof RowData]).toLowerCase();
+                        return rowValue.includes(templateValue);
+                    });
+                });
+            } else if (value) {
                 const templateValue = String(value).toLocaleLowerCase();
                 rows = rows.filter((row) => {
                     const rowValue = String(row[key as keyof RowData]).toLowerCase();
@@ -107,7 +117,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     },
     searchHandler = (rows, search) => {
         if (rows.length && search) {
-            const searchEntry = SEARCH_ENTRIES.find((entry) => rows[0][entry]);
+            const searchEntry = searchEntries.find((entry) => rows[0][entry]);
             if (searchEntry) {
                 return rows.filter((row) => {
                     return String(row[searchEntry]).toLowerCase().includes(search.toLowerCase());

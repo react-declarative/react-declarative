@@ -62,7 +62,11 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     },
     filterHandler = (url, filterData) => {
         Object.entries(filterData).forEach(([k, v]) => {
-            if (v) {
+            if (Array.isArray(v)) {
+                v.forEach((v) => {
+                    url.searchParams.append(`filter.${k}`, `$lte:${v}`);
+                });
+            } else if (v) {
                 url.searchParams.append(`filter.${k}`, `$lte:${v}`);
             }
         });
