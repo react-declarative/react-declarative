@@ -433,6 +433,7 @@ export { roundTicks } from './utils/roundTicks';
 export { wordForm } from './utils/wordForm';
 
 export { singleshot } from './utils/hof/singleshot';
+export { afterinit } from './utils/hof/afterinit';
 export { singlerun, Task } from './utils/hof/singlerun';
 export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from './utils/hof/cancelable';
 export { debounce } from './utils/hof/debounce';

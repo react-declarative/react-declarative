@@ -347,6 +347,7 @@ declare module 'react-declarative' {
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
     export { singleshot } from 'react-declarative/utils/hof/singleshot';
+    export { afterinit } from 'react-declarative/utils/hof/afterinit';
     export { singlerun, Task } from 'react-declarative/utils/hof/singlerun';
     export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
     export { debounce } from 'react-declarative/utils/hof/debounce';
@@ -2259,6 +2260,15 @@ declare module 'react-declarative/utils/hof/singleshot' {
     }
     export const singleshot: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default singleshot;
+}
+
+declare module 'react-declarative/utils/hof/afterinit' {
+    export interface IWrappedFn<T extends any = any, P extends any[] = any> {
+        (...args: P): Promise<T>;
+        clear(): void;
+    }
+    export const afterinit: <T extends unknown = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
+    export default afterinit;
 }
 
 declare module 'react-declarative/utils/hof/singlerun' {
