@@ -2013,7 +2013,7 @@ declare module 'react-declarative/hooks/useOne' {
 }
 
 declare module 'react-declarative/hooks/useSearchParams' {
-    export type Value = string | number | boolean | null | undefined | Value[];
+    export type Value = string | number | boolean | null | undefined;
     export const useSearchParams: <T = Record<string, Value>>(defaultValues?: Partial<T> | (() => Partial<T>)) => T;
     export default useSearchParams;
 }
@@ -4250,7 +4250,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
         Combo: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
-        Items: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
+        Items: ({ value: upperValue, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, fieldReadonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
