@@ -3,6 +3,7 @@ export * from './List';
 export * from './NoSsr';
 export * from './Switch';
 export * from './Center';
+export * from './Square';
 export * from './Scaffold';
 export * from './Scaffold2';
 export * from './Translate';
