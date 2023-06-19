@@ -231,6 +231,8 @@ declare module 'react-declarative' {
     export { Breadcrumbs } from 'react-declarative/components';
     export { Breadcrumbs2 } from 'react-declarative/components';
     export { Switch } from 'react-declarative/components';
+    export { Center } from 'react-declarative/components';
+    export { Square } from 'react-declarative/components';
     export { NoSsr } from 'react-declarative/components';
     export { OtherComboSlot } from 'react-declarative/components';
     export { OtherItemsSlot } from 'react-declarative/components';
@@ -2043,6 +2045,8 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/List';
     export * from 'react-declarative/components/NoSsr';
     export * from 'react-declarative/components/Switch';
+    export * from 'react-declarative/components/Center';
+    export * from 'react-declarative/components/Square';
     export * from 'react-declarative/components/Scaffold';
     export * from 'react-declarative/components/Scaffold2';
     export * from 'react-declarative/components/Translate';
@@ -3691,6 +3695,16 @@ declare module 'react-declarative/components/Switch' {
     export { default } from 'react-declarative/components/Switch/Switch';
 }
 
+declare module 'react-declarative/components/Center' {
+    export * from 'react-declarative/components/Center/Center';
+    export { default } from 'react-declarative/components/Center/Center';
+}
+
+declare module 'react-declarative/components/Square' {
+    export * from 'react-declarative/components/Square/Square';
+    export { default } from 'react-declarative/components/Square/Square';
+}
+
 declare module 'react-declarative/components/Scaffold' {
     export * from "react-declarative/components/Scaffold/Scaffold";
     export * from "react-declarative/components/Scaffold/model/IScaffoldProps";
@@ -4683,6 +4697,24 @@ declare module 'react-declarative/components/Switch/Switch' {
     }
     export const Switch: ({ className, style, Loader, Forbidden, NotFound, Error, animation, history, children, fallback, items, onLoadStart, onLoadEnd, onInit, onDispose, throwError, }: ISwitchProps) => JSX.Element;
     export default Switch;
+}
+
+declare module 'react-declarative/components/Center/Center' {
+    import { BoxProps } from '@mui/material/Box';
+    interface ICenterProps extends BoxProps {
+    }
+    export const Center: ({ className, ...otherProps }: ICenterProps) => JSX.Element;
+    export default Center;
+}
+
+declare module 'react-declarative/components/Square/Square' {
+    import * as React from 'react';
+    import { BoxProps } from '@mui/material/Box';
+    interface ISquareProps extends BoxProps {
+        children: React.ReactNode;
+    }
+    export const Square: ({ className, children, ...otherProps }: ISquareProps) => JSX.Element;
+    export default Square;
 }
 
 declare module 'react-declarative/components/Scaffold/Scaffold' {

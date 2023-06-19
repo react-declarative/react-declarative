@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo, useRef, useLayoutEffect } from 'react';
 
 import IconButton from "@mui/material/IconButton";
 import MatTextField from "@mui/material/TextField";
@@ -15,6 +16,7 @@ import icon from '../../../../../utils/createIcon';
 import formatText from '../../../../../utils/formatText';
 
 const LOADING_LABEL = 'Loading';
+const NEVER_POS = Symbol('never-pos');
 
 const icons = (
     leadingIcon: string | React.ComponentType | undefined,
@@ -86,6 +88,10 @@ const multiline = (inputRows: number) => ({
     rows: inputRows,
 });
 
+const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
+    return element.selectionStart || element.value.length;
+};
+
 export const Text = ({
     invalid,
     value,
@@ -119,33 +125,105 @@ export const Text = ({
     inputRef,
     onChange,
     name,
-}: ITextSlot) => (
-    <MatTextField
-        name={name}
-        inputRef={inputRef}
-        variant={outlined ? "outlined" : "standard"}
-        helperText={(dirty && invalid) || description}
-        error={dirty && invalid !== null}
-        InputProps={{
-            autoComplete: autoComplete,
-            readOnly: readonly,
-            inputMode,
-            autoFocus,
-            ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
-        }}
-        inputProps={{
-            pattern: inputPattern,
-        }}
-        type={inputType}
-        focused={autoFocus}
-        autoComplete={autoComplete}
-        value={loading ? LOADING_LABEL : String(value)}
-        placeholder={placeholder}
-        onChange={({ target }) => onChange(inputFormatter(target.value))}
-        label={title}
-        disabled={disabled}
-        {...multiline(rows)}
-    />
-);
+}: ITextSlot) => {
+    const inputElementRef = useRef<HTMLInputElement | null>();
+
+    const caretManager = useMemo(() => {
+        let lastPos: symbol | number = NEVER_POS;
+
+        const getAdjust = (pos: number) => {
+            let adjust = 0;
+            for (let i = Math.max(pos - 1, 0); i !== template.length; i++) {
+                const char = template[i];
+                if (char === symbol) {
+                    break;
+                }
+                adjust += 1;
+            }
+            return adjust;
+        };
+
+        return {
+            render: () => {
+                const { current: input } = inputElementRef;
+                if (typeof lastPos === 'number') {
+                    input?.setSelectionRange(lastPos, lastPos);
+                    lastPos = NEVER_POS;
+                }
+            },
+            pos: () => {
+                const { current: input } = inputElementRef;
+                if (input) {
+                    lastPos = getCaretPos(input);
+                    lastPos += getAdjust(lastPos);
+                }
+                return lastPos;
+            },
+        }
+    }, []);
+
+    useLayoutEffect(() => {
+        if (!template) {
+            return;
+        }
+        const { current: input } = inputElementRef;
+        const handler = () => caretManager.pos();
+        input && input.addEventListener('keyup', handler);
+        input && input.addEventListener('click', handler);
+        return () => {
+            input && input.removeEventListener('keyup', handler);
+            input && input.removeEventListener('click', handler);
+        };
+    }, [inputElementRef.current]);
+
+    useLayoutEffect(() => {
+        if (template) {
+            caretManager.render();
+        }
+    }, [value]);
+
+    return (
+        <MatTextField
+            name={name}
+            inputRef={(input: HTMLInputElement | null) => {
+                inputElementRef.current = input;
+                inputRef && inputRef(input);
+            }}
+            variant={outlined ? "outlined" : "standard"}
+            helperText={(dirty && invalid) || description}
+            error={dirty && invalid !== null}
+            InputProps={{
+                autoComplete: autoComplete,
+                readOnly: readonly,
+                inputMode,
+                autoFocus,
+                ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
+            }}
+            inputProps={{
+                pattern: inputPattern,
+            }}
+            type={inputType}
+            focused={autoFocus}
+            autoComplete={autoComplete}
+            value={loading ? LOADING_LABEL : String(value)}
+            placeholder={placeholder}
+            onChange={({ target }) => {
+                let result = target.value;
+                if (template) {
+                    result = "";
+                    for (let i = 0; i !== target.value.length; i++) {
+                        result += target.value[i];
+                        result = inputFormatter(result);
+                    }
+                    caretManager.pos();
+                }
+                onChange(result);
+            }}
+            label={title}
+            disabled={disabled}
+            {...multiline(rows)}
+        />
+    );
+}
 
 export default Text;
