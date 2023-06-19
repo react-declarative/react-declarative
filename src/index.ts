@@ -288,6 +288,7 @@ export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
 export { Breadcrumbs2 } from './components';
 export { Switch } from './components';
+export { Center } from './components';
 export { NoSsr } from './components';
 
 export { OtherComboSlot } from './components';

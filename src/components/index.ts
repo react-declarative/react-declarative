@@ -2,6 +2,7 @@ export * from './One';
 export * from './List';
 export * from './NoSsr';
 export * from './Switch';
+export * from './Center';
 export * from './Scaffold';
 export * from './Scaffold2';
 export * from './Translate';
