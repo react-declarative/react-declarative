@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, SnackProvider, createWebComponent } from 'react-declarative';
+import { ModalProvider, SnackProvider, ListSearch } from 'react-declarative';
 
 import App from './App'
 
@@ -35,7 +35,7 @@ const wrappedApp = (
     <ThemeProvider theme={theme}>
         <ModalProvider>
             <SnackProvider>
-                <App />
+                <ListSearch />
             </SnackProvider>
         </ModalProvider>
     </ThemeProvider>

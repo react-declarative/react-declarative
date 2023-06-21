@@ -193,6 +193,7 @@ declare module 'react-declarative' {
     export { ActionIcon } from 'react-declarative/components';
     export { ActionFab } from 'react-declarative/components';
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
+    export { ListSearch } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
@@ -2062,6 +2063,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ActionIcon';
     export * from 'react-declarative/components/ActionToggle';
     export * from 'react-declarative/components/ActionModal';
+    export * from 'react-declarative/components/ListSearch';
     export * from 'react-declarative/components/SizeProvider';
     export * from 'react-declarative/components/ModalProvider';
     export * from 'react-declarative/components/SnackProvider';
@@ -3775,6 +3777,11 @@ declare module 'react-declarative/components/ActionModal' {
     export { default } from 'react-declarative/components/ActionModal/useActionModal';
 }
 
+declare module 'react-declarative/components/ListSearch' {
+    export * from 'react-declarative/components/ListSearch/ListSearch';
+    export { default } from 'react-declarative/components/ListSearch/ListSearch';
+}
+
 declare module 'react-declarative/components/ConstraintView' {
     export * from 'react-declarative/components/ConstraintView/ConstraintView';
     export { default } from 'react-declarative/components/ConstraintView/ConstraintView';
@@ -5063,6 +5070,23 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         pickData: (param?: any) => void;
     };
     export default useActionModal;
+}
+
+declare module 'react-declarative/components/ListSearch/ListSearch' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IListSearchProps<Data extends IAnything = IAnything> {
+        title?: string;
+        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+        onChange?: (data: Data, initial: boolean) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+        open?: boolean;
+        submitLabel?: string;
+    }
+    export const ListSearch: <Data extends unknown = any>({ onSubmit, onLoadStart, onLoadEnd, fallback, title, open, throwError, submitLabel, }: IListSearchProps<Data>) => JSX.Element;
+    export default ListSearch;
 }
 
 declare module 'react-declarative/components/ConstraintView/ConstraintView' {

@@ -20,6 +20,7 @@ export * from './ActionTrigger';
 export * from './ActionIcon';
 export * from './ActionToggle';
 export * from './ActionModal';
+export * from './ListSearch';
 
 export * from './SizeProvider';
 export * from './ModalProvider';
