@@ -64,6 +64,7 @@ const useStyles = makeStyles()((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: 15,
+    color: theme.palette.text.primary,
   },
   submit: {
     paddingTop: 15,
@@ -166,11 +167,13 @@ export const ActionModal = <
   return (
     <Modal open={open} onClose={handleClose}>
       <Box className={classes.root}>
-        <div className={classes.title}>
-          <Typography variant="h6" component="h2">
-            {title}
-          </Typography>
-        </div>
+        {title && (
+          <div className={classes.title}>
+            <Typography variant="h6" component="h2">
+              {title}
+            </Typography>
+          </div>
+        )}
         <One
           apiRef={apiRef}
           changeSubject={changeSubject}
