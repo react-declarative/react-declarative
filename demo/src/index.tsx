@@ -4,12 +4,14 @@ import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, SnackProvider, ListSearch } from 'react-declarative';
+import { ModalProvider, SnackProvider, SearchModal } from 'react-declarative';
 
 import App from './App'
+import _mock from './pages/mock/list';
+import { columns } from './pages/ListPage';
 
 const theme = createTheme({
-    /*palette: {
+    palette: {
         mode: 'dark',
         primary: {
             main: '#90cbf9',
@@ -26,16 +28,22 @@ const theme = createTheme({
             paper: "#424242",
             default: "#212121",
         },
-    },*/
+    },
 });
 
 const container = document.getElementById('root')!;
+
+console.log(SearchModal);
 
 const wrappedApp = (
     <ThemeProvider theme={theme}>
         <ModalProvider>
             <SnackProvider>
-                <ListSearch />
+                <SearchModal
+                    title="Mother fucker"
+                    handler={() => _mock}
+                    columns={columns}
+                />  
             </SnackProvider>
         </ModalProvider>
     </ThemeProvider>

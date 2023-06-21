@@ -8,21 +8,36 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import ActionButton from "../ActionButton";
+import List from "../List";
 
 import useActualState from "../../hooks/useActualState";
 
 import IAnything from "../../model/IAnything";
+import IRowData from "../../model/IRowData";
+import IField from "../../model/IField";
+import { AutoSizer } from "../AutoSizer";
+import IListProps from "../../model/IListProps";
+import SelectionMode from "../../model/SelectionMode";
 
-export interface IListSearchProps<
-    FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>,
-    Param = IAnything
-> {
+export interface ISearchModalProps<
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything,
+  Payload extends IAnything = IAnything,
+  Field extends IField = IField<FilterData, Payload>,
+> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
+  selectedRows: never;
+  heightRequest: never;
+  widthRequest: never;
+  onSelectedRows: never;
+  onLoadStart: never;
+  onLoadEnd: never;
+  selectionMode: never;
+}> {
   title?: string;
-  onSubmit?: (data: string[] | null) => Promise<boolean> | boolean;
-  onChange?: (data: string[] | null) => void;
+  data?: IRowData['id'][];
+  selectionMode?: SelectionMode.Multiple | SelectionMode.Single;
+  onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
+  onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -54,10 +69,17 @@ const useStyles = makeStyles()((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: 15,
+    color: theme.palette.text.primary,
   },
   content: {
     flex: 1,
     paddingBottom: 15,
+    '& > * > * > * > * > .MuiPaper-root': {
+      background: 'transparent',
+      boxShadow: 'none',
+      border: '0',
+      borderRadius: '0',
+    },
   },
   submit: {
     paddingTop: 15,
@@ -68,31 +90,34 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const ListSearch = <Data extends IAnything = IAnything>({
+export const SearchModal = <
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything,
+  Payload extends IAnything = IAnything,
+  Field extends IField = IField<FilterData, Payload>,
+>({
   onSubmit = () => true,
-  // onChange = () => undefined,
+  onChange = () => undefined,
   onLoadStart,
   onLoadEnd,
   fallback,
   title,
+  selectionMode = SelectionMode.Multiple,
+  data: upperData,
   open = true,
   throwError = false,
   submitLabel = "Submit",
-}: IListSearchProps<Data>) => {
+  ...listProps
+}: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
 
-  const [data] = useState<Data | null>(null);
+  const [data, setData] = useState<IRowData['id'][] | null>(upperData || []);
   const [loading, setLoading] = useActualState(0);
 
-  /*const handleChange = (newData: Data, initial: boolean) => {
+  const handleChange = (newData: IRowData['id'][], initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
   };
-
-  const handleInvalid = (name: string, msg: string) => {
-    setData(null);
-    onInvalid(name, msg);
-  };*/
 
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
@@ -147,17 +172,32 @@ export const ListSearch = <Data extends IAnything = IAnything>({
   return (
     <Modal open={open} onClose={handleClose}>
       <Box className={classes.root}>
-        <div className={classes.title}>
-          <Typography variant="h6" component="h2">
-            {title}
-          </Typography>
-        </div>
+        {title && (
+          <div className={classes.title}>
+            <Typography variant="h6" component="h2">
+              {title}
+            </Typography>
+          </div>
+        )}
         <Box className={classes.content}>
-            123
+            <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  {...listProps}
+                  selectionMode={selectionMode}
+                  onLoadStart={handleLoadStart}
+                  onLoadEnd={handleLoadEnd}
+                  selectedRows={upperData}
+                  heightRequest={() => height}
+                  widthRequest={() => width}
+                  onSelectedRows={handleChange}
+                />
+              )}
+            </AutoSizer>
         </Box>
         <ActionButton
           className={classes.submit}
-          disabled={!!loading.current || !data}
+          disabled={!!loading.current || !data?.length}
           size="large"
           variant="contained"
           color="info"
@@ -171,4 +211,4 @@ export const ListSearch = <Data extends IAnything = IAnything>({
   );
 };
 
-export default ListSearch;
+export default SearchModal;

@@ -193,7 +193,7 @@ declare module 'react-declarative' {
     export { ActionIcon } from 'react-declarative/components';
     export { ActionFab } from 'react-declarative/components';
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
-    export { ListSearch } from 'react-declarative/components';
+    export { SearchModal } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
@@ -2063,7 +2063,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ActionIcon';
     export * from 'react-declarative/components/ActionToggle';
     export * from 'react-declarative/components/ActionModal';
-    export * from 'react-declarative/components/ListSearch';
+    export * from 'react-declarative/components/SearchModal';
     export * from 'react-declarative/components/SizeProvider';
     export * from 'react-declarative/components/ModalProvider';
     export * from 'react-declarative/components/SnackProvider';
@@ -3777,9 +3777,9 @@ declare module 'react-declarative/components/ActionModal' {
     export { default } from 'react-declarative/components/ActionModal/useActionModal';
 }
 
-declare module 'react-declarative/components/ListSearch' {
-    export * from 'react-declarative/components/ListSearch/ListSearch';
-    export { default } from 'react-declarative/components/ListSearch/ListSearch';
+declare module 'react-declarative/components/SearchModal' {
+    export * from 'react-declarative/components/SearchModal/SearchModal';
+    export { default } from 'react-declarative/components/SearchModal/SearchModal';
 }
 
 declare module 'react-declarative/components/ConstraintView' {
@@ -5072,12 +5072,26 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     export default useActionModal;
 }
 
-declare module 'react-declarative/components/ListSearch/ListSearch' {
+declare module 'react-declarative/components/SearchModal/SearchModal' {
     import IAnything from "react-declarative/model/IAnything";
-    export interface IListSearchProps<Data extends IAnything = IAnything> {
+    import IRowData from "react-declarative/model/IRowData";
+    import IField from "react-declarative/model/IField";
+    import IListProps from "react-declarative/model/IListProps";
+    import SelectionMode from "react-declarative/model/SelectionMode";
+    export interface ISearchModalProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
+        selectedRows: never;
+        heightRequest: never;
+        widthRequest: never;
+        onSelectedRows: never;
+        onLoadStart: never;
+        onLoadEnd: never;
+        selectionMode: never;
+    }> {
         title?: string;
-        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
-        onChange?: (data: Data, initial: boolean) => void;
+        data?: IRowData['id'][];
+        selectionMode?: SelectionMode.Multiple | SelectionMode.Single;
+        onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
+        onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
@@ -5085,8 +5099,8 @@ declare module 'react-declarative/components/ListSearch/ListSearch' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ListSearch: <Data extends unknown = any>({ onSubmit, onLoadStart, onLoadEnd, fallback, title, open, throwError, submitLabel, }: IListSearchProps<Data>) => JSX.Element;
-    export default ListSearch;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export default SearchModal;
 }
 
 declare module 'react-declarative/components/ConstraintView/ConstraintView' {

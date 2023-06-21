@@ -46,7 +46,7 @@ const filters: TypedField[] = [
   }
 ];
 
-const columns: IColumn<IRowData>[] = [
+export const columns: IColumn<IRowData>[] = [
   {
     type: ColumnType.Component,
     field: 'id',
