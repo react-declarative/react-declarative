@@ -33,7 +33,7 @@ import { v4 } from 'uuid';
 
 import history from '../history'
 
-const filters: TypedField[] = [
+export const filters: TypedField[] = [
   {
     type: FieldType.Text,
     name: 'firstName',

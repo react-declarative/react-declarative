@@ -8,7 +8,7 @@ import { ModalProvider, SnackProvider, SearchModal } from 'react-declarative';
 
 import App from './App'
 import _mock from './pages/mock/list';
-import { columns } from './pages/ListPage';
+import { columns, filters } from './pages/ListPage';
 
 const theme = createTheme({
     palette: {
@@ -40,8 +40,8 @@ const wrappedApp = (
         <ModalProvider>
             <SnackProvider>
                 <SearchModal
-                    title="Mother fucker"
                     handler={() => _mock}
+                    filters={filters}
                     columns={columns}
                 />  
             </SnackProvider>
