@@ -1,2 +1,3 @@
 export * from './SearchModal';
-export { default } from './SearchModal';
+export * from './useSearchModal';
+export { default } from './useSearchModal';

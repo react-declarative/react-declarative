@@ -105,6 +105,7 @@ export const SearchModal = <
   onLoadEnd,
   fallback,
   title,
+  withInitialLoader = true,
   selectionMode = SelectionMode.Multiple,
   data: upperData,
   open = true,

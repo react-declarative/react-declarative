@@ -193,7 +193,7 @@ declare module 'react-declarative' {
     export { ActionIcon } from 'react-declarative/components';
     export { ActionFab } from 'react-declarative/components';
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
-    export { SearchModal } from 'react-declarative/components';
+    export { SearchModal, useSearchModal, useSearchModalTyped } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
@@ -3779,7 +3779,8 @@ declare module 'react-declarative/components/ActionModal' {
 
 declare module 'react-declarative/components/SearchModal' {
     export * from 'react-declarative/components/SearchModal/SearchModal';
-    export { default } from 'react-declarative/components/SearchModal/SearchModal';
+    export * from 'react-declarative/components/SearchModal/useSearchModal';
+    export { default } from 'react-declarative/components/SearchModal/useSearchModal';
 }
 
 declare module 'react-declarative/components/ConstraintView' {
@@ -5099,8 +5100,35 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
+}
+
+declare module 'react-declarative/components/SearchModal/useSearchModal' {
+    import { ISearchModalProps } from "react-declarative/components/SearchModal/SearchModal";
+    import TypedField from "react-declarative/model/TypedField";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    import IRowData from "react-declarative/model/IRowData";
+    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>, Param = any> extends Omit<ISearchModalProps<FilterData, RowData, Payload, Field>, keyof {
+        open: never;
+        onSubmit: never;
+        className: never;
+        isChooser: never;
+        style: never;
+    }> {
+        param?: Param;
+        onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
+    }
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>, Param = any>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field, Param>) => {
+        render: () => JSX.Element;
+        pickData: (param?: Param | undefined) => void;
+    };
+    export const useSearchModalTyped: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = TypedField<FilterData, Payload>, Param = any>(params: IParams<FilterData, RowData, Payload, Field, Param>) => {
+        render: () => JSX.Element;
+        pickData: (param?: Param | undefined) => void;
+    };
+    export default useSearchModal;
 }
 
 declare module 'react-declarative/components/ConstraintView/ConstraintView' {
