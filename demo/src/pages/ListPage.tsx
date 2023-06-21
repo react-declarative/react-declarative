@@ -33,7 +33,7 @@ import { v4 } from 'uuid';
 
 import history from '../history'
 
-export const filters: TypedField[] = [
+const filters: TypedField[] = [
   {
     type: FieldType.Text,
     name: 'firstName',
@@ -46,7 +46,7 @@ export const filters: TypedField[] = [
   }
 ];
 
-export const columns: IColumn<IRowData>[] = [
+const columns: IColumn<IRowData>[] = [
   {
     type: ColumnType.Component,
     field: 'id',
