@@ -4510,6 +4510,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         };
         data: Data | null;
         hasChanged: boolean;
+        hasLoading: boolean;
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
