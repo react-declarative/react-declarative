@@ -50,7 +50,7 @@ export const Choose = ({
 
     return (
         <TextField
-            sx={{ flex: 1 }}
+            sx={{ flex: 1, pointerEvents: 'none' }}
             name={name}
             inputRef={inputRef}
             variant={outlined ? "outlined" : "standard"}
@@ -62,6 +62,7 @@ export const Choose = ({
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
+                            sx={{ pointerEvents: 'all' }}
                             disabled={loading}
                             variant="outlined"
                             size="small"
