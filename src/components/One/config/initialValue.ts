@@ -14,6 +14,7 @@ const initialValueMap = {
   [FieldType.Date]: '',
   [FieldType.Time]: '',
   [FieldType.File]: null,
+  [FieldType.Choose]: null,
 };
 
 type InitialValue = typeof initialValueMap;

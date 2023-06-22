@@ -15,6 +15,7 @@ export enum FieldType {
     Component = 'component-field',
     Slider = 'slider-field',
     Combo = 'combo-field',
+    Choose = 'choose-field',
     Items = 'items-field',
     Rating = 'rating-field',
     Typography = 'typography-field',

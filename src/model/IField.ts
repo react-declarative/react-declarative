@@ -402,6 +402,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     view?: (file: string, data: Data, payload: Payload) => (Promise<void> | void);
 
     /**
+     * Функция для выбора документа из справочника
+     * для useSearchModal
+     */
+    choose?: (data: Data, payload: Payload) => (Promise<string> | string);
+
+    /**
      * Свойства для компоновки Hero - инструмента настройки отступов
      */
     top?: string | ISizeCallback<Data>;

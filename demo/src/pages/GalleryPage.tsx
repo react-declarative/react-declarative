@@ -5,6 +5,7 @@ import { Add, Remove } from '@mui/icons-material';
 import { OneTyped, FieldType, TypedField } from 'react-declarative';
 
 import Logger from '../components/Logger';
+import sleep from '../utils/sleep';
 
 const fields: TypedField[] = [
     {
@@ -284,10 +285,21 @@ const fields: TypedField[] = [
         description: 'Select document',
         name: 'file',
     },
+    {
+        type: FieldType.Choose,
+        title: 'Choose',
+        description: 'Choose document',
+        name: 'file',
+        choose: async () => {
+            await sleep(1_000);
+            return "test";
+        },
+        tr: () => 'omg',
+    },
 ];
 
 export const GalleryPage = () => (
-    <OneTyped readonly roles={["user"]} fields={fields}/>
+    <OneTyped roles={["user"]} fields={fields}/>
 );
 
 export default GalleryPage;

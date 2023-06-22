@@ -20,7 +20,7 @@ import openBlank from '../../../../../utils/openBlank';
 
 const LOADING_LABEL = 'Loading';
 
-export const Text = ({
+export const FileField = ({
     invalid,
     value,
     disabled,
@@ -81,6 +81,18 @@ export const Text = ({
                 label={title}
                 disabled={disabled}
             />
+            {!!value && (
+                <ActionButton
+                    variant="outlined"
+                    onLoadStart={() => setCurrentLoading(true)}
+                    onLoadEnd={() => setCurrentLoading(false)}
+                    onClick={async () => {
+                        await view(value, object, payload);
+                    }}
+                >
+                    View
+                </ActionButton>
+            )}
             <ActionButton
                 variant="outlined"
                 onLoadStart={() => setCurrentLoading(true)}
@@ -96,21 +108,8 @@ export const Text = ({
                 {loading && "Uploading"}
                 {!loading && "Choose"}
             </ActionButton>
-            {!!value && (
-                <ActionButton
-                    variant="outlined"
-                    onLoadStart={() => setCurrentLoading(true)}
-                    onLoadEnd={() => setCurrentLoading(false)}
-                    onClick={async () => {
-                        await view(value, object, payload);
-                    }}
-                >
-                    {loading && "Uploading"}
-                    {!loading && "Choose"}
-                </ActionButton>
-            )}
         </Stack>
     );
 }
 
-export default Text;
+export default FileField;

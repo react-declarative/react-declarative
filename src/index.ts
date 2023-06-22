@@ -366,6 +366,7 @@ import { IRadioSlot as IRadioSlotInternal } from './components';
 import { IDateSlot as IDateSlotInternal } from './components';
 import { ITimeSlot as ITimeSlotInternal } from './components';
 import { IFileSlot as IFileSlotInternal } from './components';
+import { IChooseSlot as IChooseSlotIntetnal } from './components';
 import { IRatingSlot as IRatingSlotInternal } from './components';
 import { ISliderSlot as ISliderSlotInternal } from './components';
 import { ISwitchSlot as ISwitchSlotInternal } from './components';
@@ -398,6 +399,7 @@ export type ITextSlot = ITextSlotInternal;
 export type IDateSlot = IDateSlotInternal;
 export type ITimeSlot = ITimeSlotInternal;
 export type IFileSlot = IFileSlotInternal;
+export type IChooseSlot = IChooseSlotIntetnal;
 export type ITypographySlot = ITypographySlotInternal;
 
 export type IActionAddSlot = IActionAddSlotInternal;

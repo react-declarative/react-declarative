@@ -14,6 +14,7 @@ import Time from './components/Time';
 import Switch from './components/Switch';
 import Slider from './components/Slider';
 import File from './components/File';
+import Choose from './components/Choose';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -32,6 +33,7 @@ export const defaultSlots = {
     Switch,
     Slider,
     File,
+    Choose,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);
