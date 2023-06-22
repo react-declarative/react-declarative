@@ -11,12 +11,13 @@ import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 import IRowData from "../../model/IRowData";
 
+type Param = IRowData['id'][];
+
 interface IParams<
-    FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>,
-    Param = any
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything,
+  Payload extends IAnything = IAnything,
+  Field extends IField = IField<FilterData, Payload>,
 >
   extends Omit<
     ISearchModalProps<FilterData, RowData, Payload, Field>,
@@ -37,7 +38,6 @@ export const useSearchModal = <
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything,
   Field extends IField = IField<FilterData, Payload>,
-  Param = any
 >({
   param: upperParam,
   handler,
@@ -53,9 +53,9 @@ export const useSearchModal = <
   throwError,
   title,
   ...listProps
-}: IParams<FilterData, RowData, Payload, Field, Param>) => {
+}: IParams<FilterData, RowData, Payload, Field>) => {
   const [open, setOpen] = useState(false);
-  const [param, setParam] = useState<Param>(upperParam as never);
+  const [param, setParam] = useState<Param>(upperParam || []);
 
   useEffect(() => {
     setParam(upperParam as never);
@@ -74,6 +74,7 @@ export const useSearchModal = <
     () => (
       <SearchModal
         open={open}
+        data={param}
         title={title}
         apiRef={apiRef}
         reloadSubject={reloadSubject}
@@ -103,11 +104,12 @@ export const useSearchModal = <
       submitLabel,
       throwError,
       title,
+      param,
     ]
   );
 
-  const pickData = useCallback((param?: Param) => {
-    setParam(param as Param);
+  const pickData = useCallback((param: Param = []) => {
+    setParam(param);
     setOpen(true);
   }, []);
 
@@ -121,9 +123,8 @@ export const useSearchModalTyped = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything,
-  Field extends IField = TypedField<FilterData, Payload>,
-  Param = any
->(params: IParams<FilterData, RowData, Payload, Field, Param>) =>
+  Field extends IField = TypedField<FilterData, Payload>
+>(params: IParams<FilterData, RowData, Payload, Field>) =>
   useSearchModal(params);
 
 export default useSearchModal;

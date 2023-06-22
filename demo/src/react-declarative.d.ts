@@ -5162,7 +5162,8 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
     import IRowData from "react-declarative/model/IRowData";
-    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>, Param = any> extends Omit<ISearchModalProps<FilterData, RowData, Payload, Field>, keyof {
+    type Param = IRowData['id'][];
+    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<ISearchModalProps<FilterData, RowData, Payload, Field>, keyof {
         open: never;
         onSubmit: never;
         className: never;
@@ -5172,13 +5173,13 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>, Param = any>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field, Param>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         render: () => JSX.Element;
-        pickData: (param?: Param | undefined) => void;
+        pickData: (param?: Param) => void;
     };
-    export const useSearchModalTyped: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = TypedField<FilterData, Payload>, Param = any>(params: IParams<FilterData, RowData, Payload, Field, Param>) => {
+    export const useSearchModalTyped: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = TypedField<FilterData, Payload>>(params: IParams<FilterData, RowData, Payload, Field>) => {
         render: () => JSX.Element;
-        pickData: (param?: Param | undefined) => void;
+        pickData: (param?: Param) => void;
     };
     export default useSearchModal;
 }
