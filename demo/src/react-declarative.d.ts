@@ -4509,6 +4509,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
             fallback?: (e: Error) => void;
         };
         data: Data | null;
+        hasChanged: boolean;
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }

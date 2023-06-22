@@ -284,7 +284,7 @@ export function makeField(
             if (fieldReadonly && !skipReadonly) {
                 return;
             }
-            if (compute) {
+            if (compute && !skipReadonly) {
                 return;
             }
             setValue(newValue);
@@ -342,9 +342,9 @@ export function makeField(
             onChange: handleChange,
             fallback,
             disabled: fieldDisabled || disabled,
-            readonly: fieldReadonly || readonly,
+            readonly: fieldReadonly || readonly || !!compute,
+            fieldReadonly: fieldReadonly || !!compute,
             dirty: dirty || upperDirty,
-            fieldReadonly,
             autoFocus,
             invalid,
             value,

@@ -30,6 +30,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
         fallback?: (e: Error) => void;
     };
     data: Data | null;
+    hasChanged: boolean;
     beginSave: () => Promise<boolean>;
     afterSave: () => void;
 }
@@ -201,6 +202,7 @@ export const usePreventLeave = <Data = IAnything>({
             ...fallback && { fallback },
         },
         data : invalid ? null : data,
+        hasChanged: !!data || !!loading,
     };
 };
 
