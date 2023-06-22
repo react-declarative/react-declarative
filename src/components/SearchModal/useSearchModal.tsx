@@ -74,6 +74,7 @@ export const useSearchModal = <
     () => (
       <SearchModal
         open={open}
+        title={title}
         apiRef={apiRef}
         reloadSubject={reloadSubject}
         handler={handler}
