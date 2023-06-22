@@ -6,10 +6,11 @@ import MatTextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { useOnePayload } from '../../../context/PayloadProvider';
+
 import IManaged, { PickProp } from '../../../../../model/IManaged';
 import { ITextSlot } from '../../../slots/TextSlot';
 import { IField } from '../../../../../model/IField';
-
 import IAnything from '../../../../../model/IAnything';
 
 import icon from '../../../../../utils/createIcon';
@@ -19,6 +20,7 @@ const LOADING_LABEL = 'Loading';
 const NEVER_POS = Symbol('never-pos');
 
 const icons = (
+    payload: IAnything,
     leadingIcon: string | React.ComponentType | undefined,
     trailingIcon: string | React.ComponentType | undefined,
     leadingIconClick: PickProp<IField, 'leadingIconClick'>,
@@ -37,7 +39,7 @@ const icons = (
                         disabled={disabled}
                         onClick={() => {
                             if (leadingIconClick) {
-                                leadingIconClick(v as unknown as IAnything, (v) => c(v, {
+                                leadingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
                                     skipReadonly: true,
                                 }));
                             }
@@ -58,7 +60,7 @@ const icons = (
                         disabled={disabled}
                         onClick={() => {
                             if (trailingIconClick) {
-                                trailingIconClick(v as unknown as IAnything, (v) => c(v, {
+                                trailingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
                                     skipReadonly: true,
                                 }));
                             }
@@ -126,6 +128,8 @@ export const Text = ({
     onChange,
     name,
 }: ITextSlot) => {
+    const payload = useOnePayload();
+
     const inputElementRef = useRef<HTMLInputElement | null>();
 
     const caretManager = useMemo(() => {
@@ -197,7 +201,7 @@ export const Text = ({
                 readOnly: readonly,
                 inputMode,
                 autoFocus,
-                ...icons(li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
+                ...icons(payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
             }}
             inputProps={{
                 pattern: inputPattern,

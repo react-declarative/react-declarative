@@ -669,8 +669,8 @@ declare module 'react-declarative/model/IField' {
                 * окна, расположенного в коде прикладного программиста. Коллбек
                 * получает на вход текущее значение поля и функцию onChange...
                 */
-            leadingIconClick?: (value: any, onChange: (v: any) => void) => void;
-            trailingIconClick?: (value: any, onChange: (v: any) => void) => void;
+            leadingIconClick?: (value: any, payload: Payload, onChange: (v: any) => void) => void;
+            trailingIconClick?: (value: any, payload: Payload, onChange: (v: any) => void) => void;
             /**
                 * Максимальное число для высчитывания процента
                 * (минимальное число всегда ноль)
