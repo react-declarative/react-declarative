@@ -69,7 +69,7 @@ export const SelectionProvider = ({
         if (!compareSelection(pendingSelection, selection)) {
             handleSelectionChange(pendingSelection);
         }
-    }, [selectedRows, selection]);
+    }, [selectedRows]);
 
     return (
         <SelectionContext.Provider value={value}>

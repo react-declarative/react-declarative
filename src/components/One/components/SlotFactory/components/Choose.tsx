@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import ActionButton from '../../../../ActionButton';
 import Async from '../../../../Async';
 
 import { IChooseSlot } from '../../../slots/ChooseSlot';
-
-import useReloadTrigger from '../../../../../hooks/useReloadTrigger';
 
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneState } from '../../../context/StateProvider';
@@ -38,68 +35,62 @@ export const Choose = ({
     const payload = useOnePayload();
     const { object } = useOneState();
 
-    const { reloadTrigger, doReload } = useReloadTrigger();
-
     const loading = upperLoading || currentLoading;
 
-    const Input: React.FC<any> = ({ inputRef, value, ...rest }) => (
-        <Async payload={value} Loader={() => <input {...rest} readOnly ref={inputRef} value={LOADING_LABEL} type="text" />}>
+    const Input: React.FC<any> = forwardRef(({ value, ...rest }, ref) => (
+        <Async payload={value} Loader={() => <input {...rest} readOnly ref={ref} value={LOADING_LABEL} type="text" />}>
             {async () => {
                 const label = value ? await tr(value, object, payload) : 'Not chosen';
                 return (
-                    <input {...rest} readOnly ref={inputRef} value={label} type="text" />
+                    <input {...rest} readOnly ref={ref} value={label} type="text" />
                 );
             }}
         </Async>
-    );
+    ));
 
     return (
-        <ClickAwayListener onClickAway={doReload}>
-            <TextField
-                key={reloadTrigger}
-                sx={{ flex: 1 }}
-                name={name}
-                inputRef={inputRef}
-                variant={outlined ? "outlined" : "standard"}
-                helperText={(dirty && invalid) || description}
-                error={dirty && invalid !== null}
-                InputProps={{
-                    readOnly: readonly,
-                    inputComponent: Input,
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <ActionButton
-                                disabled={loading}
-                                variant="outlined"
-                                size="small"
-                                color={value ? "secondary" : "primary"}
-                                onLoadStart={() => setCurrentLoading(true)}
-                                onLoadEnd={() => setCurrentLoading(false)}
-                                onClick={async () => {
-                                    if (value) {
-                                        onChange(null);
-                                        return;
-                                    }
-                                    const pendingValue = await choose(object, payload);
-                                    onChange(pendingValue);
-                                }}
-                            >
-                                {value && "Deselect"}
-                                {!value && "Choose"}
-                            </ActionButton>
-                        </InputAdornment>
-                    ),
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                    focused: false,
-                }}
-                value={value || ""}
-                placeholder={placeholder}
-                label={title}
-                disabled={disabled}
-            />
-        </ClickAwayListener>
+        <TextField
+            sx={{ flex: 1 }}
+            name={name}
+            inputRef={inputRef}
+            variant={outlined ? "outlined" : "standard"}
+            helperText={(dirty && invalid) || description}
+            error={dirty && invalid !== null}
+            InputProps={{
+                readOnly: readonly,
+                inputComponent: Input,
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <ActionButton
+                            disabled={loading}
+                            variant="outlined"
+                            size="small"
+                            color={value ? "secondary" : "primary"}
+                            onLoadStart={() => setCurrentLoading(true)}
+                            onLoadEnd={() => setCurrentLoading(false)}
+                            onClick={async () => {
+                                if (value) {
+                                    onChange(null);
+                                    return;
+                                }
+                                const pendingValue = await choose(object, payload);
+                                onChange(pendingValue);
+                            }}
+                        >
+                            {value && "Deselect"}
+                            {!value && "Choose"}
+                        </ActionButton>
+                    </InputAdornment>
+                ),
+            }}
+            InputLabelProps={{
+                shrink: true,
+            }}
+            value={value || ""}
+            placeholder={placeholder}
+            label={title}
+            disabled={disabled}
+        />
     );
 }
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -118,6 +118,10 @@ export const SearchModal = <
   const [data, setData] = useState<IRowData['id'][] | null>(upperData || []);
   const [loading, setLoading] = useActualState(0);
 
+  useEffect(() => {
+    setData(upperData || []);
+  }, [open]);
+
   const handleChange = (newData: IRowData['id'][], initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
@@ -191,7 +195,7 @@ export const SearchModal = <
                   selectionMode={selectionMode}
                   onLoadStart={handleLoadStart}
                   onLoadEnd={handleLoadEnd}
-                  selectedRows={upperData}
+                  selectedRows={data?.length ? data : undefined}
                   heightRequest={() => height}
                   widthRequest={() => width}
                   onSelectedRows={handleChange}

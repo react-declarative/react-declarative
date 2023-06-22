@@ -104,6 +104,7 @@ export const useSearchModal = <
       submitLabel,
       throwError,
       title,
+      param,
     ]
   );
 
