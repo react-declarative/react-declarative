@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Fragment } from 'react';
+import { Fragment, createElement } from 'react';
 
 import { makeStyles } from '../../../../../../styles';
 
@@ -27,6 +27,8 @@ const useStyles = makeStyles()({
         left: 0,
         right: 0,
         bottom: 0,
+        height: '100%',
+        width: '100%',
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
@@ -70,7 +72,9 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 throwError
             >
                 {async (data) => {
-                    if (column.compute) {
+                    if (column.element) {
+                        return createElement(column.element, data);
+                    } else if (column.compute) {
                         return await column.compute(data, _payload);
                     } else {
                         return null;
