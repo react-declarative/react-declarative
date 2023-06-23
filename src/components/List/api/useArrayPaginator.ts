@@ -117,10 +117,16 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     },
     searchHandler = (rows, search) => {
         if (rows.length && search) {
-            const searchEntry = searchEntries.find((entry) => rows[0][entry]);
-            if (searchEntry) {
+            const hasEntries = searchEntries.every((entry) => rows[0][entry]);
+            const searchQuery = search.toLowerCase().split(' ');
+            if (hasEntries) {
                 return rows.filter((row) => {
-                    return String(row[searchEntry]).toLowerCase().includes(search.toLowerCase());
+                    let isOk = false;
+                    searchEntries.forEach((searchEntry) => {
+                        const rowValue = String(row[searchEntry]).toLowerCase().split(' ');
+                        isOk = isOk || rowValue.some((value) => searchQuery.includes(value));
+                    });
+                    return isOk;
                 });
             } else {
                 return rows;

@@ -27,6 +27,7 @@ export interface IChooseFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
   loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  fieldReadonly?: PickProp<IManaged<Data>, "fieldReadonly">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
 }

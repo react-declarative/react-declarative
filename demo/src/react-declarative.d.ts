@@ -3594,6 +3594,7 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         value: PickProp<IManaged<Data>, "value">;
         loading: PickProp<IManaged<Data>, "loading">;
         disabled: PickProp<IManaged<Data>, "disabled">;
+        fieldReadonly?: PickProp<IManaged<Data>, "fieldReadonly">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
     }
@@ -4340,7 +4341,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
-        Choose: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
+        Choose: ({ invalid, value, disabled, fieldReadonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;

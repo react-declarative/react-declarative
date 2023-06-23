@@ -18,7 +18,7 @@ export const Choose = ({
     invalid,
     value,
     disabled,
-    readonly,
+    fieldReadonly,
     description = "",
     outlined = true,
     title = "",
@@ -57,12 +57,12 @@ export const Choose = ({
             helperText={(dirty && invalid) || description}
             error={dirty && invalid !== null}
             InputProps={{
-                readOnly: readonly,
+                readOnly: true,
                 inputComponent: Input,
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
-                            sx={{ pointerEvents: readonly ? 'none' : 'all' }}
+                            sx={{ pointerEvents: fieldReadonly ? 'none' : 'all' }}
                             disabled={loading}
                             variant="outlined"
                             size="small"
