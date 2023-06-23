@@ -62,5 +62,6 @@ export * from './Async';
 export * from './Copy';
 export * from './If';
 export * from './Countdown';
+export * from './Chip';
 
 // export * from './common/VirtualizedList';

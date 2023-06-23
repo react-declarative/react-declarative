@@ -283,6 +283,7 @@ export { Spinner } from './components';
 export { Search } from './components';
 export { Grid } from './components';
 export { Copy } from './components';
+export { Chip } from './components';
 
 export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';

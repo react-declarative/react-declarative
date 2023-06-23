@@ -12,6 +12,7 @@
 //   ../../@mui/material/styles
 //   ../../@mui/system
 //   ../../@mui/material/Tabs
+//   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
     import "./polyfills";
@@ -227,6 +228,7 @@ declare module 'react-declarative' {
     export { Search } from 'react-declarative/components';
     export { Grid } from 'react-declarative/components';
     export { Copy } from 'react-declarative/components';
+    export { Chip } from 'react-declarative/components';
     export { OneSlotFactory, OneDefaultSlots } from 'react-declarative/components';
     export { ListSlotFactory, ListDefaultSlots } from 'react-declarative/components';
     export { Breadcrumbs } from 'react-declarative/components';
@@ -2112,6 +2114,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Copy';
     export * from 'react-declarative/components/If';
     export * from 'react-declarative/components/Countdown';
+    export * from 'react-declarative/components/Chip';
 }
 
 declare module 'react-declarative/components/CardView' {
@@ -3996,6 +3999,11 @@ declare module 'react-declarative/components/Countdown' {
     export { default } from 'react-declarative/components/Countdown/Countdown';
 }
 
+declare module 'react-declarative/components/Chip' {
+    export * from 'react-declarative/components/Chip/Chip';
+    export { default } from 'react-declarative/components/Chip/Chip';
+}
+
 declare module 'react-declarative/components/CardView/CardView' {
     import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
@@ -5867,6 +5875,17 @@ declare module 'react-declarative/components/Countdown/Countdown' {
     }
     export const Countdown: ({ className, expireAt, onExpire, ...otherProps }: ICountdownProps) => JSX.Element;
     export default Countdown;
+}
+
+declare module 'react-declarative/components/Chip/Chip' {
+    import { ChipProps } from '@mui/material/Chip';
+    interface IChipProps extends Omit<ChipProps, keyof {
+        color: never;
+    }> {
+        color?: string;
+    }
+    export const Chip: ({ color, ...otherProps }: IChipProps) => JSX.Element;
+    export default Chip;
 }
 
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
