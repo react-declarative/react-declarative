@@ -209,7 +209,7 @@ export const Text = ({
             type={inputType}
             focused={autoFocus}
             autoComplete={autoComplete}
-            value={loading ? LOADING_LABEL : String(value)}
+            value={loading ? LOADING_LABEL : String(value || '')}
             placeholder={placeholder}
             onChange={({ target }) => {
                 let result = target.value;

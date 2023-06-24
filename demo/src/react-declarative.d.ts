@@ -236,6 +236,7 @@ declare module 'react-declarative' {
     export { Switch } from 'react-declarative/components';
     export { Center } from 'react-declarative/components';
     export { Square } from 'react-declarative/components';
+    export { ScrollAdjust } from 'react-declarative/components';
     export { NoSsr } from 'react-declarative/components';
     export { OtherComboSlot } from 'react-declarative/components';
     export { OtherItemsSlot } from 'react-declarative/components';
@@ -2115,6 +2116,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/If';
     export * from 'react-declarative/components/Countdown';
     export * from 'react-declarative/components/Chip';
+    export * from 'react-declarative/components/ScrollAdjust';
 }
 
 declare module 'react-declarative/components/CardView' {
@@ -4004,6 +4006,11 @@ declare module 'react-declarative/components/Chip' {
     export { default } from 'react-declarative/components/Chip/Chip';
 }
 
+declare module 'react-declarative/components/ScrollAdjust' {
+    export * from 'react-declarative/components/ScrollAdjust/ScrollAdjust';
+    export { default } from 'react-declarative/components/ScrollAdjust/ScrollAdjust';
+}
+
 declare module 'react-declarative/components/CardView/CardView' {
     import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
@@ -5886,6 +5893,11 @@ declare module 'react-declarative/components/Chip/Chip' {
     }
     export const Chip: ({ color, ...otherProps }: IChipProps) => JSX.Element;
     export default Chip;
+}
+
+declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
+    export const ScrollAdjust: () => JSX.Element;
+    export default ScrollAdjust;
 }
 
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
