@@ -72,17 +72,17 @@ const icons = (
             ),
         }
         : {}),
-        ...(loading
-            ? {
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton disabled={disabled} edge="end">
-                            <CircularProgress color="inherit" size={20} />
-                        </IconButton>
-                    </InputAdornment>
-                ),
-            }
-            : {}),
+    ...(loading
+        ? {
+            endAdornment: (
+                <InputAdornment position="end">
+                    <IconButton disabled={disabled} edge="end">
+                        <CircularProgress color="inherit" size={20} />
+                    </IconButton>
+                </InputAdornment>
+            ),
+        }
+        : {}),
 });
 
 const multiline = (inputRows: number) => ({
@@ -149,6 +149,9 @@ export const Text = ({
 
         return {
             render: () => {
+                if (inputType !== 'text') {
+                    return;
+                }
                 const { current: input } = inputElementRef;
                 if (typeof lastPos === 'number') {
                     input?.setSelectionRange(lastPos, lastPos);
