@@ -48,6 +48,12 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   noBorder: {
     border: 'none !important',
   },
+  tableHead: {
+    position: 'sticky',
+    top: -1,
+    zIndex: 1,
+    background: theme.palette.background.paper,
+  },
 }));
 
 interface IGridViewProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> extends
@@ -124,7 +130,7 @@ export const GridView = <
 
         const renderInner = (mode: DisplayMode) => (
           <>
-            <TableHead>
+            <TableHead className={classes.tableHead}>
               <HeadRow
                 fullWidth={width}
                 mode={mode}
