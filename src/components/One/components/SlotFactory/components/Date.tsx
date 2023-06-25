@@ -11,6 +11,8 @@ import DatePicker from "../../../../common/DatePicker/DatePicker";
 
 import { IDateSlot } from "../../../slots/DateSlot";
 
+import useActualValue from "../../../../../hooks/useActualValue";
+
 import formatText from "../../../../../utils/formatText";
 import * as datetime from "../../../../../utils/datetime";
 
@@ -51,27 +53,32 @@ export const Date = ({
     datetime.parseDate(upperValue || '') ? upperValue : '',
   );
 
+  const value$ = useActualValue(value);
+
   useEffect(() => {
     if (outgoingUpdate.current) {
       outgoingUpdate.current = false;
     } else if (datetime.parseDate(upperValue || "")) {
       incomingUpdate.current = true;
       setValue(upperValue);
-    } else {
+    } else if (value$.current) {
       incomingUpdate.current = true;
       setValue("");
     }
   }, [upperValue]);
+
+  const upperValue$ = useActualValue(upperValue);
 
   useEffect(() => {
     if (incomingUpdate.current) {
       incomingUpdate.current = false;
     } else {
       const pendingDate = datetime.parseDate(value || "");
-      outgoingUpdate.current = true;
       if (pendingDate) {
+        outgoingUpdate.current = true;
         onChange(datetime.serializeDate(pendingDate));
-      } else {
+      } else if (upperValue$.current) {
+        outgoingUpdate.current = true;
         onChange("");
       }
     }

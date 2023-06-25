@@ -11,6 +11,8 @@ import TimePicker from "../../../../common/TimePicker/TimePicker";
 
 import { ITimeSlot } from "../../../slots/TimeSlot";
 
+import useActualValue from "../../../../../hooks/useActualValue";
+
 import formatText from "../../../../../utils/formatText";
 import * as datetime from "../../../../../utils/datetime";
 
@@ -52,27 +54,32 @@ export const Time = ({
     datetime.parseTime(upperValue || '') ? upperValue : '',
   );
 
+  const value$ = useActualValue(value);
+
   useEffect(() => {
     if (outgoingUpdate.current) {
       outgoingUpdate.current = false;
     } else if (datetime.parseTime(upperValue || "")) {
       incomingUpdate.current = true;
       setValue(upperValue);
-    } else {
+    } else if (value$.current) {
       incomingUpdate.current = true;
       setValue("");
     }
   }, [upperValue]);
+
+  const upperValue$ = useActualValue(upperValue);
 
   useEffect(() => {
     if (incomingUpdate.current) {
       incomingUpdate.current = false;
     } else {
       const pendingDate = datetime.parseTime(value || "");
-      outgoingUpdate.current = true;
       if (pendingDate) {
+        outgoingUpdate.current = true;
         onChange(datetime.serializeTime(pendingDate));
-      } else {
+      } else if (upperValue$.current) {
+        outgoingUpdate.current = true;
         onChange("");
       }
     }
