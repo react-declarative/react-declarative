@@ -60,7 +60,6 @@ const useStyles = makeStyles()((theme) => ({
     height: 'calc(100vh - 50px)',
     backgroundColor: theme.palette.background.paper,
     padding: 20,
-    maxHeight: "80%",
     overflowY: "auto",
     borderRadius: 5,
   },
