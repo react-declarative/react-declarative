@@ -65,6 +65,7 @@ declare module 'react-declarative' {
     import { useActualValue } from 'react-declarative/hooks/useActualValue';
     import { useActualState } from 'react-declarative/hooks/useActualState';
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
+    import { useOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
     import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
@@ -258,6 +259,7 @@ declare module 'react-declarative' {
     export { useActualValue };
     export { useActualState };
     export { useRenderWaiter };
+    export { useOneArray };
     export { useChangeSubject };
     export { useReloadTrigger };
     export { useAsyncAction };
@@ -1662,6 +1664,11 @@ declare module 'react-declarative/hooks/useActualState' {
 declare module 'react-declarative/hooks/useRenderWaiter' {
     export const useRenderWaiter: (deps?: any[] | undefined, delay?: number) => () => Promise<void>;
     export default useRenderWaiter;
+}
+
+declare module 'react-declarative/hooks/useOneArray' {
+    export const useOneArray: <T = any>(initialValue: T[] | (() => T[])) => [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
+    export default useOneArray;
 }
 
 declare module 'react-declarative/hooks/useAsyncAction' {
