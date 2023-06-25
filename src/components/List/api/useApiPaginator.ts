@@ -36,7 +36,7 @@ export interface IApiPaginatorParams<FilterData extends {} = IAnything, RowData 
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
-    responseMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
+    responseMap?: (json: any) => (ListHandlerResult<RowData> | Promise<ListHandlerResult<RowData>>);
 }
 
 const EMPTY_RESPONSE = {
@@ -53,13 +53,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     onLoadBegin,
     onLoadEnd,
     requestMap = (url) => url,
-    responseMap = (json) => {
-        const { rows = [], total = null } = json;
-        return {
-            rows,
-            total,
-        };
-    },
+    responseMap = (data) => data as ListHandlerResult<RowData>,
     filterHandler = (url, filterData) => {
         Object.entries(filterData).forEach(([k, v]) => {
             if (Array.isArray(v)) {
@@ -136,7 +130,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
         try {
             const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
-            return responseMap(json);
+            return await responseMap(json);
         } catch (e) {
             queuedFetch.clear();
             isOk = false;

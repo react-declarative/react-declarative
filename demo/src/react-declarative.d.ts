@@ -1079,7 +1079,7 @@ declare module 'react-declarative/components/List/api/useApiPaginator' {
         fetchParams?: () => RequestInit;
         fallback?: (e: Error) => void;
         abortSignal?: AbortSignal;
-        responseMap?: (json: Record<string, any>) => ListHandlerResult<RowData>;
+        responseMap?: (json: any) => (ListHandlerResult<RowData> | Promise<ListHandlerResult<RowData>>);
     }
     export const useApiPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(path: string, { fetch, origin, abortSignal: signal, fetchParams, fallback, onLoadBegin, onLoadEnd, requestMap, responseMap, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withAbortSignal, withPagination, withFilters, withSearch, withChips, withSort, }?: IApiPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData>;
     export default useApiPaginator;
@@ -1095,6 +1095,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
         sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
         paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
+        responseMap?: (json: Record<string, any>[]) => RowData[];
         searchHandler?: (rows: RowData[], search: string) => RowData[];
         compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
         withPagination?: boolean;
@@ -1109,7 +1110,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
-    export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData>, { searchEntries, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData>;
+    export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData>, { searchEntries, responseMap, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData>;
     export default useArrayPaginator;
 }
 
