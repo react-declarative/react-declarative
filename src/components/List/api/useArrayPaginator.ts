@@ -76,13 +76,19 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                 value.forEach((value) => {
                     const templateValue = String(value).toLocaleLowerCase();
                     rows = rows.filter((row) => {
-                        const rowValue = String(row[key as keyof RowData]).toLowerCase();
+                        if (!row[key as keyof RowData]) {
+                            return false;
+                        }
+                        const rowValue = JSON.stringify(row[key as keyof RowData] || '').toLowerCase();
                         return rowValue.includes(templateValue);
                     });
                 });
             } else if (value) {
                 const templateValue = String(value).toLocaleLowerCase();
                 rows = rows.filter((row) => {
+                    if (!row[key as keyof RowData]) {
+                        return false;
+                    }
                     const rowValue = String(row[key as keyof RowData]).toLowerCase();
                     return rowValue.includes(templateValue);
                 });
@@ -125,8 +131,10 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                 return rows.filter((row) => {
                     let isOk = false;
                     searchEntries.forEach((searchEntry) => {
-                        const rowValue = String(row[searchEntry]).toLowerCase().split(' ');
-                        isOk = isOk || rowValue.some((value) => searchQuery.includes(value));
+                        if (row[searchEntry]) {
+                            const rowValue = String(row[searchEntry]).toLowerCase().split(' ');
+                            isOk = isOk || rowValue.some((value) => searchQuery.includes(value));
+                        }
                     });
                     return isOk;
                 });
