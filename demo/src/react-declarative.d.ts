@@ -1667,7 +1667,7 @@ declare module 'react-declarative/hooks/useRenderWaiter' {
 }
 
 declare module 'react-declarative/hooks/useOneArray' {
-    export const useOneArray: <T = any>(initialValue: T[] | (() => T[])) => [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
+    export const useOneArray: <T = any>(initialValue?: T[] | (() => T[]) | undefined) => [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
     export default useOneArray;
 }
 
