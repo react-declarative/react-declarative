@@ -134,6 +134,8 @@ export const Complete = ({
         object,
     } = useOneState();
 
+    const object$ = useActualValue(object);
+
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const anchorEl$ = useActualValue(anchorEl);
     
@@ -148,7 +150,7 @@ export const Complete = ({
     const handleRequest = useMemo(() => queued(async () => {
         setCurrentLoading(true);
         try {
-            let items = typeof itemList === 'function' ? await itemList(object, payload) : itemList;
+            let items = typeof itemList === 'function' ? await itemList(object$.current, payload) : itemList;
             if (Array.isArray(items)) {
                 const template = String(value$.current).toLowerCase();
                 items = items.filter((item) => item.toLowerCase().includes(template));
