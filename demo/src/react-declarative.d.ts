@@ -301,6 +301,7 @@ declare module 'react-declarative' {
     import { ISliderSlot as ISliderSlotInternal } from 'react-declarative/components';
     import { ISwitchSlot as ISwitchSlotInternal } from 'react-declarative/components';
     import { ITextSlot as ITextSlotInternal } from 'react-declarative/components';
+    import { ICompleteSlot as ICompleteSlotInternal } from 'react-declarative/components';
     import { ITypographySlot as ITypographySlotInternal } from 'react-declarative/components';
     import { IActionAddSlot as IActionAddSlotInternal } from 'react-declarative/components';
     import { IActionFabSlot as IActionFabSlotInternal } from 'react-declarative/components';
@@ -329,6 +330,7 @@ declare module 'react-declarative' {
     export type IFileSlot = IFileSlotInternal;
     export type IChooseSlot = IChooseSlotIntetnal;
     export type ITypographySlot = ITypographySlotInternal;
+    export type ICompleteSlot = ICompleteSlotInternal;
     export type IActionAddSlot = IActionAddSlotInternal;
     export type IActionFabSlot = IActionFabSlotInternal;
     export type IActionMenuSlot = IActionMenuSlotInternal;
@@ -462,6 +464,7 @@ declare module 'react-declarative/model/TypedField' {
     import { ITextFieldProps } from 'react-declarative/components/One/fields/TextField';
     import { IDateFieldProps } from 'react-declarative/components/One/fields/DateField';
     import { ITimeFieldProps } from 'react-declarative/components/One/fields/TimeField';
+    import { ICompleteFieldProps } from 'react-declarative/components/One/fields/CompleteField';
     import { ITypographyFieldProps } from 'react-declarative/components/One/fields/TypographyField';
     import { IChooseFieldProps } from 'react-declarative/components/One/fields/ChooseField';
     type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
@@ -498,12 +501,13 @@ declare module 'react-declarative/model/TypedField' {
     type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
     type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
     type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
+    type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
     type Typography<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data, Payload>, Data, Payload>;
     /**
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1154,6 +1158,7 @@ declare module 'react-declarative/model/FieldType' {
         Slider = "slider-field",
         Combo = "combo-field",
         Choose = "choose-field",
+        Complete = "complete-field",
         Items = "items-field",
         Rating = "rating-field",
         Typography = "typography-field",
@@ -3560,6 +3565,52 @@ declare module 'react-declarative/components/One/fields/TimeField' {
     export default _default;
 }
 
+declare module 'react-declarative/components/One/fields/CompleteField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
+        inputType?: PickProp<IField<Data, Payload>, "inputType">;
+        inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
+        inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+        inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+        description?: PickProp<IField<Data, Payload>, "description">;
+        outlined?: PickProp<IField<Data, Payload>, "outlined">;
+        title?: PickProp<IField<Data, Payload>, "title">;
+        leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
+        trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
+        leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
+        trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
+        itemList?: PickProp<IField<Data, Payload>, "itemList">;
+        tr?: PickProp<IField<Data, Payload>, "tr">;
+        inputRows?: PickProp<IField<Data, Payload>, "inputRows">;
+        placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        readonly?: PickProp<IField<Data, Payload>, "readonly">;
+        autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
+        disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+        inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+    }
+    export interface ICompleteFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
+        value: PickProp<IManaged<Data>, "value">;
+        loading: PickProp<IManaged<Data>, "loading">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        name: PickProp<IManaged<Data>, "name">;
+    }
+    export const CompleteField: {
+        ({ invalid, value, disabled, readonly, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
+        displayName: string;
+    };
+    const _default: {
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, change, fallback, ready, compute, object, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: fieldReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
+}
+
 declare module 'react-declarative/components/One/fields/TypographyField' {
     import IManaged, { PickProp } from 'react-declarative/model/IManaged';
     import IAnything from 'react-declarative/model/IAnything';
@@ -4365,6 +4416,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, value, disabled, fieldReadonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
+        Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -4387,6 +4439,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
     import { ISliderSlot } from 'react-declarative/components/One/slots/SliderSlot';
     import { IFileSlot } from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     import { IChooseSlot } from 'react-declarative/components/One/slots/ChooseSlot';
+    import { ICompleteSlot } from 'react-declarative/components/One/slots/CompleteSlot';
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
@@ -4403,6 +4456,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
         Slider: ComponentType<ISliderSlot>;
         File: ComponentType<IFileSlot>;
         Choose: ComponentType<IChooseSlot>;
+        Complete: ComponentType<ICompleteSlot>;
     }
     export default ISlotFactoryContext;
 }
@@ -4474,6 +4528,7 @@ declare module 'react-declarative/components/One/slots' {
     export * from 'react-declarative/components/One/slots/TimeSlot';
     export * from 'react-declarative/components/One/slots/FileSlot';
     export * from 'react-declarative/components/One/slots/ChooseSlot';
+    export * from 'react-declarative/components/One/slots/CompleteSlot';
 }
 
 declare module 'react-declarative/components/One/config/createField' {
@@ -6291,6 +6346,12 @@ declare module 'react-declarative/components/One/slots/ChooseSlot' {
     export { default } from 'react-declarative/components/One/slots/ChooseSlot/ChooseSlot';
 }
 
+declare module 'react-declarative/components/One/slots/CompleteSlot' {
+    export * from 'react-declarative/components/One/slots/CompleteSlot/ICompleteSlot';
+    export * from 'react-declarative/components/One/slots/CompleteSlot/CompleteSlot';
+    export { default } from 'react-declarative/components/One/slots/CompleteSlot/CompleteSlot';
+}
+
 declare module 'react-declarative/components/One/slots/FileSlot' {
     export * from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export * from 'react-declarative/components/One/slots/FileSlot/FileSlot';
@@ -6878,6 +6939,20 @@ declare module 'react-declarative/components/One/slots/ChooseSlot/ChooseSlot' {
     import IChooseSlot from 'react-declarative/components/One/slots/ChooseSlot/IChooseSlot';
     export const ChooseSlot: (props: IChooseSlot) => JSX.Element;
     export default ChooseSlot;
+}
+
+declare module 'react-declarative/components/One/slots/CompleteSlot/ICompleteSlot' {
+    import { ICompleteFieldProps, ICompleteFieldPrivate } from "react-declarative/components/One/fields/CompleteField";
+    type ICompleteBase = ICompleteFieldProps & ICompleteFieldPrivate;
+    export interface ICompleteSlot extends ICompleteBase {
+    }
+    export default ICompleteSlot;
+}
+
+declare module 'react-declarative/components/One/slots/CompleteSlot/CompleteSlot' {
+    import ICompleteSlot from 'react-declarative/components/One/slots/CompleteSlot/ICompleteSlot';
+    export const CompleteSlot: (props: ICompleteSlot) => JSX.Element;
+    export default CompleteSlot;
 }
 
 declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {
