@@ -286,6 +286,15 @@ const fields: TypedField[] = [
         name: 'file',
     },
     {
+        type: FieldType.Complete,
+        name: 'complete',
+        itemList: [
+            "a",
+            "b",
+            "c",
+        ],
+    },
+    {
         type: FieldType.Choose,
         title: 'Choose',
         description: 'Choose document',
