@@ -38,6 +38,7 @@ import { ISwitchFieldProps } from '../components/One/fields/SwitchField';
 import { ITextFieldProps } from '../components/One/fields/TextField';
 import { IDateFieldProps } from '../components/One/fields/DateField';
 import { ITimeFieldProps } from '../components/One/fields/TimeField';
+import { ICompleteFieldProps } from '../components/One/fields/CompleteField';
 import { ITypographyFieldProps } from '../components/One/fields/TypographyField';
 import { IChooseFieldProps } from '../components/One/fields/ChooseField';
 
@@ -85,6 +86,7 @@ type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fiel
 type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
 type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
+type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
 type Typography<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Typography, ITypographyFieldProps<Data, Payload>, Data, Payload>;
 
 /**
@@ -111,6 +113,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Choose<Data, Payload> ? Choose<Data, Payload>
   : Target extends Date<Data, Payload> ? Date<Data, Payload>
   : Target extends Time<Data, Payload> ? Time<Data, Payload>
+  : Target extends Complete<Data, Payload> ? Complete<Data, Payload>
   : Target extends Typography<Data, Payload> ? Typography<Data, Payload>
   : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload>
   : Target extends Div<Data, Payload> ? Div<Data, Payload>

@@ -15,6 +15,7 @@ import { ISwitchSlot } from '../../slots/SwitchSlot';
 import { ISliderSlot } from '../../slots/SliderSlot';
 import { IFileSlot } from '../../slots/FileSlot/IFileSlot';
 import { IChooseSlot } from '../../slots/ChooseSlot';
+import { ICompleteSlot } from '../../slots/CompleteSlot';
 
 export interface ISlotFactoryContext {
     CheckBox: ComponentType<ICheckBoxSlot>;
@@ -32,6 +33,7 @@ export interface ISlotFactoryContext {
     Slider: ComponentType<ISliderSlot>;
     File: ComponentType<IFileSlot>;
     Choose: ComponentType<IChooseSlot>;
+    Complete: ComponentType<ICompleteSlot>;
 }
 
 export default ISlotFactoryContext;
