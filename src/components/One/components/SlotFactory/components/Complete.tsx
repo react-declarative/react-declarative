@@ -29,6 +29,7 @@ import icon from '../../../../../utils/createIcon';
 import queued from '../../../../../utils/hof/queued';
 
 const FETCH_DEBOUNCE = 500;
+const ITEMS_LIMIT = 1_000;
 
 const icons = (
     payload: IAnything,
@@ -154,6 +155,7 @@ export const Complete = ({
             if (Array.isArray(items)) {
                 const template = String(value$.current).toLowerCase();
                 items = items.filter((item) => item.toLowerCase().includes(template));
+                items = items.slice(0, ITEMS_LIMIT);
                 setItems(items);
             } else {
                 throw new Error('CompleteField itemList invalid result');
