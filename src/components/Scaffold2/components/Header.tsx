@@ -112,7 +112,7 @@ export const Header = <T extends Payload = Payload>({
             position: 'fixed',
             top: 0,
             left: isMobile ? 0 : '256px',
-            right: 0,
+            width: isMobile ? '100%' : 'calc(100% - 256px)',
           }),
           ...(!fixedHeader && {
             position: 'sticky',
