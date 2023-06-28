@@ -135,13 +135,16 @@ export const Header = <T extends Payload = Payload>({
           elevation={0}
           sx={{
             zIndex: 0,
-            pb: (hasTabs && !isMobile) ? 2 : 0,
+            pb: (hasTabs && !isMobile && !dense) ? 2 : 0,
           }}
         >
           <Toolbar variant={dense ? "dense" : "regular"}>
             <Grid container alignItems="center" wrap="nowrap" spacing={1}>
               <Grid sx={{ display: !dense ? { sm: 'none', xs: 'block' } : undefined }} item>
                 <IconButton
+                  sx={{
+                    pointerEvents: isMobile ? 'inherit' : 'none',
+                  }}
                   color="inherit"
                   aria-label="open drawer"
                   onClick={onDrawerToggle}

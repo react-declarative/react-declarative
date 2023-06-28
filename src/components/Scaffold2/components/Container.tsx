@@ -45,8 +45,7 @@ export const Container = <T extends Payload = Payload>({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
-  const isMobileQuery = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
-  const isMobile = isMobileQuery && !!dense;
+  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
 
   const handleDrawerToggle = () => {
     setMobileOpen((mobileOpen) => !mobileOpen);
@@ -95,7 +94,7 @@ export const Container = <T extends Payload = Payload>({
           {!isMobile && (
             <Navigator<T>
               PaperProps={{ style: { width: DRAWER_WIDTH } }}
-              sx={{ display: { sm: "block", xs: "none" } }}
+              sx={{ display: { sm: "block", xs: "none" }, width: DRAWER_WIDTH }}
               activeOptionPath={activeOptionPath}
               payload={payload}
               options={options}

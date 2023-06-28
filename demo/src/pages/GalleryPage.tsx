@@ -288,7 +288,7 @@ const fields: TypedField[] = [
     {
         type: FieldType.Complete,
         name: 'complete',
-        itemList: [
+        tip: () => [
             "a",
             "b",
             "c",

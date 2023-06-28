@@ -148,6 +148,8 @@ const App = () => {
   return (
     <SecretView enabled={false} onCode={console.log}>
       <Scaffold2
+        dense
+        fixedHeader
         activeOptionPath="root.build.authentication"
         activeTabPath={activeTabPath}
         appName="Scaffold"
