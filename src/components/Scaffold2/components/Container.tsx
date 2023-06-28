@@ -41,12 +41,12 @@ export const Container = <T extends Payload = Payload>({
   onAction,
   children,
 }: IScaffold2InternalProps<T>) => {
-  const { dense, hideSideMenu = false } = usePropsContext();
+  const { dense } = usePropsContext();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
   const isMobileQuery = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
-  const isMobile = isMobileQuery && !hideSideMenu;
+  const isMobile = isMobileQuery && !!dense;
 
   const handleDrawerToggle = () => {
     setMobileOpen((mobileOpen) => !mobileOpen);

@@ -6074,7 +6074,6 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
     export interface IScaffold2Props<T = Payload> {
         noAppName?: boolean;
         fixedHeader?: boolean;
-        hideSideMenu?: boolean;
         noSearch?: boolean;
         dense?: boolean;
         className?: string;
