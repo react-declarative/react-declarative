@@ -15,7 +15,7 @@ const initialValueMap = {
   [FieldType.Time]: '',
   [FieldType.File]: null,
   [FieldType.Choose]: null,
-  [FieldType.Component]: null,
+  [FieldType.Component]: undefined,
   [FieldType.Complete]: '',
 };
 
