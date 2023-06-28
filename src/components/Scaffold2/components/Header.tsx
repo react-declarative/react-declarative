@@ -68,7 +68,7 @@ export const Header = <T extends Payload = Payload>({
   ...otherProps
 }: IHeaderProps<T>) => {
 
-  const { dense = false } = usePropsContext();
+  const { dense = false, fixedHeader = false } = usePropsContext();
 
   const { id, path, label, tabs } = useMemo(() => {
     const totalOptions = deepFlat(options);
@@ -103,58 +103,67 @@ export const Header = <T extends Payload = Payload>({
   }, [path, id]);
 
   return (
-    <Stack
-      className={className}
-      style={style}
-      sx={{
-        position: 'sticky',
-        top: 0,
-        left: 0,
-        right: 0,
-        width: '100%',
-        zIndex: 999,
-        ...sx,
-      }}
-      alignItems="stretch"
-      justifyContent="stretch"
-      {...otherProps}
-    >
-      <AppBar
-        component="div"
-        color="primary"
-        position="static"
-        elevation={0}
+    <>
+      <Stack
+        className={className}
+        style={style}
         sx={{
-          zIndex: 0,
-          pb: (hasTabs && !isMobile) ? 2 : 0,
+          ...(fixedHeader && {
+            position: 'fixed',
+            top: 0,
+            left: isMobile ? 0 : '256px',
+            right: 0,
+          }),
+          ...(!fixedHeader && {
+            position: 'sticky',
+            top: 0,
+            left: 0,
+            right: 0,
+          }),
+          width: '100%',
+          zIndex: 999,
+          ...sx,
         }}
+        alignItems="stretch"
+        justifyContent="stretch"
+        {...otherProps}
       >
-        <Toolbar variant={dense ? "dense" : "regular"}>
-          <Grid container alignItems="center" wrap="nowrap" spacing={1}>
-            <Grid sx={{ display: !dense ? { sm: 'none', xs: 'block' } : undefined }} item>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={onDrawerToggle}
-                edge="start"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Grid>
-            <Grid item xs>
-              {dense ? (
-                <>
-                  {!tabs.length && (
-                    <Typography color="inherit" variant="h5" component="h1">
-                      {label || appName}
-                    </Typography>
-                  )}
-                  {hasTabs && (
-                    <Tabs
-                      value={activeTabPath}
-                      textColor="inherit"
-                      indicatorColor="secondary"
-                    >
+        <AppBar
+          component="div"
+          color="primary"
+          position="static"
+          elevation={0}
+          sx={{
+            zIndex: 0,
+            pb: (hasTabs && !isMobile) ? 2 : 0,
+          }}
+        >
+          <Toolbar variant={dense ? "dense" : "regular"}>
+            <Grid container alignItems="center" wrap="nowrap" spacing={1}>
+              <Grid sx={{ display: !dense ? { sm: 'none', xs: 'block' } : undefined }} item>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={onDrawerToggle}
+                  edge="start"
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs>
+                {dense ? (
+                  <>
+                    {!hasTabs && (
+                      <Typography color="inherit" variant="h5" component="h1">
+                        {label || appName}
+                      </Typography>
+                    )}
+                    {hasTabs && (
+                      <Tabs
+                        value={activeTabPath}
+                        textColor="inherit"
+                        indicatorColor="secondary"
+                      >
                         {tabs
                           .filter(({ visible }) => visible)
                           .map(({ id, label, icon: Icon, disabled, path }, idx) => (
@@ -171,63 +180,63 @@ export const Header = <T extends Payload = Payload>({
                               icon={Icon && <Icon />}
                             />
                           )
-                        )}
-                    </Tabs>
-                  )}
-                </>
-              ) : (
-                <Typography color="inherit" variant="h5" component="h1">
-                  {label || appName}
-                </Typography>
+                          )}
+                      </Tabs>
+                    )}
+                  </>
+                ) : (
+                  <Typography color="inherit" variant="h5" component="h1">
+                    {label || appName}
+                  </Typography>
+                )}
+              </Grid>
+              {!!actions?.length && (
+                <Grid item>
+                  <ActionMenu
+                    transparent
+                    sx={{
+                      color: 'unset !important',
+                      mr: -2,
+                    }}
+                    BeforeContent={BeforeMenuContent}
+                    AfterContent={AfterMenuContent}
+                    options={actions.map(
+                      ({
+                        isVisible = () => true,
+                        isDisabled = () => false,
+                        ...other
+                      }) => ({
+                        ...other,
+                        isVisible: () => isVisible(payload!),
+                        isDisabled: () => isDisabled(payload!),
+                      })
+                    )}
+                    onAction={onAction}
+                    payload={payload}
+                  />
+                </Grid>
               )}
             </Grid>
-            {!!actions?.length && (
-              <Grid item>
-                <ActionMenu
-                  transparent
-                  sx={{
-                    color: 'unset !important',
-                    mr: -2,
-                  }}
-                  BeforeContent={BeforeMenuContent}
-                  AfterContent={AfterMenuContent}
-                  options={actions.map(
-                    ({
-                      isVisible = () => true,
-                      isDisabled = () => false,
-                      ...other
-                    }) => ({
-                      ...other,
-                      isVisible: () => isVisible(payload!),
-                      isDisabled: () => isDisabled(payload!),
-                    })
-                  )}
-                  onAction={onAction}
-                  payload={payload}
-                />
-              </Grid>
-            )}
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      {hasTabs && !dense && (
-        <AppBar
-          component="div"
-          position="static"
-          elevation={0}
-          sx={{ zIndex: 0 }}
-        >
-          <Tabs
-            value={activeTabPath}
-            textColor="inherit"
-            indicatorColor="secondary"
+          </Toolbar>
+        </AppBar>
+        {hasTabs && !dense && (
+          <AppBar
+            component="div"
+            position="static"
+            elevation={0}
+            sx={{ zIndex: 0 }}
           >
+            <Tabs
+              value={activeTabPath}
+              textColor="inherit"
+              indicatorColor="secondary"
+            >
               {tabs
                 .filter(({ visible }) => visible)
                 .map(({ id, label, icon: Icon, disabled, path }, idx) => (
                   <Tab
                     sx={{
-                      minWidth: 128,
+                      minWidth: '128px',
                     }}
                     key={`${id}-${idx}`}
                     value={path}
@@ -237,24 +246,49 @@ export const Header = <T extends Payload = Payload>({
                     icon={Icon && <Icon />}
                   />
                 )
-              )}
-          </Tabs>
-        </AppBar>
-      )}
-      {!!loading && (
+                )}
+            </Tabs>
+          </AppBar>
+        )}
+        {!!loading && (
+          <Box
+            sx={{
+              marginTop: '-4px',
+            }}
+          >
+            <LinearProgress
+              variant={loading as unknown as number > 1 ? "determinate" : "indeterminate"}
+              value={loading as unknown as number > 1 ? Number(loading) : undefined}
+              color="primary"
+            />
+          </Box>
+        )}
+      </Stack>
+      {!!fixedHeader && (
         <Box
           sx={{
-            marginTop: '-4px',
+            ...(dense && {
+              paddingBottom: '48px',
+            }),
+            ...(!dense && {
+              ...isMobile ? {
+                ...hasTabs ? {
+                  paddingBottom: '106px',
+                } : {
+                  paddingBottom: '56px',
+                }
+              } : {
+                ...hasTabs ? {
+                  paddingBottom: '128px',
+                } : {
+                  paddingBottom: '64px',
+                }
+              }
+            })
           }}
-        >
-          <LinearProgress
-            variant={loading as unknown as number > 1 ? "determinate" : "indeterminate"}
-            value={loading as unknown as number > 1 ? Number(loading) : undefined}
-            color="primary"
-          />
-        </Box>
+        />
       )}
-    </Stack>
+    </>
   );
 };
 

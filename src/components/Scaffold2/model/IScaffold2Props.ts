@@ -8,6 +8,8 @@ import Payload from "./Payload";
 
 export interface IScaffold2Props<T = Payload> {
     noAppName?: boolean;
+    fixedHeader?: boolean;
+    hideSideMenu?: boolean;
     noSearch?: boolean;
     dense?: boolean;
     className?: string;
