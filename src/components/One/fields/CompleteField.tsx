@@ -20,7 +20,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
   trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
   leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
   trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
-  itemList?: PickProp<IField<Data, Payload>, "itemList">;
+  tip?: PickProp<IField<Data, Payload>, "tip">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
@@ -52,7 +52,7 @@ export const CompleteField = ({
   trailingIcon,
   leadingIconClick,
   trailingIconClick,
-  itemList,
+  tip,
   placeholder = "",
   inputAutocomplete = "off",
   dirty,
@@ -77,7 +77,7 @@ export const CompleteField = ({
     trailingIcon={trailingIcon}
     leadingIconClick={leadingIconClick}
     trailingIconClick={trailingIconClick}
-    itemList={itemList}
+    tip={tip}
     placeholder={placeholder}
     inputAutocomplete={inputAutocomplete}
     dirty={dirty}

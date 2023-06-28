@@ -727,6 +727,10 @@ declare module 'react-declarative/model/IField' {
             stepSlider?: number;
             labelFormatSlider?: (v: number) => string | number;
             /**
+                * Подсказки для CompleteField
+                */
+            tip?: (value: string, payload: Payload) => (string[] | Promise<string[]>);
+            /**
                 * Варианты выбора для ComboField и ItemsField
                 */
             itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>);
@@ -3587,7 +3591,7 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
         leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
         trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
-        itemList?: PickProp<IField<Data, Payload>, "itemList">;
+        tip?: PickProp<IField<Data, Payload>, "tip">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
@@ -3605,7 +3609,7 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const CompleteField: {
-        ({ invalid, value, disabled, readonly, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, itemList, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, tip, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4420,7 +4424,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, value, disabled, fieldReadonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
-        Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, itemList, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
+        Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;

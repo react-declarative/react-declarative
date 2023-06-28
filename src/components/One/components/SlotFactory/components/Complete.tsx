@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
@@ -15,8 +15,8 @@ import VirtualView from '../../../../VirtualView';
 
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneProps } from '../../../context/PropsProvider';
-import { useOneState } from '../../../context/StateProvider';
 
+import useActualCallback from '../../../../../hooks/useActualCallback';
 import useActualValue from '../../../../../hooks/useActualValue';
 import useDebounce from '../../../hooks/useDebounce';
 
@@ -29,7 +29,8 @@ import icon from '../../../../../utils/createIcon';
 import queued from '../../../../../utils/hof/queued';
 
 const FETCH_DEBOUNCE = 500;
-const ITEMS_LIMIT = 1_000;
+const ITEMS_LIMIT = 100;
+const ITEM_HEIGHT = 36;
 
 const icons = (
     payload: IAnything,
@@ -116,7 +117,7 @@ export const Complete = ({
     inputAutocomplete: autoComplete = "off",
     dirty,
     loading: upperLoading,
-    itemList = ['unset'],
+    tip = () => ['unset'],
     autoFocus,
     inputRef,
     onChange,
@@ -131,15 +132,9 @@ export const Complete = ({
         }
     } = useOneProps();
 
-    const {
-        object,
-    } = useOneState();
+    const anchorElRef = useRef<HTMLDivElement>(null);
+    const [open, setOpen] = useState(false);
 
-    const object$ = useActualValue(object);
-
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const anchorEl$ = useActualValue(anchorEl);
-    
     const [currentLoading, setCurrentLoading] = useState(false);
     const [items, setItems] = useState<string[]>([]);
 
@@ -148,13 +143,19 @@ export const Complete = ({
 
     const [valueD, { pending }] = useDebounce(value, FETCH_DEBOUNCE);
 
+    const tip$ = useActualCallback(tip)
+
     const handleRequest = useMemo(() => queued(async () => {
         setCurrentLoading(true);
         try {
-            let items = typeof itemList === 'function' ? await itemList(object$.current, payload) : itemList;
+            let items = await tip$(value$.current || '', payload);
             if (Array.isArray(items)) {
-                const template = String(value$.current).toLowerCase();
-                items = items.filter((item) => item.toLowerCase().includes(template));
+                const search = String(value$.current || '').toLowerCase();
+                const searchQuery = search.split(' ');
+                items = items.filter((item) => {
+                    const itemValue = String(item).toLowerCase().split(' ');
+                    return itemValue.some((value) => searchQuery.includes(value));
+                });
                 items = items.slice(0, ITEMS_LIMIT);
                 setItems(items);
             } else {
@@ -168,64 +169,69 @@ export const Complete = ({
     }), []);
 
     useEffect(() => {
-        if (!anchorEl$.current) {
+        if (!open) {
             return;
         }
         handleRequest();
-    }, [valueD, anchorEl]);
+    }, [valueD, open]);
 
     const handleBlur = () => {
-        let isOk = true;
-        isOk = isOk && value;
-        isOk = isOk && !pending();
-        isOk = isOk && items.length === 1;
-        if (isOk) {
-            onChange(items[0]);
+        if (open) {
+            let isOk = true;
+            isOk = isOk && value;
+            isOk = isOk && !pending();
+            isOk = isOk && items.length === 1;
+            if (isOk) {
+                onChange(items[0]);
+            }
         }
-        setAnchorEl(null);
+        setOpen(false);
     };
 
     return (
         <>
-            <MatTextField
-                name={name}
-                inputRef={inputRef}
-                variant={outlined ? 'outlined' : 'standard'}
-                helperText={(dirty && invalid) || description}
-                error={dirty && invalid !== null}
-                InputProps={{
-                    autoComplete,
-                    readOnly: readonly,
-                    inputMode,
-                    autoFocus,
-                    ...icons(
-                        payload,
-                        li,
-                        ti,
-                        lic,
-                        tic,
-                        loading,
-                        disabled,
-                        (value || '').toString(),
-                        onChange,
-                    ),
-                }}
-                inputProps={{
-                    pattern: inputPattern,
-                }}
-                type={inputType}
-                focused={autoFocus}
-                autoComplete={autoComplete}
-                value={String(value || '')}
-                placeholder={placeholder}
-                onChange={({ target }) => onChange(target.value)}
-                onClick={({ currentTarget }) => setAnchorEl(currentTarget)}
-                label={title}
-                disabled={disabled}
-            />
+            <div ref={anchorElRef}>
+                <MatTextField
+                    fullWidth
+                    name={name}
+                    inputRef={inputRef}
+                    variant={outlined ? 'outlined' : 'standard'}
+                    helperText={(dirty && invalid) || description}
+                    error={dirty && invalid !== null}
+                    InputProps={{
+                        autoComplete,
+                        readOnly: readonly,
+                        inputMode,
+                        autoFocus,
+                        ...icons(
+                            payload,
+                            li,
+                            ti,
+                            lic,
+                            tic,
+                            loading,
+                            disabled,
+                            (value || '').toString(),
+                            onChange,
+                        ),
+                    }}
+                    inputProps={{
+                        pattern: inputPattern,
+                    }}
+                    type={inputType}
+                    focused={autoFocus}
+                    autoComplete={autoComplete}
+                    value={String(value || '')}
+                    placeholder={placeholder}
+                    onChange={({ target }) => onChange(target.value)}
+                    onClick={() => setOpen(true)}
+                    label={title}
+                    disabled={disabled}
+                />
+            </div>
             <Popover
-                open={!!anchorEl}
-                anchorEl={anchorEl}
+                open={open}
+                anchorEl={anchorElRef.current}
                 onClose={handleBlur}
                 anchorOrigin={{
                     vertical: 'bottom',
@@ -235,15 +241,15 @@ export const Complete = ({
                 disableEnforceFocus
                 disableRestoreFocus
             >
-                {!!anchorEl && (
+                {open && (
                     <VirtualView
                         component={List}
                         sx={{
-                            width: `${anchorEl?.clientWidth}px !important`,
-                            height: 250,
+                            width: `${anchorElRef.current?.clientWidth || 500}px !important`,
+                            height: items.length ? Math.min(items.length * ITEM_HEIGHT, 250) : ITEM_HEIGHT,
                             mb: 1,
                         }}
-                        minRowHeight={36}
+                        minRowHeight={ITEM_HEIGHT}
                     >
                         {!items.length && (
                             <ListItem
@@ -255,7 +261,7 @@ export const Complete = ({
                                     disableTouchRipple
                                 >
                                     <ListItemText
-                                        primary={loading ? "Loading" : "Nothing found"}
+                                        primary={loading ? "Loading" : "No tips"}
                                     />
                                 </ListItemButton>
                             </ListItem>
@@ -271,7 +277,7 @@ export const Complete = ({
                                         e.preventDefault();
                                         e.stopPropagation();
                                         onChange(value);
-                                        setAnchorEl(null);
+                                        setOpen(false);
                                     }}
                                 >
                                     <ListItemText

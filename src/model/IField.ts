@@ -241,6 +241,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     labelFormatSlider?: (v: number) => string | number;
 
     /**
+     * Подсказки для CompleteField
+     */
+    tip?: (value: string, payload: Payload) => (string[] | Promise<string[]>);
+
+    /**
      * Варианты выбора для ComboField и ItemsField
      */
     itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>),
