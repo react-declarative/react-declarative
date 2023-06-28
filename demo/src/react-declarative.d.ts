@@ -345,6 +345,7 @@ declare module 'react-declarative' {
     export type IOperationListSlot = IOperationListSlotInternal;
     export { openBlank } from 'react-declarative/utils/openBlank';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
+    export { loadScript } from 'react-declarative/utils/loadScript';
     export { reloadPage } from 'react-declarative/utils/reloadPage';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
     export { getRouteItem } from 'react-declarative/utils/getRouteItem';
@@ -2194,6 +2195,11 @@ declare module 'react-declarative/utils/openBlank' {
 declare module 'react-declarative/utils/chooseFile' {
     export const chooseFile: (accept?: string | undefined) => Promise<File | null>;
     export default chooseFile;
+}
+
+declare module 'react-declarative/utils/loadScript' {
+    export const loadScript: (src: string, async?: boolean) => Promise<void>;
+    export default loadScript;
 }
 
 declare module 'react-declarative/utils/reloadPage' {
@@ -5775,7 +5781,14 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
 declare module 'react-declarative/components/DocumentView/DocumentView' {
     import * as React from 'react';
     import { BoxProps } from '@mui/material/Box';
-    interface IDocumentViewProps extends BoxProps {
+    import { IActionMenuProps } from 'react-declarative/components/ActionMenu';
+    interface IDocumentViewProps<T extends any = object> extends BoxProps, Omit<IActionMenuProps<T>, keyof {
+        className: never;
+        style: never;
+        sx: never;
+        transparent: never;
+        onToggle: never;
+    }> {
         withFullScreen?: boolean;
         withDelete?: boolean;
         className?: string;
@@ -5788,13 +5801,20 @@ declare module 'react-declarative/components/DocumentView/DocumentView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: IDocumentViewProps) => JSX.Element;
+    export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, disabled, options, onAction, payload, deps, keepMounted, BeforeContent, AfterContent, ...otherProps }: IDocumentViewProps) => JSX.Element;
     export default DocumentView;
 }
 
 declare module 'react-declarative/components/ImageView/ImageView' {
     import { BoxProps } from '@mui/material/Box';
-    interface IImageViewProps extends BoxProps {
+    import { IActionMenuProps } from 'react-declarative/components/ActionMenu';
+    interface IImageViewProps<T extends any = object> extends BoxProps, Omit<IActionMenuProps<T>, keyof {
+        className: never;
+        style: never;
+        sx: never;
+        transparent: never;
+        onToggle: never;
+    }> {
         withFullScreen?: boolean;
         withDelete?: boolean;
         src: string;
@@ -5805,7 +5825,7 @@ declare module 'react-declarative/components/ImageView/ImageView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: IImageViewProps) => JSX.Element;
+    export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, disabled, options, onAction, payload, deps, keepMounted, BeforeContent, AfterContent, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
 }
 

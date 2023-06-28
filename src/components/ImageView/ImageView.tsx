@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import { makeStyles } from '../../styles';
 import { darken } from '@mui/system';
@@ -10,12 +11,20 @@ import ActionFab from '../ActionFab';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { ActionMenu, IActionMenuProps } from '../ActionMenu';
+
 import classNames from '../../utils/classNames';
 import openBlank from '../../utils/openBlank';
 
 const FAB_SIZE = 48;
 
-interface IImageViewProps extends BoxProps {
+interface IImageViewProps<T extends any = object> extends BoxProps, Omit<IActionMenuProps<T>, keyof {
+    className: never;
+    style: never;
+    sx: never;
+    transparent: never;
+    onToggle: never;
+}> {
     withFullScreen?: boolean;
     withDelete?: boolean;
     src: string;
@@ -52,15 +61,37 @@ const useStyles = makeStyles()((theme) => ({
     },
     fabFullscreen: {
         position: 'absolute',
+        transition: 'opacity 150ms',
+        opacity: 0,
         bottom: 10,
         right: 10,
         zIndex: 2,
     },
+    fabFullscreenToggle: {
+        opacity: 1,
+    },
     fabDelete: {
         position: 'absolute',
+        transition: 'opacity 150ms',
+        opacity: 0,
         bottom: 10,
-        right: 68,
         zIndex: 2,
+    },
+    fabDeleteToggle: {
+        opacity: 1,
+    },
+    fabMenu: {
+        position: 'absolute',
+        transition: 'opacity 150ms',
+        opacity: 0,
+        top: 10,
+        right: 10,
+        height: FAB_SIZE,
+        width: FAB_SIZE,
+        zIndex: 2,
+    },
+    fabMenuToggle: {
+        opacity: 1,
     },
 }));
 
@@ -75,11 +106,40 @@ export const ImageView = ({
     onLoadEnd,
     fallback,
     throwError = false,
+    disabled = false,
+
+    options,
+    onAction = () => undefined,
+    payload,
+    deps,
+    keepMounted,
+    BeforeContent,
+    AfterContent,
+
     ...otherProps
 }: IImageViewProps) => {
     const { classes } = useStyles();
+
+    const [toggle, setToggle] = useState(false);
+    const [hover, setHover] = useState(false);
+
     return (
-        <Box className={classNames(className, classes.root)} {...otherProps}>
+        <Box
+            className={classNames(className, classes.root)}
+            onMouseEnter={() => {
+                if (toggle) {
+                    return;
+                }
+                setHover(true);
+            }}
+            onMouseLeave={() => {
+                if (toggle) {
+                    return;
+                }
+                setHover(false);
+            }}
+            {...otherProps}
+        >
             <div className={classes.container}>
                 <img
                     className={classes.content}
@@ -88,9 +148,34 @@ export const ImageView = ({
                     src={src}
                 />
             </div>
+            {!!options?.length && (
+                <ActionMenu
+                    className={classNames(classes.fabMenu, {
+                        [classes.fabMenuToggle]: toggle || hover,
+                    })}
+                    options={options}
+                    disabled={disabled}
+                    onToggle={(toggle) => {
+                        setToggle(toggle);
+                        setHover(false);
+                    }}
+                    onAction={onAction}
+                    payload={payload}
+                    deps={deps}
+                    keepMounted={keepMounted}
+                    BeforeContent={BeforeContent}
+                    AfterContent={AfterContent}
+                />
+            )}
             {withDelete && (
                 <ActionFab
-                    className={classes.fabDelete}
+                    className={classNames(classes.fabDelete, {
+                        [classes.fabDeleteToggle]: toggle || hover,
+                    })}
+                    disabled={disabled}
+                    sx={{
+                        right: withFullScreen ? 68 : 10,
+                    }}
                     color="primary"
                     size={FAB_SIZE}
                     onClick={onDeleteClick}
@@ -104,7 +189,10 @@ export const ImageView = ({
             )}
             {withFullScreen && (
                 <ActionFab
-                    className={classes.fabFullscreen}
+                    className={classNames(classes.fabFullscreen, {
+                        [classes.fabFullscreenToggle]: toggle || hover,
+                    })}
+                    disabled={disabled}
                     color="primary"
                     size={FAB_SIZE}
                     onClick={onFullScreenClick}

@@ -423,6 +423,7 @@ export type IOperationListSlot = IOperationListSlotInternal;
 
 export { openBlank } from './utils/openBlank';
 export { chooseFile } from './utils/chooseFile';
+export { loadScript } from './utils/loadScript';
 export { reloadPage } from './utils/reloadPage';
 
 export { getRouteParams } from './utils/getRouteParams';

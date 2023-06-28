@@ -38,6 +38,7 @@ import {
   DocumentView,
   ImageView,
   FilesView,
+  IOption,
 } from "react-declarative";
 import { v4 as uuid } from "uuid";
 
@@ -49,6 +50,13 @@ import history from "../history";
 import sleep from "../utils/sleep";
 
 import mock from "./mock/list";
+
+const options: IOption[] = [
+  {
+    label: 'Test',
+    action: 'test',
+  },
+];
 
 const features: IFeatureGroup[] = [
   {
@@ -553,8 +561,8 @@ export const FadePage = () => {
       <FeatureView features={features} />
       <Countdown expireAt={new Date(Date.now() + 60 * 60 * 60 * 100)} />
       <Spinner />
-      <DocumentView withFullScreen sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
-      <ImageView withDelete withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
+      <DocumentView options={options} withDelete withFullScreen sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
+      <ImageView options={options} withDelete withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
       <FilesView accept=".png" items={["1.png", "2.png", "3.png"]} />
     </>
   );
