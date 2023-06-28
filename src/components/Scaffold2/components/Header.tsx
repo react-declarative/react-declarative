@@ -108,6 +108,8 @@ export const Header = <T extends Payload = Payload>({
         className={className}
         style={style}
         sx={{
+          width: '100%',
+          zIndex: 999,
           ...(fixedHeader && {
             position: 'fixed',
             top: 0,
@@ -120,8 +122,6 @@ export const Header = <T extends Payload = Payload>({
             left: 0,
             right: 0,
           }),
-          width: '100%',
-          zIndex: 999,
           ...sx,
         }}
         alignItems="stretch"
