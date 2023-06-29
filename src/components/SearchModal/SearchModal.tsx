@@ -81,7 +81,7 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   submit: {
-    paddingTop: 30,
+    paddingTop: 15,
   },
   disabled: {
     opacity: 0.5,
