@@ -46,6 +46,9 @@ export const useSearchModal = <
   reloadSubject,
   payload,
   onChange,
+  onAction,
+  onRowAction,
+  onRowClick,
   onSubmit = () => true,
   onLoadEnd,
   onLoadStart,
@@ -84,6 +87,9 @@ export const useSearchModal = <
         onChange={onChange}
         onLoadEnd={onLoadEnd}
         onLoadStart={onLoadStart}
+        onAction={onAction}
+        onRowAction={onRowAction}
+        onRowClick={onRowClick}
         submitLabel={submitLabel}
         throwError={throwError}
         onSubmit={handleSubmit}

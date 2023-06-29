@@ -5217,7 +5217,6 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
     import IRowData from "react-declarative/model/IRowData";
     import IField from "react-declarative/model/IField";
     import IListProps from "react-declarative/model/IListProps";
-    import SelectionMode from "react-declarative/model/SelectionMode";
     export interface ISearchModalProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
         selectedRows: never;
         heightRequest: never;
@@ -5225,11 +5224,9 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         onSelectedRows: never;
         onLoadStart: never;
         onLoadEnd: never;
-        selectionMode: never;
     }> {
         title?: string;
         data?: IRowData['id'][];
-        selectionMode?: SelectionMode.Multiple | SelectionMode.Single;
         onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
         onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
         onLoadStart?: () => void;
@@ -5260,7 +5257,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onRowClick, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         render: () => JSX.Element;
         pickData: (param?: Param) => void;
     };

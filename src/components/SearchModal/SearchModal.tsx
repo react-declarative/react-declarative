@@ -31,11 +31,9 @@ export interface ISearchModalProps<
   onSelectedRows: never;
   onLoadStart: never;
   onLoadEnd: never;
-  selectionMode: never;
 }> {
   title?: string;
   data?: IRowData['id'][];
-  selectionMode?: SelectionMode.Multiple | SelectionMode.Single;
   onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
   onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
   onLoadStart?: () => void;
@@ -72,7 +70,6 @@ const useStyles = makeStyles()((theme) => ({
   },
   content: {
     flex: 1,
-    paddingBottom: 15,
     '& > * > * > * > * > .MuiPaper-root': {
       background: 'transparent',
       boxShadow: 'none',
@@ -84,7 +81,7 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   submit: {
-    paddingTop: 15,
+    paddingTop: 30,
   },
   disabled: {
     opacity: 0.5,
@@ -202,17 +199,19 @@ export const SearchModal = <
               )}
             </AutoSizer>
         </Box>
-        <ActionButton
-          className={classes.submit}
-          disabled={!!loading.current || !data?.length}
-          size="large"
-          variant="contained"
-          color="info"
-          fullWidth
-          onClick={handleAccept}
-        >
-          {submitLabel}
-        </ActionButton>
+        {selectionMode !== SelectionMode.None && (
+          <ActionButton
+            className={classes.submit}
+            disabled={!!loading.current || !data?.length}
+            size="large"
+            variant="contained"
+            color="info"
+            fullWidth
+            onClick={handleAccept}
+          >
+            {submitLabel}
+          </ActionButton>
+        )}
       </Box>
     </Modal>
   );
