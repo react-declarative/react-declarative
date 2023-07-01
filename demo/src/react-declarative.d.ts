@@ -237,6 +237,7 @@ declare module 'react-declarative' {
     export { Switch } from 'react-declarative/components';
     export { Center } from 'react-declarative/components';
     export { Square } from 'react-declarative/components';
+    export { Dot } from 'react-declarative/components';
     export { ScrollAdjust } from 'react-declarative/components';
     export { NoSsr } from 'react-declarative/components';
     export { OtherComboSlot } from 'react-declarative/components';
@@ -2074,6 +2075,7 @@ declare module 'react-declarative/model/IRowData' {
 
 declare module 'react-declarative/components' {
     export * from 'react-declarative/components/One';
+    export * from 'react-declarative/components/Dot';
     export * from 'react-declarative/components/List';
     export * from 'react-declarative/components/NoSsr';
     export * from 'react-declarative/components/Switch';
@@ -3791,6 +3793,11 @@ declare module 'react-declarative/components/One' {
     export { default } from 'react-declarative/components/One/One';
 }
 
+declare module 'react-declarative/components/Dot' {
+    export * from 'react-declarative/components/Dot/Dot';
+    export { default } from 'react-declarative/components/Dot/Dot';
+}
+
 declare module 'react-declarative/components/List' {
     export * from "react-declarative/components/List/List";
     export * from "react-declarative/components/List/slots";
@@ -4653,6 +4660,16 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     }
     export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
+}
+
+declare module 'react-declarative/components/Dot/Dot' {
+    import { BoxProps } from '@mui/material/Box';
+    interface IDotProps extends BoxProps {
+        side: number;
+        color: string;
+    }
+    export const Dot: ({ className, color: background, side, ...otherProps }: IDotProps) => JSX.Element;
+    export default Dot;
 }
 
 declare module 'react-declarative/components/List/List' {

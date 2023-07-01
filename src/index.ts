@@ -293,6 +293,7 @@ export { Breadcrumbs2 } from './components';
 export { Switch } from './components';
 export { Center } from './components';
 export { Square } from './components';
+export { Dot } from './components';
 export { ScrollAdjust } from './components';
 export { NoSsr } from './components';
 
