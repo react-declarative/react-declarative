@@ -136,11 +136,13 @@ export const SearchModal = <
   };
 
   const handleAccept = async () => {
-    const isEnabled = open && !loading.current;
+    if (loading.current) {
+      return;
+    }
     let isOk = true;
     try {
       handleLoadStart()
-      if (isEnabled) {
+      if (open) {
         await onSubmit(data);
       }
     } catch (e: any) {
@@ -156,11 +158,13 @@ export const SearchModal = <
   };
 
   const handleClose = async () => {
-    const isEnabled = open && !loading.current;
+    if (loading.current) {
+      return;
+    }
     let isOk = true;
     try {
       handleLoadStart()
-      if (isEnabled) {
+      if (open) {
         await onSubmit(null);
       }
     } catch (e: any) {
