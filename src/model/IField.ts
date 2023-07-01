@@ -341,6 +341,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     isDisabled?: (v: Data, payload: Payload) => boolean;
 
     /**
+     * Функция, позволяющая отключить ввод данных в поле, исходя из целевого
+     * объекта
+     */
+    isReadonly?: (v: Data, payload: Payload) => boolean;
+
+    /**
      * Функция, применяемая если значение поля вычисляется динамически.
      * Включает readonly.
      */

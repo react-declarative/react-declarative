@@ -62,4 +62,7 @@ export const DateField = ({
 
 DateField.displayName = 'DateField';
 
-export default makeField(DateField);
+export default makeField(DateField, {
+  skipDebounce: true,
+  skipClickListener: true,
+});
