@@ -331,6 +331,7 @@ export const VirtualView = ({
         }
       });
       setContainer(element);
+      resizeObserver.observe(element);
     }
   }, []);
 
