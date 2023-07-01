@@ -48,6 +48,7 @@ export const useActionModal = <
   submitLabel,
   throwError,
   dirty,
+  readonly,
   title,
 }: IParams<Data, Payload, Field, Param>) => {
   const [open, setOpen] = useState(false);
@@ -71,6 +72,7 @@ export const useActionModal = <
       <ActionModal
         open={open}
         hidden={hidden}
+        readonly={readonly}
         apiRef={apiRef}
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}
@@ -93,6 +95,7 @@ export const useActionModal = <
     [
       open,
       hidden,
+      readonly,
       dirty,
       fields,
       apiRef,

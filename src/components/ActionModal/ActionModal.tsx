@@ -26,6 +26,7 @@ export interface IActionModalProps<
   Param = any,
 > {
   hidden?: boolean;
+  readonly?: boolean;
   apiRef?: React.Ref<IOneApi>;
   fields: Field[];
   title?: string;
@@ -98,6 +99,7 @@ export const ActionModal = <
   open = true,
   dirty = false,
   hidden = false,
+  readonly = false,
   throwError = false,
   submitLabel = "Submit",
 }: IActionModalProps<Data, Payload, Field>) => {
@@ -196,7 +198,7 @@ export const ActionModal = <
           className={classNames({
             [classes.disabled]: !!loading.current,
           })}
-          readonly={!!loading.current}
+          readonly={!!loading.current || readonly}
           invalidity={handleInvalid}
           change={handleChange}
           handler={handler}
@@ -204,17 +206,19 @@ export const ActionModal = <
           fields={fields}
           dirty={dirty}
         />
-        <ActionButton
-          className={classes.submit}
-          disabled={!!loading.current || !data}
-          size="large"
-          variant="contained"
-          color="info"
-          fullWidth
-          onClick={handleAccept}
-        >
-          {submitLabel}
-        </ActionButton>
+        {!readonly && (
+          <ActionButton
+            className={classes.submit}
+            disabled={!!loading.current || !data}
+            size="large"
+            variant="contained"
+            color="info"
+            fullWidth
+            onClick={handleAccept}
+          >
+            {submitLabel}
+          </ActionButton>
+        )}
       </Box>
     </Modal>
   );
