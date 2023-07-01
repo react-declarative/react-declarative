@@ -5168,6 +5168,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IAnything from "react-declarative/model/IAnything";
     import IOneProps from "react-declarative/model/IOneProps";
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
+        hidden?: boolean;
         apiRef?: React.Ref<IOneApi>;
         fields: Field[];
         title?: string;
@@ -5187,7 +5188,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, open, dirty, hidden, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5201,11 +5202,13 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     }> {
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, title, }: IParams<Data, Payload, Field, Param>) => {
+        open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
     };
     export const useActionModalTyped: <Data extends unknown = any>(params: IParams<Data, TypedField<Data, any>, IField<Data, any>, any>) => {
+        open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
     };
@@ -5234,9 +5237,10 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
         open?: boolean;
+        hidden?: boolean;
         submitLabel?: string;
     }
-    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
 }
 
@@ -5257,11 +5261,13 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onRowClick, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onRowClick, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+        open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param) => void;
     };
     export const useSearchModalTyped: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = TypedField<FilterData, Payload>>(params: IParams<FilterData, RowData, Payload, Field>) => {
+        open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param) => void;
     };

@@ -55,6 +55,7 @@ export const useSearchModal = <
   submitLabel,
   throwError,
   title,
+  hidden,
   ...listProps
 }: IParams<FilterData, RowData, Payload, Field>) => {
   const [open, setOpen] = useState(false);
@@ -77,6 +78,7 @@ export const useSearchModal = <
     () => (
       <SearchModal
         open={open}
+        hidden={hidden}
         data={param}
         title={title}
         apiRef={apiRef}
@@ -98,6 +100,7 @@ export const useSearchModal = <
     ),
     [
       open,
+      hidden,
       apiRef,
       reloadSubject,
       handler,
@@ -120,6 +123,7 @@ export const useSearchModal = <
   }, []);
 
   return {
+    open,
     render,
     pickData,
   };

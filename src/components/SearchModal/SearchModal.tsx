@@ -41,6 +41,7 @@ export interface ISearchModalProps<
   fallback?: (e: Error) => void;
   throwError?: boolean;
   open?: boolean;
+  hidden?: boolean;
   submitLabel?: string;
 }
 
@@ -95,6 +96,7 @@ export const SearchModal = <
   Payload extends IAnything = IAnything,
   Field extends IField = IField<FilterData, Payload>,
 >({
+  hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
   onLoadStart,
@@ -174,7 +176,16 @@ export const SearchModal = <
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal
+      open={open}
+      sx={{
+        ...(hidden && {
+          visibility: 'hidden',
+          opacity: 0,
+        }),
+      }}
+      onClose={handleClose}
+    >
       <Box className={classes.root}>
         {title && (
           <div className={classes.title}>

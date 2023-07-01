@@ -31,6 +31,7 @@ export const useActionModal = <
   Field = IField<Data>,
   Param = any,
 >({
+  hidden,
   fields,
   param: upperParam,
   handler,
@@ -69,6 +70,7 @@ export const useActionModal = <
     () => (
       <ActionModal
         open={open}
+        hidden={hidden}
         apiRef={apiRef}
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}
@@ -90,6 +92,7 @@ export const useActionModal = <
     ),
     [
       open,
+      hidden,
       dirty,
       fields,
       apiRef,
@@ -115,6 +118,7 @@ export const useActionModal = <
   }, []);
 
   return {
+    open,
     render,
     pickData,
   };

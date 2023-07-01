@@ -25,6 +25,7 @@ export interface IActionModalProps<
   Field = IField<Data>,
   Param = any,
 > {
+  hidden?: boolean;
   apiRef?: React.Ref<IOneApi>;
   fields: Field[];
   title?: string;
@@ -96,6 +97,7 @@ export const ActionModal = <
   reloadSubject,
   open = true,
   dirty = false,
+  hidden = false,
   throwError = false,
   submitLabel = "Submit",
 }: IActionModalProps<Data, Payload, Field>) => {
@@ -165,7 +167,16 @@ export const ActionModal = <
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal
+      open={open}
+      sx={{
+        ...(hidden && {
+          visibility: 'hidden',
+          opacity: 0,
+        }),
+      }}
+      onClose={handleClose}
+    >
       <Box className={classes.root}>
         {title && (
           <div className={classes.title}>
