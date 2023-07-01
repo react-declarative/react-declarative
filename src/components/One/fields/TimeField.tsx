@@ -62,4 +62,7 @@ export const TimeField = ({
 
 TimeField.displayName = 'TimeField';
 
-export default makeField(TimeField);
+export default makeField(TimeField, {
+  skipDebounce: true,
+  skipClickListener: true,
+});

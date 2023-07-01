@@ -86,6 +86,7 @@ export function makeField(
         isDisabled = () => false,
         isVisible = () => true,
         isInvalid = () => null,
+        isReadonly = () => false,
         change = (v) => console.log({ v }),
         fallback = () => null,
         ready = () => null,
@@ -99,7 +100,7 @@ export function makeField(
         prefix,
         dirty: upperDirty = false,
         disabled: fieldDisabled = false,
-        readonly: fieldReadonly = false,
+        readonly: upperReadonly = false,
         autoFocus,
         style,
         groupRef: ref = () => null,
@@ -115,6 +116,7 @@ export function makeField(
 
         const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
         const [readonly, setReadonly] = useState<boolean>(true);
+        const [fieldReadonly, setFieldReadonly] = useState<boolean>(upperReadonly);
 
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
@@ -186,6 +188,7 @@ export function makeField(
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
                 const invalid = isInvalid(object, payload) || null;
+                const readonly = isReadonly(object, payload) || upperReadonly;
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
@@ -198,6 +201,7 @@ export function makeField(
                         [fieldName.current]: !!invalid,
                     });
                 }
+                setFieldReadonly(readonly);
                 setDisabled(disabled);
                 setVisible(visible);
             }
@@ -284,6 +288,9 @@ export function makeField(
             if (fieldReadonly && !skipReadonly) {
                 return;
             }
+            if (upperReadonly && !skipReadonly) {
+                return;
+            }
             if (compute && !skipReadonly) {
                 return;
             }
@@ -310,7 +317,7 @@ export function makeField(
             if (!isMounted.current) {
                 return;
             }
-            if (!fieldReadonly) {
+            if (!fieldReadonly && !upperReadonly) {
                 setReadonly(false);
             }
             groupRef && waitForBlur(groupRef).then(() => {
@@ -342,8 +349,8 @@ export function makeField(
             onChange: handleChange,
             fallback,
             disabled: fieldDisabled || disabled,
-            readonly: fieldReadonly || readonly || !!compute,
-            fieldReadonly: fieldReadonly || !!compute,
+            readonly: fieldReadonly || upperReadonly || readonly || !!compute,
+            fieldReadonly: fieldReadonly || upperReadonly || !!compute,
             dirty: dirty || upperDirty,
             autoFocus,
             invalid,
