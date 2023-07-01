@@ -16,7 +16,6 @@ const useStyles = makeStyles()({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
     },
     container: {
         position: 'relative',
