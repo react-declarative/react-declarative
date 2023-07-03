@@ -17,6 +17,8 @@ import waitForTouch from '../../../../utils/waitForTouch';
 import { makeStyles } from '../../../../styles';
 
 import { useOnePayload } from '../../context/PayloadProvider';
+import { useOneState } from '../../context/StateProvider';
+
 import useDebounce from '../../hooks/useDebounce';
 
 import Group, { IGroupProps } from '../../../common/Group';
@@ -91,7 +93,7 @@ export function makeField(
         fallback = () => null,
         ready = () => null,
         compute,
-        object,
+        object: upperObject,
         name = '',
         title = nameToTitle(name) || undefined,
         focus,
@@ -110,7 +112,11 @@ export function makeField(
     }: IEntity<Data>) => {
 
         const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
+
+        const { object: stateObject } = useOneState<Data>();
         const payload = useOnePayload();
+
+        const object = stateObject || upperObject;
 
         const { classes } = useStyles();
 
