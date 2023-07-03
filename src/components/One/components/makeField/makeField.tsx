@@ -50,7 +50,7 @@ const useStyles = makeStyles()({
       }
     },
     hidden: {
-      display: 'none',
+      display: 'none !important',
     },
 });
 
