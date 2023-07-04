@@ -26,6 +26,15 @@ const useStyles = makeStyles()((theme) => ({
         alignItems: 'center',
         gap: theme.spacing(1),
     },
+    content: {
+        flex: 1,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+    },
+    icon: {
+        marginRight: theme.spacing(2),
+    },
 }));
 
 const createCopyHandler = (content: React.ReactNode) => async () => {
@@ -83,10 +92,10 @@ export const Copy = ({
             className={classNames(className, classes.root)}
             {...otherProps}
         >
-            <Typography variant="body1">
+            <Typography className={classes.content} variant="body1">
                 {content}
             </Typography>
-            <IconButton onClick={handleClick} size="small">
+            <IconButton className={classes.icon} onClick={handleClick} size="small">
                 <ContentCopyIcon fontSize="small" />
             </IconButton>
         </Box>

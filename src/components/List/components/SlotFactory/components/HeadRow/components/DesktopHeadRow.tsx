@@ -35,6 +35,9 @@ const useStyles = makeStyles()((theme) => ({
         paddingLeft: '4px !important',
         paddingRight: '0 !important',
         background: `${theme.palette.background.paper} !important`,
+        '& *': {
+            fontWeight: 'bold !important',
+        },
     },
     menu: {
         margin: '0 !important',
