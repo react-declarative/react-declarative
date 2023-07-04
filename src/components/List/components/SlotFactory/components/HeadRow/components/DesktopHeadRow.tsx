@@ -35,9 +35,9 @@ const useStyles = makeStyles()((theme) => ({
         paddingLeft: '4px !important',
         paddingRight: '0 !important',
         background: `${theme.palette.background.paper} !important`,
-        '& *': {
-            fontWeight: 'bold !important',
-        },
+    },
+    bold: {
+        fontWeight: 'bold !important',
     },
     menu: {
         margin: '0 !important',
@@ -194,6 +194,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                     >
                         {isSortable ? (
                             <TableSortLabel
+                                className={classes.bold}
                                 active={!!sortTarget}
                                 direction={sortDirection}
                                 onClick={handleClick}
@@ -201,7 +202,11 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
                             >
                                 {headerName}
                             </TableSortLabel>
-                        ) : headerName}
+                        ) : (
+                            <span className={classes.bold}>
+                                {headerName}
+                            </span>
+                        )}
                     </Box>
                     {!!column.columnMenu && (
                         <ActionMenu
