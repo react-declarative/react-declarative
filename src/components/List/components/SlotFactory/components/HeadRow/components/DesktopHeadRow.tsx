@@ -38,6 +38,7 @@ const useStyles = makeStyles()((theme) => ({
     },
     bold: {
         fontWeight: 'bold !important',
+        opacity: 0.7,
     },
     menu: {
         margin: '0 !important',

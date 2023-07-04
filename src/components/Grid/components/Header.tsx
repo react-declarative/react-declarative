@@ -76,6 +76,8 @@ const useStyles = makeStyles()((theme) => ({
     overflowWrap: "anywhere",
     textOverflow: "ellipsis",
     overflow: "hidden",
+    fontWeight: 'bold',
+    opacity: 0.7,
   },
   headerCellClick: {
     "&:hover": {
