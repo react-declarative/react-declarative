@@ -374,6 +374,8 @@ declare module 'react-declarative' {
     export { Operator } from 'react-declarative/utils/rx/Operator';
     export { Subject } from 'react-declarative/utils/rx/Subject';
     export { Source } from 'react-declarative/utils/rx/Source';
+    export { and } from 'react-declarative/utils/math/and';
+    export { or } from 'react-declarative/utils/math/or';
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
@@ -2510,6 +2512,18 @@ declare module 'react-declarative/utils/rx/Source' {
         static fromBehaviorSubject: <Data = any>(subject: TBehaviorSubject<Data>) => Observer<Data>;
     }
     export default Source;
+}
+
+declare module 'react-declarative/utils/math/and' {
+    type Value = number | boolean;
+    export const and: <T = Promise<Value>>(...args: T[]) => T;
+    export default and;
+}
+
+declare module 'react-declarative/utils/math/or' {
+    type Value = number | boolean;
+    export const or: <T = Promise<Value>>(...args: T[]) => T;
+    export default or;
 }
 
 declare module 'react-declarative/model/TSubject' {

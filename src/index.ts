@@ -462,6 +462,9 @@ export { Operator } from './utils/rx/Operator';
 export { Subject } from './utils/rx/Subject';
 export { Source } from './utils/rx/Source';
 
+export { and } from './utils/math/and';
+export { or } from './utils/math/or';
+
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';
