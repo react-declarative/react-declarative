@@ -4951,7 +4951,7 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldOption' {
 }
 
 declare module 'react-declarative/components/Translate/Translate' {
-    import * as React from 'react';
+    import React from 'react';
     interface IAttributeCollection {
         [name: string]: unknown;
     }
