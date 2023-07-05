@@ -12,8 +12,6 @@ import { IChooseSlot } from '../../../slots/ChooseSlot';
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneState } from '../../../context/StateProvider';
 
-const LOADING_LABEL = 'Loading';
-
 export const Choose = ({
     invalid,
     value,
@@ -38,9 +36,9 @@ export const Choose = ({
     const loading = upperLoading || currentLoading;
 
     const Input: React.FC<any> = forwardRef(({ value, ...rest }, ref) => (
-        <Async payload={value} Loader={() => <input {...rest} readOnly ref={ref} value={LOADING_LABEL} type="text" />}>
+        <Async payload={value} Loader={() => <input {...rest} readOnly ref={ref} value="" type="text" />}>
             {async () => {
-                const label = value ? await tr(value, object, payload) : 'Not chosen';
+                const label = value ? await tr(value, object, payload) : '';
                 return (
                     <input {...rest} readOnly ref={ref} value={label} type="text" />
                 );
@@ -59,6 +57,7 @@ export const Choose = ({
             InputProps={{
                 readOnly: true,
                 inputComponent: Input,
+                placeholder: loading ? "Loading..." : "Not chosen",
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
