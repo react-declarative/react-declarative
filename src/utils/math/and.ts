@@ -1,7 +1,7 @@
 type Value = number | boolean;
 
 export const and = <T = Promise<Value>>(...args: T[]): T => {
-    if (args[0] instanceof Promise) {
+    if (args.some((arg) => arg instanceof Promise)) {
         return new Promise<boolean>(async (res) => {
             const items = await Promise.all(args);
             const result = items.reduce<boolean>((acm, cur) => Boolean(acm && cur), true);

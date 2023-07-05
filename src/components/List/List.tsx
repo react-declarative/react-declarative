@@ -20,6 +20,7 @@ import deepMerge from '../../utils/deepMerge';
 import deepFlat from '../../utils/deepFlat';
 import sleep from '../../utils/sleep';
 import set from '../../utils/set';
+import create from '../../utils/create';
 
 import GridView from './components/view/GridView';
 import ChooserView from './components/view/ChooserView';
@@ -338,6 +339,7 @@ export class List<
         deepFlat(this.props.filters)
             .filter(({ name }) => !!name)
             .map(({ type, name }) => {
+                create(newData, name);
                 set(newData, name, initialValue(type));
             });
         if (initialCall) {
