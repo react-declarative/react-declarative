@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useRef } from 'react';
 
 import { AutocompleteRenderGetTagProps } from "@mui/material/Autocomplete";
 import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
@@ -11,8 +11,6 @@ import MatTextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
-
-import useChangeSubject from '../../../../../hooks/useChangeSubject';
 
 import randomString from '../../../../../utils/randomString';
 import isObject from '../../../../../utils/isObject';
@@ -35,7 +33,7 @@ const getArrayHash = (value: any) =>
 export const Items = ({
     value: upperValue,
     disabled,
-    fieldReadonly,
+    readonly,
     description,
     placeholder,
     outlined = true,
@@ -84,10 +82,8 @@ export const Items = ({
         dirty,
         invalid,
         object,
-        fieldReadonly,
+        readonly,
     ]);
-
-    const fieldReadonlyChange = useChangeSubject(fieldReadonly);
 
     const createRenderTags = (labels: Record<string, any>) => (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
         return value.map((option: string, index: number) => (
@@ -145,27 +141,18 @@ export const Items = ({
         options: any[];
         data: any;
     }) => {
-
-        const { readonly } = useOneProps();
-
         const [unfocused, setUnfocused] = useState(keepSync ? false : true);
         const [value, setValue] = useState(data);
 
-        useEffect(() => fieldReadonlyChange.subscribe((readonly) => {
-            if (!readonly) {
-                setUnfocused(false);
-            }
-        }), []);
-
         const handleFocus = () => {
-            if (!fieldReadonly && !readonly) {
+            if (!readonly) {
                 setUnfocused(false);
             }
         };
 
         const handleBlur = () => {
-            if (!fieldReadonly && !readonly) {
-                setUnfocused(true);
+            if (!readonly) {
+                !keepSync && setUnfocused(true);
                 !keepSync && onChange(value);
             }
         };

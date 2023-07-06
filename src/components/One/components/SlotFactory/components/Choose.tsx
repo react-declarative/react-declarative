@@ -16,7 +16,7 @@ export const Choose = ({
     invalid,
     value,
     disabled,
-    fieldReadonly,
+    readonly,
     description = "",
     outlined = true,
     title = "",
@@ -61,7 +61,7 @@ export const Choose = ({
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
-                            sx={{ pointerEvents: fieldReadonly ? 'none' : 'all' }}
+                            sx={{ pointerEvents: readonly ? 'none' : 'all' }}
                             disabled={loading}
                             variant="outlined"
                             size="small"

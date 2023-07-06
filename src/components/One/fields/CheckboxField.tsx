@@ -23,12 +23,14 @@ export interface ICheckboxFieldPrivate<Data = IAnything>  {
 export const CheckboxField = ({
   disabled,
   value,
+  readonly,
   onChange,
   title
 }: ICheckboxFieldProps & ICheckboxFieldPrivate) => (
   <CheckBox
     disabled={disabled}
     value={value}
+    readonly={readonly}
     onChange={onChange}
     title={title}
   />
@@ -38,5 +40,5 @@ CheckboxField.displayName = 'CheckboxField';
 
 export default makeField(CheckboxField, {
   skipDebounce: true,
-  skipClickListener: true,
+  skipDirtyClickListener: true,
 });

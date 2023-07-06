@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useRef, useEffect } from 'react';
+import { useMemo, useState, useRef } from 'react';
 
 import Async from '../../../../Async';
 
@@ -8,8 +8,6 @@ import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
-
-import useChangeSubject from '../../../../../hooks/useChangeSubject';
 
 import randomString from '../../../../../utils/randomString';
 import arrays from '../../../../../utils/arrays';
@@ -30,7 +28,7 @@ const getArrayHash = (value: any) =>
 export const Combo = ({
   value,
   disabled,
-  fieldReadonly,
+  readonly,
   description = "",
   placeholder = "",
   outlined = true,
@@ -71,10 +69,8 @@ export const Combo = ({
     dirty,
     invalid,
     object,
-    fieldReadonly,
+    readonly,
   ]);
-
-  const fieldReadonlyChange = useChangeSubject(fieldReadonly);
 
   const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
     <MatTextField
@@ -120,27 +116,18 @@ export const Combo = ({
     options: any[];
     data: any;
   }) => {
-
-    const { readonly } = useOneProps();
-
     const [unfocused, setUnfocused] = useState(keepSync ? false : true);
     const [value, setValue] = useState(data);
 
-    useEffect(() => fieldReadonlyChange.subscribe((readonly) => {
-      if (!readonly) {
-        setUnfocused(false);
-      }
-    }), []);
-
     const handleFocus = () => {
-      if (!fieldReadonly && !readonly) {
+      if (!readonly) {
         setUnfocused(false);
       }
     };
 
     const handleBlur = () => {
-      if (!fieldReadonly && !readonly) {
-        setUnfocused(true);
+      if (!readonly) {
+        !keepSync && setUnfocused(true);
         !keepSync && onChange(value);
       }
     };

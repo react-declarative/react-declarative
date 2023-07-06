@@ -8,7 +8,7 @@ import { IRatingSlot } from '../../../slots/RatingSlot';
 export const Rating = ({
     value,
     disabled,
-    fieldReadonly,
+    readonly,
     name,
     onChange,
 }: IRatingSlot) => (
@@ -23,7 +23,7 @@ export const Rating = ({
             onChange={({ }, v) => onChange(v)}
             disabled={disabled}
             value={Number(value)}
-            readOnly={fieldReadonly}
+            readOnly={readonly}
         />
     </Box>
 );

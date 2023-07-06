@@ -44,5 +44,5 @@ RadioField.displayName = 'RadioField';
 
 export default makeField(RadioField, {
   skipDebounce: true,
-  skipClickListener: true,
+  skipDirtyClickListener: true,
 });

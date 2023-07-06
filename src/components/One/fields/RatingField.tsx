@@ -17,21 +17,21 @@ export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
 export interface IRatingFieldPrivate<Data = IAnything> {
   name?: string;
   value: PickProp<IManaged<Data>, "value">;
-  fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
+  readonly: PickProp<IManaged<Data>, "readonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
 }
 
 export const RatingField = ({
   value,
   disabled,
-  fieldReadonly,
+  readonly,
   name,
   onChange,
 }: IRatingFieldProps & IRatingFieldPrivate) => (
   <Rating
     value={value}
     disabled={disabled}
-    fieldReadonly={fieldReadonly}
+    readonly={readonly}
     name={name}
     onChange={onChange}
   />
@@ -41,5 +41,6 @@ RatingField.displayName = 'RatingField';
 
 export default makeField(RatingField, {
   skipDebounce: true,
-  skipClickListener: true,
+  skipDirtyClickListener: true,
+  skipFocusReadonly: true,
 });

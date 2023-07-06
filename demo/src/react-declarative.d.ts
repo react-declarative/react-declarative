@@ -1022,7 +1022,6 @@ declare module 'react-declarative/model/IManaged' {
             disabled: boolean;
             loading: boolean;
             readonly: boolean;
-            fieldReadonly: boolean;
             invalid: string | null;
             object: Data;
             onChange: (v: Value, config?: {
@@ -3183,7 +3182,7 @@ declare module 'react-declarative/components/One/fields/CheckboxField' {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const CheckboxField: {
-        ({ disabled, value, onChange, title }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
+        ({ disabled, value, readonly, onChange, title }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3249,13 +3248,13 @@ declare module 'react-declarative/components/One/fields/ComboField' {
     }
     export interface IComboFieldPrivate<Data = IAnything> {
         value: PickProp<IManaged<Data>, "value">;
-        fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
+        readonly: PickProp<IManaged<Data>, "readonly">;
         onChange: PickProp<IManaged<Data>, "onChange">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ComboField: {
-        ({ value, disabled, readonly, fieldReadonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3276,10 +3275,10 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
     interface IComponentFieldPrivate<Data = IAnything> {
         object: PickProp<IManaged<Data>, 'object'>;
         disabled: PickProp<IManaged<Data>, 'disabled'>;
-        fieldReadonly: PickProp<IManaged<Data>, 'fieldReadonly'>;
+        readonly: PickProp<IManaged<Data>, 'readonly'>;
     }
     export const ComponentField: {
-        ({ disabled, fieldReadonly: readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
+        ({ disabled, readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3309,12 +3308,11 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
     export interface IItemsFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
         value: PickProp<IManaged<Data>, 'value'>;
-        fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ItemsField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, fieldReadonly, dirty, invalid, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3406,11 +3404,11 @@ declare module 'react-declarative/components/One/fields/RatingField' {
     export interface IRatingFieldPrivate<Data = IAnything> {
         name?: string;
         value: PickProp<IManaged<Data>, "value">;
-        fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
+        readonly: PickProp<IManaged<Data>, "readonly">;
         onChange: PickProp<IManaged<Data>, "onChange">;
     }
     export const RatingField: {
-        ({ value, disabled, fieldReadonly, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, name, onChange, }: IRatingFieldProps & IRatingFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3466,12 +3464,11 @@ declare module 'react-declarative/components/One/fields/SwitchField' {
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
     }
     export interface ISwitchFieldPrivate<Data = IAnything> {
-        fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
         onChange: PickProp<IManaged<Data>, 'onChange'>;
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
-        ({ disabled, value, fieldReadonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        ({ disabled, value, readonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3687,7 +3684,6 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         value: PickProp<IManaged<Data>, "value">;
         loading: PickProp<IManaged<Data>, "loading">;
         disabled: PickProp<IManaged<Data>, "disabled">;
-        fieldReadonly?: PickProp<IManaged<Data>, "fieldReadonly">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
     }
@@ -4436,11 +4432,11 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
     import ISlotFactoryContext from 'react-declarative/components/One/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
-        Combo: ({ value, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
-        Items: ({ value: upperValue, disabled, fieldReadonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
+        Combo: ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
+        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
-        Rating: ({ value, disabled, fieldReadonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
+        Rating: ({ value, disabled, readonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
         Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
@@ -4449,7 +4445,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
-        Choose: ({ invalid, value, disabled, fieldReadonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
+        Choose: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
@@ -6429,7 +6425,8 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
     import IField from 'react-declarative/model/IField';
     interface IConfig<Data = IAnything> {
         skipDebounce?: boolean;
-        skipClickListener?: boolean;
+        skipDirtyClickListener?: boolean;
+        skipFocusReadonly?: boolean;
         defaultProps?: Partial<Omit<IField<Data>, keyof {
             fields: never;
             child: never;
@@ -6859,7 +6856,7 @@ declare module 'react-declarative/components/One/slots/ItemsSlot/ItemsSlot' {
 
 declare module 'react-declarative/components/One/slots/ComboSlot/IComboSlot' {
     import { IComboFieldPrivate, IComboFieldProps } from "react-declarative/components/One/fields/ComboField";
-    export interface IComboSlot extends IComboFieldProps, IComboFieldPrivate {
+    export interface IComboSlot extends Omit<IComboFieldProps, "readonly">, IComboFieldPrivate {
     }
     export default IComboSlot;
 }
@@ -6898,7 +6895,7 @@ declare module 'react-declarative/components/One/slots/RadioSlot/RadioSlot' {
 
 declare module 'react-declarative/components/One/slots/RatingSlot/IRatingSlot' {
     import { IRatingFieldProps, IRatingFieldPrivate } from "react-declarative/components/One/fields/RatingField";
-    export interface IRatingSlot extends IRatingFieldProps, IRatingFieldPrivate {
+    export interface IRatingSlot extends Omit<IRatingFieldProps, "readonly">, IRatingFieldPrivate {
     }
     export default IRatingSlot;
 }

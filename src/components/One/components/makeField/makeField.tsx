@@ -58,7 +58,8 @@ const useStyles = makeStyles()({
 
 interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
-    skipClickListener?: boolean;
+    skipDirtyClickListener?: boolean;
+    skipFocusReadonly?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -73,7 +74,8 @@ interface IConfig<Data = IAnything> {
 export function makeField(
     Component: React.FC<IManaged>,
     config: IConfig = {
-        skipClickListener: false,
+        skipDirtyClickListener: false,
+        skipFocusReadonly: false,
         skipDebounce: false,
         defaultProps: { },
     },
@@ -119,11 +121,11 @@ export function makeField(
         const object = stateObject || upperObject;
 
         const { classes } = useStyles();
-
-        const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
-        const [readonly, setReadonly] = useState<boolean>(true);
+        
+        const [focusReadonly, setFocusReadonly] = useState<boolean>(true);
         const [fieldReadonly, setFieldReadonly] = useState<boolean>(upperReadonly);
 
+        const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
         const [invalid, setInvalid] = useState<string | null>(null);
         const [visible, setVisible] = useState<boolean>(true);
         const [loading, setLoading] = useState<boolean>(false);
@@ -194,7 +196,7 @@ export function makeField(
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
                 const invalid = isInvalid(object, payload) || null;
-                const readonly = isReadonly(object, payload) || upperReadonly;
+                const readonly = isReadonly(object, payload) || false;
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
@@ -260,7 +262,7 @@ export function makeField(
          * устройствах мы выключаем его до фокусировки input
          */
         useEffect(() => {
-            const handler = () => setReadonly(false);
+            const handler = () => setFocusReadonly(false);
             groupRef && groupRef.addEventListener('touchstart', handler);
             return () => groupRef && groupRef.removeEventListener('touchstart', handler);
         }, [groupRef]);
@@ -270,7 +272,7 @@ export function makeField(
          * первом изменением значения
          */
         useEffect(() => {
-            if (!config.skipClickListener) {
+            if (!config.skipDirtyClickListener) {
                 const handler = () => setDirty(true);
                 groupRef && groupRef.addEventListener('click', handler, { passive: true });
                 return () => groupRef && groupRef.removeEventListener('click', handler);
@@ -324,7 +326,7 @@ export function makeField(
                 return;
             }
             if (!fieldReadonly && !upperReadonly) {
-                setReadonly(false);
+                setFocusReadonly(false);
             }
             groupRef && waitForBlur(groupRef).then(() => {
                 if (pending()) {
@@ -333,7 +335,7 @@ export function makeField(
                 if (blur) {
                     blur(name, payload);
                 }
-                setReadonly(true);
+                setFocusReadonly(true);
             });
             if (focus) {
                 focus(name, payload);
@@ -351,12 +353,22 @@ export function makeField(
             sx: { ...sx, ...config.defaultProps?.sx },
         };
 
+        const computeReadonly = () => {
+            let isReadonly = false;
+            isReadonly = isReadonly || upperReadonly;
+            if (!config.skipFocusReadonly) {
+                isReadonly = isReadonly || focusReadonly;
+            }
+            isReadonly = isReadonly || fieldReadonly;
+            isReadonly = isReadonly || !!compute;
+            return isReadonly;
+        };
+
         const managedProps: IManaged<Data> = {
             onChange: handleChange,
             fallback,
             disabled: fieldDisabled || disabled,
-            readonly: fieldReadonly || upperReadonly || readonly || !!compute,
-            fieldReadonly: fieldReadonly || upperReadonly || !!compute,
+            readonly: computeReadonly(),
             dirty: dirty || upperDirty,
             autoFocus,
             invalid,

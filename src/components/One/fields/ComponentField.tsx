@@ -20,14 +20,14 @@ import deepClone from '../../../utils/deepClone';
 import objects from '../../../utils/objects';
 import arrays from '../../../utils/arrays';
 
-type FieldIgnoreParam = keyof Omit<IManaged, keyof IField>;
+type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";
 
 const FIELD_NEVER_MARGIN = '0';
 
 const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
     "dirty",
     "fallback",
-    "fieldReadonly",
+    "readonly",
     "invalid",
     "loading",
     "object",
@@ -44,7 +44,7 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
 interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, 'object'>;
     disabled: PickProp<IManaged<Data>, 'disabled'>;
-    fieldReadonly: PickProp<IManaged<Data>, 'fieldReadonly'>;
+    readonly: PickProp<IManaged<Data>, 'readonly'>;
 }
 
 const useStyles = makeStyles()({
@@ -67,7 +67,7 @@ const useStyles = makeStyles()({
 
 export const ComponentField = ({
     disabled,
-    fieldReadonly: readonly,
+    readonly,
     element: Element = () => <Fragment />,
     object,
     ...otherProps
@@ -85,7 +85,6 @@ export const ComponentField = ({
         const _fieldParams = Object.entries(otherProps as IField)
             .filter(([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam))
             .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
-        _fieldParams.readonly = otherProps["fieldReadonly"] || false;
         const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
         const _fieldData = arrays(object);
         const props = { ..._fieldData, onChange, _fieldParams, _fieldData, _payload };
@@ -115,6 +114,7 @@ export default makeField(ComponentField, {
         fieldRightMargin: FIELD_NEVER_MARGIN,
         fieldBottomMargin: FIELD_NEVER_MARGIN,
     },
-    skipClickListener: true,
+    skipDirtyClickListener: true,
+    skipFocusReadonly: true,
     skipDebounce: true,
 });

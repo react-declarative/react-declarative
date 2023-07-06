@@ -25,7 +25,6 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
 export interface IItemsFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   value: PickProp<IManaged<Data>, 'value'>;
-  fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
 }
@@ -39,7 +38,6 @@ export const ItemsField = ({
   outlined = true,
   itemList = [],
   keepSync,
-  fieldReadonly,
   dirty,
   invalid,
   title,
@@ -55,7 +53,6 @@ export const ItemsField = ({
     outlined={outlined}
     itemList={itemList}
     keepSync={keepSync}
-    fieldReadonly={fieldReadonly}
     dirty={dirty}
     invalid={invalid}
     title={title}
@@ -68,5 +65,6 @@ ItemsField.displayName = 'ItemsField';
 
 export default makeField(ItemsField, {
   skipDebounce: true,
-  skipClickListener: true,
+  skipDirtyClickListener: true,
+  skipFocusReadonly: true,
 });
