@@ -10,4 +10,8 @@ export const useOneArray = <T = any>(initialValue?: (T[] | (() => T[]))) => {
     });
 };
 
+export const oneArrayIncludes = <T = any>(data: T[], item: T) => {
+    return Object.values(data || {}).includes(item);
+};
+
 export default useOneArray;

@@ -69,7 +69,7 @@ import { useActualCallback } from './hooks/useActualCallback';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
 import { useRenderWaiter } from './hooks/useRenderWaiter';
-import { useOneArray } from './hooks/useOneArray';
+import { useOneArray, oneArrayIncludes } from './hooks/useOneArray';
 
 import { useAsyncAction } from './hooks/useAsyncAction';
 import { useMediaContext } from './hooks/useMediaContext';
@@ -325,6 +325,8 @@ export { useActualValue };
 export { useActualState };
 export { useRenderWaiter };
 export { useOneArray };
+
+export { oneArrayIncludes };
 
 export { useChangeSubject };
 export { useReloadTrigger };

@@ -65,7 +65,7 @@ declare module 'react-declarative' {
     import { useActualValue } from 'react-declarative/hooks/useActualValue';
     import { useActualState } from 'react-declarative/hooks/useActualState';
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
-    import { useOneArray } from 'react-declarative/hooks/useOneArray';
+    import { useOneArray, oneArrayIncludes } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
     import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
@@ -261,6 +261,7 @@ declare module 'react-declarative' {
     export { useActualState };
     export { useRenderWaiter };
     export { useOneArray };
+    export { oneArrayIncludes };
     export { useChangeSubject };
     export { useReloadTrigger };
     export { useAsyncAction };
@@ -1685,6 +1686,7 @@ declare module 'react-declarative/hooks/useRenderWaiter' {
 
 declare module 'react-declarative/hooks/useOneArray' {
     export const useOneArray: <T = any>(initialValue?: T[] | (() => T[]) | undefined) => [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
+    export const oneArrayIncludes: <T = any>(data: T[], item: T) => boolean;
     export default useOneArray;
 }
 
