@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 
 import { AutocompleteRenderGetTagProps } from "@mui/material/Autocomplete";
 import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
@@ -11,6 +11,8 @@ import MatTextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
+
+import useChangeSubject from '../../../../../hooks/useChangeSubject';
 
 import randomString from '../../../../../utils/randomString';
 import isObject from '../../../../../utils/isObject';
@@ -26,9 +28,9 @@ import { IItemsSlot } from '../../../slots/ItemsSlot';
 const EMPTY_ARRAY = [] as any;
 
 const getArrayHash = (value: any) =>
-  Array.from<string>(value || [])
-    .sort((a, b) => b.localeCompare(a))
-    .join('-');
+    Object.values<string>(value || {})
+        .sort((a, b) => b.localeCompare(a))
+        .join('-');
 
 export const Items = ({
     value: upperValue,
@@ -64,14 +66,14 @@ export const Items = ({
 
     const initialObject = useRef(upperObject);
     const prevObject = useRef<any>(null);
-  
+
     const object = useMemo(() => {
-      if (!shouldUpdate(prevObject.current, upperObject, payload)) {
-        return prevObject.current || initialObject.current;
-      } else {
-        prevObject.current = upperObject;
-        return prevObject.current;
-      }
+        if (!shouldUpdate(prevObject.current, upperObject, payload)) {
+            return prevObject.current || initialObject.current;
+        } else {
+            prevObject.current = upperObject;
+            return prevObject.current;
+        }
     }, [upperObject]);
 
     const valueHash = getArrayHash(value);
@@ -84,6 +86,8 @@ export const Items = ({
         object,
         fieldReadonly,
     ]);
+
+    const fieldReadonlyChange = useChangeSubject(fieldReadonly);
 
     const createRenderTags = (labels: Record<string, any>) => (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
         return value.map((option: string, index: number) => (
@@ -144,8 +148,14 @@ export const Items = ({
 
         const { readonly } = useOneProps();
 
-        const [unfocused, setUnfocused] = useState(true);
+        const [unfocused, setUnfocused] = useState(keepSync ? false : true);
         const [value, setValue] = useState(data);
+
+        useEffect(() => fieldReadonlyChange.subscribe((readonly) => {
+            if (!readonly) {
+                setUnfocused(false);
+            }
+        }), []);
 
         const handleFocus = () => {
             if (!fieldReadonly && !readonly) {
