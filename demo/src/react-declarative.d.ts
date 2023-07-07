@@ -6110,6 +6110,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
     import IScaffold2Action from "react-declarative/components/Scaffold2/model/IScaffold2Action";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
     export interface IScaffold2Props<T = Payload> {
+        noContent?: boolean;
         noAppName?: boolean;
         fixedHeader?: boolean;
         noSearch?: boolean;

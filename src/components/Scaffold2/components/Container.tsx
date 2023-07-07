@@ -41,7 +41,7 @@ export const Container = <T extends Payload = Payload>({
   onAction,
   children,
 }: IScaffold2InternalProps<T>) => {
-  const { dense } = usePropsContext();
+  const { dense, noContent } = usePropsContext();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
@@ -66,7 +66,12 @@ export const Container = <T extends Payload = Payload>({
       <Box
         className={className}
         style={style}
-        sx={{ display: "flex", minHeight: "100vh", ...sx }}
+        sx={{
+          position: 'relative',
+          display: "flex",
+          minHeight: "100vh",
+          ...sx
+        }}
       >
         <CssBaseline />
         <Box
@@ -133,6 +138,19 @@ export const Container = <T extends Payload = Payload>({
             </Box>
           )}
         </Box>
+        {!!noContent && (
+          <Box
+            sx={{
+              position: 'absolute',
+              height: '100vh',
+              width: '100vw',
+              top: 0,
+              left: 0,
+              zIndex: 9999,
+              background: (theme) => theme.palette.background.default,
+            }}
+          />
+        )}
       </Box>
     </ThemeProvider>
   );
