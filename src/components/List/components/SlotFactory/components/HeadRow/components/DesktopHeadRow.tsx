@@ -114,6 +114,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         if (selectionMode === SelectionMode.Single) {
             return (
                 <Radio
+                    key={selection.size}
                     disabled={loading}
                     color="primary"
                     onChange={handleRadioClick}
