@@ -92,12 +92,19 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     const renderCheckbox = () => {
 
         const handleCheckboxClick = () => {
+            if (selectionMode === SelectionMode.None) {
+                return;
+            }
+            if (selectionMode === SelectionMode.Single) {
+                setSelection(new Set());
+                return;
+            }
             if (isAllSelected) {
                 setSelection(new Set());
-            } else {
-                props.rows.forEach(({ id }) => selection.add(id));
-                setSelection(selection);
+                return;
             }
+            props.rows.forEach(({ id }) => selection.add(id));
+            setSelection(selection);
         };
 
         const handleRadioClick = () => {
@@ -242,16 +249,28 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     }, [fullWidth]);
 
-    const tooltipLabel = isIndeterminate ? 'Select all'
-        : isAllSelected ? 'Deselect'
-        : 'Select all';
+    const computeTooltipLabel = () => {
+        if (selectionMode === SelectionMode.Single) {
+            return "Deselect";
+        }
+        if (isIndeterminate) {
+            return 'Select all';
+        }
+        return isAllSelected ? 'Deselect' : 'Select all';
+    };
 
     return (
         <TableRow>
             <TableCell className={classes.cell} padding="checkbox">
-                <Tooltip title={tooltipLabel}>
-                    {renderCheckbox()}
-                </Tooltip>
+                {selectionMode === SelectionMode.None ? (
+                    <>
+                        {renderCheckbox()}
+                    </>
+                ) : (
+                    <Tooltip title={computeTooltipLabel()}>
+                        {renderCheckbox()}
+                    </Tooltip>
+                )}
             </TableCell>
             {content}
         </TableRow>
