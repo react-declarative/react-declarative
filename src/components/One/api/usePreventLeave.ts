@@ -37,6 +37,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
 }
 
 const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
+const INVALID_MESSAGE = 'The form contains invalid data. Continue?';
 const DEFAULT_HISTORY = createWindowHistory();
 
 export const usePreventLeave = <Data = IAnything>({
@@ -91,7 +92,9 @@ export const usePreventLeave = <Data = IAnything>({
     useEffect(() => {
 
         const handleNavigate = (retry: () => void) =>
-            pickConfirm().then((result) => {
+            pickConfirm({
+                msg: invalid ? INVALID_MESSAGE : LEAVE_MESSAGE,
+            }).then((result) => {
                 if (result) {
                     unsubscribe();
                     retry();
