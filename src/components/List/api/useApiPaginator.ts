@@ -36,7 +36,7 @@ export interface IApiPaginatorParams<FilterData extends {} = IAnything, RowData 
     fetchParams?: () => RequestInit;
     fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
-    responseMap?: (json: any) => (ListHandlerResult<RowData> | Promise<ListHandlerResult<RowData>>);
+    responseMap?: <T extends IRowData>(json: RowData[]) => (ListHandlerResult<T> | Promise<ListHandlerResult<T>>);
 }
 
 const EMPTY_RESPONSE = {
@@ -53,7 +53,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     onLoadBegin,
     onLoadEnd,
     requestMap = (url) => url,
-    responseMap = (data) => data as ListHandlerResult<RowData>,
+    responseMap = (data) => data as  never,
     filterHandler = (url, filterData) => {
         Object.entries(filterData).forEach(([k, v]) => {
             if (Array.isArray(v)) {

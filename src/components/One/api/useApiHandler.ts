@@ -14,7 +14,7 @@ import queued from '../../../utils/hof/queued';
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
     requestMap?: (url: URL) => URL;
-    responseMap?: (json: Record<string, any>) => Data;
+    responseMap?: (json: Data) => (Record<string, any> | Promise<Record<string, any>>);
     onLoadBegin?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     withAbortSignal?: boolean;
@@ -31,7 +31,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
     requestMap = (url) => url,
-    responseMap = (json) => json as Data,
+    responseMap = (json) => json as never,
     onLoadBegin,
     onLoadEnd,
     withAbortSignal = true,
@@ -49,7 +49,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
         try {
             const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
             const json = await data.json();
-            return responseMap(json);
+            return responseMap(json) as Data;
         } catch (e) {
             queuedFetch.clear();
             isOk = false;

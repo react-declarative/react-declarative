@@ -1098,7 +1098,7 @@ declare module 'react-declarative/components/List/api/useApiPaginator' {
         fetchParams?: () => RequestInit;
         fallback?: (e: Error) => void;
         abortSignal?: AbortSignal;
-        responseMap?: (json: any) => (ListHandlerResult<RowData> | Promise<ListHandlerResult<RowData>>);
+        responseMap?: <T extends IRowData>(json: RowData[]) => (ListHandlerResult<T> | Promise<ListHandlerResult<T>>);
     }
     export const useApiPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(path: string, { fetch, origin, abortSignal: signal, fetchParams, fallback, onLoadBegin, onLoadEnd, requestMap, responseMap, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withAbortSignal, withPagination, withFilters, withSearch, withChips, withSort, }?: IApiPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData>;
     export default useApiPaginator;
@@ -1114,7 +1114,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
         sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
         paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
-        responseMap?: (json: Record<string, any>[]) => RowData[];
+        responseMap?: (json: RowData[]) => Record<string, any>[];
         searchHandler?: (rows: RowData[], search: string) => RowData[];
         compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
         withPagination?: boolean;
@@ -1139,7 +1139,7 @@ declare module 'react-declarative/components/One/api/useApiHandler' {
     export interface IApiHandlerParams<Data extends IAnything = IAnything> {
         origin?: string;
         requestMap?: (url: URL) => URL;
-        responseMap?: (json: Record<string, any>) => Data;
+        responseMap?: (json: Data) => (Record<string, any> | Promise<Record<string, any>>);
         onLoadBegin?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         withAbortSignal?: boolean;

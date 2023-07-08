@@ -34,7 +34,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
-    responseMap?: (json: Record<string, any>[]) => RowData[];
+    responseMap?: (json: RowData[]) => Record<string, any>[];
     searchHandler?: (rows: RowData[], search: string) => RowData[];
     compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
     withPagination?: boolean;
@@ -188,7 +188,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
             const data = await queuedResolve(filterData, pagination, sort, chips, search);
             const keepClean = !Array.isArray(data);
             let rows = keepClean ? data.rows : data;
-            rows = await responseMap(rows);
+            rows = await responseMap(rows) as RowData[];
             onData && onData(rows, {
                 filterData,
                 pagination,
