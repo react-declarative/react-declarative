@@ -77,6 +77,7 @@ export const usePreventNavigate = ({
             onLoadEnd && onLoadEnd(isOk);
             setLoading((loading) => loading - 1);
         },
+        loading: !!loading,
     };
 };
 
