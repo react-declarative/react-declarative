@@ -1,9 +1,12 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useRef } from "react";
 
 import IAnything from "../../../model/IAnything";
 import IListProps from "../../../model/IListProps";
 import IRowData from "../../../model/IRowData";
+import IListApi from "../../../model/IListApi";
+import TSubject from "../../../model/TSubject";
 
+import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useSearchState from "../../../hooks/useSearchState";
 import useActualValue from "../../../hooks/useActualValue";
 import useSubject from "../../../hooks/useSubject";
@@ -40,7 +43,8 @@ interface IParams<
 interface IResult<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-> extends IParams<FilterData, RowData>, IQuery<FilterData, RowData> { }
+> extends IParams<FilterData, RowData>, IQuery<FilterData, RowData> {
+}
 
 export const DEFAULT_QUERY: IQuery = {
     filterData: {},
@@ -65,7 +69,9 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
-    const resetPaginationSubject = useSubject();
+    const apiRef = useRef<IListApi>();
+
+    const resetPaginationSubject: TSubject<void> = useSubject();
 
     const [state, setState] = useSearchState(() => ({
         filterData: JSON.stringify(initialValue.filterData) || "{}",
@@ -75,6 +81,8 @@ export const useQueryPagination = <
         page: initialValue.page || DEFAULT_PAGE,
         search: initialValue.search || "",
     }));
+    
+    const waitForRender = useRenderWaiter([state], 500);
 
     useEffect(() => resetPaginationSubject.subscribe(() => {
         setState((prevState) => ({
@@ -86,6 +94,10 @@ export const useQueryPagination = <
             page: DEFAULT_PAGE,
             search: "",
         }));
+        waitForRender().then(() => {
+            const { current: api } = apiRef;
+            api && api.reload();
+        });
     }), []);
 
     const state$ = useActualValue(state);
@@ -153,6 +165,7 @@ export const useQueryPagination = <
 
     return {
         listProps: {
+            apiRef,
             onFilterChange,
             onLimitChange,
             onPageChange,

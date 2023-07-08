@@ -4766,6 +4766,8 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
     import IAnything from "react-declarative/model/IAnything";
     import IListProps from "react-declarative/model/IListProps";
     import IRowData from "react-declarative/model/IRowData";
+    import IListApi from "react-declarative/model/IListApi";
+    import TSubject from "react-declarative/model/TSubject";
     interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
         filterData: IListProps<FilterData, RowData>['filterData'];
         sortModel: IListProps<FilterData, RowData>['sortModel'];
@@ -4794,6 +4796,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number | undefined;
             search: string | undefined;
             fallback?: ((e: Error) => void) | undefined;
+            apiRef: import("react").MutableRefObject<IListApi<any, any> | undefined>;
             onFilterChange: (data: FilterData) => void;
             onLimitChange: (limit: number) => void;
             onPageChange: (page: number) => void;
@@ -4809,7 +4812,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number;
             search: string;
         };
-        resetPaginationSubject: import("../../..").Subject<any>;
+        resetPaginationSubject: TSubject<void>;
     };
     export default useQueryPagination;
 }
