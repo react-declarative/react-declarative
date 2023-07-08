@@ -136,7 +136,7 @@ export const usePreventLeave = <Data = IAnything>({
             unsubscribeRef.current = unsubscribe;
         };
 
-        if (!!data || invalid) {
+        if (!data || invalid) {
             subscribe();
         }
 
