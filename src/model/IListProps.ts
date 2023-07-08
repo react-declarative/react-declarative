@@ -40,7 +40,7 @@ interface IDropFiltersOption<RowData extends IRowData = IAnything> extends Omit<
   label: never;
   icon: never;
 }> {
-  action: 'resort-action';
+  action: 'drop-filters';
   label?: IOption['label'];
   icon?: IOption['icon'];
 }
@@ -49,7 +49,7 @@ interface IAddFiltersOption<RowData extends IRowData = IAnything> extends Omit<I
   label: never;
   icon: never;
 }> {
-  action: 'resort-action';
+  action: 'add-action';
   label?: IOption['label'];
   icon?: IOption['icon'];
 }

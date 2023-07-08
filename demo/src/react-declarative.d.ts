@@ -1305,7 +1305,7 @@ declare module 'react-declarative/model/IListProps' {
         label: never;
         icon: never;
     }> {
-        action: 'resort-action';
+        action: 'drop-filters';
         label?: IOption['label'];
         icon?: IOption['icon'];
     }
@@ -1313,7 +1313,7 @@ declare module 'react-declarative/model/IListProps' {
         label: never;
         icon: never;
     }> {
-        action: 'resort-action';
+        action: 'add-action';
         label?: IOption['label'];
         icon?: IOption['icon'];
     }
