@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 
 import IAnything from "../../../model/IAnything";
 import IListProps from "../../../model/IListProps";
@@ -6,6 +6,7 @@ import IRowData from "../../../model/IRowData";
 
 import useSearchState from "../../../hooks/useSearchState";
 import useActualValue from "../../../hooks/useActualValue";
+import useSubject from "../../../hooks/useSubject";
 import useChange from "../../../hooks/useChange";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
@@ -64,6 +65,8 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
+    const resetPaginationSubject = useSubject();
+
     const [state, setState] = useSearchState(() => ({
         filterData: JSON.stringify(initialValue.filterData) || "{}",
         sortModel: JSON.stringify(initialValue.sortModel) || "[]",
@@ -72,6 +75,18 @@ export const useQueryPagination = <
         page: initialValue.page || DEFAULT_PAGE,
         search: initialValue.search || "",
     }));
+
+    useEffect(() => resetPaginationSubject.subscribe(() => {
+        setState((prevState) => ({
+            ...prevState,
+            filterData: "{}",
+            sortModel: "[]",
+            chipData: "{}",
+            limit: DEFAULT_LIMIT,
+            page: DEFAULT_PAGE,
+            search: "",
+        }));
+    }), []);
 
     const state$ = useActualValue(state);
 
@@ -148,6 +163,7 @@ export const useQueryPagination = <
             ...query,
         },
         pagination: state,
+        resetPaginationSubject,
     };
 };
 

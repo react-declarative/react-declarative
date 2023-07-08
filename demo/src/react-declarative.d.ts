@@ -4809,6 +4809,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number;
             search: string;
         };
+        resetPaginationSubject: import("../../..").Subject<any>;
     };
     export default useQueryPagination;
 }
