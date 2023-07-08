@@ -153,13 +153,13 @@ export const Items = ({
         const handleBlur = () => {
             if (!readonly) {
                 !keepSync && setUnfocused(true);
-                !keepSync && onChange(value);
+                !keepSync && onChange(value?.length ? objects(value) : null);
             }
         };
 
         const handleChange = (value: any) => {
             if (keepSync) {
-                onChange(value?.length ? objects(value) : null)
+                onChange(value?.length ? objects(value) : null);
             }
             setValue(value);
         };

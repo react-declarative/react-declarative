@@ -135,7 +135,7 @@ export const Combo = ({
     const handleChange = (value: any) => {
       setValue(value);
       if (keepSync) {
-        onChange(value)
+        onChange(value);
       }
     };
 
