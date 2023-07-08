@@ -69,7 +69,7 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
-    const apiRef = useRef<IListApi>();
+    const apiRef = useRef<IListApi>(null);
 
     const resetPaginationSubject: TSubject<void> = useSubject();
 
@@ -82,7 +82,7 @@ export const useQueryPagination = <
         search: initialValue.search || "",
     }));
     
-    const waitForRender = useRenderWaiter([state], 500);
+    const waitForRender = useRenderWaiter([state], 100);
 
     useEffect(() => resetPaginationSubject.subscribe(() => {
         setState((prevState) => ({
@@ -96,7 +96,7 @@ export const useQueryPagination = <
         }));
         waitForRender().then(() => {
             const { current: api } = apiRef;
-            api && api.reload();
+            api && api.reload(false);
         });
     }), []);
 

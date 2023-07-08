@@ -4796,7 +4796,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number | undefined;
             search: string | undefined;
             fallback?: ((e: Error) => void) | undefined;
-            apiRef: import("react").MutableRefObject<IListApi<any, any> | undefined>;
+            apiRef: import("react").RefObject<IListApi<any, any>>;
             onFilterChange: (data: FilterData) => void;
             onLimitChange: (limit: number) => void;
             onPageChange: (page: number) => void;
