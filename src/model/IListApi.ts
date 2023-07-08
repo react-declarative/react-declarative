@@ -9,6 +9,7 @@ export interface IListApi<FilterData extends {} = IAnything, RowData extends IRo
     setLimit: (limit: number) => void;
     setPage: (page: number) => void;
     setRows: (rows: RowData[]) => void;
+    setFilterData: (filterData: FilterData) => void;
     getState: () => IListState<FilterData, RowData>;
 }
 

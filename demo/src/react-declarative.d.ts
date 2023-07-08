@@ -1227,6 +1227,7 @@ declare module 'react-declarative/model/IListApi' {
         setLimit: (limit: number) => void;
         setPage: (page: number) => void;
         setRows: (rows: RowData[]) => void;
+        setFilterData: (filterData: FilterData) => void;
         getState: () => IListState<FilterData, RowData>;
     }
     export default IListApi;
@@ -1409,6 +1410,7 @@ declare module 'react-declarative/model/IListProps' {
         setLimitSubject?: TSubject<number>;
         setPageSubject?: TSubject<number>;
         setRowsSubject?: TSubject<RowData[]>;
+        setFilterDataSubject?: TSubject<FilterData>;
         rowActions?: IListRowAction[];
         withToggledFilters?: boolean;
         withSearch?: boolean;
@@ -4766,8 +4768,6 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
     import IAnything from "react-declarative/model/IAnything";
     import IListProps from "react-declarative/model/IListProps";
     import IRowData from "react-declarative/model/IRowData";
-    import IListApi from "react-declarative/model/IListApi";
-    import TSubject from "react-declarative/model/TSubject";
     interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
         filterData: IListProps<FilterData, RowData>['filterData'];
         sortModel: IListProps<FilterData, RowData>['sortModel'];
@@ -4796,7 +4796,6 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number | undefined;
             search: string | undefined;
             fallback?: ((e: Error) => void) | undefined;
-            apiRef: import("react").RefObject<IListApi<any, any>>;
             onFilterChange: (data: FilterData) => void;
             onLimitChange: (limit: number) => void;
             onPageChange: (page: number) => void;
@@ -4812,7 +4811,6 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             page: number;
             search: string;
         };
-        resetPaginationSubject: TSubject<void>;
     };
     export default useQueryPagination;
 }

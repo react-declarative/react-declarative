@@ -1,15 +1,11 @@
-import { useMemo, useEffect, useRef } from "react";
+import { useMemo } from "react";
 
 import IAnything from "../../../model/IAnything";
 import IListProps from "../../../model/IListProps";
 import IRowData from "../../../model/IRowData";
-import IListApi from "../../../model/IListApi";
-import TSubject from "../../../model/TSubject";
 
-import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useSearchState from "../../../hooks/useSearchState";
 import useActualValue from "../../../hooks/useActualValue";
-import useSubject from "../../../hooks/useSubject";
 import useChange from "../../../hooks/useChange";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
@@ -69,10 +65,6 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
-    const apiRef = useRef<IListApi>(null);
-
-    const resetPaginationSubject: TSubject<void> = useSubject();
-
     const [state, setState] = useSearchState(() => ({
         filterData: JSON.stringify(initialValue.filterData) || "{}",
         sortModel: JSON.stringify(initialValue.sortModel) || "[]",
@@ -81,24 +73,6 @@ export const useQueryPagination = <
         page: initialValue.page || DEFAULT_PAGE,
         search: initialValue.search || "",
     }));
-    
-    const waitForRender = useRenderWaiter([state], 100);
-
-    useEffect(() => resetPaginationSubject.subscribe(() => {
-        setState((prevState) => ({
-            ...prevState,
-            filterData: "{}",
-            sortModel: "[]",
-            chipData: "{}",
-            limit: DEFAULT_LIMIT,
-            page: DEFAULT_PAGE,
-            search: "",
-        }));
-        waitForRender().then(() => {
-            const { current: api } = apiRef;
-            api && api.reload(false);
-        });
-    }), []);
 
     const state$ = useActualValue(state);
 
@@ -165,7 +139,6 @@ export const useQueryPagination = <
 
     return {
         listProps: {
-            apiRef,
             onFilterChange,
             onLimitChange,
             onPageChange,
@@ -176,7 +149,6 @@ export const useQueryPagination = <
             ...query,
         },
         pagination: state,
-        resetPaginationSubject,
     };
 };
 

@@ -68,6 +68,7 @@ export class List<
     private unSetLimitSubject?: () => void;
     private unSetPageSubject?: () => void;
     private unSetRowsSubject?: () => void;
+    private unSetFilterDataSubject?: () => void;
 
     static defaultProps: Partial<IListProps> = {
         handler: () => [],
@@ -221,6 +222,7 @@ export class List<
             setLimit: this.handleLimitChange,
             setPage: this.handlePageChange,
             setRows: this.handleRowsChange,
+            setFilterData: this.handleFilter,
             getState: () => ({ ...this.state }),
             rerender: this.handleRerender,
         };
@@ -253,6 +255,11 @@ export class List<
             this.unSetRowsSubject && this.unSetRowsSubject();
             this.unSetRowsSubject = this.props.setRowsSubject
                 .subscribe(this.handleRowsChange);
+        }
+        if (this.props.setFilterDataSubject) {
+            this.unSetFilterDataSubject && this.unSetFilterDataSubject();
+            this.unSetFilterDataSubject = this.props.setFilterDataSubject
+                .subscribe(this.handleFilter);
         }
     };
 

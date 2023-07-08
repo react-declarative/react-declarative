@@ -129,7 +129,7 @@ export interface IListProps<
   RowData extends IRowData = IAnything,
   Payload extends IAnything= IAnything,
   Field extends IField = IField<FilterData, Payload>,
-  > {
+> {
   apiRef?: Ref<IListApi<FilterData, RowData>>;
   className?: string;
   style?: React.CSSProperties;
@@ -168,6 +168,7 @@ export interface IListProps<
   setLimitSubject?: TSubject<number>;
   setPageSubject?: TSubject<number>;
   setRowsSubject?: TSubject<RowData[]>;
+  setFilterDataSubject?: TSubject<FilterData>;
   rowActions?: IListRowAction[];
   withToggledFilters?: boolean;
   withSearch?: boolean;
