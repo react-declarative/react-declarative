@@ -36,6 +36,24 @@ interface IResortOption<RowData extends IRowData = IAnything> extends Omit<IList
   icon?: IOption['icon'];
 }
 
+interface IDropFiltersOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
+  label: never;
+  icon: never;
+}> {
+  action: 'resort-action';
+  label?: IOption['label'];
+  icon?: IOption['icon'];
+}
+
+interface IAddFiltersOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
+  label: never;
+  icon: never;
+}> {
+  action: 'resort-action';
+  label?: IOption['label'];
+  icon?: IOption['icon'];
+}
+
 export interface IListActionOption<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
   isVisible: never;
   isDisabled: never;
@@ -51,7 +69,7 @@ export interface IListAction<RowData extends IRowData = IAnything, Payload exten
   isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
   isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
   icon?: React.ComponentType<any>;
-  options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData>)[];
+  options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[];
 }
 
 export interface IListChip<RowData extends IRowData = IAnything> {

@@ -5,6 +5,7 @@ import BaseActionMenu from '../../../../../ActionMenu';
 import CleaningServices from '@mui/icons-material/CleaningServicesOutlined';
 import Refresh from '@mui/icons-material/Refresh';
 import Sort from '@mui/icons-material/Sort';
+import Add from '@mui/icons-material/Add';
 
 import useProps from "../../../../hooks/useProps";
 import usePayload from '../../../../hooks/usePayload';
@@ -69,6 +70,15 @@ export const ActionMenu = ({
                         isDisabled: () => isDisabled(selectedRows, payload),
                         isVisible: () => isVisible(selectedRows, payload),
                         label: 'Refresh manually'
+                    }
+                } else if (action === 'add-action') {
+                    return {
+                        action,
+                        ...other,
+                        icon: Add,
+                        isDisabled: () => isDisabled(selectedRows, payload),
+                        isVisible: () => isVisible(selectedRows, payload),
+                        label: 'Create new row'
                     }
                 } else if (action === 'resort-action') {
                     return {
