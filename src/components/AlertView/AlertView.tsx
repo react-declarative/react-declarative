@@ -39,7 +39,7 @@ export const AlertView = ({
             {...otherProps}
         >
             {items.map((item, idx) => (
-                <Alert key={idx} variant="outlined" severity={item.color}>
+                <Alert key={idx} variant={variant} severity={item.color}>
                     {item.content}
                 </Alert>
             ))}
