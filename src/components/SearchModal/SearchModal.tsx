@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import ActionButton from "../ActionButton";
+import AutoSizer from "../AutoSizer";
 import List from "../List";
 
 import useActualState from "../../hooks/useActualState";
@@ -15,7 +16,6 @@ import useActualState from "../../hooks/useActualState";
 import IAnything from "../../model/IAnything";
 import IRowData from "../../model/IRowData";
 import IField from "../../model/IField";
-import { AutoSizer } from "../AutoSizer";
 import IListProps from "../../model/IListProps";
 import SelectionMode from "../../model/SelectionMode";
 

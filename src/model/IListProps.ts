@@ -189,6 +189,7 @@ export interface IListProps<
   setFilterDataSubject?: TSubject<FilterData>;
   rowActions?: IListRowAction[];
   withToggledFilters?: boolean;
+  withSingleSort?: boolean;
   withSearch?: boolean;
   withLoader?: boolean;
   withMobile?: boolean;

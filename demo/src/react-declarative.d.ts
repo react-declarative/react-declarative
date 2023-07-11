@@ -1430,6 +1430,7 @@ declare module 'react-declarative/model/IListProps' {
         setFilterDataSubject?: TSubject<FilterData>;
         rowActions?: IListRowAction[];
         withToggledFilters?: boolean;
+        withSingleSort?: boolean;
         withSearch?: boolean;
         withLoader?: boolean;
         withMobile?: boolean;
