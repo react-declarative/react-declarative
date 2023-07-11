@@ -359,6 +359,7 @@ export const ListPage = () => {
         (window as any).api = api
       }}
       withMobile
+      withSingleSort
       title="List Component"
       filterLabel="Filters"
       selectedRows={selectedRows}

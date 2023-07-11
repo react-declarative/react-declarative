@@ -141,23 +141,24 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     };
 
     const handleSortToggle = useCallback((id: string) => {
+        const sortModelCopy = new Map(sortModel);
         const sortTarget = sortModel.get(id);
         if (sortTarget) {
             if (sortTarget.sort === 'asc') {
-                sortModel.set(id, {
+                sortModelCopy.set(id, {
                     field: id,
                     sort: 'desc',
                 })
             } else if (sortTarget.sort === 'desc') {
-                sortModel.delete(id);
+                sortModelCopy.delete(id);
             }
         } else {
-            sortModel.set(id, {
+            sortModelCopy.set(id, {
                 field: id,
                 sort: 'asc',
             });
         }
-        setSortModel(sortModel);
+        setSortModel(sortModelCopy);
     }, [sortModel]);
 
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);

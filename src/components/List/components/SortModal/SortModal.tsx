@@ -62,23 +62,24 @@ export const SortModal = ({
     const [ sortModel, setSortModel ] = useState(new Map(resultSortModel));
 
     const handleSortToggle = (id: string) => {
-        const sortTarget = sortModel.get(id);
+        const sortModelCopy = new Map(sortModel);
+        const sortTarget = sortModelCopy.get(id);
         if (sortTarget) {
             if (sortTarget.sort === 'asc') {
-                sortModel.set(id, {
+                sortModelCopy.set(id, {
                     field: id,
                     sort: 'desc',
                 });
             } else if (sortTarget.sort === 'desc') {
-                sortModel.delete(id);
+                sortModelCopy.delete(id);
             }
         } else {
-            sortModel.set(id, {
+            sortModelCopy.set(id, {
                 field: id,
                 sort: 'asc',
             });
         }
-        setSortModel(new Map(sortModel));
+        setSortModel(sortModelCopy);
     };
 
     const handleAccept = () => {

@@ -16,8 +16,8 @@ interface ISortModelProviderProps {
 }
 
 interface IState {
-    sortModel: Map<string, IListSortItem>;
-    setSortModel: (s: Map<string, IListSortItem>) => void;
+    sortModel: Map<IListSortItem['field'], IListSortItem>;
+    setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
 }
 
 export const SortModelProvider = ({
@@ -26,7 +26,7 @@ export const SortModelProvider = ({
 }: ISortModelProviderProps) => {
     const { withSingleSort = false } = useProps();
 
-    const [sortModel, setSortModel] = useState(new Map<string, IListSortItem>(upperSortModel.map((sort) => [String(sort.field), sort])));
+    const [sortModel, setSortModel] = useState(new Map<IListSortItem['field'], IListSortItem>(upperSortModel.map((sort) => [String(sort.field), sort])));
 
     const sortModel$ = useActualValue(sortModel);
 
@@ -35,15 +35,20 @@ export const SortModelProvider = ({
     } = useProps();
 
     const handleSortModelChange = (sortModel: IState['sortModel']) => {
+        const { current: upperSortModel } = sortModel$;
         if (withSingleSort) {
-            sortModel$.current.forEach((value, key) => {
-                const itemValue = sortModel.get(key);
-                let isOk = true;
-                if (itemValue) {
-                    isOk = isOk && itemValue.field === value.field;
-                    isOk = isOk && itemValue.sort === value.sort;
+            const targetField = [...sortModel.values()]
+                .find(({ field, sort }) => {
+                    const upperSort = upperSortModel.get(field);
+                    if (upperSort) {
+                        return upperSort.sort !== sort;
+                    }
+                    return true;
+                });
+            sortModel.forEach(({ field }) => {
+                if (field !== targetField?.field) {
+                    sortModel.delete(field);
                 }
-                !isOk && sortModel.delete(key);
             });
         }
         handleSortModel([...sortModel.values()]);
