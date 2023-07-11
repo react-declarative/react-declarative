@@ -15,7 +15,10 @@ import { DATE_EXPR, TIME_EXPR } from '../../../utils/datetime';
 
 import { IState as ILastPaginationState } from './useLastPagination';
 
+import filterString from '../../../utils/filterArray';
 import queued from '../../../utils/hof/queued';
+
+const FILTER_CHARS = [',', ';', '-', '@'];
 
 const EMPTY_RESPONSE = {
     rows: [],
@@ -34,7 +37,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];
     sortHandler?: (rows: RowData[], sort: ListHandlerSortModel<RowData>) => RowData[];
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
-    responseMap?: (json: RowData[]) => Record<string, any>[];
+    responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
     searchHandler?: (rows: RowData[], search: string) => RowData[];
     compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
     withPagination?: boolean;
@@ -44,6 +47,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     withTotal?: boolean;
     withSearch?: boolean;
     searchEntries?: string[];
+    searchFilterChars?: string[];
     fallback?: (e: Error) => void;
     onData?: (rows: RowData[], state: ILastPaginationState<FilterData, RowData>) => void;
     onLoadStart?: () => void;
@@ -52,6 +56,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
 
 export const useArrayPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
     searchEntries = SEARCH_ENTRIES,
+    searchFilterChars = FILTER_CHARS,
     responseMap = (rows) => rows as RowData[],
     compareFn = (a, b) => {
         if (typeof a === 'number' && typeof b === 'number') {
@@ -132,8 +137,9 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                     let isOk = false;
                     searchEntries.forEach((searchEntry) => {
                         if (row[searchEntry]) {
-                            const rowValue = String(row[searchEntry]).toLowerCase().split(' ');
-                            isOk = isOk || rowValue.some((value) => searchQuery.includes(value));
+                            let rowValue: any = String(row[searchEntry]).toLowerCase()
+                            rowValue = filterString(rowValue, ...searchFilterChars);
+                            isOk = isOk || searchQuery.some((value: string) => rowValue.includes(value));
                         }
                     });
                     return isOk;
