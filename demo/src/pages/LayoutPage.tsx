@@ -75,7 +75,7 @@ const fields: TypedField<any, null>[] = [
                 type: FieldType.Text,
                 title: 'Snils',
                 name: 'snils',
-                inputFormatterTemplate: '###-###-### ##',
+                inputFormatterTemplate: '##-#-###-### ##',
                 inputFormatterSymbol: '#',
                 inputFormatterAllowed: /^[0-9]/,
             }

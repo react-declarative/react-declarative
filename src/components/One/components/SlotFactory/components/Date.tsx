@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useLayoutEffect } from "react";
 import dayjs from "dayjs";
 
 import Popover from "@mui/material/Popover";
@@ -19,6 +19,11 @@ import * as datetime from "../../../../../utils/datetime";
 import CalendarIcon from "@mui/icons-material/CalendarTodayOutlined";
 
 const DATE_TEMPLATE = "##/##/####";
+const NEVER_POS = Symbol('never-pos');
+
+const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
+  return element.selectionStart || element.value.length;
+};
 
 export const Date = ({
   invalid,
@@ -35,6 +40,7 @@ export const Date = ({
   onChange,
   name,
 }: IDateSlot) => {
+  const inputElementRef = useRef<HTMLInputElement | null>();
 
   const incomingUpdate = useRef(false);
   const outgoingUpdate = useRef(false);
@@ -85,11 +91,16 @@ export const Date = ({
   }, [value]);
 
   const handleChange = (value: string) => {
-    const pendingValue = formatText(value, DATE_TEMPLATE, {
-      allowed: /\d/,
-      symbol: "#",
-    });
-    setValue(pendingValue);
+    let result = "";
+    for (let i = 0; i !== value.length; i++) {
+      result += value[i];
+      result = formatText(result, DATE_TEMPLATE, {
+        allowed: /\d/,
+        symbol: "#",
+      });
+    }
+    caretManager.pos();
+    setValue(result);
   };
 
   const dayjsValue = useMemo(() => {
@@ -107,10 +118,63 @@ export const Date = ({
     return undefined;
   }, [value]);
 
+  const caretManager = useMemo(() => {
+    let lastPos: symbol | number = NEVER_POS;
+
+    const getAdjust = (pos: number) => {
+      let adjust = 0;
+      for (let i = Math.max(pos - 1, 0); i !== DATE_TEMPLATE.length; i++) {
+        const char = DATE_TEMPLATE[i];
+        if (char === '#') {
+          break;
+        }
+        adjust += 1;
+      }
+      return adjust;
+    };
+
+    return {
+      render: () => {
+        const { current: input } = inputElementRef;
+        if (typeof lastPos === 'number') {
+          input?.setSelectionRange(lastPos, lastPos);
+          lastPos = NEVER_POS;
+        }
+      },
+      pos: () => {
+        const { current: input } = inputElementRef;
+        if (input) {
+          lastPos = getCaretPos(input);
+          lastPos += getAdjust(lastPos);
+        }
+        return lastPos;
+      },
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const { current: input } = inputElementRef;
+    const handler = () => caretManager.pos();
+    input && input.addEventListener('keyup', handler);
+    input && input.addEventListener('click', handler);
+    return () => {
+      input && input.removeEventListener('keyup', handler);
+      input && input.removeEventListener('click', handler);
+    };
+  }, [inputElementRef.current]);
+
+  useLayoutEffect(() => {
+    caretManager.render();
+  }, [value]);
+
   return (
     <>
       <TextField
-        inputRef={inputRef}
+        inputRef={(input: HTMLInputElement | null) => {
+          inputElementRef.current = input;
+          inputRef && inputRef(input);
+        }}
+        type="text"
         InputProps={{
           readOnly: readonly,
           autoFocus,
