@@ -131,13 +131,13 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
             const searchQuery = search.toLowerCase().split(' ');
             if (hasEntries) {
                 return rows.filter((row) => {
-                    let isOk = false;
+                    let isOk = true;
                     searchEntries.forEach((searchEntry) => {
                         if (row[searchEntry]) {
                             let rowValue: any = String(row[searchEntry]).toLowerCase()
                             rowValue = filterString(rowValue, ...searchFilterChars);
                             if (rowValue) {
-                                isOk = isOk || searchQuery.every((value: string) => rowValue.includes(value));
+                                isOk = isOk && searchQuery.some((value: string) => rowValue.includes(value));
                             }
                         }
                     });
