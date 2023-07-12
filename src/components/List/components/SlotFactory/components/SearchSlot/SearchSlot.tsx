@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useLayoutEffect, useRef } from 'react';
 
 import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -66,15 +65,7 @@ export const SearchSlot = ({
   onSearchChange = () => null,
 }: ISearchSlot) => {
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const { classes } = useStyles();
-
-  useLayoutEffect(() => {
-    const { current: input } = searchInputRef;
-    if (!search && input) {
-      input.value = "";
-    }
-  }, [search]);
 
   const handleSearchCleanup = () => {
     onSearchChange("");
@@ -87,6 +78,7 @@ export const SearchSlot = ({
           <TextField
             label="Search"
             variant="standard"
+            value={search}
             onChange={({ target }) => onSearchChange(target.value)}
             onKeyDown={({ key, currentTarget }) => {
               if (key === 'Enter' || key === 'Escape') {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -96,8 +96,6 @@ export const FilterListSlot = <FilterData extends {}>({
 
   const payload = usePayload();
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
   const { classes } = useStyles();
 
   const [collapsed, setCollapsed] = useState(!!withToggledFilters);
@@ -127,13 +125,6 @@ export const FilterListSlot = <FilterData extends {}>({
     };
   }, []);
 
-  useLayoutEffect(() => {
-    const { current: input } = searchInputRef;
-    if (!search && input) {
-      input.value = "";
-    }
-  }, [search]);
-
   const handleCollapseEnd = useCallback(() => {
     if (isInitialized.current) {
       onCollapsedChange(collapsed);
@@ -151,7 +142,7 @@ export const FilterListSlot = <FilterData extends {}>({
         <TextField
           label="Search"
           variant="standard"
-          inputRef={searchInputRef}
+          value={search}
           onChange={({ target }) => onSearchChange(target.value)}
           onKeyDown={({ key, currentTarget }) => {
             if (key === 'Enter' || key === 'Escape') {
