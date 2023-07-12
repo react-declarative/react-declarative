@@ -81,7 +81,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                 rows = rows.filter((row) => {
                     const rowValue = row[key as keyof RowData] as unknown as any[];
                     if (!Array.isArray(rowValue)) {
-                        return false;
+                        return value.includes(rowValue);
                     }
                     return value.every((v) => rowValue.includes(v));
                 });
