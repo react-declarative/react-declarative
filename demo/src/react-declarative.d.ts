@@ -1117,7 +1117,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
         responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
         searchHandler?: (rows: RowData[], search: string) => RowData[];
-        compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
+        compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData], field: keyof RowData) => number;
         withPagination?: boolean;
         withFilters?: boolean;
         withChips?: boolean;

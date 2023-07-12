@@ -39,7 +39,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
     responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
     searchHandler?: (rows: RowData[], search: string) => RowData[];
-    compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData]) => number;
+    compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData], field: keyof RowData) => number;
     withPagination?: boolean;
     withFilters?: boolean;
     withChips?: boolean;
@@ -120,9 +120,9 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         }) => {
             rows = rows.sort((a, b) => {
                 if (sort === 'asc') {
-                    return compareFn(a[field], b[field]);
+                    return compareFn(a[field], b[field], field);
                 } else {
-                    return compareFn(b[field], a[field]);
+                    return compareFn(b[field], a[field], field);
                 }
             });
         });
@@ -139,7 +139,9 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                         if (row[searchEntry]) {
                             let rowValue: any = String(row[searchEntry]).toLowerCase()
                             rowValue = filterString(rowValue, ...searchFilterChars);
-                            isOk = isOk || searchQuery.some((value: string) => rowValue.includes(value));
+                            if (rowValue) {
+                                isOk = isOk || searchQuery.some((value: string) => rowValue.includes(value));
+                            }
                         }
                     });
                     return isOk;
@@ -194,6 +196,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
             const data = await queuedResolve(filterData, pagination, sort, chips, search);
             const keepClean = !Array.isArray(data);
             let rows = keepClean ? data.rows : data;
+            rows = [...rows].map((row) => ({...row}));
             rows = await responseMap(rows) as RowData[];
             onData && onData(rows, {
                 filterData,
