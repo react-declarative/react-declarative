@@ -78,15 +78,12 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     filterHandler = (rows, filterData) => {
         Object.entries(filterData).forEach(([key, value]) => {
             if (Array.isArray(value)) {
-                value.forEach((value) => {
-                    const templateValue = String(value).toLocaleLowerCase();
-                    rows = rows.filter((row) => {
-                        if (!row[key as keyof RowData]) {
-                            return false;
-                        }
-                        const rowValue = JSON.stringify(row[key as keyof RowData] || '').toLowerCase();
-                        return rowValue.includes(templateValue);
-                    });
+                rows = rows.filter((row) => {
+                    const rowValue = row[key as keyof RowData] as unknown as any[];
+                    if (!Array.isArray(rowValue)) {
+                        return false;
+                    }
+                    return value.every((v) => rowValue.includes(v));
                 });
             } else if (value) {
                 const templateValue = String(value).toLocaleLowerCase();
