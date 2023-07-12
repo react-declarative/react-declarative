@@ -130,7 +130,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     },
     searchHandler = (rows, search) => {
         if (rows.length && search) {
-            const hasEntries = searchEntries.every((entry) => rows[0][entry]);
+            const hasEntries = searchEntries.every((entry) => rows[0][entry] !== undefined);
             const searchQuery = search.toLowerCase().split(' ');
             if (hasEntries) {
                 return rows.filter((row) => {
@@ -147,6 +147,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                     return isOk;
                 });
             } else {
+                console.warn('react-declatative useArrayPaginator searchHandler missing field detected');
                 return rows;
             }
         } else {
