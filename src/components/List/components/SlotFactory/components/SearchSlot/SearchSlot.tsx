@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -14,8 +14,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Restore from '@mui/icons-material/Restore';
 import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
-
-import useActualState from '../../../../../../hooks/useActualState';
 
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
@@ -64,37 +62,22 @@ export const SearchSlot = ({
   label,
   loading,
   clean,
-  search: upperSearch,
+  search,
   onSearchChange = () => null,
 }: ISearchSlot) => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchEscapeRef = useRef(false);
-
   const { classes } = useStyles();
 
-  const [search$, setSearch] = useActualState(upperSearch);
-
-  useEffect(() => {
-    setSearch(upperSearch);
-  }, [upperSearch]);
-
-  useEffect(() => {
-    if (searchEscapeRef.current) {
-      searchEscapeRef.current = false;
-      searchInputRef.current?.blur();
+  useLayoutEffect(() => {
+    const { current: input } = searchInputRef;
+    if (!search && input) {
+      input.value = "";
     }
-  }, [search$.current]);
-
-  const handleSearchEscape = () => {
-    setSearch(upperSearch);
-    searchEscapeRef.current = true;
-  };
+  }, [search]);
 
   const handleSearchCleanup = () => {
-    setSearch("");
     onSearchChange("");
-    searchInputRef.current?.blur();
   };
 
   return (
@@ -104,19 +87,10 @@ export const SearchSlot = ({
           <TextField
             label="Search"
             variant="standard"
-            value={search$.current}
-            inputRef={searchInputRef}
-            onChange={({ target }) => setSearch(target.value)}
-            onBlur={() => {
-              if (search$.current !== upperSearch) {
-                onSearchChange(search$.current)
-              }
-            }}
-            onKeyDown={({ key }) => {
-              if (key === 'Enter' && search$.current !== upperSearch) {
-                searchInputRef.current?.blur();
-              } else if (key === 'Escape') {
-                handleSearchEscape();
+            onChange={({ target }) => onSearchChange(target.value)}
+            onKeyDown={({ key, currentTarget }) => {
+              if (key === 'Enter' || key === 'Escape') {
+                currentTarget.blur();
               }
             }}
             className={classNames({
@@ -129,7 +103,7 @@ export const SearchSlot = ({
                   <Search />
                 </InputAdornment>
               ),
-              endAdornment: !!search$.current && (
+              endAdornment: !!search && (
                 <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
                   <Close />
                 </InputAdornment>

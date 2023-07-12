@@ -4403,9 +4403,9 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
         ChipListSlot: <RowData_3 extends import("../../../..").IRowData = any>({ listChips, loading, }: import("../..").IChipListSlot<RowData_3>) => JSX.Element;
         ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, deps, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
-        FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, clean, label, loading, withSearch, withToggledFilters, search: upperSearch, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
+        FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, clean, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
         OperationListSlot: ({ className, style, operations, width, }: import("../..").IOperationListSlot) => JSX.Element;
-        SearchSlot: ({ className, style, label, loading, clean, search: upperSearch, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
+        SearchSlot: ({ className, style, label, loading, clean, search, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;

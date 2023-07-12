@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 
 import { makeStyles } from "../../../../../../styles";
 import { alpha } from '@mui/material/styles';
@@ -20,7 +20,6 @@ import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
 import usePayload from '../../../../hooks/usePayload';
-import useActualState from '../../../../../../hooks/useActualState';
 
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
 
@@ -89,7 +88,7 @@ export const FilterListSlot = <FilterData extends {}>({
   loading,
   withSearch,
   withToggledFilters,
-  search: upperSearch,
+  search,
   onSearchChange = () => null,
   onFilterChange = () => null,
   onCollapsedChange = () => null,
@@ -98,14 +97,11 @@ export const FilterListSlot = <FilterData extends {}>({
   const payload = usePayload();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchEscapeRef = useRef(false);
 
   const { classes } = useStyles();
 
   const [collapsed, setCollapsed] = useState(!!withToggledFilters);
   const [disabled, setDisabled] = useState(false);
-
-  const [search$, setSearch] = useActualState(upperSearch);
 
   const isInitialized = useRef(false);
 
@@ -115,17 +111,6 @@ export const FilterListSlot = <FilterData extends {}>({
     onFilterChange(data);
     change(data);
   };
-
-  useEffect(() => {
-    setSearch(upperSearch);
-  }, [upperSearch]);
-
-  useEffect(() => {
-    if (searchEscapeRef.current) {
-      searchEscapeRef.current = false;
-      searchInputRef.current?.blur();
-    }
-  }, [search$.current]);
 
   useEffect(() => {
     if (isInitialized.current) {
@@ -142,6 +127,13 @@ export const FilterListSlot = <FilterData extends {}>({
     };
   }, []);
 
+  useLayoutEffect(() => {
+    const { current: input } = searchInputRef;
+    if (!search && input) {
+      input.value = "";
+    }
+  }, [search]);
+
   const handleCollapseEnd = useCallback(() => {
     if (isInitialized.current) {
       onCollapsedChange(collapsed);
@@ -149,15 +141,8 @@ export const FilterListSlot = <FilterData extends {}>({
     }
   }, [collapsed]);
 
-  const handleSearchEscape = () => {
-    setSearch(upperSearch);
-    searchEscapeRef.current = true;
-  };
-
   const handleSearchCleanup = () => {
-    setSearch("");
     onSearchChange("");
-    searchInputRef.current?.blur();
   };
 
   const renderLabel = () => {
@@ -166,19 +151,11 @@ export const FilterListSlot = <FilterData extends {}>({
         <TextField
           label="Search"
           variant="standard"
-          value={search$.current}
           inputRef={searchInputRef}
-          onChange={({ target }) => setSearch(target.value)}
-          onBlur={() => {
-            if (search$.current !== upperSearch) {
-              onSearchChange(search$.current)
-            }
-          }}
-          onKeyDown={({ key }) => {
-            if (key === 'Enter' && search$.current !== upperSearch) {
-              searchInputRef.current?.blur();
-            } else if (key === 'Escape') {
-              handleSearchEscape();
+          onChange={({ target }) => onSearchChange(target.value)}
+          onKeyDown={({ key, currentTarget }) => {
+            if (key === 'Enter' || key === 'Escape') {
+              currentTarget.blur();
             }
           }}
           className={classNames({
@@ -191,7 +168,7 @@ export const FilterListSlot = <FilterData extends {}>({
                 <Search />
               </InputAdornment>
             ),
-            endAdornment: !!search$.current && (
+            endAdornment: !!search && (
               <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
                 <Close />
               </InputAdornment>
