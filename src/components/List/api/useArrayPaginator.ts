@@ -137,7 +137,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                             let rowValue: any = String(row[searchEntry]).toLowerCase()
                             rowValue = filterString(rowValue, ...searchFilterChars);
                             if (rowValue) {
-                                isOk = isOk || searchQuery.some((value: string) => rowValue.includes(value));
+                                isOk = isOk || searchQuery.every((value: string) => rowValue.includes(value));
                             }
                         }
                     });
