@@ -45,7 +45,7 @@ interface IContentProps {
 
 const useStyles = makeStyles()({
   content: {
-    height: "calc(100% - (35px * 2))"
+    height: "calc(100% - 35px)"
   },
   noData: {
     display: "flex",
