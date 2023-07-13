@@ -1390,6 +1390,7 @@ declare module 'react-declarative/model/IListProps' {
     }
     export interface IListProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
         apiRef?: Ref<IListApi<FilterData, RowData>>;
+        fetchDebounce?: number;
         className?: string;
         style?: React.CSSProperties;
         title?: string;

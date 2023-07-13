@@ -149,6 +149,7 @@ export interface IListProps<
   Field extends IField = IField<FilterData, Payload>,
 > {
   apiRef?: Ref<IListApi<FilterData, RowData>>;
+  fetchDebounce?: number;
   className?: string;
   style?: React.CSSProperties;
   title?: string;

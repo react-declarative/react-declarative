@@ -88,6 +88,7 @@ export class List<
         onLimitChange: () => null,
         filterData: {},
         withToggledFilters: false,
+        fetchDebounce: LIST_FETCH_DEBOUNCE,
         sortModel: [],
         chips: [],
         chipData: {},
@@ -105,7 +106,7 @@ export class List<
             limit: this.props.limit!,
             offset: this.props.limit! * this.props.page!,
             total: null,
-            search: this.props.search!,
+            search: this.props.search || '',
             loading: false,
             filtersCollapsed: this.props.withToggledFilters!,
             sort: this.props.sortModel!,
@@ -116,6 +117,7 @@ export class List<
             rerender: false,
         };
         this.prevState = { ...this.state };
+        this.handleFetchQueue = this.createHandleFetchQueue(props.fetchDebounce);
     };
 
     private setLoading = (loading: boolean) => this.isMountedFlag && this.setState((prevState) => ({ ...prevState, loading }));
@@ -165,7 +167,7 @@ export class List<
         }
     };
 
-    private handleFetchQueue = debounce(() => {
+    private createHandleFetchQueue = (delay = LIST_FETCH_DEBOUNCE) => debounce(() => {
         const updateQueue = [
             this.handlePageChanged,
             this.handleParamsChanged
@@ -191,7 +193,9 @@ export class List<
             }
         }
         this.prevState = {...this.state};
-    }, LIST_FETCH_DEBOUNCE);
+    }, delay);
+
+    private handleFetchQueue = this.createHandleFetchQueue();
 
     private handlePageChanged = () => {
         let isOk = false;
