@@ -39,7 +39,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     paginationHandler?: (rows: RowData[], pagination: ListHandlerPagination) => RowData[];
     responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
     searchHandler?: (rows: RowData[], search: string) => RowData[];
-    compareFn?: (a: RowData[keyof RowData], b: RowData[keyof RowData], field: keyof RowData) => number;
+    compareFn?: (a: RowData, b: RowData, field: keyof RowData) => number;
     withPagination?: boolean;
     withFilters?: boolean;
     withChips?: boolean;
@@ -58,7 +58,9 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     searchEntries = SEARCH_ENTRIES,
     searchFilterChars = FILTER_CHARS,
     responseMap = (rows) => rows as RowData[],
-    compareFn = (a, b) => {
+    compareFn = (row_a, row_b, field) => {
+        const a = row_a[field];
+        const b = row_b[field];
         if (typeof a === 'number' && typeof b === 'number') {
             return a - b;
         } else if (typeof a === 'boolean' && typeof b === 'boolean') {
@@ -117,9 +119,9 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         }) => {
             rows = rows.sort((a, b) => {
                 if (sort === 'asc') {
-                    return compareFn(a[field], b[field], field);
+                    return compareFn(a, b, field);
                 } else {
-                    return compareFn(b[field], a[field], field);
+                    return compareFn(b, a, field);
                 }
             });
         });
