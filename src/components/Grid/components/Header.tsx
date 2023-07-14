@@ -65,6 +65,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   headerCell: {
     display: "flex",
+    userSelect: 'none',
     flexDirection: "column",
     justifyContent: "center",
     paddingLeft: "5px",
