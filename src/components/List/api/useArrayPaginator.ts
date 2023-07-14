@@ -74,7 +74,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
             }
             return a.localeCompare(b);
         } else {
-            return 0;
+            return String(a || "").localeCompare(String(b || ""));
         }
     },
     filterHandler = (rows, filterData) => {
