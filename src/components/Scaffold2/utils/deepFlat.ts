@@ -9,9 +9,11 @@ type OptionRecords = {
   [Prop in keyof IScaffold2Option]: IScaffold2Option[Prop];
 } & IScaffold2OptionInternal;
 
-type Entry = GroupRecords & OptionRecords;
+export type Entry = GroupRecords & OptionRecords;
 
-export const deepFlat = (records: IScaffold2Group[]) => {
+type Record = IScaffold2Group | IScaffold2Option;
+
+export const deepFlat = (records: Record[]) => {
   const result: Array<Entry> = [];
   const process = (entries: Entry[], prefix = 'root') =>
     entries.forEach((entry) => {

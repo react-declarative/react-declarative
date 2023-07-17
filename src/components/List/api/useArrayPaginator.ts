@@ -130,7 +130,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     searchHandler = (rows, search) => {
         if (rows.length && search) {
             const hasEntries = searchEntries.every((entry) => rows[0][entry] !== undefined);
-            const searchQuery = search.toLowerCase().split(' ');
+            const searchQuery = filterString(search.toLowerCase(), ...searchFilterChars).split(' ');
             if (hasEntries) {
                 return rows.filter((row) => {
                     let isOk = true;

@@ -23,7 +23,7 @@ import objects from "../../../utils/objects";
 import deepClone from "../../../utils/deepClone";
 import useChange from "../../../hooks/useChange";
 
-import deepFlat from "../utils/deepFlat";
+import deepFlat, { Entry } from "../utils/deepFlat";
 import idToLabel from "../utils/idToLabel";
 import getNamespaces from "../utils/getNamespaces";
 
@@ -76,7 +76,7 @@ export const createStateManager = ({
 
   const buildGroups = useCallback(
     async (payload: Payload) => {
-      const result: IScaffold2GroupInternal[] = arrays(
+      const result: Entry[] = arrays(
         deepClone(objects(options))
       );
       const entries = deepFlat(result) as EntryInternal[];
