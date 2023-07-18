@@ -49,6 +49,7 @@ export const useActionModal = <
   throwError,
   dirty,
   readonly,
+  fullScreen,
   title,
 }: IParams<Data, Payload, Field, Param>) => {
   const [open, setOpen] = useState(false);
@@ -73,6 +74,7 @@ export const useActionModal = <
         open={open}
         hidden={hidden}
         readonly={readonly}
+        fullScreen={fullScreen}
         apiRef={apiRef}
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}

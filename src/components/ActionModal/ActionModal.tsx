@@ -25,6 +25,7 @@ export interface IActionModalProps<
   Field = IField<Data>,
   Param = any,
 > {
+  fullScreen?: boolean;
   hidden?: boolean;
   readonly?: boolean;
   apiRef?: React.Ref<IOneApi>;
@@ -50,16 +51,35 @@ export interface IActionModalProps<
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "absolute",
+
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+  
+    transform: "translate(-50%, -50%)",
+    backgroundColor: theme.palette.background.paper,
+
+    borderRadius: 5,
+    gap: 5,
+  },
+  small: {
     top: "40%",
     left: "50%",
-    margin: 20,
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    backgroundColor: theme.palette.background.paper,
-    padding: 20,
     maxHeight: "80%",
-    overflowY: "auto",
-    borderRadius: 5,
+    width: 500,
+  },
+  large: {
+    top: "50%",
+    left: "50%",
+    width: 'calc(100vw - 50px)',
+    height: 'calc(100vh - 50px)',
+  },
+  content: {
+    flex: 1,
+    overflowY: 'auto',
+    paddingTop: theme.spacing(1),
   },
   title: {
     display: "flex",
@@ -96,6 +116,7 @@ export const ActionModal = <
   apiRef,
   changeSubject,
   reloadSubject,
+  fullScreen = false,
   open = true,
   dirty = false,
   hidden = false,
@@ -183,7 +204,12 @@ export const ActionModal = <
       }}
       onClose={handleClose}
     >
-      <Box className={classes.root}>
+      <Box
+        className={classNames(classes.root, {
+          [classes.small]: !fullScreen,
+          [classes.large]: fullScreen,
+        })}
+      >
         {title && (
           <div className={classes.title}>
             <Typography variant="h6" component="h2">
@@ -191,21 +217,23 @@ export const ActionModal = <
             </Typography>
           </div>
         )}
-        <One
-          apiRef={apiRef}
-          changeSubject={changeSubject}
-          reloadSubject={reloadSubject}
-          className={classNames({
-            [classes.disabled]: !!loading.current,
-          })}
-          readonly={!!loading.current || readonly}
-          invalidity={handleInvalid}
-          change={handleChange}
-          handler={handler}
-          payload={payload}
-          fields={fields}
-          dirty={dirty}
-        />
+        <Box className={classes.content}>
+          <One
+            apiRef={apiRef}
+            changeSubject={changeSubject}
+            reloadSubject={reloadSubject}
+            className={classNames({
+              [classes.disabled]: !!loading.current,
+            })}
+            readonly={!!loading.current || readonly}
+            invalidity={handleInvalid}
+            change={handleChange}
+            handler={handler}
+            payload={payload}
+            fields={fields}
+            dirty={dirty}
+          />          
+        </Box>
         {!readonly && (
           <ActionButton
             className={classes.submit}
