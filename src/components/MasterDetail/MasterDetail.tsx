@@ -28,6 +28,12 @@ const useStyles = makeStyles()({
     root: {
         width: '100%',
         minHeight: 225,
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        '& > *': {
+            flex: 1,
+        },
     },
 });
 

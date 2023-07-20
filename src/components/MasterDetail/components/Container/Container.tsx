@@ -15,8 +15,6 @@ const useStyles = makeStyles()((theme) => ({
         flexDirection: 'column',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        height: "100%",
-        width: "100%",
         overflow: "hidden",
         background: theme.palette.background.paper,
     },
@@ -54,8 +52,6 @@ const useStyles = makeStyles()((theme) => ({
         },
     },
     passthrough: {
-        height: "100%",
-        width: "100%",
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
