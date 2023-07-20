@@ -196,6 +196,9 @@ declare module 'react-declarative' {
     export { ActionFab } from 'react-declarative/components';
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
     export { SearchModal, useSearchModal, useSearchModalTyped } from 'react-declarative/components';
+    import { IMasterDetailOption as IMasterDetailOptionInternal } from 'react-declarative/components';
+    export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
+    export { MasterDetail } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
@@ -2165,6 +2168,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Countdown';
     export * from 'react-declarative/components/Chip';
     export * from 'react-declarative/components/ScrollAdjust';
+    export * from 'react-declarative/components/MasterDetail';
 }
 
 declare module 'react-declarative/components/CardView' {
@@ -4122,6 +4126,12 @@ declare module 'react-declarative/components/ScrollAdjust' {
     export { default } from 'react-declarative/components/ScrollAdjust/ScrollAdjust';
 }
 
+declare module 'react-declarative/components/MasterDetail' {
+    export * from 'react-declarative/components/MasterDetail/MasterDetail';
+    export { IMasterDetailOption } from 'react-declarative/components/MasterDetail/model/IMasterDetailOption';
+    export { default } from 'react-declarative/components/MasterDetail/MasterDetail';
+}
+
 declare module 'react-declarative/components/CardView/CardView' {
     import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
@@ -6045,6 +6055,34 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
     export default ScrollAdjust;
 }
 
+declare module 'react-declarative/components/MasterDetail/MasterDetail' {
+    import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
+    export const MasterDetail: <Payload extends unknown = any>({ title, className, style, sx, activeOption: upperActiveOption, payload, options, children, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export default MasterDetail;
+}
+
+declare module 'react-declarative/components/MasterDetail/model/IMasterDetailOption' {
+    import React from "react";
+    export interface IMasterDetailOption<Payload = any> {
+        id: string;
+        icon?: React.ComponentType<any>;
+        label?: string;
+        isVisible?: (payload: Payload) => (boolean | Promise<boolean>);
+        isDisabled?: (payload: Payload) => (boolean | Promise<boolean>);
+        isActive?: (payload: Payload) => (boolean | Promise<boolean>);
+    }
+    export interface IMasterDetailOptionInternal<Payload = any> extends Omit<IMasterDetailOption<Payload>, keyof {
+        isVisible: never;
+        isDisabled: never;
+        isActive: never;
+    }> {
+        visible: boolean;
+        disabled: boolean;
+        active: boolean;
+    }
+    export default IMasterDetailOption;
+}
+
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
     import React from "react";
     import { BoxProps } from "@mui/system";
@@ -6579,6 +6617,29 @@ declare module 'react-declarative/components/Grid/model/Dimension' {
 declare module 'react-declarative/components/Grid/model/RowData' {
     export type RowData = any;
     export default RowData;
+}
+
+declare module 'react-declarative/components/MasterDetail/model/IMasterDetailProps' {
+    import React from "react";
+    import IMasterDetailOption from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
+    import { SxProps } from "@mui/system";
+    export interface IMasterDetailProps<Payload = any> {
+        title?: string;
+        children: (id: string, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>);
+        Loader?: React.ComponentType<any>;
+        activeOption?: string;
+        onActiveOptionChange?: (activeOption: string) => void;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        payload?: Payload;
+        options: IMasterDetailOption<Payload>[];
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+    }
+    export default IMasterDetailProps;
 }
 
 declare module 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot' {

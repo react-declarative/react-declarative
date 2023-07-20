@@ -2,6 +2,8 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { SxProps } from "@mui/system";
 
+import { makeStyles } from '../../../styles';
+
 import IconButton from "@mui/material/IconButton";
 import AppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
@@ -48,6 +50,19 @@ interface IHeaderProps<T = Payload> extends StackProps {
   onTabChange?: (path: string, tab: string, id: string) => void;
 }
 
+const TAB_HEIGHT = 48;
+
+const useStyles = makeStyles()({
+  tabsRoot: {
+    minHeight: TAB_HEIGHT,
+    height: TAB_HEIGHT
+  },
+  tabRoot: {
+    minHeight: TAB_HEIGHT,
+    height: TAB_HEIGHT
+  },
+});
+
 export const Header = <T extends Payload = Payload>({
   className,
   style,
@@ -69,6 +84,8 @@ export const Header = <T extends Payload = Payload>({
 }: IHeaderProps<T>) => {
 
   const { dense = false, fixedHeader = false } = usePropsContext();
+
+  const { classes } = useStyles();
 
   const { id, path, label, tabs } = useMemo(() => {
     const totalOptions = deepFlat(options);
@@ -163,9 +180,13 @@ export const Header = <T extends Payload = Payload>({
                     )}
                     {hasTabs && (
                       <Tabs
+                        variant="scrollable"
                         value={activeTabPath}
                         textColor="inherit"
                         indicatorColor="secondary"
+                        classes={{
+                          root: classes.tabsRoot,
+                        }}
                       >
                         {tabs
                           .filter(({ visible }) => visible)
@@ -181,6 +202,10 @@ export const Header = <T extends Payload = Payload>({
                               onClick={() => handleTabChange(path, id)}
                               disabled={disabled}
                               icon={Icon && <Icon />}
+                              iconPosition="start"
+                              classes={{
+                                root: classes.tabRoot
+                              }}
                             />
                           )
                           )}
@@ -230,9 +255,13 @@ export const Header = <T extends Payload = Payload>({
             sx={{ zIndex: 0 }}
           >
             <Tabs
+              variant="scrollable"
               value={activeTabPath}
               textColor="inherit"
               indicatorColor="secondary"
+              classes={{
+                root: classes.tabsRoot,
+              }}
             >
               {tabs
                 .filter(({ visible }) => visible)
@@ -247,6 +276,10 @@ export const Header = <T extends Payload = Payload>({
                     onClick={() => handleTabChange(path, id)}
                     disabled={disabled}
                     icon={Icon && <Icon />}
+                    iconPosition="start"
+                    classes={{
+                      root: classes.tabRoot
+                    }}
                   />
                 )
                 )}

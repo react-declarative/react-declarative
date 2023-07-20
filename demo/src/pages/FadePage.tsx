@@ -39,7 +39,10 @@ import {
   ImageView,
   FilesView,
   IOption,
+  MasterDetail,
+  IMasterDetailOption,
 } from "react-declarative";
+
 import { v4 as uuid } from "uuid";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -55,6 +58,17 @@ const options: IOption[] = [
   {
     label: 'Test',
     action: 'test',
+  },
+];
+
+const items: IMasterDetailOption[] = [
+  {
+    id: 'test1',
+    icon: AddIcon,
+  },
+  {
+    id: 'test2',
+    icon: DeleteIcon,
   },
 ];
 
@@ -564,6 +578,15 @@ export const FadePage = () => {
       <DocumentView options={options} withDelete withFullScreen sx={{ height: 200 }} src="https://en.wikipedia.org/wiki/Cat" />
       <ImageView options={options} withDelete withFullScreen sx={{ height: 200 }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1280px-Cat_August_2010-4.jpg" />
       <FilesView accept=".png" items={["1.png", "2.png", "3.png"]} />
+      <MasterDetail
+        title="test"
+        sx={{
+          height: '300px',
+        }}
+        options={items}
+      >
+        {(id) => <pre>{id}</pre>}
+      </MasterDetail>
     </>
   );
 };

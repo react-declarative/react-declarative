@@ -243,6 +243,12 @@ export { ActionFab } from './components';
 export { ActionModal, useActionModal, useActionModalTyped } from './components';
 export { SearchModal, useSearchModal, useSearchModalTyped } from './components';
 
+import { IMasterDetailOption as IMasterDetailOptionInternal } from './components';
+
+export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
+
+export { MasterDetail } from './components';
+
 export { Async } from './components';
 export { If } from './components';
 
