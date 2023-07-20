@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 
@@ -15,12 +15,14 @@ import useAsyncAction from '../../hooks/useAsyncAction';
 import useActualValue from '../../hooks/useActualValue';
 
 import IMasterDetailProps from './model/IMasterDetailProps';
+import MasterDetailMode from './model/MasterDetailMode';
 import { IMasterDetailOptionInternal } from './model/IMasterDetailOption';
 
 const LoaderDefault = LoaderView.createLoader(48);
 const ErrorDefault = () => <></>;
 
 export const MasterDetail = <Payload extends any = any>({
+    mode = MasterDetailMode.Card,
     title,
     className,
     style,
@@ -113,13 +115,20 @@ export const MasterDetail = <Payload extends any = any>({
         );
     };
 
+    const isPassthrough = useMemo(() => {
+        let isOk = true;
+        isOk = isOk && mode !== MasterDetailMode.Outline;
+        isOk = isOk && mode !== MasterDetailMode.Paper;
+        return isOk;
+    }, [mode]);
+
     return (
         <Box
             className={className}
             style={style}
             sx={sx}
         >
-            <Container label={isMobile ? undefined : title}>
+            <Container passthrough={isPassthrough} label={isMobile ? undefined : title}>
                 {renderInner()}
             </Container>
         </Box>

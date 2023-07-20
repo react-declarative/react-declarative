@@ -1,8 +1,11 @@
 import React from "react";
-import IMasterDetailOption from "./IMasterDetailOption";
 import { SxProps } from "@mui/system";
 
+import IMasterDetailOption from "./IMasterDetailOption";
+import MasterDetailMode from "./MasterDetailMode";
+
 export interface IMasterDetailProps<Payload = any> {
+    mode?: MasterDetailMode;
     title?: string;
     children: React.ReactNode;
     Loader?: React.ComponentType<any>;

@@ -52,10 +52,19 @@ const useStyles = makeStyles()((theme) => ({
         '& > *': {
             flex: 1,
         },
-    }
+    },
+    passthrough: {
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        '& > *': {
+            flex: 1,
+        },
+    },
 }));
 
 interface IContainerProps {
+    passthrough?: boolean;
     label?: string;
     sx?: SxProps;
     children?: React.ReactNode;
@@ -64,6 +73,7 @@ interface IContainerProps {
 }
 
 export const Container = ({
+    passthrough = false,
     children = null,
     className,
     style,
@@ -71,6 +81,15 @@ export const Container = ({
     label,
 }: IContainerProps) => {
     const { classes } = useStyles();
+
+    if (passthrough) {
+        return (
+            <Box className={classNames(classes.passthrough, className)} sx={sx} style={style}>
+                {children}
+            </Box>
+        );
+    }
+
     return (
         <Paper className={classNames(classes.root, className)} sx={sx} style={style}>
             {!!label && (
