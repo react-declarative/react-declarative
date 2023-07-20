@@ -9,20 +9,20 @@ interface IParams {
     throwError?: boolean;
 }
 
-interface IResult<T extends any = object> {
+interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
-    execute: (p: T) => Promise<any>;
+    execute: (p?: Payload) => (Promise<Data | null>);
 }
 
-export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Promise<any>), {
+export const useAsyncAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
     onLoadStart,
     onLoadEnd,
     fallback,
     throwError,
-}: IParams): IResult<T> => {
+}: IParams): IResult<Data, Payload> => {
 
-    const executionRef = useRef<IWrappedFn<any> | null>(null);
+    const executionRef = useRef<IWrappedFn<Data | null> | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -33,12 +33,12 @@ export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Pro
       isMounted.current = false;
     }, []);
 
-    const execute = useCallback(async (payload: T) => {
+    const execute = useCallback(async (payload?: Payload) => {
         if (executionRef.current) {
             executionRef.current.cancel();
         }
 
-        const execution = cancelable(async () => {
+        const execution = cancelable<Data | null>(async () => {
             let isOk = true;
             onLoadStart && onLoadStart();
             try {
@@ -67,7 +67,7 @@ export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Pro
             const result = await execution();
             if (result === CANCELED_SYMBOL) {
                 isCanceled = true;
-                return;
+                return null;
             }
             executionRef.current = null;
             return result;
@@ -83,7 +83,7 @@ export const useAsyncAction = <T extends any = object>(run: (p: T) => (any | Pro
                 isMounted.current && setLoading(false);
             }
         }
-
+        return null;
     }, [
         run,
         onLoadStart,

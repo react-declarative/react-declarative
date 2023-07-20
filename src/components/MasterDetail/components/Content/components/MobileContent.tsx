@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme) => ({
     },
     header: {
         background: theme.palette.mode === 'light'
-            ? alpha('#000', 0.1)
+            ? alpha('#000', 0.05)
             : theme.palette.background.paper,
     },
     content: {
@@ -31,6 +31,7 @@ const useStyles = makeStyles()((theme) => ({
         padding: theme.spacing(1),
     },
     tabsRoot: {
+        marginLeft: '0 !important',
         minHeight: TAB_HEIGHT,
         height: TAB_HEIGHT
     },
@@ -54,6 +55,7 @@ export const MobileContent = ({
             <Tabs
                 className={classes.header}
                 variant='scrollable'
+                indicatorColor='primary'
                 value={activeItem?.id}
                 classes={{
                     root: classes.tabsRoot,

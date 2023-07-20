@@ -1723,12 +1723,12 @@ declare module 'react-declarative/hooks/useAsyncAction' {
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    interface IResult<T extends any = object> {
+    interface IResult<Data extends any = any, Payload extends any = object> {
         loading: boolean;
         error: boolean;
-        execute: (p: T) => Promise<any>;
+        execute: (p?: Payload) => (Promise<Data | null>);
     }
-    export const useAsyncAction: <T extends unknown = object>(run: (p: T) => (any | Promise<any>), { onLoadStart, onLoadEnd, fallback, throwError, }: IParams) => IResult<T>;
+    export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }: IParams) => IResult<Data, Payload>;
     export default useAsyncAction;
 }
 
@@ -6057,7 +6057,7 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
-    export const MasterDetail: <Payload extends unknown = any>({ title, className, style, sx, activeOption: upperActiveOption, payload, options, children, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export const MasterDetail: <Payload extends unknown = any>({ title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }
 
@@ -6625,14 +6625,16 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     import { SxProps } from "@mui/system";
     export interface IMasterDetailProps<Payload = any> {
         title?: string;
-        children: (id: string, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>);
+        children: React.ReactNode;
         Loader?: React.ComponentType<any>;
+        Error?: React.ComponentType<any>;
         activeOption?: string;
         onActiveOptionChange?: (activeOption: string) => void;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
         payload?: Payload;
+        deps?: any[];
         options: IMasterDetailOption<Payload>[];
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;

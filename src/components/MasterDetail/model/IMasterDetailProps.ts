@@ -4,14 +4,16 @@ import { SxProps } from "@mui/system";
 
 export interface IMasterDetailProps<Payload = any> {
     title?: string;
-    children: (id: string, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>);
+    children: React.ReactNode;
     Loader?: React.ComponentType<any>;
+    Error?: React.ComponentType<any>;
     activeOption?: string;
     onActiveOptionChange?: (activeOption: string) => void;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
     payload?: Payload;
+    deps?: any[];
     options: IMasterDetailOption<Payload>[];
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;

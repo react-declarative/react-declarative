@@ -585,7 +585,7 @@ export const FadePage = () => {
         }}
         options={items}
       >
-        {(id) => <pre>{id}</pre>}
+        123
       </MasterDetail>
     </>
   );

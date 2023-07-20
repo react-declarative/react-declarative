@@ -3,6 +3,7 @@ import * as React from "react";
 import { SxProps, alpha } from "@mui/material/styles";
 import { makeStyles } from "../../../../styles";
 
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
@@ -21,19 +22,22 @@ const useStyles = makeStyles()((theme) => ({
     },
     label: {
         minHeight: '35px',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
-        paddingLeft: '6px',
-        opacity: 0.5,
         background: theme.palette.mode === 'light'
-            ? alpha('#000', 0.2)
+            ? alpha('#000', 0.05)
             : theme.palette.background.paper,
+        '& > *': {
+            paddingLeft: '6px',
+            opacity: 0.5,
+        },
     },
     container: {
         position: 'relative',
         background: theme.palette.mode === 'light'
             ? theme.palette.background.paper
-            : alpha('#000', 0.2),
+            : alpha('#000', 0.05),
         flex: 1,
     },
     content: {
@@ -69,7 +73,13 @@ export const Container = ({
     const { classes } = useStyles();
     return (
         <Paper className={classNames(classes.root, className)} sx={sx} style={style}>
-            {!!label && <Typography className={classes.label}>{label}</Typography>}
+            {!!label && (
+                <Box className={classes.label}>
+                    <Typography>
+                        {label}
+                    </Typography>
+                </Box>
+            )}
             <div className={classes.container}>
                 <div className={classes.content}>
                     {children}
