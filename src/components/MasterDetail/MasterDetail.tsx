@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect, useMemo } from 'react';
 
+import { makeStyles } from '../../styles';
+
 import Box from '@mui/material/Box';
 
 import LoaderView from '../LoaderView';
@@ -9,6 +11,7 @@ import Container from './components/Container';
 import Content from './components/Content';
 
 import idToLabel from '../Scaffold2/utils/idToLabel';
+import classNames from '../../utils/classNames';
 
 import useMediaContext from '../../hooks/useMediaContext';
 import useAsyncAction from '../../hooks/useAsyncAction';
@@ -20,6 +23,13 @@ import { IMasterDetailOptionInternal } from './model/IMasterDetailOption';
 
 const LoaderDefault = LoaderView.createLoader(48);
 const ErrorDefault = () => <></>;
+
+const useStyles = makeStyles()({
+    root: {
+        width: '100%',
+        minHeight: 225,
+    },
+});
 
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
@@ -42,6 +52,7 @@ export const MasterDetail = <Payload extends any = any>({
 }: IMasterDetailProps<Payload>) => {
 
     const { isMobile } = useMediaContext();
+    const { classes } = useStyles();
 
     const [activeOption, setActiveOption] = useState(upperActiveOption);
 
@@ -124,7 +135,7 @@ export const MasterDetail = <Payload extends any = any>({
 
     return (
         <Box
-            className={className}
+            className={classNames(className, classes.root)}
             style={style}
             sx={sx}
         >
