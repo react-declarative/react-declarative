@@ -72,8 +72,8 @@ export const Breadcrumbs = <T extends any = any>({
   return (
     <Box className={classes.root}>
       <MatBreadcrumbs className={classes.stretch} aria-label="breadcrumb">
-        <Link onClick={onBack} color="inherit">{title}</Link>
-        <Typography color="textPrimary">{subtitle}</Typography>
+        <Link sx={{ cursor: 'pointer' }} onClick={onBack} color="inherit">{title}</Link>
+        <Typography sx={{ cursor: 'pointer' }} color="textPrimary">{subtitle}</Typography>
       </MatBreadcrumbs>
       {!!withSave && (
         <Button

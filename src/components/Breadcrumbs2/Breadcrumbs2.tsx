@@ -42,6 +42,9 @@ const useStyles = makeStyles()((theme) => ({
       marginLeft: theme.spacing(1),
     },
   },
+  link: {
+    cursor: 'pointer',
+  },
   stretch: {
     flexGrow: 1,
     shrink: 1,
@@ -93,7 +96,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                   .map(({ action, label, disabled }, idx) => (
                     <Link
                       key={`${action}-${idx}`}
-                      className={classNames({
+                      className={classNames(classes.link, {
                         [classes.disabled]: disabled,
                       })}
                       onClick={(event) => {
