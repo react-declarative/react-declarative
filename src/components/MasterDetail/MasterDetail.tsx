@@ -71,7 +71,7 @@ export const MasterDetail = <Payload extends any = any>({
         error,
         execute,
     } = useAsyncAction(async (payload) => {
-        const items = await Promise.all(options.map(async ({
+        let items = await Promise.all(options.map(async ({
             id,
             label,
             isVisible = () => true,
@@ -86,6 +86,8 @@ export const MasterDetail = <Payload extends any = any>({
             label: label || idToLabel(id),
             ...option
         })));
+
+        items = items.filter(({ visible }) => visible);
 
         const activeItem = items.find(({ id }) => id === activeOption) || items[0];
 

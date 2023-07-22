@@ -52,12 +52,8 @@ const useStyles = makeStyles()((theme) => ({
         },
     },
     passthrough: {
-        display: 'flex',
-        alignItems: 'stretch',
-        justifyContent: 'stretch',
-        '& > *': {
-            flex: 1,
-        },
+        display: 'block',
+        width: '100%',
     },
 }));
 

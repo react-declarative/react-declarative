@@ -20,7 +20,7 @@ export const Content = (props: IContentProps) => {
         return <CardContent {...props} />;
     }
 
-    if (isMobile) {
+    if (isMobile || !props.items.length) {
         return <MobileContent {...props} />
     }
 

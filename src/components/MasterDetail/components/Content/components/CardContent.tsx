@@ -20,36 +20,32 @@ import IContentProps from "../IContentProps";
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'grid',
-    gridColumnGap: theme.spacing(1),
   },
   desktop: {
-    gridTemplateColumns: 'auto 1fr',
+    gridTemplateColumns: '256px 1fr',
   },
   mobile: {
     gridTemplateColumns: '1fr',
   },
   outline: {
-    position: "relative",
-    display: "flex",
-    alignItems: "stretch",
-    justifyContent: "stretch",
     border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
     borderRadius: '4px',
   },
   sideMenu: {
-    width: 256,
     overflowY: 'auto',
-    display: 'flex',
-    alignItems: 'stretch',
-    justifyContent: 'stretch',
-    flexDirection: 'column',
-    '& > *': {
-      flex: 1,
+    maxHeight: '80vh',
+    overflowX: 'hidden',
+    width: '100%',
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    '& > * > *': {
+      width: '100%',
     },
   },
   content: {
     position: 'relative',
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
   listItem: {
     '&:not(:last-of-type)': {
@@ -65,14 +61,13 @@ export const CardContent = ({
   onChange,
 }: IContentProps) => {
 
-  const { isMobile } = useMediaContext();
+  const { isWide } = useMediaContext();
 
   const { classes } = useStyles();
 
   const renderList = () => (
     <List disablePadding dense>
       {items
-        .filter(({ visible }) => !!visible)
         .map(({
           id,
           active,
@@ -103,9 +98,11 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            <Paper>
-              {renderList()}
-            </Paper>
+            {!!items.length && (
+              <Paper>
+                {renderList()}
+              </Paper>
+            )}
           </div>
           <div className={classes.content}>
             {children}
@@ -117,9 +114,11 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            <Box className={classes.outline}>
-              {renderList()}
-            </Box>
+            {!!items.length && (
+              <Box className={classes.outline}>
+                {renderList()}
+              </Box>
+            )}
           </div>
           <div className={classes.content}>
             {children}
@@ -133,8 +132,8 @@ export const CardContent = ({
   return (
     <Box
       className={classNames(classes.root, {
-        [classes.desktop]: !isMobile,
-        [classes.mobile]: isMobile,
+        [classes.desktop]: isWide && !!items.length,
+        [classes.mobile]: !isWide,
       })}
     >
       {renderInner()}
