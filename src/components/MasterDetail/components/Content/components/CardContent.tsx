@@ -20,7 +20,7 @@ import IContentProps from "../IContentProps";
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'grid',
-    gridRowGap: theme.spacing(1),
+    gridColumnGap: theme.spacing(1),
   },
   desktop: {
     gridTemplateColumns: 'auto 1fr',
@@ -42,6 +42,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     alignItems: 'stretch',
     justifyContent: 'stretch',
+    flexDirection: 'column',
     '& > *': {
       flex: 1,
     },
@@ -69,7 +70,7 @@ export const CardContent = ({
   const { classes } = useStyles();
 
   const renderList = () => (
-    <List disablePadding dense className={classes.sideMenu}>
+    <List disablePadding dense>
       {items
         .filter(({ visible }) => !!visible)
         .map(({
@@ -101,9 +102,11 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Paper) {
       return (
         <>
-          <Paper className={classes.sideMenu}>
-            {renderList()}
-          </Paper>
+          <div className={classes.sideMenu}>
+            <Paper>
+              {renderList()}
+            </Paper>
+          </div>
           <div className={classes.content}>
             {children}
           </div>
@@ -113,9 +116,11 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Outline) {
       return (
         <>
-          <Box className={classNames(classes.sideMenu, classes.outline)}>
-            {renderList()}
-          </Box>
+          <div className={classes.sideMenu}>
+            <Box className={classes.outline}>
+              {renderList()}
+            </Box>
+          </div>
           <div className={classes.content}>
             {children}
           </div>

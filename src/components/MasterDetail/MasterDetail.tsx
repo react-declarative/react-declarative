@@ -137,9 +137,9 @@ export const MasterDetail = <Payload extends any = any>({
     };
 
     const isPassthrough = useMemo(() => {
-        let isOk = true;
-        isOk = isOk && mode !== MasterDetailMode.Outline;
-        isOk = isOk && mode !== MasterDetailMode.Paper;
+        let isOk = false;
+        isOk = isOk || mode === MasterDetailMode.Outline;
+        isOk = isOk || mode === MasterDetailMode.Paper;
         return isOk;
     }, [mode]);
 
