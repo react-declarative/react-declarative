@@ -197,7 +197,9 @@ declare module 'react-declarative' {
     export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
     export { SearchModal, useSearchModal, useSearchModalTyped } from 'react-declarative/components';
     import { IMasterDetailOption as IMasterDetailOptionInternal } from 'react-declarative/components';
+    import { MasterDetailMode as MasterDetailModeInternal } from 'react-declarative/components';
     export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
+    export const MasterDetailMode: typeof MasterDetailModeInternal;
     export { MasterDetail } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -4129,6 +4131,7 @@ declare module 'react-declarative/components/ScrollAdjust' {
 declare module 'react-declarative/components/MasterDetail' {
     export * from 'react-declarative/components/MasterDetail/MasterDetail';
     export { IMasterDetailOption } from 'react-declarative/components/MasterDetail/model/IMasterDetailOption';
+    export { MasterDetailMode } from 'react-declarative/components/MasterDetail/model/MasterDetailMode';
     export { default } from 'react-declarative/components/MasterDetail/MasterDetail';
 }
 
@@ -6057,7 +6060,7 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
-    export const MasterDetail: <Payload extends unknown = any>({ title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export const MasterDetail: <Payload extends unknown = any>({ mode, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }
 
@@ -6081,6 +6084,15 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailOpt
         active: boolean;
     }
     export default IMasterDetailOption;
+}
+
+declare module 'react-declarative/components/MasterDetail/model/MasterDetailMode' {
+    export enum MasterDetailMode {
+        Paper = "paper",
+        Outline = "outline",
+        Card = "card"
+    }
+    export default MasterDetailMode;
 }
 
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
@@ -6621,9 +6633,11 @@ declare module 'react-declarative/components/Grid/model/RowData' {
 
 declare module 'react-declarative/components/MasterDetail/model/IMasterDetailProps' {
     import React from "react";
-    import IMasterDetailOption from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
     import { SxProps } from "@mui/system";
+    import IMasterDetailOption from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
+    import MasterDetailMode from "react-declarative/components/MasterDetail/model/MasterDetailMode";
     export interface IMasterDetailProps<Payload = any> {
+        mode?: MasterDetailMode;
         title?: string;
         children: React.ReactNode;
         Loader?: React.ComponentType<any>;

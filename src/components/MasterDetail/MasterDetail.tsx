@@ -126,7 +126,11 @@ export const MasterDetail = <Payload extends any = any>({
             return <Error />
         }
         return (
-            <Content items={items} onChange={handleChange}>
+            <Content
+                items={items}
+                mode={mode}
+                onChange={handleChange}
+            >
                 {children}
             </Content>
         );

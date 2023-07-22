@@ -244,8 +244,10 @@ export { ActionModal, useActionModal, useActionModalTyped } from './components';
 export { SearchModal, useSearchModal, useSearchModalTyped } from './components';
 
 import { IMasterDetailOption as IMasterDetailOptionInternal } from './components';
+import { MasterDetailMode as MasterDetailModeInternal } from './components';
 
 export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
+export const MasterDetailMode = MasterDetailModeInternal;
 
 export { MasterDetail } from './components';
 
