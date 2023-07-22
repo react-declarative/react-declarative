@@ -23,9 +23,16 @@ const useStyles = makeStyles()((theme) => ({
   },
   desktop: {
     gridTemplateColumns: '256px 1fr',
+    '& $sideMenu': {
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
   },
   mobile: {
     gridTemplateColumns: '1fr',
+    '& $sideMenu': {
+      paddingBottom: theme.spacing(2),
+    },
   },
   outline: {
     border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
@@ -36,8 +43,6 @@ const useStyles = makeStyles()((theme) => ({
     maxHeight: '80vh',
     overflowX: 'hidden',
     width: '100%',
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
     '& > * > *': {
       width: '100%',
     },
