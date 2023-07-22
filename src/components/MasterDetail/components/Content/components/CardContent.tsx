@@ -31,7 +31,7 @@ const useStyles = makeStyles()((theme) => ({
   mobile: {
     gridTemplateColumns: '1fr',
     '& $sideMenu': {
-      paddingBottom: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
     },
   },
   outline: {
