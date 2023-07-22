@@ -23,14 +23,14 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   },
   desktop: {
     gridTemplateColumns: '256px 1fr',
-    [`& ${classes["sideMenu"]}`]: {
+    [`& .${classes["sideMenu"]}`]: {
       paddingRight: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
   },
   mobile: {
     gridTemplateColumns: '1fr',
-    [`& ${classes["sideMenu"]}`]: {
+    [`& .${classes["sideMenu"]}`]: {
       paddingBottom: theme.spacing(1),
     },
   },

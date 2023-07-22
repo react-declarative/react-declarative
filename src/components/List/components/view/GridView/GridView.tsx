@@ -40,7 +40,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   root: {
     position: 'relative',
     background: theme.palette.background.paper,
-    [`& ${classes['noBorder']}`]: {
+    [`& .${classes['noBorder']}`]: {
       paddingLeft: '0 !important',
       paddingRight: '0 !important',
     },

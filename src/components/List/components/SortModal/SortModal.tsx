@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
         height: 340,
     },
     list: {
-        [`& > ${classes["item"]}:nth-of-type(2n)`]: {
+        [`& > .${classes["item"]}:nth-of-type(2n)`]: {
             background: alpha(
                 theme.palette.getContrastText(theme.palette.background.paper),
                 0.04

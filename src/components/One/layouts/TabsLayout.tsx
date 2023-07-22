@@ -51,10 +51,10 @@ const useStyles = makeStyles()((theme, _, classes) => ({
     },
     keepFlow: {
         overflow: "initial !important",
-        [`& ${classes["container"]}`]: {
+        [`& .${classes["container"]}`]: {
             position: 'static !important' as any,
         },
-        [`& ${classes["content"]}`]: {
+        [`& .${classes["content"]}`]: {
             overflow: 'hidden !important' as any,
         },
     },
