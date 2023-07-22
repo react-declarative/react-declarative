@@ -17,20 +17,20 @@ import MasterDetailMode from '../../../model/MasterDetailMode';
 
 import IContentProps from "../IContentProps";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()((theme, _, classes) => ({
   root: {
     display: 'grid',
   },
   desktop: {
     gridTemplateColumns: '256px 1fr',
-    '& $sideMenu': {
+    [`& ${classes["sideMenu"]}`]: {
       paddingRight: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
   },
   mobile: {
     gridTemplateColumns: '1fr',
-    '& $sideMenu': {
+    [`& ${classes["sideMenu"]}`]: {
       paddingBottom: theme.spacing(1),
     },
   },
