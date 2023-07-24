@@ -91,7 +91,9 @@ export const MasterDetail = <Payload extends any = any>({
 
         const activeItem = items.find(({ active }) => active) || items[0];
 
-        activeItem.active = true;
+        if (activeItem) {
+            activeItem.active = true;
+        }
 
         return items;
     }, {
