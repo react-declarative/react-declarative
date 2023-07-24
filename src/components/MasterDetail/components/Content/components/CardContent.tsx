@@ -61,6 +61,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
 
 export const CardContent = ({
   mode,
+  loading,
   items,
   children,
   onChange,
@@ -103,7 +104,7 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            {!!items.length && (
+            {(!!items.length || !!loading) && (
               <Paper>
                 {renderList()}
               </Paper>
@@ -119,7 +120,7 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            {!!items.length && (
+            {(!!items.length || !!loading)  && (
               <Box className={classes.outline}>
                 {renderList()}
               </Box>

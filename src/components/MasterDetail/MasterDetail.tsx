@@ -131,6 +131,7 @@ export const MasterDetail = <Payload extends any = any>({
         }
         return (
             <Content
+                loading={loading}
                 items={items}
                 mode={mode}
                 onChange={handleChange}
