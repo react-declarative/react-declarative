@@ -143,6 +143,7 @@ export const FilesView = ({
             className={className}
             style={style}
             sx={sx}
+            overflow="hidden"
             direction="column"
             alignItems="stretch"
             justifyContent="stretch"

@@ -89,7 +89,7 @@ export const MasterDetail = <Payload extends any = any>({
 
         items = items.filter(({ visible }) => visible);
 
-        const activeItem = items.find(({ id }) => id === activeOption) || items[0];
+        const activeItem = items.find(({ active }) => active) || items[0];
 
         activeItem.active = true;
 
