@@ -6632,10 +6632,10 @@ declare module 'react-declarative/components/Grid/model/RowData' {
 }
 
 declare module 'react-declarative/components/MasterDetail/model/IMasterDetailProps' {
-    import React from "react";
-    import { SxProps } from "@mui/system";
     import IMasterDetailOption from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
     import MasterDetailMode from "react-declarative/components/MasterDetail/model/MasterDetailMode";
+    import React from "react";
+    import { SxProps } from "@mui/system";
     export interface IMasterDetailProps<Payload = any> {
         mode?: MasterDetailMode;
         title?: string;
@@ -6643,7 +6643,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
         Loader?: React.ComponentType<any>;
         Error?: React.ComponentType<any>;
         activeOption?: string;
-        onActiveOptionChange?: (activeOption: string) => void;
+        onActiveOptionChange?: (activeOption: string, initial: boolean) => void;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;

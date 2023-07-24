@@ -109,15 +109,15 @@ export const MasterDetail = <Payload extends any = any>({
                 }
                 if (!activeOption$.current) {
                     const activeItem = items.find(({ active }) => active);
-                    activeItem && handleChange(activeItem.id);
+                    activeItem && handleChange(activeItem.id, true);
                 }
                 setItems(items);
             });
     }, [payload, activeOption, ...deps]);
 
-    const handleChange = (activeOption: string) => {
+    const handleChange = (activeOption: string, initial = false) => {
         setActiveOption(activeOption);
-        onActiveOptionChange && onActiveOptionChange(activeOption);
+        onActiveOptionChange && onActiveOptionChange(activeOption, initial);
     };
 
     const renderInner = () => {

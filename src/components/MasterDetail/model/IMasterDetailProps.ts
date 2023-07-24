@@ -1,8 +1,7 @@
-import React from "react";
-import { SxProps } from "@mui/system";
-
 import IMasterDetailOption from "./IMasterDetailOption";
 import MasterDetailMode from "./MasterDetailMode";
+import React from "react";
+import { SxProps } from "@mui/system";
 
 export interface IMasterDetailProps<Payload = any> {
     mode?: MasterDetailMode;
@@ -11,7 +10,7 @@ export interface IMasterDetailProps<Payload = any> {
     Loader?: React.ComponentType<any>;
     Error?: React.ComponentType<any>;
     activeOption?: string;
-    onActiveOptionChange?: (activeOption: string) => void;
+    onActiveOptionChange?: (activeOption: string, initial: boolean) => void;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps;
