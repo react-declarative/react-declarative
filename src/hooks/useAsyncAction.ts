@@ -20,7 +20,7 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
     onLoadEnd,
     fallback,
     throwError,
-}: IParams): IResult<Data, Payload> => {
+}: IParams = {}): IResult<Data, Payload> => {
 
     const executionRef = useRef<IWrappedFn<Data | null> | null>(null);
 
