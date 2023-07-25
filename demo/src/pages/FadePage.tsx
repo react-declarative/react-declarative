@@ -499,6 +499,7 @@ export const FadePage = () => {
         columns={columns}
         rowActions={actions}
         data={mock}
+        header={<p>123</p>}
         sx={{
           mb: 1,
         }}

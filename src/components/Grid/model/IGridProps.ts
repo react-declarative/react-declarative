@@ -15,6 +15,7 @@ export interface IGridProps<T = RowData> {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
+  header?: React.ReactNode;
   data: Array<T>;
   columns: Array<IColumn<T>>;
   scrollXSubject?: TSubject<number>;

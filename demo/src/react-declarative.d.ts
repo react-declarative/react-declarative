@@ -1730,7 +1730,7 @@ declare module 'react-declarative/hooks/useAsyncAction' {
         error: boolean;
         execute: (p?: Payload) => (Promise<Data | null>);
     }
-    export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }: IParams) => IResult<Data, Payload>;
+    export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export default useAsyncAction;
 }
 
@@ -6597,6 +6597,7 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
+        header?: React.ReactNode;
         data: Array<T>;
         columns: Array<IColumn<T>>;
         scrollXSubject?: TSubject<number>;

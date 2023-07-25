@@ -31,6 +31,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     className,
     style,
     sx,
+    header,
     columns: upperColumns,
     data,
     errorMessage,
@@ -124,6 +125,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
         <Container
           shortHeight={shortHeight}
           className={className}
+          header={header}
           style={style}
           sx={sx}
         >
