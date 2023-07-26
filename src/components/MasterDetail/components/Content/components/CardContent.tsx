@@ -65,6 +65,7 @@ export const CardContent = ({
   items,
   children,
   onChange,
+  withSideMenuCollapse,
 }: IContentProps) => {
 
   const { isWide } = useMediaContext();
@@ -104,7 +105,7 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            {(!!items.length || !!loading) && (
+            {(!!items.length || !!loading || !withSideMenuCollapse) && (
               <Paper>
                 {renderList()}
               </Paper>
@@ -120,7 +121,7 @@ export const CardContent = ({
       return (
         <>
           <div className={classes.sideMenu}>
-            {(!!items.length || !!loading)  && (
+            {(!!items.length || !!loading || !withSideMenuCollapse)  && (
               <Box className={classes.outline}>
                 {renderList()}
               </Box>

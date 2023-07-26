@@ -39,6 +39,8 @@ const useStyles = makeStyles()({
 
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
+    withSideMenuCollapse = false,
+    withFixedPos = false,
     title,
     className,
     style,
@@ -131,6 +133,8 @@ export const MasterDetail = <Payload extends any = any>({
         }
         return (
             <Content
+                withSideMenuCollapse={withSideMenuCollapse}
+                withFixedPos={withFixedPos}
                 loading={loading}
                 items={items}
                 mode={mode}
