@@ -325,8 +325,8 @@ export { useTabsHashstate } from './components';
 
 export { createField, makeField } from './components';
 
-export { useListProps, useListCachedRows } from './components';
-export { useOneProps, useOneState } from './components';
+export { useListProps, useListCachedRows, useListPayload } from './components';
+export { useOneProps, useOneState, useOnePayload } from './components';
 
 export { useActualCallback };
 export { useActualValue };

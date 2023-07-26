@@ -259,8 +259,8 @@ declare module 'react-declarative' {
     export { useApiHandler } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
-    export { useListProps, useListCachedRows } from 'react-declarative/components';
-    export { useOneProps, useOneState } from 'react-declarative/components';
+    export { useListProps, useListCachedRows, useListPayload } from 'react-declarative/components';
+    export { useOneProps, useOneState, useOnePayload } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
@@ -3825,6 +3825,7 @@ declare module 'react-declarative/components/One' {
     export { makeField } from 'react-declarative/components/One/components/makeField';
     export { useOneProps } from 'react-declarative/components/One/context/PropsProvider';
     export { useOneState } from 'react-declarative/components/One/context/StateProvider';
+    export { useOnePayload } from 'react-declarative/components/One/context/PayloadProvider';
     export { OtherComboSlot } from 'react-declarative/components/One/other/OtherComboSlot';
     export { OtherItemsSlot } from 'react-declarative/components/One/other/OtherItemsSlot';
     export { useApiHandler } from 'react-declarative/components/One/api/useApiHandler';
@@ -3845,6 +3846,7 @@ declare module 'react-declarative/components/List' {
     export * from "react-declarative/components/List/List";
     export * from "react-declarative/components/List/slots";
     export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
+    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
     export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
     export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
@@ -4638,6 +4640,18 @@ declare module 'react-declarative/components/One/context/StateProvider' {
     export default StateProvider;
 }
 
+declare module 'react-declarative/components/One/context/PayloadProvider' {
+    import * as React from 'react';
+    import IOneProps from 'react-declarative/model/IOneProps';
+    interface IPayloadProviderProps {
+        children: React.ReactNode;
+        payload?: IOneProps['payload'];
+    }
+    export const PayloadProvider: ({ children, payload, }: IPayloadProviderProps) => JSX.Element;
+    export const useOnePayload: () => any;
+    export default PayloadProvider;
+}
+
 declare module 'react-declarative/components/One/other/OtherComboSlot' {
     import { IComboSlot } from 'react-declarative/components/One/slots/ComboSlot';
     export const OtherComboSlot: ({ value, disabled, readonly, description, placeholder, outlined, itemList, title, dirty, invalid, tr, onChange, }: IComboSlot) => JSX.Element;
@@ -4775,6 +4789,18 @@ declare module 'react-declarative/components/List/hooks/useProps' {
     export const PropProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IPropContext<FilterData, RowData, Payload, Field>) => JSX.Element;
     export const useProps: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => IPropContext<FilterData, RowData, Payload, Field>;
     export default useProps;
+}
+
+declare module 'react-declarative/components/List/hooks/usePayload' {
+    import * as React from 'react';
+    import IListProps from 'react-declarative/model/IListProps';
+    interface IPayloadProviderProps {
+        children: React.ReactNode;
+        value?: Exclude<IListProps['payload'], undefined>;
+    }
+    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
+    export const usePayload: () => any;
+    export default usePayload;
 }
 
 declare module 'react-declarative/components/List/hooks/useCachedRows' {

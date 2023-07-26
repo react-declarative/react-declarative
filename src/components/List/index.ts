@@ -1,6 +1,7 @@
 export * from "./List";
 export * from "./slots";
 export { useProps as useListProps } from './hooks/useProps';
+export { usePayload as useListPayload } from './hooks/usePayload';
 export { useCachedRows as useListCachedRows } from './hooks/useCachedRows';
 export { useApiPaginator } from './api/useApiPaginator';
 export { useLastPagination } from './api/useLastPagination';
