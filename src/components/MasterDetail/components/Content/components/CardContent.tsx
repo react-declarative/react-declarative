@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { makeStyles } from '../../../../../styles';
 import { Paper, alpha } from '@mui/material';
@@ -17,6 +17,8 @@ import classNames from '../../../../../utils/classNames';
 import MasterDetailMode from '../../../model/MasterDetailMode';
 
 import IContentProps from "../IContentProps";
+
+import { MASTER_DETAIL_ROOT } from '../../../config';
 
 const useStyles = makeStyles()((theme, _, classes) => ({
   root: {
@@ -74,23 +76,27 @@ export const CardContent = ({
   withFixedPos,
 }: IContentProps) => {
   const sideMenuRef = useRef<HTMLInputElement>(null);
+  const [fixedPos, setFixedPos] = useState(false);
   const { isWide } = useMediaContext();
 
   const { classes } = useStyles();
 
   useEffect(() => {
     const { current: sideMenu } = sideMenuRef;
-    if (withFixedPos && sideMenu) {
-      const { top: initialTop } = sideMenu.getBoundingClientRect();
+    const container = sideMenu?.closest(`.${MASTER_DETAIL_ROOT}`);
+    if (withFixedPos && sideMenu && container) {
       const handler = () => {
+        let { top: initialTop } = container.getBoundingClientRect();
         const { scrollTop } = document.documentElement;
-        sideMenu.style.marginTop = `${Math.max(-scrollTop, -initialTop)}px`;
+        initialTop += scrollTop;
+        setFixedPos(scrollTop > initialTop);
       };
+      handler();
       document.addEventListener('scroll', handler);
       return () => document.removeEventListener('scroll', handler);
     }
     return undefined;
-  }, [sideMenuRef.current]);
+  }, [sideMenuRef.current, isWide]);
 
   const renderList = () => (
     <List disablePadding dense>
@@ -129,7 +135,7 @@ export const CardContent = ({
             {(!!items.length || !!loading || !withSideMenuCollapse) && (
               <Paper
                 className={classNames({
-                  [classes.fixedPos]: withFixedPos,
+                  [classes.fixedPos]: fixedPos && isWide,
                 })}
                 ref={sideMenuRef}
               >
@@ -152,7 +158,7 @@ export const CardContent = ({
             {(!!items.length || !!loading || !withSideMenuCollapse)  && (
               <Box
                 className={classNames(classes.outline, {
-                  [classes.fixedPos]: withFixedPos,
+                  [classes.fixedPos]: fixedPos && isWide,
                 })}
                 ref={sideMenuRef}
               >
