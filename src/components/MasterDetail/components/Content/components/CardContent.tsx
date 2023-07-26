@@ -84,7 +84,7 @@ export const CardContent = ({
       const { top: initialTop } = sideMenu.getBoundingClientRect();
       const handler = () => {
         const { scrollTop } = document.documentElement;
-        sideMenu.style.marginTop = `${Math.max(0, scrollTop - initialTop)}px`;
+        sideMenu.style.marginTop = `${Math.max(-scrollTop, -initialTop)}px`;
       };
       document.addEventListener('scroll', handler);
       return () => document.removeEventListener('scroll', handler);
