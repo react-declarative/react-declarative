@@ -6086,7 +6086,7 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
-    export const MasterDetail: <Payload extends unknown = any>({ mode, withSideMenuCollapse, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export const MasterDetail: <Payload extends unknown = any>({ mode, withSideMenuCollapse, withFixedPos, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }
 
@@ -6665,6 +6665,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     import { SxProps } from "@mui/system";
     export interface IMasterDetailProps<Payload = any> {
         withSideMenuCollapse?: boolean;
+        withFixedPos?: boolean;
         mode?: MasterDetailMode;
         title?: string;
         children: React.ReactNode;

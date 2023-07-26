@@ -21,6 +21,8 @@ import IMasterDetailProps from './model/IMasterDetailProps';
 import MasterDetailMode from './model/MasterDetailMode';
 import { IMasterDetailOptionInternal } from './model/IMasterDetailOption';
 
+import { MASTER_DETAIL_ROOT } from './config';
+
 const LoaderDefault = LoaderView.createLoader(48);
 const ErrorDefault = () => <></>;
 
@@ -158,7 +160,7 @@ export const MasterDetail = <Payload extends any = any>({
             style={style}
             sx={sx}
         >
-            <Container passthrough={isPassthrough} label={isMobile ? undefined : title}>
+            <Container className={MASTER_DETAIL_ROOT} passthrough={isPassthrough} label={isMobile ? undefined : title}>
                 {renderInner()}
             </Container>
         </Box>

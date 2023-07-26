@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useRef } from 'react';
 
 import { makeStyles } from '../../../../../styles';
 import { Paper, alpha } from '@mui/material';
@@ -57,6 +58,10 @@ const useStyles = makeStyles()((theme, _, classes) => ({
       borderBottom: `1px solid ${theme.palette.divider}`,
     },
   },
+  fixedPos: {
+    position: 'fixed',
+    width: 240,
+  },
 }));
 
 export const CardContent = ({
@@ -66,11 +71,26 @@ export const CardContent = ({
   children,
   onChange,
   withSideMenuCollapse,
+  withFixedPos,
 }: IContentProps) => {
-
+  const sideMenuRef = useRef<HTMLInputElement>(null);
   const { isWide } = useMediaContext();
 
   const { classes } = useStyles();
+
+  useEffect(() => {
+    const { current: sideMenu } = sideMenuRef;
+    if (withFixedPos && sideMenu) {
+      const { top: initialTop } = sideMenu.getBoundingClientRect();
+      const handler = () => {
+        const { scrollTop } = document.documentElement;
+        sideMenu.style.marginTop = `${Math.max(0, scrollTop - initialTop)}px`;
+      };
+      document.addEventListener('scroll', handler);
+      return () => document.removeEventListener('scroll', handler);
+    }
+    return undefined;
+  }, [sideMenuRef.current]);
 
   const renderList = () => (
     <List disablePadding dense>
@@ -104,9 +124,15 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Paper) {
       return (
         <>
-          <div className={classes.sideMenu}>
+          <div
+            className={classes.sideMenu}>
             {(!!items.length || !!loading || !withSideMenuCollapse) && (
-              <Paper>
+              <Paper
+                className={classNames({
+                  [classes.fixedPos]: withFixedPos,
+                })}
+                ref={sideMenuRef}
+              >
                 {renderList()}
               </Paper>
             )}
@@ -120,9 +146,16 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Outline) {
       return (
         <>
-          <div className={classes.sideMenu}>
+          <div
+            className={classes.sideMenu}
+          >
             {(!!items.length || !!loading || !withSideMenuCollapse)  && (
-              <Box className={classes.outline}>
+              <Box
+                className={classNames(classes.outline, {
+                  [classes.fixedPos]: withFixedPos,
+                })}
+                ref={sideMenuRef}
+              >
                 {renderList()}
               </Box>
             )}
