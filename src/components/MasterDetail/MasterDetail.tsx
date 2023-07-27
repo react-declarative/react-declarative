@@ -43,6 +43,7 @@ export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
     withSideMenuCollapse = false,
     withFixedPos = false,
+    fixedPosHeaderAdjust = 0,
     title,
     className,
     style,
@@ -137,6 +138,7 @@ export const MasterDetail = <Payload extends any = any>({
             <Content
                 withSideMenuCollapse={withSideMenuCollapse}
                 withFixedPos={withFixedPos}
+                fixedPosHeaderAdjust={fixedPosHeaderAdjust}
                 loading={loading}
                 items={items}
                 mode={mode}

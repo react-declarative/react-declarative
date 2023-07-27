@@ -20,7 +20,9 @@ import IContentProps from "../IContentProps";
 
 import { MASTER_DETAIL_ROOT } from '../../../config';
 
-const useStyles = makeStyles()((theme, _, classes) => ({
+const useStyles = makeStyles<{
+  headerAdjust: number;
+}>()((theme, { headerAdjust }, classes) => ({
   root: {
     display: 'grid',
   },
@@ -62,6 +64,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   },
   fixedPos: {
     position: 'fixed',
+    top: headerAdjust,
     width: 240,
   },
 }));
@@ -74,12 +77,15 @@ export const CardContent = ({
   onChange,
   withSideMenuCollapse,
   withFixedPos,
+  fixedPosHeaderAdjust: headerAdjust,
 }: IContentProps) => {
   const sideMenuRef = useRef<HTMLInputElement>(null);
   const [fixedPos, setFixedPos] = useState(false);
   const { isWide } = useMediaContext();
 
-  const { classes } = useStyles();
+  const { classes } = useStyles({
+    headerAdjust,
+  });
 
   useEffect(() => {
     const { current: sideMenu } = sideMenuRef;

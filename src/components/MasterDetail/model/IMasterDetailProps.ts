@@ -6,6 +6,7 @@ import { SxProps } from "@mui/system";
 export interface IMasterDetailProps<Payload = any> {
     withSideMenuCollapse?: boolean;
     withFixedPos?: boolean;
+    fixedPosHeaderAdjust?: number;
     mode?: MasterDetailMode;
     title?: string;
     children: React.ReactNode;

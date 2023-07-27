@@ -7,6 +7,7 @@ export interface IContentProps {
     mode: Exclude<IMasterDetailProps['mode'], undefined>;
     withSideMenuCollapse: boolean;
     withFixedPos: boolean;
+    fixedPosHeaderAdjust: number;
     items: IMasterDetailOptionInternal[];
     onChange: (activeItem: string) => void;
 }
