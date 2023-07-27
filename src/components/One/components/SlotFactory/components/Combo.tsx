@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
 
+import compareArray from '../../../../../utils/compareArray';
 import randomString from '../../../../../utils/randomString';
 import arrays from '../../../../../utils/arrays';
 
@@ -126,9 +127,11 @@ export const Combo = ({
     };
 
     const handleBlur = () => {
-      if (!readonly) {
-        !keepSync && setUnfocused(true);
-        !keepSync && onChange(value);
+      if (!readonly && !keepSync ) {
+        setUnfocused(true);
+        if (!compareArray(data, value)) {
+          onChange(value);
+        }
       }
     };
 

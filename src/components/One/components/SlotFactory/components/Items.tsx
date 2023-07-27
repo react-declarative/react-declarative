@@ -12,6 +12,7 @@ import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
 
+import compareArray from '../../../../../utils/compareArray';
 import randomString from '../../../../../utils/randomString';
 import isObject from '../../../../../utils/isObject';
 import objects from '../../../../../utils/objects';
@@ -151,9 +152,11 @@ export const Items = ({
         };
 
         const handleBlur = () => {
-            if (!readonly) {
-                !keepSync && setUnfocused(true);
-                !keepSync && onChange(value?.length ? objects(value) : null);
+            if (!readonly && !keepSync) {
+                setUnfocused(true);
+                if (!compareArray(data, value)) {
+                    onChange(value?.length ? objects(value) : null)
+                }
             }
         };
 
