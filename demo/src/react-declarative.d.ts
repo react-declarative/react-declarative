@@ -4250,6 +4250,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Group' {
         id: string;
         label?: string;
         icon?: React.ComponentType;
+        noHeader?: boolean;
         isVisible?: () => boolean | (Promise<boolean>);
         isDisabled?: () => boolean | (Promise<boolean>);
         children: IScaffold2Option<T>[];

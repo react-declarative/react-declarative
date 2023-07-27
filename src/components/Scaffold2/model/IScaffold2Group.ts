@@ -7,6 +7,7 @@ export interface IScaffold2Group<T = Payload> {
     id: string;
     label?: string;
     icon?: React.ComponentType;
+    noHeader?: boolean;
     isVisible?: () => boolean | (Promise<boolean>);
     isDisabled?: () => boolean | (Promise<boolean>);
     children: IScaffold2Option<T>[];

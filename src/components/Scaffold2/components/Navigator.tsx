@@ -135,35 +135,38 @@ export const Navigator = <T extends Payload = Payload>({
               path,
               label,
               disabled: upperDisabled,
+              noHeader = false,
               icon: Icon,
               children,
-            }) => (
+            }, idx, options) => (
               <Box
                 key={id}
                 sx={{
                   bgcolor: (theme: Theme) => theme.palette.background.paper,
                 }}
               >
-                <ListItem sx={{ py: 2, px: 3 }}>
-                  <ListItemButton
-                    onClick={() => onOptionGroupClick(path, id)}
-                    disabled={upperDisabled}
-                    sx={{
-                      pointerEvents: "none",
-                      touchAction: "none",
-                    }}
-                    disableTouchRipple
-                    disableRipple
-                    disableGutters
-                  >
-                    {!!Icon && (
-                      <ListItemIcon>
-                        <Icon />
-                      </ListItemIcon>
-                    )}
-                    <ListItemText>{label || idToLabel(id)}</ListItemText>
-                  </ListItemButton>
-                </ListItem>
+                {!noHeader && (
+                  <ListItem sx={{ py: 2, px: 3 }}>
+                    <ListItemButton
+                      onClick={() => onOptionGroupClick(path, id)}
+                      disabled={upperDisabled}
+                      sx={{
+                        pointerEvents: "none",
+                        touchAction: "none",
+                      }}
+                      disableTouchRipple
+                      disableRipple
+                      disableGutters
+                    >
+                      {!!Icon && (
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
+                      )}
+                      <ListItemText>{label || idToLabel(id)}</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                )}
                 {children
                   .filter(({ visible }) => visible)
                   .map((option, idx) => (
@@ -175,7 +178,9 @@ export const Navigator = <T extends Payload = Payload>({
                       onGroupClick={onOptionGroupClick}
                     />
                   ))}
-                <Divider sx={{ mt: 2 }} />
+                {idx !== options.length - 1 && (
+                  <Divider sx={{ mt: 2 }} />
+                )}
               </Box>
             )
           )}
