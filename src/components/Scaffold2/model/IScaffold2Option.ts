@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/system";
+
 import IScaffold2Tab, { IScaffold2TabInternal } from "./IScaffold2Tab";
 
 import Payload from "./Payload";
@@ -6,6 +8,8 @@ export interface IScaffold2Option<T = Payload> {
     id: string;
     label?: string;
     lifted?: boolean;
+    pin?: boolean;
+    sx?: SxProps;
     icon?: React.ComponentType<any>;
     tabs?: IScaffold2Tab<T>[];
     options?: IScaffold2Option<T>[];

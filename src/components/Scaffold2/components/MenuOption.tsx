@@ -73,6 +73,7 @@ const MenuGroup = ({
     <React.Fragment>
       <OptionItem
         key={option.id}
+        sx={option.sx}
         option={{
           ...option,
           disabled: option.disabled || disabled,
@@ -109,6 +110,7 @@ export const MenuOption = ({
 
   const child = options
     .filter((option) => option.visible)
+    .sort(({ pin: a = false }, { pin: b = false }) => Number(b) - Number(a))
     .map((option, idx) => {
       const currentPadding = paddingLeft + PADDING_LEFT_STEP;
       if (option.options?.length) {
@@ -127,6 +129,7 @@ export const MenuOption = ({
         return (
           <OptionItem
             key={`${option.id}-${idx}`}
+            sx={option.sx}
             option={{
               ...option,
               disabled: disabled || option.disabled,

@@ -5,12 +5,12 @@
 //   ../../@mui/material
 //   ../../history
 //   ../../@mui/material/Box
+//   ../../@mui/system
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
 //   ../../@mui/material/Stack
 //   ../../@mui/material/styles
-//   ../../@mui/system
 //   ../../@mui/material/Tabs
 //   ../../@mui/material/Chip
 
@@ -4269,12 +4269,15 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Group' {
 }
 
 declare module 'react-declarative/components/Scaffold2/model/IScaffold2Option' {
+    import { SxProps } from "@mui/system";
     import IScaffold2Tab, { IScaffold2TabInternal } from "react-declarative/components/Scaffold2/model/IScaffold2Tab";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
     export interface IScaffold2Option<T = Payload> {
         id: string;
         label?: string;
         lifted?: boolean;
+        pin?: boolean;
+        sx?: SxProps;
         icon?: React.ComponentType<any>;
         tabs?: IScaffold2Tab<T>[];
         options?: IScaffold2Option<T>[];

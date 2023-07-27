@@ -143,6 +143,9 @@ export const Navigator = <T extends Payload = Payload>({
                 key={id}
                 sx={{
                   bgcolor: (theme: Theme) => theme.palette.background.paper,
+                  ...(noHeader && {
+                    pt: idx === 0 ? 0 : 2,
+                  }),
                 }}
               >
                 {!noHeader && (
@@ -169,6 +172,7 @@ export const Navigator = <T extends Payload = Payload>({
                 )}
                 {children
                   .filter(({ visible }) => visible)
+                  .sort(({ pin: a = false }, { pin: b = false }) => Number(b) - Number(a))
                   .map((option, idx) => (
                     <MenuOption
                       key={`${option.id}-${idx}`}
