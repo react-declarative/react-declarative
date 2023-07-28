@@ -10,49 +10,57 @@ import { makeStyles } from "../../../../../styles";
 
 import classNames from "../../../../../utils/classNames";
 
+import useElementSize from "../../../../../hooks/useElementSize";
+
 import IContentProps from "../IContentProps";
 
 import { MASTER_DETAIL_ROOT } from "../../../config";
 
-const TAB_HEIGHT = 48;
+const TAB_HEIGHT = 72;
+const HEADER_HEIGHT = 82;
 
 const useStyles = makeStyles<{
   headerAdjust: number;
-}>()((theme, { headerAdjust }) => ({
+  width: string | number;
+}>()((theme, { headerAdjust: top, width }) => ({
   root: {
     position: "relative",
-    width: "100%",
-  },
-  headerFixed: {
-    position: "fixed",
-    top: headerAdjust,
+    width: '100%',
   },
   header: {
-    width: "100%",
-    overflow: "hidden",
-    display: "flex",
-    alignItems: "stretch",
-    justifyContent: "stretch",
-    marginBottom: theme.spacing(1),
-    "& > *": {
-      flex: 1,
-    },
+    height: HEADER_HEIGHT,
+    background: theme.palette.background.default,
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: 9,
+    width,
   },
-  headerContent: {
-    position: "relative",
-    display: "flex",
-    alignItems: "stretch",
-    justifyContent: "stretch",
+  headerAbsolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
-  tabs: {
-    flex: 1,
+  headerFixed: {
+    position: 'fixed',
+    top,
   },
   adjust: {
     paddingBottom: TAB_HEIGHT,
   },
+  paper: {
+    width,
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    '& > *': {
+      flex: 1,
+    },
+  },
   tabsRoot: {
     minHeight: TAB_HEIGHT,
     height: TAB_HEIGHT,
+    marginLeft: "0 !important",
+    marginRight: "0 !important",
   },
   tabRoot: {
     minHeight: TAB_HEIGHT,
@@ -72,12 +80,17 @@ export const TabContent = ({
   fixedPosHeaderAdjust: headerAdjust,
 }: IContentProps) => {
 
-  const menuRef = useRef<HTMLInputElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const { elementRef, size: { width } } = useElementSize({
+    width: '100%',
+  });
 
   const [fixedPos, setFixedPos] = useState(false);
 
   const { classes } = useStyles({
     headerAdjust,
+    width,
   });
 
   useEffect(() => {
@@ -91,8 +104,8 @@ export const TabContent = ({
         setFixedPos(scrollTop > initialTop);
       };
       handler();
-      document.addEventListener('scroll', handler);
-      return () => document.removeEventListener('scroll', handler);
+      document.addEventListener("scroll", handler);
+      return () => document.removeEventListener("scroll", handler);
     }
     return undefined;
   }, [menuRef.current]);
@@ -102,15 +115,15 @@ export const TabContent = ({
   }, [items]);
 
   return (
-    <Box className={classes.root}>
-      <Paper
+    <Box ref={elementRef} className={classes.root}>
+      <Box 
         className={classNames(classes.header, {
-          [classes.headerFixed]: withFixedPos && fixedPos,
+          [classes.headerAbsolute]: !fixedPos,
+          [classes.headerFixed]: fixedPos,
         })}
       >
-        <Box className={classes.headerContent}>
+        <Paper className={classes.paper}>
           <Tabs
-            className={classes.tabs}
             variant="scrollable"
             indicatorColor="primary"
             value={activeId}
@@ -134,9 +147,9 @@ export const TabContent = ({
               />
             ))}
           </Tabs>
-        </Box>
-      </Paper>
-      {withFixedPos && <div className={classes.adjust} />}
+        </Paper>
+      </Box>
+      <div ref={menuRef} className={classes.adjust} />
       {children}
     </Box>
   );
