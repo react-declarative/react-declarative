@@ -16,8 +16,8 @@ import IContentProps from "../IContentProps";
 
 import { MASTER_DETAIL_ROOT } from "../../../config";
 
-const TAB_HEIGHT = 72;
-const HEADER_HEIGHT = 82;
+const TAB_HEIGHT = 54;
+const HEADER_HEIGHT = 64;
 
 const useStyles = makeStyles<{
   headerAdjust: number;
@@ -45,7 +45,7 @@ const useStyles = makeStyles<{
     top,
   },
   adjust: {
-    paddingBottom: TAB_HEIGHT,
+    paddingBottom: HEADER_HEIGHT,
   },
   paper: {
     width,
