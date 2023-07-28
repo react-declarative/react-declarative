@@ -5423,15 +5423,15 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
 }
 
 declare module 'react-declarative/components/FilesView/FilesView' {
-    import * as React from 'react';
-    import { SxProps } from '@mui/system';
+    import * as React from "react";
+    import { SxProps } from "@mui/system";
     interface IFilesViewProps {
         items?: string[];
         disabled?: boolean;
-        onUpload?: (file: File) => (string | Promise<string>);
-        onRemove?: (item: string) => (void | Promise<void>);
-        onChange?: (items: string[]) => (void | Promise<void>);
-        onClick?: (item: string) => (void | Promise<void>);
+        onUpload?: (file: File) => string | Promise<string>;
+        onRemove?: (item: string) => void | Promise<void>;
+        onChange?: (items: string[]) => void | Promise<void>;
+        onClick?: (item: string) => void | Promise<void>;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
@@ -6090,7 +6090,7 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
-    export const MasterDetail: <Payload extends unknown = any>({ mode, withSideMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export const MasterDetail: <Payload extends unknown = any>({ mode, withMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }
 
@@ -6120,7 +6120,8 @@ declare module 'react-declarative/components/MasterDetail/model/MasterDetailMode
     export enum MasterDetailMode {
         Paper = "paper",
         Outline = "outline",
-        Card = "card"
+        Card = "card",
+        Tabs = "tabs"
     }
     export default MasterDetailMode;
 }
@@ -6668,7 +6669,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     import React from "react";
     import { SxProps } from "@mui/system";
     export interface IMasterDetailProps<Payload = any> {
-        withSideMenuCollapse?: boolean;
+        withMenuCollapse?: boolean;
         withFixedPos?: boolean;
         fixedPosHeaderAdjust?: number;
         mode?: MasterDetailMode;

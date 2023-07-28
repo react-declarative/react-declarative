@@ -75,7 +75,7 @@ export const CardContent = ({
   items,
   children,
   onChange,
-  withSideMenuCollapse,
+  withMenuCollapse,
   withFixedPos,
   fixedPosHeaderAdjust: headerAdjust,
 }: IContentProps) => {
@@ -138,7 +138,7 @@ export const CardContent = ({
         <>
           <div
             className={classes.sideMenu}>
-            {(!!items.length || !!loading || !withSideMenuCollapse) && (
+            {(!!items.length || !!loading || !withMenuCollapse) && (
               <Paper
                 className={classNames({
                   [classes.fixedPos]: fixedPos && isWide,
@@ -161,7 +161,7 @@ export const CardContent = ({
           <div
             className={classes.sideMenu}
           >
-            {(!!items.length || !!loading || !withSideMenuCollapse)  && (
+            {(!!items.length || !!loading || !withMenuCollapse)  && (
               <Box
                 className={classNames(classes.outline, {
                   [classes.fixedPos]: fixedPos && isWide,

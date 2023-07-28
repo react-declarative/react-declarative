@@ -21,6 +21,7 @@ import {
   ActionFilter,
   ActionTrigger,
   ActionStopIcon,
+  MasterDetailMode,
   ActionToggle,
   IActionFilter,
   IActionTrigger,
@@ -585,6 +586,7 @@ export const FadePage = () => {
           height: '300px',
         }}
         options={items}
+        mode={MasterDetailMode.Tabs}
       >
         123
       </MasterDetail>

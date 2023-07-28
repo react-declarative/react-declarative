@@ -41,7 +41,7 @@ const useStyles = makeStyles()({
 
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
-    withSideMenuCollapse = false,
+    withMenuCollapse = false,
     withFixedPos = false,
     fixedPosHeaderAdjust = 0,
     title,
@@ -136,7 +136,7 @@ export const MasterDetail = <Payload extends any = any>({
         }
         return (
             <Content
-                withSideMenuCollapse={withSideMenuCollapse}
+                withMenuCollapse={withMenuCollapse}
                 withFixedPos={withFixedPos}
                 fixedPosHeaderAdjust={fixedPosHeaderAdjust}
                 loading={loading}
@@ -153,6 +153,7 @@ export const MasterDetail = <Payload extends any = any>({
         let isOk = false;
         isOk = isOk || mode === MasterDetailMode.Outline;
         isOk = isOk || mode === MasterDetailMode.Paper;
+        isOk = isOk || mode === MasterDetailMode.Tabs;
         return isOk;
     }, [mode]);
 

@@ -4,7 +4,7 @@ import React from "react";
 import { SxProps } from "@mui/system";
 
 export interface IMasterDetailProps<Payload = any> {
-    withSideMenuCollapse?: boolean;
+    withMenuCollapse?: boolean;
     withFixedPos?: boolean;
     fixedPosHeaderAdjust?: number;
     mode?: MasterDetailMode;

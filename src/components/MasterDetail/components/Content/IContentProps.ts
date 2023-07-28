@@ -5,7 +5,7 @@ export interface IContentProps {
     children: React.ReactNode;
     loading: boolean;
     mode: Exclude<IMasterDetailProps['mode'], undefined>;
-    withSideMenuCollapse: boolean;
+    withMenuCollapse: boolean;
     withFixedPos: boolean;
     fixedPosHeaderAdjust: number;
     items: IMasterDetailOptionInternal[];
