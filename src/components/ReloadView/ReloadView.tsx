@@ -32,7 +32,7 @@ export class ReloadView extends React.Component<IReloadViewProps> {
         }
     };
 
-    return = () => (
+    render = () => (
         <>
             {this.props.children}
         </>

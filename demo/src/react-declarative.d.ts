@@ -5816,7 +5816,7 @@ declare module 'react-declarative/components/ReloadView/ReloadView' {
         componentDidMount: () => void;
         componentDidUpdate: () => void;
         componentWillUnmount: () => void;
-        return: () => JSX.Element;
+        render: () => JSX.Element;
     }
     export default ReloadView;
 }
