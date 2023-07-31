@@ -4709,6 +4709,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         history?: BrowserHistory | MemoryHistory | HashHistory;
         readonly?: boolean;
         updateSubject?: TSubject<Data>;
+        checkUpdate?: (data: Data) => boolean;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
         onReload?: () => void;
@@ -4732,7 +4733,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
-    export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onReload, fallback, updateSubject: upperUpdateSubject, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onReload, checkUpdate, fallback, updateSubject: upperUpdateSubject, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 

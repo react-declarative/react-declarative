@@ -17,6 +17,7 @@ export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     readonly?: boolean;
     updateSubject?: TSubject<Data>;
+    checkUpdate?: (data: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
     onReload?: () => void;
@@ -55,6 +56,7 @@ export const usePreventLeave = <Data = IAnything>({
     onBlock = () => () => null,
     onSave = () => true,
     onReload = () => null,
+    checkUpdate = () => true,
     fallback,
     updateSubject: upperUpdateSubject,
 }: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
@@ -70,6 +72,9 @@ export const usePreventLeave = <Data = IAnything>({
     const data$ = useActualValue(data);
 
     useEffect(() => updateSubject.subscribe((change) => {
+        if (!checkUpdate(change)) {
+            return;
+        }
         if (data$.current) {
             changeSubject.next(change);
         } else {
