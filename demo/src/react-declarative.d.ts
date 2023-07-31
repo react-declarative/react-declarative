@@ -259,7 +259,7 @@ declare module 'react-declarative' {
     export { useApiHandler } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
-    export { useListProps, useListCachedRows, useListPayload } from 'react-declarative/components';
+    export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
     export { useOneProps, useOneState, useOnePayload } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
@@ -3848,6 +3848,7 @@ declare module 'react-declarative/components/List' {
     export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
     export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
+    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
     export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
     export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
     export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
@@ -4826,6 +4827,23 @@ declare module 'react-declarative/components/List/hooks/useCachedRows' {
     }
     export const CachedRowsProvider: <RowData extends IRowData = any>({ children, }: ICachedRowsProviderProps) => JSX.Element;
     export default useCachedRows;
+}
+
+declare module 'react-declarative/components/List/hooks/useChips' {
+    import React from 'react';
+    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
+    export const useChips: () => IState;
+    interface IChipsProviderProps {
+        children: React.ReactNode;
+        chips: IListChip[];
+        chipData: ListHandlerChips;
+    }
+    interface IState {
+        chips: Map<string, boolean>;
+        setChips: (s: Map<string, boolean>) => void;
+    }
+    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
+    export default useChips;
 }
 
 declare module 'react-declarative/components/List/api/useQueryPagination' {

@@ -3,6 +3,7 @@ export * from "./slots";
 export { useProps as useListProps } from './hooks/useProps';
 export { usePayload as useListPayload } from './hooks/usePayload';
 export { useCachedRows as useListCachedRows } from './hooks/useCachedRows';
+export { useChips as useListChips } from './hooks/useChips';
 export { useApiPaginator } from './api/useApiPaginator';
 export { useLastPagination } from './api/useLastPagination';
 export { useQueryPagination } from './api/useQueryPagination';
