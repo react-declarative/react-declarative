@@ -13,14 +13,16 @@ import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from '../../../model/TSubject';
 
-export interface IPreventLeaveParams<Data = IAnything> {
+type Id = string | number;
+
+export interface IPreventLeaveParams<Data = IAnything, ID = Id> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     readonly?: boolean;
-    updateSubject?: TSubject<Data>;
-    checkUpdate?: (data: Data) => boolean;
+    updateSubject?: TSubject<[ID, Data]>;
+    checkUpdate?: (id: ID, data: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
-    onReload?: () => void;
+    onReload?: (id: ID, data: Data) => void;
     onSave?: (data: Data) => (boolean | Promise<boolean>);
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -47,7 +49,7 @@ const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
 const INVALID_MESSAGE = 'The form contains invalid data. Continue?';
 const DEFAULT_HISTORY = createWindowHistory();
 
-export const usePreventLeave = <Data = IAnything>({
+export const usePreventLeave = <Data = IAnything, ID = Id>({
     history = DEFAULT_HISTORY,
     readonly = false,
     onChange,
@@ -59,7 +61,7 @@ export const usePreventLeave = <Data = IAnything>({
     checkUpdate = () => true,
     fallback,
     updateSubject: upperUpdateSubject,
-}: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
+}: IPreventLeaveParams<Data, ID> = {}): IPreventLeaveReturn<Data> => {
 
     const updateSubject = useSubject(upperUpdateSubject);
 
@@ -71,15 +73,15 @@ export const usePreventLeave = <Data = IAnything>({
 
     const data$ = useActualValue(data);
 
-    useEffect(() => updateSubject.subscribe((change) => {
-        if (!checkUpdate(change)) {
+    useEffect(() => updateSubject.subscribe(([id, change]) => {
+        if (!checkUpdate(id, change)) {
             return;
         }
         if (data$.current) {
             changeSubject.next(change);
         } else {
             reloadSubject.next();
-            onReload();
+            onReload(id, change);
         }
     }), []);
 
