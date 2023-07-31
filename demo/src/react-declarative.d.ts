@@ -4703,11 +4703,14 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     import { BrowserHistory, MemoryHistory, HashHistory } from "history";
     import IOneProps from "react-declarative/model/IOneProps";
     import IAnything from "react-declarative/model/IAnything";
+    import TSubject from 'react-declarative/model/TSubject';
     export interface IPreventLeaveParams<Data = IAnything> {
         history?: BrowserHistory | MemoryHistory | HashHistory;
         readonly?: boolean;
+        updateSubject?: TSubject<Data>;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
+        onReload?: () => void;
         onSave?: (data: Data) => (boolean | Promise<boolean>);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -4718,6 +4721,8 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
             change: (data: Data, initial?: boolean) => void;
             invalidity: IOneProps<Data>['invalidity'];
             readonly: IOneProps<Data>['readonly'];
+            changeSubject: IOneProps<Data>['changeSubject'];
+            reloadSubject: IOneProps<Data>['reloadSubject'];
             fallback?: (e: Error) => void;
         };
         data: Data | null;
@@ -4726,7 +4731,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
-    export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, fallback, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onReload, fallback, updateSubject: upperUpdateSubject, }?: IPreventLeaveParams<Data>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 

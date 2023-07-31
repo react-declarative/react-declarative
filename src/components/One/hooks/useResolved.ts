@@ -122,7 +122,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                 reload: tryResolve,
                 change: (data) => {
                     setData(data);
-                    change!(data, false);
+                    change!(data, true);
                 },
                 getData: () => ({...data$.current || ({} as Data)}),
             };

@@ -7,15 +7,19 @@ import createWindowHistory from '../../../utils/createWindowHistory';
 import useConfirm from '../../../hooks/useConfirm';
 import useRenderWaiter from '../../../hooks/useRenderWaiter';
 import useSubject from '../../../hooks/useSubject';
+import useActualValue from '../../../hooks/useActualValue';
 
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
+import TSubject from '../../../model/TSubject';
 
 export interface IPreventLeaveParams<Data = IAnything> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     readonly?: boolean;
+    updateSubject?: TSubject<Data>;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
+    onReload?: () => void;
     onSave?: (data: Data) => (boolean | Promise<boolean>);
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -27,6 +31,8 @@ export interface IPreventLeaveReturn<Data = IAnything> {
         change: (data: Data, initial?: boolean) => void;
         invalidity: IOneProps<Data>['invalidity'];
         readonly: IOneProps<Data>['readonly'];
+        changeSubject: IOneProps<Data>['changeSubject'];
+        reloadSubject: IOneProps<Data>['reloadSubject'];
         fallback?: (e: Error) => void;
     };
     data: Data | null;
@@ -48,11 +54,29 @@ export const usePreventLeave = <Data = IAnything>({
     onLoadEnd,
     onBlock = () => () => null,
     onSave = () => true,
+    onReload = () => null,
     fallback,
+    updateSubject: upperUpdateSubject,
 }: IPreventLeaveParams<Data> = {}): IPreventLeaveReturn<Data> => {
+
+    const updateSubject = useSubject(upperUpdateSubject);
+
+    const changeSubject = useSubject<Data>();
+    const reloadSubject = useSubject<void>();
 
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
+
+    const data$ = useActualValue(data);
+
+    useEffect(() => updateSubject.subscribe((change) => {
+        if (data$.current) {
+            changeSubject.next(change);
+        } else {
+            reloadSubject.next();
+            onReload();
+        }
+    }), []);
 
     const [loading, setLoading] = useState(0);
 
@@ -204,6 +228,8 @@ export const usePreventLeave = <Data = IAnything>({
             invalidity: handleInvalid,
             readonly: !!loading || readonly,
             ...fallback && { fallback },
+            changeSubject,
+            reloadSubject,
         },
         data : invalid ? null : data,
         hasChanged: !!data && !loading,
