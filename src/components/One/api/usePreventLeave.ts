@@ -11,9 +11,7 @@ import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from '../../../model/TSubject';
 
-type Id = string | number;
-
-export interface IPreventLeaveParams<Data = IAnything, ID = Id> {
+export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     readonly?: boolean;
     updateSubject?: TSubject<[ID, Data]>;
@@ -46,7 +44,7 @@ const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
 const INVALID_MESSAGE = 'The form contains invalid data. Continue?';
 const DEFAULT_HISTORY = createWindowHistory();
 
-export const usePreventLeave = <Data = IAnything, ID = Id>({
+export const usePreventLeave = <Data = IAnything, ID = string>({
     history = DEFAULT_HISTORY,
     readonly = false,
     onChange,
