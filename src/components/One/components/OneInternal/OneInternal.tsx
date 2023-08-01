@@ -104,6 +104,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
                         const one: IOneProps<Data> = {
                             ready: handleReady,
                             prefix: currentPath,
+                            readonly: readonly || field.readonly,
                             fields,
                             roles,
                             handler: object,
