@@ -80,9 +80,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
         if (!checkUpdate(id, change)) {
             return;
         }
-        if (!hasChanged$.current) {
-            changeSubject.next(change);
-        }
+        changeSubject.next(change);
         if (hasChanged$.current) {
             setData(change);
         }
