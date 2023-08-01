@@ -4713,7 +4713,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         checkUpdate?: (id: ID, data: Data) => boolean;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
-        onReload?: (id: ID, data: Data) => void;
+        onUpdate?: (id: ID, data: Data) => void;
         onSave?: (data: Data) => (boolean | Promise<boolean>);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -4725,7 +4725,6 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
             invalidity: IOneProps<Data>['invalidity'];
             readonly: IOneProps<Data>['readonly'];
             changeSubject: IOneProps<Data>['changeSubject'];
-            reloadSubject: IOneProps<Data>['reloadSubject'];
             fallback?: (e: Error) => void;
         };
         data: Data | null;
@@ -4734,7 +4733,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         beginSave: () => Promise<boolean>;
         afterSave: () => void;
     }
-    export const usePreventLeave: <Data = any, ID = Id>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onReload, checkUpdate, fallback, updateSubject: upperUpdateSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any, ID = Id>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, fallback, updateSubject: upperUpdateSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
