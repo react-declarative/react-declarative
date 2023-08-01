@@ -218,7 +218,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const beginSave = async () => {
         const { current: data } = data$;
-        if (hasChanged$.current) {
+        if (!hasChanged$.current) {
             return false;
         }
         if (data) {
