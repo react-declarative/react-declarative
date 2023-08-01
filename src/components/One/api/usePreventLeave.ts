@@ -87,7 +87,6 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     const onUpdate$ = useActualCallback(onUpdate);
 
     const hasChanged$ = useActualValue(hasChanged);
-    const loading$ = useActualValue(loading);
     const data$ = useActualValue(data);
 
     useEffect(() => updateSubject.subscribe(([id, change]) => {
@@ -219,7 +218,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const beginSave = async () => {
         const { current: data } = data$;
-        if (loading$.current) {
+        if (hasChanged$.current) {
             return false;
         }
         if (data) {
