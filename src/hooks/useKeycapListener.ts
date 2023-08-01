@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import useActualCallback from "./useActualCallback";
 
 const createPressHandler = (callback: () => void, ...codes: string[]) => {
+  const codesSet = new Set(codes);
   const pressed = new Set();
   let skip = false;
   const check = (code: string) => {
@@ -18,11 +19,16 @@ const createPressHandler = (callback: () => void, ...codes: string[]) => {
     skip = true;
     setTimeout(() => (skip = false), 900);
     pressed.clear();
+    if (document.activeElement && 'blur' in document.activeElement) {
+        (document.activeElement as HTMLInputElement).blur();
+    }
     callback();
   };
 
   const handleCheck = (event: KeyboardEvent) => {
-    event.preventDefault();
+    if (codesSet.has(event.code)) {
+        event.preventDefault();
+    }
     check(event.code);
   };
 
