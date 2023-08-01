@@ -194,8 +194,8 @@ export const FilesView = ({
             </ListItemButton>
           </ListItem>
         ))}
-        {!items.length && (
-          <ListItem>
+        {!items.length && !loading && (
+          <ListItem sx={{ pointerEvents: 'none' }}>
             <ListItemButton>
               <ListItemText primary="Nothing found" />
             </ListItemButton>

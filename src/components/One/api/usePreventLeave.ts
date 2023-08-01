@@ -7,6 +7,10 @@ import createWindowHistory from '../../../utils/createWindowHistory';
 import useConfirm from '../../../hooks/useConfirm';
 import useRenderWaiter from '../../../hooks/useRenderWaiter';
 import useSubject from '../../../hooks/useSubject';
+
+import useActualCallback from '../../../hooks/useActualCallback';
+import useActualValue from '../../../hooks/useActualValue';
+
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from '../../../model/TSubject';
@@ -64,16 +68,26 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
+    const [loading, setLoading] = useState(0);
+
+    const hasChanged = !!data && !loading;
+    const hasLoading = !!loading;
+
+    const onUpdate$ = useActualCallback(onUpdate);
+    const hasChanged$ = useActualValue(hasChanged);
 
     useEffect(() => updateSubject.subscribe(([id, change]) => {
         if (!checkUpdate(id, change)) {
             return;
         }
-        changeSubject.next(change);
-        onUpdate(id, change);
+        if (!hasChanged$.current) {
+            changeSubject.next(change);
+        }
+        if (hasChanged$.current) {
+            setData(change);
+        }
+        onUpdate$(id, change);
     }), []);
-
-    const [loading, setLoading] = useState(0);
 
     const handleLoadStart = () => {
         onLoadStart && onLoadStart();
@@ -226,8 +240,8 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
             changeSubject,
         },
         data : invalid ? null : data,
-        hasChanged: !!data && !loading,
-        hasLoading: !!loading,
+        hasChanged,
+        hasLoading,
     };
 };
 
