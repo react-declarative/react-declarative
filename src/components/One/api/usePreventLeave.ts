@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { BrowserHistory, MemoryHistory, HashHistory } from "history";
 
 import createWindowHistory from '../../../utils/createWindowHistory';
+import sleep from '../../../utils/sleep';
 
 import useConfirm from '../../../hooks/useConfirm';
 import useRenderWaiter from '../../../hooks/useRenderWaiter';
@@ -17,6 +18,7 @@ import TSubject from '../../../model/TSubject';
 
 export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
+    waitForChangesDelay?: number;
     readonly?: boolean;
     updateSubject?: TSubject<[ID, Data]>;
     changeSubject?: TSubject<Data>;
@@ -44,15 +46,18 @@ export interface IPreventLeaveReturn<Data = IAnything> {
     beginSave: () => Promise<boolean>;
     afterSave: () => void;
     dropChanges: () => void;
+    waitForChanges: () => Promise<void>;
 }
 
 const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
 const INVALID_MESSAGE = 'The form contains invalid data. Continue?';
 const DEFAULT_HISTORY = createWindowHistory();
+const WAIT_FOR_CHANGES_DELAY = 1_000;
 
 export const usePreventLeave = <Data = IAnything, ID = string>({
     history = DEFAULT_HISTORY,
-    readonly = false,
+    waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
+    readonly: upperReadonly = false,
     onChange,
     onLoadStart,
     onLoadEnd,
@@ -72,6 +77,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
     const [loading, setLoading] = useState(0);
+    const [readonly, setReadonly] = useState(false);
 
     const initialDataRef = useRef<Data | null>(data);
 
@@ -80,6 +86,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const onUpdate$ = useActualCallback(onUpdate);
     const hasChanged$ = useActualValue(hasChanged);
+    const loading$ = useActualValue(loading);
 
     useEffect(() => updateSubject.subscribe(([id, change]) => {
         if (!checkUpdate(id, change)) {
@@ -209,6 +216,9 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     };
 
     const beginSave = async () => {
+        if (loading$.current) {
+            return false;
+        }
         if (data) {
             let isOk = true;
             handleLoadStart();
@@ -242,14 +252,29 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
         setInvalid(false);
     };
 
+    const waitForChanges = async () => {
+        const unblock = history.block(() => { });
+        setReadonly(true);
+        try {
+            await Promise.race([
+                waitForRender(),
+                sleep(waitForChangesDelay),
+            ]);
+        } finally {
+            setReadonly(false);
+            unblock();
+        }
+    };
+
     return {
         beginSave,
         afterSave,
         dropChanges,
+        waitForChanges,
         oneProps: {
             change: handleChange,
             invalidity: handleInvalid,
-            readonly: !!loading || readonly,
+            readonly: !!loading || readonly || upperReadonly,
             ...fallback && { fallback },
             changeSubject,
         },

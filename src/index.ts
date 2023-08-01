@@ -108,9 +108,6 @@ import { useOneTyped } from './hooks/useOne';
 import { useSearchParams } from './hooks/useSearchParams';
 import { useSearchState } from './hooks/useSearchState';
 
-export { useKeycapListener } from './hooks/useKeycapListener';
-export { useSaveShortcut } from './hooks/useKeycapListener';
-
 export { useSearchParams };
 export { useSearchState };
 

@@ -2,7 +2,7 @@ import FieldType from '../../../model/FieldType';
 
 const initialValueMap = {
   [FieldType.Checkbox]: false,
-  [FieldType.Radio]: "",
+  [FieldType.Radio]: null,
   [FieldType.Text]: "",
   [FieldType.Switch]: false,
   [FieldType.Progress]: 1.0,

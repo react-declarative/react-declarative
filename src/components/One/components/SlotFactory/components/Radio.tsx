@@ -18,8 +18,14 @@ export const Radio = ({
     <FormGroup>
         <RadioGroup
             name={name}
-            value={value}
-            onChange={() => onChange((radioValue || '').toString())}
+            value={value || ''}
+            onChange={(_, value) => {
+                if (value === radioValue) {
+                    onChange(null);
+                    return;
+                }
+                onChange((radioValue || '').toString());
+            }}
         >
             <FormControlLabel 
                 value={radioValue}

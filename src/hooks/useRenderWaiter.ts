@@ -16,6 +16,9 @@ export const useRenderWaiter = (deps?: any[], delay = 0) => {
     }
     subject.next();
   }, deps);
+  useEffect(() => () => {
+    subject.next();
+  }, []);
   return useCallback(() => new Promise<void>((res) => subject.once(() => res())), []);
 };
 
