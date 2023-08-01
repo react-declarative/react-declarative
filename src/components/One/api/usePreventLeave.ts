@@ -20,7 +20,6 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     readonly?: boolean;
     updateSubject?: TSubject<[ID, Data]>;
     changeSubject?: TSubject<Data>;
-    initialData?: Data | null;
     checkUpdate?: (id: ID, data: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
@@ -54,7 +53,6 @@ const DEFAULT_HISTORY = createWindowHistory();
 export const usePreventLeave = <Data = IAnything, ID = string>({
     history = DEFAULT_HISTORY,
     readonly = false,
-    initialData = null,
     onChange,
     onLoadStart,
     onLoadEnd,
@@ -71,7 +69,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const changeSubject = useSubject<Data>(upperChangeSubject);
 
-    const [data, setData] = useState<Data | null>(initialData);
+    const [data, setData] = useState<Data | null>(null);
     const [invalid, setInvalid] = useState(false);
     const [loading, setLoading] = useState(0);
 
@@ -238,7 +236,9 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     };
 
     const dropChanges = () => {
-        setData(initialDataRef.current);
+        const { current: lastData } = initialDataRef;
+        lastData && changeSubject.next(lastData);
+        setData(null);
         setInvalid(false);
     };
 

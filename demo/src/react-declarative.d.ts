@@ -4710,7 +4710,6 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         readonly?: boolean;
         updateSubject?: TSubject<[ID, Data]>;
         changeSubject?: TSubject<Data>;
-        initialData?: Data | null;
         checkUpdate?: (id: ID, data: Data) => boolean;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
@@ -4735,7 +4734,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         afterSave: () => void;
         dropChanges: () => void;
     }
-    export const usePreventLeave: <Data = any, ID = string>({ history, readonly, initialData, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any, ID = string>({ history, readonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
