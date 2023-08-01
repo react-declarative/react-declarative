@@ -95,6 +95,8 @@ declare module 'react-declarative' {
     import { useOneTyped } from 'react-declarative/hooks/useOne';
     import { useSearchParams } from 'react-declarative/hooks/useSearchParams';
     import { useSearchState } from 'react-declarative/hooks/useSearchState';
+    export { useKeycapListener } from 'react-declarative/hooks/useKeycapListener';
+    export { useSaveShortcut } from 'react-declarative/hooks/useKeycapListener';
     export { useSearchParams };
     export { useSearchState };
     import IAnything from 'react-declarative/model/IAnything';
@@ -2091,6 +2093,12 @@ declare module 'react-declarative/hooks/useSearchState' {
     import { Value } from 'react-declarative/hooks/useSearchParams';
     export const useSearchState: <T extends Record<string, Value>>(defaultValues?: Partial<T> | (() => Partial<T>)) => readonly [T, import("react").Dispatch<import("react").SetStateAction<T>>];
     export default useSearchState;
+}
+
+declare module 'react-declarative/hooks/useKeycapListener' {
+    export const useKeycapListener: (callback: () => void, ...codes: string[]) => void;
+    export const useSaveShortcut: (callback: () => void) => void;
+    export default useKeycapListener;
 }
 
 declare module 'react-declarative/model/IAnything' {
