@@ -19,6 +19,8 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     readonly?: boolean;
     updateSubject?: TSubject<[ID, Data]>;
+    changeSubject?: TSubject<Data>;
+    initialData?: Data | null;
     checkUpdate?: (id: ID, data: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
@@ -42,6 +44,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
     hasLoading: boolean;
     beginSave: () => Promise<boolean>;
     afterSave: () => void;
+    dropChanges: () => void;
 }
 
 const LEAVE_MESSAGE = 'The form contains unsaved changes. Continue?';
@@ -51,6 +54,7 @@ const DEFAULT_HISTORY = createWindowHistory();
 export const usePreventLeave = <Data = IAnything, ID = string>({
     history = DEFAULT_HISTORY,
     readonly = false,
+    initialData = null,
     onChange,
     onLoadStart,
     onLoadEnd,
@@ -60,15 +64,18 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     checkUpdate = () => true,
     fallback,
     updateSubject: upperUpdateSubject,
+    changeSubject: upperChangeSubject,
 }: IPreventLeaveParams<Data, ID> = {}): IPreventLeaveReturn<Data> => {
 
     const updateSubject = useSubject(upperUpdateSubject);
 
-    const changeSubject = useSubject<Data>();
+    const changeSubject = useSubject<Data>(upperChangeSubject);
 
-    const [data, setData] = useState<Data | null>(null);
+    const [data, setData] = useState<Data | null>(initialData);
     const [invalid, setInvalid] = useState(false);
     const [loading, setLoading] = useState(0);
+
+    const initialDataRef = useRef<Data | null>(data);
 
     const hasChanged = !!data && !loading;
     const hasLoading = !!loading;
@@ -182,6 +189,9 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
             isMounted.current && setData(data);
             isMounted.current && setInvalid(false);
         }
+        if (initial) {
+            initialDataRef.current = data;
+        }
         onChange && onChange(data, initial);
     };
 
@@ -227,9 +237,15 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
         }
     };
 
+    const dropChanges = () => {
+        setData(initialDataRef.current);
+        setInvalid(false);
+    };
+
     return {
         beginSave,
         afterSave,
+        dropChanges,
         oneProps: {
             change: handleChange,
             invalidity: handleInvalid,
