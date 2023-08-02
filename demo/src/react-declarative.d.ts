@@ -12,6 +12,7 @@
 //   ../../@mui/material/Stack
 //   ../../@mui/material/styles
 //   ../../@mui/material/Tabs
+//   ../../@mui/material/TextField
 //   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
@@ -173,6 +174,9 @@ declare module 'react-declarative' {
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
+    import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from 'react-declarative/components';
+    export type ITreeViewNode = ITreeViewNodeInternal;
+    export { TreeView };
     import { ICardViewItemData } from 'react-declarative/components/CardView';
     import { ICardViewAction as ICardViewActionInternal } from 'react-declarative/components/CardView';
     import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
@@ -2163,6 +2167,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/FeatureView';
     export * from 'react-declarative/components/DocumentView';
     export * from 'react-declarative/components/ImageView';
+    export * from 'react-declarative/components/TreeView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Spinner';
@@ -4096,6 +4101,12 @@ declare module 'react-declarative/components/ImageView' {
     export { default } from 'react-declarative/components/ImageView/ImageView';
 }
 
+declare module 'react-declarative/components/TreeView' {
+    export * from 'react-declarative/components/TreeView/TreeView';
+    export { INode as ITreeViewNode } from 'react-declarative/components/TreeView/model/INode';
+    export { default } from 'react-declarative/components/TreeView/TreeView';
+}
+
 declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
@@ -5973,6 +5984,29 @@ declare module 'react-declarative/components/ImageView/ImageView' {
     }
     export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, disabled, options, onAction, payload, deps, keepMounted, BeforeContent, AfterContent, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
+}
+
+declare module 'react-declarative/components/TreeView/TreeView' {
+    import { TextFieldProps } from "@mui/material/TextField";
+    import INode from "react-declarative/components/TreeView/model/INode";
+    type ITreeViewProps = {
+        value?: string[] | null;
+        items: INode[];
+        onChange: (value: string[] | null) => void;
+    } & Omit<TextFieldProps, keyof {
+        onChange: never;
+    }>;
+    export const TreeView: ({ className, style, sx, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
+    export default TreeView;
+}
+
+declare module 'react-declarative/components/TreeView/model/INode' {
+    export interface INode {
+        label: string;
+        value: string;
+        child?: Omit<INode, "child">[];
+    }
+    export default INode;
 }
 
 declare module 'react-declarative/components/Grid/Grid' {

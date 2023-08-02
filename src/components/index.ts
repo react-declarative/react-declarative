@@ -55,6 +55,7 @@ export * from './LoaderView';
 export * from './FeatureView';
 export * from './DocumentView';
 export * from './ImageView';
+export * from './TreeView';
 
 export * from './Grid';
 export * from './Search';

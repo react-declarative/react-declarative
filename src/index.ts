@@ -212,6 +212,11 @@ export { FeatureView } from './components';
 export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
+import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from './components';
+
+export type ITreeViewNode = ITreeViewNodeInternal;
+export { TreeView };
+
 import { ICardViewItemData } from './components/CardView';
 import { ICardViewAction as ICardViewActionInternal } from './components/CardView';
 import { ICardViewOperation as ICardViewOperationInternal } from './components/CardView';
