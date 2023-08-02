@@ -43,6 +43,7 @@ export const ComboField = ({
   dirty,
   invalid,
   tr = (s) => s.toString(),
+  shouldUpdateItemList,
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
   <Combo
@@ -53,6 +54,7 @@ export const ComboField = ({
     placeholder={placeholder}
     outlined={outlined}
     itemList={itemList}
+    shouldUpdateItemList={shouldUpdateItemList}
     keepSync={keepSync}
     title={title}
     dirty={dirty}

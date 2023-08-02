@@ -32,6 +32,8 @@ import classNames from '../../../../utils/classNames';
 
 import nameToTitle from '../../helpers/nameToTitle';
 
+import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
+
 const DEBOUNCE_SPEED = 800;
 
 const stretch = {
@@ -73,13 +75,14 @@ interface IConfig<Data = IAnything> {
  */
 export function makeField(
     Component: React.FC<IManaged>,
-    config: IConfig = {
+    fieldConfig: IConfig = {
         skipDirtyClickListener: false,
         skipFocusReadonly: false,
         skipDebounce: false,
         defaultProps: { },
     },
 ) {
+    const oneConfig = OneConfig[GET_REF_SYMBOL]();
     const component = <Data extends IAnything = IAnything>({
         className = '',
         sx,
@@ -108,11 +111,10 @@ export function makeField(
         autoFocus,
         style,
         groupRef: ref = () => null,
-        fieldRightMargin = config.defaultProps?.fieldRightMargin,
-        fieldBottomMargin = config.defaultProps?.fieldBottomMargin,
+        fieldRightMargin = fieldConfig.defaultProps?.fieldRightMargin,
+        fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
         ...otherProps
     }: IEntity<Data>) => {
-
         const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
 
         const { object: stateObject } = useOneState<Data>();
@@ -144,12 +146,12 @@ export function makeField(
 
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
-            config.skipDebounce ? 0 : DEBOUNCE_SPEED
+            fieldConfig.skipDebounce ? 0 : DEBOUNCE_SPEED
         );
 
         const isMounted = useRef(true);
 
-        useLayoutEffect(() => () => {
+        oneConfig.WITH_DISMOUNT_LISTENER && useLayoutEffect(() => () => {
           isMounted.current = false;
         }, []);
 
@@ -157,7 +159,7 @@ export function makeField(
          * Если пользователь убрал мышь с поля ввода, следует
          * применить изменения
          */
-        useEffect(() => waitForMove(() => {
+        oneConfig.WITH_WAIT_FOR_MOVE_LISTENER && useEffect(() => waitForMove(() => {
             if (pending()) {
                 flush();
             }
@@ -167,7 +169,7 @@ export function makeField(
          * Перед событием клика на сенсорных экранах
          * следует применить изменение
          */
-        useEffect(() => waitForTouch(() => {
+        oneConfig.WITH_WAIT_FOR_TOUCH_LISTENER && useEffect(() => waitForTouch(() => {
             if (pending()) {
                 flush();
             }
@@ -261,7 +263,7 @@ export function makeField(
          * Флаг readonly позволяет управлять автокомплитом формы. На мобильных
          * устройствах мы выключаем его до фокусировки input
          */
-        useEffect(() => {
+        oneConfig.WITH_MOBILE_READONLY_FALLBACK && useEffect(() => {
             const handler = () => setFocusReadonly(false);
             groupRef && groupRef.addEventListener('touchstart', handler);
             return () => groupRef && groupRef.removeEventListener('touchstart', handler);
@@ -269,10 +271,10 @@ export function makeField(
 
         /**
          * Если всплытие события клика не сработает, флаг dirty уберется при
-         * первом изменением значения
+         * первом изменени значения
          */
-        useEffect(() => {
-            if (!config.skipDirtyClickListener) {
+        oneConfig.WITH_DIRTY_CLICK_LISTENER && useEffect(() => {
+            if (!fieldConfig.skipDirtyClickListener) {
                 const handler = () => setDirty(true);
                 groupRef && groupRef.addEventListener('click', handler, { passive: true });
                 return () => groupRef && groupRef.removeEventListener('click', handler);
@@ -343,20 +345,20 @@ export function makeField(
         };
 
         const groupProps: IGroupProps<Data> = {
-            ...config.defaultProps,
+            ...fieldConfig.defaultProps,
             columns,
             phoneColumns,
             tabletColumns,
             desktopColumns,
             fieldRightMargin,
             fieldBottomMargin,
-            sx: { ...sx, ...config.defaultProps?.sx },
+            sx: { ...sx, ...fieldConfig.defaultProps?.sx },
         };
 
         const computeReadonly = () => {
             let isReadonly = false;
             isReadonly = isReadonly || upperReadonly;
-            if (!config.skipFocusReadonly) {
+            if (!fieldConfig.skipFocusReadonly) {
                 isReadonly = isReadonly || focusReadonly;
             }
             isReadonly = isReadonly || fieldReadonly;
@@ -385,7 +387,7 @@ export function makeField(
         };
 
         const componentProps = {
-            ...config.defaultProps,
+            ...fieldConfig.defaultProps,
             ...managedProps,
             ...title && { title },
         };

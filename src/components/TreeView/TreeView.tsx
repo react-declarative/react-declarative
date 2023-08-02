@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useMemo, useState } from "react";
 
 import { makeStyles } from "../../styles";
@@ -11,14 +11,15 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Chip from "@mui/material/Chip";
 
-import randomString from '../../utils/randomString';
-import classNames from '../../utils/classNames';
+import randomString from "../../utils/randomString";
+import classNames from "../../utils/classNames";
 import deepFlat from "./utils/deepFlat";
 
-import useChange from '../../hooks/useChange';
+import useChange from "../../hooks/useChange";
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import INode from "./model/INode";
 
@@ -29,9 +30,12 @@ type ITreeViewProps = {
   value?: string[] | null;
   items: INode[];
   onChange: (value: string[] | null) => void;
-} & Omit<TextFieldProps, keyof {
-  onChange: never;
-}>;
+} & Omit<
+  TextFieldProps,
+  keyof {
+    onChange: never;
+  }
+>;
 
 const useStyles = makeStyles()((theme) => ({
   ul: {
@@ -145,12 +149,7 @@ export const TreeView = ({
       disableCloseOnSelect
       groupBy={(option) => option.groupId}
       getOptionLabel={(option) => option.label}
-      renderInput={(params) => (
-        <MatTextField
-          {...params}
-          {...textFieldProps}
-        />
-      )}
+      renderInput={(params) => <MatTextField {...params} {...textFieldProps} />}
       renderGroup={(params) => {
         const group = groupIdMap.get(params.group);
         if (!group) {
@@ -201,6 +200,18 @@ export const TreeView = ({
           </ListItemIcon>
           <ListItemText primary={option["label"]} />
         </ListItemButton>
+      )}
+      renderTags={(value, getTagProps) => (
+        <>
+          {value.map((option, index) => (
+            <Chip
+              variant="outlined"
+              {...getTagProps({ index })}
+              label={option.label}
+              onDelete={() => handleToggle(option.value)}
+            />
+          ))}
+        </>
       )}
     />
   );

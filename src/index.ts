@@ -260,7 +260,7 @@ export { Async } from './components';
 export { If } from './components';
 
 export { List, ListTyped } from './components';
-export { One, OneTyped } from './components';
+export { One, OneTyped, OneConfig } from './components';
 
 import { Translate } from './components';
 

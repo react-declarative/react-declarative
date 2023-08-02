@@ -208,7 +208,7 @@ declare module 'react-declarative' {
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
-    export { One, OneTyped } from 'react-declarative/components';
+    export { One, OneTyped, OneConfig } from 'react-declarative/components';
     import { Translate } from 'react-declarative/components';
     export { Translate };
     export const registerTr: (locale?: {
@@ -3299,7 +3299,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ComboField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, title, dirty, invalid, tr, shouldUpdateItemList, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3357,7 +3357,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ItemsField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, keepSync, dirty, invalid, title, shouldUpdateItemList, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3838,6 +3838,7 @@ declare module 'react-declarative/components/common/ListPicker' {
 declare module 'react-declarative/components/One' {
     export * from 'react-declarative/components/One/One';
     export * from 'react-declarative/components/One/slots';
+    export { OneConfig } from 'react-declarative/components/One/components/OneConfig';
     export { createField } from 'react-declarative/components/One/config/createField';
     export { makeField } from 'react-declarative/components/One/components/makeField';
     export { useOneProps } from 'react-declarative/components/One/context/PropsProvider';
@@ -4624,6 +4625,11 @@ declare module 'react-declarative/components/One/slots' {
     export * from 'react-declarative/components/One/slots/FileSlot';
     export * from 'react-declarative/components/One/slots/ChooseSlot';
     export * from 'react-declarative/components/One/slots/CompleteSlot';
+}
+
+declare module 'react-declarative/components/One/components/OneConfig' {
+    export * from 'react-declarative/components/One/components/OneConfig/OneConfig';
+    export { default } from 'react-declarative/components/One/components/OneConfig/OneConfig';
 }
 
 declare module 'react-declarative/components/One/config/createField' {
@@ -6596,6 +6602,15 @@ declare module 'react-declarative/components/One/slots/FileSlot' {
     export { default } from 'react-declarative/components/One/slots/FileSlot/FileSlot';
 }
 
+declare module 'react-declarative/components/One/components/OneConfig/OneConfig' {
+    export const GET_REF_SYMBOL: unique symbol;
+    export class OneConfig {
+        static [GET_REF_SYMBOL]: () => import("./OneConfigInstance").IConfig;
+        static setValue: (config: import("./OneConfigInstance").IConfig) => void;
+    }
+    export default OneConfig;
+}
+
 declare module 'react-declarative/components/One/components/makeField/makeField' {
     import * as React from 'react';
     import IAnything from 'react-declarative/model/IAnything';
@@ -6616,7 +6631,7 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
       *   представлены invalid, disabled, visible и можно задваивать вызов onChange
       * - Управляет фокусировкой, мануально ожидая потерю фокуса, эмулируя onBlur
       */
-    export function makeField(Component: React.FC<IManaged>, config?: IConfig): {
+    export function makeField(Component: React.FC<IManaged>, fieldConfig?: IConfig): {
         <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data, any>): JSX.Element;
         displayName: string;
     };

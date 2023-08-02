@@ -41,6 +41,7 @@ export const ItemsField = ({
   dirty,
   invalid,
   title,
+  shouldUpdateItemList,
   tr = (s) => s.toString(),
   onChange,
 }: IItemsFieldProps & IItemsFieldPrivate) => (
@@ -52,6 +53,7 @@ export const ItemsField = ({
     placeholder={placeholder}
     outlined={outlined}
     itemList={itemList}
+    shouldUpdateItemList={shouldUpdateItemList}
     keepSync={keepSync}
     dirty={dirty}
     invalid={invalid}
