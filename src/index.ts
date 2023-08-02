@@ -447,6 +447,9 @@ export { getXPathFromElement } from './utils/getXPathFromElement';
 export { arrays } from './utils/arrays';
 export { objects } from './utils/objects';
 
+export { compareArray } from './utils/compareArray';
+export { isObject } from './utils/isObject';
+
 export { FetchError, fetchApi } from './utils/fetchApi';
 
 export { createValueProvider } from './utils/createValueProvider';

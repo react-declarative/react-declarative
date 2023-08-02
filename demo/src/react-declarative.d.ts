@@ -361,6 +361,8 @@ declare module 'react-declarative' {
     export { getXPathFromElement } from 'react-declarative/utils/getXPathFromElement';
     export { arrays } from 'react-declarative/utils/arrays';
     export { objects } from 'react-declarative/utils/objects';
+    export { compareArray } from 'react-declarative/utils/compareArray';
+    export { isObject } from 'react-declarative/utils/isObject';
     export { FetchError, fetchApi } from 'react-declarative/utils/fetchApi';
     export { createValueProvider } from 'react-declarative/utils/createValueProvider';
     export { createStateProvider } from 'react-declarative/utils/createStateProvider';
@@ -2279,6 +2281,16 @@ declare module 'react-declarative/utils/arrays' {
 declare module 'react-declarative/utils/objects' {
     export const objects: (root: any) => any;
     export default objects;
+}
+
+declare module 'react-declarative/utils/compareArray' {
+    export const compareArray: (a_arr: any, b_arr: any) => boolean;
+    export default compareArray;
+}
+
+declare module 'react-declarative/utils/isObject' {
+    export const isObject: (obj: any) => boolean;
+    export default isObject;
 }
 
 declare module 'react-declarative/utils/fetchApi' {
