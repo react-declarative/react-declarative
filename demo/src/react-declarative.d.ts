@@ -5998,7 +5998,7 @@ declare module 'react-declarative/components/TreeView/TreeView' {
     type ITreeViewProps = {
         value?: string[] | null;
         items: INode[];
-        onChange: (value: string[] | null) => void;
+        onChange?: (value: string[] | null) => void;
     } & Omit<TextFieldProps, keyof {
         onChange: never;
     }>;

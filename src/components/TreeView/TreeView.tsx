@@ -29,7 +29,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 type ITreeViewProps = {
   value?: string[] | null;
   items: INode[];
-  onChange: (value: string[] | null) => void;
+  onChange?: (value: string[] | null) => void;
 } & Omit<
   TextFieldProps,
   keyof {
