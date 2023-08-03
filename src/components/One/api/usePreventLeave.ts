@@ -217,10 +217,11 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     };
 
     const beginSave = async () => {
-        const { current: data } = data$;
         if (!hasChanged$.current) {
             return false;
         }
+        await waitForChanges();
+        const { current: data } = data$;
         if (data) {
             let isOk = true;
             handleLoadStart();
