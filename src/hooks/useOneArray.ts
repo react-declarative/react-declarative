@@ -12,8 +12,8 @@ export const useOneArray = <T = any>(initialValue?: (T[] | (() => T[]))) => {
     });
 };
 
-export const oneArrayIncludes = <T = any>(data: T[], item: T) => {
-    return Object.values(data || {}).includes(item);
+export const oneArrayIncludes = <T = any>(data: T[], ...items: T[]) => {
+    return Object.values(data || {}).some((value) => items.includes(value));
 };
 
 export const isOneArray = <T = any>(data: T[]) => {
