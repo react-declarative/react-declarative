@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from 'react';
+import { useRef, useState, useLayoutEffect, useEffect } from 'react';
 
 import IField from '../../../model/IField';
 
@@ -84,7 +84,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
     const isRoot = useRef(false);
     const changeSubject = useSubject(upperChangeSubject);
     const reloadSubject = useSubject(upperReloadSubject);
-    useLayoutEffect(() => {
+    useEffect(() => {
         const tryResolve = async () => {
             if (isRoot.current) {
                 return

@@ -292,6 +292,12 @@ export function makeField(
         }: {
             skipReadonly?: boolean;
         } = {}) => {
+            if (inputUpdate.current) {
+                return;
+            }
+            if (objectUpdate.current) {
+                return;
+            }
             if (!isMounted.current) {
                 return;
             }
