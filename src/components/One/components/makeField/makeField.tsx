@@ -56,6 +56,10 @@ const useStyles = makeStyles()({
     hidden: {
       display: 'none !important',
     },
+    fieldReadonly: {
+        pointerEvents: 'none',
+        opacity: 0.5,
+    },
 });
 
 interface IConfig<Data = IAnything> {
@@ -388,8 +392,9 @@ export function makeField(
             ...otherProps,
         };
 
-        const hidden = {
+        const classMap = {
             [classes.hidden]: !visible,
+            [classes.fieldReadonly]: fieldReadonly,
         };
 
         const componentProps = {
@@ -403,7 +408,7 @@ export function makeField(
                 ref={handleGroupRef}
                 isItem
                 style={style}
-                className={classNames(className, classes.root, hidden)}
+                className={classNames(className, classes.root, classMap)}
                 {...groupProps}
                 onFocus={handleFocus}
             >

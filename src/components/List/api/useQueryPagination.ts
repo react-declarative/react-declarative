@@ -40,7 +40,19 @@ interface IResult<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > extends IParams<FilterData, RowData>, IQuery<FilterData, RowData> {
-}
+    getFilterData: () => FilterDataT<FilterData, RowData>;
+    getSortModel: () => SortModelT<FilterData, RowData>;
+    getChipData: () => ChipDataT<FilterData, RowData>;
+    getLimit: () => number;
+    getPage: () => number;
+    getSearch: () => string;
+    setFilterData: (filterData: FilterDataT<FilterData, RowData>) => void;
+    setSortModel: (sortModel: SortModelT<FilterData, RowData>) => void;
+    setChipData: (chipData: ChipDataT<FilterData, RowData>) => void;
+    setLimit: (limit: number) => void;
+    setPage: (page: number) => void;
+    setSearch: (search: string) => void;
+};
 
 type FilterDataT<
     FilterData extends {} = IAnything,
