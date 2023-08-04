@@ -14,6 +14,11 @@ export const useElementSize = <T extends HTMLElement>({
 }: Partial<ISize> = {}) => {
 
     const elementRef = useRef<T>(null);
+    const isMounted = useRef(true);
+
+    useLayoutEffect(() => () => {
+        isMounted.current = false;
+    }, [])
 
     const [size, setSize] = useState<ISize>({
         height,
@@ -29,8 +34,10 @@ export const useElementSize = <T extends HTMLElement>({
         }
 
         const observer = new ResizeObserver(() => {
-            const { height, width } = element.getBoundingClientRect();
-            setSize({ height, width });
+            requestAnimationFrame(() => {
+                const { height, width } = element.getBoundingClientRect();
+                isMounted.current && setSize({ height, width });
+            });
         });
 
         observer.observe(element);

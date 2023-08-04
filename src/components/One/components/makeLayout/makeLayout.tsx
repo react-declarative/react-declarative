@@ -20,6 +20,9 @@ const useStyles = makeStyles()({
         touchAction: 'none',
         opacity: 0.5,
     },
+    readonly: {
+        pointerEvents: 'none',
+    },
 });
 
 export interface ILayout<Data extends IAnything = IAnything> extends IEntity<Data> {
@@ -35,12 +38,14 @@ export function makeLayout<T extends ILayout<any>>(
     const component = <Data extends IAnything = IAnything>({
         className,
         isVisible = () => true,
+        isReadonly = () => false,
         isDisabled = () => false,
         disabled: upperDisabled = false,
         ...otherProps
     }: ILayout<Data>) => {
 
         const [disabled, setDisabled] = useState<boolean>(upperDisabled);
+        const [readonly, setReadonly] = useState<boolean>(false);
         const [visible, setVisible] = useState<boolean>(true);
 
         const { classes } = useStyles();
@@ -50,6 +55,7 @@ export function makeLayout<T extends ILayout<any>>(
 
         useEffect(() => {
             if (object) {
+                setReadonly(isReadonly(object, payload));
                 setDisabled(isDisabled(object, payload));
                 setVisible(isVisible(object, payload));
             }
@@ -60,6 +66,7 @@ export function makeLayout<T extends ILayout<any>>(
                 className={classNames(className, {
                     [classes.disabled]: disabled,
                     [classes.hidden]: !visible,
+                    [classes.readonly]: readonly,
                 })}
                 {...otherProps}
             />

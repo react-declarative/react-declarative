@@ -58,7 +58,6 @@ const useStyles = makeStyles()({
     },
     fieldReadonly: {
         pointerEvents: 'none',
-        opacity: 0.5,
     },
 });
 
