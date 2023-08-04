@@ -42,6 +42,21 @@ interface IResult<
 > extends IParams<FilterData, RowData>, IQuery<FilterData, RowData> {
 }
 
+type FilterDataT<
+    FilterData extends {} = IAnything,
+    RowData extends IRowData = IAnything,
+> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined> 
+
+type SortModelT<
+    FilterData extends {} = IAnything,
+    RowData extends IRowData = IAnything,
+> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined> 
+
+type ChipDataT<
+    FilterData extends {} = IAnything,
+    RowData extends IRowData = IAnything,
+> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined> 
+
 export const DEFAULT_QUERY: IQuery = {
     filterData: {},
     sortModel: [],
@@ -84,6 +99,8 @@ export const useQueryPagination = <
         page: state.page || DEFAULT_PAGE,
         search: state.search || "",
     }), [state]);
+
+    const query$ = useActualValue(query);
 
     useChange(() => {
         handleChange(JSON.stringify(state$.current));
@@ -137,6 +154,42 @@ export const useQueryPagination = <
         handleSeachChange(search);
     };
 
+    const getQueryMap = {
+        getFilterData: (): FilterDataT<FilterData, RowData> => {
+            const { current: query } = query$;
+            return query.filterData || {}; 
+        },
+        getSortModel: (): SortModelT<FilterData, RowData> => {
+            const { current: query } = query$;
+            return query.sortModel || []; 
+        },
+        getChipData: (): ChipDataT<FilterData, RowData> => {
+            const { current: query } = query$;
+            return query.chipData || {}; 
+        },
+        getLimit: () => {
+            const { current: query } = query$;
+            return query.limit || DEFAULT_LIMIT; 
+        },
+        getPage: () =>{
+            const { current: query } = query$;
+            return query.page || DEFAULT_PAGE; 
+        },
+        getSearch: () => {
+            const { current: query } = query$;
+            return query.search || ""; 
+        },
+    };
+
+    const setQueryMap = {
+        setFilterData: onFilterChange,
+        setSortModel: onSortModelChange,
+        setChipData: onChipsChange,
+        setLimit: onLimitChange,
+        setPage: onPageChange,
+        setSearch: onSearchChange,
+    };
+
     return {
         listProps: {
             onFilterChange,
@@ -148,7 +201,8 @@ export const useQueryPagination = <
             ...fallback && { fallback },
             ...query,
         },
-        pagination: state,
+        ...getQueryMap,
+        ...setQueryMap,
     };
 };
 

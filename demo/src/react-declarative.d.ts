@@ -4902,8 +4902,23 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
         onChange?: (pagination: string) => void;
         fallback?: (e: Error) => void;
     }
+    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined>;
+    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
+    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
     export const DEFAULT_QUERY: IQuery;
     export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
+        setFilterData: (data: FilterData) => void;
+        setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
+        setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
+        setLimit: (limit: number) => void;
+        setPage: (page: number) => void;
+        setSearch: (search: string) => void;
+        getFilterData: () => Exclude<Partial<FilterData>, undefined>;
+        getSortModel: () => import("../../../model/IListProps").ListHandlerSortModel<RowData>;
+        getChipData: () => Exclude<Partial<Record<keyof RowData, boolean>>, undefined>;
+        getLimit: () => number;
+        getPage: () => number;
+        getSearch: () => string;
         listProps: {
             filterData: Partial<FilterData> | undefined;
             sortModel: import("../../../model/IListProps").ListHandlerSortModel<RowData> | undefined;
@@ -4918,14 +4933,6 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
             onSortModelChange: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
             onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
             onSearchChange: (search: string) => void;
-        };
-        pagination: {
-            filterData: string;
-            sortModel: string;
-            chipData: string;
-            limit: number;
-            page: number;
-            search: string;
         };
     };
     export default useQueryPagination;
