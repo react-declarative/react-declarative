@@ -24,6 +24,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
     disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
+    isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
 }
 
 /**
@@ -34,6 +35,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
 export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data> {
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+    isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
     invalidity?: PickProp<IField<Data, Payload>, 'invalidity'>;
     compute?: PickProp<IField<Data, Payload>, 'compute'>;

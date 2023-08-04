@@ -995,6 +995,7 @@ declare module 'react-declarative/model/IManaged' {
             disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
             isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
             isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
+            isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     }
     /**
         * Компонент высшего порядка makeField
@@ -1004,6 +1005,7 @@ declare module 'react-declarative/model/IManaged' {
     export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data> {
             isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
             isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+            isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
             isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
             invalidity?: PickProp<IField<Data, Payload>, 'invalidity'>;
             compute?: PickProp<IField<Data, Payload>, 'compute'>;
