@@ -56,7 +56,7 @@ const MenuGroup = ({
     }
   }, [upperLifted]);
 
-  const icon = lifted
+  const defaultIcon = lifted
     ? () => <LessIcon />
     : () => <MoreIcon />;
 
@@ -77,13 +77,13 @@ const MenuGroup = ({
         option={{
           ...option,
           disabled: option.disabled || disabled,
-          icon,
+          icon: option.icon || defaultIcon,
         }}
         activeOptionPath={activeOptionPath}
         onClick={handleClick}
         currentPadding={currentPadding}
       />
-      {lifted && (
+      {(lifted || option.pin) && (
         <MenuOption
           option={option.options}
           paddingLeft={currentPadding}
