@@ -23,6 +23,8 @@ export interface IScaffold2Props<T = Payload> {
     deps?: any[];
     activeOptionPath: string;
     activeTabPath?: string;
+    AfterAppName?: React.ComponentType<any>;
+    BeforeActionMenu?: React.ComponentType<any>;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
     BeforeMenuContent?: React.ComponentType<any>;

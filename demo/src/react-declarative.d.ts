@@ -4741,6 +4741,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         updateSubject?: TSubject<[ID, Data]>;
         changeSubject?: TSubject<Data>;
         checkUpdate?: (id: ID, data: Data) => boolean;
+        checkDirty?: (prevData: Data, currentData: Data) => boolean;
         onChange?: IOneProps<Data>['change'];
         onBlock?: () => (() => void) | void;
         onUpdate?: (id: ID, data: Data) => void;
@@ -4765,7 +4766,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         dropChanges: () => void;
         waitForChanges: () => Promise<void>;
     }
-    export const usePreventLeave: <Data = any, ID = string>({ history, waitForChangesDelay, readonly: upperReadonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
+    export const usePreventLeave: <Data = any, ID = string>({ history, waitForChangesDelay, readonly: upperReadonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, checkDirty, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
@@ -6308,6 +6309,8 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         deps?: any[];
         activeOptionPath: string;
         activeTabPath?: string;
+        AfterAppName?: React.ComponentType<any>;
+        BeforeActionMenu?: React.ComponentType<any>;
         BeforeSearch?: React.ComponentType<any>;
         AfterSearch?: React.ComponentType<any>;
         BeforeMenuContent?: React.ComponentType<any>;

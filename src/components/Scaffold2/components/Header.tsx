@@ -83,7 +83,7 @@ export const Header = <T extends Payload = Payload>({
   ...otherProps
 }: IHeaderProps<T>) => {
 
-  const { dense = false, fixedHeader = false } = usePropsContext();
+  const { dense = false, fixedHeader = false, BeforeActionMenu, AfterAppName } = usePropsContext();
 
   const { classes } = useStyles();
 
@@ -170,7 +170,7 @@ export const Header = <T extends Payload = Payload>({
                   <MenuIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs>
+              <Grid item>
                 {dense ? (
                   <>
                     {!hasTabs && (
@@ -218,6 +218,21 @@ export const Header = <T extends Payload = Payload>({
                   </Typography>
                 )}
               </Grid>
+              {!!AfterAppName && (
+                <Grid item>
+                  <AfterAppName
+                    payload={payload}
+                  />
+                </Grid>
+              )}
+              <Grid item xs />
+              {!!BeforeActionMenu && (
+                <Grid item>
+                  <BeforeActionMenu
+                    payload={payload}
+                  />
+                </Grid>
+              )}
               {!!actions?.length && (
                 <Grid item>
                   <ActionMenu

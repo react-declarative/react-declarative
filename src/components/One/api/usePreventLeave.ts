@@ -23,6 +23,7 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     updateSubject?: TSubject<[ID, Data]>;
     changeSubject?: TSubject<Data>;
     checkUpdate?: (id: ID, data: Data) => boolean;
+    checkDirty?: (prevData: Data, currentData: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
     onBlock?: () => (() => void) | void;
     onUpdate?: (id: ID, data: Data) => void;
@@ -65,6 +66,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     onSave = () => true,
     onUpdate = () => null,
     checkUpdate = () => true,
+    checkDirty = () => true,
     fallback,
     updateSubject: upperUpdateSubject,
     changeSubject: upperChangeSubject,
@@ -190,15 +192,20 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
         return unsubscribe;
     }, [data, invalid]);
 
-    const handleChange = (data: Data, initial = false) => {
+    const handleChange = (pendingData: Data, initial = false) => {
+        const { current: data } = data$;
+        const isDirty = checkDirty(data || {} as Data, pendingData);
+        if (!isDirty) {
+            return;
+        }
         if (!initial) {
-            isMounted.current && setData(data);
+            isMounted.current && setData(pendingData);
             isMounted.current && setInvalid(false);
         }
         if (initial) {
-            initialDataRef.current = data;
+            initialDataRef.current = pendingData;
         }
-        onChange && onChange(data, initial);
+        onChange && onChange(pendingData, initial);
     };
 
     const handleInvalid = () => {
