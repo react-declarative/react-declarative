@@ -70,6 +70,7 @@ export const ChooseField = ({
 ChooseField.displayName = 'ChooseField';
 
 export default makeField(ChooseField, {
+  withApplyQueue: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,
   skipDebounce: true,

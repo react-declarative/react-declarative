@@ -147,6 +147,9 @@ export const TreeView = ({
       value={autocompleteValue}
       multiple
       disableCloseOnSelect
+      onChange={(_, items) => {
+        setValue(items.map(({ value }) => value));
+      }}
       groupBy={(option) => option.groupId}
       getOptionLabel={(option) => option.label}
       renderInput={(params) => <MatTextField {...params} {...textFieldProps} />}

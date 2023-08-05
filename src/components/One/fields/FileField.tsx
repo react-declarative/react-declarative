@@ -71,6 +71,7 @@ export const FileField = ({
 FileField.displayName = 'FileField';
 
 export default makeField(FileField, {
+  withApplyQueue: true,
   skipDirtyClickListener: true,
   skipDebounce: true,
 });

@@ -58,4 +58,7 @@ export const SliderField = ({
 
 SliderField.displayName = 'SliderField';
 
-export default makeField(SliderField);
+export default makeField(SliderField, {
+  withApplyQueue: true,
+  skipDirtyClickListener: true,
+});

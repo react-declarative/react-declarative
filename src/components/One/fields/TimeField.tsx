@@ -63,6 +63,7 @@ export const TimeField = ({
 TimeField.displayName = 'TimeField';
 
 export default makeField(TimeField, {
+  withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
 });
