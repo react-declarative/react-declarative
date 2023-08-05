@@ -10,6 +10,7 @@ import { IScaffold2OptionInternal } from "../model/IScaffold2Option";
 
 import useStateContext from "../context/StateContext";
 import useActualCallback from "../../../hooks/useActualCallback";
+import usePropsContext from "../context/PropsContext";
 
 interface IMenuOptionProps {
   option: IScaffold2OptionInternal | IScaffold2OptionInternal[];
@@ -44,9 +45,13 @@ const MenuGroup = ({
 }) => {
   const upperLifted = useLifted();
 
-  const computeLifted = useActualCallback(() => option.lifted || activeOptionPath.includes(option.path));
+  const computeLifted = useActualCallback(
+    () => option.lifted || activeOptionPath.includes(option.path)
+  );
 
   const [lifted, setLifted] = useState(computeLifted());
+
+  const { onOptionGroupClick } = usePropsContext();
 
   useEffect(() => {
     if (upperLifted) {
@@ -56,12 +61,15 @@ const MenuGroup = ({
     }
   }, [upperLifted]);
 
-  const defaultIcon = lifted
-    ? () => <LessIcon />
-    : () => <MoreIcon />;
+  const defaultIcon = lifted ? () => <LessIcon /> : () => <MoreIcon />;
 
   const handleClick = () => {
-    setLifted((lifted) => !lifted);
+    setLifted((lifted) => {
+      if (onOptionGroupClick) {
+        return option.path === activeOptionPath ? !lifted : true;
+      }
+      return !lifted;
+    });
     onGroupClick(option.path, option.id);
   };
 
@@ -105,8 +113,10 @@ export const MenuOption = ({
   onClick,
   onGroupClick,
 }: IMenuOptionProps) => {
-
-  const options = useMemo(() => Array.isArray(option) ? option : [option], [option]);
+  const options = useMemo(
+    () => (Array.isArray(option) ? option : [option]),
+    [option]
+  );
 
   const child = options
     .filter((option) => option.visible)
