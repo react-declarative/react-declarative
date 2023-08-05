@@ -28,13 +28,17 @@ import IManaged from '../../../../model/IManaged';
 import IEntity from '../../../../model/IEntity';
 import IField, { Value } from '../../../../model/IField';
 
+import singlerun from '../../../../utils/hof/singlerun';
 import classNames from '../../../../utils/classNames';
+import sleep from '../../../../utils/sleep';
 
 import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
 
 const DEBOUNCE_SPEED = 800;
+const APPLY_ATTEMPTS = 15;
+const APPLY_DELAY = 10;
 
 const stretch = {
     display: 'flex',
@@ -62,6 +66,7 @@ const useStyles = makeStyles()({
 });
 
 interface IConfig<Data = IAnything> {
+    withApplyQueue?: boolean;
     skipDebounce?: boolean;
     skipDirtyClickListener?: boolean;
     skipFocusReadonly?: boolean;
@@ -79,6 +84,7 @@ interface IConfig<Data = IAnything> {
 export function makeField(
     Component: React.FC<IManaged>,
     fieldConfig: IConfig = {
+        withApplyQueue: false,
         skipDirtyClickListener: false,
         skipFocusReadonly: false,
         skipDebounce: false,
@@ -286,15 +292,31 @@ export function makeField(
         }, [groupRef]);
 
         /**
+         * При редактировании больших форм изменение целевого объекта
+         * может произойти между исполнением хука входящего и исходящего изменения
+         */
+        const waitForApply = async () => {
+            for (let i = 0; i !== APPLY_ATTEMPTS; i++) {
+                if (!inputUpdate.current && !objectUpdate.current) {
+                    break;
+                }
+                sleep(APPLY_DELAY);
+            }
+        };
+
+        /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = (newValue: Value, {
+        const handleChange = singlerun(async (newValue: Value, {
             skipReadonly = false,
         }: {
             skipReadonly?: boolean;
         } = {}) => {
+            if (fieldConfig.withApplyQueue) {
+                await waitForApply();
+            }
             if (inputUpdate.current) {
                 return;
             }
@@ -314,7 +336,7 @@ export function makeField(
                 return;
             }
             setValue(newValue);
-        };
+        });
 
         /**
          * Ссылка на группу хранится в useState для

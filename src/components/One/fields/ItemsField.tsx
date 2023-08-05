@@ -66,6 +66,7 @@ export const ItemsField = ({
 ItemsField.displayName = 'ItemsField';
 
 export default makeField(ItemsField, {
+  withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,

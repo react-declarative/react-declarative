@@ -40,6 +40,7 @@ export const RatingField = ({
 RatingField.displayName = 'RatingField';
 
 export default makeField(RatingField, {
+  withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,

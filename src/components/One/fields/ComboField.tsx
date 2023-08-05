@@ -67,6 +67,7 @@ export const ComboField = ({
 ComboField.displayName = "ComboField";
 
 export default makeField(ComboField, {
+  withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,

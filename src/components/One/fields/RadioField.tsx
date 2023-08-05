@@ -43,6 +43,7 @@ export const RadioField = ({
 RadioField.displayName = 'RadioField';
 
 export default makeField(RadioField, {
+  withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
 });

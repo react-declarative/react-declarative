@@ -6630,6 +6630,7 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
     import IEntity from 'react-declarative/model/IEntity';
     import IField from 'react-declarative/model/IField';
     interface IConfig<Data = IAnything> {
+        withApplyQueue?: boolean;
         skipDebounce?: boolean;
         skipDirtyClickListener?: boolean;
         skipFocusReadonly?: boolean;

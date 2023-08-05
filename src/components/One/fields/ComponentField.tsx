@@ -114,6 +114,7 @@ export default makeField(ComponentField, {
         fieldRightMargin: FIELD_NEVER_MARGIN,
         fieldBottomMargin: FIELD_NEVER_MARGIN,
     },
+    withApplyQueue: true,
     skipDirtyClickListener: true,
     skipFocusReadonly: true,
     skipDebounce: true,
