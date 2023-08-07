@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 
 import If from '../../If';
 
@@ -35,14 +34,9 @@ export const ConditionLayout = <Data extends IAnything = IAnything>({
         throw e;
     },
     object,
-    ready,
 }: IConditionLayoutProps<Data> & IConditionLayoutPrivate<Data>) => {
 
     const payload = useOnePayload();
-
-    useEffect(() => {
-        ready();
-    }, [object]);
 
     const handleCondition = async (data: Data) => {
         return await condition(data, payload);

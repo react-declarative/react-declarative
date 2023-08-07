@@ -1,40 +1,54 @@
-import * as React from 'react';
-import { useRef, useMemo } from 'react';
+import * as React from "react";
+import { useRef, useMemo, useState } from "react";
 
-import { makeStyles } from '../../../../styles';
+import { makeStyles } from "../../../../styles";
 
-import { ThemeProvider } from '../../../../styles';
+import { ThemeProvider } from "../../../../styles";
 
-import OneInternal from '../OneInternal';
-import Group from '../../../common/Group';
+import OneInternal from "../OneInternal";
+import Group from "../../../common/Group";
 
-import NoSsr from '../../../NoSsr';
+import NoSsr from "../../../NoSsr";
 
-import IOneProps from '../../../../model/IOneProps';
-import IAnything from '../../../../model/IAnything';
-import IField from '../../../../model/IField';
+import IOneProps from "../../../../model/IOneProps";
+import IAnything from "../../../../model/IAnything";
+import IField from "../../../../model/IField";
 
-import classNames from '../../../../utils/classNames';
-import deepFlat from '../../../../utils/deepFlat';
-import arrays from '../../../../utils/arrays';
+import classNames from "../../../../utils/classNames";
+import deepFlat from "../../../../utils/deepFlat";
+import arrays from "../../../../utils/arrays";
 
-import StateProvider from '../../context/StateProvider';
+import StateProvider from "../../context/StateProvider";
 
-import SlotFactory from '../SlotFactory';
-import PayloadProvider from '../../context/PayloadProvider';
+import SlotFactory from "../SlotFactory";
+import PayloadProvider from "../../context/PayloadProvider";
 
-import useSingleton from '../../../../hooks/useSingleton';
+import useSingleton from "../../../../hooks/useSingleton";
 
 const useStyles = makeStyles()({
   readonly: {
-    pointerEvents: 'none',
-    cursor: 'not-allowed',
+    pointerEvents: "none",
+    cursor: "not-allowed",
+  },
+  loader: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
   },
 });
 
-export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>>(props: IOneProps<Data, Payload, Field>) => {
+const Fragment = () => <></>;
 
+export const OneGenesis = <
+  Data extends IAnything = IAnything,
+  Payload = IAnything,
+  Field extends IField<Data> = IField<Data>
+>(
+  props: IOneProps<Data, Payload, Field>
+) => {
   const isReady = useRef(false);
+
+  const [loading, setLoading] = useState(true);
 
   const { classes } = useStyles();
 
@@ -48,26 +62,21 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
 
   const payload = useSingleton(upperPayload);
 
-  const {
-    className,
-    style,
-    sx,
-  } = props;
+  const { Loader = Fragment, className, style, sx } = props;
 
   const fieldsSnapshot = useMemo(() => fields, []);
 
   const handleReady = () => {
     if (!isReady.current) {
       isReady.current = true;
+      setLoading(false);
       ready();
     }
   };
 
   const handleChange = (newData: Data, initial: boolean) => {
     let isValid = true;
-    deepFlat(fields).forEach(({
-      isInvalid = () => null
-    }: any) => {
+    deepFlat(fields).forEach(({ isInvalid = () => null }: any) => {
       isValid = isValid && (isInvalid(newData, payload) || null) === null;
     });
     if (isValid) {
@@ -102,6 +111,11 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
                 style={style}
                 sx={sx}
               >
+                {loading && (
+                  <div className={classes.loader}>
+                    <Loader />
+                  </div>
+                )}
                 <OneInternal<Data, Payload, Field> {...viewParams} />
               </Group>
             </SlotFactory>
@@ -112,6 +126,6 @@ export const OneGenesis = <Data extends IAnything = IAnything, Payload = IAnythi
   );
 };
 
-OneGenesis.displayName = 'OneGenesis';
+OneGenesis.displayName = "OneGenesis";
 
 export default OneGenesis;

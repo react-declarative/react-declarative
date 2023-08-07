@@ -33,11 +33,9 @@ export const FragmentLayout = <Data extends IAnything = IAnything>({
     useEffect(() => {
         if (object) {
             const visible = isVisible(object, payload);
-            if (!visible) {
-                ready();
-            }
             setVisible(visible);
         }
+        ready();
     }, [object]);
     if (visible) {
         return (

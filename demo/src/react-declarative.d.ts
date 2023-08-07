@@ -1688,6 +1688,10 @@ declare module 'react-declarative/model/IOneProps' {
             loadStart?: (source: string) => void;
             loadEnd?: (isOk: boolean, source: string) => void;
             /**
+                * Отображается до тех пор, пока не произошел первый рендеринг
+                */
+            Loader?: React.ComponentType<any>;
+            /**
                 * Отключает ввод данных
                 */
             readonly?: boolean;
@@ -3204,11 +3208,11 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
       * Потомки передаются насквозь...
       */
     export const ConditionLayout: {
-        <Data extends unknown = any>({ children, condition, fallback, object, ready, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, condition, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, condition, fallback, object, ready, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, condition, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;

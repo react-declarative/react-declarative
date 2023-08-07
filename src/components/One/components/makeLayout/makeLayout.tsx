@@ -41,6 +41,7 @@ export function makeLayout<T extends ILayout<any>>(
         isReadonly = () => false,
         isDisabled = () => false,
         disabled: upperDisabled = false,
+        ready,
         ...otherProps
     }: ILayout<Data>) => {
 
@@ -59,6 +60,11 @@ export function makeLayout<T extends ILayout<any>>(
                 setDisabled(isDisabled(object, payload));
                 setVisible(isVisible(object, payload));
             }
+            /**
+            * Отображаем форму только после отклика всех
+            * полей
+            */
+           ready();
         }, [object]);
 
         return (
@@ -68,6 +74,7 @@ export function makeLayout<T extends ILayout<any>>(
                     [classes.hidden]: !visible,
                     [classes.readonly]: readonly,
                 })}
+                ready={ready}
                 {...otherProps}
             />
         );
