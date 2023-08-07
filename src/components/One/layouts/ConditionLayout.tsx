@@ -7,11 +7,11 @@ import { useOnePayload } from '../context/PayloadProvider';
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
-import { PickProp } from '../../../model/IManaged';
+import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
-export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> {
+export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     condition?: PickProp<IField<Data, Payload>, 'condition'>;
 }
 

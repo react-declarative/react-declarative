@@ -979,10 +979,15 @@ declare module 'react-declarative/model/IManaged' {
     export type DeepPartial<T> = {
             [P in keyof T]?: DeepPartial<T[P]>;
     };
+    export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
+            isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+            isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
+            isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
+    }
     /**
         * Типизацию компоновки следует вынести отдельно
         */
-    export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
+    export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
             columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
             sx?: PickProp<IField<Data, Payload>, 'sx'>;
             columns?: PickProp<IField<Data, Payload>, 'columns'>;
@@ -993,9 +998,6 @@ declare module 'react-declarative/model/IManaged' {
             fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
             fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
             disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
-            isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
-            isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
-            isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     }
     /**
         * Компонент высшего порядка makeField
@@ -2869,8 +2871,8 @@ declare module 'react-declarative/components/One/layouts/DivLayout' {
     import IField from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
-    import { PickProp } from 'react-declarative/model/IManaged';
-    export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> {
+    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
+    export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
     }
@@ -2893,8 +2895,8 @@ declare module 'react-declarative/components/One/layouts/BoxLayout' {
     import IField from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
-    import { PickProp } from 'react-declarative/model/IManaged';
-    export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> {
+    import { IManagedLayout, PickProp } from 'react-declarative/model/IManaged';
+    export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data, Payload> {
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
@@ -2977,8 +2979,8 @@ declare module 'react-declarative/components/One/layouts/StretchLayout' {
     import IField from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
-    import { PickProp } from 'react-declarative/model/IManaged';
-    export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> {
+    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
+    export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
         innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
@@ -3090,7 +3092,7 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
     import * as React from 'react';
     import IField from 'react-declarative/model/IField';
     import IAnything from 'react-declarative/model/IAnything';
-    import { PickProp } from 'react-declarative/model/IManaged';
+    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
     import Group, { IGroupProps } from 'react-declarative/components/common/Group';
     import IEntity from 'react-declarative/model/IEntity';
     interface IHeroTop<Data = IAnything, Payload = IAnything> {
@@ -3168,7 +3170,7 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
         fieldRightMargin: never;
         fieldBottomMargin: never;
     }>;
-    export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data> {
+    export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data>, IWrappedLayout<Data> {
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
         object: PickProp<IEntity<Data>, 'object'>;
@@ -3192,8 +3194,8 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
     import IField from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
-    import { PickProp } from 'react-declarative/model/IManaged';
-    export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> {
+    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
+    export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
         condition?: PickProp<IField<Data, Payload>, 'condition'>;
     }
     interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {

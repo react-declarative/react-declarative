@@ -3,11 +3,11 @@ import * as React from 'react';
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
-import { PickProp } from '../../../model/IManaged';
+import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
-export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> {
+export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
 }

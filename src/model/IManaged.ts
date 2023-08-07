@@ -8,10 +8,16 @@ export type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
 
+export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
+    isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+    isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
+    isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
+}
+
 /**
  * Типизацию компоновки следует вынести отдельно
  */
-export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
+export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
     columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
     sx?: PickProp<IField<Data, Payload>, 'sx'>;
     columns?: PickProp<IField<Data, Payload>, 'columns'>;
@@ -22,9 +28,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> {
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
     disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
-    isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
-    isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
-    isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
+
 }
 
 /**

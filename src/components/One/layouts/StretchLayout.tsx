@@ -7,11 +7,11 @@ import classNames from '../../../utils/classNames';
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
-import { PickProp } from '../../../model/IManaged';
+import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
-export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> {
+export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;

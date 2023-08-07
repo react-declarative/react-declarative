@@ -9,7 +9,7 @@ import { makeStyles, useTheme } from '../../../styles';
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 
-import { PickProp } from '../../../model/IManaged';
+import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import AutoSizer from '../../../components/AutoSizer';
 import Group, { IGroupProps } from '../../../components/common/Group';
@@ -152,7 +152,7 @@ type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
   fieldBottomMargin: never;
 }>;
 
-export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data>{
+export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data>, IWrappedLayout<Data> {
   className?: PickProp<IField<Data, Payload>, 'className'>;
   style?: PickProp<IField<Data, Payload>, 'style'>;
   object: PickProp<IEntity<Data>, 'object'>;
