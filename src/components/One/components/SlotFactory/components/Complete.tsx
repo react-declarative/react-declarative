@@ -169,7 +169,15 @@ export const Complete = ({
               const searchQuery = search.split(" ");
               items = items.filter((item) => {
                 const itemValue = String(item).toLowerCase().split(" ");
-                return searchQuery.some((query) => itemValue.includes(query));
+                let isOk = true;
+                searchQuery.forEach((search) => {
+                  isOk =
+                    isOk &&
+                    itemValue.some((item: string) => {
+                      return item.includes(search)
+                    });
+                });
+                return isOk;
               });
             }
             items = items.slice(0, ITEMS_LIMIT);
