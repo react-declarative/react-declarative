@@ -747,7 +747,7 @@ declare module 'react-declarative/model/IField' {
             /**
                 * Подсказки для CompleteField
                 */
-            tip?: (value: string, data: Data, payload: Payload) => (string[] | Promise<string[]>);
+            tip?: string[] | ((value: string, data: Data, payload: Payload) => (string[] | Promise<string[]>));
             /**
                 * Варианты выбора для ComboField и ItemsField
                 */
