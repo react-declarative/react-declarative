@@ -14,6 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import VirtualView from '../../../../VirtualView';
 
 import { useOnePayload } from '../../../context/PayloadProvider';
+import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 
 import useActualCallback from '../../../../../hooks/useActualCallback';
@@ -25,7 +26,6 @@ import { ICompleteSlot } from '../../../slots/CompleteSlot';
 import { IField } from '../../../../../model/IField';
 import IAnything from '../../../../../model/IAnything';
 
-import icon from '../../../../../utils/createIcon';
 import queued from '../../../../../utils/hof/queued';
 
 const FETCH_DEBOUNCE = 500;
@@ -33,9 +33,10 @@ const ITEMS_LIMIT = 100;
 const ITEM_HEIGHT = 36;
 
 const icons = (
+    data: IAnything,
     payload: IAnything,
-    leadingIcon: string | React.ComponentType | undefined,
-    trailingIcon: string | React.ComponentType | undefined,
+    leadingIcon: React.ComponentType<any> | undefined,
+    trailingIcon: React.ComponentType<any> | undefined,
     leadingIconClick: PickProp<IField, 'leadingIconClick'>,
     trailingIconClick: PickProp<IField, 'trailingIconClick'>,
     loading: boolean,
@@ -58,7 +59,7 @@ const icons = (
                             }
                         }}
                     >
-                        {icon(leadingIcon)}
+                        {React.createElement(leadingIcon, { data, payload })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -79,7 +80,7 @@ const icons = (
                             }
                         }}
                     >
-                        {icon(trailingIcon)}
+                        {React.createElement(trailingIcon, { data, payload })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -125,6 +126,7 @@ export const Complete = ({
 }: ICompleteSlot) => {
 
     const payload = useOnePayload();
+    const { object } = useOneState();
 
     const {
         fallback = (e: Error) => {
@@ -204,6 +206,7 @@ export const Complete = ({
                         inputMode,
                         autoFocus,
                         ...icons(
+                            object,
                             payload,
                             li,
                             ti,

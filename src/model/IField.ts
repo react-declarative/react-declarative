@@ -181,8 +181,8 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Иконки для MatTextField
      */
-    leadingIcon?: string | React.ComponentType;
-    trailingIcon?: string | React.ComponentType;
+    leadingIcon?: React.ComponentType<any>;
+    trailingIcon?: React.ComponentType<any>;
 
     /**
      * При клике на иконку мы можем запросить данные из модального

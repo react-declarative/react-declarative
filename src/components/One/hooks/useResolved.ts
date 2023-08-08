@@ -79,11 +79,13 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
         apiRef, 
         changeSubject: upperChangeSubject,
         reloadSubject: upperReloadSubject,
+        updateSubject: upperUpdateSubject,
     } = useApiRef();
     const isMounted = useRef(true);
     const isRoot = useRef(false);
     const changeSubject = useSubject(upperChangeSubject);
     const reloadSubject = useSubject(upperReloadSubject);
+    const updateSubject = useSubject(upperUpdateSubject);
     useEffect(() => {
         const tryResolve = async () => {
             if (isRoot.current) {
@@ -120,9 +122,9 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
         const handleUpdateRef = () => {
             const instance: IOneApi<Data> = {
                 reload: tryResolve,
-                change: (data) => {
+                change: (data, initial = false) => {
                     setData(data);
-                    change!(data, true);
+                    change!(data, initial);
                 },
                 getData: () => ({...data$.current || ({} as Data)}),
             };
@@ -134,7 +136,9 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
             reloadSubject.unsubscribeAll();
             reloadSubject.subscribe(instance.reload);
             changeSubject.unsubscribeAll();
-            changeSubject.subscribe(instance.change);
+            changeSubject.subscribe((data) => instance.change(data, true));
+            updateSubject.unsubscribeAll();
+            updateSubject.subscribe((data) => instance.change(data, false));
         };
         tryResolve();
         handleUpdateRef();

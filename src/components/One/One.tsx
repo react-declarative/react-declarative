@@ -19,6 +19,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         apiRef,
         changeSubject,
         reloadSubject,
+        updateSubject,
     } = props;
 
     const {
@@ -53,6 +54,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
             apiRef={apiRef}
             changeSubject={changeSubject}
             reloadSubject={reloadSubject}
+            updateSubject={updateSubject}
         >
             <PropsProvider<Data, IField<Data>>
                 {...genesisProps}

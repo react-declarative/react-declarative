@@ -692,8 +692,8 @@ declare module 'react-declarative/model/IField' {
             /**
                 * Иконки для MatTextField
                 */
-            leadingIcon?: string | React.ComponentType;
-            trailingIcon?: string | React.ComponentType;
+            leadingIcon?: React.ComponentType<any>;
+            trailingIcon?: React.ComponentType<any>;
             /**
                 * При клике на иконку мы можем запросить данные из модального
                 * окна, расположенного в коде прикладного программиста. Коллбек
@@ -1253,7 +1253,7 @@ declare module 'react-declarative/model/IOneApi' {
     import IAnything from "react-declarative/model/IAnything";
     export interface IOneApi<Data = IAnything> {
         reload: () => Promise<void>;
-        change: (data: Data) => void;
+        change: (data: Data, initial?: boolean) => void;
         getData: () => Data;
     }
     export default IOneApi;
@@ -1614,9 +1614,13 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             reloadSubject?: TSubject<void>;
             /**
-                * Эмиттер для записи данных
+                * Эмиттер для перезаписи данных. Вызывает change(data, true)
                 */
             changeSubject?: TSubject<Data>;
+            /**
+                * Эмиттер для изменения данных. Вызывает change(data, false)
+                */
+            updateSubject?: TSubject<Data>;
             /**
                 * Фабрика для создания полей пользователя
                 */

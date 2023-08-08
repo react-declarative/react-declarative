@@ -7,22 +7,23 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { useOnePayload } from '../../../context/PayloadProvider';
+import { useOneState } from '../../../context/StateProvider';
 
 import IManaged, { PickProp } from '../../../../../model/IManaged';
 import { ITextSlot } from '../../../slots/TextSlot';
 import { IField } from '../../../../../model/IField';
 import IAnything from '../../../../../model/IAnything';
 
-import icon from '../../../../../utils/createIcon';
 import formatText from '../../../../../utils/formatText';
 
 const LOADING_LABEL = 'Loading';
 const NEVER_POS = Symbol('never-pos');
 
 const icons = (
+    data: IAnything,
     payload: IAnything,
-    leadingIcon: string | React.ComponentType | undefined,
-    trailingIcon: string | React.ComponentType | undefined,
+    leadingIcon: React.ComponentType<any> | undefined,
+    trailingIcon: React.ComponentType<any> | undefined,
     leadingIconClick: PickProp<IField, 'leadingIconClick'>,
     trailingIconClick: PickProp<IField, 'trailingIconClick'>,
     loading: boolean,
@@ -45,7 +46,7 @@ const icons = (
                             }
                         }}
                     >
-                        {icon(leadingIcon)}
+                        {React.createElement(leadingIcon, { data, payload })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -66,7 +67,7 @@ const icons = (
                             }
                         }}
                     >
-                        {icon(trailingIcon)}
+                        {React.createElement(trailingIcon, { data, payload })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -129,6 +130,7 @@ export const Text = ({
     name,
 }: ITextSlot) => {
     const payload = useOnePayload();
+    const { object } = useOneState();
 
     const inputElementRef = useRef<HTMLInputElement | null>();
 
@@ -204,7 +206,7 @@ export const Text = ({
                 readOnly: readonly,
                 inputMode,
                 autoFocus,
-                ...icons(payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
+                ...icons(object, payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
             }}
             inputProps={{
                 pattern: inputPattern,

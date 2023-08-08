@@ -9,6 +9,7 @@ interface Context {
     apiRef: React.Ref<IOneApi> | null;
     reloadSubject: Exclude<IOneProps['reloadSubject'], undefined> | null;
     changeSubject: Exclude<IOneProps['changeSubject'], undefined> | null;
+    updateSubject: Exclude<IOneProps['updateSubject'], undefined> | null;
 }
 
 const ApiContext = createContext<Context>(null as never);
@@ -18,6 +19,7 @@ interface IApiProviderProps {
     apiRef?: React.Ref<IOneApi> | null;
     reloadSubject?: IOneProps['reloadSubject'] | null;
     changeSubject?: IOneProps['changeSubject'] | null;
+    updateSubject?: IOneProps['updateSubject'] | null;
 }
 
 export const ApiProvider = ({
@@ -25,15 +27,18 @@ export const ApiProvider = ({
     apiRef = null,
     reloadSubject = null,
     changeSubject = null,
+    updateSubject = null,
 }: IApiProviderProps) => {
     const value = useMemo(() => ({
         apiRef,
         reloadSubject,
         changeSubject,
+        updateSubject,
     }), [
         apiRef,
         reloadSubject,
         changeSubject,
+        updateSubject,
     ]);
     return (
         <ApiContext.Provider value={value}>

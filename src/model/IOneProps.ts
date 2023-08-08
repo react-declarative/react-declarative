@@ -25,9 +25,13 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   reloadSubject?: TSubject<void>;
   /**
-   * Эмиттер для записи данных
+   * Эмиттер для перезаписи данных. Вызывает change(data, true)
    */
   changeSubject?: TSubject<Data>;
+  /**
+   * Эмиттер для изменения данных. Вызывает change(data, false)
+   */
+  updateSubject?: TSubject<Data>;
   /**
    * Фабрика для создания полей пользователя
    */
