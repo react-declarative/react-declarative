@@ -243,7 +243,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Подсказки для CompleteField
      */
-    tip?: (value: string, payload: Payload) => (string[] | Promise<string[]>);
+    tip?: (value: string, data: Data, payload: Payload) => (string[] | Promise<string[]>);
 
     /**
      * Варианты выбора для ComboField и ItemsField

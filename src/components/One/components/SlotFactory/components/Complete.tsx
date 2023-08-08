@@ -145,19 +145,14 @@ export const Complete = ({
 
     const [valueD, { pending }] = useDebounce(value, FETCH_DEBOUNCE);
 
-    const tip$ = useActualCallback(tip)
+    const tip$ = useActualCallback(tip);
+    const object$ = useActualValue(object);
 
     const handleRequest = useMemo(() => queued(async () => {
         setCurrentLoading(true);
         try {
-            let items = await tip$(value$.current || '', payload);
+            let items = await tip$(value$.current || '', object$.current, payload);
             if (Array.isArray(items)) {
-                const search = String(value$.current || '').toLowerCase();
-                const searchQuery = search.split(' ');
-                items = items.filter((item) => {
-                    const itemValue = String(item).toLowerCase().split(' ');
-                    return itemValue.some((value) => searchQuery.includes(value));
-                });
                 items = items.slice(0, ITEMS_LIMIT);
                 setItems(items);
             } else {
