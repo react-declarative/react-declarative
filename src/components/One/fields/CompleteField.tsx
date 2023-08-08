@@ -89,4 +89,6 @@ export const CompleteField = ({
 
 CompleteField.displayName = 'CompleteField';
 
-export default makeField(CompleteField);
+export default makeField(CompleteField, {
+  withApplyQueue: true,
+});
