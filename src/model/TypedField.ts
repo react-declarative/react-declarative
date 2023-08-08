@@ -41,6 +41,7 @@ import { ITimeFieldProps } from '../components/One/fields/TimeField';
 import { ICompleteFieldProps } from '../components/One/fields/CompleteField';
 import { ITypographyFieldProps } from '../components/One/fields/TypographyField';
 import { IChooseFieldProps } from '../components/One/fields/ChooseField';
+import { IInitFieldProps } from '../components/One/fields/InitField';
 
 type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
 
@@ -84,6 +85,7 @@ type Switch<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fi
 type Text<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data, Payload>, Data, Payload>;
 type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.File, IFileFieldProps<Data, Payload>, Data, Payload>;
 type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
+type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
 type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
 type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
@@ -123,6 +125,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload>
   : Target extends Hero<Data, Payload> ? Hero<Data, Payload>
   : Target extends Condition<Data, Payload> ? Condition<Data, Payload>
+  : Target extends Init<Data, Payload> ? Init<Data, Payload>
   : never;
 
 /**

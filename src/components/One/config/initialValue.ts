@@ -17,6 +17,7 @@ const initialValueMap = {
   [FieldType.Choose]: null,
   [FieldType.Component]: null,
   [FieldType.Complete]: '',
+  [FieldType.Init]: null,
 };
 
 type InitialValue = typeof initialValueMap;

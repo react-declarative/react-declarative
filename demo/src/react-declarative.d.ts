@@ -484,6 +484,7 @@ declare module 'react-declarative/model/TypedField' {
     import { ICompleteFieldProps } from 'react-declarative/components/One/fields/CompleteField';
     import { ITypographyFieldProps } from 'react-declarative/components/One/fields/TypographyField';
     import { IChooseFieldProps } from 'react-declarative/components/One/fields/ChooseField';
+    import { IInitFieldProps } from 'react-declarative/components/One/fields/InitField';
     type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
     type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
             [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
@@ -516,6 +517,7 @@ declare module 'react-declarative/model/TypedField' {
     type Text<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data, Payload>, Data, Payload>;
     type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.File, IFileFieldProps<Data, Payload>, Data, Payload>;
     type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
+    type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
     type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
     type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
     type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
@@ -524,7 +526,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1188,6 +1190,7 @@ declare module 'react-declarative/model/FieldType' {
         Slider = "slider-field",
         Combo = "combo-field",
         Choose = "choose-field",
+        Init = "init-field",
         Complete = "complete-field",
         Items = "items-field",
         Rating = "rating-field",
@@ -3753,6 +3756,14 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         displayName: string;
     };
     export default _default;
+}
+
+declare module 'react-declarative/components/One/fields/InitField' {
+    import * as React from 'react';
+    export interface IInitFieldProps {
+    }
+    export const InitField: React.FC<IInitFieldProps>;
+    export default InitField;
 }
 
 declare module 'react-declarative/model/ISize' {

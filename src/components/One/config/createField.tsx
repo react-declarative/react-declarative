@@ -23,6 +23,7 @@ import TimeField from "../fields/TimeField";
 import FileField from "../fields/FileField";
 import ChooseField from "../fields/ChooseField";
 import CompleteField from "../fields/CompleteField";
+import InitField from "../fields/InitField";
 
 export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
   const { type } = entity;
@@ -60,6 +61,8 @@ export const createField = <Data extends IAnything = IAnything>(entity: IEntity<
     return <ChooseField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.Complete) {
     return <CompleteField<Data> {...entity} key={currentPath} />;
+  } else if (type === FieldType.Init) {
+    return <InitField {...entity} key={currentPath} />;
   } else {
     throw new Error("FieldFactory unknown key type");
   }
