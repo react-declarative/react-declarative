@@ -202,12 +202,17 @@ export function makeField(
                     setValue(result);
                 }
             } else if (!name) {
-                // void(0);
+                const disabled = isDisabled(object, payload);
+                const visible = isVisible(object, payload);
+                const readonly = isReadonly(object, payload);
+                setFieldReadonly(readonly);
+                setDisabled(disabled);
+                setVisible(visible);
             } else {
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
                 const invalid = isInvalid(object, payload) || null;
-                const readonly = isReadonly(object, payload) || false;
+                const readonly = isReadonly(object, payload);
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
