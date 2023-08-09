@@ -41,6 +41,7 @@ export const Complete = ({
   inputPattern = undefined,
   description = "",
   outlined = true,
+  keepRaw = false,
   title = "",
   placeholder = "",
   inputAutocomplete: autoComplete = "off",
@@ -102,7 +103,7 @@ export const Complete = ({
                 )
               : tip$.current;
           if (Array.isArray(items)) {
-            if (value$.current) {
+            if (!keepRaw && value$.current) {
               const search = String(value$.current || "").toLowerCase();
               const searchQuery = search.split(" ");
               items = items.filter((item) => {
@@ -203,20 +204,20 @@ export const Complete = ({
             autoFocus,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton disabled={disabled} edge="end">
+                <IconButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (!loading && !open && !!value) {
+                      handleChange("");
+                    }
+                  }}
+                  disabled={disabled}
+                  edge="end"
+                >
                   {loading && <CircularProgress color="inherit" size={20} />}
-                  {!loading && !!value && (
-                    <IconButton
-                      edge="end"
-                      disabled={disabled}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleChange("");
-                      }}
-                    >
-                      <ClearIcon />
-                    </IconButton>
+                  {!loading && !open && !!value && (
+                    <ClearIcon />
                   )}
                 </IconButton>
               </InputAdornment>

@@ -270,6 +270,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     keepSync?: boolean;
 
     /**
+     * Отключает fulltext фильтр для FieldType.Complete
+     */
+    keepRaw?: boolean;
+
+    /**
      * Тип поля для логического ветвления при рендеринге
      */
     type: FieldType;
