@@ -140,6 +140,8 @@ export const Complete = ({
   const anchorElRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
+  const [selectedIdx, setSelectedIdx] = useState(-1);
+
   const [currentLoading, setCurrentLoading] = useState(false);
   const [items, setItems] = useState<string[]>([]);
 
@@ -154,6 +156,7 @@ export const Complete = ({
   const onChange$ = useActualCallback(onChange);
 
   const handleChange = useMemo(() => queued(async (text: string) => {
+    setSelectedIdx(-1);
     await onChange$(text);
   }), []);
 
@@ -188,6 +191,7 @@ export const Complete = ({
               });
             }
             items = items.slice(0, ITEMS_LIMIT);
+            setSelectedIdx(-1);
             setItems(items);
           } else {
             throw new Error("CompleteField itemList invalid result");
@@ -219,6 +223,33 @@ export const Complete = ({
       }
     }
     setOpen(false);
+    setSelectedIdx(-1);
+  };
+
+  const handleKeyDown = (key: string) => {
+    if (key === "Escape") {
+      setOpen(false);
+      setSelectedIdx(-1);
+      return true;
+    }
+    if (key === "ArrowDown") {
+      setSelectedIdx((idx) => Math.min(Math.max(idx + 1, 0), items.length - 1));
+      return true;
+    }
+    if (key === "ArrowUp") {
+      setSelectedIdx((idx) => Math.min(Math.max(idx - 1, 0), items.length - 1));
+      return true;
+    }
+    if (key === "Enter") {
+      const item = items.find((_, idx) => idx === selectedIdx);
+      if (item) {
+        handleChange(item);
+        setOpen(false);
+        setSelectedIdx(-1);
+        return true;
+      }
+    }
+    return false;
   };
 
   return (
@@ -232,6 +263,11 @@ export const Complete = ({
           helperText={(dirty && invalid) || description}
           error={dirty && invalid !== null}
           InputProps={{
+            onKeyDown: (e) => {
+              if (handleKeyDown(e.key)) {
+                e.preventDefault();
+              }
+            },
             autoComplete,
             readOnly: readonly,
             inputMode,
@@ -297,6 +333,7 @@ export const Complete = ({
             {items.map((value, idx) => (
               <ListItem disableGutters dense key={`${value}-${idx}`}>
                 <ListItemButton
+                  selected={idx === selectedIdx}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
