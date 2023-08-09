@@ -226,10 +226,11 @@ export const Complete = ({
     setSelectedIdx(-1);
   };
 
-  const handleKeyDown = (key: string) => {
+  const handleKeyDown = (key: string, blur: () => void) => {
     if (key === "Escape") {
       setOpen(false);
       setSelectedIdx(-1);
+      blur();
       return true;
     }
     if (key === "ArrowDown") {
@@ -264,7 +265,7 @@ export const Complete = ({
           error={dirty && invalid !== null}
           InputProps={{
             onKeyDown: (e) => {
-              if (handleKeyDown(e.key)) {
+              if (handleKeyDown(e.key, () => e.currentTarget.blur())) {
                 e.preventDefault();
               }
             },
