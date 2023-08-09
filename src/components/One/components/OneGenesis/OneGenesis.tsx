@@ -46,7 +46,7 @@ export const OneGenesis = <
 ) => {
   const isReady = useRef(false);
 
-  const [rendered, setRendered] = useState(true);
+  const [rendered, setRendered] = useState(false);
 
   const { classes } = useStyles();
 
@@ -67,7 +67,7 @@ export const OneGenesis = <
   const handleReady = () => {
     if (!isReady.current) {
       isReady.current = true;
-      setRendered(false);
+      setRendered(true);
       ready();
     }
   };
