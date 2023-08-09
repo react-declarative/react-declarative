@@ -11,6 +11,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 
+import ClearIcon from "@mui/icons-material/Clear";
+
 import VirtualView from "../../../../VirtualView";
 
 import { useOnePayload } from "../../../context/PayloadProvider";
@@ -21,87 +23,13 @@ import useActualCallback from "../../../../../hooks/useActualCallback";
 import useActualValue from "../../../../../hooks/useActualValue";
 import useDebounce from "../../../hooks/useDebounce";
 
-import IManaged, { PickProp } from "../../../../../model/IManaged";
 import { ICompleteSlot } from "../../../slots/CompleteSlot";
-import { IField } from "../../../../../model/IField";
-import IAnything from "../../../../../model/IAnything";
 
 import queued from "../../../../../utils/hof/queued";
 
 const FETCH_DEBOUNCE = 500;
 const ITEMS_LIMIT = 100;
 const ITEM_HEIGHT = 36;
-
-const icons = (
-  data: IAnything,
-  payload: IAnything,
-  leadingIcon: React.ComponentType<any> | undefined,
-  trailingIcon: React.ComponentType<any> | undefined,
-  leadingIconClick: PickProp<IField, "leadingIconClick">,
-  trailingIconClick: PickProp<IField, "trailingIconClick">,
-  loading: boolean,
-  disabled: boolean,
-  v: string,
-  c: PickProp<IManaged, "onChange">
-) => ({
-  ...(leadingIcon
-    ? {
-        startAdornment: (
-          <InputAdornment position="start">
-            <IconButton
-              edge="start"
-              disabled={disabled}
-              onClick={() => {
-                if (leadingIconClick) {
-                  leadingIconClick(v as unknown as IAnything, payload, (v) =>
-                    c(v, {
-                      skipReadonly: true,
-                    })
-                  );
-                }
-              }}
-            >
-              {React.createElement(leadingIcon, { data, payload })}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }
-    : {}),
-  ...(trailingIcon && !loading
-    ? {
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              disabled={disabled}
-              onClick={() => {
-                if (trailingIconClick) {
-                  trailingIconClick(v as unknown as IAnything, payload, (v) =>
-                    c(v, {
-                      skipReadonly: true,
-                    })
-                  );
-                }
-              }}
-            >
-              {React.createElement(trailingIcon, { data, payload })}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }
-    : {}),
-  ...(loading
-    ? {
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton disabled={disabled} edge="end">
-              <CircularProgress color="inherit" size={20} />
-            </IconButton>
-          </InputAdornment>
-        ),
-      }
-    : {}),
-});
 
 export const Complete = ({
   invalid,
@@ -114,10 +42,6 @@ export const Complete = ({
   description = "",
   outlined = true,
   title = "",
-  leadingIcon: li,
-  trailingIcon: ti,
-  leadingIconClick: lic,
-  trailingIconClick: tic,
   placeholder = "",
   inputAutocomplete: autoComplete = "off",
   dirty,
@@ -155,10 +79,14 @@ export const Complete = ({
 
   const onChange$ = useActualCallback(onChange);
 
-  const handleChange = useMemo(() => queued(async (text: string) => {
-    setSelectedIdx(-1);
-    await onChange$(text);
-  }), []);
+  const handleChange = useMemo(
+    () =>
+      queued(async (text: string) => {
+        setSelectedIdx(-1);
+        await onChange$(text);
+      }),
+    []
+  );
 
   const handleRequest = useMemo(
     () =>
@@ -184,7 +112,7 @@ export const Complete = ({
                   isOk =
                     isOk &&
                     itemValue.some((item: string) => {
-                      return item.includes(search)
+                      return item.includes(search);
                     });
                 });
                 return isOk;
@@ -273,17 +201,25 @@ export const Complete = ({
             readOnly: readonly,
             inputMode,
             autoFocus,
-            ...icons(
-              object,
-              payload,
-              li,
-              ti,
-              lic,
-              tic,
-              loading,
-              disabled,
-              (value || "").toString(),
-              onChange
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton disabled={disabled} edge="end">
+                  {loading && <CircularProgress color="inherit" size={20} />}
+                  {!loading && !!value && (
+                    <IconButton
+                      edge="end"
+                      disabled={disabled}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleChange("");
+                      }}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  )}
+                </IconButton>
+              </InputAdornment>
             ),
           }}
           inputProps={{
