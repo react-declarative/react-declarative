@@ -37,8 +37,6 @@ const useStyles = makeStyles()({
   },
 });
 
-const Fragment = () => <></>;
-
 export const OneGenesis = <
   Data extends IAnything = IAnything,
   Payload = IAnything,
@@ -48,7 +46,7 @@ export const OneGenesis = <
 ) => {
   const isReady = useRef(false);
 
-  const [loading, setLoading] = useState(true);
+  const [rendered, setRendered] = useState(true);
 
   const { classes } = useStyles();
 
@@ -62,14 +60,14 @@ export const OneGenesis = <
 
   const payload = useSingleton(upperPayload);
 
-  const { Loader = Fragment, className, style, sx } = props;
+  const { className, style, sx } = props;
 
   const fieldsSnapshot = useMemo(() => fields, []);
 
   const handleReady = () => {
     if (!isReady.current) {
       isReady.current = true;
-      setLoading(false);
+      setRendered(false);
       ready();
     }
   };
@@ -96,6 +94,7 @@ export const OneGenesis = <
     fields: fieldsSnapshot,
     ready: handleReady,
     payload,
+    rendered,
   };
 
   return (
@@ -111,11 +110,6 @@ export const OneGenesis = <
                 style={style}
                 sx={sx}
               >
-                {loading && (
-                  <div className={classes.loader}>
-                    <Loader />
-                  </div>
-                )}
                 <OneInternal<Data, Payload, Field> {...viewParams} />
               </Group>
             </SlotFactory>

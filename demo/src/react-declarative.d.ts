@@ -1701,10 +1701,6 @@ declare module 'react-declarative/model/IOneProps' {
             loadStart?: (source: string) => void;
             loadEnd?: (isOk: boolean, source: string) => void;
             /**
-                * Отображается до тех пор, пока не произошел первый рендеринг
-                */
-            Loader?: React.ComponentType<any>;
-            /**
                 * Отключает ввод данных
                 */
             readonly?: boolean;

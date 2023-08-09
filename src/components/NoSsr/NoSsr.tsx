@@ -21,7 +21,9 @@ export class NoSsr extends React.Component<INoSsrProps, State> {
   };
 
   componentDidMount = () => {
-    this.setState({ canRender: true });
+    requestAnimationFrame(() => {
+      this.setState({ canRender: true });
+    });
   };
 
   render = () => {

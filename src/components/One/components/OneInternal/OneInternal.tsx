@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useRef, useCallback, Fragment } from 'react';
+import { memo, useRef, useCallback, useEffect, useState, Fragment } from 'react';
 
 /* eslint-disable react/jsx-no-useless-fragment */
 
@@ -41,7 +41,12 @@ const countStatefull = (fields?: IField<any>[]) => {
     }
 };
 
+interface IOneInternalProps<Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>> extends IOneProps<Data, Payload, Field> {
+    rendered: boolean;
+}
+
 export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>>({
+    rendered = false,
     fields,
     roles,
     dirty,
@@ -53,9 +58,11 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
     focus,
     blur,
     createField = createFieldInternal,
-}: IOneProps<Data, Payload, Field>) => {
+}: IOneInternalProps<Data, Payload, Field>) => {
     const waitingReady = useRef(countStatefull(fields));
     const { object, setObject } = useOneState<Data>();
+    const [hasAnimationFrame, setHasAnimationFrame] = useState(rendered);
+
     /**
      * Изменяем локальный объект, сообщаем вышестоящему
      * компоненту о изменениях
@@ -63,6 +70,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
     const handleChange = useCallback((v: Data, invalidMap: Record<string, boolean>) => {
         setObject(v, invalidMap);
     }, []);
+
     /**
      * Отображение только после отрисовки всех полей
      * формы
@@ -72,7 +80,19 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
             ready();
         }
     }, [ready]);
-    if (object) {
+
+    /**
+     * Предотвращает performWorkUntilDeadline stuck
+     */
+    useEffect(() => {
+        !rendered && requestAnimationFrame(() => {
+            setHasAnimationFrame(true);
+        });
+    }, []);
+
+    if (!hasAnimationFrame) {
+        return null;
+    } else if (object) {
         return (
             <Fragment>
                 {fields
@@ -101,7 +121,8 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
                         const fields: IField<Data>[] = field.child ? 
                             [ field.child ]
                             : field.fields || [];
-                        const one: IOneProps<Data> = {
+                        const one: IOneInternalProps<Data> = {
+                            rendered,
                             ready: handleReady,
                             prefix: currentPath,
                             readonly: readonly || field.readonly,
