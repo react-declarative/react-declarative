@@ -17,6 +17,7 @@ import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
 
+import useActualCallback from "../../../../../hooks/useActualCallback";
 import useActualValue from "../../../../../hooks/useActualValue";
 import useDebounce from "../../../hooks/useDebounce";
 
@@ -150,6 +151,12 @@ export const Complete = ({
   const tip$ = useActualValue(tip);
   const object$ = useActualValue(object);
 
+  const onChange$ = useActualCallback(onChange);
+
+  const handleChange = useMemo(() => queued(async (text: string) => {
+    await onChange$(text);
+  }), []);
+
   const handleRequest = useMemo(
     () =>
       queued(async () => {
@@ -208,7 +215,7 @@ export const Complete = ({
       isOk = isOk && !pending();
       isOk = isOk && items.length === 1;
       if (isOk) {
-        onChange(items[0]);
+        handleChange(items[0]);
       }
     }
     setOpen(false);
@@ -250,7 +257,7 @@ export const Complete = ({
           autoComplete={autoComplete}
           value={String(value || "")}
           placeholder={placeholder}
-          onChange={({ target }) => onChange(target.value)}
+          onChange={({ target }) => handleChange(target.value)}
           onClick={() => setOpen(true)}
           label={title}
           disabled={disabled}
@@ -293,7 +300,7 @@ export const Complete = ({
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    onChange(value);
+                    handleChange(value);
                     setOpen(false);
                   }}
                 >
