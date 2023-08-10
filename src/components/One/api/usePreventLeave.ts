@@ -89,9 +89,13 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     const onUpdate$ = useActualCallback(onUpdate);
 
     const hasChanged$ = useActualValue(hasChanged);
+    const hasLoading$ = useActualValue(hasLoading);
     const data$ = useActualValue(data);
 
     useEffect(() => updateSubject.subscribe(([id, change]) => {
+        if (hasLoading$.current) {
+            return;
+        }
         if (!checkUpdate(id, change)) {
             return;
         }
