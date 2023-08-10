@@ -1026,6 +1026,7 @@ declare module 'react-declarative/model/IManaged' {
             focus?: PickProp<IField<Data, Payload>, 'focus'>;
             blur?: PickProp<IField<Data, Payload>, 'blur'>;
             defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
+            hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     }
     /**
         * Свойства, не доступные управляемому полю
