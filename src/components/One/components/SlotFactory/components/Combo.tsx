@@ -27,7 +27,7 @@ const getArrayHash = (value: any) =>
     .join('-');
 
 export const Combo = ({
-  value,
+  value: upperValue,
   disabled,
   readonly,
   description = "",
@@ -42,6 +42,14 @@ export const Combo = ({
   shouldUpdateItemList: shouldUpdate = () => false,
   onChange,
 }: IComboSlot) => {
+
+  const value = useMemo(() => {
+    if (Array.isArray(upperValue)) {
+      const [first] = upperValue;
+      return first;
+    }
+    return upperValue;
+  }, [upperValue]);
 
   const { object: upperObject } = useOneState();
   const payload = useOnePayload();

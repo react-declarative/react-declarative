@@ -52,6 +52,9 @@ export const Items = ({
     const payload = useOnePayload();
 
     const value = useMemo(() => {
+        if (typeof upperValue === 'string') {
+            return [upperValue];
+        }
         if (upperValue) {
             const result = Object.values(upperValue);
             return isObject(result) ? [] : result;
