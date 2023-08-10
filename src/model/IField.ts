@@ -21,6 +21,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     name?: string;
 
     /**
+     * Флаг, убирающий поле из древа отрисовки. Следует использовать для
+     * создания динамических значений полей компонента
+     */
+    hidden?: boolean;
+
+    /**
      * Список ролей, необходимых для отображения поля
      */
     roles?: string[];

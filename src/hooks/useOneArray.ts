@@ -28,4 +28,18 @@ export const isOneArray = <T = any>(data: T[]) => {
     }
 };
 
+export const toOneArray = <T = any>(data: T[]) => {
+    if (Array.isArray(data)) {
+        return data;
+    } else if (isObject(data)) {
+        const values = Object.values(data);
+        if (!values.length) {
+            return null;
+        }
+        return values;
+    } else {
+        return null;
+    }
+};
+
 export default useOneArray;

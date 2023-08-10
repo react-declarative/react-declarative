@@ -66,7 +66,7 @@ declare module 'react-declarative' {
     import { useActualValue } from 'react-declarative/hooks/useActualValue';
     import { useActualState } from 'react-declarative/hooks/useActualState';
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
-    import { useOneArray, oneArrayIncludes, isOneArray } from 'react-declarative/hooks/useOneArray';
+    import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
     import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
@@ -272,6 +272,7 @@ declare module 'react-declarative' {
     export { useOneArray };
     export { oneArrayIncludes };
     export { isOneArray };
+    export { toOneArray };
     export { useChangeSubject };
     export { useReloadTrigger };
     export { useAsyncAction };
@@ -557,6 +558,11 @@ declare module 'react-declarative/model/IField' {
                 * expansion и line.
                 */
             name?: string;
+            /**
+                * Флаг, убирающий поле из древа отрисовки. Следует использовать для
+                * создания динамических значений полей компонента
+                */
+            hidden?: boolean;
             /**
                 * Список ролей, необходимых для отображения поля
                 */
@@ -1736,6 +1742,7 @@ declare module 'react-declarative/hooks/useOneArray' {
     export const useOneArray: <T = any>(initialValue?: T[] | (() => T[]) | undefined) => [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
     export const oneArrayIncludes: <T = any>(data: T[], ...items: T[]) => boolean;
     export const isOneArray: <T = any>(data: T[]) => boolean;
+    export const toOneArray: <T = any>(data: T[]) => unknown[] | null;
     export default useOneArray;
 }
 

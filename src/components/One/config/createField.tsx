@@ -25,9 +25,13 @@ import ChooseField from "../fields/ChooseField";
 import CompleteField from "../fields/CompleteField";
 import InitField from "../fields/InitField";
 
+const Fragment = () => <></>;
+
 export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
   const { type } = entity;
-  if (type === FieldType.Text) {
+  if (entity.hidden) {
+    return <Fragment />;
+  } else if (type === FieldType.Text) {
     return <TextField<Data> {...entity} key={currentPath} />;
   } else if (type === FieldType.File) {
     return <FileField<Data> {...entity} key={currentPath} />;
