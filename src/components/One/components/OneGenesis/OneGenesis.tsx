@@ -30,10 +30,9 @@ const useStyles = makeStyles()({
     pointerEvents: "none",
     cursor: "not-allowed",
   },
-  loader: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
+  rendering: {
+    visibility: 'hidden',
+    pointerEvents: 'none',
   },
 });
 
@@ -106,6 +105,7 @@ export const OneGenesis = <
               <Group
                 className={classNames(className, {
                   [classes.readonly]: props.readonly,
+                  [classes.rendering]: !rendered,
                 })}
                 style={style}
                 sx={sx}
