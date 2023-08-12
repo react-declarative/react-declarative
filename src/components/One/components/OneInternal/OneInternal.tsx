@@ -34,8 +34,8 @@ import IAnything from '../../../../model/IAnything';
 const countStatefull = (fields?: IField<any>[]) => {
     let total = fields?.filter(isStatefull).length || 0;
     if (fields) {
-        total -= fields.reduce((acm, { hidden }) => hidden ? acm - 1 : acm, 0);
-        total -= fields.reduce((acm, { type }) => type === FieldType.Init ? acm - 1 : acm, 0);
+        total -= fields.reduce((acm, { hidden }) => hidden ? acm + 1 : acm, 0);
+        total -= fields.reduce((acm, { type }) => type === FieldType.Init ? acm + 1 : acm, 0);
     }
     /* группа, вложенная в группу */
     return Math.max(total, 1);
