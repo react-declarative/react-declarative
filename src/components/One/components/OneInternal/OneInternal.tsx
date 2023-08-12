@@ -32,13 +32,13 @@ import IAnything from '../../../../model/IAnything';
  * полей вложенных групп...
  */
 const countStatefull = (fields?: IField<any>[]) => {
-    const total = fields?.filter(isStatefull).length;
-    if (total) {
-        return total;
-    } else {
-        /* группа, вложенная в группу */
-        return 1;
+    let total = fields?.filter(isStatefull).length || 0;
+    if (fields) {
+        total -= fields.reduce((acm, { hidden }) => hidden ? acm - 1 : acm, 0);
+        total -= fields.reduce((acm, { type }) => type === FieldType.Init ? acm - 1 : acm, 0);
     }
+    /* группа, вложенная в группу */
+    return Math.max(total, 1);
 };
 
 interface IOneInternalProps<Data extends IAnything = IAnything, Payload = IAnything, Field extends IField<Data> = IField<Data>> extends IOneProps<Data, Payload, Field> {
