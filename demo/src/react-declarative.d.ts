@@ -4997,15 +4997,15 @@ declare module 'react-declarative/components/NoSsr/NoSsr' {
 }
 
 declare module 'react-declarative/components/Switch/Switch' {
-    import * as React from 'react';
-    import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
-    import { IFetchViewProps } from 'react-declarative/components/FetchView';
+    import * as React from "react";
+    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+    import { IFetchViewProps } from "react-declarative/components/FetchView";
     export interface ISwitchItem {
         path: string;
         element?: React.ComponentType<any>;
         guard?: () => boolean | Promise<boolean>;
         prefetch?: (params: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>;
-        unload?: (params: Record<string, any>) => (Promise<void> | void);
+        unload?: (params: Record<string, any>) => Promise<void> | void;
         redirect?: string | ((params: Record<string, any>) => string | null);
     }
     export interface ISwitchProps {
@@ -5018,7 +5018,7 @@ declare module 'react-declarative/components/Switch/Switch' {
         NotFound?: React.ComponentType<any>;
         Loader?: React.ComponentType<any>;
         Error?: React.ComponentType<any>;
-        animation?: IFetchViewProps['animation'];
+        animation?: IFetchViewProps["animation"];
         onLoadStart?: () => void;
         onLoadEnd?: (isOk?: boolean) => void;
         onInit?: () => void;
@@ -5031,7 +5031,7 @@ declare module 'react-declarative/components/Switch/Switch' {
         path: string;
         params?: Record<string, any>;
     }
-    export const Switch: ({ className, style, Loader, Forbidden, NotFound, Error, animation, history, children, fallback, items, onLoadStart, onLoadEnd, onInit, onDispose, throwError, }: ISwitchProps) => JSX.Element;
+    export const Switch: ({ className, style, Loader, Forbidden, NotFound, Error, animation, history, children, fallback, items: upperItems, onLoadStart, onLoadEnd, onInit, onDispose, throwError, }: ISwitchProps) => JSX.Element;
     export default Switch;
 }
 
@@ -5524,6 +5524,7 @@ declare module 'react-declarative/components/FilesView/FilesView' {
         onRemove?: (item: string) => void | Promise<void>;
         onChange?: (items: string[]) => void | Promise<void>;
         onClick?: (item: string) => void | Promise<void>;
+        tr?: (item: string) => (string | Promise<string>);
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
@@ -5534,7 +5535,7 @@ declare module 'react-declarative/components/FilesView/FilesView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const FilesView: ({ items, className, style, sx, disabled: upperDisabled, onUpload, onRemove, onChange, onClick, accept, multiple, onLoadStart, onLoadEnd, fallback, throwError, }: IFilesViewProps) => JSX.Element;
+    export const FilesView: ({ items, className, style, sx, disabled: upperDisabled, onUpload, onRemove, onChange, onClick, tr, accept, multiple, onLoadStart, onLoadEnd, fallback, throwError, }: IFilesViewProps) => JSX.Element;
     export default FilesView;
 }
 

@@ -9,7 +9,9 @@ import List from "@mui/material/List";
 
 import DragDropView, { ACCEPT_DEFAULT } from "../DragDropView";
 import ActionStopIcon from "../ActionStopIcon";
+import LoaderView from "../LoaderView";
 import ActionIcon from "../ActionIcon";
+import Async from "../Async";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -26,6 +28,7 @@ interface IFilesViewProps {
   onRemove?: (item: string) => void | Promise<void>;
   onChange?: (items: string[]) => void | Promise<void>;
   onClick?: (item: string) => void | Promise<void>;
+  tr?: (item: string) => (string | Promise<string>);
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
@@ -37,6 +40,8 @@ interface IFilesViewProps {
   throwError?: boolean;
 }
 
+const Loader = LoaderView.createLoader(24);
+
 export const FilesView = ({
   items = [],
   className,
@@ -47,6 +52,7 @@ export const FilesView = ({
   onRemove = () => undefined,
   onChange = () => undefined,
   onClick = () => undefined,
+  tr = (label) => label,
   accept = ACCEPT_DEFAULT,
   multiple = false,
   onLoadStart,
@@ -190,7 +196,12 @@ export const FilesView = ({
             }
           >
             <ListItemButton onClick={() => handleClick(item)}>
-              <ListItemText primary={item} />
+              <Async payload={item} Loader={Loader}>
+                {async (item) => {
+                  const label = await tr(item);
+                  return <ListItemText primary={label} />
+                }}
+              </Async>
             </ListItemButton>
           </ListItem>
         ))}
