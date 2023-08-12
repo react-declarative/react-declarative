@@ -12,7 +12,7 @@ const useStyles = makeStyles()({
     root: {
         position: 'relative',
         overflow: 'hidden',
-        paddingLeft: '4px !important',
+        paddingLeft: '0px !important',
         paddingRight: '0 !important',
         overflowWrap: 'break-word',
     },

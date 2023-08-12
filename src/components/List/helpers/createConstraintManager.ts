@@ -15,6 +15,7 @@ export interface IParams {
 }
 
 const CHECKBOX_WIDTH = 75;
+const CELL_PADDING_LEFT = 32;
 
 type Dimension = string | number | boolean;
 
@@ -118,10 +119,10 @@ export const createConstraintManager = () => {
             return order1 - order2;
         })
         .map(([col]) => col)
-        .map((column, idx) => ({
+        .map((column, idx, { length }) => ({
             ...column,
             width: computeWidth({
-                fullWidth,
+                fullWidth: fullWidth - (length * CELL_PADDING_LEFT),
                 column,
                 mode,
                 idx,
