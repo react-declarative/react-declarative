@@ -102,6 +102,4 @@ export const TextField = ({
 
 TextField.displayName = 'TextField';
 
-export default makeField(TextField, {
-  withApplyQueue: true,
-});
+export default makeField(TextField);

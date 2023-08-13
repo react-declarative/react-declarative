@@ -76,6 +76,10 @@ interface IConfig<Data = IAnything> {
     }>>;
 }
 
+interface IChangeConfig {
+    skipReadonly?: boolean;
+}
+
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
  *   представлены invalid, disabled, visible и можно задваивать вызов onChange
@@ -314,14 +318,22 @@ export function makeField(
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = singlerun(async (newValue: Value, {
-            skipReadonly = false,
-        }: {
-            skipReadonly?: boolean;
-        } = {}) => {
+        const handleChange = singlerun(async (newValue: Value, config: IChangeConfig = {}) => {
             if (fieldConfig.withApplyQueue) {
                 await waitForApply();
             }
+            return handleChangeSync(newValue, config);
+        });
+
+        /**
+         * Для сохранения позиции курсора текстовых полей
+         * ОБЯЗАТЕЛЬНО нужно вызывать setState вне контекста
+         * промиса, так как полифил при сборке бандла использует
+         * функцию генератор
+         */
+        const handleChangeSync = (newValue: Value, {
+            skipReadonly,
+        }: IChangeConfig = {}) => {
             if (inputUpdate.current) {
                 return;
             }
@@ -341,7 +353,7 @@ export function makeField(
                 return;
             }
             setValue(newValue);
-        });
+        };
 
         /**
          * Ссылка на группу хранится в useState для
@@ -403,7 +415,7 @@ export function makeField(
         };
 
         const managedProps: IManaged<Data> = {
-            onChange: handleChange,
+            onChange: fieldConfig.withApplyQueue ? handleChange : handleChangeSync,
             fallback,
             disabled: fieldDisabled || disabled,
             readonly: computeReadonly(),

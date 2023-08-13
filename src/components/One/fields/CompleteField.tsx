@@ -80,9 +80,4 @@ export const CompleteField = ({
 
 CompleteField.displayName = 'CompleteField';
 
-export default makeField(CompleteField, {
-  withApplyQueue: true,
-  skipDirtyClickListener: true,
-  skipFocusReadonly: true,
-  skipDebounce: true,
-});
+export default makeField(CompleteField);

@@ -69,16 +69,25 @@ export const Complete = ({
 
   const [currentLoading, setCurrentLoading] = useState(false);
   const [items, setItems] = useState<string[]>([]);
+  const [cursor, setCursor] = useState<number | null>(null);
 
   const loading = upperLoading || currentLoading;
   const value$ = useActualValue(value);
 
-  const [valueD, { pending }] = useDebounce(value, FETCH_DEBOUNCE);
+  const [valueD] = useDebounce(value, FETCH_DEBOUNCE);
 
   const tip$ = useActualValue(tip);
   const object$ = useActualValue(object);
 
   const onChange$ = useActualCallback(onChange);
+
+  useEffect(() => {
+    const { current: div } = anchorElRef;
+    const input = div?.querySelector('input') || null;
+    if (input) {
+      input.setSelectionRange(cursor, cursor);
+    }
+  }, [anchorElRef, cursor, value]);
 
   const handleChange = useMemo(
     () =>
@@ -142,17 +151,9 @@ export const Complete = ({
   }, [valueD, open]);
 
   const handleBlur = () => {
-    if (open) {
-      let isOk = true;
-      isOk = isOk && value;
-      isOk = isOk && !pending();
-      isOk = isOk && items.length === 1;
-      if (isOk) {
-        handleChange(items[0]);
-      }
-    }
     setOpen(false);
     setSelectedIdx(-1);
+    setCursor(null);
   };
 
   const handleKeyDown = (key: string, blur: () => void) => {
@@ -174,6 +175,7 @@ export const Complete = ({
       const item = items.find((_, idx) => idx === selectedIdx);
       if (item) {
         handleChange(item);
+        setCursor(null);
         setOpen(false);
         setSelectedIdx(-1);
         return true;
@@ -190,6 +192,7 @@ export const Complete = ({
           name={name}
           inputRef={inputRef}
           variant={outlined ? "outlined" : "standard"}
+          value={String(value || "")}
           helperText={(dirty && invalid) || description}
           error={dirty && invalid !== null}
           InputProps={{
@@ -210,6 +213,7 @@ export const Complete = ({
                     e.stopPropagation();
                     if (!loading && !open && !!value) {
                       handleChange("");
+                      setCursor(null);
                     }
                   }}
                   disabled={disabled}
@@ -229,9 +233,11 @@ export const Complete = ({
           type={inputType}
           focused={autoFocus}
           autoComplete={autoComplete}
-          value={String(value || "")}
           placeholder={placeholder}
-          onChange={({ target }) => handleChange(target.value)}
+          onChange={({ target }) => {
+            setCursor(target.selectionStart);
+            handleChange(target.value);
+          }}
           onClick={() => setOpen(true)}
           label={title}
           disabled={disabled}
