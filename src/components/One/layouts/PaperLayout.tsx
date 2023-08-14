@@ -1,9 +1,11 @@
 import * as React from "react";
+import { createElement } from "react";
 
 import { makeStyles } from "../../../styles";
 
 import Group, { IGroupProps } from "../../../components/common/Group";
-import Paper, { IPaperProps } from '../../../components/common/Paper';
+import Paper, { IPaperProps } from "../../../components/common/Paper";
+import Outline from "../../../components/common/Outline";
 
 import classNames from "../../../utils/classNames";
 
@@ -13,8 +15,11 @@ import IField from "../../../model/IField";
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
-export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything> extends IPaperProps<Data, Payload>, IGroupProps<Data, Payload> {
-  innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
+export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
+  extends IPaperProps<Data, Payload>,
+    IGroupProps<Data, Payload> {
+  innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
+  outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
 }
 
 interface IPaperLayoutPrivate {
@@ -44,9 +49,10 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   style,
   className,
   children,
-  fieldRightMargin = '0',
-  fieldBottomMargin = '0',
-  innerPadding: padding = '18px',
+  fieldRightMargin = "0",
+  fieldBottomMargin = "0",
+  innerPadding: padding = "18px",
+  outlinePaper = false,
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
   const { classes } = useStyles();
   return (
@@ -61,18 +67,20 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
       fieldRightMargin={fieldRightMargin}
       fieldBottomMargin={fieldBottomMargin}
     >
-      <Paper
-        className={classes.content}
-        columnsOverride={columnsOverride}
-        sx={sx}
-        style={{ padding }}
-      >
-        {children}
-      </Paper>
+      {createElement(
+        outlinePaper ? Outline : Paper,
+        {
+          className: classes.content,
+          columnsOverride: columnsOverride,
+          sx,
+          style: { padding },
+          children,
+        },
+      )}
     </Group>
   );
 };
 
-PaperLayout.displayName = 'PaperLayout';
+PaperLayout.displayName = "PaperLayout";
 
 export default makeLayout(PaperLayout) as typeof PaperLayout;

@@ -220,6 +220,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     innerPadding?: string;
 
     /**
+     * Превращает FieldType.Paper в FieldType.Outline
+     */
+    outlinePaper?: boolean;
+
+    /**
      * - Коллбеки, позволяющий перекрасить SliderField.
      * Работают только если заданы все вместе
      * - ВНИМАНИЕ! Потенциально возможна просадка производительности,
@@ -366,7 +371,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Инъекция JSX для ComponentField
      */
-    element?: React.ComponentType<Data & { onChange: (data: Data) => void; }>;
+    element?: React.ComponentType<Data & { 
+      onChange: (data: Data) => void;
+      _fieldData: Data;
+      _fieldParams: IField;
+      _payload: Payload;
+    }>;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении

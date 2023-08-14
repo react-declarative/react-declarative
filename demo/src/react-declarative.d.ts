@@ -727,6 +727,10 @@ declare module 'react-declarative/model/IField' {
                 */
             innerPadding?: string;
             /**
+                * Превращает FieldType.Paper в FieldType.Outline
+                */
+            outlinePaper?: boolean;
+            /**
                 * - Коллбеки, позволяющий перекрасить SliderField.
                 * Работают только если заданы все вместе
                 * - ВНИМАНИЕ! Потенциально возможна просадка производительности,
@@ -852,6 +856,9 @@ declare module 'react-declarative/model/IField' {
                 */
             element?: React.ComponentType<Data & {
                     onChange: (data: Data) => void;
+                    _fieldData: Data;
+                    _fieldParams: IField;
+                    _payload: Payload;
             }>;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
@@ -1709,6 +1716,10 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             loadStart?: (source: string) => void;
             loadEnd?: (isOk: boolean, source: string) => void;
+            /**
+                * Превращает FieldType.Paper в FieldType.Outline
+                */
+            outlinePaper?: boolean;
             /**
                 * Отключает ввод данных
                 */
@@ -3063,22 +3074,23 @@ declare module 'react-declarative/components/One/layouts/OutlineLayout' {
 declare module 'react-declarative/components/One/layouts/PaperLayout' {
     import * as React from "react";
     import { IGroupProps } from "react-declarative/components/common/Group";
-    import { IPaperProps } from 'react-declarative/components/common/Paper';
+    import { IPaperProps } from "react-declarative/components/common/Paper";
     import { PickProp } from "react-declarative/model/IManaged";
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
     export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything> extends IPaperProps<Data, Payload>, IGroupProps<Data, Payload> {
-        innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
+        innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
+        outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
     }
     interface IPaperLayoutPrivate {
         children: React.ReactNode;
     }
     export const PaperLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -5359,6 +5371,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         title?: string;
         dirty?: boolean;
         param?: Param;
+        outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
         handler?: IOneProps<Data, Payload>['handler'];
         payload?: IOneProps<Data, Payload>['payload'];
         changeSubject?: IOneProps<Data, Payload>['changeSubject'];
@@ -5373,7 +5386,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, fullScreen, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5387,7 +5400,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     }> {
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;

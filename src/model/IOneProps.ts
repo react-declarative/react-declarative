@@ -105,6 +105,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   loadStart?: (source: string) => void;
   loadEnd?: (isOk: boolean, source: string) => void;
   /**
+   * Превращает FieldType.Paper в FieldType.Outline
+   */
+  outlinePaper?: boolean;
+  /**
    * Отключает ввод данных
    */
   readonly?: boolean;

@@ -33,6 +33,7 @@ export interface IActionModalProps<
   title?: string;
   dirty?: boolean;
   param?: Param;
+  outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
   handler?: IOneProps<Data, Payload>['handler'];
   payload?: IOneProps<Data, Payload>['payload'];
   changeSubject?: IOneProps<Data, Payload>['changeSubject'];
@@ -117,6 +118,7 @@ export const ActionModal = <
   changeSubject,
   reloadSubject,
   fullScreen = false,
+  outlinePaper = false,
   open = true,
   dirty = false,
   hidden = false,
@@ -226,6 +228,7 @@ export const ActionModal = <
               [classes.disabled]: !!loading.current,
             })}
             readonly={!!loading.current || readonly}
+            outlinePaper={outlinePaper}
             invalidity={handleInvalid}
             change={handleChange}
             handler={handler}

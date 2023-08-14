@@ -54,6 +54,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
     prefix = 'root',
     invalidity = () => null,
     fallback = () => null,
+    outlinePaper: upperOutlinePaper = false,
     readonly,
     focus,
     blur,
@@ -107,6 +108,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
                             ready: handleReady,
                             fallback,
                             ...field,
+                            outlinePaper: field.outlinePaper || upperOutlinePaper,
                             focus(name, payload) {
                                 field.focus && field.focus(name, payload);
                                 focus && focus(name, payload);
@@ -126,6 +128,7 @@ export const OneInternal = <Data extends IAnything = IAnything, Payload = IAnyth
                             ready: handleReady,
                             prefix: currentPath,
                             readonly: readonly || field.readonly,
+                            outlinePaper: entity.outlinePaper,
                             fields,
                             roles,
                             handler: object,

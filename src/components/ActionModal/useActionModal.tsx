@@ -45,6 +45,7 @@ export const useActionModal = <
   onLoadEnd,
   onLoadStart,
   onInvalid,
+  outlinePaper,
   submitLabel,
   throwError,
   dirty,
@@ -78,6 +79,7 @@ export const useActionModal = <
         apiRef={apiRef}
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}
+        outlinePaper={outlinePaper}
         fields={fields}
         handler={handler}
         payload={payload}
