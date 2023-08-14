@@ -385,6 +385,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     invalidity?: (name: string, e: string, payload: Payload) => void;
 
     /**
+     * Коллбек для 2Way биндингов
+     */
+    bind?: (data: Data, payload: Payload, change: (data: Data) => void) => void;
+
+    /**
      * Значение по-умолчанию для поля
      */
     defaultValue?: Value;

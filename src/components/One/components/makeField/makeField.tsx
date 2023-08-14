@@ -111,6 +111,7 @@ export function makeField(
         fallback = () => null,
         ready = () => null,
         compute,
+        bind,
         object: upperObject,
         name = '',
         title = nameToTitle(name) || undefined,
@@ -148,6 +149,7 @@ export function makeField(
 
         const inputUpdate = useRef(false);
         const objectUpdate = useRef(false);
+        const bindUpdate = useRef(false);
 
         const fieldName = useRef(`${prefix}(${name || 'unknown'})`);
 
@@ -232,6 +234,19 @@ export function makeField(
                 setFieldReadonly(readonly);
                 setDisabled(disabled);
                 setVisible(visible);
+            }
+            if (bind) {
+                !bindUpdate.current && bind(object, payload, (data) => {
+                    bindUpdate.current = true;
+                    const copy = deepClone(data);
+                    const invalid = isInvalid(copy, payload) || null;
+                    setInvalid(invalid);
+                    invalid !== null && invalidity(name, invalid, payload);
+                    change(copy, {
+                        [fieldName.current]: !!invalid,
+                    });
+                });
+                bindUpdate.current = false;
             }
             /**
              * Отображаем форму только после отклика всех
