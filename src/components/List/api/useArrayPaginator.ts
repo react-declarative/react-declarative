@@ -179,19 +179,20 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         sort: ListHandlerSortModel,
         chips: ListHandlerChips,
         search: string,
+        payload: IAnything,
     ) => {
         if (typeof rowsHandler === 'function') {
-            return await rowsHandler(filterData, pagination, sort, chips, search);
+            return await rowsHandler(filterData, pagination, sort, chips, search, payload);
         } else {
             return rowsHandler;
         }
     }), []);
 
-    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
+    const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search, payload) => {
         let isOk = true;
         try {
             onLoadStart && onLoadStart();
-            const data = await queuedResolve(filterData, pagination, sort, chips, search);
+            const data = await queuedResolve(filterData, pagination, sort, chips, search, payload);
             const keepClean = !Array.isArray(data);
             let rows = keepClean ? data.rows : data;
             rows = [...rows].map((row) => ({...row}));

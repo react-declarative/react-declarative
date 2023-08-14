@@ -19,6 +19,7 @@ interface IPropContext<
         search: never;
         filterData: never;
         isChooser: never;
+        payload: never;
     }>,
     IListState<FilterData, RowData>,
     IListCallbacks<FilterData, RowData> {

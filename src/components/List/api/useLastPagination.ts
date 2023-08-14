@@ -34,9 +34,9 @@ export const useLastPagination = <FilterData extends {} = IAnything, RowData ext
         },
         search: "",
     });
-    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chipData, search) => {
+    const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chipData, search, payload) => {
         setData({ filterData, pagination, sort, chipData, search });
-        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chipData, search): upperHandler;
+        return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chipData, search, payload): upperHandler;
     };
     return {
         handler,

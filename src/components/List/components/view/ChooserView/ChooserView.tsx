@@ -48,6 +48,7 @@ interface IChooserProps<FilterData extends {} = IAnything, RowData extends IRowD
     search: never;
     filterData: never;
     isChooser: never;
+    payload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {

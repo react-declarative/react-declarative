@@ -100,6 +100,7 @@ export class List<
         super(props);
         this.state = {
             initComplete: false,
+            payload: typeof this.props.payload === 'function' ? (this.props.payload as Function)() : this.props.payload,
             isChooser: this.props.isChooser!,
             filterData: this.props.filterData as never,
             rows: [] as never,
@@ -285,7 +286,7 @@ export class List<
             const response: ListHandlerResult<RowData> = await Promise.resolve(this.props.handler(filterData, {
                 limit: this.state.limit,
                 offset: keepPagination ? this.state.offset : 0,
-            }, this.state.sort, this.state.chips, this.state.search));
+            }, this.state.sort, this.state.chips, this.state.search, this.state.payload));
             if (Array.isArray(response)) {
                 response.length > this.state.limit && console.warn("List rows count is more than it's capacity");
                 return {
@@ -502,7 +503,7 @@ export class List<
                                             <ChipsProvider chips={this.props.chips!} chipData={this.props.chipData!}>
                                                 <ModalSortProvider>
                                                     <SlotFactory {...this.props.slots}>
-                                                        <PayloadProvider value={this.props.payload!}>
+                                                        <PayloadProvider value={this.state.payload}>
                                                             {this.renderInner()}
                                                         </PayloadProvider>
                                                     </SlotFactory>

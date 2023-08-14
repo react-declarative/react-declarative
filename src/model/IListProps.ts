@@ -98,16 +98,18 @@ export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<Rec
 
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
-export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = RowData[] | ((
+export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload = IAnything> = RowData[] | ((
   data: FilterData,
   pagination: ListHandlerPagination,
   sort: ListHandlerSortModel<RowData>,
   chips: ListHandlerChips<RowData>,
   search: string,
+  payload: Payload,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
 export interface IListState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
+  payload: IAnything;
   filterData: FilterData;
   isChooser: boolean;
   rows: RowData[];
@@ -178,7 +180,7 @@ export interface IListProps<
   onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
   columns: IColumn<RowData, Payload>[];
   filters?: Field[];
-  handler: ListHandler;
+  handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
   fallback?: (e: Error) => void;

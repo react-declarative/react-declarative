@@ -64,6 +64,7 @@ interface IGridViewProps<FilterData extends {} = IAnything, RowData extends IRow
     search: never;
     filterData: never;
     isChooser: never;
+    payload: never;
   }>,
   IListState<FilterData, RowData>,
   IListCallbacks<FilterData, RowData> {
@@ -105,7 +106,7 @@ export const GridView = <
   const handleDirtyPageChange = (_: any, newPage: number) => handlePageChange(newPage);
 
   const renderPlaceholder = () => (
-    <TableCell className={classes.noBorder} colSpan={columns.length + 1 || 1} align="center">
+    <TableCell className={classes.noBorder} colSpan={(columns.length * 2)  || 999} align="center">
       <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
         {loading && <CircularProgress size={24} />}
         <Typography variant="body1">
