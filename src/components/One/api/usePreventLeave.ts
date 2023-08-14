@@ -22,6 +22,7 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     readonly?: boolean;
     updateSubject?: TSubject<[ID, Data]>;
     changeSubject?: TSubject<Data>;
+    shouldAutoSave?: () => boolean;
     checkUpdate?: (id: ID, data: Data) => boolean;
     checkDirty?: (prevData: Data, currentData: Data) => boolean;
     onChange?: IOneProps<Data>['change'];
@@ -67,6 +68,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     onUpdate = () => null,
     checkUpdate = () => true,
     checkDirty = () => true,
+    shouldAutoSave = () => false,
     fallback,
     updateSubject: upperUpdateSubject,
     changeSubject: upperChangeSubject,
@@ -141,15 +143,25 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     useEffect(() => {
 
-        const handleNavigate = (retry: () => void) =>
+        const waitForConfirm = () => new Promise<boolean>((res) => {
             pickConfirm({
                 msg: invalid ? INVALID_MESSAGE : LEAVE_MESSAGE,
-            }).then((result) => {
-                if (result) {
-                    unsubscribe();
-                    retry();
-                }
-            });
+            }).then((isOk) => {
+                res(isOk);
+            })
+        });
+
+        const handleNavigate = async (retry: () => void) => {
+            let isOk = false;
+            if (shouldAutoSave()) {
+                isOk = isOk || await beginSave();
+            }
+            if (!isOk) {
+                isOk = isOk || await waitForConfirm();
+            }
+            isOk && unsubscribe();
+            isOk && retry();
+        };
 
         const createRouterSubject = () => history.block(
             ({ retry }) => handleNavigate(retry)

@@ -16,6 +16,7 @@ import Async from "../Async";
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import useConfirm from "../../hooks/useConfirm";
 import useActualValue from "../../hooks/useActualValue";
 import useActualCallback from "../../hooks/useActualCallback";
 
@@ -42,6 +43,9 @@ interface IFilesViewProps {
 
 const Loader = LoaderView.createLoader(24);
 
+const CONFIRM_TEXT = "Are you sure you want to delete this file?";
+const CONFIRM_MESSAGE = "Confirmation";
+
 export const FilesView = ({
   items = [],
   className,
@@ -63,6 +67,11 @@ export const FilesView = ({
   const [loading, setLoading] = useState(0);
 
   const disabled = !!loading || upperDisabled;
+
+  const pickConfirm = useConfirm({
+    title: CONFIRM_TEXT,
+    msg: CONFIRM_MESSAGE,
+  });
 
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
@@ -189,7 +198,18 @@ export const FilesView = ({
             secondaryAction={
               <ActionIcon
                 disabled={disabled}
-                onClick={() => handleRemove(item)}
+                onClick={() => new Promise((res, rej) => {
+                  pickConfirm().then(async (isOk) => {
+                    try {
+                      if (isOk) {
+                        await handleRemove(item);
+                      }
+                      res();
+                    } catch (error) {
+                      rej(error);
+                    }
+                  })
+                })}
               >
                 <DeleteIcon />
               </ActionIcon>
