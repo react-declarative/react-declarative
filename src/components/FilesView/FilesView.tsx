@@ -43,8 +43,8 @@ interface IFilesViewProps {
 
 const Loader = LoaderView.createLoader(24);
 
-const CONFIRM_TEXT = "Are you sure you want to delete this file?";
-const CONFIRM_MESSAGE = "Confirmation";
+const CONFIRM_MESSAGE = "Are you sure you want to delete this file?";
+const CONFIRM_TITLE = "Confirmation";
 
 export const FilesView = ({
   items = [],
@@ -69,7 +69,7 @@ export const FilesView = ({
   const disabled = !!loading || upperDisabled;
 
   const pickConfirm = useConfirm({
-    title: CONFIRM_TEXT,
+    title: CONFIRM_TITLE,
     msg: CONFIRM_MESSAGE,
   });
 
