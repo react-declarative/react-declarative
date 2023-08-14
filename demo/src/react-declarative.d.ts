@@ -855,7 +855,7 @@ declare module 'react-declarative/model/IField' {
                 * Инъекция JSX для ComponentField
                 */
             element?: React.ComponentType<Data & {
-                    onChange: (data: Data) => void;
+                    onChange: (data: Partial<Data>) => void;
                     _fieldData: Data;
                     _fieldParams: IField;
                     _payload: Payload;
