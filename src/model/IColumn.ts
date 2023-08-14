@@ -21,6 +21,7 @@ export interface IColumn<RowData extends IRowData = IAnything, Payload = IAnythi
     desktopOrder?: number;
     desktopHidden?: boolean;
     columnMenu?: IListActionOption[];
+    isVisible?: (payload: Payload) => boolean;
     compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
     element?: React.ComponentType<RowData>;
     sortable?: boolean;

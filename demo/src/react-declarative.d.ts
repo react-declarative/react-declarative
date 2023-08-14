@@ -1082,6 +1082,7 @@ declare module 'react-declarative/model/IColumn' {
         desktopOrder?: number;
         desktopHidden?: boolean;
         columnMenu?: IListActionOption[];
+        isVisible?: (payload: Payload) => boolean;
         compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
         element?: React.ComponentType<RowData>;
         sortable?: boolean;
@@ -4811,21 +4812,11 @@ declare module 'react-declarative/components/Dot/Dot' {
 }
 
 declare module 'react-declarative/components/List/List' {
-    import * as React from 'react';
-    import IListProps, { IListState } from 'react-declarative/model/IListProps';
-    import TypedField from 'react-declarative/model/TypedField';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData from 'react-declarative/model/IRowData';
-    import IField from 'react-declarative/model/IField';
-    export class List<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends React.Component<IListProps<FilterData, RowData, Payload, Field>, IListState<FilterData, RowData>> {
-        static defaultProps: Partial<IListProps>;
-        constructor(props: IListProps<FilterData, RowData, Payload, Field>);
-        componentDidUpdate: () => void;
-        componentDidMount: () => void;
-        componentWillUnmount: () => void;
-        renderInner: () => JSX.Element;
-        render: () => JSX.Element;
-    }
+    import IRowData from "react-declarative/model/IRowData";
+    import IField from "react-declarative/model/IField";
+    import IListProps from "react-declarative/model/IListProps";
+    import TypedField from "react-declarative/model/TypedField";
+    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ payload: upperPayload, columns: upperColumns, ...otherProps }: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
     export default List;
 }
