@@ -185,6 +185,7 @@ export type pickPromptFn = ReturnType<typeof usePrompt>;
 export { default as dayjs } from 'dayjs';
 
 export { DocumentView } from './components';
+export { ScrollTopView } from './components';
 export { AlertView } from './components';
 export { ImageView } from './components';
 export { ConstraintView } from './components';

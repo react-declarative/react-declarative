@@ -148,6 +148,7 @@ declare module 'react-declarative' {
     export type pickPromptFn = ReturnType<typeof usePrompt>;
     export { default as dayjs } from 'dayjs';
     export { DocumentView } from 'react-declarative/components';
+    export { ScrollTopView } from 'react-declarative/components';
     export { AlertView } from 'react-declarative/components';
     export { ImageView } from 'react-declarative/components';
     export { ConstraintView } from 'react-declarative/components';
@@ -2180,6 +2181,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ModalProvider';
     export * from 'react-declarative/components/SnackProvider';
     export * from 'react-declarative/components/ConstraintView';
+    export * from 'react-declarative/components/ScrollTopView';
     export * from 'react-declarative/components/AlertView';
     export * from 'react-declarative/components/DragDropView';
     export * from 'react-declarative/components/FilesView';
@@ -4024,6 +4026,11 @@ declare module 'react-declarative/components/ConstraintView' {
     export { default } from 'react-declarative/components/ConstraintView/ConstraintView';
 }
 
+declare module 'react-declarative/components/ScrollTopView' {
+    export * from 'react-declarative/components/ScrollTopView/ScrollTopView';
+    export { default } from 'react-declarative/components/ScrollTopView/ScrollTopView';
+}
+
 declare module 'react-declarative/components/AlertView' {
     export * from 'react-declarative/components/AlertView/AlertView';
     export { default } from 'react-declarative/components/AlertView/AlertView';
@@ -5491,6 +5498,17 @@ declare module 'react-declarative/components/ConstraintView/ConstraintView' {
     }
     export const ConstraintView: <T extends unknown = any>({ desktopView: Desktop, tabletView: Tablet, phoneView: Phone, onViewChanged, params, ...otherProps }: IConstraintViewProps<T>) => JSX.Element;
     export default ConstraintView;
+}
+
+declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
+    import { FabProps } from "@mui/material/Fab";
+    type IScrollTopViewProps = Omit<FabProps, keyof {
+        onClick: never;
+    }> & {
+        scrollTarget?: HTMLElement;
+    };
+    export const ScrollTopView: ({ className, style, sx, scrollTarget, }: IScrollTopViewProps) => JSX.Element;
+    export default ScrollTopView;
 }
 
 declare module 'react-declarative/components/AlertView/AlertView' {

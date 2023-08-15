@@ -28,6 +28,7 @@ export * from './ModalProvider';
 export * from './SnackProvider';
 
 export * from './ConstraintView';
+export * from './ScrollTopView';
 export * from './AlertView';
 export * from './DragDropView';
 export * from './FilesView';
