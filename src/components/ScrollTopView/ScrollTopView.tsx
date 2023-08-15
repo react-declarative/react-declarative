@@ -10,11 +10,11 @@ import classNames from "../../utils/classNames";
 
 const SCROLL_DELTA = 40;
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
   root: {
     position: "fixed",
-    bottom: 10,
-    right: 10,
+    bottom: theme.spacing(1),
+    right: theme.spacing(1),
     transition: "opacity 500ms",
   },
   hidden: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles()({
   visible: {
     opacity: 1,
   },
-});
+}));
 
 type IScrollTopViewProps = Omit<
   FabProps,
@@ -39,7 +39,7 @@ export const ScrollTopView = ({
   style,
   sx,
   color = "primary",
-  size = "small",
+  size = "medium",
   scrollTarget = document.documentElement,
   ...otherProps
 }: IScrollTopViewProps) => {
