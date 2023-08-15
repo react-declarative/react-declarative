@@ -5507,7 +5507,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
     }> & {
         scrollTarget?: HTMLElement;
     };
-    export const ScrollTopView: ({ className, style, sx, scrollTarget, }: IScrollTopViewProps) => JSX.Element;
+    export const ScrollTopView: ({ className, style, sx, color, scrollTarget, }: IScrollTopViewProps) => JSX.Element;
     export default ScrollTopView;
 }
 

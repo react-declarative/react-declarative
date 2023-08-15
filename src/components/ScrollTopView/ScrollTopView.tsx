@@ -4,7 +4,7 @@ import { makeStyles } from "../../styles";
 
 import Fab, { FabProps } from "@mui/material/Fab";
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import classNames from "../../utils/classNames";
 
@@ -31,13 +31,14 @@ type IScrollTopViewProps = Omit<
     onClick: never;
   }
 > & {
-    scrollTarget?: HTMLElement;
+  scrollTarget?: HTMLElement;
 };
 
 export const ScrollTopView = ({
   className,
   style,
   sx,
+  color="primary",
   scrollTarget = document.documentElement,
 }: IScrollTopViewProps) => {
   const { classes } = useStyles();
@@ -46,14 +47,20 @@ export const ScrollTopView = ({
 
   useLayoutEffect(() => {
     const handler = () => {
-        const { scrollTop: scroll } = scrollTarget;
-        setVisible(scroll > SCROLL_DELTA);
+      const { scrollTop: scroll } = scrollTarget;
+      setVisible(scroll > SCROLL_DELTA);
     };
-    scrollTarget.addEventListener('scroll', handler, {
-        passive: true,
-    });
-    return () => scrollTarget.removeEventListener('scroll', handler);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
   }, [scrollTarget]);
+
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  };
 
   return (
     <Fab
@@ -63,8 +70,10 @@ export const ScrollTopView = ({
       })}
       style={style}
       sx={sx}
+      color={color}
+      onClick={handleClick}
     >
-        <KeyboardArrowUpIcon />
+      <KeyboardArrowUpIcon />
     </Fab>
   );
 };
