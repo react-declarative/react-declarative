@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import isObject from '../utils/isObject';
 
 export const useOneArray = <T = any>(initialValue?: (T[] | (() => T[]))) => {
-    return useState<T[]>(() => {
+    const [data, setData] = useState<T[]>(() => {
         let result = initialValue;
         if (typeof initialValue === 'function') {
             result = initialValue();
         }
         return Object.values(result || {});
     });
+    const managedData = useMemo(() => {
+        return Object.values(data || {});
+    }, [data]);
+    return [managedData, setData] as const;
 };
 
 export const oneArrayIncludes = <T = any>(data: T[], ...items: T[]) => {
