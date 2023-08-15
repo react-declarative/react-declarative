@@ -29,17 +29,21 @@ export interface ILayout<Data extends IAnything = IAnything> extends IEntity<Dat
     children: React.ReactNode;
 }
 
+const DEFAULT_IS_VISIBLE = () => true;
+const DEFAULT_IS_READONLY = () => false;
+const DEFAULT_IS_DISABLED = () => false;
+
 export function makeLayout<T extends ILayout<any>>(
-    OriginalComponent: React.FC<T>,
+    originalComponent: React.FC<T>,
 ) {
 
-    const Component = OriginalComponent as React.FC<IEntity>;
+    const Component = memo(originalComponent) as unknown as React.FC<IEntity>;
 
     const component = <Data extends IAnything = IAnything>({
         className,
-        isVisible = () => true,
-        isReadonly = () => false,
-        isDisabled = () => false,
+        isVisible = DEFAULT_IS_VISIBLE,
+        isReadonly = DEFAULT_IS_READONLY,
+        isDisabled = DEFAULT_IS_DISABLED,
         disabled: upperDisabled = false,
         ready,
         ...otherProps
@@ -82,7 +86,7 @@ export function makeLayout<T extends ILayout<any>>(
 
     component.displayName = `Wrapped${Component.displayName || 'UnknownLayout'}`;
 
-    return memo(component) as typeof OriginalComponent;
+    return memo(component) as typeof originalComponent;
 }
 
 export default makeLayout;

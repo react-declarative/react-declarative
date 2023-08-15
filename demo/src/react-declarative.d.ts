@@ -6702,7 +6702,7 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
       *   представлены invalid, disabled, visible и можно задваивать вызов onChange
       * - Управляет фокусировкой, мануально ожидая потерю фокуса, эмулируя onBlur
       */
-    export function makeField(Component: React.FC<IManaged>, fieldConfig?: IConfig): {
+    export function makeField(originalComponent: React.FC<IManaged>, fieldConfig?: IConfig): {
         <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data, any>): JSX.Element;
         displayName: string;
     };
