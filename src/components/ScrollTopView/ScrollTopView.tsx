@@ -38,8 +38,10 @@ export const ScrollTopView = ({
   className,
   style,
   sx,
-  color="primary",
+  color = "primary",
+  size = "small",
   scrollTarget = document.documentElement,
+  ...otherProps
 }: IScrollTopViewProps) => {
   const { classes } = useStyles();
 
@@ -64,6 +66,7 @@ export const ScrollTopView = ({
 
   return (
     <Fab
+      {...otherProps}
       className={classNames(className, classes.root, {
         [classes.visible]: visible,
         [classes.hidden]: !visible,
@@ -71,6 +74,7 @@ export const ScrollTopView = ({
       style={style}
       sx={sx}
       color={color}
+      size={size}
       onClick={handleClick}
     >
       <KeyboardArrowUpIcon />
