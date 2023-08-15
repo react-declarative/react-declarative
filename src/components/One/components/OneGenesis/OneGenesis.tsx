@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, useMemo, useState } from "react";
+import { useRef, useMemo, useState, useCallback } from "react";
 
 import { makeStyles } from "../../../../styles";
 
@@ -24,17 +24,19 @@ import SlotFactory from "../SlotFactory";
 import PayloadProvider from "../../context/PayloadProvider";
 
 import useSingleton from "../../../../hooks/useSingleton";
+import useActualValue from "../../../../hooks/useActualValue";
 
 const useStyles = makeStyles()({
   readonly: {
     pointerEvents: "none",
-    cursor: "not-allowed",
   },
   rendering: {
-    visibility: 'hidden',
     pointerEvents: 'none',
   },
 });
+
+const DEFAULT_READY = () => null;
+const DEFAULT_CHANGE = (data: IAnything) => console.log({ data });
 
 export const OneGenesis = <
   Data extends IAnything = IAnything,
@@ -50,8 +52,8 @@ export const OneGenesis = <
   const { classes } = useStyles();
 
   const {
-    change = (data) => console.log({ data }),
-    ready = () => null,
+    change = DEFAULT_CHANGE,
+    ready = DEFAULT_READY,
     fields = [],
     slots = {},
     payload: upperPayload = {} as Payload,
@@ -63,15 +65,20 @@ export const OneGenesis = <
 
   const fieldsSnapshot = useMemo(() => fields, []);
 
-  const handleReady = () => {
+  const ready$ = useActualValue(ready);
+  const change$ = useActualValue(change);
+
+  const handleReady = useCallback(() => {
+    const { current: ready } = ready$;
     if (!isReady.current) {
       isReady.current = true;
       setRendered(true);
       ready();
     }
-  };
+  }, []);
 
-  const handleChange = (newData: Data, initial: boolean) => {
+  const handleChange = useCallback((newData: Data, initial: boolean) => {
+    const { current: change } = change$;
     let isValid = true;
     deepFlat(fields).forEach(({ isInvalid = () => null }: any) => {
       isValid = isValid && (isInvalid(newData, payload) || null) === null;
@@ -79,7 +86,7 @@ export const OneGenesis = <
     if (isValid) {
       change(arrays(newData), initial);
     }
-  };
+  }, []);
 
   const stateParams = {
     ...props,

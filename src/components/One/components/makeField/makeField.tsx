@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { memo } from 'react';
-import { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import { useRef, useState, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
 /* eslint-disable no-console */
 
@@ -20,6 +20,7 @@ import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
 
 import useDebounce from '../../hooks/useDebounce';
+import useActualValue from '../../../../hooks/useActualValue';
 
 import Group, { IGroupProps } from '../../../common/Group';
 
@@ -80,13 +81,23 @@ interface IChangeConfig {
     skipReadonly?: boolean;
 }
 
+const DEFAULT_IS_DISABLED = () => false;
+const DEFAULT_IS_VISIBLE = () => true;
+const DEFAULT_IS_INVALID = () => null;
+const DEFAULT_IS_READONLY = () => false;
+const DEFAULT_CHANGE = (v: IAnything) => console.log({ v });
+const DEFAULT_FALLBACK = () => null;
+const DEFAULT_READY = () => null;
+const DEFAULT_MAP = (data: IAnything) => data;
+const DEFAULT_REF = () => null;
+
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
  *   представлены invalid, disabled, visible и можно задваивать вызов onChange
  * - Управляет фокусировкой, мануально ожидая потерю фокуса, эмулируя onBlur
  */
 export function makeField(
-    Component: React.FC<IManaged>,
+    originalComponent: React.FC<IManaged>,
     fieldConfig: IConfig = {
         withApplyQueue: false,
         skipDirtyClickListener: false,
@@ -95,6 +106,7 @@ export function makeField(
         defaultProps: { },
     },
 ) {
+    const Component = memo(originalComponent) as unknown as React.FC<IManaged>;
     const oneConfig = OneConfig[GET_REF_SYMBOL]();
     const component = <Data extends IAnything = IAnything>({
         className = '',
@@ -103,15 +115,15 @@ export function makeField(
         phoneColumns = '',
         tabletColumns = '',
         desktopColumns = '',
-        isDisabled = () => false,
-        isVisible = () => true,
-        isInvalid = () => null,
-        isReadonly = () => false,
-        change = (v) => console.log({ v }),
-        fallback = () => null,
-        ready = () => null,
+        isDisabled = DEFAULT_IS_DISABLED,
+        isVisible = DEFAULT_IS_VISIBLE,
+        isInvalid = DEFAULT_IS_INVALID,
+        isReadonly = DEFAULT_IS_READONLY,
+        change = DEFAULT_CHANGE,
+        fallback = DEFAULT_FALLBACK,
+        ready = DEFAULT_READY,
         compute,
-        map = (data) => data,
+        map = DEFAULT_MAP,
         object: upperObject,
         name = '',
         title = nameToTitle(name) || undefined,
@@ -124,7 +136,7 @@ export function makeField(
         readonly: upperReadonly = false,
         autoFocus,
         style,
-        groupRef: ref = () => null,
+        groupRef: ref = DEFAULT_REF,
         fieldRightMargin = fieldConfig.defaultProps?.fieldRightMargin,
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
         ...otherProps
@@ -151,6 +163,10 @@ export function makeField(
         const objectUpdate = useRef(false);
 
         const fieldName = useRef(`${prefix}(${name || 'unknown'})`);
+
+        const fieldReadonly$ = useActualValue(fieldReadonly);
+        const upperReadonly$ = useActualValue(upperReadonly);
+        const focusReadonly$ = useActualValue(focusReadonly);
 
         /**
          * Чтобы поле input было React-управляемым, нельзя
@@ -305,26 +321,26 @@ export function makeField(
          * При редактировании больших форм изменение целевого объекта
          * может произойти между исполнением хука входящего и исходящего изменения
          */
-        const waitForApply = async () => {
+        const waitForApply = useCallback(async () => {
             for (let i = 0; i !== APPLY_ATTEMPTS; i++) {
                 if (!inputUpdate.current && !objectUpdate.current) {
                     break;
                 }
                 sleep(APPLY_DELAY);
             }
-        };
+        }, []);
 
         /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = singlerun(async (newValue: Value, config: IChangeConfig = {}) => {
+        const handleChange = useMemo(() => singlerun(async (newValue: Value, config: IChangeConfig = {}) => {
             if (fieldConfig.withApplyQueue) {
                 await waitForApply();
             }
             return handleChangeSync(newValue, config);
-        });
+        }), []);
 
         /**
          * Для сохранения позиции курсора текстовых полей
@@ -332,9 +348,11 @@ export function makeField(
          * промиса, так как полифил при сборке бандла использует
          * функцию генератор
          */
-        const handleChangeSync = (newValue: Value, {
+        const handleChangeSync = useCallback((newValue: Value, {
             skipReadonly,
         }: IChangeConfig = {}) => {
+            const { current: fieldReadonly } = fieldReadonly$;
+            const { current: upperReadonly } = upperReadonly$;
             if (inputUpdate.current) {
                 return;
             }
@@ -354,25 +372,27 @@ export function makeField(
                 return;
             }
             setValue(newValue);
-        };
+        }, []);
 
         /**
          * Ссылка на группу хранится в useState для
          * правильной работы эффекта
          */
-        const handleGroupRef = (element: HTMLDivElement | null) => {
+        const handleGroupRef = useCallback((element: HTMLDivElement | null) => {
             if (element) {
                 setGroupRef(element);
             }
             ref(element);
-        };
+        }, []);
 
         /**
          * Запускает механизм вещания фокусировки,
          * использует полифил для ожидания потери
          * фокуса
          */
-        const handleFocus = () => {
+        const handleFocus = useCallback(() => {
+            const { current: fieldReadonly } = fieldReadonly$;
+            const { current: upperReadonly } = upperReadonly$;
             if (!isMounted.current) {
                 return;
             }
@@ -391,7 +411,7 @@ export function makeField(
             if (focus) {
                 focus(name, payload);
             }
-        };
+        }, []);
 
         const groupProps: IGroupProps<Data> = {
             ...fieldConfig.defaultProps,
@@ -404,7 +424,10 @@ export function makeField(
             sx: { ...sx, ...fieldConfig.defaultProps?.sx },
         };
 
-        const computeReadonly = () => {
+        const computeReadonly = useCallback(() => {
+            const { current: fieldReadonly } = fieldReadonly$;
+            const { current: upperReadonly } = upperReadonly$;
+            const { current: focusReadonly } = focusReadonly$;
             let isReadonly = false;
             isReadonly = isReadonly || upperReadonly;
             if (!fieldConfig.skipFocusReadonly) {
@@ -413,7 +436,7 @@ export function makeField(
             isReadonly = isReadonly || fieldReadonly;
             isReadonly = isReadonly || !!compute;
             return isReadonly;
-        };
+        }, []);
 
         const managedProps: IManaged<Data> = {
             onChange: fieldConfig.withApplyQueue ? handleChange : handleChangeSync,
