@@ -45,7 +45,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     compute?: PickProp<IField<Data, Payload>, 'compute'>;
     focus?: PickProp<IField<Data, Payload>, 'focus'>;
     blur?: PickProp<IField<Data, Payload>, 'blur'>;
-    bind?: PickProp<IField<Data, Payload>, 'bind'>;
+    map?: PickProp<IField<Data, Payload>, 'map'>;
     defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }

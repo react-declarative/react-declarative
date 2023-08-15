@@ -385,9 +385,10 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     invalidity?: (name: string, e: string, payload: Payload) => void;
 
     /**
-     * Коллбек для 2Way биндингов
+     * Коллбек для 2Way биндингов. Вызывается если поле валидно
+     * перед применением нового целевого объекта при исходящем изменении
      */
-    bind?: (data: Data, payload: Payload, change: (data: Data) => void) => void;
+    map?: (data: Data, payload: Payload) => Data;
 
     /**
      * Значение по-умолчанию для поля
