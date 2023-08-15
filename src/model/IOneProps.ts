@@ -17,10 +17,6 @@ export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload
 
 export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   /**
-   * Отключает сокрытие формы в процессе рендеринга
-   */
-  withRenderVisibility?: boolean;
-  /**
    * Ссылка на объект API
    */
   apiRef?: React.Ref<IOneApi>;

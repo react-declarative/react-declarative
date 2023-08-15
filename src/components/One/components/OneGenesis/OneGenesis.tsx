@@ -33,9 +33,6 @@ const useStyles = makeStyles()({
   rendering: {
     pointerEvents: 'none',
   },
-  renderingHidden: {
-    visibility: 'hidden',
-  },
 });
 
 const DEFAULT_READY = () => null;
@@ -57,7 +54,6 @@ export const OneGenesis = <
   const {
     change = DEFAULT_CHANGE,
     ready = DEFAULT_READY,
-    withRenderVisibility = false,
     fields = [],
     slots = {},
     payload: upperPayload = {} as Payload,
@@ -117,7 +113,6 @@ export const OneGenesis = <
                 className={classNames(className, {
                   [classes.readonly]: props.readonly,
                   [classes.rendering]: !rendered,
-                  [classes.renderingHidden]: !rendered && !withRenderVisibility,
                 })}
                 style={style}
                 sx={sx}
