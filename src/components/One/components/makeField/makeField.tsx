@@ -306,9 +306,13 @@ export function makeField(
         const lastDebouncedValue = useRef<Value>(debouncedValue);
 
         /**
-         * Очередь применения изменений из объекта формы
+         * Очередь применения изменений из объекта формы. Если прилетело
+         * изменение до сабмита текущего значения, применяем незамедлительно
          */
         useEffect(() => {
+            if (pending()) {
+                flush();
+            }
             if (lastDebouncedValue.current === debouncedValue) {
                 handleIncomingObject();
             }

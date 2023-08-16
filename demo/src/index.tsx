@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, SnackProvider, createWebComponent } from 'react-declarative';
+import { ModalProvider, SnackProvider, createWebComponent, OneConfig } from 'react-declarative';
 
 import App from './App'
 
@@ -40,6 +40,14 @@ const wrappedApp = (
         </ModalProvider>
     </ThemeProvider>
 );
+
+OneConfig.setValue({
+    WITH_DIRTY_CLICK_LISTENER: false,
+    WITH_MOBILE_READONLY_FALLBACK: false,
+    WITH_WAIT_FOR_MOVE_LISTENER: false,
+    WITH_WAIT_FOR_TOUCH_LISTENER: false,
+    WITH_DISMOUNT_LISTENER: false,
+});
 
 /*
 createWebComponent("frontend-widget", (params) => (
