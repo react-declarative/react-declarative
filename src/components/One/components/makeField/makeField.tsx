@@ -179,6 +179,11 @@ export function makeField(
             fieldConfig.skipDebounce ? 0 : DEBOUNCE_SPEED
         );
 
+        const debouncedValue$ = useActualValue(debouncedValue);
+        const invalid$ = useActualValue(invalid);
+        const object$ = useActualValue(object);
+        const value$ = useActualValue(value);
+
         const isMounted = useRef(true);
 
         oneConfig.WITH_DISMOUNT_LISTENER && useLayoutEffect(() => () => {
@@ -206,9 +211,12 @@ export function makeField(
         }), []);
 
         /**
-         * Эффект входящего изменения.
+         * Коллбек входящего изменения.
          */
-        useEffect(() => {
+        const handleIncomingObject = useCallback(() => {
+            const { current: invalid } = invalid$;
+            const { current: object } = object$;
+            const { current: value } = value$;
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
             inputUpdate.current = false;
@@ -259,11 +267,12 @@ export function makeField(
         }, [object]);
 
         /**
-         * Эффект исходящего изменения. Привязан на изменение
-         * value, обернутое в хук useDebounce для оптимизации
-         * производительности
+         * Коллбек исходящего изменения
          */
-        useEffect(() => {
+        const handleOutgoingObject = useCallback(() => {
+            const { current: debouncedValue } = debouncedValue$;
+            const { current: invalid } = invalid$;
+            const { current: object } = object$;
             const wasInvalid = !!invalid;
             if (inputUpdate.current) {
                 inputUpdate.current = false;
@@ -272,9 +281,8 @@ export function makeField(
             } else if (compute) {
                 return;
             } else {
-                const target = debouncedValue;
                 const copy = deepClone(object);
-                const check = set(copy, name, target);
+                const check = set(copy, name, debouncedValue);
                 const invalid = isInvalid(copy, payload) || null;
                 setInvalid(invalid);
                 setDirty(true);
@@ -293,6 +301,19 @@ export function makeField(
                     });
                 }
             }
+        }, []);
+
+        const lastDebouncedValue = useRef<Value>(debouncedValue);
+
+        /**
+         * Очередь применения изменений из объекта формы
+         */
+        useEffect(() => {
+            if (lastDebouncedValue.current === debouncedValue) {
+                handleIncomingObject();
+            }
+            handleOutgoingObject();
+            lastDebouncedValue.current = debouncedValue;
         }, [debouncedValue, object]);
 
         /*
