@@ -211,6 +211,7 @@ export function makeField(
         useEffect(() => {
             const wasInvalid = !!invalid;
             objectUpdate.current = true;
+            inputUpdate.current = false;
             if (compute) {
                 const result = compute(arrays(object), payload);
                 if (result instanceof Promise) {
@@ -264,8 +265,9 @@ export function makeField(
          */
         useEffect(() => {
             const wasInvalid = !!invalid;
-            if (inputUpdate.current || objectUpdate.current) {
+            if (inputUpdate.current) {
                 inputUpdate.current = false;
+            } else if (objectUpdate.current) {
                 objectUpdate.current = false;
             } else if (compute) {
                 return;
