@@ -264,9 +264,8 @@ export function makeField(
          */
         useEffect(() => {
             const wasInvalid = !!invalid;
-            if (inputUpdate.current) {
+            if (inputUpdate.current || objectUpdate.current) {
                 inputUpdate.current = false;
-            } else if (objectUpdate.current) {
                 objectUpdate.current = false;
             } else if (compute) {
                 return;
@@ -479,7 +478,7 @@ export function makeField(
         );
     };
 
-    component.displayName = `Managed${Component.displayName || 'UnknownField'}`;
+    component.displayName = `Managed${originalComponent.displayName || 'UnknownField'}`;
 
     return memo(component) as typeof component;
 }
