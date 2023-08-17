@@ -851,7 +851,7 @@ declare module 'react-declarative/model/IField' {
                 * Функция, применяемая если значение поля вычисляется динамически.
                 * Включает readonly.
                 */
-            compute?: (v: Data, payload: Payload) => Promise<Value> | Value;
+            compute?: (v: Data, payload: Payload) => (Promise<Value> | Value);
             /**
                 * Инъекция JSX для ComponentField
                 */

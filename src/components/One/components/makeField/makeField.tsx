@@ -227,10 +227,16 @@ export function makeField(
                     result
                         .then((value) => isMounted.current && setValue(value))
                         .catch((e) => isMounted.current && fallback(e))
-                        .then(() => isMounted.current && setLoading(false));
+                        .finally(() => isMounted.current && setLoading(false));
                 } else {
                     setValue(result);
                 }
+                const disabled = isDisabled(object, payload);
+                const visible = isVisible(object, payload);
+                const readonly = isReadonly(object, payload);
+                setFieldReadonly(readonly);
+                setDisabled(disabled);
+                setVisible(visible);
             } else if (!name) {
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
