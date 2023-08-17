@@ -164,7 +164,7 @@ export const OperationListSlot = ({
             className={classNames(className, classes.root)}
             style={style}
         >
-            <FadeView className={classes.container} color={fadeColor} payload={conditionPayload}>
+            <FadeView className={classes.container} color={fadeColor}>
                 <Box className={classes.content}>
                     <Async 
                         payload={conditionPayload}

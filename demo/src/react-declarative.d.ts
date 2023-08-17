@@ -5588,10 +5588,8 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {
     import * as React from "react";
-    import { IAutoSizerProps } from "react-declarative/components/AutoSizer";
-    import IAnything from "react-declarative/model/IAnything";
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
-    interface IScrollViewProps<T extends IAnything = IAnything> {
+    interface IScrollViewProps {
         withScrollbar?: boolean;
         hideOverflowX?: boolean;
         hideOverflowY?: boolean;
@@ -5599,9 +5597,8 @@ declare module 'react-declarative/components/ScrollView/ScrollView' {
         className?: string;
         style?: React.CSSProperties;
         center?: boolean;
-        payload?: IAutoSizerProps<T>["payload"];
     }
-    export const ScrollView: <T extends unknown = any>({ children, className, style, payload, center, withScrollbar, hideOverflowX, hideOverflowY, }: IScrollViewProps<T>) => JSX.Element;
+    export const ScrollView: ({ children, className, style, center, withScrollbar, hideOverflowX, hideOverflowY, }: IScrollViewProps) => JSX.Element;
     export default ScrollView;
 }
 
@@ -5676,7 +5673,6 @@ declare module 'react-declarative/components/AutoSizer/AutoSizer' {
 
 declare module 'react-declarative/components/FadeView/FadeView' {
     import * as React from "react";
-    import { IAutoSizerProps } from "react-declarative/components/AutoSizer";
     import { IFadeContainerProps } from "react-declarative/components/FadeView/components/FadeContainer";
     type FadeContainerT = Pick<IFadeContainerProps, keyof {
         Fade: never;
@@ -5685,13 +5681,12 @@ declare module 'react-declarative/components/FadeView/FadeView' {
         disableBottom: never;
         disableRight: never;
     }>;
-    interface IFadeViewProps<T extends any = unknown> extends FadeContainerT {
+    interface IFadeViewProps extends FadeContainerT {
         className?: string;
         style?: React.CSSProperties;
         children: React.ReactNode;
-        payload?: IAutoSizerProps<T>["payload"];
     }
-    export const FadeView: <T extends unknown = any>({ className, style, children, Fade, color, zIndex, disableBottom, disableRight, payload, }: IFadeViewProps<T>) => JSX.Element;
+    export const FadeView: ({ className, style, children, Fade, color, zIndex, disableBottom, disableRight, }: IFadeViewProps) => JSX.Element;
     export default FadeView;
 }
 

@@ -4,9 +4,7 @@ import { makeStyles } from "../../styles";
 
 import classNames from "../../utils/classNames";
 
-import AutoSizer, { IAutoSizerProps } from "../AutoSizer";
-
-import IAnything from "../../model/IAnything";
+import useElementSize from "../../hooks/useElementSize";
 
 export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
 
@@ -22,16 +20,16 @@ const useStyles = makeStyles()({
     scrollbarWidth: "none",
   },
   overflowX: {
-    overflowX: "auto !important" as "auto",
+    overflowX: "auto",
   },
   noOverflowX: {
-    overflowX: "hidden !important" as "hidden",
+    overflowX: "hidden",
   },
   overflowY: {
-    overflowY: "auto !important" as "auto",
+    overflowY: "auto",
   },
   noOverflowY: {
-    overflowY: "hidden !important" as "hidden",
+    overflowY: "hidden",
   },
   hideScrollbar: {
     "&::-webkit-scrollbar": {
@@ -58,7 +56,7 @@ const useStyles = makeStyles()({
   },
 });
 
-interface IScrollViewProps<T extends IAnything = IAnything> {
+interface IScrollViewProps {
   withScrollbar?: boolean;
   hideOverflowX?: boolean;
   hideOverflowY?: boolean;
@@ -66,47 +64,44 @@ interface IScrollViewProps<T extends IAnything = IAnything> {
   className?: string;
   style?: React.CSSProperties;
   center?: boolean;
-  payload?: IAutoSizerProps<T>["payload"];
 }
 
-export const ScrollView = <T extends IAnything = IAnything>({
+export const ScrollView = ({
   children,
   className,
   style,
-  payload,
   center = false,
   withScrollbar = false,
   hideOverflowX = false,
   hideOverflowY = false,
-}: IScrollViewProps<T>) => {
+}: IScrollViewProps) => {
   const { classes } = useStyles();
+  const { elementRef, size: { height, width } } = useElementSize<HTMLDivElement>();
   return (
     <div className={classNames(className, classes.root)} style={style}>
-      <AutoSizer
+      <div
+        ref={elementRef}
         className={classNames(classes.container, SCROLL_VIEW_TARGER, {
-            [classes.hideScrollbar]: !withScrollbar,
-            [classes.overflowX]: !hideOverflowX,
-            [classes.overflowY]: !hideOverflowY,
-            [classes.noOverflowX]: hideOverflowX,
-            [classes.noOverflowY]: hideOverflowY,
+          [classes.hideScrollbar]: !withScrollbar,
+          [classes.overflowX]: !hideOverflowX,
+          [classes.overflowY]: !hideOverflowY,
+          [classes.noOverflowX]: hideOverflowX,
+          [classes.noOverflowY]: hideOverflowY,
         })}
-        payload={payload}
       >
-        {({ height, width }) => (
-          <div
-            className={classNames(classes.content, {
-              [classes.stretch]: !center,
-              [classes.center]: center,
-            })}
-            style={{
-              minHeight: height,
-              minWidth: width,
-            }}
-          >
-            {children}
-          </div>
-        )}
-      </AutoSizer>
+        <div
+          className={classNames(classes.content, {
+            [classes.stretch]: !center,
+            [classes.center]: center,
+          })}
+          style={{
+            minHeight: height,
+            minWidth: width,
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   );
 };

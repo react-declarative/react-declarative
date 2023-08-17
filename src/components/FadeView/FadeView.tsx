@@ -4,7 +4,7 @@ import { makeStyles } from "../../styles";
 
 import Box from "@mui/material/Box";
 
-import AutoSizer, { IAutoSizerProps } from "../AutoSizer";
+import useElementSize from "../../hooks/useElementSize";
 
 import FadeContainer, {
   IFadeContainerProps,
@@ -24,11 +24,10 @@ type FadeContainerT = Pick<
   }
 >;
 
-interface IFadeViewProps<T extends any = unknown> extends FadeContainerT {
+interface IFadeViewProps extends FadeContainerT {
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
-  payload?: IAutoSizerProps<T>["payload"];
 }
 
 const useStyles = makeStyles()({
@@ -56,7 +55,7 @@ const useStyles = makeStyles()({
   },
 });
 
-export const FadeView = <T extends any = any>({
+export const FadeView = ({
   className,
   style,
   children,
@@ -65,53 +64,51 @@ export const FadeView = <T extends any = any>({
   zIndex,
   disableBottom,
   disableRight,
-  payload,
-}: IFadeViewProps<T>) => {
+}: IFadeViewProps) => {
   const { classes } = useStyles();
+  const { elementRef, size: { height, width } } = useElementSize<HTMLDivElement>();
   return (
     <Box className={className} style={style}>
-      <AutoSizer className={classes.root} payload={payload}>
-        {({ height, width }) => (
-          <FadeContainer
-            className={classes.container}
-            Fade={Fade}
-            color={color}
-            zIndex={zIndex}
-            disableBottom={disableBottom}
-            disableRight={disableRight}
+      <div ref={elementRef} className={classes.root}>
+        <FadeContainer
+          className={classes.container}
+          Fade={Fade}
+          color={color}
+          zIndex={zIndex}
+          disableBottom={disableBottom}
+          disableRight={disableRight}
+        >
+          <Box
+            className={classNames(SCROLL_VIEW_TARGER, classes.content)}
+            sx={{
+              '& > *': {
+                minHeight: height,
+                minWidth: width,
+              },
+              maxHeight: height,
+              maxWidth: width,
+              height: '100%',
+              width: '100%',
+            }}
           >
             <Box
-              className={classNames(SCROLL_VIEW_TARGER, classes.content)}
               sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                display: 'flex',
+                alignItems: 'stretch',
+                justifyContent: 'stretch',
                 '& > *': {
-                  minHeight: height,
-                  minWidth: width,
+                  flex: 1,
                 },
-                maxHeight: height,
-                maxWidth: width,
-                height: '100%',
-                width: '100%',
               }}
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  display: 'flex',
-                  alignItems: 'stretch',
-                  justifyContent: 'stretch',
-                  '& > *': {
-                    flex: 1,
-                  },
-                }}
-              >
-                {children}
-              </Box>
+              {children}
             </Box>
-          </FadeContainer>
-        )}
-      </AutoSizer>
+          </Box>
+        </FadeContainer>
+      </div>
     </Box>
   );
 };
