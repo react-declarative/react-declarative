@@ -16,7 +16,7 @@ export const useOneArray = <T = any>(initialValue?: (T[] | (() => T[]))) => {
     return [managedData, setData] as const;
 };
 
-export const oneArrayIncludes = <T = any>(data: T[], ...items: T[]) => {
+export const oneArrayIncludes = <T = any>(data: T[] | null, ...items: T[]) => {
     return Object.values(data || {}).some((value) => items.includes(value));
 };
 
