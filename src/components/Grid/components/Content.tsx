@@ -80,6 +80,7 @@ export const Content = ({
   const { classes } = useStyles();
   return (
     <VirtualView
+      withScrollbar
       className={classNames(className, classes.content)}
       style={style}
       sx={sx}

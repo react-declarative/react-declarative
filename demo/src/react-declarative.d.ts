@@ -5587,18 +5587,19 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
 }
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {
-    import * as React from 'react';
-    import { IAutoSizerProps } from 'react-declarative/components/AutoSizer';
-    import IAnything from 'react-declarative/model/IAnything';
+    import * as React from "react";
+    import { IAutoSizerProps } from "react-declarative/components/AutoSizer";
+    import IAnything from "react-declarative/model/IAnything";
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
     interface IScrollViewProps<T extends IAnything = IAnything> {
+        withScrollbar?: boolean;
         children: React.ReactNode;
         className?: string;
         style?: React.CSSProperties;
         center?: boolean;
         payload?: IAutoSizerProps<T>["payload"];
     }
-    export const ScrollView: <T extends unknown = any>({ children, className, style, payload, center, }: IScrollViewProps<T>) => JSX.Element;
+    export const ScrollView: <T extends unknown = any>({ children, className, style, payload, center, withScrollbar, }: IScrollViewProps<T>) => JSX.Element;
     export default ScrollView;
 }
 
@@ -5973,6 +5974,7 @@ declare module 'react-declarative/components/VirtualView/VirtualView' {
     export interface IVirtualViewProps extends Omit<BoxProps, keyof {
         ref: never;
     }> {
+        withScrollbar?: boolean;
         loading?: boolean;
         hasMore?: boolean;
         minRowHeight?: number;
@@ -5986,7 +5988,7 @@ declare module 'react-declarative/components/VirtualView/VirtualView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const VirtualView: ({ className, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
+    export const VirtualView: ({ className, withScrollbar, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
     export default VirtualView;
 }
 

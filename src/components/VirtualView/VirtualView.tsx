@@ -1,5 +1,12 @@
 import * as React from "react";
-import { useCallback, useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
+import {
+  useCallback,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useMemo,
+} from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -30,6 +37,7 @@ export interface IVirtualViewProps
       ref: never;
     }
   > {
+  withScrollbar?: boolean;
   loading?: boolean;
   hasMore?: boolean;
   minRowHeight?: number;
@@ -47,13 +55,18 @@ export interface IVirtualViewProps
 const useStyles = makeStyles()({
   root: {
     position: "relative",
-    overflowY: 'auto',
+    overflowY: "auto",
     width: "100%",
-    minHeight: '50px',
+    minHeight: "50px",
+  },
+  hideScrollbar: {
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
   adjust: {
-    position: 'absolute',
-    visibility: 'hidden',
+    position: "absolute",
+    visibility: "hidden",
     height: 1,
     width: 1,
     left: 0,
@@ -62,6 +75,7 @@ const useStyles = makeStyles()({
 
 export const VirtualView = ({
   className,
+  withScrollbar = false,
   minRowHeight = DEFAULT_MIN_HEIGHT,
   bufferSize: upperBufferSize = DEFAULT_BUFFER_SIZE,
   children: upperChildren,
@@ -83,13 +97,10 @@ export const VirtualView = ({
   const scrollXSubject = useSubject(upperScrollXSubject);
   const scrollYSubject = useSubject(upperScrollYSubject);
 
-  const children = useMemo(
-    () => {
-      isChildrenChanged.current = true;
-      return React.Children.toArray(upperChildren);
-    },
-    [upperChildren],
-  );
+  const children = useMemo(() => {
+    isChildrenChanged.current = true;
+    return React.Children.toArray(upperChildren);
+  }, [upperChildren]);
 
   const [loading, setLoading] = useState(0);
 
@@ -137,33 +148,35 @@ export const VirtualView = ({
 
   const bufferSize = useMemo(
     () => Math.max(Math.floor(containerHeight / minRowHeight), upperBufferSize),
-    [minRowHeight, upperBufferSize, containerHeight],
+    [minRowHeight, upperBufferSize, containerHeight]
   );
 
   const resizeObserver = useSingleton(
     () =>
-      new ResizeObserver((entries) => entries.forEach((record) => {
-        const element = record.target as HTMLDivElement;
-        if (!element) {
-          return;
-        }
-        const { height } = record.contentRect;
-        if (element.classList.contains(ROOT_ELEMENT)) {
-          setContainerHeight(height);
-        }
-        if (element.classList.contains(CHILD_ELEMENT)) {
-          const elementId = Number(element.dataset[DATASET_ID]);
-          if (!Number.isNaN(elementId) && height >= minRowHeight$.current) {
-            setRowHeightMap((rowHeightMap) => {
-              if (rowHeightMap.get(elementId) !== height) {
-                rowHeightMap.set(elementId, height);
-                return new Map(rowHeightMap);
-              }
-              return rowHeightMap;
-            });
+      new ResizeObserver((entries) =>
+        entries.forEach((record) => {
+          const element = record.target as HTMLDivElement;
+          if (!element) {
+            return;
           }
-        }
-      }))
+          const { height } = record.contentRect;
+          if (element.classList.contains(ROOT_ELEMENT)) {
+            setContainerHeight(height);
+          }
+          if (element.classList.contains(CHILD_ELEMENT)) {
+            const elementId = Number(element.dataset[DATASET_ID]);
+            if (!Number.isNaN(elementId) && height >= minRowHeight$.current) {
+              setRowHeightMap((rowHeightMap) => {
+                if (rowHeightMap.get(elementId) !== height) {
+                  rowHeightMap.set(elementId, height);
+                  return new Map(rowHeightMap);
+                }
+                return rowHeightMap;
+              });
+            }
+          }
+        })
+      )
   );
 
   const getStartIndex = useCallback(
@@ -213,18 +226,15 @@ export const VirtualView = ({
       totalHeight += rowHeightMap.get(idx) || minRowHeight;
     });
     return totalHeight;
-  }, [
-    rowHeightMap,
-    children,
-    minRowHeight,
-  ]);
+  }, [rowHeightMap, children, minRowHeight]);
 
   const getBottomReached = useCallback(() => {
     if (container) {
       if (container.clientHeight >= container.scrollHeight) {
         return false;
       }
-      const scrollPos = container.scrollHeight - container.scrollTop - container.clientHeight;
+      const scrollPos =
+        container.scrollHeight - container.scrollTop - container.clientHeight;
       return Math.abs(scrollPos) < 10;
     }
     return false;
@@ -274,7 +284,9 @@ export const VirtualView = ({
           setRowHeightMap((rowHeightMap) => {
             let isChanged = true;
             isChanged = isChanged && element.offsetHeight >= minRowHeight;
-            isChanged = isChanged && rowHeightMap.get(elementIdx) !== element.offsetHeight;
+            isChanged =
+              isChanged &&
+              rowHeightMap.get(elementIdx) !== element.offsetHeight;
             if (isChanged) {
               rowHeightMap.set(elementIdx, element.offsetHeight);
               return new Map(rowHeightMap);
@@ -287,7 +299,7 @@ export const VirtualView = ({
           position: "absolute",
           top: getTopPos(startIndex + index),
           minHeight: minRowHeight,
-          minWidth: '100%',
+          minWidth: "100%",
           left: 0,
         },
       })
@@ -308,16 +320,19 @@ export const VirtualView = ({
 
   const handleRef = useCallback((element: HTMLDivElement | null) => {
     if (element) {
-      element.addEventListener("scroll", throttle((e: any) => {
-        setScrollPosition(e.target.scrollTop);
-      }, 50));
+      element.addEventListener(
+        "scroll",
+        throttle((e: any) => {
+          setScrollPosition(e.target.scrollTop);
+        }, 50)
+      );
       setContainerHeight(element.offsetHeight);
       scrollXSubject.unsubscribeAll();
       scrollXSubject.subscribe((scrollX) => {
         if (element.scrollLeft !== scrollX) {
           element.scrollTo(
             Math.min(scrollX, element.scrollWidth),
-            element.scrollTop,
+            element.scrollTop
           );
         }
       });
@@ -326,7 +341,7 @@ export const VirtualView = ({
         if (element.scrollLeft !== scrollX) {
           element.scrollTo(
             Math.min(scrollX, element.scrollWidth),
-            element.scrollTop,
+            element.scrollTop
           );
         }
       });
@@ -357,7 +372,9 @@ export const VirtualView = ({
 
   return (
     <Box
-      className={classNames(className, classes.root, ROOT_ELEMENT)}
+      className={classNames(className, classes.root, ROOT_ELEMENT, {
+        [classes.hideScrollbar]: !withScrollbar,
+      })}
       {...otherProps}
       ref={handleRef}
     >

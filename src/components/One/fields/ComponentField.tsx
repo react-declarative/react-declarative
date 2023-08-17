@@ -97,7 +97,7 @@ export const ComponentField = ({
 
     return (
         <Box
-            className={classNames({
+            className={classNames(classes.root, {
                 [classes.disabled]: disabled,
                 [classes.readonly]: readonly,
             })}

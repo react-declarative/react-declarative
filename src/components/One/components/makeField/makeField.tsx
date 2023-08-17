@@ -310,8 +310,14 @@ export function makeField(
          * изменение до сабмита текущего значения, применяем незамедлительно
          */
         useEffect(() => {
+            /**
+             * Если в очереди изменение, данный код осуществит слияние изменений.
+             * На следующей итерации отработает handleOutgoingObject, который получит
+             * последний целевой объект по ссылке
+             */
             if (pending()) {
                 flush();
+                return;
             }
             if (lastDebouncedValue.current === debouncedValue) {
                 handleIncomingObject();
