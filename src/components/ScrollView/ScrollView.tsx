@@ -24,8 +24,14 @@ const useStyles = makeStyles()({
   overflowX: {
     overflowX: "auto !important" as "auto",
   },
+  noOverflowX: {
+    overflowX: "hidden !important" as "hidden",
+  },
   overflowY: {
     overflowY: "auto !important" as "auto",
+  },
+  noOverflowY: {
+    overflowY: "hidden !important" as "hidden",
   },
   hideScrollbar: {
     "&::-webkit-scrollbar": {
@@ -81,6 +87,8 @@ export const ScrollView = <T extends IAnything = IAnything>({
             [classes.hideScrollbar]: !withScrollbar,
             [classes.overflowX]: !hideOverflowX,
             [classes.overflowY]: !hideOverflowY,
+            [classes.noOverflowX]: hideOverflowX,
+            [classes.noOverflowY]: hideOverflowY,
         })}
         payload={payload}
       >
