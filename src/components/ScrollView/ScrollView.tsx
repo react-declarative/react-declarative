@@ -20,7 +20,12 @@ const useStyles = makeStyles()({
     flex: 1,
     position: "relative",
     scrollbarWidth: "none",
-    overflow: "auto !important",
+  },
+  overflowX: {
+    overflowX: "auto !important" as "auto",
+  },
+  overflowY: {
+    overflowY: "auto !important" as "auto",
   },
   hideScrollbar: {
     "&::-webkit-scrollbar": {
@@ -49,6 +54,8 @@ const useStyles = makeStyles()({
 
 interface IScrollViewProps<T extends IAnything = IAnything> {
   withScrollbar?: boolean;
+  hideOverflowX?: boolean;
+  hideOverflowY?: boolean;
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -63,6 +70,8 @@ export const ScrollView = <T extends IAnything = IAnything>({
   payload,
   center = false,
   withScrollbar = false,
+  hideOverflowX = false,
+  hideOverflowY = false,
 }: IScrollViewProps<T>) => {
   const { classes } = useStyles();
   return (
@@ -70,6 +79,8 @@ export const ScrollView = <T extends IAnything = IAnything>({
       <AutoSizer
         className={classNames(classes.container, SCROLL_VIEW_TARGER, {
             [classes.hideScrollbar]: !withScrollbar,
+            [classes.overflowX]: !hideOverflowX,
+            [classes.overflowY]: !hideOverflowY,
         })}
         payload={payload}
       >

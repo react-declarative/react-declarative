@@ -5593,13 +5593,15 @@ declare module 'react-declarative/components/ScrollView/ScrollView' {
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
     interface IScrollViewProps<T extends IAnything = IAnything> {
         withScrollbar?: boolean;
+        hideOverflowX?: boolean;
+        hideOverflowY?: boolean;
         children: React.ReactNode;
         className?: string;
         style?: React.CSSProperties;
         center?: boolean;
         payload?: IAutoSizerProps<T>["payload"];
     }
-    export const ScrollView: <T extends unknown = any>({ children, className, style, payload, center, withScrollbar, }: IScrollViewProps<T>) => JSX.Element;
+    export const ScrollView: <T extends unknown = any>({ children, className, style, payload, center, withScrollbar, hideOverflowX, hideOverflowY, }: IScrollViewProps<T>) => JSX.Element;
     export default ScrollView;
 }
 
