@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useCallback, useMemo } from 'react';
 import { createContext } from 'react';
 
 import useResolved from '../hooks/useResolved';
@@ -55,7 +55,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
 
     const object$ = useActualValue(object);
 
-    const setObject = (data: Data, fieldInvalidMap: Record<string, boolean>) => {
+    const setObject = useCallback((data: Data, fieldInvalidMap: Record<string, boolean>) => {
         const { current: oneInvalidMap } = oneInvalidMapRef;
         const { current: object } = object$;
         setObjectHook(data);
@@ -70,12 +70,12 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         } else {
             wasInvalidRef.current = true;
         }
-    };
+    }, []);
 
-    const managed: IState<Data> = {
+    const managed: IState<Data> = useMemo(() => ({
         object,
         setObject,
-    };
+    }), [object]);
 
     return (
         <StateContext.Provider value={managed}>

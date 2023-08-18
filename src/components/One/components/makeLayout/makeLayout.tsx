@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { memo, useState, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
 import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
+
+import useLayoutState from './useLayoutState';
 
 import IAnything from '../../../../model/IAnything';
 import IEntity from '../../../../model/IEntity';
@@ -49,9 +51,20 @@ export function makeLayout<T extends ILayout<any>>(
         ...otherProps
     }: ILayout<Data>) => {
 
-        const [disabled, setDisabled] = useState<boolean>(upperDisabled);
-        const [readonly, setReadonly] = useState<boolean>(false);
-        const [visible, setVisible] = useState<boolean>(true);
+        const {
+            state: {
+                disabled,
+                readonly,
+                visible,
+            },
+            action: {
+                setDisabled,
+                setReadonly,
+                setVisible,
+            },
+        } = useLayoutState({
+            disabled: upperDisabled,
+        })
 
         const { classes } = useStyles();
 
