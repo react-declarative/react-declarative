@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { memo } from 'react';
-import { useRef, useState, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
+import { useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
 /* eslint-disable no-console */
 
@@ -36,6 +36,7 @@ import sleep from '../../../../utils/sleep';
 import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
+import useFieldState from './useFieldState';
 
 const DEBOUNCE_SPEED = 800;
 const APPLY_ATTEMPTS = 15;
@@ -141,8 +142,6 @@ export function makeField(
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
         ...otherProps
     }: IEntity<Data>) => {
-        const [groupRef, setGroupRef] = useState<HTMLDivElement>(null as never);
-
         const { object: stateObject } = useOneState<Data>();
         const payload = useOnePayload();
 
@@ -150,14 +149,34 @@ export function makeField(
 
         const { classes } = useStyles();
         
-        const [focusReadonly, setFocusReadonly] = useState<boolean>(true);
-        const [fieldReadonly, setFieldReadonly] = useState<boolean>(upperReadonly);
-
-        const [disabled, setDisabled] = useState<boolean>(fieldDisabled);
-        const [invalid, setInvalid] = useState<string | null>(null);
-        const [visible, setVisible] = useState<boolean>(true);
-        const [loading, setLoading] = useState<boolean>(false);
-        const [dirty, setDirty] = useState<boolean>(upperDirty);
+        const {
+            state: {
+                dirty,
+                disabled,
+                fieldReadonly,
+                focusReadonly,
+                groupRef,
+                invalid,
+                loading,
+                value,
+                visible,
+            },
+            action: {
+                setDirty,
+                setDisabled,
+                setFieldReadonly,
+                setFocusReadonly,
+                setGroupRef,
+                setInvalid,
+                setLoading,
+                setValue,
+                setVisible,
+            },
+        } = useFieldState({
+            dirty: upperDirty,
+            disabled: fieldDisabled,
+            fieldReadonly: upperReadonly,
+        });
 
         const inputUpdate = useRef(false);
         const objectUpdate = useRef(false);
@@ -167,12 +186,6 @@ export function makeField(
         const fieldReadonly$ = useActualValue(fieldReadonly);
         const upperReadonly$ = useActualValue(upperReadonly);
         const focusReadonly$ = useActualValue(focusReadonly);
-
-        /**
-         * Чтобы поле input было React-управляемым, нельзя
-         * передавать в свойство value значение null
-         */
-        const [value, setValue] = useState<Value>(false);
 
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
