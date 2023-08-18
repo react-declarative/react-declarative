@@ -466,6 +466,7 @@ declare module 'react-declarative/model/TypedField' {
     import { IExpansionLayoutProps } from 'react-declarative/components/One/layouts/ExpansionLayout';
     import { IHeroLayoutProps } from 'react-declarative/components/One/layouts/HeroLayout';
     import { IConditionLayoutProps } from 'react-declarative/components/One/layouts/ConditionLayout';
+    import { ICustomLayoutProps } from 'react-declarative/components/One/layouts/CustomLayout';
     /**
         * Поля ввода
         */
@@ -495,6 +496,7 @@ declare module 'react-declarative/model/TypedField' {
     };
     type TypedFieldFactoryShallow<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = IManagedShallow<Data, Payload> & TypedFieldFactory<Type, Fields, Data, Payload>;
     type Group<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data, Payload>, Data, Payload>;
+    type Custom<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Layout, ICustomLayoutProps<Data, Payload>, Data, Payload>;
     type Paper<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data, Payload>, Data, Payload>;
     type Outline<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data, Payload>, Data, Payload>;
     type Expansion<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data, Payload>, Data, Payload>;
@@ -528,7 +530,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -901,6 +903,15 @@ declare module 'react-declarative/model/IField' {
                 */
             expansionOpened?: boolean;
             /**
+                * Коллбек, позволяющий применить собственную компоновку
+                */
+            customLayout?: (props: React.PropsWithChildren<Data & {
+                    onChange: (data: Partial<Data>) => void;
+                    _fieldData: Data;
+                    _fieldParams: IField;
+                    _payload: Payload;
+            }>) => React.ReactElement;
+            /**
                 * Предикат для компоновки Condition
                 */
             condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>);
@@ -1008,6 +1019,8 @@ declare module 'react-declarative/model/IManaged' {
             isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
             isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
             isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
+            roles?: PickProp<IField<Data, Payload>, 'roles'>;
+            disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
     }
     /**
         * Типизацию компоновки следует вынести отдельно
@@ -1016,13 +1029,11 @@ declare module 'react-declarative/model/IManaged' {
             columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
             sx?: PickProp<IField<Data, Payload>, 'sx'>;
             columns?: PickProp<IField<Data, Payload>, 'columns'>;
-            roles?: PickProp<IField<Data, Payload>, 'roles'>;
             phoneColumns?: PickProp<IField<Data, Payload>, 'phoneColumns'>;
             tabletColumns?: PickProp<IField<Data, Payload>, 'tabletColumns'>;
             desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
             fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
             fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
-            disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
     }
     /**
         * Компонент высшего порядка makeField
@@ -1199,6 +1210,7 @@ declare module 'react-declarative/components/One/api/useApiHandler' {
 
 declare module 'react-declarative/model/FieldType' {
     export enum FieldType {
+        Layout = "custom-layout",
         Switch = "switch-field",
         Line = "line-field",
         File = "file-field",
@@ -2931,8 +2943,8 @@ declare module 'react-declarative/components/One/layouts/BoxLayout' {
     import IField from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
-    import { IManagedLayout, PickProp } from 'react-declarative/model/IManaged';
-    export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data, Payload> {
+    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
+    export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
@@ -3227,19 +3239,19 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
 }
 
 declare module 'react-declarative/components/One/layouts/ConditionLayout' {
-    import * as React from 'react';
-    import IField from 'react-declarative/model/IField';
-    import IEntity from 'react-declarative/model/IEntity';
-    import IAnything from 'react-declarative/model/IAnything';
-    import { IWrappedLayout, PickProp } from 'react-declarative/model/IManaged';
-    export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
-        condition?: PickProp<IField<Data, Payload>, 'condition'>;
+    import * as React from "react";
+    import IField from "react-declarative/model/IField";
+    import IEntity from "react-declarative/model/IEntity";
+    import IAnything from "react-declarative/model/IAnything";
+    import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+    export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
+        condition?: PickProp<IField<Data, Payload>, "condition">;
     }
     interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children: React.ReactNode;
-        fallback: PickProp<IEntity<Data>, 'fallback'>;
-        ready: PickProp<IEntity<Data>, 'ready'>;
-        object: PickProp<IEntity<Data>, 'object'>;
+        fallback: PickProp<IEntity<Data>, "fallback">;
+        ready: PickProp<IEntity<Data>, "ready">;
+        object: PickProp<IEntity<Data>, "object">;
     }
     /**
       * Компоновка, которую можно скрыть, используя condition.
@@ -3252,6 +3264,32 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
     };
     const _default: {
         <Data extends unknown = any>({ children, condition, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    export default _default;
+}
+
+declare module 'react-declarative/components/One/layouts/CustomLayout' {
+    import * as React from "react";
+    import IField from "react-declarative/model/IField";
+    import IEntity from "react-declarative/model/IEntity";
+    import IAnything from "react-declarative/model/IAnything";
+    import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+    export interface ICustomLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
+        className?: PickProp<IField<Data, Payload>, "className">;
+        style?: PickProp<IField<Data, Payload>, "style">;
+        sx?: PickProp<IField<Data, Payload>, "sx">;
+        customLayout?: PickProp<IField<Data, Payload>, "customLayout">;
+    }
+    interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+        children: React.ReactNode;
+    }
+    export const CustomLayout: {
+        <Data extends unknown = any>({ children, className, style, sx, customLayout: CustomLayout, ...otherProps }: ICustomLayoutProps<Data, any> & ICustomLayoutPrivate<Data>): JSX.Element;
+        displayName: string;
+    };
+    const _default: {
+        <Data extends unknown = any>({ children, className, style, sx, customLayout: CustomLayout, ...otherProps }: ICustomLayoutProps<Data, any> & ICustomLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;

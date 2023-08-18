@@ -14,6 +14,7 @@ const layouts: FieldType[] = [
     FieldType.Center,
     FieldType.Stretch,
     FieldType.Condition,
+    FieldType.Layout,
 ];
 
 /**

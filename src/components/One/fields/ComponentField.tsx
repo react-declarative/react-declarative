@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { makeStyles } from "../../../styles";
 
@@ -79,9 +79,9 @@ export const ComponentField = ({
     const { setObject } = useOneState();
     const _payload = useOnePayload();
 
-    const handleChange = (object: unknown) => setObject(deepClone(object), {});
+    const handleChange = useCallback((object: unknown) => setObject(deepClone(object), {}), []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const _fieldParams = Object.entries(otherProps as IField)
             .filter(([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam))
             .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;

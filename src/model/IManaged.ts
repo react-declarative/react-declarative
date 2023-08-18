@@ -12,6 +12,8 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
     isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
+    roles?: PickProp<IField<Data, Payload>, 'roles'>;
+    disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
 }
 
 /**
@@ -21,14 +23,11 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
     columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
     sx?: PickProp<IField<Data, Payload>, 'sx'>;
     columns?: PickProp<IField<Data, Payload>, 'columns'>;
-    roles?: PickProp<IField<Data, Payload>, 'roles'>;
     phoneColumns?: PickProp<IField<Data, Payload>, 'phoneColumns'>;
     tabletColumns?: PickProp<IField<Data, Payload>, 'tabletColumns'>;
     desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
-    disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
-
 }
 
 /**

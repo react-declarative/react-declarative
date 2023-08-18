@@ -1,25 +1,29 @@
-import * as React from 'react';
+import * as React from "react";
 
-import If from '../../If';
+import If from "../../If";
 
-import { useOnePayload } from '../context/PayloadProvider';
+import { useOnePayload } from "../context/PayloadProvider";
 
-import IField from '../../../model/IField';
-import IEntity from '../../../model/IEntity';
-import IAnything from '../../../model/IAnything';
-import { IWrappedLayout, PickProp } from '../../../model/IManaged';
+import IField from "../../../model/IField";
+import IEntity from "../../../model/IEntity";
+import IAnything from "../../../model/IAnything";
+import {
+  IWrappedLayout,
+  PickProp,
+} from "../../../model/IManaged";
 
-import makeLayout from '../components/makeLayout/makeLayout';
+import makeLayout from "../components/makeLayout/makeLayout";
 
-export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
-    condition?: PickProp<IField<Data, Payload>, 'condition'>;
+export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
+  extends IWrappedLayout<Data, Payload> {
+  condition?: PickProp<IField<Data, Payload>, "condition">;
 }
 
 interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
-    fallback: PickProp<IEntity<Data>, 'fallback'>;
-    ready: PickProp<IEntity<Data>, 'ready'>;
-    object: PickProp<IEntity<Data>, 'object'>;
+  children: React.ReactNode;
+  fallback: PickProp<IEntity<Data>, "fallback">;
+  ready: PickProp<IEntity<Data>, "ready">;
+  object: PickProp<IEntity<Data>, "object">;
 }
 
 /**
@@ -28,31 +32,26 @@ interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
  * Потомки передаются насквозь...
  */
 export const ConditionLayout = <Data extends IAnything = IAnything>({
-    children,
-    condition = () => true,
-    fallback = (e: Error) => {
-        throw e;
-    },
-    object,
+  children,
+  condition = () => true,
+  fallback = (e: Error) => {
+    throw e;
+  },
+  object,
 }: IConditionLayoutProps<Data> & IConditionLayoutPrivate<Data>) => {
+  const payload = useOnePayload();
 
-    const payload = useOnePayload();
+  const handleCondition = async (data: Data) => {
+    return await condition(data, payload);
+  };
 
-    const handleCondition = async (data: Data) => {
-        return await condition(data, payload);
-    };
-
-    return (
-        <If
-            condition={handleCondition}
-            fallback={fallback}
-            payload={object}
-        >
-            {children}
-        </If>
-    );
+  return (
+    <If condition={handleCondition} fallback={fallback} payload={object}>
+      {children}
+    </If>
+  );
 };
 
-ConditionLayout.displayName = 'ConditionLayout';
+ConditionLayout.displayName = "ConditionLayout";
 
 export default makeLayout(ConditionLayout) as typeof ConditionLayout;

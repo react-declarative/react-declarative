@@ -20,6 +20,7 @@ import { IPaperLayoutProps } from '../components/One/layouts/PaperLayout';
 import { IExpansionLayoutProps } from '../components/One/layouts/ExpansionLayout';
 import { IHeroLayoutProps } from '../components/One/layouts/HeroLayout';
 import { IConditionLayoutProps } from '../components/One/layouts/ConditionLayout';
+import { ICustomLayoutProps } from '../components/One/layouts/CustomLayout';
 
 /**
  * Поля ввода
@@ -59,6 +60,7 @@ type TypedFieldFactoryShallow<
 > = IManagedShallow<Data, Payload> & TypedFieldFactory<Type, Fields, Data, Payload>;
 
 type Group<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Group, IGroupLayoutProps<Data, Payload>, Data, Payload>;
+type Custom<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Layout, ICustomLayoutProps<Data, Payload>, Data, Payload>;
 type Paper<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Paper, IPaperLayoutProps<Data, Payload>, Data, Payload>;
 type Outline<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Outline, IOutlineLayoutProps<Data, Payload>, Data, Payload>;
 type Expansion<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Expansion, IExpansionLayoutProps<Data, Payload>, Data, Payload>;
@@ -119,6 +121,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Typography<Data, Payload> ? Typography<Data, Payload>
   : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload>
   : Target extends Div<Data, Payload> ? Div<Data, Payload>
+  : Target extends Custom<Data, Payload> ? Custom<Data, Payload>
   : Target extends Box<Data, Payload> ? Box<Data, Payload>
   : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload>
   : Target extends Center<Data, Payload> ? Center<Data, Payload>

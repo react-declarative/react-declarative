@@ -27,6 +27,7 @@ import CenterLayout from "../../layouts/CenterLayout";
 import StretchLayout from "../../layouts/StretchLayout";
 import HeroLayout from "../../layouts/HeroLayout";
 import ConditionLayout from "../../layouts/ConditionLayout";
+import CustomLayout from "../../layouts/CustomLayout";
 
 import FieldType from "../../../../model/FieldType";
 import IOneProps from "../../../../model/IOneProps";
@@ -187,6 +188,12 @@ export const OneInternal = <
                 <GroupLayout<Data> {...entity} key={currentPath}>
                   <OneInternalMemo<Data> {...one} />
                 </GroupLayout>
+              );
+            } else if (field.type === FieldType.Layout) {
+              return (
+                <CustomLayout {...entity} key={currentPath}>
+                  <OneInternalMemo<Data> {...one} />
+                </CustomLayout>
               );
             } else if (field.type === FieldType.Expansion) {
               return (

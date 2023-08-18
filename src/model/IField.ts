@@ -424,6 +424,16 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     expansionOpened?: boolean;
 
     /**
+     * Коллбек, позволяющий применить собственную компоновку
+     */
+    customLayout?: (props: React.PropsWithChildren<Data & {
+      onChange: (data: Partial<Data>) => void;
+      _fieldData: Data;
+      _fieldParams: IField;
+      _payload: Payload;
+    }>) => React.ReactElement;
+
+    /**
      * Предикат для компоновки Condition
      */
     condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>)

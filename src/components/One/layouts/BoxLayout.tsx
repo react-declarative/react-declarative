@@ -5,11 +5,11 @@ import Box from '@mui/material/Box';
 import IField from '../../../model/IField';
 import IEntity from '../../../model/IEntity';
 import IAnything from '../../../model/IAnything';
-import { IManagedLayout, PickProp } from '../../../model/IManaged';
+import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
-export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data, Payload> {
+export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
     sx?: PickProp<IField<Data, Payload>, 'sx'>;
