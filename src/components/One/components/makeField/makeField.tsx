@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { memo } from 'react';
-import { useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
 /* eslint-disable no-console */
 
@@ -20,7 +20,8 @@ import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
 
 import useDebounce from '../../hooks/useDebounce';
-import useActualValue from '../../../../hooks/useActualValue';
+import useFieldMemory from './useFieldMemory';
+import useFieldState from './useFieldState';
 
 import Group, { IGroupProps } from '../../../common/Group';
 
@@ -36,7 +37,6 @@ import sleep from '../../../../utils/sleep';
 import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
-import useFieldState from './useFieldState';
 
 const DEBOUNCE_SPEED = 800;
 const APPLY_ATTEMPTS = 15;
@@ -178,29 +178,25 @@ export function makeField(
             fieldReadonly: upperReadonly,
         });
 
-        const inputUpdate = useRef(false);
-        const objectUpdate = useRef(false);
-
-        const fieldName = useRef(`${prefix}(${name || 'unknown'})`);
-
-        const fieldReadonly$ = useActualValue(fieldReadonly);
-        const upperReadonly$ = useActualValue(upperReadonly);
-        const focusReadonly$ = useActualValue(focusReadonly);
-
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
             fieldConfig.skipDebounce ? 0 : DEBOUNCE_SPEED
         );
 
-        const debouncedValue$ = useActualValue(debouncedValue);
-        const invalid$ = useActualValue(invalid);
-        const object$ = useActualValue(object);
-        const value$ = useActualValue(value);
-
-        const isMounted = useRef(true);
+        const { memory } = useFieldMemory({
+            fieldName: `${prefix}(${name || 'unknown'})`,
+            lastDebouncedValue: debouncedValue,
+            debouncedValue$: debouncedValue,
+            fieldReadonly$: fieldReadonly,
+            focusReadonly$: focusReadonly,
+            invalid$: invalid,
+            object$: object,
+            upperReadonly$: upperReadonly,
+            value$: value,
+        })
 
         oneConfig.WITH_DISMOUNT_LISTENER && useLayoutEffect(() => () => {
-          isMounted.current = false;
+            memory.isMounted = false;
         }, []);
 
         /**
@@ -227,20 +223,20 @@ export function makeField(
          * Коллбек входящего изменения.
          */
         const handleIncomingObject = useCallback(() => {
-            const { current: invalid } = invalid$;
-            const { current: object } = object$;
-            const { current: value } = value$;
+            const { invalid$: invalid } = memory;
+            const { object$: object } = memory;
+            const { value$: value } = memory;
             const wasInvalid = !!invalid;
-            objectUpdate.current = true;
-            inputUpdate.current = false;
+            memory.objectUpdate = true;
+            memory.inputUpdate = false;
             if (compute) {
                 const result = compute(arrays(object), payload);
                 if (result instanceof Promise) {
                     setLoading(true)
                     result
-                        .then((value) => isMounted.current && setValue(value))
-                        .catch((e) => isMounted.current && fallback(e))
-                        .finally(() => isMounted.current && setLoading(false));
+                        .then((value) => memory.isMounted && setValue(value))
+                        .catch((e) => memory.isMounted && fallback(e))
+                        .finally(() => memory.isMounted && setLoading(false));
                 } else {
                     setValue(result);
                 }
@@ -266,12 +262,12 @@ export function makeField(
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
                 if (isOk) {
-                    inputUpdate.current = true;
+                    memory.inputUpdate = true;
                     setValue(newValue);
                     setInvalid(invalid);
                     invalid !== null && invalidity(name, invalid, payload);
                     change(object, {
-                        [fieldName.current]: !!invalid,
+                        [memory.fieldName]: !!invalid,
                     });
                 }
                 setFieldReadonly(readonly);
@@ -289,14 +285,14 @@ export function makeField(
          * Коллбек исходящего изменения
          */
         const handleOutgoingObject = useCallback(() => {
-            const { current: debouncedValue } = debouncedValue$;
-            const { current: invalid } = invalid$;
-            const { current: object } = object$;
+            const { debouncedValue$: debouncedValue } = memory;
+            const { invalid$: invalid } = memory;
+            const { object$: object } = memory;
             const wasInvalid = !!invalid;
-            if (inputUpdate.current) {
-                inputUpdate.current = false;
-            } else if (objectUpdate.current) {
-                objectUpdate.current = false;
+            if (memory.inputUpdate) {
+                memory.inputUpdate = false;
+            } else if (memory.objectUpdate) {
+                memory.objectUpdate = false;
             } else if (compute) {
                 return;
             } else {
@@ -312,17 +308,15 @@ export function makeField(
                 } else if (invalid !== null) {
                     invalidity(name, invalid, payload);
                     change(object, {
-                        [fieldName.current]: !!invalid,
+                        [memory.fieldName]: !!invalid,
                     });
                 } else if (!deepCompare(object, copy) || wasInvalid) {
                     change(map(copy, payload), {
-                        [fieldName.current]: !!invalid,
+                        [memory.fieldName]: !!invalid,
                     });
                 }
             }
         }, []);
-
-        const lastDebouncedValue = useRef<Value>(debouncedValue);
 
         /**
          * Очередь применения изменений из объекта формы. Если прилетело
@@ -338,11 +332,11 @@ export function makeField(
                 flush();
                 return;
             }
-            if (lastDebouncedValue.current === debouncedValue) {
+            if (memory.lastDebouncedValue === debouncedValue) {
                 handleIncomingObject();
             }
             handleOutgoingObject();
-            lastDebouncedValue.current = debouncedValue;
+            memory.lastDebouncedValue = debouncedValue;
         }, [debouncedValue, object]);
 
         /*
@@ -374,7 +368,7 @@ export function makeField(
          */
         const waitForApply = useCallback(async () => {
             for (let i = 0; i !== APPLY_ATTEMPTS; i++) {
-                if (!inputUpdate.current && !objectUpdate.current) {
+                if (!memory.inputUpdate && !memory.objectUpdate) {
                     break;
                 }
                 sleep(APPLY_DELAY);
@@ -402,15 +396,15 @@ export function makeField(
         const handleChangeSync = useCallback((newValue: Value, {
             skipReadonly,
         }: IChangeConfig = {}) => {
-            const { current: fieldReadonly } = fieldReadonly$;
-            const { current: upperReadonly } = upperReadonly$;
-            if (inputUpdate.current) {
+            const { fieldReadonly$: fieldReadonly } = memory;
+            const { upperReadonly$: upperReadonly } = memory;
+            if (memory.inputUpdate) {
                 return;
             }
-            if (objectUpdate.current) {
+            if (memory.objectUpdate) {
                 return;
             }
-            if (!isMounted.current) {
+            if (!memory.isMounted) {
                 return;
             }
             if (fieldReadonly && !skipReadonly) {
@@ -442,9 +436,9 @@ export function makeField(
          * фокуса
          */
         const handleFocus = useCallback(() => {
-            const { current: fieldReadonly } = fieldReadonly$;
-            const { current: upperReadonly } = upperReadonly$;
-            if (!isMounted.current) {
+            const { fieldReadonly$: fieldReadonly } = memory;
+            const { upperReadonly$: upperReadonly } = memory;
+            if (!memory.isMounted) {
                 return;
             }
             if (!fieldReadonly && !upperReadonly) {
@@ -476,9 +470,9 @@ export function makeField(
         };
 
         const computeReadonly = useCallback(() => {
-            const { current: fieldReadonly } = fieldReadonly$;
-            const { current: upperReadonly } = upperReadonly$;
-            const { current: focusReadonly } = focusReadonly$;
+            const { fieldReadonly$: fieldReadonly } = memory;
+            const { upperReadonly$: upperReadonly } = memory;
+            const { focusReadonly$: focusReadonly } = memory;
             let isReadonly = false;
             isReadonly = isReadonly || upperReadonly;
             if (!fieldConfig.skipFocusReadonly) {
