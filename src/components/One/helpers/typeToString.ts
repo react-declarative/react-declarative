@@ -1,0 +1,37 @@
+const fieldsCache = [
+    'custom-layout',
+    'switch-field',
+    'line-field',
+    'file-field',
+    'group-layout',
+    'paper-layout',
+    'outline-layout',
+    'expansion-layout',
+    'radio-field',
+    'checkbox-field',
+    'text-field',
+    'date-field',
+    'time-field',
+    'progress-field',
+    'component-field',
+    'slider-field',
+    'combo-field',
+    'choose-field',
+    'init-field',
+    'complete-field',
+    'items-field',
+    'rating-field',
+    'typography-field',
+    'fragment-layout',
+    'div-layout',
+    'box-layout',
+    'tabs-layout',
+    'hero-layout',
+    'center-layout',
+    'stretch-layout',
+    'condition-layout',
+];
+
+const fieldsMap = fieldsCache.reduce<Record<symbol, string>>((acm, cur) => ({ ...acm, [Symbol.for(cur)]: cur }), {});
+
+export const typeToString = (type: symbol | string) => fieldsMap[type] || type.toString();

@@ -44,6 +44,10 @@ const useStyles = makeStyles<{
     position: "fixed",
     top,
   },
+  headerNone: {
+    visibility: "hidden",
+    pointerEvents: "none",
+  },
   adjust: {
     paddingBottom: HEADER_HEIGHT,
   },
@@ -111,7 +115,7 @@ export const TabContent = ({
       return () => document.removeEventListener("scroll", handler);
     }
     return undefined;
-  }, [menuRef.current]);
+  }, [menuRef.current, loading]);
 
   const activeId = useMemo(() => {
     return items.find(({ active }) => active)?.id || "unknown";
@@ -121,42 +125,44 @@ export const TabContent = ({
     <Box ref={elementRef} className={classes.root}>
       <Box
         className={classNames(classes.header, {
+          [classes.headerNone]: !items.length,
           [classes.headerAbsolute]: !fixedPos,
           [classes.headerFixed]: fixedPos,
         })}
       >
-        {!!items.length ||
-          (!!loading && (
-            <Paper className={classes.paper}>
-              <Tabs
-                variant="scrollable"
-                indicatorColor="primary"
-                value={activeId}
+        <Paper className={classes.paper}>
+          <Tabs
+            variant="scrollable"
+            indicatorColor="primary"
+            value={activeId}
+            classes={{
+              root: classes.tabsRoot,
+              indicator: classes.indicator,
+            }}
+            onChange={(_, value) => onChange(value)}
+          >
+            {items.map(({ id, label, disabled, icon: Icon }, idx) => (
+              <Tab
+                key={`${id}-${idx}`}
+                label={label}
+                value={id}
+                disabled={disabled}
+                icon={Icon && <Icon />}
+                iconPosition="start"
                 classes={{
-                  root: classes.tabsRoot,
-                  indicator: classes.indicator,
+                  root: classes.tabRoot,
                 }}
-                onChange={(_, value) => onChange(value)}
-              >
-                {items.map(({ id, label, disabled, icon: Icon }, idx) => (
-                  <Tab
-                    key={`${id}-${idx}`}
-                    label={label}
-                    value={id}
-                    disabled={disabled}
-                    icon={Icon && <Icon />}
-                    iconPosition="start"
-                    classes={{
-                      root: classes.tabRoot,
-                    }}
-                  />
-                ))}
-              </Tabs>
-            </Paper>
-          ))}
+              />
+            ))}
+          </Tabs>
+        </Paper>
       </Box>
-      {!!items.length ||
-        (!!loading && <div ref={menuRef} className={classes.adjust} />)}
+      <div
+        ref={menuRef}
+        className={classNames({
+          [classes.adjust]: !!items.length,
+        })}
+      />
       {children}
     </Box>
   );

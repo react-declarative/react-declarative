@@ -32,4 +32,8 @@ export enum FieldType {
     Condition = 'condition-layout',
 };
 
+Object.entries(FieldType).forEach(([key, value]) => {
+    FieldType[key] = Symbol.for(value) as unknown as string;
+});
+
 export default FieldType;

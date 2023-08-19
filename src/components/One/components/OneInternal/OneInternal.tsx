@@ -12,15 +12,17 @@ import {
 
 import isStatefull, { isLayout } from "../../config/isStatefull";
 import createFieldInternal from "../../config/createField";
+import createLayout from "../../config/createLayout";
 
 import { useOneState } from "../../context/StateProvider";
+
+import { typeToString } from "../../helpers/typeToString";
 
 import FieldType from "../../../../model/FieldType";
 import IOneProps from "../../../../model/IOneProps";
 import IEntity from "../../../../model/IEntity";
 import IField from "../../../../model/IField";
 import IAnything from "../../../../model/IAnything";
-import createLayout from "../../config/createLayout";
 
 /**
  * Мы отображаем корневой компонент только после инициализации
@@ -124,7 +126,7 @@ export const OneInternal = <
               field.roles.some((role) => roles.includes(role))
           )
           ?.map((field, index) => {
-            const currentPath = `${prefix}.${field.type}[${index}]`;
+            const currentPath = `${prefix}.${typeToString(field.type)}[${index}]`;
             const entity: IEntity<Data> = {
               invalidity: field.invalidity || invalidity,
               readonly: readonly || field.readonly,
