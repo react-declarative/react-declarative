@@ -13,7 +13,7 @@ export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends 
 }
 
 interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const DivLayout = <Data extends IAnything = IAnything>({

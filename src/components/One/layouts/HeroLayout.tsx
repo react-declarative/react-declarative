@@ -159,7 +159,7 @@ export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends
 }
 
 interface IHeroLayoutPrivate {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 interface IBreakpoints {

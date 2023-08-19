@@ -18,7 +18,7 @@ export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> exte
 }
 
 interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

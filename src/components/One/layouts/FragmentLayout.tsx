@@ -14,7 +14,7 @@ export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
 }
 
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     ready: PickProp<IEntity<Data>, 'ready'>;
 }
 
@@ -44,7 +44,7 @@ export const FragmentLayout = <Data extends IAnything = IAnything>({
             </Fragment>
         );
     } else {
-        return null;
+        return <Fragment />;
     }
 };
 

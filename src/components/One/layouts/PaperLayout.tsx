@@ -23,7 +23,7 @@ export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
 }
 
 interface IPaperLayoutPrivate {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

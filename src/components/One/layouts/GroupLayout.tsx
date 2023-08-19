@@ -13,7 +13,7 @@ import makeLayout from "../components/makeLayout/makeLayout";
 export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {}
 
 interface IGroupLayoutPrivate {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

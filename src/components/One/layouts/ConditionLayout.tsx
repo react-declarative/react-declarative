@@ -20,7 +20,7 @@ export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
 }
 
 interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   fallback: PickProp<IEntity<Data>, "fallback">;
   ready: PickProp<IEntity<Data>, "ready">;
   object: PickProp<IEntity<Data>, "object">;

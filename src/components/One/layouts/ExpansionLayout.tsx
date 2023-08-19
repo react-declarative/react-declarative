@@ -14,7 +14,7 @@ import makeLayout from "../components/makeLayout/makeLayout";
 export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {}
 
 interface IExpansionLayoutPrivate {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

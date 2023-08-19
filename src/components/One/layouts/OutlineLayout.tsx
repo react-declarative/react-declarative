@@ -18,7 +18,7 @@ export interface IOutlineLayoutProps<Data = IAnything, Payload = IAnything> exte
 }
 
 interface IOutlineLayoutPrivate {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

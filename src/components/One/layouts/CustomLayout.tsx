@@ -43,7 +43,7 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
 ];
 
 interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

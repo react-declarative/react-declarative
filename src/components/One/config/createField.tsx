@@ -27,46 +27,37 @@ import InitField from "../fields/InitField";
 
 const Fragment = () => <></>;
 
-export const createField = <Data extends IAnything = IAnything>(entity: IEntity<Data>, currentPath = "") => {
+const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = {
+  [FieldType.Component]: ComponentField,
+  [FieldType.Text]: TextField,
+  [FieldType.Line]: LineField,
+  [FieldType.Radio]: RadioField,
+  [FieldType.Switch]: SwitchField,
+  [FieldType.Checkbox]: CheckboxField,
+  [FieldType.Progress]: ProgressField,
+  [FieldType.Slider]: SliderField,
+  [FieldType.Combo]: ComboField,
+  [FieldType.Items]: ItemsField,
+  [FieldType.Rating]: RatingField,
+  [FieldType.Typography]: TypographyField,
+  [FieldType.Date]: DateField,
+  [FieldType.Time]: TimeField,
+  [FieldType.File]: FileField,
+  [FieldType.Choose]: ChooseField,
+  [FieldType.Complete]: CompleteField,
+  [FieldType.Init]: InitField,
+};
+
+export const createField = <Data extends IAnything = IAnything>(
+  entity: IEntity<Data>,
+  currentPath = ""
+) => {
   const { type } = entity;
+  let Field: React.ComponentType<IEntity<Data>> | undefined;
   if (entity.hidden) {
     return <Fragment />;
-  } else if (type === FieldType.Text) {
-    return <TextField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.File) {
-    return <FileField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Line) {
-    return <LineField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Radio) {
-    return <RadioField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Switch) {
-    return <SwitchField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Checkbox) {
-    return <CheckboxField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Progress) {
-    return <ProgressField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Component) {
-    return <ComponentField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Slider) {
-    return <SliderField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Combo) {
-    return <ComboField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Items) {
-    return <ItemsField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Rating) {
-    return <RatingField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Typography) {
-    return <TypographyField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Date) {
-    return <DateField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Time) {
-    return <TimeField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Choose) {
-    return <ChooseField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Complete) {
-    return <CompleteField<Data> {...entity} key={currentPath} />;
-  } else if (type === FieldType.Init) {
-    return <InitField {...entity} key={currentPath} />;
+  } else if ((Field = fieldMap[type])) {
+    return <Field {...entity} key={currentPath} />;
   } else {
     throw new Error("FieldFactory unknown key type");
   }

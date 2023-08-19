@@ -2896,7 +2896,7 @@ declare module 'react-declarative/components/One/layouts/FragmentLayout' {
         isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     }
     interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
         ready: PickProp<IEntity<Data>, 'ready'>;
     }
     /**
@@ -2904,11 +2904,11 @@ declare module 'react-declarative/components/One/layouts/FragmentLayout' {
       * Потомки передаются насквозь...
       */
     export const FragmentLayout: {
-        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
+        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element | null;
+        <Data extends unknown = any>({ children, isVisible, ready, }: IFragmentLayoutProps<Data, any> & IFragmentLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -2925,7 +2925,7 @@ declare module 'react-declarative/components/One/layouts/DivLayout' {
         style?: PickProp<IField<Data, Payload>, 'style'>;
     }
     interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const DivLayout: {
         <Data extends unknown = any>({ children, className, style, }: IDivLayoutProps<Data, any> & IDivLayoutPrivate<Data>): JSX.Element;
@@ -2950,7 +2950,7 @@ declare module 'react-declarative/components/One/layouts/BoxLayout' {
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
     }
     interface IBoxLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const BoxLayout: {
         <Data extends unknown = any>({ children, className, style, sx, }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
@@ -2983,7 +2983,7 @@ declare module 'react-declarative/components/One/layouts/TabsLayout' {
         tabBackground?: PickProp<IField<Data, Payload>, 'tabBackground'>;
     }
     interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const TabsLayout: {
         <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
@@ -3009,7 +3009,7 @@ declare module 'react-declarative/components/One/layouts/CenterLayout' {
         style?: PickProp<IField<Data, Payload>, 'style'>;
     }
     interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const CenterLayout: {
         <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
@@ -3034,7 +3034,7 @@ declare module 'react-declarative/components/One/layouts/StretchLayout' {
         style?: PickProp<IField<Data, Payload>, 'style'>;
     }
     interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const StretchLayout: {
         <Data extends unknown = any>({ children, className, style, innerPadding: padding, }: IStretchLayoutProps<Data, any> & IStretchLayoutPrivate<Data>): JSX.Element;
@@ -3054,7 +3054,7 @@ declare module 'react-declarative/components/One/layouts/GroupLayout' {
     export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {
     }
     interface IGroupLayoutPrivate {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const GroupLayout: {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
@@ -3078,7 +3078,7 @@ declare module 'react-declarative/components/One/layouts/OutlineLayout' {
         innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     }
     interface IOutlineLayoutPrivate {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const OutlineLayout: {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
@@ -3103,7 +3103,7 @@ declare module 'react-declarative/components/One/layouts/PaperLayout' {
         outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
     }
     interface IPaperLayoutPrivate {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const PaperLayout: {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
@@ -3124,7 +3124,7 @@ declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
     export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {
     }
     interface IExpansionLayoutPrivate {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const ExpansionLayout: {
         <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
@@ -3225,7 +3225,7 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
         object: PickProp<IEntity<Data>, 'object'>;
     }
     interface IHeroLayoutPrivate {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const HeroLayout: {
         <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
@@ -3248,7 +3248,7 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
         condition?: PickProp<IField<Data, Payload>, "condition">;
     }
     interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
         fallback: PickProp<IEntity<Data>, "fallback">;
         ready: PickProp<IEntity<Data>, "ready">;
         object: PickProp<IEntity<Data>, "object">;
@@ -3282,7 +3282,7 @@ declare module 'react-declarative/components/One/layouts/CustomLayout' {
         customLayout?: PickProp<IField<Data, Payload>, "customLayout">;
     }
     interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-        children: React.ReactNode;
+        children?: React.ReactNode;
     }
     export const CustomLayout: {
         <Data extends unknown = any>({ children, className, style, sx, customLayout: CustomLayout, ...otherProps }: ICustomLayoutProps<Data, any> & ICustomLayoutPrivate<Data>): JSX.Element;

@@ -16,7 +16,7 @@ export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends 
 }
 
 interface IBoxLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const BoxLayout = <Data extends IAnything = IAnything>({

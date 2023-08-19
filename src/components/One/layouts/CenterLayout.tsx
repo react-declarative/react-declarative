@@ -28,7 +28,7 @@ export interface ICenterLayoutProps<Data = IAnything, Payload = IAnything> exten
 }
 
 interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()({

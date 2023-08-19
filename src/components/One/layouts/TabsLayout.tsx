@@ -35,7 +35,7 @@ export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
 
 interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const useStyles = makeStyles()((theme, _, classes) => ({

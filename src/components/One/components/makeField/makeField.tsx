@@ -175,7 +175,15 @@ export function makeField(
         } = useFieldState({
             dirty: upperDirty,
             disabled: fieldDisabled,
-            fieldReadonly: upperReadonly,
+        }, {
+            compute,
+            name,
+            object,
+            payload,
+            isVisible,
+            isDisabled,
+            isInvalid,
+            isReadonly,
         });
 
         const [debouncedValue, { pending, flush }] = useDebounce(

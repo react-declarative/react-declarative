@@ -1,7 +1,7 @@
 import FieldType from '../../../model/FieldType';
 import IField from '../../../model/IField';
 
-const layouts: FieldType[] = [
+const layouts: Set<FieldType> = new Set([
     FieldType.Group,
     FieldType.Box,
     FieldType.Paper,
@@ -15,12 +15,14 @@ const layouts: FieldType[] = [
     FieldType.Stretch,
     FieldType.Condition,
     FieldType.Layout,
-];
+]);
+
+export const isLayout = (type: FieldType) => layouts.has(type);
 
 /**
  * Компоновки работают как stateless, нам не нужно дожидаться
  * инициализации состояния
  */
-export const isStatefull = ({type, name}: IField) => name && !layouts.includes(type);
+export const isStatefull = ({type, name}: IField) => name && !layouts.has(type);
 
 export default isStatefull;
