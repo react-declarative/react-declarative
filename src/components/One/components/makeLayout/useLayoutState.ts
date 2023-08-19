@@ -1,22 +1,35 @@
 import { useState, useMemo } from "react";
 
+import IAnything from "../../../../model/IAnything";
+import IManaged from "../../../../model/IManaged";
+import IField from "../../../../model/IField";
+
 interface IState {
     disabled: boolean;
     readonly: boolean;
     visible: boolean;
 }
 
-interface IInitialData extends Omit<IState, keyof {
-    readonly: never;
-    visible: never;
-}> {}
+interface IParams {
+    payload: IAnything;
+    object: IManaged["object"];
+    isVisible: Exclude<IField["isVisible"], undefined>;
+    isDisabled: Exclude<IField["isDisabled"], undefined>;
+    isReadonly: Exclude<IField["isReadonly"], undefined>;
+}
 
-export const useLayoutState = (initialData: IInitialData) => {
+export const useLayoutState = ({
+    object,
+    payload,
+    isVisible,
+    isDisabled,
+    isReadonly,
+}: IParams) => {
 
     const [state, setState] = useState<IState>(() => ({
-        readonly: false,
-        visible: true,
-        ...initialData
+        disabled: isDisabled(object, payload),
+        visible: isVisible(object, payload),
+        readonly: isReadonly(object, payload),
     }));
 
     const action = useMemo(() => ({
