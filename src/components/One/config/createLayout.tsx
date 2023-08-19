@@ -24,21 +24,21 @@ const Fragment = () => <></>;
 
 type Layout = (props: React.PropsWithChildren<IEntity>) => React.ReactElement;
 
-const layoutMap: { [key in FieldType]?: Layout } = {
-  [FieldType.Group]: GroupLayout,
-  [FieldType.Box]: BoxLayout,
-  [FieldType.Paper]: PaperLayout,
-  [FieldType.Outline]: OutlineLayout,
-  [FieldType.Expansion]: ExpansionLayout,
-  [FieldType.Div]: DivLayout,
-  [FieldType.Tabs]: TabsLayout,
-  [FieldType.Hero]: HeroLayout,
-  [FieldType.Fragment]: FragmentLayout,
-  [FieldType.Center]: CenterLayout,
-  [FieldType.Stretch]: StretchLayout,
-  [FieldType.Condition]: ConditionLayout,
-  [FieldType.Layout]: CustomLayout,
-};
+const layoutMap = new Map<FieldType, Layout>([
+  [FieldType.Group, GroupLayout],
+  [FieldType.Box, BoxLayout],
+  [FieldType.Paper, PaperLayout],
+  [FieldType.Outline, OutlineLayout],
+  [FieldType.Expansion, ExpansionLayout],
+  [FieldType.Div, DivLayout],
+  [FieldType.Tabs, TabsLayout],
+  [FieldType.Hero, HeroLayout],
+  [FieldType.Fragment, FragmentLayout],
+  [FieldType.Center, CenterLayout],
+  [FieldType.Stretch, StretchLayout],
+  [FieldType.Condition, ConditionLayout],
+  [FieldType.Layout, CustomLayout],
+]);
 
 export const createLayout = <Data extends IAnything = IAnything>(
   entity: IEntity<Data>,
@@ -49,7 +49,7 @@ export const createLayout = <Data extends IAnything = IAnything>(
   let Layout: Layout | undefined;
   if (entity.hidden) {
     return <Fragment />;
-  } else if ((Layout = layoutMap[type])) {
+  } else if ((Layout = layoutMap.get(type))) {
     return (
       <Layout {...entity} key={currentPath}>
         {children}

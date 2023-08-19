@@ -27,26 +27,26 @@ import InitField from "../fields/InitField";
 
 const Fragment = () => <></>;
 
-const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = {
-  [FieldType.Component]: ComponentField,
-  [FieldType.Text]: TextField,
-  [FieldType.Line]: LineField,
-  [FieldType.Radio]: RadioField,
-  [FieldType.Switch]: SwitchField,
-  [FieldType.Checkbox]: CheckboxField,
-  [FieldType.Progress]: ProgressField,
-  [FieldType.Slider]: SliderField,
-  [FieldType.Combo]: ComboField,
-  [FieldType.Items]: ItemsField,
-  [FieldType.Rating]: RatingField,
-  [FieldType.Typography]: TypographyField,
-  [FieldType.Date]: DateField,
-  [FieldType.Time]: TimeField,
-  [FieldType.File]: FileField,
-  [FieldType.Choose]: ChooseField,
-  [FieldType.Complete]: CompleteField,
-  [FieldType.Init]: InitField,
-};
+const fieldMap = new Map<FieldType, React.ComponentType<IEntity>>([
+  [FieldType.Component, ComponentField],
+  [FieldType.Text, TextField],
+  [FieldType.Line, LineField],
+  [FieldType.Radio, RadioField],
+  [FieldType.Switch, SwitchField],
+  [FieldType.Checkbox, CheckboxField],
+  [FieldType.Progress, ProgressField],
+  [FieldType.Slider, SliderField],
+  [FieldType.Combo, ComboField],
+  [FieldType.Items, ItemsField],
+  [FieldType.Rating, RatingField],
+  [FieldType.Typography, TypographyField],
+  [FieldType.Date, DateField],
+  [FieldType.Time, TimeField],
+  [FieldType.File, FileField],
+  [FieldType.Choose, ChooseField],
+  [FieldType.Complete, CompleteField],
+  [FieldType.Init, InitField],
+]);
 
 export const createField = <Data extends IAnything = IAnything>(
   entity: IEntity<Data>,
@@ -56,7 +56,7 @@ export const createField = <Data extends IAnything = IAnything>(
   let Field: React.ComponentType<IEntity<Data>> | undefined;
   if (entity.hidden) {
     return <Fragment />;
-  } else if ((Field = fieldMap[type])) {
+  } else if ((Field = fieldMap.get(type))) {
     return <Field {...entity} key={currentPath} />;
   } else {
     throw new Error("FieldFactory unknown key type");

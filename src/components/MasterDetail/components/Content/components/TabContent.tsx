@@ -25,23 +25,23 @@ const useStyles = makeStyles<{
 }>()((theme, { headerAdjust: top, width }) => ({
   root: {
     position: "relative",
-    width: '100%',
+    width: "100%",
   },
   header: {
     height: HEADER_HEIGHT,
     background: theme.palette.background.default,
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     zIndex: 9,
     width,
   },
   headerAbsolute: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
   },
   headerFixed: {
-    position: 'fixed',
+    position: "fixed",
     top,
   },
   adjust: {
@@ -49,10 +49,10 @@ const useStyles = makeStyles<{
   },
   paper: {
     width,
-    display: 'flex',
-    alignItems: 'stretch',
-    justifyContent: 'stretch',
-    '& > *': {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    "& > *": {
       flex: 1,
     },
   },
@@ -76,14 +76,17 @@ export const TabContent = ({
   children,
   items,
   onChange,
+  loading,
   withFixedPos,
   fixedPosHeaderAdjust: headerAdjust,
 }: IContentProps) => {
-
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { elementRef, size: { width } } = useElementSize({
-    width: '100%',
+  const {
+    elementRef,
+    size: { width },
+  } = useElementSize({
+    width: "100%",
   });
 
   const [fixedPos, setFixedPos] = useState(false);
@@ -116,40 +119,44 @@ export const TabContent = ({
 
   return (
     <Box ref={elementRef} className={classes.root}>
-      <Box 
+      <Box
         className={classNames(classes.header, {
           [classes.headerAbsolute]: !fixedPos,
           [classes.headerFixed]: fixedPos,
         })}
       >
-        <Paper className={classes.paper}>
-          <Tabs
-            variant="scrollable"
-            indicatorColor="primary"
-            value={activeId}
-            classes={{
-              root: classes.tabsRoot,
-              indicator: classes.indicator,
-            }}
-            onChange={(_, value) => onChange(value)}
-          >
-            {items.map(({ id, label, disabled, icon: Icon }, idx) => (
-              <Tab
-                key={`${id}-${idx}`}
-                label={label}
-                value={id}
-                disabled={disabled}
-                icon={Icon && <Icon />}
-                iconPosition="start"
+        {!!items.length ||
+          (!!loading && (
+            <Paper className={classes.paper}>
+              <Tabs
+                variant="scrollable"
+                indicatorColor="primary"
+                value={activeId}
                 classes={{
-                  root: classes.tabRoot,
+                  root: classes.tabsRoot,
+                  indicator: classes.indicator,
                 }}
-              />
-            ))}
-          </Tabs>
-        </Paper>
+                onChange={(_, value) => onChange(value)}
+              >
+                {items.map(({ id, label, disabled, icon: Icon }, idx) => (
+                  <Tab
+                    key={`${id}-${idx}`}
+                    label={label}
+                    value={id}
+                    disabled={disabled}
+                    icon={Icon && <Icon />}
+                    iconPosition="start"
+                    classes={{
+                      root: classes.tabRoot,
+                    }}
+                  />
+                ))}
+              </Tabs>
+            </Paper>
+          ))}
       </Box>
-      <div ref={menuRef} className={classes.adjust} />
+      {!!items.length ||
+        (!!loading && <div ref={menuRef} className={classes.adjust} />)}
       {children}
     </Box>
   );

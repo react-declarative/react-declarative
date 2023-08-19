@@ -69,13 +69,14 @@ const readState = ({
   fieldReadonly: isReadonly(object, payload),
   invalid: isInvalid(object, payload),
   visible: isVisible(object, payload),
-  loading: isDisabled(object, payload),
+  disabled: isDisabled(object, payload),
 });
 
 export const useFieldState = (initialData: IInitialData, config: IParams) => {
   const [state, setState] = useState<IState>(() => ({
     groupRef: null as never,
     focusReadonly: true,
+    loading: false,
     ...readState(config),
     value: readValue(config),
     ...initialData,
