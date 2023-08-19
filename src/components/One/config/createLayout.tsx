@@ -42,6 +42,9 @@ Object.assign(layoutMap, {
   [FieldType.Layout]: CustomLayout,
 });
 
+/**
+ * Фабрика для создания компоновок
+ */
 export const createLayout = <Data extends IAnything = IAnything>(
   entity: IEntity<Data>,
   children: React.ReactNode,

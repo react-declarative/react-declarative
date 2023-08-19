@@ -12,7 +12,7 @@ import {
 
 import isStatefull, { isLayout } from "../../config/isStatefull";
 import createFieldInternal from "../../config/createField";
-import createLayout from "../../config/createLayout";
+import createLayoutInternal from "../../config/createLayout";
 
 import { useOneState } from "../../context/StateProvider";
 
@@ -71,6 +71,7 @@ export const OneInternal = <
   focus,
   blur,
   createField = createFieldInternal,
+  createLayout = createLayoutInternal,
 }: IOneInternalProps<Data, Payload, Field>) => {
   const waitingReady = useRef(countStatefull(fields));
   const [focusMap] = useState(
@@ -80,7 +81,7 @@ export const OneInternal = <
     () => new WeakMap<IField, (name: string, payload: Payload) => void>()
   );
   const { object, setObject } = useOneState<Data>();
-  const [hasAnimationFrame, setHasAnimationFrame] = useState(rendered);
+  const [hasAnimationFrame, setHasAnimationFrame] = useState(false);
 
   /**
    * Если в группе нет полей, вызываем инициализацию мануально
@@ -122,10 +123,9 @@ export const OneInternal = <
    * Предотвращает performWorkUntilDeadline stuck
    */
   useEffect(() => {
-    !rendered &&
-      requestAnimationFrame(() => {
-        setHasAnimationFrame(true);
-      });
+    requestAnimationFrame(() => {
+      setHasAnimationFrame(true);
+    });
   }, []);
 
   if (!hasAnimationFrame) {
@@ -179,6 +179,8 @@ export const OneInternal = <
               prefix: currentPath,
               readonly: readonly || field.readonly,
               outlinePaper: entity.outlinePaper,
+              createField,
+              createLayout,
               fields,
               roles,
               handler: object,

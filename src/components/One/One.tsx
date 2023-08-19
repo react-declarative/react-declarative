@@ -11,11 +11,13 @@ import TypedField from "../../model/TypedField";
 import IOnePublicProps from "../../model/IOnePublicProps";
 
 import createFieldInternal from './config/createField';
+import createLayoutInternal from './config/createLayout';
 
 export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Payload, Field>) => {
 
     const {
         createField = createFieldInternal,
+        createLayout = createLayoutInternal,
         apiRef,
         changeSubject,
         reloadSubject,
@@ -47,6 +49,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         ...otherProps,
         ...wrappedProps,
         createField,
+        createLayout,
     } as unknown as IOneProps<Data, IField<Data>>;
 
     return (

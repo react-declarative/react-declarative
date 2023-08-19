@@ -37,6 +37,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   createField?: (entity: IEntity<Data>, currentPath: string) => React.ReactElement;
   /**
+   * Фабрика для создания компоновок пользователя
+   */
+  createLayout?: (entity: IEntity<Data>, children: React.ReactNode, currentPath: string) => React.ReactElement;
+  /**
    * Класс корневой группы
    */
   className?: string;

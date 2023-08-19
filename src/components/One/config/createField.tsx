@@ -50,6 +50,9 @@ Object.assign(fieldMap, {
   [FieldType.Init]: InitField,
 });
 
+/**
+ * Фабрика для создания полей
+ */
 export const createField = <Data extends IAnything = IAnything>(
   entity: IEntity<Data>,
   currentPath = ""
