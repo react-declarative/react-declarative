@@ -518,6 +518,10 @@ export function makeField(
             ...title && { title },
         };
 
+        if (!visible) {
+            return null;
+        }
+
         return (
             <Group
                 ref={handleGroupRef}

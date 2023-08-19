@@ -43,6 +43,7 @@ export function makeLayout<T extends ILayout<any>>(
 
     const component = <Data extends IAnything = IAnything>({
         className,
+        object: upperObject,
         isVisible = DEFAULT_IS_VISIBLE,
         isReadonly = DEFAULT_IS_READONLY,
         isDisabled = DEFAULT_IS_DISABLED,
@@ -54,7 +55,9 @@ export function makeLayout<T extends ILayout<any>>(
         const { classes } = useStyles();
 
         const payload = useOnePayload();
-        const { object } = useOneState<Data>();
+        const { object: stateObject } = useOneState<Data>();
+
+        const object = stateObject || upperObject;
 
         const {
             state: {
@@ -76,17 +79,22 @@ export function makeLayout<T extends ILayout<any>>(
         });
 
         useEffect(() => {
-            if (object) {
-                setReadonly(isReadonly(object, payload));
-                setDisabled(isDisabled(object, payload));
-                setVisible(isVisible(object, payload));
-            }
+            const disabled = isDisabled(object, payload);
+            const visible = isVisible(object, payload);
+            const readonly = isReadonly(object, payload);
+            setReadonly(readonly);
+            setDisabled(disabled);
+            setVisible(visible);
             /**
             * Отображаем форму только после отклика всех
             * полей
             */
-           ready();
+           !visible && ready();
         }, [object]);
+
+        if (!visible) {
+            return null;
+        }
 
         return (
             <Component
@@ -96,6 +104,7 @@ export function makeLayout<T extends ILayout<any>>(
                     [classes.readonly]: readonly,
                 })}
                 ready={ready}
+                object={object}
                 {...otherProps}
             />
         );

@@ -83,6 +83,21 @@ export const OneInternal = <
   const [hasAnimationFrame, setHasAnimationFrame] = useState(rendered);
 
   /**
+   * Если в группе нет полей, вызываем инициализацию мануально
+   */
+  useEffect(() => {
+    if (fields) {
+      const { length: total } = fields
+        .filter(isStatefull)
+        .filter(({ hidden }) => !hidden)
+        .filter(({ type }) => type === FieldType.Init)
+      total == 0 && ready();
+      return;
+    }
+    ready();
+  }, []);
+
+  /**
    * Изменяем локальный объект, сообщаем вышестоящему
    * компоненту о изменениях
    */

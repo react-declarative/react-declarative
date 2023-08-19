@@ -3314,7 +3314,7 @@ declare module 'react-declarative/components/One/fields/CheckboxField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3351,7 +3351,7 @@ declare module 'react-declarative/components/One/fields/FileField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3386,7 +3386,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3410,7 +3410,7 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3444,7 +3444,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3464,7 +3464,7 @@ declare module 'react-declarative/components/One/fields/LineField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3487,7 +3487,7 @@ declare module 'react-declarative/components/One/fields/ProgressField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3514,7 +3514,7 @@ declare module 'react-declarative/components/One/fields/RadioField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3540,7 +3540,7 @@ declare module 'react-declarative/components/One/fields/RatingField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3575,7 +3575,7 @@ declare module 'react-declarative/components/One/fields/SliderField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3600,7 +3600,7 @@ declare module 'react-declarative/components/One/fields/SwitchField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3649,7 +3649,7 @@ declare module 'react-declarative/components/One/fields/TextField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3682,7 +3682,7 @@ declare module 'react-declarative/components/One/fields/DateField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3715,7 +3715,7 @@ declare module 'react-declarative/components/One/fields/TimeField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3756,7 +3756,7 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3781,7 +3781,7 @@ declare module 'react-declarative/components/One/fields/TypographyField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -3817,7 +3817,7 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default _default;
@@ -6740,7 +6740,7 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
       * - Управляет фокусировкой, мануально ожидая потерю фокуса, эмулируя onBlur
       */
     export function makeField(originalComponent: React.FC<IManaged>, fieldConfig?: IConfig): {
-        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data, any>): JSX.Element;
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: IEntity<Data, any>): JSX.Element | null;
         displayName: string;
     };
     export default makeField;
