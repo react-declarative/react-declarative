@@ -20,7 +20,7 @@ const useStyles = makeStyles()({
     disabled: {
         pointerEvents: 'none',
         touchAction: 'none',
-        opacity: 0.8,
+        opacity: 0.5,
     },
     readonly: {
         pointerEvents: 'none',
@@ -51,7 +51,7 @@ export function makeLayout<T extends ILayout<any>>(
         ready,
         ...otherProps
     }: ILayout<Data>) => {
-
+        
         const { classes } = useStyles();
 
         const payload = useOnePayload();
@@ -71,12 +71,8 @@ export function makeLayout<T extends ILayout<any>>(
                 setVisible,
             },
         } = useLayoutState({
-            isVisible,
-            isDisabled,
-            isReadonly,
-            object,
-            payload,
-        });
+            disabled: upperDisabled,
+        })
 
         useEffect(() => {
             const disabled = isDisabled(object, payload);

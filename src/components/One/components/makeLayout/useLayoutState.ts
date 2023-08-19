@@ -1,35 +1,27 @@
 import { useState, useMemo } from "react";
 
-import IAnything from "../../../../model/IAnything";
-import IManaged from "../../../../model/IManaged";
-import IField from "../../../../model/IField";
-
 interface IState {
     disabled: boolean;
     readonly: boolean;
     visible: boolean;
 }
 
-interface IParams {
-    payload: IAnything;
-    object: IManaged["object"];
-    isVisible: Exclude<IField["isVisible"], undefined>;
-    isDisabled: Exclude<IField["isDisabled"], undefined>;
-    isReadonly: Exclude<IField["isReadonly"], undefined>;
-}
+interface IInitialData extends Omit<IState, keyof {
+    readonly: never;
+    visible: never;
+}> {}
 
-export const useLayoutState = ({
-    object,
-    payload,
-    isVisible,
-    isDisabled,
-    isReadonly,
-}: IParams) => {
+export const useLayoutState = (initialData: IInitialData) => {
 
     const [state, setState] = useState<IState>(() => ({
-        disabled: isDisabled(object, payload),
-        visible: isVisible(object, payload),
-        readonly: isReadonly(object, payload),
+        readonly: false,
+        /**
+         * Позволяет использовать Fiber при рендеринге:
+         * разбивает синхронный рекурсивный рендеринг на
+         * несколько итераций
+         */
+        visible: false,
+        ...initialData
     }));
 
     const action = useMemo(() => ({

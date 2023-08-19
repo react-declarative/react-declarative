@@ -4731,6 +4731,9 @@ declare module 'react-declarative/components/One/components/OneConfig' {
 
 declare module 'react-declarative/components/One/config/createField' {
     import IEntity from "react-declarative/model/IEntity";
+    /**
+      * Фабрика для создания полей
+      */
     export const createField: <Data extends unknown = any>(entity: IEntity<Data, any>, currentPath?: string) => JSX.Element;
     export default createField;
 }

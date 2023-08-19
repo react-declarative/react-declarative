@@ -81,7 +81,6 @@ export const OneInternal = <
     () => new WeakMap<IField, (name: string, payload: Payload) => void>()
   );
   const { object, setObject } = useOneState<Data>();
-  const [hasAnimationFrame, setHasAnimationFrame] = useState(false);
 
   /**
    * Если в группе нет полей, вызываем инициализацию мануально
@@ -119,18 +118,7 @@ export const OneInternal = <
     }
   }, [ready]);
 
-  /**
-   * Предотвращает performWorkUntilDeadline stuck
-   */
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      setHasAnimationFrame(true);
-    });
-  }, []);
-
-  if (!hasAnimationFrame) {
-    return null;
-  } else if (object) {
+  if (object) {
     return (
       <Fragment>
         {fields

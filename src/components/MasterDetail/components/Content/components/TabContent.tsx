@@ -70,6 +70,10 @@ const useStyles = makeStyles<{
     minHeight: TAB_HEIGHT,
     height: TAB_HEIGHT,
   },
+  disabledTab: {
+    opacity: 0.5,
+    cursor: 'not-allowed',
+  },
   indicator: {
     height: 4,
     background: theme.palette.primary.main,
@@ -143,6 +147,9 @@ export const TabContent = ({
           >
             {items.map(({ id, label, disabled, icon: Icon }, idx) => (
               <Tab
+                className={classNames({
+                  [classes.disabledTab]: disabled,
+                })}
                 key={`${id}-${idx}`}
                 label={label}
                 value={id}
