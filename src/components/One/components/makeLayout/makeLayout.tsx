@@ -101,7 +101,7 @@ export function makeLayout<T extends ILayout<any>>(
         );
     };
 
-    component.displayName = `Wrapped${Component.displayName || 'UnknownLayout'}`;
+    component.displayName = `Wrapped${originalComponent.displayName || 'UnknownLayout'}`;
 
     return memo(component) as typeof originalComponent;
 }
