@@ -1,5 +1,6 @@
 import DisplayMode from "../../..//model/DisplayMode";
 import IColumn from "../../..//model/IColumn";
+import { ListHandlerPagination, ListHandlerSortModel } from "../../../model/IListProps";
 
 interface IComputeParams {
     column: IColumn;
@@ -12,6 +13,18 @@ export interface IParams {
     columns: IColumn[];
     fullWidth: number;
     mode: DisplayMode;
+    visibilityRequest: IVisibilityRequest;
+}
+
+type Key = string | number | symbol;
+
+export interface IVisibilityRequest {
+    filterData: Record<string, any>;
+    pagination: ListHandlerPagination;
+    sortModel: ListHandlerSortModel<any>;
+    chips: Record<Key, boolean | undefined>;
+    search: string;
+    payload: any;
 }
 
 const CHECKBOX_WIDTH = 75;

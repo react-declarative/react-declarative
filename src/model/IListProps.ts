@@ -178,7 +178,7 @@ export interface IListProps<
   onLoadStart?: (source: string) => void;
   onLoadEnd?: (isOk: boolean, source: string) => void;
   onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
-  columns: IColumn<RowData, Payload>[];
+  columns: IColumn<FilterData, RowData, Payload>[];
   filters?: Field[];
   handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);

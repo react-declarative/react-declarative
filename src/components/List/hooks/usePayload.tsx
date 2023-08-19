@@ -10,12 +10,12 @@ const PayloadContext = createContext<IAnything>(null as never);
 
 interface IPayloadProviderProps {
     children: React.ReactNode;
-    value?: Exclude<IListProps['payload'], undefined>;
+    value: Exclude<IListProps['payload'], undefined>;
 }
 
 export const PayloadProvider = ({
     children,
-    value,
+    value = {},
 }: IPayloadProviderProps) => {
     const payload = useSingleton(value);
     return (
