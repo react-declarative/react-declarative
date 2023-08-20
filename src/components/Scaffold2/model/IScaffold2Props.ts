@@ -30,7 +30,6 @@ export interface IScaffold2Props<T = Payload> {
     BeforeMenuContent?: React.ComponentType<any>;
     AfterMenuContent?: React.ComponentType<any>;
     Copyright?: React.ComponentType<any>;
-    Loader?: React.ComponentType<any>;
     onAction?: (name: string) => void;
     onOptionClick?: (path: string, id: string) => void;
     onOptionGroupClick?: (path: string, id: string) => void;

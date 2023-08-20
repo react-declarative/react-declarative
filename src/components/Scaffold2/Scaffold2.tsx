@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 
 import Container from './components/Container';
-import LoaderDefault from './components/Loader';
 
 import { createStateManager, StateContextProvider } from './context/StateContext';
 import { PropsContextProvider } from './context/PropsContext';
@@ -25,7 +24,6 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
         payload,
         deps = [],
         throwError,
-        Loader = LoaderDefault,
         ...otherProps
     } = props;
 
@@ -44,20 +42,6 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
         stateContext.doInit();
     }, []);
 
-    const renderInner = useCallback(() => {
-        if (stateContext.loading) {
-            return (
-                <Loader />
-            );
-        } else {
-            return (
-                <>
-                    {children}
-                </>
-            );
-        }
-    }, [stateContext.loading, Loader, children]);
-
     return (
         <StateContextProvider value={stateContext}>
             <PropsContextProvider value={props}>
@@ -69,7 +53,7 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
                     options={stateContext.filteredGroups}
                     {...otherProps}
                 >
-                    {renderInner()}
+                    {children}
                 </Container>
             </PropsContextProvider>  
         </StateContextProvider>
