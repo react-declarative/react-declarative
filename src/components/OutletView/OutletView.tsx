@@ -274,6 +274,25 @@ export const OutletView = <
     renderHandler();
   }, [pathname]);
 
+  const formState = useMemo(() => ({
+    data,
+    hasChanged,
+    hasLoading,
+    id: params && params["id"] || "create",
+    change: (data: Data) => {
+      setData((prevData) => ({
+        ...prevData,
+        ...data,
+      }));
+      setChanged(true);
+    },
+  }), [
+    data,
+    hasChanged,
+    hasLoading,
+    params && params["id"] || "create",
+  ]);
+
   return (
     <Reveal
       className={classNames(className, classes.root)}
@@ -288,6 +307,7 @@ export const OutletView = <
         hasLoading,
         beginSave,
         afterSave,
+        formState,
         data: data[activeOption] || null,
         params,
         onChange: (data: Data[keyof Data], initial = false) =>

@@ -5595,6 +5595,13 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
         onChange: (data: Data, initial?: boolean) => void;
         beginSave: () => Promise<boolean>;
         afterSave: () => Promise<void>;
+        formState: {
+            change: (data: Record<string, Data>) => void;
+            data: Record<string, Data>;
+            hasChanged: boolean;
+            hasLoading: boolean;
+            id: string;
+        };
         activeOption: string;
         readonly: boolean;
         data: Data;
