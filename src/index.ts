@@ -186,6 +186,7 @@ export { default as dayjs } from 'dayjs';
 
 export { DocumentView } from './components';
 export { ScrollTopView } from './components';
+export { OutletView } from './components';
 export { AlertView } from './components';
 export { ImageView } from './components';
 export { ConstraintView } from './components';
@@ -254,6 +255,11 @@ import { MasterDetailMode as MasterDetailModeInternal } from './components';
 
 export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
 export const MasterDetailMode = MasterDetailModeInternal;
+
+import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from './components';
+
+export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
+export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
 
 export { MasterDetail } from './components';
 

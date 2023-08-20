@@ -29,6 +29,7 @@ export * from './SnackProvider';
 
 export * from './ConstraintView';
 export * from './ScrollTopView';
+export * from './OutletView';
 export * from './AlertView';
 export * from './DragDropView';
 export * from './FilesView';

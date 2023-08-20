@@ -149,6 +149,7 @@ declare module 'react-declarative' {
     export { default as dayjs } from 'dayjs';
     export { DocumentView } from 'react-declarative/components';
     export { ScrollTopView } from 'react-declarative/components';
+    export { OutletView } from 'react-declarative/components';
     export { AlertView } from 'react-declarative/components';
     export { ImageView } from 'react-declarative/components';
     export { ConstraintView } from 'react-declarative/components';
@@ -205,6 +206,9 @@ declare module 'react-declarative' {
     import { MasterDetailMode as MasterDetailModeInternal } from 'react-declarative/components';
     export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
     export const MasterDetailMode: typeof MasterDetailModeInternal;
+    import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from 'react-declarative/components';
+    export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
+    export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
     export { MasterDetail } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -2200,6 +2204,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/SnackProvider';
     export * from 'react-declarative/components/ConstraintView';
     export * from 'react-declarative/components/ScrollTopView';
+    export * from 'react-declarative/components/OutletView';
     export * from 'react-declarative/components/AlertView';
     export * from 'react-declarative/components/DragDropView';
     export * from 'react-declarative/components/FilesView';
@@ -4075,6 +4080,13 @@ declare module 'react-declarative/components/ScrollTopView' {
     export { default } from 'react-declarative/components/ScrollTopView/ScrollTopView';
 }
 
+declare module 'react-declarative/components/OutletView' {
+    export * from 'react-declarative/components/OutletView/OutletView';
+    export * from 'react-declarative/components/OutletView/model/IOutlet';
+    export * from 'react-declarative/components/OutletView/model/IOutletProps';
+    export { default } from 'react-declarative/components/OutletView/OutletView';
+}
+
 declare module 'react-declarative/components/AlertView' {
     export * from 'react-declarative/components/AlertView/AlertView';
     export { default } from 'react-declarative/components/AlertView/AlertView';
@@ -5558,6 +5570,40 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
     export default ScrollTopView;
 }
 
+declare module 'react-declarative/components/OutletView/OutletView' {
+    import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ waitForChangesDelay, initialData, routes, params, payload: upperPayload, deps, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, }: IOutletViewProps<Data, Payload, Params>) => JSX.Element | null;
+    export default OutletView;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOutlet' {
+    import * as React from 'react';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IOutletProps from 'react-declarative/components/OutletView/model/IOutletProps';
+    export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything> {
+        id: string;
+        element: (props: IOutletProps<Data, Payload, Params>) => React.ReactElement;
+        isActive: (pathname: string) => boolean;
+    }
+    export default IOutlet;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOutletProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
+        onChange: (data: Data, initial?: boolean) => void;
+        beginSave: () => Promise<boolean>;
+        afterSave: () => Promise<void>;
+        activeOption: string;
+        data: Data;
+        hasChanged: boolean;
+        hasLoading: boolean;
+        params: Params;
+        payload: Payload;
+    }
+    export default IOutletProps;
+}
+
 declare module 'react-declarative/components/AlertView/AlertView' {
     import { StackProps } from '@mui/material/Stack';
     interface IAlert {
@@ -6786,6 +6832,27 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
         size?: ButtonProps['size'];
     }
     export default IActionTriggerProps;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOutletViewProps' {
+    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+    import IAnything from "react-declarative/model/IAnything";
+    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
+    export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> {
+        waitForChangesDelay?: number;
+        history: BrowserHistory | MemoryHistory | HashHistory;
+        payload?: Payload | (() => Payload);
+        params?: Params;
+        deps?: any[];
+        routes: IOutlet<Data[keyof Data], Payload, Params>[];
+        initialData?: Data;
+        onChange: (data: Data) => void;
+        onSubmit: (data: Data) => (boolean | Promise<boolean>);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (error: Error) => void;
+    }
+    export default IOutletViewProps;
 }
 
 declare module 'react-declarative/components/FadeView/components/FadeContainer' {
