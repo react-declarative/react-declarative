@@ -22,6 +22,7 @@ import queued from "../../utils/hof/queued";
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
+const APPEAR_DELAY = 500;
 
 const Fragment = () => <></>;
 
@@ -38,6 +39,7 @@ export const OutletView = <
 >({
   className,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
+  appearAnimationDelay = APPEAR_DELAY,
   initialData = {} as Data,
   animation,
   routes,
@@ -76,6 +78,7 @@ export const OutletView = <
 
   const hasChanged$ = useActualValue(hasChanged);
   const hasLoading$ = useActualValue(hasLoading);
+  const pathname$ = useActualValue(pathname);
   const data$ = useActualValue(data);
 
   const leaveSubject = useSubject<void>();
@@ -249,6 +252,8 @@ export const OutletView = <
   const renderHandler = useMemo(
     () =>
       queued(async () => {
+        const unblock = history.block(() => {});
+        const { current: pathname } = pathname$;
         setAppear(true);
         await waitForAppear();
         const target = routes.find(({ isActive }) => isActive(pathname));
@@ -260,7 +265,10 @@ export const OutletView = <
           setComponent(() => Fragment);
           setActiveOption("");
         }
+        await sleep(appearAnimationDelay);
         setAppear(false);
+        await waitForAppear();
+        unblock();
       }),
     []
   );

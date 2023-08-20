@@ -11,6 +11,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     onChange: never;
     onSubmit: never;
 }> {
+    appearAnimationDelay?: number;
     waitForChangesDelay?: number;
     history: BrowserHistory | MemoryHistory | HashHistory;
     animation?: IRevealProps['animation'];
