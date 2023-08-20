@@ -157,6 +157,9 @@ export const Switch = ({
 
   useEffect(() => {
     const handleLocation = (update: Update) => {
+      if (update.action === 'REPLACE') {
+        return;
+      }
       if (update.location.pathname !== location.pathname) {
         const newLocation = { ...update.location };
         setLocation(newLocation);
