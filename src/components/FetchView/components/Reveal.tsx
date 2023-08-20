@@ -2,9 +2,11 @@ import * as React from 'react';
 
 import { makeStyles, keyframes } from '../../../styles';
 
+import Box, { BoxProps } from '@mui/material/Box';
+
 import classNames from '../../../utils/classNames';
 
-export interface IRevealProps extends React.HTMLProps<HTMLDivElement> {
+export interface IRevealProps extends BoxProps {
     animation?: 'slideDown' | 'fadeIn' | 'scale' | 'none';
     appear?: boolean;
 }
@@ -60,14 +62,14 @@ export const Reveal = ({
     };
     
     return (
-        <div
+        <Box
             className={classNames(className, {
                 [animationMap[animation]]: appear,
             })}
             {...otherProps}
         >
             {children}
-        </div>
+        </Box>
     );
 }
 

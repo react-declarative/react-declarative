@@ -1,6 +1,10 @@
 import * as React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { makeStyles } from "../../styles";
+
+import { Reveal } from "../FetchView";
+
 import useChangeSubject from "../../hooks/useChangeSubject";
 import useRenderWaiter from "../../hooks/useRenderWaiter";
 import useActualValue from "../../hooks/useActualValue";
@@ -12,33 +16,53 @@ import IOutletViewProps from "./model/IOutletViewProps";
 import IAnything from "../../model/IAnything";
 
 import sleep from "../../utils/sleep";
+import classNames from "../../utils/classNames";
+import queued from "../../utils/hof/queued";
 
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
+
+const Fragment = () => <></>;
+
+const useStyles = makeStyles()({
+  root: {
+    width: "100%",
+  },
+});
 
 export const OutletView = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,
   Params = IAnything
 >({
+  className,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   initialData = {} as Data,
+  animation,
   routes,
   params = {} as Params,
   payload: upperPayload = {} as Payload,
-  deps = [],
   history,
   fallback,
   onChange,
   onSubmit,
   onLoadStart,
   onLoadEnd,
+  ...otherProps
 }: IOutletViewProps<Data, Payload, Params>) => {
+  const { classes } = useStyles();
+
   const [data, setData] = useState(initialData);
   const [changed, setChanged] = useState(false);
   const [loading, setLoading] = useState(0);
   const [pathname, setPathname] = useState(history.location.pathname);
+
+  const [component, setComponent] = useState<React.ComponentType<any>>(
+    () => Fragment
+  );
+  const [activeOption, setActiveOption] = useState("");
+  const [appear, setAppear] = useState(false);
 
   const payload = useSingleton(upperPayload);
 
@@ -84,6 +108,7 @@ export const OutletView = <
 
   const unsubscribeRef = useRef<Function | null>();
 
+  const waitForAppear = useRenderWaiter([appear], 800);
   const waitForRender = useRenderWaiter([data, changed], 500);
   const waitForLeave = () => leaveSubject.toPromise();
 
@@ -221,27 +246,51 @@ export const OutletView = <
     }
   };
 
-  return useMemo(() => {
-    const target = routes.find(({ isActive }) => isActive(pathname));
-    if (target) {
-      const { id, element: Element } = target;
-      return (
-        <Element
-          activeOption={id}
-          readonly={hasChanged}
-          hasChanged={hasChanged}
-          hasLoading={hasLoading}
-          beginSave={beginSave}
-          afterSave={afterSave}
-          data={data[id] || null}
-          params={params}
-          onChange={(data, initial = false) => handleChange(id, data, initial)}
-          payload={payload}
-        />
-      );
-    }
-    return null;
-  }, [payload, pathname, loading, data, hasChanged, hasLoading, ...deps]);
+  const renderHandler = useMemo(
+    () =>
+      queued(async () => {
+        setAppear(true);
+        await waitForAppear();
+        const target = routes.find(({ isActive }) => isActive(pathname));
+        if (target) {
+          const { id, element } = target;
+          setActiveOption(id);
+          setComponent(() => element);
+        } else {
+          setComponent(() => Fragment);
+          setActiveOption("");
+        }
+        setAppear(false);
+      }),
+    []
+  );
+
+  useEffect(() => {
+    renderHandler();
+  }, [pathname]);
+
+  return (
+    <Reveal
+      className={classNames(className, classes.root)}
+      {...otherProps}
+      animation={animation}
+      appear={appear}
+    >
+      {React.createElement(component, {
+        activeOption,
+        readonly: hasChanged,
+        hasChanged,
+        hasLoading,
+        beginSave,
+        afterSave,
+        data: data[activeOption] || null,
+        params,
+        onChange: (data: Data[keyof Data], initial = false) =>
+          handleChange(activeOption, data, initial),
+        payload,
+      })}
+    </Reveal>
+  );
 };
 
 export default OutletView;

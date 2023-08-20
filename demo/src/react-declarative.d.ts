@@ -4131,6 +4131,7 @@ declare module 'react-declarative/components/TabsView' {
 
 declare module 'react-declarative/components/FetchView' {
     export * from 'react-declarative/components/FetchView/FetchView';
+    export { Reveal, IRevealProps } from 'react-declarative/components/FetchView/components/Reveal';
     export { default } from 'react-declarative/components/FetchView/FetchView';
 }
 
@@ -5572,7 +5573,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ waitForChangesDelay, initialData, routes, params, payload: upperPayload, deps, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, }: IOutletViewProps<Data, Payload, Params>) => JSX.Element | null;
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
     export default OutletView;
 }
 
@@ -5850,6 +5851,16 @@ declare module 'react-declarative/components/FetchView/FetchView' {
     export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> = IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J> | IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>;
     export const FetchView: <P extends unknown = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any>({ animation, className, style, Loader, Error, onLoadEnd, onLoadStart, children, state, payload, ...otherProps }: IFetchViewProps<P, A, B, C, D, E, F, G, H, I, J>) => JSX.Element;
     export default FetchView;
+}
+
+declare module 'react-declarative/components/FetchView/components/Reveal' {
+    import { BoxProps } from '@mui/material/Box';
+    export interface IRevealProps extends BoxProps {
+        animation?: 'slideDown' | 'fadeIn' | 'scale' | 'none';
+        appear?: boolean;
+    }
+    export const Reveal: ({ children, className, animation, appear, ...otherProps }: IRevealProps) => JSX.Element;
+    export default Reveal;
 }
 
 declare module 'react-declarative/components/WaitView/WaitView' {
@@ -6836,14 +6847,19 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
 
 declare module 'react-declarative/components/OutletView/model/IOutletViewProps' {
     import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+    import { IRevealProps } from "react-declarative/components/FetchView";
+    import { BoxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
     import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
-    export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> {
+    export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
+        onChange: never;
+        onSubmit: never;
+    }> {
         waitForChangesDelay?: number;
         history: BrowserHistory | MemoryHistory | HashHistory;
+        animation?: IRevealProps['animation'];
         payload?: Payload | (() => Payload);
         params?: Params;
-        deps?: any[];
         routes: IOutlet<Data[keyof Data], Payload, Params>[];
         initialData?: Data | (() => Data);
         onChange?: (data: Data) => void;
@@ -6872,16 +6888,6 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
     }
     export const FadeContainer: ({ className, style, color, children, disableBottom, disableRight, zIndex, Fade, selector, }: IFadeContainerProps) => JSX.Element;
     export default FadeContainer;
-}
-
-declare module 'react-declarative/components/FetchView/components/Reveal' {
-    import * as React from 'react';
-    export interface IRevealProps extends React.HTMLProps<HTMLDivElement> {
-        animation?: 'slideDown' | 'fadeIn' | 'scale' | 'none';
-        appear?: boolean;
-    }
-    export const Reveal: ({ children, className, animation, appear, ...otherProps }: IRevealProps) => JSX.Element;
-    export default Reveal;
 }
 
 declare module 'react-declarative/components/Grid/model/IGridProps' {
