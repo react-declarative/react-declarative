@@ -47,7 +47,7 @@ export const OutletView = <
     msg: LEAVE_MESSAGE,
   });
 
-  const hasChanged = !!data && !loading;
+  const hasChanged = changed && !loading;
   const hasLoading = !!loading;
 
   const hasChanged$ = useActualValue(hasChanged);
@@ -111,6 +111,7 @@ export const OutletView = <
       return false;
     }
     await waitForChanges();
+    const unblock = history.block(() => {});
     const { current: data } = data$;
     if (data) {
       let isOk = true;
@@ -131,6 +132,7 @@ export const OutletView = <
         }
       } finally {
         handleLoadEnd(isOk);
+        unblock();
       }
       return isOk;
     } else {
@@ -226,11 +228,12 @@ export const OutletView = <
       return (
         <Element
           activeOption={id}
+          readonly={hasChanged}
           hasChanged={hasChanged}
           hasLoading={hasLoading}
           beginSave={beginSave}
           afterSave={afterSave}
-          data={data[id] || {}}
+          data={data[id] || null}
           params={params}
           onChange={(data, initial = false) => handleChange(id, data, initial)}
           payload={payload}

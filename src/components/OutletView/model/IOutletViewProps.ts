@@ -9,7 +9,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     params?: Params;
     deps?: any[];
     routes: IOutlet<Data[keyof Data], Payload, Params>[];
-    initialData?: Data;
+    initialData?: Data | (() => Data);
     onChange?: (data: Data) => void,
     onSubmit: (data: Data) => (boolean | Promise<boolean>);
     onLoadStart?: () => void;

@@ -5,6 +5,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     beginSave: () => Promise<boolean>;
     afterSave: () => Promise<void>;
     activeOption: string;
+    readonly: boolean;
     data: Data;
     hasChanged: boolean;
     hasLoading: boolean;
