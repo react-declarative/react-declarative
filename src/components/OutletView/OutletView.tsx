@@ -356,7 +356,7 @@ export const OutletView = <
         data: data[activeOption] || null,
         params,
         onChange: (data: Data[keyof Data], initial = false) =>
-          handleChange(activeOption, data, initial),
+          handleChange(activeOption, data, initial && !changed),
         onInvalid: () => setInvalid((prevInvalid) => {
           prevInvalid.add(activeOption);
           return new Set(prevInvalid);
