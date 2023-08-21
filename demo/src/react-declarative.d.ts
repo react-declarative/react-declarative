@@ -5573,7 +5573,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
     export default OutletView;
 }
 
@@ -6862,6 +6862,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
     import { BoxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
     import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
+    import TSubject from "react-declarative/model/TSubject";
     export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
         onChange: never;
         onSubmit: never;
@@ -6880,6 +6881,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
+        changeSubject?: TSubject<[keyof Data, Data]>;
     }
     export default IOutletViewProps;
 }

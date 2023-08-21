@@ -49,15 +49,29 @@ export const OutletView = <
   onSubmit,
   onLoadStart,
   onLoadEnd,
+  changeSubject: upperChangeSubject,
   ...otherProps
 }: IOutletViewProps<Data, Payload, Params>) => {
   const { classes } = useStyles();
+
+  const changeSubject = useSubject(upperChangeSubject);
 
   const [data, setData] = useState(initialData);
   const [invalid, setInvalid] = useState(() => new Set<string>());
   const [changed, setChanged] = useState(false);
   const [loading, setLoading] = useState(0);
   const [pathname, setPathname] = useState(history.location.pathname);
+
+  useEffect(() => changeSubject.subscribe(([key, value]) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+    setInvalid((prevInvalid) => {
+      prevInvalid.delete(key);
+      return new Set(prevInvalid);
+    });
+  }), []);
 
   const [component, setComponent] = useState<React.ComponentType<any>>(
     () => Fragment
@@ -83,7 +97,7 @@ export const OutletView = <
   const data$ = useActualValue(data);
 
   const leaveSubject = useSubject<void>();
-  const changeSubject = useChangeSubject(data);
+  const dataChangeSubject = useChangeSubject(data);
 
   useEffect(
     () => () => {
@@ -94,7 +108,7 @@ export const OutletView = <
 
   useEffect(
     () =>
-      changeSubject.subscribe((data) => {
+    dataChangeSubject.subscribe((data) => {
         onChange && onChange(data, !changed);
       }),
     [onChange]

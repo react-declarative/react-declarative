@@ -6,6 +6,7 @@ import { BoxProps } from "@mui/material";
 
 import IAnything from "../../../model/IAnything";
 import IOutlet from "./IOutlet";
+import TSubject from "../../../model/TSubject";
 
 export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
     onChange: never;
@@ -23,6 +24,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (error: Error) => void;
+    changeSubject?: TSubject<[keyof Data, Data]>;
 }
 
 export default IOutletViewProps;
