@@ -229,6 +229,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     };
 
     const afterSave = async () => {
+        unsubscribeRef.current && unsubscribeRef.current();
         if (isMounted.current) {
             setData(null);
             setInvalid(false);

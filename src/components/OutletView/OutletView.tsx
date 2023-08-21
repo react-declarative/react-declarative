@@ -54,6 +54,7 @@ export const OutletView = <
   const { classes } = useStyles();
 
   const [data, setData] = useState(initialData);
+  const [invalid, setInvalid] = useState(() => new Set<string>());
   const [changed, setChanged] = useState(false);
   const [loading, setLoading] = useState(0);
   const [pathname, setPathname] = useState(history.location.pathname);
@@ -71,11 +72,13 @@ export const OutletView = <
     msg: LEAVE_MESSAGE,
   });
 
-  const hasChanged = changed && !loading;
+  const hasChanged = changed && !loading && !invalid.size;
+  const hasInvalid = !!invalid.size;
   const hasLoading = !!loading;
 
   const hasChanged$ = useActualValue(hasChanged);
   const hasLoading$ = useActualValue(hasLoading);
+  const hasInvalid$ = useActualValue(hasInvalid);
   const pathname$ = useActualValue(pathname);
   const data$ = useActualValue(data);
 
@@ -114,6 +117,7 @@ export const OutletView = <
   const waitForLeave = () => leaveSubject.toPromise();
 
   const afterSave = async () => {
+    unsubscribeRef.current && unsubscribeRef.current();
     setChanged(false);
     await Promise.race([waitForRender(), waitForLeave()]);
   };
@@ -136,6 +140,9 @@ export const OutletView = <
     if (hasLoading$.current) {
       return false;
     }
+    if (hasInvalid$.current) {
+      return false;
+    }
     await waitForChanges();
     const unblock = history.block(() => {});
     const { current: data } = data$;
@@ -143,7 +150,10 @@ export const OutletView = <
       let isOk = true;
       handleLoadStart();
       try {
-        const result = await Promise.resolve(onSubmit(data, { afterSave }));
+        const result = await Promise.resolve(onSubmit(data, { async afterSave() {
+          unblock();
+          await afterSave();
+        } }));
         if (result) {
           await afterSave();
         }
@@ -238,6 +248,10 @@ export const OutletView = <
     pendingData: Data[keyof Data],
     initial: boolean
   ) => {
+    setInvalid((prevInvalid) => {
+      prevInvalid.delete(id);
+      return new Set(prevInvalid);
+    });
     setData((prevData) => ({
       ...prevData,
       [id]: pendingData,
@@ -278,6 +292,7 @@ export const OutletView = <
     data,
     hasChanged,
     hasLoading,
+    hasInvalid,
     id: params && params["id"] || "create",
     change: (data: Data) => {
       setData((prevData) => ({
@@ -290,6 +305,7 @@ export const OutletView = <
     data,
     hasChanged,
     hasLoading,
+    hasInvalid,
     params && params["id"] || "create",
   ]);
 
@@ -301,10 +317,12 @@ export const OutletView = <
       appear={appear}
     >
       {React.createElement(component, {
+        dirty: hasInvalid || hasChanged,
         activeOption,
         readonly: hasChanged,
         hasChanged,
         hasLoading,
+        hasInvalid,
         beginSave,
         afterSave,
         formState,
@@ -312,6 +330,10 @@ export const OutletView = <
         params,
         onChange: (data: Data[keyof Data], initial = false) =>
           handleChange(activeOption, data, initial),
+        onInvalid: () => setInvalid((prevInvalid) => {
+          prevInvalid.add(activeOption);
+          return new Set(prevInvalid);
+        }),
         payload,
       })}
     </Reveal>

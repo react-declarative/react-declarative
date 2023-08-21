@@ -5593,13 +5593,16 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
     import IAnything from "react-declarative/model/IAnything";
     export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
         onChange: (data: Data, initial?: boolean) => void;
+        onInvalid: (name: string, msg: string) => void;
         beginSave: () => Promise<boolean>;
         afterSave: () => Promise<void>;
+        dirty: boolean;
         formState: {
             change: (data: Record<string, Data>) => void;
             data: Record<string, Data>;
             hasChanged: boolean;
             hasLoading: boolean;
+            hasInvalid: boolean;
             id: string;
         };
         activeOption: string;
@@ -5607,6 +5610,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
         data: Data;
         hasChanged: boolean;
         hasLoading: boolean;
+        hasInvalid: boolean;
         params: Params;
         payload: Payload;
     }
