@@ -67,16 +67,20 @@ export const OutletView = <
   const [loading, setLoading] = useState(0);
   const [pathname, setPathname] = useState(history.location.pathname);
 
-  useEffect(() => changeSubject.subscribe(([key, value]) => {
-    setData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-    setInvalid((prevInvalid) => {
-      prevInvalid.delete(key);
-      return new Set(prevInvalid);
-    });
-  }), []);
+  useEffect(
+    () =>
+      changeSubject.subscribe(([key, value]) => {
+        setData((prevData) => ({
+          ...prevData,
+          [key]: value,
+        }));
+        setInvalid((prevInvalid) => {
+          prevInvalid.delete(key);
+          return new Set(prevInvalid);
+        });
+      }),
+    []
+  );
 
   const [state, setState] = useState<IState>(() => ({
     component: Fragment,
@@ -116,7 +120,8 @@ export const OutletView = <
 
   useEffect(
     () =>
-    dataChangeSubject.subscribe((data) => {
+      dataChangeSubject.subscribe((data) => {
+        const { current: changed } = hasChanged$;
         onChange && onChange(data, !changed);
       }),
     [onChange]
@@ -172,10 +177,14 @@ export const OutletView = <
       let isOk = true;
       handleLoadStart();
       try {
-        const result = await Promise.resolve(onSubmit(data, { async afterSave() {
-          unblock();
-          await afterSave();
-        } }));
+        const result = await Promise.resolve(
+          onSubmit(data, {
+            async afterSave() {
+              unblock();
+              await afterSave();
+            },
+          })
+        );
         if (result) {
           await afterSave();
         }
@@ -298,13 +307,10 @@ export const OutletView = <
         } else {
           setState({
             component: Fragment,
-            activeOption: '',
+            activeOption: "",
           });
         }
-        await Promise.race([
-          waitForElement(),
-          sleep(500),
-        ]);
+        await Promise.race([waitForElement(), sleep(500)]);
         setAppear(false);
       }),
     []
@@ -314,26 +320,29 @@ export const OutletView = <
     renderHandler();
   }, [pathname]);
 
-  const formState = useMemo(() => ({
-    data,
-    hasChanged,
-    hasLoading,
-    hasInvalid,
-    id: params && params["id"] || "create",
-    change: (data: Data) => {
-      setData((prevData) => ({
-        ...prevData,
-        ...data,
-      }));
-      setChanged(true);
-    },
-  }), [
-    data,
-    hasChanged,
-    hasLoading,
-    hasInvalid,
-    params && params["id"] || "create",
-  ]);
+  const formState = useMemo(
+    () => ({
+      data,
+      hasChanged,
+      hasLoading,
+      hasInvalid,
+      id: (params && params["id"]) || "create",
+      change: (data: Data) => {
+        setData((prevData) => ({
+          ...prevData,
+          ...data,
+        }));
+        setChanged(true);
+      },
+    }),
+    [
+      data,
+      hasChanged,
+      hasLoading,
+      hasInvalid,
+      (params && params["id"]) || "create",
+    ]
+  );
 
   return (
     <Reveal
@@ -356,11 +365,12 @@ export const OutletView = <
         data: data[activeOption] || null,
         params,
         onChange: (data: Data[keyof Data], initial = false) =>
-          handleChange(activeOption, data, initial && !changed),
-        onInvalid: () => setInvalid((prevInvalid) => {
-          prevInvalid.add(activeOption);
-          return new Set(prevInvalid);
-        }),
+          handleChange(activeOption, data, initial),
+        onInvalid: () =>
+          setInvalid((prevInvalid) => {
+            prevInvalid.add(activeOption);
+            return new Set(prevInvalid);
+          }),
         payload,
       })}
     </Reveal>
