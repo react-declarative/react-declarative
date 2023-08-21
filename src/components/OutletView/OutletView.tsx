@@ -92,7 +92,7 @@ export const OutletView = <
   useEffect(
     () =>
       changeSubject.subscribe((data) => {
-        onChange && onChange(data);
+        onChange && onChange(data, !changed);
       }),
     [onChange]
   );
@@ -143,7 +143,7 @@ export const OutletView = <
       let isOk = true;
       handleLoadStart();
       try {
-        const result = await Promise.resolve(onSubmit(data));
+        const result = await Promise.resolve(onSubmit(data, { afterSave }));
         if (result) {
           await afterSave();
         }

@@ -6869,8 +6869,10 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         params?: Params;
         routes: IOutlet<Data[keyof Data], Payload, Params>[];
         initialData?: Data | (() => Data);
-        onChange?: (data: Data) => void;
-        onSubmit: (data: Data) => (boolean | Promise<boolean>);
+        onChange?: (data: Data, initial: boolean) => void;
+        onSubmit: (data: Data, config: {
+            afterSave: () => Promise<void>;
+        }) => (boolean | Promise<boolean>);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
