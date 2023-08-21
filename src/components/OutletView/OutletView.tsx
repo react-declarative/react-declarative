@@ -31,6 +31,11 @@ const useStyles = makeStyles()({
   },
 });
 
+interface IState {
+  component: React.ComponentType<any>;
+  activeOption: string;
+}
+
 export const OutletView = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,
@@ -73,10 +78,13 @@ export const OutletView = <
     });
   }), []);
 
-  const [component, setComponent] = useState<React.ComponentType<any>>(
-    () => Fragment
-  );
-  const [activeOption, setActiveOption] = useState("");
+  const [state, setState] = useState<IState>(() => ({
+    component: Fragment,
+    activeOption: "",
+  }));
+
+  const { component, activeOption } = state;
+
   const [appear, setAppear] = useState(false);
 
   const payload = useSingleton(upperPayload);
@@ -283,11 +291,15 @@ export const OutletView = <
         const target = routes.find(({ isActive }) => isActive(pathname));
         if (target) {
           const { id, element } = target;
-          setActiveOption(id);
-          setComponent(() => element);
+          setState({
+            component: element,
+            activeOption: id,
+          });
         } else {
-          setComponent(() => Fragment);
-          setActiveOption("");
+          setState({
+            component: Fragment,
+            activeOption: '',
+          });
         }
         await Promise.race([
           waitForElement(),
@@ -331,6 +343,7 @@ export const OutletView = <
       appear={appear}
     >
       {React.createElement(component, {
+        key: activeOption,
         dirty: hasInvalid || hasChanged,
         activeOption,
         readonly: hasChanged,

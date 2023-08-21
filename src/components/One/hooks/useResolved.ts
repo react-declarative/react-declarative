@@ -116,7 +116,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     isRoot.current = true;
                 }
             } else if (handler && !deepCompare(data, handler)) {
-                isMounted.current && setData(objects(assign({}, buildObj(fields, roles), handler)));
+                isMounted.current && setData(objects(assign({}, buildObj(fields, roles), deepClone(handler))));
             }
         };
         const handleUpdateRef = () => {
