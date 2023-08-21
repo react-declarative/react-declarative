@@ -136,9 +136,17 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
             reloadSubject.unsubscribeAll();
             reloadSubject.subscribe(instance.reload);
             changeSubject.unsubscribeAll();
-            changeSubject.subscribe((data) => instance.change(data, true));
+            changeSubject.subscribe((data) => {
+                if (data && data !== data$.current) {
+                    instance.change(data, true);
+                }
+            });
             updateSubject.unsubscribeAll();
-            updateSubject.subscribe((data) => instance.change(data, false));
+            updateSubject.subscribe((data) => {
+                if (data && data !== data$.current) {
+                    instance.change(data, false);
+                }
+            });
         };
         tryResolve();
         handleUpdateRef();
