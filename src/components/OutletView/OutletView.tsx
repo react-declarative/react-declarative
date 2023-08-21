@@ -61,7 +61,11 @@ export const OutletView = <
 
   const changeSubject = useSubject(upperChangeSubject);
 
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(() => ({
+    ...routes.reduce<Data>((acm, { id }) => ({ ...acm, [id]: null }), {} as Data),
+    ...initialData,
+  }));
+
   const [invalid, setInvalid] = useState(() => new Set<string>());
   const [changed, setChanged] = useState(false);
   const [loading, setLoading] = useState(0);
