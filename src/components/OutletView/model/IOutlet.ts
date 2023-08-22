@@ -6,6 +6,7 @@ import IOutletProps from './IOutletProps';
 export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything> {
     id: string;
     element: (props: IOutletProps<Data, Payload, Params>) => React.ReactElement;
+    isAvailable?: (pathname: string) => boolean;
     isActive: (pathname: string) => boolean;
 }
 

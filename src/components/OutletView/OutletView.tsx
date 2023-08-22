@@ -239,7 +239,7 @@ export const OutletView = <
 
     const createRouterSubject = () =>
       history.block(({ retry, location }) => {
-        if (routes.some(({ isActive }) => isActive(location.pathname))) {
+        if (routes.some(({ isActive, isAvailable = isActive }) => isAvailable(location.pathname))) {
           unsubscribeRef.current && unsubscribeRef.current();
           retry();
           return;
