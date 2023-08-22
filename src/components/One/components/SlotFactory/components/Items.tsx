@@ -12,7 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
-import ListBox from '../../common/Listbox';
+import VirtualListBox from '../../common/VirtualListBox';
 
 import compareArray from '../../../../../utils/compareArray';
 import randomString from '../../../../../utils/randomString';
@@ -49,6 +49,7 @@ export const Items = ({
     itemList = [],
     keepSync,
     freeSolo,
+    virtualListBox,
     dirty,
     invalid,
     title,
@@ -158,7 +159,7 @@ export const Items = ({
             onChange={() => null}
             value={EMPTY_ARRAY}
             options={EMPTY_ARRAY}
-            ListboxComponent={ListBox}
+            ListboxComponent={virtualListBox ? VirtualListBox : undefined}
             getOptionLabel={createGetOptionLabel({})}
             renderTags={createRenderTags({})}
             renderInput={createRenderInput(true, true)}
@@ -208,7 +209,7 @@ export const Items = ({
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 readOnly={readonly || unfocused}
-                ListboxComponent={ListBox}
+                ListboxComponent={virtualListBox ? VirtualListBox : undefined}
                 onChange={({ }, value) => handleChange(value)}
                 getOptionLabel={createGetOptionLabel(labels)}
                 value={value}

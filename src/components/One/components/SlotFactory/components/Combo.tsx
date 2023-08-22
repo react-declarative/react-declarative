@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useMemo, useState, useRef } from 'react';
 
 import Async from '../../../../Async';
-import ListBox from '../../common/Listbox';
+import VirtualListBox from '../../common/VirtualListBox';
 
 import { AutocompleteRenderInputParams, AutocompleteRenderOptionState } from "@mui/material/Autocomplete";
 
@@ -42,6 +42,7 @@ export const Combo = ({
   placeholder = "",
   outlined = true,
   itemList = [],
+  virtualListBox,
   keepSync,
   freeSolo,
   title = "",
@@ -139,7 +140,7 @@ export const Combo = ({
       options={EMPTY_ARRAY}
       onChange={() => null}
       freeSolo={freeSolo}
-      ListboxComponent={ListBox}
+      ListboxComponent={virtualListBox ? VirtualListBox : undefined}
       getOptionLabel={createGetOptionLabel({})}
       renderInput={createRenderInput(true, true)}
       renderOption={createRenderOption({})}
@@ -188,7 +189,7 @@ export const Combo = ({
         onBlur={handleBlur}
         onChange={({ }, v) => handleChange(v)}
         getOptionLabel={createGetOptionLabel(labels)}
-        ListboxComponent={ListBox}
+        ListboxComponent={virtualListBox ? VirtualListBox : undefined}
         freeSolo={freeSolo}
         options={options}
         disabled={disabled}

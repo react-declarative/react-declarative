@@ -14,6 +14,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   itemList?: PickProp<IField<Data, Payload>, "itemList">;
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
+  virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
   shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
   keepSync?: PickProp<IField<Data, Payload>, "keepSync">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -41,6 +42,7 @@ export const ComboField = ({
   itemList = [],
   keepSync = true,
   freeSolo = false,
+  virtualListBox = true,
   title = "",
   dirty,
   invalid,
@@ -56,6 +58,7 @@ export const ComboField = ({
     placeholder={placeholder}
     outlined={outlined}
     itemList={itemList}
+    virtualListBox={virtualListBox}
     shouldUpdateItemList={shouldUpdateItemList}
     keepSync={keepSync}
     freeSolo={freeSolo}

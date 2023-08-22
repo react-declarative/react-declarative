@@ -262,6 +262,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     freeSolo?: boolean;
 
     /**
+     * Позволяет включить виртуализацию для FieldType.List и FieldType.Combo
+     */
+    virtualListBox?: boolean;
+
+    /**
      * Варианты выбора для ComboField и ItemsField
      */
     itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>),
