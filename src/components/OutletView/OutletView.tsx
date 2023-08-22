@@ -102,6 +102,9 @@ export const OutletView = <
     msg: LEAVE_MESSAGE,
   });
 
+  const confirmSubject = useSubject<boolean>();
+  const confirmRef = useRef<boolean>(false);
+
   const hasChanged = changed && !loading && !invalid.size;
   const hasInvalid = !!invalid.size;
   const hasLoading = !!loading;
@@ -222,14 +225,21 @@ export const OutletView = <
   );
 
   useEffect(() => {
-    const waitForConfirm = () =>
-      new Promise<boolean>((res) => {
+    const waitForConfirm = () => {
+      if (confirmRef.current) {
+        return confirmSubject.toPromise();
+      }
+      return new Promise<boolean>((res) => {
+        confirmRef.current = true;
         pickConfirm({
           msg: LEAVE_MESSAGE,
         }).then((isOk) => {
+          confirmRef.current = false;
+          confirmSubject.next(isOk);
           res(isOk);
         });
       });
+    };
 
     const handleNavigate = async (retry: () => void) => {
       const isOk = await waitForConfirm();

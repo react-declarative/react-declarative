@@ -141,15 +141,26 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
       isMounted.current = false;
     }, []);
 
+    const confirmSubject = useSubject<boolean>();
+    const confirmRef = useRef<boolean>(false);  
+
     useEffect(() => {
 
-        const waitForConfirm = () => new Promise<boolean>((res) => {
-            pickConfirm({
+        const waitForConfirm = () => {
+            if (confirmRef.current) {
+              return confirmSubject.toPromise();
+            }
+            return new Promise<boolean>((res) => {
+              confirmRef.current = true;
+              pickConfirm({
                 msg: invalid ? INVALID_MESSAGE : LEAVE_MESSAGE,
-            }).then((isOk) => {
+              }).then((isOk) => {
+                confirmRef.current = false;
+                confirmSubject.next(isOk);
                 res(isOk);
-            })
-        });
+              });
+            });
+        };
 
         const handleNavigate = async (retry: () => void) => {
             let isOk = false;
