@@ -171,12 +171,9 @@ export const VirtualView = ({
                 return;
               }
               const { offsetHeight: height } = element;
-              if (height <= minRowHeight$.current) {
-                return;
-              }
               setRowHeightMap((rowHeightMap) => {
                 if (rowHeightMap.get(elementId) !== height) {
-                  rowHeightMap.set(elementId, height);
+                  rowHeightMap.set(elementId, Math.max(height, minRowHeight$.current));
                   return new Map(rowHeightMap);
                 }
                 return rowHeightMap;
@@ -185,10 +182,10 @@ export const VirtualView = ({
           }
           if (element.classList.contains(CHILD_ELEMENT)) {
             const elementId = Number(element.dataset[DATASET_ID]);
-            if (!Number.isNaN(elementId) && height >= minRowHeight$.current) {
+            if (!Number.isNaN(elementId)) {
               setRowHeightMap((rowHeightMap) => {
                 if (rowHeightMap.get(elementId) !== height) {
-                  rowHeightMap.set(elementId, height);
+                  rowHeightMap.set(elementId, Math.max(height, minRowHeight$.current));
                   return new Map(rowHeightMap);
                 }
                 return rowHeightMap;
@@ -302,13 +299,9 @@ export const VirtualView = ({
           resizeObserver.observe(element);
           elementRefMap.set(elementIdx, element);
           setRowHeightMap((rowHeightMap) => {
-            let isChanged = true;
-            isChanged = isChanged && element.offsetHeight >= minRowHeight;
-            isChanged =
-              isChanged &&
-              rowHeightMap.get(elementIdx) !== element.offsetHeight;
+            let isChanged = rowHeightMap.get(elementIdx) !== element.offsetHeight;
             if (isChanged) {
-              rowHeightMap.set(elementIdx, element.offsetHeight);
+              rowHeightMap.set(elementIdx, Math.max(element.offsetHeight, minRowHeight));
               return new Map(rowHeightMap);
             } else {
               return rowHeightMap;

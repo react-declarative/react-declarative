@@ -10,7 +10,7 @@ interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const MIN_ROW_HEIGHT = 54;
-const MAX_POPUP_HEIGHT = 250;
+const MAX_POPUP_HEIGHT = 300;
 
 export const VirtualListBox = forwardRef(({
     children,
@@ -22,6 +22,10 @@ export const VirtualListBox = forwardRef(({
 
     const itemCount = Array.isArray(children) ? children.length : 0;
 
+    const computeHeight = () => itemCount
+        ? Math.min(itemCount * MIN_ROW_HEIGHT, MAX_POPUP_HEIGHT)
+        : MIN_ROW_HEIGHT;
+
     return (
         <div ref={ref}>
             <div ref={elementRef} {...other}>
@@ -29,9 +33,7 @@ export const VirtualListBox = forwardRef(({
                     role={role}
                     sx={{
                         width: size.width,
-                        height: itemCount
-                            ? Math.min(itemCount * MIN_ROW_HEIGHT, MAX_POPUP_HEIGHT)
-                            : MIN_ROW_HEIGHT,
+                        height: `min(${computeHeight()}px, 40vh)`,
                     }}
                     minRowHeight={MIN_ROW_HEIGHT}
                 >
