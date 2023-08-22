@@ -257,6 +257,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     tip?: string[] | ((value: string, data: Data, payload: Payload) => (string[] | Promise<string[]>));
 
     /**
+     * Поле, позволяющее передавать собственные значения в FieldType.Items и FieldType.Combo
+     */
+    freeSolo?: boolean;
+
+    /**
      * Варианты выбора для ComboField и ItemsField
      */
     itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>),

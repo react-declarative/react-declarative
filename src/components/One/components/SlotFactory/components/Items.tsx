@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useMemo, useState, useRef } from 'react';
 
-import { AutocompleteRenderGetTagProps } from "@mui/material/Autocomplete";
+import { AutocompleteRenderGetTagProps, AutocompleteRenderOptionState } from "@mui/material/Autocomplete";
 import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 
 import Autocomplete from "@mui/material/Autocomplete";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import MatTextField from "@mui/material/TextField";
+import Checkbox from '@mui/material/Checkbox';
 import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
@@ -22,7 +23,13 @@ import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
 
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+
 import { IItemsSlot } from '../../../slots/ItemsSlot';
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
 
@@ -40,6 +47,7 @@ export const Items = ({
     outlined = true,
     itemList = [],
     keepSync,
+    freeSolo,
     dirty,
     invalid,
     title,
@@ -93,13 +101,18 @@ export const Items = ({
         return value.map((option: string, index: number) => (
             <Chip
                 variant={outlined ? "outlined" : "filled"}
-                label={labels[option] || option}
+                label={freeSolo ? option : (labels[option] || `${option} (unknown)`)}
                 {...getTagProps({ index })}
             />
         ))
     };
 
-    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || `${v} (unknown)`;
+    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => {
+        if (freeSolo) {
+            return v;
+        }
+        return labels[v] || `${v} (unknown)`;
+    };
 
     const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
         <MatTextField
@@ -120,19 +133,34 @@ export const Items = ({
                 ),
             }}
         />
-    )
+    );
+
+    const createRenderOption = (labels: Record<string, any>) => (props: React.HTMLAttributes<HTMLLIElement>, option: any, state: AutocompleteRenderOptionState) => (
+        <li {...props}>
+            <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={state.selected}
+            />
+            {freeSolo ? option : (labels[option] || `${option} (unknown)`)}
+        </li>
+    );
 
     const Loader = () => (
         <Autocomplete
             multiple
+            disableCloseOnSelect
             loading
             disabled
+            freeSolo={freeSolo}
             onChange={() => null}
             value={EMPTY_ARRAY}
             options={EMPTY_ARRAY}
             getOptionLabel={createGetOptionLabel({})}
             renderTags={createRenderTags({})}
             renderInput={createRenderInput(true, true)}
+            renderOption={createRenderOption({})}
         />
     );
 
@@ -173,6 +201,8 @@ export const Items = ({
         return (
             <Autocomplete
                 multiple
+                disableCloseOnSelect
+                freeSolo={freeSolo}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 readOnly={readonly || unfocused}
@@ -183,6 +213,7 @@ export const Items = ({
                 disabled={disabled}
                 renderTags={createRenderTags(labels)}
                 renderInput={createRenderInput(false, readonly || unfocused)}
+                renderOption={createRenderOption(labels)}
             />
         );
     };

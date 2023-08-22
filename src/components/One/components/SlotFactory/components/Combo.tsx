@@ -3,11 +3,12 @@ import { useMemo, useState, useRef } from 'react';
 
 import Async from '../../../../Async';
 
-import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
+import { AutocompleteRenderInputParams, AutocompleteRenderOptionState } from "@mui/material/Autocomplete";
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
+import Radio from '@mui/material/Radio';
 
 import compareArray from '../../../../../utils/compareArray';
 import randomString from '../../../../../utils/randomString';
@@ -17,7 +18,13 @@ import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
 
+import RadioIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+
 import { IComboSlot } from '../../../slots/ComboSlot';
+
+const icon = <RadioButtonUncheckedIcon fontSize="small" />;
+const checkedIcon = <RadioIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
 
@@ -35,6 +42,7 @@ export const Combo = ({
   outlined = true,
   itemList = [],
   keepSync,
+  freeSolo,
   title = "",
   dirty,
   invalid,
@@ -102,17 +110,37 @@ export const Combo = ({
     />
   );
 
-  const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => labels[v] || `${v} (unknown)`;
+  const createRenderOption = (labels: Record<string, any>) => (props: React.HTMLAttributes<HTMLLIElement>, option: any, state: AutocompleteRenderOptionState) => (
+    <li {...props}>
+        <Radio
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={state.selected}
+        />
+        {freeSolo ? option : (labels[option] || `${option} (unknown)`)}
+    </li>
+  );
+
+  const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => {
+    if (freeSolo) {
+      return v;
+    }
+    return labels[v] || `${v} (unknown)`;
+  };
 
   const Loader = () => (
     <Autocomplete
+      disableCloseOnSelect
       disabled
       loading
       value={null}
       options={EMPTY_ARRAY}
       onChange={() => null}
+      freeSolo={freeSolo}
       getOptionLabel={createGetOptionLabel({})}
       renderInput={createRenderInput(true, true)}
+      renderOption={createRenderOption({})}
     />
   );
 
@@ -152,15 +180,18 @@ export const Combo = ({
 
     return (
       <Autocomplete
+        disableCloseOnSelect
         value={value || null}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={({ }, v) => handleChange(v)}
         getOptionLabel={createGetOptionLabel(labels)}
+        freeSolo={freeSolo}
         options={options}
         disabled={disabled}
         readOnly={readonly || unfocused}
         renderInput={createRenderInput(false, readonly || unfocused)}
+        renderOption={createRenderOption(labels)}
       />
     );
   };
