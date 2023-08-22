@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useMemo, useState, useRef } from 'react';
 
 import Async from '../../../../Async';
+import ListBox from '../../common/Listbox';
 
 import { AutocompleteRenderInputParams, AutocompleteRenderOptionState } from "@mui/material/Autocomplete";
 
@@ -138,6 +139,7 @@ export const Combo = ({
       options={EMPTY_ARRAY}
       onChange={() => null}
       freeSolo={freeSolo}
+      ListboxComponent={ListBox}
       getOptionLabel={createGetOptionLabel({})}
       renderInput={createRenderInput(true, true)}
       renderOption={createRenderOption({})}
@@ -186,6 +188,7 @@ export const Combo = ({
         onBlur={handleBlur}
         onChange={({ }, v) => handleChange(v)}
         getOptionLabel={createGetOptionLabel(labels)}
+        ListboxComponent={ListBox}
         freeSolo={freeSolo}
         options={options}
         disabled={disabled}
@@ -204,6 +207,10 @@ export const Combo = ({
         itemList = arrays(itemList) || [];
         const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
         await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
+
+        if (freeSolo && value) {
+          !options.includes(value) && options.push(value);
+        }
 
         return (
           <Content

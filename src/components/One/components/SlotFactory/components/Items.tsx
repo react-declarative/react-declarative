@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Chip from "@mui/material/Chip";
 
 import Async from '../../../../Async';
+import ListBox from '../../common/Listbox';
 
 import compareArray from '../../../../../utils/compareArray';
 import randomString from '../../../../../utils/randomString';
@@ -64,7 +65,7 @@ export const Items = ({
             return [upperValue];
         }
         if (upperValue) {
-            const result = Object.values(upperValue);
+            const result = Object.values<string>(upperValue);
             return isObject(result) ? [] : result;
         }
         return [];
@@ -157,6 +158,7 @@ export const Items = ({
             onChange={() => null}
             value={EMPTY_ARRAY}
             options={EMPTY_ARRAY}
+            ListboxComponent={ListBox}
             getOptionLabel={createGetOptionLabel({})}
             renderTags={createRenderTags({})}
             renderInput={createRenderInput(true, true)}
@@ -206,6 +208,7 @@ export const Items = ({
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 readOnly={readonly || unfocused}
+                ListboxComponent={ListBox}
                 onChange={({ }, value) => handleChange(value)}
                 getOptionLabel={createGetOptionLabel(labels)}
                 value={value}
@@ -226,6 +229,14 @@ export const Items = ({
                 itemList = arrays(itemList) || [];
                 const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
                 await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
+
+                if (freeSolo) {
+                    value.forEach((item) => {
+                        if (!options.includes(item)) {
+                            options.push(item);
+                        }
+                    });
+                }
 
                 return (
                     <Content

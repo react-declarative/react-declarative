@@ -162,6 +162,26 @@ export const VirtualView = ({
           const { height } = record.contentRect;
           if (element.classList.contains(ROOT_ELEMENT)) {
             setContainerHeight(height);
+            elementRefMap.forEach((element) => {
+              if (!document.body.contains(element)) {
+                return;
+              }
+              const elementId = Number(element.dataset[DATASET_ID]);
+              if (Number.isNaN(elementId)) {
+                return;
+              }
+              const { offsetHeight: height } = element;
+              if (height <= minRowHeight$.current) {
+                return;
+              }
+              setRowHeightMap((rowHeightMap) => {
+                if (rowHeightMap.get(elementId) !== height) {
+                  rowHeightMap.set(elementId, height);
+                  return new Map(rowHeightMap);
+                }
+                return rowHeightMap;
+              });
+            });
           }
           if (element.classList.contains(CHILD_ELEMENT)) {
             const elementId = Number(element.dataset[DATASET_ID]);
