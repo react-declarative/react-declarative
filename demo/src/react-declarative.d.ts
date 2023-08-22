@@ -6107,7 +6107,7 @@ declare module 'react-declarative/components/VirtualView/VirtualView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
-    export const VirtualView: ({ className, withScrollbar, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
+    export const VirtualView: ({ className, sx, withScrollbar, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
     export default VirtualView;
 }
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
@@ -20,6 +20,7 @@ import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
 
 import useActualCallback from "../../../../../hooks/useActualCallback";
+import useElementSize from "../../../../../hooks/useElementSize";
 import useActualValue from "../../../../../hooks/useActualValue";
 import useDebounce from "../../../hooks/useDebounce";
 
@@ -62,7 +63,8 @@ export const Complete = ({
     },
   } = useOneProps();
 
-  const anchorElRef = useRef<HTMLDivElement>(null);
+  const { elementRef: anchorElRef, size } = useElementSize<HTMLDivElement>();
+
   const [open, setOpen] = useState(false);
 
   const [selectedIdx, setSelectedIdx] = useState(-1);
@@ -175,7 +177,7 @@ export const Complete = ({
       const item = items.find((_, idx) => idx === selectedIdx);
       if (item) {
         handleChange(item);
-        setCursor(null);
+        setCursor(item.length);
         setOpen(false);
         setSelectedIdx(-1);
         return true;
@@ -259,7 +261,7 @@ export const Complete = ({
           <VirtualView
             component={List}
             sx={{
-              width: `${anchorElRef.current?.clientWidth || 500}px !important`,
+              width: size.width,
               height: items.length
                 ? Math.min(items.length * ITEM_HEIGHT, 250)
                 : ITEM_HEIGHT,

@@ -56,7 +56,6 @@ const useStyles = makeStyles()({
   root: {
     position: "relative",
     overflowY: "auto",
-    width: "100%",
     minHeight: "50px",
   },
   hideScrollbar: {
@@ -75,6 +74,7 @@ const useStyles = makeStyles()({
 
 export const VirtualView = ({
   className,
+  sx,
   withScrollbar = false,
   minRowHeight = DEFAULT_MIN_HEIGHT,
   bufferSize: upperBufferSize = DEFAULT_BUFFER_SIZE,
@@ -375,6 +375,10 @@ export const VirtualView = ({
       className={classNames(className, classes.root, ROOT_ELEMENT, {
         [classes.hideScrollbar]: !withScrollbar,
       })}
+      sx={{
+        width: "100%",
+        ...sx,
+      }}
       {...otherProps}
       ref={handleRef}
     >
