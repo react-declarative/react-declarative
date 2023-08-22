@@ -181,15 +181,17 @@ export const OutletView = <
       let isOk = true;
       handleLoadStart();
       try {
+        let isSkipped = false;
         const result = await Promise.resolve(
           onSubmit(data, {
             async afterSave() {
               unblock();
               await afterSave();
+              isSkipped = true;
             },
           })
         );
-        if (result) {
+        if (result && !isSkipped) {
           await afterSave();
         }
         isOk = !!result;
