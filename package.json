@@ -44,6 +44,7 @@
         "node": ">=10"
     },
     "scripts": {
+        "start": "sh ./scripts/start.sh",
         "build": "rimraf dist && node ./scripts/build.js && npm run typedef",
         "typedef": "tsc --emitDeclarationOnly --outDir ./dist/types && node ./scripts/dts.js",
         "postinstall": "node ./scripts/postinstall.js",

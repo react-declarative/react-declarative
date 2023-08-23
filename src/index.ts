@@ -193,9 +193,10 @@ export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
 export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
 export type IOption = IOptionInternal;
 export type IColumn<
+  FilterData extends {} = IAnything,
   RowData extends IRowData = any,
   Payload = any
-> = IColumnInternal<RowData, Payload>;
+> = IColumnInternal<FilterData, RowData, Payload>;
 
 import {
   TGridSort as TGridSortInternal,

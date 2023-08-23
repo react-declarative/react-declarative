@@ -7,6 +7,7 @@ interface IComputeParams {
     mode: DisplayMode;
     fullWidth: number;
     idx: number;
+    visibilityRequest: IVisibilityRequest;
 }
 
 export interface IParams {
@@ -70,6 +71,23 @@ export const createConstraintManager = () => {
         return constraintManager.memoize(`column-hidden-${fullWidth}-${idx}`, compute);
     };
 
+    
+    const computeVisibility = ({
+        column,
+        fullWidth,
+        visibilityRequest,
+        idx,
+    }: IComputeParams) => {
+        const compute = () => {
+            let value = true;
+            if (column.isVisible) {
+                value = column.isVisible(visibilityRequest);
+            }
+            return value;
+        };
+        return constraintManager.memoize(`column-visibility-${fullWidth}-${idx}`, compute);
+    };
+
     const computeOrder = ({
         fullWidth,
         column,
@@ -108,8 +126,17 @@ export const createConstraintManager = () => {
         columns,
         fullWidth,
         mode,
+        visibilityRequest,
     }: IParams) => columns
+        .filter((column, idx) => computeVisibility({
+            visibilityRequest,
+            column,
+            fullWidth,
+            mode,
+            idx,
+        }))
         .filter((column, idx) => !computeHidden({
+            visibilityRequest,
             column,
             fullWidth,
             mode,
@@ -118,12 +145,14 @@ export const createConstraintManager = () => {
         .map((column, idx) => [column, idx] as const)
         .sort(([col1, idx1], [col2, idx2]) => {
             const order1 = computeOrder({
+                visibilityRequest,
                 fullWidth,
                 column: col1,
                 idx: idx1,
                 mode,
             }) + idx1 - (idx1 > idx2 ? 1 : 0);
             const order2 = computeOrder({
+                visibilityRequest,
                 fullWidth,
                 column: col2,
                 idx: idx2,
@@ -135,6 +164,7 @@ export const createConstraintManager = () => {
         .map((column, idx, { length }) => ({
             ...column,
             width: computeWidth({
+                visibilityRequest,
                 fullWidth: fullWidth - (length * CELL_PADDING_LEFT),
                 column,
                 mode,

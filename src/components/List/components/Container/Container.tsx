@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { makeStyles } from "../../../../styles";
 
 import Paper from "@mui/material/Paper";
@@ -14,6 +14,10 @@ import IListProps, {
 } from "../../../../model/IListProps";
 import IAnything from "../../../../model/IAnything";
 import IRowData from "../../../../model/IRowData";
+
+import usePayload from "../../hooks/usePayload";
+import usePagination from "../../hooks/usePagination";
+import useConstraintManager from "../../hooks/useConstraintManager";
 
 import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
@@ -84,6 +88,11 @@ export const Container = <
 ) => {
   const { classes } = useStyles();
 
+  const payload = usePayload();
+  const pagination = usePagination();
+
+  const { constraintManager } = useConstraintManager();
+
   const {
     className,
     style,
@@ -106,11 +115,25 @@ export const Container = <
     onFilterChange,
     withSearch = false,
     search,
+    sortModel,
+    chips,
     handleSearch,
     handleFiltersCollapsed,
     sizeByParent = true,
     rerender = false,
   } = props;
+
+
+  useEffect(() => {
+    constraintManager.clear();
+  }, [
+    filterData,
+    pagination,
+    sortModel,
+    chips,
+    search,
+    payload,
+  ]);
 
   const sizer = {
     ...(!sizeByParent && {

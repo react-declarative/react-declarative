@@ -5,10 +5,8 @@ import useProps from "../../../../hooks/useProps";
 import useConstraintManager from "../../../../hooks/useConstraintManager";
 import useFilterData from "../../../../hooks/useFilterData";
 import usePagination from "../../../../hooks/usePagination";
-import useSortModel from "../../../../hooks/useSortModel";
-import useChips from "../../../../hooks/useChips";
-import useSearch from "../../../../hooks/useSearch";
 import usePayload from "../../../../hooks/usePayload";
+import useSearch from "../../../../hooks/useSearch";
 
 import IAnything from "../../../../../../model/IAnything";
 import IRowData from "../../../../../../model/IRowData";

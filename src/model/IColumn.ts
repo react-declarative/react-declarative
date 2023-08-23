@@ -25,14 +25,14 @@ export interface IColumn<
   desktopOrder?: number;
   desktopHidden?: boolean;
   columnMenu?: IListActionOption[];
-  isVisible?: (
+  isVisible?: (params: {
     filterData: FilterData,
     pagination: ListHandlerPagination,
-    sort: ListHandlerSortModel<RowData>,
+    sortModel: ListHandlerSortModel<RowData>,
     chips: ListHandlerChips<RowData>,
     search: string,
     payload: Payload
-  ) => boolean;
+  }) => boolean;
   compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
   element?: React.ComponentType<RowData>;
   sortable?: boolean;

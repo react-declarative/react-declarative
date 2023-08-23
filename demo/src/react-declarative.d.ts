@@ -17,94 +17,94 @@
 
 declare module 'react-declarative' {
     import "./polyfills";
-    import { TypedField as TypedFieldInternal } from 'react-declarative/model/TypedField';
-    import { IField as IFieldInternal } from 'react-declarative/model/IField';
-    import { IEntity as IEntityInternal } from 'react-declarative/model/IEntity';
-    import { IManaged as IManagedInternal } from 'react-declarative/model/IManaged';
-    import { IColumn as IColumnInternal } from 'react-declarative/model/IColumn';
-    import { ITab as ITabInternal } from 'react-declarative/model/ITab';
-    import { IApiPaginatorParams as IApiPaginatorParamsInternal } from 'react-declarative/components/List/api/useApiPaginator';
-    import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from 'react-declarative/components/List/api/useArrayPaginator';
-    import { IApiHandlerParams as IApiHandlerParamsInternal } from 'react-declarative/components/One/api/useApiHandler';
+    import { TypedField as TypedFieldInternal } from "react-declarative/model/TypedField";
+    import { IField as IFieldInternal } from "react-declarative/model/IField";
+    import { IEntity as IEntityInternal } from "react-declarative/model/IEntity";
+    import { IManaged as IManagedInternal } from "react-declarative/model/IManaged";
+    import { IColumn as IColumnInternal } from "react-declarative/model/IColumn";
+    import { ITab as ITabInternal } from "react-declarative/model/ITab";
+    import { IApiPaginatorParams as IApiPaginatorParamsInternal } from "react-declarative/components/List/api/useApiPaginator";
+    import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from "react-declarative/components/List/api/useArrayPaginator";
+    import { IApiHandlerParams as IApiHandlerParamsInternal } from "react-declarative/components/One/api/useApiHandler";
     export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IApiPaginatorParamsInternal<FilterData, RowData>;
     export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IArrayPaginatorParamsInternal<FilterData, RowData>;
     export type IOneApiHandlerParams<Data = any> = IApiHandlerParamsInternal<Data>;
-    import { FieldType as FieldTypeInternal } from 'react-declarative/model/FieldType';
-    import { ColumnType as ColumnTypeInternal } from 'react-declarative/model/ColumnType';
-    import { ActionType as ActionTypeInternal } from 'react-declarative/model/ActionType';
-    import { SelectionMode as SelectionModeInternal } from 'react-declarative/model/SelectionMode';
-    import { IListApi as IListApiInternal } from 'react-declarative/model/IListApi';
-    import { IOneApi as IOneApiInternal } from 'react-declarative/model/IOneApi';
-    import { IListOperation as IListOperationInternal } from 'react-declarative/model/IListOperation';
-    import { IListRowAction as IListRowActionInternal } from 'react-declarative/model/IListRowAction';
-    import { IListAction as IListActionInternal } from 'react-declarative/model/IListProps';
-    import { IListChip as IListChipInternal } from 'react-declarative/model/IListProps';
-    import { IOption as IOptionInternal } from 'react-declarative/model/IOption';
-    import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from 'react-declarative/model/IBreadcrumbsOption';
-    export { createServiceManager } from 'react-declarative/helpers/serviceManager';
-    export { serviceManager } from 'react-declarative/helpers/serviceManager';
-    import { IService as IServiceInternal } from 'react-declarative/helpers/serviceManager';
+    import { FieldType as FieldTypeInternal } from "react-declarative/model/FieldType";
+    import { ColumnType as ColumnTypeInternal } from "react-declarative/model/ColumnType";
+    import { ActionType as ActionTypeInternal } from "react-declarative/model/ActionType";
+    import { SelectionMode as SelectionModeInternal } from "react-declarative/model/SelectionMode";
+    import { IListApi as IListApiInternal } from "react-declarative/model/IListApi";
+    import { IOneApi as IOneApiInternal } from "react-declarative/model/IOneApi";
+    import { IListOperation as IListOperationInternal } from "react-declarative/model/IListOperation";
+    import { IListRowAction as IListRowActionInternal } from "react-declarative/model/IListRowAction";
+    import { IListAction as IListActionInternal } from "react-declarative/model/IListProps";
+    import { IListChip as IListChipInternal } from "react-declarative/model/IListProps";
+    import { IOption as IOptionInternal } from "react-declarative/model/IOption";
+    import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from "react-declarative/model/IBreadcrumbsOption";
+    export { createServiceManager } from "react-declarative/helpers/serviceManager";
+    export { serviceManager } from "react-declarative/helpers/serviceManager";
+    import { IService as IServiceInternal } from "react-declarative/helpers/serviceManager";
     export type IService = IServiceInternal;
-    export { createRouteItemManager } from 'react-declarative/helpers/routeManager';
-    export { createRouteParamsManager } from 'react-declarative/helpers/routeManager';
-    export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
-    export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
-    export { RouteManager } from 'react-declarative/helpers/routeManager';
-    export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
-    export { prefetch } from 'react-declarative/helpers/serviceManager';
-    export { unload } from 'react-declarative/helpers/serviceManager';
-    export { provide } from 'react-declarative/helpers/serviceManager';
-    export { inject } from 'react-declarative/helpers/serviceManager';
-    import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-declarative/model/IMenuGroup';
-    import { ListHandlerPagination as ListHandlerPaginationInternal } from 'react-declarative/model/IListProps';
-    import { ListHandlerSortModel as ListHandlerSortModelInternal } from 'react-declarative/model/IListProps';
-    import { ListHandlerChips as ListHandlerChipsInternal } from 'react-declarative/model/IListProps';
-    import { ListHandlerResult as ListHandlerResultInternal } from 'react-declarative/model/IListProps';
-    import { ListHandler as ListHandlerInternal } from 'react-declarative/model/IListProps';
-    import { OneHandler as OneHandlerInternal } from 'react-declarative/model/IOneProps';
-    import { useActualCallback } from 'react-declarative/hooks/useActualCallback';
-    import { useActualValue } from 'react-declarative/hooks/useActualValue';
-    import { useActualState } from 'react-declarative/hooks/useActualState';
-    import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
-    import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
-    import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
-    import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
-    import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
-    import { useChangeSubject } from 'react-declarative/hooks/useChangeSubject';
-    import { useReloadTrigger } from 'react-declarative/hooks/useReloadTrigger';
-    import { useSingleton } from 'react-declarative/hooks/useSingleton';
-    import { useBehaviorSubject } from 'react-declarative/hooks/useBehaviorSubject';
-    import { useSubscription } from 'react-declarative/hooks/useSubscription';
-    import { useSubject } from 'react-declarative/hooks/useSubject';
-    import { useChange } from 'react-declarative/hooks/useChange';
-    import { useModel } from 'react-declarative/hooks/useModel';
-    import { useEntity } from 'react-declarative/hooks/useEntity';
-    import { useListEditor } from 'react-declarative/hooks/useListEditor';
-    import { useMediaStreamBuilder } from 'react-declarative/hooks/useMediaStreamBuilder';
-    import { useCollection } from 'react-declarative/hooks/useCollection';
-    import { useRequestSnackbar } from 'react-declarative/hooks/useRequestSnackbar';
-    import { useModal } from 'react-declarative/components/ModalProvider';
-    import { useSnack } from 'react-declarative/components/SnackProvider';
-    import { useSize } from 'react-declarative/components/SizeProvider';
-    import { useList } from 'react-declarative/hooks/useList';
-    import { useFile } from 'react-declarative/hooks/useFile';
-    import { useConfirm } from 'react-declarative/hooks/useConfirm';
-    import { usePrompt } from 'react-declarative/hooks/usePrompt';
-    import { useDate } from 'react-declarative/hooks/useDate';
-    import { useTime } from 'react-declarative/hooks/useTime';
-    import { useOne } from 'react-declarative/hooks/useOne';
-    import { useOneTyped } from 'react-declarative/hooks/useOne';
-    import { useSearchParams } from 'react-declarative/hooks/useSearchParams';
-    import { useSearchState } from 'react-declarative/hooks/useSearchState';
+    export { createRouteItemManager } from "react-declarative/helpers/routeManager";
+    export { createRouteParamsManager } from "react-declarative/helpers/routeManager";
+    export { useRouteItem } from "react-declarative/hooks/useRouteItem";
+    export { useRouteParams } from "react-declarative/hooks/useRouteParams";
+    export { RouteManager } from "react-declarative/helpers/routeManager";
+    export { toRouteUrl } from "react-declarative/utils/toRouteUrl";
+    export { prefetch } from "react-declarative/helpers/serviceManager";
+    export { unload } from "react-declarative/helpers/serviceManager";
+    export { provide } from "react-declarative/helpers/serviceManager";
+    export { inject } from "react-declarative/helpers/serviceManager";
+    import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from "react-declarative/model/IMenuGroup";
+    import { ListHandlerPagination as ListHandlerPaginationInternal } from "react-declarative/model/IListProps";
+    import { ListHandlerSortModel as ListHandlerSortModelInternal } from "react-declarative/model/IListProps";
+    import { ListHandlerChips as ListHandlerChipsInternal } from "react-declarative/model/IListProps";
+    import { ListHandlerResult as ListHandlerResultInternal } from "react-declarative/model/IListProps";
+    import { ListHandler as ListHandlerInternal } from "react-declarative/model/IListProps";
+    import { OneHandler as OneHandlerInternal } from "react-declarative/model/IOneProps";
+    import { useActualCallback } from "react-declarative/hooks/useActualCallback";
+    import { useActualValue } from "react-declarative/hooks/useActualValue";
+    import { useActualState } from "react-declarative/hooks/useActualState";
+    import { useRenderWaiter } from "react-declarative/hooks/useRenderWaiter";
+    import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from "react-declarative/hooks/useOneArray";
+    import { useAsyncAction } from "react-declarative/hooks/useAsyncAction";
+    import { useMediaContext } from "react-declarative/hooks/useMediaContext";
+    import { useAudioPlayer } from "react-declarative/hooks/useAudioPlayer";
+    import { useChangeSubject } from "react-declarative/hooks/useChangeSubject";
+    import { useReloadTrigger } from "react-declarative/hooks/useReloadTrigger";
+    import { useSingleton } from "react-declarative/hooks/useSingleton";
+    import { useBehaviorSubject } from "react-declarative/hooks/useBehaviorSubject";
+    import { useSubscription } from "react-declarative/hooks/useSubscription";
+    import { useSubject } from "react-declarative/hooks/useSubject";
+    import { useChange } from "react-declarative/hooks/useChange";
+    import { useModel } from "react-declarative/hooks/useModel";
+    import { useEntity } from "react-declarative/hooks/useEntity";
+    import { useListEditor } from "react-declarative/hooks/useListEditor";
+    import { useMediaStreamBuilder } from "react-declarative/hooks/useMediaStreamBuilder";
+    import { useCollection } from "react-declarative/hooks/useCollection";
+    import { useRequestSnackbar } from "react-declarative/hooks/useRequestSnackbar";
+    import { useModal } from "react-declarative/components/ModalProvider";
+    import { useSnack } from "react-declarative/components/SnackProvider";
+    import { useSize } from "react-declarative/components/SizeProvider";
+    import { useList } from "react-declarative/hooks/useList";
+    import { useFile } from "react-declarative/hooks/useFile";
+    import { useConfirm } from "react-declarative/hooks/useConfirm";
+    import { usePrompt } from "react-declarative/hooks/usePrompt";
+    import { useDate } from "react-declarative/hooks/useDate";
+    import { useTime } from "react-declarative/hooks/useTime";
+    import { useOne } from "react-declarative/hooks/useOne";
+    import { useOneTyped } from "react-declarative/hooks/useOne";
+    import { useSearchParams } from "react-declarative/hooks/useSearchParams";
+    import { useSearchState } from "react-declarative/hooks/useSearchState";
     export { useSearchParams };
     export { useSearchState };
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData, { RowId } from 'react-declarative/model/IRowData';
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData, { RowId } from "react-declarative/model/IRowData";
     export type { IRowData, RowId };
-    import { ISwitchItem as ISwitchItemInternal } from 'react-declarative/components';
-    import { IActionFilter as IActionFilterInternal } from 'react-declarative/components';
-    import { IActionTrigger as IActionTriggerInternal } from 'react-declarative/components';
-    import { IScaffoldOption as IScaffoldOptionInternal } from 'react-declarative/components';
+    import { ISwitchItem as ISwitchItemInternal } from "react-declarative/components";
+    import { IActionFilter as IActionFilterInternal } from "react-declarative/components";
+    import { IActionTrigger as IActionTriggerInternal } from "react-declarative/components";
+    import { IScaffoldOption as IScaffoldOptionInternal } from "react-declarative/components";
     export type ISwitchItem = ISwitchItemInternal;
     export type IActionFilter = IActionFilterInternal;
     export type IActionTrigger<Data extends any = any> = IActionTriggerInternal<Data>;
@@ -132,8 +132,8 @@ declare module 'react-declarative' {
     export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
     export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
     export type IOption = IOptionInternal;
-    export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
-    import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from 'react-declarative/components';
+    export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
+    import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from "react-declarative/components";
     export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
     export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
     export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
@@ -146,126 +146,126 @@ declare module 'react-declarative' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export type pickPromptFn = ReturnType<typeof usePrompt>;
-    export { default as dayjs } from 'dayjs';
-    export { DocumentView } from 'react-declarative/components';
-    export { ScrollTopView } from 'react-declarative/components';
-    export { AlertView } from 'react-declarative/components';
-    export { ImageView } from 'react-declarative/components';
-    export { ConstraintView } from 'react-declarative/components';
-    export { DragDropView } from 'react-declarative/components';
-    export { FilesView } from 'react-declarative/components';
-    export { ScrollView } from 'react-declarative/components';
-    export { ScaleView } from 'react-declarative/components';
-    export { FetchView } from 'react-declarative/components';
-    export { FadeView } from 'react-declarative/components';
-    export { TabsView } from 'react-declarative/components';
-    export { WaitView } from 'react-declarative/components';
-    export { PingView } from 'react-declarative/components';
-    export { OfflineView } from 'react-declarative/components';
-    export { RevealView } from 'react-declarative/components';
-    export { SecretView } from 'react-declarative/components';
-    export { PortalView } from 'react-declarative/components';
-    export { ReloadView } from 'react-declarative/components';
-    export { RecordView } from 'react-declarative/components';
-    export { CardView } from 'react-declarative/components';
-    export { HtmlView } from 'react-declarative/components';
-    export { ErrorView } from 'react-declarative/components';
-    export { AuthView } from 'react-declarative/components';
-    export { LoaderView } from 'react-declarative/components';
-    export { FeatureView } from 'react-declarative/components';
-    export { InfiniteView } from 'react-declarative/components';
-    export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
-    import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from 'react-declarative/components';
+    export { default as dayjs } from "dayjs";
+    export { DocumentView } from "react-declarative/components";
+    export { ScrollTopView } from "react-declarative/components";
+    export { AlertView } from "react-declarative/components";
+    export { ImageView } from "react-declarative/components";
+    export { ConstraintView } from "react-declarative/components";
+    export { DragDropView } from "react-declarative/components";
+    export { FilesView } from "react-declarative/components";
+    export { ScrollView } from "react-declarative/components";
+    export { ScaleView } from "react-declarative/components";
+    export { FetchView } from "react-declarative/components";
+    export { FadeView } from "react-declarative/components";
+    export { TabsView } from "react-declarative/components";
+    export { WaitView } from "react-declarative/components";
+    export { PingView } from "react-declarative/components";
+    export { OfflineView } from "react-declarative/components";
+    export { RevealView } from "react-declarative/components";
+    export { SecretView } from "react-declarative/components";
+    export { PortalView } from "react-declarative/components";
+    export { ReloadView } from "react-declarative/components";
+    export { RecordView } from "react-declarative/components";
+    export { CardView } from "react-declarative/components";
+    export { HtmlView } from "react-declarative/components";
+    export { ErrorView } from "react-declarative/components";
+    export { AuthView } from "react-declarative/components";
+    export { LoaderView } from "react-declarative/components";
+    export { FeatureView } from "react-declarative/components";
+    export { InfiniteView } from "react-declarative/components";
+    export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD, } from "react-declarative/components";
+    import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from "react-declarative/components";
     export type ITreeViewNode = ITreeViewNodeInternal;
     export { TreeView };
-    import { ICardViewItemData } from 'react-declarative/components/CardView';
-    import { ICardViewAction as ICardViewActionInternal } from 'react-declarative/components/CardView';
-    import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
+    import { ICardViewItemData } from "react-declarative/components/CardView";
+    import { ICardViewAction as ICardViewActionInternal } from "react-declarative/components/CardView";
+    import { ICardViewOperation as ICardViewOperationInternal } from "react-declarative/components/CardView";
     export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
     export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
-    import { IFeatureGroup as IFeatureGroupInternal } from 'react-declarative/components/FeatureView';
-    import { IFeature as IFeatureInternal } from 'react-declarative/components/FeatureView';
+    import { IFeatureGroup as IFeatureGroupInternal } from "react-declarative/components/FeatureView";
+    import { IFeature as IFeatureInternal } from "react-declarative/components/FeatureView";
     export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
     export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
-    import { recordToExcelExport } from 'react-declarative/components/RecordView';
+    import { recordToExcelExport } from "react-declarative/components/RecordView";
     export { recordToExcelExport };
-    export { ErrorBoundary } from 'react-declarative/components';
-    export { AutoSizer } from 'react-declarative/components';
-    export { ActionStopIcon } from 'react-declarative/components';
-    export { ActionTrigger } from 'react-declarative/components';
-    export { ActionFilter } from 'react-declarative/components';
-    export { ActionButton } from 'react-declarative/components';
-    export { ActionToggle } from 'react-declarative/components';
-    export { ActionMenu } from 'react-declarative/components';
-    export { ActionIcon } from 'react-declarative/components';
-    export { ActionFab } from 'react-declarative/components';
-    export { ActionModal, useActionModal, useActionModalTyped } from 'react-declarative/components';
-    export { SearchModal, useSearchModal, useSearchModalTyped } from 'react-declarative/components';
-    import { IMasterDetailOption as IMasterDetailOptionInternal } from 'react-declarative/components';
-    import { MasterDetailMode as MasterDetailModeInternal } from 'react-declarative/components';
+    export { ErrorBoundary } from "react-declarative/components";
+    export { AutoSizer } from "react-declarative/components";
+    export { ActionStopIcon } from "react-declarative/components";
+    export { ActionTrigger } from "react-declarative/components";
+    export { ActionFilter } from "react-declarative/components";
+    export { ActionButton } from "react-declarative/components";
+    export { ActionToggle } from "react-declarative/components";
+    export { ActionMenu } from "react-declarative/components";
+    export { ActionIcon } from "react-declarative/components";
+    export { ActionFab } from "react-declarative/components";
+    export { ActionModal, useActionModal, useActionModalTyped } from "react-declarative/components";
+    export { SearchModal, useSearchModal, useSearchModalTyped } from "react-declarative/components";
+    import { IMasterDetailOption as IMasterDetailOptionInternal } from "react-declarative/components";
+    import { MasterDetailMode as MasterDetailModeInternal } from "react-declarative/components";
     export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
     export const MasterDetailMode: typeof MasterDetailModeInternal;
-    export { MasterDetail } from 'react-declarative/components';
-    export { Async } from 'react-declarative/components';
-    export { If } from 'react-declarative/components';
-    export { List, ListTyped } from 'react-declarative/components';
-    export { One, OneTyped, OneConfig } from 'react-declarative/components';
-    import { Translate } from 'react-declarative/components';
+    export { MasterDetail } from "react-declarative/components";
+    export { Async } from "react-declarative/components";
+    export { If } from "react-declarative/components";
+    export { List, ListTyped } from "react-declarative/components";
+    export { One, OneTyped, OneConfig } from "react-declarative/components";
+    import { Translate } from "react-declarative/components";
     export { Translate };
     export const registerTr: (locale?: {
         [x: string]: string;
     } | undefined, transform?: ((str: string) => string) | undefined) => Translate;
-    export { ModalProvider } from 'react-declarative/components';
-    export { SizeProvider } from 'react-declarative/components';
-    export { SnackProvider } from 'react-declarative/components';
-    import { IScaffold2Option as IScaffold2OptionInternal } from 'react-declarative/components/Scaffold2';
-    import { IScaffold2Action as IScaffold2ActionInternal } from 'react-declarative/components/Scaffold2';
-    import { IScaffold2Group as IScaffold2GroupInternal } from 'react-declarative/components/Scaffold2';
-    import { IScaffold2Tab as IScaffold2TabInternal } from 'react-declarative/components/Scaffold2';
+    export { ModalProvider } from "react-declarative/components";
+    export { SizeProvider } from "react-declarative/components";
+    export { SnackProvider } from "react-declarative/components";
+    import { IScaffold2Option as IScaffold2OptionInternal } from "react-declarative/components/Scaffold2";
+    import { IScaffold2Action as IScaffold2ActionInternal } from "react-declarative/components/Scaffold2";
+    import { IScaffold2Group as IScaffold2GroupInternal } from "react-declarative/components/Scaffold2";
+    import { IScaffold2Tab as IScaffold2TabInternal } from "react-declarative/components/Scaffold2";
     export type IScaffold2Action<T = any> = IScaffold2ActionInternal<T>;
     export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
     export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
     export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
-    import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from 'react-declarative/components/Breadcrumbs2';
-    import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from 'react-declarative/components/Breadcrumbs2';
-    import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from 'react-declarative/components/Breadcrumbs2';
+    import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from "react-declarative/components/Breadcrumbs2";
+    import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from "react-declarative/components/Breadcrumbs2";
+    import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from "react-declarative/components/Breadcrumbs2";
     export const Breadcrumbs2Type: typeof Breadcrumbs2TypeInternal;
     export type IBreadcrumbs2Action<Data = any> = IBreadcrumbs2ActionInternal<Data>;
     export type IBreadcrumbs2Option<Data = any> = IBreadcrumbs2OptionInternal<Data>;
-    export { Scaffold } from 'react-declarative/components';
-    export { Scaffold2 } from 'react-declarative/components';
-    export { Countdown } from 'react-declarative/components';
-    export { Spinner } from 'react-declarative/components';
-    export { Search } from 'react-declarative/components';
-    export { Grid } from 'react-declarative/components';
-    export { Copy } from 'react-declarative/components';
-    export { Chip } from 'react-declarative/components';
-    export { OneSlotFactory, OneDefaultSlots } from 'react-declarative/components';
-    export { ListSlotFactory, ListDefaultSlots } from 'react-declarative/components';
-    export { Breadcrumbs } from 'react-declarative/components';
-    export { Breadcrumbs2 } from 'react-declarative/components';
-    export { Switch } from 'react-declarative/components';
-    export { Center } from 'react-declarative/components';
-    export { Square } from 'react-declarative/components';
-    export { Dot } from 'react-declarative/components';
-    export { ScrollAdjust } from 'react-declarative/components';
-    export { NoSsr } from 'react-declarative/components';
-    export { OtherComboSlot } from 'react-declarative/components';
-    export { OtherItemsSlot } from 'react-declarative/components';
-    export { useCachedPaginator } from 'react-declarative/components';
-    export { useArrayPaginator } from 'react-declarative/components';
-    export { useApiPaginator } from 'react-declarative/components';
-    export { useLastPagination } from 'react-declarative/components';
-    export { useQueryPagination } from 'react-declarative/components';
-    export { useStaticHandler } from 'react-declarative/components';
-    export { usePreventNavigate } from 'react-declarative/components';
-    export { usePreventLeave } from 'react-declarative/components';
-    export { useLocalHandler } from 'react-declarative/components';
-    export { useApiHandler } from 'react-declarative/components';
-    export { useTabsHashstate } from 'react-declarative/components';
-    export { createField, makeField } from 'react-declarative/components';
-    export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
-    export { useOneProps, useOneState, useOnePayload } from 'react-declarative/components';
+    export { Scaffold } from "react-declarative/components";
+    export { Scaffold2 } from "react-declarative/components";
+    export { Countdown } from "react-declarative/components";
+    export { Spinner } from "react-declarative/components";
+    export { Search } from "react-declarative/components";
+    export { Grid } from "react-declarative/components";
+    export { Copy } from "react-declarative/components";
+    export { Chip } from "react-declarative/components";
+    export { OneSlotFactory, OneDefaultSlots } from "react-declarative/components";
+    export { ListSlotFactory, ListDefaultSlots } from "react-declarative/components";
+    export { Breadcrumbs } from "react-declarative/components";
+    export { Breadcrumbs2 } from "react-declarative/components";
+    export { Switch } from "react-declarative/components";
+    export { Center } from "react-declarative/components";
+    export { Square } from "react-declarative/components";
+    export { Dot } from "react-declarative/components";
+    export { ScrollAdjust } from "react-declarative/components";
+    export { NoSsr } from "react-declarative/components";
+    export { OtherComboSlot } from "react-declarative/components";
+    export { OtherItemsSlot } from "react-declarative/components";
+    export { useCachedPaginator } from "react-declarative/components";
+    export { useArrayPaginator } from "react-declarative/components";
+    export { useApiPaginator } from "react-declarative/components";
+    export { useLastPagination } from "react-declarative/components";
+    export { useQueryPagination } from "react-declarative/components";
+    export { useStaticHandler } from "react-declarative/components";
+    export { usePreventNavigate } from "react-declarative/components";
+    export { usePreventLeave } from "react-declarative/components";
+    export { useLocalHandler } from "react-declarative/components";
+    export { useApiHandler } from "react-declarative/components";
+    export { useTabsHashstate } from "react-declarative/components";
+    export { createField, makeField } from "react-declarative/components";
+    export { useListProps, useListFilterData, useListCachedRows, useListPayload, useListChips, useListSearch, useListSortModel, useListPagination, } from "react-declarative/components";
+    export { useOneProps, useOneState, useOnePayload } from "react-declarative/components";
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
@@ -299,36 +299,36 @@ declare module 'react-declarative' {
     export { useSize };
     export { useList };
     export { useFile };
-    import { IOnePublicProps as IOnePublicPropsInternal } from 'react-declarative/model/IOnePublicProps';
+    import { IOnePublicProps as IOnePublicPropsInternal } from "react-declarative/model/IOnePublicProps";
     export type IOnePublicProps<Data = IAnything, Field extends IField<Data> = IField<Data>> = IOnePublicPropsInternal<Data, Field>;
-    import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-declarative/components';
-    import { IComboSlot as IComboSlotInternal } from 'react-declarative/components';
-    import { IItemsSlot as IItemsSlotInternal } from 'react-declarative/components';
-    import { ILineSlot as ILineSlotInternal } from 'react-declarative/components';
-    import { IProgressSlot as IProgressSlotInternal } from 'react-declarative/components';
-    import { IRadioSlot as IRadioSlotInternal } from 'react-declarative/components';
-    import { IDateSlot as IDateSlotInternal } from 'react-declarative/components';
-    import { ITimeSlot as ITimeSlotInternal } from 'react-declarative/components';
-    import { IFileSlot as IFileSlotInternal } from 'react-declarative/components';
-    import { IChooseSlot as IChooseSlotIntetnal } from 'react-declarative/components';
-    import { IRatingSlot as IRatingSlotInternal } from 'react-declarative/components';
-    import { ISliderSlot as ISliderSlotInternal } from 'react-declarative/components';
-    import { ISwitchSlot as ISwitchSlotInternal } from 'react-declarative/components';
-    import { ITextSlot as ITextSlotInternal } from 'react-declarative/components';
-    import { ICompleteSlot as ICompleteSlotInternal } from 'react-declarative/components';
-    import { ITypographySlot as ITypographySlotInternal } from 'react-declarative/components';
-    import { IActionAddSlot as IActionAddSlotInternal } from 'react-declarative/components';
-    import { IActionFabSlot as IActionFabSlotInternal } from 'react-declarative/components';
-    import { IActionMenuSlot as IActionMenuSlotInternal } from 'react-declarative/components';
-    import { IBodyRowSlot as IBodyRowSlotInternal } from 'react-declarative/components';
-    import { ICheckboxCellSlot as ICheckboxCellSlotInternal } from 'react-declarative/components';
-    import { ICommonCellSlot as ICommonCellSlotInternal } from 'react-declarative/components';
-    import { IHeadRowSlot as IHeadRowSlotInternal } from 'react-declarative/components';
-    import { IActionListSlot as IActionListSlotInternal } from 'react-declarative/components';
-    import { IChipListSlot as IChipListSlotInternal } from 'react-declarative/components';
-    import { IFilterListSlot as IFilterListSlotInternal } from 'react-declarative/components';
-    import { ISearchSlot as ISearchSlotInternal } from 'react-declarative/components';
-    import { IOperationListSlot as IOperationListSlotInternal } from 'react-declarative/components';
+    import { ICheckBoxSlot as ICheckBoxSlotInternal } from "react-declarative/components";
+    import { IComboSlot as IComboSlotInternal } from "react-declarative/components";
+    import { IItemsSlot as IItemsSlotInternal } from "react-declarative/components";
+    import { ILineSlot as ILineSlotInternal } from "react-declarative/components";
+    import { IProgressSlot as IProgressSlotInternal } from "react-declarative/components";
+    import { IRadioSlot as IRadioSlotInternal } from "react-declarative/components";
+    import { IDateSlot as IDateSlotInternal } from "react-declarative/components";
+    import { ITimeSlot as ITimeSlotInternal } from "react-declarative/components";
+    import { IFileSlot as IFileSlotInternal } from "react-declarative/components";
+    import { IChooseSlot as IChooseSlotIntetnal } from "react-declarative/components";
+    import { IRatingSlot as IRatingSlotInternal } from "react-declarative/components";
+    import { ISliderSlot as ISliderSlotInternal } from "react-declarative/components";
+    import { ISwitchSlot as ISwitchSlotInternal } from "react-declarative/components";
+    import { ITextSlot as ITextSlotInternal } from "react-declarative/components";
+    import { ICompleteSlot as ICompleteSlotInternal } from "react-declarative/components";
+    import { ITypographySlot as ITypographySlotInternal } from "react-declarative/components";
+    import { IActionAddSlot as IActionAddSlotInternal } from "react-declarative/components";
+    import { IActionFabSlot as IActionFabSlotInternal } from "react-declarative/components";
+    import { IActionMenuSlot as IActionMenuSlotInternal } from "react-declarative/components";
+    import { IBodyRowSlot as IBodyRowSlotInternal } from "react-declarative/components";
+    import { ICheckboxCellSlot as ICheckboxCellSlotInternal } from "react-declarative/components";
+    import { ICommonCellSlot as ICommonCellSlotInternal } from "react-declarative/components";
+    import { IHeadRowSlot as IHeadRowSlotInternal } from "react-declarative/components";
+    import { IActionListSlot as IActionListSlotInternal } from "react-declarative/components";
+    import { IChipListSlot as IChipListSlotInternal } from "react-declarative/components";
+    import { IFilterListSlot as IFilterListSlotInternal } from "react-declarative/components";
+    import { ISearchSlot as ISearchSlotInternal } from "react-declarative/components";
+    import { IOperationListSlot as IOperationListSlotInternal } from "react-declarative/components";
     export type ICheckBoxSlot = ICheckBoxSlotInternal;
     export type IComboSlot = IComboSlotInternal;
     export type IItemsSlot = IItemsSlotInternal;
@@ -357,69 +357,69 @@ declare module 'react-declarative' {
     export type IFilterListSlot = IFilterListSlotInternal;
     export type ISearchSlot = ISearchSlotInternal;
     export type IOperationListSlot = IOperationListSlotInternal;
-    export { openBlank } from 'react-declarative/utils/openBlank';
-    export { chooseFile } from 'react-declarative/utils/chooseFile';
-    export { loadScript } from 'react-declarative/utils/loadScript';
-    export { reloadPage } from 'react-declarative/utils/reloadPage';
-    export { getRouteParams } from 'react-declarative/utils/getRouteParams';
-    export { getRouteItem } from 'react-declarative/utils/getRouteItem';
-    export { getElementFromXPath } from 'react-declarative/utils/getElementFromXPath';
-    export { getXPathFromElement } from 'react-declarative/utils/getXPathFromElement';
-    export { arrays } from 'react-declarative/utils/arrays';
-    export { objects } from 'react-declarative/utils/objects';
-    export { compareArray } from 'react-declarative/utils/compareArray';
-    export { isObject } from 'react-declarative/utils/isObject';
-    export { FetchError, fetchApi } from 'react-declarative/utils/fetchApi';
-    export { createValueProvider } from 'react-declarative/utils/createValueProvider';
-    export { createStateProvider } from 'react-declarative/utils/createStateProvider';
-    export { formatText } from 'react-declarative/utils/formatText';
-    export { roundTicks } from 'react-declarative/utils/roundTicks';
-    export { wordForm } from 'react-declarative/utils/wordForm';
-    export { singleshot } from 'react-declarative/utils/hof/singleshot';
-    export { afterinit } from 'react-declarative/utils/hof/afterinit';
-    export { singlerun, Task } from 'react-declarative/utils/hof/singlerun';
-    export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
-    export { debounce } from 'react-declarative/utils/hof/debounce';
-    export { queued } from 'react-declarative/utils/hof/queued';
-    export { cached } from 'react-declarative/utils/hof/cached';
-    export { sleep } from 'react-declarative/utils/sleep';
-    export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
-    export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
-    export { Observer } from 'react-declarative/utils/rx/Observer';
-    export { Operator } from 'react-declarative/utils/rx/Operator';
-    export { Subject } from 'react-declarative/utils/rx/Subject';
-    export { Source } from 'react-declarative/utils/rx/Source';
-    export { and } from 'react-declarative/utils/math/and';
-    export { or } from 'react-declarative/utils/math/or';
-    import TSubjectInternal from 'react-declarative/model/TSubject';
-    import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
-    import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
+    export { openBlank } from "react-declarative/utils/openBlank";
+    export { chooseFile } from "react-declarative/utils/chooseFile";
+    export { loadScript } from "react-declarative/utils/loadScript";
+    export { reloadPage } from "react-declarative/utils/reloadPage";
+    export { getRouteParams } from "react-declarative/utils/getRouteParams";
+    export { getRouteItem } from "react-declarative/utils/getRouteItem";
+    export { getElementFromXPath } from "react-declarative/utils/getElementFromXPath";
+    export { getXPathFromElement } from "react-declarative/utils/getXPathFromElement";
+    export { arrays } from "react-declarative/utils/arrays";
+    export { objects } from "react-declarative/utils/objects";
+    export { compareArray } from "react-declarative/utils/compareArray";
+    export { isObject } from "react-declarative/utils/isObject";
+    export { FetchError, fetchApi } from "react-declarative/utils/fetchApi";
+    export { createValueProvider } from "react-declarative/utils/createValueProvider";
+    export { createStateProvider } from "react-declarative/utils/createStateProvider";
+    export { formatText } from "react-declarative/utils/formatText";
+    export { roundTicks } from "react-declarative/utils/roundTicks";
+    export { wordForm } from "react-declarative/utils/wordForm";
+    export { singleshot } from "react-declarative/utils/hof/singleshot";
+    export { afterinit } from "react-declarative/utils/hof/afterinit";
+    export { singlerun, Task } from "react-declarative/utils/hof/singlerun";
+    export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL, } from "react-declarative/utils/hof/cancelable";
+    export { debounce } from "react-declarative/utils/hof/debounce";
+    export { queued } from "react-declarative/utils/hof/queued";
+    export { cached } from "react-declarative/utils/hof/cached";
+    export { sleep } from "react-declarative/utils/sleep";
+    export { BehaviorSubject } from "react-declarative/utils/rx/BehaviorSubject";
+    export { EventEmitter } from "react-declarative/utils/rx/EventEmitter";
+    export { Observer } from "react-declarative/utils/rx/Observer";
+    export { Operator } from "react-declarative/utils/rx/Operator";
+    export { Subject } from "react-declarative/utils/rx/Subject";
+    export { Source } from "react-declarative/utils/rx/Source";
+    export { and } from "react-declarative/utils/math/and";
+    export { or } from "react-declarative/utils/math/or";
+    import TSubjectInternal from "react-declarative/model/TSubject";
+    import TBehaviorSubjectInternal from "react-declarative/model/TBehaviorSubject";
+    import TObserverInternal, { TObservable as TObservableInternal } from "react-declarative/model/TObserver";
     export type TSubject<Data = void> = TSubjectInternal<Data>;
     export type TObserver<Data = void> = TObserverInternal<Data>;
     export type TObservable<Data = void> = TObservableInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
-    export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
-    import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
-    import { ICollectionAdapter as ICollectionAdapterInternal } from 'react-declarative/utils/mvvm/Collection';
-    import { IModelAdapter as IModelAdapterInternal } from 'react-declarative/utils/mvvm/Model';
+    export { getErrorMessage } from "react-declarative/utils/getErrorMessage";
+    import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from "react-declarative/utils/mvvm/Entity";
+    import { ICollectionAdapter as ICollectionAdapterInternal } from "react-declarative/utils/mvvm/Collection";
+    import { IModelAdapter as IModelAdapterInternal } from "react-declarative/utils/mvvm/Model";
     export type ICollectionAdapter<T extends IMvvmEntity = any> = ICollectionAdapterInternal<T>;
     export type IEntityAdapter<T extends IMvvmEntity = any> = IEntityAdapterInternal<T>;
     export type IModelAdapter<T extends {} = any> = IModelAdapterInternal<T>;
-    export { Collection, EntityNotFoundError } from 'react-declarative/utils/mvvm/Collection';
-    export { Entity } from 'react-declarative/utils/mvvm/Entity';
-    export { Model } from 'react-declarative/utils/mvvm/Model';
-    export { formatAmount } from 'react-declarative/utils/formatAmount';
-    export { createWindowHistory } from 'react-declarative/utils/createWindowHistory';
-    export { createLsManager } from 'react-declarative/utils/createLsManager';
-    export { createSsManager } from 'react-declarative/utils/createSsManager';
-    export { createCustomTag } from 'react-declarative/utils/createCustomTag';
-    export { createWebComponent } from 'react-declarative/utils/createWebComponent';
-    export { mainColor } from 'react-declarative/utils/mainColor';
-    export { cacheSrc } from 'react-declarative/utils/cacheSrc';
-    export { parseBase64Json, stringifyBase64Json } from 'react-declarative/utils/base64Json';
-    export { parseAsciiParams, serializeAsciiParams } from 'react-declarative/utils/asciiParams';
-    export { fromBytes32, toBytes32 } from 'react-declarative/utils/asciiParams';
-    import * as datetimeInternal from 'react-declarative/utils/datetime';
+    export { Collection, EntityNotFoundError } from "react-declarative/utils/mvvm/Collection";
+    export { Entity } from "react-declarative/utils/mvvm/Entity";
+    export { Model } from "react-declarative/utils/mvvm/Model";
+    export { formatAmount } from "react-declarative/utils/formatAmount";
+    export { createWindowHistory } from "react-declarative/utils/createWindowHistory";
+    export { createLsManager } from "react-declarative/utils/createLsManager";
+    export { createSsManager } from "react-declarative/utils/createSsManager";
+    export { createCustomTag } from "react-declarative/utils/createCustomTag";
+    export { createWebComponent } from "react-declarative/utils/createWebComponent";
+    export { mainColor } from "react-declarative/utils/mainColor";
+    export { cacheSrc } from "react-declarative/utils/cacheSrc";
+    export { parseBase64Json, stringifyBase64Json } from "react-declarative/utils/base64Json";
+    export { parseAsciiParams, serializeAsciiParams } from "react-declarative/utils/asciiParams";
+    export { fromBytes32, toBytes32 } from "react-declarative/utils/asciiParams";
+    import * as datetimeInternal from "react-declarative/utils/datetime";
     export const typo: {
         thinsp: " ";
         nbsp: " ";
@@ -443,7 +443,7 @@ declare module 'react-declarative' {
         timeStamp: (str: string) => number;
         dateStamp: (str: string) => number;
     };
-    export { compose } from 'react-declarative/utils/compose';
+    export { compose } from "react-declarative/utils/compose";
 }
 
 declare module 'react-declarative/model/TypedField' {
@@ -1088,11 +1088,11 @@ declare module 'react-declarative/model/IManaged' {
 
 declare module 'react-declarative/model/IColumn' {
     import ColumnType from "react-declarative/model/ColumnType";
-    import { IListActionOption } from "react-declarative/model/IListProps";
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData from 'react-declarative/model/IRowData';
-    import { Value } from 'react-declarative/model/IField';
-    export interface IColumn<RowData extends IRowData = IAnything, Payload = IAnything> {
+    import { IListActionOption, ListHandlerChips, ListHandlerPagination, ListHandlerSortModel } from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import { Value } from "react-declarative/model/IField";
+    export interface IColumn<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload = IAnything> {
         type: ColumnType;
         field?: string;
         primary?: boolean;
@@ -1107,7 +1107,14 @@ declare module 'react-declarative/model/IColumn' {
         desktopOrder?: number;
         desktopHidden?: boolean;
         columnMenu?: IListActionOption[];
-        isVisible?: (payload: Payload) => boolean;
+        isVisible?: (params: {
+            filterData: FilterData;
+            pagination: ListHandlerPagination;
+            sortModel: ListHandlerSortModel<RowData>;
+            chips: ListHandlerChips<RowData>;
+            search: string;
+            payload: Payload;
+        }) => boolean;
         compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
         element?: React.ComponentType<RowData>;
         sortable?: boolean;
@@ -1474,7 +1481,7 @@ declare module 'react-declarative/model/IListProps' {
         onLoadStart?: (source: string) => void;
         onLoadEnd?: (isOk: boolean, source: string) => void;
         onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
-        columns: IColumn<RowData, Payload>[];
+        columns: IColumn<FilterData, RowData, Payload>[];
         filters?: Field[];
         handler: ListHandler<FilterData, RowData>;
         payload?: Payload | (() => Payload);
@@ -3952,9 +3959,7 @@ declare module 'react-declarative/components/List' {
     export * from "react-declarative/components/List/List";
     export * from "react-declarative/components/List/slots";
     export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
-    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
-    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
     export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
     export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
     export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
@@ -3962,6 +3967,12 @@ declare module 'react-declarative/components/List' {
     export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
     export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
     export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
+    export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
+    export { usePagination as useListPagination } from 'react-declarative/components/List/hooks/usePagination';
+    export { useSortModel as useListSortModel } from 'react-declarative/components/List/hooks/useSortModel';
+    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
+    export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
+    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { default } from "react-declarative/components/List/List";
 }
 
@@ -4879,7 +4890,7 @@ declare module 'react-declarative/components/List/List' {
     import IField from "react-declarative/model/IField";
     import IListProps from "react-declarative/model/IListProps";
     import TypedField from "react-declarative/model/TypedField";
-    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ payload: upperPayload, columns: upperColumns, ...otherProps }: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
     export default List;
 }
@@ -4920,18 +4931,6 @@ declare module 'react-declarative/components/List/hooks/useProps' {
     export default useProps;
 }
 
-declare module 'react-declarative/components/List/hooks/usePayload' {
-    import * as React from 'react';
-    import IListProps from 'react-declarative/model/IListProps';
-    interface IPayloadProviderProps {
-        children: React.ReactNode;
-        value?: Exclude<IListProps['payload'], undefined>;
-    }
-    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
-    export const usePayload: () => any;
-    export default usePayload;
-}
-
 declare module 'react-declarative/components/List/hooks/useCachedRows' {
     import React from 'react';
     import IAnything from 'react-declarative/model/IAnything';
@@ -4946,23 +4945,6 @@ declare module 'react-declarative/components/List/hooks/useCachedRows' {
     }
     export const CachedRowsProvider: <RowData extends IRowData = any>({ children, }: ICachedRowsProviderProps) => JSX.Element;
     export default useCachedRows;
-}
-
-declare module 'react-declarative/components/List/hooks/useChips' {
-    import React from 'react';
-    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
-    export const useChips: () => IState;
-    interface IChipsProviderProps {
-        children: React.ReactNode;
-        chips: IListChip[];
-        chipData: ListHandlerChips;
-    }
-    interface IState {
-        chips: Map<string, boolean>;
-        setChips: (s: Map<string, boolean>) => void;
-    }
-    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
-    export default useChips;
 }
 
 declare module 'react-declarative/components/List/api/useQueryPagination' {
@@ -5034,6 +5016,91 @@ declare module 'react-declarative/components/List/api/useCachedPaginator' {
     }
     export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
     export default useCachedPaginator;
+}
+
+declare module 'react-declarative/components/List/hooks/useFilterData' {
+    import * as React from "react";
+    import IListProps from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    import IRowData from "react-declarative/model/IRowData";
+    type IContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> = Exclude<IListProps<FilterData, RowData, Payload, Field>["filterData"], undefined>;
+    interface IProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
+        value: IContext<FilterData, RowData, Payload, Field>;
+        children: React.ReactNode;
+    }
+    export const FilterDataProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ children, value, }: IProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const useFilterData: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => Exclude<Partial<FilterData>, undefined>;
+    export default useFilterData;
+}
+
+declare module 'react-declarative/components/List/hooks/usePagination' {
+    import * as React from "react";
+    import { ListHandlerPagination } from "react-declarative/model/IListProps";
+    type IContext = ListHandlerPagination;
+    interface IProps extends IContext {
+        children: React.ReactNode;
+    }
+    export const PaginationProvider: ({ children, limit, offset }: IProps) => JSX.Element;
+    export const usePagination: () => ListHandlerPagination;
+    export default usePagination;
+}
+
+declare module 'react-declarative/components/List/hooks/useSortModel' {
+    import React from 'react';
+    import { IListSortItem, ListHandlerSortModel } from 'react-declarative/model/IListProps';
+    export const useSortModel: () => IState;
+    interface ISortModelProviderProps {
+        children: React.ReactNode;
+        sortModel: ListHandlerSortModel;
+    }
+    interface IState {
+        sortModel: Map<IListSortItem['field'], IListSortItem>;
+        setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
+    }
+    export const SortModelProvider: ({ children, sortModel: upperSortModel, }: ISortModelProviderProps) => JSX.Element;
+    export default useSortModel;
+}
+
+declare module 'react-declarative/components/List/hooks/useChips' {
+    import React from 'react';
+    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
+    export const useChips: () => IState;
+    interface IChipsProviderProps {
+        children: React.ReactNode;
+        chips: IListChip[];
+        chipData: ListHandlerChips;
+    }
+    interface IState {
+        chips: Map<string, boolean>;
+        setChips: (s: Map<string, boolean>) => void;
+    }
+    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
+    export default useChips;
+}
+
+declare module 'react-declarative/components/List/hooks/useSearch' {
+    import * as React from "react";
+    type IContext = string;
+    interface IProps {
+        value: IContext;
+        children: React.ReactNode;
+    }
+    export const SearchProvider: (props: IProps) => JSX.Element;
+    export const useSearch: () => string;
+    export default useSearch;
+}
+
+declare module 'react-declarative/components/List/hooks/usePayload' {
+    import * as React from 'react';
+    import IListProps from 'react-declarative/model/IListProps';
+    interface IPayloadProviderProps {
+        children: React.ReactNode;
+        value: Exclude<IListProps['payload'], undefined>;
+    }
+    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
+    export const usePayload: () => any;
+    export default usePayload;
 }
 
 declare module 'react-declarative/components/NoSsr/NoSsr' {
