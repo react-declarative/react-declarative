@@ -23,6 +23,7 @@ export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
 }
 
 interface IPaperLayoutPrivate {
+  isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
@@ -49,6 +50,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   style,
   className,
   children,
+  isBaselineAlign,
   fieldRightMargin = "0",
   fieldBottomMargin = "0",
   innerPadding: padding = "18px",
@@ -72,6 +74,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
         {
           className: classes.content,
           columnsOverride: columnsOverride,
+          isBaselineAlign,
           sx,
           style: { padding },
           children,

@@ -1013,6 +1013,7 @@ declare module 'react-declarative/model/IEntity' {
         change?: (object: Data, invalidMap: Record<string, boolean>) => void;
         invalidity: (name: string, msg: string, payload: Payload) => void;
         fallback: (e: Error) => void;
+        isBaselineAlign: boolean;
         dirty?: boolean;
         prefix: string;
         ready: () => void;
@@ -3042,14 +3043,15 @@ declare module 'react-declarative/components/One/layouts/CenterLayout' {
         style?: PickProp<IField<Data, Payload>, 'style'>;
     }
     interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const CenterLayout: {
-        <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, isBaselineAlign, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, innerPadding: padding, columns, phoneColumns, tabletColumns, desktopColumns, columnsOverride, isBaselineAlign, sx, fieldRightMargin, fieldBottomMargin, }: ICenterLayoutProps<Data, any> & ICenterLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -3087,14 +3089,15 @@ declare module 'react-declarative/components/One/layouts/GroupLayout' {
     export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {
     }
     interface IGroupLayoutPrivate {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const GroupLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -3111,14 +3114,15 @@ declare module 'react-declarative/components/One/layouts/OutlineLayout' {
         innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     }
     interface IOutlineLayoutPrivate {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const OutlineLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, isBaselineAlign, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, isBaselineAlign, fieldRightMargin, fieldBottomMargin, innerPadding: padding, }: IOutlineLayoutProps<Data, any> & IOutlineLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -3136,14 +3140,15 @@ declare module 'react-declarative/components/One/layouts/PaperLayout' {
         outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
     }
     interface IPaperLayoutPrivate {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const PaperLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, isBaselineAlign, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, style, className, children, isBaselineAlign, fieldRightMargin, fieldBottomMargin, innerPadding: padding, outlinePaper, }: IPaperLayoutProps<Data, any> & IPaperLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -3157,14 +3162,15 @@ declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
     export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {
     }
     interface IExpansionLayoutPrivate {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const ExpansionLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -3258,14 +3264,15 @@ declare module 'react-declarative/components/One/layouts/HeroLayout' {
         object: PickProp<IEntity<Data>, 'object'>;
     }
     interface IHeroLayoutPrivate {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const HeroLayout: {
-        <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, isBaselineAlign, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, object, columns, columnsOverride, isBaselineAlign, sx, phoneColumns, tabletColumns, desktopColumns, ...otherProps }: IHeroLayoutProps<Data, any> & IHeroLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -6621,11 +6628,11 @@ declare module 'react-declarative/components/common/Group/Group' {
     interface IGroupPrivate {
         children: React.ReactNode;
         isItem?: boolean;
-        isWrapper?: boolean;
+        isBaselineAlign?: boolean;
         onFocus?: () => void;
     }
     export const Group: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, isWrapper, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, isBaselineAlign, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
     const _default: React.ForwardRefExoticComponent<IGroupProps<any, any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;
@@ -6645,9 +6652,10 @@ declare module 'react-declarative/components/common/Outline/Outline' {
         children: React.ReactNode;
         columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
+        isBaselineAlign: boolean;
     }
     export const Outline: {
-        ({ className, columnsOverride, style, children, sx, }: IOutlineProps & IOutlinePrivate): JSX.Element;
+        ({ className, columnsOverride, style, children, isBaselineAlign, sx, }: IOutlineProps & IOutlinePrivate): JSX.Element;
         displayName: string;
     };
     export default Outline;
@@ -6690,9 +6698,10 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
         children: React.ReactNode;
         columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
+        isBaselineAlign: boolean;
     }
     export const Expansion: {
-        ({ title, description, className, columnsOverride, sx, style, children, expansionOpened, }: IExpansionProps & IExpansionPrivate): JSX.Element;
+        ({ title, description, className, columnsOverride, isBaselineAlign, sx, style, children, expansionOpened, }: IExpansionProps & IExpansionPrivate): JSX.Element;
         displayName: string;
     };
     export default Expansion;

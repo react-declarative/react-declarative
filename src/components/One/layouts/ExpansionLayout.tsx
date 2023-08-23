@@ -14,6 +14,7 @@ import makeLayout from "../components/makeLayout/makeLayout";
 export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {}
 
 interface IExpansionLayoutPrivate {
+  isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
@@ -37,6 +38,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   phoneColumns,
   tabletColumns,
   desktopColumns,
+  isBaselineAlign,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
   style,
@@ -65,6 +67,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
                 expansionOpened={expansionOpened}
                 sx={sx}
                 title={title}
+                isBaselineAlign={isBaselineAlign}
                 description={description}
             >
                 {children}

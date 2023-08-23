@@ -26,6 +26,8 @@ import PayloadProvider from "../../context/PayloadProvider";
 import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
+import isBaseline from "../../config/isBaseline";
+
 const useStyles = makeStyles()({
   readonly: {
     pointerEvents: "none",
@@ -103,6 +105,8 @@ export const OneGenesis = <
     rendered,
   };
 
+  const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
+
   return (
     <NoSsr>
       <ThemeProvider>
@@ -110,7 +114,7 @@ export const OneGenesis = <
           <StateProvider<Data, Payload, Field> {...stateParams}>
             <SlotFactory {...slots}>
               <Group
-                isWrapper
+                isBaselineAlign={isBaselineAlign}
                 className={classNames(className, {
                   [classes.readonly]: props.readonly,
                   [classes.rendering]: !rendered,

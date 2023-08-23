@@ -34,7 +34,7 @@ export const TimeField = ({
   disabled,
   readonly,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "Text",
   placeholder = title,
   dirty,

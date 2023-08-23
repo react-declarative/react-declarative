@@ -38,7 +38,7 @@ export const ComboField = ({
   readonly,
   description = "",
   placeholder = "",
-  outlined = true,
+  outlined = false,
   itemList = [],
   keepSync = true,
   freeSolo = false,

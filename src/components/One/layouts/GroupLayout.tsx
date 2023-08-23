@@ -13,6 +13,7 @@ import makeLayout from "../components/makeLayout/makeLayout";
 export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {}
 
 interface IGroupLayoutPrivate {
+  isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
@@ -36,6 +37,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
   phoneColumns,
   tabletColumns,
   desktopColumns,
+  isBaselineAlign,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
   style,
@@ -57,7 +59,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
         >
           <Group
             className={classes.content}
-            isWrapper={true}
+            isBaselineAlign={isBaselineAlign}
             columnsOverride={columnsOverride}
             sx={sx}
           >

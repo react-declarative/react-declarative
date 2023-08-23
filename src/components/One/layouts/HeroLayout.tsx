@@ -159,6 +159,7 @@ export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends
 }
 
 interface IHeroLayoutPrivate {
+  isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
@@ -352,6 +353,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   object,
   columns,
   columnsOverride,
+  isBaselineAlign,
   sx,
   phoneColumns,
   tabletColumns,
@@ -376,7 +378,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
     >
       <Group
         className={classes.container}
-        isWrapper={true}
+        isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
         sx={sx}
       >

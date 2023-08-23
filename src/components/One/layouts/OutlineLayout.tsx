@@ -18,6 +18,7 @@ export interface IOutlineLayoutProps<Data = IAnything, Payload = IAnything> exte
 }
 
 interface IOutlineLayoutPrivate {
+  isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
@@ -44,6 +45,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
   style,
   className,
   children,
+  isBaselineAlign,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
   innerPadding: padding = '18px',
@@ -63,6 +65,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
     >
       <Outline
         className={classes.content}
+        isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
         style={{ padding }}
         sx={sx}

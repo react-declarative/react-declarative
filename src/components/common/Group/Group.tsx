@@ -20,7 +20,7 @@ export interface IGroupProps<Data = IAnything, Payload = IAnything> extends IMan
 interface IGroupPrivate {
   children: React.ReactNode;
   isItem?: boolean;
-  isWrapper?: boolean;
+  isBaselineAlign?: boolean;
   onFocus?: () => void;
 }
 
@@ -42,7 +42,7 @@ export const Group = (
     desktopColumns = "",
     children,
     isItem,
-    isWrapper,
+    isBaselineAlign,
     style,
     columnsOverride,
     sx,
@@ -76,7 +76,7 @@ export const Group = (
       <Container
         ref={ref}
         className={classNames(classes.root, className)}
-        isWrapper={isWrapper}
+        isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
         style={style}
         onFocus={onFocus}

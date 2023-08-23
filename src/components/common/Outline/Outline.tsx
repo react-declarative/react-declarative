@@ -39,7 +39,7 @@ interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
   children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
   sx?: PickProp<IField<Data, Payload>, 'sx'>;
-  isWrapper?: boolean;
+  isBaselineAlign: boolean;
 }
 
 export const Outline = ({
@@ -47,7 +47,7 @@ export const Outline = ({
   columnsOverride,
   style,
   children,
-  isWrapper,
+  isBaselineAlign,
   sx,
 }: IOutlineProps & IOutlinePrivate) => {
   const { classes } = useStyles();
@@ -55,7 +55,7 @@ export const Outline = ({
     <Box className={classNames(className, classes.strech)} sx={sx} style={style}>
       <Box className={classes.content}>
         <Group
-          isWrapper={isWrapper}
+          isBaselineAlign={isBaselineAlign}
           columnsOverride={columnsOverride}
           fieldBottomMargin="0"
           fieldRightMargin="0"

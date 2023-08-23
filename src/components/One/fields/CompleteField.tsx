@@ -43,7 +43,7 @@ export const CompleteField = ({
   readonly,
   inputType = "text",
   description = "",
-  outlined = true,
+  outlined = false,
   keepRaw = false,
   title = "",
   tip,

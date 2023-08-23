@@ -37,7 +37,7 @@ export const ItemsField = ({
   readonly,
   description,
   placeholder,
-  outlined = true,
+  outlined = false,
   itemList = [],
   keepSync = false,
   freeSolo = false,

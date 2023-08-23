@@ -37,7 +37,7 @@ export const ChooseField = ({
   disabled,
   readonly,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "",
   placeholder = "",
   choose,

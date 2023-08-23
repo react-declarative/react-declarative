@@ -38,7 +38,7 @@ export const FileField = ({
   disabled,
   readonly,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "",
   placeholder = "",
   upload,

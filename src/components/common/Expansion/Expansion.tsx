@@ -36,7 +36,7 @@ interface IExpansionPrivate<Data = IAnything,  Payload = IAnything> {
   children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
   sx?: PickProp<IField<Data, Payload>, 'sx'>;
-  isWrapper?: boolean;
+  isBaselineAlign: boolean;
 }
 
 export const Expansion = ({
@@ -44,7 +44,7 @@ export const Expansion = ({
   description = '',
   className = '',
   columnsOverride,
-  isWrapper,
+  isBaselineAlign,
   sx,
   style,
   children,
@@ -59,7 +59,7 @@ export const Expansion = ({
         <Typography className={classes.secondaryHeading}>{description}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Group isWrapper={isWrapper} columnsOverride={columnsOverride}>
+        <Group isBaselineAlign={isBaselineAlign} columnsOverride={columnsOverride}>
           {children}
         </Group>
       </AccordionDetails>

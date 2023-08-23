@@ -51,7 +51,7 @@ export const TextField = ({
   readonly,
   inputType = "text",
   description = "",
-  outlined = true,
+  outlined = false,
   title = "",
   leadingIcon,
   trailingIcon,

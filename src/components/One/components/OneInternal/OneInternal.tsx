@@ -23,6 +23,7 @@ import IOneProps from "../../../../model/IOneProps";
 import IEntity from "../../../../model/IEntity";
 import IField from "../../../../model/IField";
 import IAnything from "../../../../model/IAnything";
+import isBaseline from "../../config/isBaseline";
 
 /**
  * Мы отображаем корневой компонент только после инициализации
@@ -80,6 +81,9 @@ export const OneInternal = <
   const [blurMap] = useState(
     () => new WeakMap<IField, (name: string, payload: Payload) => void>()
   );
+  const [baselineMap] = useState(
+    () => new WeakMap<IField, boolean>()
+  );
   const { object, setObject } = useOneState<Data>();
 
   /**
@@ -130,6 +134,9 @@ export const OneInternal = <
           )
           ?.map((field, index) => {
             const currentPath = `${prefix}.${typeToString(field.type)}[${index}]`;
+            const fields: IField<Data>[] = field.child
+              ? [field.child]
+              : field.fields || [];
             const entity: IEntity<Data> = {
               invalidity: field.invalidity || invalidity,
               readonly: readonly || field.readonly,
@@ -137,6 +144,9 @@ export const OneInternal = <
               change: handleChange,
               ready: handleReady,
               fallback,
+              isBaselineAlign: baselineMap.get(field) === undefined
+                ? !!baselineMap.set(field, fields.some(isBaseline)).get(field)
+                : !!baselineMap.get(field),
               ...field,
               outlinePaper: field.outlinePaper || upperOutlinePaper,
               focus: focusMap.has(field)
@@ -158,9 +168,6 @@ export const OneInternal = <
               object,
               dirty,
             };
-            const fields: IField<Data>[] = field.child
-              ? [field.child]
-              : field.fields || [];
             const one: IOneInternalProps<Data> = {
               rendered,
               ready: handleReady,
