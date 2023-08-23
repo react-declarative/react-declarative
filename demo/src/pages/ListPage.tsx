@@ -53,6 +53,10 @@ const columns: IColumn<IRowData>[] = [
     headerName: 'ID',
     secondary: true,
     width: (fullWidth) => Math.max((fullWidth - 650) / 3, 200),
+    isVisible: () => {
+      console.log('visible');
+      return true;
+    },
     element: ({ id }) => <Copy content={id} />,
     sortable: true,
     columnMenu: [
