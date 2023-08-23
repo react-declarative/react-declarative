@@ -32,6 +32,7 @@ export interface IPaperProps<Data = IAnything, Payload = IAnything> {
 
 interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
   children: React.ReactNode;
+  isBaselineAlign: boolean;
   columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
   sx?: PickProp<IField<Data, Payload>, 'sx'>;
 }
@@ -41,6 +42,7 @@ export const Paper = ({
   style,
   children,
   columnsOverride,
+  isBaselineAlign,
   sx,
 }: IPaperProps & IPaperPrivate) => {
   const { classes } = useStyles();
@@ -49,6 +51,7 @@ export const Paper = ({
       <Box className={classes.content}>
         <Group
           columnsOverride={columnsOverride}
+          isBaselineAlign={isBaselineAlign}
           fieldBottomMargin="0"
           fieldRightMargin="0"
         >

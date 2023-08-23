@@ -35,6 +35,7 @@ export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
 
 interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+    isBaselineAlign: boolean;
     children?: React.ReactNode;
 }
 
@@ -113,6 +114,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     tabIndex: tabIndexDefault = 0,
     columns,
     columnsOverride,
+    isBaselineAlign,
     sx,
     phoneColumns,
     tabletColumns,
@@ -139,6 +141,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
             isItem={true}
             columns={columns}
             columnsOverride={columnsOverride}
+            isBaselineAlign={isBaselineAlign}
             phoneColumns={phoneColumns}
             tabletColumns={tabletColumns}
             desktopColumns={desktopColumns}

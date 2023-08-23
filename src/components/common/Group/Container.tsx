@@ -30,7 +30,7 @@ export const Container = ({
   <Grid
     ref={ref}
     container={true}
-    alignItems={isBaselineAlign ? "flex-start" : "flex-end"}
+    alignItems={isBaselineAlign ? "flex-end" : "flex-start"}
     className={className}
     style={style}
     onFocus={onFocus}

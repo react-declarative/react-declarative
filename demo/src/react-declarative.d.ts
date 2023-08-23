@@ -3017,14 +3017,15 @@ declare module 'react-declarative/components/One/layouts/TabsLayout' {
         tabBackground?: PickProp<IField<Data, Payload>, 'tabBackground'>;
     }
     interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+        isBaselineAlign: boolean;
         children?: React.ReactNode;
     }
     export const TabsLayout: {
-        <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, isBaselineAlign, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, className, style, tabChange, tabVariant, tabLine, tabColor, tabList, tabKeepFlow, tabBackground, tabIndex: tabIndexDefault, columns, columnsOverride, isBaselineAlign, sx, phoneColumns, tabletColumns, desktopColumns, fieldRightMargin, fieldBottomMargin, }: ITabsLayoutProps<Data, any> & ITabsLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;
@@ -6672,11 +6673,12 @@ declare module 'react-declarative/components/common/Paper/Paper' {
     }
     interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
         children: React.ReactNode;
+        isBaselineAlign: boolean;
         columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
         sx?: PickProp<IField<Data, Payload>, 'sx'>;
     }
     export const Paper: {
-        ({ className, style, children, columnsOverride, sx, }: IPaperProps & IPaperPrivate): JSX.Element;
+        ({ className, style, children, columnsOverride, isBaselineAlign, sx, }: IPaperProps & IPaperPrivate): JSX.Element;
         displayName: string;
     };
     export default Paper;
