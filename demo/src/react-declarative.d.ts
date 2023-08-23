@@ -75,6 +75,7 @@ declare module 'react-declarative' {
     import { useSingleton } from 'react-declarative/hooks/useSingleton';
     import { useBehaviorSubject } from 'react-declarative/hooks/useBehaviorSubject';
     import { useSubscription } from 'react-declarative/hooks/useSubscription';
+    import { useSubjectValue } from 'react-declarative/hooks/useSubjectValue';
     import { useSubject } from 'react-declarative/hooks/useSubject';
     import { useChange } from 'react-declarative/hooks/useChange';
     import { useModel } from 'react-declarative/hooks/useModel';
@@ -132,7 +133,7 @@ declare module 'react-declarative' {
     export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
     export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
     export type IOption = IOptionInternal;
-    export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
+    export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
     import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from 'react-declarative/components';
     export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
     export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
@@ -284,6 +285,7 @@ declare module 'react-declarative' {
     export { useMediaContext };
     export { useAudioPlayer };
     export { useBehaviorSubject };
+    export { useSubjectValue };
     export { useSubscription };
     export { useSingleton };
     export { useSubject };
@@ -1100,11 +1102,11 @@ declare module 'react-declarative/model/IManaged' {
 
 declare module 'react-declarative/model/IColumn' {
     import ColumnType from "react-declarative/model/ColumnType";
-    import { IListActionOption } from "react-declarative/model/IListProps";
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData from 'react-declarative/model/IRowData';
-    import { Value } from 'react-declarative/model/IField';
-    export interface IColumn<RowData extends IRowData = IAnything, Payload = IAnything> {
+    import { IListActionOption, ListHandlerChips, ListHandlerPagination, ListHandlerSortModel } from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import { Value } from "react-declarative/model/IField";
+    export interface IColumn<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload = IAnything> {
         type: ColumnType;
         field?: string;
         primary?: boolean;
@@ -1119,7 +1121,14 @@ declare module 'react-declarative/model/IColumn' {
         desktopOrder?: number;
         desktopHidden?: boolean;
         columnMenu?: IListActionOption[];
-        isVisible?: (payload: Payload) => boolean;
+        isVisible?: (params: {
+            filterData: FilterData;
+            pagination: ListHandlerPagination;
+            sortModel: ListHandlerSortModel<RowData>;
+            chips: ListHandlerChips<RowData>;
+            search: string;
+            payload: Payload;
+        }) => boolean;
         compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
         element?: React.ComponentType<RowData>;
         sortable?: boolean;
@@ -1486,7 +1495,7 @@ declare module 'react-declarative/model/IListProps' {
         onLoadStart?: (source: string) => void;
         onLoadEnd?: (isOk: boolean, source: string) => void;
         onAction?: (action: string, selectedRows: RowData[], reload: (keepPagination?: boolean) => Promise<void>) => void;
-        columns: IColumn<RowData, Payload>[];
+        columns: IColumn<FilterData, RowData, Payload>[];
         filters?: Field[];
         handler: ListHandler<FilterData, RowData>;
         payload?: Payload | (() => Payload);
@@ -1864,6 +1873,12 @@ declare module 'react-declarative/hooks/useBehaviorSubject' {
 declare module 'react-declarative/hooks/useSubscription' {
     export const useSubscription: (fn: () => () => void) => void;
     export default useSubscription;
+}
+
+declare module 'react-declarative/hooks/useSubjectValue' {
+    import { TSubject } from "react-declarative/utils/rx/Subject";
+    export const useSubjectValue: <Data = any>(target: TSubject<Data>) => Data | null;
+    export default useSubjectValue;
 }
 
 declare module 'react-declarative/hooks/useSubject' {
@@ -3974,9 +3989,7 @@ declare module 'react-declarative/components/List' {
     export * from "react-declarative/components/List/List";
     export * from "react-declarative/components/List/slots";
     export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
-    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
-    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
     export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
     export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
     export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
@@ -3984,6 +3997,12 @@ declare module 'react-declarative/components/List' {
     export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
     export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
     export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
+    export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
+    export { usePagination as useListPagination } from 'react-declarative/components/List/hooks/usePagination';
+    export { useSortModel as useListSortModel } from 'react-declarative/components/List/hooks/useSortModel';
+    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
+    export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
+    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
     export { default } from "react-declarative/components/List/List";
 }
 
@@ -4912,7 +4931,7 @@ declare module 'react-declarative/components/List/List' {
     import IField from "react-declarative/model/IField";
     import IListProps from "react-declarative/model/IListProps";
     import TypedField from "react-declarative/model/TypedField";
-    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ payload: upperPayload, columns: upperColumns, ...otherProps }: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
     export default List;
 }
@@ -4953,18 +4972,6 @@ declare module 'react-declarative/components/List/hooks/useProps' {
     export default useProps;
 }
 
-declare module 'react-declarative/components/List/hooks/usePayload' {
-    import * as React from 'react';
-    import IListProps from 'react-declarative/model/IListProps';
-    interface IPayloadProviderProps {
-        children: React.ReactNode;
-        value?: Exclude<IListProps['payload'], undefined>;
-    }
-    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
-    export const usePayload: () => any;
-    export default usePayload;
-}
-
 declare module 'react-declarative/components/List/hooks/useCachedRows' {
     import React from 'react';
     import IAnything from 'react-declarative/model/IAnything';
@@ -4979,23 +4986,6 @@ declare module 'react-declarative/components/List/hooks/useCachedRows' {
     }
     export const CachedRowsProvider: <RowData extends IRowData = any>({ children, }: ICachedRowsProviderProps) => JSX.Element;
     export default useCachedRows;
-}
-
-declare module 'react-declarative/components/List/hooks/useChips' {
-    import React from 'react';
-    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
-    export const useChips: () => IState;
-    interface IChipsProviderProps {
-        children: React.ReactNode;
-        chips: IListChip[];
-        chipData: ListHandlerChips;
-    }
-    interface IState {
-        chips: Map<string, boolean>;
-        setChips: (s: Map<string, boolean>) => void;
-    }
-    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
-    export default useChips;
 }
 
 declare module 'react-declarative/components/List/api/useQueryPagination' {
@@ -5067,6 +5057,91 @@ declare module 'react-declarative/components/List/api/useCachedPaginator' {
     }
     export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
     export default useCachedPaginator;
+}
+
+declare module 'react-declarative/components/List/hooks/useFilterData' {
+    import * as React from "react";
+    import IListProps from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    import IRowData from "react-declarative/model/IRowData";
+    type IContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> = Exclude<IListProps<FilterData, RowData, Payload, Field>["filterData"], undefined>;
+    interface IProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
+        value: IContext<FilterData, RowData, Payload, Field>;
+        children: React.ReactNode;
+    }
+    export const FilterDataProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ children, value, }: IProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const useFilterData: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => Exclude<Partial<FilterData>, undefined>;
+    export default useFilterData;
+}
+
+declare module 'react-declarative/components/List/hooks/usePagination' {
+    import * as React from "react";
+    import { ListHandlerPagination } from "react-declarative/model/IListProps";
+    type IContext = ListHandlerPagination;
+    interface IProps extends IContext {
+        children: React.ReactNode;
+    }
+    export const PaginationProvider: ({ children, limit, offset }: IProps) => JSX.Element;
+    export const usePagination: () => ListHandlerPagination;
+    export default usePagination;
+}
+
+declare module 'react-declarative/components/List/hooks/useSortModel' {
+    import React from 'react';
+    import { IListSortItem, ListHandlerSortModel } from 'react-declarative/model/IListProps';
+    export const useSortModel: () => IState;
+    interface ISortModelProviderProps {
+        children: React.ReactNode;
+        sortModel: ListHandlerSortModel;
+    }
+    interface IState {
+        sortModel: Map<IListSortItem['field'], IListSortItem>;
+        setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
+    }
+    export const SortModelProvider: ({ children, sortModel: upperSortModel, }: ISortModelProviderProps) => JSX.Element;
+    export default useSortModel;
+}
+
+declare module 'react-declarative/components/List/hooks/useChips' {
+    import React from 'react';
+    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
+    export const useChips: () => IState;
+    interface IChipsProviderProps {
+        children: React.ReactNode;
+        chips: IListChip[];
+        chipData: ListHandlerChips;
+    }
+    interface IState {
+        chips: Map<string, boolean>;
+        setChips: (s: Map<string, boolean>) => void;
+    }
+    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
+    export default useChips;
+}
+
+declare module 'react-declarative/components/List/hooks/useSearch' {
+    import * as React from "react";
+    type IContext = string;
+    interface IProps {
+        value: IContext;
+        children: React.ReactNode;
+    }
+    export const SearchProvider: (props: IProps) => JSX.Element;
+    export const useSearch: () => string;
+    export default useSearch;
+}
+
+declare module 'react-declarative/components/List/hooks/usePayload' {
+    import * as React from 'react';
+    import IListProps from 'react-declarative/model/IListProps';
+    interface IPayloadProviderProps {
+        children: React.ReactNode;
+        value: Exclude<IListProps['payload'], undefined>;
+    }
+    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
+    export const usePayload: () => any;
+    export default usePayload;
 }
 
 declare module 'react-declarative/components/NoSsr/NoSsr' {

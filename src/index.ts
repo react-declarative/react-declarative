@@ -79,6 +79,7 @@ import { useReloadTrigger } from './hooks/useReloadTrigger';
 import { useSingleton } from './hooks/useSingleton';
 import { useBehaviorSubject } from './hooks/useBehaviorSubject';
 import { useSubscription } from './hooks/useSubscription';
+import { useSubjectValue } from './hooks/useSubjectValue';
 import { useSubject } from './hooks/useSubject';
 import { useChange } from './hooks/useChange';
 
@@ -155,7 +156,7 @@ export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
 export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
 export type IOption = IOptionInternal;
-export type IColumn<RowData extends IRowData = any, Payload = any> = IColumnInternal<RowData, Payload>;
+export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
 
 import {
     TGridSort as TGridSortInternal,
@@ -358,6 +359,7 @@ export { useMediaContext };
 export { useAudioPlayer };
 
 export { useBehaviorSubject };
+export { useSubjectValue };
 export { useSubscription };
 export { useSingleton };
 export { useSubject };
