@@ -28,7 +28,7 @@ export const Container = ({
   <Grid
     ref={ref}
     container={true}
-    alignItems="flex-start"
+    alignItems="flex-end"
     className={className}
     style={style}
     onFocus={onFocus}
