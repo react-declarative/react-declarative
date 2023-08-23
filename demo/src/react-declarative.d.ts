@@ -6621,10 +6621,11 @@ declare module 'react-declarative/components/common/Group/Group' {
     interface IGroupPrivate {
         children: React.ReactNode;
         isItem?: boolean;
+        isWrapper?: boolean;
         onFocus?: () => void;
     }
     export const Group: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, isWrapper, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
     const _default: React.ForwardRefExoticComponent<IGroupProps<any, any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;

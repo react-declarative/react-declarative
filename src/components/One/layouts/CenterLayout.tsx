@@ -28,6 +28,7 @@ export interface ICenterLayoutProps<Data = IAnything, Payload = IAnything> exten
 }
 
 interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
+    isWrapper?: boolean;
     children?: React.ReactNode;
 }
 
@@ -66,6 +67,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     tabletColumns,
     desktopColumns,
     columnsOverride,
+    isWrapper,
     sx,
     fieldRightMargin = '0',
     fieldBottomMargin = '0',
@@ -138,6 +140,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                             <div style={{ marginRight, width }}>
                                 <Group
                                     columnsOverride={columnsOverride}
+                                    isWrapper={isWrapper}
                                     sx={sx}
                                     ref={handleGroupRef}
                                 >

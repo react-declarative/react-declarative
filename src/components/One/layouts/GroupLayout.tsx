@@ -57,6 +57,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
         >
           <Group
             className={classes.content}
+            isWrapper={true}
             columnsOverride={columnsOverride}
             sx={sx}
           >

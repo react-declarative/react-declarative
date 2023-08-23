@@ -11,6 +11,7 @@ interface IContainerProps {
   style: PickProp<IField, 'style'>;
   columnsOverride?: PickProp<IField, 'columnsOverride'>;
   sx?: PickProp<IField, 'sx'>;
+  isWrapper?: boolean;
   children: React.ReactNode;
   onFocus?: () => void;
 }
@@ -22,13 +23,14 @@ export const Container = ({
   style,
   children,
   onFocus,
+  isWrapper,
   columnsOverride,
   sx,
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
   <Grid
     ref={ref}
     container={true}
-    alignItems="flex-end"
+    alignItems={isWrapper ? "flex-start" : "flex-end"}
     className={className}
     style={style}
     onFocus={onFocus}

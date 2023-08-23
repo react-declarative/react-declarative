@@ -110,6 +110,7 @@ export const OneGenesis = <
           <StateProvider<Data, Payload, Field> {...stateParams}>
             <SlotFactory {...slots}>
               <Group
+                isWrapper
                 className={classNames(className, {
                   [classes.readonly]: props.readonly,
                   [classes.rendering]: !rendered,

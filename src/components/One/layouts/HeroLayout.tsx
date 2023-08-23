@@ -376,6 +376,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
     >
       <Group
         className={classes.container}
+        isWrapper={true}
         columnsOverride={columnsOverride}
         sx={sx}
       >
