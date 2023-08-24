@@ -19,6 +19,7 @@ interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field
   title?: string;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>['payload'];
+  waitForChangesDelay?: number;
 }
 
 export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>>({
@@ -26,6 +27,7 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
   title: defaultTitle,
   handler: defaultHandler,
   payload: defaultPayload,
+  waitForChangesDelay,
 }: IParams<Data, Payload, Field>) => {
 
   const changeRef = useRef<Fn>();
@@ -45,6 +47,7 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
   const { showModal, hideModal } = useModal(() => (
     <OnePicker
       open
+      waitForChangesDelay={waitForChangesDelay}
       fields={fields as unknown as IField[]}
       title={currentTitle.current}
       handler={currentHandler.current}

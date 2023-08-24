@@ -18,6 +18,7 @@ const useStyles = makeStyles()({
 
 interface IModalDialogProps extends DialogProps {
   children: React.ReactNode;
+  disabled?: boolean;
   canCancel?: boolean;
   noSave?: boolean;
   dividers?: boolean;
@@ -27,6 +28,7 @@ interface IModalDialogProps extends DialogProps {
 
 export const ModalDialog = ({
   children,
+  disabled,
   dividers = false,
   canCancel = true,
   noSave = false,
@@ -43,6 +45,7 @@ export const ModalDialog = ({
       <DialogActions>
         {!noSave && (
           <Button
+            disabled={disabled}
             color="primary"
             onClick={onAccept}
           >
@@ -51,6 +54,7 @@ export const ModalDialog = ({
         )}
         {canCancel && (
           <Button
+            disabled={disabled}
             color="primary"
             onClick={onDismiss}
           >

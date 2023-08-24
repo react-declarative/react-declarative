@@ -146,8 +146,8 @@ export const OutletView = <
 
   const unsubscribeRef = useRef<Function | null>();
 
-  const waitForElement = useRenderWaiter([component, activeOption], 50);
-  const waitForRender = useRenderWaiter([data, changed], 500);
+  const waitForElement = useRenderWaiter([component, activeOption], 10);
+  const waitForRender = useRenderWaiter([data, changed], 10);
   const waitForLeave = () => leaveSubject.toPromise();
 
   const afterSave = async () => {

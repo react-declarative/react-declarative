@@ -126,7 +126,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
     const unsubscribeRef = useRef<Function | null>();
 
-    const waitForRender = useRenderWaiter([data, invalid], 500);
+    const waitForRender = useRenderWaiter([data, invalid], 10);
 
     const waitForLeave = () => leaveSubject.toPromise();
 

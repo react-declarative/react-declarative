@@ -10,7 +10,9 @@ import Typography from "@mui/material/Typography";
 import ActionButton from "../ActionButton";
 import One from "../One";
 
+import useActualValue from "../../hooks/useActualValue";
 import useActualState from "../../hooks/useActualState";
+import useRenderWaiter from "../../hooks/useRenderWaiter";
 
 import classNames from "../../utils/classNames";
 
@@ -19,12 +21,15 @@ import IOneApi from "../../model/IOneApi";
 import IAnything from "../../model/IAnything";
 import IOneProps from "../../model/IOneProps";
 
+import sleep from "../../utils/sleep";
+
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,
   Field = IField<Data>,
   Param = any,
 > {
+  waitForChangesDelay?: number;
   fullScreen?: boolean;
   hidden?: boolean;
   readonly?: boolean;
@@ -48,6 +53,8 @@ export interface IActionModalProps<
   open?: boolean;
   submitLabel?: string;
 }
+
+const WAIT_FOR_CHANGES_DELAY = 1_000;
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -90,7 +97,7 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.text.primary,
   },
   submit: {
-    paddingTop: 15,
+    marginTop: 15,
   },
   disabled: {
     opacity: 0.5,
@@ -103,6 +110,7 @@ export const ActionModal = <
   Payload = IAnything,
   Field = IField<Data>
 >({
+  waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   onSubmit = () => true,
   onChange = () => undefined,
   onInvalid = () => undefined,
@@ -131,6 +139,8 @@ export const ActionModal = <
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useActualState(0);
 
+  const data$ = useActualValue(data);
+
   const handleChange = (newData: Data, initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
@@ -151,6 +161,15 @@ export const ActionModal = <
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  const waitForRender = useRenderWaiter([data], 10);
+
+  const waitForChanges = async () => {
+    await Promise.race([
+      waitForRender(),
+      sleep(waitForChangesDelay),
+    ]);
+  };
+
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -159,7 +178,8 @@ export const ActionModal = <
     try {
       handleLoadStart()
       if (open) {
-        await onSubmit(data, param);
+        await waitForChanges();
+        await onSubmit(data$.current, param);
       }
     } catch (e: any) {
       isOk = false;

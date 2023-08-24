@@ -2181,8 +2181,9 @@ declare module 'react-declarative/hooks/useOne' {
         title?: string;
         handler?: OneHandler<Data, Payload>;
         payload?: IOneProps<Data, Payload, Field>['payload'];
+        waitForChangesDelay?: number;
     }
-    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
+    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
         then(onData: Fn): void;
     };
     export const useOneTyped: <Data extends unknown = any, Payload = any>(params: IParams<Data, Payload, TypedField<Data, Payload>>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, TypedField<Data, Payload>>>) => {
@@ -5546,6 +5547,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IAnything from "react-declarative/model/IAnything";
     import IOneProps from "react-declarative/model/IOneProps";
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
+        waitForChangesDelay?: number;
         fullScreen?: boolean;
         hidden?: boolean;
         readonly?: boolean;
@@ -5569,7 +5571,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5581,9 +5583,10 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = any> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
         open: never;
     }> {
+        waitForChangesDelay?: number;
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;

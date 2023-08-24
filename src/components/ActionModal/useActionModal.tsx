@@ -22,6 +22,7 @@ interface IParams<
       open: never;
     }
   > {
+    waitForChangesDelay?: number;
     param?: Param;
   }
 
@@ -33,6 +34,7 @@ export const useActionModal = <
 >({
   hidden,
   fields,
+  waitForChangesDelay,
   param: upperParam,
   handler,
   fallback,
@@ -74,6 +76,7 @@ export const useActionModal = <
       <ActionModal
         open={open}
         hidden={hidden}
+        waitForChangesDelay={waitForChangesDelay}
         readonly={readonly}
         fullScreen={fullScreen}
         apiRef={apiRef}
