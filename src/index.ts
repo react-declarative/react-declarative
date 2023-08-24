@@ -80,6 +80,7 @@ import { useSingleton } from './hooks/useSingleton';
 import { useBehaviorSubject } from './hooks/useBehaviorSubject';
 import { useSubscription } from './hooks/useSubscription';
 import { useSubjectValue } from './hooks/useSubjectValue';
+import { useElementSize } from './hooks/useElementSize';
 import { useSubject } from './hooks/useSubject';
 import { useChange } from './hooks/useChange';
 
@@ -111,6 +112,8 @@ import { useSearchState } from './hooks/useSearchState';
 
 export { useSearchParams };
 export { useSearchState };
+
+export { useElementSize };
 
 import IAnything from './model/IAnything';
 import IRowData, { RowId } from './model/IRowData';

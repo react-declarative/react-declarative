@@ -76,6 +76,7 @@ declare module 'react-declarative' {
     import { useBehaviorSubject } from 'react-declarative/hooks/useBehaviorSubject';
     import { useSubscription } from 'react-declarative/hooks/useSubscription';
     import { useSubjectValue } from 'react-declarative/hooks/useSubjectValue';
+    import { useElementSize } from 'react-declarative/hooks/useElementSize';
     import { useSubject } from 'react-declarative/hooks/useSubject';
     import { useChange } from 'react-declarative/hooks/useChange';
     import { useModel } from 'react-declarative/hooks/useModel';
@@ -99,6 +100,7 @@ declare module 'react-declarative' {
     import { useSearchState } from 'react-declarative/hooks/useSearchState';
     export { useSearchParams };
     export { useSearchState };
+    export { useElementSize };
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData, { RowId } from 'react-declarative/model/IRowData';
     export type { IRowData, RowId };
@@ -1880,6 +1882,20 @@ declare module 'react-declarative/hooks/useSubjectValue' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
     export const useSubjectValue: <Data = any>(target: TSubject<Data>) => Data | null;
     export default useSubjectValue;
+}
+
+declare module 'react-declarative/hooks/useElementSize' {
+    type Height = Exclude<React.CSSProperties['height'], undefined>;
+    type Width = Exclude<React.CSSProperties['width'], undefined>;
+    interface ISize {
+        height: Height;
+        width: Width;
+    }
+    export const useElementSize: <T extends HTMLElement>({ height, width, }?: Partial<ISize>) => {
+        elementRef: import("react").RefObject<T>;
+        size: ISize;
+    };
+    export default useElementSize;
 }
 
 declare module 'react-declarative/hooks/useSubject' {
