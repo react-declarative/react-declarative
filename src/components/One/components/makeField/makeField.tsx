@@ -200,6 +200,7 @@ export function makeField(
             invalid$: invalid,
             object$: object,
             upperReadonly$: upperReadonly,
+            groupRef$: groupRef,
             value$: value,
         })
 
@@ -446,6 +447,7 @@ export function makeField(
         const handleFocus = useCallback(() => {
             const { fieldReadonly$: fieldReadonly } = memory;
             const { upperReadonly$: upperReadonly } = memory;
+            const { groupRef$: groupRef } = memory;
             if (!memory.isMounted) {
                 return;
             }

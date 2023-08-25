@@ -16,6 +16,7 @@ interface IMemory {
     invalid$: string | null;
     object$: IAnything;
     value$: Value;
+    groupRef$: HTMLDivElement;
 }
 
 interface IMemoryData extends Omit<IMemory, keyof {
@@ -34,6 +35,7 @@ export const useFieldMemory = ({
     object$,
     upperReadonly$,
     value$,
+    groupRef$,
 }: IMemoryData) => {
     const memory = useMemo((): IMemory => ({
         inputUpdate: false,
@@ -48,6 +50,7 @@ export const useFieldMemory = ({
         object$: null as never,
         upperReadonly$: null as never,
         value$: null as never,
+        groupRef$: null as never,
     }), []);
     memory.debouncedValue$ = debouncedValue$;
     memory.fieldReadonly$ = fieldReadonly$;
@@ -56,6 +59,7 @@ export const useFieldMemory = ({
     memory.object$ = object$;
     memory.upperReadonly$ = upperReadonly$;
     memory.value$ = value$;
+    memory.groupRef$ = groupRef$;
     return { memory };
 }
 
