@@ -116,14 +116,17 @@ export const Items = ({
 
     const valueHash = getArrayHash(value);
     const prevObject = useRef<any>(null);
-    const isShouldUpdate = shouldUpdate(prevObject.current, object, payload);
+    const initial = useRef(true);
 
     useEffect(() => {
+        if (!shouldUpdate(prevObject.current, object, payload) && !initial.current) {
+            return;
+        }
         prevObject.current = object;
+        initial.current = false;
         execute(object);
     }, [
         valueHash,
-        isShouldUpdate,
         disabled,
         dirty,
         invalid,
