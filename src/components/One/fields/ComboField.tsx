@@ -16,7 +16,6 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
   shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
-  keepSync?: PickProp<IField<Data, Payload>, "keepSync">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   title?: PickProp<IField<Data, Payload>, "title">;

@@ -285,12 +285,6 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     tr?: ((s: string, data: Data, payload: Payload) => string) | ((s: string, data: Data, payload: Payload) => Promise<string>),
 
     /**
-     * Флаг для FieldType.Items и FieldType.Combo, который разрешает сабмит по изменению
-     * без ожидания потери фокуса
-     */
-    keepSync?: boolean;
-
-    /**
      * Отключает fulltext фильтр для FieldType.Complete
      */
     keepRaw?: boolean;

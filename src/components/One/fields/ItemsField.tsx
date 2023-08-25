@@ -15,7 +15,6 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   itemList?: PickProp<IField<Data, Payload>, "itemList">;
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
-  keepSync?: PickProp<IField<Data, Payload>, "keepSync">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
@@ -39,7 +38,6 @@ export const ItemsField = ({
   placeholder,
   outlined = false,
   itemList = [],
-  keepSync = false,
   freeSolo = false,
   virtualListBox = true,
   dirty,
@@ -59,7 +57,6 @@ export const ItemsField = ({
     itemList={itemList}
     virtualListBox={virtualListBox}
     shouldUpdateItemList={shouldUpdateItemList}
-    keepSync={keepSync}
     freeSolo={freeSolo}
     dirty={dirty}
     invalid={invalid}

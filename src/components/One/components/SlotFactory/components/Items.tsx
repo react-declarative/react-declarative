@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 
 import { AutocompleteRenderGetTagProps, AutocompleteRenderOptionState } from "@mui/material/Autocomplete";
 import { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
@@ -11,11 +11,9 @@ import MatTextField from "@mui/material/TextField";
 import Checkbox from '@mui/material/Checkbox';
 import Chip from "@mui/material/Chip";
 
-import Async from '../../../../Async';
 import VirtualListBox from '../../common/VirtualListBox';
 
 import compareArray from '../../../../../utils/compareArray';
-import randomString from '../../../../../utils/randomString';
 import isObject from '../../../../../utils/isObject';
 import objects from '../../../../../utils/objects';
 import arrays from '../../../../../utils/arrays';
@@ -23,6 +21,7 @@ import arrays from '../../../../../utils/arrays';
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
+import { useAsyncAction } from '../../../../../hooks/useAsyncAction';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -39,6 +38,11 @@ const getArrayHash = (value: any) =>
         .sort((a, b) => b.localeCompare(a))
         .join('-');
 
+interface IState {
+    options: string[];
+    labels: Record<string, string>;
+}
+
 export const Items = ({
     value: upperValue,
     disabled,
@@ -47,7 +51,6 @@ export const Items = ({
     placeholder,
     outlined = true,
     itemList = [],
-    keepSync,
     freeSolo,
     virtualListBox,
     dirty,
@@ -58,10 +61,15 @@ export const Items = ({
     onChange,
 }: IItemsSlot) => {
 
-    const { object: upperObject } = useOneState();
+    const { object } = useOneState();
     const payload = useOnePayload();
 
-    const value = useMemo(() => {
+    const [state, setState] = useState<IState>(() => ({
+        options: [],
+        labels: {},
+    }));
+
+    const arrayValue = useMemo(() => {
         if (typeof upperValue === 'string') {
             return [upperValue];
         }
@@ -72,26 +80,50 @@ export const Items = ({
         return [];
     }, [upperValue]);
 
-    const { fallback = (e: Error) => {
-        throw e;
-    } } = useOneProps();
+    const prevValue = useRef(arrayValue);
 
-    const initialObject = useRef(upperObject);
-    const prevObject = useRef<any>(null);
-
-    const object = useMemo(() => {
-        if (!shouldUpdate(prevObject.current, upperObject, payload)) {
-            return prevObject.current || initialObject.current;
-        } else {
-            prevObject.current = upperObject;
-            return prevObject.current;
+    const value = useMemo(() => {
+        if (compareArray(prevValue.current, arrayValue)) {
+            return prevValue.current;
         }
-    }, [upperObject]);
+        prevValue.current = arrayValue;
+        return arrayValue;
+    }, [arrayValue]);
+
+    const {
+        fallback,
+    } = useOneProps();
+
+    const {
+        loading,
+        execute,
+    } = useAsyncAction(async (object) => {
+        const labels: Record<string, string> = {};
+        itemList = arrays(itemList) || [];
+        const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
+        await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
+        if (freeSolo) {
+            value.forEach((item) => {
+                if (!options.includes(item)) {
+                    options.push(item);
+                }
+            });
+        }
+        setState({ options, labels });
+    }, {
+        fallback,
+    });
 
     const valueHash = getArrayHash(value);
+    const prevObject = useRef<any>(null);
+    const isShouldUpdate = shouldUpdate(prevObject.current, object, payload);
 
-    const reloadCondition = useMemo(() => randomString(), [
+    useEffect(() => {
+        prevObject.current = object;
+        execute(object);
+    }, [
         valueHash,
+        isShouldUpdate,
         disabled,
         dirty,
         invalid,
@@ -149,105 +181,48 @@ export const Items = ({
         </li>
     );
 
-    const Loader = () => (
-        <Autocomplete
-            multiple
-            disableCloseOnSelect
-            loading
-            disabled
-            freeSolo={freeSolo}
-            onChange={() => null}
-            value={EMPTY_ARRAY}
-            options={EMPTY_ARRAY}
-            ListboxComponent={virtualListBox ? VirtualListBox : undefined}
-            getOptionLabel={createGetOptionLabel({})}
-            renderTags={createRenderTags({})}
-            renderInput={createRenderInput(true, true)}
-            renderOption={createRenderOption({})}
-        />
-    );
+    const handleChange = (value: any) => {
+        onChange(value?.length ? objects(value) : null);
+    };
 
-    const Content = ({
-        labels,
-        options,
-        data
-    }: {
-        labels: Record<string, any>;
-        options: any[];
-        data: any;
-    }) => {
-        const [unfocused, setUnfocused] = useState(keepSync ? false : true);
-        const [value, setValue] = useState(data);
+    const { options, labels } = state;
 
-        const handleFocus = () => {
-            if (!readonly) {
-                setUnfocused(false);
-            }
-        };
-
-        const handleBlur = () => {
-            if (!readonly && !keepSync) {
-                setUnfocused(true);
-                if (!compareArray(data, value)) {
-                    onChange(value?.length ? objects(value) : null)
-                }
-            }
-        };
-
-        const handleChange = (value: any) => {
-            if (keepSync) {
-                onChange(value?.length ? objects(value) : null);
-            }
-            setValue(value);
-        };
-
+    if (loading && !options.length) {
         return (
             <Autocomplete
                 multiple
                 disableCloseOnSelect
+                loading
+                disabled
                 freeSolo={freeSolo}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                readOnly={readonly || unfocused}
+                onChange={() => null}
+                value={EMPTY_ARRAY}
+                options={EMPTY_ARRAY}
                 ListboxComponent={virtualListBox ? VirtualListBox : undefined}
-                onChange={({ }, value) => handleChange(value)}
-                getOptionLabel={createGetOptionLabel(labels)}
-                value={value}
-                options={options}
-                disabled={disabled}
-                renderTags={createRenderTags(labels)}
-                renderInput={createRenderInput(false, readonly || unfocused)}
-                renderOption={createRenderOption(labels)}
+                getOptionLabel={createGetOptionLabel({})}
+                renderTags={createRenderTags({})}
+                renderInput={createRenderInput(true, true)}
+                renderOption={createRenderOption({})}
             />
         );
-    };
+    }
 
     return (
-        <Async Loader={Loader} payload={reloadCondition} fallback={fallback}>
-            {async () => {
-
-                const labels: Record<string, string> = {};
-                itemList = arrays(itemList) || [];
-                const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
-                await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
-
-                if (freeSolo) {
-                    value.forEach((item) => {
-                        if (!options.includes(item)) {
-                            options.push(item);
-                        }
-                    });
-                }
-
-                return (
-                    <Content
-                        options={options}
-                        labels={labels}
-                        data={value}
-                    />
-                );
-            }}
-        </Async>
+        <Autocomplete
+            multiple
+            loading={loading}
+            disableCloseOnSelect
+            freeSolo={freeSolo}
+            readOnly={readonly}
+            onChange={({ }, value) => handleChange(value)}
+            getOptionLabel={createGetOptionLabel(labels)}
+            ListboxComponent={virtualListBox ? VirtualListBox : undefined}
+            value={value}
+            options={options}
+            renderTags={createRenderTags(labels)}
+            renderInput={createRenderInput(false, !!readonly)}
+            renderOption={createRenderOption(labels)}
+        />
     );
 };
 
