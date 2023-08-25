@@ -6,12 +6,13 @@ import { makeStyles } from "../../styles";
 import Box, { BoxProps } from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import classNames from "../../utils/classNames";
 
 export interface ICountdownProps extends BoxProps {
+  children?: React.ReactNode;
   expireAt: string | number | Date;
   onExpire?: () => void;
 }
@@ -32,6 +33,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export const Countdown = ({
   className,
+  children,
   expireAt,
   onExpire = () => undefined,
   ...otherProps
@@ -64,31 +66,31 @@ export const Countdown = ({
     }
   }, [timeout]);
 
-  if (+timeout < 0) {
-    return <>00:00</>;
-  }
-
   const renderInner = useCallback(() => {
     if (+timeout < 0) {
-      return <Typography variant="body1">00:00</Typography>;
+      return children ? (
+        <>{children}</>
+      ) : (
+        <>
+          <AccessTimeIcon />
+          <Typography variant="body1">00:00</Typography>
+        </>
+      );
     }
     return (
-      <Typography variant="body1">
-        {timeout.getMinutes().toString().padStart(2, "0")}:
-        {timeout.getSeconds().toString().padStart(2, "0")}
-      </Typography>
+      <>
+        <AccessTimeIcon />
+        <Typography variant="body1">
+          {timeout.getMinutes().toString().padStart(2, "0")}:
+          {timeout.getSeconds().toString().padStart(2, "0")}
+        </Typography>
+      </>
     );
-  }, [timeout]);
+  }, [timeout, children]);
 
   return (
-    <Box 
-      className={classNames(classes.root, className)}
-      {...otherProps}
-    >
-      <Box className={classes.container}>
-        <AccessTimeIcon />
-        {renderInner()}
-      </Box>
+    <Box className={classNames(classes.root, className)} {...otherProps}>
+      <Box className={classes.container}>{renderInner()}</Box>
     </Box>
   );
 };

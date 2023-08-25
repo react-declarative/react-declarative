@@ -6439,12 +6439,14 @@ declare module 'react-declarative/components/If/If' {
 }
 
 declare module 'react-declarative/components/Countdown/Countdown' {
+    import * as React from "react";
     import { BoxProps } from "@mui/material/Box";
     export interface ICountdownProps extends BoxProps {
+        children?: React.ReactNode;
         expireAt: string | number | Date;
         onExpire?: () => void;
     }
-    export const Countdown: ({ className, expireAt, onExpire, ...otherProps }: ICountdownProps) => JSX.Element;
+    export const Countdown: ({ className, children, expireAt, onExpire, ...otherProps }: ICountdownProps) => JSX.Element;
     export default Countdown;
 }
 
