@@ -4,8 +4,8 @@ import {
   useRef,
   useCallback,
   useEffect,
-  useState,
   Fragment,
+  useMemo,
 } from "react";
 
 /* eslint-disable react/jsx-no-useless-fragment */
@@ -75,16 +75,25 @@ export const OneInternal = <
   createLayout = createLayoutInternal,
 }: IOneInternalProps<Data, Payload, Field>) => {
   const waitingReady = useRef(countStatefull(fields));
-  const [focusMap] = useState(
-    () => new WeakMap<IField, (name: string, payload: Payload) => void>()
-  );
-  const [blurMap] = useState(
-    () => new WeakMap<IField, (name: string, payload: Payload) => void>()
-  );
-  const [baselineMap] = useState(
-    () => new WeakMap<IField, boolean>()
-  );
+
   const { object, setObject } = useOneState<Data>();
+
+  /**
+   * Коллбеки вынесены из тела компонента для мемоизации
+   */
+  const {
+    focusMap,
+    blurMap,
+    baselineMap,
+  } = useMemo(() => {
+    const fnMap = Object.create(null);
+    Object.assign(fnMap, {
+      focusMap: new Map<IField, (name: string, payload: Payload) => void>(),
+      blurMap: new Map<IField, (name: string, payload: Payload) => void>(),
+      baselineMap: new Map<IField, boolean>(),
+    });
+    return fnMap;
+  }, []);
 
   /**
    * Если в группе нет полей, вызываем инициализацию мануально
