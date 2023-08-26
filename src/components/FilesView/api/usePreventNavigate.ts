@@ -61,6 +61,7 @@ export const usePreventNavigate = ({
         };
 
         if (loading && !unblocked) {
+            unsubscribeRef.current && unsubscribeRef.current();
             unsubscribeRef.current = compose(
                 createRouterBlocker(),
                 createUnloadBlocker(),
