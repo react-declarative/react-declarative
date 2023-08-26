@@ -23,6 +23,7 @@ export const usePreventNavigate = ({
 }: IParams) => {
 
     const [loading, setLoading] = useState(0);
+    const [unblocked, setUnblocked] = useState(false);
 
     const unsubscribeRef = useRef<Function | null>(null);
 
@@ -59,7 +60,7 @@ export const usePreventNavigate = ({
             };
         };
 
-        if (loading) {
+        if (loading && !unblocked) {
             unsubscribeRef.current = compose(
                 createRouterBlocker(),
                 createUnloadBlocker(),
@@ -68,7 +69,7 @@ export const usePreventNavigate = ({
         return () => {
             unsubscribeRef.current && unsubscribeRef.current();
         };
-    }, [loading, withConfirm]);
+    }, [loading, unblocked, withConfirm]);
 
     return {
         handleLoadStart: () => {
@@ -81,6 +82,10 @@ export const usePreventNavigate = ({
         },
         unblock: () => {
             unsubscribeRef.current && unsubscribeRef.current();
+            setUnblocked(true);
+        },
+        block: () => {
+            setUnblocked(false);
         },
         loading: !!loading,
     };

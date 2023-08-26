@@ -5796,6 +5796,7 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
         handleLoadStart: () => void;
         handleLoadEnd: (isOk: boolean) => void;
         unblock: () => void;
+        block: () => void;
         loading: boolean;
     };
     export default usePreventNavigate;
