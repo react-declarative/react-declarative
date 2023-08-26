@@ -20,6 +20,7 @@ import LoaderDefault from "./components/Loader";
 import ErrorDefault from "./components/Error";
 
 import createWindowHistory from "../../utils/createWindowHistory";
+import randomString from "../../utils/randomString";
 import sleep from "../../utils/sleep";
 
 export interface ISwitchItem {
@@ -64,6 +65,7 @@ const canActivate = async (item: ISwitchItem) => {
 
 interface ISwitchResult {
   element: React.ComponentType<any>;
+  key: string;
   path: string;
   params?: Record<string, any>;
 }
@@ -72,8 +74,9 @@ const DEFAULT_HISTORY = createWindowHistory();
 
 const DEFAULT_CHILD_FN = ({
   element: Element = Fragment,
+  key,
   params,
-}: ISwitchResult) => <Element {...params} />;
+}: ISwitchResult) => <Element key={key} {...params} />;
 
 const Fragment = () => <></>;
 
@@ -210,6 +213,7 @@ export const Switch = ({
               }));
               return {
                 element: Fragment,
+                key: randomString(),
                 path,
               };
             }
@@ -222,24 +226,28 @@ export const Switch = ({
                 }));
                 return {
                   element: Fragment,
+                  key: randomString(),
                   path,
                 };
               }
             }
             return {
               element,
+              key: randomString(),
               params,
               path,
             };
           }
           return {
             element: Forbidden,
+            key: randomString(),
             path,
           };
         }
       }
       return {
         element: NotFound,
+        key: randomString(),
         path: url,
       };
     },

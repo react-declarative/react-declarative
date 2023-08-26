@@ -5211,6 +5211,7 @@ declare module 'react-declarative/components/Switch/Switch' {
     }
     interface ISwitchResult {
         element: React.ComponentType<any>;
+        key: string;
         path: string;
         params?: Record<string, any>;
     }
