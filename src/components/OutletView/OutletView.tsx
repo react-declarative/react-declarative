@@ -218,7 +218,10 @@ export const OutletView = <
 
   useEffect(
     () =>
-      history.listen(({ location }) => {
+      history.listen(({ location, action }) => {
+        if (action === "PUSH") {
+          return;
+        }
         setPathname(location.pathname);
       }),
     []
