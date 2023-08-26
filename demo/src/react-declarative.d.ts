@@ -5794,6 +5794,7 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
     export const usePreventNavigate: ({ history, withConfirm, onLoadStart, onLoadEnd, }: IParams) => {
         handleLoadStart: () => void;
         handleLoadEnd: (isOk: boolean) => void;
+        unblock: () => void;
         loading: boolean;
     };
     export default usePreventNavigate;

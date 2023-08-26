@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { MemoryHistory, BrowserHistory, HashHistory } from 'history';
 
@@ -24,6 +24,8 @@ export const usePreventNavigate = ({
 
     const [loading, setLoading] = useState(0);
 
+    const unsubscribeRef = useRef<Function | null>(null);
+
     const pickConfirm = useConfirm({
         title: 'Continue?',
         msg: LEAVE_MESSAGE,
@@ -31,13 +33,11 @@ export const usePreventNavigate = ({
 
     useEffect(() => {
 
-        let unsubscribeRef = () => undefined;
-
         const handleNavigate = (retry: () => void) => {
             if (withConfirm) {
                 pickConfirm().then((result) => {
                     if (result) {
-                        unsubscribeRef();
+                        unsubscribeRef.current && unsubscribeRef.current();
                         retry();
                     }
                 });
@@ -60,12 +60,14 @@ export const usePreventNavigate = ({
         };
 
         if (loading) {
-            unsubscribeRef = compose(
+            unsubscribeRef.current = compose(
                 createRouterBlocker(),
                 createUnloadBlocker(),
             );
         }
-        return unsubscribeRef;
+        return () => {
+            unsubscribeRef.current && unsubscribeRef.current();
+        };
     }, [loading, withConfirm]);
 
     return {
@@ -76,6 +78,9 @@ export const usePreventNavigate = ({
         handleLoadEnd: (isOk: boolean) => {
             onLoadEnd && onLoadEnd(isOk);
             setLoading((loading) => loading - 1);
+        },
+        unblock: () => {
+            unsubscribeRef.current && unsubscribeRef.current();
         },
         loading: !!loading,
     };
