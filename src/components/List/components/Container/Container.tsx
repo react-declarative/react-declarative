@@ -3,6 +3,7 @@ import { forwardRef, useEffect } from "react";
 import { makeStyles } from "../../../../styles";
 
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 import classNames from "../../../../utils/classNames";
 
@@ -26,6 +27,7 @@ import ChipListSlot from "../../slots/ChipListSlot";
 import SearchSlot from "../../slots/SearchSlot";
 
 const CONTAINER_MARK = "react-declarative__contentMark";
+const EMPTY_ARRAY: any[] = [];
 
 interface IContainerProps<
   FilterData extends {} = IAnything,
@@ -77,6 +79,24 @@ const useStyles = makeStyles()({
   noElevation: {
     background: "transparent",
   },
+  beforeActionList: {
+    width: "100%",
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    "& > *": {
+      flex: 1,
+    },
+  },
+  afterActionList: {
+    width: "100%",
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    "& > *": {
+      flex: 1,
+    },
+  },
 });
 
 export const Container = <
@@ -107,6 +127,13 @@ export const Container = <
     filterData,
     handleFilter,
     handleDefault,
+    handleChips,
+    handleLimitChange,
+    handlePageChange,
+    handleReload,
+    handleRerender,
+    handleRowsChange,
+    handleSortModel,
     children,
     isChooser,
     ready,
@@ -115,12 +142,14 @@ export const Container = <
     onFilterChange,
     withSearch = false,
     search,
-    sortModel,
+    sortModel = EMPTY_ARRAY,
     chips,
     handleSearch,
     handleFiltersCollapsed,
     sizeByParent = true,
     rerender = false,
+    BeforeActionList,
+    AfterActionList,
   } = props;
 
 
@@ -153,6 +182,29 @@ export const Container = <
       {({ height, width, payload }) => (
         <div className={classes.container}>
           <div ref={ref} style={{ height, width }} className={classes.content}>
+            {BeforeActionList && (
+              <Box className={classes.beforeActionList}>
+                <BeforeActionList
+                  filterData={filterData}
+                  chips={chips}
+                  pagination={pagination}
+                  payload={payload}
+                  search={search}
+                  sortModel={sortModel}
+                  handleFilter={handleFilter}
+                  handleDefault={handleDefault}
+                  handleChips={handleChips}
+                  handleLimitChange={handleLimitChange}
+                  handlePageChange={handlePageChange}
+                  handleReload={handleReload}
+                  handleRerender={handleRerender}
+                  handleRowsChange={handleRowsChange}
+                  handleSortModel={handleSortModel}
+                  handleSearch={handleSearch}
+                  handleFiltersCollapsed={handleFiltersCollapsed}
+                />
+              </Box>
+            )}
             {Array.isArray(actions) && !!actions.length && (
               <ActionListSlot
                 height={height}
@@ -161,6 +213,29 @@ export const Container = <
                 filterData={filterData!}
                 actions={actions}
               />
+            )}
+            {AfterActionList && (
+              <Box className={classes.afterActionList}>
+                <AfterActionList
+                  filterData={filterData}
+                  chips={chips}
+                  pagination={pagination}
+                  payload={payload}
+                  search={search}
+                  sortModel={sortModel}
+                  handleFilter={handleFilter}
+                  handleDefault={handleDefault}
+                  handleChips={handleChips}
+                  handleLimitChange={handleLimitChange}
+                  handlePageChange={handlePageChange}
+                  handleReload={handleReload}
+                  handleRerender={handleRerender}
+                  handleRowsChange={handleRowsChange}
+                  handleSortModel={handleSortModel}
+                  handleSearch={handleSearch}
+                  handleFiltersCollapsed={handleFiltersCollapsed}
+                />
+              </Box>
             )}
             {Array.isArray(operations) && !!operations.length && (
               <OperationListSlot operations={operations} width={width} />

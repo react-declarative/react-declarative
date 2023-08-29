@@ -139,6 +139,19 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
   ready: () => void;
 };
 
+export interface IPositionActionListSlot<
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything,
+  Payload extends IAnything = IAnything
+> extends Omit<IListCallbacks<FilterData, RowData>, 'ready'> {
+  filterData: Record<string, any>;
+  pagination: ListHandlerPagination;
+  sortModel: ListHandlerSortModel<RowData>;
+  chips: Record<string | number | symbol, boolean | undefined>;
+  search: string;
+  payload: Payload;
+}
+
 export interface IListSortItem<RowData extends IRowData = IAnything> {
   field: keyof RowData;
   sort: 'asc' | 'desc';
@@ -151,6 +164,8 @@ export interface IListProps<
   Field extends IField = IField<FilterData, Payload>,
 > {
   apiRef?: Ref<IListApi<FilterData, RowData>>;
+  BeforeActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+  AfterActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   fetchDebounce?: number;
   className?: string;
   style?: React.CSSProperties;

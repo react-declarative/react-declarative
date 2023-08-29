@@ -337,6 +337,7 @@ declare module 'react-declarative' {
     import { IFilterListSlot as IFilterListSlotInternal } from 'react-declarative/components';
     import { ISearchSlot as ISearchSlotInternal } from 'react-declarative/components';
     import { IOperationListSlot as IOperationListSlotInternal } from 'react-declarative/components';
+    import { IPositionActionListSlot as IPositionActionListSlotInternal } from 'react-declarative/model/IListProps';
     export type ICheckBoxSlot = ICheckBoxSlotInternal;
     export type IComboSlot = IComboSlotInternal;
     export type IItemsSlot = IItemsSlotInternal;
@@ -365,6 +366,7 @@ declare module 'react-declarative' {
     export type IFilterListSlot = IFilterListSlotInternal;
     export type ISearchSlot = ISearchSlotInternal;
     export type IOperationListSlot = IOperationListSlotInternal;
+    export type IPositionActionListSlot = IPositionActionListSlotInternal;
     export { openBlank } from 'react-declarative/utils/openBlank';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
@@ -1460,12 +1462,22 @@ declare module 'react-declarative/model/IListProps' {
         handleRerender: () => void;
         ready: () => void;
     }
+    export interface IPositionActionListSlot<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IListCallbacks<FilterData, RowData>, 'ready'> {
+        filterData: Record<string, any>;
+        pagination: ListHandlerPagination;
+        sortModel: ListHandlerSortModel<RowData>;
+        chips: Record<string | number | symbol, boolean | undefined>;
+        search: string;
+        payload: Payload;
+    }
     export interface IListSortItem<RowData extends IRowData = IAnything> {
         field: keyof RowData;
         sort: 'asc' | 'desc';
     }
     export interface IListProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
         apiRef?: Ref<IListApi<FilterData, RowData>>;
+        BeforeActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+        AfterActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
         fetchDebounce?: number;
         className?: string;
         style?: React.CSSProperties;

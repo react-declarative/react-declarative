@@ -421,6 +421,8 @@ import { IFilterListSlot as IFilterListSlotInternal } from './components';
 import { ISearchSlot as ISearchSlotInternal } from './components';
 import { IOperationListSlot as IOperationListSlotInternal } from './components';
 
+import { IPositionActionListSlot as IPositionActionListSlotInternal } from './model/IListProps';
+
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;
 export type IItemsSlot = IItemsSlotInternal;
@@ -450,6 +452,7 @@ export type IChipListSlot = IChipListSlotInternal;
 export type IFilterListSlot = IFilterListSlotInternal;
 export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
+export type IPositionActionListSlot = IPositionActionListSlotInternal;
 
 export { openBlank } from './utils/openBlank';
 export { chooseFile } from './utils/chooseFile';
