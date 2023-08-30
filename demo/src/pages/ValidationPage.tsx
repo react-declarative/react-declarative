@@ -156,6 +156,7 @@ export const ValidationPage = () => {
         afterSave,
     } = usePreventLeave({
         history,
+        onChange: console.log
     });
 
     /*const [data, setData] = useState(null);
@@ -178,6 +179,15 @@ export const ValidationPage = () => {
             <OneTyped<IOneData>
                 fields={fields}
                 {...oneProps}
+                handler={() => ({
+                    from: "50",
+                    to: "150",
+                    disabled: false,
+                    visible: true,
+                    number: "42",
+                    name: "petr",
+                    email: "tripolskypetr@gmail.com"
+                })}
             />
             <Logger {...(data || {})} />
         </Fragment>

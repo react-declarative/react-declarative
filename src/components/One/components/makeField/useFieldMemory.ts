@@ -6,6 +6,7 @@ import { Value } from '../../../../model/IField';
 interface IMemory {
     inputUpdate: boolean;
     objectUpdate: boolean;
+    initComplete: boolean;
     fieldName: string;
     isMounted: boolean;
     lastDebouncedValue: Value;
@@ -22,6 +23,7 @@ interface IMemory {
 interface IMemoryData extends Omit<IMemory, keyof {
     inputUpdate: never;
     objectUpdate: never;
+    initComplete: never;
     isMounted: never;
 }> { }
 
@@ -40,6 +42,7 @@ export const useFieldMemory = ({
     const memory = useMemo((): IMemory => ({
         inputUpdate: false,
         objectUpdate: false,
+        initComplete: false,
         fieldName,
         lastDebouncedValue,
         isMounted: true,
