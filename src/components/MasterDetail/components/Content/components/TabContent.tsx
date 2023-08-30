@@ -93,15 +93,13 @@ export const TabContent = ({
   const {
     elementRef,
     size: { width },
-  } = useElementSize({
-    width: "100%",
-  });
+  } = useElementSize();
 
   const [fixedPos, setFixedPos] = useState(false);
 
   const { classes } = useStyles({
     headerAdjust,
-    width,
+    width: width || "100%",
   });
 
   useEffect(() => {

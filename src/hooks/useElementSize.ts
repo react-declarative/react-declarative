@@ -1,11 +1,8 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
-type Height = Exclude<React.CSSProperties['height'], undefined>;
-type Width = Exclude<React.CSSProperties['width'], undefined>;
-
 interface ISize {
-    height: Height;
-    width: Width;
+    height: number;
+    width: number;
     target?: HTMLElement | null;
     closest?: string;
     selector?: string;
