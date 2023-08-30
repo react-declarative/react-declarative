@@ -55,6 +55,44 @@ const fields: TypedField<IOneData>[] = [
         ],
     },
     {
+        type: FieldType.Text,
+        columns: '3',
+        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterTemplate: "000000000000000",
+        name: 'from',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
+                return null;
+            }
+            if (!to) {
+                return null;
+            }
+            if (from > to) {
+                return "From > to";
+            }
+            return null;
+        },
+    },
+    {
+        type: FieldType.Text,
+        columns: '3',
+        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterTemplate: "000000000000000",
+        name: 'to',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
+                return null;
+            }
+            if (!to) {
+                return null;
+            }
+            if (from > to) {
+                return "From > to";
+            }
+            return null;
+        },
+    },
+    {
         type: FieldType.Expansion,
         title: 'Settings',
         description: 'Hide or disable',
@@ -106,6 +144,8 @@ interface IOneData {
     number: string;
     name: string;
     email: string;
+    from: string;
+    to: string;
 }
 
 export const ValidationPage = () => {

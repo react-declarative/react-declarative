@@ -328,6 +328,26 @@ export function makeField(
         }, []);
 
         /**
+         * Коллбек применения изменения при успешном прохождении
+         * валидации, триггер из другого поля
+         */
+        const handleWasInvalid = useCallback(() => {
+            const { invalid$: wasInvalid, value$, object$ } = memory;
+            if (!wasInvalid) {
+                return;
+            }
+            const copy = deepClone(object$);
+            set(copy, name, value$);
+            const invalid = isInvalid(copy, payload) || null;
+            if (!invalid) {
+                setInvalid(invalid);
+                change(map(copy, payload), {
+                    [memory.fieldName]: !!invalid,
+                });
+            }
+        }, []);
+
+        /**
          * Очередь применения изменений из объекта формы. Если прилетело
          * изменение до сабмита текущего значения, применяем незамедлительно
          */
@@ -343,6 +363,7 @@ export function makeField(
             }
             if (memory.lastDebouncedValue === debouncedValue) {
                 handleIncomingObject();
+                handleWasInvalid();
             }
             handleOutgoingObject();
             memory.lastDebouncedValue = debouncedValue;
