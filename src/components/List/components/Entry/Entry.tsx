@@ -94,6 +94,7 @@ export class Entry<
     onLimitChange: () => null,
     filterData: {},
     withToggledFilters: false,
+    noInitialFilters: false,
     fetchDebounce: LIST_FETCH_DEBOUNCE,
     sortModel: [],
     chips: [],
@@ -292,8 +293,10 @@ export class Entry<
   };
 
   private handleEmptyFilters = () => {
-    const hasFilters =
-      Array.isArray(this.props.filters) && !!this.props.filters.length;
+    let hasFilters = true;
+    hasFilters = hasFilters && Array.isArray(this.props.filters);
+    hasFilters = hasFilters && !!this.props.filters?.length;
+    hasFilters = hasFilters && !this.props.noInitialFilters;
     if (!hasFilters) {
       this.handleDefault(true);
     }
@@ -393,12 +396,14 @@ export class Entry<
 
   private handleDefault = async (initialCall = false) => {
     const newData: Partial<FilterData> = {};
-    deepFlat(this.props.filters)
-      .filter(({ name }) => !!name)
-      .map(({ type, name }) => {
-        create(newData, name);
-        set(newData, name, initialValue(type));
-      });
+    if (!this.props.noInitialFilters) {
+      deepFlat(this.props.filters)
+        .filter(({ name }) => !!name)
+        .map(({ type, name }) => {
+          create(newData, name);
+          set(newData, name, initialValue(type));
+        });
+    }
     if (initialCall) {
       deepMerge(newData, this.props.filterData!);
     }
@@ -505,7 +510,11 @@ export class Entry<
     handleRowsChange: this.handleRowsChange,
     handleFiltersCollapsed: this.handleFiltersCollapsed,
     handleRerender: this.handleRerender,
-    ready: () => this.handleDefault(true),
+    ready: () => {
+      if (!this.props.noInitialFilters) {
+        this.handleDefault(true);
+      }
+    },
   });
 
   public renderInner = () => {
