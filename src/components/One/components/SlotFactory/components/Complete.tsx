@@ -190,6 +190,15 @@ export const Complete = ({
     <>
       <div ref={anchorElRef}>
         <MatTextField
+          sx={{
+          ...(!outlined && {
+              position: 'relative',
+              '& .MuiFormHelperText-root': {
+                  position: 'absolute',
+                  top: '100%',
+              },
+            })
+          }}
           fullWidth
           name={name}
           inputRef={inputRef}

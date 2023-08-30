@@ -48,7 +48,17 @@ export const Choose = ({
 
     return (
         <TextField
-            sx={{ flex: 1, pointerEvents: 'none' }}
+            sx={{ 
+                flex: 1,
+                pointerEvents: 'none',
+                ...(!outlined && {
+                    position: 'relative',
+                    '& .MuiFormHelperText-root': {
+                        position: 'absolute',
+                        top: '100%',
+                    },
+                })
+            }}
             name={name}
             inputRef={inputRef}
             variant={outlined ? "outlined" : "standard"}
