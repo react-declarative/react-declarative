@@ -6,9 +6,15 @@ type Width = Exclude<React.CSSProperties['width'], undefined>;
 interface ISize {
     height: Height;
     width: Width;
+    target?: HTMLElement | null;
+    closest?: string;
+    selector?: string;
 }
 
 export const useElementSize = <T extends HTMLElement>({
+    target = null,
+    closest,
+    selector,
     height = 0,
     width = 0,
 }: Partial<ISize> = {}) => {
@@ -27,7 +33,20 @@ export const useElementSize = <T extends HTMLElement>({
 
     useLayoutEffect(() => {
 
-        const { current: element } = elementRef;
+        const { current } = elementRef;
+        let element = target || current;
+
+        if (!element) {
+            return;
+        }
+
+        if (closest) {
+            element = element?.closest(closest) || null;
+          }
+      
+        if (selector) {
+            element = element?.querySelector(selector) || null;
+        }
 
         if (!element) {
             return;
@@ -35,7 +54,7 @@ export const useElementSize = <T extends HTMLElement>({
 
         const observer = new ResizeObserver(() => {
             requestAnimationFrame(() => {
-                const { height, width } = element.getBoundingClientRect();
+                const { height, width } = element!.getBoundingClientRect();
                 isMounted.current && setSize({ height, width });
             });
         });
@@ -44,7 +63,10 @@ export const useElementSize = <T extends HTMLElement>({
 
         return () => observer.disconnect();
     }, [
-        elementRef.current
+        elementRef.current,
+        target,
+        closest,
+        selector,
     ]);
 
     return {

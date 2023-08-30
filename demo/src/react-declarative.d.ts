@@ -1898,8 +1898,11 @@ declare module 'react-declarative/hooks/useElementSize' {
     interface ISize {
         height: Height;
         width: Width;
+        target?: HTMLElement | null;
+        closest?: string;
+        selector?: string;
     }
-    export const useElementSize: <T extends HTMLElement>({ height, width, }?: Partial<ISize>) => {
+    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, }?: Partial<ISize>) => {
         elementRef: import("react").RefObject<T>;
         size: ISize;
     };
