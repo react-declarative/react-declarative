@@ -347,6 +347,9 @@ export function makeField(
             if (!memory.initComplete) {
                 return;
             }
+            if (memory.inputUpdate) {
+                return;
+            }
             const { invalid$: wasInvalid, value$, object$ } = memory;
             const copy = deepClone(object$);
             set(copy, name, value$);
