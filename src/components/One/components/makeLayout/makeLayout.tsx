@@ -57,7 +57,10 @@ export function makeLayout<T extends ILayout<any>>(
     }: ILayout<Data>) => {
         
         const { classes } = useStyles();
-        const { isPhone, isTablet, isDesktop } = useMediaContext();
+
+        const hasHiddenConstraint = phoneHidden || tabletHidden || desktopHidden;
+
+        const { isPhone = false, isTablet = false, isDesktop = false } = hasHiddenConstraint ? useMediaContext() : {};
 
         const payload = useOnePayload();
         const { object: stateObject } = useOneState<Data>();
