@@ -67,7 +67,7 @@ const fields: TypedField<IOneData>[] = [
             if (!to) {
                 return null;
             }
-            if (from > to) {
+            if (parseInt(from) > parseInt(to)) {
                 return "From > to";
             }
             return null;
@@ -86,7 +86,7 @@ const fields: TypedField<IOneData>[] = [
             if (!to) {
                 return null;
             }
-            if (from > to) {
+            if (parseInt(from) > parseInt(to)) {
                 return "From > to";
             }
             return null;

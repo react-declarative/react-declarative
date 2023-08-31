@@ -348,15 +348,18 @@ export function makeField(
                 return;
             }
             const { invalid$: wasInvalid, value$, object$ } = memory;
-            if (!wasInvalid) {
-                return;
-            }
             const copy = deepClone(object$);
             set(copy, name, value$);
             const invalid = isInvalid(copy, payload) || null;
-            if (!invalid) {
+            if (!invalid && wasInvalid) {
                 setInvalid(invalid);
                 change(map(copy, payload), {
+                    [memory.fieldName]: !!invalid,
+                });
+            }
+            if (invalid && !wasInvalid) {
+                setInvalid(invalid);
+                change(object$, {
                     [memory.fieldName]: !!invalid,
                 });
             }
