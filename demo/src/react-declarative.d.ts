@@ -577,6 +577,18 @@ declare module 'react-declarative/model/IField' {
                 */
             hidden?: boolean;
             /**
+                * Исключает группу из DOM древа на телефоне
+                */
+            phoneHidden?: boolean;
+            /**
+                * Исключает группу из DOM древа на планшете
+                */
+            tabletHidden?: boolean;
+            /**
+                * Исключает группу из DOM древа на компьютере
+                */
+            desktopHidden?: boolean;
+            /**
                 * Список ролей, необходимых для отображения поля
                 */
             roles?: string[];
@@ -1035,6 +1047,10 @@ declare module 'react-declarative/model/IManaged' {
             isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
             roles?: PickProp<IField<Data, Payload>, 'roles'>;
             disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
+            phoneHidden?: PickProp<IField<Data, Payload>, 'phoneHidden'>;
+            tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
+            desktopHidden?: PickProp<IField<Data, Payload>, 'desktopHidden'>;
+            hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     }
     /**
         * Типизацию компоновки следует вынести отдельно
@@ -3467,6 +3483,9 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
     export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
         element?: PickProp<IField<Data, Payload>, 'element'>;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+        className?: PickProp<IField<Data, Payload>, 'className'>;
+        style?: PickProp<IField<Data, Payload>, 'style'>;
+        sx?: PickProp<IField<Data, Payload>, 'sx'>;
     }
     interface IComponentFieldPrivate<Data = IAnything> {
         object: PickProp<IManaged<Data>, 'object'>;

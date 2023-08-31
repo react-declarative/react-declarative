@@ -53,6 +53,7 @@ export const Choose = ({
                 pointerEvents: 'none',
                 ...(!outlined && {
                     position: 'relative',
+                    mt: 1,
                     '& .MuiFormHelperText-root': {
                         position: 'absolute',
                         top: '100%',

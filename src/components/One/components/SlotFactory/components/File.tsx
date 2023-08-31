@@ -58,6 +58,7 @@ export const FileField = ({
                     flex: 1,
                     ...(!outlined && {
                         position: 'relative',
+                        mt: 1,
                         '& .MuiFormHelperText-root': {
                             position: 'absolute',
                             top: '100%',

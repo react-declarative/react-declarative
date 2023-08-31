@@ -27,6 +27,21 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     hidden?: boolean;
 
     /**
+     * Исключает группу из DOM древа на телефоне
+     */
+    phoneHidden?: boolean;
+
+    /**
+     * Исключает группу из DOM древа на планшете
+     */
+    tabletHidden?: boolean;
+
+    /**
+     * Исключает группу из DOM древа на компьютере
+     */
+    desktopHidden?: boolean;
+
+    /**
      * Список ролей, необходимых для отображения поля
      */
     roles?: string[];

@@ -56,82 +56,45 @@ const fields: TypedField<IOneData>[] = [
     },
     {
         type: FieldType.Text,
+        sx: { pt: 1 },
         columns: '3',
         inputFormatterAllowed: /^[0-9.]/,
         inputFormatterTemplate: "000000000000000",
-        name: 'from1',
-        isInvalid: ({ from1, to1 }) => {
-            if (!from1) {
+        name: 'from',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
                 return null;
             }
-            if (!to1) {
+            if (!to) {
                 return null;
             }
-            if (parseInt(from1) > parseInt(to1)) {
+            if (parseInt(from) > parseInt(to)) {
                 return "From > to";
             }
             return null;
         },
+        defaultValue: '50',
     },
     {
         type: FieldType.Text,
         columns: '3',
         inputFormatterAllowed: /^[0-9.]/,
         inputFormatterTemplate: "000000000000000",
-        name: 'to1',
-        isInvalid: ({ from1, to1 }) => {
-            if (!from1) {
+        name: 'to',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
                 return null;
             }
-            if (!to1) {
+            if (!to) {
                 return null;
             }
-            if (parseInt(from1) > parseInt(to1)) {
+            if (parseInt(from) > parseInt(to)) {
                 return "From > to";
             }
             return null;
         },
+        defaultValue: '150',
     },
-
-    {
-        type: FieldType.Text,
-        columns: '3',
-        inputFormatterAllowed: /^[0-9.]/,
-        inputFormatterTemplate: "000000000000000",
-        name: 'from2',
-        isInvalid: ({ from2, to2 }) => {
-            if (!from2) {
-                return null;
-            }
-            if (!to2) {
-                return null;
-            }
-            if (parseInt(from2) > parseInt(to2)) {
-                return "From > to";
-            }
-            return null;
-        },
-    },
-    {
-        type: FieldType.Text,
-        columns: '3',
-        inputFormatterAllowed: /^[0-9.]/,
-        inputFormatterTemplate: "000000000000000",
-        name: 'to2',
-        isInvalid: ({ from2, to2 }) => {
-            if (!from2) {
-                return null;
-            }
-            if (!to2) {
-                return null;
-            }
-            if (parseInt(from2) > parseInt(to2)) {
-                return "From > to";
-            }
-            return null;
-        },
-    },
-
     {
         type: FieldType.Expansion,
         title: 'Settings',
@@ -184,10 +147,8 @@ interface IOneData {
     number: string;
     name: string;
     email: string;
-    from1: string;
-    to1: string;
-    from2: string;
-    to2: string;
+    from: string;
+    to: string;
 }
 
 export const ValidationPage = () => {
@@ -221,18 +182,6 @@ export const ValidationPage = () => {
             <OneTyped<IOneData>
                 fields={fields}
                 {...oneProps}
-                invalidity={console.log}
-                handler={() => ({
-                    from1: "150",
-                    to1: "50",
-                    from2: "150",
-                    to2: "50",
-                    disabled: false,
-                    visible: true,
-                    number: "42",
-                    name: "petr",
-                    email: "tripolskypetr@gmail.com"
-                })}
             />
             <Logger {...(data || {})} />
         </Fragment>

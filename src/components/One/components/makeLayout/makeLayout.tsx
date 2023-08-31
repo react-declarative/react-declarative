@@ -7,6 +7,7 @@ import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
 
 import useLayoutState from './useLayoutState';
+import useMediaContext from '../../../../hooks/useMediaContext';
 
 import IAnything from '../../../../model/IAnything';
 import IEntity from '../../../../model/IEntity';
@@ -48,11 +49,15 @@ export function makeLayout<T extends ILayout<any>>(
         isReadonly = DEFAULT_IS_READONLY,
         isDisabled = DEFAULT_IS_DISABLED,
         disabled: upperDisabled = false,
+        phoneHidden,
+        tabletHidden,
+        desktopHidden,
         ready,
         ...otherProps
     }: ILayout<Data>) => {
         
         const { classes } = useStyles();
+        const { isPhone, isTablet, isDesktop } = useMediaContext();
 
         const payload = useOnePayload();
         const { object: stateObject } = useOneState<Data>();
@@ -89,6 +94,18 @@ export function makeLayout<T extends ILayout<any>>(
         }, [object]);
 
         if (!visible) {
+            return null;
+        }
+
+        if (phoneHidden && isPhone) {
+            return null;
+        }
+
+        if (tabletHidden && isTablet) {
+            return null;
+        }
+
+        if (desktopHidden && isDesktop) {
             return null;
         }
 

@@ -193,6 +193,7 @@ export const Complete = ({
           sx={{
           ...(!outlined && {
               position: 'relative',
+              mt: 1,
               '& .MuiFormHelperText-root': {
                   position: 'absolute',
                   top: '100%',

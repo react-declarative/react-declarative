@@ -14,6 +14,10 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     roles?: PickProp<IField<Data, Payload>, 'roles'>;
     disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
+    phoneHidden?: PickProp<IField<Data, Payload>, 'phoneHidden'>;
+    tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
+    desktopHidden?: PickProp<IField<Data, Payload>, 'desktopHidden'>;
+    hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
 /**
