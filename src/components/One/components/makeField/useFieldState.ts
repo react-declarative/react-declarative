@@ -5,6 +5,7 @@ import IManaged from "../../../../model/IManaged";
 import IAnything from "../../../../model/IAnything";
 
 import get from "../../../../utils/get";
+import arrays from "../../../../utils/arrays";
 
 interface IState {
   groupRef: HTMLDivElement;
@@ -45,7 +46,7 @@ interface IParams {
 
 const readValue = ({ compute, name, object, payload }: IParams) => {
     if (compute) {
-        const result = compute(object, payload);
+        const result = compute(arrays(object), payload);
         return payload instanceof Promise ? false : result;
     }
     if (name) {

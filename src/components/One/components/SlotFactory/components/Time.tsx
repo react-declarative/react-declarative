@@ -171,6 +171,15 @@ export const Time = ({
   return (
     <>
       <TextField
+        sx={{
+          ...(!outlined && {
+            position: 'relative',
+            '& .MuiFormHelperText-root': {
+                position: 'absolute',
+                top: '100%',
+            },
+          })
+        }}
         inputRef={(input: HTMLInputElement | null) => {
           inputElementRef.current = input;
           inputRef && inputRef(input);

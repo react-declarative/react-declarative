@@ -123,6 +123,15 @@ export const Combo = ({
       (
         <MatTextField
           {...params}
+          sx={{
+            ...(!outlined && {
+                position: 'relative',
+                '& .MuiFormHelperText-root': {
+                    position: 'absolute',
+                    top: '100%',
+                },
+            })
+          }}
           variant={outlined ? "outlined" : "standard"}
           label={title}
           placeholder={placeholder}

@@ -169,7 +169,7 @@ export function makeField(
                 setGroupRef,
                 setInvalid,
                 setLoading,
-                setValue,
+                setValue: setValueAction,
                 setVisible,
             },
         } = useFieldState({
@@ -204,6 +204,19 @@ export function makeField(
             value$: value,
         })
 
+        /**
+         * После первого вызова setValue мы должны начать
+         * проверять входящую валидацию
+         */
+        const setValue = useCallback((value: Value) => {
+            setValueAction(value);
+            memory.initComplete = true;
+        }, []);
+
+        /**
+         * Флаг дизмонтирования компонента, удобен для работы с промисами,
+         * можно выпилить
+         */
         oneConfig.WITH_DISMOUNT_LISTENER && useLayoutEffect(() => () => {
             memory.isMounted = false;
         }, []);
@@ -316,7 +329,7 @@ export function makeField(
                     throw new Error(`One error invalid name specified "${name}"`);
                 } else if (invalid !== null) {
                     invalidity(name, invalid, payload);
-                    change(object, {
+                    change(copy, {
                         [memory.fieldName]: !!invalid,
                     });
                 } else if (!deepCompare(object, copy) || wasInvalid) {
@@ -324,6 +337,34 @@ export function makeField(
                         [memory.fieldName]: !!invalid,
                     });
                 }
+            }
+        }, []);
+
+        /**
+         * Коллбек входящей валидации, триггер из другого поля
+         */
+        const handleWasInvalid = useCallback(() => {
+            if (!memory.initComplete) {
+                return;
+            }
+            if (memory.inputUpdate) {
+                return;
+            }
+            const { invalid$: wasInvalid, value$, object$ } = memory;
+            const copy = deepClone(object$);
+            set(copy, name, value$);
+            const invalid = isInvalid(copy, payload) || null;
+            if (!invalid && wasInvalid) {
+                setInvalid(invalid);
+                change(map(copy, payload), {
+                    [memory.fieldName]: !!invalid,
+                });
+            }
+            if (invalid && !wasInvalid) {
+                setInvalid(invalid);
+                change(object$, {
+                    [memory.fieldName]: !!invalid,
+                });
             }
         }, []);
 
@@ -343,6 +384,7 @@ export function makeField(
             }
             if (memory.lastDebouncedValue === debouncedValue) {
                 handleIncomingObject();
+                handleWasInvalid();
             }
             handleOutgoingObject();
             memory.lastDebouncedValue = debouncedValue;

@@ -53,7 +53,7 @@ export const createLayout = <Data extends IAnything = IAnything>(
   const { type } = entity;
   let Layout: Layout | undefined;
   if (entity.hidden) {
-    return <Fragment />;
+    return <Fragment key={currentPath} />;
   } else if ((Layout = layoutMap[type])) {
     return (
       <Layout {...entity} key={currentPath}>

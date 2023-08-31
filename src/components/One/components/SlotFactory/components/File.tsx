@@ -54,7 +54,16 @@ export const FileField = ({
     return (
         <Stack direction="row" alignItems={outlined ? "stretch" : "center"} spacing={1}>
             <TextField
-                sx={{ flex: 1 }}
+                sx={{
+                    flex: 1,
+                    ...(!outlined && {
+                        position: 'relative',
+                        '& .MuiFormHelperText-root': {
+                            position: 'absolute',
+                            top: '100%',
+                        },
+                    })
+                }}
                 name={name}
                 inputRef={inputRef}
                 variant={outlined ? "outlined" : "standard"}

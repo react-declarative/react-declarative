@@ -153,8 +153,17 @@ export const Items = ({
 
     const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
         <MatTextField
-            variant={outlined ? "outlined" : "standard"}
             {...params}
+            sx={{
+                ...(!outlined && {
+                    position: 'relative',
+                    '& .MuiFormHelperText-root': {
+                        position: 'absolute',
+                        top: '100%',
+                    },
+                })
+            }}
+            variant={outlined ? "outlined" : "standard"}
             label={title}
             placeholder={placeholder}
             helperText={(dirty && invalid) || description}

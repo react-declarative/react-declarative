@@ -174,6 +174,15 @@ export const Date = ({
           inputElementRef.current = input;
           inputRef && inputRef(input);
         }}
+        sx={{
+          ...(!outlined && {
+            position: 'relative',
+            '& .MuiFormHelperText-root': {
+                position: 'absolute',
+                top: '100%',
+            },
+          })
+        }}
         type="text"
         InputProps={{
           readOnly: readonly,

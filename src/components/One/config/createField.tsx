@@ -60,7 +60,7 @@ export const createField = <Data extends IAnything = IAnything>(
   const { type } = entity;
   let Field: React.ComponentType<IEntity<Data>> | undefined;
   if (entity.hidden) {
-    return <Fragment />;
+    return <Fragment key={currentPath} />;
   } else if ((Field = fieldMap[type])) {
     return <Field {...entity} key={currentPath} />;
   } else {
