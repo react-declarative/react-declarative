@@ -41,11 +41,9 @@ export class EventEmitter {
     };
 
     public emit = async (eventName: EventKey, ...args: any[]) => {
-        const event = this._events[eventName];
-        if (event) {
-            for (let i = 0; i !== event.length; i++) {
-                await event[i](...args);
-            }
+        const event = [...this._events[eventName]];
+        for (let i = 0; i !== event.length; i++) {
+            await event[i](...args);
         }
     };
 

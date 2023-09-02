@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import isObject from '../utils/isObject';
 
 export const useOneArray = <T = any>(initialValue?: ((T[] | null) | (() => T[]))) => {
-    const [data, setData] = useState<T[]>(() => {
+    const [data, setData] = useState<T[] | null>(() => {
         let result = initialValue;
         if (typeof initialValue === 'function') {
             result = initialValue();

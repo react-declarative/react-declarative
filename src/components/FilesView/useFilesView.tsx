@@ -57,7 +57,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 interface IParams {
-  data: string[];
+  data?: string[] | null;
   fullScreen?: boolean;
   submitLabel?: string;
   onSubmit?: (data: string[]) => void
@@ -71,7 +71,7 @@ interface IParams {
 }
 
 export const useFilesView = ({
-  data,
+  data = null,
   fullScreen,
   submitLabel = "Save",
   onChange,
@@ -97,7 +97,7 @@ export const useFilesView = ({
   const handleChange = (files: string[]) => {
     setFiles(files);
     setDirty(true);
-    onChange && onChange(data);
+    onChange && onChange(data ||[]);
   };
 
   const handleClose = () => {
