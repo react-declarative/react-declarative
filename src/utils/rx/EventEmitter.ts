@@ -30,8 +30,8 @@ export class EventEmitter {
     };
 
     public once = (eventName: EventKey, callback: Function) => {
-        const subscriber = (...args: any[]) => {
-            callback(...args);
+        const subscriber = async (...args: any[]) => {
+            await callback(...args);
             this.unsubscribe(eventName, subscriber);
         };
         this.subscribe(eventName, subscriber);

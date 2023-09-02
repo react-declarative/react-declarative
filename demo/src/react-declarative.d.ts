@@ -264,11 +264,12 @@ declare module 'react-declarative' {
     export { useApiPaginator } from 'react-declarative/components';
     export { useLastPagination } from 'react-declarative/components';
     export { useQueryPagination } from 'react-declarative/components';
-    export { useStaticHandler } from 'react-declarative/components';
     export { usePreventNavigate } from 'react-declarative/components';
+    export { useStaticHandler } from 'react-declarative/components';
     export { usePreventLeave } from 'react-declarative/components';
     export { useLocalHandler } from 'react-declarative/components';
     export { useApiHandler } from 'react-declarative/components';
+    export { useFilesView } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
@@ -1825,7 +1826,7 @@ declare module 'react-declarative/hooks/useRenderWaiter' {
 }
 
 declare module 'react-declarative/hooks/useOneArray' {
-    export const useOneArray: <T = any>(initialValue?: (T | null)[] | (() => T[]) | undefined) => readonly [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
+    export const useOneArray: <T = any>(initialValue?: T[] | (() => T[]) | null | undefined) => readonly [T[], import("react").Dispatch<import("react").SetStateAction<T[]>>];
     export const oneArrayIncludes: <T = any>(data: T[] | null, ...items: T[]) => boolean;
     export const isOneArray: <T = any>(data: T[]) => boolean;
     export const toOneArray: <T = any>(data: T[]) => unknown[] | null;
@@ -4183,6 +4184,7 @@ declare module 'react-declarative/components/DragDropView' {
 declare module 'react-declarative/components/FilesView' {
     export * from 'react-declarative/components/FilesView/FilesView';
     export * from 'react-declarative/components/FilesView/api/usePreventNavigate';
+    export * from 'react-declarative/components/FilesView/useFilesView';
     export { default } from 'react-declarative/components/FilesView/FilesView';
 }
 
@@ -5795,7 +5797,7 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
 declare module 'react-declarative/components/FilesView/FilesView' {
     import * as React from "react";
     import { SxProps } from "@mui/system";
-    interface IFilesViewProps {
+    export interface IFilesViewProps {
         items?: string[];
         disabled?: boolean;
         onUpload?: (file: File) => string | Promise<string>;
@@ -5833,6 +5835,28 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
         loading: boolean;
     };
     export default usePreventNavigate;
+}
+
+declare module 'react-declarative/components/FilesView/useFilesView' {
+    import { IFilesViewProps } from 'react-declarative/components/FilesView/FilesView';
+    interface IParams {
+        data: string[];
+        fullScreen?: boolean;
+        submitLabel?: string;
+        onSubmit?: (data: string[]) => void;
+        onChange?: (data: string[]) => void;
+        tr?: IFilesViewProps['tr'];
+        fallback?: IFilesViewProps['fallback'];
+        onLoadStart?: IFilesViewProps['onLoadStart'];
+        onLoadEnd?: IFilesViewProps['onLoadEnd'];
+        onClick?: IFilesViewProps['onClick'];
+        onUpload?: IFilesViewProps['onUpload'];
+    }
+    export const useFilesView: ({ data, fullScreen, submitLabel, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams) => {
+        render: () => JSX.Element;
+        pickFiles: () => void;
+    };
+    export default useFilesView;
 }
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {

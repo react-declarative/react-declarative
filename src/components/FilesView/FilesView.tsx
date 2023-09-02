@@ -22,7 +22,7 @@ import useActualCallback from "../../hooks/useActualCallback";
 
 import { SxProps } from "@mui/system";
 
-interface IFilesViewProps {
+export interface IFilesViewProps {
   items?: string[];
   disabled?: boolean;
   onUpload?: (file: File) => string | Promise<string>;
