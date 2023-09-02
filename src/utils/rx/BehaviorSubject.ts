@@ -14,9 +14,9 @@ export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehav
         return this._data;
     };
 
-    public next = (data: Data) => {
+    public next = async (data: Data) => {
         this._data = data;
-        super.next(data);
+        await super.next(data);
     };
 
     public toObserver = (): TObserver<Data> => {

@@ -2558,7 +2558,7 @@ declare module 'react-declarative/utils/rx/BehaviorSubject' {
     export class BehaviorSubject<Data = any> extends Subject<Data> implements TBehaviorSubject<Data>, TObservable<Data> {
         constructor(_data?: Data | null);
         get data(): Data | null;
-        next: (data: Data) => void;
+        next: (data: Data) => Promise<void>;
         toObserver: () => TObserver<Data>;
     }
     export { TBehaviorSubject };
@@ -2575,7 +2575,7 @@ declare module 'react-declarative/utils/rx/EventEmitter' {
         unsubscribe: (eventName: EventKey, callback: Function) => void;
         unsubscribeAll: () => void;
         once: (eventName: EventKey, callback: Function) => () => void;
-        emit: (eventName: EventKey, ...args: any[]) => void;
+        emit: (eventName: EventKey, ...args: any[]) => Promise<void>;
     }
     export default EventEmitter;
 }
@@ -2649,7 +2649,7 @@ declare module 'react-declarative/utils/rx/Subject' {
         subscribe: (callback: Function) => () => void;
         unsubscribeAll: () => void;
         once: (callback: Function) => () => void;
-        next(data: Data): void;
+        next(data: Data): Promise<void>;
         toObserver(): TObserver<Data>;
         toPromise: () => Promise<Data>;
     }
@@ -2830,7 +2830,7 @@ declare module 'react-declarative/utils/mvvm/Collection' {
         findById: (id: IEntity['id']) => Entity<T>;
         handleChange: (change: (collection: Collection<T>, target: Entity<T> | null) => void) => () => void;
         handleDropChanges: () => void;
-        refresh: () => void;
+        refresh: () => Promise<void>;
         toArray: () => T[];
     }
     export default Collection;
@@ -2858,7 +2858,7 @@ declare module 'react-declarative/utils/mvvm/Model' {
         setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
         handleChange(change: (item: Model<T>) => void): () => void;
         handleDropChanges: () => void;
-        refresh: () => void;
+        refresh: () => Promise<void>;
         toObject: () => T;
     }
     export default Model;

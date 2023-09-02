@@ -109,8 +109,8 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
         return this._emitter.once(SUBJECT_EVENT, callback);
     };
 
-    public next(data: Data) {
-        this._emitter.emit(SUBJECT_EVENT, data);
+    public async next(data: Data) {
+        await this._emitter.emit(SUBJECT_EVENT, data);
     };
 
     public toObserver(): TObserver<Data> {

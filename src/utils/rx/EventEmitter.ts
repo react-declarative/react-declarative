@@ -40,9 +40,11 @@ export class EventEmitter {
         };
     };
 
-    public emit = (eventName: EventKey, ...args: any[]) => {
+    public emit = async (eventName: EventKey, ...args: any[]) => {
         const event = this._events[eventName];
-        event && event.forEach(callback => callback(...args));
+        if (event) {
+            await Promise.all(event.map(callback => callback(...args)));
+        }
     };
 
 };

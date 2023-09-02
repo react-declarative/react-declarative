@@ -5,7 +5,7 @@ import useChange from "./useChange";
 
 export const useChangeSubject = <T = undefined>(value: T) => {
     const subject = useSingleton(() => new Subject<T>());
-    useChange(() => subject.next(value), [value]);
+    useChange(() => void subject.next(value), [value]);
     return subject;
 };
 
