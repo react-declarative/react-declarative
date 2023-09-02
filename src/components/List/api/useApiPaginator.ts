@@ -13,6 +13,8 @@ import abortManager from '../../../helpers/abortManager';
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+import removeEmptyFilters from '../helpers/removeEmptyFilters';
+
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
@@ -108,6 +110,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     const queuedFetch = useMemo(() => queued(fetch), []);
 
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
+        filterData = removeEmptyFilters(filterData);
         let url = new URL(path, origin);
         let isOk = true;
         if (withPagination) {

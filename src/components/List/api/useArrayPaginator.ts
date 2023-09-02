@@ -15,6 +15,8 @@ import { DATE_EXPR, TIME_EXPR } from '../../../utils/datetime';
 
 import { IState as ILastPaginationState } from './useLastPagination';
 
+import removeEmptyFilters from '../helpers/removeEmptyFilters';
+
 import filterString from '../../../utils/filterArray';
 import queued from '../../../utils/hof/queued';
 
@@ -181,6 +183,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         search: string,
         payload: IAnything,
     ) => {
+        filterData = removeEmptyFilters(filterData);
         if (typeof rowsHandler === 'function') {
             return await rowsHandler(filterData, pagination, sort, chips, search, payload);
         } else {
