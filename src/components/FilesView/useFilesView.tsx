@@ -5,10 +5,13 @@ import { makeStyles } from "../../styles";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import clsx from "clsx";
-import useOneArray from '../../hooks/useOneArray';
+
 import FilesView, { IFilesViewProps } from './FilesView';
 import ActionButton from '../ActionButton';
+
+import useOneArray from '../../hooks/useOneArray';
+
+import classNames from '../../utils/classNames';
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -127,7 +130,7 @@ export const useFilesView = ({
   const render = () => (
     <Modal open={open} onClose={handleClose}>
       <Box
-        className={clsx(classes.root, {
+        className={classNames(classes.root, {
           [classes.small]: !fullScreen,
           [classes.large]: fullScreen,
         })}
