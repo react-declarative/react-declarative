@@ -43,7 +43,9 @@ export class EventEmitter {
     public emit = async (eventName: EventKey, ...args: any[]) => {
         const event = this._events[eventName];
         if (event) {
-            await Promise.all(event.map(callback => callback(...args)));
+            for (let i = 0; i !== event.length; i++) {
+                await event[i](...args);
+            }
         }
     };
 
