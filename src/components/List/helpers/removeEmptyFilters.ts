@@ -9,6 +9,9 @@ export const removeEmptyFilters = <Data extends {} = IAnything>(data: Data) => {
         if (data[key] === "") {
             continue;
         }
+        if (data[key] === false) {
+            continue;
+        }
         result[key] = data[key];
     }
     return result as Data;

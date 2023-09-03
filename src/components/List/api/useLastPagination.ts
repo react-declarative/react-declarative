@@ -7,6 +7,8 @@ import {
     ListHandlerPagination,
 } from "../../../model/IListProps";
 
+import removeEmptyFilters from '../helpers/removeEmptyFilters';
+
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
@@ -35,6 +37,7 @@ export const useLastPagination = <FilterData extends {} = IAnything, RowData ext
         search: "",
     });
     const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chipData, search, payload) => {
+        filterData = removeEmptyFilters(filterData);
         setData({ filterData, pagination, sort, chipData, search });
         return typeof upperHandler === 'function' ? upperHandler(filterData, pagination, sort, chipData, search, payload): upperHandler;
     };

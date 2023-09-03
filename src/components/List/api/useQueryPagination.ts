@@ -8,6 +8,8 @@ import useSearchState from "../../../hooks/useSearchState";
 import useActualValue from "../../../hooks/useActualValue";
 import useChange from "../../../hooks/useChange";
 
+import removeEmptyFilters from "../helpers/removeEmptyFilters";
+
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
 
 interface IQuery<
@@ -119,6 +121,7 @@ export const useQueryPagination = <
     }, [state]);
 
     const onFilterChange: IResult<FilterData, RowData>['onFilterChange'] = (filterData) => {
+        filterData = removeEmptyFilters(filterData);
         setState((prevState) => ({
             ...prevState,
             filterData: JSON.stringify(filterData || "{}"),
