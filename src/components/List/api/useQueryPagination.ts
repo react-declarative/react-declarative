@@ -8,7 +8,7 @@ import useSearchState from "../../../hooks/useSearchState";
 import useActualValue from "../../../hooks/useActualValue";
 import useChange from "../../../hooks/useChange";
 
-import removeEmptyFilters from "../helpers/removeEmptyFilters";
+import removeEmptyFiltersDefault from "../helpers/removeEmptyFilters";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
 
@@ -28,6 +28,7 @@ interface IParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > {
+    removeEmptyFilters: (data: FilterData) => Partial<FilterData>,
     onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
     onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
     onPageChange: IListProps<FilterData, RowData>['onPageChange'];
@@ -91,6 +92,7 @@ export const useQueryPagination = <
     onChipsChange: handleChipsChange = () => null,
     onSearchChange: handleSeachChange = () => null,
     onChange: handleChange = () => null,
+    removeEmptyFilters = removeEmptyFiltersDefault,
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
@@ -121,7 +123,7 @@ export const useQueryPagination = <
     }, [state]);
 
     const onFilterChange: IResult<FilterData, RowData>['onFilterChange'] = (filterData) => {
-        filterData = removeEmptyFilters(filterData);
+        filterData = removeEmptyFilters(filterData) as FilterData;
         setState((prevState) => ({
             ...prevState,
             filterData: JSON.stringify(filterData || "{}"),

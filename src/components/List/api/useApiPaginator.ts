@@ -13,7 +13,7 @@ import abortManager from '../../../helpers/abortManager';
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
-import removeEmptyFilters from '../helpers/removeEmptyFilters';
+import removeEmptyFiltersDefault from '../helpers/removeEmptyFilters';
 
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
@@ -22,6 +22,7 @@ export interface IApiPaginatorParams<FilterData extends {} = IAnything, RowData 
     origin?: string;
     fetch?: typeof window.fetch;
     requestMap?: (url: URL) => URL;
+    removeEmptyFilters?: (data: FilterData) => Partial<FilterData>;
     filterHandler?: (url: URL, filterData: FilterData) => URL;
     chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
     sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
@@ -50,6 +51,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     fetch = window.fetch,
     origin = window.location.origin,
     abortSignal: signal = abortManager.signal,
+    removeEmptyFilters = removeEmptyFiltersDefault,
     fetchParams,
     fallback,
     onLoadBegin,
@@ -110,7 +112,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
     const queuedFetch = useMemo(() => queued(fetch), []);
 
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
-        filterData = removeEmptyFilters(filterData);
+        filterData = removeEmptyFilters(filterData) as FilterData;
         let url = new URL(path, origin);
         let isOk = true;
         if (withPagination) {

@@ -1175,6 +1175,7 @@ declare module 'react-declarative/components/List/api/useApiPaginator' {
         origin?: string;
         fetch?: typeof window.fetch;
         requestMap?: (url: URL) => URL;
+        removeEmptyFilters?: (data: FilterData) => Partial<FilterData>;
         filterHandler?: (url: URL, filterData: FilterData) => URL;
         chipsHandler?: (url: URL, chips: ListHandlerChips<RowData>) => URL;
         sortHandler?: (url: URL, sort: ListHandlerSortModel<RowData>) => URL;
@@ -1193,7 +1194,7 @@ declare module 'react-declarative/components/List/api/useApiPaginator' {
         abortSignal?: AbortSignal;
         responseMap?: <T extends IRowData>(json: RowData[]) => (ListHandlerResult<T> | Promise<ListHandlerResult<T>>);
     }
-    export const useApiPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(path: string, { fetch, origin, abortSignal: signal, fetchParams, fallback, onLoadBegin, onLoadEnd, requestMap, responseMap, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withAbortSignal, withPagination, withFilters, withSearch, withChips, withSort, }?: IApiPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
+    export const useApiPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(path: string, { fetch, origin, abortSignal: signal, removeEmptyFilters, fetchParams, fallback, onLoadBegin, onLoadEnd, requestMap, responseMap, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withAbortSignal, withPagination, withFilters, withSearch, withChips, withSort, }?: IApiPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
     export default useApiPaginator;
 }
 
@@ -1210,6 +1211,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
         searchHandler?: (rows: RowData[], search: string) => RowData[];
         compareFn?: (a: RowData, b: RowData, field: keyof RowData) => number;
+        removeEmptyFilters?: (data: FilterData) => Partial<FilterData>;
         withPagination?: boolean;
         withFilters?: boolean;
         withChips?: boolean;
@@ -1223,7 +1225,7 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
-    export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData, any>, { searchEntries, searchFilterChars, responseMap, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
+    export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData, any>, { searchEntries, searchFilterChars, responseMap, removeEmptyFilters, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
     export default useArrayPaginator;
 }
 
@@ -5054,6 +5056,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
         search: IListProps<FilterData, RowData>['search'];
     }
     interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
         onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
         onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
         onPageChange: IListProps<FilterData, RowData>['onPageChange'];
@@ -5067,7 +5070,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
     type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
     type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
     export const DEFAULT_QUERY: IQuery;
-    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
+    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         setFilterData: (data: FilterData) => void;
         setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
         setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;

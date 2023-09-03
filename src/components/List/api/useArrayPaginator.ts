@@ -15,7 +15,7 @@ import { DATE_EXPR, TIME_EXPR } from '../../../utils/datetime';
 
 import { IState as ILastPaginationState } from './useLastPagination';
 
-import removeEmptyFilters from '../helpers/removeEmptyFilters';
+import removeEmptyFiltersDefault from '../helpers/removeEmptyFilters';
 
 import filterString from '../../../utils/filterArray';
 import queued from '../../../utils/hof/queued';
@@ -42,6 +42,7 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     responseMap?: (json: RowData[]) => (Record<string, any>[] | Promise<Record<string, any>[]>);
     searchHandler?: (rows: RowData[], search: string) => RowData[];
     compareFn?: (a: RowData, b: RowData, field: keyof RowData) => number;
+    removeEmptyFilters?: (data: FilterData) => Partial<FilterData>;
     withPagination?: boolean;
     withFilters?: boolean;
     withChips?: boolean;
@@ -60,6 +61,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     searchEntries = SEARCH_ENTRIES,
     searchFilterChars = FILTER_CHARS,
     responseMap = (rows) => rows as RowData[],
+    removeEmptyFilters = removeEmptyFiltersDefault,
     compareFn = (row_a, row_b, field) => {
         const a = row_a[field];
         const b = row_b[field];
@@ -183,7 +185,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         search: string,
         payload: IAnything,
     ) => {
-        filterData = removeEmptyFilters(filterData);
+        filterData = removeEmptyFilters(filterData) as FilterData;
         if (typeof rowsHandler === 'function') {
             return await rowsHandler(filterData, pagination, sort, chips, search, payload);
         } else {
