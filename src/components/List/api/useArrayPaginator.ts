@@ -185,7 +185,6 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         search: string,
         payload: IAnything,
     ) => {
-        filterData = removeEmptyFilters(filterData) as FilterData;
         if (typeof rowsHandler === 'function') {
             return await rowsHandler(filterData, pagination, sort, chips, search, payload);
         } else {
@@ -194,6 +193,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     }), []);
 
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search, payload) => {
+        filterData = removeEmptyFilters(filterData) as FilterData;
         let isOk = true;
         try {
             onLoadStart && onLoadStart();

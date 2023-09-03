@@ -60,7 +60,7 @@ const readValue = ({ compute, name, object, payload, config }: IParams) => {
    * Чтобы поле input было React-управляемым, нельзя
    * передавать в свойство value значение null
    */
-  if (name) {
+  if (!compute && name) {
     return get(object, name) || false;
   }
   return false;
@@ -81,18 +81,14 @@ const readState = ({
 });
 
 export const useFieldState = (initialData: IInitialData, config: IParams) => {
-  const [state, setState] = useState<IState>(() => {
-    const { visible, ...fieldState } = readState(config);
-    return {
-      groupRef: null as never,
-      focusReadonly: true,
-      loading: false,
-      ...fieldState,
-      visible,
-      value: visible ? readValue(config) : false,
-      ...initialData,
-    };
-  });
+  const [state, setState] = useState<IState>(() => ({
+    groupRef: null as never,
+    focusReadonly: true,
+    loading: false,
+    ...readState(config),
+    value: readValue(config),
+    ...initialData,
+  }));
 
   const action = useMemo(
     () => ({
