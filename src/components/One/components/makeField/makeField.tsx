@@ -177,6 +177,7 @@ export function makeField(
             disabled: fieldDisabled,
         }, {
             compute,
+            config: oneConfig,
             name,
             object,
             payload,

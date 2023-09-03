@@ -272,6 +272,7 @@ declare module 'react-declarative' {
     export { useFilesView } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
+    export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
     export { useOneProps, useOneState, useOnePayload } from 'react-declarative/components';
     export { useActualCallback };
@@ -4020,6 +4021,8 @@ declare module 'react-declarative/components/One' {
     export { OneConfig } from 'react-declarative/components/One/components/OneConfig';
     export { createField } from 'react-declarative/components/One/config/createField';
     export { makeField } from 'react-declarative/components/One/components/makeField';
+    export { createLayout } from 'react-declarative/components/One/config/createLayout';
+    export { makeLayout } from 'react-declarative/components/One/components/makeLayout';
     export { useOneProps } from 'react-declarative/components/One/context/PropsProvider';
     export { useOneState } from 'react-declarative/components/One/context/StateProvider';
     export { useOnePayload } from 'react-declarative/components/One/context/PayloadProvider';
@@ -4841,6 +4844,21 @@ declare module 'react-declarative/components/One/config/createField' {
 declare module 'react-declarative/components/One/components/makeField' {
     export * from 'react-declarative/components/One/components/makeField/makeField';
     export { default } from 'react-declarative/components/One/components/makeField/makeField';
+}
+
+declare module 'react-declarative/components/One/config/createLayout' {
+    import * as React from "react";
+    import IEntity from "react-declarative/model/IEntity";
+    /**
+      * Фабрика для создания компоновок
+      */
+    export const createLayout: <Data extends unknown = any>(entity: IEntity<Data, any>, children: React.ReactNode, currentPath?: string) => JSX.Element;
+    export default createLayout;
+}
+
+declare module 'react-declarative/components/One/components/makeLayout' {
+    export * from 'react-declarative/components/One/components/makeLayout/makeLayout';
+    export { default } from 'react-declarative/components/One/components/makeLayout/makeLayout';
 }
 
 declare module 'react-declarative/components/One/context/PropsProvider' {
@@ -6997,6 +7015,17 @@ declare module 'react-declarative/components/One/components/makeField/makeField'
         displayName: string;
     };
     export default makeField;
+}
+
+declare module 'react-declarative/components/One/components/makeLayout/makeLayout' {
+    import * as React from 'react';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IEntity from 'react-declarative/model/IEntity';
+    export interface ILayout<Data extends IAnything = IAnything> extends IEntity<Data> {
+        children: React.ReactNode;
+    }
+    export function makeLayout<T extends ILayout<any>>(originalComponent: React.FC<T>): React.FC<T>;
+    export default makeLayout;
 }
 
 declare module 'react-declarative/components/ActionFilter/model/IActionFilterProps' {

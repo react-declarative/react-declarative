@@ -1,5 +1,7 @@
 import { useState, useMemo } from "react";
 
+import { IConfig } from "../OneConfig/OneConfigInstance";
+
 import IField, { Value } from "../../../../model/IField";
 import IManaged from "../../../../model/IManaged";
 import IAnything from "../../../../model/IAnything";
@@ -37,6 +39,7 @@ interface IParams {
   name: IManaged["name"];
   payload: IAnything;
   object: IManaged["object"];
+  config: IConfig;
   compute: IField["compute"];
   isVisible: Exclude<IField["isVisible"], undefined>;
   isDisabled: Exclude<IField["isDisabled"], undefined>;
@@ -44,19 +47,23 @@ interface IParams {
   isReadonly: Exclude<IField["isReadonly"], undefined>;
 }
 
-const readValue = ({ compute, name, object, payload }: IParams) => {
-    if (compute) {
-        const result = compute(arrays(object), payload);
-        return payload instanceof Promise ? false : result;
-    }
-    if (name) {
-        return get(object, name);
-    }
-    /**
-     * Чтобы поле input было React-управляемым, нельзя
-     * передавать в свойство value значение null
-     */
-    return false;
+const readValue = ({ compute, name, object, payload, config }: IParams) => {
+  /**
+   * Используйте флаг WITH_SYNC_COMPUTE с осторожностью: может вызывать
+   * тормоза рендеринга на больших формах
+   */
+  if (compute && config.WITH_SYNC_COMPUTE) {
+    const result = compute(arrays(object), payload);
+    return payload instanceof Promise ? false : result;
+  }
+  /**
+   * Чтобы поле input было React-управляемым, нельзя
+   * передавать в свойство value значение null
+   */
+  if (name) {
+    return get(object, name) || false;
+  }
+  return false;
 };
 
 const readState = ({
@@ -74,14 +81,18 @@ const readState = ({
 });
 
 export const useFieldState = (initialData: IInitialData, config: IParams) => {
-  const [state, setState] = useState<IState>(() => ({
-    groupRef: null as never,
-    focusReadonly: true,
-    loading: false,
-    ...readState(config),
-    value: readValue(config),
-    ...initialData,
-  }));
+  const [state, setState] = useState<IState>(() => {
+    const { visible, ...fieldState } = readState(config);
+    return {
+      groupRef: null as never,
+      focusReadonly: true,
+      loading: false,
+      ...fieldState,
+      visible,
+      value: visible ? readValue(config) : false,
+      ...initialData,
+    };
+  });
 
   const action = useMemo(
     () => ({

@@ -4,6 +4,7 @@ export interface IConfig {
     WITH_WAIT_FOR_MOVE_LISTENER: boolean;
     WITH_WAIT_FOR_TOUCH_LISTENER: boolean;
     WITH_DISMOUNT_LISTENER: boolean;
+    WITH_SYNC_COMPUTE: boolean;
 }
 
 const INITIAL_CONFIG: IConfig = {
@@ -12,6 +13,7 @@ const INITIAL_CONFIG: IConfig = {
     WITH_WAIT_FOR_MOVE_LISTENER: true,
     WITH_WAIT_FOR_TOUCH_LISTENER: true,
     WITH_DISMOUNT_LISTENER: true,
+    WITH_SYNC_COMPUTE: false,
 };
 
 export class OneConfigInstance {

@@ -3,6 +3,8 @@ export * from './slots';
 export { OneConfig } from './components/OneConfig';
 export { createField } from './config/createField';
 export { makeField } from './components/makeField';
+export { createLayout } from './config/createLayout';
+export { makeLayout } from './components/makeLayout'; 
 export { useOneProps } from './context/PropsProvider';
 export { useOneState } from './context/StateProvider';
 export { useOnePayload } from './context/PayloadProvider';
