@@ -71,6 +71,8 @@ export const Items = ({
         labels: {},
     }));
 
+    const initComplete = useRef(false);
+
     const waitForRender = useRenderWaiter([state], 10);
 
     const labels$ = useActualValue(state.labels);
@@ -117,6 +119,7 @@ export const Items = ({
         }
 
         setState({ options, labels });
+        initComplete.current = true;
         await waitForRender();
     }, {
         fallback,
@@ -211,7 +214,7 @@ export const Items = ({
         onChange(value?.length ? objects(value) : null);
     };
 
-    if (loading) {
+    if (loading || !initComplete.current) {
         return (
             <Autocomplete
                 multiple

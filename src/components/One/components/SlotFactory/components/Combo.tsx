@@ -67,6 +67,8 @@ export const Combo = ({
     labels: {},
   }));
 
+  const initComplete = useRef(false);
+
   const waitForRender = useRenderWaiter([state], 10);
 
   const labels$ = useActualValue(state.labels);
@@ -102,6 +104,7 @@ export const Combo = ({
       }
 
       setState({ labels, options });
+      initComplete.current = true;
       await waitForRender();
     },
     {
@@ -192,7 +195,7 @@ export const Combo = ({
     onChange(value || null);
   };
 
-  if (loading) {
+  if (loading || !initComplete.current) {
     return (
       <Autocomplete
         disableCloseOnSelect
