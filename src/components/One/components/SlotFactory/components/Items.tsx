@@ -22,6 +22,8 @@ import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useAsyncAction } from '../../../../../hooks/useAsyncAction';
+import { useActualValue } from '../../../../../hooks/useActualValue';
+import { useRenderWaiter } from '../../../../../hooks/useRenderWaiter';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -69,6 +71,10 @@ export const Items = ({
         labels: {},
     }));
 
+    const waitForRender = useRenderWaiter([state], 10);
+
+    const labels$ = useActualValue(state.labels);
+
     const arrayValue = useMemo(() => {
         if (typeof upperValue === 'string') {
             return [upperValue];
@@ -109,7 +115,9 @@ export const Items = ({
                 }
             });
         }
+
         setState({ options, labels });
+        await waitForRender();
     }, {
         fallback,
     });
@@ -134,7 +142,8 @@ export const Items = ({
         readonly,
     ]);
 
-    const createRenderTags = (labels: Record<string, any>) => (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
+    const renderTags = (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
+        const { current: labels } = labels$;
         return value.map((option: string, index: number) => (
             <Chip
                 variant={outlined ? "outlined" : "filled"}
@@ -144,7 +153,8 @@ export const Items = ({
         ))
     };
 
-    const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => {
+    const getOptionLabel = (v: string) => {
+        const { current: labels } = labels$;
         if (freeSolo) {
             return v;
         }
@@ -182,25 +192,26 @@ export const Items = ({
         />
     );
 
-    const createRenderOption = (labels: Record<string, any>) => (props: React.HTMLAttributes<HTMLLIElement>, option: any, state: AutocompleteRenderOptionState) => (
-        <li {...props}>
-            <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={state.selected}
-            />
-            {freeSolo ? option : (labels[option] || `${option} (unknown)`)}
-        </li>
-    );
+    const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: any, state: AutocompleteRenderOptionState) => {
+        const { current: labels } = labels$;
+        return (
+            <li {...props}>
+                <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={state.selected}
+                />
+                {freeSolo ? option : (labels[option] || `${option} (unknown)`)}
+            </li>
+        );    
+    };
 
     const handleChange = (value: any) => {
         onChange(value?.length ? objects(value) : null);
     };
 
-    const { options, labels } = state;
-
-    if (loading && !options.length) {
+    if (loading) {
         return (
             <Autocomplete
                 multiple
@@ -212,10 +223,10 @@ export const Items = ({
                 value={EMPTY_ARRAY}
                 options={EMPTY_ARRAY}
                 ListboxComponent={virtualListBox ? VirtualListBox : undefined}
-                getOptionLabel={createGetOptionLabel({})}
-                renderTags={createRenderTags({})}
+                getOptionLabel={getOptionLabel}
+                renderTags={renderTags}
                 renderInput={createRenderInput(true, true)}
-                renderOption={createRenderOption({})}
+                renderOption={renderOption}
             />
         );
     }
@@ -228,13 +239,13 @@ export const Items = ({
             freeSolo={freeSolo}
             readOnly={readonly}
             onChange={({ }, value) => handleChange(value)}
-            getOptionLabel={createGetOptionLabel(labels)}
+            getOptionLabel={getOptionLabel}
             ListboxComponent={virtualListBox ? VirtualListBox : undefined}
             value={value}
-            options={options}
-            renderTags={createRenderTags(labels)}
+            options={state.options}
+            renderTags={renderTags}
             renderInput={createRenderInput(false, !!readonly)}
-            renderOption={createRenderOption(labels)}
+            renderOption={renderOption}
         />
     );
 };

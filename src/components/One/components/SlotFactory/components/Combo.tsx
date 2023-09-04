@@ -19,6 +19,8 @@ import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useAsyncAction } from "../../../../../hooks/useAsyncAction";
+import { useActualValue } from "../../../../../hooks/useActualValue";
+import { useRenderWaiter } from "../../../../../hooks/useRenderWaiter";
 
 import RadioIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -65,6 +67,10 @@ export const Combo = ({
     labels: {},
   }));
 
+  const waitForRender = useRenderWaiter([state], 10);
+
+  const labels$ = useActualValue(state.labels);
+
   const value = useMemo(() => {
     if (Array.isArray(upperValue)) {
       const [first] = upperValue;
@@ -94,7 +100,9 @@ export const Combo = ({
       if (freeSolo && value) {
         !options.includes(value) && options.push(value);
       }
+
       setState({ labels, options });
+      await waitForRender();
     },
     {
       fallback,
@@ -125,13 +133,13 @@ export const Combo = ({
           {...params}
           sx={{
             ...(!outlined && {
-                position: 'relative',
-                mt: 1,
-                '& .MuiFormHelperText-root': {
-                    position: 'absolute',
-                    top: '100%',
-                },
-            })
+              position: "relative",
+              mt: 1,
+              "& .MuiFormHelperText-root": {
+                position: "absolute",
+                top: "100%",
+              },
+            }),
           }}
           variant={outlined ? "outlined" : "standard"}
           label={title}
@@ -153,26 +161,27 @@ export const Combo = ({
         />
       );
 
-  const createRenderOption =
-    (labels: Record<string, any>) =>
-    (
-      props: React.HTMLAttributes<HTMLLIElement>,
-      option: any,
-      state: AutocompleteRenderOptionState
-    ) =>
-      (
-        <li {...props}>
-          <Radio
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={state.selected}
-          />
-          {freeSolo ? option : labels[option] || `${option} (unknown)`}
-        </li>
-      );
+  const renderOption = (
+    props: React.HTMLAttributes<HTMLLIElement>,
+    option: any,
+    state: AutocompleteRenderOptionState
+  ) => {
+    const { current: labels } = labels$;
+    return (
+      <li {...props}>
+        <Radio
+          icon={icon}
+          checkedIcon={checkedIcon}
+          style={{ marginRight: 8 }}
+          checked={state.selected}
+        />
+        {freeSolo ? option : labels[option] || `${option} (unknown)`}
+      </li>
+    );
+  };
 
-  const createGetOptionLabel = (labels: Record<string, any>) => (v: string) => {
+  const getOptionLabel = (v: string) => {
+    const { current: labels } = labels$;
     if (freeSolo) {
       return v;
     }
@@ -183,9 +192,7 @@ export const Combo = ({
     onChange(value || null);
   };
 
-  const { labels, options } = state;
-
-  if (loading && !options.length) {
+  if (loading) {
     return (
       <Autocomplete
         disableCloseOnSelect
@@ -196,9 +203,9 @@ export const Combo = ({
         onChange={() => null}
         freeSolo={freeSolo}
         ListboxComponent={virtualListBox ? VirtualListBox : undefined}
-        getOptionLabel={createGetOptionLabel({})}
+        getOptionLabel={getOptionLabel}
         renderInput={createRenderInput(true, true)}
-        renderOption={createRenderOption({})}
+        renderOption={renderOption}
       />
     );
   }
@@ -209,14 +216,14 @@ export const Combo = ({
       loading={loading}
       value={value || null}
       onChange={({}, v) => handleChange(v)}
-      getOptionLabel={createGetOptionLabel(labels)}
+      getOptionLabel={getOptionLabel}
       freeSolo={freeSolo}
-      options={options}
+      options={state.options}
       disabled={disabled}
       readOnly={readonly}
       ListboxComponent={virtualListBox ? VirtualListBox : undefined}
       renderInput={createRenderInput(false, readonly)}
-      renderOption={createRenderOption(labels)}
+      renderOption={renderOption}
     />
   );
 };
