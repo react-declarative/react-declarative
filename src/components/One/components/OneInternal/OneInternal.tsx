@@ -154,7 +154,7 @@ export const OneInternal = <
               ready: handleReady,
               fallback,
               isBaselineAlign: baselineMap.get(field) === undefined
-                ? !!baselineMap.set(field, fields.some(isBaseline)).get(field)
+                ? !!baselineMap.set(field, !field.noBaseline && fields.some(isBaseline)).get(field)
                 : !!baselineMap.get(field),
               ...field,
               outlinePaper: field.outlinePaper || upperOutlinePaper,
