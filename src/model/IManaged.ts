@@ -18,6 +18,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
     desktopHidden?: PickProp<IField<Data, Payload>, 'desktopHidden'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
+    noBaseline?: PickProp<IField<Data, Payload>, 'noBaseline'>;
 }
 
 /**
