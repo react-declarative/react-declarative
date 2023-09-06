@@ -54,6 +54,7 @@ export const Items = ({
     outlined = true,
     itemList = [],
     freeSolo,
+    noDeselect,
     virtualListBox,
     dirty,
     invalid,
@@ -219,6 +220,7 @@ export const Items = ({
             <Autocomplete
                 multiple
                 disableCloseOnSelect
+                disableClearable={noDeselect}
                 loading
                 disabled
                 freeSolo={freeSolo}
@@ -239,6 +241,7 @@ export const Items = ({
             multiple
             loading={loading}
             disableCloseOnSelect
+            disableClearable={noDeselect}
             freeSolo={freeSolo}
             readOnly={readonly}
             onChange={({ }, value) => handleChange(value)}

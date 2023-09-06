@@ -292,6 +292,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>),
 
     /**
+     * Отключает возможность сброса выбора значения для Items и Combo
+     */
+    noDeselect?: boolean;
+
+    /**
      * Позволяет указать условия перезагрузки списка
      * элементов
      */

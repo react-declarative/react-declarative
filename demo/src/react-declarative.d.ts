@@ -802,6 +802,10 @@ declare module 'react-declarative/model/IField' {
                 */
             itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>);
             /**
+                * Отключает возможность сброса выбора значения для Items и Combo
+                */
+            noDeselect?: boolean;
+            /**
                 * Позволяет указать условия перезагрузки списка
                 * элементов
                 */
@@ -3459,6 +3463,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         itemList?: PickProp<IField<Data, Payload>, "itemList">;
         freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
+        noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
         virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
         shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -3475,7 +3480,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ComboField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, title, dirty, invalid, tr, shouldUpdateItemList, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, noDeselect, title, dirty, invalid, tr, shouldUpdateItemList, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3525,6 +3530,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
         shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
         title?: PickProp<IField<Data, Payload>, "title">;
         tr?: PickProp<IField<Data, Payload>, "tr">;
@@ -3537,7 +3543,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ItemsField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, dirty, invalid, title, shouldUpdateItemList, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, noDeselect, dirty, invalid, title, shouldUpdateItemList, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4703,8 +4709,8 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
     import ISlotFactoryContext from 'react-declarative/components/One/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
-        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, freeSolo, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
-        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
+        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, noDeselect, freeSolo, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
+        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, readonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;

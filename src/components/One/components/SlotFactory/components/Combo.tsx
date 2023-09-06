@@ -51,6 +51,7 @@ export const Combo = ({
   outlined = true,
   itemList = [],
   virtualListBox,
+  noDeselect,
   freeSolo,
   title = "",
   dirty,
@@ -199,6 +200,7 @@ export const Combo = ({
     return (
       <Autocomplete
         disableCloseOnSelect
+        disableClearable={noDeselect}
         disabled
         loading
         value={null}
@@ -216,6 +218,7 @@ export const Combo = ({
   return (
     <Autocomplete
       disableCloseOnSelect
+      disableClearable={noDeselect}
       loading={loading}
       value={value || null}
       onChange={({}, v) => handleChange(v)}
