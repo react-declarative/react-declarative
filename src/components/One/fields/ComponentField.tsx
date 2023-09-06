@@ -78,7 +78,7 @@ export const ComponentField = ({
 
     const { classes } = useStyles();
 
-    const [ node, setNode ] = useState<JSX.Element | null>(null);
+    const [node, setNode] = useState<JSX.Element | null>(null);
     const { setObject } = useOneState();
     const _payload = useOnePayload();
 
@@ -90,13 +90,13 @@ export const ComponentField = ({
             .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
         const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
         const _fieldData = arrays(object);
-        const props = { ..._fieldData, onChange, _fieldParams, _fieldData, _payload };
+        const props = { ..._fieldData, onChange, _fieldParams, _fieldData, _payload, disabled, readonly };
         setNode(() => (
             <Element
                 {...props}
             />
         ));
-    }, [object]);
+    }, [object, disabled, readonly]);
 
     return (
         <Box
