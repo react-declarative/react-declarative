@@ -266,7 +266,9 @@ export function makeField(
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
                 const readonly = isReadonly(object, payload);
+                const invalid = isInvalid(object, payload) || null;
                 setFieldReadonly(readonly);
+                setInvalid(invalid);
                 setDisabled(disabled);
                 setVisible(visible);
             } else if (!name) {
