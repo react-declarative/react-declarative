@@ -13,6 +13,7 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   title?: PickProp<IField<Data, Payload>, "title">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -40,6 +41,7 @@ export const ChooseField = ({
   outlined = false,
   title = "",
   placeholder = "",
+  labelShrink,
   choose,
   tr,
   dirty,
@@ -54,6 +56,7 @@ export const ChooseField = ({
     value={value}
     readonly={readonly}
     disabled={disabled}
+    labelShrink={labelShrink}
     description={description}
     outlined={outlined}
     title={title}

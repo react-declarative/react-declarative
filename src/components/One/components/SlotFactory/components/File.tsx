@@ -27,6 +27,7 @@ export const FileField = ({
     readonly,
     description = "",
     outlined = true,
+    labelShrink,
     title = "",
     placeholder = "No file chosen",
     dirty,
@@ -86,6 +87,9 @@ export const FileField = ({
                         </InputAdornment>
                     ),
                 }}
+                InputLabelProps={labelShrink ? {
+                    shrink: labelShrink,
+                } : undefined}
                 value={loading ? LOADING_LABEL : value ? String(value) : ""}
                 placeholder={placeholder}
                 label={title}

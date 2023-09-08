@@ -56,6 +56,7 @@ export const Items = ({
     freeSolo,
     noDeselect,
     virtualListBox,
+    labelShrink,
     dirty,
     invalid,
     title,
@@ -192,6 +193,10 @@ export const Items = ({
                         {params.InputProps.endAdornment}
                     </>
                 ),
+            }}
+            InputLabelProps={{
+                ...params.InputLabelProps,
+                ...(labelShrink && { shrink: true }),
             }}
         />
     );

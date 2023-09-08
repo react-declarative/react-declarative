@@ -599,6 +599,11 @@ declare module 'react-declarative/model/IField' {
                 */
             noBaseline?: boolean;
             /**
+                * Флаг, удерживающий подпись текстового поля при пустом
+                * значении
+                */
+            labelShrink?: boolean;
+            /**
                 * Коллбеки, вызываемый при фокусировке и потере фокуса.
                 * Подразумевается изменение формы со стороны прикладного
                 * программиста, а не работа с полем ввода
@@ -3430,6 +3435,7 @@ declare module 'react-declarative/components/One/fields/FileField' {
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         upload?: PickProp<IField<Data, Payload>, 'upload'>;
         view?: PickProp<IField<Data, Payload>, 'view'>;
     }
@@ -3443,7 +3449,7 @@ declare module 'react-declarative/components/One/fields/FileField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const FileField: {
-        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, upload, view, dirty, loading, onChange, inputRef, name, }: IFileFieldProps & IFileFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, upload, view, dirty, labelShrink, loading, onChange, inputRef, name, }: IFileFieldProps & IFileFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3468,6 +3474,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         title?: PickProp<IField<Data, Payload>, "title">;
         tr?: PickProp<IField<Data, Payload>, "tr">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -3480,7 +3487,7 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ComboField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, noDeselect, title, dirty, invalid, tr, shouldUpdateItemList, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, noDeselect, labelShrink, title, dirty, invalid, tr, shouldUpdateItemList, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3535,6 +3542,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         title?: PickProp<IField<Data, Payload>, "title">;
         tr?: PickProp<IField<Data, Payload>, "tr">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
     }
     export interface IItemsFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -3543,7 +3551,7 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         invalid: PickProp<IManaged<Data>, "invalid">;
     }
     export const ItemsField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, noDeselect, dirty, invalid, title, shouldUpdateItemList, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, labelShrink, noDeselect, dirty, invalid, title, shouldUpdateItemList, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3737,6 +3745,7 @@ declare module 'react-declarative/components/One/fields/TextField' {
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+        labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
     }
     export interface ITextFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -3748,7 +3757,7 @@ declare module 'react-declarative/components/One/fields/TextField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, value, disabled, readonly, inputType, description, outlined, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, inputFormatter, inputFormatterSymbol, inputFormatterAllowed, inputFormatterTemplate, dirty, loading, onChange, autoFocus, inputRef, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, inputType, description, outlined, labelShrink, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, inputFormatter, inputFormatterSymbol, inputFormatterAllowed, inputFormatterTemplate, dirty, loading, onChange, autoFocus, inputRef, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3768,6 +3777,7 @@ declare module 'react-declarative/components/One/fields/DateField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
@@ -3781,7 +3791,7 @@ declare module 'react-declarative/components/One/fields/DateField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const DateField: {
-        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: IDateFieldPrivate & IDateFieldProps): JSX.Element;
+        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, name, }: IDateFieldPrivate & IDateFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3804,6 +3814,7 @@ declare module 'react-declarative/components/One/fields/TimeField' {
         autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
     }
     export interface ITimeFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -3814,7 +3825,7 @@ declare module 'react-declarative/components/One/fields/TimeField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TimeField: {
-        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: ITimeFieldPrivate & ITimeFieldProps): JSX.Element;
+        ({ invalid, value, disabled, readonly, labelShrink, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: ITimeFieldPrivate & ITimeFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3834,6 +3845,7 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
         inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
         description?: PickProp<IField<Data, Payload>, "description">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         keepRaw?: PickProp<IField<Data, Payload>, "keepRaw">;
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
@@ -3855,7 +3867,7 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const CompleteField: {
-        ({ invalid, value, disabled, readonly, inputType, description, outlined, keepRaw, title, tip, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, inputType, description, outlined, keepRaw, title, labelShrink, tip, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -3899,6 +3911,7 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -3916,7 +3929,7 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const ChooseField: {
-        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, choose, tr, dirty, loading, onChange, inputRef, name, }: IChooseFieldProps & IChooseFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, choose, tr, dirty, loading, onChange, inputRef, name, }: IChooseFieldProps & IChooseFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4709,21 +4722,21 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
     import ISlotFactoryContext from 'react-declarative/components/One/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
-        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, noDeselect, freeSolo, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
-        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
+        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, labelShrink, noDeselect, freeSolo, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
+        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, labelShrink, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, readonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
-        Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
-        Date: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").IDateSlot) => JSX.Element;
-        Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
+        Text: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
+        Date: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, name, }: import("../..").IDateSlot) => JSX.Element;
+        Time: ({ invalid, value: upperValue, disabled, readonly, description, outlined, title, labelShrink, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
-        File: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
-        Choose: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
-        Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
+        File: ({ invalid, value, disabled, readonly, description, outlined, labelShrink, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
+        Choose: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
+        Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -6739,7 +6752,7 @@ declare module 'react-declarative/components/common/Group/Group' {
         onFocus?: () => void;
     }
     export const Group: {
-        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, isBaselineAlign, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        ({ className, columns, phoneColumns, tabletColumns, desktopColumns, children, isItem, isBaselineAlign, style, columnsOverride, sx, fieldRightMargin, fieldBottomMargin, onFocus, ...otherProps }: IGroupProps & IGroupPrivate, ref: React.Ref<HTMLDivElement>): JSX.Element;
         displayName: string;
     };
     const _default: React.ForwardRefExoticComponent<IGroupProps<any, any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>>;

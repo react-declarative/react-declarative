@@ -103,6 +103,7 @@ export const Text = ({
     inputType = "text",
     inputMode = "text",
     inputPattern = undefined,
+    labelShrink,
     description = "",
     outlined = true,
     title = "",
@@ -221,6 +222,9 @@ export const Text = ({
             inputProps={{
                 pattern: inputPattern,
             }}
+            InputLabelProps={labelShrink ? {
+                shrink: labelShrink,
+            } : undefined}
             type={inputType}
             focused={autoFocus}
             autoComplete={autoComplete}

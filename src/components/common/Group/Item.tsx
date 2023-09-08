@@ -54,10 +54,12 @@ export const Item = ({
   fieldBottomMargin = '2',
   children,
   onFocus,
+  ...otherProps
 }: IItemProps, ref: React.Ref<HTMLDivElement>) => {
   const { classes } = useStyles();
   return (
     <Grid
+      {...otherProps}
       ref={ref}
       item={true}
       className={classNames(className, classes.root)}

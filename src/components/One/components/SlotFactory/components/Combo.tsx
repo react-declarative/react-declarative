@@ -51,6 +51,7 @@ export const Combo = ({
   outlined = true,
   itemList = [],
   virtualListBox,
+  labelShrink,
   noDeselect,
   freeSolo,
   title = "",
@@ -161,6 +162,10 @@ export const Combo = ({
                 {params.InputProps.endAdornment}
               </>
             ),
+          }}
+          InputLabelProps={{
+            ...params.InputLabelProps,
+            ...(labelShrink && { shrink: true }),
           }}
         />
       );

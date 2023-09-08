@@ -26,8 +26,10 @@ export const Container = ({
   isBaselineAlign,
   columnsOverride,
   sx,
+  ...otherProps
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
   <Grid
+    {...otherProps}
     ref={ref}
     container={true}
     alignItems={isBaselineAlign ? "flex-end" : "flex-start"}

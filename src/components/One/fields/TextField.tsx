@@ -32,6 +32,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+  labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
 }
 
 export interface ITextFieldPrivate<Data = IAnything> {
@@ -52,6 +53,7 @@ export const TextField = ({
   inputType = "text",
   description = "",
   outlined = false,
+  labelShrink,
   title = "",
   leadingIcon,
   trailingIcon,
@@ -84,6 +86,7 @@ export const TextField = ({
     title={title}
     leadingIcon={leadingIcon}
     trailingIcon={trailingIcon}
+    labelShrink={labelShrink}
     leadingIconClick={leadingIconClick}
     trailingIconClick={trailingIconClick}
     inputRows={inputRows}

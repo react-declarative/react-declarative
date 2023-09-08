@@ -14,6 +14,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
   description?: PickProp<IField<Data, Payload>, "description">;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
   keepRaw?: PickProp<IField<Data, Payload>, "keepRaw">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   title?: PickProp<IField<Data, Payload>, "title">;
@@ -46,6 +47,7 @@ export const CompleteField = ({
   outlined = false,
   keepRaw = false,
   title = "",
+  labelShrink,
   tip,
   placeholder = "",
   inputAutocomplete = "off",
@@ -67,6 +69,7 @@ export const CompleteField = ({
     description={description}
     outlined={outlined}
     keepRaw={keepRaw}
+    labelShrink={labelShrink}
     title={title}
     tip={tip}
     placeholder={placeholder}

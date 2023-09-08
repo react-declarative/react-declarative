@@ -18,6 +18,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
   upload?: PickProp<IField<Data, Payload>, 'upload'>;
   view?: PickProp<IField<Data, Payload>, 'view'>;
 }
@@ -44,6 +45,7 @@ export const FileField = ({
   upload,
   view,
   dirty,
+  labelShrink,
   loading,
   onChange,
   inputRef,
@@ -57,6 +59,7 @@ export const FileField = ({
     disabled={disabled}
     description={description}
     outlined={outlined}
+    labelShrink={labelShrink}
     title={title}
     placeholder={placeholder}
     upload={upload}

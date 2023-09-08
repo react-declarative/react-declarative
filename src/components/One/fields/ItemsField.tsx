@@ -22,6 +22,7 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, "title">;
   tr?: PickProp<IField<Data, Payload>, "tr">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
 }
 
 export interface IItemsFieldPrivate<Data = IAnything> {
@@ -41,6 +42,7 @@ export const ItemsField = ({
   itemList = [],
   freeSolo = false,
   virtualListBox = true,
+  labelShrink,
   noDeselect,
   dirty,
   invalid,
@@ -58,6 +60,7 @@ export const ItemsField = ({
     outlined={outlined}
     itemList={itemList}
     noDeselect={noDeselect}
+    labelShrink={labelShrink}
     virtualListBox={virtualListBox}
     shouldUpdateItemList={shouldUpdateItemList}
     freeSolo={freeSolo}

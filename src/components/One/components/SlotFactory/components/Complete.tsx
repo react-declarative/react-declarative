@@ -40,6 +40,7 @@ export const Complete = ({
   inputType = "text",
   inputMode = "text",
   inputPattern = undefined,
+  labelShrink,
   description = "",
   outlined = true,
   keepRaw = false,
@@ -242,6 +243,9 @@ export const Complete = ({
           inputProps={{
             pattern: inputPattern,
           }}
+          InputLabelProps={labelShrink ? {
+            shrink: labelShrink,
+          } : undefined}
           type={inputType}
           focused={autoFocus}
           autoComplete={autoComplete}

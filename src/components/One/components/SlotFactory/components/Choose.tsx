@@ -21,6 +21,7 @@ export const Choose = ({
     outlined = true,
     title = "",
     placeholder = "No Choose chosen",
+    labelShrink = true,
     dirty,
     loading: upperLoading,
     inputRef,
@@ -94,9 +95,9 @@ export const Choose = ({
                     </InputAdornment>
                 ),
             }}
-            InputLabelProps={{
-                shrink: true,
-            }}
+            InputLabelProps={labelShrink ? {
+                shrink: labelShrink,
+            } : undefined}
             value={value || ""}
             placeholder={placeholder}
             label={title}

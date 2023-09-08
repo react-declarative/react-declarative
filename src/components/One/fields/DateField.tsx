@@ -14,6 +14,7 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
@@ -37,6 +38,7 @@ export const DateField = ({
   outlined = false,
   title = "Text",
   placeholder = title,
+  labelShrink,
   dirty,
   autoFocus,
   inputRef,
@@ -52,6 +54,7 @@ export const DateField = ({
     disabled={disabled}
     description={description}
     outlined={outlined}
+    labelShrink={labelShrink}
     title={title}
     placeholder={placeholder}
     dirty={dirty}

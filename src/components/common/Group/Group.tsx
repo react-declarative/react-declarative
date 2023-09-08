@@ -49,6 +49,7 @@ export const Group = (
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
     onFocus,
+    ...otherProps
   }: IGroupProps & IGroupPrivate,
   ref: React.Ref<HTMLDivElement>
 ) => {
@@ -56,6 +57,7 @@ export const Group = (
   if (isItem) {
     return (
       <Item
+        {...otherProps}
         ref={ref}
         className={classNames(classes.root, className)}
         style={style}
@@ -74,6 +76,7 @@ export const Group = (
   } else {
     return (
       <Container
+        {...otherProps}
         ref={ref}
         className={classNames(classes.root, className)}
         isBaselineAlign={isBaselineAlign}

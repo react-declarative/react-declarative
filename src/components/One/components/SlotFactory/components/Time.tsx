@@ -33,6 +33,7 @@ export const Time = ({
   description = "",
   outlined = true,
   title = "Text",
+  labelShrink,
   placeholder = datetime.TIME_PLACEHOLDER,
   dirty,
   autoFocus,
@@ -197,6 +198,9 @@ export const Time = ({
             </InputAdornment>
           ),
         }}
+        InputLabelProps={labelShrink ? {
+          shrink: labelShrink,
+        } : undefined}
         disabled={disabled}
         focused={autoFocus}
         placeholder={placeholder}

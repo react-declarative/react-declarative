@@ -17,6 +17,7 @@ export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+  labelShrink?: PickProp<IField<Data>, "labelShrink">;
 }
 
 export interface ITimeFieldPrivate<Data = IAnything> {
@@ -33,6 +34,7 @@ export const TimeField = ({
   value,
   disabled,
   readonly,
+  labelShrink,
   description = "",
   outlined = false,
   title = "Text",
@@ -50,6 +52,7 @@ export const TimeField = ({
     value={value}
     readonly={readonly}
     disabled={disabled}
+    labelShrink={labelShrink}
     description={description}
     outlined={outlined}
     title={title}
