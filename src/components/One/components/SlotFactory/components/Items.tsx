@@ -100,6 +100,8 @@ export const Items = ({
         return arrayValue;
     }, [arrayValue]);
 
+    const value$ = useActualValue(value);
+
     const {
         fallback,
     } = useOneProps();
@@ -182,6 +184,7 @@ export const Items = ({
             variant={outlined ? "outlined" : "standard"}
             label={title}
             helperText={(dirty && invalid) || description}
+            placeholder={loading ? undefined : value$.current.length ? undefined : placeholder}
             error={dirty && invalid !== null}
             InputProps={{
                 ...params.InputProps,
@@ -246,7 +249,6 @@ export const Items = ({
             loading={loading}
             disableCloseOnSelect
             disableClearable={noDeselect}
-            placeholder={value.length ? "" : placeholder}
             freeSolo={freeSolo}
             readOnly={readonly}
             onChange={({ }, value) => handleChange(value)}

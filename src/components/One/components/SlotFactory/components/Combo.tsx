@@ -147,6 +147,7 @@ export const Combo = ({
             }),
           }}
           variant={outlined ? "outlined" : "standard"}
+          placeholder={loading ? undefined : placeholder}
           label={title}
           helperText={(dirty && invalid) || description}
           error={dirty && invalid !== null}
@@ -226,7 +227,6 @@ export const Combo = ({
       loading={loading}
       value={value || null}
       onChange={({}, v) => handleChange(v)}
-      placeholder={placeholder}
       getOptionLabel={getOptionLabel}
       freeSolo={freeSolo}
       options={state.options}
