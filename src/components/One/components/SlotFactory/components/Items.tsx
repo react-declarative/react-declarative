@@ -181,7 +181,6 @@ export const Items = ({
             }}
             variant={outlined ? "outlined" : "standard"}
             label={title}
-            placeholder={placeholder}
             helperText={(dirty && invalid) || description}
             error={dirty && invalid !== null}
             InputProps={{
@@ -247,6 +246,7 @@ export const Items = ({
             loading={loading}
             disableCloseOnSelect
             disableClearable={noDeselect}
+            placeholder={value.length ? "" : placeholder}
             freeSolo={freeSolo}
             readOnly={readonly}
             onChange={({ }, value) => handleChange(value)}
