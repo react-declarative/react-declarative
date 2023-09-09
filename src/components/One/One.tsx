@@ -4,6 +4,8 @@ import ApiProvider from './context/ApiProvider';
 import OneGenesis from './components/OneGenesis';
 import PropsProvider from './context/PropsProvider';
 
+import NoSsr from "../NoSsr";
+
 import IField from '../../model/IField';
 import IOneProps from '../../model/IOneProps';
 import IAnything from "../../model/IAnything";
@@ -53,20 +55,22 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     } as unknown as IOneProps<Data, IField<Data>>;
 
     return (
-        <ApiProvider
-            apiRef={apiRef}
-            changeSubject={changeSubject}
-            reloadSubject={reloadSubject}
-            updateSubject={updateSubject}
-        >
-            <PropsProvider<Data, IField<Data>>
-                {...genesisProps}
+        <NoSsr>
+            <ApiProvider
+                apiRef={apiRef}
+                changeSubject={changeSubject}
+                reloadSubject={reloadSubject}
+                updateSubject={updateSubject}
             >
-                <OneGenesis<Data, IField<Data>>
+                <PropsProvider<Data, IField<Data>>
                     {...genesisProps}
-                />
-            </PropsProvider>
-        </ApiProvider>
+                >
+                    <OneGenesis<Data, IField<Data>>
+                        {...genesisProps}
+                    />
+                </PropsProvider>
+            </ApiProvider>
+        </NoSsr>
     );
 };
 

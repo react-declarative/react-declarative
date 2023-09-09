@@ -8,8 +8,6 @@ import { ThemeProvider } from "../../../../styles";
 import OneInternal from "../OneInternal";
 import Group from "../../../common/Group";
 
-import NoSsr from "../../../NoSsr";
-
 import IOneProps from "../../../../model/IOneProps";
 import IAnything from "../../../../model/IAnything";
 import IField from "../../../../model/IField";
@@ -108,27 +106,25 @@ export const OneGenesis = <
   const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
 
   return (
-    <NoSsr>
-      <ThemeProvider>
-        <PayloadProvider payload={payload}>
-          <StateProvider<Data, Payload, Field> {...stateParams}>
-            <SlotFactory {...slots}>
-              <Group
-                isBaselineAlign={isBaselineAlign}
-                className={classNames(className, {
-                  [classes.readonly]: props.readonly,
-                  [classes.rendering]: !rendered,
-                })}
-                style={style}
-                sx={sx}
-              >
-                <OneInternal<Data, Payload, Field> {...viewParams} />
-              </Group>
-            </SlotFactory>
-          </StateProvider>
-        </PayloadProvider>
-      </ThemeProvider>
-    </NoSsr>
+    <ThemeProvider>
+      <PayloadProvider payload={payload}>
+        <StateProvider<Data, Payload, Field> {...stateParams}>
+          <SlotFactory {...slots}>
+            <Group
+              isBaselineAlign={isBaselineAlign}
+              className={classNames(className, {
+                [classes.readonly]: props.readonly,
+                [classes.rendering]: !rendered,
+              })}
+              style={style}
+              sx={sx}
+            >
+              <OneInternal<Data, Payload, Field> {...viewParams} />
+            </Group>
+          </SlotFactory>
+        </StateProvider>
+      </PayloadProvider>
+    </ThemeProvider>
   );
 };
 

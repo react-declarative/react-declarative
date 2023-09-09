@@ -1723,6 +1723,10 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             reloadSubject?: TSubject<void>;
             /**
+                * Генерирует плейсхолдеры согласно схеме полей целевого объекта
+                */
+            withNamedPlaceholders?: boolean;
+            /**
                 * Эмиттер для перезаписи данных. Вызывает change(data, true)
                 */
             changeSubject?: TSubject<Data>;

@@ -73,6 +73,7 @@ export const OneInternal = <
   blur,
   createField = createFieldInternal,
   createLayout = createLayoutInternal,
+  withNamedPlaceholders,
 }: IOneInternalProps<Data, Payload, Field>) => {
   const waitingReady = useRef(countStatefull(fields));
 
@@ -157,6 +158,7 @@ export const OneInternal = <
                 ? !!baselineMap.set(field, !field.noBaseline && fields.some(isBaseline)).get(field)
                 : !!baselineMap.get(field),
               ...field,
+              placeholder: withNamedPlaceholders ? `${field.name || 'unknown'}` : field.placeholder,
               outlinePaper: field.outlinePaper || upperOutlinePaper,
               focus: focusMap.has(field)
                 ? focusMap.get(field)
@@ -183,6 +185,7 @@ export const OneInternal = <
               prefix: currentPath,
               readonly: readonly || field.readonly,
               outlinePaper: entity.outlinePaper,
+              withNamedPlaceholders,
               createField,
               createLayout,
               fields,

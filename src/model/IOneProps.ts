@@ -25,6 +25,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   reloadSubject?: TSubject<void>;
   /**
+   * Генерирует плейсхолдеры согласно схеме полей целевого объекта
+   */
+  withNamedPlaceholders?: boolean;
+  /**
    * Эмиттер для перезаписи данных. Вызывает change(data, true)
    */
   changeSubject?: TSubject<Data>;
