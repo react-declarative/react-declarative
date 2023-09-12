@@ -6,6 +6,7 @@ import { flushSync } from 'react-dom';
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
 export interface IAsyncProps<T extends any = object> {
+    loading?: boolean;
     children: (p: T) => (Result | Promise<Result>);
     fallback?: (e: Error) => void;
     Loader?: React.ComponentType<any>;
@@ -20,6 +21,7 @@ export interface IAsyncProps<T extends any = object> {
 type Result = React.ReactNode | void;
 
 export const Async = <T extends any = object>({
+    loading: upperLoading,
     children,
     fallback,
     Loader = () => null,
@@ -35,10 +37,12 @@ export const Async = <T extends any = object>({
 
     const executionRef = useRef<IWrappedFn<Result> | null>(null);
 
-    const [loading, setLoading] = useState(false);
+    const [currentLoading, setCurrentLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const isMounted = useRef(true);
+
+    const loading = upperLoading || currentLoading;
 
     useLayoutEffect(() => () => {
       isMounted.current = false;
@@ -72,7 +76,7 @@ export const Async = <T extends any = object>({
 
         const process = async () => {
             let isCanceled = false;
-            isMounted.current && setLoading(true);
+            isMounted.current && setCurrentLoading(true);
             isMounted.current && setError(false);
             try {
                 const result = await execute();
@@ -96,7 +100,7 @@ export const Async = <T extends any = object>({
                 }
             } finally {
                 if (!isCanceled) {
-                    isMounted.current && setLoading(false);
+                    isMounted.current && setCurrentLoading(false);
                 }
             }
         };
