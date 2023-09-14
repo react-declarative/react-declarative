@@ -17,6 +17,17 @@ export const useOneArray = <T = any>(initialValue?: ((T[] | null) | (() => T[]))
 };
 
 export const oneArrayIncludes = <T = any>(data: T[] | null, ...items: T[]) => {
+    if (typeof data === 'string') {
+        data = [data];
+    }
+    items = items
+        .map((item) => {
+            if (typeof item === 'string') {
+                return item;
+            }
+            return Object.values(item || {});
+        })
+        .flatMap((item) => item as unknown as T);
     return Object.values(data || {}).some((value) => items.includes(value));
 };
 
