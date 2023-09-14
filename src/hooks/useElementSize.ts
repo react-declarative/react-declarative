@@ -3,9 +3,13 @@ import { useState, useRef, useLayoutEffect } from "react";
 interface ISize {
     height: number;
     width: number;
+}
+
+interface IParams extends ISize {
     target?: HTMLElement | null;
     closest?: string;
     selector?: string;
+    compute?: (size: ISize) => ISize; 
 }
 
 export const useElementSize = <T extends HTMLElement>({
@@ -14,7 +18,8 @@ export const useElementSize = <T extends HTMLElement>({
     selector,
     height = 0,
     width = 0,
-}: Partial<ISize> = {}) => {
+    compute = (size) => size,
+}: Partial<IParams> = {}) => {
 
     const elementRef = useRef<T>(null);
     const isMounted = useRef(true);
@@ -52,7 +57,7 @@ export const useElementSize = <T extends HTMLElement>({
         const observer = new ResizeObserver(() => {
             requestAnimationFrame(() => {
                 const { height, width } = element!.getBoundingClientRect();
-                isMounted.current && setSize({ height, width });
+                isMounted.current && setSize(compute({ height, width }));
             });
         });
 

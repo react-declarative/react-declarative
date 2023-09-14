@@ -1936,11 +1936,14 @@ declare module 'react-declarative/hooks/useElementSize' {
     interface ISize {
         height: number;
         width: number;
+    }
+    interface IParams extends ISize {
         target?: HTMLElement | null;
         closest?: string;
         selector?: string;
+        compute?: (size: ISize) => ISize;
     }
-    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, }?: Partial<ISize>) => {
+    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, compute, }?: Partial<IParams>) => {
         elementRef: import("react").RefObject<T>;
         size: ISize;
     };
