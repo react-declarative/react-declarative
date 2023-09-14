@@ -456,6 +456,8 @@ export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 export type IPositionActionListSlot = IPositionActionListSlotInternal;
 
+export { VirtualListBox } from './components/One/components/common/VirtualListBox';
+
 export { openBlank } from './utils/openBlank';
 export { chooseFile } from './utils/chooseFile';
 export { loadScript } from './utils/loadScript';

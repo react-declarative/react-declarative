@@ -369,6 +369,7 @@ declare module 'react-declarative' {
     export type ISearchSlot = ISearchSlotInternal;
     export type IOperationListSlot = IOperationListSlotInternal;
     export type IPositionActionListSlot = IPositionActionListSlotInternal;
+    export { VirtualListBox } from 'react-declarative/components/One/components/common/VirtualListBox';
     export { openBlank } from 'react-declarative/utils/openBlank';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
@@ -2387,6 +2388,15 @@ declare module 'react-declarative/model/IOnePublicProps' {
         onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
     }
     export default IOnePublicProps;
+}
+
+declare module 'react-declarative/components/One/components/common/VirtualListBox' {
+    import * as React from 'react';
+    interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
+        children?: React.ReactNode;
+    }
+    export const VirtualListBox: React.ForwardRefExoticComponent<IVirtualListBoxProps & React.RefAttributes<HTMLDivElement>>;
+    export default VirtualListBox;
 }
 
 declare module 'react-declarative/utils/openBlank' {
