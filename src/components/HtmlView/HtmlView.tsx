@@ -20,7 +20,7 @@ const sanitize = (html: string) => {
 };
 
 interface IHtmlViewProps<T extends any = object> extends BoxProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     handler: (p: T) => (string | Promise<string>);
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;

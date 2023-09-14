@@ -6154,7 +6154,7 @@ declare module 'react-declarative/components/HtmlView/HtmlView' {
     import * as React from 'react';
     import { BoxProps } from '@mui/material/Box';
     interface IHtmlViewProps<T extends any = object> extends BoxProps {
-        children: React.ReactNode;
+        children?: React.ReactNode;
         handler: (p: T) => (string | Promise<string>);
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
