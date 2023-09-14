@@ -265,7 +265,7 @@ import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from
 export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
 export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
 
-export { MasterDetail } from './components';
+export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 
 export { Async } from './components';
 export { If } from './components';

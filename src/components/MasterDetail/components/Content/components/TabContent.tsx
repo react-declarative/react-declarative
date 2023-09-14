@@ -14,7 +14,7 @@ import useElementSize from "../../../../../hooks/useElementSize";
 
 import IContentProps from "../IContentProps";
 
-import { MASTER_DETAIL_ROOT } from "../../../config";
+import { MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from "../../../config";
 
 const TAB_HEIGHT = 54;
 const HEADER_HEIGHT = 64;
@@ -126,7 +126,7 @@ export const TabContent = ({
   return (
     <Box ref={elementRef} className={classes.root}>
       <Box
-        className={classNames(classes.header, {
+        className={classNames(MASTER_DETAIL_HEADER, classes.header, {
           [classes.headerNone]: !items.length,
           [classes.headerAbsolute]: !fixedPos,
           [classes.headerFixed]: fixedPos,

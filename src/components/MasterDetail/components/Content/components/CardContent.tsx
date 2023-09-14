@@ -18,7 +18,7 @@ import MasterDetailMode from '../../../model/MasterDetailMode';
 
 import IContentProps from "../IContentProps";
 
-import { MASTER_DETAIL_ROOT } from '../../../config';
+import { MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from '../../../config';
 
 const useStyles = makeStyles<{
   headerAdjust: number;
@@ -140,7 +140,7 @@ export const CardContent = ({
             className={classes.sideMenu}>
             {(!!items.length || !!loading || !withMenuCollapse) && (
               <Paper
-                className={classNames({
+                className={classNames(MASTER_DETAIL_HEADER, {
                   [classes.fixedPos]: fixedPos && isWide,
                 })}
                 ref={sideMenuRef}
@@ -163,7 +163,7 @@ export const CardContent = ({
           >
             {(!!items.length || !!loading || !withMenuCollapse)  && (
               <Box
-                className={classNames(classes.outline, {
+                className={classNames(MASTER_DETAIL_HEADER, classes.outline, {
                   [classes.fixedPos]: fixedPos && isWide,
                 })}
                 ref={sideMenuRef}

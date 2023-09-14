@@ -8,7 +8,11 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
+import classNames from '../../../../../utils/classNames';
+
 import IContentProps from '../IContentProps';
+
+import { MASTER_DETAIL_HEADER } from '../../../config';
 
 const TAB_HEIGHT = 48;
 
@@ -53,7 +57,7 @@ export const MobileContent = ({
     return (
         <Box className={classes.root}>
             <Tabs
-                className={classes.header}
+                className={classNames(classes.header, MASTER_DETAIL_HEADER)}
                 variant='scrollable'
                 indicatorColor='primary'
                 value={activeItem?.id}

@@ -17,11 +17,15 @@ import classNames from "../../utils/classNames";
 import IBreadcrumbs2Action from "./model/IBreadcrumbs2Action";
 import IBreadcrumbs2Option from "./model/IBreadcrumbs2Option";
 import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
+import { SxProps } from "@mui/system";
 
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
 
 interface IBreadcrumbs2Props<T extends any = any> {
+  className?: string;
+  style?: React.CSSProperties;
+  sx?: SxProps;
   onAction?: (action: string) => void;
   actions?: IBreadcrumbs2Action<T>[];
   items: IBreadcrumbs2Option<T>[];
@@ -56,6 +60,9 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export const Breadcrumbs2 = <T extends any = any>({
+  className,
+  style,
+  sx,
   onAction = () => undefined,
   items,
   actions,
@@ -68,7 +75,7 @@ export const Breadcrumbs2 = <T extends any = any>({
   const onAction$ = useActualCallback(onAction);
 
   return (
-    <Box className={classes.root}>
+    <Box className={classNames(classes.root, className)} style={style} sx={sx}>
       <Box className={classes.stretch}>
         <Async payload={payload} Loader={Loader}>
           {async () => {

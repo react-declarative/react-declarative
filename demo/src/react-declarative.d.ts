@@ -212,7 +212,7 @@ declare module 'react-declarative' {
     import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from 'react-declarative/components';
     export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
     export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
-    export { MasterDetail } from 'react-declarative/components';
+    export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
@@ -4404,6 +4404,7 @@ declare module 'react-declarative/components/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail' {
     export * from 'react-declarative/components/MasterDetail/MasterDetail';
+    export * from 'react-declarative/components/MasterDetail/config';
     export { IMasterDetailOption } from 'react-declarative/components/MasterDetail/model/IMasterDetailOption';
     export { MasterDetailMode } from 'react-declarative/components/MasterDetail/model/MasterDetailMode';
     export { default } from 'react-declarative/components/MasterDetail/MasterDetail';
@@ -4602,7 +4603,11 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
     import * as React from "react";
     import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
     import IBreadcrumbs2Option from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option";
+    import { SxProps } from "@mui/system";
     interface IBreadcrumbs2Props<T extends any = any> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
         onAction?: (action: string) => void;
         actions?: IBreadcrumbs2Action<T>[];
         items: IBreadcrumbs2Option<T>[];
@@ -4610,7 +4615,7 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
         BeforeMenuContent?: React.ComponentType<any>;
         AfterMenuContent?: React.ComponentType<any>;
     }
-    export const Breadcrumbs2: <T extends unknown = any>({ onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbs2Props<T>) => JSX.Element;
+    export const Breadcrumbs2: <T extends unknown = any>({ className, style, sx, onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbs2Props<T>) => JSX.Element;
     export default Breadcrumbs2;
 }
 
@@ -6592,6 +6597,11 @@ declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
     export const MasterDetail: <Payload extends unknown = any>({ mode, withMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
+}
+
+declare module 'react-declarative/components/MasterDetail/config' {
+    export const MASTER_DETAIL_ROOT = "react-declatative__master-detail-root";
+    export const MASTER_DETAIL_HEADER = "react-declatative__master-detail-header";
 }
 
 declare module 'react-declarative/components/MasterDetail/model/IMasterDetailOption' {

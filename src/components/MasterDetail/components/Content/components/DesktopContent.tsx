@@ -9,7 +9,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
+import classNames from '../../../../../utils/classNames';
+
 import IContentProps from '../IContentProps';
+
+import { MASTER_DETAIL_HEADER } from '../../../config';
 
 const useStyles = makeStyles()((theme) => ({
     root: {
@@ -44,7 +48,7 @@ export const DesktopContent = ({
     const { classes } = useStyles();
     return (
         <Box className={classes.root}>
-            <List disablePadding dense className={classes.sideMenu}>
+            <List disablePadding dense className={classNames(classes.sideMenu, MASTER_DETAIL_HEADER)}>
                 {items
                     .filter(({ visible }) => !!visible)
                     .map(({
