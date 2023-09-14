@@ -460,6 +460,7 @@ export { openBlank } from './utils/openBlank';
 export { chooseFile } from './utils/chooseFile';
 export { loadScript } from './utils/loadScript';
 export { reloadPage } from './utils/reloadPage';
+export { chooseMultipleFiles } from './utils/chooseMultipleFiles';
 
 export { getRouteParams } from './utils/getRouteParams';
 export { getRouteItem } from './utils/getRouteItem';

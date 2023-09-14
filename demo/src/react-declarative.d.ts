@@ -373,6 +373,7 @@ declare module 'react-declarative' {
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
     export { reloadPage } from 'react-declarative/utils/reloadPage';
+    export { chooseMultipleFiles } from 'react-declarative/utils/chooseMultipleFiles';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
     export { getRouteItem } from 'react-declarative/utils/getRouteItem';
     export { getElementFromXPath } from 'react-declarative/utils/getElementFromXPath';
@@ -2406,6 +2407,11 @@ declare module 'react-declarative/utils/loadScript' {
 declare module 'react-declarative/utils/reloadPage' {
     export const reloadPage: () => void;
     export default reloadPage;
+}
+
+declare module 'react-declarative/utils/chooseMultipleFiles' {
+    export const chooseMultipleFiles: (accept?: string | undefined) => Promise<File[] | null>;
+    export default chooseMultipleFiles;
 }
 
 declare module 'react-declarative/utils/getRouteParams' {
