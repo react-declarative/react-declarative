@@ -7,9 +7,12 @@ export const CANCELED_SYMBOL = Symbol('cancelable-canceled');
 
 export const cancelable = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
-    let hasCanceled = false;
+    let cancelRef: Function | undefined;
 
     const wrappedFn = (...args: P) => new Promise<T | typeof CANCELED_SYMBOL>((resolve, reject) => {
+        let hasCanceled = false;
+        cancelRef && cancelRef();
+        cancelRef = () => hasCanceled = true;
         const result = promise(...args);
         result.then((val) => {
             if (!hasCanceled) {
@@ -28,7 +31,7 @@ export const cancelable = <T extends any = any, P extends any[] = any[]>(promise
     });
 
     wrappedFn.cancel = () => {
-        hasCanceled = true;
+        cancelRef && cancelRef();
     };
 
     return wrappedFn;

@@ -30,8 +30,9 @@ import IManaged from '../../../../model/IManaged';
 import IEntity from '../../../../model/IEntity';
 import IField, { Value } from '../../../../model/IField';
 
-import singlerun from '../../../../utils/hof/singlerun';
+import cancelable, { CANCELED_SYMBOL } from '../../../../utils/hof/cancelable';
 import classNames from '../../../../utils/classNames';
+import queued from '../../../../utils/hof/queued';
 import sleep from '../../../../utils/sleep';
 
 import nameToTitle from '../../helpers/nameToTitle';
@@ -430,13 +431,27 @@ export function makeField(
         }, []);
 
         /**
+         * Позволяет отменить ожидание, применив к форме актуальное
+         * значение поля ввода
+         */
+        const waitForApplyOrCancel = useMemo(() => cancelable(async () => {
+            await waitForApply();
+            return true;
+        }), []);
+
+        /**
          * Блокирует применение изменений,
          * если поле вычисляемое или только
          * на чтение
          */
-        const handleChange = useMemo(() => singlerun(async (newValue: Value, config: IChangeConfig = {}) => {
+        const handleChange = useMemo(() => queued(async (newValue: Value, config: IChangeConfig = {}) => {
             if (fieldConfig.withApplyQueue) {
-                await waitForApply();
+                await waitForApplyOrCancel().then((result) => {
+                    if (result !== CANCELED_SYMBOL) {
+                        handleChangeSync(newValue, config);
+                    }
+                });
+                return;
             }
             return handleChangeSync(newValue, config);
         }), []);
