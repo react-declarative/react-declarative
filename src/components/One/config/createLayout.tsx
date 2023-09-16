@@ -20,8 +20,6 @@ import HeroLayout from "../layouts/HeroLayout";
 import ConditionLayout from "../layouts/ConditionLayout";
 import CustomLayout from "../layouts/CustomLayout";
 
-const Fragment = () => <></>;
-
 type Layout = (props: React.PropsWithChildren<IEntity>) => React.ReactElement;
 
 const layoutMap: { [key in FieldType]?: Layout } = Object.create(null);
@@ -52,9 +50,7 @@ export const createLayout = <Data extends IAnything = IAnything>(
 ) => {
   const { type } = entity;
   let Layout: Layout | undefined;
-  if (entity.hidden) {
-    return <Fragment key={currentPath} />;
-  } else if ((Layout = layoutMap[type])) {
+  if ((Layout = layoutMap[type])) {
     return (
       <Layout {...entity} key={currentPath}>
         {children}

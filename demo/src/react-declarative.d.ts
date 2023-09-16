@@ -593,9 +593,9 @@ declare module 'react-declarative/model/IField' {
                 */
             desktopHidden?: boolean;
             /**
-                * Список ролей, необходимых для отображения поля
+                * Список бизнес-функций, необходимых для отображения поля
                 */
-            roles?: string[];
+            features?: string[];
             /**
                 * Отключает нижний baseline для текущей компоновки
                 */
@@ -1062,7 +1062,7 @@ declare module 'react-declarative/model/IManaged' {
             isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
             isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
             isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
-            roles?: PickProp<IField<Data, Payload>, 'roles'>;
+            features?: PickProp<IField<Data, Payload>, 'features'>;
             disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
             phoneHidden?: PickProp<IField<Data, Payload>, 'phoneHidden'>;
             tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
@@ -1100,6 +1100,7 @@ declare module 'react-declarative/model/IManaged' {
             map?: PickProp<IField<Data, Payload>, 'map'>;
             defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
             hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
+            features?: PickProp<IField<Data, Payload>, 'features'>;
     }
     /**
         * Свойства, не доступные управляемому полю
@@ -1753,9 +1754,9 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             dirty?: boolean;
             /**
-                * Список ролей, ограничивающий отображение полей
+                * Список бизнес-функций, ограничивающий отображение полей
                 */
-            roles?: string[];
+            features?: string[];
             /**
                 * Стиль корневой группы
                 */
@@ -2381,7 +2382,9 @@ declare module 'react-declarative/model/IOnePublicProps' {
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
     import IOneProps from "react-declarative/model/IOneProps";
-    export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>> extends IOneProps<Data, Payload, Field> {
+    export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>> extends Omit<IOneProps<Data, Payload, Field>, keyof {
+        features: never;
+    }> {
         onFocus?: IOneProps<Data, Field>['focus'];
         onBlur?: IOneProps<Data, Field>['blur'];
         onReady?: IOneProps<Data, Field>['ready'];
@@ -2389,6 +2392,7 @@ declare module 'react-declarative/model/IOnePublicProps' {
         onInvalid?: IOneProps<Data, Field>['invalidity'];
         onLoadStart?: IOneProps<Data, Field>['loadStart'];
         onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
+        features?: string[] | (() => Record<string, boolean>);
     }
     export default IOnePublicProps;
 }
@@ -6676,6 +6680,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
     import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
     export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
         fields: never;
+        features: never;
     }> {
         features: IFeatureGroup<Data, Payload>[];
     }

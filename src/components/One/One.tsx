@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import ApiProvider from './context/ApiProvider';
 import OneGenesis from './components/OneGenesis';
@@ -34,6 +35,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         invalidity = props.onInvalid,
         loadStart = props.onLoadStart,
         loadEnd = props.onLoadEnd,
+        features: upperFeatures,
         ...otherProps
     } = props;
 
@@ -47,11 +49,26 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         loadEnd,
     };
 
+    const features = useMemo(() => {
+        if (typeof upperFeatures === 'function') {
+            const result: string[] = [];
+            Object.entries(upperFeatures() || {})
+                .forEach(([key, value]) => {
+                    if (value) {
+                        result.push(key);
+                    }
+                });
+            return result;
+        }
+        return upperFeatures as unknown as string[];
+    }, []);
+
     const genesisProps = {
         ...otherProps,
         ...wrappedProps,
         createField,
         createLayout,
+        features,
     } as unknown as IOneProps<Data, IField<Data>>;
 
     return (

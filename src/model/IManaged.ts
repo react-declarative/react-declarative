@@ -12,7 +12,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
     isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
-    roles?: PickProp<IField<Data, Payload>, 'roles'>;
+    features?: PickProp<IField<Data, Payload>, 'features'>;
     disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
     phoneHidden?: PickProp<IField<Data, Payload>, 'phoneHidden'>;
     tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
@@ -52,6 +52,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     map?: PickProp<IField<Data, Payload>, 'map'>;
     defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
+    features?: PickProp<IField<Data, Payload>, 'features'>;
 }
 
 /**

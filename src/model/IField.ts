@@ -42,9 +42,9 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     desktopHidden?: boolean;
 
     /**
-     * Список ролей, необходимых для отображения поля
+     * Список бизнес-функций, необходимых для отображения поля
      */
-    roles?: string[];
+    features?: string[];
 
     /**
      * Отключает нижний baseline для текущей компоновки

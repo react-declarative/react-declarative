@@ -25,8 +25,6 @@ import ChooseField from "../fields/ChooseField";
 import CompleteField from "../fields/CompleteField";
 import InitField from "../fields/InitField";
 
-const Fragment = () => <></>;
-
 const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = Object.create(null);
 
 Object.assign(fieldMap, {
@@ -59,9 +57,7 @@ export const createField = <Data extends IAnything = IAnything>(
 ) => {
   const { type } = entity;
   let Field: React.ComponentType<IEntity<Data>> | undefined;
-  if (entity.hidden) {
-    return <Fragment key={currentPath} />;
-  } else if ((Field = fieldMap[type])) {
+  if ((Field = fieldMap[type])) {
     return <Field {...entity} key={currentPath} />;
   } else {
     throw new Error("FieldFactory unknown key type");

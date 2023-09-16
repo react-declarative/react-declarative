@@ -29,15 +29,13 @@ import isBaseline from "../../config/isBaseline";
  * Мы отображаем корневой компонент только после инициализации
  * полей вложенных групп...
  */
-const countStatefull = (fields?: IField<any>[]) => {
-  let total = fields?.filter(isStatefull).length || 0;
-  if (fields) {
-    total -= fields.reduce((acm, { hidden }) => (hidden ? acm + 1 : acm), 0);
-    total -= fields.reduce(
-      (acm, { type }) => (type === FieldType.Init ? acm + 1 : acm),
-      0
-    );
-  }
+const countStatefull = (fields: IField<any>[]) => {
+  let total = fields.filter(isStatefull).length;
+  total -= fields.reduce((acm, { hidden }) => (hidden ? acm + 1 : acm), 0);
+  total -= fields.reduce(
+    (acm, { type }) => (type === FieldType.Init ? acm + 1 : acm),
+    0
+  );
   /* группа, вложенная в группу */
   return Math.max(total, 1);
 };
@@ -52,7 +50,8 @@ interface IOneInternalProps<
 
 const DEFAULT_READY_CALLBACK = () => null;
 const DEFAULT_INVALIDITY_CALLBACK = () => null;
-const DEFAULT_FALLBACK =() => null;
+const DEFAULT_FALLBACK = () => null;
+const EMPTY_ARRAY: unknown[] = [];
 
 export const OneInternal = <
   Data extends IAnything = IAnything,
@@ -60,8 +59,8 @@ export const OneInternal = <
   Field extends IField<Data> = IField<Data>
 >({
   rendered = false,
-  fields,
-  roles,
+  fields: upperFields = EMPTY_ARRAY as Field[],
+  features,
   dirty,
   ready = DEFAULT_READY_CALLBACK,
   prefix = "root",
@@ -75,8 +74,32 @@ export const OneInternal = <
   createLayout = createLayoutInternal,
   withNamedPlaceholders,
 }: IOneInternalProps<Data, Payload, Field>) => {
-  const waitingReady = useRef(countStatefull(fields));
 
+  /**
+   * Итерация дочерних полей на каждый рендеринг
+   * порождает квадратичную сложность, мемоизируем
+   */
+  const {
+    fields,
+    statefull,
+  } = useMemo(() => ({
+    fields: upperFields
+      .filter(
+        (field) =>
+          !features ||
+          !field.features ||
+          field.features.some((feature) => features.includes(feature))
+      )
+      .filter(({ hidden }) => !hidden)
+      .filter(({ type }) => type !== FieldType.Init),
+    statefull: countStatefull(upperFields),
+  }), []);
+
+  /**
+   * Коллбек инициализации исполняется после вызова эффекта
+   * входящего изменения каждого поля
+   */
+  const waitingReady = useRef(statefull);
   const { object, setObject } = useOneState<Data>();
 
   /**
@@ -100,15 +123,8 @@ export const OneInternal = <
    * Если в группе нет полей, вызываем инициализацию мануально
    */
   useEffect(() => {
-    if (fields) {
-      const { length: total } = fields
-        .filter(isStatefull)
-        .filter(({ hidden }) => !hidden)
-        .filter(({ type }) => type === FieldType.Init)
-      total == 0 && ready();
-      return;
-    }
-    ready();
+    const { length: total } = fields;
+    total == 0 && ready();
   }, []);
 
   /**
@@ -135,73 +151,66 @@ export const OneInternal = <
   if (object) {
     return (
       <Fragment>
-        {fields
-          ?.filter(
-            (field) =>
-              !roles ||
-              !field.roles ||
-              field.roles.some((role) => roles.includes(role))
-          )
-          ?.map((field, index) => {
-            const currentPath = `${prefix}.${typeToString(field.type)}[${index}]`;
-            const fields: IField<Data>[] = field.child
-              ? [field.child]
-              : field.fields || [];
-            const entity: IEntity<Data> = {
-              invalidity: field.invalidity || invalidity,
-              readonly: readonly || field.readonly,
-              prefix: currentPath,
-              change: handleChange,
-              ready: handleReady,
-              fallback,
-              isBaselineAlign: baselineMap.get(field) === undefined
-                ? !!baselineMap.set(field, !field.noBaseline && fields.some(isBaseline)).get(field)
-                : !!baselineMap.get(field),
-              ...field,
-              placeholder: withNamedPlaceholders ? `${field.name || 'unknown'}` : field.placeholder,
-              outlinePaper: field.outlinePaper || upperOutlinePaper,
-              focus: focusMap.has(field)
-                ? focusMap.get(field)
-                : focusMap
-                    .set(field, (name: string, payload: Payload) => {
-                      field.focus && field.focus(name, payload);
-                      focus && focus(name, payload);
-                    })
-                    .get(field),
-              blur: blurMap.has(field)
-                ? blurMap.get(field)
-                : blurMap
-                    .set(field, (name: string, payload: Payload) => {
-                      field.blur && field.blur(name, payload);
-                      blur && blur(name, payload);
-                    })
-                    .get(field),
-              object,
-              dirty,
-            };
-            const one: IOneInternalProps<Data> = {
-              rendered,
-              ready: handleReady,
-              prefix: currentPath,
-              readonly: readonly || field.readonly,
-              outlinePaper: entity.outlinePaper,
-              withNamedPlaceholders,
-              createField,
-              createLayout,
-              fields,
-              roles,
-              handler: object,
-              invalidity,
-              focus,
-              blur,
-              dirty,
-            };
-            if (isLayout(field.type)) {
-              return createLayout(entity, <OneInternalMemo<Data> {...one} />, currentPath);
-            } else {
-              return createField(entity, currentPath);
-            }
-          })}
+        {fields.map((field, index) => {
+          const currentPath = `${prefix}.${typeToString(field.type)}[${index}]`;
+          const fields: IField<Data>[] = field.child
+            ? [field.child]
+            : field.fields || [];
+          const entity: IEntity<Data> = {
+            invalidity: field.invalidity || invalidity,
+            readonly: readonly || field.readonly,
+            prefix: currentPath,
+            change: handleChange,
+            ready: handleReady,
+            fallback,
+            isBaselineAlign: baselineMap.get(field) === undefined
+              ? !!baselineMap.set(field, !field.noBaseline && fields.some(isBaseline)).get(field)
+              : !!baselineMap.get(field),
+            ...field,
+            placeholder: withNamedPlaceholders ? `${field.name || 'unknown'}` : field.placeholder,
+            outlinePaper: field.outlinePaper || upperOutlinePaper,
+            focus: focusMap.has(field)
+              ? focusMap.get(field)
+              : focusMap
+                .set(field, (name: string, payload: Payload) => {
+                  field.focus && field.focus(name, payload);
+                  focus && focus(name, payload);
+                })
+                .get(field),
+            blur: blurMap.has(field)
+              ? blurMap.get(field)
+              : blurMap
+                .set(field, (name: string, payload: Payload) => {
+                  field.blur && field.blur(name, payload);
+                  blur && blur(name, payload);
+                })
+                .get(field),
+            object,
+            dirty,
+          };
+          const one: IOneInternalProps<Data> = {
+            rendered,
+            ready: handleReady,
+            prefix: currentPath,
+            readonly: readonly || field.readonly,
+            outlinePaper: entity.outlinePaper,
+            withNamedPlaceholders,
+            createField,
+            createLayout,
+            fields,
+            features,
+            handler: object,
+            invalidity,
+            focus,
+            blur,
+            dirty,
+          };
+          if (isLayout(field.type)) {
+            return createLayout(entity, <OneInternalMemo<Data> {...one} />, currentPath);
+          } else {
+            return createField(entity, currentPath);
+          }
+        })}
       </Fragment>
     );
   } else {

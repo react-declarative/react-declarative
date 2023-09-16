@@ -5,6 +5,7 @@ import IFeatureGroup from "./IFeatureGroup";
 
 export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
     fields: never;
+    features: never;
 }> {
     features: IFeatureGroup<Data, Payload>[];
 }

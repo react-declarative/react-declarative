@@ -53,9 +53,9 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   dirty?: boolean;
   /**
-   * Список ролей, ограничивающий отображение полей
+   * Список бизнес-функций, ограничивающий отображение полей
    */
-  roles?: string[];
+  features?: string[];
   /**
    * Стиль корневой группы
    */
