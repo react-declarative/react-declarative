@@ -60,9 +60,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
     const { classes } = useStyles();
     return (
         <Group
-            className={classNames(className, classes.root, {
-              [classes.outlinePaper]: outlinePaper,
-            })}
+            className={classNames(className, classes.root)}
             style={style}
             isItem={true}
             columns={columns}
@@ -73,7 +71,9 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
             fieldBottomMargin={fieldBottomMargin}
         >
             <Expansion 
-                className={classes.content}
+                className={classNames(classes.content, {
+                  [classes.outlinePaper]: outlinePaper,
+                })}
                 columnsOverride={columnsOverride}
                 expansionOpened={expansionOpened}
                 sx={sx}
