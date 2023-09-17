@@ -104,6 +104,7 @@ export const OutletView = <
 
   const confirmSubject = useSubject<boolean>();
   const confirmRef = useRef<boolean>(false);
+  const changeRef = useRef<string>("unknown");
 
   const hasChanged = changed && !loading && !invalid.size;
   const hasInvalid = !!invalid.size;
@@ -129,7 +130,8 @@ export const OutletView = <
     () =>
       dataChangeSubject.subscribe((data) => {
         const { current: changed } = hasChanged$;
-        onChange && onChange(data, !changed);
+        onChange && onChange(data, !changed, changeRef.current);
+        changeRef.current = "unknown";
       }),
     [onChange]
   );
@@ -309,6 +311,7 @@ export const OutletView = <
     if (!initial) {
       setChanged(true);
     }
+    changeRef.current = id;
   };
 
   const renderHandler = useMemo(
