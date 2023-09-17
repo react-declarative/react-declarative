@@ -14,6 +14,7 @@ export const useFeatureView = <
   Omit<
     IParams<Data, Payload>,
     keyof {
+      fields: never;
       features: never;
     }
   >) =>
