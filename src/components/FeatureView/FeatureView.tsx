@@ -3,10 +3,9 @@ import { useMemo } from "react";
 
 import One from "../One";
 
-import FieldType from "../../model/FieldType";
-import IAnything from "../../model/IAnything";
-import TypedField from "../../model/TypedField";
+import createFeatures from "./helpers/createFeatures";
 
+import IAnything from "../../model/IAnything";
 import IFeatureViewProps from "./model/IFeatureViewProps";
 
 export const FeatureView = <
@@ -17,43 +16,8 @@ export const FeatureView = <
   ...oneProps
 }: IFeatureViewProps<Data, Payload>) => {
 
-  const fields = useMemo((): TypedField<Data, Payload>[] => {
-    return features.map(({ title, expanded = false, children, isVisible }) => ({
-      type: FieldType.Expansion,
-      fieldRightMargin: "0",
-      fieldBottomMargin: "1",
-      expansionOpened: expanded,
-      isVisible,
-      title,
-      fields: children.flatMap(
-        ({
-          name,
-          defaultValue = false,
-          description = name,
-          label = name,
-          isDisabled,
-        }) => [
-          {
-            type: FieldType.Switch,
-            defaultValue,
-            isDisabled,
-            name,
-            fieldRightMargin: "0",
-            title: label,
-            fieldBottomMargin: "0",
-          },
-          {
-            type: FieldType.Typography,
-            typoVariant: "subtitle2",
-            placeholder: description,
-            style: {
-              opacity: 0.5,
-            },
-            fieldBottomMargin: "0",
-          },
-        ]
-      ),
-    }));
+  const fields = useMemo(() => {
+    return createFeatures(features);
   }, []);
 
   return (

@@ -20,6 +20,7 @@ import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
 import usePayload from '../../../../hooks/usePayload';
+import useProps from '../../../../hooks/useProps';
 
 import { IFilterListSlot } from '../../../../slots/FilterListSlot';
 
@@ -95,6 +96,7 @@ export const FilterListSlot = <FilterData extends {}>({
 }: IFilterListSlot<FilterData>) => {
 
   const payload = usePayload();
+  const { features } = useProps();
 
   const { classes } = useStyles();
 
@@ -197,6 +199,7 @@ export const FilterListSlot = <FilterData extends {}>({
             }}
           >
             <One<FilterData>
+              features={features}
               handler={filterData}
               payload={payload}
               fields={filters}

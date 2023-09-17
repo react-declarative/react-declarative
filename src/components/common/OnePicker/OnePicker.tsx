@@ -13,6 +13,7 @@ import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps, { OneHandler } from '../../../model/IOneProps';
+import IOnePublicProps from '../../../model/IOnePublicProps';
 
 import sleep from '../../../utils/sleep';
 
@@ -21,6 +22,7 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload>['payload'];
+  features?: IOnePublicProps<Data, Payload>['features'];
   title?: string;
   fields: IField[];
   open?: boolean;
@@ -34,6 +36,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
   fields,
   handler,
   payload,
+  features,
   title,
   open = true,
 }: IOnePickerProps<Data, Payload>) => {
@@ -84,6 +87,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
           handler={handler}
           payload={payload}
           fields={fields}
+          features={features}
         />
       </Box>
     </ModalDialog>

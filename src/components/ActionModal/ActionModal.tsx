@@ -20,6 +20,7 @@ import IField from "../../model/IField";
 import IOneApi from "../../model/IOneApi";
 import IAnything from "../../model/IAnything";
 import IOneProps from "../../model/IOneProps";
+import IOnePublicProps from "../../model/IOnePublicProps";
 
 import sleep from "../../utils/sleep";
 
@@ -38,6 +39,7 @@ export interface IActionModalProps<
   title?: string;
   dirty?: boolean;
   param?: Param;
+  features?: IOnePublicProps<Data, Payload>['features'];
   outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
   handler?: IOneProps<Data, Payload>['handler'];
   payload?: IOneProps<Data, Payload>['payload'];
@@ -123,6 +125,7 @@ export const ActionModal = <
   payload,
   title,
   apiRef,
+  features,
   changeSubject,
   reloadSubject,
   fullScreen = false,
@@ -255,6 +258,7 @@ export const ActionModal = <
             payload={payload}
             fields={fields}
             dirty={dirty}
+            features={features}
           />          
         </Box>
         {!readonly && (

@@ -13,6 +13,7 @@ import IListRowAction from './IListRowAction';
 import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
+import IOnePublicProps from './IOnePublicProps';
 
 import { TSubject } from '../utils/rx/Subject';
 
@@ -177,6 +178,7 @@ export interface IListProps<
   page?: number;
   sizeByParent?: boolean;
   selectedRows?: RowId[];
+  features?: IOnePublicProps<FilterData>['features'];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;

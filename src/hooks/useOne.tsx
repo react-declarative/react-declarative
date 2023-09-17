@@ -9,6 +9,7 @@ import IField from '../model/IField';
 import IAnything from '../model/IAnything';
 import TypedField from '../model/TypedField';
 import IOneProps, { OneHandler } from '../model/IOneProps';
+import IOnePublicProps from '../model/IOnePublicProps';
 
 import useActualState from './useActualState';
 
@@ -19,6 +20,7 @@ interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field
   title?: string;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>['payload'];
+  features?: IOnePublicProps<Data, Payload, Field>['features'];
   waitForChangesDelay?: number;
 }
 
@@ -28,6 +30,7 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
   handler: defaultHandler,
   payload: defaultPayload,
   waitForChangesDelay,
+  features,
 }: IParams<Data, Payload, Field>) => {
 
   const changeRef = useRef<Fn>();
@@ -53,6 +56,7 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
       handler={currentHandler.current}
       payload={currentPayload.current}
       onChange={handleChange}
+      features={features}
     />
   ), [currentTitle, currentHandler]);
 

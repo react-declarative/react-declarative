@@ -336,6 +336,7 @@ export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
+export { useFeatureView } from './components';
 export { useFilesView } from './components';
 
 export { useTabsHashstate } from './components';

@@ -269,6 +269,7 @@ declare module 'react-declarative' {
     export { usePreventLeave } from 'react-declarative/components';
     export { useLocalHandler } from 'react-declarative/components';
     export { useApiHandler } from 'react-declarative/components';
+    export { useFeatureView } from 'react-declarative/components';
     export { useFilesView } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
@@ -1398,6 +1399,7 @@ declare module 'react-declarative/model/IListProps' {
     import IField from 'react-declarative/model/IField';
     import IListApi from 'react-declarative/model/IListApi';
     import IOption from 'react-declarative/model/IOption';
+    import IOnePublicProps from 'react-declarative/model/IOnePublicProps';
     import { TSubject } from 'react-declarative/utils/rx/Subject';
     import { ISlotFactoryContext } from 'react-declarative/components/List/components/SlotFactory';
     interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
@@ -1526,6 +1528,7 @@ declare module 'react-declarative/model/IListProps' {
         page?: number;
         sizeByParent?: boolean;
         selectedRows?: RowId[];
+        features?: IOnePublicProps<FilterData>['features'];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
         onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
@@ -2228,15 +2231,17 @@ declare module 'react-declarative/hooks/useOne' {
     import IAnything from 'react-declarative/model/IAnything';
     import TypedField from 'react-declarative/model/TypedField';
     import IOneProps, { OneHandler } from 'react-declarative/model/IOneProps';
+    import IOnePublicProps from 'react-declarative/model/IOnePublicProps';
     type Fn<Data = IAnything> = (d: Data | null) => void;
     interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
         fields: Field[];
         title?: string;
         handler?: OneHandler<Data, Payload>;
         payload?: IOneProps<Data, Payload, Field>['payload'];
+        features?: IOnePublicProps<Data, Payload, Field>['features'];
         waitForChangesDelay?: number;
     }
-    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
+    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
         then(onData: Fn): void;
     };
     export const useOneTyped: <Data extends unknown = any, Payload = any>(params: IParams<Data, Payload, TypedField<Data, Payload>>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, TypedField<Data, Payload>>>) => {
@@ -2350,6 +2355,7 @@ declare module 'react-declarative/components/CardView' {
 
 declare module 'react-declarative/components/FeatureView' {
     export * from 'react-declarative/components/FeatureView/FeatureView';
+    export * from 'react-declarative/components/FeatureView/useFeatureView';
     export * from 'react-declarative/components/FeatureView/model/IFeature';
     export * from 'react-declarative/components/FeatureView/model/IFeatureGroup';
     export { default } from 'react-declarative/components/FeatureView/FeatureView';
@@ -4458,6 +4464,16 @@ declare module 'react-declarative/components/FeatureView/FeatureView' {
     export default FeatureView;
 }
 
+declare module 'react-declarative/components/FeatureView/useFeatureView' {
+    import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
+    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, ...oneProps }: IFeatureViewProps<Data, Payload>) => {
+        open: boolean;
+        render: () => JSX.Element;
+        pickData: (param?: any) => void;
+    };
+    export default useFeatureView;
+}
+
 declare module 'react-declarative/components/FeatureView/model/IFeature' {
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
@@ -5652,6 +5668,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IOneApi from "react-declarative/model/IOneApi";
     import IAnything from "react-declarative/model/IAnything";
     import IOneProps from "react-declarative/model/IOneProps";
+    import IOnePublicProps from "react-declarative/model/IOnePublicProps";
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
         waitForChangesDelay?: number;
         fullScreen?: boolean;
@@ -5662,6 +5679,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         title?: string;
         dirty?: boolean;
         param?: Param;
+        features?: IOnePublicProps<Data, Payload>['features'];
         outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
         handler?: IOneProps<Data, Payload>['handler'];
         payload?: IOneProps<Data, Payload>['payload'];
@@ -5677,7 +5695,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -5692,7 +5710,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         waitForChangesDelay?: number;
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;

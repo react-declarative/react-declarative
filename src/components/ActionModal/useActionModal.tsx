@@ -36,6 +36,7 @@ export const useActionModal = <
   fields,
   waitForChangesDelay,
   param: upperParam,
+  features,
   handler,
   fallback,
   apiRef,
@@ -53,6 +54,7 @@ export const useActionModal = <
   dirty,
   readonly,
   fullScreen,
+  
   title,
 }: IParams<Data, Payload, Field, Param>) => {
   const [open, setOpen] = useState(false);
@@ -94,6 +96,7 @@ export const useActionModal = <
         submitLabel={submitLabel}
         throwError={throwError}
         onSubmit={handleSubmit}
+        features={features}
         title={title}
         dirty={dirty}
         param={param}
