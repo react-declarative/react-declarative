@@ -1,5 +1,5 @@
 import IAnything from "./IAnything";
-import IField from "./IField";
+import IField, { Value } from "./IField";
 
 import IOneProps from "./IOneProps";
 
@@ -14,7 +14,7 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
     onInvalid?: IOneProps<Data, Field>['invalidity'];
     onLoadStart?: IOneProps<Data, Field>['loadStart'];
     onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
-    features?: string[] | (() => Record<string, boolean>);
+    features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
 };
 
 export default IOnePublicProps;

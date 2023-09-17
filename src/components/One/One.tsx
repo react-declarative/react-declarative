@@ -50,15 +50,14 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     };
 
     const features = useMemo(() => {
+        let result = upperFeatures;
         if (typeof upperFeatures === 'function') {
-            const result: string[] = [];
-            Object.entries(upperFeatures() || {})
-                .forEach(([key, value]) => {
-                    if (value) {
-                        result.push(key);
-                    }
-                });
-            return result;
+            result = upperFeatures();
+        }
+        if (result && !Array.isArray(result)) {
+            result = Object.entries(result)
+                .map(([key, value]) => value ? key : null as never)
+                .filter((value) => !!value);
         }
         return upperFeatures as unknown as string[];
     }, []);

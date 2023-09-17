@@ -2380,7 +2380,7 @@ declare module 'react-declarative/components/Breadcrumbs2' {
 
 declare module 'react-declarative/model/IOnePublicProps' {
     import IAnything from "react-declarative/model/IAnything";
-    import IField from "react-declarative/model/IField";
+    import IField, { Value } from "react-declarative/model/IField";
     import IOneProps from "react-declarative/model/IOneProps";
     export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>> extends Omit<IOneProps<Data, Payload, Field>, keyof {
         features: never;
@@ -2392,7 +2392,7 @@ declare module 'react-declarative/model/IOnePublicProps' {
         onInvalid?: IOneProps<Data, Field>['invalidity'];
         onLoadStart?: IOneProps<Data, Field>['loadStart'];
         onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
-        features?: string[] | (() => Record<string, boolean>);
+        features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
     }
     export default IOnePublicProps;
 }
