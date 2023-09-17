@@ -4672,6 +4672,7 @@ declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
         isDisabled: never;
     }> {
         type: Breadcrumbs2Type;
+        compute?: (payload: Data) => (Promise<string> | string);
         isVisible?: (payload: Data) => (Promise<boolean> | boolean);
         isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
     }

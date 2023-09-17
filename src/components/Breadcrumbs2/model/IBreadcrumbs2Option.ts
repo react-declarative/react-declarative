@@ -8,6 +8,7 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
     isDisabled: never;
 }> {
     type: Breadcrumbs2Type;
+    compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
 };

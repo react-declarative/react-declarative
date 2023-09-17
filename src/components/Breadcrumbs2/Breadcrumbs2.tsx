@@ -86,13 +86,14 @@ export const Breadcrumbs2 = <T extends any = any>({
                   async ({
                     action,
                     label,
+                    compute = () => label, 
                     isDisabled = () => false,
                     isVisible = () => true,
                   }) => ({
                     visible: await isVisible(payload!),
                     disabled: await isDisabled(payload!),
                     action,
-                    label,
+                    label: await compute(payload!),
                   })
                 )
             );
