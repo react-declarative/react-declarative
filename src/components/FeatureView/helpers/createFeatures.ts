@@ -2,12 +2,12 @@ import FieldType from "../../../model/FieldType";
 import TypedField from "../../../model/TypedField";
 import IFeatureGroup from "../model/IFeatureGroup";
 
-export const createFeatures = (features: IFeatureGroup[]): TypedField[] =>
+export const createFeatures = (features: IFeatureGroup[], expandAll = false): TypedField[] =>
   features.map(({ title, expanded = false, children, isVisible }) => ({
     type: FieldType.Expansion,
     fieldRightMargin: "0",
     fieldBottomMargin: "1",
-    expansionOpened: expanded,
+    expansionOpened: expanded || expandAll,
     isVisible,
     title,
     fields: children.flatMap(

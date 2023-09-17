@@ -8,6 +8,7 @@ export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload =
     features: never;
 }> {
     features: IFeatureGroup<Data, Payload>[];
+    expandAll?: boolean;
 }
 
 export default IFeatureViewProps;

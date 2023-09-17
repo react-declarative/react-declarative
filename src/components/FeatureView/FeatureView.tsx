@@ -13,11 +13,12 @@ export const FeatureView = <
   Payload = IAnything
 >({
   features,
+  expandAll,
   ...oneProps
 }: IFeatureViewProps<Data, Payload>) => {
 
   const fields = useMemo(() => {
-    return createFeatures(features);
+    return createFeatures(features, expandAll);
   }, []);
 
   return (

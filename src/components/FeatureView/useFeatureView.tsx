@@ -8,11 +8,12 @@ export const useFeatureView = <
     Payload = IAnything
 >({
     features,
+    expandAll,
     ...oneProps
 }: IFeatureViewProps<Data, Payload>) => useActionModal({
     ...oneProps,
     outlinePaper: true,
-    fields: createFeatures(features),
+    fields: createFeatures(features, expandAll),
 });
 
 export default useFeatureView;

@@ -54,7 +54,7 @@ export const Expansion = ({
   const [expanded, setExpanded] = useState(expansionOpened);
   return (
     <Accordion sx={sx} expanded={expanded} onChange={() => setExpanded(!expanded)} className={className} style={style}>
-      <AccordionSummary expandIcon={<ExpandMore />}>
+      <AccordionSummary sx={{ pointerEvents: 'all' }} expandIcon={<ExpandMore />}>
         <Typography className={classes.heading}>{title}</Typography>
         <Typography className={classes.secondaryHeading}>{description}</Typography>
       </AccordionSummary>

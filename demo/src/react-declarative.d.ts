@@ -4460,13 +4460,13 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const FeatureView: <Data extends unknown = any, Payload = any>({ features, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
+    export const FeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
     export default FeatureView;
 }
 
 declare module 'react-declarative/components/FeatureView/useFeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, ...oneProps }: IFeatureViewProps<Data, Payload>) => {
+    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
@@ -6701,6 +6701,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
         features: never;
     }> {
         features: IFeatureGroup<Data, Payload>[];
+        expandAll?: boolean;
     }
     export default IFeatureViewProps;
 }
