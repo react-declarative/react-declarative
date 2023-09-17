@@ -4465,8 +4465,9 @@ declare module 'react-declarative/components/FeatureView/FeatureView' {
 }
 
 declare module 'react-declarative/components/FeatureView/useFeatureView' {
+    import { IParams } from "react-declarative/components/ActionModal";
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => {
+    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload> & IParams<Data, Payload, import("../../model/IField").IField<Data, any>, any>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
@@ -5704,7 +5705,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     import TypedField from "react-declarative/model/TypedField";
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
-    interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = any> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
+    export interface IParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything, Field = IField<Data>, Param = any> extends Omit<IActionModalProps<Data, Payload, Field, Param>, keyof {
         open: never;
     }> {
         waitForChangesDelay?: number;

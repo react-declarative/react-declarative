@@ -1,5 +1,5 @@
 import IAnything from "../../model/IAnything";
-import { useActionModal } from "../ActionModal";
+import { useActionModal, IParams } from "../ActionModal";
 import createFeatures from "./helpers/createFeatures";
 import IFeatureViewProps from "./model/IFeatureViewProps";
 
@@ -10,7 +10,7 @@ export const useFeatureView = <
     features,
     expandAll,
     ...oneProps
-}: IFeatureViewProps<Data, Payload>) => useActionModal({
+}: IFeatureViewProps<Data, Payload> & IParams<Data, Payload>) => useActionModal({
     ...oneProps,
     outlinePaper: true,
     fields: createFeatures(features, expandAll),

@@ -10,7 +10,7 @@ import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 
-interface IParams<
+export interface IParams<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
   Field = IField<Data>,
