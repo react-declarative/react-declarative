@@ -4467,7 +4467,7 @@ declare module 'react-declarative/components/FeatureView/FeatureView' {
 declare module 'react-declarative/components/FeatureView/useFeatureView' {
     import { IParams } from "react-declarative/components/ActionModal";
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload> & IParams<Data, Payload, import("../../model/IField").IField<Data, any>, any>) => {
+    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload> & Omit<IParams<Data, Payload, import("../../model/IField").IField<Data, any>, any>, "features">) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;

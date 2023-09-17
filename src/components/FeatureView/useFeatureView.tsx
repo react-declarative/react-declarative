@@ -4,16 +4,23 @@ import createFeatures from "./helpers/createFeatures";
 import IFeatureViewProps from "./model/IFeatureViewProps";
 
 export const useFeatureView = <
-    Data extends IAnything = IAnything,
-    Payload = IAnything
+  Data extends IAnything = IAnything,
+  Payload = IAnything
 >({
-    features,
-    expandAll,
-    ...oneProps
-}: IFeatureViewProps<Data, Payload> & IParams<Data, Payload>) => useActionModal({
+  features,
+  expandAll,
+  ...oneProps
+}: IFeatureViewProps<Data, Payload> &
+  Omit<
+    IParams<Data, Payload>,
+    keyof {
+      features: never;
+    }
+  >) =>
+  useActionModal({
     ...oneProps,
     outlinePaper: true,
     fields: createFeatures(features, expandAll),
-});
+  });
 
 export default useFeatureView;
