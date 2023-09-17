@@ -59,7 +59,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
                 .map(([key, value]) => value ? key : null as never)
                 .filter((value) => !!value);
         }
-        return upperFeatures as unknown as string[];
+        return result;
     }, []);
 
     const genesisProps = {
