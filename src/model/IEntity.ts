@@ -15,6 +15,7 @@ export interface IEntity<Data = IAnything, Payload = IAnything> extends Omit<IFi
   invalidity: (name: string, msg: string, payload: Payload) => void;
   fallback: (e: Error) => void;
   isBaselineAlign: boolean;
+  outlinePaper: boolean;
   dirty?: boolean;
   prefix: string;
   ready: () => void;

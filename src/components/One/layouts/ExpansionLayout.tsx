@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { makeStyles } from "../../../styles";
+import { alpha } from "@mui/material";
 
 import Expansion, { IExpansionProps } from "../../common/Expansion";
 import Group, { IGroupProps } from "../../common/Group";
@@ -15,10 +16,11 @@ export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> ex
 
 interface IExpansionLayoutPrivate {
   isBaselineAlign: boolean;
+  outlinePaper: boolean;
   children?: React.ReactNode;
 }
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",
     display: "flex",
@@ -29,7 +31,13 @@ const useStyles = makeStyles()({
     flexGrow: 1,
     width: "100%",
   },
-});
+  outlinePaper: {
+    background: 'transparent',
+    boxShadow: 'none !important',
+    border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
+    borderRadius: '4px',
+  }
+}));
 
 export const ExpansionLayout = <Data extends IAnything = IAnything>({
   columns,
@@ -47,11 +55,14 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   title,
   description,
   expansionOpened,
+  outlinePaper,
 }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate) => {
     const { classes } = useStyles();
     return (
         <Group
-            className={classNames(className, classes.root)}
+            className={classNames(className, classes.root, {
+              [classes.outlinePaper]: outlinePaper,
+            })}
             style={style}
             isItem={true}
             columns={columns}

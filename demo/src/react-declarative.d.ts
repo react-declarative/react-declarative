@@ -1043,6 +1043,7 @@ declare module 'react-declarative/model/IEntity' {
         invalidity: (name: string, msg: string, payload: Payload) => void;
         fallback: (e: Error) => void;
         isBaselineAlign: boolean;
+        outlinePaper: boolean;
         dirty?: boolean;
         prefix: string;
         ready: () => void;
@@ -3257,14 +3258,15 @@ declare module 'react-declarative/components/One/layouts/ExpansionLayout' {
     }
     interface IExpansionLayoutPrivate {
         isBaselineAlign: boolean;
+        outlinePaper: boolean;
         children?: React.ReactNode;
     }
     export const ExpansionLayout: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, outlinePaper, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
+        <Data extends unknown = any>({ columns, columnsOverride, sx, phoneColumns, tabletColumns, desktopColumns, isBaselineAlign, fieldRightMargin, fieldBottomMargin, style, className, children, title, description, expansionOpened, outlinePaper, }: IExpansionLayoutProps<Data, any> & IExpansionLayoutPrivate): JSX.Element;
         displayName: string;
     };
     export default _default;
