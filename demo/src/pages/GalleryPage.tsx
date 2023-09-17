@@ -262,7 +262,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Paper,
-        roles: [
+        features: [
             "admin"
         ],
         child: {
@@ -273,7 +273,7 @@ const fields: TypedField[] = [
     },
     {
         type: FieldType.Typography,
-        roles: [
+        features: [
             "admin"
         ],
         typoVariant: 'h2',
@@ -308,7 +308,7 @@ const fields: TypedField[] = [
 ];
 
 export const GalleryPage = () => (
-    <OneTyped roles={["user"]} fields={fields}/>
+    <OneTyped features={["user"]} fields={fields}/>
 );
 
 export default GalleryPage;
