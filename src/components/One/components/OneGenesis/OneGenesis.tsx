@@ -17,9 +17,10 @@ import deepFlat from "../../../../utils/deepFlat";
 import arrays from "../../../../utils/arrays";
 
 import StateProvider from "../../context/StateProvider";
+import FeatureProvider from "../../context/FeatureProvider";
+import PayloadProvider from "../../context/PayloadProvider";
 
 import SlotFactory from "../SlotFactory";
-import PayloadProvider from "../../context/PayloadProvider";
 
 import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
@@ -31,7 +32,7 @@ const useStyles = makeStyles()({
     pointerEvents: "none",
   },
   rendering: {
-    pointerEvents: 'none',
+    pointerEvents: "none",
   },
 });
 
@@ -57,6 +58,7 @@ export const OneGenesis = <
     fields = [],
     slots = {},
     payload: upperPayload = {} as Payload,
+    features,
   } = props;
 
   const payload = useSingleton(upperPayload);
@@ -92,6 +94,7 @@ export const OneGenesis = <
     ...props,
     fields: fieldsSnapshot,
     change: handleChange,
+    features,
     payload,
   };
 
@@ -99,6 +102,7 @@ export const OneGenesis = <
     ...props,
     fields: fieldsSnapshot,
     ready: handleReady,
+    features,
     payload,
     rendered,
   };
@@ -107,23 +111,25 @@ export const OneGenesis = <
 
   return (
     <ThemeProvider>
-      <PayloadProvider payload={payload}>
-        <StateProvider<Data, Payload, Field> {...stateParams}>
-          <SlotFactory {...slots}>
-            <Group
-              isBaselineAlign={isBaselineAlign}
-              className={classNames(className, {
-                [classes.readonly]: props.readonly,
-                [classes.rendering]: !rendered,
-              })}
-              style={style}
-              sx={sx}
-            >
-              <OneInternal<Data, Payload, Field> {...viewParams} />
-            </Group>
-          </SlotFactory>
-        </StateProvider>
-      </PayloadProvider>
+      <FeatureProvider features={features}>
+        <PayloadProvider payload={payload}>
+          <StateProvider<Data, Payload, Field> {...stateParams}>
+            <SlotFactory {...slots}>
+              <Group
+                isBaselineAlign={isBaselineAlign}
+                className={classNames(className, {
+                  [classes.readonly]: props.readonly,
+                  [classes.rendering]: !rendered,
+                })}
+                style={style}
+                sx={sx}
+              >
+                <OneInternal<Data, Payload, Field> {...viewParams} />
+              </Group>
+            </SlotFactory>
+          </StateProvider>
+        </PayloadProvider>
+      </FeatureProvider>
     </ThemeProvider>
   );
 };

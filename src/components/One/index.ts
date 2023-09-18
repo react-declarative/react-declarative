@@ -8,6 +8,7 @@ export { makeLayout } from './components/makeLayout';
 export { useOneProps } from './context/PropsProvider';
 export { useOneState } from './context/StateProvider';
 export { useOnePayload } from './context/PayloadProvider';
+export { useOneFeatures } from './context/FeatureProvider';
 export { OtherComboSlot } from './other/OtherComboSlot';
 export { OtherItemsSlot } from './other/OtherItemsSlot';
 export { useApiHandler } from './api/useApiHandler';

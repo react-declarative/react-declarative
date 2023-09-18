@@ -10,6 +10,7 @@ import makeField from '../components/makeField';
 
 import { useOneState } from '../../../components/One/context/StateProvider';
 import { useOnePayload } from '../../../components/One/context/PayloadProvider';
+import { useOneFeatures } from '../context/FeatureProvider';
 
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
@@ -80,7 +81,8 @@ export const ComponentField = ({
 
     const [node, setNode] = useState<JSX.Element | null>(null);
     const { setObject } = useOneState();
-    const _payload = useOnePayload();
+    const payload = useOnePayload();
+    const features = useOneFeatures();
 
     const handleChange = useCallback((object: unknown) => setObject(deepClone(object), {}), []);
 
@@ -90,7 +92,7 @@ export const ComponentField = ({
             .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
         const onChange = (data: Record<string, any>) => handleChange({ ...objects(object), ...data });
         const _fieldData = arrays(object);
-        const props = { ..._fieldData, onChange, _fieldParams, _fieldData, _payload, disabled, readonly };
+        const props = { ..._fieldData, onChange, _fieldParams, _fieldData, payload, disabled, readonly, features };
         setNode(() => (
             <Element
                 {...props}

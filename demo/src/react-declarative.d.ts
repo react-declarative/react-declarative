@@ -275,7 +275,7 @@ declare module 'react-declarative' {
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
-    export { useOneProps, useOneState, useOnePayload } from 'react-declarative/components';
+    export { useOneProps, useOneState, useOnePayload, useOneFeatures } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
@@ -904,7 +904,10 @@ declare module 'react-declarative/model/IField' {
                     onChange: (data: Partial<Data>) => void;
                     _fieldData: Data;
                     _fieldParams: IField;
-                    _payload: Payload;
+                    payload: Payload;
+                    disabled: boolean;
+                    readonly: boolean;
+                    features: string[];
             }>;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
@@ -4085,6 +4088,7 @@ declare module 'react-declarative/components/One' {
     export { useOneProps } from 'react-declarative/components/One/context/PropsProvider';
     export { useOneState } from 'react-declarative/components/One/context/StateProvider';
     export { useOnePayload } from 'react-declarative/components/One/context/PayloadProvider';
+    export { useOneFeatures } from 'react-declarative/components/One/context/FeatureProvider';
     export { OtherComboSlot } from 'react-declarative/components/One/other/OtherComboSlot';
     export { OtherItemsSlot } from 'react-declarative/components/One/other/OtherItemsSlot';
     export { useApiHandler } from 'react-declarative/components/One/api/useApiHandler';
@@ -4978,6 +4982,18 @@ declare module 'react-declarative/components/One/context/PayloadProvider' {
     export const PayloadProvider: ({ children, payload, }: IPayloadProviderProps) => JSX.Element;
     export const useOnePayload: () => any;
     export default PayloadProvider;
+}
+
+declare module 'react-declarative/components/One/context/FeatureProvider' {
+    import * as React from 'react';
+    import IOneProps from 'react-declarative/model/IOneProps';
+    interface IFeatureProviderProps {
+        children: React.ReactNode;
+        features?: IOneProps['features'];
+    }
+    export const FeatureProvider: ({ children, features, }: IFeatureProviderProps) => JSX.Element;
+    export const useOneFeatures: () => string[];
+    export default FeatureProvider;
 }
 
 declare module 'react-declarative/components/One/other/OtherComboSlot' {

@@ -410,7 +410,10 @@ export interface IField<Data = IAnything, Payload = IAnything> {
       onChange: (data: Partial<Data>) => void;
       _fieldData: Data;
       _fieldParams: IField;
-      _payload: Payload;
+      payload: Payload;
+      disabled: boolean;
+      readonly: boolean;
+      features: string[];
     }>;
 
     /**
