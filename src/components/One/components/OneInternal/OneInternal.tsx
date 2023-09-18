@@ -30,13 +30,7 @@ import isBaseline from "../../config/isBaseline";
  * полей вложенных групп...
  */
 const countStatefull = (fields: IField<any>[]) => {
-  let total = fields.filter(isStatefull).length;
-  total -= fields.reduce((acm, { hidden }) => (hidden ? acm + 1 : acm), 0);
-  total -= fields.reduce(
-    (acm, { type }) => (type === FieldType.Init ? acm + 1 : acm),
-    0
-  );
-  /* группа, вложенная в группу */
+  const { length: total } = fields.filter(isStatefull);
   return Math.max(total, 1);
 };
 
@@ -82,8 +76,8 @@ export const OneInternal = <
   const {
     fields,
     statefull,
-  } = useMemo(() => ({
-    fields: upperFields
+  } = useMemo(() => {
+    const fields = upperFields
       .filter(
         (field) =>
           !features ||
@@ -91,9 +85,12 @@ export const OneInternal = <
           field.features.some((feature) => features.includes(feature))
       )
       .filter(({ hidden }) => !hidden)
-      .filter(({ type }) => type !== FieldType.Init),
-    statefull: countStatefull(upperFields),
-  }), []);
+      .filter(({ type }) => type !== FieldType.Init);
+    return {
+      fields,
+      statefull: countStatefull(fields),
+    };
+  }, []);
 
   /**
    * Коллбек инициализации исполняется после вызова эффекта
