@@ -19,6 +19,7 @@ import arrays from "../../../../utils/arrays";
 import StateProvider from "../../context/StateProvider";
 import FeatureProvider from "../../context/FeatureProvider";
 import PayloadProvider from "../../context/PayloadProvider";
+import CacheProvider from "../../context/CacheProvider";
 
 import SlotFactory from "../SlotFactory";
 
@@ -111,25 +112,27 @@ export const OneGenesis = <
 
   return (
     <ThemeProvider>
-      <FeatureProvider features={features}>
-        <PayloadProvider payload={payload}>
-          <StateProvider<Data, Payload, Field> {...stateParams}>
-            <SlotFactory {...slots}>
-              <Group
-                isBaselineAlign={isBaselineAlign}
-                className={classNames(className, {
-                  [classes.readonly]: props.readonly,
-                  [classes.rendering]: !rendered,
-                })}
-                style={style}
-                sx={sx}
-              >
-                <OneInternal<Data, Payload, Field> {...viewParams} />
-              </Group>
-            </SlotFactory>
-          </StateProvider>
-        </PayloadProvider>
-      </FeatureProvider>
+      <CacheProvider>
+        <FeatureProvider features={features}>
+          <PayloadProvider payload={payload}>
+            <StateProvider<Data, Payload, Field> {...stateParams}>
+              <SlotFactory {...slots}>
+                <Group
+                  isBaselineAlign={isBaselineAlign}
+                  className={classNames(className, {
+                    [classes.readonly]: props.readonly,
+                    [classes.rendering]: !rendered,
+                  })}
+                  style={style}
+                  sx={sx}
+                >
+                  <OneInternal<Data, Payload, Field> {...viewParams} />
+                </Group>
+              </SlotFactory>
+            </StateProvider>
+          </PayloadProvider>
+        </FeatureProvider>
+      </CacheProvider>
     </ThemeProvider>
   );
 };
