@@ -194,7 +194,8 @@ export function makeField(
         );
 
         const { memory } = useFieldMemory({
-            fieldName: `${prefix}(${name || 'unknown'})`,
+            prefix,
+            name,
             lastDebouncedValue: debouncedValue,
             debouncedValue$: debouncedValue,
             fieldReadonly$: fieldReadonly,

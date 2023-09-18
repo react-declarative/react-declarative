@@ -25,10 +25,15 @@ interface IMemoryData extends Omit<IMemory, keyof {
     objectUpdate: never;
     initComplete: never;
     isMounted: never;
-}> { }
+    fieldName: never;
+}> {
+    prefix: string;
+    name: string;
+}
 
 export const useFieldMemory = ({
-    fieldName,
+    prefix,
+    name,
     lastDebouncedValue,
     debouncedValue$,
     fieldReadonly$,
@@ -43,7 +48,7 @@ export const useFieldMemory = ({
         inputUpdate: false,
         objectUpdate: false,
         initComplete: false,
-        fieldName,
+        fieldName: `${prefix}(${name || 'unknown'})`,
         lastDebouncedValue,
         isMounted: true,
         debouncedValue$: null as never,
