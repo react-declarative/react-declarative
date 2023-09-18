@@ -356,6 +356,7 @@ export const OutletView = <
         }));
         setChanged(true);
       },
+      payload,
     }),
     [
       data,

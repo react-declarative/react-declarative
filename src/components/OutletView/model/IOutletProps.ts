@@ -12,6 +12,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
         hasChanged: boolean;
         hasLoading: boolean;
         hasInvalid: boolean;
+        payload: Payload;
         id: string;
     };
     activeOption: string;

@@ -5847,6 +5847,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
             hasChanged: boolean;
             hasLoading: boolean;
             hasInvalid: boolean;
+            payload: Payload;
             id: string;
         };
         activeOption: string;
