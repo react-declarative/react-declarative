@@ -10,6 +10,7 @@ interface IContext {
   blurMap: Map<IField, (name: string, payload: IAnything) => void>;
   baselineMap: Map<IField, boolean>;
   fieldsMap: Map<IField[], IField[]>;
+  statefullMap: Map<IField[], number>;
 }
 
 const CacheContext = createContext<IContext>(null as never);
@@ -26,6 +27,7 @@ export const CacheProvider = ({ children }: ICacheProviderProps) => {
       blurMap: new Map<IField, (name: string, payload: IAnything) => void>(),
       baselineMap: new Map<IField, boolean>(),
       fieldsMap: new Map<IField[], IField[]>(),
+      statefullMap: new Map<IField[], number>(),
     });
     return fnMap;
   }, []);

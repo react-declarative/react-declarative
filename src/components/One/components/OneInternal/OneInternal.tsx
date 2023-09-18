@@ -64,7 +64,7 @@ export const OneInternal = <
   /**
    * Коллбеки вынесены из тела компонента для мемоизации
    */
-  const { focusMap, blurMap, baselineMap, fieldsMap } = useOneCache();
+  const { focusMap, blurMap, baselineMap, fieldsMap, statefullMap } = useOneCache();
 
   /**
    * Итерация дочерних полей на каждый рендеринг
@@ -74,22 +74,24 @@ export const OneInternal = <
     const fields = fieldsMap.has(upperFields)
       ? fieldsMap.get(upperFields)!
       : fieldsMap
-          .set(
-            upperFields,
-            upperFields
-              .filter(
-                (field) =>
-                  !features ||
-                  !field.features ||
-                  field.features.some((feature) => features.includes(feature))
-              )
-              .filter(({ hidden }) => !hidden)
-              .filter(({ type }) => type !== FieldType.Init)
-          )
-          .get(upperFields)!
+        .set(
+          upperFields,
+          upperFields
+            .filter(
+              (field) =>
+                !features ||
+                !field.features ||
+                field.features.some((feature) => features.includes(feature))
+            )
+            .filter(({ hidden }) => !hidden)
+            .filter(({ type }) => type !== FieldType.Init)
+        )
+        .get(upperFields)!
     return {
       fields,
-      statefull: countStatefull(fields),
+      statefull: statefullMap.has(upperFields)
+        ? statefullMap.get(upperFields)!
+        : statefullMap.set(upperFields, countStatefull(fields)).get(upperFields)!,
     };
   }, []);
 
@@ -147,8 +149,8 @@ export const OneInternal = <
             isBaselineAlign:
               baselineMap.get(field) === undefined
                 ? !!baselineMap
-                    .set(field, !field.noBaseline && fields.some(isBaseline))
-                    .get(field)
+                  .set(field, !field.noBaseline && fields.some(isBaseline))
+                  .get(field)
                 : !!baselineMap.get(field),
             ...field,
             placeholder: withNamedPlaceholders
@@ -158,19 +160,19 @@ export const OneInternal = <
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                  .set(field, (name: string, payload: Payload) => {
-                    field.focus && field.focus(name, payload);
-                    focus && focus(name, payload);
-                  })
-                  .get(field),
+                .set(field, (name: string, payload: Payload) => {
+                  field.focus && field.focus(name, payload);
+                  focus && focus(name, payload);
+                })
+                .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                  .set(field, (name: string, payload: Payload) => {
-                    field.blur && field.blur(name, payload);
-                    blur && blur(name, payload);
-                  })
-                  .get(field),
+                .set(field, (name: string, payload: Payload) => {
+                  field.blur && field.blur(name, payload);
+                  blur && blur(name, payload);
+                })
+                .get(field),
             object,
             dirty,
           };
