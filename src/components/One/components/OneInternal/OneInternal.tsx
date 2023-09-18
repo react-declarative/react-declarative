@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  memo,
-  useRef,
-  useCallback,
-  useEffect,
-  Fragment,
-  useMemo,
-} from "react";
+import { memo, useRef, useCallback, useEffect, Fragment, useMemo } from "react";
 
 /* eslint-disable react/jsx-no-useless-fragment */
 
@@ -15,6 +8,7 @@ import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";
 
 import { useOneState } from "../../context/StateProvider";
+import { useOneCache } from "../../context/CacheProvider";
 
 import { typeToString } from "../../helpers/typeToString";
 
@@ -45,7 +39,6 @@ interface IOneInternalProps<
 const DEFAULT_READY_CALLBACK = () => null;
 const DEFAULT_INVALIDITY_CALLBACK = () => null;
 const DEFAULT_FALLBACK = () => null;
-const EMPTY_ARRAY: unknown[] = [];
 
 export const OneInternal = <
   Data extends IAnything = IAnything,
@@ -53,7 +46,7 @@ export const OneInternal = <
   Field extends IField<Data> = IField<Data>
 >({
   rendered = false,
-  fields: upperFields = EMPTY_ARRAY as Field[],
+  fields: upperFields = [],
   features,
   dirty,
   ready = DEFAULT_READY_CALLBACK,
@@ -68,24 +61,32 @@ export const OneInternal = <
   createLayout = createLayoutInternal,
   withNamedPlaceholders,
 }: IOneInternalProps<Data, Payload, Field>) => {
+  /**
+   * Коллбеки вынесены из тела компонента для мемоизации
+   */
+  const { focusMap, blurMap, baselineMap, fieldsMap } = useOneCache();
 
   /**
    * Итерация дочерних полей на каждый рендеринг
    * порождает квадратичную сложность, мемоизируем
    */
-  const {
-    fields,
-    statefull,
-  } = useMemo(() => {
-    const fields = upperFields
-      .filter(
-        (field) =>
-          !features ||
-          !field.features ||
-          field.features.some((feature) => features.includes(feature))
-      )
-      .filter(({ hidden }) => !hidden)
-      .filter(({ type }) => type !== FieldType.Init);
+  const { fields, statefull } = useMemo(() => {
+    const fields = fieldsMap.has(upperFields)
+      ? fieldsMap.get(upperFields)!
+      : fieldsMap
+          .set(
+            upperFields,
+            upperFields
+              .filter(
+                (field) =>
+                  !features ||
+                  !field.features ||
+                  field.features.some((feature) => features.includes(feature))
+              )
+              .filter(({ hidden }) => !hidden)
+              .filter(({ type }) => type !== FieldType.Init)
+          )
+          .get(upperFields)!
     return {
       fields,
       statefull: countStatefull(fields),
@@ -98,23 +99,6 @@ export const OneInternal = <
    */
   const waitingReady = useRef(statefull);
   const { object, setObject } = useOneState<Data>();
-
-  /**
-   * Коллбеки вынесены из тела компонента для мемоизации
-   */
-  const {
-    focusMap,
-    blurMap,
-    baselineMap,
-  } = useMemo(() => {
-    const fnMap = Object.create(null);
-    Object.assign(fnMap, {
-      focusMap: new Map<IField, (name: string, payload: Payload) => void>(),
-      blurMap: new Map<IField, (name: string, payload: Payload) => void>(),
-      baselineMap: new Map<IField, boolean>(),
-    });
-    return fnMap;
-  }, []);
 
   /**
    * Если в группе нет полей, вызываем инициализацию мануально
@@ -160,28 +144,33 @@ export const OneInternal = <
             change: handleChange,
             ready: handleReady,
             fallback,
-            isBaselineAlign: baselineMap.get(field) === undefined
-              ? !!baselineMap.set(field, !field.noBaseline && fields.some(isBaseline)).get(field)
-              : !!baselineMap.get(field),
+            isBaselineAlign:
+              baselineMap.get(field) === undefined
+                ? !!baselineMap
+                    .set(field, !field.noBaseline && fields.some(isBaseline))
+                    .get(field)
+                : !!baselineMap.get(field),
             ...field,
-            placeholder: withNamedPlaceholders ? `${field.name || 'unknown'}` : field.placeholder,
+            placeholder: withNamedPlaceholders
+              ? `${field.name || "unknown"}`
+              : field.placeholder,
             outlinePaper: field.outlinePaper || upperOutlinePaper,
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                .set(field, (name: string, payload: Payload) => {
-                  field.focus && field.focus(name, payload);
-                  focus && focus(name, payload);
-                })
-                .get(field),
+                  .set(field, (name: string, payload: Payload) => {
+                    field.focus && field.focus(name, payload);
+                    focus && focus(name, payload);
+                  })
+                  .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                .set(field, (name: string, payload: Payload) => {
-                  field.blur && field.blur(name, payload);
-                  blur && blur(name, payload);
-                })
-                .get(field),
+                  .set(field, (name: string, payload: Payload) => {
+                    field.blur && field.blur(name, payload);
+                    blur && blur(name, payload);
+                  })
+                  .get(field),
             object,
             dirty,
           };
@@ -203,7 +192,11 @@ export const OneInternal = <
             dirty,
           };
           if (isLayout(field.type)) {
-            return createLayout(entity, <OneInternalMemo<Data> {...one} />, currentPath);
+            return createLayout(
+              entity,
+              <OneInternalMemo<Data> {...one} />,
+              currentPath
+            );
           } else {
             return createField(entity, currentPath);
           }
