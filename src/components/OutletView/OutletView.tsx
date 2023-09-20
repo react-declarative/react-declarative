@@ -51,7 +51,7 @@ export const OutletView = <
   history,
   fallback,
   onChange,
-  onSubmit,
+  onSubmit = () => true,
   onLoadStart,
   onLoadEnd,
   changeSubject: upperChangeSubject,
