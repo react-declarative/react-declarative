@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
+import { promiseValue } from '../../utils/promiseState';
 
 import useActualValue from '../../hooks/useActualValue';
 
@@ -17,6 +18,15 @@ export interface IIfProps<T extends any = object> {
     throwError?: boolean;
 }
 
+const resolvePass = <T extends any = object>(condition: IIfProps<T>['condition'], payload: IIfProps<T>['payload']) => {
+    let result: boolean | null = false;
+    if (typeof condition === 'function') {
+        const resolve = condition(payload!);
+        result = promiseValue(resolve);
+    }
+    return !!result;
+};
+
 export const If = <T extends any = object>({
     children,
     condition,
@@ -28,7 +38,7 @@ export const If = <T extends any = object>({
     throwError = false,
 }: IIfProps<T>) => {
 
-    const [pass, setPass] = useState(false);
+    const [pass, setPass] = useState(() => resolvePass(condition, payload));
     const executionRef = useRef<IWrappedFn<boolean> | null>(null);
 
     const isMounted = useRef(true);

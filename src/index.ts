@@ -463,6 +463,7 @@ export { openBlank } from './utils/openBlank';
 export { chooseFile } from './utils/chooseFile';
 export { loadScript } from './utils/loadScript';
 export { reloadPage } from './utils/reloadPage';
+export { promiseState, promiseValue } from './utils/promiseState';
 export { chooseMultipleFiles } from './utils/chooseMultipleFiles';
 
 export { getRouteParams } from './utils/getRouteParams';
