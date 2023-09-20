@@ -62,7 +62,10 @@ export const OutletView = <
   const changeSubject = useSubject(upperChangeSubject);
 
   const [data, setData] = useState(() => ({
-    ...routes.reduce<Data>((acm, { id }) => ({ ...acm, [id]: null }), {} as Data),
+    ...routes.reduce<Data>(
+      (acm, { id }) => ({ ...acm, [id]: null }),
+      {} as Data
+    ),
     ...initialData,
   }));
 
@@ -254,7 +257,11 @@ export const OutletView = <
 
     const createRouterSubject = () =>
       history.block(({ retry, location }) => {
-        if (routes.some(({ isActive, isAvailable = isActive }) => isAvailable(location.pathname))) {
+        if (
+          routes.some(({ isActive, isAvailable = isActive }) =>
+            isAvailable(location.pathname)
+          )
+        ) {
           unsubscribeRef.current && unsubscribeRef.current();
           retry();
           return;
@@ -267,9 +274,9 @@ export const OutletView = <
         e.preventDefault();
         return LEAVE_MESSAGE;
       };
-      window.onbeforeunload = handler;
+      window.addEventListener("beforeunload", handler);
       return () => {
-        window.onbeforeunload = null;
+        window.removeEventListener("beforeunload", handler);
       };
     };
 

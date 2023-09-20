@@ -2432,7 +2432,7 @@ declare module 'react-declarative/utils/loadScript' {
 }
 
 declare module 'react-declarative/utils/reloadPage' {
-    export const reloadPage: () => void;
+    export const reloadPage: () => Promise<void>;
     export default reloadPage;
 }
 
@@ -5043,7 +5043,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     import { BrowserHistory, MemoryHistory, HashHistory } from "history";
     import IOneProps from "react-declarative/model/IOneProps";
     import IAnything from "react-declarative/model/IAnything";
-    import TSubject from 'react-declarative/model/TSubject';
+    import TSubject from "react-declarative/model/TSubject";
     export interface IPreventLeaveParams<Data = IAnything, ID = string> {
         history?: BrowserHistory | MemoryHistory | HashHistory;
         waitForChangesDelay?: number;
@@ -5053,10 +5053,10 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         shouldAutoSave?: () => boolean;
         checkUpdate?: (id: ID, data: Data) => boolean;
         checkDirty?: (prevData: Data, currentData: Data) => boolean;
-        onChange?: IOneProps<Data>['change'];
+        onChange?: IOneProps<Data>["change"];
         onBlock?: () => (() => void) | void;
         onUpdate?: (id: ID, data: Data) => void;
-        onSave?: (data: Data) => (boolean | Promise<boolean>);
+        onSave?: (data: Data) => boolean | Promise<boolean>;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
@@ -5064,9 +5064,9 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     export interface IPreventLeaveReturn<Data = IAnything> {
         oneProps: {
             change: (data: Data, initial?: boolean) => void;
-            invalidity: IOneProps<Data>['invalidity'];
-            readonly: IOneProps<Data>['readonly'];
-            changeSubject: IOneProps<Data>['changeSubject'];
+            invalidity: IOneProps<Data>["invalidity"];
+            readonly: IOneProps<Data>["readonly"];
+            changeSubject: IOneProps<Data>["changeSubject"];
             fallback?: (e: Error) => void;
         };
         data: Data | null;
@@ -5936,7 +5936,7 @@ declare module 'react-declarative/components/FilesView/FilesView' {
 }
 
 declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
-    import { MemoryHistory, BrowserHistory, HashHistory } from 'history';
+    import { MemoryHistory, BrowserHistory, HashHistory } from "history";
     interface IParams {
         history: MemoryHistory | BrowserHistory | HashHistory;
         withConfirm?: boolean;
