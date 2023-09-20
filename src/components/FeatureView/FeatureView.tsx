@@ -12,6 +12,7 @@ export const FeatureView = <
   Data extends IAnything = IAnything,
   Payload = IAnything
 >({
+  readonly,
   features,
   expandAll,
   ...oneProps
@@ -22,9 +23,11 @@ export const FeatureView = <
   }, []);
 
   return (
-    <One
-        {...oneProps}
-        fields={fields}
+    <One<any, any>
+      {...oneProps}
+      fields={fields}
+      readonly={readonly}
+      payload={{ readonly }}
     />
   );
 };

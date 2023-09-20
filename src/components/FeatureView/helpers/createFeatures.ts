@@ -2,6 +2,8 @@ import FieldType from "../../../model/FieldType";
 import TypedField from "../../../model/TypedField";
 import IFeatureGroup from "../model/IFeatureGroup";
 
+import or from "../../../utils/math/or";
+
 export const createFeatures = (features: IFeatureGroup[], expandAll = false): TypedField[] =>
   features.map(({ title, expanded = false, children, isVisible }) => ({
     type: FieldType.Expansion,
@@ -16,12 +18,15 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
         defaultValue = false,
         description = name,
         label = name,
-        isDisabled,
+        isDisabled = () => false,
       }) => [
         {
           type: FieldType.Switch,
           defaultValue,
-          isDisabled,
+          isDisabled: (data, payload) => or(
+            isDisabled(data, payload),
+            payload.readonly,
+          ),
           name,
           fieldRightMargin: "0",
           title: label,

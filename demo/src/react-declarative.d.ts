@@ -4466,7 +4466,7 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const FeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
+    export const FeatureView: <Data extends unknown = any, Payload = any>({ readonly, features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
     export default FeatureView;
 }
 
@@ -6720,6 +6720,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
     export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
         fields: never;
         features: never;
+        payload: never;
     }> {
         features: IFeatureGroup<Data, Payload>[];
         expandAll?: boolean;

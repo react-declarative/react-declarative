@@ -4,6 +4,8 @@ import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
+import useActualValue from '../../hooks/useActualValue';
+
 export interface IIfProps<T extends any = object> {
     condition:  boolean | ((payload: T) => boolean | Promise<boolean>);
     children: React.ReactNode;
@@ -35,7 +37,11 @@ export const If = <T extends any = object>({
       isMounted.current = false;
     }, []);
 
+    const condition$ = useActualValue(condition);
+
     useEffect(() => {
+
+        const { current: condition } = condition$;
 
         if (executionRef.current) {
             executionRef.current.cancel();
