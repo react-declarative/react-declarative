@@ -29,6 +29,10 @@ const useStyles = makeStyles()({
         minHeight: '40px !important',
         paddingLeft: '15px !important',
         paddingRight: '15px !important',
+        zIndex: 99,
+    },
+    fab: {
+        zIndex: 99,
     },
 });
 
@@ -81,7 +85,7 @@ export const ActionAdd = ({
             )
         } else {
             return (
-                <Fab disabled size="small" color="primary">
+                <Fab className={classes.fab} disabled size="small" color="primary">
                     <Add color="inherit" />
                 </Fab>
             );
@@ -112,7 +116,7 @@ export const ActionAdd = ({
             )
         } else {
             return (
-                <Fab disabled={loading || disabled} size="small" color="primary" onClick={onClick}>
+                <Fab className={classes.fab} disabled={loading || disabled} size="small" color="primary" onClick={onClick}>
                     <Add color="inherit" />
                 </Fab>
             );
