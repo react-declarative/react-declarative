@@ -6203,8 +6203,18 @@ declare module 'react-declarative/components/PingView/PingView' {
 declare module 'react-declarative/components/HtmlView/HtmlView' {
     import * as React from 'react';
     import { BoxProps } from '@mui/material/Box';
+    interface IConfig {
+        allowElements: string[];
+        blockElements: string[];
+        dropElements: string[];
+        allowAttributes: Record<string, string[]>;
+        dropAttributes: Record<string, string[]>;
+        allowCustomElements: boolean;
+        allowComments: boolean;
+    }
     interface IHtmlViewProps<T extends any = object> extends BoxProps {
         children?: React.ReactNode;
+        config?: Partial<IConfig>;
         handler: (p: T) => (string | Promise<string>);
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
@@ -6213,7 +6223,7 @@ declare module 'react-declarative/components/HtmlView/HtmlView' {
         deps?: any[];
         throwError?: boolean;
     }
-    export const HtmlView: ({ children, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps) => JSX.Element;
+    export const HtmlView: ({ children, config, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps) => JSX.Element;
     export default HtmlView;
 }
 
