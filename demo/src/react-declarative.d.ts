@@ -4497,6 +4497,8 @@ declare module 'react-declarative/components/FeatureView/model/IFeature' {
         description?: string;
         defaultValue?: boolean;
         isDisabled?: IField<Data, Payload>['isDisabled'];
+        isVisible?: IField<Data, Payload>['isVisible'];
+        map?: IField<Data, Payload>['map'];
     }
     export default IFeature;
 }
@@ -4510,6 +4512,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureGroup' {
         expanded?: boolean;
         children: IFeature<Data, Payload>[];
         isVisible?: IField<Data, Payload>['isVisible'];
+        isDisabled?: IField<Data, Payload>['isDisabled'];
     }
     export default IFeatureGroup;
 }

@@ -7,6 +7,8 @@ export interface IFeature<Data extends IAnything = IAnything, Payload = IAnythin
     description?: string;
     defaultValue?: boolean;
     isDisabled?: IField<Data, Payload>['isDisabled'];
+    isVisible?: IField<Data, Payload>['isVisible'];
+    map?: IField<Data, Payload>['map'];
 }
 
 export default IFeature;

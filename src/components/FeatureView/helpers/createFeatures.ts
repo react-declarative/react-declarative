@@ -5,12 +5,13 @@ import IFeatureGroup from "../model/IFeatureGroup";
 import or from "../../../utils/math/or";
 
 export const createFeatures = (features: IFeatureGroup[], expandAll = false): TypedField[] =>
-  features.map(({ title, expanded = false, children, isVisible }) => ({
+  features.map(({ title, expanded = false, children, isVisible, isDisabled }) => ({
     type: FieldType.Expansion,
     fieldRightMargin: "0",
     fieldBottomMargin: "1",
     expansionOpened: expanded || expandAll,
     isVisible,
+    isDisabled,
     title,
     fields: children.flatMap(
       ({
@@ -19,6 +20,8 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
         description = name,
         label = name,
         isDisabled = () => false,
+        isVisible = () => true,
+        map,
       }) => [
         {
           type: FieldType.Switch,
@@ -27,6 +30,8 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
             isDisabled(data, payload),
             payload.readonly,
           ),
+          isVisible,
+          map,
           name,
           fieldRightMargin: "0",
           title: label,

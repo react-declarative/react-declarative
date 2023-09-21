@@ -8,6 +8,7 @@ export interface IFeatureGroup<Data extends IAnything = IAnything, Payload = IAn
     expanded?: boolean;
     children: IFeature<Data, Payload>[];
     isVisible?: IField<Data, Payload>['isVisible'];
+    isDisabled?: IField<Data, Payload>['isDisabled'];
 }
 
 export default IFeatureGroup;
