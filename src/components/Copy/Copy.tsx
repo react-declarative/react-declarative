@@ -12,7 +12,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import classNames from '../../utils/classNames';
 
 interface ICopyProps extends BoxProps {
-    content: React.ReactNode;
+    content: string;
+    children?: React.ReactNode;
     onCopy?: () => void;
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -53,6 +54,7 @@ const createCopyHandler = (content: React.ReactNode) => async () => {
 export const Copy = ({
     className,
     content,
+    children = content,
     onCopy = createCopyHandler(content),
     onLoadStart,
     onLoadEnd,
@@ -93,7 +95,7 @@ export const Copy = ({
             {...otherProps}
         >
             <Typography className={classes.content} variant="body1">
-                {content}
+                {children}
             </Typography>
             <IconButton className={classes.icon} onClick={handleClick} size="small">
                 <ContentCopyIcon fontSize="small" />
