@@ -2409,7 +2409,7 @@ declare module 'react-declarative/model/IOnePublicProps' {
 }
 
 declare module 'react-declarative/components/One/components/common/VirtualListBox' {
-    import * as React from 'react';
+    import * as React from "react";
     interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
         children?: React.ReactNode;
     }

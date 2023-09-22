@@ -1,47 +1,64 @@
-import * as React from 'react';
-import { forwardRef } from 'react';
+import * as React from "react";
+import { forwardRef } from "react";
 
-import VirtualView from '../../../VirtualView';
+import { makeStyles } from "../../../../styles";
 
-import useElementSize from '../../../../hooks/useElementSize';
+import VirtualView from "../../../VirtualView";
+
+import useElementSize from "../../../../hooks/useElementSize";
+
+import classNames from "../../../../utils/classNames";
 
 interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
-    children?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const MIN_ROW_HEIGHT = 54;
 const MAX_POPUP_HEIGHT = 300;
 
-export const VirtualListBox = forwardRef(({
-    children,
-    role,
-    ...other
-}: IVirtualListBoxProps, ref: React.Ref<HTMLDivElement>) => {
+const useStyles = makeStyles()({
+  listBox: {
+    overflow: "hidden !important",
+  },
+});
+
+export const VirtualListBox = forwardRef(
+  (
+    { className, children, role, ...other }: IVirtualListBoxProps,
+    ref: React.Ref<HTMLDivElement>
+  ) => {
+    const { classes } = useStyles();
 
     const { elementRef, size } = useElementSize<HTMLDivElement>();
 
     const itemCount = Array.isArray(children) ? children.length : 0;
 
-    const computeHeight = () => itemCount
+    const computeHeight = () =>
+      itemCount
         ? Math.min(itemCount * MIN_ROW_HEIGHT, MAX_POPUP_HEIGHT)
         : MIN_ROW_HEIGHT;
 
     return (
-        <div ref={ref}>
-            <div ref={elementRef} {...other}>
-                <VirtualView
-                    role={role}
-                    sx={{
-                        width: size.width,
-                        height: `min(${computeHeight()}px, 40vh)`,
-                    }}
-                    minRowHeight={MIN_ROW_HEIGHT}
-                >
-                    {children}
-                </VirtualView>
-            </div>
+      <div ref={ref}>
+        <div
+          {...other}
+          ref={elementRef}
+          className={classNames(classes.listBox, className)}
+        >
+          <VirtualView
+            role={role}
+            sx={{
+              width: size.width,
+              height: `min(${computeHeight()}px, 40vh)`,
+            }}
+            minRowHeight={MIN_ROW_HEIGHT}
+          >
+            {children}
+          </VirtualView>
         </div>
+      </div>
     );
-});
+  }
+);
 
 export default VirtualListBox;
