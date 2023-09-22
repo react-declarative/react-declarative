@@ -11,6 +11,7 @@ import Group from "../../../common/Group";
 import IOneProps from "../../../../model/IOneProps";
 import IAnything from "../../../../model/IAnything";
 import IField from "../../../../model/IField";
+import FieldType from "../../../../model/FieldType";
 
 import classNames from "../../../../utils/classNames";
 import deepFlat from "../../../../utils/deepFlat";
@@ -20,6 +21,7 @@ import StateProvider from "../../context/StateProvider";
 import FeatureProvider from "../../context/FeatureProvider";
 import PayloadProvider from "../../context/PayloadProvider";
 import CacheProvider from "../../context/CacheProvider";
+import RadioProvider from "../../context/RadioProvider";
 
 import SlotFactory from "../SlotFactory";
 
@@ -113,25 +115,37 @@ export const OneGenesis = <
   return (
     <ThemeProvider>
       <CacheProvider>
-        <FeatureProvider features={features}>
-          <PayloadProvider payload={payload}>
-            <StateProvider<Data, Payload, Field> {...stateParams}>
-              <SlotFactory {...slots}>
-                <Group
-                  isBaselineAlign={isBaselineAlign}
-                  className={classNames(className, {
-                    [classes.readonly]: props.readonly,
-                    [classes.rendering]: !rendered,
-                  })}
-                  style={style}
-                  sx={sx}
-                >
-                  <OneInternal<Data, Payload, Field> {...viewParams} />
-                </Group>
-              </SlotFactory>
-            </StateProvider>
-          </PayloadProvider>
-        </FeatureProvider>
+        <RadioProvider
+          initialState={() =>
+            deepFlat(fields)
+              .filter(({ type }) => type === FieldType.Radio)
+              .filter(({ name }) => name)
+              .reduce<Record<string, string | null>>((acm, { name, defaultValue }) => ({
+                ...acm,
+                [name!]: acm[name!] || String(defaultValue) || null,
+              }), {})
+          }
+        >
+          <FeatureProvider features={features}>
+            <PayloadProvider payload={payload}>
+              <StateProvider<Data, Payload, Field> {...stateParams}>
+                <SlotFactory {...slots}>
+                  <Group
+                    isBaselineAlign={isBaselineAlign}
+                    className={classNames(className, {
+                      [classes.readonly]: props.readonly,
+                      [classes.rendering]: !rendered,
+                    })}
+                    style={style}
+                    sx={sx}
+                  >
+                    <OneInternal<Data, Payload, Field> {...viewParams} />
+                  </Group>
+                </SlotFactory>
+              </StateProvider>
+            </PayloadProvider>
+          </FeatureProvider>
+        </RadioProvider>
       </CacheProvider>
     </ThemeProvider>
   );

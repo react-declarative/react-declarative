@@ -275,7 +275,7 @@ declare module 'react-declarative' {
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
-    export { useOneProps, useOneState, useOnePayload, useOneFeatures } from 'react-declarative/components';
+    export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
@@ -4096,6 +4096,7 @@ declare module 'react-declarative/components/One' {
     export { useOneState } from 'react-declarative/components/One/context/StateProvider';
     export { useOnePayload } from 'react-declarative/components/One/context/PayloadProvider';
     export { useOneFeatures } from 'react-declarative/components/One/context/FeatureProvider';
+    export { useOneRadio } from 'react-declarative/components/One/context/RadioProvider';
     export { OtherComboSlot } from 'react-declarative/components/One/other/OtherComboSlot';
     export { OtherItemsSlot } from 'react-declarative/components/One/other/OtherItemsSlot';
     export { useApiHandler } from 'react-declarative/components/One/api/useApiHandler';
@@ -4791,7 +4792,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, labelShrink, noDeselect, freeSolo, title, dirty, invalid, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IComboSlot) => JSX.Element;
         Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, labelShrink, dirty, invalid, title, tr, shouldUpdateItemList: shouldUpdate, onChange, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
-        Radio: ({ disabled, value, onChange, title, radioValue, name, }: import("../..").IRadioSlot) => JSX.Element;
+        Radio: ({ disabled, onChange, title, radioValue, value, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, readonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
@@ -5004,6 +5005,14 @@ declare module 'react-declarative/components/One/context/FeatureProvider' {
     export const FeatureProvider: ({ children, features, }: IFeatureProviderProps) => JSX.Element;
     export const useOneFeatures: () => string[];
     export default FeatureProvider;
+}
+
+declare module 'react-declarative/components/One/context/RadioProvider' {
+    export const RadioProvider: ({ children, initialState, }: {
+        children: import("react").ReactNode;
+        initialState: Record<string, string | null> | (() => Record<string, string | null>);
+    }) => JSX.Element, useOneRadio: () => readonly [Record<string, string | null>, (state: Record<string, string | null> | ((prevState: Record<string, string | null>) => Record<string, string | null>)) => void];
+    export default RadioProvider;
 }
 
 declare module 'react-declarative/components/One/other/OtherComboSlot' {
