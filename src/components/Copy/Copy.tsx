@@ -15,6 +15,7 @@ interface ICopyProps extends BoxProps {
     content: string;
     children?: React.ReactNode;
     onCopy?: () => void;
+    onCopyClick?: () => void;
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -56,6 +57,7 @@ export const Copy = ({
     content,
     children = content,
     onCopy = createCopyHandler(content),
+    onCopyClick,
     onLoadStart,
     onLoadEnd,
     fallback,
@@ -70,6 +72,7 @@ export const Copy = ({
         let isOk = true;
         onLoadStart && onLoadStart();
         try {
+            onCopyClick && onCopyClick();
             await Promise.resolve(onCopy());
         } catch (e: any) {
             isOk = false;

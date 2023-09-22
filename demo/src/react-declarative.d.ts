@@ -6613,12 +6613,13 @@ declare module 'react-declarative/components/Copy/Copy' {
         content: string;
         children?: React.ReactNode;
         onCopy?: () => void;
+        onCopyClick?: () => void;
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    export const Copy: ({ className, content, children, onCopy, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
+    export const Copy: ({ className, content, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
     export default Copy;
 }
 
