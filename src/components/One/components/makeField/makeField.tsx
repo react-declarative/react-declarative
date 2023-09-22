@@ -338,7 +338,7 @@ export function makeField(
                         [memory.fieldName]: !!invalid,
                     });
                 } else if (!deepCompare(object, copy) || wasInvalid) {
-                    change(fieldConfig.skipDebounce ? copy : map(copy, payload), {
+                    change(fieldConfig.skipDebounce ? map(copy, payload) : copy, {
                         [memory.fieldName]: !!invalid,
                     });
                 }
@@ -361,7 +361,7 @@ export function makeField(
             const invalid = isInvalid(copy, payload) || null;
             if (!invalid && wasInvalid) {
                 setInvalid(invalid);
-                change(fieldConfig.skipDebounce ? copy : map(copy, payload), {
+                change(fieldConfig.skipDebounce ? map(copy, payload) : copy, {
                     [memory.fieldName]: !!invalid,
                 });
             }
