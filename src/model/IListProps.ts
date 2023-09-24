@@ -200,6 +200,14 @@ export interface IListProps<
   handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
+  isRowDisabled?: (row: RowData, params: {
+    filterData: FilterData,
+    pagination: ListHandlerPagination,
+    sortModel: ListHandlerSortModel<RowData>,
+    chips: ListHandlerChips<RowData>,
+    search: string,
+    payload: Payload
+  }) => boolean;
   fallback?: (e: Error) => void;
   reloadSubject?: TSubject<void>;
   rerenderSubject?: TSubject<void>;

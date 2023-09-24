@@ -36,3 +36,5 @@ export const createStateProvider = <S extends unknown>() => {
 
   return [Provider, useStateProvider] as const;
 };
+
+export default createStateProvider;

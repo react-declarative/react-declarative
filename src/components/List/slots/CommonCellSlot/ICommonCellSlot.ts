@@ -17,6 +17,7 @@ export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
     row: RowData;
     idx: number;
     fullWidth: number;
+    disabled: boolean;
     mode: DisplayMode;
     onMenuToggle: IActionMenuProps['onToggle'];
     onAction: IActionMenuProps['onAction']

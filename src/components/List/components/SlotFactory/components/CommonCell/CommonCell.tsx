@@ -41,6 +41,7 @@ const useStyles = makeStyles()({
 export const CommonCell = <RowData extends IRowData = IAnything>({
     column,
     row,
+    disabled,
     onMenuToggle,
     onAction,
 }: ICommonCellSlot<RowData>) => {
@@ -119,7 +120,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 deps={[_payload]}
                 onLoadStart={handleLoadStart}
                 onLoadEnd={handleLoadEnd}
-                disabled={loading}
+                disabled={loading || disabled}
                 throwError
             />
         );

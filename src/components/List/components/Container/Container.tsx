@@ -19,6 +19,7 @@ import IRowData from "../../../../model/IRowData";
 import usePayload from "../../hooks/usePayload";
 import usePagination from "../../hooks/usePagination";
 import useConstraintManager from "../../hooks/useConstraintManager";
+import useRowDisabledMap from "../../hooks/useRowDisabledMap";
 
 import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
@@ -112,6 +113,7 @@ export const Container = <
   const pagination = usePagination();
 
   const { constraintManager } = useConstraintManager();
+  const [rowDisabledMap] = useRowDisabledMap();
 
   const {
     className,
@@ -155,6 +157,7 @@ export const Container = <
 
   useEffect(() => {
     constraintManager.clear();
+    rowDisabledMap.clear();
   }, [
     filterData,
     pagination,

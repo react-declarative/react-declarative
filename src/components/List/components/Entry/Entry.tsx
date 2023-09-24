@@ -49,6 +49,7 @@ import SlotFactory from "../SlotFactory";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
 import { SearchProvider } from "../../hooks/useSearch";
+import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
 
 export class Entry<
   FilterData extends {} = IAnything,
@@ -562,29 +563,31 @@ export class Entry<
               <ConstraintManagerProvider payload={this.constraintManager}>
                 <SelectionProvider selectedRows={this.props.selectedRows}>
                   <CachedRowsProvider>
-                    <SortModelProvider sortModel={this.props.sortModel!}>
-                      <ChipsProvider
-                        chips={this.props.chips!}
-                        chipData={this.props.chipData!}
-                      >
-                        <FilterDataProvider value={this.state.filterData}>
-                          <PaginationProvider
-                            limit={this.state.limit}
-                            offset={this.state.offset}
-                          >
-                            <SearchProvider value={this.state.search}>
-                              <ModalSortProvider>
-                                <SlotFactory {...this.props.slots}>
-                                  <PayloadProvider value={this.state.payload}>
-                                    {this.renderInner()}
-                                  </PayloadProvider>
-                                </SlotFactory>
-                              </ModalSortProvider>
-                            </SearchProvider>
-                          </PaginationProvider>
-                        </FilterDataProvider>
-                      </ChipsProvider>
-                    </SortModelProvider>
+                    <RowDisabledMapProvider initialState={() => new Map()}>
+                      <SortModelProvider sortModel={this.props.sortModel!}>
+                        <ChipsProvider
+                          chips={this.props.chips!}
+                          chipData={this.props.chipData!}
+                        >
+                          <FilterDataProvider value={this.state.filterData}>
+                            <PaginationProvider
+                              limit={this.state.limit}
+                              offset={this.state.offset}
+                            >
+                              <SearchProvider value={this.state.search}>
+                                <ModalSortProvider>
+                                  <SlotFactory {...this.props.slots}>
+                                    <PayloadProvider value={this.state.payload}>
+                                      {this.renderInner()}
+                                    </PayloadProvider>
+                                  </SlotFactory>
+                                </ModalSortProvider>
+                              </SearchProvider>
+                            </PaginationProvider>
+                          </FilterDataProvider>
+                        </ChipsProvider>
+                      </SortModelProvider>
+                    </RowDisabledMapProvider>
                   </CachedRowsProvider>
                 </SelectionProvider>
               </ConstraintManagerProvider>

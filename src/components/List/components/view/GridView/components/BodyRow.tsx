@@ -15,6 +15,7 @@ import DisplayMode from "../../../../../../model/DisplayMode";
 
 import { BodyRowSlot, BodyColumn } from "../../../../slots/BodyRowSlot";
 import { IVisibilityRequest } from "../../../../helpers/createConstraintManager";
+import useRowDisabledMap from "../../../../hooks/useRowDisabledMap";
 
 export interface IBodyRowProps<RowData extends IRowData = IAnything> {
   fullWidth: number;
@@ -27,27 +28,28 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
   mode,
   row,
 }: IBodyRowProps<RowData>) => {
-  const { columns: listColumns } = useProps();
+  const { columns: listColumns, isRowDisabled = () => false } = useProps();
 
   const { wrapColumns } = useConstraintManager();
 
   const filterData = useFilterData();
   const pagination = usePagination();
-  const { sortModel, chips } = useProps();
+  const { sort, chips } = useProps();
   const search = useSearch();
   const payload = usePayload();
+  const [disabledMap] = useRowDisabledMap();
 
   const visibilityRequest = useMemo((): IVisibilityRequest => ({
     filterData,
     pagination,
-    sortModel: sortModel || [],
+    sortModel: sort || [],
     chips: chips || {},
     search,
     payload,
   }), [
     filterData,
     pagination,
-    sortModel,
+    sort,
     chips,
     search,
     payload,
@@ -60,14 +62,15 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
       fullWidth,
       mode,
     });
-
+    disabledMap.set(row.id, isRowDisabled(row, visibilityRequest));
     return columns;
-  }, [fullWidth, filterData, visibilityRequest]) as BodyColumn[];
+  }, [fullWidth, visibilityRequest]) as BodyColumn[];
 
   return (
     <BodyRowSlot
       row={row}
       mode={mode}
+      disabled={!!disabledMap.get(row.id)}
       columns={columns}
       fullWidth={fullWidth}
     />

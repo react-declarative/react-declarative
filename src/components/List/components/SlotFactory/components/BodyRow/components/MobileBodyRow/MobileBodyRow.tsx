@@ -19,6 +19,8 @@ import ColumnType from '../../../../../../../../model/ColumnType';
 
 import { IBodyRowSlot, BodyColumn } from '../../../../../../slots/BodyRowSlot';
 
+import classNames from '../../../../../../../../utils/classNames';
+
 import useProps from '../../../../../../hooks/useProps';
 import useSelection from '../../../../../../hooks/useSelection';
 import useReload from '../../../../../../hooks/useReload';
@@ -38,11 +40,16 @@ const useStyles = makeStyles()((theme) => ({
     row: {
         marginBottom: 16,
     },
+    disabled: {
+        pointerEvents: 'none',
+        opacity: 0.5,
+    },
 }));
 
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     row,
     mode,
+    disabled,
     columns,
     fullWidth,
 }: IBodyRowSlot<RowData>) => {
@@ -84,6 +91,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
         ) => (column: BodyColumn, idx: number) => (
             <CommonBodyCell
                 column={column}
+                disabled={disabled}
                 row={row}
                 key={`${prefix}-${idx}`}
                 idx={idx}
@@ -128,10 +136,14 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
             onClick={handleClick}
         >
             <TableCell padding="none">
-                <Table className={classes.row}>
+                <Table
+                    className={classNames(classes.row, {
+                        [classes.disabled]: disabled,
+                    })}
+                >
                     <TableBody>
                         <TableRow>
-                            <CheckboxBodyCell row={row} />
+                            <CheckboxBodyCell disabled={disabled} row={row} />
                             {firstCol}
                             {actionCol}
                         </TableRow>

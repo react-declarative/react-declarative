@@ -18,6 +18,7 @@ import useProps from '../../../../hooks/useProps';
 
 export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
+    disabled: boolean;
 }
 
 const useStyles = makeStyles()({
@@ -35,6 +36,7 @@ const useStyles = makeStyles()({
 
 export const CheckboxCell = <RowData extends IRowData = IAnything>({
     row,
+    disabled,
 }: ICheckboxCellProps<RowData>) => {
 
     const { classes } = useStyles();
@@ -60,7 +62,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                     color="primary"
                     onClick={createToggleHandler(true)}
                     checked={selection.has(row.id)}
-                    disabled={loading}
+                    disabled={loading || disabled}
                 />
             );
         } else if (selectionMode === SelectionMode.Multiple) {
@@ -69,7 +71,7 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
                     color="primary"
                     onClick={createToggleHandler(false)}
                     checked={selection.has(row.id)}
-                    disabled={loading}
+                    disabled={loading || disabled}
                 />
             );
         } else if (selectionMode === SelectionMode.None) {

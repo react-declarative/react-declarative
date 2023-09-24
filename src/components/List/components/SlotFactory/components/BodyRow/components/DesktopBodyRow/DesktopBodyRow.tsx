@@ -17,6 +17,8 @@ import useProps from "../../../../../../hooks/useProps";
 import useReload from "../../../../../../hooks/useReload";
 import useSelection from "../../../../../../hooks/useSelection";
 
+import classNames from "../../../../../../../../utils/classNames";
+
 const CELL_PADDING_LEFT = 32;
 
 const useStyles = makeStyles()({
@@ -28,12 +30,17 @@ const useStyles = makeStyles()({
     minWidth: CELL_PADDING_LEFT,
     maxWidth: CELL_PADDING_LEFT,
   },
+  disabled: {
+    pointerEvents: 'none',
+    opacity: 0.5,
+  },
 });
 
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   row,
   mode,
   columns,
+  disabled,
   fullWidth,
 }: IBodyRowSlot<RowData>) => {
   const [menuOpened, setMenuOpened] = useState(false);
@@ -66,6 +73,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
         {idx > 0 && <TableCell className={classes.separator} />}
         <CommonBodyCell
           column={column}
+          disabled={disabled}
           row={row}
           key={idx}
           idx={idx}
@@ -85,11 +93,13 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   return (
     <TableRow
-      className={classes.root}
+      className={classNames(classes.root, {
+        [classes.disabled]: disabled,
+      })}
       selected={selection.has(row.id)}
       onClick={handleClick}
     >
-      <CheckboxBodyCell row={row} />
+      <CheckboxBodyCell disabled={disabled} row={row} />
       {content}
       <TableCell className={classes.cellStretch} />
     </TableRow>

@@ -13,6 +13,7 @@ export type BodyColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowD
 export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
     fullWidth: number;
     row: RowData;
+    disabled: boolean;
     columns: BodyColumn<RowData>[];
     mode: DisplayMode;
 }

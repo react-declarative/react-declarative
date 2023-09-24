@@ -1555,6 +1555,14 @@ declare module 'react-declarative/model/IListProps' {
         handler: ListHandler<FilterData, RowData>;
         payload?: Payload | (() => Payload);
         rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
+        isRowDisabled?: (row: RowData, params: {
+            filterData: FilterData;
+            pagination: ListHandlerPagination;
+            sortModel: ListHandlerSortModel<RowData>;
+            chips: ListHandlerChips<RowData>;
+            search: string;
+            payload: Payload;
+        }) => boolean;
         fallback?: (e: Error) => void;
         reloadSubject?: TSubject<void>;
         rerenderSubject?: TSubject<void>;
@@ -2518,6 +2526,7 @@ declare module 'react-declarative/utils/createStateProvider' {
         children: React.ReactNode;
         initialState: S | (() => S);
     }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
+    export default createStateProvider;
 }
 
 declare module 'react-declarative/utils/formatText' {
@@ -4728,8 +4737,8 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
     import ISlotFactoryContext from 'react-declarative/components/List/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         BodyRow: <RowData extends import("../../../..").IRowData = any>(props: import("../..").IBodyRowSlot<RowData>) => JSX.Element;
-        CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({ row, }: import("./components/CheckboxCell").ICheckboxCellProps<RowData_1>) => JSX.Element;
-        CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({ column, row, onMenuToggle, onAction, }: import("../..").ICommonCellSlot<RowData_2>) => any;
+        CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({ row, disabled, }: import("./components/CheckboxCell").ICheckboxCellProps<RowData_1>) => JSX.Element;
+        CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({ column, row, disabled, onMenuToggle, onAction, }: import("../..").ICommonCellSlot<RowData_2>) => any;
         HeadRow: (props: import("../..").IHeadRowSlot<any>) => JSX.Element;
         ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
         ActionMenu: ({ options, deps, }: import("../..").IActionMenuSlot) => JSX.Element;
@@ -7339,6 +7348,7 @@ declare module 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot
     export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
         fullWidth: number;
         row: RowData;
+        disabled: boolean;
         columns: BodyColumn<RowData>[];
         mode: DisplayMode;
     }
@@ -7382,6 +7392,7 @@ declare module 'react-declarative/components/List/slots/CommonCellSlot/ICommonCe
         row: RowData;
         idx: number;
         fullWidth: number;
+        disabled: boolean;
         mode: DisplayMode;
         onMenuToggle: IActionMenuProps['onToggle'];
         onAction: IActionMenuProps['onAction'];
@@ -7818,8 +7829,9 @@ declare module 'react-declarative/components/List/components/SlotFactory/compone
     import IAnything from 'react-declarative/model/IAnything';
     export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
         row: RowData;
+        disabled: boolean;
     }
-    export const CheckboxCell: <RowData extends IRowData = any>({ row, }: ICheckboxCellProps<RowData>) => JSX.Element;
+    export const CheckboxCell: <RowData extends IRowData = any>({ row, disabled, }: ICheckboxCellProps<RowData>) => JSX.Element;
     export default CheckboxCell;
 }
 
