@@ -33,6 +33,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
     desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
+    features?: PickProp<IField<Data, Payload>, 'features'>;
 }
 
 /**

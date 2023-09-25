@@ -1088,6 +1088,7 @@ declare module 'react-declarative/model/IManaged' {
             desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
             fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
             fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
+            features?: PickProp<IField<Data, Payload>, 'features'>;
     }
     /**
         * Компонент высшего порядка makeField
