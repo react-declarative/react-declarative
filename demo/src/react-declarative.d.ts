@@ -3042,6 +3042,7 @@ declare module 'react-declarative/components/One/layouts/FragmentLayout' {
     import { PickProp } from 'react-declarative/model/IManaged';
     export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
         isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
+        features?: PickProp<IField<Data, Payload>, 'features'>;
     }
     interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children?: React.ReactNode;
