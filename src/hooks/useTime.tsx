@@ -6,6 +6,8 @@ import dayjs from 'dayjs';
 
 import TimePicker from '../components/common/TimePicker';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn = (d: dayjs.Dayjs | null) => void;
 
 export const useTime = () => {
@@ -31,8 +33,13 @@ export const useTime = () => {
     constructor() {
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<dayjs.Dayjs | null>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 };

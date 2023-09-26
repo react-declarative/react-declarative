@@ -2178,7 +2178,8 @@ declare module 'react-declarative/hooks/useList' {
         title?: string;
     }
     export const useList: <RowData extends IRowData = any>({ handler, columns, rowActions, selectionMode, title: titleDefault, minWidth: minWidthDefault, minHeight: minHeightDefault, selectedRows: selectedRowsDefault, }: IParams<RowData>) => ({ title, minWidth, minHeight, selectedRows, }?: Partial<IParams<RowData>>) => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<RowData[] | null>;
     };
     export default useList;
 }
@@ -2203,7 +2204,8 @@ declare module 'react-declarative/hooks/useConfirm' {
         canCancel?: boolean;
     }
     export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, msg, }?: Partial<IParams>) => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<boolean>;
     };
     export default useConfirm;
 }
@@ -2217,7 +2219,8 @@ declare module 'react-declarative/hooks/usePrompt' {
         canCancel?: boolean;
     }
     export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, placeholder, value, }?: Partial<IParams>) => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<string | null>;
     };
     export default usePrompt;
 }
@@ -2226,7 +2229,8 @@ declare module 'react-declarative/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useDate: () => () => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<dayjs.Dayjs | null>;
     };
     export default useDate;
 }
@@ -2235,7 +2239,8 @@ declare module 'react-declarative/hooks/useTime' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
     export const useTime: () => () => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<dayjs.Dayjs | null>;
     };
     export default useTime;
 }
@@ -2256,10 +2261,12 @@ declare module 'react-declarative/hooks/useOne' {
         waitForChangesDelay?: number;
     }
     export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<Data | null>;
     };
     export const useOneTyped: <Data extends unknown = any, Payload = any>(params: IParams<Data, Payload, TypedField<Data, Payload>>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, TypedField<Data, Payload>>>) => {
-        then(onData: Fn): void;
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<Data | null>;
     };
     export default useOne;
 }

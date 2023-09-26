@@ -5,6 +5,8 @@ import { useModal } from '../components/ModalProvider';
 
 import ConfirmPicker from '../components/common/ConfirmPicker';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn = (result: boolean) => void;
 
 interface IParams {
@@ -53,8 +55,13 @@ export const useConfirm = ({
       msg  !== undefined && setCurrentMsg(msg);
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<boolean>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 

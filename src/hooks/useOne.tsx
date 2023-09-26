@@ -13,6 +13,8 @@ import IOnePublicProps from '../model/IOnePublicProps';
 
 import useActualState from './useActualState';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn<Data = IAnything> = (d: Data | null) => void;
 
 interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
@@ -71,8 +73,13 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
       payload !== undefined && setCurrentPayload(payload);
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<Data | null>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 };

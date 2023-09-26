@@ -5,6 +5,8 @@ import { useModal } from '../components/ModalProvider';
 
 import PromptPicker from '../components/common/PromptPicker';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn = (result: string | null) => void;
 
 interface IParams {
@@ -59,8 +61,13 @@ export const usePrompt = ({
       value  !== undefined && setCurrentValue(value);
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<string | null>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 

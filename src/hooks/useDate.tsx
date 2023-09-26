@@ -6,6 +6,8 @@ import dayjs from 'dayjs';
 
 import DatePicker from '../components/common/DatePicker';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn = (d: dayjs.Dayjs | null) => void;
 
 export const useDate = () => {
@@ -31,8 +33,13 @@ export const useDate = () => {
     constructor() {
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<dayjs.Dayjs | null>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 };

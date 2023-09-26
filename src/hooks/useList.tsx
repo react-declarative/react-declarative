@@ -12,6 +12,8 @@ import SelectionMode from '../model/SelectionMode';
 
 import ListPicker, { IListPickerProps } from '../components/common/ListPicker';
 
+import Subject from '../utils/rx/Subject';
+
 type Fn<Data = IAnything> = (d: Data[] | null) => void;
 
 interface IParams<RowData extends IRowData = IAnything> extends Omit<IListPickerProps<RowData>, keyof {
@@ -89,8 +91,13 @@ export const useList = <RowData extends IRowData = IAnything>({
       selectedRows !== undefined && setSelectedRows(selectedRows);
       showModal();
     };
-    then(onData: Fn) {
+    then = (onData: Fn) => {
       changeRef.current = onData;
+    };
+    toPromise = async () => {
+      const subject = new Subject<RowData[] | null>();
+      this.then(subject.next);
+      return await subject.toPromise();
     };
   }();
 };
