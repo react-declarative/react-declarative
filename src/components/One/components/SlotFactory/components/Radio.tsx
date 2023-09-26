@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -9,7 +9,6 @@ import MatRadio from "@mui/material/Radio";
 import { useOneRadio } from '../../../context/RadioProvider';
 
 import useActualValue from '../../../../../hooks/useActualValue';
-import useChange from '../../../../../hooks/useChange';
 
 import { IRadioSlot } from '../../../slots/RadioSlot';
 
@@ -34,7 +33,7 @@ export const Radio = ({
         onChange(value);
     }, []);
 
-    useChange(() => {
+    useEffect(() => {
         const { current: radioMap } = radioMap$;
         if (value !== radioMap[name]) {
             setValue(value);
@@ -45,7 +44,7 @@ export const Radio = ({
         <FormGroup>
             <RadioGroup
                 name={name}
-                value={radioMap[name] || ''}
+                value={value}
                 onChange={(_, value) => {
                     handleChange(value || null);
                 }}
