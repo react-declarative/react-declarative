@@ -43,6 +43,8 @@ export const createFeatureItem = (
         },
         {
           type: FieldType.Text,
+          fieldRightMargin: "0",
+          fieldBottomMargin: "0",
           sx: {
             "& input": {
               fontWeight: "bold",
