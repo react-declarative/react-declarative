@@ -235,6 +235,7 @@ import { IFeature as IFeatureInternal } from './components/FeatureView';
 
 export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
 export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
+export { FeatureType } from './components/FeatureView';
 
 import { recordToExcelExport } from './components/RecordView';
 export { recordToExcelExport };

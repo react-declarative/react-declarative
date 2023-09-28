@@ -2,7 +2,9 @@ import FieldType from "../../../model/FieldType";
 import TypedField from "../../../model/TypedField";
 import IFeatureGroup from "../model/IFeatureGroup";
 
-import or from "../../../utils/math/or";
+import FeatureType from "../model/FeatureType";
+
+import createFeatureItem from "./createFeatureItem";
 
 export const createFeatures = (features: IFeatureGroup[], expandAll = false): TypedField[] =>
   features.map(({ title, expanded = false, children, isVisible, isDisabled }) => ({
@@ -15,6 +17,7 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
     title,
     fields: children.flatMap(
       ({
+        type = FeatureType.Boolean,
         name,
         defaultValue = false,
         description = name,
@@ -23,20 +26,14 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
         isVisible = () => true,
         map,
       }) => [
-        {
-          type: FieldType.Switch,
+        createFeatureItem(type, {
+          label,
+          name,
           defaultValue,
-          isDisabled: (data, payload) => or(
-            isDisabled(data, payload),
-            payload.readonly,
-          ),
+          isDisabled,
           isVisible,
           map,
-          name,
-          fieldRightMargin: "0",
-          title: label,
-          fieldBottomMargin: "0",
-        },
+        }),
         {
           type: FieldType.Typography,
           typoVariant: "subtitle2",

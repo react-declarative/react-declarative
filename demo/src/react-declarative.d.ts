@@ -191,6 +191,7 @@ declare module 'react-declarative' {
     import { IFeature as IFeatureInternal } from 'react-declarative/components/FeatureView';
     export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
     export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
+    export { FeatureType } from 'react-declarative/components/FeatureView';
     import { recordToExcelExport } from 'react-declarative/components/RecordView';
     export { recordToExcelExport };
     export { ErrorBoundary } from 'react-declarative/components';
@@ -2379,6 +2380,7 @@ declare module 'react-declarative/components/FeatureView' {
     export * from 'react-declarative/components/FeatureView/useFeatureView';
     export * from 'react-declarative/components/FeatureView/model/IFeature';
     export * from 'react-declarative/components/FeatureView/model/IFeatureGroup';
+    export * from 'react-declarative/components/FeatureView/model/FeatureType';
     export { default } from 'react-declarative/components/FeatureView/FeatureView';
 }
 
@@ -4510,7 +4512,9 @@ declare module 'react-declarative/components/FeatureView/useFeatureView' {
 declare module 'react-declarative/components/FeatureView/model/IFeature' {
     import IAnything from "react-declarative/model/IAnything";
     import IField from "react-declarative/model/IField";
+    import FeatureType from 'react-declarative/components/FeatureView/model/FeatureType';
     export interface IFeature<Data extends IAnything = IAnything, Payload = IAnything> {
+        type?: FeatureType;
         name: string;
         label?: string;
         description?: string;
@@ -4534,6 +4538,14 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureGroup' {
         isDisabled?: IField<Data, Payload>['isDisabled'];
     }
     export default IFeatureGroup;
+}
+
+declare module 'react-declarative/components/FeatureView/model/FeatureType' {
+    export enum FeatureType {
+        Boolean = "boolean-feature",
+        Number = "number-feature"
+    }
+    export default FeatureType;
 }
 
 declare module 'react-declarative/components/RecordView/RecordView' {
