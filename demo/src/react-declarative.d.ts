@@ -4518,7 +4518,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeature' {
         name: string;
         label?: string;
         description?: string;
-        defaultValue?: boolean;
+        defaultValue?: string | boolean;
         isDisabled?: IField<Data, Payload>['isDisabled'];
         isVisible?: IField<Data, Payload>['isVisible'];
         map?: IField<Data, Payload>['map'];

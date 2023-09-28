@@ -6,7 +6,7 @@ import TypedField from "../../../model/TypedField";
 import or from "../../../utils/math/or";
 
 interface IParams {
-  defaultValue?: number | boolean;
+  defaultValue?: string | boolean;
   isDisabled?: IField["isDisabled"];
   isVisible?: IField["isVisible"];
   map?: IField["map"];
@@ -36,12 +36,30 @@ export const createFeatureItem = (
       fields: [
         {
           type: FieldType.Typography,
+          fieldRightMargin: "0",
+          fieldBottomMargin: "0",
           typoVariant: "body1",
           placeholder: label,
         },
         {
           type: FieldType.Text,
+          sx: {
+            "& input": {
+              fontWeight: "bold",
+              textAlign: "center",
+            },
+          },
+          isInvalid(data) {
+            if (data[name] === "") {
+              return "Required";
+            }
+            return null;
+          },
+          inputFormatterAllowed: /^[0-9]/,
+          inputFormatterTemplate: "00000",
           name,
+          placeholder: "0",
+          defaultValue,
           title: "",
         },
       ],
