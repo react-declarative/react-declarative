@@ -233,6 +233,11 @@ export const OutletView = <
   );
 
   useEffect(() => {
+    const { location } = history;
+    setPathname(location.pathname);
+  }, []);
+
+  useEffect(() => {
     const waitForConfirm = () => {
       if (confirmRef.current) {
         return confirmSubject.toPromise();
