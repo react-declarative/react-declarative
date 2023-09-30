@@ -29,10 +29,10 @@ declare module 'react-declarative' {
     export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IApiPaginatorParamsInternal<FilterData, RowData>;
     export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IArrayPaginatorParamsInternal<FilterData, RowData>;
     export type IOneApiHandlerParams<Data = any> = IApiHandlerParamsInternal<Data>;
-    import { FieldType as FieldTypeInternal } from 'react-declarative/model/FieldType';
-    import { ColumnType as ColumnTypeInternal } from 'react-declarative/model/ColumnType';
-    import { ActionType as ActionTypeInternal } from 'react-declarative/model/ActionType';
-    import { SelectionMode as SelectionModeInternal } from 'react-declarative/model/SelectionMode';
+    export { FieldType } from 'react-declarative/model/FieldType';
+    export { ColumnType } from 'react-declarative/model/ColumnType';
+    export { ActionType } from 'react-declarative/model/ActionType';
+    export { SelectionMode } from 'react-declarative/model/SelectionMode';
     import { IListApi as IListApiInternal } from 'react-declarative/model/IListApi';
     import { IOneApi as IOneApiInternal } from 'react-declarative/model/IOneApi';
     import { IListOperation as IListOperationInternal } from 'react-declarative/model/IListOperation';
@@ -111,10 +111,6 @@ declare module 'react-declarative' {
     export type ISwitchItem = ISwitchItemInternal;
     export type IActionFilter = IActionFilterInternal;
     export type IActionTrigger<Data extends any = any> = IActionTriggerInternal<Data>;
-    export const FieldType: typeof FieldTypeInternal;
-    export const ColumnType: typeof ColumnTypeInternal;
-    export const ActionType: typeof ActionTypeInternal;
-    export const SelectionMode: typeof SelectionModeInternal;
     export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldInternal<Data, Payload>;
     export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
     export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;

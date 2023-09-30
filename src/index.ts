@@ -15,10 +15,10 @@ export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData e
 export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything>  = IArrayPaginatorParamsInternal<FilterData, RowData>;
 export type IOneApiHandlerParams<Data = any>  = IApiHandlerParamsInternal<Data>;
 
-import { FieldType as FieldTypeInternal } from './model/FieldType';
-import { ColumnType as ColumnTypeInternal } from './model/ColumnType';
-import { ActionType as ActionTypeInternal } from './model/ActionType';
-import { SelectionMode as SelectionModeInternal } from './model/SelectionMode';
+export { FieldType } from './model/FieldType';
+export { ColumnType } from './model/ColumnType';
+export { ActionType } from './model/ActionType';
+export { SelectionMode } from './model/SelectionMode';
 
 import { IListApi as IListApiInternal } from './model/IListApi';
 import { IOneApi as IOneApiInternal } from './model/IOneApi';
@@ -128,11 +128,6 @@ import { IScaffoldOption as IScaffoldOptionInternal  } from './components';
 export type ISwitchItem = ISwitchItemInternal;
 export type IActionFilter = IActionFilterInternal;
 export type IActionTrigger<Data extends any = any> = IActionTriggerInternal<Data>;
-
-export const FieldType = FieldTypeInternal;
-export const ColumnType = ColumnTypeInternal;
-export const ActionType = ActionTypeInternal;
-export const SelectionMode = SelectionModeInternal;
 
 export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldInternal<Data, Payload>;
 export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
