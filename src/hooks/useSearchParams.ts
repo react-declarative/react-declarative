@@ -21,9 +21,8 @@ export const useSearchParams = <T = Record<string, Value>>(
             } else if (value === "null") {
                 set(result, key, null);
             } else {
-                const numberValue = parseFloat(value);
-                if ((!Number.isNaN(numberValue))) {
-                    set(result, key, parseFloat(value));
+                if (!isNaN(value as unknown as number)) {
+                    set(result, key, parseInt(value));
                 } else {
                     set(result, key, value);
                 }
