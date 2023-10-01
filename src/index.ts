@@ -269,6 +269,12 @@ export { If } from './components';
 export { List, ListTyped } from './components';
 export { One, OneTyped, OneConfig } from './components';
 
+export { ClassicChipListSlot } from './components';
+export { ClassicFilterListSlot } from './components';
+export { DialogFilterListSlot } from './components';
+export { ModalFilterListSlot } from './components';
+export { ModernChipListSlot } from './components';
+
 import { Translate } from './components';
 
 export { Translate };

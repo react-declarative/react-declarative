@@ -214,6 +214,11 @@ declare module 'react-declarative' {
     export { If } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped, OneConfig } from 'react-declarative/components';
+    export { ClassicChipListSlot } from 'react-declarative/components';
+    export { ClassicFilterListSlot } from 'react-declarative/components';
+    export { DialogFilterListSlot } from 'react-declarative/components';
+    export { ModalFilterListSlot } from 'react-declarative/components';
+    export { ModernChipListSlot } from 'react-declarative/components';
     import { Translate } from 'react-declarative/components';
     export { Translate };
     export const registerTr: (locale?: {
@@ -4147,6 +4152,11 @@ declare module 'react-declarative/components/List' {
     export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
     export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
     export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
+    export { ClassicChipListSlot } from 'react-declarative/components/List/common/ClassicChipListSlot';
+    export { ClassicFilterListSlot } from 'react-declarative/components/List/common/ClassicFilterListSlot';
+    export { DialogFilterListSlot } from 'react-declarative/components/List/common/DialogFilterListSlot';
+    export { ModalFilterListSlot } from 'react-declarative/components/List/common/ModalFilterListSlot';
+    export { ModernChipListSlot } from 'react-declarative/components/List/common/ModernChipListSlot';
     export { default } from "react-declarative/components/List/List";
 }
 
@@ -4760,11 +4770,11 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
         ActionMenu: ({ options, deps, }: import("../..").IActionMenuSlot) => JSX.Element;
         ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
-        ChipListSlot: <RowData_3 extends import("../../../..").IRowData = any>({ listChips, loading, }: import("../..").IChipListSlot<RowData_3>) => JSX.Element;
+        ChipListSlot: ({ listChips, loading }: import("../..").IChipListSlot<any>) => JSX.Element;
         ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, deps, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
-        FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, clean, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
+        FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
         OperationListSlot: ({ className, style, operations, width, }: import("../..").IOperationListSlot) => JSX.Element;
-        SearchSlot: ({ className, style, label, loading, clean, search, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
+        SearchSlot: ({ className, style, label, loading, search, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -5353,6 +5363,36 @@ declare module 'react-declarative/components/List/hooks/usePayload' {
     export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
     export const usePayload: () => any;
     export default usePayload;
+}
+
+declare module 'react-declarative/components/List/common/ClassicChipListSlot' {
+    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+    export const ClassicChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
+    export default ClassicChipListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ClassicFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const ClassicFilterListSlot: <FilterData extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: IFilterListSlot<FilterData>) => JSX.Element;
+    export default ClassicFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/DialogFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const DialogFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
+    export default DialogFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ModalFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const ModalFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
+    export default ModalFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ModernChipListSlot' {
+    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+    export const ModernChipListSlot: ({ listChips, loading }: IChipListSlot) => JSX.Element;
+    export default ModernChipListSlot;
 }
 
 declare module 'react-declarative/components/NoSsr/NoSsr' {

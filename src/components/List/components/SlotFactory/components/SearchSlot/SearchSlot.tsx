@@ -7,10 +7,8 @@ import classNames from '../../../../../../utils/classNames';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import Restore from '@mui/icons-material/Restore';
 import Search from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 
@@ -60,7 +58,6 @@ export const SearchSlot = ({
   style,
   label,
   loading,
-  clean,
   search,
   onSearchChange = () => null,
 }: ISearchSlot) => {
@@ -79,6 +76,9 @@ export const SearchSlot = ({
             label="Search"
             variant="standard"
             value={search}
+            sx={{
+              maxWidth: 'max(calc(50% - 75px), 256px)',
+            }}
             onChange={({ target }) => onSearchChange(target.value)}
             onKeyDown={({ key, currentTarget }) => {
               if (key === 'Enter' || key === 'Escape') {
@@ -109,11 +109,7 @@ export const SearchSlot = ({
           />
         </Box>
       </div>
-      <div className={classes.controls}>
-        <IconButton disabled={loading} onClick={clean}>
-          <Restore />
-        </IconButton>
-      </div>
+      <div className={classes.controls} />
     </div>
   );
 };

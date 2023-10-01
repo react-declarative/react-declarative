@@ -19,4 +19,10 @@ export { useChips as useListChips } from './hooks/useChips';
 export { useSearch as useListSearch } from './hooks/useSearch';
 export { usePayload as useListPayload } from './hooks/usePayload';
 
+export { ClassicChipListSlot } from './common/ClassicChipListSlot';
+export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';
+export { DialogFilterListSlot } from './common/DialogFilterListSlot';
+export { ModalFilterListSlot } from './common/ModalFilterListSlot';
+export { ModernChipListSlot } from './common/ModernChipListSlot';
+
 export { default } from "./List";
