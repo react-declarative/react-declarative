@@ -21,7 +21,7 @@ export const useSearchParams = <T = Record<string, Value>>(
             } else if (value === "null") {
                 set(result, key, null);
             } else {
-                if (!isNaN(value as unknown as number)) {
+                if (value && !isNaN(value as unknown as number)) {
                     set(result, key, parseInt(value));
                 } else {
                     set(result, key, value);
