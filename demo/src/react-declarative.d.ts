@@ -377,6 +377,7 @@ declare module 'react-declarative' {
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
     export { reloadPage } from 'react-declarative/utils/reloadPage';
+    export { compareFulltext } from 'react-declarative/utils/compareFulltext';
     export { promiseState, promiseValue } from 'react-declarative/utils/promiseState';
     export { chooseMultipleFiles } from 'react-declarative/utils/chooseMultipleFiles';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
@@ -2454,6 +2455,11 @@ declare module 'react-declarative/utils/loadScript' {
 declare module 'react-declarative/utils/reloadPage' {
     export const reloadPage: () => Promise<void>;
     export default reloadPage;
+}
+
+declare module 'react-declarative/utils/compareFulltext' {
+    export const compareFulltext: <T extends Record<string, any>>(data: T, search: string, ...keys: string[]) => boolean;
+    export default compareFulltext;
 }
 
 declare module 'react-declarative/utils/promiseState' {
@@ -4770,7 +4776,7 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
         ActionMenu: ({ options, deps, }: import("../..").IActionMenuSlot) => JSX.Element;
         ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
-        ChipListSlot: ({ listChips, loading }: import("../..").IChipListSlot<any>) => JSX.Element;
+        ChipListSlot: ({ listChips, loading, }: import("../..").IChipListSlot<any>) => JSX.Element;
         ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, deps, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
         FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
         OperationListSlot: ({ className, style, operations, width, }: import("../..").IOperationListSlot) => JSX.Element;
@@ -5391,7 +5397,7 @@ declare module 'react-declarative/components/List/common/ModalFilterListSlot' {
 
 declare module 'react-declarative/components/List/common/ModernChipListSlot' {
     import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
-    export const ModernChipListSlot: ({ listChips, loading }: IChipListSlot) => JSX.Element;
+    export const ModernChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
     export default ModernChipListSlot;
 }
 
@@ -7295,8 +7301,8 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
 }
 
 declare module 'react-declarative/components/FadeView/components/FadeContainer' {
-    import * as React from 'react';
-    import DefaultFade from 'react-declarative/components/FadeView/components/DefaultFade';
+    import * as React from "react";
+    import DefaultFade from "react-declarative/components/FadeView/components/DefaultFade";
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
     export interface IFadeContainerProps {
         className?: string;
