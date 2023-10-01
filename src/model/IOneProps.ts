@@ -124,6 +124,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Слоты для полей ввода
    */
   slots?: Partial<ISlotFactoryContext>;
+  /**
+   * Debounce для FieldType.Text
+   */
+  fieldDebounce?: number;
 }
 
 export default IOneProps;

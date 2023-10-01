@@ -16,6 +16,7 @@ import waitForTouch from '../../../../utils/waitForTouch';
 
 import { makeStyles } from '../../../../styles';
 
+import { useDebounceConfig } from '../../context/DebounceProvider';
 import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
 
@@ -39,7 +40,6 @@ import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
 
-const DEBOUNCE_SPEED = 800;
 const APPLY_ATTEMPTS = 15;
 const APPLY_DELAY = 10;
 
@@ -188,9 +188,11 @@ export function makeField(
             isReadonly,
         });
 
+        const debounceSpeed = useDebounceConfig(oneConfig);
+
         const [debouncedValue, { pending, flush }] = useDebounce(
             value,
-            fieldConfig.skipDebounce ? 0 : DEBOUNCE_SPEED
+            fieldConfig.skipDebounce ? 0 : debounceSpeed
         );
 
         const { memory } = useFieldMemory({

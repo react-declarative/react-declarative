@@ -1845,6 +1845,10 @@ declare module 'react-declarative/model/IOneProps' {
                 * Слоты для полей ввода
                 */
             slots?: Partial<ISlotFactoryContext>;
+            /**
+                * Debounce для FieldType.Text
+                */
+            fieldDebounce?: number;
     }
     export default IOneProps;
 }
@@ -7188,11 +7192,13 @@ declare module 'react-declarative/components/One/slots/FileSlot' {
 }
 
 declare module 'react-declarative/components/One/components/OneConfig/OneConfig' {
+    import { IConfig } from 'react-declarative/components/One/components/OneConfig/OneConfigInstance';
     export const GET_REF_SYMBOL: unique symbol;
     export class OneConfig {
-        static [GET_REF_SYMBOL]: () => import("./OneConfigInstance").IConfig;
-        static setValue: (config: import("./OneConfigInstance").IConfig) => void;
+        static [GET_REF_SYMBOL]: () => IConfig;
+        static setValue: (config: IConfig) => void;
     }
+    export { IConfig };
     export default OneConfig;
 }
 
@@ -7863,6 +7869,23 @@ declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {
     import IFileSlot from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export const FileSlot: (props: IFileSlot) => JSX.Element;
     export default FileSlot;
+}
+
+declare module 'react-declarative/components/One/components/OneConfig/OneConfigInstance' {
+    export interface IConfig {
+        WITH_DIRTY_CLICK_LISTENER: boolean;
+        WITH_MOBILE_READONLY_FALLBACK: boolean;
+        WITH_WAIT_FOR_MOVE_LISTENER: boolean;
+        WITH_WAIT_FOR_TOUCH_LISTENER: boolean;
+        WITH_DISMOUNT_LISTENER: boolean;
+        WITH_SYNC_COMPUTE: boolean;
+        CUSTOM_FIELD_DEBOUNCE: number;
+    }
+    export class OneConfigInstance {
+        getRef: () => IConfig;
+        setValue: (config: IConfig) => void;
+    }
+    export default OneConfigInstance;
 }
 
 declare module 'react-declarative/components/FadeView/components/DefaultFade' {
