@@ -2986,8 +2986,9 @@ declare module 'react-declarative/utils/createSsManager' {
 declare module 'react-declarative/utils/createCustomTag' {
     interface IConfig {
         onClick: (e: MouseEvent) => void;
+        onInit: (element: HTMLDivElement) => void;
     }
-    export const createCustomTag: (name?: string, style?: string, { onClick, }?: Partial<IConfig>) => void;
+    export const createCustomTag: (name?: string, style?: string, { onClick, onInit, }?: Partial<IConfig>) => void;
     export default createCustomTag;
 }
 

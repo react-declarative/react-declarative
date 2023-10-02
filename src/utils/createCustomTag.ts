@@ -1,17 +1,22 @@
 interface IConfig {
     onClick: (e: MouseEvent) => void;
+    onInit: (element: HTMLDivElement) => void;
 }
 
 export const createCustomTag = (name = "bgcolor-red", style = "", {
     onClick,
+    onInit,
 }: Partial<IConfig> = {}) => {
     function CustomTagFactory() {
-        const self: HTMLSpanElement = Reflect.construct(
+        const self: HTMLDivElement = Reflect.construct(
             HTMLElement,
             [],
             CustomTagFactory
         );
         self.setAttribute("style", style);
+        if (onInit) {
+            onInit(self);
+        }
         if (onClick) {
             self.onclick = onClick;
         }

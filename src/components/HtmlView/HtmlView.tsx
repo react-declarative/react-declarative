@@ -90,6 +90,10 @@ export const HtmlView = ({
     );
 };
 
-HtmlView.sanitize = sanitize;
+const sanitizeStr: typeof sanitize = (...args) => {
+    return sanitize(...args).trim();
+};
+
+HtmlView.sanitize = sanitizeStr;
 
 export default HtmlView;
