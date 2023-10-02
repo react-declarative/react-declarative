@@ -2,9 +2,12 @@ import * as React from "react";
 
 import { makeStyles } from "../../styles";
 
+import Box from "@mui/material/Box";
+
 import classNames from "../../utils/classNames";
 
 import useElementSize from "../../hooks/useElementSize";
+import { BoxProps } from "@mui/system";
 
 export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
 
@@ -56,7 +59,7 @@ const useStyles = makeStyles()({
   },
 });
 
-interface IScrollViewProps {
+interface IScrollViewProps extends BoxProps {
   withScrollbar?: boolean;
   hideOverflowX?: boolean;
   hideOverflowY?: boolean;
@@ -74,11 +77,19 @@ export const ScrollView = ({
   withScrollbar = false,
   hideOverflowX = false,
   hideOverflowY = false,
+  ...otherProps
 }: IScrollViewProps) => {
   const { classes } = useStyles();
-  const { elementRef, size: { height, width } } = useElementSize<HTMLDivElement>();
+  const {
+    elementRef,
+    size: { height, width },
+  } = useElementSize<HTMLDivElement>();
   return (
-    <div className={classNames(className, classes.root)} style={style}>
+    <Box
+      className={classNames(className, classes.root)}
+      style={style}
+      {...otherProps}
+    >
       <div
         ref={elementRef}
         className={classNames(classes.container, SCROLL_VIEW_TARGER, {
@@ -102,7 +113,7 @@ export const ScrollView = ({
           {children}
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -6084,8 +6084,9 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {
     import * as React from "react";
+    import { BoxProps } from "@mui/system";
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
-    interface IScrollViewProps {
+    interface IScrollViewProps extends BoxProps {
         withScrollbar?: boolean;
         hideOverflowX?: boolean;
         hideOverflowY?: boolean;
@@ -6094,7 +6095,7 @@ declare module 'react-declarative/components/ScrollView/ScrollView' {
         style?: React.CSSProperties;
         center?: boolean;
     }
-    export const ScrollView: ({ children, className, style, center, withScrollbar, hideOverflowX, hideOverflowY, }: IScrollViewProps) => JSX.Element;
+    export const ScrollView: ({ children, className, style, center, withScrollbar, hideOverflowX, hideOverflowY, ...otherProps }: IScrollViewProps) => JSX.Element;
     export default ScrollView;
 }
 
