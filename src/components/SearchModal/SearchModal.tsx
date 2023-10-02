@@ -31,6 +31,7 @@ export interface ISearchModalProps<
   onSelectedRows: never;
   onLoadStart: never;
   onLoadEnd: never;
+  onRowClick: never;
 }> {
   title?: string;
   data?: IRowData['id'][];
@@ -203,6 +204,7 @@ export const SearchModal = <
               {({ height, width }) => (
                 <List
                   {...listProps}
+                  withSelectOnRowClick
                   selectionMode={selectionMode}
                   onLoadStart={handleLoadStart}
                   onLoadEnd={handleLoadEnd}

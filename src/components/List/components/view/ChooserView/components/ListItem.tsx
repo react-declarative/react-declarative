@@ -92,6 +92,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
 
     const {
         columns = [],
+        withSelectOnRowClick,
         rowActions,
         onRowClick,
         onRowAction,
@@ -104,7 +105,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     const reload = useReload();
     const payload = usePayload();
 
-    const { selection } = useSelection();
+    const { selection, setSelection } = useSelection();
 
     const primaryColumn = columns.find(({ primary }) => primary) || columns.find(({ field }) => !!field);
     const secondaryColumn = columns.find(({ secondary }) => secondary);
@@ -127,7 +128,12 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     
     const handleClick = () => {
         if (!menuOpened) {
-            onRowClick && onRowClick(row, reload);
+            if (withSelectOnRowClick) {
+                selection.has(row.id) ? selection.delete(row.id) : selection.add(row.id);
+                setSelection(selection);
+            } else {
+                onRowClick && onRowClick(row, reload);
+            }
         }
     };
 

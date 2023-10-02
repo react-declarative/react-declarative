@@ -60,7 +60,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const props = useProps<RowData>();
     const reload = useReload();
     
-    const { selection } = useSelection();
+    const { selection, setSelection } = useSelection();
 
     const {
         onRowClick,
@@ -69,7 +69,12 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const handleClick = () => {
         if (!menuOpened) {
-            onRowClick && onRowClick(row, reload);
+            if (props.withSelectOnRowClick) {
+                selection.has(row.id) ? selection.delete(row.id) : selection.add(row.id);
+                setSelection(selection);
+            } else {
+                onRowClick && onRowClick(row, reload);
+            } 
         }
     };
 

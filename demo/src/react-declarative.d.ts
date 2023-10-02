@@ -1576,6 +1576,7 @@ declare module 'react-declarative/model/IListProps' {
         setFilterDataSubject?: TSubject<FilterData>;
         rowActions?: IListRowAction[];
         noInitialFilters?: boolean;
+        withSelectOnRowClick?: boolean;
         withToggledFilters?: boolean;
         withSingleSort?: boolean;
         withSearch?: boolean;
@@ -5854,6 +5855,7 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         onSelectedRows: never;
         onLoadStart: never;
         onLoadEnd: never;
+        onRowClick: never;
     }> {
         title?: string;
         data?: IRowData['id'][];
@@ -5888,7 +5890,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onRowClick, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param) => void;

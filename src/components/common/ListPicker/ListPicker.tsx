@@ -91,6 +91,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
         <List<IAnything, RowData>
           sizeByParent
           withLoader
+          withSelectOnRowClick
           isChooser
           handler={handler}
           columns={columns as IColumn<RowData>[]}

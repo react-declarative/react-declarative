@@ -48,7 +48,6 @@ export const useSearchModal = <
   onChange,
   onAction,
   onRowAction,
-  onRowClick,
   onSubmit = () => true,
   onLoadEnd,
   onLoadStart,
@@ -91,7 +90,6 @@ export const useSearchModal = <
         onLoadStart={onLoadStart}
         onAction={onAction}
         onRowAction={onRowAction}
-        onRowClick={onRowClick}
         submitLabel={submitLabel}
         throwError={throwError}
         onSubmit={handleSubmit}
