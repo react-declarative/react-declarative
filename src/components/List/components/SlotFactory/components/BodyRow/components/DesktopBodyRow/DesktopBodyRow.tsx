@@ -11,6 +11,8 @@ import CommonBodyCell from "./DesktopCommonCell";
 import IRowData from "../../../../../../../../model/IRowData";
 import IAnything from "../../../../../../../../model/IAnything";
 
+import SelectionMode from "../../../../../../../../model/SelectionMode";
+
 import { IBodyRowSlot, BodyColumn } from "../../../../../../slots/BodyRowSlot";
 
 import useProps from "../../../../../../hooks/useProps";
@@ -31,7 +33,7 @@ const useStyles = makeStyles()({
     maxWidth: CELL_PADDING_LEFT,
   },
   disabled: {
-    pointerEvents: 'none',
+    pointerEvents: "none",
     opacity: 0.5,
   },
 });
@@ -55,8 +57,22 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   const handleClick = () => {
     if (!menuOpened) {
-      if (props.withSelectOnRowClick) {
-        selection.has(row.id) ? selection.delete(row.id) : selection.add(row.id);
+      if (
+        props.withSelectOnRowClick &&
+        props.selectionMode !== SelectionMode.None
+      ) {
+        if (props.selectionMode === SelectionMode.Single) {
+          if (selection.has(row.id) && selection.size === 1) {
+            selection.delete(row.id);
+          } else {
+            selection.clear();
+            selection.add(row.id);
+          }
+        } else {
+          selection.has(row.id)
+            ? selection.delete(row.id)
+            : selection.add(row.id);
+        }
         setSelection(selection);
       } else {
         onRowClick && onRowClick(row, reload);
@@ -93,7 +109,6 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const content = columns.map(renderColumn);
 
     return content;
-
   }, [fullWidth]);
 
   return (
