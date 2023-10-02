@@ -374,6 +374,7 @@ declare module 'react-declarative' {
     export type IPositionActionListSlot = IPositionActionListSlotInternal;
     export { VirtualListBox } from 'react-declarative/components/One/components/common/VirtualListBox';
     export { openBlank } from 'react-declarative/utils/openBlank';
+    export { downloadBlank } from 'react-declarative/utils/downloadBlank';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
     export { reloadPage } from 'react-declarative/utils/reloadPage';
@@ -2445,6 +2446,11 @@ declare module 'react-declarative/components/One/components/common/VirtualListBo
 declare module 'react-declarative/utils/openBlank' {
     export const openBlank: (url: string) => void;
     export default openBlank;
+}
+
+declare module 'react-declarative/utils/downloadBlank' {
+    export const downloadBlank: (url: string, name: string) => void;
+    export default downloadBlank;
 }
 
 declare module 'react-declarative/utils/chooseFile' {
