@@ -20,7 +20,7 @@ export const Choose = ({
     description = "",
     outlined = true,
     title = "",
-    placeholder = "No Choose chosen",
+    placeholder = "Not chosen",
     labelShrink = true,
     dirty,
     loading: upperLoading,
@@ -69,7 +69,7 @@ export const Choose = ({
             InputProps={{
                 readOnly: true,
                 inputComponent: Input,
-                placeholder: loading ? "Loading..." : "Not chosen",
+                placeholder: loading ? "Loading..." : placeholder,
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
