@@ -90,4 +90,6 @@ export const HtmlView = ({
     );
 };
 
+HtmlView.sanitize = sanitize;
+
 export default HtmlView;

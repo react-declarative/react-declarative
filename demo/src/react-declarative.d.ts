@@ -6311,7 +6311,10 @@ declare module 'react-declarative/components/HtmlView/HtmlView' {
         deps?: any[];
         throwError?: boolean;
     }
-    export const HtmlView: ({ children, config, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps) => JSX.Element;
+    export const HtmlView: {
+        ({ children, config, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps): JSX.Element;
+        sanitize: (html: string, config?: Partial<IConfig> | undefined) => string;
+    };
     export default HtmlView;
 }
 
