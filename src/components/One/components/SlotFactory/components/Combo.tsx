@@ -89,11 +89,11 @@ export const Combo = ({
     async (object) => {
       const labels: Record<string, string> = {};
       itemList = arrays(itemList) || [];
-      const options = Object.values(
+      const options: string[] = [...new Set(Object.values(
         typeof itemList === "function"
           ? await Promise.resolve(itemList(object, payload))
           : itemList
-      );
+      ))];
       await Promise.all(
         options.map(
           async (item) =>

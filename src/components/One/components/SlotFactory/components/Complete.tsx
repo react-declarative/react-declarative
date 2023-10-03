@@ -133,7 +133,7 @@ export const Complete = ({
             }
             items = items.slice(0, ITEMS_LIMIT);
             setSelectedIdx(-1);
-            setItems(items);
+            setItems([...new Set(items)]);
           } else {
             throw new Error("CompleteField itemList invalid result");
           }

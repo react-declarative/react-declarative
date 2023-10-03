@@ -112,7 +112,7 @@ export const Items = ({
     } = useAsyncAction(async (object) => {
         const labels: Record<string, string> = {};
         itemList = arrays(itemList) || [];
-        const options = Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList);
+        const options: string[] = [...new Set(Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList))];
         await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
         if (freeSolo) {
             value.forEach((item) => {
@@ -215,7 +215,7 @@ export const Items = ({
                 />
                 {freeSolo ? option : (labels[option] || `${option} (unknown)`)}
             </li>
-        );    
+        );
     };
 
     const handleChange = (value: any) => {
