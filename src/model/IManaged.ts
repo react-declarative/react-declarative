@@ -48,6 +48,8 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
     invalidity?: PickProp<IField<Data, Payload>, 'invalidity'>;
     shouldRecompute?: PickProp<IField<Data, Payload>, 'shouldRecompute'>;
+    shouldUpdateItemList?: PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>;
+    shouldUpdateTr?: PickProp<IField<Data, Payload>, 'shouldUpdateTr'>;
     compute?: PickProp<IField<Data, Payload>, 'compute'>;
     focus?: PickProp<IField<Data, Payload>, 'focus'>;
     blur?: PickProp<IField<Data, Payload>, 'blur'>;
