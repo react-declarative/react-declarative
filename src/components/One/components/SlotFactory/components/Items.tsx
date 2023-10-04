@@ -131,14 +131,12 @@ export const Items = ({
 
     const valueHash = getArrayHash(value);
     const prevObject = useRef<any>(null);
-    const initial = useRef(true);
 
     useEffect(() => {
-        if (!shouldUpdate(prevObject.current, object, payload) && !initial.current) {
+        if (!shouldUpdate(prevObject.current, object, payload)) {
             return;
         }
         prevObject.current = object;
-        initial.current = false;
         execute(object);
     }, [
         valueHash,

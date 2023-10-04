@@ -21,6 +21,8 @@ import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
 
 import useDebounce from '../../hooks/useDebounce';
+
+import useManagedCompute from './useManagedCompute';
 import useFieldMemory from './useFieldMemory';
 import useFieldState from './useFieldState';
 
@@ -124,7 +126,8 @@ export function makeField(
         change = DEFAULT_CHANGE,
         fallback = DEFAULT_FALLBACK,
         ready = DEFAULT_READY,
-        compute,
+        compute: upperCompute,
+        shouldRecompute,
         map = DEFAULT_MAP,
         object: upperObject,
         name = '',
@@ -149,6 +152,13 @@ export function makeField(
         const object = stateObject || upperObject;
 
         const { classes } = useStyles();
+
+        const compute = useManagedCompute({
+            compute: upperCompute,
+            object,
+            payload,
+            shouldRecompute,
+        });
         
         const {
             state: {

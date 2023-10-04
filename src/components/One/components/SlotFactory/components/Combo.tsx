@@ -89,11 +89,15 @@ export const Combo = ({
     async (object) => {
       const labels: Record<string, string> = {};
       itemList = arrays(itemList) || [];
-      const options: string[] = [...new Set(Object.values(
-        typeof itemList === "function"
-          ? await Promise.resolve(itemList(object, payload))
-          : itemList
-      ))];
+      const options: string[] = [
+        ...new Set(
+          Object.values(
+            typeof itemList === "function"
+              ? await Promise.resolve(itemList(object, payload))
+              : itemList
+          )
+        ),
+      ];
       await Promise.all(
         options.map(
           async (item) =>
@@ -116,16 +120,11 @@ export const Combo = ({
 
   const valueHash = getArrayHash(value);
   const prevObject = useRef<any>(null);
-  const initial = useRef(true);
 
   useEffect(() => {
-    if (
-      !shouldUpdate(prevObject.current, object, payload) &&
-      !initial.current
-    ) {
+    if (!shouldUpdate(prevObject.current, object, payload)) {
       return;
     }
-    initial.current = false;
     prevObject.current = object;
     execute(object);
   }, [valueHash, disabled, dirty, invalid, object, readonly]);

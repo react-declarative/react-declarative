@@ -309,6 +309,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     shouldUpdateItemList?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean,
 
     /**
+     * Позволяет мемоизировать вызов compute
+     */
+    shouldRecompute?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean;
+
+    /**
      * Позволяет перевести значения у ComboField и ItemsField
      * из поле itemList на человеческий, если
      * используются константы
