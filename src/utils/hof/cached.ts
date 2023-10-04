@@ -1,43 +1,24 @@
+interface IClearable {
+    clear: () => void;
+}
 
-import singleshot, { IClearable } from './singleshot';
+export const cached = <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A | null, currentArgs: A) => boolean, run: T): T & IClearable => {
 
-const NEVER_VALUE = Symbol('never');
-
-export const cached = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
-
-    let lastArgs: any = NEVER_VALUE;
-    
-    const wrappedFn = singleshot(run);
+    let lastArgs: any = null;
+    let initial = true;
+    let lastValue: ReturnType<typeof run>;
 
     const clear = () => {
-        lastArgs = NEVER_VALUE;
-        wrappedFn.clear();
+        lastArgs = null;
     };
 
-    const patch = (args: any[]) => {
-        lastArgs = args;
-        wrappedFn.clear();
-    };
-
-    const executeFn = (...args: any[]) => {
-        if (lastArgs === NEVER_VALUE) {
-            patch(args);
-            return wrappedFn(...args);
-        } else if (args.length !== lastArgs.length) {
-            patch(args);
-            return wrappedFn(...args);
-        } else {
-            let isOk = true;
-            args.forEach((arg, idx) => {
-                isOk = isOk && arg === lastArgs[idx];
-            });
-            if (isOk) {
-                return wrappedFn(...args);
-            } else {
-                patch(args);
-                return wrappedFn(...args);
-            }
+    const executeFn = (...args: A) => {
+        if (changed(lastArgs, args) && !initial) {
+            return lastValue;
         }
+        lastArgs = args;
+        initial = false;
+        return lastValue = run(...args);
     };
 
     executeFn.clear = clear;

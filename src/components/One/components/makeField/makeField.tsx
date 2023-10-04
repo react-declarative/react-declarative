@@ -159,7 +159,7 @@ export function makeField(
             payload,
             shouldRecompute,
         });
-        
+
         const {
             state: {
                 dirty,

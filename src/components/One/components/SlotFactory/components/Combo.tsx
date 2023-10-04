@@ -120,12 +120,14 @@ export const Combo = ({
 
   const valueHash = getArrayHash(value);
   const prevObject = useRef<any>(null);
+  const initial = useRef(true);
 
   useEffect(() => {
-    if (!shouldUpdate(prevObject.current, object, payload)) {
+    if (!shouldUpdate(prevObject.current, object, payload) && !initial) {
       return;
     }
     prevObject.current = object;
+    initial.current = false;
     execute(object);
   }, [valueHash, disabled, dirty, invalid, object, readonly]);
 

@@ -19,6 +19,7 @@ export const useManagedCompute = ({
   payload,
 }: IParams): IField["compute"] => {
   const prevObject = useRef<any>(null);
+  const initial = useRef(true);
 
   const managedCompute = useMemo(() => {
     if (compute) {
@@ -31,10 +32,11 @@ export const useManagedCompute = ({
     if (!compute) {
       return;
     }
-    if (!shouldRecompute(prevObject.current, object, payload)) {
+    if (!shouldRecompute(prevObject.current, object, payload) && !initial.current) {
       return;
     }
     prevObject.current = object;
+    initial.current = false;
     managedCompute?.clear();
   }, [object, payload]);
 

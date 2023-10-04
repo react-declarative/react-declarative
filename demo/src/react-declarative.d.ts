@@ -2645,8 +2645,10 @@ declare module 'react-declarative/utils/hof/queued' {
 }
 
 declare module 'react-declarative/utils/hof/cached' {
-    import { IClearable } from 'react-declarative/utils/hof/singleshot';
-    export const cached: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
+    interface IClearable {
+        clear: () => void;
+    }
+    export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A | null, currentArgs: A) => boolean, run: T) => T & IClearable;
     export default cached;
 }
 
