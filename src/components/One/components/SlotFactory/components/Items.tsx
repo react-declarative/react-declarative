@@ -61,7 +61,6 @@ export const Items = ({
     invalid,
     title,
     tr = (s) => s.toString(),
-    shouldUpdateItemList: shouldUpdate = () => false,
     onChange,
 }: IItemsSlot) => {
 
@@ -135,7 +134,7 @@ export const Items = ({
 
     useEffect(() => {
         if (!initial.current) {
-            if (!shouldUpdate(prevObject.current, object, payload)) {
+            if (prevObject.current === object) {
                 return;
             }
         }

@@ -6,6 +6,7 @@ import { memo, useRef, useCallback, useEffect, Fragment, useMemo } from "react";
 import isStatefull, { isLayout } from "../../config/isStatefull";
 import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";
+import isBaseline from "../../config/isBaseline";
 
 import { useOneState } from "../../context/StateProvider";
 import { useOneCache } from "../../context/CacheProvider";
@@ -17,7 +18,8 @@ import IOneProps from "../../../../model/IOneProps";
 import IEntity from "../../../../model/IEntity";
 import IField from "../../../../model/IField";
 import IAnything from "../../../../model/IAnything";
-import isBaseline from "../../config/isBaseline";
+
+import cached from "../../../../utils/hof/cached";
 
 /**
  * Мы отображаем корневой компонент только после инициализации
@@ -39,6 +41,9 @@ interface IOneInternalProps<
 const DEFAULT_READY_CALLBACK = () => null;
 const DEFAULT_INVALIDITY_CALLBACK = () => null;
 const DEFAULT_FALLBACK = () => null;
+
+const SHOULD_UPDATE_ITEM_LIST_DEFAULT = () => false;
+const SHOULD_UPDATE_TR_DEFAULT = () => true;
 
 export const OneInternal = <
   Data extends IAnything = IAnything,
@@ -64,7 +69,15 @@ export const OneInternal = <
   /**
    * Коллбеки вынесены из тела компонента для мемоизации
    */
-  const { focusMap, blurMap, baselineMap, fieldsMap, statefullMap } = useOneCache();
+  const {
+    focusMap,
+    blurMap,
+    baselineMap,
+    fieldsMap,
+    statefullMap,
+    trMap,
+    itemListMap,
+  } = useOneCache();
 
   /**
    * Итерация дочерних полей на каждый рендеринг
@@ -74,24 +87,26 @@ export const OneInternal = <
     const fields = fieldsMap.has(upperFields)
       ? fieldsMap.get(upperFields)!
       : fieldsMap
-        .set(
-          upperFields,
-          upperFields
-            .filter(
-              (field) =>
-                !features ||
-                !field.features ||
-                field.features.some((feature) => features.includes(feature))
-            )
-            .filter(({ hidden }) => !hidden)
-            .filter(({ type }) => type !== FieldType.Init)
-        )
-        .get(upperFields)!
+          .set(
+            upperFields,
+            upperFields
+              .filter(
+                (field) =>
+                  !features ||
+                  !field.features ||
+                  field.features.some((feature) => features.includes(feature))
+              )
+              .filter(({ hidden }) => !hidden)
+              .filter(({ type }) => type !== FieldType.Init)
+          )
+          .get(upperFields)!;
     return {
       fields,
       statefull: statefullMap.has(upperFields)
         ? statefullMap.get(upperFields)!
-        : statefullMap.set(upperFields, countStatefull(fields)).get(upperFields)!,
+        : statefullMap
+            .set(upperFields, countStatefull(fields))
+            .get(upperFields)!,
     };
   }, []);
 
@@ -131,6 +146,37 @@ export const OneInternal = <
     }
   }, [ready]);
 
+  /**
+   * Подгрузка списка элементов списка по умолчанию
+   * осуществляется только один раз
+   */
+  const makeItemList = useCallback((field: IField) => {
+    const { itemList, shouldUpdateItemList = SHOULD_UPDATE_ITEM_LIST_DEFAULT } =
+      field;
+    if (!itemList) {
+      return undefined;
+    }
+    return itemListMap.has(field)
+      ? itemListMap.get(field)
+      : itemListMap
+          .set(field, cached<any, any>(shouldUpdateItemList, itemList))
+          .get(field);
+  }, []);
+
+  /**
+   * Подгрузка переводов по умолчанию осуществляется
+   * на каждый вызов
+   */
+  const makeTr = useCallback((field: IField) => {
+    const { tr, shouldUpdateTr = SHOULD_UPDATE_TR_DEFAULT } = field;
+    if (!tr) {
+      return undefined;
+    }
+    return trMap.has(field)
+      ? trMap.get(field)
+      : trMap.set(field, cached<any, any>(shouldUpdateTr, tr)).get(field);
+  }, []);
+
   if (object) {
     return (
       <Fragment>
@@ -149,8 +195,8 @@ export const OneInternal = <
             isBaselineAlign:
               baselineMap.get(field) === undefined
                 ? !!baselineMap
-                  .set(field, !field.noBaseline && fields.some(isBaseline))
-                  .get(field)
+                    .set(field, !field.noBaseline && fields.some(isBaseline))
+                    .get(field)
                 : !!baselineMap.get(field),
             ...field,
             placeholder: withNamedPlaceholders
@@ -160,19 +206,21 @@ export const OneInternal = <
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                .set(field, (name: string, payload: Payload) => {
-                  field.focus && field.focus(name, payload);
-                  focus && focus(name, payload);
-                })
-                .get(field),
+                  .set(field, (name: string, payload: Payload) => {
+                    field.focus && field.focus(name, payload);
+                    focus && focus(name, payload);
+                  })
+                  .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                .set(field, (name: string, payload: Payload) => {
-                  field.blur && field.blur(name, payload);
-                  blur && blur(name, payload);
-                })
-                .get(field),
+                  .set(field, (name: string, payload: Payload) => {
+                    field.blur && field.blur(name, payload);
+                    blur && blur(name, payload);
+                  })
+                  .get(field),
+            tr: makeTr(field),
+            itemList: makeItemList(field),
             object,
             dirty,
           };

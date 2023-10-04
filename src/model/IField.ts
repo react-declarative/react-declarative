@@ -303,15 +303,19 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     noDeselect?: boolean;
 
     /**
-     * Позволяет указать условия перезагрузки списка
-     * элементов
-     */
-    shouldUpdateItemList?: (prevData: Data, nextData: Data, payload: Payload) => boolean,
-
-    /**
      * Позволяет мемоизировать вызов compute
      */
     shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
+
+    /**
+     * Позволяет мемоизировать перевод
+     */
+    shouldUpdateTr?: (prevArgs: [string, Data, Payload], currentArgs: [string, Data, Payload]) => boolean;
+
+    /**
+     * Позволяет мемоизировать список элементов
+     */
+    shouldUpdateItemList?: (prevArgs: [Data, Payload], currentArgs: [Data, Payload]) => boolean;
 
     /**
      * Позволяет перевести значения у ComboField и ItemsField
