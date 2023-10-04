@@ -2,12 +2,13 @@ import { useState, useMemo } from "react";
 
 import { IConfig } from "../OneConfig/OneConfigInstance";
 
+import get from "../../../../utils/get";
+import arrays from "../../../../utils/arrays";
+import { promiseValue } from "../../../../utils/promiseState";
+
 import IField, { Value } from "../../../../model/IField";
 import IManaged from "../../../../model/IManaged";
 import IAnything from "../../../../model/IAnything";
-
-import get from "../../../../utils/get";
-import arrays from "../../../../utils/arrays";
 
 interface IState {
   groupRef: HTMLDivElement;
@@ -54,7 +55,7 @@ const readValue = ({ compute, name, object, payload, config }: IParams) => {
    */
   if (compute && config.WITH_SYNC_COMPUTE) {
     const result = compute(arrays(object), payload);
-    return payload instanceof Promise ? false : result;
+    return result instanceof Promise ? promiseValue(result) || false : result;
   }
   /**
    * Чтобы поле input было React-управляемым, нельзя
