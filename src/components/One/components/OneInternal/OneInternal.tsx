@@ -48,6 +48,33 @@ const SHOULD_UPDATE_TR_DEFAULT: IField["shouldUpdateTr"] = (
   [currentValue]
 ) => prevValue !== currentValue;
 
+/**
+ * Подгрузка списка элементов списка по умолчанию
+ * осуществляется только один раз
+ */
+const makeItemList = (field: IField) => {
+  const { itemList, shouldUpdateItemList = SHOULD_UPDATE_ITEM_LIST_DEFAULT } =
+    field;
+  if (!itemList) {
+    return undefined;
+  }
+  return Array.isArray(itemList)
+    ? itemList
+    : cached<any, any>(shouldUpdateItemList, itemList);
+};
+
+/**
+ * Подгрузка переводов по умолчанию осуществляется
+ * на каждый вызов
+ */
+const makeTr = (field: IField) => {
+  const { tr, shouldUpdateTr = SHOULD_UPDATE_TR_DEFAULT } = field;
+  if (!tr) {
+    return undefined;
+  }
+  return cached<any, any>(shouldUpdateTr, tr);
+};
+
 export const OneInternal = <
   Data extends IAnything = IAnything,
   Payload = IAnything,
@@ -149,42 +176,6 @@ export const OneInternal = <
     }
   }, [ready]);
 
-  /**
-   * Подгрузка списка элементов списка по умолчанию
-   * осуществляется только один раз
-   */
-  const makeItemList = useCallback((field: IField) => {
-    const { itemList, shouldUpdateItemList = SHOULD_UPDATE_ITEM_LIST_DEFAULT } =
-      field;
-    if (!itemList) {
-      return undefined;
-    }
-    return itemListMap.has(field)
-      ? itemListMap.get(field)
-      : itemListMap
-          .set(
-            field,
-            Array.isArray(itemList)
-              ? itemList
-              : cached<any, any>(shouldUpdateItemList, itemList)
-          )
-          .get(field);
-  }, []);
-
-  /**
-   * Подгрузка переводов по умолчанию осуществляется
-   * на каждый вызов
-   */
-  const makeTr = useCallback((field: IField) => {
-    const { tr, shouldUpdateTr = SHOULD_UPDATE_TR_DEFAULT } = field;
-    if (!tr) {
-      return undefined;
-    }
-    return trMap.has(field)
-      ? trMap.get(field)
-      : trMap.set(field, cached<any, any>(shouldUpdateTr, tr)).get(field);
-  }, []);
-
   if (object) {
     return (
       <Fragment>
@@ -227,8 +218,12 @@ export const OneInternal = <
                     blur && blur(name, payload);
                   })
                   .get(field),
-            tr: makeTr(field),
-            itemList: makeItemList(field),
+            tr: trMap.has(field)
+              ? trMap.get(field)
+              : trMap.set(field, makeTr(field)).get(field),
+            itemList: itemListMap.has(field)
+              ? itemListMap.get(field)
+              : itemListMap.set(field, makeItemList(field)).get(field),
             object,
             dirty,
           };
