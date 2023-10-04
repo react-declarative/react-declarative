@@ -51,6 +51,7 @@ export const Combo = ({
   outlined = true,
   itemList = [],
   virtualListBox,
+  watchItemList,
   labelShrink,
   noDeselect,
   freeSolo,
@@ -58,7 +59,6 @@ export const Combo = ({
   dirty,
   invalid,
   tr = (s) => s.toString(),
-  shouldUpdateItemList: shouldUpdate = () => false,
   onChange,
 }: IComboSlot) => {
   const { object } = useOneState();
@@ -124,7 +124,10 @@ export const Combo = ({
 
   useEffect(() => {
     if (!initial.current) {
-      if (!shouldUpdate(prevObject.current, object, payload)) {
+      if (prevObject.current === object) {
+        return;
+      }
+      if (!watchItemList) {
         return;
       }
     }

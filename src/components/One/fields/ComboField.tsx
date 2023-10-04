@@ -16,7 +16,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
   noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
-  shouldUpdateItemList?: PickProp<IField<Data, Payload>, "shouldUpdateItemList">;
+  watchItemList?: PickProp<IField<Data, Payload>, "watchItemList">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
@@ -43,13 +43,13 @@ export const ComboField = ({
   itemList = [],
   freeSolo = false,
   virtualListBox = true,
+  watchItemList,
   noDeselect,
   labelShrink,
   title = "",
   dirty,
   invalid,
   tr = (s) => s.toString(),
-  shouldUpdateItemList,
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
   <Combo
@@ -62,8 +62,8 @@ export const ComboField = ({
     itemList={itemList}
     noDeselect={noDeselect}
     virtualListBox={virtualListBox}
+    watchItemList={watchItemList}
     labelShrink={labelShrink}
-    shouldUpdateItemList={shouldUpdateItemList}
     freeSolo={freeSolo}
     title={title}
     dirty={dirty}

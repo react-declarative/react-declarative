@@ -11,6 +11,8 @@ interface IContext {
   baselineMap: Map<IField, boolean>;
   fieldsMap: Map<IField[], IField[]>;
   statefullMap: Map<IField[], number>;
+  trMap: Map<IField, IField['tr']>;
+  itemListMap: Map<IField, IField['itemList']>;
 }
 
 const CacheContext = createContext<IContext>(null as never);
@@ -28,6 +30,8 @@ export const CacheProvider = ({ children }: ICacheProviderProps) => {
       baselineMap: new Map<IField, boolean>(),
       fieldsMap: new Map<IField[], IField[]>(),
       statefullMap: new Map<IField[], number>(),
+      trMap: new Map<IField, IField['tr']>(),
+      itemListMap: new Map<IField, IField['shouldUpdateItemList']>(),
     });
     return fnMap;
   }, []);
