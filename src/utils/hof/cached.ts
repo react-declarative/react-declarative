@@ -2,7 +2,7 @@ interface IClearable {
     clear: () => void;
 }
 
-export const cached = <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A | null, currentArgs: A) => boolean, run: T): T & IClearable => {
+export const cached = <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T): T & IClearable => {
 
     let lastArgs: any = null;
     let initial = true;
@@ -13,8 +13,10 @@ export const cached = <T extends (...args: A) => any, A extends any[]>(changed: 
     };
 
     const executeFn = (...args: A) => {
-        if (changed(lastArgs, args) && !initial) {
-            return lastValue;
+        if (!initial) {
+            if (!changed(lastArgs, args)) {
+                return lastValue;
+            }
         }
         lastArgs = args;
         initial = false;

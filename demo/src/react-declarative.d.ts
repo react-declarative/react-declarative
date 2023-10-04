@@ -822,11 +822,11 @@ declare module 'react-declarative/model/IField' {
                 * Позволяет указать условия перезагрузки списка
                 * элементов
                 */
-            shouldUpdateItemList?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean;
+            shouldUpdateItemList?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
             /**
                 * Позволяет мемоизировать вызов compute
                 */
-            shouldRecompute?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean;
+            shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
             /**
                 * Позволяет перевести значения у ComboField и ItemsField
                 * из поле itemList на человеческий, если
@@ -2648,7 +2648,7 @@ declare module 'react-declarative/utils/hof/cached' {
     interface IClearable {
         clear: () => void;
     }
-    export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A | null, currentArgs: A) => boolean, run: T) => T & IClearable;
+    export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T) => T & IClearable;
     export default cached;
 }
 

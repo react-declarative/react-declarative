@@ -306,12 +306,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Позволяет указать условия перезагрузки списка
      * элементов
      */
-    shouldUpdateItemList?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean,
+    shouldUpdateItemList?: (prevData: Data, nextData: Data, payload: Payload) => boolean,
 
     /**
      * Позволяет мемоизировать вызов compute
      */
-    shouldRecompute?: (prevData: Data | null, nextData: Data, payload: Payload) => boolean;
+    shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
 
     /**
      * Позволяет перевести значения у ComboField и ItemsField

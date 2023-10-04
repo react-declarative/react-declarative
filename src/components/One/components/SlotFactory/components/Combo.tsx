@@ -123,8 +123,10 @@ export const Combo = ({
   const initial = useRef(true);
 
   useEffect(() => {
-    if (!shouldUpdate(prevObject.current, object, payload) && !initial) {
-      return;
+    if (!initial.current) {
+      if (!shouldUpdate(prevObject.current, object, payload)) {
+        return;
+      }
     }
     prevObject.current = object;
     initial.current = false;

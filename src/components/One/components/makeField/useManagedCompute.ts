@@ -32,8 +32,10 @@ export const useManagedCompute = ({
     if (!compute) {
       return;
     }
-    if (!shouldRecompute(prevObject.current, object, payload) && !initial.current) {
-      return;
+    if (!initial.current) {
+      if (!shouldRecompute(prevObject.current, object, payload)) {
+        return;
+      }
     }
     prevObject.current = object;
     initial.current = false;
