@@ -51,6 +51,7 @@ export const Combo = ({
   outlined = true,
   itemList = [],
   virtualListBox,
+  watchItemList,
   labelShrink,
   noDeselect,
   freeSolo,
@@ -124,6 +125,9 @@ export const Combo = ({
   useEffect(() => {
     if (!initial.current) {
       if (prevObject.current === object) {
+        return;
+      }
+      if (!watchItemList) {
         return;
       }
     }

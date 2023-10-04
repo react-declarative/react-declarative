@@ -303,6 +303,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     noDeselect?: boolean;
 
     /**
+     * Включает change-detection для выпадающих меню. По умолчанию выключено
+     */
+    watchItemList?: boolean;
+
+    /**
      * Позволяет мемоизировать вызов compute
      */
     shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;

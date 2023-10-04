@@ -43,7 +43,10 @@ const DEFAULT_INVALIDITY_CALLBACK = () => null;
 const DEFAULT_FALLBACK = () => null;
 
 const SHOULD_UPDATE_ITEM_LIST_DEFAULT = () => false;
-const SHOULD_UPDATE_TR_DEFAULT = () => true;
+const SHOULD_UPDATE_TR_DEFAULT: IField["shouldUpdateTr"] = (
+  [prevValue],
+  [currentValue]
+) => prevValue !== currentValue;
 
 export const OneInternal = <
   Data extends IAnything = IAnything,
@@ -159,7 +162,12 @@ export const OneInternal = <
     return itemListMap.has(field)
       ? itemListMap.get(field)
       : itemListMap
-          .set(field, cached<any, any>(shouldUpdateItemList, itemList))
+          .set(
+            field,
+            Array.isArray(itemList)
+              ? itemList
+              : cached<any, any>(shouldUpdateItemList, itemList)
+          )
           .get(field);
   }, []);
 

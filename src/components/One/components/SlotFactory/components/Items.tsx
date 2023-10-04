@@ -56,6 +56,7 @@ export const Items = ({
     freeSolo,
     noDeselect,
     virtualListBox,
+    watchItemList,
     labelShrink,
     dirty,
     invalid,
@@ -135,6 +136,9 @@ export const Items = ({
     useEffect(() => {
         if (!initial.current) {
             if (prevObject.current === object) {
+                return;
+            }
+            if (!watchItemList) {
                 return;
             }
         }
