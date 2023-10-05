@@ -829,11 +829,11 @@ declare module 'react-declarative/model/IField' {
             /**
                 * Позволяет мемоизировать перевод
                 */
-            shouldUpdateTr?: (prevArgs: [string, Data, Payload], currentArgs: [string, Data, Payload]) => boolean;
+            shouldUpdateTr?: (prevArgs: [string, Data], currentArgs: [string, Data], payload: Payload) => boolean;
             /**
                 * Позволяет мемоизировать список элементов
                 */
-            shouldUpdateItemList?: (prevArgs: [Data, Payload], currentArgs: [Data, Payload]) => boolean;
+            shouldUpdateItemList?: (prevData: Data, currentData: Data, payload: Payload) => boolean;
             /**
                 * Позволяет перевести значения у ComboField и ItemsField
                 * из поле itemList на человеческий, если

@@ -10,6 +10,7 @@ import isBaseline from "../../config/isBaseline";
 
 import { useOneState } from "../../context/StateProvider";
 import { useOneCache } from "../../context/CacheProvider";
+import { useOnePayload } from "../../context/PayloadProvider";
 
 import { typeToString } from "../../helpers/typeToString";
 
@@ -56,7 +57,7 @@ const SHOULD_UPDATE_TR_DEFAULT: IField["shouldUpdateTr"] = (
  * Подгрузка списка элементов списка по умолчанию
  * осуществляется только один раз
  */
-const makeItemList = (field: IField) => {
+const makeItemList = (field: IField, payload: IAnything) => {
   const { itemList, shouldUpdateItemList = SHOULD_UPDATE_ITEM_LIST_DEFAULT } =
     field;
   if (!itemList) {
@@ -64,19 +65,26 @@ const makeItemList = (field: IField) => {
   }
   return Array.isArray(itemList)
     ? itemList
-    : cached<any, any>(shouldUpdateItemList, itemList);
+    : cached<any, any>(
+        (prevArgs, currentArgs) =>
+          shouldUpdateItemList(prevArgs[0], currentArgs[0], payload),
+        itemList
+      );
 };
 
 /**
  * Подгрузка переводов по умолчанию осуществляется
  * на каждый вызов
  */
-const makeTr = (field: IField) => {
+const makeTr = (field: IField, payload: IAnything) => {
   const { tr, shouldUpdateTr = SHOULD_UPDATE_TR_DEFAULT } = field;
   if (!tr) {
     return undefined;
   }
-  return cached<any, any>(shouldUpdateTr, tr);
+  return cached<any, any>(
+    (prevArgs, currentArgs) => shouldUpdateTr(prevArgs, currentArgs, payload),
+    tr
+  );
 };
 
 export const OneInternal = <
@@ -100,6 +108,9 @@ export const OneInternal = <
   createLayout = createLayoutInternal,
   withNamedPlaceholders,
 }: IOneInternalProps<Data, Payload, Field>) => {
+
+  const payload = useOnePayload();
+
   /**
    * Коллбеки вынесены из тела компонента для мемоизации
    */
@@ -224,10 +235,10 @@ export const OneInternal = <
                   .get(field),
             tr: trMap.has(field)
               ? trMap.get(field)
-              : trMap.set(field, makeTr(field)).get(field),
+              : trMap.set(field, makeTr(field, payload)).get(field),
             itemList: itemListMap.has(field)
               ? itemListMap.get(field)
-              : itemListMap.set(field, makeItemList(field)).get(field),
+              : itemListMap.set(field, makeItemList(field, payload)).get(field),
             object,
             dirty,
           };
