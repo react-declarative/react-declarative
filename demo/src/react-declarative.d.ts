@@ -6532,13 +6532,13 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
     }> {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
-        handler?: () => (Promise<void> | void);
+        handler?: () => Promise<void> | void;
         fallback?: (e: Error) => void;
         throwError?: boolean;
         size?: number | string;
     }
     export const LoaderView: {
-        ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, ...otherProps }: ILoaderViewProps): JSX.Element;
+        ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, sx, ...otherProps }: ILoaderViewProps): JSX.Element;
         createLoader(size: number): () => JSX.Element;
     };
     export default LoaderView;
