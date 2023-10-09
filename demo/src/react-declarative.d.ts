@@ -2458,12 +2458,18 @@ declare module 'react-declarative/components/One/components/common/VirtualListBo
 }
 
 declare module 'react-declarative/utils/openBlank' {
-    export const openBlank: (url: string) => void;
+    export const openBlank: {
+        (url: string): void;
+        override(ref: (url: string) => void): void;
+    };
     export default openBlank;
 }
 
 declare module 'react-declarative/utils/downloadBlank' {
-    export const downloadBlank: (url: string, name: string) => void;
+    export const downloadBlank: {
+        (url: string, name: string): void;
+        override(ref: (url: string, name: string) => void): void;
+    };
     export default downloadBlank;
 }
 

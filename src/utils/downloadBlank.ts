@@ -1,4 +1,10 @@
+let overrideRef: ((url: string, name: string) => void) | null = null
+
 export const downloadBlank = (url: string, name: string) => {
+    if (overrideRef) {
+        overrideRef(url, name);
+        return;
+    }
     const a = document.createElement('a');
     a.href = url;
     a.download = name;
@@ -12,5 +18,9 @@ export const downloadBlank = (url: string, name: string) => {
     });
     a.click();
 }
+
+downloadBlank.override = (ref: (url: string, name: string) => void) => {
+    overrideRef = ref;
+};
 
 export default downloadBlank;
