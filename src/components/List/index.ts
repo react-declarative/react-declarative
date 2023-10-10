@@ -25,4 +25,6 @@ export { DialogFilterListSlot } from './common/DialogFilterListSlot';
 export { ModalFilterListSlot } from './common/ModalFilterListSlot';
 export { ModernChipListSlot } from './common/ModernChipListSlot';
 
+export * from './hooks/useColumnConfig';
+
 export { default } from "./List";

@@ -9,6 +9,9 @@ import { ITab as ITabInternal } from './model/ITab';
 
 import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
 import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from './components/List/api/useArrayPaginator';
+
+export { useColumnConfig } from './components/List';
+
 import { IApiHandlerParams as IApiHandlerParamsInternal } from './components/One/api/useApiHandler';
 
 export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything>  = IApiPaginatorParamsInternal<FilterData, RowData>;

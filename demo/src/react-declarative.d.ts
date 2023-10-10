@@ -25,6 +25,7 @@ declare module 'react-declarative' {
     import { ITab as ITabInternal } from 'react-declarative/model/ITab';
     import { IApiPaginatorParams as IApiPaginatorParamsInternal } from 'react-declarative/components/List/api/useApiPaginator';
     import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from 'react-declarative/components/List/api/useArrayPaginator';
+    export { useColumnConfig } from 'react-declarative/components/List';
     import { IApiHandlerParams as IApiHandlerParamsInternal } from 'react-declarative/components/One/api/useApiHandler';
     export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IApiPaginatorParamsInternal<FilterData, RowData>;
     export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = IArrayPaginatorParamsInternal<FilterData, RowData>;
@@ -1270,6 +1271,33 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
     }
     export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData, any>, { searchEntries, searchFilterChars, responseMap, removeEmptyFilters, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
     export default useArrayPaginator;
+}
+
+declare module 'react-declarative/components/List' {
+    export * from "react-declarative/components/List/List";
+    export * from "react-declarative/components/List/slots";
+    export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
+    export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
+    export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
+    export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
+    export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
+    export { useCachedPaginator } from 'react-declarative/components/List/api/useCachedPaginator';
+    export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
+    export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
+    export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
+    export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
+    export { usePagination as useListPagination } from 'react-declarative/components/List/hooks/usePagination';
+    export { useSortModel as useListSortModel } from 'react-declarative/components/List/hooks/useSortModel';
+    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
+    export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
+    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
+    export { ClassicChipListSlot } from 'react-declarative/components/List/common/ClassicChipListSlot';
+    export { ClassicFilterListSlot } from 'react-declarative/components/List/common/ClassicFilterListSlot';
+    export { DialogFilterListSlot } from 'react-declarative/components/List/common/DialogFilterListSlot';
+    export { ModalFilterListSlot } from 'react-declarative/components/List/common/ModalFilterListSlot';
+    export { ModernChipListSlot } from 'react-declarative/components/List/common/ModernChipListSlot';
+    export * from 'react-declarative/components/List/hooks/useColumnConfig';
+    export { default } from "react-declarative/components/List/List";
 }
 
 declare module 'react-declarative/components/One/api/useApiHandler' {
@@ -4085,11 +4113,276 @@ declare module 'react-declarative/components/List/api/useLastPagination' {
     export default useLastPagination;
 }
 
+declare module 'react-declarative/components/List/List' {
+    import IRowData from "react-declarative/model/IRowData";
+    import IField from "react-declarative/model/IField";
+    import IListProps from "react-declarative/model/IListProps";
+    import TypedField from "react-declarative/model/TypedField";
+    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
+    export default List;
+}
+
+declare module 'react-declarative/components/List/slots' {
+    export * from 'react-declarative/components/List/slots/ActionAddSlot';
+    export * from 'react-declarative/components/List/slots/ActionFabSlot';
+    export * from 'react-declarative/components/List/slots/ActionMenuSlot';
+    export * from 'react-declarative/components/List/slots/BodyRowSlot';
+    export * from 'react-declarative/components/List/slots/CheckboxCellSlot';
+    export * from 'react-declarative/components/List/slots/CommonCellSlot';
+    export * from 'react-declarative/components/List/slots/HeadRowSlot';
+    export * from 'react-declarative/components/List/slots/ActionListSlot';
+    export * from 'react-declarative/components/List/slots/ChipListSlot';
+    export * from 'react-declarative/components/List/slots/FilterListSlot';
+    export * from 'react-declarative/components/List/slots/OperationListSlot';
+    export * from 'react-declarative/components/List/slots/SearchSlot';
+}
+
+declare module 'react-declarative/components/List/hooks/useProps' {
+    import * as React from 'react';
+    import IListProps, { IListCallbacks, IListState } from 'react-declarative/model/IListProps';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IField from 'react-declarative/model/IField';
+    import IRowData from 'react-declarative/model/IRowData';
+    interface IPropContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
+        limit: never;
+        chips: never;
+        search: never;
+        filterData: never;
+        isChooser: never;
+        payload: never;
+    }>, IListState<FilterData, RowData>, IListCallbacks<FilterData, RowData> {
+        children: React.ReactNode;
+    }
+    export const PropProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IPropContext<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const useProps: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => IPropContext<FilterData, RowData, Payload, Field>;
+    export default useProps;
+}
+
+declare module 'react-declarative/components/List/hooks/useCachedRows' {
+    import React from 'react';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IRowData, { RowId } from 'react-declarative/model/IRowData';
+    export const useCachedRows: <RowData extends IRowData = any>() => IState<RowData>;
+    interface ICachedRowsProviderProps {
+        children: React.ReactNode;
+    }
+    interface IState<RowData extends IRowData = IAnything> {
+        cachedRows: Map<RowId, RowData>;
+        selectedRows: RowData[];
+    }
+    export const CachedRowsProvider: <RowData extends IRowData = any>({ children, }: ICachedRowsProviderProps) => JSX.Element;
+    export default useCachedRows;
+}
+
+declare module 'react-declarative/components/List/api/useQueryPagination' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IListProps from "react-declarative/model/IListProps";
+    import IRowData from "react-declarative/model/IRowData";
+    interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        filterData: IListProps<FilterData, RowData>['filterData'];
+        sortModel: IListProps<FilterData, RowData>['sortModel'];
+        chipData: IListProps<FilterData, RowData>['chipData'];
+        limit: IListProps<FilterData, RowData>['limit'];
+        page: IListProps<FilterData, RowData>['page'];
+        search: IListProps<FilterData, RowData>['search'];
+    }
+    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
+        onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
+        onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
+        onPageChange: IListProps<FilterData, RowData>['onPageChange'];
+        onSortModelChange: IListProps<FilterData, RowData>['onSortModelChange'];
+        onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
+        onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
+        onChange?: (pagination: string) => void;
+        fallback?: (e: Error) => void;
+    }
+    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined>;
+    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
+    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
+    export const DEFAULT_QUERY: IQuery;
+    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
+        setFilterData: (data: FilterData) => void;
+        setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
+        setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
+        setLimit: (limit: number) => void;
+        setPage: (page: number) => void;
+        setSearch: (search: string) => void;
+        getFilterData: () => Exclude<Partial<FilterData>, undefined>;
+        getSortModel: () => import("../../../model/IListProps").ListHandlerSortModel<RowData>;
+        getChipData: () => Exclude<Partial<Record<keyof RowData, boolean>>, undefined>;
+        getLimit: () => number;
+        getPage: () => number;
+        getSearch: () => string;
+        listProps: {
+            filterData: Partial<FilterData> | undefined;
+            sortModel: import("../../../model/IListProps").ListHandlerSortModel<RowData> | undefined;
+            chipData: Partial<Record<keyof RowData, boolean>> | undefined;
+            limit: number | undefined;
+            page: number | undefined;
+            search: string | undefined;
+            fallback?: ((e: Error) => void) | undefined;
+            onFilterChange: (data: FilterData) => void;
+            onLimitChange: (limit: number) => void;
+            onPageChange: (page: number) => void;
+            onSortModelChange: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
+            onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
+            onSearchChange: (search: string) => void;
+        };
+    };
+    export default useQueryPagination;
+}
+
+declare module 'react-declarative/components/List/api/useCachedPaginator' {
+    import { ListHandler } from 'react-declarative/model/IListProps';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IRowData from 'react-declarative/model/IRowData';
+    import { IArrayPaginatorParams } from "react-declarative/components/List/api/useArrayPaginator";
+    interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        handler: ListHandler<FilterData, RowData>;
+        clear: () => void;
+    }
+    export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
+    export default useCachedPaginator;
+}
+
 declare module 'react-declarative/components/List/components/SlotFactory' {
     export * from 'react-declarative/components/List/components/SlotFactory/SlotFactory';
     export * from 'react-declarative/components/List/components/SlotFactory/SlotContext';
     export * from 'react-declarative/components/List/components/SlotFactory/ISlotFactoryContext';
     export { default } from 'react-declarative/components/List/components/SlotFactory/SlotFactory';
+}
+
+declare module 'react-declarative/components/List/hooks/useFilterData' {
+    import * as React from "react";
+    import IListProps from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    import IRowData from "react-declarative/model/IRowData";
+    type IContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> = Exclude<IListProps<FilterData, RowData, Payload, Field>["filterData"], undefined>;
+    interface IProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
+        value: IContext<FilterData, RowData, Payload, Field>;
+        children: React.ReactNode;
+    }
+    export const FilterDataProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ children, value, }: IProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const useFilterData: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => Exclude<Partial<FilterData>, undefined>;
+    export default useFilterData;
+}
+
+declare module 'react-declarative/components/List/hooks/usePagination' {
+    import * as React from "react";
+    import { ListHandlerPagination } from "react-declarative/model/IListProps";
+    type IContext = ListHandlerPagination;
+    interface IProps extends IContext {
+        children: React.ReactNode;
+    }
+    export const PaginationProvider: ({ children, limit, offset }: IProps) => JSX.Element;
+    export const usePagination: () => ListHandlerPagination;
+    export default usePagination;
+}
+
+declare module 'react-declarative/components/List/hooks/useSortModel' {
+    import React from 'react';
+    import { IListSortItem, ListHandlerSortModel } from 'react-declarative/model/IListProps';
+    export const useSortModel: () => IState;
+    interface ISortModelProviderProps {
+        children: React.ReactNode;
+        sortModel: ListHandlerSortModel;
+    }
+    interface IState {
+        sortModel: Map<IListSortItem['field'], IListSortItem>;
+        setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
+    }
+    export const SortModelProvider: ({ children, sortModel: upperSortModel, }: ISortModelProviderProps) => JSX.Element;
+    export default useSortModel;
+}
+
+declare module 'react-declarative/components/List/hooks/useChips' {
+    import React from 'react';
+    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
+    export const useChips: () => IState;
+    interface IChipsProviderProps {
+        children: React.ReactNode;
+        chips: IListChip[];
+        chipData: ListHandlerChips;
+    }
+    interface IState {
+        chips: Map<string, boolean>;
+        setChips: (s: Map<string, boolean>) => void;
+    }
+    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
+    export default useChips;
+}
+
+declare module 'react-declarative/components/List/hooks/useSearch' {
+    import * as React from "react";
+    type IContext = string;
+    interface IProps {
+        value: IContext;
+        children: React.ReactNode;
+    }
+    export const SearchProvider: (props: IProps) => JSX.Element;
+    export const useSearch: () => string;
+    export default useSearch;
+}
+
+declare module 'react-declarative/components/List/hooks/usePayload' {
+    import * as React from 'react';
+    import IListProps from 'react-declarative/model/IListProps';
+    interface IPayloadProviderProps {
+        children: React.ReactNode;
+        value: Exclude<IListProps['payload'], undefined>;
+    }
+    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
+    export const usePayload: () => any;
+    export default usePayload;
+}
+
+declare module 'react-declarative/components/List/common/ClassicChipListSlot' {
+    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+    export const ClassicChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
+    export default ClassicChipListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ClassicFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const ClassicFilterListSlot: <FilterData extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: IFilterListSlot<FilterData>) => JSX.Element;
+    export default ClassicFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/DialogFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const DialogFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
+    export default DialogFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ModalFilterListSlot' {
+    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+    export const ModalFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
+    export default ModalFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/common/ModernChipListSlot' {
+    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+    export const ModernChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
+    export default ModernChipListSlot;
+}
+
+declare module 'react-declarative/components/List/hooks/useColumnConfig' {
+    import IColumn from "react-declarative/model/IColumn";
+    interface IParams {
+        fullScreen?: boolean;
+        storageKey: string;
+        columns: IColumn[];
+    }
+    export const useColumnConfig: ({ storageKey, fullScreen, columns: upperColumns, }: IParams) => {
+        open: boolean;
+        columns: IColumn<any, any, any>[];
+        pickColumns: (param?: any) => void;
+        render: () => JSX.Element;
+    };
+    export default useColumnConfig;
 }
 
 declare module 'react-declarative/components/One/components/SlotFactory' {
@@ -4175,32 +4468,6 @@ declare module 'react-declarative/components/One' {
 declare module 'react-declarative/components/Dot' {
     export * from 'react-declarative/components/Dot/Dot';
     export { default } from 'react-declarative/components/Dot/Dot';
-}
-
-declare module 'react-declarative/components/List' {
-    export * from "react-declarative/components/List/List";
-    export * from "react-declarative/components/List/slots";
-    export { useProps as useListProps } from 'react-declarative/components/List/hooks/useProps';
-    export { useCachedRows as useListCachedRows } from 'react-declarative/components/List/hooks/useCachedRows';
-    export { useApiPaginator } from 'react-declarative/components/List/api/useApiPaginator';
-    export { useLastPagination } from 'react-declarative/components/List/api/useLastPagination';
-    export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
-    export { useCachedPaginator } from 'react-declarative/components/List/api/useCachedPaginator';
-    export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
-    export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
-    export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
-    export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
-    export { usePagination as useListPagination } from 'react-declarative/components/List/hooks/usePagination';
-    export { useSortModel as useListSortModel } from 'react-declarative/components/List/hooks/useSortModel';
-    export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
-    export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
-    export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
-    export { ClassicChipListSlot } from 'react-declarative/components/List/common/ClassicChipListSlot';
-    export { ClassicFilterListSlot } from 'react-declarative/components/List/common/ClassicFilterListSlot';
-    export { DialogFilterListSlot } from 'react-declarative/components/List/common/DialogFilterListSlot';
-    export { ModalFilterListSlot } from 'react-declarative/components/List/common/ModalFilterListSlot';
-    export { ModernChipListSlot } from 'react-declarative/components/List/common/ModernChipListSlot';
-    export { default } from "react-declarative/components/List/List";
 }
 
 declare module 'react-declarative/components/NoSsr' {
@@ -4793,6 +5060,78 @@ declare module 'react-declarative/components/common/Expansion' {
     export { default } from 'react-declarative/components/common/Expansion/Expansion';
 }
 
+declare module 'react-declarative/components/List/slots/ActionAddSlot' {
+    export * from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
+    export * from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
+    export { default } from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
+}
+
+declare module 'react-declarative/components/List/slots/ActionFabSlot' {
+    export * from 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot';
+    export * from 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot';
+    export { default } from 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot';
+}
+
+declare module 'react-declarative/components/List/slots/ActionMenuSlot' {
+    export * from 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot';
+    export * from 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot';
+    export { default } from 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot';
+}
+
+declare module 'react-declarative/components/List/slots/BodyRowSlot' {
+    export * from 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot';
+    export * from 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot';
+    export { default } from 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot';
+}
+
+declare module 'react-declarative/components/List/slots/CheckboxCellSlot' {
+    export * from 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot';
+    export * from 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot';
+    export { default } from 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot';
+}
+
+declare module 'react-declarative/components/List/slots/CommonCellSlot' {
+    export * from 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot';
+    export * from 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot';
+    export { default } from 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot';
+}
+
+declare module 'react-declarative/components/List/slots/HeadRowSlot' {
+    export * from 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot';
+    export * from 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot';
+    export { default } from 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot';
+}
+
+declare module 'react-declarative/components/List/slots/ActionListSlot' {
+    export * from 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot';
+    export * from 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot';
+    export { default } from 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot';
+}
+
+declare module 'react-declarative/components/List/slots/ChipListSlot' {
+    export * from 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot';
+    export * from 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot';
+    export { default } from 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot';
+}
+
+declare module 'react-declarative/components/List/slots/FilterListSlot' {
+    export * from 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot';
+    export * from 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot';
+    export { default } from 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot';
+}
+
+declare module 'react-declarative/components/List/slots/OperationListSlot' {
+    export * from 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot';
+    export * from 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot';
+    export { default } from 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot';
+}
+
+declare module 'react-declarative/components/List/slots/SearchSlot' {
+    export * from 'react-declarative/components/List/slots/SearchSlot/ISearchSlot';
+    export * from 'react-declarative/components/List/slots/SearchSlot/SearchSlot';
+    export { default } from 'react-declarative/components/List/slots/SearchSlot/SearchSlot';
+}
+
 declare module 'react-declarative/components/List/components/SlotFactory/SlotFactory' {
     import * as React from 'react';
     import ISlotFactoryContext from 'react-declarative/components/List/components/SlotFactory/ISlotFactoryContext';
@@ -5187,255 +5526,6 @@ declare module 'react-declarative/components/Dot/Dot' {
     }
     export const Dot: ({ className, color: background, side, ...otherProps }: IDotProps) => JSX.Element;
     export default Dot;
-}
-
-declare module 'react-declarative/components/List/List' {
-    import IRowData from "react-declarative/model/IRowData";
-    import IField from "react-declarative/model/IField";
-    import IListProps from "react-declarative/model/IListProps";
-    import TypedField from "react-declarative/model/TypedField";
-    export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
-    export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
-    export default List;
-}
-
-declare module 'react-declarative/components/List/slots' {
-    export * from 'react-declarative/components/List/slots/ActionAddSlot';
-    export * from 'react-declarative/components/List/slots/ActionFabSlot';
-    export * from 'react-declarative/components/List/slots/ActionMenuSlot';
-    export * from 'react-declarative/components/List/slots/BodyRowSlot';
-    export * from 'react-declarative/components/List/slots/CheckboxCellSlot';
-    export * from 'react-declarative/components/List/slots/CommonCellSlot';
-    export * from 'react-declarative/components/List/slots/HeadRowSlot';
-    export * from 'react-declarative/components/List/slots/ActionListSlot';
-    export * from 'react-declarative/components/List/slots/ChipListSlot';
-    export * from 'react-declarative/components/List/slots/FilterListSlot';
-    export * from 'react-declarative/components/List/slots/OperationListSlot';
-    export * from 'react-declarative/components/List/slots/SearchSlot';
-}
-
-declare module 'react-declarative/components/List/hooks/useProps' {
-    import * as React from 'react';
-    import IListProps, { IListCallbacks, IListState } from 'react-declarative/model/IListProps';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IField from 'react-declarative/model/IField';
-    import IRowData from 'react-declarative/model/IRowData';
-    interface IPropContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
-        limit: never;
-        chips: never;
-        search: never;
-        filterData: never;
-        isChooser: never;
-        payload: never;
-    }>, IListState<FilterData, RowData>, IListCallbacks<FilterData, RowData> {
-        children: React.ReactNode;
-    }
-    export const PropProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IPropContext<FilterData, RowData, Payload, Field>) => JSX.Element;
-    export const useProps: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => IPropContext<FilterData, RowData, Payload, Field>;
-    export default useProps;
-}
-
-declare module 'react-declarative/components/List/hooks/useCachedRows' {
-    import React from 'react';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData, { RowId } from 'react-declarative/model/IRowData';
-    export const useCachedRows: <RowData extends IRowData = any>() => IState<RowData>;
-    interface ICachedRowsProviderProps {
-        children: React.ReactNode;
-    }
-    interface IState<RowData extends IRowData = IAnything> {
-        cachedRows: Map<RowId, RowData>;
-        selectedRows: RowData[];
-    }
-    export const CachedRowsProvider: <RowData extends IRowData = any>({ children, }: ICachedRowsProviderProps) => JSX.Element;
-    export default useCachedRows;
-}
-
-declare module 'react-declarative/components/List/api/useQueryPagination' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IListProps from "react-declarative/model/IListProps";
-    import IRowData from "react-declarative/model/IRowData";
-    interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
-        filterData: IListProps<FilterData, RowData>['filterData'];
-        sortModel: IListProps<FilterData, RowData>['sortModel'];
-        chipData: IListProps<FilterData, RowData>['chipData'];
-        limit: IListProps<FilterData, RowData>['limit'];
-        page: IListProps<FilterData, RowData>['page'];
-        search: IListProps<FilterData, RowData>['search'];
-    }
-    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
-        removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
-        onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
-        onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
-        onPageChange: IListProps<FilterData, RowData>['onPageChange'];
-        onSortModelChange: IListProps<FilterData, RowData>['onSortModelChange'];
-        onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
-        onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
-        onChange?: (pagination: string) => void;
-        fallback?: (e: Error) => void;
-    }
-    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined>;
-    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
-    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
-    export const DEFAULT_QUERY: IQuery;
-    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
-        setFilterData: (data: FilterData) => void;
-        setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
-        setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
-        setLimit: (limit: number) => void;
-        setPage: (page: number) => void;
-        setSearch: (search: string) => void;
-        getFilterData: () => Exclude<Partial<FilterData>, undefined>;
-        getSortModel: () => import("../../../model/IListProps").ListHandlerSortModel<RowData>;
-        getChipData: () => Exclude<Partial<Record<keyof RowData, boolean>>, undefined>;
-        getLimit: () => number;
-        getPage: () => number;
-        getSearch: () => string;
-        listProps: {
-            filterData: Partial<FilterData> | undefined;
-            sortModel: import("../../../model/IListProps").ListHandlerSortModel<RowData> | undefined;
-            chipData: Partial<Record<keyof RowData, boolean>> | undefined;
-            limit: number | undefined;
-            page: number | undefined;
-            search: string | undefined;
-            fallback?: ((e: Error) => void) | undefined;
-            onFilterChange: (data: FilterData) => void;
-            onLimitChange: (limit: number) => void;
-            onPageChange: (page: number) => void;
-            onSortModelChange: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
-            onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
-            onSearchChange: (search: string) => void;
-        };
-    };
-    export default useQueryPagination;
-}
-
-declare module 'react-declarative/components/List/api/useCachedPaginator' {
-    import { ListHandler } from 'react-declarative/model/IListProps';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IRowData from 'react-declarative/model/IRowData';
-    import { IArrayPaginatorParams } from "react-declarative/components/List/api/useArrayPaginator";
-    interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
-        handler: ListHandler<FilterData, RowData>;
-        clear: () => void;
-    }
-    export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
-    export default useCachedPaginator;
-}
-
-declare module 'react-declarative/components/List/hooks/useFilterData' {
-    import * as React from "react";
-    import IListProps from "react-declarative/model/IListProps";
-    import IAnything from "react-declarative/model/IAnything";
-    import IField from "react-declarative/model/IField";
-    import IRowData from "react-declarative/model/IRowData";
-    type IContext<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> = Exclude<IListProps<FilterData, RowData, Payload, Field>["filterData"], undefined>;
-    interface IProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> {
-        value: IContext<FilterData, RowData, Payload, Field>;
-        children: React.ReactNode;
-    }
-    export const FilterDataProvider: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ children, value, }: IProps<FilterData, RowData, Payload, Field>) => JSX.Element;
-    export const useFilterData: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>() => Exclude<Partial<FilterData>, undefined>;
-    export default useFilterData;
-}
-
-declare module 'react-declarative/components/List/hooks/usePagination' {
-    import * as React from "react";
-    import { ListHandlerPagination } from "react-declarative/model/IListProps";
-    type IContext = ListHandlerPagination;
-    interface IProps extends IContext {
-        children: React.ReactNode;
-    }
-    export const PaginationProvider: ({ children, limit, offset }: IProps) => JSX.Element;
-    export const usePagination: () => ListHandlerPagination;
-    export default usePagination;
-}
-
-declare module 'react-declarative/components/List/hooks/useSortModel' {
-    import React from 'react';
-    import { IListSortItem, ListHandlerSortModel } from 'react-declarative/model/IListProps';
-    export const useSortModel: () => IState;
-    interface ISortModelProviderProps {
-        children: React.ReactNode;
-        sortModel: ListHandlerSortModel;
-    }
-    interface IState {
-        sortModel: Map<IListSortItem['field'], IListSortItem>;
-        setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
-    }
-    export const SortModelProvider: ({ children, sortModel: upperSortModel, }: ISortModelProviderProps) => JSX.Element;
-    export default useSortModel;
-}
-
-declare module 'react-declarative/components/List/hooks/useChips' {
-    import React from 'react';
-    import { IListChip, ListHandlerChips } from 'react-declarative/model/IListProps';
-    export const useChips: () => IState;
-    interface IChipsProviderProps {
-        children: React.ReactNode;
-        chips: IListChip[];
-        chipData: ListHandlerChips;
-    }
-    interface IState {
-        chips: Map<string, boolean>;
-        setChips: (s: Map<string, boolean>) => void;
-    }
-    export const ChipsProvider: ({ children, chips: upperChips, chipData, }: IChipsProviderProps) => JSX.Element;
-    export default useChips;
-}
-
-declare module 'react-declarative/components/List/hooks/useSearch' {
-    import * as React from "react";
-    type IContext = string;
-    interface IProps {
-        value: IContext;
-        children: React.ReactNode;
-    }
-    export const SearchProvider: (props: IProps) => JSX.Element;
-    export const useSearch: () => string;
-    export default useSearch;
-}
-
-declare module 'react-declarative/components/List/hooks/usePayload' {
-    import * as React from 'react';
-    import IListProps from 'react-declarative/model/IListProps';
-    interface IPayloadProviderProps {
-        children: React.ReactNode;
-        value: Exclude<IListProps['payload'], undefined>;
-    }
-    export const PayloadProvider: ({ children, value, }: IPayloadProviderProps) => JSX.Element;
-    export const usePayload: () => any;
-    export default usePayload;
-}
-
-declare module 'react-declarative/components/List/common/ClassicChipListSlot' {
-    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
-    export const ClassicChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
-    export default ClassicChipListSlot;
-}
-
-declare module 'react-declarative/components/List/common/ClassicFilterListSlot' {
-    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
-    export const ClassicFilterListSlot: <FilterData extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: IFilterListSlot<FilterData>) => JSX.Element;
-    export default ClassicFilterListSlot;
-}
-
-declare module 'react-declarative/components/List/common/DialogFilterListSlot' {
-    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
-    export const DialogFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
-    export default DialogFilterListSlot;
-}
-
-declare module 'react-declarative/components/List/common/ModalFilterListSlot' {
-    import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
-    export const ModalFilterListSlot: <FilterData extends {}>({ className, style, filterData, filters, change, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, }: IFilterListSlot) => JSX.Element;
-    export default ModalFilterListSlot;
-}
-
-declare module 'react-declarative/components/List/common/ModernChipListSlot' {
-    import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
-    export const ModernChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
-    export default ModernChipListSlot;
 }
 
 declare module 'react-declarative/components/NoSsr/NoSsr' {
@@ -7053,76 +7143,265 @@ declare module 'react-declarative/components/common/Expansion/Expansion' {
     export default Expansion;
 }
 
-declare module 'react-declarative/components/List/slots/BodyRowSlot' {
-    export * from 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot';
-    export * from 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot';
-    export { default } from 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot';
+declare module 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    export interface IActionAddSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
+        action?: string;
+        label?: string;
+        height: number;
+        width: number;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
+    }
+    export default IActionAddSlot;
 }
 
-declare module 'react-declarative/components/List/slots/CheckboxCellSlot' {
-    export * from 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot';
-    export * from 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot';
-    export { default } from 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot';
+declare module 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot' {
+    import IActionAddSlot from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
+    export const ActionAddSlot: (props: IActionAddSlot) => JSX.Element;
+    export default ActionAddSlot;
 }
 
-declare module 'react-declarative/components/List/slots/CommonCellSlot' {
-    export * from 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot';
-    export * from 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot';
-    export { default } from 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot';
+declare module 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot' {
+    import React from "react";
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    export interface IActionFabSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
+        action?: string;
+        label?: string;
+        icon?: React.ComponentType<any>;
+        height: number;
+        width: number;
+        isVisible?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
+        isDisabled?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
+    }
+    export default IActionFabSlot;
 }
 
-declare module 'react-declarative/components/List/slots/HeadRowSlot' {
-    export * from 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot';
-    export * from 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot';
-    export { default } from 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot';
+declare module 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot' {
+    import IActionFabSlot from 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot';
+    export const ActionFabSlot: (props: IActionFabSlot) => JSX.Element;
+    export default ActionFabSlot;
 }
 
-declare module 'react-declarative/components/List/slots/ActionAddSlot' {
-    export * from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
-    export * from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
-    export { default } from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
+declare module 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { IListActionOption } from "react-declarative/model/IListProps";
+    export interface IActionMenuSlot {
+        options?: Partial<IListActionOption>[];
+        deps?: IAnything[];
+    }
+    export default IActionMenuSlot;
 }
 
-declare module 'react-declarative/components/List/slots/ActionMenuSlot' {
-    export * from 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot';
-    export * from 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot';
-    export { default } from 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot';
+declare module 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot' {
+    import IActionMenuSlot from 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot';
+    export const ActionMenuSlot: (props: IActionMenuSlot) => JSX.Element;
+    export default ActionMenuSlot;
 }
 
-declare module 'react-declarative/components/List/slots/ActionFabSlot' {
-    export * from 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot';
-    export * from 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot';
-    export { default } from 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot';
+declare module 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import IColumn from "react-declarative/model/IColumn";
+    import DisplayMode from "react-declarative/model/DisplayMode";
+    export type BodyColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
+        width: never;
+    }> & {
+        width: string;
+    };
+    export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
+        fullWidth: number;
+        row: RowData;
+        disabled: boolean;
+        columns: BodyColumn<RowData>[];
+        mode: DisplayMode;
+    }
+    export default IBodyRowSlot;
 }
 
-declare module 'react-declarative/components/List/slots/ActionListSlot' {
-    export * from 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot';
-    export * from 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot';
-    export { default } from 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot';
+declare module 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot' {
+    import IBodyRowSlot from 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot';
+    export const BodyRowSlot: (props: IBodyRowSlot) => JSX.Element;
+    export default BodyRowSlot;
 }
 
-declare module 'react-declarative/components/List/slots/ChipListSlot' {
-    export * from 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot';
-    export * from 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot';
-    export { default } from 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot';
+declare module 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import { ICheckboxCellProps } from "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell";
+    export interface ICheckboxCellSlot<RowData extends IRowData = IAnything> extends ICheckboxCellProps<RowData> {
+    }
+    export default ICheckboxCellSlot;
 }
 
-declare module 'react-declarative/components/List/slots/FilterListSlot' {
-    export * from 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot';
-    export * from 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot';
-    export { default } from 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot';
+declare module 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot' {
+    import ICheckboxCellSlot from 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot';
+    export const CheckboxCellSlot: (props: ICheckboxCellSlot) => JSX.Element;
+    export default CheckboxCellSlot;
 }
 
-declare module 'react-declarative/components/List/slots/OperationListSlot' {
-    export * from 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot';
-    export * from 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot';
-    export { default } from 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot';
+declare module 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot' {
+    import { IActionMenuProps } from "react-declarative/components/ActionMenu";
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import IColumn from "react-declarative/model/IColumn";
+    import DisplayMode from "react-declarative/model/DisplayMode";
+    export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
+        width: never;
+    }> & {
+        width: string;
+    };
+    export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
+        column: CommonCellColumn<RowData>;
+        row: RowData;
+        idx: number;
+        fullWidth: number;
+        disabled: boolean;
+        mode: DisplayMode;
+        onMenuToggle: IActionMenuProps['onToggle'];
+        onAction: IActionMenuProps['onAction'];
+    }
+    export default ICommonCellSlot;
 }
 
-declare module 'react-declarative/components/List/slots/SearchSlot' {
-    export * from 'react-declarative/components/List/slots/SearchSlot/ISearchSlot';
-    export * from 'react-declarative/components/List/slots/SearchSlot/SearchSlot';
-    export { default } from 'react-declarative/components/List/slots/SearchSlot/SearchSlot';
+declare module 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot' {
+    import ICommonCellSlot from 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot';
+    export const CommonCellSlot: (props: ICommonCellSlot) => JSX.Element;
+    export default CommonCellSlot;
+}
+
+declare module 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IRowData from "react-declarative/model/IRowData";
+    import IColumn from "react-declarative/model/IColumn";
+    import DisplayMode from "react-declarative/model/DisplayMode";
+    export type HeadColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
+        width: never;
+    }> & {
+        width: string;
+    };
+    export interface IHeadRowSlot<RowData extends IRowData = IAnything> {
+        columns: HeadColumn<RowData>[];
+        fullWidth: number;
+        mode: DisplayMode;
+    }
+    export default IHeadRowSlot;
+}
+
+declare module 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot' {
+    import IHeadRowSlot from 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot';
+    export const HeadRowSlot: (props: IHeadRowSlot) => JSX.Element;
+    export default HeadRowSlot;
+}
+
+declare module 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot' {
+    import { IListAction } from "react-declarative/model/IListProps";
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IActionListSlot<FilterData extends {} = IAnything> {
+        className?: string;
+        style?: React.CSSProperties;
+        filterData: FilterData;
+        actions: IListAction[];
+        deps?: any[];
+        height: number;
+        width: number;
+        title?: string;
+    }
+    export default IActionListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot' {
+    import IActionListSlot from 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot';
+    export const ActionListSlot: (props: IActionListSlot) => JSX.Element;
+    export default ActionListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IListProps from "react-declarative/model/IListProps";
+    import IRowData from "react-declarative/model/IRowData";
+    export interface IChipListSlot<RowData extends IRowData = IAnything> {
+        listChips: IListProps<RowData>['chips'];
+        loading: boolean;
+    }
+    export default IChipListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot' {
+    import IChipListSlot from 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot';
+    export const ChipListSlot: (props: IChipListSlot) => JSX.Element;
+    export default ChipListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IFilterListSlot<FilterData extends {} = IAnything> {
+        className?: string;
+        filterData: FilterData;
+        style?: React.CSSProperties;
+        filters: IField<FilterData>[];
+        change: (data: FilterData) => void;
+        onSearchChange?: (search: string) => void;
+        onFilterChange?: (data: FilterData) => void;
+        onCollapsedChange?: (collapsed: boolean) => void;
+        withToggledFilters?: boolean;
+        ready: () => void;
+        clean: () => void;
+        loading: boolean;
+        label: string;
+        search: string;
+        withSearch: boolean;
+        height: number;
+        width: number;
+    }
+    export default IFilterListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot' {
+    import IFilterListSlot from 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot';
+    export const FilterListSlot: (props: IFilterListSlot) => JSX.Element;
+    export default FilterListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot' {
+    import IListOperation from "react-declarative/model/IListOperation";
+    export interface IOperationListSlot {
+        className?: string;
+        style?: React.CSSProperties;
+        operations: IListOperation[];
+        width: number;
+    }
+    export default IOperationListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot' {
+    import IOperationListSlot from 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot';
+    export const OperationListSlot: (props: IOperationListSlot) => JSX.Element;
+    export default OperationListSlot;
+}
+
+declare module 'react-declarative/components/List/slots/SearchSlot/ISearchSlot' {
+    export interface ISearchSlot {
+        className?: string;
+        style?: React.CSSProperties;
+        onSearchChange?: (search: string) => void;
+        clean: () => void;
+        loading: boolean;
+        label: string;
+        search: string;
+        height: number;
+        width: number;
+    }
+    export default ISearchSlot;
+}
+
+declare module 'react-declarative/components/List/slots/SearchSlot/SearchSlot' {
+    import ISearchSlot from 'react-declarative/components/List/slots/SearchSlot/ISearchSlot';
+    export const SearchSlot: (props: ISearchSlot) => JSX.Element;
+    export default SearchSlot;
 }
 
 declare module 'react-declarative/components/One/slots/ProgressSlot' {
@@ -7442,265 +7721,24 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     export default IMasterDetailProps;
 }
 
-declare module 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    import IColumn from "react-declarative/model/IColumn";
-    import DisplayMode from "react-declarative/model/DisplayMode";
-    export type BodyColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
-        width: never;
-    }> & {
-        width: string;
-    };
-    export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
-        fullWidth: number;
+declare module 'react-declarative/model/DisplayMode' {
+    export enum DisplayMode {
+        Phone = "phone",
+        Tablet = "tablet",
+        Desktop = "desktop"
+    }
+    export default DisplayMode;
+}
+
+declare module 'react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell' {
+    import IRowData from 'react-declarative/model/IRowData';
+    import IAnything from 'react-declarative/model/IAnything';
+    export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
         row: RowData;
         disabled: boolean;
-        columns: BodyColumn<RowData>[];
-        mode: DisplayMode;
     }
-    export default IBodyRowSlot;
-}
-
-declare module 'react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot' {
-    import IBodyRowSlot from 'react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot';
-    export const BodyRowSlot: (props: IBodyRowSlot) => JSX.Element;
-    export default BodyRowSlot;
-}
-
-declare module 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    import { ICheckboxCellProps } from "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell";
-    export interface ICheckboxCellSlot<RowData extends IRowData = IAnything> extends ICheckboxCellProps<RowData> {
-    }
-    export default ICheckboxCellSlot;
-}
-
-declare module 'react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot' {
-    import ICheckboxCellSlot from 'react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot';
-    export const CheckboxCellSlot: (props: ICheckboxCellSlot) => JSX.Element;
-    export default CheckboxCellSlot;
-}
-
-declare module 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot' {
-    import { IActionMenuProps } from "react-declarative/components/ActionMenu";
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    import IColumn from "react-declarative/model/IColumn";
-    import DisplayMode from "react-declarative/model/DisplayMode";
-    export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
-        width: never;
-    }> & {
-        width: string;
-    };
-    export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
-        column: CommonCellColumn<RowData>;
-        row: RowData;
-        idx: number;
-        fullWidth: number;
-        disabled: boolean;
-        mode: DisplayMode;
-        onMenuToggle: IActionMenuProps['onToggle'];
-        onAction: IActionMenuProps['onAction'];
-    }
-    export default ICommonCellSlot;
-}
-
-declare module 'react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot' {
-    import ICommonCellSlot from 'react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot';
-    export const CommonCellSlot: (props: ICommonCellSlot) => JSX.Element;
-    export default CommonCellSlot;
-}
-
-declare module 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    import IColumn from "react-declarative/model/IColumn";
-    import DisplayMode from "react-declarative/model/DisplayMode";
-    export type HeadColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowData>, keyof {
-        width: never;
-    }> & {
-        width: string;
-    };
-    export interface IHeadRowSlot<RowData extends IRowData = IAnything> {
-        columns: HeadColumn<RowData>[];
-        fullWidth: number;
-        mode: DisplayMode;
-    }
-    export default IHeadRowSlot;
-}
-
-declare module 'react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot' {
-    import IHeadRowSlot from 'react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot';
-    export const HeadRowSlot: (props: IHeadRowSlot) => JSX.Element;
-    export default HeadRowSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    export interface IActionAddSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
-        action?: string;
-        label?: string;
-        height: number;
-        width: number;
-        isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
-        isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
-    }
-    export default IActionAddSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot' {
-    import IActionAddSlot from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
-    export const ActionAddSlot: (props: IActionAddSlot) => JSX.Element;
-    export default ActionAddSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import { IListActionOption } from "react-declarative/model/IListProps";
-    export interface IActionMenuSlot {
-        options?: Partial<IListActionOption>[];
-        deps?: IAnything[];
-    }
-    export default IActionMenuSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot' {
-    import IActionMenuSlot from 'react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot';
-    export const ActionMenuSlot: (props: IActionMenuSlot) => JSX.Element;
-    export default ActionMenuSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot' {
-    import React from "react";
-    import IAnything from "react-declarative/model/IAnything";
-    import IRowData from "react-declarative/model/IRowData";
-    export interface IActionFabSlot<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
-        action?: string;
-        label?: string;
-        icon?: React.ComponentType<any>;
-        height: number;
-        width: number;
-        isVisible?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
-        isDisabled?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
-    }
-    export default IActionFabSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot' {
-    import IActionFabSlot from 'react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot';
-    export const ActionFabSlot: (props: IActionFabSlot) => JSX.Element;
-    export default ActionFabSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot' {
-    import { IListAction } from "react-declarative/model/IListProps";
-    import IAnything from "react-declarative/model/IAnything";
-    export interface IActionListSlot<FilterData extends {} = IAnything> {
-        className?: string;
-        style?: React.CSSProperties;
-        filterData: FilterData;
-        actions: IListAction[];
-        deps?: any[];
-        height: number;
-        width: number;
-        title?: string;
-    }
-    export default IActionListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ActionListSlot/ActionListSlot' {
-    import IActionListSlot from 'react-declarative/components/List/slots/ActionListSlot/IActionListSlot';
-    export const ActionListSlot: (props: IActionListSlot) => JSX.Element;
-    export default ActionListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IListProps from "react-declarative/model/IListProps";
-    import IRowData from "react-declarative/model/IRowData";
-    export interface IChipListSlot<RowData extends IRowData = IAnything> {
-        listChips: IListProps<RowData>['chips'];
-        loading: boolean;
-    }
-    export default IChipListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/ChipListSlot/ChipListSlot' {
-    import IChipListSlot from 'react-declarative/components/List/slots/ChipListSlot/IChipListSlot';
-    export const ChipListSlot: (props: IChipListSlot) => JSX.Element;
-    export default ChipListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IField from "react-declarative/model/IField";
-    export interface IFilterListSlot<FilterData extends {} = IAnything> {
-        className?: string;
-        filterData: FilterData;
-        style?: React.CSSProperties;
-        filters: IField<FilterData>[];
-        change: (data: FilterData) => void;
-        onSearchChange?: (search: string) => void;
-        onFilterChange?: (data: FilterData) => void;
-        onCollapsedChange?: (collapsed: boolean) => void;
-        withToggledFilters?: boolean;
-        ready: () => void;
-        clean: () => void;
-        loading: boolean;
-        label: string;
-        search: string;
-        withSearch: boolean;
-        height: number;
-        width: number;
-    }
-    export default IFilterListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/FilterListSlot/FilterListSlot' {
-    import IFilterListSlot from 'react-declarative/components/List/slots/FilterListSlot/IFilterListSlot';
-    export const FilterListSlot: (props: IFilterListSlot) => JSX.Element;
-    export default FilterListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot' {
-    import IListOperation from "react-declarative/model/IListOperation";
-    export interface IOperationListSlot {
-        className?: string;
-        style?: React.CSSProperties;
-        operations: IListOperation[];
-        width: number;
-    }
-    export default IOperationListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/OperationListSlot/OperationListSlot' {
-    import IOperationListSlot from 'react-declarative/components/List/slots/OperationListSlot/IOperationListSlot';
-    export const OperationListSlot: (props: IOperationListSlot) => JSX.Element;
-    export default OperationListSlot;
-}
-
-declare module 'react-declarative/components/List/slots/SearchSlot/ISearchSlot' {
-    export interface ISearchSlot {
-        className?: string;
-        style?: React.CSSProperties;
-        onSearchChange?: (search: string) => void;
-        clean: () => void;
-        loading: boolean;
-        label: string;
-        search: string;
-        height: number;
-        width: number;
-    }
-    export default ISearchSlot;
-}
-
-declare module 'react-declarative/components/List/slots/SearchSlot/SearchSlot' {
-    import ISearchSlot from 'react-declarative/components/List/slots/SearchSlot/ISearchSlot';
-    export const SearchSlot: (props: ISearchSlot) => JSX.Element;
-    export default SearchSlot;
+    export const CheckboxCell: <RowData extends IRowData = any>({ row, disabled, }: ICheckboxCellProps<RowData>) => JSX.Element;
+    export default CheckboxCell;
 }
 
 declare module 'react-declarative/components/One/slots/ProgressSlot/IProgressSlot' {
@@ -7937,25 +7975,5 @@ declare module 'react-declarative/components/FadeView/components/DefaultFade' {
     }
     export const DefaultFade: ({ className, visible, color, none, position, zIndex, }: IDefaultFadeProps) => JSX.Element;
     export default DefaultFade;
-}
-
-declare module 'react-declarative/model/DisplayMode' {
-    export enum DisplayMode {
-        Phone = "phone",
-        Tablet = "tablet",
-        Desktop = "desktop"
-    }
-    export default DisplayMode;
-}
-
-declare module 'react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell' {
-    import IRowData from 'react-declarative/model/IRowData';
-    import IAnything from 'react-declarative/model/IAnything';
-    export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
-        row: RowData;
-        disabled: boolean;
-    }
-    export const CheckboxCell: <RowData extends IRowData = any>({ row, disabled, }: ICheckboxCellProps<RowData>) => JSX.Element;
-    export default CheckboxCell;
 }
 
