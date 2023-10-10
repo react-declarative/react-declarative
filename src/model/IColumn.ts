@@ -16,6 +16,8 @@ export interface IColumn<
   primary?: boolean;
   secondary?: boolean;
   headerName?: string;
+  fullName?: string;
+  description?: string;
   width: string | ((width: number) => string | number);
   minHeight?: string | number;
   phoneOrder?: number;

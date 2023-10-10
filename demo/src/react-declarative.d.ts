@@ -1173,6 +1173,8 @@ declare module 'react-declarative/model/IColumn' {
         primary?: boolean;
         secondary?: boolean;
         headerName?: string;
+        fullName?: string;
+        description?: string;
         width: string | ((width: number) => string | number);
         minHeight?: string | number;
         phoneOrder?: number;
@@ -4373,10 +4375,11 @@ declare module 'react-declarative/components/List/hooks/useColumnConfig' {
     import IColumn from "react-declarative/model/IColumn";
     interface IParams {
         fullScreen?: boolean;
+        title?: string;
         storageKey: string;
         columns: IColumn[];
     }
-    export const useColumnConfig: ({ storageKey, fullScreen, columns: upperColumns, }: IParams) => {
+    export const useColumnConfig: ({ storageKey, fullScreen, columns: upperColumns, title, }: IParams) => {
         open: boolean;
         columns: IColumn<any, any, any>[];
         pickColumns: (param?: any) => void;
