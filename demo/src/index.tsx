@@ -47,6 +47,8 @@ OneConfig.setValue({
     WITH_WAIT_FOR_MOVE_LISTENER: false,
     WITH_WAIT_FOR_TOUCH_LISTENER: false,
     WITH_DISMOUNT_LISTENER: false,
+    WITH_SYNC_COMPUTE: false,
+    CUSTOM_FIELD_DEBOUNCE: 800,
 });
 
 /*

@@ -14,6 +14,7 @@ import Chip from "@mui/material/Chip";
 import VirtualListBox from '../../common/VirtualListBox';
 
 import compareArray from '../../../../../utils/compareArray';
+import debounce from '../../../../../utils/hof/debounce';
 import isObject from '../../../../../utils/isObject';
 import objects from '../../../../../utils/objects';
 import arrays from '../../../../../utils/arrays';
@@ -21,9 +22,12 @@ import arrays from '../../../../../utils/arrays';
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
+
+import { useSubject } from '../../../../../hooks/useSubject';
 import { useAsyncAction } from '../../../../../hooks/useAsyncAction';
 import { useActualValue } from '../../../../../hooks/useActualValue';
 import { useRenderWaiter } from '../../../../../hooks/useRenderWaiter';
+import { useReloadTrigger } from '../../../../../hooks/useReloadTrigger';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -34,6 +38,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
+const MOUSE_OUT_DEBOUNCE = 600;
 
 const getArrayHash = (value: any) =>
     Object.values<string>(value || {})
@@ -68,10 +73,14 @@ export const Items = ({
     const { object } = useOneState();
     const payload = useOnePayload();
 
+    const { reloadTrigger, doReload } = useReloadTrigger();
+
     const [state, setState] = useState<IState>(() => ({
         options: [],
         labels: {},
     }));
+
+    const [opened, setOpened] = useState(false);
 
     const initComplete = useRef(false);
 
@@ -121,7 +130,6 @@ export const Items = ({
                 }
             });
         }
-
         setState({ options, labels });
         initComplete.current = true;
         await waitForRender();
@@ -153,6 +161,34 @@ export const Items = ({
         object,
         readonly,
     ]);
+
+    const changeSubject = useSubject<void>();
+
+    useEffect(() => {
+        if (!opened) {
+            return;
+        }
+        let unsubscribeRef = changeSubject.once(() => {
+            const handler = debounce(({ pageX, pageY }: MouseEvent) => {
+                const target = document.elementFromPoint(pageX, pageY);
+                if (!target?.closest('.MuiAutocomplete-popper')) {
+                    setOpened(false);
+                    doReload();
+                }
+            }, MOUSE_OUT_DEBOUNCE);
+            document.addEventListener('mousemove', handler);
+            unsubscribeRef = () => {
+                document.removeEventListener('mousemove', handler);
+                handler.clear();
+            };
+        });
+        return () => unsubscribeRef();
+    }, [opened]);
+
+    const handleChange = (value: any) => {
+        onChange(value?.length ? objects(value) : null);
+        changeSubject.next();
+    };
 
     const renderTags = (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
         const { current: labels } = labels$;
@@ -223,10 +259,6 @@ export const Items = ({
         );
     };
 
-    const handleChange = (value: any) => {
-        onChange(value?.length ? objects(value) : null);
-    };
-
     if (loading || !initComplete.current) {
         return (
             <Autocomplete
@@ -250,13 +282,17 @@ export const Items = ({
 
     return (
         <Autocomplete
+            key={reloadTrigger}
             multiple
             loading={loading}
             disableCloseOnSelect
             disableClearable={noDeselect}
             freeSolo={freeSolo}
             readOnly={readonly}
+            open={opened}
             onChange={({ }, value) => handleChange(value)}
+            onOpen={() => setOpened(true)}
+            onClose={() => setOpened(false)}
             getOptionLabel={getOptionLabel}
             ListboxComponent={virtualListBox ? VirtualListBox : undefined}
             value={value}
