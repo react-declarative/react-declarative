@@ -10,6 +10,7 @@ export { useOneState } from './context/StateProvider';
 export { useOnePayload } from './context/PayloadProvider';
 export { useOneFeatures } from './context/FeatureProvider';
 export { useOneRadio } from './context/RadioProvider';
+export { useOneContext } from './context/OneContextProvider';
 export { OtherComboSlot } from './other/OtherComboSlot';
 export { OtherItemsSlot } from './other/OtherItemsSlot';
 export { useApiHandler } from './api/useApiHandler';

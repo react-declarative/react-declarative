@@ -278,7 +278,7 @@ declare module 'react-declarative' {
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
-    export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio } from 'react-declarative/components';
+    export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
@@ -567,6 +567,7 @@ declare module 'react-declarative/model/TypedField' {
 
 declare module 'react-declarative/model/IField' {
     import * as React from 'react';
+    import type ComponentFieldInstance from 'react-declarative/model/ComponentFieldInstance';
     import { ISizeCallback } from 'react-declarative/model/ISize';
     import FieldType from 'react-declarative/model/FieldType';
     import IAnything from 'react-declarative/model/IAnything';
@@ -824,6 +825,10 @@ declare module 'react-declarative/model/IField' {
                 */
             watchItemList?: boolean;
             /**
+                * Включает change-detection для поля компонента. По умолчанию выключено
+                */
+            watchOneContext?: boolean;
+            /**
                 * Позволяет мемоизировать вызов compute
                 */
             shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
@@ -917,15 +922,7 @@ declare module 'react-declarative/model/IField' {
             /**
                 * Инъекция JSX для ComponentField
                 */
-            element?: React.ComponentType<Data & {
-                    onChange: (data: Partial<Data>) => void;
-                    _fieldData: Data;
-                    _fieldParams: IField;
-                    payload: Payload;
-                    disabled: boolean;
-                    readonly: boolean;
-                    features: string[];
-            }>;
+            element?: React.ComponentType<ComponentFieldInstance<Data, Payload>>;
             /**
                 * Коллбек, вызываемый у поля при не прохождении
                 * валидации
@@ -1787,6 +1784,11 @@ declare module 'react-declarative/model/IOneProps' {
                 * Ссылка на объект API
                 */
             apiRef?: React.Ref<IOneApi>;
+            /**
+                * Контекст кастомных полей, в отличие от
+                * payload доступен к change detection
+                */
+            context?: Record<string, any>;
             /**
                 * Эмиттер для запроса данных
                 */
@@ -3637,23 +3639,24 @@ declare module 'react-declarative/components/One/fields/ComboField' {
 }
 
 declare module 'react-declarative/components/One/fields/ComponentField' {
-    import IField from 'react-declarative/model/IField';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IManaged, { PickProp } from 'react-declarative/model/IManaged';
+    import IField from "react-declarative/model/IField";
+    import IAnything from "react-declarative/model/IAnything";
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
     export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
-        element?: PickProp<IField<Data, Payload>, 'element'>;
-        groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-        className?: PickProp<IField<Data, Payload>, 'className'>;
-        style?: PickProp<IField<Data, Payload>, 'style'>;
-        sx?: PickProp<IField<Data, Payload>, 'sx'>;
+        element?: PickProp<IField<Data, Payload>, "element">;
+        groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+        className?: PickProp<IField<Data, Payload>, "className">;
+        watchOneContext?: PickProp<IField<Data, Payload>, "watchOneContext">;
+        style?: PickProp<IField<Data, Payload>, "style">;
+        sx?: PickProp<IField<Data, Payload>, "sx">;
     }
     interface IComponentFieldPrivate<Data = IAnything> {
-        object: PickProp<IManaged<Data>, 'object'>;
-        disabled: PickProp<IManaged<Data>, 'disabled'>;
-        readonly: PickProp<IManaged<Data>, 'readonly'>;
+        object: PickProp<IManaged<Data>, "object">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        readonly: PickProp<IManaged<Data>, "readonly">;
     }
     export const ComponentField: {
-        ({ disabled, readonly, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
+        ({ disabled, readonly, watchOneContext, element: Element, object, ...otherProps }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4086,6 +4089,26 @@ declare module 'react-declarative/components/One/fields/InitField' {
     export default InitField;
 }
 
+declare module 'react-declarative/model/ComponentFieldInstance' {
+    import type IField from "react-declarative/model/IField";
+    export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
+        onChange: (data: Partial<Data>) => void;
+        _fieldData: Data;
+        _fieldParams: IField;
+        context: Record<string, any>;
+        payload: Payload;
+        disabled: boolean;
+        readonly: boolean;
+        features: string[];
+    };
+    export type ComponentFieldInstanceProps = Omit<ComponentFieldInstance, keyof {
+        context: never;
+    }> & {
+        Element: React.ComponentType<ComponentFieldInstance>;
+    };
+    export default ComponentFieldInstance;
+}
+
 declare module 'react-declarative/model/ISize' {
     import IAnything from 'react-declarative/model/IAnything';
     export interface ISize {
@@ -4457,6 +4480,7 @@ declare module 'react-declarative/components/One' {
     export { useOnePayload } from 'react-declarative/components/One/context/PayloadProvider';
     export { useOneFeatures } from 'react-declarative/components/One/context/FeatureProvider';
     export { useOneRadio } from 'react-declarative/components/One/context/RadioProvider';
+    export { useOneContext } from 'react-declarative/components/One/context/OneContextProvider';
     export { OtherComboSlot } from 'react-declarative/components/One/other/OtherComboSlot';
     export { OtherItemsSlot } from 'react-declarative/components/One/other/OtherItemsSlot';
     export { useApiHandler } from 'react-declarative/components/One/api/useApiHandler';
@@ -5434,6 +5458,19 @@ declare module 'react-declarative/components/One/context/RadioProvider' {
         initialState: Record<string, string | null> | (() => Record<string, string | null>);
     }) => JSX.Element, useOneRadio: () => readonly [Record<string, string | null>, (state: Record<string, string | null> | ((prevState: Record<string, string | null>) => Record<string, string | null>)) => void];
     export default RadioProvider;
+}
+
+declare module 'react-declarative/components/One/context/OneContextProvider' {
+    import * as React from 'react';
+    import IOneProps from 'react-declarative/model/IOneProps';
+    export const DEFAULT_VALUE: {};
+    interface IOneContextProviderProps {
+        context: IOneProps['context'];
+        children: React.ReactNode;
+    }
+    export const OneContextProvider: ({ context, children, }: IOneContextProviderProps) => JSX.Element;
+    export const useOneContext: () => Record<string, any>;
+    export default OneContextProvider;
 }
 
 declare module 'react-declarative/components/One/other/OtherComboSlot' {

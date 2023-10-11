@@ -21,6 +21,11 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   apiRef?: React.Ref<IOneApi>;
   /**
+   * Контекст кастомных полей, в отличие от
+   * payload доступен к change detection
+   */
+  context?: Record<string, any>;
+  /**
    * Эмиттер для запроса данных
    */
   reloadSubject?: TSubject<void>;

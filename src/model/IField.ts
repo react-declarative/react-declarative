@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import type ComponentFieldInstance from './ComponentFieldInstance';
+
 import { ISizeCallback } from './ISize';
 
 import FieldType from './FieldType';
@@ -308,6 +310,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     watchItemList?: boolean;
 
     /**
+     * Включает change-detection для поля компонента. По умолчанию выключено
+     */
+    watchOneContext?: boolean;
+
+    /**
      * Позволяет мемоизировать вызов compute
      */
     shouldRecompute?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
@@ -420,15 +427,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Инъекция JSX для ComponentField
      */
-    element?: React.ComponentType<Data & { 
-      onChange: (data: Partial<Data>) => void;
-      _fieldData: Data;
-      _fieldParams: IField;
-      payload: Payload;
-      disabled: boolean;
-      readonly: boolean;
-      features: string[];
-    }>;
+    element?: React.ComponentType<ComponentFieldInstance<Data, Payload>>;
 
     /**
      * Коллбек, вызываемый у поля при не прохождении

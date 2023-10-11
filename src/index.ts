@@ -350,7 +350,7 @@ export { createField, makeField } from './components';
 export { createLayout, makeLayout } from './components';
 
 export { useListProps, useListCachedRows, useListPayload, useListChips } from './components';
-export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio } from './components';
+export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext } from './components';
 
 export { useActualCallback };
 export { useActualValue };
