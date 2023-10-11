@@ -6839,8 +6839,10 @@ declare module 'react-declarative/components/Spinner/Spinner' {
 
 declare module 'react-declarative/components/Async/Async' {
     import * as React from 'react';
+    import TSubject from 'react-declarative/model/TSubject';
     export interface IAsyncProps<T extends any = object> {
         loading?: boolean;
+        reloadSubject?: TSubject<void>;
         children: (p: T) => (Result | Promise<Result>);
         fallback?: (e: Error) => void;
         Loader?: React.ComponentType<any>;
@@ -6852,7 +6854,7 @@ declare module 'react-declarative/components/Async/Async' {
         throwError?: boolean;
     }
     type Result = React.ReactNode | void;
-    export const Async: <T extends unknown = object>({ loading: upperLoading, children, fallback, Loader, Error, onLoadStart, onLoadEnd, payload, deps, throwError, }: IAsyncProps<T>) => JSX.Element;
+    export const Async: <T extends unknown = object>({ reloadSubject: upperReloadSubject, loading: upperLoading, children, fallback, Loader, Error, onLoadStart, onLoadEnd, payload, deps, throwError, }: IAsyncProps<T>) => JSX.Element;
     export default Async;
 }
 

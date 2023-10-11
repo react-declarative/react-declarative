@@ -38,7 +38,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
-const MOUSE_OUT_DEBOUNCE = 600;
+const MOUSE_OUT_DEBOUNCE = 75;
 
 const getArrayHash = (value: any) =>
     Object.values<string>(value || {})

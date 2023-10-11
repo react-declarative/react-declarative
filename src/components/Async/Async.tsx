@@ -5,8 +5,14 @@ import { flushSync } from 'react-dom';
 
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
+import useReloadTrigger from '../../hooks/useReloadTrigger';
+import useSubject from '../../hooks/useSubject';
+
+import TSubject from '../../model/TSubject';
+
 export interface IAsyncProps<T extends any = object> {
     loading?: boolean;
+    reloadSubject?: TSubject<void>;
     children: (p: T) => (Result | Promise<Result>);
     fallback?: (e: Error) => void;
     Loader?: React.ComponentType<any>;
@@ -21,6 +27,7 @@ export interface IAsyncProps<T extends any = object> {
 type Result = React.ReactNode | void;
 
 export const Async = <T extends any = object>({
+    reloadSubject: upperReloadSubject,
     loading: upperLoading,
     children,
     fallback,
@@ -34,6 +41,14 @@ export const Async = <T extends any = object>({
 }: IAsyncProps<T>) => {
 
     const [child, setChild] = useState<Result>('');
+
+    const { reloadTrigger, doReload } = useReloadTrigger();
+
+    const reloadSubject = useSubject(upperReloadSubject);
+
+    useEffect(() => reloadSubject.subscribe(() => {
+        doReload();
+    }), []);
 
     const executionRef = useRef<IWrappedFn<Result> | null>(null);
 
@@ -107,7 +122,7 @@ export const Async = <T extends any = object>({
 
         process();
 
-    }, [payload, ...deps]);
+    }, [payload, ...deps, reloadTrigger]);
 
 
     if (loading) {
