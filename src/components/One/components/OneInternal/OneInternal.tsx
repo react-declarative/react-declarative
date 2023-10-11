@@ -44,8 +44,8 @@ const DEFAULT_INVALIDITY_CALLBACK = () => null;
 const DEFAULT_FALLBACK = () => null;
 
 const SHOULD_UPDATE_ITEM_LIST_DEFAULT: IField["shouldUpdateItemList"] = (
-  [prevData],
-  [currentData]
+  prevData,
+  currentData
 ) => prevData !== currentData;
 
 const SHOULD_UPDATE_TR_DEFAULT: IField["shouldUpdateTr"] = (
