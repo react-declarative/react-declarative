@@ -466,6 +466,7 @@ export { VirtualListBox } from './components/One/components/common/VirtualListBo
 
 export { openBlank } from './utils/openBlank';
 export { downloadBlank } from './utils/downloadBlank';
+export { replaceString } from './utils/replaceString';
 export { chooseFile } from './utils/chooseFile';
 export { loadScript } from './utils/loadScript';
 export { reloadPage } from './utils/reloadPage';
