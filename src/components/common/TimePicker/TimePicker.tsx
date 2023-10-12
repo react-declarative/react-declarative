@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { Theme } from '@mui/material';
 import { makeStyles } from '../../../styles';
@@ -59,6 +59,7 @@ export const TimePicker = ({
     meridiemMode: date.format('a'),
     isHourViewShown: true,
   });
+  const changedRef = useRef(false);
   const handleChange = useCallback((time: dayjs.Dayjs) => {
     if (time.format('a') !== state.meridiemMode) {
       const hours = state.meridiemMode === 'am'
@@ -66,11 +67,17 @@ export const TimePicker = ({
         : time.hour() + 12;
       time = time.clone().hour(hours);
     }
+    changedRef.current = true;
     setDate(time);
     onChange(time);
   }, [state]);
   const setMeridiemMode = (mode: any) => () => setState((p) => ({...p, meridiemMode: mode }));
-  useEffect(() => handleChange(date), [date, state.meridiemMode]);
+  useEffect(() => {
+    if (changedRef.current) {
+      changedRef.current = false;
+    }
+    handleChange(date)
+  }, [date, state.meridiemMode]);
   const openMinutesView = () => setState((p) => ({...p, isHourViewShown: false}));
   const openHourView = () => setState((p) => ({...p, isHourViewShown: true}));
   return (
@@ -80,7 +87,7 @@ export const TimePicker = ({
           type="display3"
           onClick={openHourView}
           selected={state.isHourViewShown}
-          label={date.format('hh')}
+          label={state.meridiemMode === 'am' ? date.format('hh') : date.format('HH')}
         />
         <ToolbarButton
           type="display3"
