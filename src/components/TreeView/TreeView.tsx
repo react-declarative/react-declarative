@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -15,13 +15,18 @@ import Chip from "@mui/material/Chip";
 
 import randomString from "../../utils/randomString";
 import classNames from "../../utils/classNames";
+import debounce from "../../utils/hof/debounce";
 import deepFlat from "./utils/deepFlat";
 
+import useChangeSubject from "../../hooks/useChangeSubject";
+import useReloadTrigger from "../../hooks/useReloadTrigger";
 import useChange from "../../hooks/useChange";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import INode from "./model/INode";
+
+const MOUSE_OUT_DEBOUNCE = 45;
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -75,6 +80,11 @@ export const TreeView = ({
   const { classes } = useStyles();
 
   const [value, setValue] = useState(upperValue || []);
+  const [opened, setOpened] = useState(false);
+
+  const { reloadTrigger, doReload } = useReloadTrigger();
+
+  const changeSubject = useChangeSubject(value);
 
   useChange(() => {
     if (value.length) {
@@ -83,6 +93,27 @@ export const TreeView = ({
     }
     onChange(null);
   }, [value]);
+
+  useEffect(() => {
+    if (!opened) {
+      return;
+    }
+    let unsubscribeRef = changeSubject.once(() => {
+      const handler = debounce(({ clientX, clientY }: MouseEvent) => {
+        const target = document.elementFromPoint(clientX, clientY);
+        if (!target?.closest(".MuiAutocomplete-popper")) {
+          setOpened(false);
+          doReload();
+        }
+      }, MOUSE_OUT_DEBOUNCE);
+      document.addEventListener("mousemove", handler);
+      unsubscribeRef = () => {
+        document.removeEventListener("mousemove", handler);
+        handler.clear();
+      };
+    });
+    return () => unsubscribeRef();
+  }, [opened]);
 
   const { items, groupIdMap, groupValueMap } = useMemo(() => {
     let items = upperItems.map(({ label, value, child: upperChild = [] }) => {
@@ -140,11 +171,15 @@ export const TreeView = ({
 
   return (
     <Autocomplete
+      key={reloadTrigger}
       className={className}
       style={style}
       sx={sx}
       options={items}
       value={autocompleteValue}
+      open={opened}
+      onOpen={() => setOpened(true)}
+      onClose={() => setOpened(false)}
       multiple
       disableCloseOnSelect
       onChange={(_, items) => {

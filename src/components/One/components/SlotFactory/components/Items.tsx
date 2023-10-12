@@ -38,7 +38,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
-const MOUSE_OUT_DEBOUNCE = 75;
+const MOUSE_OUT_DEBOUNCE = 45;
 
 const getArrayHash = (value: any) =>
     Object.values<string>(value || {})
@@ -169,8 +169,8 @@ export const Items = ({
             return;
         }
         let unsubscribeRef = changeSubject.once(() => {
-            const handler = debounce(({ pageX, pageY }: MouseEvent) => {
-                const target = document.elementFromPoint(pageX, pageY);
+            const handler = debounce(({ clientX, clientY }: MouseEvent) => {
+                const target = document.elementFromPoint(clientX, clientY);
                 if (!target?.closest('.MuiAutocomplete-popper')) {
                     setOpened(false);
                     doReload();
