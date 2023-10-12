@@ -191,7 +191,7 @@ export const Date = ({
           autoFocus,
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={handleClick} disabled={readonly || disabled} edge="end">
+              <IconButton onClick={handleClick} disabled={disabled} edge="end">
                 <CalendarIcon />
               </IconButton>
             </InputAdornment>
