@@ -37,7 +37,7 @@ export const TimeField = ({
   labelShrink,
   description = "",
   outlined = false,
-  title = "Text",
+  title = "",
   placeholder = title,
   dirty,
   autoFocus,

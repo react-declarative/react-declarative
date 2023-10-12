@@ -36,7 +36,7 @@ export const DateField = ({
   readonly,
   description = "",
   outlined = false,
-  title = "Text",
+  title = "",
   placeholder = title,
   labelShrink,
   dirty,

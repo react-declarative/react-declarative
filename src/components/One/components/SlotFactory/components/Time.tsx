@@ -192,7 +192,7 @@ export const Time = ({
           autoFocus,
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={handleClick} disabled={disabled} edge="end">
+              <IconButton onClick={handleClick} disabled={disabled || readonly} edge="end">
                 <AlarmIcon />
               </IconButton>
             </InputAdornment>
