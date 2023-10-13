@@ -37,7 +37,7 @@ export const Choose = ({
     const loading = upperLoading || currentLoading;
 
     const Input: React.FC<any> = forwardRef(({ value, ...rest }, ref) => (
-        <Async payload={value} Loader={() => <input {...rest} readOnly ref={ref} value="" type="text" />}>
+        <Async payload={value} Loader={() => <input {...rest} readOnly ref={ref} value="Loading..." type="text" />}>
             {async () => {
                 const label = value ? await tr(value, object, payload) : '';
                 return (
@@ -69,7 +69,7 @@ export const Choose = ({
             InputProps={{
                 readOnly: true,
                 inputComponent: Input,
-                placeholder: loading ? "Loading..." : placeholder,
+                placeholder,
                 endAdornment: (
                     <InputAdornment position="end">
                         <ActionButton
