@@ -55,7 +55,10 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     ]);
   };
 
-  const handleChange = (data: Data) => {
+  const handleChange = (data: Data, initial: boolean) => {
+    if (initial) {
+      return;
+    }
     setData(data);
     setInvalid(false);
   };
@@ -76,7 +79,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     <ModalDialog
       open={open}
       disabled={disabled}
-      invalid={invalid}
+      invalid={!data || invalid}
       onAccept={handleAccept}
       onDismiss={handleDismiss}
     >
