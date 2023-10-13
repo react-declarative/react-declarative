@@ -51,7 +51,7 @@ export const Choose = ({
       )}
     >
       {async () => {
-        const label = value ? await tr(value, object, payload) : "";
+        const label = value ? await tr(value, object, payload) || "unset" : "";
         return <input {...rest} readOnly ref={ref} value={label} type="text" />;
       }}
     </Async>
