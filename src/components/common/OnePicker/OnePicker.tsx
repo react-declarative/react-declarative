@@ -55,10 +55,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     ]);
   };
 
-  const handleChange = (data: Data, initial: boolean) => {
-    if (initial) {
-      return;
-    }
+  const handleChange = (data: Data) => {
     setData(data);
     setInvalid(false);
   };
