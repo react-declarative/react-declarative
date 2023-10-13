@@ -42,6 +42,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
 }: IOnePickerProps<Data, Payload>) => {
   const [data, setData] = useState<Data | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
   const data$ = useActualValue(data);
 
@@ -54,7 +55,11 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     ]);
   };
 
-  const handleChange = (data: Data) => setData(data);
+  const handleChange = (data: Data) => {
+    setData(data);
+    setInvalid(false);
+  };
+  const handleInvalid = () => setInvalid(true);
   const handleDismiss = () => onChange(null);
 
   const handleAccept = async () => {
@@ -71,6 +76,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     <ModalDialog
       open={open}
       disabled={disabled}
+      invalid={invalid}
       onAccept={handleAccept}
       onDismiss={handleDismiss}
     >
@@ -84,6 +90,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
       <Box p={3}>
         <One
           change={handleChange}
+          invalidity={handleInvalid}
           handler={handler}
           payload={payload}
           fields={fields}
