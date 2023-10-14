@@ -398,6 +398,7 @@ declare module 'react-declarative' {
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
     export { singleshot } from 'react-declarative/utils/hof/singleshot';
+    export { singletick } from 'react-declarative/utils/hof/singletick';
     export { afterinit } from 'react-declarative/utils/hof/afterinit';
     export { singlerun, Task } from 'react-declarative/utils/hof/singlerun';
     export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
@@ -2646,6 +2647,17 @@ declare module 'react-declarative/utils/hof/singleshot' {
     }
     export const singleshot: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default singleshot;
+}
+
+declare module 'react-declarative/utils/hof/singletick' {
+    export interface IClearable {
+        clear: () => void;
+    }
+    export const singletick: {
+        <T extends (...args: any[]) => any>(run: T): T & IClearable;
+        delay: number;
+    };
+    export default singletick;
 }
 
 declare module 'react-declarative/utils/hof/afterinit' {

@@ -496,6 +496,7 @@ export { roundTicks } from './utils/roundTicks';
 export { wordForm } from './utils/wordForm';
 
 export { singleshot } from './utils/hof/singleshot';
+export { singletick } from './utils/hof/singletick';
 export { afterinit } from './utils/hof/afterinit';
 export { singlerun, Task } from './utils/hof/singlerun';
 export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from './utils/hof/cancelable';
