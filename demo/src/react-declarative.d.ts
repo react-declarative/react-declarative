@@ -414,6 +414,7 @@ declare module 'react-declarative' {
     export { Source } from 'react-declarative/utils/rx/Source';
     export { and } from 'react-declarative/utils/math/and';
     export { or } from 'react-declarative/utils/math/or';
+    export { not } from 'react-declarative/utils/math/not';
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
@@ -2871,6 +2872,12 @@ declare module 'react-declarative/utils/math/or' {
     type Value = number | boolean;
     export const or: <T = Promise<Value>>(...args: T[]) => T;
     export default or;
+}
+
+declare module 'react-declarative/utils/math/not' {
+    type Value = number | boolean;
+    export const not: <T = Promise<Value>>(arg: T) => T;
+    export default not;
 }
 
 declare module 'react-declarative/model/TSubject' {
