@@ -18,15 +18,24 @@ declare class Sanitizer {
     constructor(config?: Partial<IConfig>);
 }
 
+declare global {
+    interface Window {
+        Sanitizer: new (...params: ConstructorParameters<typeof Sanitizer>) => Sanitizer;
+    }    
+}
+
 interface Element extends HTMLElement {
     setHTML: (...args: any) => any;
 }
 
 const sanitize = (html: string, config?: Partial<IConfig>) => {
-    const sanitizer = new Sanitizer(config);
-    const element = document.createElement('div') as unknown as Element;
-    element.setHTML(html, { sanitizer });
-    return element.innerHTML;
+    if ('Sanitizer' in window) {
+        const sanitizer = new window.Sanitizer(config);
+        const element = document.createElement('div') as unknown as Element;
+        element.setHTML(html, { sanitizer });
+        return element.innerHTML;
+    }
+    return html;
 };
 
 interface IHtmlViewProps<T extends any = object> extends BoxProps {

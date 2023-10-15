@@ -6483,6 +6483,14 @@ declare module 'react-declarative/components/HtmlView/HtmlView' {
         allowCustomElements: boolean;
         allowComments: boolean;
     }
+    class Sanitizer {
+        constructor(config?: Partial<IConfig>);
+    }
+    global {
+        interface Window {
+            Sanitizer: new (...params: ConstructorParameters<typeof Sanitizer>) => Sanitizer;
+        }
+    }
     interface IHtmlViewProps<T extends any = object> extends BoxProps {
         children?: React.ReactNode;
         config?: Partial<IConfig>;
