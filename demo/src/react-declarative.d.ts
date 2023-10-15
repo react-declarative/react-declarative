@@ -6906,6 +6906,7 @@ declare module 'react-declarative/components/If/If' {
     import * as React from 'react';
     export interface IIfProps<T extends any = object> {
         Else?: React.ReactNode;
+        Loading?: React.ReactNode;
         condition: boolean | ((payload: T) => boolean | Promise<boolean>);
         children: React.ReactNode;
         fallback?: (e: Error) => void;
@@ -6915,7 +6916,7 @@ declare module 'react-declarative/components/If/If' {
         deps?: any[];
         throwError?: boolean;
     }
-    export const If: <T extends unknown = object>({ Else, children, condition, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, }: IIfProps<T>) => JSX.Element;
+    export const If: <T extends unknown = object>({ Else, Loading, children, condition, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, }: IIfProps<T>) => JSX.Element;
     export default If;
 }
 

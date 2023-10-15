@@ -9,6 +9,7 @@ import useActualValue from '../../hooks/useActualValue';
 
 export interface IIfProps<T extends any = object> {
     Else?: React.ReactNode;
+    Loading?: React.ReactNode;
     condition:  boolean | ((payload: T) => boolean | Promise<boolean>);
     children: React.ReactNode;
     fallback?: (e: Error) => void;
@@ -30,6 +31,7 @@ const resolvePass = <T extends any = object>(condition: IIfProps<T>['condition']
 
 export const If = <T extends any = object>({
     Else = null,
+    Loading = Else,
     children,
     condition,
     fallback,
@@ -41,6 +43,7 @@ export const If = <T extends any = object>({
 }: IIfProps<T>) => {
 
     const [pass, setPass] = useState(() => resolvePass(condition, payload));
+    const [loading, setLoading] = useState(0);
     const executionRef = useRef<IWrappedFn<boolean> | null>(null);
 
     const isMounted = useRef(true);
@@ -50,6 +53,16 @@ export const If = <T extends any = object>({
     }, []);
 
     const condition$ = useActualValue(condition);
+
+    const handleLoadStart = () => {
+        setLoading((loading) => loading + 1);
+        onLoadStart && onLoadStart();
+    };
+
+    const handleLoadEnd = (isOk: boolean) => {
+        setLoading((loading) => loading - 1);
+        onLoadEnd && onLoadEnd(isOk);
+    };
 
     useEffect(() => {
 
@@ -61,7 +74,7 @@ export const If = <T extends any = object>({
 
         const execute = cancelable(async () => {
             let isOk = true;
-            onLoadStart && onLoadStart();
+            handleLoadStart();
             try {
                 if (typeof condition === 'function') {
                     return await Promise.resolve(condition(payload!));
@@ -72,7 +85,7 @@ export const If = <T extends any = object>({
                 isOk = false;
                 throw e;
             } finally {
-                onLoadEnd && onLoadEnd(isOk);
+                handleLoadEnd(isOk);
             }
         });
 
@@ -104,6 +117,12 @@ export const If = <T extends any = object>({
         return (
             <>
                 {children}
+            </>
+        );
+    } else if (loading) {
+        return (
+            <>
+                {Loading}
             </>
         );
     } else {
