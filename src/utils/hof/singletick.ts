@@ -11,7 +11,7 @@ export const singletick = <T extends (...args: any[]) => any>(run: T): T & IClea
         const result = singleshotFn(...args);
         timeout !== null && clearTimeout(timeout);
         timeout = setTimeout(() => {
-            result.clear();
+            singleshotFn.clear();
             timeout = null;
         }, singletick.delay);
         return result;
