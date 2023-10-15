@@ -8,6 +8,7 @@ import { promiseValue } from '../../utils/promiseState';
 import useActualValue from '../../hooks/useActualValue';
 
 export interface IIfProps<T extends any = object> {
+    Else?: React.ReactNode;
     condition:  boolean | ((payload: T) => boolean | Promise<boolean>);
     children: React.ReactNode;
     fallback?: (e: Error) => void;
@@ -28,6 +29,7 @@ const resolvePass = <T extends any = object>(condition: IIfProps<T>['condition']
 };
 
 export const If = <T extends any = object>({
+    Else = null,
     children,
     condition,
     fallback,
@@ -105,7 +107,11 @@ export const If = <T extends any = object>({
             </>
         );
     } else {
-        return null;
+        return (
+            <>
+                {Else}
+            </>
+        );
     }
 
 };
