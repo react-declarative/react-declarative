@@ -400,6 +400,7 @@ declare module 'react-declarative' {
     export { singleshot } from 'react-declarative/utils/hof/singleshot';
     export { singletick } from 'react-declarative/utils/hof/singletick';
     export { afterinit } from 'react-declarative/utils/hof/afterinit';
+    export { retry } from 'react-declarative/utils/hof/retry';
     export { singlerun, Task } from 'react-declarative/utils/hof/singlerun';
     export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
     export { debounce } from 'react-declarative/utils/hof/debounce';
@@ -2668,6 +2669,11 @@ declare module 'react-declarative/utils/hof/afterinit' {
     }
     export const afterinit: <T extends unknown = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default afterinit;
+}
+
+declare module 'react-declarative/utils/hof/retry' {
+    export const retry: <T extends (...args: any[]) => Promise<any>>(run: T, count?: number) => T;
+    export default retry;
 }
 
 declare module 'react-declarative/utils/hof/singlerun' {
