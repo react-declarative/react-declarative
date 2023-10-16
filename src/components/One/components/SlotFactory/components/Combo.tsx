@@ -14,6 +14,7 @@ import MatTextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
 
 import arrays from "../../../../../utils/arrays";
+import debounce from "../../../../../utils/hof/debounce";
 
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
@@ -21,6 +22,8 @@ import { useOnePayload } from "../../../context/PayloadProvider";
 import { useAsyncAction } from "../../../../../hooks/useAsyncAction";
 import { useActualValue } from "../../../../../hooks/useActualValue";
 import { useRenderWaiter } from "../../../../../hooks/useRenderWaiter";
+import { useReloadTrigger } from "../../../../../hooks/useReloadTrigger";
+import { useSubject } from "../../../../../hooks/useSubject";
 
 import RadioIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -31,6 +34,7 @@ const icon = <RadioButtonUncheckedIcon fontSize="small" />;
 const checkedIcon = <RadioIcon fontSize="small" />;
 
 const EMPTY_ARRAY = [] as any;
+const MOUSE_OUT_DEBOUNCE = 45;
 
 const getArrayHash = (value: any) =>
   Object.values<string>(value || {})
@@ -64,10 +68,14 @@ export const Combo = ({
   const { object } = useOneState();
   const payload = useOnePayload();
 
+  const { reloadTrigger, doReload } = useReloadTrigger();
+
   const [state, setState] = useState<IState>(() => ({
     options: [],
     labels: {},
   }));
+
+  const [opened, setOpened] = useState(false);
 
   const initComplete = useRef(false);
 
@@ -203,8 +211,32 @@ export const Combo = ({
     return labels[v] || `${v} (unknown)`;
   };
 
+  const changeSubject = useSubject<void>();
+
+  useEffect(() => {
+    if (!opened) {
+      return;
+    }
+    let unsubscribeRef = changeSubject.once(() => {
+      const handler = debounce(({ clientX, clientY }: MouseEvent) => {
+        const target = document.elementFromPoint(clientX, clientY);
+        if (!target?.closest(".MuiAutocomplete-popper")) {
+          setOpened(false);
+          doReload();
+        }
+      }, MOUSE_OUT_DEBOUNCE);
+      document.addEventListener("mousemove", handler);
+      unsubscribeRef = () => {
+        document.removeEventListener("mousemove", handler);
+        handler.clear();
+      };
+    });
+    return () => unsubscribeRef();
+  }, [opened]);
+
   const handleChange = (value: any) => {
     onChange(value || null);
+    changeSubject.next();
   };
 
   if (loading || !initComplete.current) {
@@ -228,6 +260,9 @@ export const Combo = ({
 
   return (
     <Autocomplete
+      key={reloadTrigger}
+      onOpen={() => setOpened(true)}
+      onClose={() => setOpened(false)}
       disableCloseOnSelect
       disableClearable={noDeselect}
       loading={loading}
