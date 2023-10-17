@@ -32,6 +32,8 @@ import SearchSlot from "../../slots/SearchSlot";
 export const CONTAINER_MARK = "react-declarative__contentMark";
 const EMPTY_ARRAY: any[] = [];
 
+const RESIZE_DELAY = 100;
+
 interface IContainerProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -162,6 +164,7 @@ export const Container = <
     size: { height, width },
   } = useElementSize({
     target: sizeByParent ? undefined : document.body,
+    delay: RESIZE_DELAY,
     compute: ({ height, width }) => ({
       height: heightRequest(height),
       width: widthRequest(width),

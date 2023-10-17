@@ -37,6 +37,7 @@ import useConstraintManager from "../../../hooks/useConstraintManager";
 import Container from "../../Container";
 
 const PAGINATION_HEIGHT = 52;
+const RESIZE_DELAY = 100;
 
 const ROWS_PER_PAGE = [10, 25, 50];
 
@@ -99,7 +100,9 @@ export const GridView = <
 
   const { constraintManager } = useConstraintManager();
 
-  const { elementRef, size } = useElementSize();
+  const { elementRef, size } = useElementSize({
+    delay: RESIZE_DELAY,
+  });
 
   const { height, width } = size;
 

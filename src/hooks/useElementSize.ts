@@ -1,5 +1,7 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
+import debounce from "../utils/hof/debounce";
+
 interface ISize {
     height: number;
     width: number;
@@ -9,6 +11,7 @@ interface IParams extends ISize {
     target?: HTMLElement | null;
     closest?: string;
     selector?: string;
+    delay?: number;
     compute?: (size: ISize) => ISize; 
     onResize?: (size: ISize) => void;
 }
@@ -19,6 +22,7 @@ export const useElementSize = <T extends HTMLElement>({
     selector,
     height = 0,
     width = 0,
+    delay = 0,
     compute = (size) => size,
     onResize,
 }: Partial<IParams> = {}) => {
@@ -56,18 +60,23 @@ export const useElementSize = <T extends HTMLElement>({
             return;
         }
 
+        const handler = debounce(({ height, width } : ISize) => {
+            const size = compute({ height, width });
+            isMounted.current && setSize(size);
+            onResize && onResize(size);
+        }, delay);
+
         const observer = new ResizeObserver(() => {
-            requestAnimationFrame(() => {
-                const { height, width } = element!.getBoundingClientRect();
-                const size = compute({ height, width });
-                isMounted.current && setSize(size);
-                onResize && onResize(size);
-            });
+            const size = element!.getBoundingClientRect();
+            handler(size);
         });
 
         observer.observe(element);
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            handler.clear();
+        };
     }, [
         elementRef.current,
         target,
