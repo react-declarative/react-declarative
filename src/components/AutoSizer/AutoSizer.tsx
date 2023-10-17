@@ -7,7 +7,7 @@ import deepCompare from "../../utils/deepCompare";
 import ISize from "../../model/ISize";
 
 export interface IChildParams<T extends any = unknown> extends ISize {
-  payload: T;
+  payload?: T;
 }
 
 export interface IAutoSizerProps<T extends any = unknown> {

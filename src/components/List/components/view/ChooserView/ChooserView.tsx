@@ -1,20 +1,24 @@
 import * as React from "react";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
-import { makeStyles } from '../../../../../styles';
+import { makeStyles } from "../../../../../styles";
 
-import Box from '@mui/material/Box';
-import MatListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import Box from "@mui/material/Box";
+import MatListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
-import NotInterested from '@mui/icons-material/NotInterested';
+import NotInterested from "@mui/icons-material/NotInterested";
 
-import IListProps, { IListState, IListCallbacks } from '../../../../../model/IListProps';
-import IAnything from '../../../../../model/IAnything';
-import IRowData from '../../../../../model/IRowData';
+import IListProps, {
+  IListState,
+  IListCallbacks,
+} from "../../../../../model/IListProps";
+import IAnything from "../../../../../model/IAnything";
+import IRowData from "../../../../../model/IRowData";
 
 import useSubject from "../../../../../hooks/useSubject";
+import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 
 import ModalLoader from "./components/ModalLoader";
@@ -29,10 +33,16 @@ export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
+    position: "relative",
+  },
+  container: {
+    position: "absolute",
+    top: 0,
+    left: 0,
     background: theme.palette.background.paper,
   },
   empty: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 999,
     top: 0,
     left: 0,
@@ -40,33 +50,42 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface IChooserProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> extends
-  Omit<IListProps<FilterData, RowData>, keyof {
-    ref: never;
-    limit: never;
-    chips: never;
-    search: never;
-    filterData: never;
-    isChooser: never;
-    payload: never;
-  }>,
-  IListState<FilterData, RowData>,
-  IListCallbacks<FilterData, RowData> {
+interface IChooserProps<
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything
+> extends Omit<
+      IListProps<FilterData, RowData>,
+      keyof {
+        ref: never;
+        limit: never;
+        chips: never;
+        search: never;
+        filterData: never;
+        isChooser: never;
+        payload: never;
+      }
+    >,
+    IListState<FilterData, RowData>,
+    IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
-  listChips: IListProps['chips'];
+  listChips: IListProps["chips"];
 }
 
-interface IChooserState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+interface IChooserState<
+  FilterData extends {} = IAnything,
+  RowData extends IRowData = IAnything
+> {
   rows: IChooserProps<FilterData, RowData>["rows"];
   filterData: IChooserProps<FilterData, RowData>["filterData"];
-};
+}
 
 export const Chooser = <
   FilterData extends {} = IAnything,
-  RowData extends IRowData = IAnything,
-  >(props: IChooserProps<FilterData, RowData>) => {
-
+  RowData extends IRowData = IAnything
+>(
+  props: IChooserProps<FilterData, RowData>
+) => {
   const { classes } = useStyles();
 
   const scrollYSubject = useSubject<number>();
@@ -81,9 +100,9 @@ export const Chooser = <
     withLoader = false,
   } = props;
 
-  const {
-    handlePageChange,
-  } = props;
+  const { elementRef, size: { height, width } } = useElementSize();
+
+  const { handlePageChange } = props;
 
   const [state, setState] = useState<IChooserState>({
     rows: upperRows,
@@ -98,16 +117,17 @@ export const Chooser = <
     scrollYSubject.next(0);
   }, [upperRows, upperFilterData]);
 
-  const handleAppendRows = useCallback(() => setState(({
-    rows,
-    ...state
-  }) => {
-    const rowIds = new Set(rows.map(({ id }) => id));
-    return {
-      ...state,
-      rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
-    };
-  }), [state, upperRows]);
+  const handleAppendRows = useCallback(
+    () =>
+      setState(({ rows, ...state }) => {
+        const rowIds = new Set(rows.map(({ id }) => id));
+        return {
+          ...state,
+          rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
+        };
+      }),
+    [state, upperRows]
+  );
 
   useEffect(() => handleAppendRows(), [upperRows]);
   useEffect(() => handleCleanRows(), [upperFilterData]);
@@ -115,9 +135,7 @@ export const Chooser = <
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;
 
-  const waitForRequest = useRenderWaiter([
-    loading,
-  ]);
+  const waitForRequest = useRenderWaiter([loading]);
 
   const handleDataRequest = async () => {
     let isOk = true;
@@ -130,41 +148,34 @@ export const Chooser = <
   };
 
   return (
-    <Container<FilterData, RowData>
-      {...props}
-      {...state}
-    >
-      {({ height, width, payload: { rows, loading } }) => (
-        <Box position="relative" style={{ height, width }}>
-          <VirtualView
-            scrollYSubject={scrollYSubject}
-            minRowHeight={DEFAULT_ITEM_SIZE}
-            onDataRequest={handleDataRequest}
-            sx={{ height, width }}
-          >
-            {!loading && rows.length === 0 && (
-              <MatListItem className={classes.empty}>
-                <ListItemIcon>
-                  <NotInterested />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Empty"
-                  secondary="Nothing found"
-                />
-              </MatListItem>
-            )} 
-            {rows.map((row, idx) => (
-              <ListItem
-                key={`${row.id}-${idx}`}
-                row={row}
-              />
-            ))}
-          </VirtualView>
-          <ModalLoader open={withLoader && loading} />
+    <Container<FilterData, RowData> {...props} {...state}>
+      <Box ref={elementRef} className={classes.root}>
+        <Box className={classes.container}>
+          <Box position="relative" style={{ height, width }}>
+            <VirtualView
+              scrollYSubject={scrollYSubject}
+              minRowHeight={DEFAULT_ITEM_SIZE}
+              onDataRequest={handleDataRequest}
+              sx={{ height, width }}
+            >
+              {!loading && state.rows.length === 0 && (
+                <MatListItem className={classes.empty}>
+                  <ListItemIcon>
+                    <NotInterested />
+                  </ListItemIcon>
+                  <ListItemText primary="Empty" secondary="Nothing found" />
+                </MatListItem>
+              )}
+              {state.rows.map((row, idx) => (
+                <ListItem key={`${row.id}-${idx}`} row={row} />
+              ))}
+            </VirtualView>
+            <ModalLoader open={withLoader && loading} />
+          </Box>
         </Box>
-      )}
+      </Box>
     </Container>
-  )
+  );
 };
 
 export default Chooser;

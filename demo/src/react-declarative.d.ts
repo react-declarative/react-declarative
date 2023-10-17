@@ -2019,8 +2019,9 @@ declare module 'react-declarative/hooks/useElementSize' {
         closest?: string;
         selector?: string;
         compute?: (size: ISize) => ISize;
+        onResize?: (size: ISize) => void;
     }
-    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, compute, }?: Partial<IParams>) => {
+    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, compute, onResize, }?: Partial<IParams>) => {
         elementRef: import("react").RefObject<T>;
         size: ISize;
     };
@@ -6299,7 +6300,7 @@ declare module 'react-declarative/components/AutoSizer/AutoSizer' {
     import * as React from "react";
     import ISize from "react-declarative/model/ISize";
     export interface IChildParams<T extends any = unknown> extends ISize {
-        payload: T;
+        payload?: T;
     }
     export interface IAutoSizerProps<T extends any = unknown> {
         children: (s: IChildParams<T>) => any;

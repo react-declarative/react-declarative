@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 
 import classNames from "../../../../utils/classNames";
 
-import AutoSizer, { IAutoSizerProps, IChildParams } from "../../../AutoSizer";
+import { IAutoSizerProps } from "../../../AutoSizer";
 
 import IListProps, {
   IListState,
@@ -21,13 +21,15 @@ import usePagination from "../../hooks/usePagination";
 import useConstraintManager from "../../hooks/useConstraintManager";
 import useRowDisabledMap from "../../hooks/useRowDisabledMap";
 
+import useElementSize from "../../../../hooks/useElementSize";
+
 import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
 import FilterListSlot from "../../slots/FilterListSlot";
 import ChipListSlot from "../../slots/ChipListSlot";
 import SearchSlot from "../../slots/SearchSlot";
 
-const CONTAINER_MARK = "react-declarative__contentMark";
+export const CONTAINER_MARK = "react-declarative__contentMark";
 const EMPTY_ARRAY: any[] = [];
 
 interface IContainerProps<
@@ -49,7 +51,7 @@ interface IContainerProps<
     IListCallbacks<FilterData, RowData> {
   className?: string;
   style?: React.CSSProperties;
-  children: (s: IChildParams<IContainerProps<FilterData, RowData>>) => any;
+  children: React.ReactNode;
   ready: () => void;
   listChips: IListProps["chips"];
   ref?: (instance: HTMLDivElement) => void;
@@ -142,6 +144,7 @@ export const Container = <
     loading,
     withToggledFilters,
     onFilterChange,
+    onResize,
     withSearch = false,
     search,
     sortModel = EMPTY_ARRAY,
@@ -154,37 +157,36 @@ export const Container = <
     AfterActionList,
   } = props;
 
+  const {
+    elementRef,
+    size: { height, width },
+  } = useElementSize({
+    target: sizeByParent ? undefined : document.body,
+    compute: ({ height, width }) => ({
+      height: heightRequest(height),
+      width: widthRequest(width),
+    }),
+    onResize,
+  });
 
   useEffect(() => {
     constraintManager.clear();
     rowDisabledMap.clear();
-  }, [
-    filterData,
-    pagination,
-    sortModel,
-    chips,
-    search,
-    payload,
-  ]);
-
-  const sizer = {
-    ...(!sizeByParent && {
-      target: document.body,
-    }),
-  };
+  }, [filterData, pagination, sortModel, chips, search, payload]);
 
   return (
-    <AutoSizer
+    <Box
+      ref={elementRef}
       className={classNames(classes.root, className, CONTAINER_MARK)}
       style={style}
-      heightRequest={heightRequest}
-      widthRequest={widthRequest}
-      payload={props}
-      {...sizer}
     >
-      {({ height, width, payload }) => (
-        <div className={classes.container}>
-          <div ref={ref} style={{ height, width }} className={classes.content}>
+      <div className={classes.container}>
+        <div
+          ref={ref}
+          style={{ height, width }}
+          className={classNames(classes.content, classes.stretch)}
+        >
+          <div>
             {BeforeActionList && (
               <Box className={classes.beforeActionList}>
                 <BeforeActionList
@@ -208,6 +210,8 @@ export const Container = <
                 />
               </Box>
             )}
+          </div>
+          <div>
             {Array.isArray(actions) && !!actions.length && (
               <ActionListSlot
                 height={height}
@@ -217,6 +221,9 @@ export const Container = <
                 actions={actions}
               />
             )}
+          </div>
+
+          <div>
             {AfterActionList && (
               <Box className={classes.afterActionList}>
                 <AfterActionList
@@ -240,14 +247,18 @@ export const Container = <
                 />
               </Box>
             )}
+          </div>
+          <div>
             {Array.isArray(operations) && !!operations.length && (
               <OperationListSlot operations={operations} width={width} />
             )}
-            <Paper
-              className={classNames(classes.content, classes.stretch, {
-                [classes.noElevation]: isChooser,
-              })}
-            >
+          </div>
+          <Paper
+            className={classNames(classes.content, classes.stretch, {
+              [classes.noElevation]: isChooser,
+            })}
+          >
+            <div>
               {!isChooser && Array.isArray(filters) && !!filters.length && (
                 <FilterListSlot
                   filterData={filterData!}
@@ -267,6 +278,8 @@ export const Container = <
                   withSearch={withSearch}
                 />
               )}
+            </div>
+            <div>
               {!isChooser &&
                 (!Array.isArray(filters) || !filters.length) &&
                 withSearch && (
@@ -280,21 +293,27 @@ export const Container = <
                     label={filterLabel}
                   />
                 )}
+            </div>
+            <div>
               {!isChooser && Array.isArray(listChips) && !!listChips.length && (
                 <ChipListSlot listChips={listChips} loading={loading} />
               )}
-              <div className={classNames(classes.content, classes.stretch)}>
-                {!rerender && (
-                  <AutoSizer payload={payload} onResize={props.onResize}>
-                    {children}
-                  </AutoSizer>
-                )}
-              </div>
-            </Paper>
-          </div>
+            </div>
+            <Box
+              className={classNames(classes.content, classes.stretch)}
+              sx={{
+                '& > :nth-of-type(1)': {
+                  flex: 1,
+                }
+              }}
+              style={{ height, width }}
+            >
+              {!rerender && <>{children}</>}
+            </Box>
+          </Paper>
         </div>
-      )}
-    </AutoSizer>
+      </div>
+    </Box>
   );
 };
 

@@ -31,9 +31,11 @@ import BodyRow from "./components/BodyRow";
 import HeadRow from "./components/HeadRow";
 
 import useScrollManager from "../../../hooks/useScrollManager";
+import useElementSize from "../../../../../hooks/useElementSize";
 import useConstraintManager from "../../../hooks/useConstraintManager";
 
 import Container from "../../Container";
+import useProps from "../../../hooks/useProps";
 
 const PAGINATION_HEIGHT = 52;
 
@@ -42,6 +44,11 @@ const ROWS_PER_PAGE = [10, 25, 50];
 const useStyles = makeStyles()((theme, _, classes) => ({
   root: {
     position: "relative",
+  },
+  container: {
+    position: "absolute",
+    top: 0,
+    left: 0,
     background: theme.palette.background.paper,
     [`& .${classes["noBorder"]}`]: {
       paddingLeft: "0 !important",
@@ -93,6 +100,10 @@ export const GridView = <
 
   const { constraintManager } = useConstraintManager();
 
+  const { elementRef, size } = useElementSize();
+
+  const { height, width } = size;
+
   const {
     limit,
     offset,
@@ -115,13 +126,13 @@ export const GridView = <
   const renderPlaceholder = (width: number) => (
     <TableCell
       className={classes.noBorder}
-      sx={{ position: 'relative' }}
+      sx={{ position: "relative" }}
       colSpan={columns.length * 2 || 999}
       align="center"
     >
       <Stack
         sx={{
-          position: 'sticky',
+          position: "sticky",
           top: 0,
           left: 0,
           width,
@@ -146,65 +157,63 @@ export const GridView = <
     []
   );
 
+  const renderInner = (mode: DisplayMode) => {
+    const Element = () => {
+      const { rows, loading } = useProps();
+      return (
+        <>
+          <TableHead className={classes.tableHead}>
+            <HeadRow fullWidth={width} mode={mode} />
+          </TableHead>
+          <TableBody>
+            {(withLoader && loading) ||
+            (withInitialLoader && loading && rows.length === 0) ||
+            (!loading && rows.length === 0) ? (
+              <TableRow>{renderPlaceholder(width)}</TableRow>
+            ) : (
+              rows.map((row, index) => (
+                <Fragment key={index}>
+                  <BodyRow fullWidth={width} row={row} mode={mode} />
+                </Fragment>
+              ))
+            )}
+          </TableBody>
+        </>
+      );
+    };
+    return <Element />;
+  };
+
   return (
     <Container<FilterData, RowData> {...props} onResize={handleResize}>
-      {(params) => {
-        const {
-          height,
-          width,
-          payload: { rows },
-        } = params;
-
-        const renderInner = (mode: DisplayMode) => (
-          <>
-            <TableHead className={classes.tableHead}>
-              <HeadRow fullWidth={width} mode={mode} />
-            </TableHead>
-            <TableBody>
-              {(withLoader && loading) ||
-              (withInitialLoader && loading && rows.length === 0) ||
-              (!loading && rows.length === 0) ? (
-                <TableRow>{renderPlaceholder(width)}</TableRow>
-              ) : (
-                rows.map((row, index) => (
-                  <Fragment key={index}>
-                    <BodyRow fullWidth={width} row={row} mode={mode} />
-                  </Fragment>
-                ))
-              )}
-            </TableBody>
-          </>
-        );
-
-        return (
-          <Box className={classes.root}>
-            <TableContainer
-              ref={scrollManager.provideRef}
-              style={{ height: height - PAGINATION_HEIGHT, width }}
-            >
-              <Table stickyHeader>
-                <ConstraintView
-                  phoneView={() => renderInner(DisplayMode.Phone)}
-                  tabletView={() => renderInner(DisplayMode.Tablet)}
-                  desktopView={() => renderInner(DisplayMode.Desktop)}
-                  onViewChanged={handleResize}
-                  params={params}
-                />
-              </Table>
-            </TableContainer>
-            <TablePagination
-              width={width}
-              height={height}
-              count={total || -1}
-              rowsPerPage={limit}
-              page={offset / limit}
-              rowsPerPageOptions={ROWS_PER_PAGE}
-              onPageChange={handleDirtyPageChange}
-              onRowsPerPageChange={handleDirtyLimitChange}
-            />
-          </Box>
-        );
-      }}
+      <Box ref={elementRef} className={classes.root}>
+        <Box className={classes.container}>
+          <TableContainer
+            ref={scrollManager.provideRef}
+            style={{ height: height - PAGINATION_HEIGHT, width }}
+          >
+            <Table stickyHeader>
+              <ConstraintView
+                phoneView={() => renderInner(DisplayMode.Phone)}
+                tabletView={() => renderInner(DisplayMode.Tablet)}
+                desktopView={() => renderInner(DisplayMode.Desktop)}
+                onViewChanged={handleResize}
+                params={size}
+              />
+            </Table>
+          </TableContainer>
+          <TablePagination
+            width={width}
+            height={height}
+            count={total || -1}
+            rowsPerPage={limit}
+            page={offset / limit}
+            rowsPerPageOptions={ROWS_PER_PAGE}
+            onPageChange={handleDirtyPageChange}
+            onRowsPerPageChange={handleDirtyLimitChange}
+          />
+        </Box>
+      </Box>
     </Container>
   );
 };
