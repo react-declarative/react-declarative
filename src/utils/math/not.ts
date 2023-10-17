@@ -6,8 +6,8 @@ export const not = <T = Promise<Value>>(arg: T): T => {
             try {
                 const result = await arg;
                 res(!result);
-            } catch {
-                rej(false);
+            } catch (error) {
+                rej(error);
             }
         }) as unknown as T;
     }
