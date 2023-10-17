@@ -23,7 +23,7 @@ import IListProps, {
 import IAnything from "../../../../../model/IAnything";
 import IRowData from "../../../../../model/IRowData";
 
-import ConstraintView from "../../../../ConstraintView";
+import { useConstraint } from "../../../../ConstraintView";
 
 import DisplayMode from "../../../../../model/DisplayMode";
 
@@ -35,7 +35,6 @@ import useElementSize from "../../../../../hooks/useElementSize";
 import useConstraintManager from "../../../hooks/useConstraintManager";
 
 import Container from "../../Container";
-import useProps from "../../../hooks/useProps";
 
 const PAGINATION_HEIGHT = 52;
 
@@ -104,9 +103,12 @@ export const GridView = <
 
   const { height, width } = size;
 
+  const { isTablet, isDesktop } = useConstraint(width);
+
   const {
     limit,
     offset,
+    rows,
     loading,
     total,
     columns = [],
@@ -157,32 +159,36 @@ export const GridView = <
     []
   );
 
-  const renderInner = (mode: DisplayMode) => {
-    const Element = () => {
-      const { rows, loading } = useProps();
-      return (
-        <>
-          <TableHead className={classes.tableHead}>
-            <HeadRow fullWidth={width} mode={mode} />
-          </TableHead>
-          <TableBody>
-            {(withLoader && loading) ||
-            (withInitialLoader && loading && rows.length === 0) ||
-            (!loading && rows.length === 0) ? (
-              <TableRow>{renderPlaceholder(width)}</TableRow>
-            ) : (
-              rows.map((row, index) => (
-                <Fragment key={index}>
-                  <BodyRow fullWidth={width} row={row} mode={mode} />
-                </Fragment>
-              ))
-            )}
-          </TableBody>
-        </>
-      );
-    };
-    return <Element />;
-  };
+  const renderInner = (mode: DisplayMode) => (
+    <>
+      <TableHead className={classes.tableHead}>
+        <HeadRow fullWidth={width} mode={mode} />
+      </TableHead>
+      <TableBody>
+        {(withLoader && loading) ||
+        (withInitialLoader && loading && rows.length === 0) ||
+        (!loading && rows.length === 0) ? (
+          <TableRow>{renderPlaceholder(width)}</TableRow>
+        ) : (
+          rows.map((row, index) => (
+            <Fragment key={index}>
+              <BodyRow fullWidth={width} row={row} mode={mode} />
+            </Fragment>
+          ))
+        )}
+      </TableBody>
+    </>
+  );
+
+  const renderChild = () => {
+    if (isDesktop) {
+      return renderInner(DisplayMode.Desktop);
+    }
+    if (isTablet) {
+      return renderInner(DisplayMode.Tablet);
+    }
+    return renderInner(DisplayMode.Phone);
+  }
 
   return (
     <Container<FilterData, RowData> {...props} onResize={handleResize}>
@@ -193,13 +199,7 @@ export const GridView = <
             style={{ height: height - PAGINATION_HEIGHT, width }}
           >
             <Table stickyHeader>
-              <ConstraintView
-                phoneView={() => renderInner(DisplayMode.Phone)}
-                tabletView={() => renderInner(DisplayMode.Tablet)}
-                desktopView={() => renderInner(DisplayMode.Desktop)}
-                onViewChanged={handleResize}
-                params={size}
-              />
+              {renderChild()}
             </Table>
           </TableContainer>
           <TablePagination

@@ -87,6 +87,8 @@ import { useElementSize } from './hooks/useElementSize';
 import { useSubject } from './hooks/useSubject';
 import { useChange } from './hooks/useChange';
 
+export { useConstraint } from './components';
+
 import { useModel } from './hooks/useModel';
 import { useEntity } from './hooks/useEntity';
 import { useListEditor } from './hooks/useListEditor';
