@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { MOBILE_LIST_ROOT } from '../../List/components/view/ChooserView';
+import { CONTAINER_MARK } from '../../List/components/Container';
 
 import IRowData, { RowId } from '../../../model/IRowData';
 import IListProps from '../../../model/IListProps';
@@ -37,8 +38,16 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
 
 const useStyles = makeStyles()({
   root: {
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
     "& .MuiPaper-root": {
       background: "transparent",
+    },
+    [`& .${CONTAINER_MARK}`]: {
+      flex: 1,
+      height: 'unset !important',
+      width: 'unset !important',
     },
     [`& .${MOBILE_LIST_ROOT}`]: {
       background: "transparent !important",

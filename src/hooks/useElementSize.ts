@@ -10,6 +10,7 @@ interface IParams extends ISize {
     closest?: string;
     selector?: string;
     compute?: (size: ISize) => ISize; 
+    onResize?: (size: ISize) => void;
 }
 
 export const useElementSize = <T extends HTMLElement>({
@@ -19,6 +20,7 @@ export const useElementSize = <T extends HTMLElement>({
     height = 0,
     width = 0,
     compute = (size) => size,
+    onResize,
 }: Partial<IParams> = {}) => {
 
     const elementRef = useRef<T>(null);
@@ -57,7 +59,9 @@ export const useElementSize = <T extends HTMLElement>({
         const observer = new ResizeObserver(() => {
             requestAnimationFrame(() => {
                 const { height, width } = element!.getBoundingClientRect();
-                isMounted.current && setSize(compute({ height, width }));
+                const size = compute({ height, width });
+                isMounted.current && setSize(size);
+                onResize && onResize(size);
             });
         });
 

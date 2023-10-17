@@ -80,6 +80,7 @@ declare module 'react-declarative' {
     import { useElementSize } from 'react-declarative/hooks/useElementSize';
     import { useSubject } from 'react-declarative/hooks/useSubject';
     import { useChange } from 'react-declarative/hooks/useChange';
+    export { useConstraint } from 'react-declarative/components';
     import { useModel } from 'react-declarative/hooks/useModel';
     import { useEntity } from 'react-declarative/hooks/useEntity';
     import { useListEditor } from 'react-declarative/hooks/useListEditor';
@@ -2019,8 +2020,9 @@ declare module 'react-declarative/hooks/useElementSize' {
         closest?: string;
         selector?: string;
         compute?: (size: ISize) => ISize;
+        onResize?: (size: ISize) => void;
     }
-    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, compute, }?: Partial<IParams>) => {
+    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, compute, onResize, }?: Partial<IParams>) => {
         elementRef: import("react").RefObject<T>;
         size: ISize;
     };
@@ -2040,6 +2042,76 @@ declare module 'react-declarative/hooks/useChange' {
         stopWatch: () => void;
     };
     export default useChange;
+}
+
+declare module 'react-declarative/components' {
+    export * from 'react-declarative/components/One';
+    export * from 'react-declarative/components/Dot';
+    export * from 'react-declarative/components/List';
+    export * from 'react-declarative/components/NoSsr';
+    export * from 'react-declarative/components/Switch';
+    export * from 'react-declarative/components/Center';
+    export * from 'react-declarative/components/Square';
+    export * from 'react-declarative/components/Scaffold';
+    export * from 'react-declarative/components/Scaffold2';
+    export * from 'react-declarative/components/Translate';
+    export * from 'react-declarative/components/Breadcrumbs';
+    export * from 'react-declarative/components/Breadcrumbs2';
+    export * from 'react-declarative/components/ErrorBoundary';
+    export * from 'react-declarative/components/ActionMenu';
+    export * from 'react-declarative/components/ActionButton';
+    export * from 'react-declarative/components/ActionStopIcon';
+    export * from 'react-declarative/components/ActionFab';
+    export * from 'react-declarative/components/ActionFilter';
+    export * from 'react-declarative/components/ActionTrigger';
+    export * from 'react-declarative/components/ActionIcon';
+    export * from 'react-declarative/components/ActionToggle';
+    export * from 'react-declarative/components/ActionModal';
+    export * from 'react-declarative/components/SearchModal';
+    export * from 'react-declarative/components/SizeProvider';
+    export * from 'react-declarative/components/ModalProvider';
+    export * from 'react-declarative/components/SnackProvider';
+    export * from 'react-declarative/components/ConstraintView';
+    export * from 'react-declarative/components/ScrollTopView';
+    export * from 'react-declarative/components/OutletView';
+    export * from 'react-declarative/components/AlertView';
+    export * from 'react-declarative/components/DragDropView';
+    export * from 'react-declarative/components/FilesView';
+    export * from 'react-declarative/components/ScrollView';
+    export * from 'react-declarative/components/ScaleView';
+    export * from 'react-declarative/components/AutoSizer';
+    export * from 'react-declarative/components/FadeView';
+    export * from 'react-declarative/components/TabsView';
+    export * from 'react-declarative/components/FetchView';
+    export * from 'react-declarative/components/WaitView';
+    export * from 'react-declarative/components/PingView';
+    export * from 'react-declarative/components/HtmlView';
+    export * from 'react-declarative/components/OfflineView';
+    export * from 'react-declarative/components/RevealView';
+    export * from 'react-declarative/components/SecretView';
+    export * from 'react-declarative/components/PortalView';
+    export * from 'react-declarative/components/RecordView';
+    export * from 'react-declarative/components/ErrorView';
+    export * from 'react-declarative/components/AuthView';
+    export * from 'react-declarative/components/CardView';
+    export * from 'react-declarative/components/ReloadView';
+    export * from 'react-declarative/components/InfiniteView';
+    export * from 'react-declarative/components/VirtualView';
+    export * from 'react-declarative/components/LoaderView';
+    export * from 'react-declarative/components/FeatureView';
+    export * from 'react-declarative/components/DocumentView';
+    export * from 'react-declarative/components/ImageView';
+    export * from 'react-declarative/components/TreeView';
+    export * from 'react-declarative/components/Grid';
+    export * from 'react-declarative/components/Search';
+    export * from 'react-declarative/components/Spinner';
+    export * from 'react-declarative/components/Async';
+    export * from 'react-declarative/components/Copy';
+    export * from 'react-declarative/components/If';
+    export * from 'react-declarative/components/Countdown';
+    export * from 'react-declarative/components/Chip';
+    export * from 'react-declarative/components/ScrollAdjust';
+    export * from 'react-declarative/components/MasterDetail';
 }
 
 declare module 'react-declarative/hooks/useModel' {
@@ -2353,76 +2425,6 @@ declare module 'react-declarative/model/IRowData' {
     }
     export type RowId = string | number;
     export default IRowData;
-}
-
-declare module 'react-declarative/components' {
-    export * from 'react-declarative/components/One';
-    export * from 'react-declarative/components/Dot';
-    export * from 'react-declarative/components/List';
-    export * from 'react-declarative/components/NoSsr';
-    export * from 'react-declarative/components/Switch';
-    export * from 'react-declarative/components/Center';
-    export * from 'react-declarative/components/Square';
-    export * from 'react-declarative/components/Scaffold';
-    export * from 'react-declarative/components/Scaffold2';
-    export * from 'react-declarative/components/Translate';
-    export * from 'react-declarative/components/Breadcrumbs';
-    export * from 'react-declarative/components/Breadcrumbs2';
-    export * from 'react-declarative/components/ErrorBoundary';
-    export * from 'react-declarative/components/ActionMenu';
-    export * from 'react-declarative/components/ActionButton';
-    export * from 'react-declarative/components/ActionStopIcon';
-    export * from 'react-declarative/components/ActionFab';
-    export * from 'react-declarative/components/ActionFilter';
-    export * from 'react-declarative/components/ActionTrigger';
-    export * from 'react-declarative/components/ActionIcon';
-    export * from 'react-declarative/components/ActionToggle';
-    export * from 'react-declarative/components/ActionModal';
-    export * from 'react-declarative/components/SearchModal';
-    export * from 'react-declarative/components/SizeProvider';
-    export * from 'react-declarative/components/ModalProvider';
-    export * from 'react-declarative/components/SnackProvider';
-    export * from 'react-declarative/components/ConstraintView';
-    export * from 'react-declarative/components/ScrollTopView';
-    export * from 'react-declarative/components/OutletView';
-    export * from 'react-declarative/components/AlertView';
-    export * from 'react-declarative/components/DragDropView';
-    export * from 'react-declarative/components/FilesView';
-    export * from 'react-declarative/components/ScrollView';
-    export * from 'react-declarative/components/ScaleView';
-    export * from 'react-declarative/components/AutoSizer';
-    export * from 'react-declarative/components/FadeView';
-    export * from 'react-declarative/components/TabsView';
-    export * from 'react-declarative/components/FetchView';
-    export * from 'react-declarative/components/WaitView';
-    export * from 'react-declarative/components/PingView';
-    export * from 'react-declarative/components/HtmlView';
-    export * from 'react-declarative/components/OfflineView';
-    export * from 'react-declarative/components/RevealView';
-    export * from 'react-declarative/components/SecretView';
-    export * from 'react-declarative/components/PortalView';
-    export * from 'react-declarative/components/RecordView';
-    export * from 'react-declarative/components/ErrorView';
-    export * from 'react-declarative/components/AuthView';
-    export * from 'react-declarative/components/CardView';
-    export * from 'react-declarative/components/ReloadView';
-    export * from 'react-declarative/components/InfiniteView';
-    export * from 'react-declarative/components/VirtualView';
-    export * from 'react-declarative/components/LoaderView';
-    export * from 'react-declarative/components/FeatureView';
-    export * from 'react-declarative/components/DocumentView';
-    export * from 'react-declarative/components/ImageView';
-    export * from 'react-declarative/components/TreeView';
-    export * from 'react-declarative/components/Grid';
-    export * from 'react-declarative/components/Search';
-    export * from 'react-declarative/components/Spinner';
-    export * from 'react-declarative/components/Async';
-    export * from 'react-declarative/components/Copy';
-    export * from 'react-declarative/components/If';
-    export * from 'react-declarative/components/Countdown';
-    export * from 'react-declarative/components/Chip';
-    export * from 'react-declarative/components/ScrollAdjust';
-    export * from 'react-declarative/components/MasterDetail';
 }
 
 declare module 'react-declarative/components/CardView' {
@@ -4449,55 +4451,6 @@ declare module 'react-declarative/components/One/components/SlotFactory' {
     export { default } from 'react-declarative/components/One/components/SlotFactory/SlotFactory';
 }
 
-declare module 'react-declarative/components/ModalProvider/ModalProvider' {
-    import * as React from 'react';
-    import IAnything from 'react-declarative/model/IAnything';
-    interface IModalProviderProps {
-        children: React.ReactNode;
-    }
-    type IRenderer = React.ComponentType<IAnything>;
-    interface IHook {
-        (render: IRenderer, deps?: any[]): {
-            showModal: Function;
-            hideModal: Function;
-        };
-    }
-    export const ModalProvider: ({ children }: IModalProviderProps) => JSX.Element;
-    export const useModal: IHook;
-    export default ModalProvider;
-}
-
-declare module 'react-declarative/components/SnackProvider/SnackProvider' {
-    import * as React from 'react';
-    interface ISnackProviderProps {
-        children: React.ReactNode;
-        delay?: number;
-    }
-    const useSnack: () => (msg: string) => void;
-    export const SnackProvider: ({ children, delay, }: ISnackProviderProps) => JSX.Element;
-    export { useSnack };
-    export default SnackProvider;
-}
-
-declare module 'react-declarative/components/SizeProvider/SizeProvider' {
-    import { BoxProps } from '@mui/material/Box';
-    import ISize from 'react-declarative/model/ISize';
-    interface ISizeProvider extends Omit<BoxProps, keyof {
-        ref: never;
-    }> {
-        target?: HTMLElement;
-    }
-    const useSize: () => ISize;
-    export const SizeProvider: ({ children, className, target, ...props }: ISizeProvider) => JSX.Element;
-    export { useSize };
-    export default SizeProvider;
-}
-
-declare module 'react-declarative/components/common/ListPicker' {
-    export * from 'react-declarative/components/common/ListPicker/ListPicker';
-    export { default } from 'react-declarative/components/common/ListPicker/ListPicker';
-}
-
 declare module 'react-declarative/components/One' {
     export * from 'react-declarative/components/One/One';
     export * from 'react-declarative/components/One/slots';
@@ -4626,6 +4579,7 @@ declare module 'react-declarative/components/SearchModal' {
 
 declare module 'react-declarative/components/ConstraintView' {
     export * from 'react-declarative/components/ConstraintView/ConstraintView';
+    export * from 'react-declarative/components/ConstraintView/useConstraint';
     export { default } from 'react-declarative/components/ConstraintView/ConstraintView';
 }
 
@@ -4826,6 +4780,55 @@ declare module 'react-declarative/components/MasterDetail' {
     export { IMasterDetailOption } from 'react-declarative/components/MasterDetail/model/IMasterDetailOption';
     export { MasterDetailMode } from 'react-declarative/components/MasterDetail/model/MasterDetailMode';
     export { default } from 'react-declarative/components/MasterDetail/MasterDetail';
+}
+
+declare module 'react-declarative/components/ModalProvider/ModalProvider' {
+    import * as React from 'react';
+    import IAnything from 'react-declarative/model/IAnything';
+    interface IModalProviderProps {
+        children: React.ReactNode;
+    }
+    type IRenderer = React.ComponentType<IAnything>;
+    interface IHook {
+        (render: IRenderer, deps?: any[]): {
+            showModal: Function;
+            hideModal: Function;
+        };
+    }
+    export const ModalProvider: ({ children }: IModalProviderProps) => JSX.Element;
+    export const useModal: IHook;
+    export default ModalProvider;
+}
+
+declare module 'react-declarative/components/SnackProvider/SnackProvider' {
+    import * as React from 'react';
+    interface ISnackProviderProps {
+        children: React.ReactNode;
+        delay?: number;
+    }
+    const useSnack: () => (msg: string) => void;
+    export const SnackProvider: ({ children, delay, }: ISnackProviderProps) => JSX.Element;
+    export { useSnack };
+    export default SnackProvider;
+}
+
+declare module 'react-declarative/components/SizeProvider/SizeProvider' {
+    import { BoxProps } from '@mui/material/Box';
+    import ISize from 'react-declarative/model/ISize';
+    interface ISizeProvider extends Omit<BoxProps, keyof {
+        ref: never;
+    }> {
+        target?: HTMLElement;
+    }
+    const useSize: () => ISize;
+    export const SizeProvider: ({ children, className, target, ...props }: ISizeProvider) => JSX.Element;
+    export { useSize };
+    export default SizeProvider;
+}
+
+declare module 'react-declarative/components/common/ListPicker' {
+    export * from 'react-declarative/components/common/ListPicker/ListPicker';
+    export { default } from 'react-declarative/components/common/ListPicker/ListPicker';
 }
 
 declare module 'react-declarative/components/CardView/CardView' {
@@ -5322,32 +5325,6 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
         Complete: ComponentType<ICompleteSlot>;
     }
     export default ISlotFactoryContext;
-}
-
-declare module 'react-declarative/components/common/ListPicker/ListPicker' {
-    import IRowData, { RowId } from 'react-declarative/model/IRowData';
-    import IListProps from 'react-declarative/model/IListProps';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IColumn from 'react-declarative/model/IColumn';
-    import SelectionMode from 'react-declarative/model/SelectionMode';
-    import IListRowAction from 'react-declarative/model/IListRowAction';
-    export interface IListPickerProps<RowData extends IRowData = IAnything> {
-        onChange: (data: RowId[] | null) => void;
-        handler: IListProps<RowData>['handler'];
-        selectionMode: SelectionMode.Single | SelectionMode.Multiple;
-        columns: Omit<IColumn<RowData>, keyof {
-            headerName: never;
-            width: never;
-        }>[];
-        selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
-        minHeight: number;
-        minWidth: number;
-        title: string;
-        open: boolean;
-        rowActions?: IListRowAction[];
-    }
-    export const ListPicker: <RowData extends IRowData = any>({ onChange, handler, title, columns, open, selectionMode, selectedRows: selectedRowsDefault, minHeight, minWidth, rowActions, }: IListPickerProps<RowData>) => JSX.Element;
-    export default ListPicker;
 }
 
 declare module 'react-declarative/components/One/One' {
@@ -6109,6 +6086,15 @@ declare module 'react-declarative/components/ConstraintView/ConstraintView' {
     export default ConstraintView;
 }
 
+declare module 'react-declarative/components/ConstraintView/useConstraint' {
+    export const useConstraint: (width: number) => {
+        isPhone: boolean;
+        isTablet: boolean;
+        isDesktop: boolean;
+    };
+    export default useConstraint;
+}
+
 declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
     import { FabProps } from "@mui/material/Fab";
     type IScrollTopViewProps = Omit<FabProps, keyof {
@@ -6299,7 +6285,7 @@ declare module 'react-declarative/components/AutoSizer/AutoSizer' {
     import * as React from "react";
     import ISize from "react-declarative/model/ISize";
     export interface IChildParams<T extends any = unknown> extends ISize {
-        payload: T;
+        payload?: T;
     }
     export interface IAutoSizerProps<T extends any = unknown> {
         children: (s: IChildParams<T>) => any;
@@ -6995,6 +6981,32 @@ declare module 'react-declarative/components/MasterDetail/model/MasterDetailMode
         Tabs = "tabs"
     }
     export default MasterDetailMode;
+}
+
+declare module 'react-declarative/components/common/ListPicker/ListPicker' {
+    import IRowData, { RowId } from 'react-declarative/model/IRowData';
+    import IListProps from 'react-declarative/model/IListProps';
+    import IAnything from 'react-declarative/model/IAnything';
+    import IColumn from 'react-declarative/model/IColumn';
+    import SelectionMode from 'react-declarative/model/SelectionMode';
+    import IListRowAction from 'react-declarative/model/IListRowAction';
+    export interface IListPickerProps<RowData extends IRowData = IAnything> {
+        onChange: (data: RowId[] | null) => void;
+        handler: IListProps<RowData>['handler'];
+        selectionMode: SelectionMode.Single | SelectionMode.Multiple;
+        columns: Omit<IColumn<RowData>, keyof {
+            headerName: never;
+            width: never;
+        }>[];
+        selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
+        minHeight: number;
+        minWidth: number;
+        title: string;
+        open: boolean;
+        rowActions?: IListRowAction[];
+    }
+    export const ListPicker: <RowData extends IRowData = any>({ onChange, handler, title, columns, open, selectionMode, selectedRows: selectedRowsDefault, minHeight, minWidth, rowActions, }: IListPickerProps<RowData>) => JSX.Element;
+    export default ListPicker;
 }
 
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
