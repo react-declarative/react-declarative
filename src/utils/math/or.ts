@@ -7,8 +7,8 @@ export const or = <T = Promise<Value>>(...args: T[]): T => {
                 const items = await Promise.all(args);
                 const result = items.reduce<boolean>((acm, cur) => Boolean(acm || cur), false);
                 res(result);
-            } catch {
-                rej(false);
+            } catch (error) {
+                rej(error);
             }
         }) as unknown as T;
     }
