@@ -4430,17 +4430,15 @@ declare module 'react-declarative/components/List/common/ModernChipListSlot' {
 
 declare module 'react-declarative/components/List/hooks/useColumnConfig' {
     import IColumn from "react-declarative/model/IColumn";
-    interface IParams {
-        fullScreen?: boolean;
-        title?: string;
-        storageKey: string;
+    interface ISortModalProps {
         columns: IColumn[];
+        storageKey: string;
     }
-    export const useColumnConfig: ({ storageKey, fullScreen, columns: upperColumns, title, }: IParams) => {
+    export const useColumnConfig: ({ columns, storageKey }: ISortModalProps) => {
         open: boolean;
-        columns: IColumn<any, any, any>[];
-        pickColumns: (param?: any) => void;
         render: () => JSX.Element;
+        columns: IColumn<any, any, any>[];
+        pickColumns: () => void;
     };
     export default useColumnConfig;
 }
