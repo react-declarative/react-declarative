@@ -174,7 +174,7 @@ export const GridView = <
           <TableRow>{renderPlaceholder(width)}</TableRow>
         ) : (
           rows.map((row, index) => (
-            <Fragment key={index}>
+            <Fragment key={`${row.id}-${index}`}>
               <BodyRow fullWidth={width} row={row} mode={mode} />
             </Fragment>
           ))
