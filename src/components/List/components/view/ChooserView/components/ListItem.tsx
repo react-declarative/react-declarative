@@ -6,7 +6,7 @@ import { makeStyles } from "../../../../../../styles";
 import MatListItem from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Box from "@mui/material/Box";
 
 import Async from "../../../../../Async";
 import ActionMenu from "../../../../../ActionMenu";
@@ -129,13 +129,11 @@ export const ListItem = <RowData extends IRowData = IAnything>({
   ) : null;
 
   const avatar = avararColumn ? (
-    <ListItemAvatar>
-      <ColumnContent<RowData>
-        row={row}
-        fallback={fallback}
-        column={avararColumn}
-      />
-    </ListItemAvatar>
+    <ColumnContent<RowData>
+      row={row}
+      fallback={fallback}
+      column={avararColumn}
+    />
   ) : null;
 
   const handleClick = () => {
@@ -181,10 +179,14 @@ export const ListItem = <RowData extends IRowData = IAnything>({
       disableRipple={menuOpened}
     >
       {!!rowMark && <RowMark row={row} />}
-      <ListItemIcon>
+      <ListItemIcon sx={{ display: 'flex', alignItems: 'center', gap: '8px', }}>
         <RowCheckbox row={row} />
+        {!!avatar && (
+          <Box sx={{ marginRight: '16px' }}>
+            {avatar}
+          </Box>
+        )}
       </ListItemIcon>
-      {avatar}
       <ListItemText primary={primary} secondary={secondary} />
       {!!rowActions && (
         <ActionMenu
