@@ -41,6 +41,8 @@ export const useList = <RowData extends IRowData = IAnything>({
   handler,
   columns,
   rowActions,
+  payload,
+  features,
   selectionMode = SelectionMode.Single,
   title: titleDefault = 'Pick item',
   minWidth: minWidthDefault = 425,
@@ -66,6 +68,8 @@ export const useList = <RowData extends IRowData = IAnything>({
   const { showModal, hideModal } = useModal(() => (
     <ListPicker
       open
+      payload={payload}
+      features={features}
       selectionMode={selectionMode}
       minHeight={minHeight}
       minWidth={minWidth}

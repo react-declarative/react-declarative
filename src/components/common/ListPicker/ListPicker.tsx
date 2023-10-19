@@ -29,6 +29,8 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
     width: never;
   }>[];
   selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
+  payload?: IListProps<RowData>['payload'];
+  features?: IListProps<RowData>['features'];
   minHeight: number;
   minWidth: number;
   title: string;

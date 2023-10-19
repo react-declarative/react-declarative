@@ -2309,7 +2309,7 @@ declare module 'react-declarative/hooks/useList' {
         minWidth?: number;
         title?: string;
     }
-    export const useList: <RowData extends IRowData = any>({ handler, columns, rowActions, selectionMode, title: titleDefault, minWidth: minWidthDefault, minHeight: minHeightDefault, selectedRows: selectedRowsDefault, }: IParams<RowData>) => ({ title, minWidth, minHeight, selectedRows, }?: Partial<IParams<RowData>>) => {
+    export const useList: <RowData extends IRowData = any>({ handler, columns, rowActions, payload, features, selectionMode, title: titleDefault, minWidth: minWidthDefault, minHeight: minHeightDefault, selectedRows: selectedRowsDefault, }: IParams<RowData>) => ({ title, minWidth, minHeight, selectedRows, }?: Partial<IParams<RowData>>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<RowData[] | null>;
     };
@@ -6998,6 +6998,8 @@ declare module 'react-declarative/components/common/ListPicker/ListPicker' {
             width: never;
         }>[];
         selectedRows: NonNullable<IListProps<RowData>['selectedRows']> | null;
+        payload?: IListProps<RowData>['payload'];
+        features?: IListProps<RowData>['features'];
         minHeight: number;
         minWidth: number;
         title: string;
