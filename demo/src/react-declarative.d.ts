@@ -7007,7 +7007,7 @@ declare module 'react-declarative/components/common/ListPicker/ListPicker' {
         open: boolean;
         rowActions?: IListRowAction[];
     }
-    export const ListPicker: <RowData extends IRowData = any>({ onChange, handler, title, columns, open, selectionMode, selectedRows: selectedRowsDefault, minHeight, minWidth, rowActions, }: IListPickerProps<RowData>) => JSX.Element;
+    export const ListPicker: <RowData extends IRowData = any>({ onChange, handler, title, columns, open, selectionMode, selectedRows: upperSelectedRows, minHeight, minWidth, rowActions, }: IListPickerProps<RowData>) => JSX.Element;
     export default ListPicker;
 }
 

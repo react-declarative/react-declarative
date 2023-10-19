@@ -60,7 +60,7 @@ export const useList = <RowData extends IRowData = IAnything>({
   const handleChange: Fn = (data) => {
     const { current } = changeRef;
     if (current) {
-      current(Array.isArray(data) ? data.length === 0 ? null : data : data);
+      current(data);
     }
     hideModal();
   };
