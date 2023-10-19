@@ -19,6 +19,7 @@ import createLsManager from "../../../utils/createLsManager";
 import reloadPage from "../../../utils/reloadPage";
 
 import IColumn from "../../../model/IColumn";
+import ColumnType from "../../../model/ColumnType";
 
 import ArrowUpIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownIcon from "@mui/icons-material/ArrowDownward";
@@ -93,6 +94,7 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     if (!value) {
       value = columns
         .filter((column) => column.field)
+        .filter((column) => column.type !== ColumnType.Action)
         .map((column) => ({
           field: column.field!,
           show: true,
@@ -103,14 +105,17 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     return value;
   });
 
-  const sortedColumns = useMemo(
-    () =>
-      currentColumns
-        .filter(({ show }) => show)
-        .map(({ field }) => columns.find((column) => column.field === field)!)
-        .filter((value) => value),
-    []
-  );
+  const sortedColumns = useMemo(() => {
+    const result = currentColumns
+      .filter(({ show }) => show)
+      .map(({ field }) => columns.find((column) => column.field === field)!)
+      .filter((value) => value);
+    const actionColumn = columns.find(({ type }) => type === ColumnType.Action);
+    if (actionColumn) {
+      result.push(actionColumn);
+    }
+    return result;
+  }, []);
 
   const handleAccept = () => {
     storageManager.setValue(currentColumns);
