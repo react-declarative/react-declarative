@@ -20,6 +20,9 @@ import IColumn from '../../../model/IColumn';
 import SelectionMode from '../../../model/SelectionMode';
 import IListRowAction from '../../../model/IListRowAction';
 
+import useReloadTrigger from '../../../hooks/useReloadTrigger';
+import useChange from '../../../hooks/useChange';
+
 export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
   handler: IListProps<RowData>['handler'];
@@ -69,8 +72,14 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
   minWidth,
   rowActions,
 }: IListPickerProps<RowData>) => {
+  const { reloadTrigger, doReload } = useReloadTrigger();
   const [selectedRows, setSelectedRows] = useState(selectedRowsDefault);
   const { classes } = useStyles();
+  useChange(() => {
+    if (!open) {
+      doReload();
+    }
+  }, [open]);
   const handleChange = (rows: RowId[], initialChange: boolean) => {
     if (!initialChange) {
       setSelectedRows(rows);
@@ -100,6 +109,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
       )}
       <Box className={classes.root} style={{minHeight, minWidth}}>
         <List<IAnything, RowData>
+          key={reloadTrigger}
           sizeByParent
           withLoader
           withSelectOnRowClick
