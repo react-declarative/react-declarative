@@ -6,6 +6,7 @@ import { makeStyles } from "../../../../../../styles";
 import MatListItem from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 
 import Async from "../../../../../Async";
 import ActionMenu from "../../../../../ActionMenu";
@@ -109,6 +110,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     columns.find(({ primary }) => primary) ||
     columns.find(({ field }) => !!field);
   const secondaryColumn = columns.find(({ secondary }) => secondary);
+  const avararColumn = columns.find(({ avatar }) => avatar);
 
   const primary = (
     <ColumnContent<RowData>
@@ -124,6 +126,16 @@ export const ListItem = <RowData extends IRowData = IAnything>({
       fallback={fallback}
       column={secondaryColumn}
     />
+  ) : null;
+
+  const avatar = avararColumn ? (
+    <ListItemAvatar>
+      <ColumnContent<RowData>
+        row={row}
+        fallback={fallback}
+        column={avararColumn}
+      />
+    </ListItemAvatar>
   ) : null;
 
   const handleClick = () => {
@@ -172,6 +184,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
       <ListItemIcon>
         <RowCheckbox row={row} />
       </ListItemIcon>
+      {avatar}
       <ListItemText primary={primary} secondary={secondary} />
       {!!rowActions && (
         <ActionMenu

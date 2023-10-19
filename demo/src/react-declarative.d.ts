@@ -1174,6 +1174,7 @@ declare module 'react-declarative/model/IColumn' {
         field?: string;
         primary?: boolean;
         secondary?: boolean;
+        avatar?: boolean;
         headerName?: string;
         fullName?: string;
         description?: string;
