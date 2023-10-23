@@ -407,6 +407,7 @@ declare module 'react-declarative' {
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
     export { cached } from 'react-declarative/utils/hof/cached';
+    export { ttl } from 'react-declarative/utils/hof/ttl';
     export { sleep } from 'react-declarative/utils/sleep';
     export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
@@ -2729,6 +2730,14 @@ declare module 'react-declarative/utils/hof/cached' {
     }
     export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T) => T & IClearable;
     export default cached;
+}
+
+declare module 'react-declarative/utils/hof/ttl' {
+    interface IClearable {
+        clear: () => void;
+    }
+    export const ttl: <T extends (...args: any[]) => any>(run: T, timeout?: number) => T & IClearable;
+    export default ttl;
 }
 
 declare module 'react-declarative/utils/sleep' {
