@@ -94,7 +94,7 @@ export class Entry<
     onPageChange: () => null,
     onLimitChange: () => null,
     labelDisplayedRows: ({ count, from, to }) => `${from}–${to} ${count !== -1 ? `(${count})` : ''}`,
-    selectionLabel: (size) => `${size}`,
+    selectionLabel: (size) => `${size || ''}`,
     filterData: {},
     withToggledFilters: false,
     noInitialFilters: false,
