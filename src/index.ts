@@ -467,6 +467,7 @@ export type IPositionActionListSlot = IPositionActionListSlotInternal;
 export { VirtualListBox } from './components/One/components/common/VirtualListBox';
 
 export { openBlank } from './utils/openBlank';
+export { copyToClipboard } from './utils/copyToClipboard';
 export { downloadBlank } from './utils/downloadBlank';
 export { replaceString } from './utils/replaceString';
 export { chooseFile } from './utils/chooseFile';

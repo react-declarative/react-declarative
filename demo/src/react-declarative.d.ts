@@ -376,6 +376,7 @@ declare module 'react-declarative' {
     export type IPositionActionListSlot = IPositionActionListSlotInternal;
     export { VirtualListBox } from 'react-declarative/components/One/components/common/VirtualListBox';
     export { openBlank } from 'react-declarative/utils/openBlank';
+    export { copyToClipboard } from 'react-declarative/utils/copyToClipboard';
     export { downloadBlank } from 'react-declarative/utils/downloadBlank';
     export { replaceString } from 'react-declarative/utils/replaceString';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
@@ -2510,6 +2511,14 @@ declare module 'react-declarative/utils/openBlank' {
         override(ref: (url: string) => void): void;
     };
     export default openBlank;
+}
+
+declare module 'react-declarative/utils/copyToClipboard' {
+    export const copyToClipboard: {
+        (text: string): Promise<void>;
+        override(ref: (text: string) => (void | Promise<void>)): void;
+    };
+    export default copyToClipboard;
 }
 
 declare module 'react-declarative/utils/downloadBlank' {

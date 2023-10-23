@@ -7,9 +7,10 @@ import Box, { BoxProps } from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
+import copyToClipboard from '../../utils/copyToClipboard';
 import classNames from '../../utils/classNames';
+
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 interface ICopyProps extends BoxProps {
     content: string;
@@ -49,7 +50,7 @@ const createCopyHandler = (content: React.ReactNode) => async () => {
     if (typeof content !== 'string') {
         return;
     }
-    await navigator.clipboard.writeText(String(content));
+    await copyToClipboard(String(content));
 };
 
 export const Copy = ({
