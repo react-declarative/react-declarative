@@ -114,6 +114,7 @@ export const GridView = <
     rows,
     loading,
     total,
+    labelDisplayedRows,
     columns = [],
     withLoader = false,
     withInitialLoader = false,
@@ -211,6 +212,7 @@ export const GridView = <
             count={total || -1}
             rowsPerPage={limit}
             page={offset / limit}
+            labelDisplayedRows={labelDisplayedRows}
             rowsPerPageOptions={ROWS_PER_PAGE}
             onPageChange={handleDirtyPageChange}
             onRowsPerPageChange={handleDirtyLimitChange}

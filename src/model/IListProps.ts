@@ -208,6 +208,12 @@ export interface IListProps<
     search: string,
     payload: Payload
   }) => boolean;
+  labelDisplayedRows?: (paginationInfo: {
+    from: number;
+    to: number;
+    count: number;
+    page: number;
+  }) => string;
   fallback?: (e: Error) => void;
   reloadSubject?: TSubject<void>;
   rerenderSubject?: TSubject<void>;
