@@ -1,7 +1,13 @@
 let isReloading = false;
 
+let overrideRef: (() => void) | null = null
+
 export const reloadPage = async () => {
     isReloading = true;
+    if (overrideRef) {
+        overrideRef();
+        return;
+    }
     const { href, origin, protocol } = window.location;
     if (protocol !== 'file:') {
         const url = new URL(href, origin);
@@ -21,5 +27,9 @@ if (window && window.addEventListener) {
         }
     }, true);
 }
+
+reloadPage.override = (ref: () => void) => {
+    overrideRef = ref;
+};
 
 export default reloadPage;

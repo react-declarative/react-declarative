@@ -2529,7 +2529,10 @@ declare module 'react-declarative/utils/loadScript' {
 }
 
 declare module 'react-declarative/utils/reloadPage' {
-    export const reloadPage: () => Promise<void>;
+    export const reloadPage: {
+        (): Promise<void>;
+        override(ref: () => void): void;
+    };
     export default reloadPage;
 }
 
