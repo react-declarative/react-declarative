@@ -77,7 +77,7 @@ const useStyles = makeStyles()((theme) => ({
       boxShadow: 'none',
       border: '0',
       borderRadius: '0',
-      '& > *': {
+      '& > * > *': {
         background: 'transparent',
       },
     },

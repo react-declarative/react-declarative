@@ -72,11 +72,25 @@ const useStyles = makeStyles()({
     left: 0,
   },
   content: {
+    position: "relative",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
     overflow: "hidden",
+  },
+  inner: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    flexDirection: "column",
+    overflow: "hidden",
+    "& > :nth-of-type(1)": {
+      flex: 1,
+    },
   },
   stretch: {
     flex: 1,
@@ -160,8 +174,8 @@ export const Container = <
   } = props;
 
   const {
-    elementRef,
-    size: { height, width },
+    elementRef: rootElementRef,
+    size: rootElementSize,
   } = useElementSize({
     target: sizeByParent ? undefined : document.body,
     delay: RESIZE_DELAY,
@@ -172,6 +186,13 @@ export const Container = <
     onResize,
   });
 
+  const {
+    elementRef: contentElementRef,
+    size: contentElementSize,
+  } = useElementSize({
+    delay: RESIZE_DELAY,
+  });
+
   useEffect(() => {
     constraintManager.clear();
     rowDisabledMap.clear();
@@ -179,14 +200,14 @@ export const Container = <
 
   return (
     <Box
-      ref={elementRef}
+      ref={rootElementRef}
       className={classNames(classes.root, className, CONTAINER_MARK)}
       style={style}
     >
       <div className={classes.container}>
         <div
           ref={ref}
-          style={{ height, width }}
+          style={rootElementSize}
           className={classNames(classes.content, classes.stretch)}
         >
           <div>
@@ -217,8 +238,8 @@ export const Container = <
           <div>
             {Array.isArray(actions) && !!actions.length && (
               <ActionListSlot
-                height={height}
-                width={width}
+                height={rootElementSize.height}
+                width={rootElementSize.width}
                 title={title}
                 filterData={filterData!}
                 actions={actions}
@@ -253,7 +274,7 @@ export const Container = <
           </div>
           <div>
             {Array.isArray(operations) && !!operations.length && (
-              <OperationListSlot operations={operations} width={width} />
+              <OperationListSlot operations={operations} width={rootElementSize.width} />
             )}
           </div>
           <Paper
@@ -276,8 +297,8 @@ export const Container = <
                   ready={ready}
                   loading={loading}
                   search={search}
-                  height={height}
-                  width={width}
+                  height={rootElementSize.height}
+                  width={rootElementSize.width}
                   withSearch={withSearch}
                 />
               )}
@@ -290,8 +311,8 @@ export const Container = <
                     onSearchChange={handleSearch}
                     clean={handleDefault}
                     search={search}
-                    height={height}
-                    width={width}
+                    height={rootElementSize.height}
+                    width={rootElementSize.width}
                     loading={loading}
                     label={filterLabel}
                   />
@@ -303,15 +324,12 @@ export const Container = <
               )}
             </div>
             <Box
+              ref={contentElementRef}
               className={classNames(classes.content, classes.stretch)}
-              sx={{
-                '& > :nth-of-type(1)': {
-                  flex: 1,
-                }
-              }}
-              style={{ height, width }}
             >
-              {!rerender && <>{children}</>}
+              <div className={classes.inner} style={contentElementSize}>
+                {!rerender && <>{children}</>}
+              </div>
             </Box>
           </Paper>
         </div>
