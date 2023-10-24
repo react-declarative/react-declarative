@@ -410,6 +410,7 @@ declare module 'react-declarative' {
     export { cached } from 'react-declarative/utils/hof/cached';
     export { ttl } from 'react-declarative/utils/hof/ttl';
     export { sleep } from 'react-declarative/utils/sleep';
+    export { deepFlat } from 'react-declarative/utils/deepFlat';
     export { BehaviorSubject } from 'react-declarative/utils/rx/BehaviorSubject';
     export { EventEmitter } from 'react-declarative/utils/rx/EventEmitter';
     export { Observer } from 'react-declarative/utils/rx/Observer';
@@ -2759,6 +2760,11 @@ declare module 'react-declarative/utils/hof/ttl' {
 declare module 'react-declarative/utils/sleep' {
     export const sleep: (timeout?: number) => Promise<void>;
     export default sleep;
+}
+
+declare module 'react-declarative/utils/deepFlat' {
+    export const deepFlat: <T = any>(arr?: T[]) => T[];
+    export default deepFlat;
 }
 
 declare module 'react-declarative/utils/rx/BehaviorSubject' {

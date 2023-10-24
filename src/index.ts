@@ -510,6 +510,7 @@ export { cached } from './utils/hof/cached';
 export { ttl } from './utils/hof/ttl';
 
 export { sleep } from './utils/sleep';
+export { deepFlat } from './utils/deepFlat';
 
 export { BehaviorSubject } from './utils/rx/BehaviorSubject';
 export { EventEmitter } from './utils/rx/EventEmitter';
