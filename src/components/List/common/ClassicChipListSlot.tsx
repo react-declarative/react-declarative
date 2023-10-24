@@ -17,6 +17,7 @@ import { ThemeProvider } from "@mui/material";
 import FadeView from "../../FadeView";
 
 import useChips from "../hooks/useChips";
+import useProps from "../hooks/useProps";
 
 import { IListChip } from "../../../model/IListProps";
 
@@ -39,6 +40,8 @@ export const ClassicChipListSlot = ({
 }: IChipListSlot) => {
   const theme = useTheme<Theme>();
   const { classes } = useStyles();
+
+  const { withSingleChip } = useProps();
 
   const fadeColor = useMemo(() => {
     const a = 0.05;
@@ -80,6 +83,9 @@ export const ClassicChipListSlot = ({
   const createToggleHandler =
     (name: string, state = true) =>
     () => {
+      if (withSingleChip) {
+        [...chips.keys()].forEach((key) => chips.set(key, false));
+      }
       chips.set(name, state);
       setChips(chips);
     };

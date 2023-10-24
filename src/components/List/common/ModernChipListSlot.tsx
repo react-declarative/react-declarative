@@ -16,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FadeView from "../../FadeView";
 
 import useChips from "../hooks/useChips";
+import useProps from "../hooks/useProps";
 
 import { IListChip } from "../../../model/IListProps";
 
@@ -40,9 +41,14 @@ export const ModernChipListSlot = ({
 
   const { chips, setChips } = useChips();
 
+  const { withSingleChip } = useProps();
+
   const createToggleHandler =
     (name: string, state = true) =>
     () => {
+      if (withSingleChip) {
+        [...chips.keys()].forEach((key) => chips.set(key, false));
+      }
       chips.set(name, state);
       setChips(chips);
     };
