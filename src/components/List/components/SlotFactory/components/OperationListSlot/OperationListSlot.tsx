@@ -77,6 +77,7 @@ export const OperationListSlot = ({
         onLoadStart,
         onLoadEnd,
         loading,
+        withAllListOperations,
     } = useProps();
 
     const reload = useReload();
@@ -200,17 +201,19 @@ export const OperationListSlot = ({
                     </Async>
                 </Box>
             </FadeView>
-            <Box className={classes.label}>
-                {width < LABEL_SHRINK ? (
-                    AllCheckbox
-                ) : (
-                    <FormControlLabel
-                        disabled={loading}
-                        control={AllCheckbox}
-                        label="All items"
-                    />
-                )}
-            </Box>
+            {withAllListOperations && (
+                <Box className={classes.label}>
+                    {width < LABEL_SHRINK ? (
+                        AllCheckbox
+                    ) : (
+                        <FormControlLabel
+                            disabled={loading}
+                            control={AllCheckbox}
+                            label="All items"
+                        />
+                    )}
+                </Box>
+            )}
         </Box>
     );
 };

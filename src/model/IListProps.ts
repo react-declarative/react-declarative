@@ -224,6 +224,7 @@ export interface IListProps<
   rowActions?: IListRowAction[];
   noInitialFilters?: boolean;
   withSingleChip?: boolean;
+  withAllListOperations?: boolean;
   withSelectOnRowClick?: boolean;
   withToggledFilters?: boolean;
   withSingleSort?: boolean;

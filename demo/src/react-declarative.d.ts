@@ -1634,6 +1634,7 @@ declare module 'react-declarative/model/IListProps' {
         rowActions?: IListRowAction[];
         noInitialFilters?: boolean;
         withSingleChip?: boolean;
+        withAllListOperations?: boolean;
         withSelectOnRowClick?: boolean;
         withToggledFilters?: boolean;
         withSingleSort?: boolean;
