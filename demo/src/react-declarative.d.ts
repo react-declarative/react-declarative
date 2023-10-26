@@ -378,7 +378,7 @@ declare module 'react-declarative' {
     export { openBlank } from 'react-declarative/utils/openBlank';
     export { copyToClipboard } from 'react-declarative/utils/copyToClipboard';
     export { downloadBlank } from 'react-declarative/utils/downloadBlank';
-    export { replaceString } from 'react-declarative/utils/replaceString';
+    export { removeSubstring } from 'react-declarative/utils/removeSubstring';
     export { chooseFile } from 'react-declarative/utils/chooseFile';
     export { loadScript } from 'react-declarative/utils/loadScript';
     export { reloadPage } from 'react-declarative/utils/reloadPage';
@@ -2532,9 +2532,9 @@ declare module 'react-declarative/utils/downloadBlank' {
     export default downloadBlank;
 }
 
-declare module 'react-declarative/utils/replaceString' {
-    export const replaceString: (text: string, ...remove: string[]) => string;
-    export default replaceString;
+declare module 'react-declarative/utils/removeSubstring' {
+    export const removeSubstring: (text: string, ...remove: string[]) => string;
+    export default removeSubstring;
 }
 
 declare module 'react-declarative/utils/chooseFile' {

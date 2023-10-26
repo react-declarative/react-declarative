@@ -469,7 +469,7 @@ export { VirtualListBox } from './components/One/components/common/VirtualListBo
 export { openBlank } from './utils/openBlank';
 export { copyToClipboard } from './utils/copyToClipboard';
 export { downloadBlank } from './utils/downloadBlank';
-export { replaceString } from './utils/replaceString';
+export { removeSubstring } from './utils/removeSubstring';
 export { chooseFile } from './utils/chooseFile';
 export { loadScript } from './utils/loadScript';
 export { reloadPage } from './utils/reloadPage';
