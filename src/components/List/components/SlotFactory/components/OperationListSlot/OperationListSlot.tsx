@@ -33,8 +33,8 @@ const useStyles = makeStyles()({
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        minHeight: 40,
-        maxHeight: 40,
+        minHeight: 60,
+        maxHeight: 60,
         marginTop: -15,
     },
     container: {
