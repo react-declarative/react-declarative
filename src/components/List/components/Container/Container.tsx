@@ -171,6 +171,8 @@ export const Container = <
     rerender = false,
     BeforeActionList,
     AfterActionList,
+    BeforeOperationList,
+    AfterOperationList,
   } = props;
 
   const {
@@ -273,8 +275,58 @@ export const Container = <
             )}
           </div>
           <div>
+            {BeforeOperationList && (
+              <Box className={classes.beforeActionList}>
+                <BeforeOperationList
+                  filterData={filterData}
+                  chips={chips}
+                  pagination={pagination}
+                  payload={payload}
+                  search={search}
+                  sortModel={sortModel}
+                  handleFilter={handleFilter}
+                  handleDefault={handleDefault}
+                  handleChips={handleChips}
+                  handleLimitChange={handleLimitChange}
+                  handlePageChange={handlePageChange}
+                  handleReload={handleReload}
+                  handleRerender={handleRerender}
+                  handleRowsChange={handleRowsChange}
+                  handleSortModel={handleSortModel}
+                  handleSearch={handleSearch}
+                  handleFiltersCollapsed={handleFiltersCollapsed}
+                />
+              </Box>
+            )}
+          </div>
+          <div>
             {Array.isArray(operations) && !!operations.length && (
               <OperationListSlot operations={operations} width={rootElementSize.width} />
+            )}
+          </div>
+          <div>
+            {AfterOperationList && (
+              <Box className={classes.beforeActionList}>
+                <AfterOperationList
+                  filterData={filterData}
+                  chips={chips}
+                  pagination={pagination}
+                  payload={payload}
+                  search={search}
+                  sortModel={sortModel}
+                  handleFilter={handleFilter}
+                  handleDefault={handleDefault}
+                  handleChips={handleChips}
+                  handleLimitChange={handleLimitChange}
+                  handlePageChange={handlePageChange}
+                  handleReload={handleReload}
+                  handleRerender={handleRerender}
+                  handleRowsChange={handleRowsChange}
+                  handleSortModel={handleSortModel}
+                  handleSearch={handleSearch}
+                  handleFiltersCollapsed={handleFiltersCollapsed}
+                />
+              </Box>
             )}
           </div>
           <Paper

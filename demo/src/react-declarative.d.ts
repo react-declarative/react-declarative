@@ -1577,6 +1577,8 @@ declare module 'react-declarative/model/IListProps' {
         apiRef?: Ref<IListApi<FilterData, RowData>>;
         BeforeActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
         AfterActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+        BeforeOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+        AfterOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
         fetchDebounce?: number;
         className?: string;
         style?: React.CSSProperties;
@@ -2698,7 +2700,12 @@ declare module 'react-declarative/utils/hof/afterinit' {
 }
 
 declare module 'react-declarative/utils/hof/retry' {
-    export const retry: <T extends (...args: any[]) => Promise<any>>(run: T, count?: number) => T;
+    import { CANCELED_SYMBOL } from "react-declarative/utils/hof/cancelable";
+    export interface IWrappedFn<T extends any = any, P extends any[] = any> {
+        (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
+        cancel(): void;
+    }
+    export const retry: <T extends unknown = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>, count?: number) => IWrappedFn<T, P>;
     export default retry;
 }
 

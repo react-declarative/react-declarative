@@ -167,6 +167,8 @@ export interface IListProps<
   apiRef?: Ref<IListApi<FilterData, RowData>>;
   BeforeActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   AfterActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+  BeforeOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+  AfterOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   fetchDebounce?: number;
   className?: string;
   style?: React.CSSProperties;
