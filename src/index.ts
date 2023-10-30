@@ -522,6 +522,7 @@ export { Source } from './utils/rx/Source';
 export { and } from './utils/math/and';
 export { or } from './utils/math/or';
 export { not } from './utils/math/not';
+export { match } from './utils/math/match';
 
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
