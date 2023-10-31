@@ -42,7 +42,10 @@ export class Date {
     };
 };
 
-export const parseDate = (date: string): Date | null => {
+export const parseDate = (date: string | null): Date | null => {
+    if (!date) {
+        return null;
+    }
     const [day = '', month = '', year = ''] = date.split('/');
     if (day.length === 2 && month.length === 2 && year.length === 4) {
       const d = parseInt(day, 10);
@@ -72,7 +75,10 @@ export const serializeDate = (date: Date) => {
     return `${day}/${month}/${year}`;
 };
 
-export const parseTime = (time: string): Time | null => {
+export const parseTime = (time: string | null): Time | null => {
+    if (!time) {
+        return null;
+    }
     const [hour, minute] = time.split(':')
     if (hour && minute) {
         const h = parseInt(hour);
