@@ -13,6 +13,8 @@ import { useOneState } from "../../../components/One/context/StateProvider";
 import { DEFAULT_VALUE, useOneContext } from "../context/OneContextProvider";
 import { useOneFeatures } from "../context/FeatureProvider";
 
+import { useActualValue } from "../../../hooks/useActualValue";
+
 import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
@@ -96,6 +98,8 @@ export const ComponentField = ({
 }: IComponentFieldProps & IComponentFieldPrivate) => {
   const { classes } = useStyles();
 
+  const object$ = useActualValue(object);
+
   const [node, setNode] = useState<JSX.Element | null>(null);
   const { setObject } = useOneState();
   const payload = useOnePayload();
@@ -113,7 +117,7 @@ export const ComponentField = ({
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
     const onChange = (data: Record<string, any>) =>
-      handleChange({ ...objects(object), ...data });
+      handleChange({ ...objects(object$.current), ...data });
     const _fieldData = arrays(object);
     const props = {
       ..._fieldData,
