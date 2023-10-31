@@ -464,9 +464,9 @@ declare module 'react-declarative' {
         TIME_EXPR: RegExp;
         Time: typeof datetimeInternal.Time;
         Date: typeof datetimeInternal.Date;
-        parseDate: (date: string) => datetimeInternal.Date | null;
+        parseDate: (date: string | null) => datetimeInternal.Date | null;
         serializeDate: (date: datetimeInternal.Date) => string | null;
-        parseTime: (time: string) => datetimeInternal.Time | null;
+        parseTime: (time: string | null) => datetimeInternal.Time | null;
         serializeTime: (time: datetimeInternal.Time) => string | null;
         currentDate: () => string | null;
         currentTime: () => string | null;
@@ -3191,9 +3191,9 @@ declare module 'react-declarative/utils/datetime' {
         toString: () => string | null;
         toStamp: () => number;
     }
-    export const parseDate: (date: string) => Date | null;
+    export const parseDate: (date: string | null) => Date | null;
     export const serializeDate: (date: Date) => string | null;
-    export const parseTime: (time: string) => Time | null;
+    export const parseTime: (time: string | null) => Time | null;
     export const serializeTime: (time: Time) => string | null;
     export const currentDate: () => string | null;
     export const currentTime: () => string | null;
