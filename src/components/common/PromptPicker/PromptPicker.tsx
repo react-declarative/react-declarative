@@ -45,6 +45,7 @@ export const PromptPicker = ({
           autoFocus
           maxRows={3}
           multiline
+          value={value}
           sx={{ width: '100%' }}
           placeholder={placeholder}
           onChange={({ target }) => setValue(target.value)}
