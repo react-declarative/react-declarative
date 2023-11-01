@@ -524,6 +524,8 @@ export { or } from './utils/math/or';
 export { not } from './utils/math/not';
 export { match } from './utils/math/match';
 
+export { getAvailableFields } from './utils/getAvailableFields';
+
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';

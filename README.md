@@ -675,6 +675,7 @@ import { VirtualView } from 'react-declarative';
 16. [Reactive](https://en.wikipedia.org/wiki/ReactiveX) - `EventEmitter`, `Subject`, `BehaviorSubject`, `Observer`
 17. [Lambda Architecture](https://en.wikipedia.org/wiki/Lambda_architecture) - `Source`, `Operator`, `useSource`, `useSubscription`
 18. [Aspect Oriented](https://en.wikipedia.org/wiki/Aspect-oriented_programming) - `serviceManager`, `Source`
+19. [Reflection](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection) - `getAvailableFields`
 
 <img src="./assets/icons/cosmos.svg" height="35px" align="right">
 

@@ -421,6 +421,7 @@ declare module 'react-declarative' {
     export { or } from 'react-declarative/utils/math/or';
     export { not } from 'react-declarative/utils/math/not';
     export { match } from 'react-declarative/utils/math/match';
+    export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
@@ -2941,6 +2942,12 @@ declare module 'react-declarative/utils/math/match' {
         not?: E | (() => E) | undefined;
     }) => A | T | E;
     export default match;
+}
+
+declare module 'react-declarative/utils/getAvailableFields' {
+    import IField from "react-declarative/model/IField";
+    export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, features?: string[] | undefined) => IField<any, any>[];
+    export default getAvailableFields;
 }
 
 declare module 'react-declarative/model/TSubject' {
