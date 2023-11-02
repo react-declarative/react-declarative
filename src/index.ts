@@ -524,6 +524,9 @@ export { or } from './utils/math/or';
 export { not } from './utils/math/not';
 export { match } from './utils/math/match';
 
+export { first } from './utils/math/first';
+export { last } from './utils/math/last';
+
 export { getAvailableFields } from './utils/getAvailableFields';
 export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';

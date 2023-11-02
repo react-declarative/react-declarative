@@ -421,6 +421,8 @@ declare module 'react-declarative' {
     export { or } from 'react-declarative/utils/math/or';
     export { not } from 'react-declarative/utils/math/not';
     export { match } from 'react-declarative/utils/math/match';
+    export { first } from 'react-declarative/utils/math/first';
+    export { last } from 'react-declarative/utils/math/last';
     export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
     export { flatArray } from 'react-declarative/utils/flatArray';
     export { removeExtraSpaces } from 'react-declarative/utils/removeExtraSpaces';
@@ -2945,6 +2947,16 @@ declare module 'react-declarative/utils/math/match' {
         not?: E | (() => E) | undefined;
     }) => A | T | E;
     export default match;
+}
+
+declare module 'react-declarative/utils/math/first' {
+    export const first: <T = any>(arr: T[]) => T | null;
+    export default first;
+}
+
+declare module 'react-declarative/utils/math/last' {
+    export const last: <T = any>(arr: T[]) => T | null;
+    export default last;
 }
 
 declare module 'react-declarative/utils/getAvailableFields' {
