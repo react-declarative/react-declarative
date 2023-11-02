@@ -2954,7 +2954,7 @@ declare module 'react-declarative/utils/getAvailableFields' {
 }
 
 declare module 'react-declarative/utils/flatArray' {
-    export const flatArray: <T = any>(arr: any[]) => T[];
+    export const flatArray: <T = any>(...arr: any[]) => T[];
     export default flatArray;
 }
 
