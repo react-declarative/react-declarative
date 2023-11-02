@@ -422,6 +422,9 @@ declare module 'react-declarative' {
     export { not } from 'react-declarative/utils/math/not';
     export { match } from 'react-declarative/utils/math/match';
     export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
+    export { flatArray } from 'react-declarative/utils/flatArray';
+    export { removeExtraSpaces } from 'react-declarative/utils/removeExtraSpaces';
+    export { replaceSubstring } from 'react-declarative/utils/replaceSubstring';
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
@@ -2948,6 +2951,21 @@ declare module 'react-declarative/utils/getAvailableFields' {
     import IField from "react-declarative/model/IField";
     export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, features?: string[] | undefined) => IField<any, any>[];
     export default getAvailableFields;
+}
+
+declare module 'react-declarative/utils/flatArray' {
+    export const flatArray: <T = any>(arr: any[]) => T[];
+    export default flatArray;
+}
+
+declare module 'react-declarative/utils/removeExtraSpaces' {
+    export const removeExtraSpaces: (str: string) => string;
+    export default removeExtraSpaces;
+}
+
+declare module 'react-declarative/utils/replaceSubstring' {
+    export const replaceSubstring: (str: string, from: string[] | string, to: string[] | string) => string;
+    export default replaceSubstring;
 }
 
 declare module 'react-declarative/model/TSubject' {

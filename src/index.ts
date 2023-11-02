@@ -525,6 +525,9 @@ export { not } from './utils/math/not';
 export { match } from './utils/math/match';
 
 export { getAvailableFields } from './utils/getAvailableFields';
+export { flatArray } from './utils/flatArray';
+export { removeExtraSpaces } from './utils/removeExtraSpaces';
+export { replaceSubstring } from './utils/replaceSubstring';
 
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
