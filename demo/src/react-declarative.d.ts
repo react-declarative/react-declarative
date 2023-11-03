@@ -2368,10 +2368,11 @@ declare module 'react-declarative/hooks/usePrompt' {
     interface IParams {
         title?: string;
         value?: string;
+        large?: boolean;
         placeholder?: string;
         canCancel?: boolean;
     }
-    export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, placeholder, value, }?: Partial<IParams>) => {
+    export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, large, }?: IParams) => ({ canCancel, title, placeholder, value, }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<string | null>;
     };

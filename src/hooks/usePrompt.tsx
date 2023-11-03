@@ -12,6 +12,7 @@ type Fn = (result: string | null) => void;
 interface IParams {
   title?: string;
   value?: string;
+  large?: boolean;
   placeholder?: string;
   canCancel?: boolean;
 }
@@ -21,6 +22,7 @@ export const usePrompt = ({
   value: defaultValue = "",
   placeholder: defaultPlaceholder = "Prompt",
   canCancel: defaultCanCancel = true,
+  large = false,
 }: IParams = {}) => {
 
   const changeRef = useRef<Fn>();
@@ -40,6 +42,7 @@ export const usePrompt = ({
   const { showModal, hideModal } = useModal(() => (
     <PromptPicker
       open
+      large={large}
       canCancel={currentCanCancel}
       title={currentTitle}
       value={currentValue}

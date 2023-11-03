@@ -11,6 +11,7 @@ interface IPromptPickerProps {
   onChange: (result: string | null) => void;
   title: string;
   value: string;
+  large?: boolean;
   placeholder: string;
   open?: boolean;
   canCancel?: boolean;
@@ -23,6 +24,7 @@ export const PromptPicker = ({
   value: defaultValue,
   placeholder,
   open = true,
+  large,
 }: IPromptPickerProps) => {
   const [value, setValue] = useState(defaultValue);
   useEffect(() => setValue(defaultValue), [defaultValue]);
@@ -36,14 +38,15 @@ export const PromptPicker = ({
       onDismiss={handleDismiss}
     >
       <DialogTitle>
-        <Box mr={3}>
+        <Box sx={{ width: large ? '100vw' : 'unset' }} mr={3}>
           {title}
         </Box>
       </DialogTitle>
       <Box p={3}>
         <InputBase
           autoFocus
-          maxRows={3}
+          minRows={3}
+          maxRows={large ? undefined : 3}
           multiline
           value={value}
           sx={{ width: '100%' }}
