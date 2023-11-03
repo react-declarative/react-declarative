@@ -46,7 +46,7 @@ export const PromptPicker = ({
         <InputBase
           autoFocus
           minRows={3}
-          maxRows={large ? undefined : 3}
+          maxRows={large ? 20 : 3}
           multiline
           value={value}
           sx={{ width: '100%' }}
