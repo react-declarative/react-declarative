@@ -51,6 +51,7 @@ export interface IActionModalProps<
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
+  AfterTitle?: React.ComponentType<any>;
   throwError?: boolean;
   open?: boolean;
   submitLabel?: string;
@@ -136,6 +137,7 @@ export const ActionModal = <
   readonly = false,
   throwError = false,
   submitLabel = "Submit",
+  AfterTitle,
 }: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
 
@@ -240,6 +242,7 @@ export const ActionModal = <
             <Typography variant="h6" component="h2">
               {title}
             </Typography>
+            {AfterTitle && <AfterTitle />}
           </div>
         )}
         <Box className={classes.content}>

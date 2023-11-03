@@ -48,6 +48,7 @@ export const useActionModal = <
   onLoadEnd,
   onLoadStart,
   onInvalid,
+  AfterTitle,
   outlinePaper,
   submitLabel,
   throwError,
@@ -76,6 +77,7 @@ export const useActionModal = <
   const render = useCallback(
     () => (
       <ActionModal
+        AfterTitle={AfterTitle}
         open={open}
         hidden={hidden}
         waitForChangesDelay={waitForChangesDelay}
