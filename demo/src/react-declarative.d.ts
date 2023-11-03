@@ -2527,7 +2527,7 @@ declare module 'react-declarative/utils/openBlank' {
 
 declare module 'react-declarative/utils/copyToClipboard' {
     export const copyToClipboard: {
-        (text: string): Promise<void>;
+        (text: string): Promise<boolean>;
         override(ref: (text: string) => (void | Promise<void>)): void;
     };
     export default copyToClipboard;
