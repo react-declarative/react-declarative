@@ -93,7 +93,7 @@ export const Date = ({
 
   const handleChange = (value: string) => {
     let result = "";
-    for (let i = 0; i !== value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
       result += value[i];
       result = formatText(result, DATE_TEMPLATE, {
         allowed: /\d/,
@@ -124,7 +124,7 @@ export const Date = ({
 
     const getAdjust = (pos: number) => {
       let adjust = 0;
-      for (let i = Math.max(pos - 1, 0); i !== DATE_TEMPLATE.length; i++) {
+      for (let i = Math.max(pos - 1, 0); i < DATE_TEMPLATE.length; i++) {
         const char = DATE_TEMPLATE[i];
         if (char === '#') {
           break;

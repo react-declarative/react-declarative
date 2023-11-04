@@ -2409,12 +2409,13 @@ declare module 'react-declarative/hooks/useOne' {
     interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
         fields: Field[];
         title?: string;
+        large?: boolean;
         handler?: OneHandler<Data, Payload>;
         payload?: IOneProps<Data, Payload, Field>['payload'];
         features?: IOnePublicProps<Data, Payload, Field>['features'];
         waitForChangesDelay?: number;
     }
-    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
+    export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, large, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<Data | null>;
     };
@@ -5183,8 +5184,10 @@ declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
     export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, keyof {
         isVisible: never;
         isDisabled: never;
+        label: never;
     }> {
         type: Breadcrumbs2Type;
+        label?: React.ReactNode;
         compute?: (payload: Data) => (Promise<string> | string);
         isVisible?: (payload: Data) => (Promise<boolean> | boolean);
         isDisabled?: (payload: Data) => (Promise<boolean> | boolean);

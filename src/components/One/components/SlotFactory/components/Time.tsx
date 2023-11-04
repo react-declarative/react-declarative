@@ -95,7 +95,7 @@ export const Time = ({
 
   const handleChange = (value: string) => {
     let result = "";
-    for (let i = 0; i !== value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
       result += value[i];
       result = formatText(result, TIME_TEMPLATE, {
         allowed: /\d/,
@@ -125,7 +125,7 @@ export const Time = ({
 
     const getAdjust = (pos: number) => {
       let adjust = 0;
-      for (let i = Math.max(pos - 1, 0); i !== TIME_TEMPLATE.length; i++) {
+      for (let i = Math.max(pos - 1, 0); i < TIME_TEMPLATE.length; i++) {
         const char = TIME_TEMPLATE[i];
         if (char === '#') {
           break;

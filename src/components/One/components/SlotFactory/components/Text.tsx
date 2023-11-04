@@ -140,7 +140,7 @@ export const Text = ({
 
         const getAdjust = (pos: number) => {
             let adjust = 0;
-            for (let i = Math.max(pos - 1, 0); i !== template.length; i++) {
+            for (let i = Math.max(pos - 1, 0); i < template.length; i++) {
                 const char = template[i];
                 if (char === symbol) {
                     break;
@@ -234,7 +234,7 @@ export const Text = ({
                 let result = target.value;
                 if (template) {
                     result = "";
-                    for (let i = 0; i !== target.value.length; i++) {
+                    for (let i = 0; i < target.value.length; i++) {
                         result += target.value[i];
                         result = inputFormatter(result);
                     }

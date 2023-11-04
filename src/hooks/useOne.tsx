@@ -20,6 +20,7 @@ type Fn<Data = IAnything> = (d: Data | null) => void;
 interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   fields: Field[];
   title?: string;
+  large?: boolean;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>['payload'];
   features?: IOnePublicProps<Data, Payload, Field>['features'];
@@ -28,6 +29,7 @@ interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field
 
 export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>>({
   fields,
+  large,
   title: defaultTitle,
   handler: defaultHandler,
   payload: defaultPayload,
@@ -52,6 +54,7 @@ export const useOne = <Data extends IAnything = IAnything, Payload = IAnything, 
   const { showModal, hideModal } = useModal(() => (
     <OnePicker
       open
+      large={large}
       waitForChangesDelay={waitForChangesDelay}
       fields={fields as unknown as IField[]}
       title={currentTitle.current}
