@@ -19,6 +19,7 @@ import sleep from '../../../utils/sleep';
 
 interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   waitForChangesDelay?: number;
+  large?: boolean;
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload>['payload'];
@@ -37,6 +38,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
   handler,
   payload,
   features,
+  large,
   title,
   open = true,
 }: IOnePickerProps<Data, Payload>) => {
@@ -87,7 +89,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
           </Box>
         </DialogTitle>
       )}
-      <Box p={3}>
+      <Box sx={{ width: large ? '100vw' : 'unset' }} p={3}>
         <One
           change={handleChange}
           invalidity={handleInvalid}
