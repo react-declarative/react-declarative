@@ -11,6 +11,7 @@ export * from './Translate';
 export * from './Breadcrumbs';
 export * from './Breadcrumbs2';
 export * from './ErrorBoundary';
+export * from './ColorButton';
 
 export * from './ActionMenu';
 export * from './ActionButton';

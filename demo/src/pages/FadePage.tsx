@@ -42,6 +42,7 @@ import {
   IOption,
   MasterDetail,
   IMasterDetailOption,
+  ColorButton,
 } from "react-declarative";
 
 import { v4 as uuid } from "uuid";
@@ -294,6 +295,7 @@ export const FadePage = () => {
   ]);
 
   const [value, setValue] = useState<any>(null);
+  const [color, setColor] = useState("");
 
   const { isPhone, isTablet, isDesktop } = useMediaContext();
 
@@ -590,6 +592,10 @@ export const FadePage = () => {
       >
         123
       </MasterDetail>
+      <ColorButton
+        value={color}
+        onChange={setColor}
+      />
     </>
   );
 };

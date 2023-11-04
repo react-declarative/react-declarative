@@ -223,6 +223,8 @@ import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from './components';
 export type ITreeViewNode = ITreeViewNodeInternal;
 export { TreeView };
 
+export { ColorButton } from './components';
+
 import { ICardViewItemData } from './components/CardView';
 import { ICardViewAction as ICardViewActionInternal } from './components/CardView';
 import { ICardViewOperation as ICardViewOperationInternal } from './components/CardView';

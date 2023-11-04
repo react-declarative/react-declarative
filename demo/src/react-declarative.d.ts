@@ -180,6 +180,7 @@ declare module 'react-declarative' {
     import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from 'react-declarative/components';
     export type ITreeViewNode = ITreeViewNodeInternal;
     export { TreeView };
+    export { ColorButton } from 'react-declarative/components';
     import { ICardViewItemData } from 'react-declarative/components/CardView';
     import { ICardViewAction as ICardViewActionInternal } from 'react-declarative/components/CardView';
     import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
@@ -376,6 +377,7 @@ declare module 'react-declarative' {
     export type IPositionActionListSlot = IPositionActionListSlotInternal;
     export { VirtualListBox } from 'react-declarative/components/One/components/common/VirtualListBox';
     export { openBlank } from 'react-declarative/utils/openBlank';
+    export { createDict } from 'react-declarative/utils/createDict';
     export { copyToClipboard } from 'react-declarative/utils/copyToClipboard';
     export { downloadBlank } from 'react-declarative/utils/downloadBlank';
     export { removeSubstring } from 'react-declarative/utils/removeSubstring';
@@ -2080,6 +2082,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Breadcrumbs';
     export * from 'react-declarative/components/Breadcrumbs2';
     export * from 'react-declarative/components/ErrorBoundary';
+    export * from 'react-declarative/components/ColorButton';
     export * from 'react-declarative/components/ActionMenu';
     export * from 'react-declarative/components/ActionButton';
     export * from 'react-declarative/components/ActionStopIcon';
@@ -2525,6 +2528,12 @@ declare module 'react-declarative/utils/openBlank' {
         override(ref: (url: string) => void): void;
     };
     export default openBlank;
+}
+
+declare module 'react-declarative/utils/createDict' {
+    type Dict = Record<string, any>;
+    export const createDict: <T extends Dict = Dict>(record: T) => any;
+    export default createDict;
 }
 
 declare module 'react-declarative/utils/copyToClipboard' {
@@ -4615,6 +4624,11 @@ declare module 'react-declarative/components/ErrorBoundary' {
     export { default } from 'react-declarative/components/ErrorBoundary/ErrorBoundary';
 }
 
+declare module 'react-declarative/components/ColorButton' {
+    export * from 'react-declarative/components/ColorButton/ColorButton';
+    export { default } from 'react-declarative/components/ColorButton/ColorButton';
+}
+
 declare module 'react-declarative/components/ActionMenu' {
     export * from 'react-declarative/components/ActionMenu/ActionMenu';
     export { default } from 'react-declarative/components/ActionMenu/ActionMenu';
@@ -5859,6 +5873,20 @@ declare module 'react-declarative/components/ErrorBoundary/ErrorBoundary' {
         render: () => React.ReactNode;
     }
     export default ErrorBoundary;
+}
+
+declare module 'react-declarative/components/ColorButton/ColorButton' {
+    import { BoxProps } from '@mui/material/Box';
+    interface IColorButtonProps extends Omit<BoxProps, keyof {
+        value: never;
+        onChange: never;
+        onClick: never;
+    }> {
+        value?: string;
+        onChange?: (color: string) => void;
+    }
+    export const ColorButton: ({ className, value: upperValue, sx, onChange, ...props }: IColorButtonProps) => JSX.Element;
+    export default ColorButton;
 }
 
 declare module 'react-declarative/components/ActionMenu/ActionMenu' {
