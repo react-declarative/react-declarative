@@ -1,29 +1,29 @@
-import * as React from 'react';
-import { useState } from 'react';
+import * as React from "react";
+import { useState } from "react";
 
-import ModalDialog from '../ModalDialog';
-import One from '../../One';
+import ModalDialog from "../ModalDialog";
+import One from "../../One";
 
-import Box from '@mui/material/Box';
-import DialogTitle from '@mui/material/DialogTitle';
+import Box from "@mui/material/Box";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import useActualValue from "../../../hooks/useActualValue";
 import useRenderWaiter from "../../../hooks/useRenderWaiter";
 
-import IField from '../../../model/IField';
-import IAnything from '../../../model/IAnything';
-import IOneProps, { OneHandler } from '../../../model/IOneProps';
-import IOnePublicProps from '../../../model/IOnePublicProps';
+import IField from "../../../model/IField";
+import IAnything from "../../../model/IAnything";
+import IOneProps, { OneHandler } from "../../../model/IOneProps";
+import IOnePublicProps from "../../../model/IOnePublicProps";
 
-import sleep from '../../../utils/sleep';
+import sleep from "../../../utils/sleep";
 
 interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   waitForChangesDelay?: number;
   large?: boolean;
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
-  payload?: IOneProps<Data, Payload>['payload'];
-  features?: IOnePublicProps<Data, Payload>['features'];
+  payload?: IOneProps<Data, Payload>["payload"];
+  features?: IOnePublicProps<Data, Payload>["features"];
   title?: string;
   fields: IField[];
   open?: boolean;
@@ -31,7 +31,10 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
 
-export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnything>({
+export const OnePicker = <
+  Data extends IAnything = IAnything,
+  Payload = IAnything
+>({
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   onChange = (data: Data | null) => console.log({ data }),
   fields,
@@ -51,10 +54,7 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
   const waitForRender = useRenderWaiter([data], 10);
 
   const waitForChanges = async () => {
-    await Promise.race([
-      waitForRender(),
-      sleep(waitForChangesDelay),
-    ]);
+    await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
   const handleChange = (data: Data) => {
@@ -84,12 +84,16 @@ export const OnePicker = <Data extends IAnything = IAnything, Payload = IAnythin
     >
       {!!title && (
         <DialogTitle>
-          <Box mr={3}>
-            {title}
-          </Box>
+          <Box mr={3}>{title}</Box>
         </DialogTitle>
       )}
-      <Box sx={{ width: large ? '100vw' : 'unset' }} p={3}>
+      <Box
+        sx={{
+          width: large ? "100vw" : "unset",
+          maxWidth: large ? "100%" : "unset",
+        }}
+        p={3}
+      >
         <One
           change={handleChange}
           invalidity={handleInvalid}

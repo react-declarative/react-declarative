@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import * as React from "react";
+import { useState, useEffect } from "react";
 
-import ModalDialog from '../ModalDialog';
+import ModalDialog from "../ModalDialog";
 
-import Box from '@mui/material/Box';
-import InputBase from '@mui/material/InputBase';
-import DialogTitle from '@mui/material/DialogTitle';
+import Box from "@mui/material/Box";
+import InputBase from "@mui/material/InputBase";
+import DialogTitle from "@mui/material/DialogTitle";
 
 interface IPromptPickerProps {
   onChange: (result: string | null) => void;
@@ -38,7 +38,13 @@ export const PromptPicker = ({
       onDismiss={handleDismiss}
     >
       <DialogTitle>
-        <Box sx={{ width: large ? '100vw' : 'unset' }} mr={3}>
+        <Box
+          sx={{
+            width: large ? "100vw" : "unset",
+            maxWidth: large ? "100%" : "unset",
+          }}
+          mr={3}
+        >
           {title}
         </Box>
       </DialogTitle>
@@ -49,13 +55,13 @@ export const PromptPicker = ({
           maxRows={large ? 20 : 3}
           multiline
           value={value}
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
           placeholder={placeholder}
           onChange={({ target }) => setValue(target.value)}
           onKeyDown={({ key }) => {
-            if (key === 'Enter') {
+            if (key === "Enter") {
               handleAccept();
-            } else if (key === 'Escape') {
+            } else if (key === "Escape") {
               handleDismiss();
             }
           }}
