@@ -11,7 +11,6 @@ import ActionButton from "../ActionButton";
 import List from "../List";
 
 import useActualState from "../../hooks/useActualState";
-import useElementSize from "../../hooks/useElementSize";
 import useSingleton from "../../hooks/useSingleton";
 
 import IAnything from "../../model/IAnything";
@@ -81,7 +80,12 @@ const useStyles = makeStyles()((theme) => ({
   },
   content: {
     flex: 1,
-    "& > * > * > * > * > .MuiPaper-root": {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    maxWidth: '100%',
+    overflow: 'hidden',
+    "& > * > * > * > .MuiPaper-root": {
       background: "transparent",
       boxShadow: "none",
       border: "0",
@@ -124,8 +128,6 @@ export const SearchModal = <
   ...listProps
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
-
-  const { elementRef, size } = useElementSize();
 
   const payload = useSingleton(upperPayload);
 
@@ -217,16 +219,15 @@ export const SearchModal = <
             )}
           </div>
         )}
-        <Box ref={elementRef} className={classes.content}>
+        <Box className={classes.content}>
           <List
             {...listProps}
+            sizeByParent
             withSelectOnRowClick
             selectionMode={selectionMode}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
             selectedRows={data?.length ? data : undefined}
-            heightRequest={() => size.height}
-            widthRequest={() => size.width}
             onSelectedRows={handleChange}
           />
         </Box>
