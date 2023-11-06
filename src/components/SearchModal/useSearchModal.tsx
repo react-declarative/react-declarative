@@ -40,6 +40,7 @@ export const useSearchModal = <
   Field extends IField = IField<FilterData, Payload>,
 >({
   param: upperParam,
+  selectionMode,
   handler,
   fallback,
   apiRef,
@@ -82,6 +83,7 @@ export const useSearchModal = <
         title={title}
         apiRef={apiRef}
         reloadSubject={reloadSubject}
+        selectionMode={selectionMode}
         handler={handler}
         payload={payload}
         fallback={fallback}

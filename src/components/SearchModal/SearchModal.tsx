@@ -8,10 +8,11 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import ActionButton from "../ActionButton";
-import AutoSizer from "../AutoSizer";
 import List from "../List";
 
 import useActualState from "../../hooks/useActualState";
+import useElementSize from "../../hooks/useElementSize";
+import useSingleton from "../../hooks/useSingleton";
 
 import IAnything from "../../model/IAnything";
 import IRowData from "../../model/IRowData";
@@ -23,20 +24,28 @@ export interface ISearchModalProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything,
-  Field extends IField = IField<FilterData, Payload>,
-> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
-  selectedRows: never;
-  heightRequest: never;
-  widthRequest: never;
-  onSelectedRows: never;
-  onLoadStart: never;
-  onLoadEnd: never;
-  onRowClick: never;
-}> {
+  Field extends IField = IField<FilterData, Payload>
+> extends Omit<
+    IListProps<FilterData, RowData, Payload, Field>,
+    keyof {
+      selectedRows: never;
+      heightRequest: never;
+      widthRequest: never;
+      onSelectedRows: never;
+      onLoadStart: never;
+      onLoadEnd: never;
+      onRowClick: never;
+    }
+  > {
   title?: string;
-  data?: IRowData['id'][];
-  onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
-  onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
+  AfterTitle?: React.ComponentType<{
+    onClose?: () => void;
+    payload: Payload;
+  }>;
+  data?: IRowData["id"][];
+  selectionMode?: SelectionMode;
+  onSubmit?: (data: IRowData["id"][] | null) => Promise<boolean> | boolean;
+  onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -56,8 +65,8 @@ const useStyles = makeStyles()((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 'calc(100vw - 50px)',
-    height: 'calc(100vh - 50px)',
+    width: "calc(100vw - 50px)",
+    height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
     overflowY: "auto",
@@ -72,13 +81,13 @@ const useStyles = makeStyles()((theme) => ({
   },
   content: {
     flex: 1,
-    '& > * > * > * > * > .MuiPaper-root': {
-      background: 'transparent',
-      boxShadow: 'none',
-      border: '0',
-      borderRadius: '0',
-      '& > * > *': {
-        background: 'transparent',
+    "& > * > * > * > * > .MuiPaper-root": {
+      background: "transparent",
+      boxShadow: "none",
+      border: "0",
+      borderRadius: "0",
+      "& > * > *": {
+        background: "transparent",
       },
     },
   },
@@ -95,7 +104,7 @@ export const SearchModal = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything,
-  Field extends IField = IField<FilterData, Payload>,
+  Field extends IField = IField<FilterData, Payload>
 >({
   hidden = false,
   onSubmit = () => true,
@@ -103,7 +112,9 @@ export const SearchModal = <
   onLoadStart,
   onLoadEnd,
   fallback,
+  AfterTitle,
   title,
+  payload: upperPayload = {} as Payload,
   withInitialLoader = true,
   selectionMode = SelectionMode.Multiple,
   data: upperData,
@@ -114,14 +125,18 @@ export const SearchModal = <
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
 
-  const [data, setData] = useState<IRowData['id'][] | null>(upperData || []);
+  const { elementRef, size } = useElementSize();
+
+  const payload = useSingleton(upperPayload);
+
+  const [data, setData] = useState<IRowData["id"][] | null>(upperData || []);
   const [loading, setLoading] = useActualState(0);
 
   useEffect(() => {
     setData(upperData || []);
   }, [open]);
 
-  const handleChange = (newData: IRowData['id'][], initial: boolean) => {
+  const handleChange = (newData: IRowData["id"][], initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
   };
@@ -142,7 +157,7 @@ export const SearchModal = <
     }
     let isOk = true;
     try {
-      handleLoadStart()
+      handleLoadStart();
       if (open) {
         await onSubmit(data);
       }
@@ -164,7 +179,7 @@ export const SearchModal = <
     }
     let isOk = true;
     try {
-      handleLoadStart()
+      handleLoadStart();
       if (open) {
         await onSubmit(null);
       }
@@ -185,7 +200,7 @@ export const SearchModal = <
       open={open}
       sx={{
         ...(hidden && {
-          visibility: 'hidden',
+          visibility: "hidden",
           opacity: 0,
         }),
       }}
@@ -197,24 +212,23 @@ export const SearchModal = <
             <Typography variant="h6" component="h2">
               {title}
             </Typography>
+            {AfterTitle && (
+              <AfterTitle payload={payload} onClose={handleClose} />
+            )}
           </div>
         )}
-        <Box className={classes.content}>
-            <AutoSizer>
-              {({ height, width }) => (
-                <List
-                  {...listProps}
-                  withSelectOnRowClick
-                  selectionMode={selectionMode}
-                  onLoadStart={handleLoadStart}
-                  onLoadEnd={handleLoadEnd}
-                  selectedRows={data?.length ? data : undefined}
-                  heightRequest={() => height}
-                  widthRequest={() => width}
-                  onSelectedRows={handleChange}
-                />
-              )}
-            </AutoSizer>
+        <Box ref={elementRef} className={classes.content}>
+          <List
+            {...listProps}
+            withSelectOnRowClick
+            selectionMode={selectionMode}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            selectedRows={data?.length ? data : undefined}
+            heightRequest={() => size.height}
+            widthRequest={() => size.width}
+            onSelectedRows={handleChange}
+          />
         </Box>
         {selectionMode !== SelectionMode.None && (
           <ActionButton

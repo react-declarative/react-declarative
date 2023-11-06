@@ -6137,10 +6137,12 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
 }
 
 declare module 'react-declarative/components/SearchModal/SearchModal' {
+    import * as React from "react";
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
     import IField from "react-declarative/model/IField";
     import IListProps from "react-declarative/model/IListProps";
+    import SelectionMode from "react-declarative/model/SelectionMode";
     export interface ISearchModalProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
         selectedRows: never;
         heightRequest: never;
@@ -6151,9 +6153,14 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         onRowClick: never;
     }> {
         title?: string;
-        data?: IRowData['id'][];
-        onSubmit?: (data: IRowData['id'][] | null) => Promise<boolean> | boolean;
-        onChange?: (data: IRowData['id'][] | null, initial: boolean) => void;
+        AfterTitle?: React.ComponentType<{
+            onClose?: () => void;
+            payload: Payload;
+        }>;
+        data?: IRowData["id"][];
+        selectionMode?: SelectionMode;
+        onSubmit?: (data: IRowData["id"][] | null) => Promise<boolean> | boolean;
+        onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
@@ -6162,7 +6169,7 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         hidden?: boolean;
         submitLabel?: string;
     }
-    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, title, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
 }
 
@@ -6183,7 +6190,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, selectionMode, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param) => void;
