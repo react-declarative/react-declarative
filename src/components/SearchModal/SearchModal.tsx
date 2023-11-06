@@ -222,7 +222,7 @@ export const SearchModal = <
         <Box className={classes.content}>
           <List
             {...listProps}
-            sizeByParent
+            sizeByElement
             withSelectOnRowClick
             selectionMode={selectionMode}
             onLoadStart={handleLoadStart}

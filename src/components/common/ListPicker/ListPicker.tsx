@@ -107,7 +107,7 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
       )}
       <Box className={classes.root} style={{minHeight, minWidth}}>
         <List<IAnything, RowData>
-          sizeByParent
+          sizeByElement
           withLoader
           withSelectOnRowClick
           isChooser

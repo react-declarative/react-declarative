@@ -1597,7 +1597,7 @@ declare module 'react-declarative/model/IListProps' {
         operations?: IListOperation<RowData, Payload>[];
         limit?: number;
         page?: number;
-        sizeByParent?: boolean;
+        sizeByElement?: boolean;
         selectedRows?: RowId[];
         features?: IOnePublicProps<FilterData>['features'];
         heightRequest?: (height: number) => number;

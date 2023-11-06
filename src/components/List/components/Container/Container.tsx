@@ -167,7 +167,7 @@ export const Container = <
     chips,
     handleSearch,
     handleFiltersCollapsed,
-    sizeByParent = true,
+    sizeByElement = true,
     rerender = false,
     BeforeActionList,
     AfterActionList,
@@ -179,7 +179,7 @@ export const Container = <
     elementRef: rootElementRef,
     size: rootElementSize,
   } = useElementSize({
-    target: sizeByParent ? undefined : document.body,
+    target: sizeByElement ? undefined : document.body,
     delay: RESIZE_DELAY,
     compute: ({ height, width }) => ({
       height: heightRequest(height),
