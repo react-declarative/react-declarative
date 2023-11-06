@@ -13,6 +13,7 @@ import One from "../One";
 import useActualValue from "../../hooks/useActualValue";
 import useActualState from "../../hooks/useActualState";
 import useRenderWaiter from "../../hooks/useRenderWaiter";
+import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
 
@@ -51,7 +52,11 @@ export interface IActionModalProps<
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
-  AfterTitle?: React.ComponentType<any>;
+  AfterTitle?: React.ComponentType<{
+    onClose?: () => void;
+    payload: Payload;
+    param: Param;
+  }>;
   throwError?: boolean;
   open?: boolean;
   submitLabel?: string;
@@ -123,7 +128,7 @@ export const ActionModal = <
   fields,
   param,
   handler,
-  payload,
+  payload: upperPayload = {} as Payload,
   title,
   apiRef,
   features,
@@ -140,6 +145,8 @@ export const ActionModal = <
   AfterTitle,
 }: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
+
+  const payload = useSingleton(upperPayload);
 
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useActualState(0);
@@ -242,7 +249,13 @@ export const ActionModal = <
             <Typography variant="h6" component="h2">
               {title}
             </Typography>
-            {AfterTitle && <AfterTitle />}
+            {AfterTitle && (
+              <AfterTitle
+                payload={payload}
+                param={param}
+                onClose={handleClose}
+              />
+            )}
           </div>
         )}
         <Box className={classes.content}>

@@ -9,6 +9,7 @@ import classNames from "../../../utils/classNames";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
 import Search from "@mui/icons-material/Search";
@@ -24,7 +25,6 @@ import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
-
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
@@ -92,6 +92,16 @@ export const ModalFilterListSlot = <FilterData extends {}>({
   const { filterLabel } = useProps();
 
   const { render, pickData: pickFilters } = useActionModal({
+    AfterTitle: ({
+      onClose,
+    }) => (
+      <IconButton
+        size="small"
+        onClick={onClose}
+      >
+        <Close />
+      </IconButton>
+    ),
     fullScreen: true,
     outlinePaper: true,
     handler: filterData,

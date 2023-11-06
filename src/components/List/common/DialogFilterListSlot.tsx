@@ -9,6 +9,7 @@ import classNames from "../../../utils/classNames";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
 import Search from "@mui/icons-material/Search";
@@ -94,6 +95,16 @@ export const DialogFilterListSlot = <FilterData extends {}>({
   } = useProps();
 
   const { render, pickData: pickFilters } = useActionModal({
+    AfterTitle: ({
+      onClose,
+    }) => (
+      <IconButton
+        size="small"
+        onClick={onClose}
+      >
+        <Close />
+      </IconButton>
+    ),
     outlinePaper: true,
     handler: filterData,
     title: filterLabel,
