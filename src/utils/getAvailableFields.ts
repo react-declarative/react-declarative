@@ -1,45 +1,41 @@
-import deepClone from "./deepClone";
 import deepFlat from "./deepFlat";
 
 import IField from "../model/IField";
 
-const hideNestingVisibility = (
-  entry: IField,
+const buildCommonResult = (
+  fields: IField[],
   data: Record<string, any>,
   payload: Record<string, any>
 ) => {
-  const { isVisible = () => true, isDisabled = () => false } = entry;
-  if (!isVisible(data, payload) || isDisabled(data, payload)) {
-    if (entry.fields) {
-      for (const field of entry.fields) {
-        field.isVisible = () => false;
-        hideNestingVisibility(field, data, payload);
+
+  const ignore = new Set<IField>();
+
+  const ignoreNestingVisibility = (
+    entry: IField,
+    data: Record<string, any>,
+    payload: Record<string, any>
+  ) => {
+    const { isVisible = () => true, isDisabled = () => false } = entry;
+    if (!isVisible(data, payload) || isDisabled(data, payload)) {
+      ignore.add(entry);
+      if (entry.fields) {
+        for (const field of entry.fields) {
+          ignore.add(field);
+          ignoreNestingVisibility(field, data, payload);
+        }
+      }
+      if (entry.child) {
+        ignore.add(entry.child);
+        ignoreNestingVisibility(entry.child, data, payload);
       }
     }
-    if (entry.child) {
-      entry.child.isVisible = () => false;
-      hideNestingVisibility(entry.child, data, payload);
-    }
-  }
-};
+  };
 
-const buildCommonResult = (
-  upper_fields: IField[],
-  data: Record<string, any>,
-  payload: Record<string, any>
-) => {
-  const result: IField[] = [];
-  let fields: IField[] = deepClone(upper_fields);
-  fields = deepFlat<IField>(fields);
-  fields.forEach((field) => hideNestingVisibility(field, data, payload));
-  for (const field of fields) {
-    const { isVisible = () => true } = field;
-    if (!isVisible(data, payload)) {
-      continue;
-    }
-    result.push();
-  }
-  return result;
+  fields = deepFlat(fields);
+  fields.forEach((field) => ignoreNestingVisibility(field, data, payload));
+  fields = fields.filter((field) => !ignore.has(field));
+
+  return fields;
 };
 
 export const getAvailableFields = (
