@@ -4698,6 +4698,7 @@ declare module 'react-declarative/components/OutletView' {
     export * from 'react-declarative/components/OutletView/OutletView';
     export * from 'react-declarative/components/OutletView/model/IOutlet';
     export * from 'react-declarative/components/OutletView/model/IOutletProps';
+    export * from 'react-declarative/components/OutletView/hooks/useOutletModal';
     export { default } from 'react-declarative/components/OutletView/OutletView';
 }
 
@@ -6242,7 +6243,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
     export default OutletView;
 }
 
@@ -6288,6 +6289,24 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
         payload: Payload;
     }
     export default IOutletProps;
+}
+
+declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
+    import { IOutletModalProps } from "react-declarative/components/OutletView/components/OutletModal";
+    import IAnything from "react-declarative/model/IAnything";
+    interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
+        open: never;
+        onSubmit: never;
+        className: never;
+    }> {
+        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+    }
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, onLoadEnd, onLoadStart, throwError, payload, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
+        open: boolean;
+        render: () => JSX.Element;
+        pickData: () => void;
+    };
+    export default useOutletModal;
 }
 
 declare module 'react-declarative/components/AlertView/AlertView' {
@@ -7830,8 +7849,8 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
     import { IRevealProps } from "react-declarative/components/FetchView";
     import { BoxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
-    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
     import TSubject from "react-declarative/model/TSubject";
+    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
     import History from "react-declarative/components/OutletView/model/History";
     export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
         onChange: never;
@@ -7839,6 +7858,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
     }> {
         waitForChangesDelay?: number;
         history: History;
+        readonly?: boolean;
         animation?: IRevealProps['animation'];
         payload?: Payload | (() => Payload);
         params?: Params;
@@ -7860,6 +7880,33 @@ declare module 'react-declarative/components/OutletView/model/History' {
     import { BrowserHistory, HashHistory, MemoryHistory } from "history";
     export type History = MemoryHistory | BrowserHistory | HashHistory;
     export default History;
+}
+
+declare module 'react-declarative/components/OutletView/components/OutletModal' {
+    import * as React from "react";
+    import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
+        onSubmit: never;
+    }> {
+        title?: string;
+        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+        AfterTitle?: React.ComponentType<{
+            onClose?: () => void;
+            payload: Payload;
+            data: Data | null;
+        }>;
+        data?: Data | null;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+        open?: boolean;
+        hidden?: boolean;
+        submitLabel?: string;
+    }
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, title, data: upperData, open, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export default OutletModal;
 }
 
 declare module 'react-declarative/components/FadeView/components/FadeContainer' {

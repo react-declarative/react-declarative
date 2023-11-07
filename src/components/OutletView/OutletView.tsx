@@ -43,6 +43,7 @@ export const OutletView = <
   Params = IAnything
 >({
   className,
+  readonly,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   initialData = {} as Data,
   animation,
@@ -384,7 +385,7 @@ export const OutletView = <
     dirty: hasInvalid || hasChanged,
     history,
     activeOption,
-    readonly: hasChanged,
+    readonly: readonly || hasChanged,
     hasChanged,
     hasLoading,
     hasInvalid,
