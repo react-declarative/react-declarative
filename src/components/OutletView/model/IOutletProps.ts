@@ -1,20 +1,22 @@
 import IAnything from "../../../model/IAnything";
+import History from "./History";
 
 export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
-    onChange: (data: Data, initial?: boolean) => void;
+    onChange: (data: Data[keyof Data], initial?: boolean) => void;
     onInvalid: (name: string, msg: string) => void;
     beginSave: () => Promise<boolean>;
     afterSave: () => Promise<void>;
     dirty: boolean;
     formState: {
-        change: (data: Record<string, Data>) => void;
-        data: Record<string, Data>
+        change: (data: Data) => void;
+        data: Data;
         hasChanged: boolean;
         hasLoading: boolean;
         hasInvalid: boolean;
         payload: Payload;
         id: string;
     };
+    history: History;
     activeOption: string;
     readonly: boolean;
     data: Data;

@@ -13,6 +13,7 @@ import useConfirm from "../../hooks/useConfirm";
 import useSubject from "../../hooks/useSubject";
 
 import IOutletViewProps from "./model/IOutletViewProps";
+import IOutletProps from "./model/IOutletProps";
 import IAnything from "../../model/IAnything";
 
 import sleep from "../../utils/sleep";
@@ -379,6 +380,29 @@ export const OutletView = <
     ]
   );
 
+  const outletProps: IOutletProps<Data> = {
+    dirty: hasInvalid || hasChanged,
+    history,
+    activeOption,
+    readonly: hasChanged,
+    hasChanged,
+    hasLoading,
+    hasInvalid,
+    beginSave,
+    afterSave,
+    formState,
+    data: data[activeOption] || null,
+    params,
+    onChange: (data: Data[keyof Data], initial = false) =>
+      handleChange(activeOption, data, initial),
+    onInvalid: () =>
+      setInvalid((prevInvalid) => {
+        prevInvalid.add(activeOption);
+        return new Set(prevInvalid);
+      }),
+    payload,
+  };
+
   return (
     <Reveal
       className={classNames(className, classes.root)}
@@ -388,25 +412,7 @@ export const OutletView = <
     >
       {React.createElement(component, {
         key: activeOption,
-        dirty: hasInvalid || hasChanged,
-        activeOption,
-        readonly: hasChanged,
-        hasChanged,
-        hasLoading,
-        hasInvalid,
-        beginSave,
-        afterSave,
-        formState,
-        data: data[activeOption] || null,
-        params,
-        onChange: (data: Data[keyof Data], initial = false) =>
-          handleChange(activeOption, data, initial),
-        onInvalid: () =>
-          setInvalid((prevInvalid) => {
-            prevInvalid.add(activeOption);
-            return new Set(prevInvalid);
-          }),
-        payload,
+        ...outletProps,
       })}
     </Reveal>
   );

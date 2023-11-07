@@ -6261,21 +6261,23 @@ declare module 'react-declarative/components/OutletView/model/IOutlet' {
 
 declare module 'react-declarative/components/OutletView/model/IOutletProps' {
     import IAnything from "react-declarative/model/IAnything";
+    import History from "react-declarative/components/OutletView/model/History";
     export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
-        onChange: (data: Data, initial?: boolean) => void;
+        onChange: (data: Data[keyof Data], initial?: boolean) => void;
         onInvalid: (name: string, msg: string) => void;
         beginSave: () => Promise<boolean>;
         afterSave: () => Promise<void>;
         dirty: boolean;
         formState: {
-            change: (data: Record<string, Data>) => void;
-            data: Record<string, Data>;
+            change: (data: Data) => void;
+            data: Data;
             hasChanged: boolean;
             hasLoading: boolean;
             hasInvalid: boolean;
             payload: Payload;
             id: string;
         };
+        history: History;
         activeOption: string;
         readonly: boolean;
         data: Data;
@@ -7825,18 +7827,18 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
 }
 
 declare module 'react-declarative/components/OutletView/model/IOutletViewProps' {
-    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
     import { IRevealProps } from "react-declarative/components/FetchView";
     import { BoxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
     import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
     import TSubject from "react-declarative/model/TSubject";
+    import History from "react-declarative/components/OutletView/model/History";
     export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
         onChange: never;
         onSubmit: never;
     }> {
         waitForChangesDelay?: number;
-        history: BrowserHistory | MemoryHistory | HashHistory;
+        history: History;
         animation?: IRevealProps['animation'];
         payload?: Payload | (() => Payload);
         params?: Params;
@@ -7852,6 +7854,12 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         changeSubject?: TSubject<[keyof Data, Data]>;
     }
     export default IOutletViewProps;
+}
+
+declare module 'react-declarative/components/OutletView/model/History' {
+    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+    export type History = MemoryHistory | BrowserHistory | HashHistory;
+    export default History;
 }
 
 declare module 'react-declarative/components/FadeView/components/FadeContainer' {
