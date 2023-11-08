@@ -277,6 +277,7 @@ declare module 'react-declarative' {
     export { useFeatureView } from 'react-declarative/components';
     export { useFilesView } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
+    export { useOutletModal } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';

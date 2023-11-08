@@ -350,6 +350,8 @@ export { useFilesView } from './components';
 
 export { useTabsHashstate } from './components';
 
+export { useOutletModal } from './components';
+
 export { createField, makeField } from './components';
 export { createLayout, makeLayout } from './components';
 
