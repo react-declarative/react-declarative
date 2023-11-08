@@ -46,6 +46,8 @@ export { createRouteParamsManager } from './helpers/routeManager';
 export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';
 
+export { useLocalHistory } from './hooks/useLocalHistory';
+
 export { RouteManager } from './helpers/routeManager';
 export { toRouteUrl } from './utils/toRouteUrl';
 

@@ -50,6 +50,7 @@ declare module 'react-declarative' {
     export { createRouteParamsManager } from 'react-declarative/helpers/routeManager';
     export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
     export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
+    export { useLocalHistory } from 'react-declarative/hooks/useLocalHistory';
     export { RouteManager } from 'react-declarative/helpers/routeManager';
     export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
     export { prefetch } from 'react-declarative/helpers/serviceManager';
@@ -1768,6 +1769,14 @@ declare module 'react-declarative/hooks/useRouteParams' {
     import { ISwitchItem } from "react-declarative/helpers/routeManager";
     export const useRouteParams: <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => T | null;
     export default useRouteParams;
+}
+
+declare module 'react-declarative/hooks/useLocalHistory' {
+    interface IParams {
+        pathname: string;
+    }
+    export const useLocalHistory: ({ pathname, }: IParams) => import("history").MemoryHistory;
+    export default useLocalHistory;
 }
 
 declare module 'react-declarative/utils/toRouteUrl' {
@@ -7885,12 +7894,19 @@ declare module 'react-declarative/components/OutletView/model/History' {
 
 declare module 'react-declarative/components/OutletView/components/OutletModal' {
     import * as React from "react";
+    import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IAnything from "react-declarative/model/IAnything";
+    import { RowId } from "react-declarative/model/IRowData";
+    import TSubject from "react-declarative/model/TSubject";
     export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
         onSubmit: never;
+        id: never;
     }> {
+        id: RowId;
         title?: string;
+        fetchState: IFetchViewProps<RowId>["state"];
+        reloadSubject?: TSubject<void>;
         onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
@@ -7905,8 +7921,10 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         open?: boolean;
         hidden?: boolean;
         submitLabel?: string;
+        mapParams: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
+        mapInitialData: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, title, data: upperData, open, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, initialData, params, mapParams, mapInitialData, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, open, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 

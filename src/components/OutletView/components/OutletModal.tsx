@@ -11,19 +11,34 @@ import useSingleton from "../../../hooks/useSingleton";
 import useActualState from "../../../hooks/useActualState";
 
 import ActionButton from "../../ActionButton";
+import FetchView, { IFetchViewProps } from "../../FetchView";
+import LoaderView from "../../LoaderView";
 import OutletView from "../OutletView";
 
 import IOutletViewProps from "../model/IOutletViewProps";
 import IAnything from "../../../model/IAnything";
+import { RowId } from "../../../model/IRowData";
+import TSubject from "../../../model/TSubject";
+
+import flatArray from "../../../utils/flatArray";
+
+const Loader = LoaderView.createLoader(24);
 
 export interface IOutletModalProps<
   Data extends {} = Record<string, any>,
   Payload = IAnything,
   Params = IAnything
-> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
-  onSubmit: never;
-}> {
+> extends Omit<
+    IOutletViewProps<Data, Payload, Params>,
+    keyof {
+      onSubmit: never;
+      id: never;
+    }
+  > {
+  id: RowId;
   title?: string;
+  fetchState: IFetchViewProps<RowId>["state"];
+  reloadSubject?: TSubject<void>;
   onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
@@ -38,6 +53,8 @@ export interface IOutletModalProps<
   open?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  mapParams: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
+  mapInitialData: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -69,12 +86,12 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    maxWidth: '100%',
-    overflowX: 'hidden',
-    overflowY: 'auto',
-    '& > *': {
+    maxWidth: "100%",
+    overflowX: "hidden",
+    overflowY: "auto",
+    "& > *": {
       flex: 1,
-    }
+    },
   },
   submit: {
     paddingTop: 15,
@@ -93,9 +110,16 @@ export const OutletModal = <
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
+  initialData,
+  params,
+  mapParams = () => params as Params,
+  mapInitialData = () => initialData as Data,
   onLoadStart,
   onLoadEnd,
   fallback,
+  reloadSubject,
+  id,
+  fetchState,
   AfterTitle,
   title,
   data: upperData = null,
@@ -199,12 +223,33 @@ export const OutletModal = <
           </div>
         )}
         <Box className={classes.content}>
-          <OutletView
-            {...outletProps}
-            readonly={readonly}
-            payload={payload}
-            onChange={handleChange}
-          />
+          {!!open && (
+            <FetchView
+              animation="none"
+              payload={id}
+              state={fetchState}
+              reloadSubject={reloadSubject}
+              fallback={fallback}
+              onLoadStart={onLoadStart}
+              onLoadEnd={onLoadEnd}
+              Loader={Loader}
+              deps={[payload]}
+            >
+              {async (...args) => (
+                <OutletView
+                  {...outletProps}
+                  fallback={fallback}
+                  onLoadStart={onLoadStart}
+                  onLoadEnd={onLoadEnd}
+                  initialData={await mapInitialData(id, flatArray(args))}
+                  params={await mapParams(id, flatArray(args))}
+                  readonly={readonly}
+                  payload={payload}
+                  onChange={handleChange}
+                />
+              )}
+            </FetchView>
+          )}
         </Box>
         {!readonly && (
           <ActionButton
