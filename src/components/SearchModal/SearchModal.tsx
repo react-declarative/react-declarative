@@ -227,6 +227,7 @@ export const SearchModal = <
             selectionMode={selectionMode}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
+            payload={payload}
             selectedRows={data?.length ? data : undefined}
             onSelectedRows={handleChange}
           />
