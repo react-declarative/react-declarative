@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Theme, alpha, darken } from "@mui/material";
+import { Theme, alpha } from "@mui/material";
 
 import Divider from "@mui/material/Divider";
 import Drawer, { DrawerProps } from "@mui/material/Drawer";
@@ -20,6 +20,8 @@ import idToLabel from "../utils/idToLabel";
 
 import MenuOption from "./MenuOption";
 import Search from "./Search";
+
+export const DRAWER_BACKGROUND = 'react-declarative__scaffold2Background';
 
 const itemCategory = {
   boxShadow: (theme: Theme) => {
@@ -68,9 +70,9 @@ export const Navigator = <T extends Payload = Payload>({
     {...otherProps}
   >
     <Paper
+      className={DRAWER_BACKGROUND}
       sx={{
         flex: 1,
-        bgColor: (theme: Theme) => darken(theme.palette.background.paper, 0.06),
       }}
     >
       <List disablePadding>
@@ -80,7 +82,7 @@ export const Navigator = <T extends Payload = Payload>({
               ...itemCategory,
               py: 2,
               fontSize: 22,
-              bgcolor: (theme: Theme) => theme.palette.background.paper,
+              background: 'transparent',
             }}
           >
             {appName}
@@ -89,7 +91,7 @@ export const Navigator = <T extends Payload = Payload>({
         {BeforeSearch && (
           <ListItem
             sx={{
-              bgcolor: (theme: Theme) => theme.palette.background.paper,
+              background: 'transparent',
               boxShadow: (theme: Theme) => {
                 const color = alpha(theme.palette.background.default, 0.1);
                 return `0 -1px 0 ${color} inset`;
@@ -112,7 +114,7 @@ export const Navigator = <T extends Payload = Payload>({
         {AfterSearch && (
           <ListItem
             sx={{
-              bgcolor: (theme: Theme) => theme.palette.background.paper,
+              background: 'transparent',
               boxShadow: (theme: Theme) => {
                 const color = alpha(theme.palette.background.default, 0.1);
                 return `0 -1px 0 ${color} inset`;
@@ -142,14 +144,19 @@ export const Navigator = <T extends Payload = Payload>({
               <Box
                 key={id}
                 sx={{
-                  bgcolor: (theme: Theme) => theme.palette.background.paper,
+                  background: 'transparent',
                   ...(noHeader && {
                     pt: idx === 0 ? 0 : 2,
                   }),
                 }}
               >
                 {!noHeader && (
-                  <ListItem sx={{ py: 2, px: 3 }}>
+                  <ListItem
+                    sx={{
+                      py: 2,
+                      px: 3 
+                    }}
+                  >
                     <ListItemButton
                       onClick={() => onOptionGroupClick(path, id)}
                       disabled={upperDisabled}
