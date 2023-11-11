@@ -59,7 +59,7 @@ const MenuGroup = ({
     } else {
       setLifted(computeLifted());
     }
-  }, [upperLifted]);
+  }, [upperLifted, activeOptionPath]);
 
   const defaultIcon = lifted ? () => <LessIcon /> : () => <MoreIcon />;
 
