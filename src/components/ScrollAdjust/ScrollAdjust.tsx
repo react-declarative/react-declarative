@@ -14,11 +14,11 @@ let adjustFiller: React.ComponentType<any> | null = null;
 const useStyles = makeStyles()((theme) => ({
     adjust: {
         [theme.breakpoints.down('md')]: {
-            padding: adjustHeight,
+            paddingBottom: adjustHeight,
         },
     },
     adjustForce: {
-        padding: adjustHeight,
+        paddingBottom: adjustHeight,
     },
 }));
 
