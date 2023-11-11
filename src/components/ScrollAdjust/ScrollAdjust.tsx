@@ -1,13 +1,15 @@
 import React from 'react';
+import { createElement } from 'react';
 
 import { makeStyles } from '../../styles';
 
 import classNames from '../../utils/classNames';
 
-type Height = React.CSSProperties['height'];
+type Height = Exclude<React.CSSProperties['height'], undefined>;
 
 let adjustForce = false;
 let adjustHeight: Height = 25;
+let adjustFiller: React.ComponentType<any> | null = null;
 
 const useStyles = makeStyles()((theme) => ({
     adjust: {
@@ -28,7 +30,9 @@ export const ScrollAdjust = () => {
                 [classes.adjust]: !adjustForce,
                 [classes.adjustForce]: adjustForce,
             })}
-        />
+        >
+            {adjustFiller && createElement(adjustFiller)}
+        </div>
     );
 };
 
@@ -38,6 +42,10 @@ ScrollAdjust.setAdjustForce = (force: boolean) => {
 
 ScrollAdjust.setAdjustHeight = (height: Height) => {
     adjustHeight = height;
+};
+
+ScrollAdjust.setAdjustFiller = (element: React.ComponentType<any>) => {
+    adjustFiller = element;
 };
 
 export default ScrollAdjust;

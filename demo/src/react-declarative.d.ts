@@ -7102,11 +7102,12 @@ declare module 'react-declarative/components/Chip/Chip' {
 
 declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
     import React from 'react';
-    type Height = React.CSSProperties['height'];
+    type Height = Exclude<React.CSSProperties['height'], undefined>;
     export const ScrollAdjust: {
         (): JSX.Element;
         setAdjustForce(force: boolean): void;
         setAdjustHeight(height: Height): void;
+        setAdjustFiller(element: React.ComponentType<any>): void;
     };
     export default ScrollAdjust;
 }
