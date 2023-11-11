@@ -7,6 +7,7 @@ import IScaffold2Action from "./IScaffold2Action";
 import Payload from "./Payload";
 
 export interface IScaffold2Props<T = Payload> {
+    noOptionHover?: boolean;
     noContent?: boolean;
     noAppName?: boolean;
     fixedHeader?: boolean;

@@ -16,6 +16,7 @@ import idToLabel from "../utils/idToLabel";
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 
 import { DRAWER_WIDTH } from "../config";
+import usePropsContext from "../context/PropsContext";
 
 interface IOptionItemProps {
   className?: string;
@@ -37,12 +38,13 @@ export const OptionItem = ({
   currentPadding: paddingLeft,
 }: IOptionItemProps) => {
   const [, setHoverPath] = useHoverContext();
+  const { noOptionHover } = usePropsContext();
   const Icon = option.icon || OutlinedFlag;
   return (
     <ListItem
       className={className}
-      onMouseEnter={() => setHoverPath(option.path)}
-      onMouseLeave={() => setHoverPath("")}
+      onMouseEnter={() => !noOptionHover && setHoverPath(option.path)}
+      onMouseLeave={() => !noOptionHover && setHoverPath("")}
       style={style}
       sx={sx}
       disablePadding
