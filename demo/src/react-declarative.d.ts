@@ -7101,7 +7101,13 @@ declare module 'react-declarative/components/Chip/Chip' {
 }
 
 declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
-    export const ScrollAdjust: () => JSX.Element;
+    import React from 'react';
+    type Height = React.CSSProperties['height'];
+    export const ScrollAdjust: {
+        (): JSX.Element;
+        setAdjustForce(force: boolean): void;
+        setAdjustHeight(height: Height): void;
+    };
     export default ScrollAdjust;
 }
 
@@ -7266,6 +7272,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
     import IScaffold2Action from "react-declarative/components/Scaffold2/model/IScaffold2Action";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
     export interface IScaffold2Props<T = Payload> {
+        noOptionHover?: boolean;
         noContent?: boolean;
         noAppName?: boolean;
         fixedHeader?: boolean;
