@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Container from './components/Container';
 
 import { createStateManager, StateContextProvider } from './context/StateContext';
+import { HoverContextProvider } from './context/HoverContext';
 import { PropsContextProvider } from './context/PropsContext';
 
 import IScaffold2Props from './model/IScaffold2Props';
@@ -45,16 +46,18 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
     return (
         <StateContextProvider value={stateContext}>
             <PropsContextProvider value={props}>
-                <Container<T>
-                    appName={appName}
-                    noSearch={noSearch}
-                    noAppName={noAppName}
-                    payload={payload}
-                    options={stateContext.filteredGroups}
-                    {...otherProps}
-                >
-                    {children}
-                </Container>
+                <HoverContextProvider initialState="">
+                    <Container<T>
+                        appName={appName}
+                        noSearch={noSearch}
+                        noAppName={noAppName}
+                        payload={payload}
+                        options={stateContext.filteredGroups}
+                        {...otherProps}
+                    >
+                        {children}
+                    </Container>
+                </HoverContextProvider>
             </PropsContextProvider>  
         </StateContextProvider>
     );

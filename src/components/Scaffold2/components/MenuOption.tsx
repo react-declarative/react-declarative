@@ -8,9 +8,11 @@ import OptionItem from "./OptionItem";
 
 import { IScaffold2OptionInternal } from "../model/IScaffold2Option";
 
-import useStateContext from "../context/StateContext";
 import useActualCallback from "../../../hooks/useActualCallback";
+
+import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
+import useHoverContext from "../context/HoverContext";
 
 interface IMenuOptionProps {
   option: IScaffold2OptionInternal | IScaffold2OptionInternal[];
@@ -44,6 +46,17 @@ const MenuGroup = ({
   currentPadding: number;
 }) => {
   const upperLifted = useLifted();
+  const [hoverPath] = useHoverContext();
+
+  const nestedLifted = useMemo(() => {
+    if (hoverPath === "") {
+      return false;
+    }
+    if (hoverPath === option.path) {
+      return true;
+    }
+    return hoverPath.startsWith(option.path);
+  }, [hoverPath]);
 
   const computeLifted = useActualCallback(
     () => option.lifted || activeOptionPath.includes(option.path)
@@ -91,7 +104,7 @@ const MenuGroup = ({
         onClick={handleClick}
         currentPadding={currentPadding}
       />
-      {(lifted || option.pin) && (
+      {(lifted || option.pin || nestedLifted) && (
         <MenuOption
           option={option.options}
           paddingLeft={currentPadding}

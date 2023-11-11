@@ -7,6 +7,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
+import useHoverContext from "../context/HoverContext";
+
 import { IScaffold2OptionInternal } from "../model/IScaffold2Option";
 
 import idToLabel from "../utils/idToLabel";
@@ -34,10 +36,13 @@ export const OptionItem = ({
   activeOptionPath,
   currentPadding: paddingLeft,
 }: IOptionItemProps) => {
+  const [, setHoverPath] = useHoverContext();
   const Icon = option.icon || OutlinedFlag;
   return (
     <ListItem
       className={className}
+      onMouseEnter={() => setHoverPath(option.path)}
+      onMouseLeave={() => setHoverPath("")}
       style={style}
       sx={sx}
       disablePadding
