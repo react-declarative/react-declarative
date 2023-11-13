@@ -3,12 +3,12 @@ import { makeStyles } from "../../styles";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import MatBreadcrumbs from "@mui/material/Breadcrumbs";
-import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 
 import useActualCallback from "../../hooks/useActualCallback";
 
+import ActionButton from "../ActionButton";
 import ActionMenu from "../ActionMenu";
 import Async from "../Async";
 
@@ -26,7 +26,7 @@ interface IBreadcrumbs2Props<T extends any = any> {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  onAction?: (action: string) => void;
+  onAction?: (action: string) => (void | Promise<void>);
   actions?: IBreadcrumbs2Action<T>[];
   items: IBreadcrumbs2Option<T>[];
   payload?: T;
@@ -148,7 +148,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                 {itemList
                   .filter(({ visible }) => visible)
                   .map(({ action, label, disabled, icon: Icon }, idx) => (
-                    <Button
+                    <ActionButton
                       key={`${action}-${idx}`}
                       variant="contained"
                       startIcon={Icon && <Icon />}
@@ -156,7 +156,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                       onClick={() => onAction$(action)}
                     >
                       {label}
-                    </Button>
+                    </ActionButton>
                   ))}
               </>
             );

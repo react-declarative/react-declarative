@@ -5173,7 +5173,7 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
-        onAction?: (action: string) => void;
+        onAction?: (action: string) => (void | Promise<void>);
         actions?: IBreadcrumbs2Action<T>[];
         items: IBreadcrumbs2Option<T>[];
         payload?: T;
