@@ -41,6 +41,7 @@ const useStyles = makeStyles()({
 
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
+    withTransparentTabs = false,
     withMenuCollapse = false,
     withFixedPos = false,
     fixedPosHeaderAdjust = 0,
@@ -136,6 +137,7 @@ export const MasterDetail = <Payload extends any = any>({
         }
         return (
             <Content
+                withTransparentTabs={withTransparentTabs}
                 withMenuCollapse={withMenuCollapse}
                 withFixedPos={withFixedPos}
                 fixedPosHeaderAdjust={fixedPosHeaderAdjust}

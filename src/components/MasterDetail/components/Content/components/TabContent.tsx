@@ -72,7 +72,7 @@ const useStyles = makeStyles<{
   },
   disabledTab: {
     opacity: 0.5,
-    cursor: 'not-allowed',
+    cursor: "not-allowed",
   },
   indicator: {
     height: 4,
@@ -86,6 +86,7 @@ export const TabContent = ({
   onChange,
   loading,
   withFixedPos,
+  withTransparentTabs,
   fixedPosHeaderAdjust: headerAdjust,
 }: IContentProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -123,8 +124,50 @@ export const TabContent = ({
     return items.find(({ active }) => active)?.id || "unknown";
   }, [items]);
 
-  return (
-    <Box ref={elementRef} className={classes.root}>
+  const renderTabs = () => (
+    <Tabs
+      variant="scrollable"
+      indicatorColor="primary"
+      value={activeId}
+      classes={{
+        root: classes.tabsRoot,
+        indicator: classes.indicator,
+      }}
+      onChange={(_, value) => onChange(value)}
+    >
+      {items.map(({ id, label, disabled, icon: Icon }, idx) => (
+        <Tab
+          className={classNames({
+            [classes.disabledTab]: disabled,
+          })}
+          key={`${id}-${idx}`}
+          label={label}
+          value={id}
+          disabled={disabled}
+          icon={Icon && <Icon />}
+          iconPosition="start"
+          classes={{
+            root: classes.tabRoot,
+          }}
+        />
+      ))}
+    </Tabs>
+  );
+
+  const renderInner = () => {
+    if (withTransparentTabs) {
+      return (
+        <Box
+          className={MASTER_DETAIL_HEADER}
+          sx={{
+            zIndex: 9,
+          }}
+        >
+          {renderTabs()}
+        </Box>
+      )
+    }
+    return (
       <Box
         className={classNames(MASTER_DETAIL_HEADER, classes.header, {
           [classes.headerNone]: !items.length,
@@ -132,42 +175,22 @@ export const TabContent = ({
           [classes.headerFixed]: fixedPos,
         })}
       >
-        <Paper className={classes.paper}>
-          <Tabs
-            variant="scrollable"
-            indicatorColor="primary"
-            value={activeId}
-            classes={{
-              root: classes.tabsRoot,
-              indicator: classes.indicator,
-            }}
-            onChange={(_, value) => onChange(value)}
-          >
-            {items.map(({ id, label, disabled, icon: Icon }, idx) => (
-              <Tab
-                className={classNames({
-                  [classes.disabledTab]: disabled,
-                })}
-                key={`${id}-${idx}`}
-                label={label}
-                value={id}
-                disabled={disabled}
-                icon={Icon && <Icon />}
-                iconPosition="start"
-                classes={{
-                  root: classes.tabRoot,
-                }}
-              />
-            ))}
-          </Tabs>
-        </Paper>
+        <Paper className={classes.paper}>{renderTabs()}</Paper>
       </Box>
-      <div
-        ref={menuRef}
-        className={classNames({
-          [classes.adjust]: !!items.length,
-        })}
-      />
+    );
+  };
+
+  return (
+    <Box ref={elementRef} className={classes.root}>
+      {renderInner()}
+      {!withTransparentTabs && (
+        <div
+          ref={menuRef}
+          className={classNames({
+            [classes.adjust]: !!items.length,
+          })}
+        />
+      )}
       {children}
     </Box>
   );

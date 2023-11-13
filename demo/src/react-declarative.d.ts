@@ -7120,7 +7120,7 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
-    export const MasterDetail: <Payload extends unknown = any>({ mode, withMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
+    export const MasterDetail: <Payload extends unknown = any>({ mode, withTransparentTabs, withMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }
 
@@ -7937,9 +7937,9 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         throwError?: boolean;
         hidden?: boolean;
         submitLabel?: string;
-        mapPayload?: (id: Id, data: Record<string, any>[]) => (Payload | Promise<Payload>);
-        mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
-        mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
+        mapPayload?: (id: Id, data: Record<string, any>[]) => Payload | Promise<Payload>;
+        mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
+        mapInitialData?: (id: Id, data: Record<string, any>[]) => Data | Promise<Data>;
     }
     export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
@@ -8024,6 +8024,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     import React from "react";
     import { SxProps } from "@mui/system";
     export interface IMasterDetailProps<Payload = any> {
+        withTransparentTabs?: boolean;
         withMenuCollapse?: boolean;
         withFixedPos?: boolean;
         fixedPosHeaderAdjust?: number;

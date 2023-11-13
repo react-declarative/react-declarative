@@ -21,7 +21,9 @@ import Id from "../model/Id";
 
 import flatArray from "../../../utils/flatArray";
 
-const Loader = LoaderView.createLoader(24);
+const Loader = () => (
+  <LoaderView size={24} sx={{ height: "100%", width: "100%" }} />
+);
 
 export interface IOutletModalProps<
   Data extends {} = Record<string, any>,
@@ -54,9 +56,15 @@ export interface IOutletModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
-  mapPayload?: (id: Id, data: Record<string, any>[]) => (Payload | Promise<Payload>);
-  mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
-  mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
+  mapPayload?: (
+    id: Id,
+    data: Record<string, any>[]
+  ) => Payload | Promise<Payload>;
+  mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
+  mapInitialData?: (
+    id: Id,
+    data: Record<string, any>[]
+  ) => Data | Promise<Data>;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -112,9 +120,9 @@ export const OutletModal = <
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
-  mapParams = () => ({ id }) as unknown as Params,
-  mapInitialData = () => ({}) as unknown as Data,
-  mapPayload = () => ({}) as unknown as Payload,
+  mapParams = () => ({ id } as unknown as Params),
+  mapInitialData = () => ({} as unknown as Data),
+  mapPayload = () => ({} as unknown as Payload),
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -214,9 +222,7 @@ export const OutletModal = <
             <Typography variant="h6" component="h2">
               {title}
             </Typography>
-            {AfterTitle && (
-              <AfterTitle data={data} onClose={handleClose} />
-            )}
+            {AfterTitle && <AfterTitle data={data} onClose={handleClose} />}
           </div>
         )}
         <Box className={classes.content}>
