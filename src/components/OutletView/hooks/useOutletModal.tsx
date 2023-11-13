@@ -36,7 +36,6 @@ export const useOutletModal = <
   onLoadEnd,
   onLoadStart,
   throwError,
-  payload,
   onChange,
   onSubmit = () => true,
   submitLabel,
@@ -67,7 +66,6 @@ export const useOutletModal = <
         history={history}
         hidden={hidden}
         title={title}
-        payload={payload}
         fallback={fallback}
         onChange={onChange}
         onLoadEnd={onLoadEnd}
@@ -81,7 +79,6 @@ export const useOutletModal = <
     [
       id,
       hidden,
-      payload,
       fallback,
       onChange,
       onLoadEnd,

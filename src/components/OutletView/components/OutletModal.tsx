@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
-import useSingleton from "../../../hooks/useSingleton";
 import useActualState from "../../../hooks/useActualState";
 
 import ActionButton from "../../ActionButton";
@@ -18,9 +17,9 @@ import OutletView from "../OutletView";
 import IOutletViewProps from "../model/IOutletViewProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
+import Id from "../model/Id";
 
 import flatArray from "../../../utils/flatArray";
-import Id from "../model/Id";
 
 const Loader = LoaderView.createLoader(24);
 
@@ -32,6 +31,10 @@ export interface IOutletModalProps<
     IOutletViewProps<Data, Payload, Params>,
     keyof {
       onSubmit: never;
+      initialData: never;
+      payload: never;
+      params: never;
+      data: never;
       id: never;
     }
   > {
@@ -42,7 +45,6 @@ export interface IOutletModalProps<
   onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
-    payload: Payload;
     data: Data | null;
   }>;
   data?: Data | null;
@@ -52,6 +54,7 @@ export interface IOutletModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  mapPayload?: (id: Id, data: Record<string, any>[]) => (Payload | Promise<Payload>);
   mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
   mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
 }
@@ -109,10 +112,9 @@ export const OutletModal = <
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
-  initialData,
-  params,
-  mapParams = () => params as Params,
-  mapInitialData = () => initialData as Data,
+  mapParams = () => ({ id }) as unknown as Params,
+  mapInitialData = () => ({}) as unknown as Data,
+  mapPayload = () => ({}) as unknown as Payload,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -124,13 +126,10 @@ export const OutletModal = <
   data: upperData = null,
   throwError = false,
   submitLabel = "Submit",
-  payload: upperPayload = {} as Payload,
   readonly,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
   const { classes } = useStyles();
-
-  const payload = useSingleton(upperPayload);
 
   const [data, setData] = useState<Data | null>(upperData);
   const [loading, setLoading] = useActualState(0);
@@ -216,7 +215,7 @@ export const OutletModal = <
               {title}
             </Typography>
             {AfterTitle && (
-              <AfterTitle data={data} payload={payload} onClose={handleClose} />
+              <AfterTitle data={data} onClose={handleClose} />
             )}
           </div>
         )}
@@ -231,7 +230,6 @@ export const OutletModal = <
               onLoadStart={onLoadStart}
               onLoadEnd={onLoadEnd}
               Loader={Loader}
-              deps={[payload]}
             >
               {async (...args) => (
                 <OutletView
@@ -240,9 +238,9 @@ export const OutletModal = <
                   onLoadStart={onLoadStart}
                   onLoadEnd={onLoadEnd}
                   initialData={await mapInitialData(id, flatArray(args))}
+                  payload={await mapPayload(id, flatArray(args))}
                   params={await mapParams(id, flatArray(args))}
                   readonly={readonly}
-                  payload={payload}
                   onChange={handleChange}
                 />
               )}

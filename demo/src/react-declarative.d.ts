@@ -6317,7 +6317,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
         pathname?: string;
     }
-    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, payload, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
         open: typeof open;
         render: () => JSX.Element;
         pickData: (id: Id) => void;
@@ -7915,6 +7915,10 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
     import Id from "react-declarative/components/OutletView/model/Id";
     export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
         onSubmit: never;
+        initialData: never;
+        payload: never;
+        params: never;
+        data: never;
         id: never;
     }> {
         id: Id | null;
@@ -7924,7 +7928,6 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
-            payload: Payload;
             data: Data | null;
         }>;
         data?: Data | null;
@@ -7934,10 +7937,11 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         throwError?: boolean;
         hidden?: boolean;
         submitLabel?: string;
+        mapPayload?: (id: Id, data: Record<string, any>[]) => (Payload | Promise<Payload>);
         mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
         mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, initialData, params, mapParams, mapInitialData, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
