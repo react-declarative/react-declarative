@@ -12,6 +12,10 @@ export const createLsManager = <T = Record<string, any>>(STORAGE_KEY: string) =>
         localStorage.setItem(STORAGE_KEY, JSON.stringify(value, null, 2));
     };
 
+    clear = () => {
+        localStorage.removeItem(STORAGE_KEY)
+    };
+
 };
 
 export default createLsManager;

@@ -12,6 +12,10 @@ export const createSsManager = <T = Record<string, any>>(STORAGE_KEY: string) =>
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(value, null, 2));
     };
 
+    clear = () => {
+        sessionStorage.removeItem(STORAGE_KEY)
+    };
+
 };
 
 export default createSsManager;

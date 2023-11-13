@@ -85,7 +85,19 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const storageManager = useMemo(
-    () => createLsManager<IColumnEntry[]>(`${storageKey}_v1`),
+    () => {
+      const manager = createLsManager<IColumnEntry[]>(`${storageKey}_v1`)
+      {
+        const value = manager.getValue();
+        const { length: totalLength } = columns
+          .filter((column) => column.field)
+          .filter((column) => column.type !== ColumnType.Action);
+        if (value && value.length !== totalLength) {
+          manager.clear();
+        }
+      }
+      return manager;
+    },
     []
   );
 

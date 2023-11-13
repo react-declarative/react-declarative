@@ -3181,6 +3181,7 @@ declare module 'react-declarative/utils/createLsManager' {
     export const createLsManager: <T = Record<string, any>>(STORAGE_KEY: string) => {
         getValue: () => T | null;
         setValue: (value: T) => void;
+        clear: () => void;
     };
     export default createLsManager;
 }
@@ -3189,6 +3190,7 @@ declare module 'react-declarative/utils/createSsManager' {
     export const createSsManager: <T = Record<string, any>>(STORAGE_KEY: string) => {
         getValue: () => T | null;
         setValue: (value: T) => void;
+        clear: () => void;
     };
     export default createSsManager;
 }
