@@ -7,7 +7,7 @@ import useActualCallback from "../../../hooks/useActualCallback";
 import useLocalHistory from "../../../hooks/useLocalHistory";
 
 import IAnything from "../../../model/IAnything";
-import { RowId } from "../../../model/IRowData";
+import Id from "../model/Id";
 
 interface IParams<
   Data extends {} = Record<string, any>,
@@ -22,7 +22,7 @@ interface IParams<
       className: never;
     }
   > {
-  onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
   pathname?: string;
 }
 
@@ -44,7 +44,7 @@ export const useOutletModal = <
   hidden,
   ...outletProps
 }: IParams<Data, Payload, Params>) => {
-  const [id, setId] = useState<RowId | null>(null);
+  const [id, setId] = useState<Id | null>(null);
 
   const { history, reload } = useLocalHistory({
     pathname,
@@ -52,7 +52,7 @@ export const useOutletModal = <
 
   const onSubmit$ = useActualCallback(onSubmit);
 
-  const handleSubmit = useCallback(async (id: RowId, data: Data | null) => {
+  const handleSubmit = useCallback(async (id: Id, data: Data | null) => {
     const result = await onSubmit$(id, data);
     if (result) {
       setId(null);
@@ -93,7 +93,7 @@ export const useOutletModal = <
     ]
   );
 
-  const pickData = useCallback((id: RowId) => {
+  const pickData = useCallback((id: Id) => {
     reload();
     setId(id);
   }, []);

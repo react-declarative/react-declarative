@@ -6307,20 +6307,20 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
 declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     import { IOutletModalProps } from "react-declarative/components/OutletView/components/OutletModal";
     import IAnything from "react-declarative/model/IAnything";
-    import { RowId } from "react-declarative/model/IRowData";
+    import Id from "react-declarative/components/OutletView/model/Id";
     interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
         id: never;
         history: never;
         onSubmit: never;
         className: never;
     }> {
-        onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
         pathname?: string;
     }
     export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, payload, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
         open: typeof open;
         render: () => JSX.Element;
-        pickData: (id: RowId) => void;
+        pickData: (id: Id) => void;
     };
     export default useOutletModal;
 }
@@ -7911,17 +7911,17 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
     import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IAnything from "react-declarative/model/IAnything";
-    import { RowId } from "react-declarative/model/IRowData";
     import TSubject from "react-declarative/model/TSubject";
+    import Id from "react-declarative/components/OutletView/model/Id";
     export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
         onSubmit: never;
         id: never;
     }> {
-        id: RowId | null;
+        id: Id | null;
         title?: string;
-        fetchState: IFetchViewProps<RowId>["state"];
+        fetchState: IFetchViewProps<Id>["state"];
         reloadSubject?: TSubject<void>;
-        onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
             payload: Payload;
@@ -7934,11 +7934,16 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         throwError?: boolean;
         hidden?: boolean;
         submitLabel?: string;
-        mapParams?: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
-        mapInitialData?: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
+        mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
+        mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
     }
     export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, initialData, params, mapParams, mapInitialData, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
+}
+
+declare module 'react-declarative/components/OutletView/model/Id' {
+    export type Id = string;
+    export default Id;
 }
 
 declare module 'react-declarative/components/FadeView/components/FadeContainer' {

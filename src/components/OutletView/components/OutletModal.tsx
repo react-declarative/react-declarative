@@ -17,10 +17,10 @@ import OutletView from "../OutletView";
 
 import IOutletViewProps from "../model/IOutletViewProps";
 import IAnything from "../../../model/IAnything";
-import { RowId } from "../../../model/IRowData";
 import TSubject from "../../../model/TSubject";
 
 import flatArray from "../../../utils/flatArray";
+import Id from "../model/Id";
 
 const Loader = LoaderView.createLoader(24);
 
@@ -35,11 +35,11 @@ export interface IOutletModalProps<
       id: never;
     }
   > {
-  id: RowId | null;
+  id: Id | null;
   title?: string;
-  fetchState: IFetchViewProps<RowId>["state"];
+  fetchState: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
-  onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
     payload: Payload;
@@ -52,8 +52,8 @@ export interface IOutletModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
-  mapParams?: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
-  mapInitialData?: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
+  mapParams?: (id: Id, data: Record<string, any>[]) => (Params | Promise<Params>);
+  mapInitialData?: (id: Id, data: Record<string, any>[]) => (Data | Promise<Data>);
 }
 
 const useStyles = makeStyles()((theme) => ({
