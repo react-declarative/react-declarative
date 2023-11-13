@@ -1775,7 +1775,10 @@ declare module 'react-declarative/hooks/useLocalHistory' {
     interface IParams {
         pathname: string;
     }
-    export const useLocalHistory: ({ pathname, }: IParams) => import("history").MemoryHistory;
+    export const useLocalHistory: ({ pathname }?: Partial<IParams>) => {
+        history: import("history").MemoryHistory;
+        reload: () => void;
+    };
     export default useLocalHistory;
 }
 
@@ -6304,17 +6307,20 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
 declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     import { IOutletModalProps } from "react-declarative/components/OutletView/components/OutletModal";
     import IAnything from "react-declarative/model/IAnything";
+    import { RowId } from "react-declarative/model/IRowData";
     interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
-        open: never;
+        id: never;
+        history: never;
         onSubmit: never;
         className: never;
     }> {
-        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+        pathname?: string;
     }
-    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, onLoadEnd, onLoadStart, throwError, payload, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
-        open: boolean;
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, payload, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
+        open: typeof open;
         render: () => JSX.Element;
-        pickData: () => void;
+        pickData: (id: RowId) => void;
     };
     export default useOutletModal;
 }
@@ -7911,11 +7917,11 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onSubmit: never;
         id: never;
     }> {
-        id: RowId;
+        id: RowId | null;
         title?: string;
         fetchState: IFetchViewProps<RowId>["state"];
         reloadSubject?: TSubject<void>;
-        onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
             payload: Payload;
@@ -7926,13 +7932,12 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
         throwError?: boolean;
-        open?: boolean;
         hidden?: boolean;
         submitLabel?: string;
-        mapParams: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
-        mapInitialData: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
+        mapParams?: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
+        mapInitialData?: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, initialData, params, mapParams, mapInitialData, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, open, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, initialData, params, mapParams, mapInitialData, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, payload: upperPayload, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 

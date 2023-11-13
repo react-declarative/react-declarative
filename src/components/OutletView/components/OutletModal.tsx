@@ -35,11 +35,11 @@ export interface IOutletModalProps<
       id: never;
     }
   > {
-  id: RowId;
+  id: RowId | null;
   title?: string;
   fetchState: IFetchViewProps<RowId>["state"];
   reloadSubject?: TSubject<void>;
-  onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
     payload: Payload;
@@ -50,11 +50,10 @@ export interface IOutletModalProps<
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
   throwError?: boolean;
-  open?: boolean;
   hidden?: boolean;
   submitLabel?: string;
-  mapParams: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
-  mapInitialData: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
+  mapParams?: (id: RowId, data: Record<string, any>[]) => (Params | Promise<Params>);
+  mapInitialData?: (id: RowId, data: Record<string, any>[]) => (Data | Promise<Data>);
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -123,7 +122,6 @@ export const OutletModal = <
   AfterTitle,
   title,
   data: upperData = null,
-  open = true,
   throwError = false,
   submitLabel = "Submit",
   payload: upperPayload = {} as Payload,
@@ -163,8 +161,8 @@ export const OutletModal = <
     let isOk = true;
     try {
       handleLoadStart();
-      if (open) {
-        await onSubmit(data);
+      if (id) {
+        await onSubmit(id, data);
       }
     } catch (e: any) {
       isOk = false;
@@ -185,8 +183,8 @@ export const OutletModal = <
     let isOk = true;
     try {
       handleLoadStart();
-      if (open) {
-        await onSubmit(null);
+      if (id) {
+        await onSubmit(id, null);
       }
     } catch (e: any) {
       isOk = false;
@@ -202,7 +200,7 @@ export const OutletModal = <
 
   return (
     <Modal
-      open={open}
+      open={!!id}
       sx={{
         ...(hidden && {
           visibility: "hidden",
@@ -223,7 +221,7 @@ export const OutletModal = <
           </div>
         )}
         <Box className={classes.content}>
-          {!!open && (
+          {!!id && (
             <FetchView
               animation="none"
               payload={id}

@@ -4,8 +4,10 @@ import { useState, useCallback } from "react";
 import OutletModal, { IOutletModalProps } from "../components/OutletModal";
 
 import useActualCallback from "../../../hooks/useActualCallback";
+import useLocalHistory from "../../../hooks/useLocalHistory";
 
 import IAnything from "../../../model/IAnything";
+import { RowId } from "../../../model/IRowData";
 
 interface IParams<
   Data extends {} = Record<string, any>,
@@ -14,12 +16,14 @@ interface IParams<
 > extends Omit<
     IOutletModalProps<Data, Payload, Params>,
     keyof {
-      open: never;
+      id: never;
+      history: never;
       onSubmit: never;
       className: never;
     }
   > {
-  onSubmit?: (data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: RowId, data: Data | null) => Promise<boolean> | boolean;
+  pathname?: string;
 }
 
 export const useOutletModal = <
@@ -28,6 +32,7 @@ export const useOutletModal = <
   Params = IAnything
 >({
   fallback,
+  pathname = "/",
   onLoadEnd,
   onLoadStart,
   throwError,
@@ -39,20 +44,27 @@ export const useOutletModal = <
   hidden,
   ...outletProps
 }: IParams<Data, Payload, Params>) => {
-  const [open, setOpen] = useState(false);
+  const [id, setId] = useState<RowId | null>(null);
+
+  const { history, reload } = useLocalHistory({
+    pathname,
+  });
 
   const onSubmit$ = useActualCallback(onSubmit);
 
-  const handleSubmit = useCallback(async (data: Data | null) => {
-    const result = await onSubmit$(data);
-    setOpen(!result);
+  const handleSubmit = useCallback(async (id: RowId, data: Data | null) => {
+    const result = await onSubmit$(id, data);
+    if (result) {
+      setId(null);
+    }
     return result;
   }, []);
 
   const render = useCallback(
     () => (
       <OutletModal
-        open={open}
+        id={id || ""}
+        history={history}
         hidden={hidden}
         title={title}
         payload={payload}
@@ -67,7 +79,7 @@ export const useOutletModal = <
       />
     ),
     [
-      open,
+      id,
       hidden,
       payload,
       fallback,
@@ -81,8 +93,9 @@ export const useOutletModal = <
     ]
   );
 
-  const pickData = useCallback(() => {
-    setOpen(true);
+  const pickData = useCallback((id: RowId) => {
+    reload();
+    setId(id);
   }, []);
 
   return {
