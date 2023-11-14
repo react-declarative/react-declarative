@@ -35,6 +35,8 @@ export const Container = <T extends Payload = Payload>({
   BeforeMenuContent,
   AfterMenuContent,
   Copyright,
+  BeforeContent,
+  AfterContent,
   onOptionGroupClick,
   onOptionClick,
   onTabChange = onOptionClick,
@@ -91,6 +93,8 @@ export const Container = <T extends Payload = Payload>({
               open={mobileOpen}
               BeforeSearch={BeforeSearch}
               AfterSearch={AfterSearch}
+              BeforeContent={BeforeContent}
+              AfterContent={AfterContent}
               onClose={handleDrawerToggle}
               onOptionGroupClick={handleOptionGroupClick}
               onOptionClick={handleOptionClick}
@@ -108,6 +112,8 @@ export const Container = <T extends Payload = Payload>({
               noSearch={noSearch}
               BeforeSearch={BeforeSearch}
               AfterSearch={AfterSearch}
+              BeforeContent={BeforeContent}
+              AfterContent={AfterContent}
               onOptionGroupClick={handleOptionGroupClick}
               onOptionClick={handleOptionClick}
             />

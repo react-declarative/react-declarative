@@ -7304,6 +7304,8 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         AfterSearch?: React.ComponentType<any>;
         BeforeMenuContent?: React.ComponentType<any>;
         AfterMenuContent?: React.ComponentType<any>;
+        BeforeContent?: React.ComponentType<any>;
+        AfterContent?: React.ComponentType<any>;
         Copyright?: React.ComponentType<any>;
         onAction?: (name: string) => void;
         onOptionClick?: (path: string, id: string) => void;

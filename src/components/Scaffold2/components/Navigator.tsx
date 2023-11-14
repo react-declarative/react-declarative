@@ -41,6 +41,8 @@ interface INavigatorProps<T = Payload> extends DrawerProps {
   options: IScaffold2GroupInternal<T>[];
   BeforeSearch?: React.ComponentType<any>;
   AfterSearch?: React.ComponentType<any>;
+  BeforeContent?: React.ComponentType<any>;
+  AfterContent?: React.ComponentType<any>;
   onOptionClick?: (path: string, id: string) => void;
   onOptionGroupClick?: (path: string, id: string) => void;
 }
@@ -55,6 +57,8 @@ export const Navigator = <T extends Payload = Payload>({
   activeOptionPath,
   BeforeSearch,
   AfterSearch,
+  BeforeContent,
+  AfterContent,
   onOptionClick = () => undefined,
   onOptionGroupClick = () => undefined,
   ...otherProps
@@ -73,9 +77,14 @@ export const Navigator = <T extends Payload = Payload>({
       className={DRAWER_BACKGROUND}
       sx={{
         flex: 1,
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
+        flexDirection: 'column'
       }}
     >
-      <List disablePadding>
+      {BeforeContent && <BeforeContent />}
+      <List sx={{ flex: 1 }} disablePadding>
         {!noAppName && (
           <ListItem
             sx={{
@@ -196,6 +205,7 @@ export const Navigator = <T extends Payload = Payload>({
             )
           )}
       </List>
+      {AfterContent && <AfterContent />}
     </Paper>
   </Drawer>
 );
