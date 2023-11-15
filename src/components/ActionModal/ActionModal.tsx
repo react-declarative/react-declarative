@@ -32,6 +32,7 @@ export interface IActionModalProps<
   Param = any,
 > {
   waitForChangesDelay?: number;
+  withActionButton?: boolean;
   fullScreen?: boolean;
   hidden?: boolean;
   readonly?: boolean;
@@ -118,6 +119,7 @@ export const ActionModal = <
   Payload = IAnything,
   Field = IField<Data>
 >({
+  withActionButton = false,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   onSubmit = () => true,
   onChange = () => undefined,
@@ -280,7 +282,7 @@ export const ActionModal = <
         {!readonly && (
           <ActionButton
             className={classes.submit}
-            disabled={!!loading.current || !data}
+            disabled={!withActionButton && (!!loading.current || !data)}
             size="large"
             variant="contained"
             color="info"

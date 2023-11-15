@@ -389,6 +389,7 @@ declare module 'react-declarative' {
     export { compareFulltext } from 'react-declarative/utils/compareFulltext';
     export { promiseState, promiseValue } from 'react-declarative/utils/promiseState';
     export { chooseMultipleFiles } from 'react-declarative/utils/chooseMultipleFiles';
+    export { errorData } from 'react-declarative/utils/errorData';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
     export { getRouteItem } from 'react-declarative/utils/getRouteItem';
     export { getElementFromXPath } from 'react-declarative/utils/getElementFromXPath';
@@ -2602,6 +2603,11 @@ declare module 'react-declarative/utils/promiseState' {
 declare module 'react-declarative/utils/chooseMultipleFiles' {
     export const chooseMultipleFiles: (accept?: string | undefined) => Promise<File[] | null>;
     export default chooseMultipleFiles;
+}
+
+declare module 'react-declarative/utils/errorData' {
+    export const errorData: (error: Error) => {};
+    export default errorData;
 }
 
 declare module 'react-declarative/utils/getRouteParams' {
@@ -6095,6 +6101,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     import IOnePublicProps from "react-declarative/model/IOnePublicProps";
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
         waitForChangesDelay?: number;
+        withActionButton?: boolean;
         fullScreen?: boolean;
         hidden?: boolean;
         readonly?: boolean;
@@ -6124,7 +6131,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -6139,7 +6146,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         waitForChangesDelay?: number;
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
@@ -7925,6 +7932,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         data: never;
         id: never;
     }> {
+        withActionButton?: boolean;
         id: Id | null;
         title?: string;
         fetchState: IFetchViewProps<Id>["state"];
@@ -7945,7 +7953,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
         mapInitialData?: (id: Id, data: Record<string, any>[]) => Data | Promise<Data>;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 

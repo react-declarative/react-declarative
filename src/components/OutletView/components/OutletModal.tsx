@@ -40,6 +40,7 @@ export interface IOutletModalProps<
       id: never;
     }
   > {
+  withActionButton?: boolean;
   id: Id | null;
   title?: string;
   fetchState: IFetchViewProps<Id>["state"];
@@ -117,6 +118,7 @@ export const OutletModal = <
   Payload = IAnything,
   Params = IAnything
 >({
+  withActionButton = false,
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
@@ -256,7 +258,7 @@ export const OutletModal = <
         {!readonly && (
           <ActionButton
             className={classes.submit}
-            disabled={!!loading.current || !data}
+            disabled={!withActionButton && (!!loading.current || !data)}
             size="large"
             variant="contained"
             color="info"
