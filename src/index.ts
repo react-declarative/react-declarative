@@ -439,6 +439,9 @@ import { IOperationListSlot as IOperationListSlotInternal } from './components';
 
 import { IPositionActionListSlot as IPositionActionListSlotInternal } from './model/IListProps';
 
+import { History as HistoryInternal } from './model/History';
+export type History = HistoryInternal;
+
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;
 export type IItemsSlot = IItemsSlotInternal;

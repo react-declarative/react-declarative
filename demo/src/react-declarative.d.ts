@@ -348,6 +348,8 @@ declare module 'react-declarative' {
     import { ISearchSlot as ISearchSlotInternal } from 'react-declarative/components';
     import { IOperationListSlot as IOperationListSlotInternal } from 'react-declarative/components';
     import { IPositionActionListSlot as IPositionActionListSlotInternal } from 'react-declarative/model/IListProps';
+    import { History as HistoryInternal } from 'react-declarative/model/History';
+    export type History = HistoryInternal;
     export type ICheckBoxSlot = ICheckBoxSlotInternal;
     export type IComboSlot = IComboSlotInternal;
     export type IItemsSlot = IItemsSlotInternal;
@@ -2525,6 +2527,12 @@ declare module 'react-declarative/model/IOnePublicProps' {
         features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
     }
     export default IOnePublicProps;
+}
+
+declare module 'react-declarative/model/History' {
+    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+    export type History = MemoryHistory | BrowserHistory | HashHistory;
+    export default History;
 }
 
 declare module 'react-declarative/components/One/components/common/VirtualListBox' {
@@ -6284,7 +6292,7 @@ declare module 'react-declarative/components/OutletView/model/IOutlet' {
 
 declare module 'react-declarative/components/OutletView/model/IOutletProps' {
     import IAnything from "react-declarative/model/IAnything";
-    import History from "react-declarative/components/OutletView/model/History";
+    import History from "react-declarative/model/History";
     export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
         onChange: (data: Data[keyof Data], initial?: boolean) => void;
         onInvalid: (name: string, msg: string) => void;
@@ -7886,7 +7894,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
     import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
-    import History from "react-declarative/components/OutletView/model/History";
+    import History from "react-declarative/model/History";
     export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
         onChange: never;
         onSubmit: never;
@@ -7909,12 +7917,6 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         changeSubject?: TSubject<[keyof Data, Data]>;
     }
     export default IOutletViewProps;
-}
-
-declare module 'react-declarative/components/OutletView/model/History' {
-    import { BrowserHistory, HashHistory, MemoryHistory } from "history";
-    export type History = MemoryHistory | BrowserHistory | HashHistory;
-    export default History;
 }
 
 declare module 'react-declarative/components/OutletView/components/OutletModal' {

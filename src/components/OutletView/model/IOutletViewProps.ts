@@ -5,7 +5,7 @@ import { BoxProps } from "@mui/material";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 import IOutlet from "./IOutlet";
-import History from "./History";
+import History from "../../../model/History";
 
 export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
     onChange: never;

@@ -1,5 +1,5 @@
 import IAnything from "../../../model/IAnything";
-import History from "./History";
+import History from "../../../model/History";
 
 export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
     onChange: (data: Data[keyof Data], initial?: boolean) => void;
