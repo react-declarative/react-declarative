@@ -192,8 +192,12 @@ export const ActionModal = <
     try {
       handleLoadStart()
       if (open) {
-        await waitForChanges();
-        await onSubmit(data$.current, param);
+        if (withActionButton) {
+          await onSubmit({} as Data, param);
+        } else {
+          await waitForChanges();
+          await onSubmit(data$.current, param);
+        }
       }
     } catch (e: any) {
       isOk = false;

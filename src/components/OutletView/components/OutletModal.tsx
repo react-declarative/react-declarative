@@ -171,7 +171,11 @@ export const OutletModal = <
     try {
       handleLoadStart();
       if (id) {
-        await onSubmit(id, data);
+        if (withActionButton) {
+          await onSubmit(id, {} as Data);
+        } else {
+          await onSubmit(id, data);
+        }
       }
     } catch (e: any) {
       isOk = false;
