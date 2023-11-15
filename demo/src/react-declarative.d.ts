@@ -1213,6 +1213,7 @@ declare module 'react-declarative/model/IColumn' {
             payload: Payload;
         }) => boolean;
         compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
+        serialize?: (row: RowData, payload: Payload) => Promise<Value> | Value;
         element?: React.ComponentType<RowData>;
         sortable?: boolean;
     }
