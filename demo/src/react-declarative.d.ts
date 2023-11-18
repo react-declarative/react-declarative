@@ -415,6 +415,7 @@ declare module 'react-declarative' {
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
     export { cached } from 'react-declarative/utils/hof/cached';
+    export { memoize } from 'react-declarative/utils/hof/memoize';
     export { ttl } from 'react-declarative/utils/hof/ttl';
     export { sleep } from 'react-declarative/utils/sleep';
     export { deepFlat } from 'react-declarative/utils/deepFlat';
@@ -2801,6 +2802,14 @@ declare module 'react-declarative/utils/hof/cached' {
     }
     export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T) => T & IClearable;
     export default cached;
+}
+
+declare module 'react-declarative/utils/hof/memoize' {
+    interface IClearable<K = string> {
+        clear: (key?: K) => void;
+    }
+    export const memoize: <T extends (...args: A) => V | Promise<V>, A extends any[], V extends unknown, K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
+    export default memoize;
 }
 
 declare module 'react-declarative/utils/hof/ttl' {

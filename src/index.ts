@@ -518,6 +518,7 @@ export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from './utils/
 export { debounce } from './utils/hof/debounce';
 export { queued } from './utils/hof/queued';
 export { cached } from './utils/hof/cached';
+export { memoize } from './utils/hof/memoize';
 export { ttl } from './utils/hof/ttl';
 
 export { sleep } from './utils/sleep';
