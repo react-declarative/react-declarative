@@ -5,6 +5,7 @@ import SearchModal, { ISearchModalProps } from "./SearchModal";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";
+import useSingleton from "../../hooks/useSingleton";
 
 import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
@@ -30,7 +31,7 @@ interface IParams<
     }
   > {
     param?: Param;
-    onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
+    onSubmit?: (data: IRowData['id'][] | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
   }
 
 export const useSearchModal = <
@@ -45,7 +46,7 @@ export const useSearchModal = <
   fallback,
   apiRef,
   reloadSubject,
-  payload,
+  payload: upperPayload = {} as Payload,
   onChange,
   onAction,
   onRowAction,
@@ -58,6 +59,9 @@ export const useSearchModal = <
   hidden,
   ...listProps
 }: IParams<FilterData, RowData, Payload, Field>) => {
+
+  const payload = useSingleton(upperPayload);
+
   const [open, setOpen] = useState(false);
   const [param, setParam] = useState<Param>(upperParam || []);
 
@@ -69,7 +73,7 @@ export const useSearchModal = <
   const param$ = useActualValue(param);
 
   const handleSubmit = useCallback(async (data: IRowData['id'][] | null) => {
-    const result = await onSubmit$(data?.length ? data : null, param$.current);
+    const result = await onSubmit$(data?.length ? data : null, payload, param$.current);
     setOpen(!result);
     return result;
   }, []);

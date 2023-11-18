@@ -43,7 +43,7 @@ export interface ISearchModalProps<
   }>;
   data?: IRowData["id"][];
   selectionMode?: SelectionMode;
-  onSubmit?: (data: IRowData["id"][] | null) => Promise<boolean> | boolean;
+  onSubmit?: (data: IRowData["id"][] | null, payload: Payload) => Promise<boolean> | boolean;
   onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -161,7 +161,7 @@ export const SearchModal = <
     try {
       handleLoadStart();
       if (open) {
-        await onSubmit(data);
+        await onSubmit(data, payload);
       }
     } catch (e: any) {
       isOk = false;
@@ -183,7 +183,7 @@ export const SearchModal = <
     try {
       handleLoadStart();
       if (open) {
-        await onSubmit(null);
+        await onSubmit(null, payload);
       }
     } catch (e: any) {
       isOk = false;

@@ -6125,7 +6125,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         payload?: IOneProps<Data, Payload>['payload'];
         changeSubject?: IOneProps<Data, Payload>['changeSubject'];
         reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
-        onSubmit?: (data: Data | null, param: Param) => Promise<boolean> | boolean;
+        onSubmit?: (data: Data | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
         onChange?: (data: Data, initial: boolean) => void;
         onInvalid?: (name: string, msg: string) => void;
         onLoadStart?: () => void;
@@ -6155,7 +6155,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         waitForChangesDelay?: number;
         param?: Param;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
@@ -6191,7 +6191,7 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         }>;
         data?: IRowData["id"][];
         selectionMode?: SelectionMode;
-        onSubmit?: (data: IRowData["id"][] | null) => Promise<boolean> | boolean;
+        onSubmit?: (data: IRowData["id"][] | null, payload: Payload) => Promise<boolean> | boolean;
         onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -6220,9 +6220,9 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         style: never;
     }> {
         param?: Param;
-        onSubmit?: (data: IRowData['id'][] | null, param: Param) => Promise<boolean> | boolean;
+        onSubmit?: (data: IRowData['id'][] | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
     }
-    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, selectionMode, handler, fallback, apiRef, reloadSubject, payload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
+    export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, selectionMode, handler, fallback, apiRef, reloadSubject, payload: upperPayload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param) => void;
@@ -6332,7 +6332,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         onSubmit: never;
         className: never;
     }> {
-        onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
         pathname?: string;
     }
     export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
@@ -6420,12 +6420,14 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
 
 declare module 'react-declarative/components/FilesView/useFilesView' {
     import { IFilesViewProps } from 'react-declarative/components/FilesView/FilesView';
-    interface IParams {
+    import IAnything from 'react-declarative/model/IAnything';
+    interface IParams<Payload extends IAnything = IAnything> {
         data?: string[] | null;
         fullScreen?: boolean;
         submitLabel?: string;
-        onSubmit?: (data: string[]) => void;
-        onChange?: (data: string[]) => void;
+        payload?: Payload | (() => Payload);
+        onSubmit?: (data: string[], payload: Payload) => void;
+        onChange?: (data: string[], payload: Payload) => void;
         tr?: IFilesViewProps['tr'];
         fallback?: IFilesViewProps['fallback'];
         onLoadStart?: IFilesViewProps['onLoadStart'];
@@ -6433,7 +6435,7 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
         onClick?: IFilesViewProps['onClick'];
         onUpload?: IFilesViewProps['onUpload'];
     }
-    export const useFilesView: ({ data, fullScreen, submitLabel, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams) => {
+    export const useFilesView: <Payload extends unknown = any>({ data, fullScreen, submitLabel, payload: upperPayload, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
         render: () => JSX.Element;
         pickFiles: () => void;
     };
@@ -7908,8 +7910,8 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         params?: Params;
         routes: IOutlet<Data[keyof Data], Payload, Params>[];
         initialData?: Data | (() => Data);
-        onChange?: (data: Data, initial: boolean, source: string) => void;
-        onSubmit?: (data: Data, config: {
+        onChange?: (data: Data, initial: boolean, payload: Payload, source: string) => void;
+        onSubmit?: (data: Data, payload: Payload, config: {
             afterSave: () => Promise<void>;
         }) => (boolean | Promise<boolean>);
         onLoadStart?: () => void;
@@ -7940,7 +7942,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         title?: string;
         fetchState: IFetchViewProps<Id>["state"];
         reloadSubject?: TSubject<void>;
-        onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
+        onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
             data: Data | null;

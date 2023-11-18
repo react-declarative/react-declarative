@@ -22,7 +22,7 @@ interface IParams<
       className: never;
     }
   > {
-  onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
   pathname?: string;
 }
 
@@ -51,8 +51,8 @@ export const useOutletModal = <
 
   const onSubmit$ = useActualCallback(onSubmit);
 
-  const handleSubmit = useCallback(async (id: Id, data: Data | null) => {
-    const result = await onSubmit$(id, data);
+  const handleSubmit = useCallback(async (id: Id, data: Data | null, payload: Payload) => {
+    const result = await onSubmit$(id, data, payload);
     if (result) {
       setId(null);
     }

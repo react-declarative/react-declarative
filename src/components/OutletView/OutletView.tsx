@@ -135,7 +135,7 @@ export const OutletView = <
     () =>
       dataChangeSubject.subscribe((data) => {
         const { current: changed } = hasChanged$;
-        onChange && onChange(data, !changed, changeRef.current);
+        onChange && onChange(data, !changed, payload, changeRef.current);
         changeRef.current = "unknown";
       }),
     [onChange]
@@ -193,7 +193,7 @@ export const OutletView = <
       try {
         let isSkipped = false;
         const result = await Promise.resolve(
-          onSubmit(data, {
+          onSubmit(data, payload, {
             async afterSave() {
               unblock();
               await afterSave();

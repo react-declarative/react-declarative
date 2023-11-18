@@ -9,6 +9,7 @@ import useActualValue from "../../hooks/useActualValue";
 import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
+import useSingleton from "../../hooks/useSingleton";
 
 export interface IParams<
   Data extends IAnything = IAnything,
@@ -42,7 +43,7 @@ export const useActionModal = <
   apiRef,
   changeSubject,
   reloadSubject,
-  payload,
+  payload: upperPayload = {} as Payload,
   onChange,
   onSubmit = () => true,
   onLoadEnd,
@@ -58,6 +59,9 @@ export const useActionModal = <
   withActionButton,
   title,
 }: IParams<Data, Payload, Field, Param>) => {
+
+  const payload = useSingleton(upperPayload);
+
   const [open, setOpen] = useState(false);
   const [param, setParam] = useState<Param>(upperParam as never);
 
@@ -69,7 +73,7 @@ export const useActionModal = <
   const param$ = useActualValue(param);
 
   const handleSubmit = useCallback(async (data: Data | null) => {
-    const result = await onSubmit$(data, param$.current);
+    const result = await onSubmit$(data, payload, param$.current);
     setOpen(!result);
     return result;
   }, []);

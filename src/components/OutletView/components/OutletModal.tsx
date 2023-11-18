@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -45,7 +45,7 @@ export interface IOutletModalProps<
   title?: string;
   fetchState: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
-  onSubmit?: (id: Id, data: Data | null) => Promise<boolean> | boolean;
+  onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
     data: Data | null;
@@ -144,13 +144,16 @@ export const OutletModal = <
   const [data, setData] = useState<Data | null>(upperData);
   const [loading, setLoading] = useActualState(0);
 
+  const payloadRef = useRef<Payload>({} as Payload);
+
   useEffect(() => {
     setData(upperData);
   }, [open]);
 
-  const handleChange = (data: Data, initial: boolean, source: string) => {
+  const handleChange = (data: Data, initial: boolean, payload: Payload, source: string) => {
+    payloadRef.current = payload;
     setData(data);
-    onChange(data, initial, source);
+    onChange(data, initial, payload, source);
   };
 
   const handleLoadStart = () => {
@@ -172,9 +175,9 @@ export const OutletModal = <
       handleLoadStart();
       if (id) {
         if (withActionButton) {
-          await onSubmit(id, {} as Data);
+          await onSubmit(id, {} as Data, payloadRef.current);
         } else {
-          await onSubmit(id, data);
+          await onSubmit(id, data, payloadRef.current);
         }
       }
     } catch (e: any) {
@@ -197,7 +200,7 @@ export const OutletModal = <
     try {
       handleLoadStart();
       if (id) {
-        await onSubmit(id, null);
+        await onSubmit(id, null, payloadRef.current);
       }
     } catch (e: any) {
       isOk = false;

@@ -10,8 +10,10 @@ import FilesView, { IFilesViewProps } from './FilesView';
 import ActionButton from '../ActionButton';
 
 import useOneArray from '../../hooks/useOneArray';
+import useSingleton from '../../hooks/useSingleton';
 
 import classNames from '../../utils/classNames';
+import IAnything from '../../model/IAnything';
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -59,12 +61,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface IParams {
+interface IParams<Payload extends IAnything = IAnything> {
   data?: string[] | null;
   fullScreen?: boolean;
   submitLabel?: string;
-  onSubmit?: (data: string[]) => void
-  onChange?: (data: string[]) => void;
+  payload?: Payload | (() => Payload);
+  onSubmit?: (data: string[], payload: Payload) => void
+  onChange?: (data: string[], payload: Payload) => void;
   tr?: IFilesViewProps['tr'];
   fallback?: IFilesViewProps['fallback'];
   onLoadStart?: IFilesViewProps['onLoadStart'];
@@ -73,10 +76,11 @@ interface IParams {
   onUpload?: IFilesViewProps['onUpload'];
 }
 
-export const useFilesView = ({
+export const useFilesView = <Payload extends IAnything = IAnything>({
   data = null,
   fullScreen,
   submitLabel = "Save",
+  payload: upperPayload = {} as Payload,
   onChange,
   onSubmit,
   tr,
@@ -85,7 +89,10 @@ export const useFilesView = ({
   onLoadEnd,
   onClick,
   onUpload,
-}: IParams) => {
+}: IParams<Payload>) => {
+
+  const payload = useSingleton(upperPayload);
+
   const [open, setOpen] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [loading, setLoading] = useState(0);
@@ -100,7 +107,7 @@ export const useFilesView = ({
   const handleChange = (files: string[]) => {
     setFiles(files);
     setDirty(true);
-    onChange && onChange(data ||[]);
+    onChange && onChange(data || [], payload);
   };
 
   const handleClose = () => {
@@ -111,7 +118,7 @@ export const useFilesView = ({
 
   const handleSubmit = async () => {
     if (onSubmit) {
-      await onSubmit(files);
+      await onSubmit(files, payload);
     }
     setOpen(false);
     setDirty(false);

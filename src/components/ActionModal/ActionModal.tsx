@@ -47,7 +47,7 @@ export interface IActionModalProps<
   payload?: IOneProps<Data, Payload>['payload'];
   changeSubject?: IOneProps<Data, Payload>['changeSubject'];
   reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
-  onSubmit?: (data: Data | null, param: Param) => Promise<boolean> | boolean;
+  onSubmit?: (data: Data | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
   onChange?: (data: Data, initial: boolean) => void;
   onInvalid?: (name: string, msg: string) => void;
   onLoadStart?: () => void;
@@ -193,10 +193,10 @@ export const ActionModal = <
       handleLoadStart()
       if (open) {
         if (withActionButton) {
-          await onSubmit({} as Data, param);
+          await onSubmit({} as Data, payload, param);
         } else {
           await waitForChanges();
-          await onSubmit(data$.current, param);
+          await onSubmit(data$.current, payload, param);
         }
       }
     } catch (e: any) {
@@ -219,7 +219,7 @@ export const ActionModal = <
     try {
       handleLoadStart()
       if (open) {
-        await onSubmit(null, param);
+        await onSubmit(null, payload, param);
       }
     } catch (e: any) {
       isOk = false;
