@@ -12,19 +12,23 @@ const buildCommonResult = (
   const ignoreNestingVisibility = (
     entry: IField,
     data: Record<string, any>,
-    payload: Record<string, any>
+    payload: Record<string, any>,
+    hidden = false
   ) => {
     const { isVisible = () => true, isDisabled = () => false } = entry;
     if (!isVisible(data, payload) || isDisabled(data, payload)) {
+      hidden = true;
+    }
+    if (hidden) {
       ignore.add(entry);
     }
     if (entry.fields) {
       for (const field of entry.fields) {
-        ignoreNestingVisibility(field, data, payload);
+        ignoreNestingVisibility(field, data, payload, hidden);
       }
     }
     if (entry.child) {
-      ignoreNestingVisibility(entry.child, data, payload);
+      ignoreNestingVisibility(entry.child, data, payload, hidden);
     }
   };
 
