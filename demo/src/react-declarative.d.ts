@@ -3000,7 +3000,10 @@ declare module 'react-declarative/utils/math/last' {
 
 declare module 'react-declarative/utils/getAvailableFields' {
     import IField from "react-declarative/model/IField";
-    export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, features?: string[] | undefined) => IField<any, any>[];
+    export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, features?: string[] | undefined) => {
+        visible: IField<any, any>[];
+        hidden: IField<any, any>[];
+    };
     export default getAvailableFields;
 }
 

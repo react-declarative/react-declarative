@@ -36,7 +36,14 @@ const buildCommonResult = (
   fields.forEach((field) => ignoreNestingVisibility(field, data, payload));
   fields = fields.filter((field) => !ignore.has(field));
 
-  return fields;
+  const hidden = [...ignore].filter(
+    ({ name }) => !fields.some((field) => field.name === name)
+  );
+
+  return {
+    visible: fields,
+    hidden,
+  };
 };
 
 export const getAvailableFields = (
@@ -45,11 +52,15 @@ export const getAvailableFields = (
   payload: Record<string, any>,
   features?: string[]
 ) =>
-  buildCommonResult(fields, data, payload).filter(
-    (field) =>
-      !features ||
-      !field.features ||
-      field.features.some((feature) => features.includes(feature))
+  buildCommonResult(
+    fields.filter(
+      (field) =>
+        !features ||
+        !field.features ||
+        field.features.some((feature) => features.includes(feature))
+    ),
+    data,
+    payload
   );
 
 export default getAvailableFields;
