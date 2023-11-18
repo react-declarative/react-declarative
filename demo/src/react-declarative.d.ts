@@ -457,7 +457,6 @@ declare module 'react-declarative' {
     export { createLsManager } from 'react-declarative/utils/createLsManager';
     export { createSsManager } from 'react-declarative/utils/createSsManager';
     export { createCustomTag } from 'react-declarative/utils/createCustomTag';
-    export { createWebComponent } from 'react-declarative/utils/createWebComponent';
     export { mainColor } from 'react-declarative/utils/mainColor';
     export { cacheSrc } from 'react-declarative/utils/cacheSrc';
     export { parseBase64Json, stringifyBase64Json } from 'react-declarative/utils/base64Json';
@@ -3229,12 +3228,6 @@ declare module 'react-declarative/utils/createCustomTag' {
     }
     export const createCustomTag: (name?: string, style?: string, { onClick, onInit, }?: Partial<IConfig>) => void;
     export default createCustomTag;
-}
-
-declare module 'react-declarative/utils/createWebComponent' {
-    import * as React from 'react';
-    export const createWebComponent: (name: string, Root: React.ComponentType<any>) => void;
-    export default createWebComponent;
 }
 
 declare module 'react-declarative/utils/mainColor' {

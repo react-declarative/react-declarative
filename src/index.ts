@@ -573,7 +573,6 @@ export { createWindowHistory } from './utils/createWindowHistory';
 export { createLsManager } from './utils/createLsManager';
 export { createSsManager } from './utils/createSsManager';
 export { createCustomTag } from './utils/createCustomTag';
-export { createWebComponent } from './utils/createWebComponent';
 
 export { mainColor } from './utils/mainColor';
 export { cacheSrc } from './utils/cacheSrc';
