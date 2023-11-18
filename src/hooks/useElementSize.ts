@@ -1,5 +1,7 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
+import useActualValue from "./useActualValue";
+
 import debounce from "../utils/hof/debounce";
 
 interface ISize {
@@ -39,6 +41,8 @@ export const useElementSize = <T extends HTMLElement>({
         width,
     });
 
+    const size$ = useActualValue(size);
+
     useLayoutEffect(() => {
 
         const { current } = elementRef;
@@ -61,9 +65,12 @@ export const useElementSize = <T extends HTMLElement>({
         }
 
         const handler = debounce(({ height, width } : ISize) => {
-            const size = compute({ height, width });
-            isMounted.current && setSize(size);
-            onResize && onResize(size);
+            const { current: size } = size$;
+            if (size.height !== height || size.width !== width) {
+                const size = compute({ height, width });
+                isMounted.current && setSize(size);
+                onResize && onResize(size);
+            }
         }, delay);
 
         const observer = new ResizeObserver(() => {
