@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import useActualState from "../../../hooks/useActualState";
+import useChange from "../../../hooks/useChange";
 
 import ActionButton from "../../ActionButton";
 import FetchView, { IFetchViewProps } from "../../FetchView";
@@ -68,6 +69,7 @@ export interface IOutletModalProps<
   ) => Data | Promise<Data>;
   onMount?: () => void;
   onUnmount?: () => void;
+  onClose?: () => void;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -141,6 +143,7 @@ export const OutletModal = <
   readonly,
   onMount,
   onUnmount,
+  onClose,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
   const [id, setId] = useState<string | null>(null);
@@ -149,6 +152,12 @@ export const OutletModal = <
   useEffect(() => idChangedSubject.subscribe((id) => {
     setId(id);
   }), []);
+
+  useChange(() => {
+    if (!id) {
+      onClose && onClose();
+    }
+  }, [id]);
 
   const [data, setData] = useState<Data | null>(upperData);
   const [loading, setLoading] = useActualState(0);

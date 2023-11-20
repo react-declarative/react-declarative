@@ -46,6 +46,7 @@ export const useOutletModal = <
   onSubmit = () => true,
   onMount,
   onUnmount,
+  onClose,
   submitLabel,
   title,
   hidden,
@@ -81,6 +82,7 @@ export const useOutletModal = <
         onChange={onChange}
         onLoadEnd={onLoadEnd}
         onMount={onMount}
+        onClose={onClose}
         onUnmount={onUnmount}
         onLoadStart={onLoadStart}
         submitLabel={submitLabel}
