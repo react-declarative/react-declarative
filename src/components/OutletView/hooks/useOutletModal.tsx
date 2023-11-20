@@ -1,14 +1,16 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import OutletModal, { IOutletModalProps } from "../components/OutletModal";
 
 import useActualCallback from "../../../hooks/useActualCallback";
 import useLocalHistory from "../../../hooks/useLocalHistory";
+import useSubject from "../../../hooks/useSubject";
 
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
 import Id from "../model/Id";
+import TSubject from "../../../model/TSubject";
 
 interface IParams<
   Data extends {} = Record<string, any>,
@@ -24,6 +26,7 @@ interface IParams<
     }
   > {
   onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+  pickDataSubject?: TSubject<Id>;
   history?: History;
   pathname?: string;
 }
@@ -46,11 +49,14 @@ export const useOutletModal = <
   submitLabel,
   title,
   hidden,
+  pickDataSubject: upperPickDataSubject,
   ...outletProps
 }: IParams<Data, Payload, Params>) => {
   const [id, setId] = useState<Id | null>(null);
 
-  const { history, reload } = useLocalHistory({
+  const pickDataSubject = useSubject(upperPickDataSubject);
+
+  const { history } = useLocalHistory({
     history: upperHistory,
     pathname,
   });
@@ -99,9 +105,10 @@ export const useOutletModal = <
   );
 
   const pickData = useCallback((id: Id) => {
-    reload();
     setId(id);
   }, []);
+
+  useEffect(() => pickDataSubject.subscribe(pickData), []);
 
   return {
     open,

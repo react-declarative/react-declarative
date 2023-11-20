@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import ModalManagerContext from './context/ModalManagerContext';
 
@@ -8,6 +8,7 @@ import Bootstrap from './components/Bootstrap';
 import randomString from '../../utils/randomString';
 
 import IModal from './model/IModal';
+import useActualValue from '../../hooks/useActualValue';
 
 interface IModalManagerProviderProps {
     children: React.ReactNode;
@@ -15,6 +16,11 @@ interface IModalManagerProviderProps {
 
 interface IModalEntity extends IModal {
     key: string;
+}
+
+interface IState {
+    modalStack: IModalEntity[];
+    count: number;
 }
 
 const DEFAULT_MODAL: IModalEntity = {
@@ -27,12 +33,22 @@ export const ModalManagerProvider = ({
     children,
 }: IModalManagerProviderProps) => {
 
-    const [modalStack, setModalStack] = useState<IModalEntity[]>([]);
+    const [{ modalStack, count }, setState] = useState<IState>(() => ({
+        modalStack: [],
+        count: 0,
+    }));
+
+    const modalStack$ = useActualValue(modalStack);
+
+    const setModalStack = useCallback((modalStack: IModalEntity[]) => setState(({ count }) => ({
+        modalStack,
+        count: modalStack.length === 0 ? 0 : count + 1,
+    })), []);
 
     const value = useMemo(() => ({
         modalStack: [],
-        pop: () => setModalStack((modalStack) => modalStack.slice(1)),
-        push: (modal: IModal) => setModalStack((modalStack) => [{ ...modal, key: randomString() }, ...modalStack]),
+        pop: () => setModalStack(modalStack$.current.slice(1)),
+        push: (modal: IModal) => setModalStack([{ ...modal, key: randomString() }, ...modalStack$.current]),
     }), [modalStack]);
 
     const modal = useMemo(() => {
@@ -50,6 +66,7 @@ export const ModalManagerProvider = ({
             <Bootstrap
                 {...modal}
                 modalStack={stack}
+                count={count}
             />
         </ModalManagerContext.Provider>
     );

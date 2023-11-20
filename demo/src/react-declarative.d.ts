@@ -1784,7 +1784,6 @@ declare module 'react-declarative/hooks/useLocalHistory' {
     }
     export const useLocalHistory: ({ history: upperHistory, pathname }?: Partial<IParams>) => {
         history: import("history").MemoryHistory;
-        reload: () => void;
     };
     export default useLocalHistory;
 }
@@ -6362,6 +6361,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     import IAnything from "react-declarative/model/IAnything";
     import History from "react-declarative/model/History";
     import Id from "react-declarative/components/OutletView/model/Id";
+    import TSubject from "react-declarative/model/TSubject";
     interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
         id: never;
         history: never;
@@ -6369,10 +6369,11 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         className: never;
     }> {
         onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+        pickDataSubject?: TSubject<Id>;
         history?: History;
         pathname?: string;
     }
-    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, submitLabel, title, hidden, pickDataSubject: upperPickDataSubject, ...outletProps }: IParams<Data, Payload, Params>) => {
         open: typeof open;
         render: () => JSX.Element;
         pickData: (id: Id) => void;

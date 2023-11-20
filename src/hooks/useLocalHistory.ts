@@ -1,8 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { createMemoryHistory } from "history";
 
-import useReloadTrigger from "./useReloadTrigger";
-
 import History from "../model/History";
 
 interface IParams {
@@ -14,13 +12,11 @@ export const useLocalHistory = ({
   history: upperHistory,
   pathname = "/"
 }: Partial<IParams> = {}) => {
-  const { reloadTrigger, doReload } = useReloadTrigger();
-
   const history = useMemo(() => {
     return createMemoryHistory({
       initialEntries: [upperHistory?.location.pathname || pathname],
     });
-  }, [reloadTrigger]);
+  }, []);
 
   useEffect(() => upperHistory?.listen(({
     action,
@@ -36,7 +32,6 @@ export const useLocalHistory = ({
 
   return {
     history,
-    reload: doReload,
   };
 };
 
