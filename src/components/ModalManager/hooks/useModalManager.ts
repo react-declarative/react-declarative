@@ -9,7 +9,7 @@ export const useModalManager = () => {
     return {
         push,
         pop,
-    };
+    } as const;
 };
 
 export default useModalManager();

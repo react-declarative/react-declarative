@@ -106,6 +106,7 @@ import { useSnack } from './components/SnackProvider';
 import { useSize } from './components/SizeProvider';
 
 export { ModalManagerProvider, useModalManager } from './components/ModalManager';
+export type { IModal } from './components/ModalManager';
 
 import { useList } from './hooks/useList';
 import { useFile } from './hooks/useFile';

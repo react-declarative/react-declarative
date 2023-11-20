@@ -92,6 +92,7 @@ declare module 'react-declarative' {
     import { useSnack } from 'react-declarative/components/SnackProvider';
     import { useSize } from 'react-declarative/components/SizeProvider';
     export { ModalManagerProvider, useModalManager } from 'react-declarative/components/ModalManager';
+    export type { IModal } from 'react-declarative/components/ModalManager';
     import { useList } from 'react-declarative/hooks/useList';
     import { useFile } from 'react-declarative/hooks/useFile';
     import { useConfirm } from 'react-declarative/hooks/useConfirm';
@@ -2326,6 +2327,8 @@ declare module 'react-declarative/components/SizeProvider' {
 
 declare module 'react-declarative/components/ModalManager' {
     export * from 'react-declarative/components/ModalManager/ModalManagerProvider';
+    export * from 'react-declarative/components/ModalManager/model/IModal';
+    export * from 'react-declarative/components/ModalManager/model/ModalRender';
     export { useModalManager } from 'react-declarative/components/ModalManager/hooks/useModalManager';
     export { default } from 'react-declarative/components/ModalManager/ModalManagerProvider';
 }
@@ -4985,14 +4988,30 @@ declare module 'react-declarative/components/ModalManager/ModalManagerProvider' 
     export default ModalManagerProvider;
 }
 
+declare module 'react-declarative/components/ModalManager/model/IModal' {
+    import ModalRender from "react-declarative/components/ModalManager/model/ModalRender";
+    export interface IModal {
+        id: string;
+        render: ModalRender;
+        onMount?: (count: number, stack: IModal[]) => void;
+        onUnmount?: (count: number, stack: IModal[]) => void;
+    }
+    export default IModal;
+}
+
+declare module 'react-declarative/components/ModalManager/model/ModalRender' {
+    export type ModalRender = () => React.ReactNode;
+    export default ModalRender;
+}
+
 declare module 'react-declarative/components/ModalManager/hooks/useModalManager' {
     export const useModalManager: () => {
-        push: (modal: import("../model/IModal").IModal) => void;
-        pop: () => void;
+        readonly push: (modal: import("..").IModal) => void;
+        readonly pop: () => void;
     };
     const _default: {
-        push: (modal: import("../model/IModal").IModal) => void;
-        pop: () => void;
+        readonly push: (modal: import("..").IModal) => void;
+        readonly pop: () => void;
     };
     export default _default;
 }
