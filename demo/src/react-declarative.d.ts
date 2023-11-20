@@ -5005,14 +5005,13 @@ declare module 'react-declarative/components/ModalManager/model/ModalRender' {
 }
 
 declare module 'react-declarative/components/ModalManager/hooks/useModalManager' {
-    export const useModalManager: () => {
-        readonly push: (modal: import("..").IModal) => void;
-        readonly pop: () => void;
-    };
-    const _default: {
-        readonly push: (modal: import("..").IModal) => void;
-        readonly pop: () => void;
-    };
+    import IModal from "react-declarative/components/ModalManager/model/IModal";
+    interface IResult {
+        push: (modal: IModal) => void;
+        pop: () => void;
+    }
+    export const useModalManager: () => IResult;
+    const _default: IResult;
     export default _default;
 }
 

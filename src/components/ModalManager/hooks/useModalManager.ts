@@ -1,15 +1,18 @@
 import { useContext } from "react";
 import ModalManagerContext from "../context/ModalManagerContext";
+import IModal from "../model/IModal";
 
-export const useModalManager = () => {
-    const {
-        push,
-        pop,
-    } = useContext(ModalManagerContext);
+interface IResult {
+    push: (modal: IModal) => void;
+    pop: () => void;
+}
+
+export const useModalManager = (): IResult => {
+    const context = useContext(ModalManagerContext);
     return {
-        push,
-        pop,
-    } as const;
+        push: context.push,
+        pop: context.pop,
+    };
 };
 
 export default useModalManager();
