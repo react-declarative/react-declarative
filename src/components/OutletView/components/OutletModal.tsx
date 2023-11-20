@@ -41,7 +41,7 @@ export interface IOutletModalProps<
     }
   > {
   withActionButton?: boolean;
-  id: Id | null;
+  idChangedSubject: TSubject<Id | null>;
   title?: string;
   fetchState: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
@@ -131,7 +131,7 @@ export const OutletModal = <
   onLoadEnd,
   fallback,
   reloadSubject,
-  id,
+  idChangedSubject,
   fetchState,
   AfterTitle,
   title,
@@ -143,7 +143,12 @@ export const OutletModal = <
   onUnmount,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
+  const [id, setId] = useState<string | null>(null);
   const { classes } = useStyles();
+
+  useEffect(() => idChangedSubject.subscribe((id) => {
+    setId(id);
+  }), []);
 
   const [data, setData] = useState<Data | null>(upperData);
   const [loading, setLoading] = useActualState(0);

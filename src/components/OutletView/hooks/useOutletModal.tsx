@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 
 import OutletModal, { IOutletModalProps } from "../components/OutletModal";
 
@@ -19,7 +19,7 @@ interface IParams<
 > extends Omit<
     IOutletModalProps<Data, Payload, Params>,
     keyof {
-      id: never;
+      idChangedSubject: never;
       history: never;
       onSubmit: never;
       className: never;
@@ -52,9 +52,8 @@ export const useOutletModal = <
   pickDataSubject: upperPickDataSubject,
   ...outletProps
 }: IParams<Data, Payload, Params>) => {
-  const [id, setId] = useState<Id | null>(null);
-
   const pickDataSubject = useSubject(upperPickDataSubject);
+  const idChangedSubject = useSubject<Id | null>();
 
   const { history } = useLocalHistory({
     history: upperHistory,
@@ -66,7 +65,7 @@ export const useOutletModal = <
   const handleSubmit = useCallback(async (id: Id, data: Data | null, payload: Payload) => {
     const result = await onSubmit$(id, data, payload);
     if (result) {
-      setId(null);
+      idChangedSubject.next(null);
     }
     return result;
   }, []);
@@ -74,7 +73,7 @@ export const useOutletModal = <
   const render = useCallback(
     () => (
       <OutletModal
-        id={id || ""}
+        idChangedSubject={idChangedSubject}
         history={history}
         hidden={hidden}
         title={title}
@@ -91,7 +90,6 @@ export const useOutletModal = <
       />
     ),
     [
-      id,
       hidden,
       fallback,
       onChange,
@@ -105,7 +103,7 @@ export const useOutletModal = <
   );
 
   const pickData = useCallback((id: Id) => {
-    setId(id);
+    idChangedSubject.next(id);
   }, []);
 
   useEffect(() => pickDataSubject.subscribe(pickData), []);
