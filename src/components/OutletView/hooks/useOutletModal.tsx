@@ -7,6 +7,7 @@ import useActualCallback from "../../../hooks/useActualCallback";
 import useLocalHistory from "../../../hooks/useLocalHistory";
 
 import IAnything from "../../../model/IAnything";
+import History from "../../../model/History";
 import Id from "../model/Id";
 
 interface IParams<
@@ -23,6 +24,7 @@ interface IParams<
     }
   > {
   onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+  history?: History;
   pathname?: string;
 }
 
@@ -33,11 +35,14 @@ export const useOutletModal = <
 >({
   fallback,
   pathname = "/",
+  history: upperHistory,
   onLoadEnd,
   onLoadStart,
   throwError,
   onChange,
   onSubmit = () => true,
+  onMount,
+  onUnmount,
   submitLabel,
   title,
   hidden,
@@ -46,6 +51,7 @@ export const useOutletModal = <
   const [id, setId] = useState<Id | null>(null);
 
   const { history, reload } = useLocalHistory({
+    history: upperHistory,
     pathname,
   });
 
@@ -69,6 +75,8 @@ export const useOutletModal = <
         fallback={fallback}
         onChange={onChange}
         onLoadEnd={onLoadEnd}
+        onMount={onMount}
+        onUnmount={onUnmount}
         onLoadStart={onLoadStart}
         submitLabel={submitLabel}
         throwError={throwError}

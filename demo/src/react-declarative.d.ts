@@ -91,6 +91,7 @@ declare module 'react-declarative' {
     import { useModal } from 'react-declarative/components/ModalProvider';
     import { useSnack } from 'react-declarative/components/SnackProvider';
     import { useSize } from 'react-declarative/components/SizeProvider';
+    export { ModalManagerProvider, useModalManager } from 'react-declarative/components/ModalManager';
     import { useList } from 'react-declarative/hooks/useList';
     import { useFile } from 'react-declarative/hooks/useFile';
     import { useConfirm } from 'react-declarative/hooks/useConfirm';
@@ -1776,10 +1777,12 @@ declare module 'react-declarative/hooks/useRouteParams' {
 }
 
 declare module 'react-declarative/hooks/useLocalHistory' {
+    import History from "react-declarative/model/History";
     interface IParams {
+        history?: History;
         pathname: string;
     }
-    export const useLocalHistory: ({ pathname }?: Partial<IParams>) => {
+    export const useLocalHistory: ({ history: upperHistory, pathname }?: Partial<IParams>) => {
         history: import("history").MemoryHistory;
         reload: () => void;
     };
@@ -2320,6 +2323,12 @@ declare module 'react-declarative/components/SnackProvider' {
 declare module 'react-declarative/components/SizeProvider' {
     export * from 'react-declarative/components/SizeProvider/SizeProvider';
     export { default } from 'react-declarative/components/SizeProvider/SizeProvider';
+}
+
+declare module 'react-declarative/components/ModalManager' {
+    export * from 'react-declarative/components/ModalManager/ModalManagerProvider';
+    export { useModalManager } from 'react-declarative/components/ModalManager/hooks/useModalManager';
+    export { default } from 'react-declarative/components/ModalManager/ModalManagerProvider';
 }
 
 declare module 'react-declarative/hooks/useList' {
@@ -4968,6 +4977,27 @@ declare module 'react-declarative/components/SizeProvider/SizeProvider' {
     export default SizeProvider;
 }
 
+declare module 'react-declarative/components/ModalManager/ModalManagerProvider' {
+    import * as React from 'react';
+    interface IModalManagerProviderProps {
+        children: React.ReactNode;
+    }
+    export const ModalManagerProvider: ({ children, }: IModalManagerProviderProps) => JSX.Element;
+    export default ModalManagerProvider;
+}
+
+declare module 'react-declarative/components/ModalManager/hooks/useModalManager' {
+    export const useModalManager: () => {
+        push: (modal: import("../model/IModal").IModal) => void;
+        pop: () => void;
+    };
+    const _default: {
+        push: (modal: import("../model/IModal").IModal) => void;
+        pop: () => void;
+    };
+    export default _default;
+}
+
 declare module 'react-declarative/components/common/ListPicker' {
     export * from 'react-declarative/components/common/ListPicker/ListPicker';
     export { default } from 'react-declarative/components/common/ListPicker/ListPicker';
@@ -6330,6 +6360,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
 declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     import { IOutletModalProps } from "react-declarative/components/OutletView/components/OutletModal";
     import IAnything from "react-declarative/model/IAnything";
+    import History from "react-declarative/model/History";
     import Id from "react-declarative/components/OutletView/model/Id";
     interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
         id: never;
@@ -6338,9 +6369,10 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         className: never;
     }> {
         onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+        history?: History;
         pathname?: string;
     }
-    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload, Params>) => {
         open: typeof open;
         render: () => JSX.Element;
         pickData: (id: Id) => void;
@@ -7962,8 +7994,10 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         mapPayload?: (id: Id, data: Record<string, any>[]) => Payload | Promise<Payload>;
         mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
         mapInitialData?: (id: Id, data: Record<string, any>[]) => Data | Promise<Data>;
+        onMount?: () => void;
+        onUnmount?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, id, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 

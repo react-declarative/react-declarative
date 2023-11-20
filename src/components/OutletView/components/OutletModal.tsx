@@ -66,6 +66,8 @@ export interface IOutletModalProps<
     id: Id,
     data: Record<string, any>[]
   ) => Data | Promise<Data>;
+  onMount?: () => void;
+  onUnmount?: () => void;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -137,6 +139,8 @@ export const OutletModal = <
   throwError = false,
   submitLabel = "Submit",
   readonly,
+  onMount,
+  onUnmount,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
   const { classes } = useStyles();
@@ -145,6 +149,11 @@ export const OutletModal = <
   const [loading, setLoading] = useActualState(0);
 
   const payloadRef = useRef<Payload>({} as Payload);
+
+  useEffect(() => {
+    onMount && onMount();
+    return () => onUnmount && onUnmount();
+  }, []);
 
   useEffect(() => {
     setData(upperData);

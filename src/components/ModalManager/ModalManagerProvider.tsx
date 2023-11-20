@@ -2,33 +2,55 @@ import * as React from 'react';
 import { useMemo, useState } from 'react';
 
 import ModalManagerContext from './context/ModalManagerContext';
-import ModalRender from './model/ModalRender';
+
+import Bootstrap from './components/Bootstrap';
+
+import randomString from '../../utils/randomString';
+
+import IModal from './model/IModal';
 
 interface IModalManagerProviderProps {
     children: React.ReactNode;
 }
 
+interface IModalEntity extends IModal {
+    key: string;
+}
+
+const DEFAULT_MODAL: IModalEntity = {
+    key: randomString(),
+    id: "unknown",
+    render: () => null,
+};
+
 export const ModalManagerProvider = ({
     children,
 }: IModalManagerProviderProps) => {
 
-    const [outletStack, setOutletStack] = useState<ModalRender[]>([]);
+    const [modalStack, setModalStack] = useState<IModalEntity[]>([]);
 
     const value = useMemo(() => ({
-        outletStack: [],
-        pop: () => setOutletStack((outletStack) => outletStack.slice(1)),
-        push: (render: ModalRender) => setOutletStack((outletStack) => [render, ...outletStack]),
-    }), [outletStack]);
+        modalStack: [],
+        pop: () => setModalStack((modalStack) => modalStack.slice(1)),
+        push: (modal: IModal) => setModalStack((modalStack) => [{ ...modal, key: randomString() }, ...modalStack]),
+    }), [modalStack]);
 
-    const render = useMemo(() => {
-        const [render = () => null] = outletStack; 
-        return render;
-    }, [outletStack]);
+    const modal = useMemo(() => {
+        const [modal = DEFAULT_MODAL] = modalStack; 
+        return modal;
+    }, [modalStack]);
+
+    const stack = useMemo(() => {
+        return modalStack.slice(1, modalStack.length);
+    }, [modalStack]);
 
     return (
         <ModalManagerContext.Provider value={value}>
             {children}
-            {render()}
+            <Bootstrap
+                {...modal}
+                modalStack={stack}
+            />
         </ModalManagerContext.Provider>
     );
 }

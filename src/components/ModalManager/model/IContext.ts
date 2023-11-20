@@ -1,8 +1,8 @@
-import ModalRender from "./ModalRender";
+import IModal from "./IModal";
 
 export interface IContext {
-    outletStack: ModalRender[];
-    push: (outlet: ModalRender) => void;
+    modalStack: IModal[];
+    push: (modal: IModal) => void;
     pop: () => void;
 }
 
