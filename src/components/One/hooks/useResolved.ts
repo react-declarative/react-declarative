@@ -39,7 +39,7 @@ interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
     loadEnd: PickProp<IOneProps<Data, Payload>, 'loadEnd'>;
 }
 
-const buildObj = <Data = IAnything>(fields: IField<Data>[], features?: string[]) => {
+const buildObj = <Data = IAnything, Payload = IAnything>(fields: IField<Data>[], payload: Payload, features?: string[]) => {
     const obj = {};
     if (fields) {
         deepFlat(fields)
@@ -49,6 +49,8 @@ const buildObj = <Data = IAnything>(fields: IField<Data>[], features?: string[])
                     create(obj, f.name);
                     if (typeof f.defaultValue === 'undefined') {
                         set(obj, f.name, get(obj, f.name) || initialValue(f.type));
+                    } else if (typeof f.defaultValue === 'function') {
+                        set(obj, f.name, (f.defaultValue as Function)(payload));
                     } else {
                         set(obj, f.name, f.defaultValue);
                     }
@@ -96,11 +98,11 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                 try {
                     const result = (handler as Function)(payload);
                     if (result instanceof Promise) {
-                        const newData = objects(assign({}, buildObj<Data>(fields, features), deepClone(await result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields, payload, features), deepClone(await result)));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     } else {
-                        const newData = objects(assign({}, buildObj<Data>(fields, features), deepClone(result)));
+                        const newData = objects(assign({}, buildObj<Data>(fields, payload, features), deepClone(result)));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     }
@@ -116,7 +118,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     isRoot.current = true;
                 }
             } else if (handler && !deepCompare(data, handler)) {
-                isMounted.current && setData(objects(assign({}, buildObj(fields, features), deepClone(handler))));
+                isMounted.current && setData(objects(assign({}, buildObj(fields, payload, features), deepClone(handler))));
             }
         };
         const handleUpdateRef = () => {

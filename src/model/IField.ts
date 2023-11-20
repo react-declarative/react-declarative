@@ -444,7 +444,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     /**
      * Значение по-умолчанию для поля
      */
-    defaultValue?: Value;
+    defaultValue?: Value | ((payload: Payload) => Value);
 
     /**
      * Позволяет выключить отступ. Можно использовать по аналогии

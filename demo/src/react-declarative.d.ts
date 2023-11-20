@@ -960,7 +960,7 @@ declare module 'react-declarative/model/IField' {
             /**
                 * Значение по-умолчанию для поля
                 */
-            defaultValue?: Value;
+            defaultValue?: Value | ((payload: Payload) => Value);
             /**
                 * Позволяет выключить отступ. Можно использовать по аналогии
                 * с исключением последней запятой при склеивании массива
