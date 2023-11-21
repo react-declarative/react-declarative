@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { useMemo, useState, useCallback } from 'react';
 
+import { makeStyles, useTheme } from '../../styles';
+import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Backdrop from '@mui/material/Backdrop';
+
 import ModalManagerContext from './context/ModalManagerContext';
 
 import Bootstrap from './components/Bootstrap';
@@ -35,9 +40,19 @@ const INITIAL_STATE: IState = {
     count: 0,
 };
 
+const useStyles = makeStyles()({
+    backdrop: {
+        color: alpha('#000', 0.5),
+        zIndex: 1300,
+    },
+});
+
 export const ModalManagerProvider = ({
     children,
 }: IModalManagerProviderProps) => {
+
+    const { classes } = useStyles();
+    const theme = useTheme();
 
     const [{ modalStack, count }, setState] = useState<IState>(INITIAL_STATE);
 
@@ -63,6 +78,20 @@ export const ModalManagerProvider = ({
         return modal;
     }, [modalStack]);
 
+    const backdrop = useMemo(() => createTheme({
+        ...theme,
+        components: {
+            ...theme.components,
+            MuiBackdrop: {
+                styleOverrides: {
+                    root: {
+                        background: 'transparent !important',
+                    },
+                },
+            },
+        },
+    }), [theme]);
+
     const stack = useMemo(() => {
         return modalStack.slice(1, modalStack.length);
     }, [modalStack]);
@@ -70,11 +99,19 @@ export const ModalManagerProvider = ({
     return (
         <ModalManagerContext.Provider value={value}>
             {children}
-            <Bootstrap
-                {...modal}
-                modalStack={stack}
-                count={count}
-            />
+            <ThemeProvider theme={backdrop}>
+                <Bootstrap
+                    {...modal}
+                    modalStack={stack}
+                    count={count}
+                />
+            </ThemeProvider>
+            {!!modalStack.length && (
+                <Backdrop
+                    open
+                    className={classes.backdrop}
+                />
+            )}
         </ModalManagerContext.Provider>
     );
 }

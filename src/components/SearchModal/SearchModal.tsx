@@ -11,13 +11,18 @@ import ActionButton from "../ActionButton";
 import List from "../List";
 
 import useActualState from "../../hooks/useActualState";
+import useWindowSize from "../../hooks/useWindowSize";
 import useSingleton from "../../hooks/useSingleton";
+
+import classNames from "../../utils/classNames";
 
 import IAnything from "../../model/IAnything";
 import IRowData from "../../model/IRowData";
 import IField from "../../model/IField";
 import IListProps from "../../model/IListProps";
 import SelectionMode from "../../model/SelectionMode";
+
+const MODAL_ROOT = "search-modal__root";
 
 export interface ISearchModalProps<
   FilterData extends {} = IAnything,
@@ -129,6 +134,16 @@ export const SearchModal = <
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
 
+  const { height, width } = useWindowSize({
+    compute: ({
+      height,
+      width,
+    }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
   const payload = useSingleton(upperPayload);
 
   const [data, setData] = useState<IRowData["id"][] | null>(upperData || []);
@@ -208,7 +223,12 @@ export const SearchModal = <
       }}
       onClose={handleClose}
     >
-      <Box className={classes.root}>
+      <Box
+        className={classNames(classes.root, MODAL_ROOT)}
+        sx={{
+          transform: `translate(-${width}px, -${height}px) !important`,
+        }}  
+      >
         {title && (
           <div className={classes.title}>
             <Typography variant="h6" component="h2">
