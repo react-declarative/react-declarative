@@ -65,6 +65,8 @@ export const useElementSize = <T extends HTMLElement>({
         }
 
         const handler = debounce(({ height, width } : ISize) => {
+            height = Math.floor(height);
+            width = Math.floor(width);
             const { current: size } = size$;
             if (size.height !== height || size.width !== width) {
                 const size = compute({ height, width });
