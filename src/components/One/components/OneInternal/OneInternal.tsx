@@ -141,7 +141,12 @@ export const OneInternal = <
                   !field.features ||
                   field.features.some((feature) => features.includes(feature))
               )
-              .filter(({ hidden }) => !hidden)
+              .filter(({ hidden }) => {
+                if (typeof hidden === 'function') {
+                  hidden = hidden(payload);
+                }
+                return !hidden;
+              })
               .filter(({ type }) => type !== FieldType.Init)
           )
           .get(upperFields)!;

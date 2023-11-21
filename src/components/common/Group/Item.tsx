@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { makeStyles } from '../../../styles';
 
@@ -16,7 +16,7 @@ const FULL_ROW = '12';
 
 const n = (v: string) => Number(v) as any;
 
-interface IItemProps extends IManagedLayout {
+interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
   className: PickProp<IField, 'className'>;
   style: PickProp<IField, 'style'>;
   children: React.ReactNode;
@@ -57,6 +57,34 @@ export const Item = ({
   ...otherProps
 }: IItemProps, ref: React.Ref<HTMLDivElement>) => {
   const { classes } = useStyles();
+
+  const {
+    xs,
+    sm,
+    md,
+    lg,
+    xl,
+    mr,
+    mb,
+  } = useMemo(() => {
+    const xs = n(phoneColumns || columns || FULL_ROW);
+    const sm = n(tabletColumns || columns || FULL_ROW);
+    const md = n(tabletColumns || columns || FULL_ROW);
+    const lg = n(desktopColumns || columns || FULL_ROW);
+    const xl = n(desktopColumns || columns || FULL_ROW);
+    const mr = n(fieldRightMargin);
+    const mb = n(fieldBottomMargin);
+    return {
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+      mr,
+      mb,
+    };
+  }, []);
+
   return (
     <Grid
       {...otherProps}
@@ -65,17 +93,17 @@ export const Item = ({
       className={classNames(className, classes.root)}
       style={style}
       onFocus={onFocus}
-      xs={n(phoneColumns || columns || FULL_ROW)}
-      sm={n(tabletColumns || columns || FULL_ROW)}
-      md={n(tabletColumns || columns || FULL_ROW)}
-      lg={n(desktopColumns || columns || FULL_ROW)}
-      xl={n(desktopColumns || columns || FULL_ROW)}
+      xs={xs}
+      sm={sm}
+      md={md}
+      lg={lg}
+      xl={xl}
       sx={sx}
     >
       <Box
         className={classes.container}
-        mr={n(fieldRightMargin)}
-        mb={n(fieldBottomMargin)}
+        mr={mr}
+        mb={mb}
       >
         {children}
       </Box>

@@ -267,6 +267,7 @@ declare module 'react-declarative' {
     export { NoSsr } from 'react-declarative/components';
     export { OtherComboSlot } from 'react-declarative/components';
     export { OtherItemsSlot } from 'react-declarative/components';
+    export { useHistoryStatePagination } from 'react-declarative/components';
     export { useCachedPaginator } from 'react-declarative/components';
     export { useArrayPaginator } from 'react-declarative/components';
     export { useApiPaginator } from 'react-declarative/components';
@@ -611,19 +612,19 @@ declare module 'react-declarative/model/IField' {
                 * Флаг, убирающий поле из древа отрисовки. Следует использовать для
                 * создания динамических значений полей компонента
                 */
-            hidden?: boolean;
+            hidden?: boolean | ((payload: Payload) => boolean);
             /**
                 * Исключает группу из DOM древа на телефоне
                 */
-            phoneHidden?: boolean;
+            phoneHidden?: boolean | ((payload: Payload) => boolean);
             /**
                 * Исключает группу из DOM древа на планшете
                 */
-            tabletHidden?: boolean;
+            tabletHidden?: boolean | ((payload: Payload) => boolean);
             /**
                 * Исключает группу из DOM древа на компьютере
                 */
-            desktopHidden?: boolean;
+            desktopHidden?: boolean | ((payload: Payload) => boolean);
             /**
                 * Список бизнес-функций, необходимых для отображения поля
                 */
@@ -1308,6 +1309,7 @@ declare module 'react-declarative/components/List' {
     export { useQueryPagination } from 'react-declarative/components/List/api/useQueryPagination';
     export { useCachedPaginator } from 'react-declarative/components/List/api/useCachedPaginator';
     export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
+    export { useHistoryStatePagination } from 'react-declarative/components/List/api/useHistoryStatePagination';
     export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
     export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
     export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
@@ -4452,6 +4454,67 @@ declare module 'react-declarative/components/List/api/useCachedPaginator' {
     }
     export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
     export default useCachedPaginator;
+}
+
+declare module 'react-declarative/components/List/api/useHistoryStatePagination' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IListProps from "react-declarative/model/IListProps";
+    import IRowData from "react-declarative/model/IRowData";
+    import History from "react-declarative/model/History";
+    interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        filterData: IListProps<FilterData, RowData>['filterData'];
+        sortModel: IListProps<FilterData, RowData>['sortModel'];
+        chipData: IListProps<FilterData, RowData>['chipData'];
+        limit: IListProps<FilterData, RowData>['limit'];
+        page: IListProps<FilterData, RowData>['page'];
+        search: IListProps<FilterData, RowData>['search'];
+    }
+    interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
+        initialValue: IQuery<FilterData, RowData>;
+        removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
+        onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
+        onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
+        onPageChange: IListProps<FilterData, RowData>['onPageChange'];
+        onSortModelChange: IListProps<FilterData, RowData>['onSortModelChange'];
+        onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
+        onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
+        onChange?: (pagination: IQuery) => void;
+        fallback?: (e: Error) => void;
+    }
+    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined>;
+    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
+    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
+    export const DEFAULT_QUERY: IQuery;
+    export const useHistoryStatePagination: <FilterData extends {} = any, RowData extends IRowData = any>(history: History, { initialValue, onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
+        setFilterData: (data: FilterData) => void;
+        setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
+        setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
+        setLimit: (limit: number) => void;
+        setPage: (page: number) => void;
+        setSearch: (search: string) => void;
+        getFilterData: () => Exclude<Partial<FilterData>, undefined>;
+        getSortModel: () => import("../../../model/IListProps").ListHandlerSortModel<RowData>;
+        getChipData: () => Exclude<Partial<Record<keyof RowData, boolean>>, undefined>;
+        getLimit: () => number;
+        getPage: () => number;
+        getSearch: () => string;
+        listProps: {
+            filterData: Partial<FilterData> | undefined;
+            sortModel: import("../../../model/IListProps").ListHandlerSortModel<RowData> | undefined;
+            chipData: Partial<Record<keyof RowData, boolean>> | undefined;
+            limit: number | undefined;
+            page: number | undefined;
+            search: string | undefined;
+            fallback?: ((e: Error) => void) | undefined;
+            onFilterChange: (data: FilterData) => void;
+            onLimitChange: (limit: number) => void;
+            onPageChange: (page: number) => void;
+            onSortModelChange: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
+            onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
+            onSearchChange: (search: string) => void;
+        };
+    };
+    export default useHistoryStatePagination;
 }
 
 declare module 'react-declarative/components/List/components/SlotFactory' {

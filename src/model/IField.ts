@@ -26,22 +26,22 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Флаг, убирающий поле из древа отрисовки. Следует использовать для
      * создания динамических значений полей компонента
      */
-    hidden?: boolean;
+    hidden?: boolean | ((payload: Payload) => boolean);
 
     /**
      * Исключает группу из DOM древа на телефоне
      */
-    phoneHidden?: boolean;
+    phoneHidden?: boolean | ((payload: Payload) => boolean);
 
     /**
      * Исключает группу из DOM древа на планшете
      */
-    tabletHidden?: boolean;
+    tabletHidden?: boolean | ((payload: Payload) => boolean);
 
     /**
      * Исключает группу из DOM древа на компьютере
      */
-    desktopHidden?: boolean;
+    desktopHidden?: boolean | ((payload: Payload) => boolean);
 
     /**
      * Список бизнес-функций, необходимых для отображения поля

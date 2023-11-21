@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { Grid } from '@mui/material';
 
@@ -27,21 +27,24 @@ export const Container = ({
   columnsOverride,
   sx,
   ...otherProps
-}: IContainerProps, ref: React.Ref<HTMLDivElement>) => (
-  <Grid
-    {...otherProps}
-    ref={ref}
-    container={true}
-    alignItems={isBaselineAlign ? "flex-end" : "flex-start"}
-    className={className}
-    style={style}
-    onFocus={onFocus}
-    columns={columnsOverride && n(columnsOverride)}
-    sx={sx}
-  >
-    {children}
-  </Grid>
-);
+}: IContainerProps, ref: React.Ref<HTMLDivElement>) => {
+  const columns = useMemo(() => columnsOverride && n(columnsOverride), []);
+  return (
+    <Grid
+      {...otherProps}
+      ref={ref}
+      container={true}
+      alignItems={isBaselineAlign ? "flex-end" : "flex-start"}
+      className={className}
+      style={style}
+      onFocus={onFocus}
+      columns={columns}
+      sx={sx}
+    >
+      {children}
+    </Grid>
+  );
+}
 
 Container.displayName = 'Container';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
@@ -49,21 +49,32 @@ export function makeLayout<T extends ILayout<any>>(
         isReadonly = DEFAULT_IS_READONLY,
         isDisabled = DEFAULT_IS_DISABLED,
         disabled: upperDisabled = false,
-        phoneHidden,
-        tabletHidden,
-        desktopHidden,
+        phoneHidden: upperPhoneHidden,
+        tabletHidden: upperTabletHidden,
+        desktopHidden: upperDesktopHidden,
         ready,
         ...otherProps
     }: ILayout<Data>) => {
         
         const { classes } = useStyles();
 
-        const hasHiddenConstraint = phoneHidden || tabletHidden || desktopHidden;
-
-        const { isPhone = false, isTablet = false, isDesktop = false } = hasHiddenConstraint ? useMediaContext() : {};
-
         const payload = useOnePayload();
         const { object: stateObject } = useOneState<Data>();
+
+        const { phoneHidden, tabletHidden, desktopHidden, hasHiddenConstraint } = useMemo(() => {
+            const phoneHidden = typeof upperPhoneHidden === 'function' ? upperPhoneHidden(payload) : upperPhoneHidden;
+            const tabletHidden = typeof upperTabletHidden === 'function' ? upperTabletHidden(payload) : upperTabletHidden;
+            const desktopHidden = typeof upperDesktopHidden === 'function' ? upperDesktopHidden(payload) : upperDesktopHidden;
+            const hasHiddenConstraint = phoneHidden || tabletHidden || desktopHidden;
+            return { 
+                phoneHidden,
+                tabletHidden,
+                desktopHidden,
+                hasHiddenConstraint,
+            };
+        }, []);
+
+        const { isPhone = false, isTablet = false, isDesktop = false } = hasHiddenConstraint ? useMediaContext() : {};
 
         const object = stateObject || upperObject;
 
