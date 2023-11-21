@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { makeStyles } from "../../../styles";
+import { alpha } from "@mui/material";
 
 import Stack from "@mui/material/Stack";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,12 +16,16 @@ import { IListChip } from "../../../model/IListProps";
 
 import { IChipListSlot } from "../slots/ChipListSlot";
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
   root: {
     height: 48,
     width: "100%",
+    background: alpha(
+      theme.palette.getContrastText(theme.palette.background.paper),
+      0.05
+    ),
   },
-});
+}));
 
 export const ModernChipListSlot = ({
   listChips = [],

@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 
 import { makeStyles } from "../../../../../../styles";
+import { alpha } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,6 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 import Async from "../../../../../Async";
+import ScrollView from "../../../../../ScrollView";
 
 import useActualCallback from "../../../../../../hooks/useActualCallback";
 
@@ -22,15 +24,18 @@ import useProps from "../../../../hooks/useProps";
 import { IOperationListSlot } from "../../../../slots/OperationListSlot";
 
 import classNames from "../../../../../../utils/classNames";
-import ScrollView from "../../../../../ScrollView";
 
 const LOAD_SOURCE = "list-operations";
 const LABEL_SHRINK = 500;
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
   root: {
     height: 50,
     width: "100%",
+    background: alpha(
+      theme.palette.getContrastText(theme.palette.background.paper),
+      0.05
+    ),
   },
   container: {
     minWidth: "100%",
@@ -55,7 +60,7 @@ const useStyles = makeStyles()({
     display: "flex",
     alignItems: "center",
   },
-});
+}));
 
 export const OperationListSlot = ({
   className,
