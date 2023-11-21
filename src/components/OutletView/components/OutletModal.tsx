@@ -16,6 +16,7 @@ import LoaderView from "../../LoaderView";
 import OutletView from "../OutletView";
 
 import IOutletViewProps from "../model/IOutletViewProps";
+import TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 import Id from "../model/Id";
@@ -42,7 +43,7 @@ export interface IOutletModalProps<
     }
   > {
   withActionButton?: boolean;
-  idChangedSubject: TSubject<Id | null>;
+  outletIdSubject: TBehaviorSubject<Id | null>;
   title?: string;
   fetchState: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
@@ -126,14 +127,14 @@ export const OutletModal = <
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
-  mapParams = () => ({ id } as unknown as Params),
-  mapInitialData = () => ({} as unknown as Data),
-  mapPayload = () => ({} as unknown as Payload),
+  mapParams = (id) => ({ id } as unknown as Params),
+  mapInitialData = (id) => ({ id } as unknown as Data),
+  mapPayload = (id) => ({ id } as unknown as Payload),
   onLoadStart,
   onLoadEnd,
   fallback,
   reloadSubject,
-  idChangedSubject,
+  outletIdSubject,
   fetchState,
   AfterTitle,
   title,
@@ -146,10 +147,10 @@ export const OutletModal = <
   onClose,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(outletIdSubject.data);
   const { classes } = useStyles();
 
-  useEffect(() => idChangedSubject.subscribe((id) => {
+  useEffect(() => outletIdSubject.subscribe((id) => {
     setId(id);
   }), []);
 

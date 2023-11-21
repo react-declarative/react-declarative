@@ -5,6 +5,7 @@ import OutletModal, { IOutletModalProps } from "../components/OutletModal";
 
 import useActualCallback from "../../../hooks/useActualCallback";
 import useLocalHistory from "../../../hooks/useLocalHistory";
+import useBehaviorSubject from "../../../hooks/useBehaviorSubject";
 import useSubject from "../../../hooks/useSubject";
 
 import IAnything from "../../../model/IAnything";
@@ -19,7 +20,7 @@ interface IParams<
 > extends Omit<
     IOutletModalProps<Data, Payload, Params>,
     keyof {
-      idChangedSubject: never;
+      outletIdSubject: never;
       history: never;
       onSubmit: never;
       className: never;
@@ -54,7 +55,7 @@ export const useOutletModal = <
   ...outletProps
 }: IParams<Data, Payload, Params>) => {
   const pickDataSubject = useSubject(upperPickDataSubject);
-  const idChangedSubject = useSubject<Id | null>();
+  const outletIdSubject = useBehaviorSubject<Id | null>();
 
   const { history } = useLocalHistory({
     history: upperHistory,
@@ -66,15 +67,20 @@ export const useOutletModal = <
   const handleSubmit = useCallback(async (id: Id, data: Data | null, payload: Payload) => {
     const result = await onSubmit$(id, data, payload);
     if (result) {
-      idChangedSubject.next(null);
+      outletIdSubject.next(null);
     }
     return result;
+  }, []);
+
+  const handleClose = useCallback(() => {
+    outletIdSubject.next(null);
+    onClose && onClose();
   }, []);
 
   const render = useCallback(
     () => (
       <OutletModal
-        idChangedSubject={idChangedSubject}
+        outletIdSubject={outletIdSubject}
         history={history}
         hidden={hidden}
         title={title}
@@ -82,7 +88,7 @@ export const useOutletModal = <
         onChange={onChange}
         onLoadEnd={onLoadEnd}
         onMount={onMount}
-        onClose={onClose}
+        onClose={handleClose}
         onUnmount={onUnmount}
         onLoadStart={onLoadStart}
         submitLabel={submitLabel}
@@ -105,7 +111,7 @@ export const useOutletModal = <
   );
 
   const pickData = useCallback((id: Id) => {
-    idChangedSubject.next(id);
+    outletIdSubject.next(id);
   }, []);
 
   useEffect(() => pickDataSubject.subscribe(pickData), []);

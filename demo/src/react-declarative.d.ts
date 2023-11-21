@@ -6380,7 +6380,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     import Id from "react-declarative/components/OutletView/model/Id";
     import TSubject from "react-declarative/model/TSubject";
     interface IParams<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletModalProps<Data, Payload, Params>, keyof {
-        idChangedSubject: never;
+        outletIdSubject: never;
         history: never;
         onSubmit: never;
         className: never;
@@ -7981,6 +7981,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
     import * as React from "react";
     import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
+    import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
     import Id from "react-declarative/components/OutletView/model/Id";
@@ -7993,7 +7994,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         id: never;
     }> {
         withActionButton?: boolean;
-        idChangedSubject: TSubject<Id | null>;
+        outletIdSubject: TBehaviorSubject<Id | null>;
         title?: string;
         fetchState: IFetchViewProps<Id>["state"];
         reloadSubject?: TSubject<void>;
@@ -8016,7 +8017,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, idChangedSubject, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
