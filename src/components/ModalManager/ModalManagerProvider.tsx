@@ -85,7 +85,7 @@ export const ModalManagerProvider = ({
             MuiBackdrop: {
                 styleOverrides: {
                     root: {
-                        background: 'transparent !important',
+                        background: 'transparent',
                     },
                 },
             },
