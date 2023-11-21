@@ -4462,28 +4462,28 @@ declare module 'react-declarative/components/List/api/useHistoryStatePagination'
     import IRowData from "react-declarative/model/IRowData";
     import History from "react-declarative/model/History";
     interface IQuery<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
-        filterData: IListProps<FilterData, RowData>['filterData'];
-        sortModel: IListProps<FilterData, RowData>['sortModel'];
-        chipData: IListProps<FilterData, RowData>['chipData'];
-        limit: IListProps<FilterData, RowData>['limit'];
-        page: IListProps<FilterData, RowData>['page'];
-        search: IListProps<FilterData, RowData>['search'];
+        filterData: IListProps<FilterData, RowData>["filterData"];
+        sortModel: IListProps<FilterData, RowData>["sortModel"];
+        chipData: IListProps<FilterData, RowData>["chipData"];
+        limit: IListProps<FilterData, RowData>["limit"];
+        page: IListProps<FilterData, RowData>["page"];
+        search: IListProps<FilterData, RowData>["search"];
     }
     interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
         initialValue: IQuery<FilterData, RowData>;
         removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
-        onFilterChange: IListProps<FilterData, RowData>['onFilterChange'];
-        onLimitChange: IListProps<FilterData, RowData>['onLimitChange'];
-        onPageChange: IListProps<FilterData, RowData>['onPageChange'];
-        onSortModelChange: IListProps<FilterData, RowData>['onSortModelChange'];
-        onChipsChange: IListProps<FilterData, RowData>['onChipsChange'];
-        onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
+        onFilterChange: IListProps<FilterData, RowData>["onFilterChange"];
+        onLimitChange: IListProps<FilterData, RowData>["onLimitChange"];
+        onPageChange: IListProps<FilterData, RowData>["onPageChange"];
+        onSortModelChange: IListProps<FilterData, RowData>["onSortModelChange"];
+        onChipsChange: IListProps<FilterData, RowData>["onChipsChange"];
+        onSearchChange: IListProps<FilterData, RowData>["onSearchChange"];
         onChange?: (pagination: IQuery) => void;
         fallback?: (e: Error) => void;
     }
-    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['filterData'], undefined>;
-    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
-    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
+    type FilterDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
+    type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
+    type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>["chipData"], undefined>;
     export const DEFAULT_QUERY: IQuery;
     export const useHistoryStatePagination: <FilterData extends {} = any, RowData extends IRowData = any>(history: History, { initialValue, onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         setFilterData: (data: FilterData) => void;
