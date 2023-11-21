@@ -16,6 +16,9 @@ const buildCommonResult = (
     hidden = false
   ) => {
     const { isVisible = () => true, isDisabled = () => false } = entry;
+    if (typeof entry.hidden === 'function' ? entry.hidden(payload) : entry.hidden) {
+      hidden = true;
+    }
     if (!isVisible(data, payload) || isDisabled(data, payload)) {
       hidden = true;
     }
