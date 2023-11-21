@@ -9,6 +9,9 @@ export const ModalManagerContext = createContext<IContext>({
     push: () => {
         throw new Error('ModalManager no context provided');
     },
+    clear: () => {
+        throw new Error('ModalManager no context provided');
+    },
 });
 
 export default ModalManagerContext;

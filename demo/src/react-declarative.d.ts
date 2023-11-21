@@ -5010,6 +5010,7 @@ declare module 'react-declarative/components/ModalManager/hooks/useModalManager'
     interface IResult {
         push: (modal: IModal) => void;
         pop: () => void;
+        clear: () => void;
     }
     export const useModalManager: () => IResult;
     export default useModalManager;

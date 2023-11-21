@@ -5,6 +5,7 @@ import IModal from "../model/IModal";
 interface IResult {
     push: (modal: IModal) => void;
     pop: () => void;
+    clear: () => void;
 }
 
 export const useModalManager = (): IResult => {
@@ -12,6 +13,7 @@ export const useModalManager = (): IResult => {
     return {
         push: context.push,
         pop: context.pop,
+        clear: context.clear,
     };
 };
 

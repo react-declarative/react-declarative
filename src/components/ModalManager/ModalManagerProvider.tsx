@@ -7,8 +7,9 @@ import Bootstrap from './components/Bootstrap';
 
 import randomString from '../../utils/randomString';
 
-import IModal from './model/IModal';
 import useActualValue from '../../hooks/useActualValue';
+
+import IModal from './model/IModal';
 
 interface IModalManagerProviderProps {
     children: React.ReactNode;
@@ -29,14 +30,16 @@ const DEFAULT_MODAL: IModalEntity = {
     render: () => null,
 };
 
+const INITIAL_STATE: IState = {
+    modalStack: [],
+    count: 0,
+};
+
 export const ModalManagerProvider = ({
     children,
 }: IModalManagerProviderProps) => {
 
-    const [{ modalStack, count }, setState] = useState<IState>(() => ({
-        modalStack: [],
-        count: 0,
-    }));
+    const [{ modalStack, count }, setState] = useState<IState>(INITIAL_STATE);
 
     const modalStack$ = useActualValue(modalStack);
 
@@ -52,6 +55,7 @@ export const ModalManagerProvider = ({
             modal.onInit && modal.onInit();
             setModalStack([{ ...modal, key: randomString() }, ...modalStack$.current])
         },
+        clear: () => setState(INITIAL_STATE),
     }), [modalStack]);
 
     const modal = useMemo(() => {
