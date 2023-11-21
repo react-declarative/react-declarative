@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import useActualState from "../../../hooks/useActualState";
+import useWindowSize from "../../../hooks/useWindowSize";
 import useChange from "../../../hooks/useChange";
 
 import ActionButton from "../../ActionButton";
@@ -22,10 +23,13 @@ import TSubject from "../../../model/TSubject";
 import Id from "../model/Id";
 
 import flatArray from "../../../utils/flatArray";
+import classNames from "../../../utils/classNames";
 
 const Loader = () => (
   <LoaderView size={24} sx={{ height: "100%", width: "100%" }} />
 );
+
+const MODAL_ROOT = "outlet-modal__root";
 
 export interface IOutletModalProps<
   Data extends {} = Record<string, any>,
@@ -47,7 +51,11 @@ export interface IOutletModalProps<
   title?: string;
   fetchState: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
-  onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+  onSubmit?: (
+    id: Id,
+    data: Data | null,
+    payload: Payload
+  ) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
     data: Data | null;
@@ -150,9 +158,23 @@ export const OutletModal = <
   const [id, setId] = useState<string | null>(outletIdSubject.data);
   const { classes } = useStyles();
 
-  useEffect(() => outletIdSubject.subscribe((id) => {
-    setId(id);
-  }), []);
+  const { height, width } = useWindowSize({
+    compute: ({
+      height,
+      width,
+    }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
+  useEffect(
+    () =>
+      outletIdSubject.subscribe((id) => {
+        setId(id);
+      }),
+    []
+  );
 
   useChange(() => {
     if (!id) {
@@ -174,7 +196,12 @@ export const OutletModal = <
     setData(upperData);
   }, [open]);
 
-  const handleChange = (data: Data, initial: boolean, payload: Payload, source: string) => {
+  const handleChange = (
+    data: Data,
+    initial: boolean,
+    payload: Payload,
+    source: string
+  ) => {
     payloadRef.current = payload;
     setData(data);
     onChange(data, initial, payload, source);
@@ -249,7 +276,12 @@ export const OutletModal = <
       }}
       onClose={handleClose}
     >
-      <Box className={classes.root}>
+      <Box
+        className={classNames(classes.root, MODAL_ROOT)}
+        sx={{
+          transform: `translate(-${width}px, -${height}px) !important`,
+        }}
+      >
         {title && (
           <div className={classes.title}>
             <Typography variant="h6" component="h2">

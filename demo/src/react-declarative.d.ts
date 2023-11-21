@@ -79,6 +79,7 @@ declare module 'react-declarative' {
     import { useSubscription } from 'react-declarative/hooks/useSubscription';
     import { useSubjectValue } from 'react-declarative/hooks/useSubjectValue';
     import { useElementSize } from 'react-declarative/hooks/useElementSize';
+    import { useWindowSize } from 'react-declarative/hooks/useWindowSize';
     import { useSubject } from 'react-declarative/hooks/useSubject';
     import { useChange } from 'react-declarative/hooks/useChange';
     export { useConstraint } from 'react-declarative/components';
@@ -106,6 +107,7 @@ declare module 'react-declarative' {
     export { useSearchParams };
     export { useSearchState };
     export { useElementSize };
+    export { useWindowSize };
     import IAnything from 'react-declarative/model/IAnything';
     import IRowData, { RowId } from 'react-declarative/model/IRowData';
     export type { IRowData, RowId };
@@ -2073,6 +2075,16 @@ declare module 'react-declarative/hooks/useElementSize' {
         size: ISize;
     };
     export default useElementSize;
+}
+
+declare module 'react-declarative/hooks/useWindowSize' {
+    import ISize from 'react-declarative/model/ISize';
+    interface IParams {
+        debounce: number;
+        compute: (size: ISize) => ISize;
+    }
+    export const useWindowSize: ({ debounce: delay, compute, }?: Partial<IParams>) => ISize;
+    export default useWindowSize;
 }
 
 declare module 'react-declarative/hooks/useSubject' {

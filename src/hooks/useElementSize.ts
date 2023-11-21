@@ -64,21 +64,27 @@ export const useElementSize = <T extends HTMLElement>({
             return;
         }
 
-        const handler = debounce(({ height, width } : ISize) => {
-            height = Math.floor(height);
-            width = Math.floor(width);
+        const handler = debounce((pendingSize : ISize) => {
+            pendingSize = compute(pendingSize);
+            pendingSize.height = Math.floor(pendingSize.height);
+            pendingSize.width = Math.floor(pendingSize.width);
             const { current: size } = size$;
-            if (size.height !== height || size.width !== width) {
-                const size = compute({ height, width });
-                isMounted.current && setSize(size);
-                onResize && onResize(size);
+            if (size.height !== pendingSize.height || size.width !== pendingSize.width) {
+                isMounted.current && setSize(pendingSize);
+                onResize && onResize(pendingSize);
             }
         }, delay);
 
         const observer = new ResizeObserver(() => {
-            const size = element!.getBoundingClientRect();
-            handler(size);
+            const { height, width } = element!.getBoundingClientRect();
+            handler({ height, width });
         });
+
+        let pendingSize = compute({ ...element.getBoundingClientRect() });
+        pendingSize.height = Math.floor(pendingSize.height);
+        pendingSize.width = Math.floor(pendingSize.width);
+        
+        setSize(pendingSize);
 
         observer.observe(element);
 
