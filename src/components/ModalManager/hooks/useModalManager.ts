@@ -15,4 +15,4 @@ export const useModalManager = (): IResult => {
     };
 };
 
-export default useModalManager();
+export default useModalManager;

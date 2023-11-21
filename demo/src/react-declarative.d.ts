@@ -5011,8 +5011,7 @@ declare module 'react-declarative/components/ModalManager/hooks/useModalManager'
         pop: () => void;
     }
     export const useModalManager: () => IResult;
-    const _default: IResult;
-    export default _default;
+    export default useModalManager;
 }
 
 declare module 'react-declarative/components/common/ListPicker' {
