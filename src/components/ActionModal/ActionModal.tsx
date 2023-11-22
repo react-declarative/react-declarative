@@ -10,12 +10,15 @@ import Typography from "@mui/material/Typography";
 import ActionButton from "../ActionButton";
 import One from "../One";
 
+import useRenderWaiter from "../../hooks/useRenderWaiter";
+import useElementSize from "../../hooks/useElementSize";
 import useActualValue from "../../hooks/useActualValue";
 import useActualState from "../../hooks/useActualState";
-import useRenderWaiter from "../../hooks/useRenderWaiter";
+import useWindowSize from "../../hooks/useWindowSize";
 import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
+import and from "../../utils/math/and";
 
 import IField from "../../model/IField";
 import IOneApi from "../../model/IOneApi";
@@ -29,7 +32,7 @@ export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,
   Field = IField<Data>,
-  Param = any,
+  Param = any
 > {
   waitForChangesDelay?: number;
   withActionButton?: boolean;
@@ -41,13 +44,17 @@ export interface IActionModalProps<
   title?: string;
   dirty?: boolean;
   param?: Param;
-  features?: IOnePublicProps<Data, Payload>['features'];
-  outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
-  handler?: IOneProps<Data, Payload>['handler'];
-  payload?: IOneProps<Data, Payload>['payload'];
-  changeSubject?: IOneProps<Data, Payload>['changeSubject'];
-  reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
-  onSubmit?: (data: Data | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
+  features?: IOnePublicProps<Data, Payload>["features"];
+  outlinePaper?: IOneProps<Data, Payload>["outlinePaper"];
+  handler?: IOneProps<Data, Payload>["handler"];
+  payload?: IOneProps<Data, Payload>["payload"];
+  changeSubject?: IOneProps<Data, Payload>["changeSubject"];
+  reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
+  onSubmit?: (
+    data: Data | null,
+    payload: Payload,
+    param: Param
+  ) => Promise<boolean> | boolean;
   onChange?: (data: Data, initial: boolean) => void;
   onInvalid?: (name: string, msg: string) => void;
   onLoadStart?: () => void;
@@ -70,11 +77,11 @@ const useStyles = makeStyles()((theme) => ({
     position: "absolute",
 
     padding: 20,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'stretch',
-  
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+
     transform: "translate(-50%, -50%)",
     backgroundColor: theme.palette.background.paper,
 
@@ -90,12 +97,12 @@ const useStyles = makeStyles()((theme) => ({
   large: {
     top: "50%",
     left: "50%",
-    width: 'calc(100vw - 50px)',
-    height: 'calc(100vh - 50px)',
+    width: "calc(100vw - 50px)",
+    height: "calc(100vh - 50px)",
   },
   content: {
     flex: 1,
-    overflowY: 'auto',
+    overflowY: "auto",
     paddingTop: theme.spacing(1),
   },
   title: {
@@ -150,6 +157,20 @@ export const ActionModal = <
 
   const payload = useSingleton(upperPayload);
 
+  const windowBasedSize = useWindowSize({
+    compute: ({ height, width }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
+  const { elementRef, size: elementBasedSize } = useElementSize({
+    compute: ({ height, width }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useActualState(0);
 
@@ -178,10 +199,7 @@ export const ActionModal = <
   const waitForRender = useRenderWaiter([data], 10);
 
   const waitForChanges = async () => {
-    await Promise.race([
-      waitForRender(),
-      sleep(waitForChangesDelay),
-    ]);
+    await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
   const handleAccept = async () => {
@@ -190,7 +208,7 @@ export const ActionModal = <
     }
     let isOk = true;
     try {
-      handleLoadStart()
+      handleLoadStart();
       if (open) {
         if (withActionButton) {
           await onSubmit({} as Data, payload, param);
@@ -217,7 +235,7 @@ export const ActionModal = <
     }
     let isOk = true;
     try {
-      handleLoadStart()
+      handleLoadStart();
       if (open) {
         await onSubmit(null, payload, param);
       }
@@ -238,17 +256,28 @@ export const ActionModal = <
       open={open}
       sx={{
         ...(hidden && {
-          visibility: 'hidden',
+          visibility: "hidden",
           opacity: 0,
         }),
       }}
       onClose={handleClose}
     >
       <Box
+        ref={elementRef}
         className={classNames(classes.root, {
           [classes.small]: !fullScreen,
           [classes.large]: fullScreen,
         })}
+        sx={{
+          ...(fullScreen && {
+            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
+          }),
+          ...(!fullScreen && {
+            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
+              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
+              : undefined,
+          }),
+        }}
       >
         {title && (
           <div className={classes.title}>
@@ -281,7 +310,7 @@ export const ActionModal = <
             fields={fields}
             dirty={dirty}
             features={features}
-          />          
+          />
         </Box>
         {!readonly && (
           <ActionButton

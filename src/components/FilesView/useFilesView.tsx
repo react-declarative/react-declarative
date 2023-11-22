@@ -11,8 +11,12 @@ import ActionButton from '../ActionButton';
 
 import useOneArray from '../../hooks/useOneArray';
 import useSingleton from '../../hooks/useSingleton';
+import useWindowSize from '../../hooks/useWindowSize';
+import useElementSize from '../../hooks/useElementSize';
 
 import classNames from '../../utils/classNames';
+import and from '../../utils/math/and';
+
 import IAnything from '../../model/IAnything';
 
 const useStyles = makeStyles()((theme) => ({
@@ -93,6 +97,20 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  const windowBasedSize = useWindowSize({
+    compute: ({ height, width }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
+  const { elementRef, size: elementBasedSize } = useElementSize({
+    compute: ({ height, width }) => ({
+      height: Math.floor((height - 50) / 2),
+      width: Math.floor((width - 50) / 2),
+    }),
+  });
+
   const [open, setOpen] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [loading, setLoading] = useState(0);
@@ -137,10 +155,21 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
   const render = () => (
     <Modal open={open} onClose={handleClose}>
       <Box
+        ref={elementRef}
         className={classNames(classes.root, {
           [classes.small]: !fullScreen,
           [classes.large]: fullScreen,
         })}
+        sx={{
+          ...(fullScreen && {
+            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
+          }),
+          ...(!fullScreen && {
+            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
+              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
+              : undefined,
+          }),
+        }}
       >
         <Box className={classes.content}>
           <FilesView

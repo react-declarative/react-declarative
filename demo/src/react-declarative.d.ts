@@ -6247,12 +6247,12 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         title?: string;
         dirty?: boolean;
         param?: Param;
-        features?: IOnePublicProps<Data, Payload>['features'];
-        outlinePaper?: IOneProps<Data, Payload>['outlinePaper'];
-        handler?: IOneProps<Data, Payload>['handler'];
-        payload?: IOneProps<Data, Payload>['payload'];
-        changeSubject?: IOneProps<Data, Payload>['changeSubject'];
-        reloadSubject?: IOneProps<Data, Payload>['reloadSubject'];
+        features?: IOnePublicProps<Data, Payload>["features"];
+        outlinePaper?: IOneProps<Data, Payload>["outlinePaper"];
+        handler?: IOneProps<Data, Payload>["handler"];
+        payload?: IOneProps<Data, Payload>["payload"];
+        changeSubject?: IOneProps<Data, Payload>["changeSubject"];
+        reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
         onSubmit?: (data: Data | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
         onChange?: (data: Data, initial: boolean) => void;
         onInvalid?: (name: string, msg: string) => void;
