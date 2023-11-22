@@ -28,6 +28,9 @@ import IOnePublicProps from "../../model/IOnePublicProps";
 
 import sleep from "../../utils/sleep";
 
+const MODAL_ROOT = "action-modal__root";
+const RESIZE_DEBOUNCE = 10;
+
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,
@@ -162,6 +165,7 @@ export const ActionModal = <
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   const { elementRef, size: elementBasedSize } = useElementSize({
@@ -169,6 +173,7 @@ export const ActionModal = <
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   const [data, setData] = useState<Data | null>(null);
@@ -264,7 +269,7 @@ export const ActionModal = <
     >
       <Box
         ref={elementRef}
-        className={classNames(classes.root, {
+        className={classNames(classes.root, MODAL_ROOT, {
           [classes.small]: !fullScreen,
           [classes.large]: fullScreen,
         })}

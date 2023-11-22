@@ -101,7 +101,7 @@ export const GridView = <
   const { constraintManager } = useConstraintManager();
 
   const { elementRef, size } = useElementSize({
-    delay: RESIZE_DELAY,
+    debounce: RESIZE_DELAY,
   });
 
   const { height, width } = size;

@@ -13,7 +13,7 @@ interface IParams extends ISize {
     target?: HTMLElement | null;
     closest?: string;
     selector?: string;
-    delay?: number;
+    debounce?: number;
     compute?: (size: ISize) => ISize; 
     onResize?: (size: ISize) => void;
 }
@@ -24,7 +24,7 @@ export const useElementSize = <T extends HTMLElement>({
     selector,
     height = 0,
     width = 0,
-    delay = 0,
+    debounce: delay = 0,
     compute = (size) => size,
     onResize,
 }: Partial<IParams> = {}) => {

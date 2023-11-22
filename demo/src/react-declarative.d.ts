@@ -2066,11 +2066,11 @@ declare module 'react-declarative/hooks/useElementSize' {
         target?: HTMLElement | null;
         closest?: string;
         selector?: string;
-        delay?: number;
+        debounce?: number;
         compute?: (size: ISize) => ISize;
         onResize?: (size: ISize) => void;
     }
-    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, delay, compute, onResize, }?: Partial<IParams>) => {
+    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, debounce: delay, compute, onResize, }?: Partial<IParams>) => {
         elementRef: import("react").RefObject<T>;
         size: ISize;
     };

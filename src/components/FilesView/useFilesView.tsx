@@ -19,6 +19,9 @@ import and from '../../utils/math/and';
 
 import IAnything from '../../model/IAnything';
 
+const MODAL_ROOT = "files-modal__root";
+const RESIZE_DEBOUNCE = 10;
+
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "absolute",
@@ -102,6 +105,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   const { elementRef, size: elementBasedSize } = useElementSize({
@@ -109,6 +113,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   const [open, setOpen] = useState(false);
@@ -156,7 +161,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
     <Modal open={open} onClose={handleClose}>
       <Box
         ref={elementRef}
-        className={classNames(classes.root, {
+        className={classNames(classes.root, MODAL_ROOT, {
           [classes.small]: !fullScreen,
           [classes.large]: fullScreen,
         })}

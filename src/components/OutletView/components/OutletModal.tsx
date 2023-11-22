@@ -30,6 +30,7 @@ const Loader = () => (
 );
 
 const MODAL_ROOT = "outlet-modal__root";
+const RESIZE_DEBOUNCE = 10;
 
 export interface IOutletModalProps<
   Data extends {} = Record<string, any>,
@@ -166,6 +167,7 @@ export const OutletModal = <
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   useEffect(

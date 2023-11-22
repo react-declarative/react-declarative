@@ -23,6 +23,7 @@ import IListProps from "../../model/IListProps";
 import SelectionMode from "../../model/SelectionMode";
 
 const MODAL_ROOT = "search-modal__root";
+const RESIZE_DEBOUNCE = 10;
 
 export interface ISearchModalProps<
   FilterData extends {} = IAnything,
@@ -142,6 +143,7 @@ export const SearchModal = <
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
+    debounce: RESIZE_DEBOUNCE,
   });
 
   const payload = useSingleton(upperPayload);

@@ -180,7 +180,7 @@ export const Container = <
     size: rootElementSize,
   } = useElementSize({
     target: sizeByElement ? undefined : document.body,
-    delay: RESIZE_DELAY,
+    debounce: RESIZE_DELAY,
     compute: ({ height, width }) => ({
       height: heightRequest(height),
       width: widthRequest(width),
@@ -192,7 +192,7 @@ export const Container = <
     elementRef: contentElementRef,
     size: contentElementSize,
   } = useElementSize({
-    delay: RESIZE_DELAY,
+    debounce: RESIZE_DELAY,
   });
 
   useEffect(() => {
