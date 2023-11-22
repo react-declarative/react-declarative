@@ -1,9 +1,9 @@
-export const last = <T = any>(arr: T[]): T | null => {
+export const last = <T = any>(arr: T[] | null | undefined): T | null => {
     if (Array.isArray(arr)) {
         const [last] = arr.slice(-1);
         return last || null;
     }
-    return arr as never;
+    return null;
 }
 
 export default last;

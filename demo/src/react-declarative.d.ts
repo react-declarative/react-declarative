@@ -3022,12 +3022,12 @@ declare module 'react-declarative/utils/math/match' {
 }
 
 declare module 'react-declarative/utils/math/first' {
-    export const first: <T = any>(arr: T[]) => T | null;
+    export const first: <T = any>(arr: T[] | null | undefined) => T | null;
     export default first;
 }
 
 declare module 'react-declarative/utils/math/last' {
-    export const last: <T = any>(arr: T[]) => T | null;
+    export const last: <T = any>(arr: T[] | null | undefined) => T | null;
     export default last;
 }
 

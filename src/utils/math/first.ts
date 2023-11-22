@@ -1,9 +1,9 @@
-export const first = <T = any>(arr: T[]): T | null => {
+export const first = <T = any>(arr: T[] | null | undefined): T | null => {
     if (Array.isArray(arr)) {
         const [first] = arr;
         return first || null;
     }
-    return arr as never;
+    return null;
 }
 
 export default first;
