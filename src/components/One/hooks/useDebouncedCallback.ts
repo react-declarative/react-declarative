@@ -108,6 +108,9 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     );
 
     const timerExpired = useCallback(() => {
+
+        if (!mounted.current) return;
+
         const time = Date.now();
         if (shouldInvoke(time)) {
             return trailingEdge(time);
@@ -144,6 +147,9 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
 
     const debounced = useCallback(
         (...args: Parameters<T>): ReturnType<T> => {
+
+            if (!mounted.current) return result.current;
+
             const time = Date.now();
             const isInvoking = shouldInvoke(time);
 
