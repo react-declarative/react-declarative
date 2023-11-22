@@ -18,6 +18,7 @@ const initialValueMap = {
   [FieldType.Component]: null,
   [FieldType.Complete]: '',
   [FieldType.Init]: null,
+  [FieldType.YesNo]: null,
 };
 
 type InitialValue = typeof initialValueMap;

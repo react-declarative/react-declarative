@@ -414,6 +414,7 @@ import { IOnePublicProps as IOnePublicPropsInternal } from './model/IOnePublicPr
 export type IOnePublicProps<Data = IAnything, Field extends IField<Data> = IField<Data>> = IOnePublicPropsInternal<Data, Field>;
 
 import { ICheckBoxSlot as ICheckBoxSlotInternal } from './components';
+import { IYesNoSlot as IYesNoSlotInternal } from './components';
 import { IComboSlot as IComboSlotInternal } from './components';
 import { IItemsSlot as IItemsSlotInternal } from './components';
 import { ILineSlot as ILineSlotInternal } from './components';
@@ -450,6 +451,7 @@ export type History = HistoryInternal;
 
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
 export type IComboSlot = IComboSlotInternal;
+export type IYesNoSlot = IYesNoSlotInternal;
 export type IItemsSlot = IItemsSlotInternal;
 export type ILineSlot = ILineSlotInternal;
 export type IProgressSlot = IProgressSlotInternal;

@@ -325,6 +325,7 @@ declare module 'react-declarative' {
     import { IOnePublicProps as IOnePublicPropsInternal } from 'react-declarative/model/IOnePublicProps';
     export type IOnePublicProps<Data = IAnything, Field extends IField<Data> = IField<Data>> = IOnePublicPropsInternal<Data, Field>;
     import { ICheckBoxSlot as ICheckBoxSlotInternal } from 'react-declarative/components';
+    import { IYesNoSlot as IYesNoSlotInternal } from 'react-declarative/components';
     import { IComboSlot as IComboSlotInternal } from 'react-declarative/components';
     import { IItemsSlot as IItemsSlotInternal } from 'react-declarative/components';
     import { ILineSlot as ILineSlotInternal } from 'react-declarative/components';
@@ -357,6 +358,7 @@ declare module 'react-declarative' {
     export type History = HistoryInternal;
     export type ICheckBoxSlot = ICheckBoxSlotInternal;
     export type IComboSlot = IComboSlotInternal;
+    export type IYesNoSlot = IYesNoSlotInternal;
     export type IItemsSlot = IItemsSlotInternal;
     export type ILineSlot = ILineSlotInternal;
     export type IProgressSlot = IProgressSlotInternal;
@@ -535,6 +537,7 @@ declare module 'react-declarative/model/TypedField' {
     import { ICompleteFieldProps } from 'react-declarative/components/One/fields/CompleteField';
     import { ITypographyFieldProps } from 'react-declarative/components/One/fields/TypographyField';
     import { IChooseFieldProps } from 'react-declarative/components/One/fields/ChooseField';
+    import { IYesNoFieldProps } from 'react-declarative/components/One/fields/YesNoField';
     import { IInitFieldProps } from 'react-declarative/components/One/fields/InitField';
     type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
     type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
@@ -569,6 +572,7 @@ declare module 'react-declarative/model/TypedField' {
     type Text<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Text, ITextFieldProps<Data, Payload>, Data, Payload>;
     type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.File, IFileFieldProps<Data, Payload>, Data, Payload>;
     type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
+    type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
     type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
     type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
     type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
@@ -578,7 +582,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends YesNo<Data, Payload> ? YesNo<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1352,6 +1356,7 @@ declare module 'react-declarative/model/FieldType' {
     export enum FieldType {
         Layout = "custom-layout",
         Switch = "switch-field",
+        YesNo = "yesno-field",
         Line = "line-field",
         File = "file-field",
         Group = "group-layout",
@@ -4277,6 +4282,41 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
     export default _default;
 }
 
+declare module 'react-declarative/components/One/fields/YesNoField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
+        description?: PickProp<IField<Data, Payload>, "description">;
+        placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        outlined?: PickProp<IField<Data, Payload>, "outlined">;
+        noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
+        virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
+        tr?: PickProp<IField<Data, Payload>, "tr">;
+        readonly?: PickProp<IField<Data, Payload>, "readonly">;
+        disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
+        title?: PickProp<IField<Data, Payload>, "title">;
+        groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+    }
+    export interface IYesNoFieldPrivate<Data = IAnything> {
+        value: PickProp<IManaged<Data>, "value">;
+        readonly: PickProp<IManaged<Data>, "readonly">;
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
+    }
+    export const YesNoField: {
+        ({ value, disabled, readonly, description, placeholder, outlined, virtualListBox, noDeselect, labelShrink, title, tr, dirty, invalid, onChange, }: IYesNoFieldProps & IYesNoFieldPrivate): JSX.Element;
+        displayName: string;
+    };
+    const _default: {
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isReadonly, change, fallback, ready, compute: upperCompute, shouldRecompute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
+        displayName: string;
+    };
+    export default _default;
+}
+
 declare module 'react-declarative/components/One/fields/InitField' {
     import * as React from 'react';
     export interface IInitFieldProps {
@@ -5550,6 +5590,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         File: ({ invalid, value, disabled, readonly, description, outlined, labelShrink, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
+        YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -5573,9 +5614,11 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
     import { IFileSlot } from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     import { IChooseSlot } from 'react-declarative/components/One/slots/ChooseSlot';
     import { ICompleteSlot } from 'react-declarative/components/One/slots/CompleteSlot';
+    import { IYesNoSlot } from 'react-declarative/components/One/slots/YesNoSlot';
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
+        YesNo: ComponentType<IYesNoSlot>;
         Items: ComponentType<IItemsSlot>;
         Line: ComponentType<ILineSlot>;
         Progress: ComponentType<IProgressSlot>;
@@ -5636,6 +5679,7 @@ declare module 'react-declarative/components/One/slots' {
     export * from 'react-declarative/components/One/slots/FileSlot';
     export * from 'react-declarative/components/One/slots/ChooseSlot';
     export * from 'react-declarative/components/One/slots/CompleteSlot';
+    export * from 'react-declarative/components/One/slots/YesNoSlot';
 }
 
 declare module 'react-declarative/components/One/components/OneConfig' {
@@ -7932,6 +7976,12 @@ declare module 'react-declarative/components/One/slots/CompleteSlot' {
     export { default } from 'react-declarative/components/One/slots/CompleteSlot/CompleteSlot';
 }
 
+declare module 'react-declarative/components/One/slots/YesNoSlot' {
+    export * from 'react-declarative/components/One/slots/YesNoSlot/IYesNoSlot';
+    export * from 'react-declarative/components/One/slots/YesNoSlot/YesNoSlot';
+    export { default } from 'react-declarative/components/One/slots/YesNoSlot/YesNoSlot';
+}
+
 declare module 'react-declarative/components/One/slots/FileSlot' {
     export * from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export * from 'react-declarative/components/One/slots/FileSlot/FileSlot';
@@ -8420,6 +8470,19 @@ declare module 'react-declarative/components/One/slots/CompleteSlot/CompleteSlot
     import ICompleteSlot from 'react-declarative/components/One/slots/CompleteSlot/ICompleteSlot';
     export const CompleteSlot: (props: ICompleteSlot) => JSX.Element;
     export default CompleteSlot;
+}
+
+declare module 'react-declarative/components/One/slots/YesNoSlot/IYesNoSlot' {
+    import { IYesNoFieldPrivate, IYesNoFieldProps } from "react-declarative/components/One/fields/YesNoField";
+    export interface IYesNoSlot extends Omit<IYesNoFieldProps, "readonly">, IYesNoFieldPrivate {
+    }
+    export default IYesNoSlot;
+}
+
+declare module 'react-declarative/components/One/slots/YesNoSlot/YesNoSlot' {
+    import IYesNoSlot from 'react-declarative/components/One/slots/YesNoSlot/IYesNoSlot';
+    export const YesNoSlot: (props: IYesNoSlot) => JSX.Element;
+    export default YesNoSlot;
 }
 
 declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {

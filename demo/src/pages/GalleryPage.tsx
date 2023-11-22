@@ -305,6 +305,17 @@ const fields: TypedField[] = [
         },
         tr: () => 'omg',
     },
+    {
+        type: FieldType.YesNo,
+        title: 'YesNo',
+        name: 'yesno',
+        tr: (v) => {
+            if (v === "Yes") {
+                return "1";
+            }
+            return "0";
+        },
+    },
 ];
 
 export const GalleryPage = () => (

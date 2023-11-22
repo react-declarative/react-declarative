@@ -14,3 +14,4 @@ export * from './TimeSlot';
 export * from './FileSlot';
 export * from './ChooseSlot';
 export * from './CompleteSlot';
+export * from './YesNoSlot';

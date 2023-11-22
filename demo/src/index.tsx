@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { ModalProvider, SnackProvider, createWebComponent, OneConfig } from 'react-declarative';
+import { ModalProvider, SnackProvider, OneConfig } from 'react-declarative';
 
 import App from './App'
 
@@ -50,14 +50,6 @@ OneConfig.setValue({
     WITH_SYNC_COMPUTE: false,
     CUSTOM_FIELD_DEBOUNCE: 800,
 });
-
-/*
-createWebComponent("frontend-widget", (params) => (
-    <pre>
-        {JSON.stringify(params, null, 2)}
-    </pre>
-));
-*/
 
 const root = createRoot(container);
 

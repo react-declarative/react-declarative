@@ -16,10 +16,12 @@ import { ISliderSlot } from '../../slots/SliderSlot';
 import { IFileSlot } from '../../slots/FileSlot/IFileSlot';
 import { IChooseSlot } from '../../slots/ChooseSlot';
 import { ICompleteSlot } from '../../slots/CompleteSlot';
+import { IYesNoSlot } from '../../slots/YesNoSlot';
 
 export interface ISlotFactoryContext {
     CheckBox: ComponentType<ICheckBoxSlot>;
     Combo: ComponentType<IComboSlot>;
+    YesNo: ComponentType<IYesNoSlot>;
     Items: ComponentType<IItemsSlot>;
     Line: ComponentType<ILineSlot>;
     Progress: ComponentType<IProgressSlot>;

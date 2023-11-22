@@ -16,6 +16,7 @@ import Slider from './components/Slider';
 import File from './components/File';
 import Choose from './components/Choose';
 import Complete from './components/Complete';
+import YesNo from './components/YesNo';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -36,6 +37,7 @@ export const defaultSlots = {
     File,
     Choose,
     Complete,
+    YesNo,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);
