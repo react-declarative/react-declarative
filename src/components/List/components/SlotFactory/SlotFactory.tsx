@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -14,8 +14,9 @@ export const SlotFactory = ({
     ...currentSlots
 }: Partial<ISlotFactoryProps>) => {
     const upperSlots = useContext(SlotContext);
+    const value = useMemo(() => ({...upperSlots, ...currentSlots}), []);
     return (
-        <SlotContext.Provider value={{...upperSlots, ...currentSlots}}>
+        <SlotContext.Provider value={value}>
             {children}
         </SlotContext.Provider>
     );

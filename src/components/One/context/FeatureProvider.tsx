@@ -11,9 +11,11 @@ interface IFeatureProviderProps {
     features?: IOneProps['features'];
 }
 
+const ARRAY_VALUE: string[] = [];
+
 export const FeatureProvider = ({
     children,
-    features = [],
+    features = ARRAY_VALUE,
 }: IFeatureProviderProps) => (
     <FeatureContext.Provider value={features}>
         {children}

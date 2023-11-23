@@ -11,9 +11,11 @@ interface IPayloadProviderProps {
     payload?: IOneProps['payload'];
 }
 
+const OBJECT_VALUE = {};
+
 export const PayloadProvider = ({
     children,
-    payload = {},
+    payload = OBJECT_VALUE,
 }: IPayloadProviderProps) => (
     <PayloadContext.Provider value={payload}>
         {children}

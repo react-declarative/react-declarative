@@ -5721,14 +5721,14 @@ declare module 'react-declarative/components/One/components/makeLayout' {
 }
 
 declare module 'react-declarative/components/One/context/PropsProvider' {
-    import * as React from 'react';
-    import IField from 'react-declarative/model/IField';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IOneProps from 'react-declarative/model/IOneProps';
+    import * as React from "react";
+    import IField from "react-declarative/model/IField";
+    import IAnything from "react-declarative/model/IAnything";
+    import IOneProps from "react-declarative/model/IOneProps";
     interface IPropsProviderProps<Data extends IAnything = IAnything, Field extends IField<Data> = IField<Data>> extends IOneProps<Data, Field> {
         children: React.ReactNode;
     }
-    export const PropsProvider: <Data extends unknown = any, Field extends IField<Data, any> = IField<Data, any>>({ children, ...props }: IPropsProviderProps<Data, Field>) => JSX.Element;
+    export const PropsProvider: <Data extends unknown = any, Field extends IField<Data, any> = IField<Data, any>>({ children, ...otherProps }: IPropsProviderProps<Data, Field>) => JSX.Element;
     export const useOneProps: <Data extends unknown = any>() => IOneProps<Data, any, IField<Data, any>>;
     export default PropsProvider;
 }
