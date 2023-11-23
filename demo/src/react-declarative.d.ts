@@ -2715,7 +2715,8 @@ declare module 'react-declarative/utils/createValueProvider' {
 
 declare module 'react-declarative/utils/createStateProvider' {
     import * as React from 'react';
-    export const createStateProvider: <S extends unknown>() => readonly [({ children, initialState, }: {
+    export const createStateProvider: <S extends unknown>() => readonly [({ children, initialState, onChange, }: {
+        onChange?: ((state: S) => void) | undefined;
         children: React.ReactNode;
         initialState: S | (() => S);
     }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
@@ -5772,7 +5773,8 @@ declare module 'react-declarative/components/One/context/FeatureProvider' {
 }
 
 declare module 'react-declarative/components/One/context/RadioProvider' {
-    export const RadioProvider: ({ children, initialState, }: {
+    export const RadioProvider: ({ children, initialState, onChange, }: {
+        onChange?: ((state: Record<string, string | null>) => void) | undefined;
         children: import("react").ReactNode;
         initialState: Record<string, string | null> | (() => Record<string, string | null>);
     }) => JSX.Element, useOneRadio: () => readonly [Record<string, string | null>, (state: Record<string, string | null> | ((prevState: Record<string, string | null>) => Record<string, string | null>)) => void];

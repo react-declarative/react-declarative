@@ -8,6 +8,8 @@ import {
   useMemo,
 } from 'react';
 
+import useChange from '../hooks/useChange';
+
 export const createStateProvider = <S extends unknown>() => {
   const Context = createContext<
     readonly [S, (state: S | ((prevState: S) => S)) => void]
@@ -16,11 +18,16 @@ export const createStateProvider = <S extends unknown>() => {
   const Provider = ({
     children,
     initialState,
+    onChange,
   }: {
+    onChange?: (state: S) => void;
     children: React.ReactNode;
     initialState: S | (() => S);
   }) => {
     const [state, setState] = useState(initialState);
+    useChange(() => {
+      onChange && onChange(state);
+    }, [state]);
     const setProviderState = useCallback(
       (newValue: S | ((prevState: S) => S)) => setState(newValue),
       [],
