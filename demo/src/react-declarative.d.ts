@@ -8505,6 +8505,7 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfigI
         WITH_DISMOUNT_LISTENER: boolean;
         WITH_SYNC_COMPUTE: boolean;
         CUSTOM_FIELD_DEBOUNCE: number;
+        FIELD_BLUR_DEBOUNCE: number;
     }
     export class OneConfigInstance {
         getRef: () => IConfig;

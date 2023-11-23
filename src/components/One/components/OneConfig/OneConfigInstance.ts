@@ -1,4 +1,4 @@
-import { FIELD_DEBOUNCE } from "../../config/config";
+import { BLUR_DEBOUNCE, FIELD_DEBOUNCE } from "../../config/config";
 
 export interface IConfig {
     WITH_DIRTY_CLICK_LISTENER: boolean;
@@ -8,6 +8,7 @@ export interface IConfig {
     WITH_DISMOUNT_LISTENER: boolean;
     WITH_SYNC_COMPUTE: boolean;
     CUSTOM_FIELD_DEBOUNCE: number;
+    FIELD_BLUR_DEBOUNCE: number;
 }
 
 const INITIAL_CONFIG: IConfig = {
@@ -18,6 +19,7 @@ const INITIAL_CONFIG: IConfig = {
     WITH_DISMOUNT_LISTENER: true,
     WITH_SYNC_COMPUTE: false,
     CUSTOM_FIELD_DEBOUNCE: FIELD_DEBOUNCE,
+    FIELD_BLUR_DEBOUNCE: BLUR_DEBOUNCE,
 };
 
 export class OneConfigInstance {

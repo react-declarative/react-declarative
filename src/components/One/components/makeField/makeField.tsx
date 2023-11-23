@@ -527,7 +527,7 @@ export function makeField(
             if (!fieldReadonly && !upperReadonly) {
                 setFocusReadonly(false);
             }
-            groupRef && waitForBlur(groupRef).then(() => {
+            groupRef && waitForBlur(groupRef, oneConfig.FIELD_BLUR_DEBOUNCE).then(() => {
                 if (pending()) {
                     flush();
                 }

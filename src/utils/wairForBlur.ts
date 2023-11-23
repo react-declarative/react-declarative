@@ -1,4 +1,4 @@
-export const waitForBlur = (ref: HTMLElement) =>
+export const waitForBlur = (ref: HTMLElement, debounce = 50) =>
   new Promise<void>((res) => {
     const interval = setInterval(() => {
       let isResolved = document.activeElement !== ref && !ref.contains(document.activeElement);
@@ -7,7 +7,7 @@ export const waitForBlur = (ref: HTMLElement) =>
         clearInterval(interval);
         res();
       }
-    }, 50);
+    }, debounce);
   });
 
 export default waitForBlur;
