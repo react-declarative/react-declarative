@@ -301,6 +301,25 @@ const fields: TypedField[] = [
 </OneSlotFactory>
 ```
 
+**6. Hiding fields by business functions**
+
+> See [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)
+
+```tsx
+const fields: TypedField[] = [
+  {
+    type: FieldType.Text,
+    name: 'phone',
+    hidden: ({ payload }) => {
+      return !payload.features.has('show-phone-number');
+    },
+  },
+
+  ...
+
+];
+```
+
 <img src="./assets/icons/saturn.svg" height="35px" align="right">
 
 ## JSON-templated grid engine
