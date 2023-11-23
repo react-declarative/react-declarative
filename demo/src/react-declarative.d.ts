@@ -3330,6 +3330,7 @@ declare module 'react-declarative/components/One/layouts/FragmentLayout' {
     export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
         isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
         features?: PickProp<IField<Data, Payload>, 'features'>;
+        hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     }
     interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children?: React.ReactNode;
@@ -3359,6 +3360,7 @@ declare module 'react-declarative/components/One/layouts/DivLayout' {
     export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
         className?: PickProp<IField<Data, Payload>, 'className'>;
         style?: PickProp<IField<Data, Payload>, 'style'>;
+        hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     }
     interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children?: React.ReactNode;
@@ -3724,6 +3726,7 @@ declare module 'react-declarative/components/One/layouts/CustomLayout' {
         style?: PickProp<IField<Data, Payload>, "style">;
         sx?: PickProp<IField<Data, Payload>, "sx">;
         customLayout?: PickProp<IField<Data, Payload>, "customLayout">;
+        hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     }
     interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children?: React.ReactNode;

@@ -10,6 +10,7 @@ import makeLayout from '../components/makeLayout/makeLayout';
 export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
+    hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
 interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {

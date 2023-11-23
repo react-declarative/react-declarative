@@ -26,6 +26,7 @@ export interface ICustomLayoutProps<Data = IAnything, Payload = IAnything>
   style?: PickProp<IField<Data, Payload>, "style">;
   sx?: PickProp<IField<Data, Payload>, "sx">;
   customLayout?: PickProp<IField<Data, Payload>, "customLayout">;
+  hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
 type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";

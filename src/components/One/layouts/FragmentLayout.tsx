@@ -12,6 +12,7 @@ import { useOneState } from '../context/StateProvider';
 export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     features?: PickProp<IField<Data, Payload>, 'features'>;
+    hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
