@@ -36,9 +36,11 @@ export interface IColumn<
     search: string,
     payload: Payload
   }) => boolean;
-  compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
-  serialize?: (row: RowData, payload: Payload) => Promise<Value> | Value;
-  element?: React.ComponentType<RowData>;
+  compute?: (row: RowData & { _payload: Payload }, payload: Payload) => Promise<Value> | Value;
+  serialize?: (row: RowData & { _payload: Payload }, payload: Payload) => Promise<Value> | Value;
+  element?: React.ComponentType<RowData & {
+    _payload: Payload;
+  }>;
   sortable?: boolean;
 }
 

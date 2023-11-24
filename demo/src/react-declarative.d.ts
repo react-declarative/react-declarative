@@ -137,7 +137,7 @@ declare module 'react-declarative' {
     export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
     export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
     export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
-    export type IOption = IOptionInternal;
+    export type IOption<Payload = any> = IOptionInternal<Payload>;
     export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
     import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from 'react-declarative/components';
     export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
@@ -1223,9 +1223,15 @@ declare module 'react-declarative/model/IColumn' {
             search: string;
             payload: Payload;
         }) => boolean;
-        compute?: (row: RowData, payload: Payload) => Promise<Value> | Value;
-        serialize?: (row: RowData, payload: Payload) => Promise<Value> | Value;
-        element?: React.ComponentType<RowData>;
+        compute?: (row: RowData & {
+            _payload: Payload;
+        }, payload: Payload) => Promise<Value> | Value;
+        serialize?: (row: RowData & {
+            _payload: Payload;
+        }, payload: Payload) => Promise<Value> | Value;
+        element?: React.ComponentType<RowData & {
+            _payload: Payload;
+        }>;
         sortable?: boolean;
     }
     export default IColumn;

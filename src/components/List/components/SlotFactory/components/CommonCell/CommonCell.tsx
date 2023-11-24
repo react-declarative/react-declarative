@@ -72,7 +72,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                 onLoadEnd={handleLoadEnd}
                 throwError
             >
-                {async (data) => {
+                {async (row) => {
+                    const data = { ...row, _payload };
                     if (column.element) {
                         return createElement(column.element, data);
                     } else if (column.compute) {
