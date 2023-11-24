@@ -410,6 +410,8 @@ declare module 'react-declarative' {
     export { FetchError, fetchApi } from 'react-declarative/utils/fetchApi';
     export { createValueProvider } from 'react-declarative/utils/createValueProvider';
     export { createStateProvider } from 'react-declarative/utils/createStateProvider';
+    export { createSsStateProvider } from 'react-declarative/utils/createSsStateProvider';
+    export { createLsStateProvider } from 'react-declarative/utils/createLsStateProvider';
     export { formatText } from 'react-declarative/utils/formatText';
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
@@ -2721,6 +2723,26 @@ declare module 'react-declarative/utils/createStateProvider' {
         initialState: S | (() => S);
     }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
     export default createStateProvider;
+}
+
+declare module 'react-declarative/utils/createSsStateProvider' {
+    import * as React from 'react';
+    export const createSsStateProvider: <S extends unknown>(storageKey: string) => readonly [({ children, initialState, onChange, }: {
+        onChange?: ((state: S) => void) | undefined;
+        children: React.ReactNode;
+        initialState: S | (() => S);
+    }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
+    export default createSsStateProvider;
+}
+
+declare module 'react-declarative/utils/createLsStateProvider' {
+    import * as React from 'react';
+    export const createLsStateProvider: <S extends unknown>(storageKey: string) => readonly [({ children, initialState, onChange, }: {
+        onChange?: ((state: S) => void) | undefined;
+        children: React.ReactNode;
+        initialState: S | (() => S);
+    }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
+    export default createLsStateProvider;
 }
 
 declare module 'react-declarative/utils/formatText' {
