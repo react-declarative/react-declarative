@@ -165,7 +165,7 @@ export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
 
 export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
 export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
-export type IOption = IOptionInternal;
+export type IOption<Payload = any> = IOptionInternal<Payload>;
 export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
 
 import {
