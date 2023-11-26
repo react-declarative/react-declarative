@@ -5,7 +5,6 @@ import { useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 /* eslint-disable no-console */
 
 import deepClone from '../../../../utils/deepClone';
-import arrays from '../../../../utils/arrays';
 import set from '../../../../utils/set';
 import get from '../../../../utils/get';
 import deepCompare from '../../../../utils/deepCompare';
@@ -267,7 +266,7 @@ export function makeField(
             memory.objectUpdate = true;
             memory.inputUpdate = false;
             if (compute) {
-                const result = compute(arrays(object), payload);
+                const result = compute(object, payload);
                 if (result instanceof Promise) {
                     setLoading(true)
                     result

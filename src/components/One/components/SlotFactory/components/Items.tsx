@@ -16,8 +16,6 @@ import VirtualListBox from '../../common/VirtualListBox';
 import compareArray from '../../../../../utils/compareArray';
 import debounce from '../../../../../utils/hof/debounce';
 import isObject from '../../../../../utils/isObject';
-import objects from '../../../../../utils/objects';
-import arrays from '../../../../../utils/arrays';
 
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
@@ -120,7 +118,7 @@ export const Items = ({
         execute,
     } = useAsyncAction(async (object) => {
         const labels: Record<string, string> = {};
-        itemList = arrays(itemList) || [];
+        itemList = itemList || [];
         const options: string[] = [...new Set(Object.values(typeof itemList === 'function' ? await Promise.resolve(itemList(object, payload)) : itemList))];
         await Promise.all(options.map(async (item) => labels[item] = await Promise.resolve(tr(item, object, payload))));
         if (freeSolo) {
@@ -186,7 +184,7 @@ export const Items = ({
     }, [opened]);
 
     const handleChange = (value: any) => {
-        onChange(value?.length ? objects(value) : null);
+        onChange(value?.length ? value : null);
         changeSubject.next();
     };
 

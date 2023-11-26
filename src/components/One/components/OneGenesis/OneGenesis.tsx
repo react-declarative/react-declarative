@@ -15,7 +15,6 @@ import FieldType from "../../../../model/FieldType";
 
 import classNames from "../../../../utils/classNames";
 import deepFlat from "../../../../utils/deepFlat";
-import arrays from "../../../../utils/arrays";
 
 import StateProvider from "../../context/StateProvider";
 import FeatureProvider from "../../context/FeatureProvider";
@@ -93,7 +92,7 @@ export const OneGenesis = <
       isValid = isValid && (isInvalid(newData, payload) || null) === null;
     });
     if (isValid) {
-      change(arrays(newData), initial);
+      change(newData, initial);
     }
   }, []);
 

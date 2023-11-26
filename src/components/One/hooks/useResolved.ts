@@ -11,7 +11,6 @@ import deepFlat from '../../../utils/deepFlat';
 import assign from '../../../utils/deepMerge';
 import create from '../../../utils/create';
 
-import objects from '../../../utils/objects';
 import set from '../../../utils/set';
 import get from '../../../utils/get';
 
@@ -98,11 +97,11 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                 try {
                     const result = (handler as Function)(payload);
                     if (result instanceof Promise) {
-                        const newData = objects(assign({}, buildObj<Data>(fields, payload, features), deepClone(await result)));
+                        const newData = assign({}, buildObj<Data>(fields, payload, features), deepClone(await result));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     } else {
-                        const newData = objects(assign({}, buildObj<Data>(fields, payload, features), deepClone(result)));
+                        const newData = assign({}, buildObj<Data>(fields, payload, features), deepClone(result));
                         change!(newData, true);
                         isMounted.current && setData(newData);
                     }
@@ -118,7 +117,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     isRoot.current = true;
                 }
             } else if (handler && !deepCompare(data, handler)) {
-                isMounted.current && setData(objects(assign({}, buildObj(fields, payload, features), deepClone(handler))));
+                isMounted.current && setData(assign({}, buildObj(fields, payload, features), deepClone(handler)));
             }
         };
         const handleUpdateRef = () => {

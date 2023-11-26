@@ -13,7 +13,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
 
-import arrays from "../../../../../utils/arrays";
 import debounce from "../../../../../utils/hof/debounce";
 
 import { useOneState } from "../../../context/StateProvider";
@@ -96,7 +95,7 @@ export const Combo = ({
   const { loading, execute } = useAsyncAction(
     async (object) => {
       const labels: Record<string, string> = {};
-      itemList = arrays(itemList) || [];
+      itemList = itemList || [];
       const options: string[] = [
         ...new Set(
           Object.values(
