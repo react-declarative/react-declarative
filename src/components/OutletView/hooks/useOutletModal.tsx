@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useEffect, useCallback } from "react";
+import { createMemoryHistory } from "history";
 
 import OutletModal, { IOutletModalProps } from "../components/OutletModal";
 
-import useActualCallback from "../../../hooks/useActualCallback";
-import useLocalHistory from "../../../hooks/useLocalHistory";
 import useBehaviorSubject from "../../../hooks/useBehaviorSubject";
+import useActualCallback from "../../../hooks/useActualCallback";
+import useSingleton from "../../../hooks/useSingleton";
 import useSubject from "../../../hooks/useSubject";
 
 import IAnything from "../../../model/IAnything";
@@ -57,10 +58,7 @@ export const useOutletModal = <
   const pickDataSubject = useSubject(upperPickDataSubject);
   const outletIdSubject = useBehaviorSubject<Id | null>();
 
-  const { history } = useLocalHistory({
-    history: upperHistory,
-    pathname,
-  });
+  const history = useSingleton(() => upperHistory || createMemoryHistory());
 
   const onSubmit$ = useActualCallback(onSubmit);
 
