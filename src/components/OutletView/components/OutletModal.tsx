@@ -61,6 +61,10 @@ export interface IOutletModalProps<
     onClose?: () => void;
     data: Data | null;
   }>;
+  BeforeTitle?: React.ComponentType<{
+    onClose?: () => void;
+    data: Data | null;
+  }>;
   data?: Data | null;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -101,7 +105,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   title: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "stretch",
     alignItems: "center",
     paddingBottom: 15,
     color: theme.palette.text.primary,
@@ -125,6 +129,9 @@ const useStyles = makeStyles()((theme) => ({
     opacity: 0.5,
     pointerEvents: "none",
   },
+  stretch: {
+    flex: 1,
+  },
 }));
 
 export const OutletModal = <
@@ -146,6 +153,7 @@ export const OutletModal = <
   outletIdSubject,
   fetchState,
   AfterTitle,
+  BeforeTitle,
   title,
   data: upperData = null,
   throwError = false,
@@ -286,7 +294,8 @@ export const OutletModal = <
       >
         {title && (
           <div className={classes.title}>
-            <Typography variant="h6" component="h2">
+            {BeforeTitle && <BeforeTitle data={data} onClose={handleClose} />}
+            <Typography className={classes.stretch} variant="h6" component="h2">
               {title}
             </Typography>
             {AfterTitle && <AfterTitle data={data} onClose={handleClose} />}

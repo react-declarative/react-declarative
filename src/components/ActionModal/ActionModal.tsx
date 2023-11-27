@@ -68,6 +68,11 @@ export interface IActionModalProps<
     payload: Payload;
     param: Param;
   }>;
+  BeforeTitle?: React.ComponentType<{
+    onClose?: () => void;
+    payload: Payload;
+    param: Param;
+  }>;
   throwError?: boolean;
   open?: boolean;
   submitLabel?: string;
@@ -110,10 +115,13 @@ const useStyles = makeStyles()((theme) => ({
   },
   title: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "stretch",
     alignItems: "center",
     paddingBottom: 15,
     color: theme.palette.text.primary,
+  },
+  stretch: {
+    flex: 1,
   },
   submit: {
     marginTop: 15,
@@ -155,6 +163,7 @@ export const ActionModal = <
   throwError = false,
   submitLabel = "Submit",
   AfterTitle,
+  BeforeTitle,
 }: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
 
@@ -286,7 +295,14 @@ export const ActionModal = <
       >
         {title && (
           <div className={classes.title}>
-            <Typography variant="h6" component="h2">
+            {BeforeTitle && (
+              <BeforeTitle
+                payload={payload}
+                param={param}
+                onClose={handleClose}
+              />
+            )}
+            <Typography className={classes.stretch} variant="h6" component="h2">
               {title}
             </Typography>
             {AfterTitle && (

@@ -6341,11 +6341,16 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
             payload: Payload;
             param: Param;
         }>;
+        BeforeTitle?: React.ComponentType<{
+            onClose?: () => void;
+            payload: Payload;
+            param: Param;
+        }>;
         throwError?: boolean;
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -6394,6 +6399,10 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
             onClose?: () => void;
             payload: Payload;
         }>;
+        BeforeTitle?: React.ComponentType<{
+            onClose?: () => void;
+            payload: Payload;
+        }>;
         data?: IRowData["id"][];
         selectionMode?: SelectionMode;
         onSubmit?: (data: IRowData["id"][] | null, payload: Payload) => Promise<boolean> | boolean;
@@ -6406,7 +6415,7 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         hidden?: boolean;
         submitLabel?: string;
     }
-    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, BeforeTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
 }
 
@@ -8163,6 +8172,10 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
             onClose?: () => void;
             data: Data | null;
         }>;
+        BeforeTitle?: React.ComponentType<{
+            onClose?: () => void;
+            data: Data | null;
+        }>;
         data?: Data | null;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -8177,7 +8190,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
