@@ -8172,10 +8172,12 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
             data: Data | null;
+            id: string;
         }>;
         BeforeTitle?: React.ComponentType<{
             onClose?: () => void;
             data: Data | null;
+            id: string;
         }>;
         data?: Data | null;
         onLoadStart?: () => void;

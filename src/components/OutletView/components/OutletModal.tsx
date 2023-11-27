@@ -60,10 +60,12 @@ export interface IOutletModalProps<
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
     data: Data | null;
+    id: string;
   }>;
   BeforeTitle?: React.ComponentType<{
     onClose?: () => void;
     data: Data | null;
+    id: string;
   }>;
   data?: Data | null;
   onLoadStart?: () => void;
@@ -168,10 +170,7 @@ export const OutletModal = <
   const { classes } = useStyles();
 
   const { height, width } = useWindowSize({
-    compute: ({
-      height,
-      width,
-    }) => ({
+    compute: ({ height, width }) => ({
       height: Math.floor((height - 50) / 2),
       width: Math.floor((width - 50) / 2),
     }),
@@ -294,11 +293,23 @@ export const OutletModal = <
       >
         {title && (
           <div className={classes.title}>
-            {BeforeTitle && <BeforeTitle data={data} onClose={handleClose} />}
+            {BeforeTitle && (
+              <BeforeTitle
+                id={id || "unknown"}
+                data={data}
+                onClose={handleClose}
+              />
+            )}
             <Typography className={classes.stretch} variant="h6" component="h2">
               {title}
             </Typography>
-            {AfterTitle && <AfterTitle data={data} onClose={handleClose} />}
+            {AfterTitle && (
+              <AfterTitle
+                id={id || "unknown"}
+                data={data}
+                onClose={handleClose}
+              />
+            )}
           </div>
         )}
         <Box className={classes.content}>

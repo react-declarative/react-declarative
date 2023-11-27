@@ -64,7 +64,7 @@ export const ModalManagerProvider = ({
     })), []);
 
     const value = useMemo(() => ({
-        modalStack: [],
+        modalStack: modalStack$.current,
         pop: () => setModalStack(modalStack$.current.slice(1)),
         push: (modal: IModal) => {
             modal.onInit && modal.onInit();
