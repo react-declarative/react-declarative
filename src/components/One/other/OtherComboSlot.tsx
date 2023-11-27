@@ -4,8 +4,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from "@mui/material/Autocomplete";
 import MatTextField from "@mui/material/TextField";
 
-import arrays from '../../../utils/arrays';
-
 import { IComboSlot } from '../slots/ComboSlot';
 
 import { useOneProps } from '../context/PropsProvider';
@@ -34,7 +32,7 @@ export const OtherComboSlot = ({
     loading,
     loaded,
   } = useItemList({
-    itemList: arrays(itemList) || [],
+    itemList: itemList || [],
     payload,
     object,
     tr,

@@ -8026,7 +8026,7 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfig'
     export const GET_REF_SYMBOL: unique symbol;
     export class OneConfig {
         static [GET_REF_SYMBOL]: () => IConfig;
-        static setValue: (config: IConfig) => void;
+        static setValue: (config: Partial<IConfig>) => void;
     }
     export { IConfig };
     export default OneConfig;
@@ -8537,7 +8537,7 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfigI
     }
     export class OneConfigInstance {
         getRef: () => IConfig;
-        setValue: (config: IConfig) => void;
+        setValue: (config: Partial<IConfig>) => void;
     }
     export default OneConfigInstance;
 }

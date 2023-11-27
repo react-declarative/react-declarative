@@ -5,14 +5,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import MatTextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 
-import arrays from '../../../utils/arrays';
-import objects from '../../../utils/objects';
-
 import { IItemsSlot } from '../slots/ItemsSlot';
 
 import { useOneProps } from '../context/PropsProvider';
 import { useOneState } from '../context/StateProvider';
-import useItemList from './useItemList';
+import { useItemList } from './useItemList';
 
 export const OtherItemsSlot = ({
     value,
@@ -36,7 +33,7 @@ export const OtherItemsSlot = ({
         loading,
         loaded,
     } = useItemList({
-        itemList: arrays(itemList) || [],
+        itemList: itemList || [],
         payload,
         object,
         tr,
@@ -44,7 +41,7 @@ export const OtherItemsSlot = ({
     return (
         <Autocomplete
             multiple
-            onChange={({ }, v) => onChange(v.length ? objects(v) : null)}
+            onChange={({ }, v) => onChange(v.length ? v : null)}
             getOptionLabel={(v) => labels[v] || ''}
             value={loaded ? value ? Object.values<string>(value) : [] : []}
             options={options}

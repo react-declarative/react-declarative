@@ -9,8 +9,6 @@ import { useOneState } from "../context/StateProvider";
 import { useOnePayload } from "../context/PayloadProvider";
 
 import deepClone from "../../../utils/deepClone";
-import objects from "../../../utils/objects";
-import arrays from "../../../utils/arrays";
 import classNames from "../../../utils/classNames";
 
 import IField from "../../../model/IField";
@@ -69,7 +67,7 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
   ...otherProps
 }: ICustomLayoutProps<Data> & ICustomLayoutPrivate<Data>) => {
   const { classes } = useStyles();
-  const { object, setObject } = useOneState();
+  const { object, setObject } = useOneState<any>();
   const _payload = useOnePayload();
 
   const handleChange = useCallback(
@@ -84,10 +82,10 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
     const onChange = (data: Record<string, any>) =>
-      handleChange({ ...objects(object), ...data });
-    const _fieldData = arrays(object);
+      handleChange({ ...object, ...data });
+    const _fieldData = object;
     return {
-      ..._fieldData,
+      ...object,
       onChange,
       _fieldParams,
       _fieldData,

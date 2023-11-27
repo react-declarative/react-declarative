@@ -25,8 +25,8 @@ const INITIAL_CONFIG: IConfig = {
 export class OneConfigInstance {
     private _config: IConfig = INITIAL_CONFIG;
     getRef = () => this._config;
-    setValue = (config: IConfig) => {
-        Object.assign(this._config, config);
+    setValue = (config: Partial<IConfig>) => {
+        Object.assign(this._config, INITIAL_CONFIG, config);
     };
 };
 

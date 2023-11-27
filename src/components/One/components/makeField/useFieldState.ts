@@ -3,7 +3,6 @@ import { useState, useMemo } from "react";
 import { IConfig } from "../OneConfig/OneConfigInstance";
 
 import get from "../../../../utils/get";
-import arrays from "../../../../utils/arrays";
 import { promiseValue } from "../../../../utils/promiseState";
 
 import IField, { Value } from "../../../../model/IField";
@@ -54,7 +53,7 @@ const readValue = ({ compute, name, object, payload, config }: IParams) => {
    * тормоза рендеринга на больших формах
    */
   if (compute && config.WITH_SYNC_COMPUTE) {
-    const result = compute(arrays(object), payload);
+    const result = compute(object, payload);
     return result instanceof Promise ? promiseValue(result) || false : result;
   }
   /**

@@ -23,8 +23,6 @@ import type { ComponentFieldInstanceProps } from "../../../model/ComponentFieldI
 
 import classNames from "../../../utils/classNames";
 import deepClone from "../../../utils/deepClone";
-import objects from "../../../utils/objects";
-import arrays from "../../../utils/arrays";
 
 type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";
 
@@ -117,8 +115,8 @@ export const ComponentField = ({
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
     const onChange = (data: Record<string, any>) =>
-      handleChange({ ...objects(object$.current), ...data });
-    const _fieldData = arrays(object);
+      handleChange({ ...object$.current, ...data });
+    const _fieldData = object;
     const props = {
       ..._fieldData,
       onChange,
