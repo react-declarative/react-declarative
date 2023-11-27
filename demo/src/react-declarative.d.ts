@@ -5155,6 +5155,7 @@ declare module 'react-declarative/components/ModalManager/model/ModalRender' {
 declare module 'react-declarative/components/ModalManager/hooks/useModalManager' {
     import IModal from "react-declarative/components/ModalManager/model/IModal";
     interface IResult {
+        total: number;
         push: (modal: IModal) => void;
         pop: () => void;
         clear: () => void;
