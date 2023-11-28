@@ -1700,8 +1700,9 @@ declare module 'react-declarative/model/IListProps' {
 declare module 'react-declarative/model/IOption' {
     import IAnything from "react-declarative/model/IAnything";
     export interface IOption<Payload = IAnything> {
-        label: string;
-        action: string;
+        label?: string;
+        action?: string;
+        divider?: boolean;
         icon?: React.ComponentType<any>;
         isVisible?: (payload: Payload) => Promise<boolean> | boolean;
         isDisabled?: (payload: Payload) => Promise<boolean> | boolean;

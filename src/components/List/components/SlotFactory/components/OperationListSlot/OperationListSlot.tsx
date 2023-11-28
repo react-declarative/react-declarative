@@ -171,7 +171,7 @@ export const OperationListSlot = ({
             {async () => {
               return await Promise.all(
                 operations.map(
-                  async ({ action, label, icon, isAvailable = true }, idx) => {
+                  async ({ action = "unknown-action", label = "Unknown", icon, isAvailable = true }, idx) => {
                     const handleAvailable = () =>
                       typeof isAvailable === "function"
                         ? isAvailable(selectedRows, isAll, payload)

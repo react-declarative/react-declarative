@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 
-import { SxProps, alpha, Theme } from "@mui/material";
+import { SxProps, alpha, Theme, Divider } from "@mui/material";
 import { makeStyles } from "../../styles";
 
 import classNames from "../../utils/classNames";
@@ -225,13 +225,14 @@ export const ActionMenu = <T extends any = object>({
                 {
                   label = "unknown-label",
                   action = "unknown-action",
+                  divider,
                   icon: Icon,
                   isDisabled = () => false,
                   isVisible = () => true,
                 },
                 idx
               ) => {
-                const Placeholder = () => (
+                const Placeholder = () => divider ? (
                   <MenuItem
                     sx={{
                       visibility: "hidden",
@@ -245,7 +246,7 @@ export const ActionMenu = <T extends any = object>({
                     )}
                     <Typography variant="inherit">{label}</Typography>
                   </MenuItem>
-                );
+                ) : null;
                 return (
                   <Async<T>
                     Loader={Placeholder}
@@ -263,6 +264,9 @@ export const ActionMenu = <T extends any = object>({
                       const disabled = await isDisabled(payload);
                       const visible = await isVisible(payload);
                       if (visible) {
+                        if (divider) {
+                          return <Divider orientation="horizontal" />
+                        }
                         return (
                           <MenuItem
                             disabled={disabled}

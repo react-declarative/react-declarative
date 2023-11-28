@@ -122,8 +122,8 @@ export const ActionTrigger = <T extends any = object>({
             >
                 {async (payload) => {
                     return await Promise.all(actions.map(async ({
-                        action,
-                        label,
+                        action = "unknown-action",
+                        label = "Unknown",
                         icon,
                         isAvailable = true,
                     }, idx) => {

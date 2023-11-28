@@ -101,7 +101,7 @@ export const Breadcrumbs2 = <T extends any = any>({
               <MatBreadcrumbs className={classes.stretch}>
                 {itemList
                   .filter(({ visible }) => visible)
-                  .map(({ action, label, disabled }, idx) => (
+                  .map(({ action = "unknown-action", label, disabled }, idx) => (
                     <Link
                       key={`${action}-${idx}`}
                       className={classNames(classes.link, {
@@ -147,7 +147,7 @@ export const Breadcrumbs2 = <T extends any = any>({
               <>
                 {itemList
                   .filter(({ visible }) => visible)
-                  .map(({ action, label, disabled, icon: Icon }, idx) => (
+                  .map(({ action = "unknown-action", label, disabled, icon: Icon }, idx) => (
                     <ActionButton
                       key={`${action}-${idx}`}
                       variant="contained"
