@@ -232,7 +232,7 @@ export const ActionMenu = <T extends any = object>({
                 },
                 idx
               ) => {
-                const Placeholder = () => divider ? (
+                const Placeholder = () => !divider ? (
                   <MenuItem
                     sx={{
                       visibility: "hidden",
