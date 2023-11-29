@@ -1,3 +1,5 @@
+import reloadPage from "./reloadPage";
+
 export const createSsManager = <T = Record<string, any>>(STORAGE_KEY: string) => new class {
 
     getValue = (): T | null => {
@@ -9,7 +11,15 @@ export const createSsManager = <T = Record<string, any>>(STORAGE_KEY: string) =>
     };
 
     setValue = (value: T) => {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(value, null, 2));
+        try {
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(value, null, 2));
+        } catch (error) {
+            if (error instanceof DOMException) {
+                console.log('react-declarative createSsManager exceeded the quota');
+                sessionStorage.clear();
+                reloadPage();
+            }
+        }
     };
 
     clear = () => {
