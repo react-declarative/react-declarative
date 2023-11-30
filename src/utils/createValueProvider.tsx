@@ -1,9 +1,9 @@
 import React from 'react';
 import { createContext, useContext } from "react";
 
-export const createValueProvider = <P extends any = object>() => {
+export const createValueProvider = <P extends any = object>(defaultValue?: P) => {
 
-  const Context = createContext<P>(null as never);
+  const Context = createContext<P>(defaultValue || null as never);
 
   const Provider = ({
     children,

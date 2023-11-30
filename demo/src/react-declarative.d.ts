@@ -2715,7 +2715,7 @@ declare module 'react-declarative/utils/fetchApi' {
 
 declare module 'react-declarative/utils/createValueProvider' {
     import React from 'react';
-    export const createValueProvider: <P extends unknown = object>() => readonly [({ children, payload, }: {
+    export const createValueProvider: <P extends unknown = object>(defaultValue?: P | undefined) => readonly [({ children, payload, }: {
         children: React.ReactNode;
         payload: P;
     }) => JSX.Element, () => P];
