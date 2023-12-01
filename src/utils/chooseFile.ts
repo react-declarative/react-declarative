@@ -1,3 +1,5 @@
+const CLEANUP_DELAY = 10_000;
+
 export const chooseFile = (accept?: string) => new Promise<File | null>((res) => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file')
@@ -17,14 +19,12 @@ export const chooseFile = (accept?: string) => new Promise<File | null>((res) =>
         res(files[0])
         input.value = '';
     }
-    window.addEventListener('focus', () => {
-        setTimeout(() => {
-            if (isCanceled) {
-                document.body.removeChild(input);
-                res(null);
-            }
-        }, 300)
-    }, { once: true })
+    setTimeout(() => {
+        if (isCanceled) {
+            document.body.removeChild(input);
+            res(null);
+        }
+    }, CLEANUP_DELAY);
     input.click();
 });
 
