@@ -53,6 +53,7 @@ declare module 'react-declarative' {
     export { useLocalHistory } from 'react-declarative/hooks/useLocalHistory';
     export { RouteManager } from 'react-declarative/helpers/routeManager';
     export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
+    export { parseRouteUrl } from 'react-declarative/utils/parseRouteUrl';
     export { prefetch } from 'react-declarative/helpers/serviceManager';
     export { unload } from 'react-declarative/helpers/serviceManager';
     export { provide } from 'react-declarative/helpers/serviceManager';
@@ -1811,6 +1812,11 @@ declare module 'react-declarative/hooks/useLocalHistory' {
 declare module 'react-declarative/utils/toRouteUrl' {
     export const toRouteUrl: (template: string, params: object) => string;
     export default toRouteUrl;
+}
+
+declare module 'react-declarative/utils/parseRouteUrl' {
+    export const parseRouteUrl: (template: string, url: string) => import("path-to-regexp").MatchResult<object> | null;
+    export default parseRouteUrl;
 }
 
 declare module 'react-declarative/model/IMenuGroup' {
@@ -8173,7 +8179,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         withActionButton?: boolean;
         outletIdSubject: TBehaviorSubject<Id | null>;
         title?: string;
-        fetchState: IFetchViewProps<Id>["state"];
+        fetchState?: IFetchViewProps<Id>["state"];
         reloadSubject?: TSubject<void>;
         onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{

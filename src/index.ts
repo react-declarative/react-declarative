@@ -50,6 +50,7 @@ export { useLocalHistory } from './hooks/useLocalHistory';
 
 export { RouteManager } from './helpers/routeManager';
 export { toRouteUrl } from './utils/toRouteUrl';
+export { parseRouteUrl } from './utils/parseRouteUrl';
 
 export { prefetch } from './helpers/serviceManager';
 export { unload } from './helpers/serviceManager';
