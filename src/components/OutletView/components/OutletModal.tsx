@@ -324,18 +324,18 @@ export const OutletModal = <
               Loader={Loader}
             >
               {async (...args) => (
-                <OutletView
-                  {...outletProps}
-                  fallback={fallback}
-                  onLoadStart={onLoadStart}
-                  onLoadEnd={onLoadEnd}
-                  initialData={await mapInitialData(id, args)}
-                  payload={await mapPayload(id, args)}
-                  params={await mapParams(id, args)}
-                  readonly={readonly}
-                  onChange={handleChange}
-                />
-              )}
+                  <OutletView
+                    {...outletProps}
+                    fallback={fallback}
+                    onLoadStart={onLoadStart}
+                    onLoadEnd={onLoadEnd}
+                    initialData={await mapInitialData(id, args.flat(1))}
+                    payload={await mapPayload(id, args.flat(1))}
+                    params={await mapParams(id, args.flat(1))}
+                    readonly={readonly}
+                    onChange={handleChange}
+                  />
+                )}
             </FetchView>
           )}
         </Box>
