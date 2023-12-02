@@ -425,6 +425,7 @@ declare module 'react-declarative' {
     export { queued } from 'react-declarative/utils/hof/queued';
     export { cached } from 'react-declarative/utils/hof/cached';
     export { memoize } from 'react-declarative/utils/hof/memoize';
+    export { trycatch } from 'react-declarative/utils/hof/trycatch';
     export { ttl } from 'react-declarative/utils/hof/ttl';
     export { sleep } from 'react-declarative/utils/sleep';
     export { deepFlat } from 'react-declarative/utils/deepFlat';
@@ -2869,6 +2870,12 @@ declare module 'react-declarative/utils/hof/memoize' {
     }
     export const memoize: <T extends (...args: A) => V | Promise<V>, A extends any[], V extends unknown, K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
     export default memoize;
+}
+
+declare module 'react-declarative/utils/hof/trycatch' {
+    type Result<A extends any[], V = any> = (...args: A) => V | null;
+    export const trycatch: <T extends (...args: A) => V, A extends any[], V extends unknown>(run: T) => Result<A, V>;
+    export default trycatch;
 }
 
 declare module 'react-declarative/utils/hof/ttl' {
