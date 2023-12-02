@@ -8,7 +8,7 @@ const awaiter = async <V extends any>(value: Promise<V>) => {
     }
 };
 
-export const trycatch = <T extends (...args: A) => V, A extends any[], V extends any>(run: T): Result<A, V> => (...args) => {
+export const trycatch = <V extends any, T extends (...args: A) => V, A extends any[]>(run: T): Result<A, V> => (...args) => {
     try {
         const result = run(...args);
         if (result instanceof Promise) {
