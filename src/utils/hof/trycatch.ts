@@ -1,20 +1,22 @@
-const awaiter = async <V extends any>(value: Promise<V>) => {
+const awaiter = async <V extends any>(value: Promise<V>, fallback?: (error: Error) => void) => {
     try {
         return await value;
-    } catch {
-        return Promise.resolve(null);
+    } catch (error) {
+        fallback && fallback(error as Error);
+        return null;
     }
 };
 
-export const trycatch = <T extends (...args: A) => any, A extends any[], V extends any>(run: T): (...args: A) => ReturnType<T> => {
+export const trycatch = <T extends (...args: A) => any, A extends any[], V extends any>(run: T, fallback?: (error: Error) => void): (...args: A) => ReturnType<T> | null => {
     return (...args) => {
         try {
             const result = run(...args);
             if (result instanceof Promise) {
-                return awaiter<V>(result);
+                return awaiter<V>(result, fallback);
             }
             return result;
-        } catch {
+        } catch (error) {
+            fallback && fallback(error as Error);
             return null;
         }
     };

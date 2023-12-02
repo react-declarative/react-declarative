@@ -2873,7 +2873,7 @@ declare module 'react-declarative/utils/hof/memoize' {
 }
 
 declare module 'react-declarative/utils/hof/trycatch' {
-    export const trycatch: <T extends (...args: A) => any, A extends any[], V extends unknown>(run: T) => (...args: A) => ReturnType<T>;
+    export const trycatch: <T extends (...args: A) => any, A extends any[], V extends unknown>(run: T, fallback?: ((error: Error) => void) | undefined) => (...args: A) => ReturnType<T> | null;
     export default trycatch;
 }
 
