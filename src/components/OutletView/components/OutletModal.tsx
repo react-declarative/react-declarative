@@ -50,7 +50,7 @@ export interface IOutletModalProps<
   withActionButton?: boolean;
   outletIdSubject: TBehaviorSubject<Id | null>;
   title?: string;
-  fetchState: IFetchViewProps<Id>["state"];
+  fetchState?: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
   onSubmit?: (
     id: Id,
@@ -153,7 +153,7 @@ export const OutletModal = <
   fallback,
   reloadSubject,
   outletIdSubject,
-  fetchState,
+  fetchState = () => ({}),
   AfterTitle,
   BeforeTitle,
   title,
