@@ -22,7 +22,6 @@ import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 import Id from "../model/Id";
 
-import flatArray from "../../../utils/flatArray";
 import classNames from "../../../utils/classNames";
 
 const Loader = () => (
@@ -330,9 +329,9 @@ export const OutletModal = <
                   fallback={fallback}
                   onLoadStart={onLoadStart}
                   onLoadEnd={onLoadEnd}
-                  initialData={await mapInitialData(id, flatArray(args))}
-                  payload={await mapPayload(id, flatArray(args))}
-                  params={await mapParams(id, flatArray(args))}
+                  initialData={await mapInitialData(id, args)}
+                  payload={await mapPayload(id, args)}
+                  params={await mapParams(id, args)}
                   readonly={readonly}
                   onChange={handleChange}
                 />
