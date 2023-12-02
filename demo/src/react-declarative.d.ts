@@ -2868,13 +2868,12 @@ declare module 'react-declarative/utils/hof/memoize' {
     interface IClearable<K = string> {
         clear: (key?: K) => void;
     }
-    export const memoize: <V extends unknown, T extends (...args: A) => V | Promise<V>, A extends any[], K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
+    export const memoize: <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
     export default memoize;
 }
 
 declare module 'react-declarative/utils/hof/trycatch' {
-    type Result<A extends any[], V = any> = (...args: A) => V | null;
-    export const trycatch: <V extends unknown, T extends (...args: A) => V, A extends any[]>(run: T) => Result<A, V>;
+    export const trycatch: <T extends (...args: A) => any, A extends any[], V extends unknown>(run: T) => (...args: A) => ReturnType<T>;
     export default trycatch;
 }
 

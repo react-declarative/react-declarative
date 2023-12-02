@@ -1,5 +1,3 @@
-type Result<A extends any[], V = any> = (...args: A) => V | null;
-
 const awaiter = async <V extends any>(value: Promise<V>) => {
     try {
         return await value;
@@ -8,16 +6,18 @@ const awaiter = async <V extends any>(value: Promise<V>) => {
     }
 };
 
-export const trycatch = <V extends any, T extends (...args: A) => V, A extends any[]>(run: T): Result<A, V> => (...args) => {
-    try {
-        const result = run(...args);
-        if (result instanceof Promise) {
-            return awaiter<V>(result) as unknown as V;
+export const trycatch = <T extends (...args: A) => any, A extends any[], V extends any>(run: T): (...args: A) => ReturnType<T> => {
+    return (...args) => {
+        try {
+            const result = run(...args);
+            if (result instanceof Promise) {
+                return awaiter<V>(result);
+            }
+            return result;
+        } catch {
+            return null;
         }
-        return result;
-    } catch {
-        return null;
-    }
+    };
 }
 
 export default trycatch;
