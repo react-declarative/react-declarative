@@ -19,6 +19,7 @@ import IAnything from "../../model/IAnything";
 import sleep from "../../utils/sleep";
 import classNames from "../../utils/classNames";
 import queued from "../../utils/hof/queued";
+import IOtherProps from "./model/IOtherProps";
 
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
 
@@ -40,7 +41,8 @@ interface IState {
 export const OutletView = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,
-  Params = IAnything
+  Params = IAnything,
+  OtherProps = IOtherProps,
 >({
   className,
   readonly,
@@ -57,8 +59,9 @@ export const OutletView = <
   onLoadStart,
   onLoadEnd,
   changeSubject: upperChangeSubject,
-  ...otherProps
-}: IOutletViewProps<Data, Payload, Params>) => {
+  otherProps,
+  ...revealProps
+}: IOutletViewProps<Data, Payload, Params, OtherProps>) => {
   const { classes } = useStyles();
 
   const changeSubject = useSubject(upperChangeSubject);
@@ -407,7 +410,7 @@ export const OutletView = <
   return (
     <Reveal
       className={classNames(className, classes.root)}
-      {...otherProps}
+      {...revealProps}
       animation={animation}
       appear={appear}
     >

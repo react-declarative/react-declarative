@@ -271,10 +271,12 @@ import { MasterDetailMode as MasterDetailModeInternal } from './components';
 export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
 export const MasterDetailMode = MasterDetailModeInternal;
 
-import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from './components';
+import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal, IOutletModalProps as IOutletModalPropsInternal, IOutletModal as IOutletModalInternal } from './components';
 
 export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
+export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
 export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
+export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
 
 export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 

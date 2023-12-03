@@ -4,10 +4,11 @@ import { BoxProps } from "@mui/material";
 
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
-import IOutlet from "./IOutlet";
 import History from "../../../model/History";
+import IOutlet from "./IOutlet";
+import IOtherProps from "./IOtherProps";
 
-export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
+export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything, OtherProps = IOtherProps> extends Omit<BoxProps, keyof {
     onChange: never;
     onSubmit: never;
 }> {
@@ -17,7 +18,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     animation?: IRevealProps['animation'];
     payload?: Payload | (() => Payload);
     params?: Params;
-    routes: IOutlet<Data[keyof Data], Payload, Params>[];
+    routes: IOutlet<Data, Payload, Params, OtherProps>[];
     initialData?: Data | (() => Data);
     onChange?: (data: Data, initial: boolean, payload: Payload, source: string) => void,
     onSubmit?: (data: Data, payload: Payload, config: { afterSave: () => Promise<void>; }) => (boolean | Promise<boolean>);
@@ -25,6 +26,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (error: Error) => void;
     changeSubject?: TSubject<[keyof Data, Data]>;
+    otherProps?: OtherProps;
 }
 
 export default IOutletViewProps;

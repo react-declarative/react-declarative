@@ -16,6 +16,8 @@ import FetchView, { IFetchViewProps } from "../../FetchView";
 import LoaderView from "../../LoaderView";
 import OutletView from "../OutletView";
 
+import IOutletModal, { ModalOtherProps } from "../model/IOutletModal";
+
 import IOutletViewProps from "../model/IOutletViewProps";
 import TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IAnything from "../../../model/IAnything";
@@ -36,12 +38,14 @@ export interface IOutletModalProps<
   Payload = IAnything,
   Params = IAnything
 > extends Omit<
-    IOutletViewProps<Data, Payload, Params>,
+    IOutletViewProps<Data, Payload, Params, ModalOtherProps>,
     keyof {
+      otherProps: never;
       onSubmit: never;
       initialData: never;
       payload: never;
       params: never;
+      routes: never;
       data: never;
       id: never;
     }
@@ -66,6 +70,7 @@ export interface IOutletModalProps<
     data: Data | null;
     id: string;
   }>;
+  routes: IOutletModal<Data, Payload, Params>[];
   data?: Data | null;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -162,7 +167,7 @@ export const OutletModal = <
   readonly,
   onMount,
   onUnmount,
-  onClose,
+  onClose = () => null,
   ...outletProps
 }: IOutletModalProps<Data, Payload, Params>) => {
   const [id, setId] = useState<string | null>(outletIdSubject.data);
@@ -334,6 +339,7 @@ export const OutletModal = <
                     params={await mapParams(id, args.flat(1))}
                     readonly={readonly}
                     onChange={handleChange}
+                    otherProps={{ onClose }}
                   />
                 )}
             </FetchView>

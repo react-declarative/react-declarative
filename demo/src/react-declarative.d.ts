@@ -215,9 +215,11 @@ declare module 'react-declarative' {
     import { MasterDetailMode as MasterDetailModeInternal } from 'react-declarative/components';
     export type IMasterDetailOption<Payload = any> = IMasterDetailOptionInternal<Payload>;
     export const MasterDetailMode: typeof MasterDetailModeInternal;
-    import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal } from 'react-declarative/components';
+    import { IOutlet as IOutletInternal, IOutletProps as IOutletPropsInternal, IOutletModalProps as IOutletModalPropsInternal, IOutletModal as IOutletModalInternal } from 'react-declarative/components';
     export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<Data, Payload, Params>;
+    export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
     export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
+    export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -4903,7 +4905,9 @@ declare module 'react-declarative/components/ScrollTopView' {
 declare module 'react-declarative/components/OutletView' {
     export * from 'react-declarative/components/OutletView/OutletView';
     export * from 'react-declarative/components/OutletView/model/IOutlet';
+    export * from 'react-declarative/components/OutletView/model/IOutletModal';
     export * from 'react-declarative/components/OutletView/model/IOutletProps';
+    export * from 'react-declarative/components/OutletView/model/IOutletModalProps';
     export * from 'react-declarative/components/OutletView/hooks/useOutletModal';
     export { default } from 'react-declarative/components/OutletView/OutletView';
 }
@@ -6502,7 +6506,8 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, ...otherProps }: IOutletViewProps<Data, Payload, Params>) => JSX.Element;
+    import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element;
     export default OutletView;
 }
 
@@ -6510,13 +6515,24 @@ declare module 'react-declarative/components/OutletView/model/IOutlet' {
     import * as React from 'react';
     import IAnything from 'react-declarative/model/IAnything';
     import IOutletProps from 'react-declarative/components/OutletView/model/IOutletProps';
-    export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything> {
+    import IOtherProps from 'react-declarative/components/OutletView/model/IOtherProps';
+    export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything, OtherProps = IOtherProps> {
         id: string;
-        element: (props: IOutletProps<Data, Payload, Params>) => React.ReactElement;
+        element: (props: IOutletProps<Data, Payload, Params> & OtherProps) => React.ReactElement;
         isAvailable?: (pathname: string) => boolean;
         isActive: (pathname: string) => boolean;
     }
     export default IOutlet;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOutletModal' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
+    export type ModalOtherProps = {
+        onClose: () => void;
+    };
+    export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps>;
+    export default IOutletModal;
 }
 
 declare module 'react-declarative/components/OutletView/model/IOutletProps' {
@@ -6548,6 +6564,14 @@ declare module 'react-declarative/components/OutletView/model/IOutletProps' {
         payload: Payload;
     }
     export default IOutletProps;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOutletModalProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { ModalOtherProps } from "react-declarative/components/OutletView/model/IOutletModal";
+    import IOutletProps from "react-declarative/components/OutletView/model/IOutletProps";
+    export type IOutletModalProps<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutletProps<Data, Payload, Params> & ModalOtherProps;
+    export default IOutletModalProps;
 }
 
 declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
@@ -8134,9 +8158,10 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
     import { BoxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
-    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
     import History from "react-declarative/model/History";
-    export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<BoxProps, keyof {
+    import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
+    import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
+    export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything, OtherProps = IOtherProps> extends Omit<BoxProps, keyof {
         onChange: never;
         onSubmit: never;
     }> {
@@ -8146,7 +8171,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         animation?: IRevealProps['animation'];
         payload?: Payload | (() => Payload);
         params?: Params;
-        routes: IOutlet<Data[keyof Data], Payload, Params>[];
+        routes: IOutlet<Data, Payload, Params, OtherProps>[];
         initialData?: Data | (() => Data);
         onChange?: (data: Data, initial: boolean, payload: Payload, source: string) => void;
         onSubmit?: (data: Data, payload: Payload, config: {
@@ -8156,23 +8181,33 @@ declare module 'react-declarative/components/OutletView/model/IOutletViewProps' 
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         changeSubject?: TSubject<[keyof Data, Data]>;
+        otherProps?: OtherProps;
     }
     export default IOutletViewProps;
+}
+
+declare module 'react-declarative/components/OutletView/model/IOtherProps' {
+    export interface IOtherProps {
+    }
+    export default IOtherProps;
 }
 
 declare module 'react-declarative/components/OutletView/components/OutletModal' {
     import * as React from "react";
     import { IFetchViewProps } from "react-declarative/components/FetchView";
+    import IOutletModal, { ModalOtherProps } from "react-declarative/components/OutletView/model/IOutletModal";
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
     import Id from "react-declarative/components/OutletView/model/Id";
-    export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params>, keyof {
+    export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params, ModalOtherProps>, keyof {
+        otherProps: never;
         onSubmit: never;
         initialData: never;
         payload: never;
         params: never;
+        routes: never;
         data: never;
         id: never;
     }> {
@@ -8192,6 +8227,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
             data: Data | null;
             id: string;
         }>;
+        routes: IOutletModal<Data, Payload, Params>[];
         data?: Data | null;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
