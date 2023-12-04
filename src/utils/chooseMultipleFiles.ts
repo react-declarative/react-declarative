@@ -1,4 +1,4 @@
-const CLEANUP_DELAY = 10_000;
+const CLEANUP_DELAY = 300_000;
 
 export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | null>((res) => {
     const input = document.createElement('input');
@@ -11,7 +11,9 @@ export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | nul
     document.body.appendChild(input);
     let isCanceled = true;
     input.onchange = () => {
-        document.body.removeChild(input);
+        if (document.body.contains(input)) {
+            document.body.removeChild(input);
+        }
         isCanceled = false;
         const files = input.files;
         if (!files?.length) {
@@ -22,10 +24,22 @@ export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | nul
     }
     setTimeout(() => {
         if (isCanceled) {
-            document.body.removeChild(input);
+            if (document.body.contains(input)) {
+                document.body.removeChild(input);
+            }
             res(null);
         }
     }, CLEANUP_DELAY);
+    window.addEventListener('focus', () => {
+        setTimeout(() => {
+            if (isCanceled) {
+                if (document.body.contains(input)) {
+                    document.body.removeChild(input);
+                }
+                res(null);
+            }
+        }, 300)
+    }, { once: true })
     input.click();
 });
 
