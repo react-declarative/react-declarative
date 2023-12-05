@@ -21,7 +21,9 @@ export const Bootstrap = ({
     useEffect(() => {
         onMount && onMount(count, modalStack);
         setMounted(true)
-        return () => onUnmount && onUnmount(count, modalStack);
+        return () => {
+            onUnmount && onUnmount(count, modalStack);
+        };
     }, []);
 
     if (!mounted) {

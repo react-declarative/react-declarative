@@ -1,30 +1,37 @@
-interface IClearable {
-    clear: () => void;
-}
+import memoize, { IClearable } from './memoize';
 
-const DEFAULT_TIMEOUT = 60 * 1000;
+const DEFAULT_TIMEOUT = 250;
+const NEVER_VALUE = Symbol('never');
 
-export const ttl = <T extends (...args: any[]) => any>(run: T, timeout = DEFAULT_TIMEOUT): T & IClearable => {
+export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(run: T, {
+    key = (args) => args[0] || NEVER_VALUE as never,
+    timeout = DEFAULT_TIMEOUT,
+}: {
+    key?: (args: A) => K;
+    timeout?: number;
+} = {}): T & IClearable<K> => {
 
-    let lastTtl = 0;
-    let lastValue: ReturnType<T>;
+    const wrappedFn = memoize(key, (...args) => ({
+        value: run(...args),
+        ttl: Date.now(),
+    }));
 
-    const clear = () => {
-        lastTtl = 0;
-    };
-
-    const executeFn = (...args: any[]) => {
+    const executeFn = (...args: A): ReturnType<T> => {
         const currentTtl = Date.now();
-        if (currentTtl - lastTtl < timeout) {
-            return lastValue;
+        const { value, ttl } = wrappedFn(...args);
+        if (currentTtl - ttl > timeout) {
+            const k = key(args);
+            wrappedFn.clear(k);
+            return executeFn(...args);
         }
-        lastTtl = currentTtl;
-        return lastValue = run(...args);
+        return value;
     };
 
-    executeFn.clear = clear;
+    executeFn.clear = (key: K) => {
+        wrappedFn.clear(key);
+    };
 
-    return executeFn as T & IClearable;
+    return executeFn as T & IClearable<K>;
 };
 
 export default ttl;

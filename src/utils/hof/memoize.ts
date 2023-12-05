@@ -1,4 +1,4 @@
-interface IClearable<K = string> {
+export interface IClearable<K = string> {
     clear: (key?: K) => void;
 }
 

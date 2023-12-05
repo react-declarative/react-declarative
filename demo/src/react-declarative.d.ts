@@ -71,6 +71,7 @@ declare module 'react-declarative' {
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
     import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
+    import { useQueuedAction } from 'react-declarative/hooks/useQueuedAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
     import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
     import { useChangeSubject } from 'react-declarative/hooks/useChangeSubject';
@@ -302,6 +303,7 @@ declare module 'react-declarative' {
     export { useChangeSubject };
     export { useReloadTrigger };
     export { useAsyncAction };
+    export { useQueuedAction };
     export { useMediaContext };
     export { useAudioPlayer };
     export { useBehaviorSubject };
@@ -2020,6 +2022,22 @@ declare module 'react-declarative/hooks/useAsyncAction' {
     export default useAsyncAction;
 }
 
+declare module 'react-declarative/hooks/useQueuedAction' {
+    interface IParams {
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+    }
+    interface IResult<Data extends any = any, Payload extends any = object> {
+        loading: boolean;
+        error: boolean;
+        execute: (p?: Payload) => (Promise<Data | null>);
+    }
+    export const useQueuedAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
+    export default useQueuedAction;
+}
+
 declare module 'react-declarative/hooks/useMediaContext' {
     export const useMediaContext: () => {
         isPhone: boolean;
@@ -2873,7 +2891,7 @@ declare module 'react-declarative/utils/hof/cached' {
 }
 
 declare module 'react-declarative/utils/hof/memoize' {
-    interface IClearable<K = string> {
+    export interface IClearable<K = string> {
         clear: (key?: K) => void;
     }
     export const memoize: <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
@@ -2886,10 +2904,11 @@ declare module 'react-declarative/utils/hof/trycatch' {
 }
 
 declare module 'react-declarative/utils/hof/ttl' {
-    interface IClearable {
-        clear: () => void;
-    }
-    export const ttl: <T extends (...args: any[]) => any>(run: T, timeout?: number) => T & IClearable;
+    import { IClearable } from 'react-declarative/utils/hof/memoize';
+    export const ttl: <T extends (...args: A) => any, A extends any[], K = string>(run: T, { key, timeout, }?: {
+        key?: ((args: A) => K) | undefined;
+        timeout?: number | undefined;
+    }) => T & IClearable<K>;
     export default ttl;
 }
 
@@ -5146,9 +5165,13 @@ declare module 'react-declarative/components/SizeProvider/SizeProvider' {
 declare module 'react-declarative/components/ModalManager/ModalManagerProvider' {
     import * as React from 'react';
     interface IModalManagerProviderProps {
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+        fallback?: (error: Error) => void;
         children: React.ReactNode;
     }
-    export const ModalManagerProvider: ({ children, }: IModalManagerProviderProps) => JSX.Element;
+    export const ModalManagerProvider: ({ children, fallback, throwError, onLoadEnd, onLoadStart, }: IModalManagerProviderProps) => JSX.Element;
     export default ModalManagerProvider;
 }
 
@@ -5157,9 +5180,9 @@ declare module 'react-declarative/components/ModalManager/model/IModal' {
     export interface IModal {
         id: string;
         render: ModalRender;
-        onInit?: () => void;
-        onMount?: (count: number, stack: IModal[]) => void;
-        onUnmount?: (count: number, stack: IModal[]) => void;
+        onInit?: () => (Promise<void> | void);
+        onMount?: (count: number, stack: IModal[]) => (Promise<void> | void);
+        onUnmount?: (count: number, stack: IModal[]) => (Promise<void> | void);
     }
     export default IModal;
 }

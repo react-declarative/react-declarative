@@ -78,6 +78,7 @@ import { useRenderWaiter } from './hooks/useRenderWaiter';
 import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from './hooks/useOneArray';
 
 import { useAsyncAction } from './hooks/useAsyncAction';
+import { useQueuedAction } from './hooks/useQueuedAction';
 import { useMediaContext } from './hooks/useMediaContext';
 import { useAudioPlayer } from './hooks/useAudioPlayer';
 import { useChangeSubject } from './hooks/useChangeSubject';
@@ -383,6 +384,7 @@ export { useChangeSubject };
 export { useReloadTrigger };
 
 export { useAsyncAction };
+export { useQueuedAction };
 export { useMediaContext };
 export { useAudioPlayer };
 

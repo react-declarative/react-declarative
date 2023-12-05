@@ -13,10 +13,15 @@ import Bootstrap from './components/Bootstrap';
 import randomString from '../../utils/randomString';
 
 import useActualValue from '../../hooks/useActualValue';
+import useQueuedAction from '../../hooks/useQueuedAction';
 
 import IModal from './model/IModal';
 
 interface IModalManagerProviderProps {
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    throwError?: boolean;
+    fallback?: (error: Error) => void;
     children: React.ReactNode;
 }
 
@@ -49,6 +54,10 @@ const useStyles = makeStyles()({
 
 export const ModalManagerProvider = ({
     children,
+    fallback,
+    throwError,
+    onLoadEnd,
+    onLoadStart,
 }: IModalManagerProviderProps) => {
 
     const { classes } = useStyles();
@@ -63,19 +72,39 @@ export const ModalManagerProvider = ({
         count: modalStack.length === 0 ? 0 : count + 1,
     })), []);
 
+    const { execute } = useQueuedAction(async (fn: IModal['onInit']) => {
+        fn && await fn();
+    }, {
+        onLoadStart,
+        onLoadEnd,
+        fallback,
+        throwError,
+    })
+
     const value = useMemo(() => ({
         modalStack: modalStack$.current,
         pop: () => setModalStack(modalStack$.current.slice(1)),
-        push: (modal: IModal) => {
-            modal.onInit && modal.onInit();
+        push: async (modal: IModal) => {
+            await execute(modal.onInit);
             setModalStack([{ ...modal, key: randomString() }, ...modalStack$.current])
         },
         clear: () => setState(INITIAL_STATE),
     }), [modalStack]);
 
-    const modal = useMemo(() => {
+    const modal = useMemo((): IModalEntity => {
         const [modal = DEFAULT_MODAL] = modalStack; 
-        return modal;
+        const {
+            onInit = () => {},
+            onMount = () => {},
+            onUnmount = () => {},
+            ...other
+        } = modal;
+        return {
+            onInit: () => void execute(onInit),
+            onMount: (...args) => void execute(() => onMount(...args)),
+            onUnmount: (...args) => void execute(() => onUnmount(...args)),
+            ...other
+        };
     }, [modalStack]);
 
     const backdrop = useMemo(() => createTheme({
