@@ -533,6 +533,7 @@ export { singlerun, Task } from './utils/hof/singlerun';
 export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from './utils/hof/cancelable';
 export { debounce } from './utils/hof/debounce';
 export { queued } from './utils/hof/queued';
+export { lock } from './utils/hof/lock';
 export { cached } from './utils/hof/cached';
 export { memoize } from './utils/hof/memoize';
 export { trycatch } from './utils/hof/trycatch';
