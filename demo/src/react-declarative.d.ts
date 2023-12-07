@@ -2886,8 +2886,8 @@ declare module 'react-declarative/utils/hof/queued' {
 declare module 'react-declarative/utils/hof/lock' {
     import { IWrappedFn as IWrappedFnInternal } from "react-declarative/utils/hof/queued";
     interface IWrappedFn<T extends any = any, P extends any[] = any> extends IWrappedFnInternal<T, P> {
-        begin(): void;
-        end(): Promise<void>;
+        beginLock(): void;
+        endLock(): Promise<void>;
     }
     export const lock: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default lock;
