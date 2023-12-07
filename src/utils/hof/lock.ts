@@ -1,10 +1,13 @@
+import first from "../math/first";
 import BehaviorSubject from "../rx/BehaviorSubject";
 import queued, { IWrappedFn as IWrappedFnInternal } from "./queued";
 
 interface IWrappedFn<T extends any = any, P extends any[] = any> extends IWrappedFnInternal<T, P> {
     begin(): void;
-    end(): void;
+    end(): Promise<void>;
 }
+
+const NEVER_VALUE = Symbol('never');
 
 export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
@@ -24,6 +27,9 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
 
     const executeFn = queued(async (...args: P) => {
         await waitForUnlock();
+        if (first(args) === NEVER_VALUE) {
+            return null as never;
+        }
         return await promise(...args);
     });
 
@@ -43,9 +49,10 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
         lockSubject.next(lockCount);
     };
 
-    wrappedFn.end = () => {
+    wrappedFn.end = async () => {
         lockCount = Math.max(lockCount - 1, 0);
         lockSubject.next(lockCount);
+        await (executeFn as Function)(NEVER_VALUE);
     };
 
     return wrappedFn;

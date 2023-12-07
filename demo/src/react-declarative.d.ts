@@ -428,6 +428,7 @@ declare module 'react-declarative' {
     export { cancelable, CANCELED_SYMBOL as CANCELED_PROMISE_SYMBOL } from 'react-declarative/utils/hof/cancelable';
     export { debounce } from 'react-declarative/utils/hof/debounce';
     export { queued } from 'react-declarative/utils/hof/queued';
+    export { lock } from 'react-declarative/utils/hof/lock';
     export { cached } from 'react-declarative/utils/hof/cached';
     export { memoize } from 'react-declarative/utils/hof/memoize';
     export { trycatch } from 'react-declarative/utils/hof/trycatch';
@@ -2880,6 +2881,16 @@ declare module 'react-declarative/utils/hof/queued' {
     }
     export const queued: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default queued;
+}
+
+declare module 'react-declarative/utils/hof/lock' {
+    import { IWrappedFn as IWrappedFnInternal } from "react-declarative/utils/hof/queued";
+    interface IWrappedFn<T extends any = any, P extends any[] = any> extends IWrappedFnInternal<T, P> {
+        begin(): void;
+        end(): Promise<void>;
+    }
+    export const lock: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
+    export default lock;
 }
 
 declare module 'react-declarative/utils/hof/cached' {
