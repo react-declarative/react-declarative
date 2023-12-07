@@ -4,7 +4,7 @@ const DEFAULT_TIMEOUT = 250;
 const NEVER_VALUE = Symbol('never');
 
 export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(run: T, {
-    key = (args) => args[0] || NEVER_VALUE as never,
+    key = () => NEVER_VALUE as never,
     timeout = DEFAULT_TIMEOUT,
 }: {
     key?: (args: A) => K;
