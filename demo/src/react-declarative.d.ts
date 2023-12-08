@@ -2095,7 +2095,7 @@ declare module 'react-declarative/hooks/useSubscription' {
 
 declare module 'react-declarative/hooks/useSubjectValue' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
-    export const useSubjectValue: <Data = any>(target: TSubject<Data>) => Data | null;
+    export const useSubjectValue: <Data = any>(target: TSubject<Data>, value: Data | (() => Data)) => Data;
     export default useSubjectValue;
 }
 
