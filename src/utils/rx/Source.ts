@@ -115,7 +115,7 @@ export class Source {
                     subscriptions.push(() => unsubscribe());
                 }
             });
-            disposeRef = compose(subscriptions);
+            disposeRef = compose(...subscriptions);
         });
 
         return observer;

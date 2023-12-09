@@ -2026,18 +2026,25 @@ declare module 'react-declarative/hooks/useAsyncAction' {
 }
 
 declare module 'react-declarative/hooks/useQueuedAction' {
+    import { CANCELED_SYMBOL } from 'react-declarative/utils/hof/queued';
     interface IParams {
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    interface IResult<Data extends any = any, Payload extends any = object> {
+    export interface IResult<Data extends any = any, Payload extends any = object> {
         loading: boolean;
         error: boolean;
-        execute: (p?: Payload) => (Promise<Data | null>);
+        execute: IExecute<Data, Payload>;
+    }
+    export interface IExecute<Data extends any = any, Payload extends any = object> {
+        (payload?: Payload): Promise<Data | null>;
+        clear(): void;
+        cancel(): void;
     }
     export const useQueuedAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
+    export { CANCELED_SYMBOL };
     export default useQueuedAction;
 }
 
@@ -2877,11 +2884,14 @@ declare module 'react-declarative/utils/hof/debounce' {
 }
 
 declare module 'react-declarative/utils/hof/queued' {
+    import { CANCELED_SYMBOL } from "react-declarative/utils/hof/cancelable";
     export interface IWrappedFn<T extends any = any, P extends any[] = any> {
-        (...args: P): Promise<T>;
+        (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
         clear(): void;
+        cancel(): void;
     }
     export const queued: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
+    export { CANCELED_SYMBOL };
     export default queued;
 }
 
@@ -2985,7 +2995,7 @@ declare module 'react-declarative/utils/rx/Observer' {
         tap: (callbackfn: (value: Data) => void) => Observer<Data>;
         debounce: (delay?: number | undefined) => Observer<Data>;
         emit: (data: Data) => void;
-        connect: (callbackfn: (value: Data) => void) => (...args: any[]) => any;
+        connect: (callbackfn: (value: Data) => void) => import("../compose").Function;
         once: (callbackfn: (value: Data) => void) => Fn;
         share: () => this;
         repeat: (interval?: number) => Observer<Data>;
@@ -3391,8 +3401,8 @@ declare module 'react-declarative/utils/datetime' {
 }
 
 declare module 'react-declarative/utils/compose' {
-    type Function = (...args: any[]) => any;
-    export const compose: (...funcs: Function[][] | Function[]) => Function;
+    export type Function = (...args: any[]) => any;
+    export const compose: (...funcs: Function[]) => Function;
     export default compose;
 }
 
@@ -7283,13 +7293,19 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
+    interface IState<Data = RowData> {
+        data: Data[];
+        prevOffset: number;
+        hasMore: boolean;
+    }
     export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
+        setData: import("react").Dispatch<import("react").SetStateAction<IState<Data>>>;
         offset: number;
         hasMore: boolean;
         loading: boolean;
         error: boolean;
-        onSkip: (p?: boolean | undefined) => Promise<void | null>;
+        onSkip: import("../../../hooks/useQueuedAction").IExecute<void, boolean>;
     };
     export default useOffsetPaginator;
 }
@@ -7307,13 +7323,18 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
+    interface IState<Data = RowData> {
+        data: Data[];
+        hasMore: boolean;
+    }
     export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
+        setData: import("react").Dispatch<import("react").SetStateAction<IState<Data>>>;
         hasMore: boolean;
         lastCursor: any;
         loading: boolean;
         error: boolean;
-        onSkip: (p?: boolean | undefined) => Promise<void | null>;
+        onSkip: import("../../../hooks/useQueuedAction").IExecute<void, boolean>;
     };
     export default useCursorPaginator;
 }

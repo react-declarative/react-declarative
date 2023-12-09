@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useLayoutEffect, useRef, useState, useMemo } from 'react';
 
-import queued from '../utils/hof/queued';
+import queued, { CANCELED_SYMBOL } from '../utils/hof/queued';
 
 interface IParams {
     fallback?: (e: Error) => void;
@@ -9,10 +9,16 @@ interface IParams {
     throwError?: boolean;
 }
 
-interface IResult<Data extends any = any, Payload extends any = object> {
+export interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
-    execute: (p?: Payload) => (Promise<Data | null>);
+    execute: IExecute<Data, Payload>;
+}
+
+export interface IExecute<Data extends any = any, Payload extends any = object> {
+    (payload?: Payload): Promise<Data | null>;
+    clear(): void;
+    cancel(): void;
 }
 
 export const useQueuedAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
@@ -49,7 +55,7 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
         }
     }), []);
 
-    const execute = useCallback(async (payload?: Payload) => {
+    const execute = useMemo(() => async (payload?: Payload) => {
 
         isMounted.current && setLoading(true);
         isMounted.current && setError(false);
@@ -57,7 +63,11 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
         let isCanceled = false;
 
         try {
-            return await execution(payload!);
+            const result = await execution(payload!);
+            if (result === CANCELED_SYMBOL) {
+                return null;
+            }
+            return result;
         } catch (e) {
             isMounted.current && setError(true);
             if (!throwError) {
@@ -79,11 +89,22 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
         throwError,
     ]);
 
+    Object.assign(execute, {
+        clear() {
+            execution.clear();
+        },
+        cancel() {
+            execution.cancel();
+        }
+    });
+
     return {
         loading,
         error,
-        execute,
+        execute: execute as IExecute<Data, Payload>,
     };
 };
+
+export { CANCELED_SYMBOL };
 
 export default useQueuedAction;

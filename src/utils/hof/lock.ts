@@ -44,6 +44,11 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
         executeFn.clear();
     };
 
+    wrappedFn.cancel = () => {
+        wrappedFn.clear();
+        executeFn.cancel();
+    };
+
     wrappedFn.beginLock = () => {
         lockCount += 1;
         lockSubject.next(lockCount);

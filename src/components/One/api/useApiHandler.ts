@@ -10,6 +10,7 @@ import IAnything from "../../../model/IAnything";
 
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
+import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
 
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
@@ -48,6 +49,9 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
         let isOk = true;
         try {
             const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            if (data === CANCELED_SYMBOL) {
+                return null;
+            }
             const json = await data.json();
             return responseMap(json) as Data;
         } catch (e) {

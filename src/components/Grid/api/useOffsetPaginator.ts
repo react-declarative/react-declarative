@@ -47,17 +47,24 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     const initialData$ = useActualValue(initialData);
     const handler$ = useActualCallback(handler);
 
+    const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
+        return await handler$(limit, state.current.prevOffset + limit, initial);
+    });
+
     const { execute: onSkip, loading, error } = useQueuedAction(async (initial: boolean) => {
-        const currentOffset = state.current.prevOffset + limit;
-        const nextData = await handler$(limit, currentOffset, initial);
+        const nextData = await fetchData(initial);
+        if (!nextData) {
+            return;
+        }
         setState({
-            prevOffset: currentOffset,
+            prevOffset: state.current.prevOffset + limit,
             data: [...state.current.data, ...nextData.slice(0, limit)],
             hasMore: nextData.length >= limit,
         });
     }, queryProps);
 
     useEffect(() => reloadSubject.subscribe(() => {
+        fetchData.cancel();
         setState({
             data: initialData$.current,
             hasMore: true,
@@ -68,6 +75,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
 
     return {
         data: state.current.data,
+        setData: setState,
         offset: state.current.prevOffset + limit,
         hasMore: state.current.hasMore,
         loading,
