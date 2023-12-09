@@ -90,9 +90,9 @@ export const Content = ({
       bufferSize={bufferSize}
       loading={loading}
       hasMore={hasMore}
-      onDataRequest={() => {
+      onDataRequest={(initial) => {
         if (onSkip && hasMore) {
-          onSkip();
+          onSkip(initial);
         }
       }}
       onScroll={(e) => {
@@ -133,7 +133,7 @@ export const Content = ({
           />
         );
       })}
-      {data.length > 0 && !errorMessage && onButtonSkip && !loading && hasMore && (
+      {data.length > 0 && !errorMessage && onButtonSkip && !onSkip && !loading && hasMore && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
           <div className={classes.noData}>
             <Button variant="outlined" onClick={onButtonSkip}>

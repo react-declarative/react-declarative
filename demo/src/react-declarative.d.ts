@@ -277,6 +277,8 @@ declare module 'react-declarative' {
     export { useCachedPaginator } from 'react-declarative/components';
     export { useArrayPaginator } from 'react-declarative/components';
     export { useApiPaginator } from 'react-declarative/components';
+    export { useCursorPaginator } from 'react-declarative/components';
+    export { useOffsetPaginator } from 'react-declarative/components';
     export { useLastPagination } from 'react-declarative/components';
     export { useQueryPagination } from 'react-declarative/components';
     export { usePreventNavigate } from 'react-declarative/components';
@@ -5076,6 +5078,8 @@ declare module 'react-declarative/components/TreeView' {
 
 declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
+    export * from 'react-declarative/components/Grid/api/useOffsetPaginator';
+    export * from 'react-declarative/components/Grid/api/useCursorPaginator';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
     export { IGridAction } from 'react-declarative/components/Grid/model/IGridAction';
     export { TSort as TGridSort } from 'react-declarative/components/Grid/model/TSort';
@@ -7266,6 +7270,54 @@ declare module 'react-declarative/components/Grid/Grid' {
     export default Grid;
 }
 
+declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
+    import RowData from "react-declarative/components/Grid/model/RowData";
+    import TSubject from "react-declarative/model/TSubject";
+    interface IParams<Data = RowData> {
+        reloadSubject?: TSubject<void>;
+        initialData?: Data[];
+        handler: (limit: number, offset: number, initial: boolean) => Data[];
+        limit?: number;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (error: Error) => void;
+        throwError?: boolean;
+    }
+    export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData, handler, limit, ...queryProps }: IParams<Data>) => {
+        data: Data[];
+        offset: number;
+        hasMore: boolean;
+        loading: boolean;
+        error: boolean;
+        onSkip: (p?: boolean | undefined) => Promise<void | null>;
+    };
+    export default useOffsetPaginator;
+}
+
+declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
+    import RowData from "react-declarative/components/Grid/model/RowData";
+    import TSubject from 'react-declarative/model/TSubject';
+    interface IParams<Data = RowData> {
+        reloadSubject?: TSubject<void>;
+        initialData?: Data[];
+        handler: (cursor: string | null, initial: boolean, limit: number) => Data[];
+        limit?: number;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (error: Error) => void;
+        throwError?: boolean;
+    }
+    export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData, handler, limit, ...queryProps }: IParams<Data>) => {
+        data: Data[];
+        hasMore: boolean;
+        lastCursor: any;
+        loading: boolean;
+        error: boolean;
+        onSkip: (p?: boolean | undefined) => Promise<void | null>;
+    };
+    export default useCursorPaginator;
+}
+
 declare module 'react-declarative/components/Grid/model/IColumn' {
     import Dimension from 'react-declarative/components/Grid/model/Dimension';
     import RowData from 'react-declarative/components/Grid/model/RowData';
@@ -8330,7 +8382,7 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         recomputeSubject?: TSubject<void>;
         loading?: boolean;
         hasMore?: boolean;
-        onSkip?: () => void;
+        onSkip?: (initial: boolean) => void;
         onButtonSkip?: () => void;
         rowKey?: keyof T;
         sort?: TSort<T>;
@@ -8343,14 +8395,14 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
     export default IGridProps;
 }
 
-declare module 'react-declarative/components/Grid/model/Dimension' {
-    export type Dimension = number | string;
-    export default Dimension;
-}
-
 declare module 'react-declarative/components/Grid/model/RowData' {
     export type RowData = any;
     export default RowData;
+}
+
+declare module 'react-declarative/components/Grid/model/Dimension' {
+    export type Dimension = number | string;
+    export default Dimension;
 }
 
 declare module 'react-declarative/components/MasterDetail/model/IMasterDetailProps' {

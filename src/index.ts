@@ -349,6 +349,9 @@ export { useCachedPaginator } from './components';
 export { useArrayPaginator } from './components';
 export { useApiPaginator } from './components';
 
+export { useCursorPaginator } from './components';
+export { useOffsetPaginator } from './components';
+
 export { useLastPagination } from './components';
 export { useQueryPagination } from './components';
 
