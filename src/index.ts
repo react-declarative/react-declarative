@@ -229,9 +229,11 @@ export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
 import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from './components';
+import { GridView } from './components';
 
 export type ITreeViewNode = ITreeViewNodeInternal;
 export { TreeView };
+export { GridView };
 
 export { ColorButton } from './components';
 

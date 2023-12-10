@@ -27,6 +27,7 @@ export interface IGridProps<T = RowData> {
   recomputeSubject?: TSubject<void>;
   loading?: boolean;
   hasMore?: boolean;
+  rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
   onSkip?: (initial: boolean) => void;
   onButtonSkip?: () => void;
   rowKey?: keyof T;

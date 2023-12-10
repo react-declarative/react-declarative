@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forwardRef } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import { alpha, SxProps } from "@mui/system";
 
 import { makeStyles } from "../../../styles";
@@ -24,6 +24,7 @@ import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
 import { ACTIONS_WIDTH } from "../config";
+import useAsyncAction from "../../../hooks/useAsyncAction";
 
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
 
@@ -38,10 +39,20 @@ interface IContentRowProps {
   rowActionsPayload: IGridProps["rowActionsPayload"];
   onTableRowClick: IGridProps["onTableRowClick"];
   onRowAction: IGridProps["onRowAction"];
+  rowMark: Exclude<IGridProps["rowMark"], undefined> & {
+    clear(row: any): void;
+  };
 }
 
 const useStyles = makeStyles()((theme) => ({
+  wrapper: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+  },
   contentRow: {
+    flex: 1,
+    position: "relative",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -89,6 +100,13 @@ const useStyles = makeStyles()((theme) => ({
       cursor: "pointer",
     },
   },
+  mark: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: 4,
+  },
 }));
 
 export const ContentRow = forwardRef(
@@ -104,78 +122,97 @@ export const ContentRow = forwardRef(
       row,
       onTableRowClick,
       onRowAction,
+      rowMark,
     }: IContentRowProps,
-    ref
+    ref: React.Ref<HTMLDivElement>
   ) => {
     const { classes } = useStyles();
+    const [rowColor, setRowColor] = useState<string>("");
+
+    const { execute } = useAsyncAction(async () => {
+      if (typeof rowMark === "function") {
+        const color = await rowMark(row);
+        setRowColor(color);
+      }
+    });
+
+    useEffect(() => {
+      execute();
+    }, []);
+
     return (
-      <Box
+      <div
         ref={ref}
-        className={classNames(CHILD_ELEMENT, className, classes.contentRow)}
+        className={classNames(CHILD_ELEMENT, className)}
         style={style}
-        sx={sx}
       >
-        {columns.map((column, idx) => {
-          const cellId = `${get(row, rowKey)}-${idx}`;
-          return (
-            <Cell
-              className={classNames(classes.contentCell, {
-                [classes.rowOnClick]: Boolean(onTableRowClick),
-                [classes.alignLeft]: column.align === "left",
-                [classes.alignRight]: column.align === "right",
-                [classes.alignCenter]: column.align === "center",
-                [classes.alignStretch]: column.align === "stretch",
-              })}
-              onClick={(e) => {
-                onTableRowClick && onTableRowClick(e, row);
+        <Box className={classes.contentRow} sx={sx}>
+          {rowColor && (
+            <Box className={classes.mark} style={{ background: rowColor }} />
+          )}
+          {columns.map((column, idx) => {
+            const cellId = `${get(row, rowKey)}-${idx}`;
+            return (
+              <Cell
+                className={classNames(classes.contentCell, {
+                  [classes.rowOnClick]: Boolean(onTableRowClick),
+                  [classes.alignLeft]: column.align === "left",
+                  [classes.alignRight]: column.align === "right",
+                  [classes.alignCenter]: column.align === "center",
+                  [classes.alignStretch]: column.align === "stretch",
+                })}
+                onClick={(e) => {
+                  onTableRowClick && onTableRowClick(e, row);
+                }}
+                key={cellId}
+                column={column}
+                idx={idx}
+              >
+                {column.format
+                  ? column.format(row)
+                  : column.field
+                  ? String(get(row, column.field))
+                  : null}
+              </Cell>
+            );
+          })}
+          {!!rowActions?.length && (
+            <Center
+              className={classes.contentCell}
+              key={ROW_ACTIONS_UNIQUE_KEY}
+              sx={{
+                minWidth: ACTIONS_WIDTH,
+                maxWidth: ACTIONS_WIDTH,
               }}
-              key={cellId}
-              column={column}
-              idx={idx}
             >
-              {column.format
-                ? column.format(row)
-                : column.field
-                ? String(get(row, column.field))
-                : null}
-            </Cell>
-          );
-        })}
-        {!!rowActions?.length && (
-          <Center
-            className={classes.contentCell}
-            key={ROW_ACTIONS_UNIQUE_KEY}
-            sx={{
-              minWidth: ACTIONS_WIDTH,
-              maxWidth: ACTIONS_WIDTH,
-            }}
-          >
-            <ActionMenu
-              transparent
-              payload={rowActionsPayload}
-              options={
-                rowActions.map(
-                  ({
-                    isDisabled = () => false,
-                    isVisible = () => true,
-                    ...otherProps
-                  }) => ({
-                    isVisible: (payload: IAnything) => isVisible(row, payload),
-                    isDisabled: (payload: IAnything) =>
-                      isDisabled(row, payload),
-                    ...otherProps,
-                  })
-                ) as unknown as IOption[]
-              }
-              onAction={(action) => {
-                if (onRowAction) {
-                  onRowAction(row, action);
+              <ActionMenu
+                transparent
+                payload={rowActionsPayload}
+                options={
+                  rowActions.map(
+                    ({
+                      isDisabled = () => false,
+                      isVisible = () => true,
+                      ...otherProps
+                    }) => ({
+                      isVisible: (payload: IAnything) =>
+                        isVisible(row, payload),
+                      isDisabled: (payload: IAnything) =>
+                        isDisabled(row, payload),
+                      ...otherProps,
+                    })
+                  ) as unknown as IOption[]
                 }
-              }}
-            />
-          </Center>
-        )}
-      </Box>
+                onAction={(action) => {
+                  if (onRowAction) {
+                    onRowAction(row, action);
+                  }
+                }}
+              />
+            </Center>
+          )}
+        </Box>
+      </div>
     );
   }
 );

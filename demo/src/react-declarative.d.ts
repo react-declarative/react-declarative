@@ -186,8 +186,10 @@ declare module 'react-declarative' {
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from 'react-declarative/components';
+    import { GridView } from 'react-declarative/components';
     export type ITreeViewNode = ITreeViewNodeInternal;
     export { TreeView };
+    export { GridView };
     export { ColorButton } from 'react-declarative/components';
     import { ICardViewItemData } from 'react-declarative/components/CardView';
     import { ICardViewAction as ICardViewActionInternal } from 'react-declarative/components/CardView';
@@ -2234,6 +2236,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/DocumentView';
     export * from 'react-declarative/components/ImageView';
     export * from 'react-declarative/components/TreeView';
+    export * from 'react-declarative/components/GridView';
     export * from 'react-declarative/components/Grid';
     export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Spinner';
@@ -5108,13 +5111,21 @@ declare module 'react-declarative/components/TreeView' {
     export { default } from 'react-declarative/components/TreeView/TreeView';
 }
 
+declare module 'react-declarative/components/GridView' {
+    export * from 'react-declarative/components/GridView/GridView';
+    export { default } from 'react-declarative/components/GridView/GridView';
+}
+
 declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
     export * from 'react-declarative/components/Grid/api/useOffsetPaginator';
     export * from 'react-declarative/components/Grid/api/useCursorPaginator';
+    export { IGridProps } from 'react-declarative/components/Grid/model/IGridProps';
+    export { RowData } from 'react-declarative/components/Grid/model/RowData';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
     export { IGridAction } from 'react-declarative/components/Grid/model/IGridAction';
     export { TSort as TGridSort } from 'react-declarative/components/Grid/model/TSort';
+    export { default } from 'react-declarative/components/Grid/Grid';
 }
 
 declare module 'react-declarative/components/Search' {
@@ -7296,6 +7307,23 @@ declare module 'react-declarative/components/TreeView/model/INode' {
     export default INode;
 }
 
+declare module 'react-declarative/components/GridView/GridView' {
+    import * as React from "react";
+    import { SxProps } from "@mui/system";
+    import { ICardProps } from "react-declarative/components/GridView/components/Card";
+    import { IGridProps, RowData } from "react-declarative/components/Grid";
+    interface IGridViewProps<T = RowData> extends IGridProps<T> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        label?: ICardProps["label"];
+        BeforeLabel?: ICardProps["BeforeLabel"];
+        AfterLabel?: ICardProps["AfterLabel"];
+    }
+    export const GridView: ({ className, style, sx, label, BeforeLabel, AfterLabel, ...otherProps }: IGridViewProps) => JSX.Element;
+    export default GridView;
+}
+
 declare module 'react-declarative/components/Grid/Grid' {
     import IGridProps from 'react-declarative/components/Grid/model/IGridProps';
     export const Grid: <T extends unknown>(props: IGridProps<T>) => JSX.Element;
@@ -7359,6 +7387,51 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
         onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
     };
     export default useCursorPaginator;
+}
+
+declare module 'react-declarative/components/Grid/model/IGridProps' {
+    import React from 'react';
+    import { SxProps } from '@mui/system';
+    import IColumn from 'react-declarative/components/Grid/model/IColumn';
+    import RowData from 'react-declarative/components/Grid/model/RowData';
+    import IGridAction from 'react-declarative/components/Grid/model/IGridAction';
+    import TSort from 'react-declarative/components/Grid/model/TSort';
+    import { IVirtualViewProps } from 'react-declarative/components/VirtualView';
+    import { IActionMenuProps } from 'react-declarative/components/ActionMenu';
+    import { TSubject } from 'react-declarative/utils/rx/Subject';
+    export interface IGridProps<T = RowData> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        header?: React.ReactNode;
+        data: Array<T>;
+        columns: Array<IColumn<T>>;
+        scrollXSubject?: TSubject<number>;
+        scrollYSubject?: TSubject<number>;
+        onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
+        rowActions?: Array<IGridAction<T>>;
+        rowActionsPayload?: IActionMenuProps['payload'];
+        onRowAction?: (row: T, action: string) => void;
+        recomputeSubject?: TSubject<void>;
+        loading?: boolean;
+        hasMore?: boolean;
+        rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
+        onSkip?: (initial: boolean) => void;
+        onButtonSkip?: () => void;
+        rowKey?: keyof T;
+        sort?: TSort<T>;
+        errorMessage?: string | null;
+        onClickHeaderColumn?: (value: keyof T) => void;
+        minRowHeight?: IVirtualViewProps['minRowHeight'];
+        bufferSize?: IVirtualViewProps['bufferSize'];
+        shortHeight?: boolean;
+    }
+    export default IGridProps;
+}
+
+declare module 'react-declarative/components/Grid/model/RowData' {
+    export type RowData = any;
+    export default RowData;
 }
 
 declare module 'react-declarative/components/Grid/model/IColumn' {
@@ -8399,48 +8472,20 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
     export default FadeContainer;
 }
 
-declare module 'react-declarative/components/Grid/model/IGridProps' {
-    import React from 'react';
-    import { SxProps } from '@mui/system';
-    import IColumn from 'react-declarative/components/Grid/model/IColumn';
-    import RowData from 'react-declarative/components/Grid/model/RowData';
-    import IGridAction from 'react-declarative/components/Grid/model/IGridAction';
-    import TSort from 'react-declarative/components/Grid/model/TSort';
-    import { IVirtualViewProps } from 'react-declarative/components/VirtualView';
-    import { IActionMenuProps } from 'react-declarative/components/ActionMenu';
-    import { TSubject } from 'react-declarative/utils/rx/Subject';
-    export interface IGridProps<T = RowData> {
+declare module 'react-declarative/components/GridView/components/Card' {
+    import * as React from "react";
+    import { SxProps } from "@mui/material/styles";
+    export interface ICardProps {
+        label?: string;
+        sx?: SxProps;
+        children?: React.ReactNode;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
-        header?: React.ReactNode;
-        data: Array<T>;
-        columns: Array<IColumn<T>>;
-        scrollXSubject?: TSubject<number>;
-        scrollYSubject?: TSubject<number>;
-        onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
-        rowActions?: Array<IGridAction<T>>;
-        rowActionsPayload?: IActionMenuProps['payload'];
-        onRowAction?: (row: T, action: string) => void;
-        recomputeSubject?: TSubject<void>;
-        loading?: boolean;
-        hasMore?: boolean;
-        onSkip?: (initial: boolean) => void;
-        onButtonSkip?: () => void;
-        rowKey?: keyof T;
-        sort?: TSort<T>;
-        errorMessage?: string | null;
-        onClickHeaderColumn?: (value: keyof T) => void;
-        minRowHeight?: IVirtualViewProps['minRowHeight'];
-        bufferSize?: IVirtualViewProps['bufferSize'];
-        shortHeight?: boolean;
+        BeforeLabel?: React.ComponentType<any>;
+        AfterLabel?: React.ComponentType<any>;
     }
-    export default IGridProps;
-}
-
-declare module 'react-declarative/components/Grid/model/RowData' {
-    export type RowData = any;
-    export default RowData;
+    export const Card: ({ children, className, style, sx, label, BeforeLabel, AfterLabel, }: ICardProps) => JSX.Element;
+    export default Card;
 }
 
 declare module 'react-declarative/components/Grid/model/Dimension' {

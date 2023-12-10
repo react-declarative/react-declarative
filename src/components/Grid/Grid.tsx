@@ -47,6 +47,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     onClickHeaderColumn,
     onRowAction,
     onSkip,
+    rowMark,
     onTableRowClick,
     recomputeSubject,
     shortHeight,
@@ -139,6 +140,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
           />
           {!!loading && <Loader />}
           <Content
+            rowMark={rowMark}
             columns={columns}
             data={data}
             errorMessage={errorMessage}

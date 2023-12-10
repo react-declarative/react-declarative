@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo, useEffect } from 'react';
 import { SxProps } from '@mui/system';
 
 import { makeStyles } from '../../../styles';
@@ -16,6 +17,7 @@ import ContentRow from './ContentRow';
 import VirtualView from '../../VirtualView';
 
 import classNames from '../../../utils/classNames';
+import memoize from '../../../utils/hof/memoize';
 import get from '../../../utils/get';
 
 import { DEFAULT_ROW_HEIGHT } from '../config';
@@ -41,6 +43,7 @@ interface IContentProps {
   onRowAction: IGridProps['onRowAction'];
   onButtonSkip: IGridProps['onButtonSkip'];
   onSkip: IGridProps['onSkip'];
+  rowMark: IGridProps['rowMark'];
 }
 
 const useStyles = makeStyles()({
@@ -76,8 +79,16 @@ export const Content = ({
   onButtonSkip,
   onSkip,
   onScrollX,
+  rowMark: upperRowMark = () => "",
 }: IContentProps) => {
   const { classes } = useStyles();
+
+  const rowMark = useMemo(() => memoize(([row]) => row, upperRowMark), []);
+
+  useEffect(() => () => {
+    rowMark.clear();
+  }, []);
+
   return (
     <VirtualView
       withScrollbar
@@ -123,6 +134,7 @@ export const Content = ({
         return (
           <ContentRow
             key={rowId}
+            rowMark={rowMark}
             columns={columns}
             row={row}
             onTableRowClick={onTableRowClick}
