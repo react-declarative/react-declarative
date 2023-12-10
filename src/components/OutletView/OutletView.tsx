@@ -407,6 +407,10 @@ export const OutletView = <
     payload,
   };
 
+  if (!data[activeOption]) {
+    return null;
+  } 
+
   return (
     <Reveal
       className={classNames(className, classes.root)}

@@ -71,6 +71,7 @@ declare module 'react-declarative' {
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
     import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
+    import { useSinglerunAction } from 'react-declarative/hooks/useSinglerunAction';
     import { useQueuedAction } from 'react-declarative/hooks/useQueuedAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
     import { useAudioPlayer } from 'react-declarative/hooks/useAudioPlayer';
@@ -304,6 +305,7 @@ declare module 'react-declarative' {
     export { toOneArray };
     export { useChangeSubject };
     export { useReloadTrigger };
+    export { useSinglerunAction };
     export { useAsyncAction };
     export { useQueuedAction };
     export { useMediaContext };
@@ -2023,6 +2025,26 @@ declare module 'react-declarative/hooks/useAsyncAction' {
     }
     export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export default useAsyncAction;
+}
+
+declare module 'react-declarative/hooks/useSinglerunAction' {
+    interface IParams {
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+    }
+    interface IResult<Data extends any = any, Payload extends any = object> {
+        loading: boolean;
+        error: boolean;
+        execute: IExecute<Data, Payload>;
+    }
+    export interface IExecute<Data extends any = any, Payload extends any = object> {
+        (payload?: Payload): Promise<Data | null>;
+        clear(): void;
+    }
+    export const useSinglerunAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
+    export default useSinglerunAction;
 }
 
 declare module 'react-declarative/hooks/useQueuedAction' {
@@ -6555,7 +6577,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element;
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element | null;
     export default OutletView;
 }
 
@@ -7305,7 +7327,7 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
         hasMore: boolean;
         loading: boolean;
         error: boolean;
-        onSkip: import("../../../hooks/useQueuedAction").IExecute<void, boolean>;
+        onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
     };
     export default useOffsetPaginator;
 }
@@ -7334,7 +7356,7 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
         lastCursor: any;
         loading: boolean;
         error: boolean;
-        onSkip: import("../../../hooks/useQueuedAction").IExecute<void, boolean>;
+        onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
     };
     export default useCursorPaginator;
 }

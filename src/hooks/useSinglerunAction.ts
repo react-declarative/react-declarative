@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, useState, useCallback } from 'react';
+import { useLayoutEffect, useRef, useState, useMemo } from 'react';
 
-import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../utils/hof/cancelable';
+import singlerun from '../utils/hof/singlerun';
+
 import useActualCallback from './useActualCallback';
 
 interface IParams {
@@ -13,35 +14,35 @@ interface IParams {
 interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
-    execute: (p?: Payload) => (Promise<Data | null>);
+    execute: IExecute<Data, Payload>;
 }
 
-export const useAsyncAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
+export interface IExecute<Data extends any = any, Payload extends any = object> {
+    (payload?: Payload): Promise<Data | null>;
+    clear(): void;
+}
+
+export const useSinglerunAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
     onLoadStart,
     onLoadEnd,
     fallback,
     throwError,
 }: IParams = {}): IResult<Data, Payload> => {
 
-    const executionRef = useRef<IWrappedFn<Data | null> | null>(null);
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const isMounted = useRef(true);
 
+    const run$ = useActualCallback(run);
+
     useLayoutEffect(() => () => {
       isMounted.current = false;
     }, []);
 
-    const run$ = useActualCallback(run);
+    const execute = useMemo(() => singlerun(async (payload?: Payload) => {
 
-    const execute = useCallback(async (payload?: Payload) => {
-        if (executionRef.current) {
-            executionRef.current.cancel();
-        }
-
-        const execution = cancelable<Data | null>(async () => {
+        const execution = async () => {
             let isOk = true;
             onLoadStart && onLoadStart();
             try {
@@ -57,9 +58,7 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
             } finally {
                 onLoadEnd && onLoadEnd(isOk);
             }
-        });
-
-        executionRef.current = execution;
+        };
 
         isMounted.current && setLoading(true);
         isMounted.current && setError(false);
@@ -67,13 +66,7 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
         let isCanceled = false;
 
         try {
-            const result = await execution();
-            if (result === CANCELED_SYMBOL) {
-                isCanceled = true;
-                return null;
-            }
-            executionRef.current = null;
-            return result;
+            return await execution();
         } catch (e) {
             isMounted.current && setError(true);
             if (!throwError) {
@@ -87,7 +80,7 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
             }
         }
         return null;
-    }, []);
+    }), []);
 
     return {
         loading,
@@ -96,4 +89,4 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
     };
 };
 
-export default useAsyncAction;
+export default useSinglerunAction;

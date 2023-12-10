@@ -2,6 +2,8 @@ import { useLayoutEffect, useRef, useState, useMemo } from 'react';
 
 import queued, { CANCELED_SYMBOL } from '../utils/hof/queued';
 
+import useActualCallback from './useActualCallback';
+
 interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -37,11 +39,13 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
       isMounted.current = false;
     }, []);
 
+    const run$ = useActualCallback(run);
+
     const execution = useMemo(() => queued(async (payload: Payload) => {
         let isOk = true;
         onLoadStart && onLoadStart();
         try {
-            const result = run(payload);
+            const result = run$(payload);
             if (result instanceof Promise) {
                 return (await result) || null;
             } else {
@@ -60,8 +64,6 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
         isMounted.current && setLoading(true);
         isMounted.current && setError(false);
 
-        let isCanceled = false;
-
         try {
             const result = await execution(payload!);
             if (result === CANCELED_SYMBOL) {
@@ -76,18 +78,10 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
                 throw e;
             }
         } finally {
-            if (!isCanceled) {
-                isMounted.current && setLoading(false);
-            }
+            isMounted.current && setLoading(false);
         }
         return null;
-    }, [
-        run,
-        onLoadStart,
-        onLoadEnd,
-        fallback,
-        throwError,
-    ]);
+    }, []);
 
     Object.assign(execute, {
         clear() {
