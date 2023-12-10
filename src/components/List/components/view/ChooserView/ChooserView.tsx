@@ -20,6 +20,7 @@ import IRowData from "../../../../../model/IRowData";
 import useSubject from "../../../../../hooks/useSubject";
 import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
+import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
 
 import ModalLoader from "./components/ModalLoader";
 import ListItem from "./components/ListItem";
@@ -137,7 +138,7 @@ export const Chooser = <
 
   const waitForRequest = useRenderWaiter([loading]);
 
-  const handleDataRequest = async () => {
+  const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;
     isOk = isOk && hasMore;
     isOk = isOk && !loading;
@@ -145,7 +146,7 @@ export const Chooser = <
       handlePageChange(pendingPage);
       await waitForRequest();
     }
-  };
+  });
 
   return (
     <Container<FilterData, RowData> {...props} {...state}>
@@ -155,7 +156,7 @@ export const Chooser = <
             <VirtualView
               scrollYSubject={scrollYSubject}
               minRowHeight={DEFAULT_ITEM_SIZE}
-              onDataRequest={handleDataRequest}
+              onDataRequest={async () => void await handleDataRequest()}
               sx={{ height, width }}
             >
               {!loading && state.rows.length === 0 && (

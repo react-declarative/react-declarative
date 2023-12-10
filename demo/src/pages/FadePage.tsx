@@ -498,13 +498,13 @@ export const FadePage = () => {
         ))}
       </VirtualView>
       <RdGrid
-        shortHeight
         columns={columns}
         rowActions={actions}
         data={mock}
         header={<p>123</p>}
         sx={{
           mb: 1,
+          height: 550,
         }}
       />
       {render()}
