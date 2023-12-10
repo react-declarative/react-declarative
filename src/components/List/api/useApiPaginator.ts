@@ -15,6 +15,7 @@ import IRowData from "../../../model/IRowData";
 
 import removeEmptyFiltersDefault from '../helpers/removeEmptyFilters';
 
+import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
@@ -134,6 +135,12 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
         onLoadBegin && onLoadBegin();
         try {
             const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            if (data === CANCELED_SYMBOL) {
+                return {
+                    rows: [],
+                    total: null,
+                };
+            }
             const json = await data.json();
             return await responseMap(json);
         } catch (e) {

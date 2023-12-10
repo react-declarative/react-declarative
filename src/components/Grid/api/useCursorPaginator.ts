@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
+import useSinglerunAction from '../../../hooks/useSinglerunAction';
 import useActualCallback from '../../../hooks/useActualCallback';
 import useQueuedAction from "../../../hooks/useQueuedAction";
 import useActualState from "../../../hooks/useActualState";
@@ -45,17 +46,27 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
     const initialData$ = useActualValue(initialData);
     const handler$ = useActualCallback(handler);
 
-    const { execute: onSkip, loading, error } = useQueuedAction(async (initial: boolean) => {
+    const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
         const [lastItem = {}] = state.current.data.slice(-1);
         const { id: lastCursor = null } = lastItem as any;
-        const nextData = await handler$(lastCursor, initial, limit);
+        return await handler$(lastCursor, initial, limit);
+    });
+
+    const { execute: onSkip, loading, error } = useSinglerunAction(async (initial: boolean) => {
+        fetchData.cancel();
+        const nextData = await fetchData(initial);
+        if (!nextData) {
+            return;
+        }
         setState({
-            data: [...state.current.data, ...nextData.slice(0, limit)],
+            data: [...state.current.data, ...nextData],
             hasMore: nextData.length >= limit,
         });
     }, queryProps);
 
     useEffect(() => reloadSubject.subscribe(() => {
+        fetchData.cancel();
+        onSkip.clear();
         setState({
             data: initialData$.current,
             hasMore: true,
@@ -71,6 +82,7 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
 
     return {
         data: state.current.data,
+        setData: setState,
         hasMore: state.current.hasMore,
         lastCursor,
         loading,

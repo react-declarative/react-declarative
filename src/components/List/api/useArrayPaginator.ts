@@ -17,6 +17,7 @@ import { IState as ILastPaginationState } from './useLastPagination';
 
 import removeEmptyFiltersDefault from '../helpers/removeEmptyFilters';
 
+import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
 import filterString from '../../../utils/filterArray';
 import queued from '../../../utils/hof/queued';
 
@@ -198,6 +199,12 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         try {
             onLoadStart && onLoadStart();
             const data = await queuedResolve(filterData, pagination, sort, chips, search, payload);
+            if (data === CANCELED_SYMBOL) {
+                return {
+                    rows: [],
+                    total: null,
+                };
+            }
             const keepClean = !Array.isArray(data);
             let rows = keepClean ? data.rows : data;
             rows = [...rows].map((row) => ({...row}));

@@ -1,7 +1,6 @@
-type Function = (...args: any[]) => any;
+export type Function = (...args: any[]) => any;
 
-export const compose = (...funcs: Function[][] | Function[]) => {
-    funcs = funcs.flat();
+export const compose = (...funcs: Function[]) => {
     if (funcs.length === 0) {
         return <T>(arg: T) => arg
     }
