@@ -495,6 +495,7 @@ export type IPositionActionListSlot = IPositionActionListSlotInternal;
 
 export { VirtualListBox } from './components/One/components/common/VirtualListBox';
 
+export { list2grid } from './utils/list2grid';
 export { openBlank } from './utils/openBlank';
 export { createDict } from './utils/createDict';
 export { copyToClipboard } from './utils/copyToClipboard';

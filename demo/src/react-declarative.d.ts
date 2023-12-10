@@ -398,6 +398,7 @@ declare module 'react-declarative' {
     export type IOperationListSlot = IOperationListSlotInternal;
     export type IPositionActionListSlot = IPositionActionListSlotInternal;
     export { VirtualListBox } from 'react-declarative/components/One/components/common/VirtualListBox';
+    export { list2grid } from 'react-declarative/utils/list2grid';
     export { openBlank } from 'react-declarative/utils/openBlank';
     export { createDict } from 'react-declarative/utils/createDict';
     export { copyToClipboard } from 'react-declarative/utils/copyToClipboard';
@@ -2644,6 +2645,13 @@ declare module 'react-declarative/components/One/components/common/VirtualListBo
     }
     export const VirtualListBox: React.ForwardRefExoticComponent<IVirtualListBoxProps & React.RefAttributes<HTMLDivElement>>;
     export default VirtualListBox;
+}
+
+declare module 'react-declarative/utils/list2grid' {
+    import { IGridColumn } from "react-declarative/components/Grid";
+    import IColumn from "react-declarative/model/IColumn";
+    export const list2grid: (columns: IColumn[], payload: Record<string, any>) => IGridColumn[];
+    export default list2grid;
 }
 
 declare module 'react-declarative/utils/openBlank' {

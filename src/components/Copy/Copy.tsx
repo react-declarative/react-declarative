@@ -47,7 +47,7 @@ const createCopyHandler = (content: React.ReactNode) => async () => {
     isOk = isOk || typeof content === 'boolean';
     isOk = isOk || content === undefined;
     isOk = isOk || content === null;
-    if (typeof content !== 'string') {
+    if (!isOk) {
         return;
     }
     await copyToClipboard(String(content));
