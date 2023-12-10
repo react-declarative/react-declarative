@@ -17,7 +17,8 @@ interface IParams<Data = RowData> {
   handler: (
     limit: number,
     offset: number,
-    initial: boolean
+    initial: boolean,
+    currentRows: Data[],
   ) => Data[] | Promise<Data[]>;
   limit?: number;
   onLoadStart?: () => void;
@@ -55,7 +56,8 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     return await handler$(
       limit,
       state.current.prevOffset + limit + initialData$.current.length,
-      initial
+      initial,
+      state.current.data
     );
   });
 

@@ -17,7 +17,8 @@ interface IParams<Data = RowData> {
   handler: (
     cursor: string | null,
     initial: boolean,
-    limit: number
+    limit: number,
+    currentRows: Data[]
   ) => Data[] | Promise<Data[]>;
   limit?: number;
   onLoadStart?: () => void;
@@ -52,7 +53,7 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
   const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
     const [lastItem = {}] = state.current.data.slice(-1);
     const { id: lastCursor = null } = lastItem as any;
-    return await handler$(lastCursor, initial, limit);
+    return await handler$(lastCursor, initial, limit, state.current.data);
   });
 
   const {
