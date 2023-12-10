@@ -395,7 +395,7 @@ export const OutletView = <
     beginSave,
     afterSave,
     formState,
-    data: data[activeOption] || null,
+    data: data[activeOption] || {},
     params,
     onChange: (data: Data[keyof Data], initial = false) =>
       handleChange(activeOption, data, initial),
@@ -406,10 +406,6 @@ export const OutletView = <
       }),
     payload,
   };
-
-  if (!data[activeOption]) {
-    return null;
-  } 
 
   return (
     <Reveal

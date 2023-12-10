@@ -6577,7 +6577,7 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
-    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element | null;
+    export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element;
     export default OutletView;
 }
 
