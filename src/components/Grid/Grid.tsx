@@ -143,6 +143,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
           />
           {!!loading && <Loader />}
           <Content
+            recomputeSubject={recomputeSubject}
             rowMark={rowMark}
             columns={columns}
             data={data}

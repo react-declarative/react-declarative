@@ -23,8 +23,10 @@ import get from "../../../utils/get";
 import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
-import { ACTIONS_WIDTH } from "../config";
 import useAsyncAction from "../../../hooks/useAsyncAction";
+import useSubject from "../../../hooks/useSubject";
+
+import { ACTIONS_WIDTH } from "../config";
 
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
 
@@ -37,6 +39,7 @@ interface IContentRowProps {
   rowKey: IGridProps["rowKey"];
   rowActions: IGridProps["rowActions"];
   payload: IGridProps["payload"];
+  recomputeSubject: IGridProps["recomputeSubject"];
   onTableRowClick: IGridProps["onTableRowClick"];
   onRowAction: IGridProps["onRowAction"];
   rowMark: Exclude<IGridProps["rowMark"], undefined> & {
@@ -120,6 +123,7 @@ export const ContentRow = forwardRef(
       rowActions,
       payload,
       row,
+      recomputeSubject: upperRecomputeSubject,
       onTableRowClick,
       onRowAction,
       rowMark,
@@ -128,6 +132,7 @@ export const ContentRow = forwardRef(
   ) => {
     const { classes } = useStyles();
     const [rowColor, setRowColor] = useState<string>("");
+    const recomputeSubject = useSubject(upperRecomputeSubject);
 
     const { execute } = useAsyncAction(async () => {
       if (typeof rowMark === "function") {
@@ -142,6 +147,10 @@ export const ContentRow = forwardRef(
         rowMark.clear(row[rowKey] || row);
       };
     }, []);
+
+    useEffect(() => recomputeSubject.subscribe(() => {
+      execute();
+    }), []);
 
     return (
       <div

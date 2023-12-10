@@ -22,6 +22,7 @@ import memoize from "../../../utils/hof/memoize";
 import get from "../../../utils/get";
 
 import useContainerSize from "../hooks/useContainerSize";
+import useSubject from "../../../hooks/useSubject";
 
 import { DEFAULT_ROW_HEIGHT } from "../config";
 
@@ -29,6 +30,7 @@ interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
+  recomputeSubject: IGridProps["recomputeSubject"];
   scrollXSubject: IGridProps["scrollYSubject"];
   scrollYSubject: IGridProps["scrollXSubject"];
   columns: Array<IColumn>;
@@ -65,6 +67,7 @@ export const Content = ({
   className,
   style,
   sx,
+  recomputeSubject: upperRecomputeSubject,
   scrollXSubject,
   scrollYSubject,
   columns,
@@ -87,11 +90,16 @@ export const Content = ({
   const { classes } = useStyles();
 
   const { width } = useContainerSize();
+  const recomputeSubject = useSubject(upperRecomputeSubject);
 
   const rowMark = useMemo(
     () => memoize(([row]) => row[rowKey] || row, upperRowMark),
     []
   );
+
+  useEffect(() => recomputeSubject.subscribe(() => {
+    rowMark.clear();
+  }), []);
 
   useEffect(
     () => () => {
@@ -154,6 +162,7 @@ export const Content = ({
             rowMark={rowMark}
             columns={columns}
             row={row}
+            recomputeSubject={recomputeSubject}
             onTableRowClick={onTableRowClick}
             onRowAction={onRowAction}
             rowActions={rowActions}
