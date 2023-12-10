@@ -70,7 +70,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
         setState({
             data: initialData$.current,
             hasMore: true,
-            prevOffset: 0,
+            prevOffset: -limit,
         });
         onSkip(true);
     }), []);

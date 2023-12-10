@@ -4,6 +4,7 @@ import { SxProps } from "@mui/system";
 
 import { makeStyles } from "../../../styles";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
@@ -20,8 +21,9 @@ import classNames from "../../../utils/classNames";
 import memoize from "../../../utils/hof/memoize";
 import get from "../../../utils/get";
 
-import { DEFAULT_ROW_HEIGHT } from "../config";
 import useContainerSize from "../hooks/useContainerSize";
+
+import { DEFAULT_ROW_HEIGHT } from "../config";
 
 interface IContentProps {
   className?: string;
@@ -124,27 +126,24 @@ export const Content = ({
     >
       {!loading && !errorMessage && data.length === 0 && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
-          <div className={classes.noData}>
-            <Typography
-              variant="body1"
-              sx={{ position: "sticky", left: 0, width }}
-            >
-              No data
-            </Typography>
-          </div>
+          <Box
+            className={classes.noData}
+            sx={{ position: "sticky", left: 0, width }}
+          >
+            <Typography variant="body1">No data</Typography>
+          </Box>
         </Line>
       )}
       {errorMessage && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
-          <div className={classes.noData}>
-            <Typography
-              color="error"
-              variant="body1"
-              sx={{ position: "sticky", left: 0, width }}
-            >
+          <Box
+            className={classes.noData}
+            sx={{ position: "sticky", left: 0, width }}
+          >
+            <Typography color="error" variant="body1">
               {errorMessage}
             </Typography>
-          </div>
+          </Box>
         </Line>
       )}
       {data.map((row: RowData, idx) => {
@@ -170,11 +169,14 @@ export const Content = ({
         !loading &&
         hasMore && (
           <Line columns={columns} withRowActions={!!rowActions?.length}>
-            <div className={classes.noData}>
+            <Box
+              className={classes.noData}
+              sx={{ position: "sticky", left: 0, width }}
+            >
               <Button variant="outlined" onClick={onButtonSkip}>
                 Show More
               </Button>
-            </div>
+            </Box>
           </Line>
         )}
     </VirtualView>
