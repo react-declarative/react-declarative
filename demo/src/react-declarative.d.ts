@@ -8420,12 +8420,12 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         reloadSubject?: TSubject<void>;
         onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
         AfterTitle?: React.ComponentType<{
-            onClose?: () => void;
+            onClose: () => void;
             data: Data | null;
             id: string;
         }>;
         BeforeTitle?: React.ComponentType<{
-            onClose?: () => void;
+            onClose: () => void;
             data: Data | null;
             id: string;
         }>;

@@ -61,12 +61,12 @@ export interface IOutletModalProps<
     payload: Payload
   ) => Promise<boolean> | boolean;
   AfterTitle?: React.ComponentType<{
-    onClose?: () => void;
+    onClose: () => void;
     data: Data | null;
     id: string;
   }>;
   BeforeTitle?: React.ComponentType<{
-    onClose?: () => void;
+    onClose: () => void;
     data: Data | null;
     id: string;
   }>;
