@@ -37,7 +37,6 @@ export interface IGridProps<T = RowData, P = IAnything> {
   onClickHeaderColumn?: (value: keyof T) => void;
   minRowHeight?: IVirtualViewProps['minRowHeight'];
   bufferSize?: IVirtualViewProps['bufferSize'];
-  shortHeight?: boolean;
 }
 
 export default IGridProps;

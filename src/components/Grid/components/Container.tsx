@@ -7,15 +7,15 @@ import { alpha } from "@mui/material";
 
 import Paper from "@mui/material/Paper";
 
-import { IGridProps } from "../model/IGridProps";
 import { ISize } from "../model/ISize";
 
-import useConstraintManager from "../hooks/useConstraintManager";
+import { useConstraintManager } from "../hooks/useConstraintManager";
 import { ContainerSizeProvider } from "../hooks/useContainerSize";
 import { getScrollbarWidth } from "../helpers/getScrollbarWidth";
 import { getScrollbarHeight } from "../helpers/getScrollbarHeight";
 
 import useSingleton from "../../../hooks/useSingleton";
+
 import classNames from "../../../utils/classNames";
 
 interface Props {
@@ -24,7 +24,6 @@ interface Props {
   sx?: SxProps;
   header?: React.ReactNode;
   children: React.ReactNode;
-  shortHeight: IGridProps["shortHeight"];
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -38,13 +37,6 @@ const useStyles = makeStyles()((theme) => ({
       ? theme.palette.background.paper
       : alpha('#000', 0.05),
   },
-  large: {
-    height: "calc(100vh - 200px)",
-  },
-  short: {
-    height: '100vh',
-    maxHeight: "500px",
-  },
   container: {
     display: 'flex',
     alignItems: 'stretch',
@@ -53,6 +45,10 @@ const useStyles = makeStyles()((theme) => ({
     flex: 1,
   },
   content: {
+    display: 'flex',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    flexDirection: 'column',
     flex: 1,
   },
   header: {
@@ -72,7 +68,6 @@ export const Container = ({
   sx,
   header,
   children,
-  shortHeight,
 }: Props) => {
   const { classes } = useStyles();
   const constraintManager = useConstraintManager();
@@ -117,10 +112,7 @@ export const Container = ({
   return (
     <ContainerSizeProvider size={size}>
       <Paper
-        className={classNames(className, classes.root, {
-          [classes.short]: shortHeight,
-          [classes.large]: !shortHeight,
-        })}
+        className={classNames(className, classes.root)}
         style={style}
         sx={sx}
       >

@@ -51,7 +51,6 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     onTableRowClick,
     onRowClick,
     recomputeSubject,
-    shortHeight,
     scrollXSubject: upperScrollXSubject,
     scrollYSubject,
   } = props;
@@ -127,7 +126,6 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     <ConstraintManagerProvider constraintManager={constraintManager}>
       <GridPropsProvider value={props}>
         <Container
-          shortHeight={shortHeight}
           className={className}
           header={header}
           style={style}

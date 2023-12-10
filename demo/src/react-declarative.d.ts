@@ -7425,7 +7425,6 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         onClickHeaderColumn?: (value: keyof T) => void;
         minRowHeight?: IVirtualViewProps['minRowHeight'];
         bufferSize?: IVirtualViewProps['bufferSize'];
-        shortHeight?: boolean;
     }
     export default IGridProps;
 }
