@@ -36,7 +36,7 @@ interface IContentRowProps {
   row: RowData;
   rowKey: IGridProps["rowKey"];
   rowActions: IGridProps["rowActions"];
-  rowActionsPayload: IGridProps["rowActionsPayload"];
+  payload: IGridProps["payload"];
   onTableRowClick: IGridProps["onTableRowClick"];
   onRowAction: IGridProps["onRowAction"];
   rowMark: Exclude<IGridProps["rowMark"], undefined> & {
@@ -118,7 +118,7 @@ export const ContentRow = forwardRef(
       rowKey = "id",
       columns,
       rowActions,
-      rowActionsPayload,
+      payload,
       row,
       onTableRowClick,
       onRowAction,
@@ -187,7 +187,7 @@ export const ContentRow = forwardRef(
             >
               <ActionMenu
                 transparent
-                payload={rowActionsPayload}
+                payload={payload}
                 options={
                   rowActions.map(
                     ({
@@ -205,8 +205,9 @@ export const ContentRow = forwardRef(
                 }
                 onAction={(action) => {
                   if (onRowAction) {
-                    onRowAction(row, action);
+                    onRowAction(action, row);
                   }
+                  return;
                 }}
               />
             </Center>

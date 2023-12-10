@@ -10,8 +10,8 @@ export interface IGridAction<T>
       isDisabled: never;
     }
   > {
-  isVisible?: (row: T, payload: IActionMenuProps['payload']) => boolean;
-  isDisabled?: (row: T, payload: IActionMenuProps['payload']) => boolean;
+  isVisible?: (row: T, payload: IActionMenuProps['payload']) => (boolean | Promise<boolean>);
+  isDisabled?: (row: T, payload: IActionMenuProps['payload']) => (boolean | Promise<boolean>);
 }
 
 export default IGridAction;

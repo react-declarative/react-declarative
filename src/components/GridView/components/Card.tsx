@@ -9,6 +9,10 @@ import Typography from "@mui/material/Typography";
 
 import classNames from "../../../utils/classNames";
 
+import IAnything from "../../../model/IAnything";
+
+const LABEL_CLASS = 'react-declarative__gridViewLabel';
+
 const useStyles = makeStyles()((theme) => ({
     root: {
         display: 'flex',
@@ -54,14 +58,15 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
-export interface ICardProps {
-    label?: string;
+export interface ICardProps<P = IAnything> {
+    label?: React.ReactNode;
     sx?: SxProps;
     children?: React.ReactNode;
     className?: string;
+    payload?: P;
     style?: React.CSSProperties;
-    BeforeLabel?: React.ComponentType<any>;
-    AfterLabel?: React.ComponentType<any>;
+    BeforeLabel?: React.ComponentType<{ payload: P }>;
+    AfterLabel?: React.ComponentType<{ payload: P }>;
 }
 
 export const Card = ({
@@ -70,6 +75,7 @@ export const Card = ({
     style,
     sx,
     label,
+    payload,
     BeforeLabel,
     AfterLabel,
 }: ICardProps) => {
@@ -77,11 +83,11 @@ export const Card = ({
     return (
         <Paper className={classNames(classes.root, className)} sx={sx} style={style}>
             {!!label && (
-                <Box className={classes.label}>
-                    {!!BeforeLabel && <BeforeLabel />}
+                <Box className={classNames(classes.label, LABEL_CLASS)}>
+                    {!!BeforeLabel && <BeforeLabel payload={payload} />}
                     <Typography className={classes.labelTitle}>{label}</Typography>
                     <div className={classes.stretch} />
-                    {!!AfterLabel && <AfterLabel />}
+                    {!!AfterLabel && <AfterLabel payload={payload} />}
                 </Box>
             )}
             <div className={classes.container}>

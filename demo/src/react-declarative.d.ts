@@ -7312,7 +7312,8 @@ declare module 'react-declarative/components/GridView/GridView' {
     import { SxProps } from "@mui/system";
     import { ICardProps } from "react-declarative/components/GridView/components/Card";
     import { IGridProps, RowData } from "react-declarative/components/Grid";
-    interface IGridViewProps<T = RowData> extends IGridProps<T> {
+    import IAnything from "react-declarative/model/IAnything";
+    interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
@@ -7320,13 +7321,13 @@ declare module 'react-declarative/components/GridView/GridView' {
         BeforeLabel?: ICardProps["BeforeLabel"];
         AfterLabel?: ICardProps["AfterLabel"];
     }
-    export const GridView: ({ className, style, sx, label, BeforeLabel, AfterLabel, ...otherProps }: IGridViewProps) => JSX.Element;
+    export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
     export default GridView;
 }
 
 declare module 'react-declarative/components/Grid/Grid' {
     import IGridProps from 'react-declarative/components/Grid/model/IGridProps';
-    export const Grid: <T extends unknown>(props: IGridProps<T>) => JSX.Element;
+    export const Grid: <T extends unknown>(props: IGridProps<T, any>) => JSX.Element;
     export default Grid;
 }
 
@@ -7395,11 +7396,11 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
     import IColumn from 'react-declarative/components/Grid/model/IColumn';
     import RowData from 'react-declarative/components/Grid/model/RowData';
     import IGridAction from 'react-declarative/components/Grid/model/IGridAction';
+    import IAnything from 'react-declarative/model/IAnything';
     import TSort from 'react-declarative/components/Grid/model/TSort';
     import { IVirtualViewProps } from 'react-declarative/components/VirtualView';
-    import { IActionMenuProps } from 'react-declarative/components/ActionMenu';
     import { TSubject } from 'react-declarative/utils/rx/Subject';
-    export interface IGridProps<T = RowData> {
+    export interface IGridProps<T = RowData, P = IAnything> {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
@@ -7409,9 +7410,10 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         scrollXSubject?: TSubject<number>;
         scrollYSubject?: TSubject<number>;
         onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
+        onRowClick?: (row: T) => void;
         rowActions?: Array<IGridAction<T>>;
-        rowActionsPayload?: IActionMenuProps['payload'];
-        onRowAction?: (row: T, action: string) => void;
+        payload?: P | (() => P);
+        onRowAction?: (action: string, row: T) => void;
         recomputeSubject?: TSubject<void>;
         loading?: boolean;
         hasMore?: boolean;
@@ -7455,8 +7457,8 @@ declare module 'react-declarative/components/Grid/model/IGridAction' {
         isVisible: never;
         isDisabled: never;
     }> {
-        isVisible?: (row: T, payload: IActionMenuProps['payload']) => boolean;
-        isDisabled?: (row: T, payload: IActionMenuProps['payload']) => boolean;
+        isVisible?: (row: T, payload: IActionMenuProps['payload']) => (boolean | Promise<boolean>);
+        isDisabled?: (row: T, payload: IActionMenuProps['payload']) => (boolean | Promise<boolean>);
     }
     export default IGridAction;
 }
@@ -8475,16 +8477,22 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
 declare module 'react-declarative/components/GridView/components/Card' {
     import * as React from "react";
     import { SxProps } from "@mui/material/styles";
-    export interface ICardProps {
-        label?: string;
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ICardProps<P = IAnything> {
+        label?: React.ReactNode;
         sx?: SxProps;
         children?: React.ReactNode;
         className?: string;
+        payload?: P;
         style?: React.CSSProperties;
-        BeforeLabel?: React.ComponentType<any>;
-        AfterLabel?: React.ComponentType<any>;
+        BeforeLabel?: React.ComponentType<{
+            payload: P;
+        }>;
+        AfterLabel?: React.ComponentType<{
+            payload: P;
+        }>;
     }
-    export const Card: ({ children, className, style, sx, label, BeforeLabel, AfterLabel, }: ICardProps) => JSX.Element;
+    export const Card: ({ children, className, style, sx, label, payload, BeforeLabel, AfterLabel, }: ICardProps) => JSX.Element;
     export default Card;
 }
 

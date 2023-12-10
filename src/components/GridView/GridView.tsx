@@ -4,7 +4,11 @@ import { SxProps } from "@mui/system";
 import Card, { ICardProps } from "./components/Card";
 import Grid, { IGridProps, RowData } from "../Grid";
 
-interface IGridViewProps<T = RowData> extends IGridProps<T> {
+import useSingleton from "../../hooks/useSingleton";
+
+import IAnything from "../../model/IAnything";
+
+interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
@@ -13,25 +17,33 @@ interface IGridViewProps<T = RowData> extends IGridProps<T> {
   AfterLabel?: ICardProps["AfterLabel"];
 }
 
-export const GridView = ({
+export const GridView = <
+  T extends RowData = RowData,
+  P extends IAnything = IAnything
+>({
   className,
   style,
   sx,
   label,
   BeforeLabel,
   AfterLabel,
+  payload: upperPayload,
   ...otherProps
-}: IGridViewProps) => (
-  <Card
-    className={className}
-    style={style}
-    sx={sx}
-    label={label}
-    BeforeLabel={BeforeLabel}
-    AfterLabel={AfterLabel}
-  >
-    <Grid {...otherProps} />
-  </Card>
-);
+}: IGridViewProps<T, P>) => {
+  const payload = useSingleton(upperPayload);
+  return (
+    <Card
+      className={className}
+      style={style}
+      sx={sx}
+      label={label}
+      payload={payload}
+      BeforeLabel={BeforeLabel}
+      AfterLabel={AfterLabel}
+    >
+      <Grid {...otherProps} payload={payload} />
+    </Card>
+  );
+};
 
 export default GridView;

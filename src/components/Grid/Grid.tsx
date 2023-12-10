@@ -38,7 +38,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     hasMore,
     loading,
     rowActions,
-    rowActionsPayload,
+    payload: upperPayload,
     rowKey,
     sort,
     minRowHeight,
@@ -49,11 +49,14 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     onSkip,
     rowMark,
     onTableRowClick,
+    onRowClick,
     recomputeSubject,
     shortHeight,
     scrollXSubject: upperScrollXSubject,
     scrollYSubject,
   } = props;
+
+  const payload = useSingleton(upperPayload);
 
   const constraintManager = useSingleton(() => createConstraintManager());
 
@@ -147,12 +150,21 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
             hasMore={hasMore}
             loading={loading}
             rowActions={rowActions}
-            rowActionsPayload={rowActionsPayload}
+            payload={payload}
             rowKey={rowKey}
             minRowHeight={minRowHeight}
             bufferSize={bufferSize}
             onSkip={onSkip}
-            onTableRowClick={onTableRowClick}
+            onTableRowClick={(e, row) => {
+              if (onTableRowClick) {
+                onTableRowClick(e, row);
+                return;
+              }
+              if (onRowClick) {
+                onRowClick(row);
+                return;
+              }
+            }}
             onRowAction={onRowAction}
             onButtonSkip={onButtonSkip}
             onScrollX={handleScrollX}

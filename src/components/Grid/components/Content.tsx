@@ -1,60 +1,61 @@
-import * as React from 'react';
-import { useMemo, useEffect } from 'react';
-import { SxProps } from '@mui/system';
+import * as React from "react";
+import { useMemo, useEffect } from "react";
+import { SxProps } from "@mui/system";
 
-import { makeStyles } from '../../../styles';
+import { makeStyles } from "../../../styles";
 
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-import IColumn from '../model/IColumn';
-import IGridProps from '../model/IGridProps';
-import RowData from '../model/RowData';
+import IColumn from "../model/IColumn";
+import IGridProps from "../model/IGridProps";
+import RowData from "../model/RowData";
 
-import Line from './Line';
-import ContentRow from './ContentRow';
+import Line from "./Line";
+import ContentRow from "./ContentRow";
 
-import VirtualView from '../../VirtualView';
+import VirtualView from "../../VirtualView";
 
-import classNames from '../../../utils/classNames';
-import memoize from '../../../utils/hof/memoize';
-import get from '../../../utils/get';
+import classNames from "../../../utils/classNames";
+import memoize from "../../../utils/hof/memoize";
+import get from "../../../utils/get";
 
-import { DEFAULT_ROW_HEIGHT } from '../config';
+import { DEFAULT_ROW_HEIGHT } from "../config";
+import useContainerSize from "../hooks/useContainerSize";
 
 interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  scrollXSubject: IGridProps['scrollYSubject'];
-  scrollYSubject: IGridProps['scrollXSubject'];
+  scrollXSubject: IGridProps["scrollYSubject"];
+  scrollYSubject: IGridProps["scrollXSubject"];
   columns: Array<IColumn>;
-  rowKey: IGridProps['rowKey'];
-  loading: IGridProps['loading'];
-  minRowHeight: IGridProps['minRowHeight'];
-  bufferSize: IGridProps['bufferSize'];
-  data: IGridProps['data'];
-  hasMore: IGridProps['hasMore'];
-  errorMessage: IGridProps['errorMessage'];
-  rowActions: IGridProps['rowActions'];
-  rowActionsPayload: IGridProps['rowActionsPayload'];
+  rowKey: IGridProps["rowKey"];
+  loading: IGridProps["loading"];
+  minRowHeight: IGridProps["minRowHeight"];
+  bufferSize: IGridProps["bufferSize"];
+  data: IGridProps["data"];
+  hasMore: IGridProps["hasMore"];
+  errorMessage: IGridProps["errorMessage"];
+  rowActions: IGridProps["rowActions"];
+  payload: IGridProps["payload"];
   onScrollX: (scrollX: number) => void;
-  onTableRowClick: IGridProps['onTableRowClick'];
-  onRowAction: IGridProps['onRowAction'];
-  onButtonSkip: IGridProps['onButtonSkip'];
-  onSkip: IGridProps['onSkip'];
-  rowMark: IGridProps['rowMark'];
+  onTableRowClick: IGridProps["onTableRowClick"];
+  onRowAction: IGridProps["onRowAction"];
+  onButtonSkip: IGridProps["onButtonSkip"];
+  onSkip: IGridProps["onSkip"];
+  rowMark: IGridProps["rowMark"];
 }
 
 const useStyles = makeStyles()({
   content: {
-    height: "calc(100% - 35px)"
+    height: "calc(100% - 35px)",
   },
   noData: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "12px"
+    padding: "12px",
   },
 });
 
@@ -67,11 +68,11 @@ export const Content = ({
   columns,
   loading,
   data,
-  rowKey = 'id',
+  rowKey = "id",
   hasMore,
   errorMessage,
   rowActions,
-  rowActionsPayload,
+  payload,
   minRowHeight = DEFAULT_ROW_HEIGHT,
   bufferSize,
   onTableRowClick,
@@ -83,11 +84,19 @@ export const Content = ({
 }: IContentProps) => {
   const { classes } = useStyles();
 
-  const rowMark = useMemo(() => memoize(([row]) => row, upperRowMark), []);
+  const { width } = useContainerSize();
 
-  useEffect(() => () => {
-    rowMark.clear();
-  }, []);
+  const rowMark = useMemo(
+    () => memoize(([row]) => row[rowKey] || row, upperRowMark),
+    []
+  );
+
+  useEffect(
+    () => () => {
+      rowMark.clear();
+    },
+    []
+  );
 
   return (
     <VirtualView
@@ -116,14 +125,23 @@ export const Content = ({
       {!loading && !errorMessage && data.length === 0 && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
           <div className={classes.noData}>
-            <Typography variant="body1">No data</Typography>
+            <Typography
+              variant="body1"
+              sx={{ position: "sticky", left: 0, width }}
+            >
+              No data
+            </Typography>
           </div>
         </Line>
       )}
       {errorMessage && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
           <div className={classes.noData}>
-            <Typography color="error" variant="body1">
+            <Typography
+              color="error"
+              variant="body1"
+              sx={{ position: "sticky", left: 0, width }}
+            >
               {errorMessage}
             </Typography>
           </div>
@@ -140,20 +158,25 @@ export const Content = ({
             onTableRowClick={onTableRowClick}
             onRowAction={onRowAction}
             rowActions={rowActions}
-            rowActionsPayload={rowActionsPayload}
+            payload={payload}
             rowKey={rowKey}
           />
         );
       })}
-      {data.length > 0 && !errorMessage && onButtonSkip && !onSkip && !loading && hasMore && (
-        <Line columns={columns} withRowActions={!!rowActions?.length}>
-          <div className={classes.noData}>
-            <Button variant="outlined" onClick={onButtonSkip}>
-              Show More
-            </Button>
-          </div>
-        </Line>
-      )}
+      {data.length > 0 &&
+        !errorMessage &&
+        onButtonSkip &&
+        !onSkip &&
+        !loading &&
+        hasMore && (
+          <Line columns={columns} withRowActions={!!rowActions?.length}>
+            <div className={classes.noData}>
+              <Button variant="outlined" onClick={onButtonSkip}>
+                Show More
+              </Button>
+            </div>
+          </Line>
+        )}
     </VirtualView>
   );
 };
