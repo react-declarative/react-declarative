@@ -15,7 +15,7 @@ const DEFAULT_LIMIT = 25;
 interface IParams<Data = RowData> {
     reloadSubject?: TSubject<void>;
     initialData?: Data[];
-    handler: (limit: number, offset: number, initial: boolean) => Data[];
+    handler: (limit: number, offset: number, initial: boolean) => (Data[] | Promise<Data[]>);
     limit?: number;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;

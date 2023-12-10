@@ -53,7 +53,7 @@ export const Line = forwardRef(
             ) as string,
           ),
         )
-        .reduce((acm, cur) => acm + cur);
+        .reduce((acm, cur) => acm + cur, 0);
       if (withRowActions) {
         totalWidth += ACTIONS_WIDTH;
       }
