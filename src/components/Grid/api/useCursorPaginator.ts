@@ -4,7 +4,6 @@ import useSinglerunAction from '../../../hooks/useSinglerunAction';
 import useActualCallback from '../../../hooks/useActualCallback';
 import useQueuedAction from "../../../hooks/useQueuedAction";
 import useActualState from "../../../hooks/useActualState";
-import useActualValue from '../../../hooks/useActualValue';
 import useSubject from "../../../hooks/useSubject";
 
 import RowData from "../model/RowData";
@@ -30,7 +29,7 @@ interface IState<Data = RowData> {
 
 export const useCursorPaginator = <Data extends RowData = RowData>({
     reloadSubject: upperReloadSubject,
-    initialData = [],
+    initialData: upperInitialData = [],
     handler,
     limit = DEFAULT_LIMIT,
     ...queryProps
@@ -38,12 +37,13 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
 
     const reloadSubject = useSubject(upperReloadSubject);
 
+    const [initialData$, setInitialData$] = useActualState(upperInitialData);
+
     const [state, setState] = useActualState<IState<Data>>(() => ({
-        data: initialData,
+        data: initialData$.current,
         hasMore: true,
     }));
 
-    const initialData$ = useActualValue(initialData);
     const handler$ = useActualCallback(handler);
 
     const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
@@ -67,8 +67,9 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
     useEffect(() => reloadSubject.subscribe(() => {
         fetchData.cancel();
         onSkip.clear();
+        setInitialData$([]);
         setState({
-            data: initialData$.current,
+            data: [],
             hasMore: true,
         });
         onSkip(true);
