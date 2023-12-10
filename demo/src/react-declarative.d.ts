@@ -7337,21 +7337,16 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
     interface IParams<Data = RowData> {
         reloadSubject?: TSubject<void>;
         initialData?: Data[];
-        handler: (limit: number, offset: number, initial: boolean) => (Data[] | Promise<Data[]>);
+        handler: (limit: number, offset: number, initial: boolean) => Data[] | Promise<Data[]>;
         limit?: number;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
-    interface IState<Data = RowData> {
-        data: Data[];
-        prevOffset: number;
-        hasMore: boolean;
-    }
     export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
-        setData: import("react").Dispatch<import("react").SetStateAction<IState<Data>>>;
+        setData: (data: Data | ((prevData: Data) => Data)) => void;
         offset: number;
         hasMore: boolean;
         loading: boolean;
@@ -7363,24 +7358,20 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
 
 declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
     import RowData from "react-declarative/components/Grid/model/RowData";
-    import TSubject from 'react-declarative/model/TSubject';
+    import TSubject from "react-declarative/model/TSubject";
     interface IParams<Data = RowData> {
         reloadSubject?: TSubject<void>;
         initialData?: Data[];
-        handler: (cursor: string | null, initial: boolean, limit: number) => (Data[] | Promise<Data[]>);
+        handler: (cursor: string | null, initial: boolean, limit: number) => Data[] | Promise<Data[]>;
         limit?: number;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
-    interface IState<Data = RowData> {
-        data: Data[];
-        hasMore: boolean;
-    }
     export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
-        setData: import("react").Dispatch<import("react").SetStateAction<IState<Data>>>;
+        setData: (data: Data | ((prevData: Data) => Data)) => void;
         hasMore: boolean;
         lastCursor: any;
         loading: boolean;
