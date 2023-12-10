@@ -138,6 +138,9 @@ export const ContentRow = forwardRef(
 
     useEffect(() => {
       execute();
+      return () => {
+        rowMark.clear(row[rowKey] || row);
+      };
     }, []);
 
     return (
