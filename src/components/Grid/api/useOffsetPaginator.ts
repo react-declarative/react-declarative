@@ -93,7 +93,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
   );
 
   const setData = useCallback(
-    (data: Data | ((prevData: Data) => Data)) =>
+    (data: Data[] | ((prevData: Data[]) => Data[])) =>
       setState((prevState) => ({
         ...prevState,
         data:

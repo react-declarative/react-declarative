@@ -7346,7 +7346,7 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
     }
     export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
-        setData: (data: Data | ((prevData: Data) => Data)) => void;
+        setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
         offset: number;
         hasMore: boolean;
         loading: boolean;
@@ -7371,7 +7371,7 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
     }
     export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
-        setData: (data: Data | ((prevData: Data) => Data)) => void;
+        setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
         hasMore: boolean;
         lastCursor: any;
         loading: boolean;

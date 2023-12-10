@@ -93,7 +93,7 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
   }, [state.current.data]);
 
   const setData = useCallback(
-    (data: Data | ((prevData: Data) => Data)) =>
+    (data: Data[] | ((prevData: Data[]) => Data[])) =>
       setState((prevState) => ({
         ...prevState,
         data:
