@@ -28,6 +28,7 @@ export const GridView = <
   BeforeLabel,
   AfterLabel,
   payload: upperPayload,
+  loading,
   ...otherProps
 }: IGridViewProps<T, P>) => {
   const payload = useSingleton(upperPayload);
@@ -38,10 +39,11 @@ export const GridView = <
       sx={sx}
       label={label}
       payload={payload}
+      loading={!!loading}
       BeforeLabel={BeforeLabel}
       AfterLabel={AfterLabel}
     >
-      <Grid {...otherProps} payload={payload} />
+      <Grid {...otherProps} payload={payload} loading={loading} />
     </Card>
   );
 };
