@@ -504,8 +504,8 @@ declare module 'react-declarative' {
         serializeDate: (date: datetimeInternal.Date) => string | null;
         parseTime: (time: string | null) => datetimeInternal.Time | null;
         serializeTime: (time: datetimeInternal.Time) => string | null;
-        currentDate: () => string | null;
-        currentTime: () => string | null;
+        currentDate: () => string;
+        currentTime: () => string;
         timeStamp: (str: string) => number;
         dateStamp: (str: string) => number;
     };
@@ -3427,8 +3427,8 @@ declare module 'react-declarative/utils/datetime' {
     export const serializeDate: (date: Date) => string | null;
     export const parseTime: (time: string | null) => Time | null;
     export const serializeTime: (time: Time) => string | null;
-    export const currentDate: () => string | null;
-    export const currentTime: () => string | null;
+    export const currentDate: () => string;
+    export const currentTime: () => string;
     export const timeStamp: (str: string) => number;
     export const dateStamp: (str: string) => number;
 }

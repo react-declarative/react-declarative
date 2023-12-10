@@ -108,13 +108,13 @@ export const serializeTime = (time: Time) => {
 export const currentDate = () => {
     const now = new window.Date();
     const date = new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
-    return serializeDate(date);
+    return serializeDate(date)!;
 };
 
 export const currentTime = () => {
     const now = new window.Date();
     const time = new Time(now.getHours(), now.getMinutes());
-    return serializeTime(time);
+    return serializeTime(time)!;
 };
 
 export const timeStamp = (str: string) => {
