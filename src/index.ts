@@ -352,6 +352,8 @@ export { OtherItemsSlot } from './components';
 export { useHistoryStatePagination } from './components';
 export { useCachedPaginator } from './components';
 export { useArrayPaginator } from './components';
+export { useListSelection } from './components';
+export { useListAction } from './components';
 export { useApiPaginator } from './components';
 
 export { useCursorPaginator } from './components';

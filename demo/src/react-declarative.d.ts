@@ -280,6 +280,8 @@ declare module 'react-declarative' {
     export { useHistoryStatePagination } from 'react-declarative/components';
     export { useCachedPaginator } from 'react-declarative/components';
     export { useArrayPaginator } from 'react-declarative/components';
+    export { useListSelection } from 'react-declarative/components';
+    export { useListAction } from 'react-declarative/components';
     export { useApiPaginator } from 'react-declarative/components';
     export { useCursorPaginator } from 'react-declarative/components';
     export { useOffsetPaginator } from 'react-declarative/components';
@@ -1340,6 +1342,8 @@ declare module 'react-declarative/components/List' {
     export { useCachedPaginator } from 'react-declarative/components/List/api/useCachedPaginator';
     export { useArrayPaginator } from 'react-declarative/components/List/api/useArrayPaginator';
     export { useHistoryStatePagination } from 'react-declarative/components/List/api/useHistoryStatePagination';
+    export { useListSelection } from 'react-declarative/components/List/api/useListSelection';
+    export { useListAction } from 'react-declarative/components/List/api/useListAction';
     export { default as ListSlotFactory } from 'react-declarative/components/List/components/SlotFactory';
     export { defaultSlots as ListDefaultSlots } from 'react-declarative/components/List/components/SlotFactory';
     export { useFilterData as useListFilterData } from 'react-declarative/components/List/hooks/useFilterData';
@@ -1813,9 +1817,9 @@ declare module 'react-declarative/hooks/useRouteParams' {
 
 declare module 'react-declarative/hooks/useWatchChanges' {
     export const useWatchChanges: (deps?: any[]) => {
-        useChanges: () => void;
-        changeSubject: import("..").Subject<void>;
-        watch: {
+        readonly useChanges: () => void;
+        readonly changeSubject: import("..").Subject<void>;
+        readonly watch: {
             resetWatcher: () => void;
             beginWatch: () => void;
             stopWatch: () => void;
@@ -4710,6 +4714,39 @@ declare module 'react-declarative/components/List/api/useHistoryStatePagination'
         };
     };
     export default useHistoryStatePagination;
+}
+
+declare module 'react-declarative/components/List/api/useListSelection' {
+    import { RowId } from "react-declarative/model/IRowData";
+    export const useListSelection: () => {
+        readonly selectedRows: RowId[];
+        readonly listProps: {
+            readonly selectedRows: RowId[];
+            readonly onSelectedRows: (rowIds: RowId[]) => void;
+        };
+    };
+    export default useListSelection;
+}
+
+declare module 'react-declarative/components/List/api/useListAction' {
+    import IRowData, { RowId } from "react-declarative/model/IRowData";
+    interface IParams<Data extends IRowData = IRowData> {
+        fetchRow: (id: RowId) => (Data | Promise<Data>);
+        onAction: (action: string, rows: Data[]) => (Promise<void> | void);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+        fallback?: (e: Error) => void;
+    }
+    export const useListAction: <Data extends IRowData = IRowData>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, }: IParams<Data>) => {
+        readonly selectedRows: RowId[];
+        readonly listProps: {
+            readonly selectedRows: RowId[];
+            readonly onSelectedRows: (rowIds: RowId[]) => void;
+        };
+        readonly commitAction: (p?: string | undefined) => Promise<void | null>;
+    };
+    export default useListAction;
 }
 
 declare module 'react-declarative/components/List/components/SlotFactory' {

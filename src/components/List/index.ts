@@ -9,6 +9,8 @@ export { useQueryPagination } from './api/useQueryPagination';
 export { useCachedPaginator } from './api/useCachedPaginator';
 export { useArrayPaginator } from './api/useArrayPaginator';
 export { useHistoryStatePagination } from './api/useHistoryStatePagination';
+export { useListSelection } from './api/useListSelection';
+export { useListAction } from './api/useListAction'
 
 export { default as ListSlotFactory } from './components/SlotFactory';
 export { defaultSlots as ListDefaultSlots } from './components/SlotFactory';

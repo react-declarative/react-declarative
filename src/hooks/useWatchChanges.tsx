@@ -23,7 +23,7 @@ export const useWatchChanges = (deps: any[] = []) => {
     },
     changeSubject,
     watch,
-  };
+  } as const;
 };
 
 export default useWatchChanges;

@@ -94,7 +94,7 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
     return {
         showModal,
         hideModal,
-    };
+    } as const;
 
 };
 
