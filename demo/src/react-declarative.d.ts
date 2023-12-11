@@ -454,6 +454,7 @@ declare module 'react-declarative' {
     export { match } from 'react-declarative/utils/math/match';
     export { first } from 'react-declarative/utils/math/first';
     export { last } from 'react-declarative/utils/math/last';
+    export { truely } from 'react-declarative/utils/math/truely';
     export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
     export { flatArray } from 'react-declarative/utils/flatArray';
     export { removeExtraSpaces } from 'react-declarative/utils/removeExtraSpaces';
@@ -3153,6 +3154,11 @@ declare module 'react-declarative/utils/math/first' {
 declare module 'react-declarative/utils/math/last' {
     export const last: <T = any>(arr: T[] | null | undefined) => T | null;
     export default last;
+}
+
+declare module 'react-declarative/utils/math/truely' {
+    export const truely: (arr: (string | null)[]) => string[];
+    export default truely;
 }
 
 declare module 'react-declarative/utils/getAvailableFields' {

@@ -564,6 +564,7 @@ export { match } from './utils/math/match';
 
 export { first } from './utils/math/first';
 export { last } from './utils/math/last';
+export { truely } from './utils/math/truely';
 
 export { getAvailableFields } from './utils/getAvailableFields';
 export { flatArray } from './utils/flatArray';
