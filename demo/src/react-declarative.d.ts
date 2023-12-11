@@ -4731,6 +4731,7 @@ declare module 'react-declarative/components/List/api/useListSelection' {
             readonly selectedRows: RowId[];
             readonly onSelectedRows: (rowIds: RowId[]) => void;
         };
+        readonly deselectAll: () => void;
     };
     export default useListSelection;
 }
@@ -4746,6 +4747,7 @@ declare module 'react-declarative/components/List/api/useListAction' {
         fallback?: (e: Error) => void;
     }
     export const useListAction: <Data extends IRowData = IRowData>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, }: IParams<Data>) => {
+        readonly deselectAll: () => void;
         readonly selectedRows: RowId[];
         readonly listProps: {
             readonly selectedRows: RowId[];

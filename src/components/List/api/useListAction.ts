@@ -20,7 +20,7 @@ export const useListAction = <Data extends IRowData = IRowData>({
     fetchRow,
     onAction,
 }: IParams<Data>) => {
-    const { listProps, selectedRows } = useListSelection();
+    const { deselectAll, listProps, selectedRows } = useListSelection();
 
     const { execute: commitAction } = useAsyncAction(async (action: string) => {
         const rows = await Promise.all(selectedRows.map(fetchRow));
@@ -33,6 +33,7 @@ export const useListAction = <Data extends IRowData = IRowData>({
     });
 
     return {
+        deselectAll,
         selectedRows,
         listProps,
         commitAction,
