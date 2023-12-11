@@ -4,7 +4,7 @@ import { createContext, createElement } from 'react';
 
 import NoSsr from '../NoSsr';
 
-import randomString from '../../utils/randomString';
+import useForceUpdate from './hooks/useForceUpdate';
 
 import IAnything from '../../model/IAnything';
 
@@ -17,7 +17,8 @@ interface IModalProviderProps {
 type IRenderer = React.ComponentType<IAnything>;
 
 interface IContext {
-    handleElement: (element: React.ReactNode) => void;
+    handleElement: (element: IRenderer) => void;
+    handleUpdate: () => void;
     handleClear: () => void;
 }
 
@@ -34,15 +35,16 @@ export const ModalProvider = ({
     children
 }: IModalProviderProps) => {
 
-    const [element, setElement] = useState<React.ReactNode>(null);
+    const [element, setElement] = useState<IRenderer | null>(null);
 
-    const handleElement = (element: React.ReactNode) => setElement(element);
-
-    const handleClear = () => setElement(null);
+    const handleElement = useCallback((element: IRenderer) => setElement(() => element), []);
+    const handleClear = useCallback(() => setElement(null), []);
+    const handleUpdate = useForceUpdate();
 
     const value = {
         handleElement,
         handleClear,
+        handleUpdate,
     };
 
     return (
@@ -50,7 +52,7 @@ export const ModalProvider = ({
             <ThemeProvider>
                 <ModalContext.Provider value={value}>
                     {children}
-                    {element}
+                    {element && createElement(element)}
                 </ModalContext.Provider>
             </ThemeProvider>
         </NoSsr>
@@ -61,13 +63,11 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
 
     const [open, setOpen] = useState(false);
 
-    const { handleElement, handleClear } = useContext(ModalContext);
+    const { handleElement, handleClear, handleUpdate } = useContext(ModalContext);
 
     const handleRender = useCallback(() => {
-        handleElement(createElement(renderer, {
-            key: randomString(),
-        }));
-    }, deps);
+        handleElement(renderer);
+    }, []);
 
     useEffect(() => {
         if (open) {
@@ -75,15 +75,21 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
         } else {
             handleClear();
         }
-    }, [handleRender, open])
+    }, [open]);
 
-    const showModal = () => {
+    useEffect(() => {
+        if (open) {
+            handleUpdate();
+        }
+    }, [open, ...deps]);
+
+    const showModal = useCallback(() => {
         setOpen(true);
-    };
+    }, []);
 
-    const hideModal = () => {
+    const hideModal = useCallback(() => {
         setOpen(false);
-    };
+    }, []);
 
     return {
         showModal,
