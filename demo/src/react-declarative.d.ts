@@ -50,6 +50,7 @@ declare module 'react-declarative' {
     export { createRouteParamsManager } from 'react-declarative/helpers/routeManager';
     export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
     export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
+    export { useWatchChanges } from 'react-declarative/hooks/useWatchChanges';
     export { useLocalHistory } from 'react-declarative/hooks/useLocalHistory';
     export { RouteManager } from 'react-declarative/helpers/routeManager';
     export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
@@ -1808,6 +1809,19 @@ declare module 'react-declarative/hooks/useRouteParams' {
     import { ISwitchItem } from "react-declarative/helpers/routeManager";
     export const useRouteParams: <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => T | null;
     export default useRouteParams;
+}
+
+declare module 'react-declarative/hooks/useWatchChanges' {
+    export const useWatchChanges: (deps?: any[]) => {
+        useChanges: () => void;
+        changeSubject: import("..").Subject<void>;
+        watch: {
+            resetWatcher: () => void;
+            beginWatch: () => void;
+            stopWatch: () => void;
+        };
+    };
+    export default useWatchChanges;
 }
 
 declare module 'react-declarative/hooks/useLocalHistory' {
