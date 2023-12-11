@@ -41,6 +41,7 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
 ];
 
 export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+  placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   element?: PickProp<IField<Data, Payload>, "element">;
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   className?: PickProp<IField<Data, Payload>, "className">;

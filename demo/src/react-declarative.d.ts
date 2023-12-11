@@ -3972,6 +3972,7 @@ declare module 'react-declarative/components/One/fields/ComponentField' {
     import IAnything from "react-declarative/model/IAnything";
     import IManaged, { PickProp } from "react-declarative/model/IManaged";
     export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+        placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
         element?: PickProp<IField<Data, Payload>, "element">;
         groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
         className?: PickProp<IField<Data, Payload>, "className">;
