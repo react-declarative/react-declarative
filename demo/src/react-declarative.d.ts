@@ -4740,7 +4740,7 @@ declare module 'react-declarative/components/List/api/useListAction' {
     import IRowData, { RowId } from "react-declarative/model/IRowData";
     interface IParams<Data extends IRowData = IRowData> {
         fetchRow: (id: RowId) => (Data | Promise<Data>);
-        onAction: (action: string, rows: Data[]) => (Promise<void> | void);
+        onAction: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;

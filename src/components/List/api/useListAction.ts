@@ -5,7 +5,7 @@ import IRowData, { RowId } from "../../../model/IRowData";
 
 interface IParams<Data extends IRowData = IRowData> {
     fetchRow: (id: RowId) => (Data | Promise<Data>);
-    onAction: (action: string, rows: Data[]) => (Promise<void> | void);
+    onAction: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
@@ -24,7 +24,7 @@ export const useListAction = <Data extends IRowData = IRowData>({
 
     const { execute: commitAction } = useAsyncAction(async (action: string) => {
         const rows = await Promise.all(selectedRows.map(fetchRow));
-        await onAction(action, rows);
+        await onAction(action, rows, deselectAll);
     }, {
         onLoadStart,
         onLoadEnd,
