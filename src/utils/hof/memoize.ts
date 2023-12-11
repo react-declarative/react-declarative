@@ -2,9 +2,11 @@ export interface IClearable<K = string> {
     clear: (key?: K) => void;
 }
 
-interface IRef<T = any> {
+export interface IRef<T = any> {
     current: T;
 }
+
+export const GET_VALUE_MAP = Symbol('get-value-map');
 
 export const memoize = <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T): T & IClearable<K> => {
 
@@ -28,6 +30,8 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
         }
         return value;
     };
+
+    executeFn[GET_VALUE_MAP] = () => valueMap;
 
     executeFn.clear = clear;
 

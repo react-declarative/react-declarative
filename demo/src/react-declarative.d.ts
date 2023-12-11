@@ -2969,6 +2969,10 @@ declare module 'react-declarative/utils/hof/memoize' {
     export interface IClearable<K = string> {
         clear: (key?: K) => void;
     }
+    export interface IRef<T = any> {
+        current: T;
+    }
+    export const GET_VALUE_MAP: unique symbol;
     export const memoize: <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
     export default memoize;
 }
@@ -2979,7 +2983,10 @@ declare module 'react-declarative/utils/hof/trycatch' {
 }
 
 declare module 'react-declarative/utils/hof/ttl' {
-    import { IClearable } from 'react-declarative/utils/hof/memoize';
+    import { IClearable as IClearableInternal } from 'react-declarative/utils/hof/memoize';
+    export interface IClearable<K = string> extends IClearableInternal<K> {
+        gc: () => void;
+    }
     export const ttl: <T extends (...args: A) => any, A extends any[], K = string>(run: T, { key, timeout, }?: {
         key?: ((args: A) => K) | undefined;
         timeout?: number | undefined;
