@@ -2444,12 +2444,12 @@ declare module 'react-declarative/components/ModalManager' {
 }
 
 declare module 'react-declarative/hooks/useList' {
-    import IColumn from 'react-declarative/model/IColumn';
-    import IRowData from 'react-declarative/model/IRowData';
-    import IAnything from 'react-declarative/model/IAnything';
-    import IListProps from 'react-declarative/model/IListProps';
-    import SelectionMode from 'react-declarative/model/SelectionMode';
-    import { IListPickerProps } from 'react-declarative/components/common/ListPicker';
+    import IColumn from "react-declarative/model/IColumn";
+    import IRowData from "react-declarative/model/IRowData";
+    import IAnything from "react-declarative/model/IAnything";
+    import IListProps from "react-declarative/model/IListProps";
+    import SelectionMode from "react-declarative/model/SelectionMode";
+    import { IListPickerProps } from "react-declarative/components/common/ListPicker";
     type Fn<Data = IAnything> = (d: Data[] | null) => void;
     interface IParams<RowData extends IRowData = IAnything> extends Omit<IListPickerProps<RowData>, keyof {
         onChange: never;
@@ -2462,7 +2462,7 @@ declare module 'react-declarative/hooks/useList' {
         open: never;
     }> {
         selectionMode?: SelectionMode.Single | SelectionMode.Multiple;
-        selectedRows?: IListProps<RowData>['selectedRows'];
+        selectedRows?: IListProps<RowData>["selectedRows"];
         columns: Omit<IColumn<RowData>, keyof {
             headerName: never;
             width: never;
@@ -2497,7 +2497,7 @@ declare module 'react-declarative/hooks/useConfirm' {
         msg?: string;
         canCancel?: boolean;
     }
-    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, msg, }?: Partial<IParams>) => {
+    export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, msg }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<boolean>;
     };
@@ -2513,7 +2513,7 @@ declare module 'react-declarative/hooks/usePrompt' {
         placeholder?: string;
         canCancel?: boolean;
     }
-    export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, large, }?: IParams) => ({ canCancel, title, placeholder, value, }?: Partial<IParams>) => {
+    export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, large, }?: IParams) => ({ canCancel, title, placeholder, value }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<string | null>;
     };
@@ -2541,19 +2541,19 @@ declare module 'react-declarative/hooks/useTime' {
 }
 
 declare module 'react-declarative/hooks/useOne' {
-    import IField from 'react-declarative/model/IField';
-    import IAnything from 'react-declarative/model/IAnything';
-    import TypedField from 'react-declarative/model/TypedField';
-    import IOneProps, { OneHandler } from 'react-declarative/model/IOneProps';
-    import IOnePublicProps from 'react-declarative/model/IOnePublicProps';
+    import IField from "react-declarative/model/IField";
+    import IAnything from "react-declarative/model/IAnything";
+    import TypedField from "react-declarative/model/TypedField";
+    import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
+    import IOnePublicProps from "react-declarative/model/IOnePublicProps";
     type Fn<Data = IAnything> = (d: Data | null) => void;
     interface IParams<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
         fields: Field[];
         title?: string;
         large?: boolean;
         handler?: OneHandler<Data, Payload>;
-        payload?: IOneProps<Data, Payload, Field>['payload'];
-        features?: IOnePublicProps<Data, Payload, Field>['features'];
+        payload?: IOneProps<Data, Payload, Field>["payload"];
+        features?: IOnePublicProps<Data, Payload, Field>["features"];
         waitForChangesDelay?: number;
     }
     export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, large, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
