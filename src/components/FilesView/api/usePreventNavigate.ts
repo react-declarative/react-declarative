@@ -86,7 +86,7 @@ export const usePreventNavigate = ({
       setUnblocked(false);
     },
     loading: !!loading,
-  };
+  } as const;
 };
 
 export default usePreventNavigate;

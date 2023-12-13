@@ -292,6 +292,7 @@ declare module 'react-declarative' {
     export { usePreventNavigate } from 'react-declarative/components';
     export { useStaticHandler } from 'react-declarative/components';
     export { usePreventLeave } from 'react-declarative/components';
+    export { usePreventAction } from 'react-declarative/components';
     export { useLocalHandler } from 'react-declarative/components';
     export { useApiHandler } from 'react-declarative/components';
     export { useFeatureView } from 'react-declarative/components';
@@ -4988,6 +4989,7 @@ declare module 'react-declarative/components/ActionMenu' {
 
 declare module 'react-declarative/components/ActionButton' {
     export * from 'react-declarative/components/ActionButton/ActionButton';
+    export * from 'react-declarative/components/ActionButton/api/usePreventAction';
     export { default } from 'react-declarative/components/ActionButton/ActionButton';
 }
 
@@ -6352,6 +6354,19 @@ declare module 'react-declarative/components/ActionButton/ActionButton' {
     export default ActionButton;
 }
 
+declare module 'react-declarative/components/ActionButton/api/usePreventAction' {
+    interface IParams {
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+    }
+    export const usePreventAction: ({ onLoadStart, onLoadEnd, }: IParams) => {
+        readonly handleLoadStart: () => void;
+        readonly handleLoadEnd: (isOk: boolean) => void;
+        readonly loading: boolean;
+    };
+    export default usePreventAction;
+}
+
 declare module 'react-declarative/components/ActionStopIcon/ActionStopIcon' {
     import * as React from 'react';
     import { SxProps } from '@mui/material';
@@ -6825,11 +6840,11 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
         onLoadEnd?: (isOk: boolean) => void;
     }
     export const usePreventNavigate: ({ history, withConfirm, onLoadStart, onLoadEnd, }: IParams) => {
-        handleLoadStart: () => void;
-        handleLoadEnd: (isOk: boolean) => void;
-        unblock: () => void;
-        block: () => void;
-        loading: boolean;
+        readonly handleLoadStart: () => void;
+        readonly handleLoadEnd: (isOk: boolean) => void;
+        readonly unblock: () => void;
+        readonly block: () => void;
+        readonly loading: boolean;
     };
     export default usePreventNavigate;
 }

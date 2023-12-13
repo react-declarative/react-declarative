@@ -320,7 +320,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     data: invalid ? null : data,
     hasChanged,
     hasLoading,
-  };
+  } as const;
 };
 
 export default usePreventLeave;

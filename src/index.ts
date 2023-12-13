@@ -367,6 +367,7 @@ export { useQueryPagination } from './components';
 export { usePreventNavigate } from './components';
 export { useStaticHandler } from './components';
 export { usePreventLeave } from './components';
+export { usePreventAction } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
 export { useFeatureView } from './components';
