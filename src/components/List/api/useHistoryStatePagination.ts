@@ -101,6 +101,16 @@ export const useHistoryStatePagination = <
     fallback,
   }: Partial<IParams<FilterData, RowData>> = {}
 ) => {
+
+  const defaultQuery = useMemo((): IQuery => ({
+    chipData: initialValue.chipData || DEFAULT_QUERY.chipData,
+    filterData: initialValue.filterData || DEFAULT_QUERY.filterData,
+    limit: initialValue.limit || DEFAULT_QUERY.limit,
+    page: initialValue.page || DEFAULT_QUERY.page,
+    search: initialValue.search || DEFAULT_QUERY.search,
+    sortModel: initialValue.sortModel || DEFAULT_QUERY.sortModel,
+  }), []);
+
   const getLocationState = useCallback(() => {
     if (history.location.state) {
       return history.location.state as any;
@@ -109,8 +119,7 @@ export const useHistoryStatePagination = <
   }, []);
 
   const [state, setState] = useState<IQuery<FilterData, RowData>>(() => ({
-    ...initialValue,
-    ...DEFAULT_QUERY,
+    ...defaultQuery,
     ...getLocationState(),
   }));
 
@@ -120,8 +129,7 @@ export const useHistoryStatePagination = <
     () =>
       history.listen(({ location }) => {
         const state = {
-          ...initialValue,
-          ...DEFAULT_QUERY,
+          ...defaultQuery,
           ...(location.state as any || {}),
         };
         setState(state);

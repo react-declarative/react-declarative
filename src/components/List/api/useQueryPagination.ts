@@ -96,9 +96,13 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
-    const defaultValue = useMemo(() => ({
-        ...initialValue,
-        ...DEFAULT_QUERY,
+    const defaultValue = useMemo((): IQuery => ({
+        chipData: initialValue.chipData || DEFAULT_QUERY.chipData,
+        filterData: initialValue.filterData || DEFAULT_QUERY.filterData,
+        limit: initialValue.limit || DEFAULT_QUERY.limit,
+        page: initialValue.page || DEFAULT_QUERY.page,
+        search: initialValue.search || DEFAULT_QUERY.search,
+        sortModel: initialValue.sortModel || DEFAULT_QUERY.sortModel,
     }), []);
 
     const [state, setState] = useSearchState(() => ({
