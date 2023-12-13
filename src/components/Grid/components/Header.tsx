@@ -5,6 +5,8 @@ import { alpha, SxProps } from "@mui/system";
 import { makeStyles } from "../../../styles";
 
 import Box from "@mui/material/Box";
+import Radio from "@mui/material/Radio";
+import Checkbox from "@mui/material/Checkbox";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -22,7 +24,6 @@ import useGridProps from "../hooks/useGridProps";
 import Subject from "../../../utils/rx/Subject";
 import randomString from "../../../utils/randomString";
 import classNames from "../../../utils/classNames";
-import * as typo from "../../../utils/typo";
 
 import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 
@@ -133,6 +134,28 @@ export const Header = <T extends RowData>({
     [scrollXSubject]
   );
 
+  const renderCheckbox = useCallback(() => {
+    if (selectionMode === SelectionMode.Single) {
+      return (
+        <Radio
+          disabled
+          color="primary"
+        />
+      );
+    } else if (selectionMode === SelectionMode.Multiple) {
+      return (
+        <Checkbox
+          disabled
+          color="primary"
+        />
+      );
+    } else if (selectionMode === SelectionMode.None) {
+      return <Checkbox color="primary" disabled />;
+    } else {
+      return null;
+    }
+  }, []);
+
   return (
     <Box
       ref={handleRef}
@@ -156,7 +179,7 @@ export const Header = <T extends RowData>({
               maxWidth: CHECKBOX_WIDTH,
             }}
           >
-            {typo.nbsp}
+            {renderCheckbox()}
           </Center>
         )}
         {columns.map((column, idx) => {
