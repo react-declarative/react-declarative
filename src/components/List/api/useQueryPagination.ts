@@ -84,7 +84,7 @@ export const DEFAULT_QUERY: IQuery = {
 export const useQueryPagination = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
->(initialValue: IQuery<FilterData, RowData> = DEFAULT_QUERY, {
+>(initialValue: Partial<IQuery<FilterData, RowData>> = DEFAULT_QUERY, {
     onFilterChange: handleFilterChange = () => null,
     onLimitChange: handleLimitChange = () => null,
     onPageChange: handlePageChange = () => null,
@@ -96,13 +96,18 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
+    const defaultValue = useMemo(() => ({
+        ...initialValue,
+        ...DEFAULT_QUERY,
+    }), []);
+
     const [state, setState] = useSearchState(() => ({
-        filterData: JSON.stringify(initialValue.filterData) || "{}",
-        sortModel: JSON.stringify(initialValue.sortModel) || "[]",
-        chipData: JSON.stringify(initialValue.chipData) || "{}",
-        limit: initialValue.limit || DEFAULT_LIMIT,
-        page: initialValue.page || DEFAULT_PAGE,
-        search: initialValue.search || "",
+        filterData: JSON.stringify(defaultValue.filterData) || "{}",
+        sortModel: JSON.stringify(defaultValue.sortModel) || "[]",
+        chipData: JSON.stringify(defaultValue.chipData) || "{}",
+        limit: defaultValue.limit || DEFAULT_LIMIT,
+        page: defaultValue.page || DEFAULT_PAGE,
+        search: defaultValue.search || "",
     }));
 
     const state$ = useActualValue(state);

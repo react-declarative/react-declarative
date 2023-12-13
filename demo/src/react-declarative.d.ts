@@ -4620,7 +4620,7 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
     type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
     type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
     export const DEFAULT_QUERY: IQuery;
-    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: IQuery<FilterData, RowData>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
+    export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: Partial<IQuery<FilterData, RowData>>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         setFilterData: (data: FilterData) => void;
         setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
         setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
@@ -4679,7 +4679,7 @@ declare module 'react-declarative/components/List/api/useHistoryStatePagination'
         search: IListProps<FilterData, RowData>["search"];
     }
     interface IParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
-        initialValue: IQuery<FilterData, RowData>;
+        initialValue: Partial<IQuery<FilterData, RowData>>;
         removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
         onFilterChange: IListProps<FilterData, RowData>["onFilterChange"];
         onLimitChange: IListProps<FilterData, RowData>["onLimitChange"];

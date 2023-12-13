@@ -28,7 +28,7 @@ interface IParams<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > {
-  initialValue: IQuery<FilterData, RowData>;
+  initialValue: Partial<IQuery<FilterData, RowData>>;
   removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
   onFilterChange: IListProps<FilterData, RowData>["onFilterChange"];
   onLimitChange: IListProps<FilterData, RowData>["onLimitChange"];
@@ -110,6 +110,7 @@ export const useHistoryStatePagination = <
 
   const [state, setState] = useState<IQuery<FilterData, RowData>>(() => ({
     ...initialValue,
+    ...DEFAULT_QUERY,
     ...getLocationState(),
   }));
 
@@ -120,6 +121,7 @@ export const useHistoryStatePagination = <
       history.listen(({ location }) => {
         const state = {
           ...initialValue,
+          ...DEFAULT_QUERY,
           ...(location.state as any || {}),
         };
         setState(state);
