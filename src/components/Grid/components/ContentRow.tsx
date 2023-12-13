@@ -1,10 +1,12 @@
 import * as React from "react";
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, useCallback, forwardRef } from "react";
 import { alpha, SxProps } from "@mui/system";
 
 import { makeStyles } from "../../../styles";
 
 import Box from "@mui/material/Box";
+import Radio from "@mui/material/Radio";
+import Checkbox from "@mui/material/Checkbox";
 
 import { CHILD_ELEMENT } from "../../VirtualView";
 import ActionMenu from "../../ActionMenu";
@@ -26,9 +28,15 @@ import IOption from "../../../model/IOption";
 import useAsyncAction from "../../../hooks/useAsyncAction";
 import useSubject from "../../../hooks/useSubject";
 
-import { ACTIONS_WIDTH } from "../config";
+import useGridProps from "../hooks/useGridProps";
+import useSelection from "../hooks/useSelection";
+
+import SelectionMode from "../../../model/SelectionMode";
+
+import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
+const ROW_SELECTION_UNIQUE_KEY = randomString();
 
 interface IContentRowProps {
   className?: string;
@@ -104,7 +112,7 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   mark: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
@@ -134,6 +142,9 @@ export const ContentRow = forwardRef(
     const [rowColor, setRowColor] = useState<string>("");
     const recomputeSubject = useSubject(upperRecomputeSubject);
 
+    const { selectionMode = SelectionMode.None, loading } = useGridProps();
+    const { selection, setSelection } = useSelection();
+
     const { execute } = useAsyncAction(async () => {
       if (typeof rowMark === "function") {
         const color = await rowMark(row);
@@ -148,9 +159,62 @@ export const ContentRow = forwardRef(
       };
     }, []);
 
-    useEffect(() => recomputeSubject.subscribe(() => {
-      execute();
-    }), []);
+    useEffect(
+      () =>
+        recomputeSubject.subscribe(() => {
+          execute();
+        }),
+      []
+    );
+
+    const handleSelect = useCallback(
+      (e: any) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = row[rowKey];
+        if (!id) {
+          return;
+        }
+        if (selectionMode === SelectionMode.Single) {
+          if (selection.has(id) && selection.size === 1) {
+            selection.delete(id);
+          } else {
+            selection.clear();
+            selection.add(id);
+          }
+        } else {
+          selection.has(id) ? selection.delete(id) : selection.add(id);
+        }
+        setSelection(new Set(selection));
+      },
+      [selection]
+    );
+
+    const renderCheckbox = useCallback(() => {
+      if (selectionMode === SelectionMode.Single) {
+        return (
+          <Radio
+            color="primary"
+            onClick={handleSelect}
+            checked={selection.has(row.id)}
+            disabled={loading}
+          />
+        );
+      } else if (selectionMode === SelectionMode.Multiple) {
+        return (
+          <Checkbox
+            color="primary"
+            onClick={handleSelect}
+            checked={selection.has(row.id)}
+            disabled={loading}
+          />
+        );
+      } else if (selectionMode === SelectionMode.None) {
+        return <Checkbox color="primary" disabled />;
+      } else {
+        return null;
+      }
+    }, [selection]);
 
     return (
       <div
@@ -161,6 +225,18 @@ export const ContentRow = forwardRef(
         <Box className={classes.contentRow} sx={sx}>
           {rowColor && (
             <Box className={classes.mark} style={{ background: rowColor }} />
+          )}
+          {selectionMode !== SelectionMode.None && (
+            <Center
+              className={classes.contentCell}
+              key={ROW_SELECTION_UNIQUE_KEY}
+              sx={{
+                minWidth: CHECKBOX_WIDTH,
+                maxWidth: CHECKBOX_WIDTH,
+              }}
+            >
+              {renderCheckbox()}
+            </Center>
           )}
           {columns.map((column, idx) => {
             const cellId = `${get(row, rowKey)}-${idx}`;

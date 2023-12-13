@@ -285,6 +285,8 @@ declare module 'react-declarative' {
     export { useApiPaginator } from 'react-declarative/components';
     export { useCursorPaginator } from 'react-declarative/components';
     export { useOffsetPaginator } from 'react-declarative/components';
+    export { useGridAction } from 'react-declarative/components';
+    export { useGridSelection } from 'react-declarative/components';
     export { useLastPagination } from 'react-declarative/components';
     export { useQueryPagination } from 'react-declarative/components';
     export { usePreventNavigate } from 'react-declarative/components';
@@ -5195,6 +5197,8 @@ declare module 'react-declarative/components/Grid' {
     export * from 'react-declarative/components/Grid/Grid';
     export * from 'react-declarative/components/Grid/api/useOffsetPaginator';
     export * from 'react-declarative/components/Grid/api/useCursorPaginator';
+    export * from 'react-declarative/components/Grid/api/useGridAction';
+    export * from 'react-declarative/components/Grid/api/useGridSelection';
     export { IGridProps } from 'react-declarative/components/Grid/model/IGridProps';
     export { RowData } from 'react-declarative/components/Grid/model/RowData';
     export { IColumn as IGridColumn } from 'react-declarative/components/Grid/model/IColumn';
@@ -7401,7 +7405,7 @@ declare module 'react-declarative/components/GridView/GridView' {
 }
 
 declare module 'react-declarative/components/Grid/Grid' {
-    import IGridProps from 'react-declarative/components/Grid/model/IGridProps';
+    import IGridProps from "react-declarative/components/Grid/model/IGridProps";
     export const Grid: <T extends unknown>(props: IGridProps<T, any>) => JSX.Element;
     export default Grid;
 }
@@ -7427,6 +7431,7 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
         loading: boolean;
         error: boolean;
         onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
+        reloadSubject: import("../../..").Subject<void>;
     };
     export default useOffsetPaginator;
 }
@@ -7452,8 +7457,43 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
         loading: boolean;
         error: boolean;
         onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
+        reloadSubject: import("../../..").Subject<void>;
     };
     export default useCursorPaginator;
+}
+
+declare module 'react-declarative/components/Grid/api/useGridAction' {
+    import IAnything from "react-declarative/model/IAnything";
+    interface IParams<Data extends IAnything = IAnything> {
+        fetchRow: (id: string) => (Data | Promise<Data>);
+        onAction: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+        fallback?: (e: Error) => void;
+    }
+    export const useGridAction: <Data extends unknown = any>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, }: IParams<Data>) => {
+        readonly deselectAll: () => void;
+        readonly selectedRows: string[];
+        readonly gridProps: {
+            readonly selectedRows: string[];
+            readonly onSelectedRows: (rowIds: string[]) => void;
+        };
+        readonly commitAction: (p?: string | undefined) => Promise<void | null>;
+    };
+    export default useGridAction;
+}
+
+declare module 'react-declarative/components/Grid/api/useGridSelection' {
+    export const useGridSelection: () => {
+        readonly selectedRows: string[];
+        readonly gridProps: {
+            readonly selectedRows: string[];
+            readonly onSelectedRows: (rowIds: string[]) => void;
+        };
+        readonly deselectAll: () => void;
+    };
+    export default useGridSelection;
 }
 
 declare module 'react-declarative/components/Grid/model/IGridProps' {
@@ -7466,6 +7506,7 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
     import TSort from 'react-declarative/components/Grid/model/TSort';
     import { IVirtualViewProps } from 'react-declarative/components/VirtualView';
     import { TSubject } from 'react-declarative/utils/rx/Subject';
+    import SelectionMode from 'react-declarative/model/SelectionMode';
     export interface IGridProps<T = RowData, P = IAnything> {
         className?: string;
         style?: React.CSSProperties;
@@ -7489,7 +7530,10 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         rowKey?: keyof T;
         sort?: TSort<T>;
         errorMessage?: string | null;
+        selectionMode?: SelectionMode;
         onClickHeaderColumn?: (value: keyof T) => void;
+        onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
+        selectedRows?: string[];
         minRowHeight?: IVirtualViewProps['minRowHeight'];
         bufferSize?: IVirtualViewProps['bufferSize'];
     }

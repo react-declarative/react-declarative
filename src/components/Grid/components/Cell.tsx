@@ -10,7 +10,8 @@ import { useGridProps } from '../hooks/useGridProps';
 import { useContainerSize } from '../hooks/useContainerSize';
 import { useConstraintManager } from '../hooks/useConstraintManager';
 
-import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
+import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH, CHECKBOX_WIDTH } from '../config';
+import SelectionMode from '../../../model/SelectionMode';
 
 interface ICellProps extends BoxProps {
   className?: string;
@@ -32,8 +33,8 @@ export const Cell = ({
 }: ICellProps) => {
   const constraintManager = useConstraintManager();
   const { width: fullWidth } = useContainerSize();
-  const { rowActions } = useGridProps();
-  const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0), 0), [fullWidth, rowActions]);
+  const { rowActions, selectionMode = SelectionMode.None } = useGridProps();
+  const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0) - (selectionMode === SelectionMode.None ? 0 : CHECKBOX_WIDTH), 0), [fullWidth, rowActions]);
 
   const computedWidth = useMemo(() => {
     const compute = () => {

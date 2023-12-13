@@ -10,6 +10,7 @@ import TSort from './TSort';
 import { IVirtualViewProps } from '../../VirtualView';
 
 import { TSubject } from '../../../utils/rx/Subject';
+import SelectionMode from '../../../model/SelectionMode';
 
 export interface IGridProps<T = RowData, P = IAnything> {
   className?: string;
@@ -34,7 +35,10 @@ export interface IGridProps<T = RowData, P = IAnything> {
   rowKey?: keyof T;
   sort?: TSort<T>;
   errorMessage?: string | null;
+  selectionMode?: SelectionMode;
   onClickHeaderColumn?: (value: keyof T) => void;
+  onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
+  selectedRows?: string[];
   minRowHeight?: IVirtualViewProps['minRowHeight'];
   bufferSize?: IVirtualViewProps['bufferSize'];
 }

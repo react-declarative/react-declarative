@@ -113,6 +113,7 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
     loading,
     error,
     onSkip,
+    reloadSubject,
   };
 };
 
