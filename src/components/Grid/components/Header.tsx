@@ -12,17 +12,22 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IColumn from "../model/IColumn";
 import RowData from "../model/RowData";
 import IGridProps from "../model/IGridProps";
+import SelectionMode from "../../../model/SelectionMode";
 
 import Cell from "./Cell";
 import Center from "./Center";
 
+import useGridProps from "../hooks/useGridProps";
+
 import Subject from "../../../utils/rx/Subject";
 import randomString from "../../../utils/randomString";
 import classNames from "../../../utils/classNames";
+import * as typo from "../../../utils/typo";
 
-import { ACTIONS_WIDTH } from "../config";
+import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
+const ROW_CHECKBOX_UNIQUE_KEY = randomString();
 
 interface IHeaderProps<T = RowData> {
   className?: string;
@@ -53,19 +58,19 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   container: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
-    height: '100%',
-    minWidth: '100%',
+    height: "100%",
+    minWidth: "100%",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
   },
   headerCell: {
     display: "flex",
-    userSelect: 'none',
+    userSelect: "none",
     flexDirection: "column",
     justifyContent: "center",
     paddingLeft: "5px",
@@ -77,7 +82,7 @@ const useStyles = makeStyles()((theme) => ({
     overflowWrap: "anywhere",
     textOverflow: "ellipsis",
     overflow: "hidden",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     opacity: 0.7,
   },
   headerCellClick: {
@@ -93,7 +98,7 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    '&>*:nth-of-type(n+1)': {
+    "&>*:nth-of-type(n+1)": {
       marginLeft: theme.spacing(1),
     },
   },
@@ -111,6 +116,9 @@ export const Header = <T extends RowData>({
   onScrollX,
 }: IHeaderProps<T>) => {
   const { classes } = useStyles();
+
+  const { selectionMode = SelectionMode.None } = useGridProps();
+
   const handleRef = useCallback(
     (ref: HTMLDivElement | null) => {
       if (!ref) {
@@ -139,6 +147,18 @@ export const Header = <T extends RowData>({
       }}
     >
       <Box className={classes.container}>
+        {selectionMode !== SelectionMode.None && (
+          <Center
+            className={classes.headerCell}
+            key={ROW_CHECKBOX_UNIQUE_KEY}
+            sx={{
+              minWidth: CHECKBOX_WIDTH,
+              maxWidth: CHECKBOX_WIDTH,
+            }}
+          >
+            {typo.nbsp}
+          </Center>
+        )}
         {columns.map((column, idx) => {
           const rowId = `${String(column.field)}-${idx}`;
           return (
