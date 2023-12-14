@@ -67,7 +67,7 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
       return;
     }
     setState({
-      data: [...state.current.data, ...nextData],
+      data: initial ? [...state.current.data, ...nextData] : nextData,
       hasMore: nextData.length >= limit,
     });
   }, queryProps);

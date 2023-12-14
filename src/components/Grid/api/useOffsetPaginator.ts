@@ -73,7 +73,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     setState({
       prevOffset:
         state.current.prevOffset + limit + initialData$.current.length,
-      data: [...state.current.data, ...nextData],
+      data: initial ? [...state.current.data, ...nextData] : nextData,
       hasMore: nextData.length >= limit,
     });
   }, queryProps);
