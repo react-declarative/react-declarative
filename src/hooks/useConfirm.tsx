@@ -6,7 +6,7 @@ import { useModal } from "../components/ModalProvider";
 import ConfirmPicker from "../components/common/ConfirmPicker";
 
 import useActualCallback from "./useActualCallback";
-import useActualState from "./useActualState";
+import useActualRef from "./useActualRef";
 
 import Subject from "../utils/rx/Subject";
 
@@ -41,7 +41,7 @@ export const useConfirm = ({
     })
   );
 
-  const [state$, setState] = useActualState<IState>(getInitialState);
+  const [state$, setState] = useActualRef<IState>(getInitialState);
 
   useEffect(() => {
     if (!state$.current.open) {

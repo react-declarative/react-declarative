@@ -6,7 +6,7 @@ import { useModal } from "../components/ModalProvider";
 import PromptPicker from "../components/common/PromptPicker";
 
 import useActualCallback from "./useActualCallback";
-import useActualState from "./useActualState";
+import useActualRef from "./useActualRef";
 
 import Subject from "../utils/rx/Subject";
 
@@ -47,7 +47,7 @@ export const usePrompt = ({
     })
   );
 
-  const [state$, setState] = useActualState<IState>(getInitialState);
+  const [state$, setState] = useActualRef<IState>(getInitialState);
 
   useEffect(() => {
     if (!state$.current.open) {

@@ -11,8 +11,8 @@ import TypedField from "../model/TypedField";
 import IOneProps, { OneHandler } from "../model/IOneProps";
 import IOnePublicProps from "../model/IOnePublicProps";
 
-import useActualState from "./useActualState";
 import useActualCallback from "./useActualCallback";
+import useActualRef from "./useActualRef";
 
 import Subject from "../utils/rx/Subject";
 
@@ -63,7 +63,7 @@ export const useOne = <
     })
   );
 
-  const [state$, setState] = useActualState<IState>(getInitialState);
+  const [state$, setState] = useActualRef<IState>(getInitialState);
 
   useEffect(() => {
     if (!state$.current.open) {

@@ -69,6 +69,7 @@ declare module 'react-declarative' {
     import { useActualCallback } from 'react-declarative/hooks/useActualCallback';
     import { useActualValue } from 'react-declarative/hooks/useActualValue';
     import { useActualState } from 'react-declarative/hooks/useActualState';
+    import { useActualRef } from 'react-declarative/hooks/useActualRef';
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
     import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
@@ -306,6 +307,7 @@ declare module 'react-declarative' {
     export { useActualCallback };
     export { useActualValue };
     export { useActualState };
+    export { useActualRef };
     export { useRenderWaiter };
     export { useOneArray };
     export { oneArrayIncludes };
@@ -2021,6 +2023,11 @@ declare module 'react-declarative/hooks/useActualValue' {
 declare module 'react-declarative/hooks/useActualState' {
     export const useActualState: <S = undefined>(initialState?: S | (() => S) | undefined) => readonly [import("react").MutableRefObject<S>, import("react").Dispatch<import("react").SetStateAction<S>>];
     export default useActualState;
+}
+
+declare module 'react-declarative/hooks/useActualRef' {
+    export const useActualRef: <S = undefined>(initialState?: S | (() => S) | undefined) => readonly [import("react").MutableRefObject<S>, (dispatch: S | ((prevState: S) => S)) => void];
+    export default useActualRef;
 }
 
 declare module 'react-declarative/hooks/useRenderWaiter' {

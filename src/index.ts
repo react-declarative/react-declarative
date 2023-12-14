@@ -76,6 +76,7 @@ import { OneHandler as OneHandlerInternal } from './model/IOneProps';
 import { useActualCallback } from './hooks/useActualCallback';
 import { useActualValue } from './hooks/useActualValue';
 import { useActualState } from './hooks/useActualState';
+import { useActualRef } from './hooks/useActualRef';
 import { useRenderWaiter } from './hooks/useRenderWaiter';
 import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from './hooks/useOneArray';
 
@@ -386,6 +387,7 @@ export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, u
 export { useActualCallback };
 export { useActualValue };
 export { useActualState };
+export { useActualRef };
 export { useRenderWaiter };
 export { useOneArray };
 

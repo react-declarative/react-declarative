@@ -12,7 +12,7 @@ import SelectionMode from "../model/SelectionMode";
 import ListPicker, { IListPickerProps } from "../components/common/ListPicker";
 
 import useActualCallback from "./useActualCallback";
-import useActualState from "./useActualState";
+import useActualRef from "./useActualRef";
 
 import Subject from "../utils/rx/Subject";
 
@@ -76,7 +76,7 @@ export const useList = <RowData extends IRowData = IAnything>({
     })
   );
 
-  const [state$, setState] = useActualState<IState>(getInitialState);
+  const [state$, setState] = useActualRef<IState>(getInitialState);
 
   useEffect(() => {
     if (!state$.current.open) {
