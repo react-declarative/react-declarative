@@ -624,3 +624,5 @@ export const typo = { ...typoInternal };
 export const datetime = { ...datetimeInternal };
 
 export { compose } from './utils/compose';
+
+export { heavy } from './tools/heavy';

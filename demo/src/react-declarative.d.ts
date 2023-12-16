@@ -519,6 +519,7 @@ declare module 'react-declarative' {
         dateStamp: (str: string) => number;
     };
     export { compose } from 'react-declarative/utils/compose';
+    export { heavy } from 'react-declarative/tools/heavy';
 }
 
 declare module 'react-declarative/model/TypedField' {
@@ -3478,6 +3479,17 @@ declare module 'react-declarative/utils/compose' {
     export type Function = (...args: any[]) => any;
     export const compose: (...funcs: Function[]) => Function;
     export default compose;
+}
+
+declare module 'react-declarative/tools/heavy' {
+    import * as React from 'react';
+    interface IParams {
+        loaderSize: number;
+    }
+    export const heavy: <T extends React.ComponentType<any>>(factory: () => Promise<{
+        default: T;
+    }>, { loaderSize, }?: Partial<IParams>) => () => JSX.Element;
+    export default heavy;
 }
 
 declare module 'react-declarative/components/One/layouts/FragmentLayout' {
