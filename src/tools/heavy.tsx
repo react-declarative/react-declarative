@@ -14,7 +14,7 @@ export const heavy = <T extends React.ComponentType<any>>(factory: () => Promise
 }: Partial<IParams> = {}) => {
     const Component = lazy<any>(factory);
     return () => (
-        <Suspense fallback={<LoaderView size={loaderSize} />}>
+        <Suspense fallback={<LoaderView sx={{ width: '100%', height: '80vh' }} size={loaderSize} />}>
             <Component />
         </Suspense>
     );
