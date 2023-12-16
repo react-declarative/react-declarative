@@ -136,13 +136,29 @@ export const Header = <T extends RowData>({
 
   const renderCheckbox = useCallback(() => {
     if (selectionMode === SelectionMode.Single) {
-      return <Radio readOnly sx={{ cursor: "not-allowed" }} color="primary" />;
+      return (
+        <Radio
+          readOnly
+          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          color="primary"
+        />
+      );
     } else if (selectionMode === SelectionMode.Multiple) {
       return (
-        <Checkbox readOnly sx={{ cursor: "not-allowed" }} color="primary" />
+        <Checkbox
+          readOnly
+          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          color="primary"
+        />
       );
     } else if (selectionMode === SelectionMode.None) {
-      return <Checkbox color="primary" disabled />;
+      return (
+        <Checkbox
+          color="primary"
+          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          disabled
+        />
+      );
     } else {
       return null;
     }
