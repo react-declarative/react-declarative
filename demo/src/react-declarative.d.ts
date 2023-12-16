@@ -3487,13 +3487,13 @@ declare module 'react-declarative/utils/compose' {
 }
 
 declare module 'react-declarative/tools/heavy' {
-    import * as React from 'react';
+    import * as React from "react";
     interface IParams {
         loaderSize: number;
     }
-    export const heavy: <T extends React.ComponentType<any>>(factory: () => Promise<{
+    export const heavy: <T extends React.ComponentType<P>, P extends object = any>(factory: () => Promise<{
         default: T;
-    }>, { loaderSize, }?: Partial<IParams>) => () => JSX.Element;
+    }>, { loaderSize }?: Partial<IParams>) => (props: P) => JSX.Element;
     export default heavy;
 }
 
