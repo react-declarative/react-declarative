@@ -12,7 +12,7 @@ import TSubject from "../../../model/TSubject";
 import RowData from "../model/RowData";
 
 const DEFAULT_LIMIT = 25;
-const SCROLL_REQUEST_DELAY = 2_500;
+const SCROLL_REQUEST_DELAY = 100;
 
 interface IParams<Data = RowData> {
   reloadSubject?: TSubject<void>;

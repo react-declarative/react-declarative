@@ -142,7 +142,7 @@ export const ContentRow = forwardRef(
     const [rowColor, setRowColor] = useState<string>("");
     const recomputeSubject = useSubject(upperRecomputeSubject);
 
-    const { selectionMode = SelectionMode.None, loading } = useGridProps();
+    const { selectionMode = SelectionMode.None } = useGridProps();
     const { selection, setSelection } = useSelection();
 
     const { execute } = useAsyncAction(async () => {
@@ -197,7 +197,6 @@ export const ContentRow = forwardRef(
             color="primary"
             onClick={handleSelect}
             checked={selection.has(row.id)}
-            disabled={loading}
           />
         );
       } else if (selectionMode === SelectionMode.Multiple) {
@@ -206,7 +205,6 @@ export const ContentRow = forwardRef(
             color="primary"
             onClick={handleSelect}
             checked={selection.has(row.id)}
-            disabled={loading}
           />
         );
       } else if (selectionMode === SelectionMode.None) {
