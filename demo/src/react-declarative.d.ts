@@ -1763,6 +1763,11 @@ declare module 'react-declarative/helpers/serviceManager' {
         unload: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         clear: () => void;
     }
+    global {
+        interface Window {
+            __reactDeclarative_ServiceManager: ServiceManager;
+        }
+    }
     export const serviceManager: {
         _serviceManager: ServiceManager;
         registerInstance: <T = unknown>(key: Key, inst: T) => void;

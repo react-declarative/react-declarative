@@ -39,10 +39,16 @@ class ServiceManager {
     };
 
     registerInstance = <T = unknown>(key: Key, inst: T) => {
+        if (this._instances.has(key)) {
+            return;
+        }
         this._instances.set(key, inst);
     };
 
     registerCreator = <T = unknown>(key: Key, ctor: () => T) => {
+        if (this._creators.has(key)) {
+            return;
+        }
         this._creators.set(key, ctor);
     };
 
@@ -124,11 +130,25 @@ type IServiceManager = {
     [P in keyof InstanceType<typeof ServiceManager>]: InstanceType<typeof ServiceManager>[P];
 };
 
+declare global {
+    interface Window {
+        __reactDeclarative_ServiceManager: ServiceManager;
+    }
+}
+
 export const serviceManager = new class implements Omit<IServiceManager, keyof {
     prefetch: never;
     unload: never;
 }> {
-    _serviceManager = new ServiceManager();
+    _serviceManager: ServiceManager;
+
+    constructor() {
+        if (!window.__reactDeclarative_ServiceManager) {
+            window.__reactDeclarative_ServiceManager = new ServiceManager('global');
+        }
+        this._serviceManager = window.__reactDeclarative_ServiceManager;
+    }
+
     registerInstance = <T = unknown>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
     registerCreator = <T = unknown>(key: Key, ctor: () => T) => this._serviceManager.registerCreator<T>(key, ctor);
     inject = <T = unknown>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
