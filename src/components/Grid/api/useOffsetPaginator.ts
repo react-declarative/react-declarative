@@ -6,10 +6,13 @@ import useQueuedAction from "../../../hooks/useQueuedAction";
 import useActualState from "../../../hooks/useActualState";
 import useSubject from "../../../hooks/useSubject";
 
-import RowData from "../model/RowData";
+import sleep from "../../../utils/sleep";
+
 import TSubject from "../../../model/TSubject";
+import RowData from "../model/RowData";
 
 const DEFAULT_LIMIT = 25;
+const SCROLL_REQUEST_DELAY = 2_500;
 
 interface IParams<Data = RowData> {
   reloadSubject?: TSubject<void>;
@@ -18,9 +21,10 @@ interface IParams<Data = RowData> {
     limit: number,
     offset: number,
     initial: boolean,
-    currentRows: Data[],
+    currentRows: Data[]
   ) => Data[] | Promise<Data[]>;
   limit?: number;
+  delay?: number;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (error: Error) => void;
@@ -38,6 +42,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
   initialData: upperInitialData = [],
   handler,
   limit = DEFAULT_LIMIT,
+  delay = SCROLL_REQUEST_DELAY,
   ...queryProps
 }: IParams<Data>) => {
   const reloadSubject = useSubject(upperReloadSubject);
@@ -73,9 +78,10 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     setState({
       prevOffset:
         state.current.prevOffset + limit + initialData$.current.length,
-      data: initial ? [...state.current.data, ...nextData] : nextData,
+      data: initial ? nextData : [...state.current.data, ...nextData],
       hasMore: nextData.length >= limit,
     });
+    await sleep(delay);
   }, queryProps);
 
   useEffect(

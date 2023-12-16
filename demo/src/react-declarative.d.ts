@@ -7433,19 +7433,20 @@ declare module 'react-declarative/components/Grid/Grid' {
 }
 
 declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
-    import RowData from "react-declarative/components/Grid/model/RowData";
     import TSubject from "react-declarative/model/TSubject";
+    import RowData from "react-declarative/components/Grid/model/RowData";
     interface IParams<Data = RowData> {
         reloadSubject?: TSubject<void>;
         initialData?: Data[];
         handler: (limit: number, offset: number, initial: boolean, currentRows: Data[]) => Data[] | Promise<Data[]>;
         limit?: number;
+        delay?: number;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
-    export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
+    export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, delay, ...queryProps }: IParams<Data>) => {
         data: Data[];
         setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
         offset: number;
@@ -7459,19 +7460,20 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
 }
 
 declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
-    import RowData from "react-declarative/components/Grid/model/RowData";
     import TSubject from "react-declarative/model/TSubject";
+    import RowData from "react-declarative/components/Grid/model/RowData";
     interface IParams<Data = RowData> {
         reloadSubject?: TSubject<void>;
         initialData?: Data[];
         handler: (cursor: string | null, initial: boolean, limit: number, currentRows: Data[]) => Data[] | Promise<Data[]>;
         limit?: number;
+        delay?: number;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
-    export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, ...queryProps }: IParams<Data>) => {
+    export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, delay, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
         setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
         hasMore: boolean;
