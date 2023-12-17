@@ -44,7 +44,7 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
           paddingLeft: '16px',
           paddingRight: '8px',
           paddingBottom: '4px',
-          width: 'calc(100% + 32px)',
+          width: 'calc(100% + 32px) !important',
         },
         fields: [
           createFeatureItem(type, {
