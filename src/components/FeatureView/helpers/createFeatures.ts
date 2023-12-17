@@ -1,3 +1,5 @@
+import { alpha } from "@mui/material";
+
 import FieldType from "../../../model/FieldType";
 import TypedField from "../../../model/TypedField";
 import IFeatureGroup from "../model/IFeatureGroup";
@@ -25,25 +27,45 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
         isDisabled = () => false,
         isVisible = () => true,
         map,
-      }) => [
-        createFeatureItem(type, {
-          label,
-          name,
-          defaultValue,
-          isDisabled,
-          isVisible,
-          map,
-        }),
-        {
-          type: FieldType.Typography,
-          typoVariant: "subtitle2",
-          placeholder: description,
-          style: {
-            opacity: 0.5,
-          },
-          fieldBottomMargin: "0",
+      }, idx) => ({
+        type: FieldType.Box,
+        sx: {
+          ...(idx % 2 === 0 && {
+            background: (theme) => alpha(
+              theme.palette.getContrastText(theme.palette.background.paper),
+              0.04
+            ),
+          }),
+          ...(idx === children.length - 1 && {
+            marginBottom: '-16px',
+          }),
+          marginLeft: '-16px',
+          marginRight: '-16px',
+          paddingLeft: '16px',
+          paddingRight: '8px',
+          paddingBottom: '4px',
+          width: 'calc(100% + 32px)',
         },
-      ]
+        fields: [
+          createFeatureItem(type, {
+            label,
+            name,
+            defaultValue,
+            isDisabled,
+            isVisible,
+            map,
+          }),
+          {
+            type: FieldType.Typography,
+            typoVariant: "subtitle2",
+            placeholder: description,
+            style: {
+              opacity: 0.5,
+            },
+            fieldBottomMargin: "0",
+          },
+        ]
+      }),
     ),
   }));
 
