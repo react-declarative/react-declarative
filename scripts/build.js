@@ -8,7 +8,7 @@ esbuild.build({
   minify: true,
   splitting: true,
   format: 'esm',
-  target: 'chrome58',
+  target: 'chrome70',
   plugins: [nodeExternalsPlugin()],
 });
 
@@ -18,6 +18,6 @@ esbuild.build({
   bundle: true,
   minify: true,
   format: 'cjs',
-  target: 'chrome58',
+  target: 'chrome70',
   plugins: [nodeExternalsPlugin()],
 });

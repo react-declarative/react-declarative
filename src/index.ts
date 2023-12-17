@@ -625,4 +625,6 @@ export const datetime = { ...datetimeInternal };
 
 export { compose } from './utils/compose';
 
+export { resolveAsyncGenerator } from './tools/resolveAsyncGenerator';
+export { iterateDocuments } from './tools/iterateDocuments';
 export { heavy } from './tools/heavy';

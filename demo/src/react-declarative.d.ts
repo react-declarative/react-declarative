@@ -519,6 +519,8 @@ declare module 'react-declarative' {
         dateStamp: (str: string) => number;
     };
     export { compose } from 'react-declarative/utils/compose';
+    export { resolveAsyncGenerator } from 'react-declarative/tools/resolveAsyncGenerator';
+    export { iterateDocuments } from 'react-declarative/tools/iterateDocuments';
     export { heavy } from 'react-declarative/tools/heavy';
 }
 
@@ -3484,6 +3486,26 @@ declare module 'react-declarative/utils/compose' {
     export type Function = (...args: any[]) => any;
     export const compose: (...funcs: Function[]) => Function;
     export default compose;
+}
+
+declare module 'react-declarative/tools/resolveAsyncGenerator' {
+    export const resolveAsyncGenerator: <T extends unknown>(iterator: AsyncGenerator<T, void, unknown>) => Promise<T[]>;
+    export default resolveAsyncGenerator;
+}
+
+declare module 'react-declarative/tools/iterateDocuments' {
+    import IRowData, { RowId } from "react-declarative/model/IRowData";
+    interface IConfig<Data extends IRowData = IRowData> {
+        totalDocuments?: number;
+        limit?: number;
+        delay?: number;
+        createRequest: (data: {
+            limit: number;
+            lastId: RowId | null;
+        } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
+    }
+    export const iterateDocuments: <Data extends IRowData = IRowData>({ totalDocuments, limit, delay, createRequest, }: IConfig<Data>) => AsyncGenerator<Data, void, unknown>;
+    export default iterateDocuments;
 }
 
 declare module 'react-declarative/tools/heavy' {
