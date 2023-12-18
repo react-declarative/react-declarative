@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { createContext } from "react";
 
 import IField from "../../../model/IField";
@@ -20,14 +20,10 @@ export const PropsProvider = <
   Field extends IField<Data> = IField<Data>
 >({
   children,
-  ...otherProps
-}: IPropsProviderProps<Data, Field>) => {
-  const props = useMemo(() => otherProps, Object.values(otherProps));
-  return (
-    <PropsContext.Provider value={props}>{children}</PropsContext.Provider>
-  );
-};
-
+  ...props
+}: IPropsProviderProps<Data, Field>) => (
+  <PropsContext.Provider value={props}>{children}</PropsContext.Provider>
+);
 export const useOneProps = <Data extends IAnything = IAnything>() =>
   useContext(PropsContext) as IOneProps<Data>;
 
