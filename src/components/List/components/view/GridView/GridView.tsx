@@ -61,7 +61,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   tableHead: {
     position: "sticky",
     top: -1,
-    zIndex: 1,
+    zIndex: 5,
     background: theme.palette.background.paper,
   },
 }));
