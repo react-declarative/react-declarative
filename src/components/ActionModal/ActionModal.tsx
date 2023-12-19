@@ -29,6 +29,7 @@ import IOnePublicProps from "../../model/IOnePublicProps";
 import sleep from "../../utils/sleep";
 
 const MODAL_ROOT = "action-modal__root";
+const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 export interface IActionModalProps<
@@ -171,16 +172,16 @@ export const ActionModal = <
 
   const windowBasedSize = useWindowSize({
     compute: ({ height, width }) => ({
-      height: Math.floor((height - 50) / 2),
-      width: Math.floor((width - 50) / 2),
+      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
     }),
     debounce: RESIZE_DEBOUNCE,
   });
 
   const { elementRef, size: elementBasedSize } = useElementSize({
     compute: ({ height, width }) => ({
-      height: Math.floor((height - 50) / 2),
-      width: Math.floor((width - 50) / 2),
+      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
     }),
     debounce: RESIZE_DEBOUNCE,
   });

@@ -23,6 +23,7 @@ import IListProps from "../../model/IListProps";
 import SelectionMode from "../../model/SelectionMode";
 
 const MODAL_ROOT = "search-modal__root";
+const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 export interface ISearchModalProps<
@@ -148,8 +149,8 @@ export const SearchModal = <
       height,
       width,
     }) => ({
-      height: Math.floor((height - 50) / 2),
-      width: Math.floor((width - 50) / 2),
+      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
     }),
     debounce: RESIZE_DEBOUNCE,
   });
