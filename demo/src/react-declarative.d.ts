@@ -495,6 +495,7 @@ declare module 'react-declarative' {
     export { parseAsciiParams, serializeAsciiParams } from 'react-declarative/utils/asciiParams';
     export { fromBytes32, toBytes32 } from 'react-declarative/utils/asciiParams';
     import * as datetimeInternal from 'react-declarative/utils/datetime';
+    export { waitForMove } from "react-declarative/utils/waitForMove";
     export const typo: {
         thinsp: " ";
         nbsp: " ";
@@ -3480,6 +3481,11 @@ declare module 'react-declarative/utils/datetime' {
     export const currentTime: () => string;
     export const timeStamp: (str: string) => number;
     export const dateStamp: (str: string) => number;
+}
+
+declare module 'react-declarative/utils/waitForMove' {
+    export const waitForMove: (fn: () => void) => () => void;
+    export default waitForMove;
 }
 
 declare module 'react-declarative/utils/compose' {
