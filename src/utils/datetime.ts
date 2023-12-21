@@ -117,7 +117,7 @@ export const currentTime = () => {
     return serializeTime(time)!;
 };
 
-export const timeStamp = (str: string) => {
+export const timeStamp = (str = currentTime()) => {
     const time = parseTime(str);
     if (time) {
         return time.toStamp();
@@ -126,7 +126,7 @@ export const timeStamp = (str: string) => {
     }
 };
 
-export const dateStamp = (str: string) => {
+export const dateStamp = (str = currentDate()) => {
     const date = parseDate(str);
     if (date) {
         return date.toStamp();

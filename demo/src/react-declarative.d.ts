@@ -517,8 +517,8 @@ declare module 'react-declarative' {
         serializeTime: (time: datetimeInternal.Time) => string | null;
         currentDate: () => string;
         currentTime: () => string;
-        timeStamp: (str: string) => number;
-        dateStamp: (str: string) => number;
+        timeStamp: (str?: string) => number;
+        dateStamp: (str?: string) => number;
     };
     export { compose } from 'react-declarative/utils/compose';
     export { resolveAsyncGenerator } from 'react-declarative/tools/resolveAsyncGenerator';
@@ -3482,8 +3482,8 @@ declare module 'react-declarative/utils/datetime' {
     export const serializeTime: (time: Time) => string | null;
     export const currentDate: () => string;
     export const currentTime: () => string;
-    export const timeStamp: (str: string) => number;
-    export const dateStamp: (str: string) => number;
+    export const timeStamp: (str?: string) => number;
+    export const dateStamp: (str?: string) => number;
 }
 
 declare module 'react-declarative/utils/waitForMove' {
