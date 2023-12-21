@@ -3467,6 +3467,7 @@ declare module 'react-declarative/utils/datetime' {
         constructor(hour: number, minute: number);
         toString: () => string | null;
         toStamp: () => number;
+        static fromStamp: (stamp: number) => Time;
     }
     export class Date {
         readonly day: number;
@@ -3475,6 +3476,7 @@ declare module 'react-declarative/utils/datetime' {
         constructor(day: number, month: number, year: number);
         toString: () => string | null;
         toStamp: () => number;
+        static fromStamp: (stamp: number) => Date;
     }
     export const parseDate: (date: string | null) => Date | null;
     export const serializeDate: (date: Date) => string | null;

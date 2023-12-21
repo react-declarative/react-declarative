@@ -17,6 +17,12 @@ export class Time {
     toStamp = () => {
         return this.hour * 60 + this.minute;
     };
+    static fromStamp = (stamp: number) => {
+        const source = dayjs("1970-01-01").set("hour", 0).set("minute", 0).add(stamp, "minute");
+        const hour = source.get('hour');
+        const minute = source.get('minute');
+        return new Time(hour, minute);
+    };
 };
 
 export class Date {
@@ -39,6 +45,10 @@ export class Date {
         } else {
             return -1;
         }
+    };
+    static fromStamp = (stamp: number) => {
+        const now = dayjs('1970-01-01').add(stamp, 'days').toDate();
+        return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
     };
 };
 
