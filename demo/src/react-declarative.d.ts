@@ -59,6 +59,7 @@ declare module 'react-declarative' {
     export { unload } from 'react-declarative/helpers/serviceManager';
     export { provide } from 'react-declarative/helpers/serviceManager';
     export { inject } from 'react-declarative/helpers/serviceManager';
+    export { waitForProvide } from 'react-declarative/helpers/serviceManager';
     import { IMenuGroup as IMenuGroupInternal, IMenuOption as IMenuOptionInternal } from 'react-declarative/model/IMenuGroup';
     import { ListHandlerPagination as ListHandlerPaginationInternal } from 'react-declarative/model/IListProps';
     import { ListHandlerSortModel as ListHandlerSortModelInternal } from 'react-declarative/model/IListProps';
@@ -1759,9 +1760,10 @@ declare module 'react-declarative/helpers/serviceManager' {
     }
     class ServiceManager {
         constructor(_name?: string);
-        registerInstance: <T = unknown>(key: Key, inst: T) => void;
-        registerCreator: <T = unknown>(key: Key, ctor: () => T) => void;
-        inject: <T = unknown>(key: Key, verbose?: boolean) => T;
+        registerInstance: <T = object>(key: Key, inst: T) => void;
+        registerCreator: <T = object>(key: Key, ctor: () => T | Promise<T>) => void;
+        inject: <T = object>(key: Key, verbose?: boolean) => T;
+        waitForProvide: (verbose?: boolean) => Promise<void>;
         prefetch: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         unload: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         clear: () => void;
@@ -1773,19 +1775,20 @@ declare module 'react-declarative/helpers/serviceManager' {
     }
     export const serviceManager: {
         _serviceManager: ServiceManager;
-        registerInstance: <T = unknown>(key: Key, inst: T) => void;
-        registerCreator: <T_1 = unknown>(key: Key, ctor: () => T_1) => void;
-        inject: <T_2 = unknown>(key: Key, verbose?: boolean) => T_2;
+        registerInstance: <T = object>(key: Key, inst: T) => void;
+        registerCreator: <T_1 = object>(key: Key, ctor: () => T_1 | Promise<T_1>) => void;
+        inject: <T_2 = object>(key: Key, verbose?: boolean) => T_2;
+        waitForProvide: (verbose?: boolean) => Promise<void>;
         prefetch: (verbose?: boolean) => Promise<void>;
         unload: (verbose?: boolean) => Promise<void>;
         clear: () => void;
     };
-    const provide: <T = unknown>(key: Key, ctor: () => T) => void, inject: <T = unknown>(key: Key, verbose?: boolean) => T, prefetch: (verbose?: boolean) => Promise<void>, unload: (verbose?: boolean) => Promise<void>;
-    export { provide, inject, prefetch, unload, };
+    const provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void, waitForProvide: (verbose?: boolean) => Promise<void>, inject: <T = object>(key: Key, verbose?: boolean) => T, prefetch: (verbose?: boolean) => Promise<void>, unload: (verbose?: boolean) => Promise<void>;
+    export { provide, inject, waitForProvide, prefetch, unload, };
     export const createServiceManager: (name?: string) => {
         serviceManager: ServiceManager;
-        provide: <T = unknown>(key: Key, ctor: () => T) => void;
-        inject: <T_1 = unknown>(key: Key) => T_1;
+        provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void;
+        inject: <T_1 = object>(key: Key) => T_1;
         prefetch: () => Promise<void>;
         unload: () => Promise<void>;
         dispose: () => Promise<void>;

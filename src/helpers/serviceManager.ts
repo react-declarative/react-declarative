@@ -7,10 +7,38 @@ export interface IService {
     unload?: () => Promise<void>;
 }
 
+const createInstanceRef = (name: string) => class InstanceRef<T extends object> {
+
+    private static readonly _waitPool: Promise<object>[] = [];
+    private static _keys: (symbol | string)[] = [];
+
+    constructor(key: symbol | string, promise: Promise<T>) {
+        InstanceRef._waitPool.push(promise);
+        InstanceRef._keys.push(key);
+        promise.then((instance) => {
+            Object.setPrototypeOf(this, instance);
+        });
+    }
+
+    public static waitForProvide = async (verbose: boolean) => {
+        await Promise.all(this._waitPool.map((instance, idx) => {
+            instance.then(() => {
+                verbose && console.info(`react-declarative serviceManager ${name} waitForProvide done for ${String(InstanceRef._keys[idx])}`);
+            });
+            instance.catch(() => {
+                verbose && console.info(`react-declarative serviceManager ${name} waitForProvide error for ${String(InstanceRef._keys[idx])}`);
+            });
+            return instance;
+        }));
+    };
+};
+
 class ServiceManager {
 
-    private readonly _creators = new Map<Key, () => unknown>();
-    private readonly _instances = new Map<Key, unknown>();
+    private readonly InstanceRef = createInstanceRef(this._name);
+
+    private readonly _creators = new Map<Key, () => object>();
+    private readonly _instances = new Map<Key, object>();
 
     private _resolutionOrder: Key[] = [];
     private _reverseCounter = 0;
@@ -38,29 +66,30 @@ class ServiceManager {
         }
     };
 
-    registerInstance = <T = unknown>(key: Key, inst: T) => {
+    registerInstance = <T = object>(key: Key, inst: T) => {
         if (this._instances.has(key)) {
             return;
         }
-        this._instances.set(key, inst);
+        this._instances.set(key, inst as unknown as object);
     };
 
-    registerCreator = <T = unknown>(key: Key, ctor: () => T) => {
+    registerCreator = <T = object>(key: Key, ctor: () => (T | Promise<T>)) => {
         if (this._creators.has(key)) {
             return;
         }
-        this._creators.set(key, ctor);
+        this._creators.set(key, ctor as unknown as () => object);
     };
 
-    inject = <T = unknown>(key: Key, verbose = true): T => {
+    inject = <T = object>(key: Key, verbose = true): T => {
         if (this._instances.has(key)) {
             const instance = this._instances.get(key);
-            return instance as T;
+            return instance as unknown as T;
         } else if (this._creators.has(key)) {
             this._checkCircularDependency(key);
             const index = Math.max(this._resolutionOrder.length - 1, 0);
             this._reverseCounter++;
-            const instance = this._creators.get(key)!();
+            const factoryResult = this._creators.get(key)!;
+            const instance = factoryResult instanceof Promise ? new this.InstanceRef(key, factoryResult) : factoryResult;
             this._reverseCounter--;
             this._updateResolutionOrder(index);
             this._instances.set(key, instance);
@@ -71,18 +100,22 @@ class ServiceManager {
         }
     };
 
+    waitForProvide = async (verbose = false) => {
+        await this.InstanceRef.waitForProvide(verbose);
+    };
+
     prefetch = singleshot(async (verbose = true) => {
         this.unload.clear();
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
-                verbose && console.info(`react-declarative serviceManager prefetch ${String(key)}`);
+                verbose && console.info(`react-declarative serviceManager ${this._name} prefetch ${String(key)}`);
                 const instance = this._instances.get(key)! as IService;
                 instance.prefetch && await instance.prefetch();
             }
             for (const key of this._instances.keys()) {
                 if (!resolutionSet.has(key)) {
-                    verbose && console.info(`react-declarative serviceManager prefetch ${String(key)}`);
+                    verbose && console.info(`react-declarative serviceManager ${this._name} prefetch ${String(key)}`);
                     const instance = this._instances.get(key)! as IService;
                     instance.prefetch && await instance.prefetch();
                 }
@@ -98,13 +131,13 @@ class ServiceManager {
         try {
             const resolutionSet = new Set(this._resolutionOrder);
             for (const key of this._resolutionOrder) {
-                verbose && console.info(`react-declarative serviceManager unload ${String(key)}`);
+                verbose && console.info(`react-declarative serviceManager ${this._name} unload ${String(key)}`);
                 const instance = this._instances.get(key)! as IService;
                 instance.unload && await instance.unload();
             }
             for (const key of this._instances.keys()) {
                 if (!resolutionSet.has(key)) {
-                    verbose && console.info(`react-declarative serviceManager unload ${String(key)}`);
+                    verbose && console.info(`react-declarative serviceManager ${this._name} unload ${String(key)}`);
                     const instance = this._instances.get(key)! as IService;
                     instance.unload && await instance.unload();
                 }
@@ -149,9 +182,10 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
         this._serviceManager = window.__reactDeclarative_ServiceManager;
     }
 
-    registerInstance = <T = unknown>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
-    registerCreator = <T = unknown>(key: Key, ctor: () => T) => this._serviceManager.registerCreator<T>(key, ctor);
-    inject = <T = unknown>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
+    registerInstance = <T = object>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
+    registerCreator = <T = object>(key: Key, ctor: () => (T | Promise<T>)) => this._serviceManager.registerCreator<T>(key, ctor);
+    inject = <T = object>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
+    waitForProvide = async (verbose = true) => await this._serviceManager.waitForProvide(verbose);
     prefetch = async (verbose = true) => await this._serviceManager.prefetch(verbose);
     unload = async (verbose = true) => await this._serviceManager.unload(verbose);
     clear = () => this._serviceManager.clear();
@@ -159,6 +193,7 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
 
 const {
     registerCreator: provide,
+    waitForProvide,
     inject,
     prefetch,
     unload,
@@ -167,6 +202,7 @@ const {
 export {
     provide,
     inject,
+    waitForProvide,
     prefetch,
     unload,
 };
@@ -175,7 +211,7 @@ export const createServiceManager = (name = 'unknown') => {
 
     const localServiceManager = new ServiceManager(name);
 
-    const inject = <T = unknown>(key: Key): T => {
+    const inject = <T = object>(key: Key): T => {
         const localInstance = localServiceManager.inject<T>(key, false);
         if (localInstance) {
             return localInstance;

@@ -59,6 +59,7 @@ export { unload } from './helpers/serviceManager';
 
 export { provide } from './helpers/serviceManager';
 export { inject } from './helpers/serviceManager';
+export { waitForProvide } from './helpers/serviceManager';
 
 import { 
     IMenuGroup as IMenuGroupInternal,
