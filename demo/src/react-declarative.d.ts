@@ -2741,6 +2741,11 @@ declare module 'react-declarative/utils/loadScript' {
 }
 
 declare module 'react-declarative/utils/reloadPage' {
+    global {
+        interface Location {
+            reload(forceReload: boolean): void;
+        }
+    }
     export const reloadPage: {
         (): Promise<void>;
         override(ref: () => void): void;

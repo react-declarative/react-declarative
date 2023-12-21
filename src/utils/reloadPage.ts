@@ -2,6 +2,12 @@ let isReloading = false;
 
 let overrideRef: (() => void) | null = null
 
+declare global {
+    interface Location {
+        reload(forceReload: boolean): void;
+    }
+}
+
 export const reloadPage = async () => {
     isReloading = true;
     if (overrideRef) {
@@ -9,6 +15,11 @@ export const reloadPage = async () => {
         return;
     }
     const { href, origin, protocol } = window.location;
+    if ('caches' in window) {
+        for (const cache of await window.caches.keys()) {
+            await caches.delete(cache);
+        }
+    }
     if (protocol !== 'file:') {
         const url = new URL(href, origin);
         url.pathname = '/';
@@ -16,7 +27,7 @@ export const reloadPage = async () => {
         url.hash = '';
         window.location.href = url.toString();
     } else {
-        window.location.reload();
+        window.location.reload(true);
     }
 };
 
