@@ -1,3 +1,4 @@
+import queued, { CANCELED_SYMBOL } from "../utils/hof/queued";
 import singleshot from "../utils/hof/singleshot";
 
 type Key = string | symbol;
@@ -9,13 +10,18 @@ export interface IService {
 
 const createInstanceRef = (name: string) => class InstanceRef<T extends object> {
 
+    private readonly queueFactory = queued(async (promise: Promise<object>) => await promise);
+
     private static readonly _waitPool: Promise<object>[] = [];
     private static _keys: (symbol | string)[] = [];
 
     constructor(key: symbol | string, promise: Promise<T>) {
         InstanceRef._waitPool.push(promise);
         InstanceRef._keys.push(key);
-        promise.then((instance) => {
+        this.queueFactory(promise).then((instance) => {
+            if (instance === CANCELED_SYMBOL) {
+                return;
+            }
             Object.setPrototypeOf(this, instance);
         });
     }
@@ -25,8 +31,9 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
             instance.then(() => {
                 verbose && console.info(`react-declarative serviceManager ${name} waitForProvide done for ${String(InstanceRef._keys[idx])}`);
             });
-            instance.catch(() => {
+            instance.catch((error) => {
                 verbose && console.info(`react-declarative serviceManager ${name} waitForProvide error for ${String(InstanceRef._keys[idx])}`);
+                throw error;
             });
             return instance;
         }));
@@ -100,9 +107,9 @@ class ServiceManager {
         }
     };
 
-    waitForProvide = async (verbose = false) => {
+    waitForProvide = singleshot(async (verbose = false) => {
         await this.InstanceRef.waitForProvide(verbose);
-    };
+    });
 
     prefetch = singleshot(async (verbose = true) => {
         this.unload.clear();
@@ -170,6 +177,7 @@ declare global {
 }
 
 export const serviceManager = new class implements Omit<IServiceManager, keyof {
+    waitForProvide: never;
     prefetch: never;
     unload: never;
 }> {

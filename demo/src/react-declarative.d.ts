@@ -1763,7 +1763,7 @@ declare module 'react-declarative/helpers/serviceManager' {
         registerInstance: <T = object>(key: Key, inst: T) => void;
         registerCreator: <T = object>(key: Key, ctor: () => T | Promise<T>) => void;
         inject: <T = object>(key: Key, verbose?: boolean) => T;
-        waitForProvide: (verbose?: boolean) => Promise<void>;
+        waitForProvide: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         prefetch: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         unload: ((verbose?: any) => Promise<void>) & import("../utils/hof/singleshot").IClearable;
         clear: () => void;
