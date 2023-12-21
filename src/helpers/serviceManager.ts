@@ -88,12 +88,12 @@ class ServiceManager {
             this._checkCircularDependency(key);
             const index = Math.max(this._resolutionOrder.length - 1, 0);
             this._reverseCounter++;
-            const factoryResult = this._creators.get(key)!;
+            const factoryResult = this._creators.get(key)!();
             const instance = factoryResult instanceof Promise ? new this.InstanceRef(key, factoryResult) : factoryResult;
             this._reverseCounter--;
             this._updateResolutionOrder(index);
             this._instances.set(key, instance);
-            return instance as T;
+            return instance as unknown as T;
         } else {
             verbose && console.error(`react-declarative serviceManager ${this._name} unknown service`, key);
             return null as never;
