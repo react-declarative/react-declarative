@@ -1,5 +1,5 @@
-export const truely = (arr: (string | null)[]): string[] => {
-    return (arr?.filter(v => v) || []) as string[];
+export const truely = <T = string>(arr: (T | null)[]): T[] => {
+    return (arr?.filter(v => v) || []) as T[];
 }
 
 export default truely;

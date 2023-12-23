@@ -462,6 +462,7 @@ declare module 'react-declarative' {
     export { not } from 'react-declarative/utils/math/not';
     export { match } from 'react-declarative/utils/math/match';
     export { first } from 'react-declarative/utils/math/first';
+    export { join } from 'react-declarative/utils/math/join';
     export { last } from 'react-declarative/utils/math/last';
     export { truely } from 'react-declarative/utils/math/truely';
     export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
@@ -3203,13 +3204,18 @@ declare module 'react-declarative/utils/math/first' {
     export default first;
 }
 
+declare module 'react-declarative/utils/math/join' {
+    export const join: <T = string>(...arr: (T | T[] | null)[] | (T | T[] | null)[][]) => T[];
+    export default join;
+}
+
 declare module 'react-declarative/utils/math/last' {
     export const last: <T = any>(arr: T[] | null | undefined) => T | null;
     export default last;
 }
 
 declare module 'react-declarative/utils/math/truely' {
-    export const truely: (arr: (string | null)[]) => string[];
+    export const truely: <T = string>(arr: (T | null)[]) => T[];
     export default truely;
 }
 
