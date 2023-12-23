@@ -154,6 +154,7 @@ export const Container = <
     handleRerender,
     handleRowsChange,
     handleSortModel,
+    initComplete,
     children,
     isChooser,
     ready,
@@ -175,10 +176,7 @@ export const Container = <
     AfterOperationList,
   } = props;
 
-  const {
-    elementRef: rootElementRef,
-    size: rootElementSize,
-  } = useElementSize({
+  const { elementRef: rootElementRef, size: rootElementSize } = useElementSize({
     target: sizeByElement ? undefined : document.body,
     debounce: RESIZE_DELAY,
     compute: ({ height, width }) => ({
@@ -188,12 +186,10 @@ export const Container = <
     onResize,
   });
 
-  const {
-    elementRef: contentElementRef,
-    size: contentElementSize,
-  } = useElementSize({
-    debounce: RESIZE_DELAY,
-  });
+  const { elementRef: contentElementRef, size: contentElementSize } =
+    useElementSize({
+      debounce: RESIZE_DELAY,
+    });
 
   useEffect(() => {
     constraintManager.clear();
@@ -212,31 +208,34 @@ export const Container = <
           style={rootElementSize}
           className={classNames(classes.content, classes.stretch)}
         >
-          <div>
-            {BeforeActionList && (
-              <Box className={classes.beforeActionList}>
-                <BeforeActionList
-                  filterData={filterData}
-                  chips={chips}
-                  pagination={pagination}
-                  payload={payload}
-                  search={search}
-                  sortModel={sortModel}
-                  handleFilter={handleFilter}
-                  handleDefault={handleDefault}
-                  handleChips={handleChips}
-                  handleLimitChange={handleLimitChange}
-                  handlePageChange={handlePageChange}
-                  handleReload={handleReload}
-                  handleRerender={handleRerender}
-                  handleRowsChange={handleRowsChange}
-                  handleSortModel={handleSortModel}
-                  handleSearch={handleSearch}
-                  handleFiltersCollapsed={handleFiltersCollapsed}
-                />
-              </Box>
-            )}
-          </div>
+          {initComplete && (
+            <div>
+              {BeforeActionList && (
+                <Box className={classes.beforeActionList}>
+                  <BeforeActionList
+                    filterData={filterData}
+                    chips={chips}
+                    pagination={pagination}
+                    payload={payload}
+                    search={search}
+                    sortModel={sortModel}
+                    handleFilter={handleFilter}
+                    handleDefault={handleDefault}
+                    handleChips={handleChips}
+                    handleLimitChange={handleLimitChange}
+                    handlePageChange={handlePageChange}
+                    handleReload={handleReload}
+                    handleRerender={handleRerender}
+                    handleRowsChange={handleRowsChange}
+                    handleSortModel={handleSortModel}
+                    handleSearch={handleSearch}
+                    handleFiltersCollapsed={handleFiltersCollapsed}
+                  />
+                </Box>
+              )}
+            </div>
+          )}
+
           <div>
             {Array.isArray(actions) && !!actions.length && (
               <ActionListSlot
@@ -249,86 +248,99 @@ export const Container = <
             )}
           </div>
 
-          <div>
-            {AfterActionList && (
-              <Box className={classes.afterActionList}>
-                <AfterActionList
-                  filterData={filterData}
-                  chips={chips}
-                  pagination={pagination}
-                  payload={payload}
-                  search={search}
-                  sortModel={sortModel}
-                  handleFilter={handleFilter}
-                  handleDefault={handleDefault}
-                  handleChips={handleChips}
-                  handleLimitChange={handleLimitChange}
-                  handlePageChange={handlePageChange}
-                  handleReload={handleReload}
-                  handleRerender={handleRerender}
-                  handleRowsChange={handleRowsChange}
-                  handleSortModel={handleSortModel}
-                  handleSearch={handleSearch}
-                  handleFiltersCollapsed={handleFiltersCollapsed}
-                />
-              </Box>
-            )}
-          </div>
-          <div>
-            {BeforeOperationList && (
-              <Box className={classes.beforeActionList}>
-                <BeforeOperationList
-                  filterData={filterData}
-                  chips={chips}
-                  pagination={pagination}
-                  payload={payload}
-                  search={search}
-                  sortModel={sortModel}
-                  handleFilter={handleFilter}
-                  handleDefault={handleDefault}
-                  handleChips={handleChips}
-                  handleLimitChange={handleLimitChange}
-                  handlePageChange={handlePageChange}
-                  handleReload={handleReload}
-                  handleRerender={handleRerender}
-                  handleRowsChange={handleRowsChange}
-                  handleSortModel={handleSortModel}
-                  handleSearch={handleSearch}
-                  handleFiltersCollapsed={handleFiltersCollapsed}
-                />
-              </Box>
-            )}
-          </div>
+          {initComplete && (
+            <div>
+              {AfterActionList && (
+                <Box className={classes.afterActionList}>
+                  <AfterActionList
+                    filterData={filterData}
+                    chips={chips}
+                    pagination={pagination}
+                    payload={payload}
+                    search={search}
+                    sortModel={sortModel}
+                    handleFilter={handleFilter}
+                    handleDefault={handleDefault}
+                    handleChips={handleChips}
+                    handleLimitChange={handleLimitChange}
+                    handlePageChange={handlePageChange}
+                    handleReload={handleReload}
+                    handleRerender={handleRerender}
+                    handleRowsChange={handleRowsChange}
+                    handleSortModel={handleSortModel}
+                    handleSearch={handleSearch}
+                    handleFiltersCollapsed={handleFiltersCollapsed}
+                  />
+                </Box>
+              )}
+            </div>
+          )}
+
+          {initComplete && (
+            <div>
+              {BeforeOperationList && (
+                <Box className={classes.beforeActionList}>
+                  <BeforeOperationList
+                    filterData={filterData}
+                    chips={chips}
+                    pagination={pagination}
+                    payload={payload}
+                    search={search}
+                    sortModel={sortModel}
+                    handleFilter={handleFilter}
+                    handleDefault={handleDefault}
+                    handleChips={handleChips}
+                    handleLimitChange={handleLimitChange}
+                    handlePageChange={handlePageChange}
+                    handleReload={handleReload}
+                    handleRerender={handleRerender}
+                    handleRowsChange={handleRowsChange}
+                    handleSortModel={handleSortModel}
+                    handleSearch={handleSearch}
+                    handleFiltersCollapsed={handleFiltersCollapsed}
+                  />
+                </Box>
+              )}
+            </div>
+          )}
+
           <div>
             {Array.isArray(operations) && !!operations.length && (
-              <OperationListSlot operations={operations} width={rootElementSize.width} />
+              <OperationListSlot
+                operations={operations}
+                width={rootElementSize.width}
+              />
             )}
           </div>
-          <div>
-            {AfterOperationList && (
-              <Box className={classes.beforeActionList}>
-                <AfterOperationList
-                  filterData={filterData}
-                  chips={chips}
-                  pagination={pagination}
-                  payload={payload}
-                  search={search}
-                  sortModel={sortModel}
-                  handleFilter={handleFilter}
-                  handleDefault={handleDefault}
-                  handleChips={handleChips}
-                  handleLimitChange={handleLimitChange}
-                  handlePageChange={handlePageChange}
-                  handleReload={handleReload}
-                  handleRerender={handleRerender}
-                  handleRowsChange={handleRowsChange}
-                  handleSortModel={handleSortModel}
-                  handleSearch={handleSearch}
-                  handleFiltersCollapsed={handleFiltersCollapsed}
-                />
-              </Box>
-            )}
-          </div>
+
+          {initComplete && (
+            <div>
+              {AfterOperationList && (
+                <Box className={classes.beforeActionList}>
+                  <AfterOperationList
+                    filterData={filterData}
+                    chips={chips}
+                    pagination={pagination}
+                    payload={payload}
+                    search={search}
+                    sortModel={sortModel}
+                    handleFilter={handleFilter}
+                    handleDefault={handleDefault}
+                    handleChips={handleChips}
+                    handleLimitChange={handleLimitChange}
+                    handlePageChange={handlePageChange}
+                    handleReload={handleReload}
+                    handleRerender={handleRerender}
+                    handleRowsChange={handleRowsChange}
+                    handleSortModel={handleSortModel}
+                    handleSearch={handleSearch}
+                    handleFiltersCollapsed={handleFiltersCollapsed}
+                  />
+                </Box>
+              )}
+            </div>
+          )}
+
           <Paper
             className={classNames(classes.content, classes.stretch, {
               [classes.noElevation]: isChooser,
