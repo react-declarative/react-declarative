@@ -399,18 +399,16 @@ export class Entry<
 
   private handleDefault = async (initialCall = false) => {
     const newData: Partial<FilterData> = {};
-    if (!this.props.noInitialFilters) {
-      deepFlat(this.props.filters)
-        .filter(({ name }) => !!name)
-        .map(({ type, name, defaultValue }) => {
-          create(newData, name);
-          const fieldValue =
-            typeof defaultValue === "function"
-              ? defaultValue(this.state.payload)
-              : defaultValue;
-          set(newData, name, fieldValue || initialValue(type));
-        });
-    }
+    deepFlat(this.props.filters)
+      .filter(({ name }) => !!name)
+      .map(({ type, name, defaultValue }) => {
+        create(newData, name);
+        const fieldValue =
+          typeof defaultValue === "function"
+            ? defaultValue(this.state.payload)
+            : defaultValue;
+        set(newData, name, fieldValue || initialValue(type));
+      });
     if (initialCall) {
       deepMerge(newData, this.props.filterData!);
     }
