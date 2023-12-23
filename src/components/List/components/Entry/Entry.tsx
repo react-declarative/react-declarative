@@ -402,9 +402,13 @@ export class Entry<
     if (!this.props.noInitialFilters) {
       deepFlat(this.props.filters)
         .filter(({ name }) => !!name)
-        .map(({ type, name }) => {
+        .map(({ type, name, defaultValue }) => {
           create(newData, name);
-          set(newData, name, initialValue(type));
+          const fieldValue =
+            typeof defaultValue === "function"
+              ? defaultValue(this.state.payload)
+              : defaultValue;
+          set(newData, name, fieldValue || initialValue(type));
         });
     }
     if (initialCall) {
