@@ -32,6 +32,7 @@ export * from './ConstraintView';
 export * from './ScrollTopView';
 export * from './OutletView';
 export * from './AlertView';
+export * from './PaperView';
 export * from './DragDropView';
 export * from './FilesView';
 export * from './ScrollView';

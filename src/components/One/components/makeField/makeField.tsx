@@ -143,6 +143,7 @@ export function makeField(
         groupRef: ref = DEFAULT_REF,
         fieldRightMargin = fieldConfig.defaultProps?.fieldRightMargin,
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
+        outlinePaper = false,
         ...otherProps
     }: IEntity<Data>) => {
         const { object: stateObject } = useOneState<Data>();
@@ -578,6 +579,7 @@ export function makeField(
             loading,
             object,
             prefix,
+            outlinePaper,
             ...otherProps,
         };
 

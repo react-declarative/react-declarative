@@ -5,6 +5,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   _fieldData: Data;
   _fieldParams: IField;
   context: Record<string, any>;
+  outlinePaper: boolean;
   payload: Payload;
   disabled: boolean;
   readonly: boolean;

@@ -210,6 +210,7 @@ export { ImageView } from './components';
 export { ConstraintView } from './components';
 export { DragDropView } from './components';
 export { FilesView } from './components';
+export { PaperView } from './components';
 export { ScrollView } from './components';
 export { ScaleView } from './components';
 export { FetchView } from './components';
