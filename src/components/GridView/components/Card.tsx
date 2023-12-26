@@ -4,8 +4,9 @@ import { SxProps, alpha } from "@mui/material/styles";
 import { makeStyles } from "../../../styles";
 
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+
+import PaperView from "../../PaperView";
 
 import classNames from "../../../utils/classNames";
 
@@ -60,6 +61,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export interface ICardProps<P = IAnything> {
   label?: React.ReactNode;
+  outlinePaper?: boolean;
   sx?: SxProps;
   children?: React.ReactNode;
   className?: string;
@@ -72,6 +74,7 @@ export interface ICardProps<P = IAnything> {
 
 export const Card = ({
   children = null,
+  outlinePaper,
   className,
   style,
   sx,
@@ -83,8 +86,9 @@ export const Card = ({
 }: ICardProps) => {
   const { classes } = useStyles();
   return (
-    <Paper
+    <PaperView
       className={classNames(classes.root, className)}
+      outlinePaper={outlinePaper}
       sx={sx}
       style={style}
     >
@@ -99,7 +103,7 @@ export const Card = ({
       <div className={classes.container}>
         <div className={classes.content}>{children}</div>
       </div>
-    </Paper>
+    </PaperView>
   );
 };
 

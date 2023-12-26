@@ -11,6 +11,7 @@ import IAnything from "../../model/IAnything";
 interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
+  outlinePaper?: boolean;
   sx?: SxProps;
   label?: ICardProps["label"];
   BeforeLabel?: ICardProps["BeforeLabel"];
@@ -28,12 +29,14 @@ export const GridView = <
   BeforeLabel,
   AfterLabel,
   payload: upperPayload,
+  outlinePaper,
   loading,
   ...otherProps
 }: IGridViewProps<T, P>) => {
   const payload = useSingleton(upperPayload);
   return (
     <Card
+      outlinePaper={outlinePaper}
       className={className}
       style={style}
       sx={sx}

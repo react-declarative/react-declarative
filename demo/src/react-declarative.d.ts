@@ -7498,12 +7498,13 @@ declare module 'react-declarative/components/GridView/GridView' {
     interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
         className?: string;
         style?: React.CSSProperties;
+        outlinePaper?: boolean;
         sx?: SxProps;
         label?: ICardProps["label"];
         BeforeLabel?: ICardProps["BeforeLabel"];
         AfterLabel?: ICardProps["AfterLabel"];
     }
-    export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, loading, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
+    export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, outlinePaper, loading, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
     export default GridView;
 }
 
@@ -8694,6 +8695,7 @@ declare module 'react-declarative/components/GridView/components/Card' {
     import IAnything from "react-declarative/model/IAnything";
     export interface ICardProps<P = IAnything> {
         label?: React.ReactNode;
+        outlinePaper?: boolean;
         sx?: SxProps;
         children?: React.ReactNode;
         className?: string;
@@ -8709,7 +8711,7 @@ declare module 'react-declarative/components/GridView/components/Card' {
             loading: boolean;
         }>;
     }
-    export const Card: ({ children, className, style, sx, label, payload, loading, BeforeLabel, AfterLabel, }: ICardProps) => JSX.Element;
+    export const Card: ({ children, outlinePaper, className, style, sx, label, payload, loading, BeforeLabel, AfterLabel, }: ICardProps) => JSX.Element;
     export default Card;
 }
 

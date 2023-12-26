@@ -15,6 +15,7 @@ const useStyles = makeStyles()((theme) => ({
       theme.palette.getContrastText(theme.palette.background.default),
       0.23
     )}`,
+    background: theme.palette.background.paper,
     borderRadius: "4px",
   },
 }));
