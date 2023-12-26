@@ -2,12 +2,12 @@ import * as React from "react";
 import { forwardRef, useEffect } from "react";
 import { makeStyles } from "../../../../styles";
 
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
 import classNames from "../../../../utils/classNames";
 
 import { IAutoSizerProps } from "../../../AutoSizer";
+import PaperView from "../../../PaperView";
 
 import IListProps, {
   IListState,
@@ -169,6 +169,7 @@ export const Container = <
     handleSearch,
     handleFiltersCollapsed,
     sizeByElement = true,
+    withOutlinePaper = false,
     rerender = false,
     BeforeActionList,
     AfterActionList,
@@ -340,11 +341,11 @@ export const Container = <
               )}
             </div>
           )}
-
-          <Paper
+          <PaperView
             className={classNames(classes.content, classes.stretch, {
               [classes.noElevation]: isChooser,
             })}
+            outlinePaper={withOutlinePaper}
           >
             <div>
               {!isChooser && Array.isArray(filters) && !!filters.length && (
@@ -395,7 +396,7 @@ export const Container = <
                 {!rerender && <>{children}</>}
               </div>
             </Box>
-          </Paper>
+          </PaperView>
         </div>
       </div>
     </Box>

@@ -225,6 +225,7 @@ export interface IListProps<
   setFilterDataSubject?: TSubject<FilterData>;
   rowActions?: IListRowAction[];
   noInitialFilters?: boolean;
+  withOutlinePaper?: boolean;
   withSingleChip?: boolean;
   withAllListOperations?: boolean;
   withSelectOnRowClick?: boolean;

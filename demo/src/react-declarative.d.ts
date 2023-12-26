@@ -1702,6 +1702,7 @@ declare module 'react-declarative/model/IListProps' {
         setFilterDataSubject?: TSubject<FilterData>;
         rowActions?: IListRowAction[];
         noInitialFilters?: boolean;
+        withOutlinePaper?: boolean;
         withSingleChip?: boolean;
         withAllListOperations?: boolean;
         withSelectOnRowClick?: boolean;
