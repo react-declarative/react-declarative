@@ -6841,10 +6841,11 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
     }> {
         onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
         pickDataSubject?: TSubject<Id>;
+        fullScreen?: boolean;
         history?: History;
         pathname?: string;
     }
-    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, pickDataSubject: upperPickDataSubject, ...outletProps }: IParams<Data, Payload, Params>) => {
+    export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, pickDataSubject: upperPickDataSubject, ...outletProps }: IParams<Data, Payload, Params>) => {
         open: typeof open;
         render: () => JSX.Element;
         pickData: (id: Id) => void;
@@ -8630,6 +8631,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         data: never;
         id: never;
     }> {
+        fullScreen?: boolean;
         withActionButton?: boolean;
         outletIdSubject: TBehaviorSubject<Id | null>;
         title?: string;
@@ -8661,7 +8663,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 

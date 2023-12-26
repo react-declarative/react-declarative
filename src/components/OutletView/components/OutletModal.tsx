@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import useActualState from "../../../hooks/useActualState";
+import useElementSize from "../../../hooks/useElementSize";
 import useWindowSize from "../../../hooks/useWindowSize";
 import useChange from "../../../hooks/useChange";
 
@@ -25,6 +26,7 @@ import TSubject from "../../../model/TSubject";
 import Id from "../model/Id";
 
 import classNames from "../../../utils/classNames";
+import and from "../../../utils/math/and";
 
 const Loader = () => (
   <LoaderView size={24} sx={{ height: "100%", width: "100%" }} />
@@ -51,6 +53,7 @@ export interface IOutletModalProps<
       id: never;
     }
   > {
+  fullScreen?: boolean;
   withActionButton?: boolean;
   outletIdSubject: TBehaviorSubject<Id | null>;
   title?: string;
@@ -129,6 +132,18 @@ const useStyles = makeStyles()((theme) => ({
       flex: 1,
     },
   },
+  small: {
+    top: "40%",
+    left: "50%",
+    maxHeight: "80%",
+    width: 500,
+  },
+  large: {
+    top: "50%",
+    left: "50%",
+    width: "calc(100vw - 50px)",
+    height: "calc(100vh - 50px)",
+  },
   submit: {
     paddingTop: 15,
   },
@@ -164,6 +179,7 @@ export const OutletModal = <
   title,
   data: upperData = null,
   throwError = false,
+  fullScreen = true,
   submitLabel = "Submit",
   readonly,
   onMount,
@@ -174,7 +190,15 @@ export const OutletModal = <
   const [id, setId] = useState<string | null>(outletIdSubject.data);
   const { classes } = useStyles();
 
-  const { height, width } = useWindowSize({
+  const windowBasedSize = useWindowSize({
+    compute: ({ height, width }) => ({
+      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+    }),
+    debounce: RESIZE_DEBOUNCE,
+  });
+
+  const { elementRef, size: elementBasedSize } = useElementSize({
     compute: ({ height, width }) => ({
       height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
       width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
@@ -291,9 +315,20 @@ export const OutletModal = <
       onClose={handleClose}
     >
       <Box
-        className={classNames(classes.root, MODAL_ROOT)}
+        ref={elementRef}
+        className={classNames(classes.root, MODAL_ROOT, {
+          [classes.small]: !fullScreen,
+          [classes.large]: fullScreen,
+        })}
         sx={{
-          transform: `translate(-${width}px, -${height}px) !important`,
+          ...(fullScreen && {
+            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
+          }),
+          ...(!fullScreen && {
+            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
+              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
+              : undefined,
+          }),
         }}
       >
         {title && (

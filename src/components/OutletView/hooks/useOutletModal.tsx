@@ -29,6 +29,7 @@ interface IParams<
   > {
   onSubmit?: (id: Id, data: Data | null, payload: Payload) => Promise<boolean> | boolean;
   pickDataSubject?: TSubject<Id>;
+  fullScreen?: boolean;
   history?: History;
   pathname?: string;
 }
@@ -41,6 +42,7 @@ export const useOutletModal = <
   fallback,
   pathname = "/",
   history: upperHistory,
+  fullScreen = true,
   onLoadEnd,
   onLoadStart,
   throwError,
@@ -79,6 +81,7 @@ export const useOutletModal = <
     () => (
       <OutletModal
         outletIdSubject={outletIdSubject}
+        fullScreen={fullScreen}
         history={history}
         hidden={hidden}
         title={title}
