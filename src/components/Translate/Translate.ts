@@ -5,6 +5,7 @@ interface IAttributeCollection {
 }
 
 type Locale = Record<string, string>;
+type Middleware = (str: string) => string | null;
 
 const createElementRef = React.createElement;
 
@@ -13,10 +14,9 @@ const TRANSLATE_MARK = Symbol('translated');
 export class Translate {
 
     private readonly _skip = new Set<string>();
-
     private readonly _map = new Map<string, string>();
-
     private readonly _transformed = new Map<string, string>();
+    private readonly _middleware: Middleware[] = [];
 
     get skipList() {
         return [...this._skip];
@@ -34,7 +34,10 @@ export class Translate {
             if (this._transformed.has(key)) {
                 return this._transformed.get(key)!;
             } else {
-                const result = this.transform(key);
+                let result = '';
+                if (!this._middleware.some((fn) => result = fn(key) as string)) {
+                    result = this.transform(key);
+                }
                 if (result !== key) {
                     const transformed = this.applyMark(result);
                     this._transformed.set(key, transformed);
@@ -73,6 +76,10 @@ export class Translate {
         }
         this._skip.add(key);
         return key;
+    };
+
+    public use = (middleware: Middleware) => {
+        this._middleware.push(middleware);
     };
 
     public createElement = (

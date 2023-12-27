@@ -6310,10 +6310,12 @@ declare module 'react-declarative/components/Translate/Translate' {
         [name: string]: unknown;
     }
     type Locale = Record<string, string>;
+    type Middleware = (str: string) => string | null;
     export class Translate {
         readonly transform?: ((str: string) => string) | undefined;
         get skipList(): string[];
         constructor(locale?: Locale, transform?: ((str: string) => string) | undefined);
+        use: (middleware: Middleware) => void;
         createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
         jss: (type: string, props: IAttributeCollection | null) => React.DOMElement<IAttributeCollection, Element>;
         static install: (locale?: Locale | undefined, transform?: ((str: string) => string) | undefined) => Translate;
