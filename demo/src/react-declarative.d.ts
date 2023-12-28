@@ -5,7 +5,6 @@
 //   ../../@mui/material
 //   ../../history
 //   ../../@mui/material/Box
-//   ../../@mui/system
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
@@ -2632,7 +2631,7 @@ declare module 'react-declarative/components/CardView' {
 
 declare module 'react-declarative/components/FeatureView' {
     export * from 'react-declarative/components/FeatureView/FeatureView';
-    export * from 'react-declarative/components/FeatureView/useFeatureView';
+    export * from 'react-declarative/components/FeatureView/hooks/useFeatureView';
     export * from 'react-declarative/components/FeatureView/model/IFeature';
     export * from 'react-declarative/components/FeatureView/model/IFeatureGroup';
     export * from 'react-declarative/components/FeatureView/model/FeatureType';
@@ -5476,14 +5475,22 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const FeatureView: <Data extends unknown = any, Payload = any>({ readonly, features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload>) => JSX.Element;
+    export const FeatureView: ({ className, style, sx, data, readonly, features, expandAll, onChange, }: IFeatureViewProps) => JSX.Element;
     export default FeatureView;
 }
 
-declare module 'react-declarative/components/FeatureView/useFeatureView' {
-    import { IParams } from "react-declarative/components/ActionModal";
+declare module 'react-declarative/components/FeatureView/hooks/useFeatureView' {
+    import { IParams as IActionModalParams } from "react-declarative/components/ActionModal";
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const useFeatureView: <Data extends unknown = any, Payload = any>({ features, expandAll, ...oneProps }: IFeatureViewProps<Data, Payload> & Omit<IParams<Data, Payload, import("../../model/IField").IField<Data, any>, any>, "features" | "fields">) => {
+    interface IParams extends IFeatureViewProps {
+        fullScreen: IActionModalParams['fullScreen'];
+        fallback: IActionModalParams['fallback'];
+        onLoadStart: IActionModalParams['onLoadStart'];
+        onLoadEnd: IActionModalParams['onLoadEnd'];
+        onSubmit?: (data: string[] | null) => (void | Promise<void>);
+        submitLabel: IActionModalParams['submitLabel'];
+    }
+    export const useFeatureView: ({ features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
@@ -5621,7 +5628,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Group' {
 }
 
 declare module 'react-declarative/components/Scaffold2/model/IScaffold2Option' {
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     import IScaffold2Tab, { IScaffold2TabInternal } from "react-declarative/components/Scaffold2/model/IScaffold2Tab";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
     export interface IScaffold2Option<T = Payload> {
@@ -5682,7 +5689,7 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
     import * as React from "react";
     import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
     import IBreadcrumbs2Option from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     interface IBreadcrumbs2Props<T extends any = any> {
         className?: string;
         style?: React.CSSProperties;
@@ -6914,7 +6921,7 @@ declare module 'react-declarative/components/PaperView/PaperView' {
     interface IPaperViewProps extends PaperProps {
         outlinePaper?: boolean;
     }
-    export const PaperView: React.ForwardRefExoticComponent<Pick<IPaperViewProps, "key" | "color" | "translate" | "defaultValue" | "hidden" | "inputMode" | "tabIndex" | "outlinePaper" | "className" | "style" | "title" | "placeholder" | "sx" | "prefix" | "children" | "classes" | "elevation" | "square" | "variant" | "slot" | "defaultChecked" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "id" | "lang" | "spellCheck" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChange" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClick" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture"> & React.RefAttributes<HTMLDivElement>>;
+    export const PaperView: React.ForwardRefExoticComponent<Pick<IPaperViewProps, "key" | "color" | "translate" | "defaultValue" | "hidden" | "inputMode" | "tabIndex" | "outlinePaper" | "className" | "style" | "title" | "placeholder" | "sx" | "prefix" | "children" | "classes" | "elevation" | "square" | "variant" | "slot" | "defaultChecked" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "id" | "lang" | "spellCheck" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChange" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClick" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture" | "component"> & React.RefAttributes<HTMLDivElement>>;
     export default PaperView;
 }
 
@@ -6938,7 +6945,7 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
 
 declare module 'react-declarative/components/FilesView/FilesView' {
     import * as React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     export interface IFilesViewProps {
         items?: string[];
         disabled?: boolean;
@@ -7005,7 +7012,7 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
 
 declare module 'react-declarative/components/ScrollView/ScrollView' {
     import * as React from "react";
-    import { BoxProps } from "@mui/system";
+    import { BoxProps } from "@mui/material";
     export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
     interface IScrollViewProps extends BoxProps {
         withScrollbar?: boolean;
@@ -7297,7 +7304,7 @@ declare module 'react-declarative/components/RevealView/RevealView' {
 
 declare module 'react-declarative/components/SecretView/SecretView' {
     import * as React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     interface ISecretViewProps {
         children?: React.ReactNode;
         onCode?: (code: number) => void;
@@ -7390,7 +7397,7 @@ declare module 'react-declarative/components/ReloadView/ReloadView' {
 declare module 'react-declarative/components/InfiniteView/InfiniteView' {
     import * as React from "react";
     import { BoxProps } from "@mui/material/Box";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     import TSubject from "react-declarative/model/TSubject";
     interface IInfiniteViewProps extends BoxProps {
         className?: string;
@@ -7533,7 +7540,7 @@ declare module 'react-declarative/components/TreeView/model/INode' {
 
 declare module 'react-declarative/components/GridView/GridView' {
     import * as React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     import { ICardProps } from "react-declarative/components/GridView/components/Card";
     import { IGridProps, RowData } from "react-declarative/components/Grid";
     import IAnything from "react-declarative/model/IAnything";
@@ -7646,7 +7653,7 @@ declare module 'react-declarative/components/Grid/api/useGridSelection' {
 
 declare module 'react-declarative/components/Grid/model/IGridProps' {
     import React from 'react';
-    import { SxProps } from '@mui/system';
+    import { SxProps } from '@mui/material';
     import IColumn from 'react-declarative/components/Grid/model/IColumn';
     import RowData from 'react-declarative/components/Grid/model/RowData';
     import IGridAction from 'react-declarative/components/Grid/model/IGridAction';
@@ -7928,7 +7935,7 @@ declare module 'react-declarative/components/common/ListPicker/ListPicker' {
 
 declare module 'react-declarative/components/CardView/model/ICardViewProps' {
     import React from "react";
-    import { BoxProps } from "@mui/system";
+    import { BoxProps } from "@mui/material";
     import TSubject from "react-declarative/model/TSubject";
     import ICardViewOperation from "react-declarative/components/CardView/model/ICardViewOperation";
     import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
@@ -7961,15 +7968,17 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
 }
 
 declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps' {
-    import IAnything from "react-declarative/model/IAnything";
-    import IOneProps from "react-declarative/model/IOneProps";
+    import * as React from 'react';
+    import { SxProps } from "@mui/material";
     import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
-    export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
-        fields: never;
-        features: never;
-        payload: never;
-    }> {
-        features: IFeatureGroup<Data, Payload>[];
+    export interface IFeatureViewProps {
+        data: string[];
+        onChange?: (data: string[]) => void;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        readonly?: boolean;
+        features: IFeatureGroup[];
         expandAll?: boolean;
     }
     export default IFeatureViewProps;
@@ -8011,7 +8020,7 @@ declare module 'react-declarative/components/RecordView/model/IRecordViewProps' 
 
 declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
     import * as React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     import IScaffold2Group, { IScaffold2GroupInternal } from "react-declarative/components/Scaffold2/model/IScaffold2Group";
     import IScaffold2Action from "react-declarative/components/Scaffold2/model/IScaffold2Action";
     import Payload from "react-declarative/components/Scaffold2/model/Payload";
@@ -8767,7 +8776,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
     import IMasterDetailOption from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
     import MasterDetailMode from "react-declarative/components/MasterDetail/model/MasterDetailMode";
     import React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     export interface IMasterDetailProps<Payload = any> {
         withTransparentTabs?: boolean;
         withMenuCollapse?: boolean;

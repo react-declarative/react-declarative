@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import classNames from "../../utils/classNames";
 
 import useElementSize from "../../hooks/useElementSize";
-import { BoxProps } from "@mui/system";
+import { BoxProps } from "@mui/material";
 
 export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
 

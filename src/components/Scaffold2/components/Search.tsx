@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import InputBase from "@mui/material/InputBase";
 import InputAdornment from "@mui/material/InputAdornment";

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { makeStyles } from '../../styles';
-import { darken } from '@mui/system';
+import { darken } from '@mui/material';
 
 import Box, { BoxProps } from '@mui/material/Box';
 

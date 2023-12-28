@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import IScaffold2Tab, { IScaffold2TabInternal } from "./IScaffold2Tab";
 

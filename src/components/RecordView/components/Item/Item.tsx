@@ -7,7 +7,7 @@ import { alpha } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { SxProps } from '@mui/system';
+import { SxProps } from '@mui/material';
 
 import IRecordViewProps from '../../model/IRecordViewProps';
 

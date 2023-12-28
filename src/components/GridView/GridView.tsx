@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import Card, { ICardProps } from "./components/Card";
 import Grid, { IGridProps, RowData } from "../Grid";

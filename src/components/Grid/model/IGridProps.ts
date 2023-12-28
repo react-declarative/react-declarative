@@ -1,5 +1,5 @@
 import React from 'react';
-import { SxProps } from '@mui/system';
+import { SxProps } from '@mui/material';
 
 import IColumn from './IColumn';
 import RowData from './RowData';

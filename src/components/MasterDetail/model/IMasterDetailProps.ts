@@ -1,7 +1,7 @@
 import IMasterDetailOption from "./IMasterDetailOption";
 import MasterDetailMode from "./MasterDetailMode";
 import React from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 export interface IMasterDetailProps<Payload = any> {
     withTransparentTabs?: boolean;

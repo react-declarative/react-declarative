@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import IScaffold2Group, { IScaffold2GroupInternal } from "./IScaffold2Group";
 import IScaffold2Action from "./IScaffold2Action";

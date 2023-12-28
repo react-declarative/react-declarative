@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useState, useMemo } from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import { makeStyles } from "../../../styles";
 import { alpha } from "@mui/material";

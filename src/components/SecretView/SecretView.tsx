@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import ModalDialog from "../common/ModalDialog";
 

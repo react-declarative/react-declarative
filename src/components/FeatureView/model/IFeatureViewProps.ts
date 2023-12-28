@@ -1,14 +1,17 @@
-import IAnything from "../../../model/IAnything";
-import IOneProps from "../../../model/IOneProps";
+import * as React from 'react';
+
+import { SxProps } from "@mui/material";
 
 import IFeatureGroup from "./IFeatureGroup";
 
-export interface IFeatureViewProps<Data extends IAnything = IAnything, Payload = IAnything> extends Omit<IOneProps<Data, Payload>, keyof {
-    fields: never;
-    features: never;
-    payload: never;
-}> {
-    features: IFeatureGroup<Data, Payload>[];
+export interface IFeatureViewProps {
+    data: string[];
+    onChange?: (data: string[]) => void;
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps;
+    readonly?: boolean;
+    features: IFeatureGroup[];
     expandAll?: boolean;
 }
 

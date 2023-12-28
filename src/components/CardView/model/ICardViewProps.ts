@@ -1,5 +1,5 @@
 import React from "react";
-import { BoxProps } from "@mui/system";
+import { BoxProps } from "@mui/material";
 
 import TSubject from "../../../model/TSubject";
 

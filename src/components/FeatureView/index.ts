@@ -1,5 +1,5 @@
 export * from './FeatureView';
-export * from './useFeatureView';
+export * from './hooks/useFeatureView';
 export * from './model/IFeature';
 export * from './model/IFeatureGroup';
 export * from './model/FeatureType';

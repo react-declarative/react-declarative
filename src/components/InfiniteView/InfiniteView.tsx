@@ -4,7 +4,7 @@ import { useRef, useCallback, useState, useMemo, useLayoutEffect, useEffect } fr
 import { makeStyles } from "../../styles";
 
 import Box, { BoxProps } from "@mui/material/Box";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";

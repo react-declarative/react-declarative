@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";

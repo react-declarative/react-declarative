@@ -20,7 +20,7 @@ import useConfirm from "../../hooks/useConfirm";
 import useActualValue from "../../hooks/useActualValue";
 import useActualCallback from "../../hooks/useActualCallback";
 
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 export interface IFilesViewProps {
   items?: string[];

@@ -17,7 +17,7 @@ import classNames from "../../utils/classNames";
 import IBreadcrumbs2Action from "./model/IBreadcrumbs2Action";
 import IBreadcrumbs2Option from "./model/IBreadcrumbs2Option";
 import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
