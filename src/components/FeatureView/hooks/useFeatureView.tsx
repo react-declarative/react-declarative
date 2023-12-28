@@ -2,7 +2,9 @@ import { useActionModal, IParams as IActionModalParams } from "../../ActionModal
 import createFeatures from "../helpers/createFeatures";
 import IFeatureViewProps from "../model/IFeatureViewProps";
 
-interface IParams extends IFeatureViewProps {
+interface IParams extends Omit<IFeatureViewProps, keyof {
+  changeSubject: never;
+}> {
   fullScreen: IActionModalParams['fullScreen'];
   fallback: IActionModalParams['fallback'];
   onLoadStart: IActionModalParams['onLoadStart'];

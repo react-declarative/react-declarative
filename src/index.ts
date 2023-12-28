@@ -377,6 +377,7 @@ export { usePreventAction } from './components';
 export { useLocalHandler } from './components';
 export { useApiHandler } from './components';
 export { useFeatureView } from './components';
+export { useVisibilityView } from './components';
 export { useFilesView } from './components';
 
 export { useTabsHashstate } from './components';

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { useMemo, useCallback } from 'react';
 
-import { SxProps } from '@mui/material';
-
 import One from '../One';
 
-import IVisibilityGroup from './model/IVisibilityGroup';
 import IField from '../../model/IField';
 import FieldType from '../../model/FieldType';
+import IVisibilityViewProps from './model/IVisibilityViewProps';
 
 import keyToTitleDefault from './utils/keyToTitle';
 import getVariantList from './utils/getVariantList';
@@ -15,20 +13,14 @@ import getVariantList from './utils/getVariantList';
 type Data = Record<string, string[]>;
 type State = Record<string, Record<string, boolean>>;
 
-interface IVisibilityViewProps {
-  className?: string;
-  style?: React.CSSProperties;
-  sx?: SxProps;
-  data?: Data | null;
-  onChange?: (data: Data, initial: boolean) => void;
-  groups: IVisibilityGroup[];
-  keyToTitle?: (name: string) => string;
-}
-
 export const VisibilityView = ({
+  changeSubject,
+  outlinePaper,
   className,
   style,
   sx,
+  expandAll,
+  readonly,
   onChange,
   groups,
   data,
@@ -45,10 +37,12 @@ export const VisibilityView = ({
     return {
       type: FieldType.Expansion,
       fieldBottomMargin: idx === groups.length - 1 ? "0" : "1",
+      expansionOpened: expandAll,
       title: title || keyToTitle(name),
       description,
       fields: variantList.map(({ label, value }) => ({
         type: FieldType.Checkbox,
+        readonly,
         name: `${name}.${value}`,
         title: `${label} (${value})`,
         defaultValue: false,
@@ -79,16 +73,21 @@ export const VisibilityView = ({
   const handler = useCallback(() => value, [data]);
 
   const handleChange = useCallback((state: State, initial: boolean) => {
+    if (initial) {
+      return;
+    }
     const data: Data = {};
     for (const [key, value] of Object.entries(state)) {
       data[key] = Object.entries(value).filter(([, value]) => value).map(([key]) => key);
     }
-    onChange && onChange(data, initial);
+    onChange && onChange(data);
   }, []);
 
   return (
     <One
       className={className}
+      outlinePaper={outlinePaper}
+      changeSubject={changeSubject}
       style={style}
       sx={sx}
       handler={handler}

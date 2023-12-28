@@ -301,6 +301,7 @@ declare module 'react-declarative' {
     export { useLocalHandler } from 'react-declarative/components';
     export { useApiHandler } from 'react-declarative/components';
     export { useFeatureView } from 'react-declarative/components';
+    export { useVisibilityView } from 'react-declarative/components';
     export { useFilesView } from 'react-declarative/components';
     export { useTabsHashstate } from 'react-declarative/components';
     export { useOutletModal } from 'react-declarative/components';
@@ -2641,6 +2642,7 @@ declare module 'react-declarative/components/FeatureView' {
 declare module 'react-declarative/components/VisibilityView' {
     export * from 'react-declarative/components/VisibilityView/VisibilityView';
     export * from 'react-declarative/components/VisibilityView/model/IVisibilityGroup';
+    export * from 'react-declarative/components/VisibilityView/hooks/useVisibilityView';
     export { default } from 'react-declarative/components/VisibilityView/VisibilityView';
 }
 
@@ -5475,14 +5477,16 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    export const FeatureView: ({ outlinePaper, className, style, sx, data, readonly, features, expandAll, onChange, }: IFeatureViewProps) => JSX.Element;
+    export const FeatureView: ({ changeSubject, outlinePaper, className, style, sx, data, readonly, features, expandAll, onChange, }: IFeatureViewProps) => JSX.Element;
     export default FeatureView;
 }
 
 declare module 'react-declarative/components/FeatureView/hooks/useFeatureView' {
     import { IParams as IActionModalParams } from "react-declarative/components/ActionModal";
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
-    interface IParams extends IFeatureViewProps {
+    interface IParams extends Omit<IFeatureViewProps, keyof {
+        changeSubject: never;
+    }> {
         fullScreen: IActionModalParams['fullScreen'];
         fallback: IActionModalParams['fallback'];
         onLoadStart: IActionModalParams['onLoadStart'];
@@ -5538,20 +5542,8 @@ declare module 'react-declarative/components/FeatureView/model/FeatureType' {
 }
 
 declare module 'react-declarative/components/VisibilityView/VisibilityView' {
-    import * as React from 'react';
-    import { SxProps } from '@mui/material';
-    import IVisibilityGroup from 'react-declarative/components/VisibilityView/model/IVisibilityGroup';
-    type Data = Record<string, string[]>;
-    interface IVisibilityViewProps {
-        className?: string;
-        style?: React.CSSProperties;
-        sx?: SxProps;
-        data?: Data | null;
-        onChange?: (data: Data, initial: boolean) => void;
-        groups: IVisibilityGroup[];
-        keyToTitle?: (name: string) => string;
-    }
-    export const VisibilityView: ({ className, style, sx, onChange, groups, data, keyToTitle, }: IVisibilityViewProps) => JSX.Element;
+    import IVisibilityViewProps from 'react-declarative/components/VisibilityView/model/IVisibilityViewProps';
+    export const VisibilityView: ({ changeSubject, outlinePaper, className, style, sx, expandAll, readonly, onChange, groups, data, keyToTitle, }: IVisibilityViewProps) => JSX.Element;
     export default VisibilityView;
 }
 
@@ -5564,6 +5556,28 @@ declare module 'react-declarative/components/VisibilityView/model/IVisibilityGro
         fields: IField[];
     }
     export default IVisibilityGroup;
+}
+
+declare module 'react-declarative/components/VisibilityView/hooks/useVisibilityView' {
+    import { IParams as IActionModalParams } from "react-declarative/components/ActionModal";
+    import IVisibilityViewProps from "react-declarative/components/VisibilityView/model/IVisibilityViewProps";
+    type Data = Record<string, string[]>;
+    interface IParams extends Omit<IVisibilityViewProps, keyof {
+        changeSubject: never;
+    }> {
+        fullScreen: IActionModalParams["fullScreen"];
+        fallback: IActionModalParams["fallback"];
+        onLoadStart: IActionModalParams["onLoadStart"];
+        onLoadEnd: IActionModalParams["onLoadEnd"];
+        onSubmit?: (data: Data | null) => boolean | Promise<boolean>;
+        submitLabel: IActionModalParams["submitLabel"];
+    }
+    export const useVisibilityView: ({ groups, data, keyToTitle, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
+        open: boolean;
+        render: () => JSX.Element;
+        pickData: (param?: any) => void;
+    };
+    export default useVisibilityView;
 }
 
 declare module 'react-declarative/components/RecordView/RecordView' {
@@ -7973,7 +7987,9 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
     import * as React from 'react';
     import { SxProps } from "@mui/material";
     import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
+    import TSubject from 'react-declarative/model/TSubject';
     export interface IFeatureViewProps {
+        changeSubject?: TSubject<any>;
         data?: string[] | null;
         outlinePaper?: boolean;
         onChange?: (data: string[]) => void;
@@ -7985,6 +8001,26 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
         expandAll?: boolean;
     }
     export default IFeatureViewProps;
+}
+
+declare module 'react-declarative/components/VisibilityView/model/IVisibilityViewProps' {
+    import { SxProps } from "@mui/material";
+    import IVisibilityGroup from "react-declarative/components/VisibilityView/model/IVisibilityGroup";
+    import TSubject from "react-declarative/model/TSubject";
+    export interface IVisibilityViewProps {
+        changeSubject?: TSubject<any>;
+        outlinePaper?: boolean;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        expandAll?: boolean;
+        readonly?: boolean;
+        data?: Record<string, string[]> | null;
+        onChange?: (data: Record<string, string[]>) => void;
+        groups: IVisibilityGroup[];
+        keyToTitle?: (name: string) => string;
+    }
+    export default IVisibilityViewProps;
 }
 
 declare module 'react-declarative/components/RecordView/model/IData' {

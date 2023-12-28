@@ -696,6 +696,7 @@ import { VirtualView } from 'react-declarative';
 18. [Aspect Oriented](https://en.wikipedia.org/wiki/Aspect-oriented_programming) - `serviceManager`, `Source`
 19. [Reflection](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection) - `getAvailableFields`
 20. [Pagination](https://medium.com/@oshiryaeva/offset-vs-cursor-based-pagination-which-is-the-right-choice-for-your-project-e46f65db062f) - `useOffsetPaginator`, `useCursorPaginator`
+21. [Feature model](https://en.wikipedia.org/wiki/Feature_model) - `useFeatureView`, `useVisibilityView`, `FeatureView`, `VisibilityView`
 
 <img src="./assets/icons/cosmos.svg" height="35px" align="right">
 
