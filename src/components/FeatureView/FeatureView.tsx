@@ -11,6 +11,7 @@ type Data = string[];
 type State = Record<string, boolean>;
 
 export const FeatureView = ({
+  outlinePaper,
   className,
   style,
   sx,
@@ -52,6 +53,7 @@ export const FeatureView = ({
       className={className}
       style={style}
       sx={sx}
+      outlinePaper={outlinePaper}
       handler={handler}
       change={handleChange}
       fields={fields}

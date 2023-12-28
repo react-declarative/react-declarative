@@ -20,7 +20,9 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface IPaperViewProps extends PaperProps {
+interface IPaperViewProps extends Omit<PaperProps, keyof {
+  component: never;
+}> {
   outlinePaper?: boolean;
 }
 
