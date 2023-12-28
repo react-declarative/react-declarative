@@ -7,11 +7,12 @@ interface IParams extends IFeatureViewProps {
   fallback: IActionModalParams['fallback'];
   onLoadStart: IActionModalParams['onLoadStart'];
   onLoadEnd: IActionModalParams['onLoadEnd'];
-  onSubmit?: (data: string[] | null) => (void | Promise<void>);
+  onSubmit?: (data: string[] | null) => (boolean | Promise<boolean>);
   submitLabel: IActionModalParams['submitLabel'];
 }
 
 export const useFeatureView = ({
+  data,
   features,
   expandAll,
   readonly,
@@ -28,13 +29,25 @@ export const useFeatureView = ({
     fallback,
     onLoadStart,
     onLoadEnd,
+    handler: () => {
+      if (!data) {
+        return {};
+      }
+      return data.reduce(
+        (acm, cur) => ({
+          ...acm,
+          [cur]: true,
+        }),
+        {}
+      );
+    },
     onSubmit: async (data) => {
       if (data) {
         const features = Object.entries(data)
           .filter(([_, value]) => !!value)
           .map(([key]) => key);
         if (onSubmit) {
-          await onSubmit(features);
+          return await onSubmit(features);
         }
       }
       return true;

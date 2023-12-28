@@ -5,7 +5,7 @@ import { SxProps } from "@mui/material";
 import IFeatureGroup from "./IFeatureGroup";
 
 export interface IFeatureViewProps {
-    data: string[];
+    data?: string[] | null;
     outlinePaper?: boolean;
     onChange?: (data: string[]) => void;
     className?: string;

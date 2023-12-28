@@ -26,18 +26,22 @@ export const FeatureView = ({
   }, []);
 
   const value = useMemo(
-    () =>
-      data.reduce(
+    () => {
+      if (!data) {
+        return {};
+      }
+      return data.reduce(
         (acm, cur) => ({
           ...acm,
           [cur]: true,
         }),
         {} as State
-      ),
-    []
+      );
+    },
+    [data]
   );
 
-  const handler = useCallback(() => value, []);
+  const handler = useCallback(() => value, [data]);
 
   const handleChange = useCallback((data: Data, initial: boolean) => {
     if (data && !initial) {

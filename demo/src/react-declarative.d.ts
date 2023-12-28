@@ -5487,10 +5487,10 @@ declare module 'react-declarative/components/FeatureView/hooks/useFeatureView' {
         fallback: IActionModalParams['fallback'];
         onLoadStart: IActionModalParams['onLoadStart'];
         onLoadEnd: IActionModalParams['onLoadEnd'];
-        onSubmit?: (data: string[] | null) => (void | Promise<void>);
+        onSubmit?: (data: string[] | null) => (boolean | Promise<boolean>);
         submitLabel: IActionModalParams['submitLabel'];
     }
-    export const useFeatureView: ({ features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
+    export const useFeatureView: ({ data, features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
@@ -7974,7 +7974,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
     import { SxProps } from "@mui/material";
     import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
     export interface IFeatureViewProps {
-        data: string[];
+        data?: string[] | null;
         outlinePaper?: boolean;
         onChange?: (data: string[]) => void;
         className?: string;

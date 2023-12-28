@@ -74,9 +74,9 @@ export const VisibilityView = ({
           }), {})
       };
     }, {});
-  }, []);
+  }, [data]);
 
-  const handler = useCallback(() => value, []);
+  const handler = useCallback(() => value, [data]);
 
   const handleChange = useCallback((state: State, initial: boolean) => {
     const data: Data = {};
