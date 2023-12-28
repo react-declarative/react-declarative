@@ -229,6 +229,7 @@ export { HtmlView } from './components';
 export { ErrorView } from './components';
 export { AuthView } from './components';
 export { LoaderView } from './components';
+export { VisibilityView } from './components';
 export { FeatureView } from './components';
 export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
@@ -255,6 +256,8 @@ import { IFeature as IFeatureInternal } from './components/FeatureView';
 export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
 export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
 export { FeatureType } from './components/FeatureView';
+
+export { IVisibilityGroup } from './components/VisibilityView';
 
 import { recordToExcelExport } from './components/RecordView';
 export { recordToExcelExport };

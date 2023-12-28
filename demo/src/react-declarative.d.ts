@@ -187,6 +187,7 @@ declare module 'react-declarative' {
     export { ErrorView } from 'react-declarative/components';
     export { AuthView } from 'react-declarative/components';
     export { LoaderView } from 'react-declarative/components';
+    export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
@@ -206,6 +207,7 @@ declare module 'react-declarative' {
     export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
     export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
     export { FeatureType } from 'react-declarative/components/FeatureView';
+    export { IVisibilityGroup } from 'react-declarative/components/VisibilityView';
     import { recordToExcelExport } from 'react-declarative/components/RecordView';
     export { recordToExcelExport };
     export { ErrorBoundary } from 'react-declarative/components';
@@ -2270,6 +2272,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/OfflineView';
     export * from 'react-declarative/components/RevealView';
     export * from 'react-declarative/components/SecretView';
+    export * from 'react-declarative/components/VisibilityView';
     export * from 'react-declarative/components/PortalView';
     export * from 'react-declarative/components/RecordView';
     export * from 'react-declarative/components/ErrorView';
@@ -2634,6 +2637,12 @@ declare module 'react-declarative/components/FeatureView' {
     export * from 'react-declarative/components/FeatureView/model/IFeatureGroup';
     export * from 'react-declarative/components/FeatureView/model/FeatureType';
     export { default } from 'react-declarative/components/FeatureView/FeatureView';
+}
+
+declare module 'react-declarative/components/VisibilityView' {
+    export * from 'react-declarative/components/VisibilityView/VisibilityView';
+    export * from 'react-declarative/components/VisibilityView/model/IVisibilityGroup';
+    export { default } from 'react-declarative/components/VisibilityView/VisibilityView';
 }
 
 declare module 'react-declarative/components/RecordView' {
@@ -5519,6 +5528,35 @@ declare module 'react-declarative/components/FeatureView/model/FeatureType' {
         Number = "number-feature"
     }
     export default FeatureType;
+}
+
+declare module 'react-declarative/components/VisibilityView/VisibilityView' {
+    import * as React from 'react';
+    import { SxProps } from '@mui/material';
+    import IVisibilityGroup from 'react-declarative/components/VisibilityView/model/IVisibilityGroup';
+    type Data = Record<string, string[]>;
+    interface IVisibilityViewProps {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        data?: Data | null;
+        onChange?: (data: Data, initial: boolean) => void;
+        groups: IVisibilityGroup[];
+        keyToTitle?: (name: string) => string;
+    }
+    export const VisibilityView: ({ className, style, sx, onChange, groups, data, keyToTitle, }: IVisibilityViewProps) => JSX.Element;
+    export default VisibilityView;
+}
+
+declare module 'react-declarative/components/VisibilityView/model/IVisibilityGroup' {
+    import IField from "react-declarative/model/IField";
+    export interface IVisibilityGroup {
+        name: string;
+        title?: string;
+        description?: string;
+        fields: IField[];
+    }
+    export default IVisibilityGroup;
 }
 
 declare module 'react-declarative/components/RecordView/RecordView' {

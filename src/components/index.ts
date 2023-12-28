@@ -47,6 +47,7 @@ export * from './HtmlView';
 export * from './OfflineView';
 export * from './RevealView';
 export * from './SecretView';
+export * from './VisibilityView';
 export * from './PortalView';
 export * from './RecordView';
 export * from './ErrorView';
