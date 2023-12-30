@@ -43,6 +43,8 @@ export type IService = IServiceInternal;
 export { createRouteItemManager } from './helpers/routeManager';
 export { createRouteParamsManager } from './helpers/routeManager';
 
+export { usePreventAutofill } from './hooks/usePreventAutofill';
+
 export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';
 

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { SxProps } from "@mui/material";
 
 import InputBase from "@mui/material/InputBase";
@@ -7,6 +6,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 
 import useStateContext from "../context/StateContext";
+import usePreventAutofill from "../../../hooks/usePreventAutofill";
 
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -22,7 +22,7 @@ export const Search = ({
   sx,
 }: ISearchProps) => {
   const { searchText, setSearchText } = useStateContext();
-  const [readonly, setReadonly] = useState(true);
+  const preventAutofill = usePreventAutofill();
   return (
     <InputBase
       className={className}
@@ -31,7 +31,6 @@ export const Search = ({
         height: '100%',
         ...sx
       }}
-      readOnly={readonly}
       fullWidth
       onChange={({ target }) => setSearchText(target.value.toString())}
       value={searchText}
@@ -48,8 +47,7 @@ export const Search = ({
       ) : undefined}
       name="search"
       type="text"
-      onFocus={() => setReadonly(false)}
-      onTouchStart={() => setReadonly(false)}
+      {...preventAutofill}
     />
   );
 };

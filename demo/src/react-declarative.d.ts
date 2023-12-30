@@ -48,6 +48,7 @@ declare module 'react-declarative' {
     export type IService = IServiceInternal;
     export { createRouteItemManager } from 'react-declarative/helpers/routeManager';
     export { createRouteParamsManager } from 'react-declarative/helpers/routeManager';
+    export { usePreventAutofill } from 'react-declarative/hooks/usePreventAutofill';
     export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
     export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
     export { useWatchChanges } from 'react-declarative/hooks/useWatchChanges';
@@ -1822,6 +1823,25 @@ declare module 'react-declarative/helpers/routeManager' {
     };
     export { ISwitchItem };
     export default RouteManager;
+}
+
+declare module 'react-declarative/hooks/usePreventAutofill' {
+    import * as React from 'react';
+    interface IParams<T = HTMLInputElement> {
+        onFocus?: React.FocusEventHandler<T>;
+        onTouchStart?: React.TouchEventHandler<T>;
+        readOnly?: boolean;
+    }
+    interface IResult<T = HTMLInputElement> {
+        readOnly: boolean;
+        onFocus: React.FocusEventHandler<T>;
+        onTouchStart: React.TouchEventHandler<T>;
+    }
+    /**
+      * @see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill/36283282
+      */
+    export const usePreventAutofill: <T = HTMLInputElement>({ readOnly: upperReadOnly, onFocus, onTouchStart, }?: Partial<IParams<T>>) => IResult<T>;
+    export default usePreventAutofill;
 }
 
 declare module 'react-declarative/hooks/useRouteItem' {
