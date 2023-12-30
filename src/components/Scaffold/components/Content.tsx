@@ -32,13 +32,15 @@ import IScaffoldGroup, { IScaffoldOption } from "../model/IScaffoldGroup";
 import IScaffoldProps from "../model/IScaffoldProps";
 
 import useActualCallback from "../../../hooks/useActualCallback";
+import usePreventAutofill from "../../../hooks/usePreventAutofill";
 
 import usePassthrough from "../hooks/usePassthrough";
 import useLoaderLine from "../hooks/useLoaderLine";
 import useLoader from "../hooks/useLoader";
 
-import SideMenu from "./SideMenu";
 import { LiftedProvider } from "../hooks/useLifted";
+
+import SideMenu from "./SideMenu";
 
 const DRAWER_WIDTH = 256;
 
@@ -172,6 +174,8 @@ export const Content = <T extends any = any>({
   BeforeMenuContent,
 }: IContentProps<T>) => {
 
+  const preventAutofill = usePreventAutofill();
+
   const withPassthrough = usePassthrough();
   const loaderLine = useLoaderLine();
   const loader = useLoader();
@@ -259,6 +263,7 @@ export const Content = <T extends any = any>({
               }}
               name="search"
               type="text"
+              {...preventAutofill}
             />
           </Box>
           {AfterSearch && (

@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import useStateContext from "../context/StateContext";
 import useChangeSubject from "../../../hooks/useChangeSubject";
+import usePreventAutofill from "../../../hooks/usePreventAutofill";
 
 import debounce from "../../../utils/hof/debounce";
 
@@ -25,6 +26,7 @@ export const Search = ({ disabled }: ISearchProps) => {
   const [search, setSearch] = useState(state.search);
 
   const searchChangeSubject = useChangeSubject(search);
+  const preventAutofill = usePreventAutofill();
 
   useEffect(() => {
     const handler = debounce((search: string) => {
@@ -61,6 +63,7 @@ export const Search = ({ disabled }: ISearchProps) => {
       }}
       name="search"
       type="text"
+      {...preventAutofill}
     />
   );
 };

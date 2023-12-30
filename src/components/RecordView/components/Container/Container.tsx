@@ -16,6 +16,7 @@ import { Content } from '../Content';
 import IRecordViewProps from '../../model/IRecordViewProps';
 
 import useSearch from '../../context/SearchContext';
+import usePreventAutofill from '../../../../hooks/usePreventAutofill';
 
 export interface IContainerProps extends BoxProps {
   keyWidth: GridSize;
@@ -68,6 +69,7 @@ export const Container = ({
 }: IContainerProps) => {
   const { classes } = useStyles();
   const { data, search, isSearching, setSearch } = useSearch();
+  const preventAutofill = usePreventAutofill();
   return (
     <Box
       {...otherProps}
@@ -99,6 +101,7 @@ export const Container = ({
         }}
         name="search"
         type="text"
+        {...preventAutofill}
       />
       {AfterSearch && (
         <Box className={classes.afterSearch}>
