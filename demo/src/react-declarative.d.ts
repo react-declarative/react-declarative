@@ -536,9 +536,10 @@ declare module 'react-declarative' {
         dateStamp: (str?: string) => number;
     };
     export { compose } from 'react-declarative/utils/compose';
-    export { resolveAsyncGenerator } from 'react-declarative/tools/resolveAsyncGenerator';
-    export { iterateDocuments } from 'react-declarative/tools/iterateDocuments';
-    export { heavy } from 'react-declarative/tools/heavy';
+    export { resolveDocuments } from 'react-declarative/api/resolveDocuments';
+    export { iterateDocuments } from 'react-declarative/api/iterateDocuments';
+    export { pickDocuments } from 'react-declarative/api/pickDocuments';
+    export { heavy } from 'react-declarative/utils/heavy';
 }
 
 declare module 'react-declarative/model/TypedField' {
@@ -3554,12 +3555,12 @@ declare module 'react-declarative/utils/compose' {
     export default compose;
 }
 
-declare module 'react-declarative/tools/resolveAsyncGenerator' {
-    export const resolveAsyncGenerator: <T extends unknown>(iterator: AsyncGenerator<T, void, unknown>) => Promise<T[]>;
-    export default resolveAsyncGenerator;
+declare module 'react-declarative/api/resolveDocuments' {
+    export const resolveDocuments: <T extends unknown>(iterator: AsyncGenerator<T | T[], void, unknown>) => Promise<T[]>;
+    export default resolveDocuments;
 }
 
-declare module 'react-declarative/tools/iterateDocuments' {
+declare module 'react-declarative/api/iterateDocuments' {
     import IRowData, { RowId } from "react-declarative/model/IRowData";
     interface IConfig<Data extends IRowData = IRowData> {
         totalDocuments?: number;
@@ -3570,11 +3571,19 @@ declare module 'react-declarative/tools/iterateDocuments' {
             lastId: RowId | null;
         } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
     }
-    export const iterateDocuments: <Data extends IRowData = IRowData>({ totalDocuments, limit, delay, createRequest, }: IConfig<Data>) => AsyncGenerator<Data, void, unknown>;
+    export const iterateDocuments: <Data extends IRowData = IRowData>({ totalDocuments, limit, delay, createRequest, }: IConfig<Data>) => AsyncGenerator<Data[], void, unknown>;
     export default iterateDocuments;
 }
 
-declare module 'react-declarative/tools/heavy' {
+declare module 'react-declarative/api/pickDocuments' {
+    export const pickDocuments: <T extends any[]>(limit: number, offset: number) => (rows?: never[]) => {
+        rows: T;
+        done: boolean;
+    };
+    export default pickDocuments;
+}
+
+declare module 'react-declarative/utils/heavy' {
     import * as React from "react";
     interface IParams {
         loaderSize: number;

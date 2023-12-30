@@ -40,9 +40,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
 
   while (counter < totalDocuments) {
     const response = await lastQuery;
-    for (const document of response) {
-      yield document as unknown as Data;
-    }
+    yield response;
     if (response.length < limit) {
       break;
     }
