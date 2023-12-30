@@ -53,6 +53,7 @@ export * from './RecordView';
 export * from './ErrorView';
 export * from './AuthView';
 export * from './CardView';
+export * from './KanbanView';
 export * from './ReloadView';
 export * from './InfiniteView';
 export * from './VirtualView';

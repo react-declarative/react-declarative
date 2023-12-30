@@ -236,6 +236,18 @@ export { FeatureView } from './components';
 export { InfiniteView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
+import { IBoard as IBoardInternal } from './components';
+import { IBoardColumn as IBoardColumnInternal } from './components';
+import { IBoardItem as IBoardItemInternal } from './components';
+import { IBoardRow as IBoardRowInternal } from './components';
+
+export type IBoardColumn<Payload = any> = IBoardColumnInternal<Payload>;
+export type IBoard<Payload = any> = IBoardInternal<Payload>;
+export type IBoardRow<Payload = any> = IBoardRowInternal<Payload>;
+export type IBoardItem = IBoardItemInternal;
+
+export { KanbanView } from './components';
+
 import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from './components';
 import { GridView } from './components';
 

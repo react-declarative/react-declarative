@@ -191,6 +191,15 @@ declare module 'react-declarative' {
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
+    import { IBoard as IBoardInternal } from 'react-declarative/components';
+    import { IBoardColumn as IBoardColumnInternal } from 'react-declarative/components';
+    import { IBoardItem as IBoardItemInternal } from 'react-declarative/components';
+    import { IBoardRow as IBoardRowInternal } from 'react-declarative/components';
+    export type IBoardColumn<Payload = any> = IBoardColumnInternal<Payload>;
+    export type IBoard<Payload = any> = IBoardInternal<Payload>;
+    export type IBoardRow<Payload = any> = IBoardRowInternal<Payload>;
+    export type IBoardItem = IBoardItemInternal;
+    export { KanbanView } from 'react-declarative/components';
     import { TreeView, ITreeViewNode as ITreeViewNodeInternal } from 'react-declarative/components';
     import { GridView } from 'react-declarative/components';
     export type ITreeViewNode = ITreeViewNodeInternal;
@@ -2298,6 +2307,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ErrorView';
     export * from 'react-declarative/components/AuthView';
     export * from 'react-declarative/components/CardView';
+    export * from 'react-declarative/components/KanbanView';
     export * from 'react-declarative/components/ReloadView';
     export * from 'react-declarative/components/InfiniteView';
     export * from 'react-declarative/components/VirtualView';
@@ -5261,6 +5271,15 @@ declare module 'react-declarative/components/AuthView' {
     export { default } from 'react-declarative/components/AuthView/AuthView';
 }
 
+declare module 'react-declarative/components/KanbanView' {
+    export * from 'react-declarative/components/KanbanView/KanbanView';
+    export * from 'react-declarative/components/KanbanView/model/IBoard';
+    export * from 'react-declarative/components/KanbanView/model/IBoardColumn';
+    export * from 'react-declarative/components/KanbanView/model/IBoardItem';
+    export * from 'react-declarative/components/KanbanView/model/IBoardRow';
+    export { default } from 'react-declarative/components/KanbanView/KanbanView';
+}
+
 declare module 'react-declarative/components/ReloadView' {
     export * from 'react-declarative/components/ReloadView/ReloadView';
     export { default } from 'react-declarative/components/ReloadView/ReloadView';
@@ -7412,6 +7431,55 @@ declare module 'react-declarative/components/AuthView/AuthView' {
     export default AuthView;
 }
 
+declare module 'react-declarative/components/KanbanView/KanbanView' {
+    import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
+    export const KanbanView: ({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, bufferSize, minRowHeight, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, }: IKanbanViewProps) => JSX.Element;
+    export default KanbanView;
+}
+
+declare module 'react-declarative/components/KanbanView/model/IBoard' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
+    export interface IBoard<Payload = IAnything> {
+        id: string;
+        label: string;
+        columns: IBoardColumn<Payload>[];
+    }
+    export default IBoard;
+}
+
+declare module 'react-declarative/components/KanbanView/model/IBoardColumn' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IBoardRow from "react-declarative/components/KanbanView/model/IBoardRow";
+    export interface IBoardColumn<Payload = IAnything> {
+        column: string;
+        color?: string;
+        label: string;
+        rows: IBoardRow<Payload>[];
+    }
+    export default IBoardColumn;
+}
+
+declare module 'react-declarative/components/KanbanView/model/IBoardItem' {
+    export interface IBoardItem {
+        id: string;
+        label: string;
+        column: string;
+        updatedAt?: string;
+    }
+    export default IBoardItem;
+}
+
+declare module 'react-declarative/components/KanbanView/model/IBoardRow' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IBoardRow<Payload = IAnything> {
+        label: string;
+        value: (id: string, payload: Payload) => (string | Promise<string>);
+        click?: (id: string, payload: Payload) => (void | Promise<void>);
+    }
+    export default IBoardRow;
+}
+
 declare module 'react-declarative/components/ReloadView/ReloadView' {
     import * as React from 'react';
     import TSubject from 'react-declarative/model/TSubject';
@@ -8798,6 +8866,41 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
     }
     export const FadeContainer: ({ className, style, color, children, disableBottom, disableRight, zIndex, Fade, selector, }: IFadeContainerProps) => JSX.Element;
     export default FadeContainer;
+}
+
+declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' {
+    import { SxProps } from "@mui/material";
+    import IAnything from "react-declarative/model/IAnything";
+    import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
+    import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
+    export interface IKanbanViewProps<Payload = IAnything> {
+        withUpdateOrder?: boolean;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        payload?: (() => Payload) | Payload;
+        disabled?: boolean;
+        items: IBoardItem[];
+        columns: IBoardColumn<Payload>[];
+        bufferSize?: number;
+        minRowHeight?: number;
+        onChangeColumn: (id: string, column: string, payload: IAnything) => Promise<void>;
+        onCardLabelClick?: (id: string, payload: IAnything) => void;
+        onLabelClick?: (id: string, payload: IAnything) => void;
+        AfterCardContent?: React.ComponentType<{
+            id: string;
+            payload: IAnything;
+        }>;
+        BeforeColumnTitle?: React.ComponentType<{
+            column: string;
+            payload: IAnything;
+        }>;
+        AfterColumnTitle?: React.ComponentType<{
+            column: string;
+            payload: IAnything;
+        }>;
+    }
+    export default IKanbanViewProps;
 }
 
 declare module 'react-declarative/components/GridView/components/Card' {
