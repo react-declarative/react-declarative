@@ -162,8 +162,9 @@ export const Navigator = <T extends Payload = Payload>({
                 {!noHeader && (
                   <ListItem
                     sx={{
+                      background: (theme) => theme.palette.mode === "dark" ? alpha(theme.palette.primary.main, 0.023) : undefined,
                       py: 2,
-                      px: 3 
+                      px: 3,
                     }}
                   >
                     <ListItemButton
@@ -199,7 +200,7 @@ export const Navigator = <T extends Payload = Payload>({
                     />
                   ))}
                 {idx !== options.length - 1 && (
-                  <Divider sx={{ mt: 2 }} />
+                  <Divider sx={{ mt: 2, opacity: 0.23 }} />
                 )}
               </Box>
             )
