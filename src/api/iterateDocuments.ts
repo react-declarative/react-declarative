@@ -11,8 +11,9 @@ interface IConfig<Data extends IRowData = IRowData> {
   limit?: number;
   delay?: number;
   createRequest: (data: {
-    limit: number,
-    lastId: RowId | null
+    limit: number;
+    offset: number;
+    lastId: RowId | null;
   } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
 }
 
@@ -21,7 +22,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   limit = REQUEST_LIMIT,
   delay = REQUEST_DELAY,
   createRequest = () => [],
-}: IConfig<Data>) {
+}: IConfig<Data>): AsyncGenerator<Data[], void, unknown> {
 
   const request: typeof createRequest = async (...args) => {
     const [result] = await Promise.all([
@@ -33,23 +34,27 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
 
   let counter = 0;
   let lastId = null;
+
   let lastQuery = request({
     lastId: null,
+    offset: 0,
     limit,
   });
 
   while (counter < totalDocuments) {
     const response = await lastQuery;
-    yield response;
     if (response.length < limit) {
+      yield response;
       break;
     }
     lastId = response[response.length - 1].id || null;
+    counter += response.length;
     lastQuery = request({
       lastId,
+      offset: counter,
       limit,
     });
-    counter += response.length;
+    yield response;
   }
 
 };
