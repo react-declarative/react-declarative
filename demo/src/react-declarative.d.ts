@@ -3569,6 +3569,7 @@ declare module 'react-declarative/api/iterateDocuments' {
         createRequest: (data: {
             limit: number;
             offset: number;
+            page: number;
             lastId: RowId | null;
         } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
     }

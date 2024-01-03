@@ -13,6 +13,7 @@ interface IConfig<Data extends IRowData = IRowData> {
   createRequest: (data: {
     limit: number;
     offset: number;
+    page: number;
     lastId: RowId | null;
   } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
 }
@@ -38,6 +39,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   let lastQuery = request({
     lastId: null,
     offset: 0,
+    page: 0,
     limit,
   });
 
@@ -47,11 +49,15 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
       yield response;
       break;
     }
+    if (response.length > limit) {
+      throw new Error('react-declarative iterateDocuments response.length > limit');
+    }
     lastId = response[response.length - 1].id || null;
-    counter += response.length;
+    counter += limit;
     lastQuery = request({
       lastId,
       offset: counter,
+      page: counter / limit,
       limit,
     });
     yield response;
