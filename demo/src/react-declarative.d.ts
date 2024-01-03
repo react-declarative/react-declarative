@@ -3578,8 +3578,8 @@ declare module 'react-declarative/api/iterateDocuments' {
 }
 
 declare module 'react-declarative/api/pickDocuments' {
-    export const pickDocuments: <T extends any[]>(limit: number, offset: number) => (rows?: never[]) => {
-        rows: T;
+    export const pickDocuments: <T extends unknown>(limit: number, offset: number) => (rows?: T[]) => {
+        rows: T[];
         done: boolean;
     };
     export default pickDocuments;

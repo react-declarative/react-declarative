@@ -1,9 +1,9 @@
-export const pickDocuments = <T extends any[]>(
+export const pickDocuments = <T extends any>(
   limit: number,
   offset: number
 ) => {
-  const result = [] as unknown as T;
-  return (rows = []) => {
+  const result: T[] = [];
+  return (rows: T[] = []) => {
     for (const row of rows) {
       if (offset > 0) {
         offset -= 1;
