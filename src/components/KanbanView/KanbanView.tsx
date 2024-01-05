@@ -56,6 +56,7 @@ const useStyles = makeStyles()((theme) => ({
     padding: 10,
     marginRight: 10,
     borderRadius: "6px",
+    border: "1px solid transparent",
   },
   groupHeader: {
     position: "absolute",
@@ -180,6 +181,9 @@ export const KanbanView = ({
               >
                 <Box className={classes.groupHeader}>
                   <Box
+                    className={classNames(classes.group, {
+                      [classes.activeGroup]: dragColumn === column,
+                    })}
                     sx={{
                       borderRadius: "50%",
                       height: "12px",
