@@ -195,7 +195,7 @@ export const KanbanView = ({
                     fontWeight="bold"
                     sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
                   >
-                    {label}
+                    {label || column}
                   </Typography>
                   {AfterColumnTitle && (
                     <AfterColumnTitle column={column} payload={payload} />
