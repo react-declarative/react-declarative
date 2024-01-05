@@ -101,8 +101,12 @@ export const KanbanView = ({
   AfterCardContent,
   AfterColumnTitle,
   BeforeColumnTitle,
-  onChangeColumn,
+  onChangeColumn = () => {},
   onCardLabelClick,
+  onLoadStart,
+  onLoadEnd,
+  fallback,
+  throwError,
 }: IKanbanViewProps) => {
   const [dragColumn, setDragColumn] = useState<string | null>(null);
   const dragId = useRef<string | null>(null);
@@ -149,13 +153,14 @@ export const KanbanView = ({
       <Box className={classes.container}>
         <ScrollView withScrollbar hideOverflowY className={classes.content}>
           {columns.map(({ column, rows, label, color = defaultColor }) => {
-            const items = itemMap.get(column) || [];
+            const itemList = itemMap.get(column) || [];
             return (
               <Box
                 onDrop={() => {
-                  if (dragId.current) {
+                  const item = items.find(({ id }) => id === dragId.current);
+                  if (item) {
                     setDragColumn(null);
-                    onChangeColumn(dragId.current, column, payload);
+                    onChangeColumn(dragId.current!, column, item.data, payload);
                     dragId.current = null;
                   }
                 }}
@@ -203,7 +208,7 @@ export const KanbanView = ({
                   className={classes.list}
                   minRowHeight={minRowHeight}
                 >
-                  {items.map((document) => (
+                  {itemList.map((document) => (
                     <Card
                       payload={payload}
                       key={document.id}
@@ -216,6 +221,10 @@ export const KanbanView = ({
                       rows={rows}
                       AfterCardContent={AfterCardContent}
                       onCardLabelClick={onCardLabelClick}
+                      onLoadStart={onLoadStart}
+                      onLoadEnd={onLoadEnd}
+                      fallback={fallback}
+                      throwError={throwError}
                       {...document}
                     />
                   ))}

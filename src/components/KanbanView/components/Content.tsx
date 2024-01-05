@@ -5,6 +5,7 @@ import { alpha } from "@mui/material";
 
 import { makeStyles } from "../../../styles";
 
+import { usePreventAction } from "../../ActionButton";
 import LoaderView from "../../LoaderView";
 import Async from "../../Async";
 
@@ -64,24 +65,52 @@ const useStyles = makeStyles()((theme) => ({
 
 export interface IContentProps {
   id: string;
+  data: IAnything;
   payload: IAnything;
   rows: IBoardRow[];
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  fallback?: (e: Error) => void;
+  throwError?: boolean;
 }
 
-export const Content = ({ id, payload, rows }: IContentProps) => {
+export const Content = ({
+  id,
+  data,
+  payload,
+  rows,
+  onLoadStart,
+  onLoadEnd,
+  fallback,
+  throwError,
+}: IContentProps) => {
   const { classes } = useStyles();
+
+  const { loading, handleLoadStart, handleLoadEnd } = usePreventAction({
+    onLoadStart,
+    onLoadEnd,
+  });
 
   const renderCell = useCallback(({ value, click }: IBoardRow) => {
     if (click) {
       return (
-        <Async Loader={Loader}>
+        <Async
+          Loader={Loader}
+          onLoadStart={handleLoadStart}
+          onLoadEnd={handleLoadEnd}
+          loading={loading}
+          fallback={fallback}
+          throwError={throwError}
+        >
           {async () => {
             return (
               <Typography
                 className={classes.link}
-                onClick={() => click(id, payload)}
+                onClick={() => click(id, data, payload)}
               >
-                {await value(id, payload)}
+                {typeof value === "function"
+                  ? await value(id, data, payload)
+                  : value}
               </Typography>
             );
           }}
@@ -89,9 +118,19 @@ export const Content = ({ id, payload, rows }: IContentProps) => {
       );
     }
     return (
-      <Async Loader={Loader}>
+      <Async
+        Loader={Loader}
+        onLoadStart={handleLoadStart}
+        onLoadEnd={handleLoadEnd}
+        loading={loading}
+        fallback={fallback}
+        throwError={throwError}
+      >
         {async () => {
-          const label = await value(id, payload);
+          const label =
+            typeof value === "function"
+              ? await value(id, data, payload)
+              : value;
           return (
             <Tooltip title={label}>
               <Typography className={classes.bold}>{label}</Typography>

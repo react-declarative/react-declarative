@@ -17,17 +17,19 @@ import IAnything from "../../../model/IAnything";
 
 export interface IHeaderProps {
   id: string;
-  label: string;
+  label: React.ReactNode;
   payload: IAnything;
+  data: IAnything;
   disabled: boolean;
   column: string;
   columns: string[];
   onChangeColumn: (
     id: string,
     column: string,
+    data: IAnything,
     payload: IAnything
-  ) => Promise<void>;
-  onCardLabelClick?: (id: string, payload: IAnything) => void;
+  ) => (void | Promise<void>);
+  onCardLabelClick?: (id: string, data: IAnything, payload: IAnything) => void;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -51,6 +53,7 @@ export const Header = ({
   payload,
   column,
   columns,
+  data,
   disabled,
   label,
   onChangeColumn,
@@ -96,7 +99,7 @@ export const Header = ({
             <MenuItem
               key={`${column}-${idx}`}
               onClick={() => {
-                onChangeColumn(id, column, payload);
+                onChangeColumn(id, column, data, payload);
                 setBeforeAnchorEl(null);
               }}
             >
@@ -108,7 +111,7 @@ export const Header = ({
           <Chip
             color="primary"
             onClick={
-              onCardLabelClick ? () => onCardLabelClick(id, payload) : undefined
+              onCardLabelClick ? () => onCardLabelClick(id, data, payload) : undefined
             }
             label={label}
           />
@@ -132,7 +135,7 @@ export const Header = ({
             <MenuItem
               key={`${column}-${idx}`}
               onClick={() => {
-                onChangeColumn(id, column, payload);
+                onChangeColumn(id, column, data, payload);
                 setAfterAnchorEl(null);
               }}
             >

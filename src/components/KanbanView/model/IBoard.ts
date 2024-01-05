@@ -1,10 +1,10 @@
 import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 
-export interface IBoard<Payload = IAnything> {
+export interface IBoard<Data = IAnything, Payload = IAnything> {
     id: string;
-    label: string;
-    columns: IBoardColumn<Payload>[];
+    label: React.ReactNode;
+    columns: IBoardColumn<Data, Payload>[];
 }
 
 export default IBoard;

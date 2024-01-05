@@ -8,7 +8,7 @@ interface IParams {
 export const usePreventAction = ({
   onLoadStart,
   onLoadEnd,
-}: IParams) => {
+}: IParams = {}) => {
   const [loading, setLoading] = useState(0);
   return {
     handleLoadStart: () => {

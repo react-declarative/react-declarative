@@ -41,6 +41,11 @@ export const Container = ({
   label,
   columns,
   rows,
+  data,
+  fallback,
+  onLoadEnd,
+  onLoadStart,
+  throwError,
   disabled,
   onChangeColumn,
   onCardLabelClick,
@@ -54,6 +59,7 @@ export const Container = ({
         <Header
           id={id}
           column={column}
+          data={data}
           columns={columns}
           disabled={disabled}
           onChangeColumn={onChangeColumn}
@@ -61,7 +67,16 @@ export const Container = ({
           payload={payload}
           label={label}
         />
-        <Content id={id} payload={payload} rows={rows} />
+        <Content
+          id={id}
+          payload={payload}
+          rows={rows}
+          data={data}
+          fallback={fallback}
+          onLoadEnd={onLoadEnd}
+          onLoadStart={onLoadStart}
+          throwError={throwError}
+        />
         {AfterCardContent && <AfterCardContent id={id} payload={payload} />}
       </Box>
     </Paper>
