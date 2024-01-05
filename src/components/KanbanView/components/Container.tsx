@@ -38,7 +38,7 @@ const useStyles = makeStyles()((theme) => ({
 export const Container = ({
   id,
   column,
-  label,
+  label = column,
   columns,
   rows,
   data,

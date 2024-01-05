@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import IBoardRow from "../model/IBoardRow";
 import IAnything from "../../../model/IAnything";
 
+import classNames from "../../../utils/classNames";
+
 const Loader = LoaderView.createLoader(12);
 
 const useStyles = makeStyles()((theme) => ({
@@ -91,8 +93,33 @@ export const Content = ({
     onLoadEnd,
   });
 
-  const renderCell = useCallback(({ value, click }: IBoardRow) => {
-    if (click) {
+  const renderCell = useCallback(
+    ({ value, click }: IBoardRow, className: string) => {
+      if (click) {
+        return (
+          <Async
+            Loader={Loader}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            loading={loading}
+            fallback={fallback}
+            throwError={throwError}
+          >
+            {async () => {
+              return (
+                <Typography
+                  className={classNames(classes.link, className)}
+                  onClick={() => click(id, data, payload)}
+                >
+                  {typeof value === "function"
+                    ? await value(id, data, payload)
+                    : value}
+                </Typography>
+              );
+            }}
+          </Async>
+        );
+      }
       return (
         <Async
           Loader={Loader}
@@ -103,54 +130,43 @@ export const Content = ({
           throwError={throwError}
         >
           {async () => {
+            const label =
+              typeof value === "function"
+                ? await value(id, data, payload)
+                : value;
             return (
-              <Typography
-                className={classes.link}
-                onClick={() => click(id, data, payload)}
-              >
-                {typeof value === "function"
-                  ? await value(id, data, payload)
-                  : value}
-              </Typography>
+              <Tooltip title={label}>
+                <Typography className={classNames(classes.bold, className)}>
+                  {label}
+                </Typography>
+              </Tooltip>
             );
           }}
         </Async>
       );
-    }
-    return (
-      <Async
-        Loader={Loader}
-        onLoadStart={handleLoadStart}
-        onLoadEnd={handleLoadEnd}
-        loading={loading}
-        fallback={fallback}
-        throwError={throwError}
-      >
-        {async () => {
-          const label =
-            typeof value === "function"
-              ? await value(id, data, payload)
-              : value;
-          return (
-            <Tooltip title={label}>
-              <Typography className={classes.bold}>{label}</Typography>
-            </Tooltip>
-          );
-        }}
-      </Async>
-    );
-  }, []);
+    },
+    []
+  );
 
   return (
     <Box className={classes.table}>
-      {rows.map((row) => (
-        <>
-          <Typography paddingRight="20px" variant="body2">
-            {row.label}
-          </Typography>
-          {renderCell(row)}
-        </>
-      ))}
+      {rows.map((row, idx) => {
+        const className = classNames({
+          [classes.noBorder]: idx === rows.length - 1,
+        });
+        return (
+          <>
+            <Typography
+              className={className}
+              paddingRight="20px"
+              variant="body2"
+            >
+              {row.label}
+            </Typography>
+            {renderCell(row, className)}
+          </>
+        );
+      })}
     </Box>
   );
 };

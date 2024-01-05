@@ -7470,7 +7470,7 @@ declare module 'react-declarative/components/KanbanView/model/IBoardColumn' {
     export interface IBoardColumn<Data = IAnything, Payload = IAnything> {
         column: string;
         color?: string;
-        label: string;
+        label?: string;
         rows: IBoardRow<Data, Payload>[];
     }
     export default IBoardColumn;
