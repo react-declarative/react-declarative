@@ -241,9 +241,9 @@ import { IBoardColumn as IBoardColumnInternal } from './components';
 import { IBoardItem as IBoardItemInternal } from './components';
 import { IBoardRow as IBoardRowInternal } from './components';
 
-export type IBoardColumn<Payload = any> = IBoardColumnInternal<Payload>;
-export type IBoard<Payload = any> = IBoardInternal<Payload>;
-export type IBoardRow<Payload = any> = IBoardRowInternal<Payload>;
+export type IBoardColumn<Data = any, Payload = any> = IBoardColumnInternal<Data, Payload>;
+export type IBoard<Data = any, Payload = any> = IBoardInternal<Data, Payload>;
+export type IBoardRow<Data = any, Payload = any> = IBoardRowInternal<Data, Payload>;
 export type IBoardItem = IBoardItemInternal;
 
 export { KanbanView } from './components';
