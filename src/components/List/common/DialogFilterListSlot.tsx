@@ -213,7 +213,7 @@ export const DialogFilterListSlot = <FilterData extends {}>({
         <Badge sx={{ mr: 1 }} badgeContent={filtersCount} color="info">
           <Button
             startIcon={<FilterListIcon />}
-            variant="outlined"
+            variant="contained"
             sx={{ fontWeight: "bold", ml: 1 }}
             disabled={loading}
             onClick={pickFilters}

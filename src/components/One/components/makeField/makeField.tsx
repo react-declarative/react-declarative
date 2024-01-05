@@ -601,7 +601,7 @@ export function makeField(
         return (
             <Group
                 ref={handleGroupRef}
-                data-testId={name}
+                data-testid={name}
                 data-path={memory.fieldName}
                 isItem
                 style={style}

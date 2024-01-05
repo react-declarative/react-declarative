@@ -97,7 +97,7 @@ export class Entry<
     selectionLabel: (size) => `${size || ''}`,
     filterData: {},
     withToggledFilters: false,
-    noInitialFilters: false,
+    withCustomFilters: false,
     fetchDebounce: LIST_FETCH_DEBOUNCE,
     sortModel: [],
     chips: [],
@@ -299,7 +299,7 @@ export class Entry<
     let hasFilters = true;
     hasFilters = hasFilters && Array.isArray(this.props.filters);
     hasFilters = hasFilters && !!this.props.filters?.length;
-    hasFilters = hasFilters && !this.props.noInitialFilters;
+    hasFilters = hasFilters && !this.props.withCustomFilters;
     if (!hasFilters) {
       this.handleDefault(true);
     }
@@ -516,7 +516,7 @@ export class Entry<
     handleFiltersCollapsed: this.handleFiltersCollapsed,
     handleRerender: this.handleRerender,
     ready: () => {
-      if (!this.props.noInitialFilters) {
+      if (!this.props.withCustomFilters) {
         this.handleDefault(true);
       }
     },
