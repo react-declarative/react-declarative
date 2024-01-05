@@ -16,10 +16,15 @@ const useStyles = makeStyles()({
     justifyContent: "stretch",
     flexDirection: "column",
   },
+  stretch: {
+    flex: 1,
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+  },
   adjust: {
     maxHeight: 10,
     minHeight: 10,
-    flex: 1,
   },
 });
 
@@ -37,18 +42,22 @@ export const Card = forwardRef(
     const { classes } = useStyles();
     return (
       <Box
-        data-cardid={id}
         className={classNames(classes.root, className)}
-        onDrag={() => {
-          if (!disabled) {
-            onDrag(id);
-          }
-        }}
         style={style}
         ref={ref}
-        draggable={!disabled ? "true" : "false"}
       >
-        <Container id={id} disabled={disabled} {...otherProps} />
+        <div
+          className={classes.stretch}
+          data-cardid={id}
+          onDrag={() => {
+            if (!disabled) {
+              onDrag(id);
+            }
+          }}
+          draggable={disabled ? "false" : "true"}
+        >
+          <Container id={id} disabled={disabled} {...otherProps} />
+        </div>
         <div className={classes.adjust} />
       </Box>
     );
