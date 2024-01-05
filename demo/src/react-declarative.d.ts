@@ -6502,6 +6502,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
     import { SxProps } from "@mui/material";
     import { IAsyncProps } from "react-declarative/components/Async";
     import IOption from "react-declarative/model/IOption";
+    import TSubject from "react-declarative/model/TSubject";
     export interface IActionMenuProps<T extends any = object> {
         keepMounted?: boolean;
         options?: Partial<IOption>[];
@@ -6513,6 +6514,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         deps?: any[];
         throwError?: boolean;
         className?: string;
+        reloadSubject?: TSubject<void>;
         style?: React.CSSProperties;
         sx?: SxProps;
         payload?: IAsyncProps<T>["payload"];
@@ -6521,7 +6523,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         BeforeContent?: React.ComponentType<any>;
         AfterContent?: React.ComponentType<any>;
     }
-    export const ActionMenu: <T extends unknown = object>({ options, transparent, disabled, throwError, fallback, onToggle, onAction, payload, className, style, sx, deps, onLoadStart, onLoadEnd, keepMounted, BeforeContent, AfterContent, }: IActionMenuProps<T>) => JSX.Element;
+    export const ActionMenu: <T extends unknown = object>({ options, transparent, disabled, throwError, fallback, onToggle, onAction, payload, className, style, sx, deps, onLoadStart, onLoadEnd, keepMounted, BeforeContent, AfterContent, reloadSubject, }: IActionMenuProps<T>) => JSX.Element;
     export default ActionMenu;
 }
 

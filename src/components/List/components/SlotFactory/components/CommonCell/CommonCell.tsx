@@ -17,6 +17,7 @@ import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
 import useProps from "../../../../hooks/useProps";
 import usePayload from '../../../../hooks/usePayload';
+import useActualValue from '../../../../../../hooks/useActualValue';
 
 const LOAD_SOURCE = 'list-item';
 
@@ -48,6 +49,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
 
     const { classes } = useStyles();
     const _payload = usePayload();
+
+    const row$ = useActualValue(row);
 
     const {
         fallback,
@@ -111,8 +114,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                     ...other
                 }) => ({
                     ...other,
-                    isVisible: () => isVisible(row, _payload),
-                    isDisabled: () => isDisabled(row, _payload),
+                    isVisible: () => isVisible(row$.current, _payload),
+                    isDisabled: () => isDisabled(row$.current, _payload),
                 }))}
                 onToggle={onMenuToggle}
                 onAction={onAction}

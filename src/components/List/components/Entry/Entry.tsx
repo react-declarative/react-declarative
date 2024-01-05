@@ -417,6 +417,8 @@ export class Entry<
   };
 
   private handleReload = async (keepPagination = true) => {
+    this.constraintManager.constraintManager.clear();
+    this.scrollManager.clear();
     await this.handleFilter(this.state.filterData, keepPagination);
     !keepPagination && this.props.onPageChange!(0);
   };

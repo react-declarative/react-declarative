@@ -22,6 +22,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Fab from "@mui/material/Fab";
 
 import IOption from "../../model/IOption";
+import TSubject from "../../model/TSubject";
 
 export interface IActionMenuProps<T extends any = object> {
   keepMounted?: boolean;
@@ -34,6 +35,7 @@ export interface IActionMenuProps<T extends any = object> {
   deps?: any[];
   throwError?: boolean;
   className?: string;
+  reloadSubject?: TSubject<void>;
   style?: React.CSSProperties;
   sx?: SxProps;
   payload?: IAsyncProps<T>["payload"];
@@ -111,6 +113,7 @@ export const ActionMenu = <T extends any = object>({
   keepMounted,
   BeforeContent,
   AfterContent,
+  reloadSubject,
 }: IActionMenuProps<T>) => {
   const targetRef = useRef<HTMLButtonElement | null>(null);
 
@@ -255,6 +258,7 @@ export const ActionMenu = <T extends any = object>({
                     key={idx}
                     onLoadStart={handleLoadStart}
                     onLoadEnd={handleLoadEnd}
+                    reloadSubject={reloadSubject}
                     deps={deps}
                     payload={payload}
                   >

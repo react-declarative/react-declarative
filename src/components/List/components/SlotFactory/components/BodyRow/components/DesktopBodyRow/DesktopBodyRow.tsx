@@ -109,7 +109,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     const content = columns.map(renderColumn);
 
     return content;
-  }, [fullWidth]);
+  }, [fullWidth, row, disabled]);
 
   return (
     <TableRow

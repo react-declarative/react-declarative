@@ -17,9 +17,10 @@ import IRowData from "../../../../../../model/IRowData";
 import IColumn from "../../../../../../model/IColumn";
 
 import useReload from "../../../../hooks/useReload";
+import usePayload from "../../../../hooks/usePayload";
 import useProps from "../.../../../../../hooks/useProps";
 import useSelection from "../../../../hooks/useSelection";
-import usePayload from "../../../../hooks/usePayload";
+import useActualValue from "../../../../../../hooks/useActualValue";
 
 import RowCheckbox from "./common/RowCheckbox";
 import RowMark from "./common/RowMark";
@@ -105,6 +106,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
   const payload = usePayload();
 
   const { selection, setSelection } = useSelection();
+  const row$ = useActualValue(row);
 
   const primaryColumn =
     columns.find(({ primary }) => primary) ||
@@ -198,8 +200,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
               ...other
             }) => ({
               ...other,
-              isVisible: () => isVisible(row, payload),
-              isDisabled: () => isDisabled(row, payload),
+              isVisible: () => isVisible(row$.current, payload),
+              isDisabled: () => isDisabled(row$.current, payload),
             })
           )}
           onToggle={handleMenuToggle}
