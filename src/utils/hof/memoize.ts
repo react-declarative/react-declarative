@@ -6,6 +6,10 @@ export interface IRef<T = any> {
     current: T;
 }
 
+interface Function {
+    (...args: any): any;
+}
+
 export const GET_VALUE_MAP = Symbol('get-value-map');
 
 export const memoize = <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T): T & IClearable<K> => {
@@ -20,7 +24,7 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
         valueMap.clear();
     };
 
-    const executeFn = (...args: A) => {
+    const executeFn: Function & IClearable<any> = (...args: A) => {
         const k = key(args);
         let value = valueMap.get(k)?.current;
         if (value === undefined) {
