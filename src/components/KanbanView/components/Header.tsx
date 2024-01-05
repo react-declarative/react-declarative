@@ -55,7 +55,7 @@ export const Header = ({
   columns,
   data,
   disabled,
-  label,
+  label = column,
   onChangeColumn,
   onCardLabelClick,
 }: IHeaderProps) => {

@@ -10,7 +10,6 @@ import LoaderView from "../../LoaderView";
 import Async from "../../Async";
 
 import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
 import IBoardRow from "../model/IBoardRow";
@@ -135,11 +134,9 @@ export const Content = ({
                 ? await value(id, data, payload)
                 : value;
             return (
-              <Tooltip title={label}>
-                <Typography className={classNames(classes.bold, className)}>
-                  {label}
-                </Typography>
-              </Tooltip>
+              <Typography className={classNames(classes.bold, className)}>
+                {label}
+              </Typography>
             );
           }}
         </Async>
