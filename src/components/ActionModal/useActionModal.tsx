@@ -5,11 +5,12 @@ import ActionModal, { IActionModalProps } from "./ActionModal";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";
+import useSingleton from "../../hooks/useSingleton";
+import useChange from "../../hooks/useChange";
 
 import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
-import useSingleton from "../../hooks/useSingleton";
 
 export interface IParams<
   Data extends IAnything = IAnything,
@@ -25,6 +26,7 @@ export interface IParams<
   > {
     waitForChangesDelay?: number;
     param?: Param;
+    onClose?: () => void;
   }
 
 export const useActionModal = <
@@ -45,6 +47,7 @@ export const useActionModal = <
   reloadSubject,
   payload: upperPayload = {} as Payload,
   onChange,
+  onClose,
   onSubmit = () => true,
   onLoadEnd,
   onLoadStart,
@@ -68,6 +71,12 @@ export const useActionModal = <
   useEffect(() => {
     setParam(upperParam as never);
   }, [upperParam]);
+
+  useChange(() => {
+    if (!open) {
+      onClose && onClose();
+    }
+  }, [open]);
 
   const onSubmit$ = useActualCallback(onSubmit);
   const param$ = useActualValue(param);

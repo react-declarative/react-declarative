@@ -6751,8 +6751,9 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
     }> {
         waitForChangesDelay?: number;
         param?: Param;
+        onClose?: () => void;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
