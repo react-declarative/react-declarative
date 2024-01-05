@@ -4868,13 +4868,14 @@ declare module 'react-declarative/components/List/api/useListAction' {
     import IRowData, { RowId } from "react-declarative/model/IRowData";
     interface IParams<Data extends IRowData = IRowData> {
         fetchRow: (id: RowId) => (Data | Promise<Data>);
-        onAction: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
+        onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
+        onRowAction?: (action: string, row: Data, deselectAll: () => void) => (Promise<void> | void);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
         fallback?: (e: Error) => void;
     }
-    export const useListAction: <Data extends IRowData = IRowData>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, }: IParams<Data>) => {
+    export const useListAction: <Data extends IRowData = IRowData>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, onRowAction, }: IParams<Data>) => {
         readonly deselectAll: () => void;
         readonly selectedRows: RowId[];
         readonly listProps: {
@@ -4882,6 +4883,7 @@ declare module 'react-declarative/components/List/api/useListAction' {
             readonly onSelectedRows: (rowIds: RowId[]) => void;
         };
         readonly commitAction: (p?: string | undefined) => Promise<void | null>;
+        readonly commitRowAction: (action: string, row: Data) => Promise<void | null>;
     };
     export default useListAction;
 }
@@ -7738,13 +7740,14 @@ declare module 'react-declarative/components/Grid/api/useGridAction' {
     import IAnything from "react-declarative/model/IAnything";
     interface IParams<Data extends IAnything = IAnything> {
         fetchRow: (id: string) => (Data | Promise<Data>);
-        onAction: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
+        onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
+        onRowAction?: (action: string, row: Data, deselectAll: () => void) => (Promise<void> | void);
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
         fallback?: (e: Error) => void;
     }
-    export const useGridAction: <Data extends unknown = any>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, }: IParams<Data>) => {
+    export const useGridAction: <Data extends unknown = any>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, onRowAction, }: IParams<Data>) => {
         readonly deselectAll: () => void;
         readonly selectedRows: string[];
         readonly gridProps: {
@@ -7752,6 +7755,7 @@ declare module 'react-declarative/components/Grid/api/useGridAction' {
             readonly onSelectedRows: (rowIds: string[]) => void;
         };
         readonly commitAction: (p?: string | undefined) => Promise<void | null>;
+        readonly commitRowAction: (action: string, row: Data) => Promise<void | null>;
     };
     export default useGridAction;
 }
