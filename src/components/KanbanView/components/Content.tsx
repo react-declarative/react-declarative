@@ -93,7 +93,7 @@ export const Content = ({
   });
 
   const renderCell = useCallback(
-    ({ value, click }: IBoardRow, className: string) => {
+    ({ value, click, visible }: IBoardRow, className: string) => {
       if (click) {
         return (
           <Async
@@ -105,6 +105,18 @@ export const Content = ({
             throwError={throwError}
           >
             {async () => {
+              {
+                const visibleResult =
+                  typeof visible === "function"
+                    ? visible(id, data, payload)
+                    : visible;
+                const visibleValue =
+                  typeof visibleResult === "boolean" ? visibleResult : true;
+
+                if (!visibleValue) {
+                  return;
+                }
+              }
               return (
                 <Typography
                   className={classNames(classes.link, className)}
@@ -129,6 +141,18 @@ export const Content = ({
           throwError={throwError}
         >
           {async () => {
+            {
+              const visibleResult =
+                typeof visible === "function"
+                  ? visible(id, data, payload)
+                  : visible;
+              const visibleValue =
+                typeof visibleResult === "boolean" ? visibleResult : true;
+
+              if (!visibleValue) {
+                return;
+              }
+            }
             const label =
               typeof value === "function"
                 ? await value(id, data, payload)
