@@ -104,6 +104,14 @@ git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
 git clone https://github.com/react-declarative/nft-mint-tool.git
 ```
 
+**5. React PocketBase CRM**
+
+> GitHub repo: [https://github.com/react-declarative/react-pocketbase-crm](https://github.com/react-declarative/react-pocketbase-crm)
+
+```bash
+git clone https://github.com/react-declarative/react-pocketbase-crm.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
