@@ -604,11 +604,14 @@ export { replaceSubstring } from './utils/replaceSubstring';
 import TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';
+import TPaginatorInternal from "./model/TPaginator";
 
 export type TSubject<Data = void> = TSubjectInternal<Data>;
 export type TObserver<Data = void> = TObserverInternal<Data>;
 export type TObservable<Data = void> = TObservableInternal<Data>;
 export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
+
+export type TPaginator<FilterData extends {} = any, RowData extends IRowData = any, Payload = any> = TPaginatorInternal<FilterData, RowData, Payload>;
 
 export { getErrorMessage } from './utils/getErrorMessage';
 

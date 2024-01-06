@@ -486,10 +486,12 @@ declare module 'react-declarative' {
     import TSubjectInternal from 'react-declarative/model/TSubject';
     import TBehaviorSubjectInternal from 'react-declarative/model/TBehaviorSubject';
     import TObserverInternal, { TObservable as TObservableInternal } from 'react-declarative/model/TObserver';
+    import TPaginatorInternal from "react-declarative/model/TPaginator";
     export type TSubject<Data = void> = TSubjectInternal<Data>;
     export type TObserver<Data = void> = TObserverInternal<Data>;
     export type TObservable<Data = void> = TObservableInternal<Data>;
     export type TBehaviorSubject<Data = unknown> = TBehaviorSubjectInternal<Data>;
+    export type TPaginator<FilterData extends {} = any, RowData extends IRowData = any, Payload = any> = TPaginatorInternal<FilterData, RowData, Payload>;
     export { getErrorMessage } from 'react-declarative/utils/getErrorMessage';
     import { IEntityAdapter as IEntityAdapterInternal, IEntity as IMvvmEntity } from 'react-declarative/utils/mvvm/Entity';
     import { ICollectionAdapter as ICollectionAdapterInternal } from 'react-declarative/utils/mvvm/Collection';
@@ -3331,6 +3333,16 @@ declare module 'react-declarative/model/TObserver' {
         share: never;
     }>;
     export default TObserver;
+}
+
+declare module 'react-declarative/model/TPaginator' {
+    import { ListHandlerChips, ListHandlerPagination, ListHandlerSortModel } from "react-declarative/model/IListProps";
+    import IRowData from "react-declarative/model/IRowData";
+    export type TPaginator<FilterData extends {} = any, RowData extends IRowData = any, Payload = any> = (data: FilterData, pagination: ListHandlerPagination, sort: ListHandlerSortModel<RowData>, chips: ListHandlerChips<RowData>, search: string, payload: Payload) => Promise<{
+        rows: RowData[];
+        total: number | null;
+    } | RowData[]>;
+    export default TPaginator;
 }
 
 declare module 'react-declarative/utils/getErrorMessage' {
