@@ -36,14 +36,18 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
               0.04
             ),
           }),
-          ...(idx === children.length - 1 && {
-            marginBottom: '-16px',
-          }),
           marginLeft: '-16px',
           marginRight: '-16px',
           paddingLeft: '16px',
           paddingRight: '8px',
-          paddingBottom: '4px',
+          ...(idx === children.length - 1 && {
+            marginBottom: '-16px',
+          }),
+          ...(idx === children.length - 1 && children.length === 1 ? {
+            paddingBottom: '16px',
+          } : {
+            paddingBottom: '4px',
+          }),
           width: 'calc(100% + 32px) !important',
         },
         fields: [

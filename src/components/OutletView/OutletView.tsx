@@ -395,7 +395,7 @@ export const OutletView = <
     beginSave,
     afterSave,
     formState,
-    data: data[activeOption] || {},
+    data: typeof data[activeOption] === "undefined" ? {} : data[activeOption],
     params,
     onChange: (data: Data[keyof Data], initial = false) =>
       handleChange(activeOption, data, initial),
