@@ -56,7 +56,7 @@ const useStyles = makeStyles()((theme) => ({
     padding: 10,
     marginRight: 10,
     borderRadius: "6px",
-    border: `1px solid ${
+    border: `2.5px solid ${
       theme.palette.mode === "dark"
         ? darken(theme.palette.background.paper, 0.06)
         : theme.palette.background.paper
