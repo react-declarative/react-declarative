@@ -7,6 +7,7 @@ import { makeStyles } from "../../../styles";
 import Box from "@mui/material/Box";
 import Radio from "@mui/material/Radio";
 import Checkbox from "@mui/material/Checkbox";
+import ListItemButton from "@mui/material/ListItemButton";
 
 import { CHILD_ELEMENT } from "../../VirtualView";
 import ActionMenu from "../../ActionMenu";
@@ -118,6 +119,9 @@ const useStyles = makeStyles()((theme) => ({
     bottom: 0,
     width: 4,
   },
+  noPadding: {
+    padding: 0,
+  },
 }));
 
 export const ContentRow = forwardRef(
@@ -215,9 +219,12 @@ export const ContentRow = forwardRef(
     }, [selection]);
 
     return (
-      <div
+      <ListItemButton
+        disableGutters
+        disableRipple
+        selected={selection.has(row[rowKey])}
         ref={ref}
-        className={classNames(CHILD_ELEMENT, className)}
+        className={classNames(CHILD_ELEMENT, className, classes.noPadding)}
         style={style}
       >
         <Box className={classes.contentRow} sx={sx}>
@@ -299,7 +306,7 @@ export const ContentRow = forwardRef(
             </Center>
           )}
         </Box>
-      </div>
+      </ListItemButton>
     );
   }
 );
