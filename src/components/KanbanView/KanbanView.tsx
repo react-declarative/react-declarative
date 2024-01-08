@@ -49,18 +49,15 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    flexDirection: "column",
     maxWidth: "276px",
     minWidth: "276px",
-    gap: 10,
-    padding: 10,
     marginRight: 10,
     borderRadius: "6px",
-    border: `2.5px solid ${
-      theme.palette.mode === "dark"
-        ? darken(theme.palette.background.paper, 0.06)
-        : theme.palette.background.paper
-    }`,
+  },
+  groupWrapper: {
+    flex: 1,
+    padding: 10,
+    marginTop: 45,
   },
   groupHeader: {
     position: "absolute",
@@ -74,9 +71,6 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: "center",
     justifyContent: "stretch",
     gap: 8,
-  },
-  groupHeaderAdjust: {
-    height: "35px",
   },
   activeGroup: {
     background: `${theme.palette.primary.main} !important`,
@@ -176,12 +170,7 @@ export const KanbanView = ({
                   setDragColumn(column);
                   e.preventDefault();
                 }}
-                className={classNames(classes.group, {
-                  [classes.activeGroup]: dragColumn === column,
-                })}
-                sx={{
-                  background: color,
-                }}
+                className={classes.group}
               >
                 <Box className={classes.groupHeader}>
                   <Box
@@ -209,34 +198,41 @@ export const KanbanView = ({
                     <AfterColumnTitle column={column} payload={payload} />
                   )}
                 </Box>
-                <div className={classes.groupHeaderAdjust} />
-
-                <VirtualView
-                  bufferSize={bufferSize}
-                  className={classes.list}
-                  minRowHeight={minRowHeight}
+                <Box
+                  className={classNames(classes.groupWrapper, {
+                    [classes.activeGroup]: dragColumn === column,
+                  })}
+                  sx={{
+                    background: color,
+                  }}
                 >
-                  {itemList.map((document) => (
-                    <Card
-                      payload={payload}
-                      key={document.id}
-                      onChangeColumn={onChangeColumn}
-                      onDrag={() => {
-                        dragId.current = document.id;
-                      }}
-                      disabled={disabled}
-                      columns={columnList}
-                      rows={rows}
-                      AfterCardContent={AfterCardContent}
-                      onCardLabelClick={onCardLabelClick}
-                      onLoadStart={onLoadStart}
-                      onLoadEnd={onLoadEnd}
-                      fallback={fallback}
-                      throwError={throwError}
-                      {...document}
-                    />
-                  ))}
-                </VirtualView>
+                  <VirtualView
+                    bufferSize={bufferSize}
+                    className={classes.list}
+                    minRowHeight={minRowHeight}
+                  >
+                    {itemList.map((document) => (
+                      <Card
+                        payload={payload}
+                        key={document.id}
+                        onChangeColumn={onChangeColumn}
+                        onDrag={() => {
+                          dragId.current = document.id;
+                        }}
+                        disabled={disabled}
+                        columns={columnList}
+                        rows={rows}
+                        AfterCardContent={AfterCardContent}
+                        onCardLabelClick={onCardLabelClick}
+                        onLoadStart={onLoadStart}
+                        onLoadEnd={onLoadEnd}
+                        fallback={fallback}
+                        throwError={throwError}
+                        {...document}
+                      />
+                    ))}
+                  </VirtualView>
+                </Box>
               </Box>
             );
           })}
