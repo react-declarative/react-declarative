@@ -287,6 +287,7 @@ declare module 'react-declarative' {
     export { Switch } from 'react-declarative/components';
     export { Center } from 'react-declarative/components';
     export { Square } from 'react-declarative/components';
+    export { SubjectBinding } from 'react-declarative/components';
     export { Dot } from 'react-declarative/components';
     export { ScrollAdjust } from 'react-declarative/components';
     export { NoSsr } from 'react-declarative/components';
@@ -2208,7 +2209,7 @@ declare module 'react-declarative/hooks/useSubscription' {
 
 declare module 'react-declarative/hooks/useSubjectValue' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
-    export const useSubjectValue: <Data = any>(target: TSubject<Data>, value: Data | (() => Data)) => Data;
+    export const useSubjectValue: <Data = any>(target: TSubject<Data>, value?: Data | (() => Data) | undefined) => Data;
     export default useSubjectValue;
 }
 
@@ -2326,6 +2327,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Async';
     export * from 'react-declarative/components/Copy';
     export * from 'react-declarative/components/If';
+    export * from 'react-declarative/components/SubjectBinding';
     export * from 'react-declarative/components/Countdown';
     export * from 'react-declarative/components/Chip';
     export * from 'react-declarative/components/ScrollAdjust';
@@ -5387,6 +5389,11 @@ declare module 'react-declarative/components/If' {
     export { default } from 'react-declarative/components/If/If';
 }
 
+declare module 'react-declarative/components/SubjectBinding' {
+    export * from 'react-declarative/components/SubjectBinding/SubjectBinding';
+    export { default } from 'react-declarative/components/SubjectBinding/SubjectBinding';
+}
+
 declare module 'react-declarative/components/Countdown' {
     export * from 'react-declarative/components/Countdown/Countdown';
     export { default } from 'react-declarative/components/Countdown/Countdown';
@@ -7962,6 +7969,21 @@ declare module 'react-declarative/components/If/If' {
     }
     export const If: <T extends unknown = object>({ Else, Loading, children, condition, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, }: IIfProps<T>) => JSX.Element;
     export default If;
+}
+
+declare module 'react-declarative/components/SubjectBinding/SubjectBinding' {
+    import * as React from "react";
+    import TSubject from "react-declarative/model/TSubject";
+    interface ISubjectBindingProps {
+        target?: TSubject<any>;
+        children: React.ReactNode;
+    }
+    export class SubjectBinding extends React.Component<ISubjectBindingProps> {
+        componentDidMount: () => void;
+        componentWillUnmount: () => void;
+        render: () => JSX.Element;
+    }
+    export default SubjectBinding;
 }
 
 declare module 'react-declarative/components/Countdown/Countdown' {
