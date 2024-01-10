@@ -5,19 +5,13 @@ import { alpha } from "@mui/material";
 
 import { makeStyles } from "../../../styles";
 
-import { usePreventAction } from "../../ActionButton";
-import LoaderView from "../../LoaderView";
-import Async from "../../Async";
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import IBoardRow from "../model/IBoardRow";
+import IBoardRowInternal from "../model/IBoardRowInternal";
 import IAnything from "../../../model/IAnything";
 
 import classNames from "../../../utils/classNames";
-
-const Loader = LoaderView.createLoader(12);
 
 const useStyles = makeStyles()((theme) => ({
   table: {
@@ -68,11 +62,7 @@ export interface IContentProps {
   id: string;
   data: IAnything;
   payload: IAnything;
-  rows: IBoardRow[];
-  onLoadStart?: () => void;
-  onLoadEnd?: (isOk: boolean) => void;
-  fallback?: (e: Error) => void;
-  throwError?: boolean;
+  rows: IBoardRowInternal[];
 }
 
 export const Content = ({
@@ -80,90 +70,25 @@ export const Content = ({
   data,
   payload,
   rows,
-  onLoadStart,
-  onLoadEnd,
-  fallback,
-  throwError,
 }: IContentProps) => {
   const { classes } = useStyles();
 
-  const { loading, handleLoadStart, handleLoadEnd } = usePreventAction({
-    onLoadStart,
-    onLoadEnd,
-  });
-
   const renderCell = useCallback(
-    ({ value, click, visible }: IBoardRow, className: string) => {
+    ({ value, click }: IBoardRowInternal, className: string) => {
       if (click) {
         return (
-          <Async
-            Loader={Loader}
-            onLoadStart={handleLoadStart}
-            onLoadEnd={handleLoadEnd}
-            loading={loading}
-            fallback={fallback}
-            throwError={throwError}
+          <Typography
+            className={classNames(classes.link, className)}
+            onClick={() => click(id, data, payload)}
           >
-            {async () => {
-              {
-                const visibleResult =
-                  typeof visible === "function"
-                    ? visible(id, data, payload)
-                    : visible;
-                const visibleValue =
-                  typeof visibleResult === "boolean" ? visibleResult : true;
-
-                if (!visibleValue) {
-                  return;
-                }
-              }
-              return (
-                <Typography
-                  className={classNames(classes.link, className)}
-                  onClick={() => click(id, data, payload)}
-                >
-                  {typeof value === "function"
-                    ? await value(id, data, payload)
-                    : value}
-                </Typography>
-              );
-            }}
-          </Async>
+            {value}
+          </Typography>
         );
       }
       return (
-        <Async
-          Loader={Loader}
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-          loading={loading}
-          fallback={fallback}
-          throwError={throwError}
-        >
-          {async () => {
-            {
-              const visibleResult =
-                typeof visible === "function"
-                  ? visible(id, data, payload)
-                  : visible;
-              const visibleValue =
-                typeof visibleResult === "boolean" ? visibleResult : true;
-
-              if (!visibleValue) {
-                return;
-              }
-            }
-            const label =
-              typeof value === "function"
-                ? await value(id, data, payload)
-                : value;
-            return (
-              <Typography className={classNames(classes.bold, className)}>
-                {label}
-              </Typography>
-            );
-          }}
-        </Async>
+        <Typography className={classNames(classes.bold, className)}>
+          {value}
+        </Typography>
       );
     },
     []

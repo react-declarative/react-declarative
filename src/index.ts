@@ -84,6 +84,7 @@ import { useRenderWaiter } from './hooks/useRenderWaiter';
 import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from './hooks/useOneArray';
 
 import { useAsyncAction } from './hooks/useAsyncAction';
+import { useAsyncValue } from './hooks/useAsyncValue';
 import { useSinglerunAction } from './hooks/useSinglerunAction';
 import { useQueuedAction } from './hooks/useQueuedAction';
 import { useMediaContext } from './hooks/useMediaContext';
@@ -421,6 +422,7 @@ export { useReloadTrigger };
 
 export { useSinglerunAction };
 export { useAsyncAction };
+export { useAsyncValue };
 export { useQueuedAction };
 export { useMediaContext };
 export { useAudioPlayer };

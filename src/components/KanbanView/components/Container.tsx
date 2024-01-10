@@ -5,14 +5,30 @@ import { makeStyles } from "../../../styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
+import LoaderView from "../../LoaderView";
 import Header, { IHeaderProps } from "./Header";
 import Content, { IContentProps } from "./Content";
 
-import IAnything from "../../../model/IAnything";
+import useAsyncValue from "../../../hooks/useAsyncValue";
 
-export interface IContainerProps extends IHeaderProps, IContentProps {
-  AfterCardContent?: React.ComponentType<{ id: string; payload: IAnything }>;
+import IAnything from "../../../model/IAnything";
+import IBoardRow from "../model/IBoardRow";
+import useFetchRows from "../hooks/useFetchRows";
+
+export interface IContainerProps extends IHeaderProps, Omit<IContentProps, 'rows'> {
+  rows: IBoardRow[];
+  AfterCardContent?: React.ComponentType<{
+    id: string;
+    data: IAnything;
+    payload: IAnything;
+  }>;
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  fallback?: (e: Error) => void;
+  throwError?: boolean;
 }
+
+const LOADER_SIZE = 48;
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -40,7 +56,7 @@ export const Container = ({
   column,
   label,
   columns,
-  rows,
+  rows: upperRows,
   data,
   fallback,
   onLoadEnd,
@@ -53,9 +69,24 @@ export const Container = ({
   AfterCardContent,
 }: IContainerProps) => {
   const { classes } = useStyles();
-  return (
-    <Paper className={classes.container}>
-      <Box className={classes.content}>
+
+  const fetchRows = useFetchRows();
+
+  const rows = useAsyncValue(async () => {
+    return await fetchRows(id, data, upperRows);
+  }, {
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    throwError,
+  });
+
+  const renderInner = () => {
+    if (!rows) {
+      return <LoaderView sx={{ flex: 1 }} size={LOADER_SIZE} />;
+    }
+    return (
+      <>
         <Header
           id={id}
           column={column}
@@ -72,13 +103,17 @@ export const Container = ({
           payload={payload}
           rows={rows}
           data={data}
-          fallback={fallback}
-          onLoadEnd={onLoadEnd}
-          onLoadStart={onLoadStart}
-          throwError={throwError}
         />
-        {AfterCardContent && <AfterCardContent id={id} payload={payload} />}
-      </Box>
+        {AfterCardContent && (
+          <AfterCardContent id={id} data={data} payload={payload} />
+        )}
+      </>
+    );
+  };
+
+  return (
+    <Paper className={classes.container}>
+      <Box className={classes.content}>{renderInner()}</Box>
     </Paper>
   );
 };

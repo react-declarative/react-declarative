@@ -6,6 +6,7 @@ import IBoardItem from "./IBoardItem";
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
     withUpdateOrder?: boolean;
     className?: string;
+    rowTtl?: number;
     style?: React.CSSProperties;
     sx?: SxProps;
     payload?: (() => Payload) | Payload;
@@ -20,7 +21,7 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
-    AfterCardContent?: React.ComponentType<{ id: string; payload: IAnything }>;
+    AfterCardContent?: React.ComponentType<{ id: string; data: Data; payload: IAnything }>;
     BeforeColumnTitle?: React.ComponentType<{ column: string; payload: IAnything }>;
     AfterColumnTitle?: React.ComponentType<{ column: string; payload: IAnything }>;
 }

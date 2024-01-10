@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { alpha, darken } from "@mui/material";
 import dayjs from "dayjs";
 
@@ -16,12 +16,21 @@ import Card from "./components/Card";
 import IKanbanViewProps from "./model/IKanbanViewProps";
 import IBoardItem from "./model/IBoardItem";
 
+import { FetchRowsProvider } from "./hooks/useFetchRows";
 import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
+import Source from "../../utils/rx/Source";
+import ttl from "../../utils/hof/ttl";
+
+import IBoardRowInternal from "./model/IBoardRowInternal";
+import IAnything from "../../model/IAnything";
+import IBoardRow from "./model/IBoardRow";
 
 const DEFAULT_BUFFERSIZE = 15;
 const DEFAULT_MINROWHEIGHT = 125;
+const DEFAULT_ROWTTL = 500;
+const DEFAULT_GCINTERVAL = 45_000;
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -97,6 +106,7 @@ export const KanbanView = ({
   sx,
   bufferSize = DEFAULT_BUFFERSIZE,
   minRowHeight = DEFAULT_MINROWHEIGHT,
+  rowTtl = DEFAULT_ROWTTL,
   AfterCardContent,
   AfterColumnTitle,
   BeforeColumnTitle,
@@ -116,6 +126,51 @@ export const KanbanView = ({
 
   const payload = useSingleton(upperPayload);
   const columns = useSingleton(upperColumns);
+
+  const fetchRows = useMemo(
+    () =>
+      ttl(
+        async (
+          id: string,
+          data: IAnything,
+          rows: IBoardRow[]
+        ): Promise<IBoardRowInternal[]> => {
+          const result = await Promise.all(
+            rows.map(async ({ value, visible, ...other }) => {
+              const visibleResult =
+                typeof visible === "function"
+                  ? await visible(id, data, payload)
+                  : visible;
+              const visibleValue =
+                typeof visibleResult === "boolean" ? visibleResult : true;
+              const label =
+                typeof value === "function"
+                  ? await value(id, data, payload)
+                  : value;
+              return {
+                visible: visibleValue,
+                value: label,
+                ...other,
+              };
+            })
+          );
+          return result.filter(({ visible }) => visible);
+        },
+        {
+          key: ([id]) => id,
+          timeout: rowTtl,
+        }
+      ),
+    []
+  );
+
+  useEffect(
+    () =>
+      Source.fromInterval(DEFAULT_GCINTERVAL).connect(() => {
+        fetchRows.gc();
+      }),
+    []
+  );
 
   const itemMap = useMemo(() => {
     const itemMap = new Map<string, IBoardItem[]>();
@@ -142,103 +197,110 @@ export const KanbanView = ({
   );
 
   return (
-    <Box
-      className={classNames(classes.root, className, {
-        [classes.disabled]: disabled,
-      })}
-      style={style}
-      sx={sx}
-    >
-      <Box className={classes.container}>
-        <ScrollView withScrollbar hideOverflowY className={classes.content}>
-          {columns.map(({ column, rows, label, color = defaultColor }) => {
-            const itemList = itemMap.get(column) || [];
-            return (
-              <Box
-                onDrop={() => {
-                  const item = items.find(({ id }) => id === dragId.current);
-                  if (item) {
+    <FetchRowsProvider payload={fetchRows}>
+      <Box
+        className={classNames(classes.root, className, {
+          [classes.disabled]: disabled,
+        })}
+        style={style}
+        sx={sx}
+      >
+        <Box className={classes.container}>
+          <ScrollView withScrollbar hideOverflowY className={classes.content}>
+            {columns.map(({ column, rows, label, color = defaultColor }) => {
+              const itemList = itemMap.get(column) || [];
+              return (
+                <Box
+                  onDrop={() => {
+                    const item = items.find(({ id }) => id === dragId.current);
+                    if (item) {
+                      setDragColumn(null);
+                      onChangeColumn(
+                        dragId.current!,
+                        column,
+                        item.data,
+                        payload
+                      );
+                      dragId.current = null;
+                    }
+                  }}
+                  onDragEnd={() => {
                     setDragColumn(null);
-                    onChangeColumn(dragId.current!, column, item.data, payload);
-                    dragId.current = null;
-                  }
-                }}
-                onDragEnd={() => {
-                  setDragColumn(null);
-                }}
-                onDragOver={(e) => {
-                  setDragColumn(column);
-                  e.preventDefault();
-                }}
-                className={classes.group}
-              >
-                <Box className={classes.groupHeader}>
+                  }}
+                  onDragOver={(e) => {
+                    setDragColumn(column);
+                    e.preventDefault();
+                  }}
+                  className={classes.group}
+                >
+                  <Box className={classes.groupHeader}>
+                    <Box
+                      className={classNames({
+                        [classes.activeGroup]: dragColumn === column,
+                      })}
+                      sx={{
+                        borderRadius: "50%",
+                        height: "12px",
+                        width: "12px",
+                        background: color,
+                      }}
+                    />
+                    {BeforeColumnTitle && (
+                      <BeforeColumnTitle column={column} payload={payload} />
+                    )}
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
+                    >
+                      {label || column}
+                    </Typography>
+                    {AfterColumnTitle && (
+                      <AfterColumnTitle column={column} payload={payload} />
+                    )}
+                  </Box>
                   <Box
-                    className={classNames({
+                    className={classNames(classes.groupWrapper, {
                       [classes.activeGroup]: dragColumn === column,
                     })}
                     sx={{
-                      borderRadius: "50%",
-                      height: "12px",
-                      width: "12px",
                       background: color,
                     }}
-                  />
-                  {BeforeColumnTitle && (
-                    <BeforeColumnTitle column={column} payload={payload} />
-                  )}
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
                   >
-                    {label || column}
-                  </Typography>
-                  {AfterColumnTitle && (
-                    <AfterColumnTitle column={column} payload={payload} />
-                  )}
+                    <VirtualView
+                      bufferSize={bufferSize}
+                      className={classes.list}
+                      minRowHeight={minRowHeight}
+                    >
+                      {itemList.map((document) => (
+                        <Card
+                          payload={payload}
+                          key={document.id}
+                          onChangeColumn={onChangeColumn}
+                          onDrag={() => {
+                            dragId.current = document.id;
+                          }}
+                          disabled={disabled}
+                          columns={columnList}
+                          rows={rows}
+                          AfterCardContent={AfterCardContent}
+                          onCardLabelClick={onCardLabelClick}
+                          onLoadStart={onLoadStart}
+                          onLoadEnd={onLoadEnd}
+                          fallback={fallback}
+                          throwError={throwError}
+                          {...document}
+                        />
+                      ))}
+                    </VirtualView>
+                  </Box>
                 </Box>
-                <Box
-                  className={classNames(classes.groupWrapper, {
-                    [classes.activeGroup]: dragColumn === column,
-                  })}
-                  sx={{
-                    background: color,
-                  }}
-                >
-                  <VirtualView
-                    bufferSize={bufferSize}
-                    className={classes.list}
-                    minRowHeight={minRowHeight}
-                  >
-                    {itemList.map((document) => (
-                      <Card
-                        payload={payload}
-                        key={document.id}
-                        onChangeColumn={onChangeColumn}
-                        onDrag={() => {
-                          dragId.current = document.id;
-                        }}
-                        disabled={disabled}
-                        columns={columnList}
-                        rows={rows}
-                        AfterCardContent={AfterCardContent}
-                        onCardLabelClick={onCardLabelClick}
-                        onLoadStart={onLoadStart}
-                        onLoadEnd={onLoadEnd}
-                        fallback={fallback}
-                        throwError={throwError}
-                        {...document}
-                      />
-                    ))}
-                  </VirtualView>
-                </Box>
-              </Box>
-            );
-          })}
-        </ScrollView>
+              );
+            })}
+          </ScrollView>
+        </Box>
       </Box>
-    </Box>
+    </FetchRowsProvider>
   );
 };
 

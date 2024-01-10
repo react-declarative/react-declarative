@@ -75,6 +75,7 @@ declare module 'react-declarative' {
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
     import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
+    import { useAsyncValue } from 'react-declarative/hooks/useAsyncValue';
     import { useSinglerunAction } from 'react-declarative/hooks/useSinglerunAction';
     import { useQueuedAction } from 'react-declarative/hooks/useQueuedAction';
     import { useMediaContext } from 'react-declarative/hooks/useMediaContext';
@@ -333,6 +334,7 @@ declare module 'react-declarative' {
     export { useReloadTrigger };
     export { useSinglerunAction };
     export { useAsyncAction };
+    export { useAsyncValue };
     export { useQueuedAction };
     export { useMediaContext };
     export { useAudioPlayer };
@@ -2108,6 +2110,17 @@ declare module 'react-declarative/hooks/useAsyncAction' {
     }
     export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export default useAsyncAction;
+}
+
+declare module 'react-declarative/hooks/useAsyncValue' {
+    interface IParams {
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+    }
+    export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => Data | null;
+    export default useAsyncValue;
 }
 
 declare module 'react-declarative/hooks/useSinglerunAction' {
@@ -7468,7 +7481,7 @@ declare module 'react-declarative/components/AuthView/AuthView' {
 
 declare module 'react-declarative/components/KanbanView/KanbanView' {
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
-    export const KanbanView: ({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, bufferSize, minRowHeight, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps) => JSX.Element;
+    export const KanbanView: ({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps) => JSX.Element;
     export default KanbanView;
 }
 
@@ -7511,7 +7524,7 @@ declare module 'react-declarative/components/KanbanView/model/IBoardRow' {
     import IAnything from "react-declarative/model/IAnything";
     export interface IBoardRow<Data = IAnything, Payload = IAnything> {
         label: React.ReactNode;
-        value: React.ReactNode | ((id: string, data: Data, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>));
+        value: (id: string, data: Data, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>);
         visible?: boolean | ((id: string, data: Data, payload: Payload) => (boolean | Promise<boolean>));
         click?: (id: string, data: Data, payload: Payload) => (void | Promise<void>);
     }
@@ -8931,6 +8944,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
         withUpdateOrder?: boolean;
         className?: string;
+        rowTtl?: number;
         style?: React.CSSProperties;
         sx?: SxProps;
         payload?: (() => Payload) | Payload;
@@ -8947,6 +8961,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         throwError?: boolean;
         AfterCardContent?: React.ComponentType<{
             id: string;
+            data: Data;
             payload: IAnything;
         }>;
         BeforeColumnTitle?: React.ComponentType<{
