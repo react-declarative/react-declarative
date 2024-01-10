@@ -187,6 +187,10 @@ export const KanbanView = ({
     return itemMap;
   }, [items]);
 
+  useEffect(() => {
+    fetchRows.clear();
+  }, [itemMap]);
+
   const columnList = useMemo(() => columns.map(({ column }) => column), []);
   const defaultColor = useMemo(
     () =>
