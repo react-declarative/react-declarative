@@ -8952,7 +8952,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
     import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
     export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
-        ref?: React.Ref<HTMLDivElement>;
+        ref?: React.Ref<HTMLDivElement | undefined>;
         withUpdateOrder?: boolean;
         withGoBack?: boolean;
         className?: string;
