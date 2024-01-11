@@ -318,13 +318,16 @@ const KanbanViewInternal = <
   );
 };
 
+/**
+ * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
+ */
 KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElement>, {
   threshold = 200,
   speed = 15,
 }: {
   threshold?: number;
   speed?: number;
-} = {}) => {
+} = {}) => () => {
   const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
     `.${SCROLL_VIEW_TARGER}`
   );
