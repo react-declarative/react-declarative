@@ -321,7 +321,7 @@ const KanbanViewInternal = <
 /**
  * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
  */
-KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElement>, {
+KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElement | undefined>, {
   threshold = 200,
   speed = 15,
 }: {
@@ -333,6 +333,7 @@ KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElem
   );
 
   if (!scrollViewTarget) {
+    console.warn('KanbanViewInternal enableScrollOnDrag ref is undefined');
     return () => undefined;
   }
 

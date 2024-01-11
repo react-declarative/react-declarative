@@ -7487,7 +7487,7 @@ declare module 'react-declarative/components/KanbanView/KanbanView' {
         /**
           * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
           */
-        enableScrollOnDrag(ref: React.MutableRefObject<HTMLDivElement>, { threshold, speed, }?: {
+        enableScrollOnDrag(ref: React.MutableRefObject<HTMLDivElement | undefined>, { threshold, speed, }?: {
             threshold?: number | undefined;
             speed?: number | undefined;
         }): () => import("../../utils/compose").Function;
