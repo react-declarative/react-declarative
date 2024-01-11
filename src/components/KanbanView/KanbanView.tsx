@@ -95,7 +95,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything>({
+export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything, ColumnType = string>({
   withUpdateOrder,
   columns: upperColumns,
   className,
@@ -117,8 +117,8 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
   onLoadEnd,
   fallback,
   throwError,
-}: IKanbanViewProps<Data, Payload>) => {
-  const [dragColumn, setDragColumn] = useState<string | null>(null);
+}: IKanbanViewProps<Data, Payload, ColumnType>) => {
+  const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
   const dragId = useRef<string | null>(null);
 
   const { classes } = useStyles();
@@ -174,7 +174,7 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
   );
 
   const itemMap = useMemo(() => {
-    const itemMap = new Map<string, IBoardItem[]>();
+    const itemMap = new Map<ColumnType, IBoardItem<Data, ColumnType>[]>();
     const itemListAll = items.filter(filterFn);
     if (withUpdateOrder) {
       itemListAll.sort(
@@ -259,7 +259,7 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
                       fontWeight="bold"
                       sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
                     >
-                      {label || column}
+                      {label || String(column)}
                     </Typography>
                     {AfterColumnTitle && (
                       <AfterColumnTitle column={column} payload={payload} />

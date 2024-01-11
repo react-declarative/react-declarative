@@ -15,17 +15,17 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 import IAnything from "../../../model/IAnything";
 
-export interface IHeaderProps {
+export interface IHeaderProps<ColumnType = any> {
   id: string;
   label: React.ReactNode;
   payload: IAnything;
   data: IAnything;
   disabled: boolean;
-  column: string;
-  columns: string[];
+  column: ColumnType;
+  columns: ColumnType[];
   onChangeColumn: (
     id: string,
-    column: string,
+    column: any,
     data: IAnything,
     payload: IAnything
   ) => (void | Promise<void>);

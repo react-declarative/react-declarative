@@ -3,7 +3,7 @@ import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
 
-export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
+export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = string> {
     withUpdateOrder?: boolean;
     className?: string;
     rowTtl?: number;
@@ -11,20 +11,20 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
     sx?: SxProps;
     payload?: (() => Payload) | Payload;
     disabled?: boolean;
-    items: IBoardItem<Data>[];
-    columns: IBoardColumn<Data, Payload>[];
+    items: IBoardItem<Data, ColumnType>[];
+    columns: IBoardColumn<Data, Payload, ColumnType>[];
     bufferSize?: number;
     minRowHeight?: number;
-    onChangeColumn?: (id: string, column: string, data: Data, payload: IAnything) => (void | Promise<void>);
+    onChangeColumn?: (id: string, column: ColumnType, data: Data, payload: IAnything) => (void | Promise<void>);
     onCardLabelClick?: (id: string, data: Data, payload: IAnything) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
-    filterFn?: (item: IBoardItem<Data>) => boolean;
+    filterFn?: (item: IBoardItem<Data, ColumnType>) => boolean;
     throwError?: boolean;
     AfterCardContent?: React.ComponentType<{ id: string; data: Data; payload: IAnything }>;
-    BeforeColumnTitle?: React.ComponentType<{ column: string; payload: IAnything }>;
-    AfterColumnTitle?: React.ComponentType<{ column: string; payload: IAnything }>;
+    BeforeColumnTitle?: React.ComponentType<{ column: ColumnType; payload: IAnything }>;
+    AfterColumnTitle?: React.ComponentType<{ column: ColumnType; payload: IAnything }>;
 }
 
 export default IKanbanViewProps;

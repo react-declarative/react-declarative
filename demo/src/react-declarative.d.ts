@@ -7481,17 +7481,17 @@ declare module 'react-declarative/components/AuthView/AuthView' {
 
 declare module 'react-declarative/components/KanbanView/KanbanView' {
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
-    export const KanbanView: <Data extends unknown = any, Payload extends unknown = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload>) => JSX.Element;
+    export const KanbanView: <Data extends unknown = any, Payload extends unknown = any, ColumnType = string>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>) => JSX.Element;
     export default KanbanView;
 }
 
 declare module 'react-declarative/components/KanbanView/model/IBoard' {
     import IAnything from "react-declarative/model/IAnything";
     import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
-    export interface IBoard<Data = IAnything, Payload = IAnything> {
+    export interface IBoard<Data = IAnything, Payload = IAnything, ColumnType = string> {
         id: string;
         label: React.ReactNode;
-        columns: IBoardColumn<Data, Payload>[];
+        columns: IBoardColumn<Data, Payload, ColumnType>[];
     }
     export default IBoard;
 }
@@ -7499,8 +7499,8 @@ declare module 'react-declarative/components/KanbanView/model/IBoard' {
 declare module 'react-declarative/components/KanbanView/model/IBoardColumn' {
     import IAnything from "react-declarative/model/IAnything";
     import IBoardRow from "react-declarative/components/KanbanView/model/IBoardRow";
-    export interface IBoardColumn<Data = IAnything, Payload = IAnything> {
-        column: string;
+    export interface IBoardColumn<Data = IAnything, Payload = IAnything, ColumnType = string> {
+        column: ColumnType;
         color?: string;
         label?: string;
         rows: IBoardRow<Data, Payload>[];
@@ -7510,10 +7510,10 @@ declare module 'react-declarative/components/KanbanView/model/IBoardColumn' {
 
 declare module 'react-declarative/components/KanbanView/model/IBoardItem' {
     import IAnything from "react-declarative/model/IAnything";
-    export interface IBoardItem<Data = IAnything> {
+    export interface IBoardItem<Data = IAnything, ColumnType = string> {
         id: string;
         label: string;
-        column: string;
+        column: ColumnType;
         data: Data;
         updatedAt?: string;
     }
@@ -8941,7 +8941,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     import IAnything from "react-declarative/model/IAnything";
     import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
     import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
-    export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
+    export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = string> {
         withUpdateOrder?: boolean;
         className?: string;
         rowTtl?: number;
@@ -8949,16 +8949,16 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         sx?: SxProps;
         payload?: (() => Payload) | Payload;
         disabled?: boolean;
-        items: IBoardItem<Data>[];
-        columns: IBoardColumn<Data, Payload>[];
+        items: IBoardItem<Data, ColumnType>[];
+        columns: IBoardColumn<Data, Payload, ColumnType>[];
         bufferSize?: number;
         minRowHeight?: number;
-        onChangeColumn?: (id: string, column: string, data: Data, payload: IAnything) => (void | Promise<void>);
+        onChangeColumn?: (id: string, column: ColumnType, data: Data, payload: IAnything) => (void | Promise<void>);
         onCardLabelClick?: (id: string, data: Data, payload: IAnything) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
-        filterFn?: (item: IBoardItem<Data>) => boolean;
+        filterFn?: (item: IBoardItem<Data, ColumnType>) => boolean;
         throwError?: boolean;
         AfterCardContent?: React.ComponentType<{
             id: string;
@@ -8966,11 +8966,11 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
             payload: IAnything;
         }>;
         BeforeColumnTitle?: React.ComponentType<{
-            column: string;
+            column: ColumnType;
             payload: IAnything;
         }>;
         AfterColumnTitle?: React.ComponentType<{
-            column: string;
+            column: ColumnType;
             payload: IAnything;
         }>;
     }
