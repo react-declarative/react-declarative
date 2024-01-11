@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from "../../styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import ScrollView from "../ScrollView";
+import ScrollView, { SCROLL_VIEW_TARGER } from "../ScrollView";
 import VirtualView from "../VirtualView";
 
 import Card from "./components/Card";
@@ -26,6 +26,7 @@ import ttl from "../../utils/hof/ttl";
 import IBoardRowInternal from "./model/IBoardRowInternal";
 import IAnything from "../../model/IAnything";
 import IBoardRow from "./model/IBoardRow";
+import compose from "../../utils/compose";
 
 const DEFAULT_BUFFERSIZE = 15;
 const DEFAULT_MINROWHEIGHT = 125;
@@ -95,7 +96,11 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything, ColumnType = IAnything>({
+export const KanbanView = <
+  Data extends IAnything = IAnything,
+  Payload extends IAnything = IAnything,
+  ColumnType = IAnything
+>({
   withUpdateOrder,
   columns: upperColumns,
   className,
@@ -310,6 +315,65 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
       </Box>
     </FetchRowsProvider>
   );
+};
+
+KanbanView.enableScrollOnDrag = ({
+  threshold = 150,
+  speed = 20,
+}: {
+  threshold?: number;
+  speed?: number;
+} = {}) => {
+  const scrollViewTarget = document.querySelector<HTMLDivElement>(
+    `.${SCROLL_VIEW_TARGER}`
+  );
+
+  if (!scrollViewTarget) {
+    return () => undefined;
+  }
+
+  let scrollInterval: NodeJS.Timer | null = null;
+
+  const mouseMoveSubject = Source.create<MouseEvent>((next) => {
+    document.addEventListener("mousemove", next);
+    return () => document.removeEventListener("mousemove", next);
+  });
+
+  const mouseUpSubject = Source.create<MouseEvent>((next) => {
+    document.addEventListener("mouseup", next);
+    return () => document.removeEventListener("mouseup", next);
+  });
+
+  const touchEndSubject = Source.create<TouchEvent>((next) => {
+    document.addEventListener("touchend", next);
+    return () => document.removeEventListener("touchend", next);
+  });
+
+  const unMouseMove = mouseMoveSubject.connect((event) => {
+    if (document.activeElement?.closest(`.${SCROLL_VIEW_TARGER}`)) {
+      if (event.clientY < scrollViewTarget!.offsetTop + threshold) {
+        scrollInterval && clearInterval(scrollInterval);
+        scrollInterval = setInterval(function () {
+          scrollViewTarget.scrollTop -= speed;
+        }, 10);
+      } else if (event.clientY > window.innerHeight - threshold) {
+        scrollInterval && clearInterval(scrollInterval);
+        scrollInterval = setInterval(function () {
+          scrollViewTarget.scrollTop += speed;
+        }, 10);
+      } else {
+        scrollInterval && clearInterval(scrollInterval);
+      }
+    }
+  });
+
+  const unMouseUp = Source.join([mouseUpSubject, touchEndSubject], {
+    race: true,
+  }).connect(() => {
+    scrollInterval && clearInterval(scrollInterval);
+  });
+
+  return compose(unMouseMove, unMouseUp);
 };
 
 export default KanbanView;
