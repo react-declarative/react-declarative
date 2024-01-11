@@ -150,6 +150,76 @@ const options: IScaffold2Group[] = [
 
 ```
 
+<img src="./assets/icons/tower.svg" height="40px" align="right">
+
+## Declarative KanbanView component
+
+The `<KanbanView />` allow you to build kanban boards with realtime support
+
+![kanbanview](./assets/kanbanview.gif)
+
+```tsx
+
+const rows: IBoardRow<ILeadRow>[] = [
+  {
+    label: "Display name",
+    value: (id, employee) =>
+      [employee.first_name, employee.last_name].join(" "),
+  },
+  {
+    label: "Email",
+    value: (id, employee) => employee.email,
+    click: (id, data, payload) => payload.pickEmployeePreviewModal(id),
+  },
+  {
+    label: "Phone",
+    value: (id, employee) => employee.phone,
+  },
+  {
+    label: "Hire date",
+    value: (id, employee) => employee.hire_date,
+  },
+];
+
+const columns: IBoardColumn<ILeadRow>[] = [
+  {
+    color: "#00ACC1",
+    column: "cold",
+    label: "Cold",
+    rows,
+  },
+  {
+    color: "#9C27B0",
+    column: "contact",
+    label: "Contact",
+    rows,
+  },
+  {
+    color: "#FFA000",
+    column: "draft",
+    label: "Draft",
+    rows,
+  },
+  {
+    color: "#2E7D32",
+    column: "deal",
+    label: "In a deal",
+    rows,
+  },
+];
+
+...
+
+<KanbanView<ILeadRow, Record<string, any>, any>
+  sx={{
+    height: "calc(100vh - 145px)",
+  }}
+  onChangeColumn={handleChangeColumn}
+  columns={columns}
+  items={data}
+/>
+```
+
 <img src="./assets/icons/solomon.svg" height="55px" align="right">
 
 ## JSON-templated view engine
