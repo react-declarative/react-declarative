@@ -1,6 +1,6 @@
 import IAnything from "../../../model/IAnything";
 
-export interface IBoardItem<Data = IAnything, ColumnType = string> {
+export interface IBoardItem<Data = IAnything, ColumnType = IAnything> {
     id: string;
     label: string;
     column: ColumnType;

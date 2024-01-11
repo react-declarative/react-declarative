@@ -3,7 +3,7 @@ import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
 
-export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = string> {
+export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     withUpdateOrder?: boolean;
     className?: string;
     rowTtl?: number;

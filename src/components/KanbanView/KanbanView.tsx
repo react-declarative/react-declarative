@@ -95,7 +95,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything, ColumnType = string>({
+export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything, ColumnType = IAnything>({
   withUpdateOrder,
   columns: upperColumns,
   className,
