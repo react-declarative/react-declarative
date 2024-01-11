@@ -18,6 +18,7 @@ import IAnything from "../../../model/IAnything";
 export interface IHeaderProps<ColumnType = any> {
   id: string;
   label: React.ReactNode;
+  withGoBack: boolean;
   payload: IAnything;
   data: IAnything;
   disabled: boolean;
@@ -55,6 +56,7 @@ export const Header = ({
   columns,
   data,
   disabled,
+  withGoBack,
   label = column,
   onChangeColumn,
   onCardLabelClick,
@@ -98,6 +100,7 @@ export const Header = ({
           {beforeCurrentColumn.map((column, idx) => (
             <MenuItem
               key={`${column}-${idx}`}
+              disabled={!withGoBack}
               onClick={() => {
                 onChangeColumn(id, column, data, payload);
                 setBeforeAnchorEl(null);

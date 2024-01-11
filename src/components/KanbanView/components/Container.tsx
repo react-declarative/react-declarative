@@ -57,6 +57,7 @@ export const Container = ({
   label,
   columns,
   rows: upperRows,
+  withGoBack,
   data,
   fallback,
   onLoadEnd,
@@ -88,6 +89,7 @@ export const Container = ({
     return (
       <>
         <Header
+          withGoBack={withGoBack}
           id={id}
           column={column}
           data={data}

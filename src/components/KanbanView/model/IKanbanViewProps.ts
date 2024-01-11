@@ -5,6 +5,7 @@ import IBoardItem from "./IBoardItem";
 
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     withUpdateOrder?: boolean;
+    withGoBack?: boolean;
     className?: string;
     rowTtl?: number;
     style?: React.CSSProperties;

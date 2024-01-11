@@ -104,6 +104,7 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
   items,
   style,
   sx,
+  withGoBack = false,
   filterFn = () => true,
   bufferSize = DEFAULT_BUFFERSIZE,
   minRowHeight = DEFAULT_MINROWHEIGHT,
@@ -280,6 +281,7 @@ export const KanbanView = <Data extends IAnything = IAnything, Payload extends I
                     >
                       {itemList.map((document) => (
                         <Card
+                          withGoBack={withGoBack}
                           payload={payload}
                           key={document.id}
                           onChangeColumn={onChangeColumn}
