@@ -20,6 +20,7 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything> {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
+    filterFn?: (item: IBoardItem<Data>) => boolean;
     throwError?: boolean;
     AfterCardContent?: React.ComponentType<{ id: string; data: Data; payload: IAnything }>;
     BeforeColumnTitle?: React.ComponentType<{ column: string; payload: IAnything }>;

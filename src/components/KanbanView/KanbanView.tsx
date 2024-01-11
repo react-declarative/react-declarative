@@ -95,15 +95,16 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const KanbanView = ({
+export const KanbanView = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything>({
   withUpdateOrder,
   columns: upperColumns,
   className,
-  payload: upperPayload = {},
+  payload: upperPayload = {} as Payload,
   disabled = false,
   items,
   style,
   sx,
+  filterFn = () => true,
   bufferSize = DEFAULT_BUFFERSIZE,
   minRowHeight = DEFAULT_MINROWHEIGHT,
   rowTtl = DEFAULT_ROWTTL,
@@ -116,7 +117,7 @@ export const KanbanView = ({
   onLoadEnd,
   fallback,
   throwError,
-}: IKanbanViewProps) => {
+}: IKanbanViewProps<Data, Payload>) => {
   const [dragColumn, setDragColumn] = useState<string | null>(null);
   const dragId = useRef<string | null>(null);
 
@@ -174,14 +175,15 @@ export const KanbanView = ({
 
   const itemMap = useMemo(() => {
     const itemMap = new Map<string, IBoardItem[]>();
+    const itemListAll = items.filter(filterFn);
+    if (withUpdateOrder) {
+      itemListAll.sort(
+        ({ updatedAt: a = "1970-01-01" }, { updatedAt: b = "1970-01-01" }) =>
+          dayjs(a).isBefore(b) ? 1 : -1
+      );
+    }
     for (const { column } of columns) {
-      const itemList = items.filter((item) => item.column === column);
-      if (withUpdateOrder) {
-        itemList.sort(
-          ({ updatedAt: a = "1970-01-01" }, { updatedAt: b = "1970-01-01" }) =>
-            dayjs(a).isBefore(b) ? 1 : -1
-        );
-      }
+      const itemList = itemListAll.filter((item) => item.column === column);
       itemMap.set(column, itemList);
     }
     return itemMap;

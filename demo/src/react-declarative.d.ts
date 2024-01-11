@@ -7481,7 +7481,7 @@ declare module 'react-declarative/components/AuthView/AuthView' {
 
 declare module 'react-declarative/components/KanbanView/KanbanView' {
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
-    export const KanbanView: ({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps) => JSX.Element;
+    export const KanbanView: <Data extends unknown = any, Payload extends unknown = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload>) => JSX.Element;
     export default KanbanView;
 }
 
@@ -8958,6 +8958,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
+        filterFn?: (item: IBoardItem<Data>) => boolean;
         throwError?: boolean;
         AfterCardContent?: React.ComponentType<{
             id: string;
