@@ -318,8 +318,8 @@ export const KanbanView = <
 };
 
 KanbanView.enableScrollOnDrag = ({
-  threshold = 150,
-  speed = 20,
+  threshold = 200,
+  speed = 15,
 }: {
   threshold?: number;
   speed?: number;
@@ -332,48 +332,70 @@ KanbanView.enableScrollOnDrag = ({
     return () => undefined;
   }
 
-  let scrollInterval: NodeJS.Timer | null = null;
+  let isDragging = false;
+  let clientX = 0;
 
-  const mouseMoveSubject = Source.create<MouseEvent>((next) => {
-    document.addEventListener("mousemove", next);
-    return () => document.removeEventListener("mousemove", next);
+  const dragOverSubject = Source.create<MouseEvent>((next) => {
+    document.addEventListener("dragover", next);
+    return () => document.removeEventListener("dragover", next);
   });
 
-  const mouseUpSubject = Source.create<MouseEvent>((next) => {
-    document.addEventListener("mouseup", next);
-    return () => document.removeEventListener("mouseup", next);
+  const dragStateSubject = Source.create<boolean>((next) => {
+    const handler =
+      (enter = true) =>
+      () =>
+        next(enter);
+    const leave = handler(false);
+    const enter = handler(true);
+    document.body.addEventListener("dragstart", enter);
+    document.body.addEventListener("dragend", leave);
+    return () => {
+      document.body.removeEventListener("dragend", leave);
+      document.body.removeEventListener("dragstart", enter);
+    };
   });
 
-  const touchEndSubject = Source.create<TouchEvent>((next) => {
-    document.addEventListener("touchend", next);
-    return () => document.removeEventListener("touchend", next);
-  });
+  const scrollStateSubject = Source.create<number>((next) => {
+    let scrollInterval: NodeJS.Timer | null = null;
 
-  const unMouseMove = mouseMoveSubject.connect((event) => {
-    if (document.activeElement?.closest(`.${SCROLL_VIEW_TARGER}`)) {
-      if (event.clientY < scrollViewTarget!.offsetTop + threshold) {
-        scrollInterval && clearInterval(scrollInterval);
-        scrollInterval = setInterval(function () {
-          scrollViewTarget.scrollTop -= speed;
-        }, 10);
-      } else if (event.clientY > window.innerHeight - threshold) {
-        scrollInterval && clearInterval(scrollInterval);
-        scrollInterval = setInterval(function () {
-          scrollViewTarget.scrollTop += speed;
-        }, 10);
-      } else {
-        scrollInterval && clearInterval(scrollInterval);
+    const handler = () => {
+      if (!isDragging) {
+        return;
       }
-    }
+      const { left, right } = scrollViewTarget.getBoundingClientRect();
+      if (clientX < left + threshold) {
+        next(Math.max(scrollViewTarget.scrollLeft - speed, 0));
+      } else if (clientX > right - threshold) {
+        next(scrollViewTarget.scrollLeft + speed);
+      }
+    };
+
+    const unDragState = dragStateSubject.connect((isDragging) => {
+      scrollInterval && clearInterval(scrollInterval);
+      if (isDragging) {
+        scrollInterval = setInterval(handler, 10);
+      }
+    });
+
+    return compose(
+      () => scrollInterval && clearInterval(scrollInterval),
+      unDragState
+    );
   });
 
-  const unMouseUp = Source.join([mouseUpSubject, touchEndSubject], {
-    race: true,
-  }).connect(() => {
-    scrollInterval && clearInterval(scrollInterval);
+  const unDragOver = dragOverSubject.connect((event) => {
+    clientX = event.clientX;
   });
 
-  return compose(unMouseMove, unMouseUp);
+  const unDragState = dragStateSubject.connect((dragging) => {
+    isDragging = dragging;
+  });
+
+  const unScrollState = scrollStateSubject.connect((left) => {
+    scrollViewTarget.scrollLeft = left;
+  });
+
+  return compose(unDragOver, unDragState, unScrollState);
 };
 
 export default KanbanView;
