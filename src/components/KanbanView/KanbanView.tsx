@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, forwardRef } from "react";
 import { alpha, darken } from "@mui/material";
 import dayjs from "dayjs";
 
@@ -96,7 +96,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const KanbanView = <
+const KanbanViewInternal = <
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
   ColumnType = IAnything
@@ -123,7 +123,7 @@ export const KanbanView = <
   onLoadEnd,
   fallback,
   throwError,
-}: IKanbanViewProps<Data, Payload, ColumnType>) => {
+}: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>) => {
   const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
   const dragId = useRef<string | null>(null);
 
@@ -211,6 +211,7 @@ export const KanbanView = <
   return (
     <FetchRowsProvider payload={fetchRows}>
       <Box
+        ref={ref}
         className={classNames(classes.root, className, {
           [classes.disabled]: disabled,
         })}
@@ -317,14 +318,14 @@ export const KanbanView = <
   );
 };
 
-KanbanView.enableScrollOnDrag = ({
+KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElement>, {
   threshold = 200,
   speed = 15,
 }: {
   threshold?: number;
   speed?: number;
 } = {}) => {
-  const scrollViewTarget = document.querySelector<HTMLDivElement>(
+  const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
     `.${SCROLL_VIEW_TARGER}`
   );
 
@@ -397,5 +398,8 @@ KanbanView.enableScrollOnDrag = ({
 
   return compose(unDragOver, unDragState, unScrollState);
 };
+
+export const KanbanView = forwardRef(KanbanViewInternal) as unknown as typeof KanbanViewInternal;
+KanbanView.enableScrollOnDrag = KanbanViewInternal.enableScrollOnDrag;
 
 export default KanbanView;

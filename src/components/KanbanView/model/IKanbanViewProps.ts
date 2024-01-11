@@ -4,6 +4,7 @@ import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
 
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
+    ref?: React.Ref<HTMLDivElement>
     withUpdateOrder?: boolean;
     withGoBack?: boolean;
     className?: string;

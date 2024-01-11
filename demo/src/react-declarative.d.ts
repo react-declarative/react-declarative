@@ -7480,10 +7480,11 @@ declare module 'react-declarative/components/AuthView/AuthView' {
 }
 
 declare module 'react-declarative/components/KanbanView/KanbanView' {
+    import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>): JSX.Element;
-        enableScrollOnDrag({ threshold, speed, }?: {
+        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        enableScrollOnDrag(ref: React.MutableRefObject<HTMLDivElement>, { threshold, speed, }?: {
             threshold?: number | undefined;
             speed?: number | undefined;
         }): import("../../utils/compose").Function;
@@ -8948,6 +8949,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
     import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
     export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
+        ref?: React.Ref<HTMLDivElement>;
         withUpdateOrder?: boolean;
         withGoBack?: boolean;
         className?: string;
