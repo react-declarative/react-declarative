@@ -87,7 +87,7 @@ export const Header = ({
             setBeforeAnchorEl(currentTarget);
             setAfterAnchorEl(null);
           }}
-          disabled={!beforeCurrentColumn.length || disabled}
+          disabled={!withGoBack || !beforeCurrentColumn.length || disabled}
           size="small"
         >
           <KeyboardArrowLeft />
@@ -100,7 +100,6 @@ export const Header = ({
           {beforeCurrentColumn.map((column, idx) => (
             <MenuItem
               key={`${column}-${idx}`}
-              disabled={!withGoBack}
               onClick={() => {
                 onChangeColumn(id, column, data, payload);
                 setBeforeAnchorEl(null);
