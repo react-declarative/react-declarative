@@ -210,7 +210,7 @@ const columns: IBoardColumn<ILeadRow>[] = [
 
 ...
 
-<KanbanView<ILeadRow, Record<string, any>, any>
+<KanbanView<ILeadRow>
   sx={{
     height: "calc(100vh - 145px)",
   }}
