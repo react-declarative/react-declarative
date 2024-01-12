@@ -237,7 +237,7 @@ const KanbanViewInternal = <
   useEffect(() => {
     fetchRows.clear();
     fetchLabel.clear();
-  }, [itemMap]);
+  }, [itemMap, ...deps]);
 
   const columnList = useMemo(() => columns.map(({ column }) => column), []);
   const defaultColor = useMemo(
