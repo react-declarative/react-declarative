@@ -16,7 +16,8 @@ import classNames from "../../../utils/classNames";
 const useStyles = makeStyles()((theme) => ({
   table: {
     display: "grid",
-    gridTemplateColumns: "auto 1fr",
+    gridTemplateColumns: "fit-content(130px) 1fr",
+    maxWidth: "255px",
     "& > *": {
       display: "flex",
       alignItems: "center",
@@ -30,7 +31,6 @@ const useStyles = makeStyles()((theme) => ({
       "& > *": {
         flex: 1,
       },
-      maxWidth: "130px",
       overflow: "hidden",
     },
   },
