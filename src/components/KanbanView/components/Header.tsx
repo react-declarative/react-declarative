@@ -3,6 +3,8 @@ import { useMemo, useState, useCallback } from "react";
 
 import { makeStyles } from "../../../styles";
 
+import LoaderView from "../../LoaderView";
+
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,11 +15,15 @@ import Chip from "@mui/material/Chip";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
+import useAsyncValue from "../../../hooks/useAsyncValue";
+import useFetchLabel from "../hooks/useFetchLabel";
+
 import IAnything from "../../../model/IAnything";
+import IBoardItem from "../model/IBoardItem";
 
 export interface IHeaderProps<ColumnType = any> {
   id: string;
-  label: React.ReactNode;
+  label: IBoardItem['label'];
   withGoBack: boolean;
   withHeaderTooltip: boolean;
   payload: IAnything;
@@ -25,6 +31,10 @@ export interface IHeaderProps<ColumnType = any> {
   disabled: boolean;
   column: ColumnType;
   columns: ColumnType[];
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  fallback?: (e: Error) => void;
+  throwError?: boolean;
   onChangeColumn: (
     id: string,
     column: any,
@@ -33,6 +43,8 @@ export interface IHeaderProps<ColumnType = any> {
   ) => void | Promise<void>;
   onCardLabelClick?: (id: string, data: IAnything, payload: IAnything) => void;
 }
+
+const Loader = LoaderView.createLoader(12);
 
 const useStyles = makeStyles()((theme) => ({
   header: {
@@ -59,11 +71,31 @@ export const Header = ({
   disabled,
   withGoBack,
   withHeaderTooltip,
-  label = column,
+  label: labelFn = column,
   onChangeColumn,
   onCardLabelClick,
+  fallback,
+  onLoadEnd,
+  onLoadStart,
+  throwError,
 }: IHeaderProps) => {
   const { classes } = useStyles();
+
+  const fetchLabel = useFetchLabel();
+
+  const label = useAsyncValue(async () => {
+    return await fetchLabel(id, async () => {
+      if (typeof labelFn === "function") {
+        return await labelFn(id, data, payload);
+      }
+      return labelFn;
+    });
+  }, {
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    throwError,
+  });
 
   const [beforeAnchorEl, setBeforeAnchorEl] =
     useState<HTMLButtonElement | null>(null);
@@ -82,6 +114,9 @@ export const Header = ({
   }, [column]);
 
   const renderTooltip = useCallback(() => {
+    if (!label) {
+      return <Loader />;
+    }
     if (withHeaderTooltip) {
       return (
         <Tooltip title={label}>

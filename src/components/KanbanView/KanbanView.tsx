@@ -17,6 +17,8 @@ import IKanbanViewProps from "./model/IKanbanViewProps";
 import IBoardItem from "./model/IBoardItem";
 
 import { FetchRowsProvider } from "./hooks/useFetchRows";
+import { FetchLabelProvider } from "./hooks/useFetchLabel";
+
 import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
@@ -100,31 +102,35 @@ const KanbanViewInternal = <
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
   ColumnType = IAnything
->({
-  withUpdateOrder,
-  columns: upperColumns,
-  className,
-  payload: upperPayload = {} as Payload,
-  disabled = false,
-  items,
-  style,
-  sx,
-  withGoBack = false,
-  withHeaderTooltip = false,
-  filterFn = () => true,
-  bufferSize = DEFAULT_BUFFERSIZE,
-  minRowHeight = DEFAULT_MINROWHEIGHT,
-  rowTtl = DEFAULT_ROWTTL,
-  AfterCardContent,
-  AfterColumnTitle,
-  BeforeColumnTitle,
-  onChangeColumn = () => {},
-  onCardLabelClick,
-  onLoadStart,
-  onLoadEnd,
-  fallback,
-  throwError,
-}: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>) => {
+>(
+  {
+    withUpdateOrder,
+    columns: upperColumns,
+    className,
+    payload: upperPayload = {} as Payload,
+    disabled = false,
+    items,
+    style,
+    sx,
+    withGoBack = false,
+    withHeaderTooltip = false,
+    filterFn = () => true,
+    cardLabel = (id) => id,
+    bufferSize = DEFAULT_BUFFERSIZE,
+    minRowHeight = DEFAULT_MINROWHEIGHT,
+    rowTtl = DEFAULT_ROWTTL,
+    AfterCardContent,
+    AfterColumnTitle,
+    BeforeColumnTitle,
+    onChangeColumn = () => {},
+    onCardLabelClick,
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    throwError,
+  }: IKanbanViewProps<Data, Payload, ColumnType>,
+  ref: React.Ref<HTMLDivElement>
+) => {
   const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
   const dragId = useRef<string | null>(null);
 
@@ -172,16 +178,37 @@ const KanbanViewInternal = <
     []
   );
 
+  const fetchLabel = useMemo(
+    () =>
+      ttl(
+        async (
+          _: string,
+          fn: () => React.ReactNode | Promise<React.ReactNode>
+        ): Promise<React.ReactNode> => {
+          return await fn();
+        },
+        {
+          key: ([id]) => id,
+          timeout: rowTtl,
+        }
+      ),
+    []
+  );
+
   useEffect(
     () =>
       Source.fromInterval(DEFAULT_GCINTERVAL).connect(() => {
         fetchRows.gc();
+        fetchLabel.gc();
       }),
     []
   );
 
   const itemMap = useMemo(() => {
-    const itemMap = new Map<ColumnType, IBoardItem<Data, ColumnType>[]>();
+    const itemMap = new Map<
+      ColumnType,
+      IBoardItem<Data, Payload, ColumnType>[]
+    >();
     const itemListAll = items.filter(filterFn);
     if (withUpdateOrder) {
       itemListAll.sort(
@@ -198,6 +225,7 @@ const KanbanViewInternal = <
 
   useEffect(() => {
     fetchRows.clear();
+    fetchLabel.clear();
   }, [itemMap]);
 
   const columnList = useMemo(() => columns.map(({ column }) => column), []);
@@ -211,111 +239,116 @@ const KanbanViewInternal = <
 
   return (
     <FetchRowsProvider payload={fetchRows}>
-      <Box
-        ref={ref}
-        className={classNames(classes.root, className, {
-          [classes.disabled]: disabled,
-        })}
-        style={style}
-        sx={sx}
-      >
-        <Box className={classes.container}>
-          <ScrollView withScrollbar hideOverflowY className={classes.content}>
-            {columns.map(({ column, rows, label, color = defaultColor }) => {
-              const itemList = itemMap.get(column) || [];
-              return (
-                <Box
-                  onDrop={() => {
-                    const item = items.find(({ id }) => id === dragId.current);
-                    if (item) {
-                      setDragColumn(null);
-                      onChangeColumn(
-                        dragId.current!,
-                        column,
-                        item.data,
-                        payload
+      <FetchLabelProvider payload={fetchLabel}>
+        <Box
+          ref={ref}
+          className={classNames(classes.root, className, {
+            [classes.disabled]: disabled,
+          })}
+          style={style}
+          sx={sx}
+        >
+          <Box className={classes.container}>
+            <ScrollView withScrollbar hideOverflowY className={classes.content}>
+              {columns.map(({ column, rows, label, color = defaultColor }) => {
+                const itemList = itemMap.get(column) || [];
+                return (
+                  <Box
+                    onDrop={() => {
+                      const item = items.find(
+                        ({ id }) => id === dragId.current
                       );
-                      dragId.current = null;
-                    }
-                  }}
-                  onDragEnd={() => {
-                    setDragColumn(null);
-                  }}
-                  onDragOver={(e) => {
-                    setDragColumn(column);
-                    e.preventDefault();
-                  }}
-                  className={classes.group}
-                >
-                  <Box className={classes.groupHeader}>
+                      if (item) {
+                        setDragColumn(null);
+                        onChangeColumn(
+                          dragId.current!,
+                          column,
+                          item.data,
+                          payload
+                        );
+                        dragId.current = null;
+                      }
+                    }}
+                    onDragEnd={() => {
+                      setDragColumn(null);
+                    }}
+                    onDragOver={(e) => {
+                      setDragColumn(column);
+                      e.preventDefault();
+                    }}
+                    className={classes.group}
+                  >
+                    <Box className={classes.groupHeader}>
+                      <Box
+                        className={classNames({
+                          [classes.activeGroup]: dragColumn === column,
+                        })}
+                        sx={{
+                          borderRadius: "50%",
+                          height: "12px",
+                          width: "12px",
+                          background: color,
+                        }}
+                      />
+                      {BeforeColumnTitle && (
+                        <BeforeColumnTitle column={column} payload={payload} />
+                      )}
+                      <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
+                      >
+                        {label || String(column)}
+                      </Typography>
+                      {AfterColumnTitle && (
+                        <AfterColumnTitle column={column} payload={payload} />
+                      )}
+                    </Box>
                     <Box
-                      className={classNames({
+                      className={classNames(classes.groupWrapper, {
                         [classes.activeGroup]: dragColumn === column,
                       })}
                       sx={{
-                        borderRadius: "50%",
-                        height: "12px",
-                        width: "12px",
                         background: color,
                       }}
-                    />
-                    {BeforeColumnTitle && (
-                      <BeforeColumnTitle column={column} payload={payload} />
-                    )}
-                    <Typography
-                      variant="h6"
-                      fontWeight="bold"
-                      sx={{ opacity: 0.6, fontSize: "16px", flex: 1 }}
                     >
-                      {label || String(column)}
-                    </Typography>
-                    {AfterColumnTitle && (
-                      <AfterColumnTitle column={column} payload={payload} />
-                    )}
+                      <VirtualView
+                        bufferSize={bufferSize}
+                        className={classes.list}
+                        minRowHeight={minRowHeight}
+                      >
+                        {itemList.map((document) => (
+                          <Card
+                            withGoBack={withGoBack}
+                            withHeaderTooltip={withHeaderTooltip}
+                            payload={payload}
+                            key={document.id}
+                            onChangeColumn={onChangeColumn}
+                            onDrag={() => {
+                              dragId.current = document.id;
+                            }}
+                            disabled={disabled}
+                            columns={columnList}
+                            rows={rows}
+                            label={document.label || cardLabel}
+                            AfterCardContent={AfterCardContent}
+                            onCardLabelClick={onCardLabelClick}
+                            onLoadStart={onLoadStart}
+                            onLoadEnd={onLoadEnd}
+                            fallback={fallback}
+                            throwError={throwError}
+                            {...document}
+                          />
+                        ))}
+                      </VirtualView>
+                    </Box>
                   </Box>
-                  <Box
-                    className={classNames(classes.groupWrapper, {
-                      [classes.activeGroup]: dragColumn === column,
-                    })}
-                    sx={{
-                      background: color,
-                    }}
-                  >
-                    <VirtualView
-                      bufferSize={bufferSize}
-                      className={classes.list}
-                      minRowHeight={minRowHeight}
-                    >
-                      {itemList.map((document) => (
-                        <Card
-                          withGoBack={withGoBack}
-                          withHeaderTooltip={withHeaderTooltip}
-                          payload={payload}
-                          key={document.id}
-                          onChangeColumn={onChangeColumn}
-                          onDrag={() => {
-                            dragId.current = document.id;
-                          }}
-                          disabled={disabled}
-                          columns={columnList}
-                          rows={rows}
-                          AfterCardContent={AfterCardContent}
-                          onCardLabelClick={onCardLabelClick}
-                          onLoadStart={onLoadStart}
-                          onLoadEnd={onLoadEnd}
-                          fallback={fallback}
-                          throwError={throwError}
-                          {...document}
-                        />
-                      ))}
-                    </VirtualView>
-                  </Box>
-                </Box>
-              );
-            })}
-          </ScrollView>
+                );
+              })}
+            </ScrollView>
+          </Box>
         </Box>
-      </Box>
+      </FetchLabelProvider>
     </FetchRowsProvider>
   );
 };
@@ -323,89 +356,96 @@ const KanbanViewInternal = <
 /**
  * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
  */
-KanbanViewInternal.enableScrollOnDrag = (ref: React.MutableRefObject<HTMLDivElement | undefined>, {
-  threshold = 200,
-  speed = 15,
-}: {
-  threshold?: number;
-  speed?: number;
-} = {}) => () => {
-  const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
-    `.${SCROLL_VIEW_TARGER}`
-  );
+KanbanViewInternal.enableScrollOnDrag =
+  (
+    ref: React.MutableRefObject<HTMLDivElement | undefined>,
+    {
+      threshold = 200,
+      speed = 15,
+    }: {
+      threshold?: number;
+      speed?: number;
+    } = {}
+  ) =>
+  () => {
+    const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
+      `.${SCROLL_VIEW_TARGER}`
+    );
 
-  if (!scrollViewTarget) {
-    console.warn('KanbanViewInternal enableScrollOnDrag ref is undefined');
-    return () => undefined;
-  }
+    if (!scrollViewTarget) {
+      console.warn("KanbanViewInternal enableScrollOnDrag ref is undefined");
+      return () => undefined;
+    }
 
-  let isDragging = false;
-  let clientX = 0;
+    let isDragging = false;
+    let clientX = 0;
 
-  const dragOverSubject = Source.create<MouseEvent>((next) => {
-    document.addEventListener("dragover", next);
-    return () => document.removeEventListener("dragover", next);
-  });
-
-  const dragStateSubject = Source.create<boolean>((next) => {
-    const handler =
-      (enter = true) =>
-      () =>
-        next(enter);
-    const leave = handler(false);
-    const enter = handler(true);
-    document.body.addEventListener("dragstart", enter);
-    document.body.addEventListener("dragend", leave);
-    return () => {
-      document.body.removeEventListener("dragend", leave);
-      document.body.removeEventListener("dragstart", enter);
-    };
-  });
-
-  const scrollStateSubject = Source.create<number>((next) => {
-    let scrollInterval: NodeJS.Timer | null = null;
-
-    const handler = () => {
-      if (!isDragging) {
-        return;
-      }
-      const { left, right } = scrollViewTarget.getBoundingClientRect();
-      if (clientX < left + threshold) {
-        next(Math.max(scrollViewTarget.scrollLeft - speed, 0));
-      } else if (clientX > right - threshold) {
-        next(scrollViewTarget.scrollLeft + speed);
-      }
-    };
-
-    const unDragState = dragStateSubject.connect((isDragging) => {
-      scrollInterval && clearInterval(scrollInterval);
-      if (isDragging) {
-        scrollInterval = setInterval(handler, 10);
-      }
+    const dragOverSubject = Source.create<MouseEvent>((next) => {
+      document.addEventListener("dragover", next);
+      return () => document.removeEventListener("dragover", next);
     });
 
-    return compose(
-      () => scrollInterval && clearInterval(scrollInterval),
-      unDragState
-    );
-  });
+    const dragStateSubject = Source.create<boolean>((next) => {
+      const handler =
+        (enter = true) =>
+        () =>
+          next(enter);
+      const leave = handler(false);
+      const enter = handler(true);
+      document.body.addEventListener("dragstart", enter);
+      document.body.addEventListener("dragend", leave);
+      return () => {
+        document.body.removeEventListener("dragend", leave);
+        document.body.removeEventListener("dragstart", enter);
+      };
+    });
 
-  const unDragOver = dragOverSubject.connect((event) => {
-    clientX = event.clientX;
-  });
+    const scrollStateSubject = Source.create<number>((next) => {
+      let scrollInterval: NodeJS.Timer | null = null;
 
-  const unDragState = dragStateSubject.connect((dragging) => {
-    isDragging = dragging;
-  });
+      const handler = () => {
+        if (!isDragging) {
+          return;
+        }
+        const { left, right } = scrollViewTarget.getBoundingClientRect();
+        if (clientX < left + threshold) {
+          next(Math.max(scrollViewTarget.scrollLeft - speed, 0));
+        } else if (clientX > right - threshold) {
+          next(scrollViewTarget.scrollLeft + speed);
+        }
+      };
 
-  const unScrollState = scrollStateSubject.connect((left) => {
-    scrollViewTarget.scrollLeft = left;
-  });
+      const unDragState = dragStateSubject.connect((isDragging) => {
+        scrollInterval && clearInterval(scrollInterval);
+        if (isDragging) {
+          scrollInterval = setInterval(handler, 10);
+        }
+      });
 
-  return compose(unDragOver, unDragState, unScrollState);
-};
+      return compose(
+        () => scrollInterval && clearInterval(scrollInterval),
+        unDragState
+      );
+    });
 
-export const KanbanView = forwardRef(KanbanViewInternal) as unknown as typeof KanbanViewInternal;
+    const unDragOver = dragOverSubject.connect((event) => {
+      clientX = event.clientX;
+    });
+
+    const unDragState = dragStateSubject.connect((dragging) => {
+      isDragging = dragging;
+    });
+
+    const unScrollState = scrollStateSubject.connect((left) => {
+      scrollViewTarget.scrollLeft = left;
+    });
+
+    return compose(unDragOver, unDragState, unScrollState);
+  };
+
+export const KanbanView = forwardRef(
+  KanbanViewInternal
+) as unknown as typeof KanbanViewInternal;
 KanbanView.enableScrollOnDrag = KanbanViewInternal.enableScrollOnDrag;
 
 export default KanbanView;
