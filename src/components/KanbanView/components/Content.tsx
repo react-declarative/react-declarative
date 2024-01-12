@@ -23,6 +23,7 @@ const useStyles = makeStyles()((theme) => ({
       alignItems: "center",
       justifyContent: "stretch",
       whiteSpace: "nowrap",
+      textAlign: 'right',
       padding: 5,
       borderBottom: `1px solid ${alpha(
         theme.palette.getContrastText(theme.palette.background.default),
