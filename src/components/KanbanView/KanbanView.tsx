@@ -110,6 +110,7 @@ const KanbanViewInternal = <
   style,
   sx,
   withGoBack = false,
+  withHeaderTooltip = false,
   filterFn = () => true,
   bufferSize = DEFAULT_BUFFERSIZE,
   minRowHeight = DEFAULT_MINROWHEIGHT,
@@ -288,6 +289,7 @@ const KanbanViewInternal = <
                       {itemList.map((document) => (
                         <Card
                           withGoBack={withGoBack}
+                          withHeaderTooltip={withHeaderTooltip}
                           payload={payload}
                           key={document.id}
                           onChangeColumn={onChangeColumn}

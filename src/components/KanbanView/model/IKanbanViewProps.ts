@@ -7,6 +7,7 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnT
     ref?: React.Ref<HTMLDivElement | undefined>;
     withUpdateOrder?: boolean;
     withGoBack?: boolean;
+    withHeaderTooltip?: boolean;
     className?: string;
     rowTtl?: number;
     style?: React.CSSProperties;

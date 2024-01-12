@@ -58,6 +58,7 @@ export const Container = ({
   columns,
   rows: upperRows,
   withGoBack,
+  withHeaderTooltip,
   data,
   fallback,
   onLoadEnd,
@@ -90,6 +91,7 @@ export const Container = ({
       <>
         <Header
           withGoBack={withGoBack}
+          withHeaderTooltip={withHeaderTooltip}
           id={id}
           column={column}
           data={data}

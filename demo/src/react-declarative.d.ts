@@ -7483,7 +7483,7 @@ declare module 'react-declarative/components/KanbanView/KanbanView' {
     import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, withHeaderTooltip, filterFn, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
         /**
           * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
           */
@@ -8955,6 +8955,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         ref?: React.Ref<HTMLDivElement | undefined>;
         withUpdateOrder?: boolean;
         withGoBack?: boolean;
+        withHeaderTooltip?: boolean;
         className?: string;
         rowTtl?: number;
         style?: React.CSSProperties;

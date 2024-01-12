@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -19,6 +19,7 @@ export interface IHeaderProps<ColumnType = any> {
   id: string;
   label: React.ReactNode;
   withGoBack: boolean;
+  withHeaderTooltip: boolean;
   payload: IAnything;
   data: IAnything;
   disabled: boolean;
@@ -29,7 +30,7 @@ export interface IHeaderProps<ColumnType = any> {
     column: any,
     data: IAnything,
     payload: IAnything
-  ) => (void | Promise<void>);
+  ) => void | Promise<void>;
   onCardLabelClick?: (id: string, data: IAnything, payload: IAnything) => void;
 }
 
@@ -57,6 +58,7 @@ export const Header = ({
   data,
   disabled,
   withGoBack,
+  withHeaderTooltip,
   label = column,
   onChangeColumn,
   onCardLabelClick,
@@ -78,6 +80,35 @@ export const Header = ({
     const currentColumnIdx = columns.findIndex((value) => value === column);
     return columns.filter((_, idx) => idx > currentColumnIdx);
   }, [column]);
+
+  const renderTooltip = useCallback(() => {
+    if (withHeaderTooltip) {
+      return (
+        <Tooltip title={label}>
+          <Chip
+            color="primary"
+            onClick={
+              onCardLabelClick
+                ? () => onCardLabelClick(id, data, payload)
+                : undefined
+            }
+            label={label}
+          />
+        </Tooltip>
+      );
+    }
+    return (
+      <Chip
+        color="primary"
+        onClick={
+          onCardLabelClick
+            ? () => onCardLabelClick(id, data, payload)
+            : undefined
+        }
+        label={label}
+      />
+    );
+  }, [label]);
 
   return (
     <Box className={classes.header}>
@@ -109,15 +140,7 @@ export const Header = ({
             </MenuItem>
           ))}
         </Menu>
-        <Tooltip title={label}>
-          <Chip
-            color="primary"
-            onClick={
-              onCardLabelClick ? () => onCardLabelClick(id, data, payload) : undefined
-            }
-            label={label}
-          />
-        </Tooltip>
+        {renderTooltip()}
         <IconButton
           onClick={({ currentTarget }) => {
             setBeforeAnchorEl(null);

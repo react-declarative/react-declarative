@@ -16,7 +16,7 @@ import classNames from "../../../utils/classNames";
 const useStyles = makeStyles()((theme) => ({
   table: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "auto 1fr",
     "& > *": {
       display: "flex",
       alignItems: "center",
@@ -44,17 +44,11 @@ const useStyles = makeStyles()((theme) => ({
   },
   bold: {
     fontWeight: "bold !important",
-    "& > *": {
-      pointerEvents: "none",
-    },
   },
   link: {
     color: theme.palette.primary.main,
     cursor: "pointer",
     textDecoration: "underline",
-    "& > *": {
-      pointerEvents: "none",
-    },
   },
 }));
 
