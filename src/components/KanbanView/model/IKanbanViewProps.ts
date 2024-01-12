@@ -2,8 +2,10 @@ import { SxProps } from "@mui/material";
 import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
+import TSubject from "../../../model/TSubject";
 
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
+    reloadSubject?: TSubject<void>;
     ref?: React.Ref<HTMLDivElement | undefined>;
     withUpdateOrder?: boolean;
     withGoBack?: boolean;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -12,12 +13,16 @@ import Content, { IContentProps } from "./Content";
 import useAsyncValue from "../../../hooks/useAsyncValue";
 
 import IAnything from "../../../model/IAnything";
+import TSubject from "../../../model/TSubject";
 import IBoardRow from "../model/IBoardRow";
+
 import useFetchRows from "../hooks/useFetchRows";
+import useReloadTrigger from "../../../hooks/useReloadTrigger";
 
 export interface IContainerProps
   extends IHeaderProps,
     Omit<IContentProps, "rows"> {
+  reloadSubject: TSubject<void>;
   rows: IBoardRow[];
   AfterCardContent?: React.ComponentType<{
     id: string;
@@ -58,6 +63,7 @@ export const Container = ({
   column,
   label,
   columns,
+  reloadSubject,
   rows: upperRows,
   withGoBack,
   withHeaderTooltip,
@@ -74,6 +80,8 @@ export const Container = ({
 }: IContainerProps) => {
   const { classes } = useStyles();
 
+  const { reloadTrigger, doReload } = useReloadTrigger();
+
   const fetchRows = useFetchRows();
 
   const rows = useAsyncValue(
@@ -85,9 +93,11 @@ export const Container = ({
       onLoadEnd,
       fallback,
       throwError,
-      deps: [data],
+      deps: [data, column, reloadTrigger],
     }
   );
+
+  useEffect(() => reloadSubject.subscribe(doReload), []);
 
   const renderInner = () => {
     if (!rows) {
@@ -96,6 +106,7 @@ export const Container = ({
     return (
       <>
         <Header
+          reloadSubject={reloadSubject}
           withGoBack={withGoBack}
           withHeaderTooltip={withHeaderTooltip}
           id={id}

@@ -29,6 +29,7 @@ import IBoardRowInternal from "./model/IBoardRowInternal";
 import IAnything from "../../model/IAnything";
 import IBoardRow from "./model/IBoardRow";
 import compose from "../../utils/compose";
+import useSubject from "../../hooks/useSubject";
 
 const DEFAULT_BUFFERSIZE = 15;
 const DEFAULT_MINROWHEIGHT = 125;
@@ -104,6 +105,7 @@ const KanbanViewInternal = <
   ColumnType = IAnything
 >(
   {
+    reloadSubject: upperReloadSubject,
     withUpdateOrder,
     columns: upperColumns,
     className,
@@ -122,7 +124,7 @@ const KanbanViewInternal = <
     AfterCardContent,
     AfterColumnTitle,
     BeforeColumnTitle,
-    onChangeColumn = () => {},
+    onChangeColumn,
     onCardLabelClick,
     onLoadStart,
     onLoadEnd,
@@ -131,6 +133,9 @@ const KanbanViewInternal = <
   }: IKanbanViewProps<Data, Payload, ColumnType>,
   ref: React.Ref<HTMLDivElement>
 ) => {
+
+  const reloadSubject = useSubject(upperReloadSubject);
+
   const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
   const dragId = useRef<string | null>(null);
 
@@ -204,6 +209,11 @@ const KanbanViewInternal = <
     []
   );
 
+  useEffect(() => reloadSubject.subscribe(() => {
+    fetchRows.clear();
+    fetchLabel.clear();
+  }), []);
+
   const itemMap = useMemo(() => {
     const itemMap = new Map<
       ColumnType,
@@ -259,8 +269,21 @@ const KanbanViewInternal = <
                         ({ id }) => id === dragId.current
                       );
                       if (item) {
+                        const prevColumnIdx = columnList.indexOf(item.column);
+                        const currentColumnIdx = columnList.indexOf(column);
+                        let isPrevColumn = true;
+                        isPrevColumn = isPrevColumn && !withGoBack;
+                        isPrevColumn = isPrevColumn && prevColumnIdx > currentColumnIdx;
+                        if (isPrevColumn) {
+                          return;
+                        }
+                        if (prevColumnIdx === currentColumnIdx) {
+                          return;
+                        }
                         setDragColumn(null);
-                        onChangeColumn(
+                        fetchLabel.clear(dragId.current);
+                        fetchRows.clear(dragId.current);
+                        onChangeColumn && onChangeColumn(
                           dragId.current!,
                           column,
                           item.data,
@@ -319,11 +342,16 @@ const KanbanViewInternal = <
                       >
                         {itemList.map((document) => (
                           <Card
+                            reloadSubject={reloadSubject}
                             withGoBack={withGoBack}
                             withHeaderTooltip={withHeaderTooltip}
                             payload={payload}
                             key={document.id}
-                            onChangeColumn={onChangeColumn}
+                            onChangeColumn={(id, ...args) => {
+                              fetchLabel.clear(id);
+                              fetchRows.clear(id);
+                              onChangeColumn && onChangeColumn(id, ...args);
+                            }}
                             onDrag={() => {
                               dragId.current = document.id;
                             }}

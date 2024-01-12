@@ -7484,7 +7484,7 @@ declare module 'react-declarative/components/KanbanView/KanbanView' {
     import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
         /**
           * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
           */
@@ -8952,7 +8952,9 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     import IAnything from "react-declarative/model/IAnything";
     import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
     import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
+    import TSubject from "react-declarative/model/TSubject";
     export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
+        reloadSubject?: TSubject<void>;
         ref?: React.Ref<HTMLDivElement | undefined>;
         withUpdateOrder?: boolean;
         withGoBack?: boolean;

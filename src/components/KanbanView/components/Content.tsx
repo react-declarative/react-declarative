@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useCallback } from "react";
 
 import { alpha } from "@mui/material";
 
@@ -68,26 +67,23 @@ export const Content = ({
 }: IContentProps) => {
   const { classes } = useStyles();
 
-  const renderCell = useCallback(
-    ({ value, click }: IBoardRowInternal, className: string) => {
-      if (click) {
-        return (
-          <Typography
-            className={classNames(classes.link, className)}
-            onClick={() => click(id, data, payload)}
-          >
-            {value}
-          </Typography>
-        );
-      }
+  const renderCell = ({ value, click }: IBoardRowInternal, className: string) => {
+    if (click) {
       return (
-        <Typography className={classNames(classes.bold, className)}>
+        <Typography
+          className={classNames(classes.link, className)}
+          onClick={() => click(id, data, payload)}
+        >
           {value}
         </Typography>
       );
-    },
-    []
-  );
+    }
+    return (
+      <Typography className={classNames(classes.bold, className)}>
+        {value}
+      </Typography>
+    );
+  };
 
   return (
     <Box className={classes.table}>

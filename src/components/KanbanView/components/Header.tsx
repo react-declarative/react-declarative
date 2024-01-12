@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -15,14 +15,17 @@ import Chip from "@mui/material/Chip";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
+import useReloadTrigger from "../../../hooks/useReloadTrigger";
 import useAsyncValue from "../../../hooks/useAsyncValue";
 import useFetchLabel from "../hooks/useFetchLabel";
 
 import IAnything from "../../../model/IAnything";
 import IBoardItem from "../model/IBoardItem";
+import TSubject from "../../../model/TSubject";
 
 export interface IHeaderProps<ColumnType = any> {
   id: string;
+  reloadSubject: TSubject<void>;
   label: IBoardItem['label'];
   withGoBack: boolean;
   withHeaderTooltip: boolean;
@@ -72,6 +75,7 @@ export const Header = ({
   columns,
   data,
   disabled,
+  reloadSubject,
   withGoBack,
   withHeaderTooltip,
   label: labelFn = column,
@@ -85,6 +89,7 @@ export const Header = ({
   const { classes } = useStyles();
 
   const fetchLabel = useFetchLabel();
+  const { reloadTrigger, doReload } = useReloadTrigger();
 
   const label = useAsyncValue(async () => {
     return await fetchLabel(id, async () => {
@@ -100,8 +105,12 @@ export const Header = ({
     throwError,
     deps: [
       data,
+      column,
+      reloadTrigger,
     ],
   });
+
+  useEffect(() => reloadSubject.subscribe(doReload), []);
 
   const [beforeAnchorEl, setBeforeAnchorEl] =
     useState<HTMLButtonElement | null>(null);
