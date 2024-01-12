@@ -26,7 +26,7 @@ interface IBreadcrumbs2Props<T extends any = any> {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
-  onAction?: (action: string) => (void | Promise<void>);
+  onAction?: (action: string) => void | Promise<void>;
   actions?: IBreadcrumbs2Action<T>[];
   items: IBreadcrumbs2Option<T>[];
   payload?: T;
@@ -42,12 +42,12 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: "row",
     paddingTop: "10px",
     paddingBottom: "10px",
-    '& > *:nth-of-type(n + 1)': {
+    "& > *:nth-of-type(n + 1)": {
       marginLeft: theme.spacing(1),
     },
   },
   link: {
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   stretch: {
     flexGrow: 1,
@@ -81,18 +81,26 @@ export const Breadcrumbs2 = <T extends any = any>({
           {async () => {
             const itemList = await Promise.all(
               items
-                .filter(({ type }) => type === Breadcrumbs2Type.Link)
+                .filter(
+                  ({ type }) =>
+                    type === Breadcrumbs2Type.Link ||
+                    type === Breadcrumbs2Type.Component
+                )
                 .map(
                   async ({
                     action,
                     label,
-                    compute = () => label, 
+                    type,
+                    element,
+                    compute = () => label,
                     isDisabled = () => false,
                     isVisible = () => true,
                   }) => ({
                     visible: await isVisible(payload!),
                     disabled: await isDisabled(payload!),
+                    element,
                     action,
+                    type,
                     label: await compute(payload!),
                   })
                 )
@@ -100,54 +108,93 @@ export const Breadcrumbs2 = <T extends any = any>({
             return (
               <MatBreadcrumbs className={classes.stretch}>
                 {itemList
+                  .filter(({ type }) => type === Breadcrumbs2Type.Link)
                   .filter(({ visible }) => visible)
-                  .map(({ action = "unknown-action", label, disabled }, idx) => (
-                    <Link
-                      key={`${action}-${idx}`}
-                      className={classNames(classes.link, {
-                        [classes.disabled]: disabled,
-                      })}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        onAction$(action);
-                        return false;
-                      }}
-                      color="inherit"
-                    >
-                      {label}
-                    </Link>
-                  ))}
+                  .map(
+                    ({ action = "unknown-action", label, disabled }, idx) => (
+                      <Link
+                        key={`${action}-${idx}`}
+                        className={classNames(classes.link, {
+                          [classes.disabled]: disabled,
+                        })}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          onAction$(action);
+                          return false;
+                        }}
+                        color="inherit"
+                      >
+                        {label}
+                      </Link>
+                    )
+                  )}
               </MatBreadcrumbs>
             );
           }}
         </Async>
-      </Box>
-      <Async payload={payload} Loader={Fragment}>
+        <Async payload={payload} Loader={Loader}>
           {async () => {
             const itemList = await Promise.all(
               items
-                .filter(({ type }) => type === Breadcrumbs2Type.Button)
+                .filter(({ type }) => type === Breadcrumbs2Type.Component)
                 .map(
                   async ({
-                    action,
-                    label,
-                    icon,
+                    element: Element = () => <React.Fragment />,
                     isDisabled = () => false,
                     isVisible = () => true,
-                  }) => ({
-                    visible: await isVisible(payload!),
-                    disabled: await isDisabled(payload!),
-                    icon,
-                    action,
-                    label,
-                  })
+                  }) => {
+                    const disabled = await isDisabled(payload!);
+                    return {
+                      element: () => (
+                        <Element disabled={disabled} payload={payload!} />
+                      ),
+                      visible: await isVisible(payload!),
+                    };
+                  }
                 )
             );
             return (
               <>
                 {itemList
                   .filter(({ visible }) => visible)
-                  .map(({ action = "unknown-action", label, disabled, icon: Icon }, idx) => (
+                  .map(({ element: Element }, idx) => (
+                    <Element key={idx} />
+                  ))}
+              </>
+            );
+          }}
+        </Async>
+      </Box>
+      <Async payload={payload} Loader={Fragment}>
+        {async () => {
+          const itemList = await Promise.all(
+            items
+              .filter(({ type }) => type === Breadcrumbs2Type.Button)
+              .map(
+                async ({
+                  action,
+                  label,
+                  icon,
+                  isDisabled = () => false,
+                  isVisible = () => true,
+                }) => ({
+                  visible: await isVisible(payload!),
+                  disabled: await isDisabled(payload!),
+                  icon,
+                  action,
+                  label,
+                })
+              )
+          );
+          return (
+            <>
+              {itemList
+                .filter(({ visible }) => visible)
+                .map(
+                  (
+                    { action = "unknown-action", label, disabled, icon: Icon },
+                    idx
+                  ) => (
                     <ActionButton
                       key={`${action}-${idx}`}
                       variant="contained"
@@ -157,11 +204,12 @@ export const Breadcrumbs2 = <T extends any = any>({
                     >
                       {label}
                     </ActionButton>
-                  ))}
-              </>
-            );
-          }}
-        </Async>
+                  )
+                )}
+            </>
+          );
+        }}
+      </Async>
       {!!actions?.length && (
         <ActionMenu
           payload={payload}

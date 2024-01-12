@@ -7,6 +7,7 @@ import TSubject from "../../../model/TSubject";
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     reloadSubject?: TSubject<void>;
     ref?: React.Ref<HTMLDivElement | undefined>;
+    deps?: any[];
     withUpdateOrder?: boolean;
     withGoBack?: boolean;
     withHeaderTooltip?: boolean;

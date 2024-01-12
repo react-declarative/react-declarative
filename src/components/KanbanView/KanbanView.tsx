@@ -114,6 +114,7 @@ const KanbanViewInternal = <
     items,
     style,
     sx,
+    deps = [],
     withGoBack = false,
     withHeaderTooltip = false,
     filterFn = () => true,
@@ -231,7 +232,7 @@ const KanbanViewInternal = <
       itemMap.set(column, itemList);
     }
     return itemMap;
-  }, [items]);
+  }, [items, ...deps]);
 
   useEffect(() => {
     fetchRows.clear();

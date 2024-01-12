@@ -5793,7 +5793,7 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
-        onAction?: (action: string) => (void | Promise<void>);
+        onAction?: (action: string) => void | Promise<void>;
         actions?: IBreadcrumbs2Action<T>[];
         items: IBreadcrumbs2Option<T>[];
         payload?: T;
@@ -5807,7 +5807,8 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
 declare module 'react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type' {
     export enum Breadcrumbs2Type {
         Link = "breadcrumbs2-link",
-        Button = "breadcrumbs2-button"
+        Button = "breadcrumbs2-button",
+        Component = "breadcrumbs2-component"
     }
     export default Breadcrumbs2Type;
 }
@@ -5836,6 +5837,10 @@ declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
     }> {
         type: Breadcrumbs2Type;
         label?: React.ReactNode;
+        element?: React.ComponentType<{
+            payload: Data;
+            disabled: boolean;
+        }>;
         compute?: (payload: Data) => (Promise<string> | string);
         isVisible?: (payload: Data) => (Promise<boolean> | boolean);
         isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
@@ -7484,7 +7489,7 @@ declare module 'react-declarative/components/KanbanView/KanbanView' {
     import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, deps, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
         /**
           * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
           */
@@ -8956,6 +8961,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
     export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
         reloadSubject?: TSubject<void>;
         ref?: React.Ref<HTMLDivElement | undefined>;
+        deps?: any[];
         withUpdateOrder?: boolean;
         withGoBack?: boolean;
         withHeaderTooltip?: boolean;

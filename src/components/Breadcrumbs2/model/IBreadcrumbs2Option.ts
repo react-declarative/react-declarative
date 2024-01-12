@@ -10,6 +10,10 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
 }> {
     type: Breadcrumbs2Type;
     label?: React.ReactNode;
+    element?: React.ComponentType<{
+        payload: Data,
+        disabled: boolean;
+    }>;
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
