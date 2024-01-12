@@ -2118,6 +2118,7 @@ declare module 'react-declarative/hooks/useAsyncValue' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
+        deps?: any[];
     }
     export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => Data | null;
     export default useAsyncValue;

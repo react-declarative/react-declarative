@@ -60,6 +60,9 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  chip: {
+    maxWidth: 150,
+  },
 }));
 
 export const Header = ({
@@ -95,6 +98,9 @@ export const Header = ({
     onLoadEnd,
     fallback,
     throwError,
+    deps: [
+      data,
+    ],
   });
 
   const [beforeAnchorEl, setBeforeAnchorEl] =
@@ -121,6 +127,7 @@ export const Header = ({
       return (
         <Tooltip title={label}>
           <Chip
+            className={classes.chip}
             color="primary"
             onClick={
               onCardLabelClick
@@ -134,6 +141,7 @@ export const Header = ({
     }
     return (
       <Chip
+        className={classes.chip}
         color="primary"
         onClick={
           onCardLabelClick

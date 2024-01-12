@@ -15,7 +15,9 @@ import IAnything from "../../../model/IAnything";
 import IBoardRow from "../model/IBoardRow";
 import useFetchRows from "../hooks/useFetchRows";
 
-export interface IContainerProps extends IHeaderProps, Omit<IContentProps, 'rows'> {
+export interface IContainerProps
+  extends IHeaderProps,
+    Omit<IContentProps, "rows"> {
   rows: IBoardRow[];
   AfterCardContent?: React.ComponentType<{
     id: string;
@@ -74,14 +76,18 @@ export const Container = ({
 
   const fetchRows = useFetchRows();
 
-  const rows = useAsyncValue(async () => {
-    return await fetchRows(id, data, upperRows);
-  }, {
-    onLoadStart,
-    onLoadEnd,
-    fallback,
-    throwError,
-  });
+  const rows = useAsyncValue(
+    async () => {
+      return await fetchRows(id, data, upperRows);
+    },
+    {
+      onLoadStart,
+      onLoadEnd,
+      fallback,
+      throwError,
+      deps: [data],
+    }
+  );
 
   const renderInner = () => {
     if (!rows) {
@@ -99,15 +105,14 @@ export const Container = ({
           disabled={disabled}
           onChangeColumn={onChangeColumn}
           onCardLabelClick={onCardLabelClick}
+          onLoadStart={onLoadStart}
+          onLoadEnd={onLoadEnd}
+          fallback={fallback}
+          throwError={throwError}
           payload={payload}
           label={label}
         />
-        <Content
-          id={id}
-          payload={payload}
-          rows={rows}
-          data={data}
-        />
+        <Content id={id} payload={payload} rows={rows} data={data} />
         {AfterCardContent && (
           <AfterCardContent id={id} data={data} payload={payload} />
         )}

@@ -7,6 +7,7 @@ interface IParams {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
+    deps?: any[];
 }
 
 export const useAsyncValue = <Data extends any = any>(run: () => (Data | Promise<Data>), params: IParams = {}): Data | null => {
@@ -18,9 +19,11 @@ export const useAsyncValue = <Data extends any = any>(run: () => (Data | Promise
         setResult(result);
     }, params);
 
+    const { deps = [] } = params;
+
     useEffect(() => {
         execute();
-    }, []);
+    }, deps);
 
     return result;
 };
