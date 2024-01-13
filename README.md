@@ -154,7 +154,7 @@ const options: IScaffold2Group[] = [
 
 ## Declarative KanbanView component
 
-The `<KanbanView />` allow you to build kanban boards with realtime support
+The `<KanbanView />` allow you to build [kanban](https://en.wikipedia.org/wiki/Kanban_(development)) boards with realtime support
 
 ![kanbanview](./assets/kanbanview.gif)
 
