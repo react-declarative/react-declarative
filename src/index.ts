@@ -235,6 +235,7 @@ export { LoaderView } from './components';
 export { VisibilityView } from './components';
 export { FeatureView } from './components';
 export { InfiniteView } from './components';
+export { WizardView } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
 import { IBoard as IBoardInternal } from './components';
@@ -304,6 +305,11 @@ export type IOutlet<Data = any, Payload = any, Params = any> = IOutletInternal<D
 export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
 export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
 export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
+
+import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal } from './components';
+
+export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
+export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
 
 export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 

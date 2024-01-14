@@ -191,6 +191,7 @@ declare module 'react-declarative' {
     export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
+    export { WizardView } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { IBoard as IBoardInternal } from 'react-declarative/components';
     import { IBoardColumn as IBoardColumnInternal } from 'react-declarative/components';
@@ -241,6 +242,9 @@ declare module 'react-declarative' {
     export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
     export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
     export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
+    import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal } from 'react-declarative/components';
+    export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
+    export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -2320,6 +2324,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/RevealView';
     export * from 'react-declarative/components/SecretView';
     export * from 'react-declarative/components/VisibilityView';
+    export * from 'react-declarative/components/WizardView';
     export * from 'react-declarative/components/PortalView';
     export * from 'react-declarative/components/RecordView';
     export * from 'react-declarative/components/ErrorView';
@@ -5297,6 +5302,14 @@ declare module 'react-declarative/components/SecretView' {
     export { default } from 'react-declarative/components/SecretView/SecretView';
 }
 
+declare module 'react-declarative/components/WizardView' {
+    export * from 'react-declarative/components/WizardView/WizardView';
+    export { IWizardOutlet } from 'react-declarative/components/WizardView/model/IWizardOutlet';
+    export { IWizardOutletProps } from 'react-declarative/components/WizardView/model/IWizardOutletProps';
+    export { IWizardStep } from 'react-declarative/components/WizardView/model/IWizardStep';
+    export { default } from 'react-declarative/components/WizardView/WizardView';
+}
+
 declare module 'react-declarative/components/PortalView' {
     export * from 'react-declarative/components/PortalView/PortalView';
     export { default } from 'react-declarative/components/PortalView/PortalView';
@@ -7429,6 +7442,42 @@ declare module 'react-declarative/components/SecretView/SecretView' {
     export default SecretView;
 }
 
+declare module 'react-declarative/components/WizardView/WizardView' {
+    import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
+    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
+    export default WizardView;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardOutlet' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ISize from "react-declarative/model/ISize";
+    import { IOutlet } from "react-declarative/components/OutletView";
+    export type OtherProps = {
+        size: ISize;
+        loading: boolean;
+        setLoading: (loading: boolean) => void;
+    };
+    export type IWizardOutlet<Data = IAnything, Payload = IAnything> = IOutlet<Data, Payload, OtherProps>;
+    export default IWizardOutlet;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardOutletProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { IOutletProps } from "react-declarative/components/OutletView";
+    import { OtherProps } from "react-declarative/components/WizardView/model/IWizardOutlet";
+    export type IWizardOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload, OtherProps>;
+    export default IWizardOutletProps;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardStep' {
+    export interface IWizardStep {
+        id: string;
+        label: string;
+        icon?: React.ComponentType<any>;
+    }
+    export default IWizardStep;
+}
+
 declare module 'react-declarative/components/PortalView/PortalView' {
     import * as React from "react";
     interface IPortalViewProps {
@@ -8950,6 +8999,29 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
     }
     export const FadeContainer: ({ className, style, color, children, disableBottom, disableRight, zIndex, Fade, selector, }: IFadeContainerProps) => JSX.Element;
     export default FadeContainer;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardViewProps' {
+    import { SxProps } from "@mui/material";
+    import History from "react-declarative/model/History";
+    import IAnything from "react-declarative/model/IAnything";
+    import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
+    import IWizardOutlet, { OtherProps } from "react-declarative/components/WizardView/model/IWizardOutlet";
+    import IWizardStep from "react-declarative/components/WizardView/model/IWizardStep";
+    export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
+        history: never;
+        routes: never;
+        otherProps: never;
+    }> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        routes: IWizardOutlet<Data, Payload>[];
+        steps: IWizardStep[];
+        history?: History;
+        pathname?: string;
+    }
+    export default IWizardViewProps;
 }
 
 declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' {
