@@ -38,6 +38,9 @@ interface IState {
   activeOption: string;
 }
 
+/**
+ * @description Use `history.replace` to navigate between subviews
+ */
 export const OutletView = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,
@@ -59,7 +62,7 @@ export const OutletView = <
   onLoadStart,
   onLoadEnd,
   changeSubject: upperChangeSubject,
-  otherProps,
+  otherProps = {} as OtherProps,
   ...revealProps
 }: IOutletViewProps<Data, Payload, Params, OtherProps>) => {
   const { classes } = useStyles();
@@ -417,6 +420,7 @@ export const OutletView = <
       {React.createElement(component, {
         key: activeOption,
         ...outletProps,
+        ...otherProps
       })}
     </Reveal>
   );

@@ -40,13 +40,13 @@ const useStyles = makeStyles()((theme) => ({
     position: "absolute",
     top: 0,
     left: 0,
-    height: HEADER_HEIGHT,
+    height: `${HEADER_HEIGHT}px`,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     background:
       theme.palette.mode === "dark"
         ? darken(theme.palette.background.paper, 0.06)
-        : alpha("#000", 0.1),
+        : alpha("#000", 0.05),
     width: "100%",
   },
   loader: {
@@ -109,7 +109,11 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   );
 
   useEffect(
-    () => history.listen(({ location }) => setPath(location.pathname)),
+    () => history.listen(({ location, action }) => {
+      if (action === 'REPLACE') {
+        setPath(location.pathname);
+      }
+    }),
     []
   );
 

@@ -14,6 +14,8 @@ interface IWizardNavigationProps extends BoxProps {
   style?: React.CSSProperties;
   sx?: SxProps;
   disabled?: boolean;
+  AfterPrev?: React.ComponentType<any>;
+  BeforeNext?: React.ComponentType<any>;
   fallback?: (e: Error) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -31,6 +33,7 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: 'center',
     flexDirection: "row",
     padding: theme.spacing(1),
+    gap: theme.spacing(1),
   },
   stretch: {
     flex: 1,
@@ -47,6 +50,8 @@ export const WizardNavigation = ({
   onLoadEnd,
   onPrev,
   onNext,
+  AfterPrev,
+  BeforeNext,
   hasPrev = false,
   hasNext = false,
   throwError,
@@ -82,7 +87,9 @@ export const WizardNavigation = ({
       >
         Prev
       </ActionButton>
+      {AfterPrev && <AfterPrev />}
       <div className={classes.stretch} />
+      {BeforeNext && <BeforeNext />}
       <ActionButton
         disabled={loading || !hasNext}
         onClick={onNext}

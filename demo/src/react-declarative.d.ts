@@ -12,6 +12,7 @@
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
 //   ../../@mui/material/Tabs
+//   ../../@mui/system
 //   ../../@mui/material/TextField
 //   ../../@mui/material/Chip
 
@@ -191,7 +192,7 @@ declare module 'react-declarative' {
     export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
-    export { WizardView, WizardNavigation } from 'react-declarative/components';
+    export { WizardView, WizardNavigation, WizardContainer } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { IBoard as IBoardInternal } from 'react-declarative/components';
     import { IBoardColumn as IBoardColumnInternal } from 'react-declarative/components';
@@ -5306,6 +5307,7 @@ declare module 'react-declarative/components/SecretView' {
 declare module 'react-declarative/components/WizardView' {
     export * from 'react-declarative/components/WizardView/WizardView';
     export * from 'react-declarative/components/WizardView/components/WizardNavigation';
+    export * from 'react-declarative/components/WizardView/components/WizardContainer';
     export { IWizardOutlet } from 'react-declarative/components/WizardView/model/IWizardOutlet';
     export { IWizardOutletProps } from 'react-declarative/components/WizardView/model/IWizardOutletProps';
     export { IWizardStep } from 'react-declarative/components/WizardView/model/IWizardStep';
@@ -6931,6 +6933,9 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
 declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
+    /**
+      * @description Use `history.replace` to navigate between subviews
+      */
     export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element;
     export default OutletView;
 }
@@ -7460,6 +7465,8 @@ declare module 'react-declarative/components/WizardView/components/WizardNavigat
         style?: React.CSSProperties;
         sx?: SxProps;
         disabled?: boolean;
+        AfterPrev?: React.ComponentType<any>;
+        BeforeNext?: React.ComponentType<any>;
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
@@ -7469,8 +7476,23 @@ declare module 'react-declarative/components/WizardView/components/WizardNavigat
         onNext?: () => (void | Promise<void>);
         throwError?: boolean;
     }
-    export const WizardNavigation: ({ className, style, sx, disabled, fallback, onLoadStart, onLoadEnd, onPrev, onNext, hasPrev, hasNext, throwError, ...otherProps }: IWizardNavigationProps) => JSX.Element;
+    export const WizardNavigation: ({ className, style, sx, disabled, fallback, onLoadStart, onLoadEnd, onPrev, onNext, AfterPrev, BeforeNext, hasPrev, hasNext, throwError, ...otherProps }: IWizardNavigationProps) => JSX.Element;
     export default WizardNavigation;
+}
+
+declare module 'react-declarative/components/WizardView/components/WizardContainer' {
+    import * as React from "react";
+    import { SxProps } from "@mui/system";
+    import { BoxProps } from "@mui/material/Box";
+    interface IWizardContainerProps extends BoxProps {
+        ref?: React.Ref<HTMLDivElement | undefined>;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        Navigation?: React.ReactNode;
+    }
+    export const WizardContainer: React.ForwardRefExoticComponent<Pick<IWizardContainerProps, "key" | "color" | "border" | "boxShadow" | "fontWeight" | "zIndex" | "alignContent" | "alignItems" | "alignSelf" | "bottom" | "boxSizing" | "columnGap" | "display" | "flexBasis" | "flexDirection" | "flexGrow" | "flexShrink" | "flexWrap" | "fontFamily" | "fontSize" | "fontStyle" | "gridAutoColumns" | "gridAutoFlow" | "gridAutoRows" | "gridTemplateAreas" | "gridTemplateColumns" | "gridTemplateRows" | "height" | "justifyContent" | "justifyItems" | "justifySelf" | "left" | "letterSpacing" | "lineHeight" | "marginBlockEnd" | "marginBlockStart" | "marginBottom" | "marginInlineEnd" | "marginInlineStart" | "marginLeft" | "marginRight" | "marginTop" | "maxHeight" | "maxWidth" | "minHeight" | "minWidth" | "order" | "paddingBlockEnd" | "paddingBlockStart" | "paddingBottom" | "paddingInlineEnd" | "paddingInlineStart" | "paddingLeft" | "paddingRight" | "paddingTop" | "position" | "right" | "rowGap" | "textAlign" | "textOverflow" | "textTransform" | "top" | "translate" | "visibility" | "whiteSpace" | "width" | "borderBottom" | "borderColor" | "borderLeft" | "borderRadius" | "borderRight" | "borderTop" | "flex" | "gap" | "gridArea" | "gridColumn" | "gridRow" | "margin" | "marginBlock" | "marginInline" | "overflow" | "padding" | "paddingBlock" | "paddingInline" | "bgcolor" | "m" | "mt" | "mr" | "mb" | "ml" | "mx" | "marginX" | "my" | "marginY" | "p" | "pt" | "pr" | "pb" | "pl" | "px" | "paddingX" | "py" | "paddingY" | "typography" | "displayPrint" | "defaultValue" | "hidden" | "inputMode" | "tabIndex" | "className" | "style" | "title" | "placeholder" | "sx" | "prefix" | "children" | "classes" | "slot" | "defaultChecked" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "id" | "lang" | "spellCheck" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChange" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClick" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture" | "component" | "Navigation"> & React.RefAttributes<HTMLDivElement | undefined>>;
+    export default WizardContainer;
 }
 
 declare module 'react-declarative/components/WizardView/model/IWizardOutlet' {
@@ -7490,7 +7512,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutletProps
     import IAnything from "react-declarative/model/IAnything";
     import { IOutletProps } from "react-declarative/components/OutletView";
     import { OtherProps } from "react-declarative/components/WizardView/model/IWizardOutlet";
-    export type IWizardOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload, OtherProps>;
+    export type IWizardOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload> & OtherProps;
     export default IWizardOutletProps;
 }
 
