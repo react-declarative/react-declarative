@@ -129,7 +129,7 @@ export const Header = ({
   }, [column]);
 
   const renderTooltip = useCallback(() => {
-    if (!label) {
+    if (label === null) {
       return <Loader />;
     }
     if (withHeaderTooltip) {
