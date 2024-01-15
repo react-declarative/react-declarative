@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 interface IParams {
+  disabled?: boolean;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
 }
@@ -8,6 +9,7 @@ interface IParams {
 export const usePreventAction = ({
   onLoadStart,
   onLoadEnd,
+  disabled,
 }: IParams = {}) => {
   const [loading, setLoading] = useState(0);
   return {
@@ -19,7 +21,7 @@ export const usePreventAction = ({
       onLoadEnd && onLoadEnd(isOk);
       setLoading((loading) => loading - 1);
     },
-    loading: !!loading,
+    loading: !!loading || disabled,
   } as const;
 };
 

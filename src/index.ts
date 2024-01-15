@@ -235,7 +235,7 @@ export { LoaderView } from './components';
 export { VisibilityView } from './components';
 export { FeatureView } from './components';
 export { InfiniteView } from './components';
-export { WizardView } from './components';
+export { WizardView, WizardNavigation } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
 import { IBoard as IBoardInternal } from './components';

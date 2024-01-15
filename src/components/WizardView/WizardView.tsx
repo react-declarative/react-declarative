@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { alpha, darken } from "@mui/material";
 import { makeStyles } from "../../styles";
 
 import OutletView from "../OutletView";
@@ -42,7 +43,10 @@ const useStyles = makeStyles()((theme) => ({
     height: HEADER_HEIGHT,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    background: "whitesmoke",
+    background:
+      theme.palette.mode === "dark"
+        ? darken(theme.palette.background.paper, 0.06)
+        : alpha("#000", 0.1),
     width: "100%",
   },
   loader: {
@@ -129,7 +133,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     >
       <Stepper className={classes.header} activeStep={activeStep}>
         {steps.map(({ label, icon: Icon }, idx) => (
-          <Step key={idx} completed={idx > activeStep}>
+          <Step key={idx} completed={activeStep > idx}>
             <StepLabel StepIconComponent={Icon}>{label}</StepLabel>
           </Step>
         ))}

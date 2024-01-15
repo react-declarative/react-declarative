@@ -191,7 +191,7 @@ declare module 'react-declarative' {
     export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
-    export { WizardView } from 'react-declarative/components';
+    export { WizardView, WizardNavigation } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { IBoard as IBoardInternal } from 'react-declarative/components';
     import { IBoardColumn as IBoardColumnInternal } from 'react-declarative/components';
@@ -5305,6 +5305,7 @@ declare module 'react-declarative/components/SecretView' {
 
 declare module 'react-declarative/components/WizardView' {
     export * from 'react-declarative/components/WizardView/WizardView';
+    export * from 'react-declarative/components/WizardView/components/WizardNavigation';
     export { IWizardOutlet } from 'react-declarative/components/WizardView/model/IWizardOutlet';
     export { IWizardOutletProps } from 'react-declarative/components/WizardView/model/IWizardOutletProps';
     export { IWizardStep } from 'react-declarative/components/WizardView/model/IWizardStep';
@@ -6602,13 +6603,14 @@ declare module 'react-declarative/components/ActionButton/ActionButton' {
 
 declare module 'react-declarative/components/ActionButton/api/usePreventAction' {
     interface IParams {
+        disabled?: boolean;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
-    export const usePreventAction: ({ onLoadStart, onLoadEnd, }?: IParams) => {
+    export const usePreventAction: ({ onLoadStart, onLoadEnd, disabled, }?: IParams) => {
         readonly handleLoadStart: () => void;
         readonly handleLoadEnd: (isOk: boolean) => void;
-        readonly loading: boolean;
+        readonly loading: boolean | undefined;
     };
     export default usePreventAction;
 }
@@ -7447,6 +7449,28 @@ declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
     export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
+}
+
+declare module 'react-declarative/components/WizardView/components/WizardNavigation' {
+    import * as React from "react";
+    import { SxProps } from "@mui/material";
+    import { BoxProps } from "@mui/material/Box";
+    interface IWizardNavigationProps extends BoxProps {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        disabled?: boolean;
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        hasPrev?: boolean;
+        hasNext?: boolean;
+        onPrev?: () => (void | Promise<void>);
+        onNext?: () => (void | Promise<void>);
+        throwError?: boolean;
+    }
+    export const WizardNavigation: ({ className, style, sx, disabled, fallback, onLoadStart, onLoadEnd, onPrev, onNext, hasPrev, hasNext, throwError, ...otherProps }: IWizardNavigationProps) => JSX.Element;
+    export default WizardNavigation;
 }
 
 declare module 'react-declarative/components/WizardView/model/IWizardOutlet' {
