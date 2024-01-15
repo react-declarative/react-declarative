@@ -220,6 +220,74 @@ const columns: IBoardColumn<ILeadRow>[] = [
 />
 ```
 
+<img src="./assets/icons/x.svg" height="55px" align="right">
+
+## Declarative WizardView component
+
+The `<WizardView />` component allows you to build [action wizard](https://en.wikipedia.org/wiki/Wizard_(software)) with [stepper](https://mui.com/material-ui/react-stepper/) and nested routing
+
+![wizardview](./assets/wizardview.gif)
+
+```tsx
+
+const steps: IWizardStep[] = [
+  {
+    id: "select",
+    label: "Choose file",
+  },
+  {
+    id: "validate",
+    label: "Validation",
+  },
+  {
+    id: "import",
+    label: "Import",
+  },
+];
+
+const routes: IWizardOutlet[] = [
+  {
+    id: "select",
+    element: SelectFileView,
+    isActive: (pathname) => !!parseRouteUrl("/select-file", pathname),
+  },
+  {
+    id: "validate",
+    element: ValidateFileView,
+    isActive: (pathname) => !!parseRouteUrl("/validate-file", pathname),
+  },
+  {
+    id: "import",
+    element: ImportFileView,
+    isActive: (pathname) => !!parseRouteUrl("/import-file", pathname),
+  },
+];
+
+...
+
+<WizardView pathname="/select-file" steps={steps} routes={routes} />
+
+...
+
+const SelectFileView = ({
+    history
+}: IWizardOutletProps) => {
+  return (
+    <WizardContainer
+      Navigation={
+        <WizardNavigation
+          hasNext
+          onNext={() => history.replace("/validate-file")}
+        />
+      }
+    >
+        <p>123</p>
+    </WizardContainer>
+  );
+};
+
+```
+
 <img src="./assets/icons/solomon.svg" height="55px" align="right">
 
 ## JSON-templated view engine
