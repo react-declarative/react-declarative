@@ -242,7 +242,8 @@ declare module 'react-declarative' {
     export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
     export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
     export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
-    import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal } from 'react-declarative/components';
+    import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal } from 'react-declarative/components';
+    export type IWizardStep = IWizardStepInternal;
     export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
     export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';

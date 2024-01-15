@@ -306,8 +306,9 @@ export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModal
 export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
 export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
 
-import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal } from './components';
+import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal } from './components';
 
+export type IWizardStep = IWizardStepInternal;
 export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
 export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
 

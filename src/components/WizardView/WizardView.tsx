@@ -130,7 +130,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       <Stepper className={classes.header} activeStep={activeStep}>
         {steps.map(({ label, icon: Icon }, idx) => (
           <Step key={idx} completed={idx > activeStep}>
-            <StepLabel icon={Icon && <Icon />}>{label}</StepLabel>
+            <StepLabel StepIconComponent={Icon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
