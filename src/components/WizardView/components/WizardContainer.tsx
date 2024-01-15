@@ -30,23 +30,25 @@ const useStyles = makeStyles()({
   },
 });
 
+const WizardContainerInternal = (
+  { className, Navigation, children, ...otherProps }: IWizardContainerProps,
+  ref: React.Ref<HTMLDivElement | undefined>
+) => {
+  const { classes } = useStyles();
+  return (
+    <Box
+      ref={ref}
+      className={classNames(className, classes.root)}
+      {...otherProps}
+    >
+      <div className={classes.container}>{children}</div>
+      {Navigation}
+    </Box>
+  );
+};
+
 export const WizardContainer = forwardRef(
-  (
-    { className, Navigation, children, ...otherProps }: IWizardContainerProps,
-    ref: React.Ref<HTMLDivElement | undefined>
-  ) => {
-    const { classes } = useStyles();
-    return (
-      <Box
-        ref={ref}
-        className={classNames(className, classes.root)}
-        {...otherProps}
-      >
-        <div className={classes.container}>{children}</div>
-        {Navigation}
-      </Box>
-    );
-  }
-);
+  WizardContainerInternal
+) as typeof WizardContainerInternal;
 
 export default WizardContainer;

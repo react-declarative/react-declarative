@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { alpha, darken } from "@mui/material";
 import { makeStyles } from "../../styles";
 
-import OutletView from "../OutletView";
+import OutletView, { IOutlet } from "../OutletView";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -147,7 +147,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       <Box ref={elementRef} className={classes.content}>
         <OutletView<Data, Payload>
           history={history}
-          routes={routes}
+          routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
           {...outletProps}
         />

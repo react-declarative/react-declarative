@@ -1,6 +1,7 @@
 import IAnything from "../../../model/IAnything";
 import ISize from "../../../model/ISize";
 import { IOutlet } from "../../OutletView";
+import IWizardOutletProps from "./IWizardOutletProps";
 
 export type OtherProps = {
     size: ISize;
@@ -8,6 +9,10 @@ export type OtherProps = {
     setLoading: (loading: boolean) => void;
 };
 
-export type IWizardOutlet<Data = IAnything, Payload = IAnything> = IOutlet<Data, Payload, OtherProps>;
+export interface IWizardOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
+    element: never;
+}> {
+    element: (props: IWizardOutletProps<Data, Payload>) => React.ReactElement;
+};
 
 export default IWizardOutlet;
