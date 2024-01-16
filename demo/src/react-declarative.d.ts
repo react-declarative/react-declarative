@@ -7452,7 +7452,7 @@ declare module 'react-declarative/components/SecretView/SecretView' {
 
 declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
-    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
+    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
 }
 
@@ -7491,7 +7491,7 @@ declare module 'react-declarative/components/WizardView/components/WizardContain
         sx?: SxProps;
         Navigation?: React.ReactNode;
     }
-    export const WizardContainer: ({ className, Navigation, children, ...otherProps }: IWizardContainerProps, ref: React.Ref<HTMLDivElement | undefined>) => JSX.Element;
+    export const WizardContainer: React.FC<IWizardContainerProps>;
     export default WizardContainer;
 }
 
@@ -9066,6 +9066,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
         otherProps: never;
     }> {
         className?: string;
+        outlinePaper?: boolean;
         style?: React.CSSProperties;
         sx?: SxProps;
         routes: IWizardOutlet<Data, Payload>[];

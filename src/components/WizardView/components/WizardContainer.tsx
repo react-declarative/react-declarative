@@ -49,6 +49,6 @@ const WizardContainerInternal = (
 
 export const WizardContainer = forwardRef(
   WizardContainerInternal
-) as typeof WizardContainerInternal;
+) as unknown as React.FC<IWizardContainerProps>;
 
 export default WizardContainer;

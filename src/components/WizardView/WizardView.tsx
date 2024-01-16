@@ -5,9 +5,9 @@ import { alpha, darken } from "@mui/material";
 import { makeStyles } from "../../styles";
 
 import OutletView, { IOutlet } from "../OutletView";
+import PaperView from "../PaperView";
 
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
@@ -76,6 +76,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
+  outlinePaper = false,
   history: upperHistory,
   pathname = "/",
   steps,
@@ -109,11 +110,12 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   );
 
   useEffect(
-    () => history.listen(({ location, action }) => {
-      if (action === 'REPLACE') {
-        setPath(location.pathname);
-      }
-    }),
+    () =>
+      history.listen(({ location, action }) => {
+        if (action === "REPLACE") {
+          setPath(location.pathname);
+        }
+      }),
     []
   );
 
@@ -130,12 +132,17 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   }, [path]);
 
   return (
-    <Paper
+    <PaperView
+      outlinePaper={outlinePaper}
       className={classNames(classes.root, className)}
       style={style}
       sx={sx}
     >
-      <Stepper className={classes.header} activeStep={activeStep}>
+      <Stepper
+        className={classes.header}
+        activeStep={activeStep}
+        sx={{ background: outlinePaper ? "transparent !important" : "inherit" }}
+      >
         {steps.map(({ label, icon: Icon }, idx) => (
           <Step key={idx} completed={activeStep > idx}>
             <StepLabel StepIconComponent={Icon}>{label}</StepLabel>
@@ -152,7 +159,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
           {...outletProps}
         />
       </Box>
-    </Paper>
+    </PaperView>
   );
 };
 
