@@ -25,6 +25,7 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
 export interface IChooseFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   value: PickProp<IManaged<Data>, "value">;
   loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
@@ -37,6 +38,7 @@ export const ChooseField = ({
   value,
   disabled,
   readonly,
+  incorrect,
   description = "",
   outlined = false,
   title = "",
@@ -53,6 +55,7 @@ export const ChooseField = ({
   <Choose
     inputRef={inputRef}
     invalid={invalid}
+    incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}

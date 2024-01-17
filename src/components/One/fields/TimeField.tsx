@@ -23,6 +23,7 @@ export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
 export interface ITimeFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   value: PickProp<IManaged<Data>, "value">;
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
@@ -31,6 +32,7 @@ export interface ITimeFieldPrivate<Data = IAnything> {
 
 export const TimeField = ({
   invalid,
+  incorrect,
   value,
   disabled,
   readonly,
@@ -49,6 +51,7 @@ export const TimeField = ({
     autoFocus={autoFocus}
     inputRef={inputRef}
     invalid={invalid}
+    incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}
