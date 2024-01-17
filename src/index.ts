@@ -5,7 +5,6 @@ import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';
 import { IManaged as IManagedInternal } from './model/IManaged';
 import { IColumn as IColumnInternal } from './model/IColumn';
-import { ITab as ITabInternal } from './model/ITab';
 
 import { IApiPaginatorParams as IApiPaginatorParamsInternal } from './components/List/api/useApiPaginator';
 import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from './components/List/api/useArrayPaginator';
@@ -155,7 +154,6 @@ export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldIntern
 export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
 export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
-export type ITab<T extends unknown = any> = ITabInternal<T>;
 
 export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
@@ -218,7 +216,6 @@ export { ScrollView } from './components';
 export { ScaleView } from './components';
 export { FetchView } from './components';
 export { FadeView } from './components';
-export { TabsView } from './components';
 export { WaitView } from './components';
 export { PingView } from './components';
 export { OfflineView } from './components';
@@ -235,6 +232,7 @@ export { LoaderView } from './components';
 export { VisibilityView } from './components';
 export { FeatureView } from './components';
 export { InfiniteView } from './components';
+export { TabsView } from './components';
 export { WizardView, WizardNavigation, WizardContainer } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
@@ -311,6 +309,12 @@ import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOu
 export type IWizardStep = IWizardStepInternal;
 export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
 export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
+
+import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from './components';
+
+export type ITabsStep = ITabsStepInternal;
+export type ITabsOutlet<Data = any, Payload = any> = ITabsOutletInternal<Data, Payload>;
+export type ITabsOutletProps<Data = any, Payload = any> = ITabsOutletPropsInternal<Data, Payload>;
 
 export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 
@@ -402,8 +406,6 @@ export { useApiHandler } from './components';
 export { useFeatureView } from './components';
 export { useVisibilityView } from './components';
 export { useFilesView } from './components';
-
-export { useTabsHashstate } from './components';
 
 export { useOutletModal } from './components';
 

@@ -9,7 +9,6 @@ import {
   IGridColumn,
   IGridAction,
   FadeView,
-  TabsView,
   ScaleView,
   Copy,
   ITab,
@@ -173,25 +172,6 @@ const recordData = {
   },
   test: "omg",
 };
-
-const tabs: ITab[] = [
-  {
-    label: "tab1",
-    value: "tab1",
-    isDisabled: async () => {
-      await sleep(3_000);
-      return true;
-    },
-  },
-  {
-    label: "tab2",
-    value: "tab2",
-  },
-  {
-    label: "tab3",
-    value: "tab3",
-  },
-];
 
 const actions_filter: IActionFilter[] = [
   {
@@ -389,11 +369,6 @@ export const FadePage = () => {
           </p>
         </FadeView>
       </Grid>
-      <TabsView items={tabs} {...tabsProps}>
-        {(value) => {
-          return () => <p>{value}</p>;
-        }}
-      </TabsView>
       <ScaleView
         style={{ width: "100%", height: 300, background: "magenta" }}
         center

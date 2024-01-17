@@ -11,7 +11,6 @@
 //   ../../@mui/material/Stack
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
-//   ../../@mui/material/Tabs
 //   ../../@mui/system
 //   ../../@mui/material/TextField
 //   ../../@mui/material/Chip
@@ -23,7 +22,6 @@ declare module 'react-declarative' {
     import { IEntity as IEntityInternal } from 'react-declarative/model/IEntity';
     import { IManaged as IManagedInternal } from 'react-declarative/model/IManaged';
     import { IColumn as IColumnInternal } from 'react-declarative/model/IColumn';
-    import { ITab as ITabInternal } from 'react-declarative/model/ITab';
     import { IApiPaginatorParams as IApiPaginatorParamsInternal } from 'react-declarative/components/List/api/useApiPaginator';
     import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from 'react-declarative/components/List/api/useArrayPaginator';
     export { useColumnConfig } from 'react-declarative/components/List';
@@ -131,7 +129,6 @@ declare module 'react-declarative' {
     export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
     export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
     export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
-    export type ITab<T extends unknown = any> = ITabInternal<T>;
     export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
     export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;
     export type OneHandler<Data = IAnything> = OneHandlerInternal<Data>;
@@ -175,7 +172,6 @@ declare module 'react-declarative' {
     export { ScaleView } from 'react-declarative/components';
     export { FetchView } from 'react-declarative/components';
     export { FadeView } from 'react-declarative/components';
-    export { TabsView } from 'react-declarative/components';
     export { WaitView } from 'react-declarative/components';
     export { PingView } from 'react-declarative/components';
     export { OfflineView } from 'react-declarative/components';
@@ -192,6 +188,7 @@ declare module 'react-declarative' {
     export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
+    export { TabsView } from 'react-declarative/components';
     export { WizardView, WizardNavigation, WizardContainer } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { IBoard as IBoardInternal } from 'react-declarative/components';
@@ -247,6 +244,10 @@ declare module 'react-declarative' {
     export type IWizardStep = IWizardStepInternal;
     export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
     export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
+    import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from 'react-declarative/components';
+    export type ITabsStep = ITabsStepInternal;
+    export type ITabsOutlet<Data = any, Payload = any> = ITabsOutletInternal<Data, Payload>;
+    export type ITabsOutletProps<Data = any, Payload = any> = ITabsOutletPropsInternal<Data, Payload>;
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -321,7 +322,6 @@ declare module 'react-declarative' {
     export { useFeatureView } from 'react-declarative/components';
     export { useVisibilityView } from 'react-declarative/components';
     export { useFilesView } from 'react-declarative/components';
-    export { useTabsHashstate } from 'react-declarative/components';
     export { useOutletModal } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
@@ -1290,20 +1290,6 @@ declare module 'react-declarative/model/IColumn' {
         sortable?: boolean;
     }
     export default IColumn;
-}
-
-declare module 'react-declarative/model/ITab' {
-    import IOption from "react-declarative/model/IOption";
-    export interface ITab<T extends any = any> extends Omit<IOption, keyof {
-        action: never;
-        isVisible: never;
-        isDisabled: never;
-    }> {
-        value: string;
-        isVisible?: (payload: T) => Promise<boolean> | boolean;
-        isDisabled?: (payload: T) => Promise<boolean> | boolean;
-    }
-    export default ITab;
 }
 
 declare module 'react-declarative/components/List/api/useApiPaginator' {
@@ -5264,7 +5250,9 @@ declare module 'react-declarative/components/FadeView' {
 
 declare module 'react-declarative/components/TabsView' {
     export * from 'react-declarative/components/TabsView/TabsView';
-    export * from 'react-declarative/components/TabsView/api/useTabsHashstate';
+    export { ITabsOutlet } from 'react-declarative/components/TabsView/model/ITabsOutlet';
+    export { ITabsOutletProps } from 'react-declarative/components/TabsView/model/ITabsOutletProps';
+    export { ITabsStep } from 'react-declarative/components/TabsView/model/ITabsStep';
     export { default } from 'react-declarative/components/TabsView/TabsView';
 }
 
@@ -7246,47 +7234,42 @@ declare module 'react-declarative/components/FadeView/FadeView' {
 }
 
 declare module 'react-declarative/components/TabsView/TabsView' {
-    import * as React from 'react';
-    import { TabsProps } from '@mui/material/Tabs';
-    import { IAsyncProps } from 'react-declarative/components/Async';
-    import ITab from 'react-declarative/model/ITab';
-    export interface ITabsViewProps<T extends any = any> extends Omit<IAsyncProps<T>, keyof {
-        children: never;
-        Error: never;
-    }> {
-        className?: string;
-        style?: React.CSSProperties;
-        items: ITab<T>[];
-        value?: string;
-        children: (value: string) => React.ComponentType<any>;
-        onChange?: (value: string) => void;
-        centered?: TabsProps['centered'];
-        variant?: TabsProps['variant'];
-        noUnderline?: boolean;
-    }
-    export const TabsView: <T extends unknown = any>({ className, style, centered, variant, items, value: defaultValue, noUnderline, children, onChange, onLoadStart, onLoadEnd, Loader, ...otherProps }: ITabsViewProps<T>) => JSX.Element;
+    import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
+    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs, routes, onTabChange, onLoadStart, onLoadEnd, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
 
-declare module 'react-declarative/components/TabsView/api/useTabsHashstate' {
-    import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
-    import { ITabsViewProps } from 'react-declarative/components/TabsView/TabsView';
-    interface IResult<T extends any = any> {
-        tabsProps: {
-            value: ITabsViewProps<T>['value'];
-            onChange: ITabsViewProps<T>['onChange'];
-        };
-        hashManager: {
-            getValue: () => string;
-            setValue: (hash: string) => void;
-        };
+declare module 'react-declarative/components/TabsView/model/ITabsOutlet' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ISize from "react-declarative/model/ISize";
+    import { IOutlet } from "react-declarative/components/OutletView";
+    import ITabsOutletProps from "react-declarative/components/TabsView/model/ITabsOutletProps";
+    export type OtherProps = {
+        size: ISize;
+    };
+    export interface ITabsOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
+        element: never;
+    }> {
+        element: (props: ITabsOutletProps<Data, Payload>) => React.ReactElement;
     }
-    interface IParams {
-        history?: MemoryHistory | BrowserHistory | HashHistory;
-        defaultValue?: string;
+    export default ITabsOutlet;
+}
+
+declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { IOutletProps } from "react-declarative/components/OutletView";
+    import { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
+    export type ITabsOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload> & OtherProps;
+    export default ITabsOutletProps;
+}
+
+declare module 'react-declarative/components/TabsView/model/ITabsStep' {
+    export interface ITabsStep {
+        id: string;
+        label: string;
+        icon?: React.ComponentType<any>;
     }
-    export const useTabsHashstate: <T extends unknown = any>({ history, defaultValue, }?: IParams) => IResult<T>;
-    export default useTabsHashstate;
+    export default ITabsStep;
 }
 
 declare module 'react-declarative/components/FetchView/FetchView' {
@@ -9051,6 +9034,32 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
     }
     export const FadeContainer: ({ className, style, color, children, disableBottom, disableRight, zIndex, Fade, selector, }: IFadeContainerProps) => JSX.Element;
     export default FadeContainer;
+}
+
+declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
+    import { SxProps } from "@mui/material";
+    import History from "react-declarative/model/History";
+    import IAnything from "react-declarative/model/IAnything";
+    import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
+    import ITabsOutlet, { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
+    import ITabsStep from "react-declarative/components/TabsView/model/ITabsStep";
+    import { MemoryHistory } from "history";
+    export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
+        history: never;
+        routes: never;
+        otherProps: never;
+    }> {
+        className?: string;
+        outlinePaper?: boolean;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
+        routes: ITabsOutlet<Data, Payload>[];
+        tabs: ITabsStep[];
+        history?: History;
+        pathname?: string;
+    }
+    export default ITabsViewProps;
 }
 
 declare module 'react-declarative/components/WizardView/model/IWizardViewProps' {

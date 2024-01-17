@@ -1,196 +1,190 @@
-import * as React from 'react';
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import * as React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import { makeStyles } from '../../styles';
+import { alpha, darken } from "@mui/material";
+import { makeStyles } from "../../styles";
 
-import Tabs, { TabsProps } from '@mui/material/Tabs';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
+import OutletView, { IOutlet } from "../OutletView";
+import PaperView from "../PaperView";
 
-import Async, { IAsyncProps } from '../Async';
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 
-import useActualCallback from '../../hooks/useActualCallback';
-import useActualState from '../../hooks/useActualState';
+import ITabsViewProps from "./model/ITabsViewProps";
+import { OtherProps } from "./model/ITabsOutlet";
+import IAnything from "../../model/IAnything";
 
-import classNames from '../../utils/classNames';
+import useLocalHistory from "../../hooks/useLocalHistory";
+import useElementSize from "../../hooks/useElementSize";
+import useSingleton from "../../hooks/useSingleton";
 
-import ITab from '../../model/ITab';
+import classNames from "../../utils/classNames";
 
-const TAB_PLACEHOLDER_VALUE = 'placeholder';
-
-export interface ITabsViewProps<T extends any = any> extends Omit<IAsyncProps<T>, keyof {
-    children: never;
-    Error: never;
-}> {
-    className?: string;
-    style?: React.CSSProperties;
-    items: ITab<T>[];
-    value?: string;
-    children: (value: string) => React.ComponentType<any>;
-    onChange?: (value: string) => void;
-    centered?: TabsProps['centered'];
-    variant?: TabsProps['variant'];
-    noUnderline?: boolean;
-}
-
-interface ITabItem extends Omit<ITab, keyof {
-    isVisible: never;
-    isDisabled: never;
-}> {
-    visible: boolean;
-    disabled: boolean;
-}
+const HEADER_HEIGHT = 48;
+const LOADER_HEIGHT = 4;
 
 const useStyles = makeStyles()((theme) => ({
-    root: {
-        width: '100%',
+  root: {
+    position: "relative",
+    overflow: "hidden",
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    flexDirection: "column",
+    width: "100%",
+    minHeight: 365,
+  },
+  header: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    marginLeft: 0,
+    height: `${HEADER_HEIGHT}px`,
+    background:
+      theme.palette.mode === "dark"
+        ? darken(theme.palette.background.paper, 0.06)
+        : alpha("#000", 0.05),
+    width: "100%",
+  },
+  loader: {
+    position: "absolute",
+    top: HEADER_HEIGHT - LOADER_HEIGHT,
+    height: HEADER_HEIGHT,
+    zIndex: 2,
+    left: 0,
+    width: "100%",
+  },
+  content: {
+    flex: 1,
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    "& > *:nth-of-type(1)": {
+      flex: 1,
     },
-    container: {
-        width: '100%',
-    },
-    content: {
-        width: '100%',
-    },
-    none: {
-        display: 'none',
-    },
-    underline: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        '& > .MuiTabs-root': {
-            marginBottom: '-1px',
-        },
-    },
+  },
+  adjust: {
+    minHeight: HEADER_HEIGHT,
+    maxHeight: HEADER_HEIGHT,
+  },
+  tabsRoot: {
+    minHeight: HEADER_HEIGHT,
+    height: HEADER_HEIGHT,
+    marginLeft: "0 !important",
+    marginRight: "0 !important",
+  },
+  tabRoot: {
+    minHeight: HEADER_HEIGHT,
+    height: HEADER_HEIGHT,
+  },
+  tabSelected: {
+  },
+  indicator: {
+    height: '4px',
+    background: `${theme.palette.primary.main} !important`,
+  },
 }));
 
-const Fragment = () => <></>;
+export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
+  className,
+  style,
+  sx,
+  outlinePaper = false,
+  history: upperHistory,
+  payload: upperPayload = {} as Payload,
+  pathname = "/",
+  tabs,
+  routes,
+  onTabChange,
+  onLoadStart,
+  onLoadEnd,
+  ...outletProps
+}: ITabsViewProps<Data, Payload>) => {
+  const { elementRef, size } = useElementSize();
 
-export const TabsView = <T extends any = any>({
-    className,
-    style,
-    centered,
-    variant,
-    items = [],
-    value: defaultValue,
-    noUnderline = false,
-    children,
-    onChange,
-    onLoadStart,
-    onLoadEnd,
-    Loader = Fragment,
-    ...otherProps
-}: ITabsViewProps<T>) => {
+  const { classes } = useStyles();
 
-    const { classes } = useStyles();
+  const payload = useSingleton(upperPayload);
 
-    const isMounted = useRef(true);
+  const { history } = useLocalHistory({
+    history: upperHistory,
+    pathname,
+  });
 
-    const [tabs, setTabs] = useActualState<ITabItem[]>([]);
+  const [path, setPath] = useState(history.location.pathname);
 
-    const [child, setChild] = useState<React.ReactElement | null>(null);
-    const [value, setValue] = useState(defaultValue);
-    const [loader, setLoader] = useState(0);
+  const lastActiveStep = useRef(-1);
 
-    const handleChange = (value: string) => {
-        if (isMounted.current) {
-            setValue(value);
-            onChange && onChange(value);
+  const otherProps = useMemo(
+    (): OtherProps => ({
+      size,
+    }),
+    [size.height, size.width]
+  );
+
+  useEffect(
+    () =>
+      history.listen(({ location, action }) => {
+        if (action === "REPLACE") {
+          setPath(location.pathname);
         }
-    };
+      }),
+    []
+  );
 
-    useEffect(() => {
-        if (value && tabs.current.some((tab) => tab.value === value && tab.visible && !tab.disabled)) {
-            const Element = children(value);
-            setChild(<Element />);
-        }
-    }, [value, tabs.current]);
+  const activeStep = useMemo(() => {
+    const route = routes.find(({ isActive }) => isActive(path));
+    if (!route) {
+      return -1;
+    }
+    const activeStep = tabs.findIndex(({ id }) => id === route.id);
+    if (activeStep === -1) {
+      return lastActiveStep.current;
+    }
+    return (lastActiveStep.current = activeStep);
+  }, [path]);
 
-    useLayoutEffect(() => () => {
-        isMounted.current = false;
-    }, []);
-
-    const handleLoadStart = useActualCallback(() => {
-        isMounted.current && setLoader((loader) => loader + 1);
-        isMounted.current && setTabs([]);
-        onLoadStart && onLoadStart();
-    });
-
-    const handleLoadEnd = useActualCallback((isOk: boolean) => {
-        if (!value) {
-            const tab = tabs.current.find(({ visible, disabled }) => visible && !disabled);
-            handleChange(tab?.value || TAB_PLACEHOLDER_VALUE);
-        }
-        isMounted.current && setLoader((loader) => loader - 1);
-        onLoadEnd && onLoadEnd(isOk);
-    });
-
-    return (
-        <Box
-            className={classNames(classes.root, className)}
-            style={style}
-        >
-            {!!loader && <Loader payload={otherProps.payload} />}
-            <Box className={classNames(classes.container, {
-                [classes.underline]: !noUnderline,
-                [classes.none]: !!loader,
-            })}>
-                {!!value && !loader && !!tabs.current.length && (
-                    <Tabs
-                        variant={variant}
-                        centered={centered}
-                        value={value}
-                        key={tabs.current.length}
-                        onChange={(_, value) => handleChange(value)}
-                    >
-                        {tabs.current
-                            .filter(({ visible }) => visible)
-                            .map(({
-                                label,
-                                disabled,
-                                icon: Icon,
-                                value,
-                            }, idx) => (
-                                <Tab
-                                    key={idx}
-                                    label={label}
-                                    value={value}
-                                    disabled={disabled}
-                                    icon={Icon && <Icon />}
-                                />
-                            ))
-                        }
-                    </Tabs>
-                )}
-            </Box>
-            <Box className={classNames(classes.content, {
-                [classes.none]: !!loader,
-            })} p={3}>
-                {child}
-            </Box>
-            <Async<T>
-                {...otherProps}
-                onLoadStart={handleLoadStart}
-                onLoadEnd={handleLoadEnd}
-            >
-                {async (payload) => {
-
-                    const tabs = await Promise.all(items.map(async ({
-                        isVisible = () => true,
-                        isDisabled = () => false,
-                        ...other
-                    }) => ({
-                        visible: await isVisible(payload),
-                        disabled: await isDisabled(payload),
-                        ...other,
-                    })));
-
-                    isMounted.current && setTabs(tabs);
-
-                    return;
-                }}
-            </Async>
-        </Box>
-    );
-
+  return (
+    <PaperView
+      outlinePaper={outlinePaper}
+      className={classNames(classes.root, className)}
+      style={style}
+      sx={sx}
+    >
+      <Tabs
+        variant="standard"
+        className={classes.header}
+        classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
+        value={activeStep}
+        sx={{ background: outlinePaper ? "transparent !important" : "inherit" }}
+        onChange={(_, id) => {
+          onTabChange(id, history, payload);
+        }}
+      >
+        {tabs.map(({ label, icon: Icon }, idx) => (
+          <Tab
+            key={idx}
+            classes={{
+              root: classes.tabRoot,
+              selected: classes.tabSelected,
+            }}
+            label={label}
+            icon={Icon && <Icon />}
+          />
+        ))}
+      </Tabs>
+      <div className={classes.adjust} />
+      <Box ref={elementRef} className={classes.content}>
+        <OutletView<Data, Payload>
+          history={history}
+          routes={routes as IOutlet<Data, Payload>[]}
+          otherProps={otherProps}
+          {...outletProps}
+        />
+      </Box>
+    </PaperView>
+  );
 };
 
 export default TabsView;
