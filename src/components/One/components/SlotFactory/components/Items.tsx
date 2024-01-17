@@ -63,6 +63,7 @@ export const Items = ({
     labelShrink,
     dirty,
     invalid,
+    incorrect,
     title,
     tr = (s) => s.toString(),
     onChange,
@@ -156,6 +157,7 @@ export const Items = ({
         disabled,
         dirty,
         invalid,
+        incorrect,
         object,
         readonly,
     ]);
@@ -222,9 +224,9 @@ export const Items = ({
             }}
             variant={outlined ? "outlined" : "standard"}
             label={title}
-            helperText={(dirty && invalid) || description}
+            helperText={(dirty && (invalid || incorrect)) || description}
             placeholder={loading ? undefined : value$.current.length ? undefined : placeholder}
-            error={dirty && invalid !== null}
+            error={dirty && (invalid !== null || incorrect !== null)}
             InputProps={{
                 ...params.InputProps,
                 readOnly: readonly,

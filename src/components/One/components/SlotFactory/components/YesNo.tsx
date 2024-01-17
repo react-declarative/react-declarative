@@ -53,6 +53,7 @@ export const YesNoField = ({
   tr = (v) => v,
   dirty,
   invalid,
+  incorrect,
   onChange,
 }: IYesNoSlot) => {
   const { reloadTrigger, doReload } = useReloadTrigger();
@@ -124,8 +125,8 @@ export const YesNoField = ({
           variant={outlined ? "outlined" : "standard"}
           placeholder={loading ? undefined : placeholder}
           label={title}
-          helperText={(dirty && invalid) || description}
-          error={dirty && invalid !== null}
+          helperText={(dirty && (invalid || incorrect)) || description}
+          error={dirty && (invalid !== null || incorrect !== null)}
           InputProps={{
             ...params.InputProps,
             readOnly: readonly,

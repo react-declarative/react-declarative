@@ -34,6 +34,7 @@ const ITEM_HEIGHT = 36;
 
 export const Complete = ({
   invalid,
+  incorrect,
   value,
   disabled,
   readonly,
@@ -206,8 +207,8 @@ export const Complete = ({
           inputRef={inputRef}
           variant={outlined ? "outlined" : "standard"}
           value={String(value || "")}
-          helperText={(dirty && invalid) || description}
-          error={dirty && invalid !== null}
+          helperText={(dirty && (invalid || incorrect)) || description}
+          error={dirty && (invalid !== null || incorrect !== null)}
           InputProps={{
             onKeyDown: (e) => {
               if (handleKeyDown(e.key, () => e.currentTarget.blur())) {
