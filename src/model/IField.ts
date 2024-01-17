@@ -401,6 +401,13 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     isInvalid?: (v: Data, payload: Payload) => null | string;
 
     /**
+     * Функция, позволяющая огранизовать неблокирующую валидацию. Проверка
+     * правописания (spellcheck) должен быть отображен в UI, но не должен
+     * блокировать кнопку "Сохранить"
+     */
+    isIncorrect?: (v: Data, payload: Payload) => null | string;
+
+    /**
      * Функция, позволяющая скрыть поле, исходя из целевого
      * объекта
      */
