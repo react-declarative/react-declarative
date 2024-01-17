@@ -7,6 +7,8 @@ export type OtherProps = {
     size: ISize;
     loading: boolean;
     setLoading: (loading: boolean) => void;
+    progress: number;
+    setProgress: (progress: number) => void;
 };
 
 export interface IWizardOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
 import { alpha, darken } from "@mui/material";
 import { makeStyles } from "../../styles";
@@ -96,6 +96,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const [path, setPath] = useState(history.location.pathname);
   const [loading, setLoading] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const lastActiveStep = useRef(-1);
 
@@ -103,8 +104,15 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     (): OtherProps => ({
       size,
       loading: !!loading,
-      setLoading: (isLoading) =>
-        setLoading((loading) => loading + (isLoading ? 1 : -1)),
+      progress,
+      setLoading: (isLoading) => {
+        setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
+        setProgress(0);
+      },
+      setProgress: (progress) => {
+        setLoading(0);
+        setProgress(progress);
+      },
     }),
     [size.height, size.width, loading]
   );
@@ -114,6 +122,8 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       history.listen(({ location, action }) => {
         if (action === "REPLACE") {
           setPath(location.pathname);
+          setLoading(0);
+          setProgress(0);
         }
       }),
     []
@@ -130,6 +140,16 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     }
     return (lastActiveStep.current = activeStep);
   }, [path]);
+
+  const renderLoader = useCallback(() => {
+    if (progress) {
+      return <LinearProgress className={classes.loader} value={progress} variant="determinate" />
+    }
+    if (loading) {
+      return <LinearProgress className={classes.loader} variant="indeterminate" />
+    }
+    return null;
+  }, [loading, progress]);
 
   return (
     <PaperView
@@ -149,7 +169,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
           </Step>
         ))}
       </Stepper>
-      {!!loading && <LinearProgress className={classes.loader} />}
+      {renderLoader()}
       <div className={classes.adjust} />
       <Box ref={elementRef} className={classes.content}>
         <OutletView<Data, Payload>

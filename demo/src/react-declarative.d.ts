@@ -7487,6 +7487,8 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutlet' {
         size: ISize;
         loading: boolean;
         setLoading: (loading: boolean) => void;
+        progress: number;
+        setProgress: (progress: number) => void;
     };
     export interface IWizardOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
         element: never;
