@@ -46,6 +46,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
+    isIncorrect?: PickProp<IField<Data, Payload>, 'isIncorrect'>;
     invalidity?: PickProp<IField<Data, Payload>, 'invalidity'>;
     shouldRecompute?: PickProp<IField<Data, Payload>, 'shouldRecompute'>;
     shouldUpdateItemList?: PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>;
@@ -84,6 +85,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     disabled: boolean;
     loading: boolean;
     readonly: boolean;
+    incorrect: string | null;
     invalid: string | null;
     object: Data;
     onChange: (v: Value, config?: {

@@ -14,6 +14,7 @@ import { IChooseSlot } from "../../../slots/ChooseSlot";
 
 export const Choose = ({
   invalid,
+  incorrect,
   value,
   disabled,
   readonly,
@@ -74,8 +75,8 @@ export const Choose = ({
       name={name}
       inputRef={inputRef}
       variant={outlined ? "outlined" : "standard"}
-      helperText={(dirty && invalid) || description}
-      error={dirty && invalid !== null}
+      helperText={(dirty && (invalid || incorrect)) || description}
+      error={dirty && (invalid !== null || incorrect !== null)}
       InputProps={{
         readOnly: true,
         inputComponent: Input,

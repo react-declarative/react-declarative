@@ -87,6 +87,7 @@ interface IChangeConfig {
 const DEFAULT_IS_DISABLED = () => false;
 const DEFAULT_IS_VISIBLE = () => true;
 const DEFAULT_IS_INVALID = () => null;
+const DEFAULT_IS_INCORRECT = () => null;
 const DEFAULT_IS_READONLY = () => false;
 const DEFAULT_CHANGE = (v: IAnything) => console.log({ v });
 const DEFAULT_FALLBACK = () => null;
@@ -121,6 +122,7 @@ export function makeField(
         isDisabled = DEFAULT_IS_DISABLED,
         isVisible = DEFAULT_IS_VISIBLE,
         isInvalid = DEFAULT_IS_INVALID,
+        isIncorrect = DEFAULT_IS_INCORRECT,
         isReadonly = DEFAULT_IS_READONLY,
         change = DEFAULT_CHANGE,
         fallback = DEFAULT_FALLBACK,
@@ -168,6 +170,7 @@ export function makeField(
                 focusReadonly,
                 groupRef,
                 invalid,
+                incorrect,
                 loading,
                 value,
                 visible,
@@ -179,6 +182,7 @@ export function makeField(
                 setFocusReadonly,
                 setGroupRef,
                 setInvalid,
+                setIncorrect,
                 setLoading,
                 setValue: setValueAction,
                 setVisible,
@@ -195,6 +199,7 @@ export function makeField(
             isVisible,
             isDisabled,
             isInvalid,
+            isIncorrect,
             isReadonly,
         });
 
@@ -281,8 +286,10 @@ export function makeField(
                 const visible = isVisible(object, payload);
                 const readonly = isReadonly(object, payload);
                 const invalid = isInvalid(object, payload) || null;
+                const incorrect = isIncorrect(object, payload) || null;
                 setFieldReadonly(readonly);
                 setInvalid(invalid);
+                setIncorrect(incorrect);
                 setDisabled(disabled);
                 setVisible(visible);
             } else if (!name) {
@@ -296,6 +303,7 @@ export function makeField(
                 const disabled = isDisabled(object, payload);
                 const visible = isVisible(object, payload);
                 const invalid = isInvalid(object, payload) || null;
+                const incorrect = isIncorrect(object, payload) || null;
                 const readonly = isReadonly(object, payload);
                 const newValue = get(object, name);
                 let isOk: boolean = newValue !== value;
@@ -310,6 +318,7 @@ export function makeField(
                     });
                 }
                 setFieldReadonly(readonly);
+                setIncorrect(incorrect);
                 setDisabled(disabled);
                 setVisible(visible);
             }
@@ -338,7 +347,9 @@ export function makeField(
                 const copy = deepClone(object);
                 const check = set(copy, name, debouncedValue);
                 const invalid = isInvalid(copy, payload) || null;
+                const incorrect = isIncorrect(copy, payload) || null;
                 setInvalid(invalid);
+                setIncorrect(incorrect);
                 setDirty(true);
                 if (!name) {
                     return;
@@ -371,6 +382,7 @@ export function makeField(
             const copy = deepClone(object$);
             set(copy, name, value$);
             const invalid = isInvalid(copy, payload) || null;
+            const incorrect = isIncorrect(copy, payload) || null;
             if (!invalid && wasInvalid) {
                 setInvalid(invalid);
                 change(fieldConfig.skipDebounce ? map(copy, payload) : copy, {
@@ -383,6 +395,7 @@ export function makeField(
                     [memory.fieldName]: !!invalid,
                 });
             }
+            setIncorrect(incorrect);
         }, []);
 
         /**
@@ -574,6 +587,7 @@ export function makeField(
             dirty: dirty || upperDirty,
             autoFocus,
             invalid,
+            incorrect,
             value,
             name,
             loading,

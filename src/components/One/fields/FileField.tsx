@@ -26,6 +26,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
 export interface IFileFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   value: PickProp<IManaged<Data>, "value">;
   loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
@@ -42,6 +43,7 @@ export const FileField = ({
   outlined = false,
   title = "",
   placeholder = "",
+  incorrect,
   upload,
   view,
   dirty,
@@ -54,6 +56,7 @@ export const FileField = ({
   <File
     inputRef={inputRef}
     invalid={invalid}
+    incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}

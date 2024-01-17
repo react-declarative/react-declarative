@@ -61,6 +61,7 @@ export const Combo = ({
   title = "",
   dirty,
   invalid,
+  incorrect,
   tr = (s) => s.toString(),
   onChange,
 }: IComboSlot) => {
@@ -141,7 +142,7 @@ export const Combo = ({
     prevObject.current = object;
     initial.current = false;
     execute(object);
-  }, [valueHash, disabled, dirty, invalid, object, readonly]);
+  }, [valueHash, disabled, dirty, invalid, incorrect, object, readonly]);
 
   const createRenderInput =
     (loading: boolean, readonly: boolean) =>
@@ -162,8 +163,8 @@ export const Combo = ({
           variant={outlined ? "outlined" : "standard"}
           placeholder={loading ? undefined : placeholder}
           label={title}
-          helperText={(dirty && invalid) || description}
-          error={dirty && invalid !== null}
+          helperText={(dirty && (invalid || incorrect)) || description}
+          error={dirty && (invalid !== null || incorrect !== null)}
           InputProps={{
             ...params.InputProps,
             readOnly: readonly,

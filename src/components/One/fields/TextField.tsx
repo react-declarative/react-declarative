@@ -38,6 +38,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
 export interface ITextFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   value: PickProp<IManaged<Data>, "value">;
   loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
@@ -47,6 +48,7 @@ export interface ITextFieldPrivate<Data = IAnything> {
 
 export const TextField = ({
   invalid,
+  incorrect,
   value,
   disabled,
   readonly,
@@ -77,6 +79,7 @@ export const TextField = ({
     autoFocus={autoFocus}
     inputRef={inputRef}
     invalid={invalid}
+    incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}

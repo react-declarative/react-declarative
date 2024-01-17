@@ -30,6 +30,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
 export interface ICompleteFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   value: PickProp<IManaged<Data>, "value">;
   loading: PickProp<IManaged<Data>, "loading">;
   disabled: PickProp<IManaged<Data>, "disabled">;
@@ -39,6 +40,7 @@ export interface ICompleteFieldPrivate<Data = IAnything> {
 
 export const CompleteField = ({
   invalid,
+  incorrect,
   value,
   disabled,
   readonly,
@@ -62,6 +64,7 @@ export const CompleteField = ({
     autoFocus={autoFocus}
     inputRef={inputRef}
     invalid={invalid}
+    incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}

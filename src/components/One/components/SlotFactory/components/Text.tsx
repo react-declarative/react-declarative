@@ -97,6 +97,7 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
 
 export const Text = ({
     invalid,
+    incorrect,
     value,
     disabled,
     readonly,
@@ -210,8 +211,8 @@ export const Text = ({
                 inputRef && inputRef(input);
             }}
             variant={outlined ? "outlined" : "standard"}
-            helperText={(dirty && invalid) || description}
-            error={dirty && invalid !== null}
+            helperText={(dirty && (invalid || incorrect)) || description}
+            error={dirty && (invalid !== null || incorrect !== null)}
             InputProps={{
                 autoComplete: autoComplete,
                 readOnly: readonly,

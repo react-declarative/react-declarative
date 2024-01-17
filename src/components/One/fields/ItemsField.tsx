@@ -30,6 +30,7 @@ export interface IItemsFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, 'value'>;
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
 }
 
 export const ItemsField = ({
@@ -47,6 +48,7 @@ export const ItemsField = ({
   noDeselect,
   dirty,
   invalid,
+  incorrect,
   title,
   tr = (s) => s.toString(),
   onChange,
@@ -66,6 +68,7 @@ export const ItemsField = ({
     freeSolo={freeSolo}
     dirty={dirty}
     invalid={invalid}
+    incorrect={incorrect}
     title={title}
     tr={tr}
     onChange={onChange}

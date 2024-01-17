@@ -27,6 +27,7 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
 
 export const Time = ({
   invalid,
+  incorrect,
   value: upperValue,
   disabled,
   readonly,
@@ -208,8 +209,8 @@ export const Time = ({
         value={value}
         label={title}
         name={name}
-        helperText={(dirty && invalid) || description}
-        error={dirty && invalid !== null}
+        helperText={(dirty && (invalid || incorrect)) || description}
+        error={dirty && (invalid !== null || incorrect !== null)}
         onChange={({ target }) => handleChange(target.value)}
       />
       <Popover

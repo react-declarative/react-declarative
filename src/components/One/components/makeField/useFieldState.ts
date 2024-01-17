@@ -15,6 +15,7 @@ interface IState {
   fieldReadonly: boolean;
   disabled: boolean;
   invalid: string | null;
+  incorrect: string | null;
   visible: boolean;
   loading: boolean;
   dirty: boolean;
@@ -29,6 +30,7 @@ interface IInitialData
       fieldReadonly: never;
       focusReadonly: never;
       invalid: never;
+      incorrect: never;
       visible: never;
       loading: never;
       value: never;
@@ -44,6 +46,7 @@ interface IParams {
   isVisible: Exclude<IField["isVisible"], undefined>;
   isDisabled: Exclude<IField["isDisabled"], undefined>;
   isInvalid: Exclude<IField["isInvalid"], undefined>;
+  isIncorrect: Exclude<IField["isIncorrect"], undefined>;
   isReadonly: Exclude<IField["isReadonly"], undefined>;
 }
 
@@ -71,12 +74,14 @@ const readState = ({
   isInvalid,
   isDisabled,
   isVisible,
+  isIncorrect,
   object,
   payload,
 }: IParams) => ({
   fieldReadonly: isReadonly(object, payload),
   invalid: isInvalid(object, payload),
   visible: isVisible(object, payload),
+  incorrect: isIncorrect(object, payload),
   disabled: isDisabled(object, payload),
 });
 
@@ -102,6 +107,8 @@ export const useFieldState = (initialData: IInitialData, config: IParams) => {
         setState((prevState) => ({ ...prevState, disabled })),
       setInvalid: (invalid: IState["invalid"]) =>
         setState((prevState) => ({ ...prevState, invalid })),
+      setIncorrect: (incorrect: IState["incorrect"]) =>
+        setState((prevState) => ({ ...prevState, incorrect })),
       setVisible: (visible: IState["visible"]) =>
         setState((prevState) => ({ ...prevState, visible })),
       setLoading: (loading: IState["loading"]) =>

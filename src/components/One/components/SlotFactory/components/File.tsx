@@ -22,6 +22,7 @@ const LOADING_LABEL = 'Loading';
 
 export const FileField = ({
     invalid,
+    incorrect,
     value,
     disabled,
     readonly,
@@ -69,8 +70,8 @@ export const FileField = ({
                 name={name}
                 inputRef={inputRef}
                 variant={outlined ? "outlined" : "standard"}
-                helperText={(dirty && invalid) || description}
-                error={dirty && invalid !== null}
+                helperText={(dirty && (invalid || incorrect)) || description}
+                error={dirty && (invalid !== null || incorrect !== null)}
                 InputProps={{
                     readOnly: readonly,
                     endAdornment: (
