@@ -61,6 +61,9 @@ const useStyles = makeStyles()((theme) => ({
     maxWidth: CELL_PADDING_LEFT,
     background: `${theme.palette.background.paper} !important`,
   },
+  checkbox: {
+    marginLeft: "4px",
+  },
 }));
 
 const LOAD_SOURCE = "list-columns";
@@ -123,6 +126,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     if (selectionMode === SelectionMode.Single) {
       return (
         <Radio
+          className={classes.checkbox}
           key={selection.size}
           disabled={loading}
           color="primary"
@@ -132,6 +136,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     } else if (selectionMode === SelectionMode.Multiple) {
       return (
         <Checkbox
+          className={classes.checkbox}
           disabled={loading}
           color="primary"
           checked={isAllSelected}
@@ -140,7 +145,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
         />
       );
     } else {
-      return <Checkbox color="primary" disabled />;
+      return <Checkbox className={classes.checkbox} color="primary" disabled />;
     }
   };
 
