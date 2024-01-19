@@ -55,6 +55,7 @@ export const Cell = ({
       style={style}
       sx={{
         ...sx,
+        position: 'relative',
         minWidth: computedWidth,
         maxWidth: computedWidth,
       }}
