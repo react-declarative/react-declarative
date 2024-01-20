@@ -314,7 +314,7 @@ const groups: IVisibilityGroup[] = [
 />
 ```
 
-By using [feature-oriented programming](https://en.wikipedia.org/wiki/Feature-oriented_domain_analysis) you can adjust view to different roles of users by partially hiding buttons and data
+By using [feature-oriented programming](https://en.wikipedia.org/wiki/Feature-oriented_domain_analysis) you can adjust view to different roles of users by partially hiding text, images and buttons
 
 ```tsx
 const features: IFeatureGroup[] = [
