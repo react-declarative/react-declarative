@@ -166,6 +166,7 @@ export const TablePagination = ({
     const {
         withArrowPagination = false,
         withRangePagination = false,
+        noDisplayedRows = false,
         rowsPerPage: rowsPerPageOptions,
         loading,
     } = useProps();
@@ -210,8 +211,23 @@ export const TablePagination = ({
     return (
         <MatTablePagination
             {...props}
+            sx={{
+                ...(noDisplayedRows && {
+                    '& .MuiTablePagination-displayedRows': {
+                        display: 'none',
+                    }
+                }),
+            }}
             component={TablePaginationContainer}
             rowsPerPageOptions={rowsPerPageOptions}
+            labelDisplayedRows={({ page, count, from, to }) => {
+                if (count === -1) {
+                    return `#${page + 1}`;
+                }
+                const rowsPerPage = Math.max(to - (from - 1), 0);
+                return `${page + 1}/${Math.ceil(count / rowsPerPage)}`
+            }}
+            labelRowsPerPage=""
             ActionsComponent={Actions}
         />
     );

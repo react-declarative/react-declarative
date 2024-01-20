@@ -1719,6 +1719,7 @@ declare module 'react-declarative/model/IListProps' {
         setRowsSubject?: TSubject<RowData[]>;
         setFilterDataSubject?: TSubject<FilterData>;
         rowActions?: IListRowAction[];
+        noDisplayedRows?: boolean;
         withCustomFilters?: boolean;
         withOutlinePaper?: boolean;
         withSingleChip?: boolean;
