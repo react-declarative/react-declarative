@@ -288,6 +288,79 @@ const SelectFileView = ({
 
 ```
 
+<img src="./assets/icons/masonry.svg" height="45px" align="right">
+
+## VisibilityView and FeatureView components
+
+The `<VisibilityView />` and `<FeatureView />` components allows you to build configurable UI by using [reflection](https://en.wikipedia.org/wiki/Reflective_programming)
+
+![visibility](./assets/visibility.gif)
+
+```tsx
+const groups: IVisibilityGroup[] = [
+  {
+    name: "employee_visibility",
+    fields: employee_fields,
+  },
+];
+
+...
+
+<VisibilityView
+  expandAll
+  data={{ employee_visibility: data }}
+  groups={groups}
+  onChange={({ employee_visibility }) => onChange(employee_visibility)}
+/>
+```
+
+By using [feature-oriented programming](https://en.wikipedia.org/wiki/Feature-oriented_domain_analysis) you can adjust view to different roles of users by partially hiding buttons and data
+
+```tsx
+const features: IFeatureGroup[] = [
+  {
+    title: "Employee",
+    expanded: true,
+    children: [
+      {
+        name: "employee_preview_modal",
+        label: "Employee preview modal",
+        description: "Click on row open preview modal",
+      },
+      {
+        name: "employee_toggle_inactive",
+        label: "Employee toggle inactive",
+        description: "Can toggle employee activity",
+      },
+    ],
+  },
+];
+
+...
+
+<FeatureView
+  expandAll
+  data={data}
+  features={features}
+  onChange={onChange}
+/>
+
+...
+
+<If
+  payload={userId}
+  condition={async (userId) => {
+    return await ioc.permissionRequestService.getOwnerContactVisibilityByUserId(userId)
+  }}
+  Loading="Loading"
+  Else="Hidden"
+>
+  {owner_contact}
+</If>
+
+```
+
+
 <img src="./assets/icons/solomon.svg" height="55px" align="right">
 
 ## JSON-templated view engine
