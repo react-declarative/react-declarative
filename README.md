@@ -300,6 +300,10 @@ The `<VisibilityView />` and `<FeatureView />` components allows you to build co
 const groups: IVisibilityGroup[] = [
   {
     name: "employee_visibility",
+    /**
+     * @type {IField | TypedField}
+     * @description Same field type from `<One />` template engine
+     */
     fields: employee_fields,
   },
 ];
