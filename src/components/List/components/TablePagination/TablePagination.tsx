@@ -168,6 +168,7 @@ export const TablePagination = ({
         withRangePagination = false,
         noDisplayedRows = false,
         rowsPerPage: rowsPerPageOptions,
+        limit,
         loading,
     } = useProps();
 
@@ -220,12 +221,11 @@ export const TablePagination = ({
             }}
             component={TablePaginationContainer}
             rowsPerPageOptions={rowsPerPageOptions}
-            labelDisplayedRows={({ page, count, from, to }) => {
+            labelDisplayedRows={({ page, count }) => {
                 if (count === -1) {
                     return `#${page + 1}`;
                 }
-                const rowsPerPage = Math.max(to - (from - 1), 0);
-                return `${page + 1}/${Math.ceil(count / rowsPerPage)}`
+                return `${page + 1}/${Math.ceil(count / limit)}`;
             }}
             labelRowsPerPage=""
             ActionsComponent={Actions}
