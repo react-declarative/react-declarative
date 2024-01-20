@@ -301,7 +301,7 @@ const groups: IVisibilityGroup[] = [
   {
     name: "employee_visibility",
     /**
-     * @type {IField | TypedField}
+     * @type {IField[] | TypedField[]}
      * @description Same field type from `<One />` template engine
      */
     fields: employee_fields,
