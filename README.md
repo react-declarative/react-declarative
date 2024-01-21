@@ -288,7 +288,7 @@ const SelectFileView = ({
 
 ```
 
-<img src="./assets/icons/magnum-opus.svg" height="25px" align="right">
+<img src="./assets/icons/magnum-opus.svg" height="30px" align="right">
 
 ## VisibilityView and FeatureView components
 
