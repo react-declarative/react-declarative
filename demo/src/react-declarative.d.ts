@@ -73,6 +73,7 @@ declare module 'react-declarative' {
     import { useActualRef } from 'react-declarative/hooks/useActualRef';
     import { useRenderWaiter } from 'react-declarative/hooks/useRenderWaiter';
     import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from 'react-declarative/hooks/useOneArray';
+    import { useAsyncProgress } from 'react-declarative/hooks/useAsyncProgress';
     import { useAsyncAction } from 'react-declarative/hooks/useAsyncAction';
     import { useAsyncValue } from 'react-declarative/hooks/useAsyncValue';
     import { useSinglerunAction } from 'react-declarative/hooks/useSinglerunAction';
@@ -341,6 +342,7 @@ declare module 'react-declarative' {
     export { useSinglerunAction };
     export { useAsyncAction };
     export { useAsyncValue };
+    export { useAsyncProgress };
     export { useQueuedAction };
     export { useMediaContext };
     export { useAudioPlayer };
@@ -2095,6 +2097,34 @@ declare module 'react-declarative/hooks/useOneArray' {
     export const isOneArray: <T = any>(data: T[]) => boolean;
     export const toOneArray: <T = any>(data: T[]) => unknown[] | null;
     export default useOneArray;
+}
+
+declare module 'react-declarative/hooks/useAsyncProgress' {
+    import IAnything from "react-declarative/model/IAnything";
+    interface IParams<Data extends IAnything, Result = void> {
+        delay?: number;
+        onFinish?: (data: Data[], errors: IError[], result: (Result | null)[]) => void;
+        onError?: (errors: IError[]) => void;
+        onProgress?: (progress: number) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+    }
+    interface IError {
+        label: string;
+        message: string;
+        error: Error;
+    }
+    interface IProcess<Data extends IAnything> {
+        label: string;
+        data: Data;
+    }
+    export const useAsyncProgress: <Data extends unknown = any, Result = void>(process: (item: IProcess<Data>) => Result | Promise<Result>, { delay, onError, onProgress, onFinish, ...otherParams }: IParams<Data, Result>) => {
+        readonly errors: IError[];
+        readonly progress: number;
+        readonly execute: (items: IProcess<Data>[]) => void;
+        readonly loading: boolean;
+    };
+    export default useAsyncProgress;
 }
 
 declare module 'react-declarative/hooks/useAsyncAction' {

@@ -82,6 +82,7 @@ import { useActualRef } from './hooks/useActualRef';
 import { useRenderWaiter } from './hooks/useRenderWaiter';
 import { useOneArray, oneArrayIncludes, isOneArray, toOneArray } from './hooks/useOneArray';
 
+import { useAsyncProgress } from './hooks/useAsyncProgress';
 import { useAsyncAction } from './hooks/useAsyncAction';
 import { useAsyncValue } from './hooks/useAsyncValue';
 import { useSinglerunAction } from './hooks/useSinglerunAction';
@@ -432,6 +433,7 @@ export { useReloadTrigger };
 export { useSinglerunAction };
 export { useAsyncAction };
 export { useAsyncValue };
+export { useAsyncProgress };
 export { useQueuedAction };
 export { useMediaContext };
 export { useAudioPlayer };
