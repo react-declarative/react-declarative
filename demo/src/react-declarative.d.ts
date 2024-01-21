@@ -2103,6 +2103,8 @@ declare module 'react-declarative/hooks/useAsyncProgress' {
     import IAnything from "react-declarative/model/IAnything";
     interface IParams<Data extends IAnything, Result = void> {
         delay?: number;
+        onBegin?: () => void;
+        onEnd?: (isOk: boolean) => void;
         onFinish?: (data: Data[], errors: IError[], result: (Result | null)[]) => void;
         onError?: (errors: IError[]) => void;
         onProgress?: (progress: number) => void;
@@ -2118,7 +2120,7 @@ declare module 'react-declarative/hooks/useAsyncProgress' {
         label: string;
         data: Data;
     }
-    export const useAsyncProgress: <Data extends unknown = any, Result = void>(process: (item: IProcess<Data>) => Result | Promise<Result>, { delay, onError, onProgress, onFinish, ...otherParams }: IParams<Data, Result>) => {
+    export const useAsyncProgress: <Data extends unknown = any, Result = void>(process: (item: IProcess<Data>) => Result | Promise<Result>, { delay, onError, onProgress, onFinish, onBegin, onEnd, ...otherParams }: IParams<Data, Result>) => {
         readonly errors: IError[];
         readonly progress: number;
         readonly execute: (items: IProcess<Data>[]) => void;

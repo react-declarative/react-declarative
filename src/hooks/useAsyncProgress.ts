@@ -12,6 +12,8 @@ import IAnything from "../model/IAnything";
 
 interface IParams<Data extends IAnything, Result = void> {
   delay?: number;
+  onBegin?: () => void;
+  onEnd?: (isOk: boolean) => void;
   onFinish?: (
     data: Data[],
     errors: IError[],
@@ -52,6 +54,8 @@ export const useAsyncProgress = <
     onError = () => undefined,
     onProgress = () => undefined,
     onFinish = () => undefined,
+    onBegin = () => undefined,
+    onEnd = () => undefined,
     ...otherParams
   }: IParams<Data, Result>
 ) => {
@@ -63,6 +67,9 @@ export const useAsyncProgress = <
   const onError$ = useActualCallback(onError);
   const onFinish$ = useActualCallback(onFinish);
   const onProgress$ = useActualCallback(onProgress);
+  
+  const onEnd$ = useActualCallback(onEnd);
+  const onBegin$ = useActualCallback(onBegin);
 
   const setProgress = useCallback(
     (progress: number) =>
@@ -100,9 +107,11 @@ export const useAsyncProgress = <
   }, [state$.current.errors]);
 
   const { execute, loading } = useSinglerunAction(async (items: IProcess<Data>[]) => {
+    onBegin$();
     setProgress(0);
     setErrors([]);
     let count = 0;
+    let isOk = true;
     const result: (Result | null)[] = [];
     for (const { label, data } of items) {
       try {
@@ -114,6 +123,7 @@ export const useAsyncProgress = <
         );
         await sleep(delay);
       } catch (error) {
+        isOk = false;
         result.push(null);
         handleError({
           label,
@@ -129,7 +139,11 @@ export const useAsyncProgress = <
       state$.current.errors,
       result
     );
-  }, otherParams);
+    onEnd$(isOk);
+  }, {
+    ...otherParams,
+    throwError: true,
+  });
 
   return {
     execute: useCallback((items: IProcess<Data>[]) => {
