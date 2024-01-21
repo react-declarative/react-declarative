@@ -150,7 +150,7 @@ const options: IScaffold2Group[] = [
 
 ```
 
-<img src="./assets/icons/tower.svg" height="40px" align="right">
+<img src="./assets/icons/box.svg" height="40px" align="right">
 
 ## Declarative KanbanView component
 
