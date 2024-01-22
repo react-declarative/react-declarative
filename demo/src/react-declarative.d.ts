@@ -3318,7 +3318,8 @@ declare module 'react-declarative/utils/math/truely' {
 
 declare module 'react-declarative/utils/getAvailableFields' {
     import IField from "react-declarative/model/IField";
-    export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, features?: string[] | undefined) => {
+    import IOnePublicProps from "react-declarative/model/IOnePublicProps";
+    export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, _features?: IOnePublicProps["features"]) => {
         visible: IField<any, any>[];
         hidden: IField<any, any>[];
     };

@@ -1,6 +1,7 @@
 import deepFlat from "./deepFlat";
 
 import IField from "../model/IField";
+import IOnePublicProps from "../model/IOnePublicProps";
 
 const buildCommonResult = (
   fields: IField[],
@@ -16,7 +17,9 @@ const buildCommonResult = (
     hidden = false
   ) => {
     const { isVisible = () => true, isDisabled = () => false } = entry;
-    if (typeof entry.hidden === 'function' ? entry.hidden(payload) : entry.hidden) {
+    if (
+      typeof entry.hidden === "function" ? entry.hidden(payload) : entry.hidden
+    ) {
       hidden = true;
     }
     if (!isVisible(data, payload) || isDisabled(data, payload)) {
@@ -49,13 +52,27 @@ const buildCommonResult = (
   };
 };
 
+const resolveFeatues = (upperFeatures: IOnePublicProps["features"]) => {
+  let result = upperFeatures;
+  if (typeof upperFeatures === "function") {
+    result = upperFeatures();
+  }
+  if (result && !Array.isArray(result)) {
+    result = Object.entries(result)
+      .map(([key, value]) => (value ? key : (null as never)))
+      .filter((value) => !!value);
+  }
+  return result;
+};
+
 export const getAvailableFields = (
   fields: IField[],
   data: Record<string, any>,
   payload: Record<string, any>,
-  features?: string[]
-) =>
-  buildCommonResult(
+  _features?: IOnePublicProps["features"]
+) => {
+  const features = resolveFeatues(_features);
+  return buildCommonResult(
     fields.filter(
       (field) =>
         !features ||
@@ -65,5 +82,6 @@ export const getAvailableFields = (
     data,
     payload
   );
+};
 
 export default getAvailableFields;
