@@ -3,7 +3,6 @@ import { useCallback } from "react";
 import useSinglerunAction from "./useSinglerunAction";
 import useActualCallback from "./useActualCallback";
 import useActualState from "./useActualState";
-import useChange from "./useChange";
 
 import getErrorMessage from "../utils/getErrorMessage";
 import sleep from "../utils/sleep";
@@ -98,14 +97,6 @@ export const useAsyncProgress = <
     []
   );
 
-  useChange(() => {
-    onProgress$(state$.current.progress);
-  }, [state$.current.progress]);
-
-  useChange(() => {
-    onError$(state$.current.errors);
-  }, [state$.current.errors]);
-
   const { execute, loading } = useSinglerunAction(async (items: IProcess<Data>[]) => {
     onBegin$();
     setProgress(0);
@@ -125,13 +116,17 @@ export const useAsyncProgress = <
       } catch (error) {
         isOk = false;
         result.push(null);
-        handleError({
+        const e = {
           label,
           message: getErrorMessage(error),
           error: error as unknown as Error,
-        });
+        };
+        handleError(e);
+        onError$([...state$.current.errors, e]);
       } finally {
-        setProgress(getPercent(++count, items.length));
+        const progress = getPercent(++count, items.length); 
+        setProgress(progress);
+        onProgress$(progress)
       }
     }
     onFinish$(
