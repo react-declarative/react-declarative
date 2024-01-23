@@ -1,12 +1,15 @@
 import * as React from "react";
 import { makeStyles } from "../../styles";
 
+import { SxProps } from "@mui/material";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import MatBreadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 
 import useActualCallback from "../../hooks/useActualCallback";
+import useActualState from "../../hooks/useActualState";
 
 import ActionButton from "../ActionButton";
 import ActionMenu from "../ActionMenu";
@@ -17,7 +20,6 @@ import classNames from "../../utils/classNames";
 import IBreadcrumbs2Action from "./model/IBreadcrumbs2Action";
 import IBreadcrumbs2Option from "./model/IBreadcrumbs2Option";
 import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
-import { SxProps } from "@mui/material";
 
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
@@ -32,6 +34,10 @@ interface IBreadcrumbs2Props<T extends any = any> {
   payload?: T;
   BeforeMenuContent?: React.ComponentType<any>;
   AfterMenuContent?: React.ComponentType<any>;
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  fallback?: (e: Error) => void;
+  throwError?: boolean;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -69,10 +75,31 @@ export const Breadcrumbs2 = <T extends any = any>({
   payload,
   BeforeMenuContent,
   AfterMenuContent,
+  onLoadStart,
+  onLoadEnd,
+  fallback,
+  throwError,
 }: IBreadcrumbs2Props<T>) => {
   const { classes } = useStyles();
 
-  const onAction$ = useActualCallback(onAction);
+  const [loading$, setLoading] = useActualState(0);
+
+  const handleLoadStart = () => {
+    setLoading((loading) => loading + 1);
+    onLoadStart && onLoadStart();
+  };
+
+  const handleLoadEnd = (isOk: boolean) => {
+    setLoading((loading) => Math.max(loading - 1, 0));
+    onLoadEnd && onLoadEnd(isOk);
+  };
+
+  const onAction$ = useActualCallback(async (action: string) => {
+    if (loading$.current > 1) {
+      return;
+    }
+    await onAction(action);
+  });
 
   return (
     <Box className={classNames(classes.root, className)} style={style} sx={sx}>
@@ -201,6 +228,10 @@ export const Breadcrumbs2 = <T extends any = any>({
                       startIcon={Icon && <Icon />}
                       disabled={disabled}
                       onClick={() => onAction$(action)}
+                      onLoadStart={handleLoadStart}
+                      onLoadEnd={handleLoadEnd}
+                      fallback={fallback}
+                      throwError={throwError}
                     >
                       {label}
                     </ActionButton>
@@ -224,9 +255,13 @@ export const Breadcrumbs2 = <T extends any = any>({
               isDisabled: () => isDisabled(payload!),
             })
           )}
-          onAction={onAction}
+          onAction={onAction$}
           BeforeContent={BeforeMenuContent}
           AfterContent={AfterMenuContent}
+          onLoadStart={handleLoadStart}
+          onLoadEnd={handleLoadEnd}
+          fallback={fallback}
+          throwError={throwError}
         />
       )}
     </Box>

@@ -5842,9 +5842,9 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Tab' {
 
 declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
     import * as React from "react";
+    import { SxProps } from "@mui/material";
     import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
     import IBreadcrumbs2Option from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option";
-    import { SxProps } from "@mui/material";
     interface IBreadcrumbs2Props<T extends any = any> {
         className?: string;
         style?: React.CSSProperties;
@@ -5855,8 +5855,12 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
         payload?: T;
         BeforeMenuContent?: React.ComponentType<any>;
         AfterMenuContent?: React.ComponentType<any>;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
     }
-    export const Breadcrumbs2: <T extends unknown = any>({ className, style, sx, onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbs2Props<T>) => JSX.Element;
+    export const Breadcrumbs2: <T extends unknown = any>({ className, style, sx, onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, onLoadStart, onLoadEnd, fallback, throwError, }: IBreadcrumbs2Props<T>) => JSX.Element;
     export default Breadcrumbs2;
 }
 

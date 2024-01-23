@@ -52,7 +52,7 @@ const useStyles = makeStyles()((theme) => ({
   loader: {
     position: "absolute",
     top: HEADER_HEIGHT - LOADER_HEIGHT,
-    height: HEADER_HEIGHT,
+    height: '4px',
     zIndex: 2,
     left: 0,
     width: "100%",

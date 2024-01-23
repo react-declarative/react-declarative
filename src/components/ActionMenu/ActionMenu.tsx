@@ -17,6 +17,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import useActualCallback from "../../hooks/useActualCallback";
+import useAsyncAction from "../../hooks/useAsyncAction";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Fab from "@mui/material/Fab";
@@ -122,14 +123,7 @@ export const ActionMenu = <T extends any = object>({
 
   const { classes } = useStyles();
 
-  const handleAction = useActualCallback(onAction);
-
-  const handleFocus = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setAnchorEl(targetRef.current);
-    onToggle && onToggle(true);
-  };
+  const onAction$ = useActualCallback(onAction);
 
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
@@ -139,6 +133,22 @@ export const ActionMenu = <T extends any = object>({
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => Math.max(loading - 1, 0));
     onLoadEnd && onLoadEnd(isOk);
+  };
+
+  const {
+    execute: handleAction,
+  } = useAsyncAction(onAction$, {
+    onLoadStart: handleLoadStart,
+    onLoadEnd: handleLoadEnd,
+    throwError,
+    fallback,
+  });
+
+  const handleFocus = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAnchorEl(targetRef.current);
+    onToggle && onToggle(true);
   };
 
   const handleClose = (e: any) => {
@@ -176,7 +186,7 @@ export const ActionMenu = <T extends any = object>({
         }}
         disableFocusRipple={transparent}
         disableRipple={transparent}
-        disabled={disabled}
+        disabled={disabled || !!loading}
         size="small"
         color="primary"
         aria-label="more"
