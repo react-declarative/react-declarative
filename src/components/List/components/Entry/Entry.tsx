@@ -44,6 +44,7 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE, LIST_FETCH_DEBOUNCE } from "../../config";
 
 import createScrollManager from "../../helpers/createScrollManager";
 import createConstraintManager from "../../helpers/createConstraintManager";
+import ignoreSymbols from "../../helpers/ignoreSymbols";
 
 import SlotFactory from "../SlotFactory";
 import { FilterDataProvider } from "../../hooks/useFilterData";
@@ -325,7 +326,7 @@ export class Entry<
           },
           this.state.sort,
           this.state.chips,
-          this.state.search,
+          ignoreSymbols(this.state.search),
           this.state.payload
         )
       );
