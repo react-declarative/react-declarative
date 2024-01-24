@@ -234,6 +234,7 @@ export { VisibilityView } from './components';
 export { FeatureView } from './components';
 export { InfiniteView } from './components';
 export { TabsView } from './components';
+export { SearchView, ISearchItem } from './components';
 export { WizardView, WizardNavigation, WizardContainer } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 
@@ -363,7 +364,6 @@ export { Scaffold2 } from './components';
 
 export { Countdown } from './components';
 export { Spinner } from './components'; 
-export { Search } from './components';
 export { Grid } from './components';
 export { Copy } from './components';
 export { Chip } from './components';

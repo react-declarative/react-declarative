@@ -13,7 +13,6 @@
 //   ../../@mui/material/styles
 //   ../../@mui/system
 //   ../../@mui/material/TextField
-//   ../../@mui/material/FormControl
 //   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
@@ -191,6 +190,7 @@ declare module 'react-declarative' {
     export { FeatureView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { TabsView } from 'react-declarative/components';
+    export { SearchView, ISearchItem } from 'react-declarative/components';
     export { WizardView, WizardNavigation, WizardContainer } from 'react-declarative/components';
     export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from 'react-declarative/components';
     import { IBoard as IBoardInternal } from 'react-declarative/components';
@@ -286,7 +286,6 @@ declare module 'react-declarative' {
     export { Scaffold2 } from 'react-declarative/components';
     export { Countdown } from 'react-declarative/components';
     export { Spinner } from 'react-declarative/components';
-    export { Search } from 'react-declarative/components';
     export { Grid } from 'react-declarative/components';
     export { Copy } from 'react-declarative/components';
     export { Chip } from 'react-declarative/components';
@@ -2331,6 +2330,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/ActionToggle';
     export * from 'react-declarative/components/ActionModal';
     export * from 'react-declarative/components/SearchModal';
+    export * from 'react-declarative/components/SearchView';
     export * from 'react-declarative/components/SizeProvider';
     export * from 'react-declarative/components/ModalProvider';
     export * from 'react-declarative/components/SnackProvider';
@@ -2371,7 +2371,6 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/TreeView';
     export * from 'react-declarative/components/GridView';
     export * from 'react-declarative/components/Grid';
-    export * from 'react-declarative/components/Search';
     export * from 'react-declarative/components/Spinner';
     export * from 'react-declarative/components/Async';
     export * from 'react-declarative/components/Copy';
@@ -5237,6 +5236,12 @@ declare module 'react-declarative/components/SearchModal' {
     export { default } from 'react-declarative/components/SearchModal/useSearchModal';
 }
 
+declare module 'react-declarative/components/SearchView' {
+    export * from 'react-declarative/components/SearchView/SearchView';
+    export * from 'react-declarative/components/SearchView/model/ISearchItem';
+    export { default } from 'react-declarative/components/SearchView/SearchView';
+}
+
 declare module 'react-declarative/components/ConstraintView' {
     export * from 'react-declarative/components/ConstraintView/ConstraintView';
     export * from 'react-declarative/components/ConstraintView/useConstraint';
@@ -5433,11 +5438,6 @@ declare module 'react-declarative/components/Grid' {
     export { IGridAction } from 'react-declarative/components/Grid/model/IGridAction';
     export { TSort as TGridSort } from 'react-declarative/components/Grid/model/TSort';
     export { default } from 'react-declarative/components/Grid/Grid';
-}
-
-declare module 'react-declarative/components/Search' {
-    export * from 'react-declarative/components/Search/Search';
-    export { default } from 'react-declarative/components/Search/Search';
 }
 
 declare module 'react-declarative/components/Spinner' {
@@ -6937,6 +6937,20 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
     export default useSearchModal;
 }
 
+declare module 'react-declarative/components/SearchView/SearchView' {
+    import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
+    export const SearchView: ({ className, style, sx, type, label, variant, placeholder, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onLoadStart, onLoadEnd, fallback, handler, throwError, }: ISearchViewProps) => JSX.Element;
+    export default SearchView;
+}
+
+declare module 'react-declarative/components/SearchView/model/ISearchItem' {
+    export interface ISearchItem {
+        label: string;
+        value: string;
+    }
+    export default ISearchItem;
+}
+
 declare module 'react-declarative/components/ConstraintView/ConstraintView' {
     import * as React from 'react';
     import { IAutoSizerProps, IChildParams } from 'react-declarative/components/AutoSizer';
@@ -7899,6 +7913,7 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
         error: boolean;
         onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
         reloadSubject: import("../../..").Subject<void>;
+        clear: () => void;
     };
     export default useOffsetPaginator;
 }
@@ -8049,34 +8064,6 @@ declare module 'react-declarative/components/Grid/model/TSort' {
         value: IColumn<T>['field'];
     };
     export default TSort;
-}
-
-declare module 'react-declarative/components/Search/Search' {
-    import * as React from "react";
-    import { SxProps } from "@mui/material";
-    import { FormControlProps } from "@mui/material/FormControl";
-    interface IItem {
-        value: string;
-        label: string;
-    }
-    interface ISearchProps extends Omit<FormControlProps, keyof {
-        onChange: never;
-    }> {
-        className?: string;
-        style?: React.CSSProperties;
-        sx?: SxProps;
-        handler: IItem[] | ((search: string, skip: number) => IItem[] | Promise<IItem[]>);
-        value?: IItem | null;
-        label?: React.ReactNode;
-        skipStep?: number;
-        onChange: (item: IItem | null) => void;
-        fallback?: (e: Error) => void;
-        onLoadStart?: () => void;
-        onLoadEnd?: (isOk: boolean) => void;
-        throwError?: boolean;
-    }
-    export const Search: ({ className, style, handler, variant, value: upperValue, label, onChange, onLoadStart, onLoadEnd, fallback, throwError, skipStep, sx, ...otherProps }: ISearchProps) => JSX.Element;
-    export default Search;
 }
 
 declare module 'react-declarative/components/Spinner/Spinner' {
@@ -8977,6 +8964,33 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
         size?: ButtonProps['size'];
     }
     export default IActionTriggerProps;
+}
+
+declare module 'react-declarative/components/SearchView/model/ISearchViewProps' {
+    import { SxProps } from "@mui/material";
+    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+    export interface ISearchViewProps {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        fullWidth?: boolean;
+        value?: ISearchItem | (() => ISearchItem | Promise<ISearchItem>);
+        type?: "date" | "email" | "number" | "search" | "tel" | "text" | "time" | "url" | "week";
+        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem[]) => (ISearchItem[] | Promise<ISearchItem[]>);
+        onChange?: (value: ISearchItem | null) => void;
+        onTextChange?: (value: string) => void;
+        disabled?: boolean;
+        label?: string;
+        placeholder?: string;
+        delay?: number;
+        limit?: number;
+        variant?: "standard" | "outlined" | "filled";
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (error: Error) => void;
+        throwError?: boolean;
+    }
+    export default ISearchViewProps;
 }
 
 declare module 'react-declarative/components/OutletView/model/IOutletViewProps' {

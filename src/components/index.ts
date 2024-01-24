@@ -23,6 +23,7 @@ export * from './ActionIcon';
 export * from './ActionToggle';
 export * from './ActionModal';
 export * from './SearchModal';
+export * from './SearchView';
 
 export * from './SizeProvider';
 export * from './ModalProvider';
@@ -66,7 +67,6 @@ export * from './TreeView';
 export * from './GridView';
 
 export * from './Grid';
-export * from './Search';
 export * from './Spinner';
 export * from './Async';
 export * from './Copy';

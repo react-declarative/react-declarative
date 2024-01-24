@@ -11,8 +11,6 @@ import {
   FadeView,
   ScaleView,
   Copy,
-  ITab,
-  useTabsHashstate,
   RecordView,
   ActionButton,
   ActionIcon,
@@ -29,7 +27,7 @@ import {
   useActionModal,
   FieldType,
   useMediaContext,
-  Search,
+  SearchView,
   Spinner,
   Countdown,
   CardView,
@@ -296,10 +294,6 @@ export const FadePage = () => {
     },
   });
 
-  const { tabsProps } = useTabsHashstate({
-    history,
-  });
-
   const notify = useSnack();
 
   const pickPrompt = usePrompt();
@@ -381,11 +375,12 @@ export const FadePage = () => {
           }}
         />
       </ScaleView>
-      <Search
-        handler={async (search: string, skip: number) => {
+      <SearchView
+        variant="outlined"
+        handler={async (search, limit, skip) => {
           console.log({ search, skip });
           await sleep(3_000);
-          return new Array(10).fill(0).map(() => {
+          return new Array(25).fill(0).map(() => {
             const item = uuid();
             return {
               label: item,
@@ -396,8 +391,6 @@ export const FadePage = () => {
         sx={{ m: 1 }}
         value={value}
         onChange={(v) => setValue(v)}
-        skipStep={10}
-        noCleanIcon
       />
       <ActionButton sx={{ m: 1 }} onClick={handleClick}>
         Action button

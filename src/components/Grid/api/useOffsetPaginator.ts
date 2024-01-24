@@ -112,6 +112,17 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     []
   );
 
+  const clear = useCallback(() => {
+    setInitialData$([]);
+    fetchData.cancel();
+    onSkip.clear();
+    setState({
+      data: [],
+      hasMore: true,
+      prevOffset: -limit,
+    });
+  }, []);
+
   return {
     data: state.current.data,
     setData,
@@ -121,6 +132,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     error,
     onSkip,
     reloadSubject,
+    clear,
   };
 };
 

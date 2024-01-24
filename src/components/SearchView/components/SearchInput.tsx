@@ -1,0 +1,120 @@
+import * as React from "react";
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { makeStyles } from "../../../styles";
+
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import ListSubheader from "@mui/material/ListSubheader";
+import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+
+import debounce from "../../../utils/hof/debounce";
+
+import TSubject from "../../../model/TSubject";
+import ISearchViewProps from "../model/ISearchViewProps";
+
+const useStyles = makeStyles()({
+  listHeader: {
+    background: "transparent",
+  },
+});
+
+interface ISearchInputProps {
+  type: Exclude<ISearchViewProps['type'], undefined>;
+  reloadSubject: TSubject<void>;
+  onTextChange: (value: string) => void;
+  loading: boolean;
+  getValue: () => string;
+}
+
+const SEARCH_DEBOUNCE = 1_500;
+
+export const SearchInput = ({
+  type,
+  getValue,
+  loading,
+  onTextChange,
+  reloadSubject,
+}: ISearchInputProps) => {
+  const { classes } = useStyles();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => reloadSubject.subscribe(() => {
+    const { current: input } = inputRef;
+    if (input) {
+      input.focus();
+      input.value = getValue();
+    }
+  }), []);
+
+  useEffect(() => {
+    const { current: input } = inputRef;
+    if (!loading && input) {
+      input.focus();
+      input.value = getValue();
+    }
+  }, [loading]);
+
+  const handleChangeSearch = useMemo(
+    () =>
+      debounce(
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+          onTextChange(e.target.value);
+        },
+        SEARCH_DEBOUNCE
+      ),
+    []
+  );
+
+  const handleKeySearch = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key !== "Escape") {
+        e.stopPropagation();
+      }
+    },
+    []
+  );
+
+  return (
+    <ListSubheader className={classes.listHeader}>
+      <TextField
+        inputRef={inputRef}
+        type={type}
+        variant="standard"
+        autoFocus
+        fullWidth
+        disabled={loading}
+        defaultValue={getValue}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                disabled={loading}
+                onClick={() => {
+                  onTextChange("");
+                }}
+              >
+                {loading ? <CircularProgress size={24} /> : <CloseIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        onChange={handleChangeSearch}
+        onKeyDown={handleKeySearch}
+        sx={{ mb: 1 }}
+      />
+    </ListSubheader>
+  );
+};
+
+export default SearchInput;
