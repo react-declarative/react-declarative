@@ -8,6 +8,7 @@ import VirtualView from "../../VirtualView";
 import MenuItem from "@mui/material/MenuItem";
 
 import ISearchItem from "../model/ISearchItem";
+import ISearchItemProps from "../model/ISearchItemProps";
 
 import { SEARCH_VIEW_ROOT } from "../config";
 
@@ -17,6 +18,7 @@ interface ISearchListProps {
   item: ISearchItem | null;
   loading: boolean;
   hasMore: boolean;
+  SearchItem: React.ComponentType<ISearchItemProps>;
   onItemChange: (item: ISearchItem) => void;
   onDataRequest: (initial: boolean) => void;
   onLoadStart?: () => void;
@@ -26,7 +28,7 @@ interface ISearchListProps {
   throwError?: boolean;
 }
 
-const ITEM_HEIGHT = 60;
+const ITEM_HEIGHT = 45;
 const ITEM_BUFFERSIZE = 25;
 const MAX_ITEMS_COUNT = 4;
 
@@ -50,6 +52,7 @@ export const SearchList = ({
   item,
   loading: upperLoading,
   hasMore,
+  SearchItem,
   onItemChange,
   onDataRequest,
   onCreate,
@@ -140,16 +143,13 @@ export const SearchList = ({
       {items
         .filter(({ value }) => value !== item?.value)
         .map((item) => (
-          <MenuItem
-            className={classes.item}
+          <SearchItem
             key={item.value}
+            data={item.data!}
+            label={item.label}
             value={item.value}
-            onClick={() => {
-              onItemChange(item);
-            }}
-          >
-            {item.label}
-          </MenuItem>
+            onClick={() => onItemChange(item)}
+          />
         ))}
       {renderCreate()}
     </VirtualView>

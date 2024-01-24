@@ -6939,14 +6939,16 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: ({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, throwError, ...otherProps }: ISearchViewProps) => JSX.Element;
+    export const SearchView: <T extends unknown = any>({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, throwError, ...otherProps }: ISearchViewProps<T>) => JSX.Element;
     export default SearchView;
 }
 
 declare module 'react-declarative/components/SearchView/model/ISearchItem' {
-    export interface ISearchItem {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ISearchItem<T extends IAnything = IAnything> {
         label: string;
         value: string;
+        data?: T;
     }
     export default ISearchItem;
 }
@@ -8970,7 +8972,9 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
     import { SxProps } from "@mui/material";
     import { TextFieldProps } from "@mui/material/TextField";
     import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
-    export type ISearchViewProps = Omit<TextFieldProps, keyof {
+    import IAnything from "react-declarative/model/IAnything";
+    import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
+    export type ISearchViewProps<T extends IAnything = IAnything> = Omit<TextFieldProps, keyof {
         value: never;
         onChange: never;
         className: never;
@@ -8985,10 +8989,11 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         style?: React.CSSProperties;
         sx?: SxProps;
         fullWidth?: boolean;
-        value?: ISearchItem | (() => ISearchItem | Promise<ISearchItem>);
+        SearchItem?: React.ComponentType<ISearchItemProps<T>>;
+        value?: ISearchItem<T> | (() => ISearchItem<T> | Promise<ISearchItem<T>>);
         type?: "date" | "email" | "number" | "search" | "tel" | "text" | "time" | "url" | "week";
-        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem[]) => ISearchItem[] | Promise<ISearchItem[]>;
-        onChange?: (value: ISearchItem | null) => void;
+        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem<T>[]) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
+        onChange?: (value: ISearchItem<T> | null) => void;
         onCreate?: (value: string) => void;
         onTextChange?: (value: string) => void;
         disabled?: boolean;
@@ -9538,6 +9543,18 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfigI
         setValue: (config: Partial<IConfig>) => void;
     }
     export default OneConfigInstance;
+}
+
+declare module 'react-declarative/components/SearchView/model/ISearchItemProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+    export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<ISearchItem, keyof {
+        data: never;
+    }> {
+        data: T;
+        onClick: () => void;
+    }
+    export default ISearchItemProps;
 }
 
 declare module 'react-declarative/components/FadeView/components/DefaultFade' {

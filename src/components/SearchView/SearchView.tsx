@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
 
+import SearchItemDefault from "./components/SearchItem";
 import SearchInput from "./components/SearchInput";
 import SearchList from "./components/SearchList";
 
@@ -19,6 +20,7 @@ import useChange from "../../hooks/useChange";
 import { useOffsetPaginator } from "../Grid";
 
 import ISearchItem from "./model/ISearchItem";
+import IAnything from "../../model/IAnything";
 import ISearchViewProps from "./model/ISearchViewProps";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -34,7 +36,7 @@ interface IState {
   value: string;
 }
 
-export const SearchView = ({
+export const SearchView = <T extends IAnything = IAnything>({
   className,
   style,
   sx,
@@ -52,9 +54,10 @@ export const SearchView = ({
   onLoadEnd,
   fallback,
   handler,
+  SearchItem = SearchItemDefault,
   throwError,
   ...otherProps
-}: ISearchViewProps) => {
+}: ISearchViewProps<T>) => {
   const reloadSubject = useSubject<void>();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -249,6 +252,7 @@ export const SearchView = ({
             onLoadEnd={onLoadEnd}
             fallback={fallback}
             throwError={throwError}
+            SearchItem={SearchItem}
             onItemChange={handleChangeItem}
             onCreate={
               onCreate

@@ -3,8 +3,10 @@ import { SxProps } from "@mui/material";
 import { TextFieldProps } from "@mui/material/TextField";
 
 import ISearchItem from "./ISearchItem";
+import IAnything from "../../../model/IAnything";
+import ISearchItemProps from "./ISearchItemProps";
 
-export type ISearchViewProps = Omit<
+export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
   TextFieldProps,
   keyof {
     value: never;
@@ -22,7 +24,8 @@ export type ISearchViewProps = Omit<
   style?: React.CSSProperties;
   sx?: SxProps;
   fullWidth?: boolean;
-  value?: ISearchItem | (() => ISearchItem | Promise<ISearchItem>);
+  SearchItem?: React.ComponentType<ISearchItemProps<T>>;
+  value?: ISearchItem<T> | (() => ISearchItem<T> | Promise<ISearchItem<T>>);
   type?:
     | "date"
     | "email"
@@ -38,9 +41,9 @@ export type ISearchViewProps = Omit<
     limit: number,
     offset: number,
     initial: boolean,
-    currentRows: ISearchItem[]
-  ) => ISearchItem[] | Promise<ISearchItem[]>;
-  onChange?: (value: ISearchItem | null) => void;
+    currentRows: ISearchItem<T>[]
+  ) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
+  onChange?: (value: ISearchItem<T> | null) => void;
   onCreate?: (value: string) => void;
   onTextChange?: (value: string) => void;
   disabled?: boolean;
