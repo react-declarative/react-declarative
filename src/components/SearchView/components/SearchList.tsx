@@ -9,6 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 import ISearchItem from "../model/ISearchItem";
 
+import { SEARCH_VIEW_ROOT } from "../config";
+
 interface ISearchListProps {
   value: string;
   items: ISearchItem[];
@@ -20,6 +22,7 @@ interface ISearchListProps {
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (error: Error) => void;
+  onCreate?: (value: string) => void;
   throwError?: boolean;
 }
 
@@ -49,6 +52,7 @@ export const SearchList = ({
   hasMore,
   onItemChange,
   onDataRequest,
+  onCreate,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -69,6 +73,44 @@ export const SearchList = ({
   }, []);
 
   const loading = upperLoading || !!currentLoading;
+
+  const renderLoader = useCallback(() => {
+    if (!loading && !!onCreate) {
+        return null;
+    }
+    if (!item && !items.length) {
+      return (
+        <MenuItem className={classes.item} disabled>
+          {loading ? "Loading" : "Nothing found"}
+        </MenuItem>
+      );
+    }
+    return null;
+  }, [item, items, loading, onCreate]);
+
+  const renderCreate = useCallback(() => {
+    if (!onCreate) {
+      return null;
+    }
+    if (item || items.length) {
+      return null;
+    }
+    if (loading) {
+      return null;
+    }
+    return (
+      <MenuItem
+        className={classes.item}
+        onClick={({ currentTarget }) => {
+          const root = currentTarget.closest(`.${SEARCH_VIEW_ROOT}`);
+          const input = root?.querySelector("input");
+          input && onCreate(input.value);
+        }}
+      >
+        Create item
+      </MenuItem>
+    );
+  }, [item, items, loading, onCreate]);
 
   return (
     <VirtualView
@@ -94,11 +136,7 @@ export const SearchList = ({
           {item.label}
         </MenuItem>
       )}
-      {!item && !items.length && (
-        <MenuItem className={classes.item} disabled>
-          {loading ? "Loading" : "Nothing found"}
-        </MenuItem>
-      )}
+      {renderLoader()}
       {items
         .filter(({ value }) => value !== item?.value)
         .map((item) => (
@@ -113,6 +151,7 @@ export const SearchList = ({
             {item.label}
           </MenuItem>
         ))}
+      {renderCreate()}
     </VirtualView>
   );
 };

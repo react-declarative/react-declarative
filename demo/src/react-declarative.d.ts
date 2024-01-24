@@ -6939,7 +6939,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: ({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onLoadStart, onLoadEnd, fallback, handler, throwError, ...otherProps }: ISearchViewProps) => JSX.Element;
+    export const SearchView: ({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, throwError, ...otherProps }: ISearchViewProps) => JSX.Element;
     export default SearchView;
 }
 
@@ -8989,6 +8989,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         type?: "date" | "email" | "number" | "search" | "tel" | "text" | "time" | "url" | "week";
         handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem[]) => ISearchItem[] | Promise<ISearchItem[]>;
         onChange?: (value: ISearchItem | null) => void;
+        onCreate?: (value: string) => void;
         onTextChange?: (value: string) => void;
         disabled?: boolean;
         label?: string;

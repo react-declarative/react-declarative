@@ -380,6 +380,7 @@ export const FadePage = () => {
         handler={async (search, limit, skip) => {
           console.log({ search, skip });
           await sleep(3_000);
+          // return []
           return new Array(25).fill(0).map(() => {
             const item = uuid();
             return {
@@ -391,6 +392,8 @@ export const FadePage = () => {
         sx={{ m: 1 }}
         value={value}
         onChange={(v) => setValue(v)}
+        onTextChange={console.log}
+        onCreate={alert}
       />
       <ActionButton sx={{ m: 1 }} onClick={handleClick}>
         Action button

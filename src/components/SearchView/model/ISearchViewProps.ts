@@ -41,6 +41,7 @@ export type ISearchViewProps = Omit<
     currentRows: ISearchItem[]
   ) => ISearchItem[] | Promise<ISearchItem[]>;
   onChange?: (value: ISearchItem | null) => void;
+  onCreate?: (value: string) => void;
   onTextChange?: (value: string) => void;
   disabled?: boolean;
   label?: string;

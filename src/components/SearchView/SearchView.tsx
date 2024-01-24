@@ -23,6 +23,8 @@ import ISearchViewProps from "./model/ISearchViewProps";
 
 import CloseIcon from "@mui/icons-material/Close";
 
+import { SEARCH_VIEW_ROOT } from "./config";
+
 const DEFAULT_DELAY = 500;
 const DEFAULT_LIMIT = 25;
 
@@ -45,6 +47,7 @@ export const SearchView = ({
   limit = DEFAULT_LIMIT,
   fullWidth,
   disabled,
+  onCreate,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -120,9 +123,7 @@ export const SearchView = ({
   });
 
   const data = useMemo(() => {
-    const valueSet = new Set<string>([
-        state.item?.value || ""
-    ]);
+    const valueSet = new Set<string>([state.item?.value || ""]);
     return rawData.filter((item) => {
       const result = !valueSet.has(item.value);
       valueSet.add(item.value);
@@ -221,6 +222,7 @@ export const SearchView = ({
         }}
       />
       <Popover
+        className={SEARCH_VIEW_ROOT}
         anchorEl={inputRef.current}
         open={state.open}
         onClose={() => {
@@ -248,6 +250,14 @@ export const SearchView = ({
             fallback={fallback}
             throwError={throwError}
             onItemChange={handleChangeItem}
+            onCreate={
+              onCreate
+                ? (value: string) => {
+                    onCreate(value);
+                    setOpen(false);
+                  }
+                : undefined
+            }
           />
         )}
       </Popover>
