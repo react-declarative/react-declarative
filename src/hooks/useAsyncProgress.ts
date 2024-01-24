@@ -66,7 +66,7 @@ export const useAsyncProgress = <
   const onError$ = useActualCallback(onError);
   const onFinish$ = useActualCallback(onFinish);
   const onProgress$ = useActualCallback(onProgress);
-  
+
   const onEnd$ = useActualCallback(onEnd);
   const onBegin$ = useActualCallback(onBegin);
 
@@ -97,48 +97,56 @@ export const useAsyncProgress = <
     []
   );
 
-  const { execute, loading } = useSinglerunAction(async (items: IProcess<Data>[]) => {
-    onBegin$();
-    setProgress(0);
-    setErrors([]);
-    let count = 0;
-    let isOk = true;
-    const result: (Result | null)[] = [];
-    for (const { label, data } of items) {
-      try {
-        result.push(
-          await process({
+  const { execute, loading } = useSinglerunAction(
+    async (items: IProcess<Data>[]) => {
+      onBegin$();
+      setProgress(0);
+      setErrors([]);
+
+      const execute = async (item: IProcess<Data>) => {
+        const [result] = await Promise.all([process(item), sleep(delay)]);
+        return result;
+      };
+
+      let count = 0;
+      let isOk = true;
+      const result: (Result | null)[] = [];
+      for (const { label, data } of items) {
+        try {
+          result.push(
+            await execute({
+              label,
+              data,
+            })
+          );
+        } catch (error) {
+          isOk = false;
+          result.push(null);
+          const e = {
             label,
-            data,
-          })
-        );
-        await sleep(delay);
-      } catch (error) {
-        isOk = false;
-        result.push(null);
-        const e = {
-          label,
-          message: getErrorMessage(error),
-          error: error as unknown as Error,
-        };
-        handleError(e);
-        onError$([...state$.current.errors, e]);
-      } finally {
-        const progress = getPercent(++count, items.length); 
-        setProgress(progress);
-        onProgress$(progress)
+            message: getErrorMessage(error),
+            error: error as unknown as Error,
+          };
+          handleError(e);
+          onError$([...state$.current.errors, e]);
+        } finally {
+          const progress = getPercent(++count, items.length);
+          setProgress(progress);
+          onProgress$(progress);
+        }
       }
+      onFinish$(
+        items.map(({ data }) => data),
+        state$.current.errors,
+        result
+      );
+      onEnd$(isOk);
+    },
+    {
+      ...otherParams,
+      throwError: true,
     }
-    onFinish$(
-      items.map(({ data }) => data),
-      state$.current.errors,
-      result
-    );
-    onEnd$(isOk);
-  }, {
-    ...otherParams,
-    throwError: true,
-  });
+  );
 
   return {
     execute: useCallback((items: IProcess<Data>[]) => {
