@@ -380,7 +380,9 @@ export const FadePage = () => {
         handler={async (search, limit, skip) => {
           console.log({ search, skip });
           await sleep(3_000);
-          // return []
+          if (search) {
+            return [];
+          }
           return new Array(25).fill(0).map(() => {
             const item = uuid();
             return {
