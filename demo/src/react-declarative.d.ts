@@ -13,6 +13,7 @@
 //   ../../@mui/material/styles
 //   ../../@mui/system
 //   ../../@mui/material/TextField
+//   ../../@mui/material/FormControl
 //   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
@@ -8052,14 +8053,18 @@ declare module 'react-declarative/components/Grid/model/TSort' {
 
 declare module 'react-declarative/components/Search/Search' {
     import * as React from "react";
-    import { BoxProps } from "@mui/material/Box";
+    import { SxProps } from "@mui/material";
+    import { FormControlProps } from "@mui/material/FormControl";
     interface IItem {
         value: string;
         label: string;
     }
-    interface ISearchProps extends Omit<BoxProps, keyof {
+    interface ISearchProps extends Omit<FormControlProps, keyof {
         onChange: never;
     }> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
         handler: IItem[] | ((search: string, skip: number) => IItem[] | Promise<IItem[]>);
         value?: IItem | null;
         label?: React.ReactNode;
@@ -8069,9 +8074,8 @@ declare module 'react-declarative/components/Search/Search' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
-        noCleanIcon?: boolean;
     }
-    export const Search: ({ className, handler, value: upperValue, label, onChange, onLoadStart, onLoadEnd, fallback, throwError, noCleanIcon, skipStep, sx, ...props }: ISearchProps) => JSX.Element;
+    export const Search: ({ className, style, handler, variant, value: upperValue, label, onChange, onLoadStart, onLoadEnd, fallback, throwError, skipStep, sx, ...otherProps }: ISearchProps) => JSX.Element;
     export default Search;
 }
 
