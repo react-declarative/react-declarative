@@ -143,13 +143,14 @@ export const SearchList = ({
       {items
         .filter(({ value }) => value !== item?.value)
         .map((item) => (
-          <SearchItem
-            key={item.value}
-            data={item.data!}
-            label={item.label}
-            value={item.value}
-            onClick={() => onItemChange(item)}
-          />
+          <div key={item.value}>
+            <SearchItem
+              data={item.data!}
+              label={item.label}
+              value={item.value}
+              onClick={() => onItemChange(item)}
+            />
+          </div>
         ))}
       {renderCreate()}
     </VirtualView>
