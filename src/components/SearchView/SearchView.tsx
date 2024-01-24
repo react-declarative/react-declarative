@@ -2,11 +2,9 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
-import Input from "@mui/material/Input";
 
 import SearchInput from "./components/SearchInput";
 import SearchList from "./components/SearchList";
@@ -39,9 +37,7 @@ export const SearchView = ({
   style,
   sx,
   type = "text",
-  label = "",
   variant = "standard",
-  placeholder = "Search",
   value,
   onChange = () => undefined,
   onTextChange = () => undefined,
@@ -54,6 +50,7 @@ export const SearchView = ({
   fallback,
   handler,
   throwError,
+  ...otherProps
 }: ISearchViewProps) => {
   const reloadSubject = useSubject<void>();
 
@@ -123,13 +120,15 @@ export const SearchView = ({
   });
 
   const data = useMemo(() => {
-    const valueSet = new Set<string>();
+    const valueSet = new Set<string>([
+        state.item?.value || ""
+    ]);
     return rawData.filter((item) => {
       const result = !valueSet.has(item.value);
       valueSet.add(item.value);
       return result;
     });
-  }, [rawData]);
+  }, [rawData, state.item]);
 
   useChange(() => {
     if (initComplete$.current) {
@@ -188,47 +187,45 @@ export const SearchView = ({
   const getValue = useActualCallback(() => state.item?.label || state.value);
 
   return (
-    <FormControl
-      fullWidth={fullWidth}
-      variant={variant}
-      className={className}
-      style={style}
-      sx={sx}
-    >
-      {label && <InputLabel>{label}</InputLabel>}
-      <Input
+    <>
+      <TextField
+        {...otherProps}
+        className={className}
+        style={style}
+        sx={sx}
         ref={inputRef}
-        readOnly
         onClick={() => setOpen(true)}
         value={state.item?.label || state.value}
-        placeholder={placeholder}
         disabled={disabled || !initComplete$.current}
-        endAdornment={
-          <InputAdornment
-            sx={{
-              display: state.item ? undefined : "none",
-            }}
-            position="end"
-          >
-            <IconButton
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClear();
+        InputProps={{
+          readOnly: true,
+          endAdornment: (
+            <InputAdornment
+              sx={{
+                display: state.item ? undefined : "none",
               }}
-              edge="end"
+              position="end"
             >
-              <CloseIcon />
-            </IconButton>
-          </InputAdornment>
-        }
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClear();
+                }}
+                edge="end"
+              >
+                <CloseIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <Popover
         anchorEl={inputRef.current}
         open={state.open}
         onClose={() => {
-            clear();
-            setOpen(false);
+          clear();
+          setOpen(false);
         }}
       >
         <SearchInput
@@ -254,7 +251,7 @@ export const SearchView = ({
           />
         )}
       </Popover>
-    </FormControl>
+    </>
   );
 };
 

@@ -1,7 +1,23 @@
 import { SxProps } from "@mui/material";
+
+import { TextFieldProps } from "@mui/material/TextField";
+
 import ISearchItem from "./ISearchItem";
 
-export interface ISearchViewProps {
+export type ISearchViewProps = Omit<
+  TextFieldProps,
+  keyof {
+    value: never;
+    onChange: never;
+    className: never;
+    style: never;
+    sx: never;
+    ref: never;
+    onClick: never;
+    disabled: never;
+    InputProps: never;
+  }
+> & {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
@@ -23,7 +39,7 @@ export interface ISearchViewProps {
     offset: number,
     initial: boolean,
     currentRows: ISearchItem[]
-  ) => (ISearchItem[] | Promise<ISearchItem[]>);
+  ) => ISearchItem[] | Promise<ISearchItem[]>;
   onChange?: (value: ISearchItem | null) => void;
   onTextChange?: (value: string) => void;
   disabled?: boolean;
@@ -36,6 +52,6 @@ export interface ISearchViewProps {
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (error: Error) => void;
   throwError?: boolean;
-}
+};
 
 export default ISearchViewProps;

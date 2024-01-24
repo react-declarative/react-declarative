@@ -6939,7 +6939,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: ({ className, style, sx, type, label, variant, placeholder, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onLoadStart, onLoadEnd, fallback, handler, throwError, }: ISearchViewProps) => JSX.Element;
+    export const SearchView: ({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onLoadStart, onLoadEnd, fallback, handler, throwError, ...otherProps }: ISearchViewProps) => JSX.Element;
     export default SearchView;
 }
 
@@ -8968,15 +8968,26 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
 
 declare module 'react-declarative/components/SearchView/model/ISearchViewProps' {
     import { SxProps } from "@mui/material";
+    import { TextFieldProps } from "@mui/material/TextField";
     import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
-    export interface ISearchViewProps {
+    export type ISearchViewProps = Omit<TextFieldProps, keyof {
+        value: never;
+        onChange: never;
+        className: never;
+        style: never;
+        sx: never;
+        ref: never;
+        onClick: never;
+        disabled: never;
+        InputProps: never;
+    }> & {
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
         fullWidth?: boolean;
         value?: ISearchItem | (() => ISearchItem | Promise<ISearchItem>);
         type?: "date" | "email" | "number" | "search" | "tel" | "text" | "time" | "url" | "week";
-        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem[]) => (ISearchItem[] | Promise<ISearchItem[]>);
+        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem[]) => ISearchItem[] | Promise<ISearchItem[]>;
         onChange?: (value: ISearchItem | null) => void;
         onTextChange?: (value: string) => void;
         disabled?: boolean;
@@ -8989,7 +9000,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (error: Error) => void;
         throwError?: boolean;
-    }
+    };
     export default ISearchViewProps;
 }
 
