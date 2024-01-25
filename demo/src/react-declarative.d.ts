@@ -1074,10 +1074,19 @@ declare module 'react-declarative/model/IField' {
                 */
             dictValue?: (value: string, data: Data, payload: Payload) => (ISearchItem | Promise<ISearchItem>);
             /**
+                * Функция позволяет загрузить searchText для выбранного элемента асинхронно
+                */
+            dictSearchText?: (data: Data, payload: Payload) => (string | Promise<string>);
+            /**
                 * Функция позволяет переопределить компонент элемента списка
                 * из модалки
                 */
             dictSearchItem?: ISearchViewProps['SearchItem'];
+            /**
+                * Функция позволяет переопределить компонент создание записи
+                * в словарь из модалки
+                */
+            dictCreateButton?: ISearchViewProps['CreateButton'];
             /**
                 * Позволяет выключить отступ. Можно использовать по аналогии
                 * с исключением последней запятой при склеивании массива
@@ -4736,7 +4745,9 @@ declare module 'react-declarative/components/One/fields/DictField' {
         dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
         dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
         dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
+        dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
         dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
+        dictCreateButton?: PickProp<IField<Data, Payload>, "dictCreateButton">;
         inputType?: PickProp<IField<Data, Payload>, "inputType">;
         inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
         inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
@@ -4761,7 +4772,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const DictField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictValue, dictSearchItem, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4818,7 +4829,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
     import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
     import IAnything from "react-declarative/model/IAnything";
     import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
-    export type ISearchViewProps<T extends IAnything = IAnything> = Omit<TextFieldProps, keyof {
+    export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<TextFieldProps, keyof {
         value: never;
         onChange: never;
         className: never;
@@ -4834,8 +4845,11 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         style?: React.CSSProperties;
         sx?: SxProps;
         fullWidth?: boolean;
-        SearchItem?: React.ComponentType<ISearchItemProps<T>>;
-        value?: ISearchItem<T> | null | (() => null | ISearchItem<T> | Promise<null | ISearchItem<T>>);
+        SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
+        CreateButton?: React.ComponentType<{}>;
+        payload?: Payload | (() => Payload);
+        value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
+        searchText?: string | null | (() => null | string | Promise<null | string>);
         type?: keyof {
             date: string;
             email: string;
@@ -4858,8 +4872,8 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
             search: never;
         };
         pattern?: string;
-        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem<T>[]) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
-        onChange?: (value: ISearchItem<T> | null) => void;
+        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem<Data>[]) => ISearchItem<Data>[] | Promise<ISearchItem<Data>[]>;
+        onChange?: (value: ISearchItem<Data> | null) => void;
         onCreate?: (value: string) => void;
         onTextChange?: (value: string) => void;
         disabled?: boolean;
@@ -6102,6 +6116,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchItemProps' 
     export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<ISearchItem, keyof {
         data: never;
     }> {
+        payload: IAnything;
         data: T;
         onClick: () => void;
     }
@@ -6271,7 +6286,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
-        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictSearch, dictValue, dictAppend, dictSearchItem, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictSearch, dictValue, dictSearchText, dictAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -7121,7 +7136,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: <T extends unknown = any>({ className, style, sx, type, mode, variant, pattern, value, onChange, onTextChange, delay, limit, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, throwError, ...otherProps }: ISearchViewProps<T>) => JSX.Element;
+    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, searchText, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
 }
 

@@ -25,6 +25,7 @@ const DEFAULT_SEARCH = () => {
     "react-declarative DictField dictSearch callback is not provided"
   );
 };
+const DEFAULT_SEARCHTEXT = () => "";
 
 export const Dict = ({
   invalid,
@@ -50,6 +51,7 @@ export const Dict = ({
   dictOnText = DEFAULT_ONTEXT,
   dictSearch = DEFAULT_SEARCH,
   dictValue = DEFAULT_VALUE,
+  dictSearchText = DEFAULT_SEARCHTEXT,
   dictAppend,
   dictSearchItem,
   dictCreateButton,
@@ -110,6 +112,9 @@ export const Dict = ({
           return await dictValue(value, object$.current, payload);
         }
         return null;
+      }}
+      searchText={async () => {
+        return await dictSearchText(object$.current, payload);
       }}
       placeholder={placeholder}
       onChange={(item) => onChange(item?.value || null)}

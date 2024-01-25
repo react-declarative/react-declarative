@@ -498,6 +498,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     dictValue?: (value: string, data: Data, payload: Payload) => (ISearchItem | Promise<ISearchItem>);
 
     /**
+     * Функция позволяет загрузить searchText для выбранного элемента асинхронно
+     */
+    dictSearchText?: (data: Data, payload: Payload) => (string | Promise<string>);
+
+    /**
      * Функция позволяет переопределить компонент элемента списка
      * из модалки
      */

@@ -47,6 +47,7 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
   variant = "standard",
   pattern,
   value,
+  searchText,
   onChange = () => undefined,
   onTextChange = () => undefined,
   delay = DEFAULT_DELAY,
@@ -84,23 +85,30 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
   const onChange$ = useActualCallback(onChange);
   const onTextChange$ = useActualCallback(onTextChange);
 
-  const setItem = useCallback(
-    (item: ISearchItem | null) =>
-      setState((prevState) => ({
-        ...prevState,
-        item,
-      })),
-    []
-  );
-
   const { execute } = useAsyncAction(
     async () => {
-      if (typeof value === "function") {
-        const item = await value();
-        setItem(item);
-      } else if (value) {
-        setItem(value);
+      const state: IState = {
+        value: "",
+        item: null,
+        open: false,
+      };
+      if (value) {
+        if (typeof value === "function") {
+          const item = await value();
+          Object.assign(state, { item });
+        } else if (value) {
+          Object.assign(state, { item: value });
+        }
       }
+      if (searchText) {
+        if (typeof searchText === "function") {
+          const value = await searchText();
+          Object.assign(state, { value });
+        } else if (searchText) {
+          Object.assign(state, { value: searchText });
+        }
+      }
+      setState(state);
       setInitComplete(true);
     },
     {

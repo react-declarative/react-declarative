@@ -6,7 +6,10 @@ import ISearchItem from "./ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 
-export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<
+export type ISearchViewProps<
+  Data extends IAnything = IAnything,
+  Payload = IAnything
+> = Omit<
   TextFieldProps,
   keyof {
     value: never;
@@ -28,7 +31,11 @@ export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnyt
   SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
   CreateButton?: React.ComponentType<{}>;
   payload?: Payload | (() => Payload);
-  value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
+  value?:
+    | ISearchItem<Data>
+    | null
+    | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
+  searchText?: string | null | (() => null | string | Promise<null | string>);
   type?: keyof {
     date: string;
     email: string;
