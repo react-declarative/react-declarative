@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SxProps } from '@mui/material';
 
 import type ComponentFieldInstance from './ComponentFieldInstance';
 
@@ -6,7 +7,8 @@ import { ISizeCallback } from './ISize';
 
 import FieldType from './FieldType';
 import IAnything from './IAnything';
-import { SxProps } from '@mui/material';
+import ISearchItem from '../components/SearchView/model/ISearchItem';
+import ISearchViewProps from '../components/SearchView/model/ISearchViewProps';
 
 export type Value = string | string[] | number | boolean | null;
 
@@ -452,6 +454,60 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Значение по-умолчанию для поля
      */
     defaultValue?: Value | ((payload: Payload) => Value);
+
+    /**
+     * Позволяет задать limit для поля справочника
+     */
+    dictLimit?: number;
+
+    /**
+     * Позволяет задать задержку для api запросов поля справочника
+     */
+    dictDelay?: number;
+  
+    /**
+     * Обработчик запроса справочника. Если число объектов
+     * меньше dictLimit, подразумевается, что все данные выгружены
+     * на фронт и новые запросы не выполняются
+     */
+    dictSearch: (dto: {
+      search: string;
+      limit: number;
+      offset: number;
+      initial: boolean;
+      rows: ISearchItem[];
+      data: Data;
+      payload: Payload;
+    }) => ISearchItem[];
+
+    /**
+     * Поле справочника позволяет создавать новые записи, если
+     * поиск не дал результата
+     */
+    dictAppend: (search: string, data: Data, payload: Payload) => void;
+
+    /**
+     * Функция вызывается на каждое изменение текста. Подразумевается
+     * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
+     */
+    dictOnText: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+
+    /**
+     * Функция вызывается на выбор элемента кликом из модалки. Подразумевается
+     * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
+     */
+    dictOnItem: (value: string | null, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+
+    /**
+     * Функция позволяет загрузить label для выбранного элемента асинхронно
+     */
+    dictValue: (value: string, data: Data, payload: Payload) => (ISearchItem | Promise<ISearchItem>);
+
+    /**
+     * Функция позволяет переопределить компонент элемента списка
+     * из модалки
+     */
+    dictSearchItem: ISearchViewProps['SearchItem'];
 
     /**
      * Позволяет выключить отступ. Можно использовать по аналогии
