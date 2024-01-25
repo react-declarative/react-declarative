@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
 
 import SearchItemDefault from "./components/SearchItem";
+import CreateButtonDefault from "./components/CreateButton";
 import SearchInput from "./components/SearchInput";
 import SearchList from "./components/SearchList";
 
@@ -26,6 +27,7 @@ import ISearchViewProps from "./model/ISearchViewProps";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { SEARCH_VIEW_ROOT } from "./config";
+import useSingleton from "../../hooks/useSingleton";
 
 const DEFAULT_DELAY = 500;
 const DEFAULT_LIMIT = 25;
@@ -36,17 +38,22 @@ interface IState {
   value: string;
 }
 
-export const SearchView = <T extends IAnything = IAnything>({
+export const SearchView = <Data extends IAnything = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
   type = "text",
+  mode = "text",
   variant = "standard",
+  pattern,
   value,
+  searchText,
   onChange = () => undefined,
   onTextChange = () => undefined,
   delay = DEFAULT_DELAY,
   limit = DEFAULT_LIMIT,
+  payload: upperPayload = {} as Payload,
+  autoComplete,
   fullWidth,
   disabled,
   onCreate,
@@ -55,12 +62,15 @@ export const SearchView = <T extends IAnything = IAnything>({
   fallback,
   handler,
   SearchItem = SearchItemDefault,
+  CreateButton = CreateButtonDefault,
   throwError,
   ...otherProps
-}: ISearchViewProps<T>) => {
+}: ISearchViewProps<Data, Payload>) => {
   const reloadSubject = useSubject<void>();
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const payload = useSingleton(upperPayload);
 
   const [initComplete$, setInitComplete] = useActualState(false);
 
@@ -75,23 +85,30 @@ export const SearchView = <T extends IAnything = IAnything>({
   const onChange$ = useActualCallback(onChange);
   const onTextChange$ = useActualCallback(onTextChange);
 
-  const setItem = useCallback(
-    (item: ISearchItem) =>
-      setState((prevState) => ({
-        ...prevState,
-        item,
-      })),
-    []
-  );
-
   const { execute } = useAsyncAction(
     async () => {
-      if (typeof value === "function") {
-        const item = await value();
-        setItem(item);
-      } else if (value) {
-        setItem(value);
+      const state: IState = {
+        value: "",
+        item: null,
+        open: false,
+      };
+      if (value) {
+        if (typeof value === "function") {
+          const item = await value();
+          Object.assign(state, { item });
+        } else if (value) {
+          Object.assign(state, { item: value });
+        }
       }
+      if (searchText) {
+        if (typeof searchText === "function") {
+          const value = await searchText();
+          Object.assign(state, { value });
+        } else if (searchText) {
+          Object.assign(state, { value: searchText });
+        }
+      }
+      setState(state);
       setInitComplete(true);
     },
     {
@@ -197,11 +214,17 @@ export const SearchView = <T extends IAnything = IAnything>({
         className={className}
         style={style}
         sx={sx}
+        autoComplete={autoComplete}
+        type={type}
         ref={inputRef}
         onClick={() => setOpen(true)}
         value={state.item?.label || state.value}
         disabled={disabled || !initComplete$.current}
+        inputProps={{
+          pattern,
+        }}
         InputProps={{
+          inputMode: mode,
           readOnly: true,
           endAdornment: (
             <InputAdornment
@@ -235,6 +258,9 @@ export const SearchView = <T extends IAnything = IAnything>({
       >
         <SearchInput
           type={type}
+          mode={mode}
+          pattern={pattern}
+          autoComplete={autoComplete}
           reloadSubject={reloadSubject}
           loading={loading}
           getValue={getValue}
@@ -244,6 +270,7 @@ export const SearchView = <T extends IAnything = IAnything>({
           <SearchList
             items={data}
             value={state.value}
+            payload={payload}
             item={state.item}
             hasMore={hasMore}
             loading={loading}
@@ -253,6 +280,7 @@ export const SearchView = <T extends IAnything = IAnything>({
             fallback={fallback}
             throwError={throwError}
             SearchItem={SearchItem}
+            CreateButton={CreateButton}
             onItemChange={handleChangeItem}
             onCreate={
               onCreate

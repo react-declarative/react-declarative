@@ -8,6 +8,7 @@ import VirtualView from "../../VirtualView";
 import MenuItem from "@mui/material/MenuItem";
 
 import ISearchItem from "../model/ISearchItem";
+import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "../model/ISearchItemProps";
 
 import { SEARCH_VIEW_ROOT } from "../config";
@@ -18,7 +19,9 @@ interface ISearchListProps {
   item: ISearchItem | null;
   loading: boolean;
   hasMore: boolean;
+  payload: IAnything;
   SearchItem: React.ComponentType<ISearchItemProps>;
+  CreateButton: React.ComponentType<{}>;
   onItemChange: (item: ISearchItem) => void;
   onDataRequest: (initial: boolean) => void;
   onLoadStart?: () => void;
@@ -50,9 +53,11 @@ export const SearchList = ({
   value,
   items,
   item,
+  payload,
   loading: upperLoading,
   hasMore,
   SearchItem,
+  CreateButton,
   onItemChange,
   onDataRequest,
   onCreate,
@@ -79,7 +84,7 @@ export const SearchList = ({
 
   const renderLoader = useCallback(() => {
     if (!loading && !!onCreate) {
-        return null;
+      return null;
     }
     if (!item && !items.length) {
       return (
@@ -102,16 +107,15 @@ export const SearchList = ({
       return null;
     }
     return (
-      <MenuItem
-        className={classes.item}
+      <div
         onClick={({ currentTarget }) => {
           const root = currentTarget.closest(`.${SEARCH_VIEW_ROOT}`);
           const input = root?.querySelector("input");
           input && onCreate(input.value);
         }}
       >
-        Create item
-      </MenuItem>
+        <CreateButton />
+      </div>
     );
   }, [item, items, loading, onCreate]);
 
@@ -145,6 +149,7 @@ export const SearchList = ({
         .map((item) => (
           <div key={item.value}>
             <SearchItem
+              payload={payload}
               data={item.data!}
               label={item.label}
               value={item.value}

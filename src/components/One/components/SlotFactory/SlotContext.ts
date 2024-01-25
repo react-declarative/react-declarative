@@ -17,6 +17,7 @@ import File from './components/File';
 import Choose from './components/Choose';
 import Complete from './components/Complete';
 import YesNo from './components/YesNo';
+import Dict from './components/Dict';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
@@ -38,6 +39,7 @@ export const defaultSlots = {
     Choose,
     Complete,
     YesNo,
+    Dict,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);

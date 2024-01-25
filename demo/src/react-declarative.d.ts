@@ -4,6 +4,7 @@
 //   ../../react
 //   ../../@mui/material
 //   ../../history
+//   ../../@mui/material/TextField
 //   ../../@mui/material/Box
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
@@ -12,7 +13,6 @@
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
 //   ../../@mui/system
-//   ../../@mui/material/TextField
 //   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
@@ -598,6 +598,7 @@ declare module 'react-declarative/model/TypedField' {
     import { IChooseFieldProps } from 'react-declarative/components/One/fields/ChooseField';
     import { IYesNoFieldProps } from 'react-declarative/components/One/fields/YesNoField';
     import { IInitFieldProps } from 'react-declarative/components/One/fields/InitField';
+    import { IDictFieldProps } from 'react-declarative/components/One/fields/DictField';
     type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
     type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
             [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
@@ -633,6 +634,7 @@ declare module 'react-declarative/model/TypedField' {
     type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
     type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
     type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
+    type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Dict, IDictFieldProps, Data, Payload>;
     type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
     type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
     type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
@@ -641,7 +643,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends YesNo<Data, Payload> ? YesNo<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends YesNo<Data, Payload> ? YesNo<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : Target extends Dict<Data, Payload> ? Dict<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -657,11 +659,13 @@ declare module 'react-declarative/model/TypedField' {
 
 declare module 'react-declarative/model/IField' {
     import * as React from 'react';
+    import { SxProps } from '@mui/material';
     import type ComponentFieldInstance from 'react-declarative/model/ComponentFieldInstance';
     import { ISizeCallback } from 'react-declarative/model/ISize';
     import FieldType from 'react-declarative/model/FieldType';
     import IAnything from 'react-declarative/model/IAnything';
-    import { SxProps } from '@mui/material';
+    import ISearchItem from 'react-declarative/components/SearchView/model/ISearchItem';
+    import ISearchViewProps from 'react-declarative/components/SearchView/model/ISearchViewProps';
     export type Value = string | string[] | number | boolean | null;
     /**
         * Объект поля для прикладного программиста
@@ -1033,6 +1037,56 @@ declare module 'react-declarative/model/IField' {
                 * Значение по-умолчанию для поля
                 */
             defaultValue?: Value | ((payload: Payload) => Value);
+            /**
+                * Позволяет задать limit для поля справочника
+                */
+            dictLimit?: number;
+            /**
+                * Позволяет задать задержку для api запросов поля справочника
+                */
+            dictDelay?: number;
+            /**
+                * Обработчик запроса справочника. Если число объектов
+                * меньше dictLimit, подразумевается, что все данные выгружены
+                * на фронт и новые запросы не выполняются
+                */
+            dictSearch?: (dto: {
+                    search: string;
+                    limit: number;
+                    offset: number;
+                    initial: boolean;
+                    rows: ISearchItem[];
+                    data: Data;
+                    payload: Payload;
+            }) => ISearchItem[];
+            /**
+                * Поле справочника позволяет создавать новые записи, если
+                * поиск не дал результата
+                */
+            dictAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+            /**
+                * Функция вызывается на каждое изменение текста. Подразумевается
+                * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
+                */
+            dictOnText?: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+            /**
+                * Функция позволяет загрузить label для выбранного элемента асинхронно
+                */
+            dictValue?: (value: string, data: Data, payload: Payload) => (ISearchItem | Promise<ISearchItem>);
+            /**
+                * Функция позволяет загрузить searchText для выбранного элемента асинхронно
+                */
+            dictSearchText?: (data: Data, payload: Payload) => (string | Promise<string>);
+            /**
+                * Функция позволяет переопределить компонент элемента списка
+                * из модалки
+                */
+            dictSearchItem?: ISearchViewProps['SearchItem'];
+            /**
+                * Функция позволяет переопределить компонент создание записи
+                * в словарь из модалки
+                */
+            dictCreateButton?: ISearchViewProps['CreateButton'];
             /**
                 * Позволяет выключить отступ. Можно использовать по аналогии
                 * с исключением последней запятой при склеивании массива
@@ -1434,6 +1488,7 @@ declare module 'react-declarative/model/FieldType' {
         Slider = "slider-field",
         Combo = "combo-field",
         Choose = "choose-field",
+        Dict = "dict-field",
         Init = "init-field",
         Complete = "complete-field",
         Items = "items-field",
@@ -1680,6 +1735,7 @@ declare module 'react-declarative/model/IListProps' {
         features?: IOnePublicProps<FilterData>['features'];
         heightRequest?: (height: number) => number;
         widthRequest?: (width: number) => number;
+        onRows?: (rows: RowData[]) => void;
         onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
         onFilterChange?: (data: FilterData) => void;
         onChipsChange?: (data: ListHandlerChips<RowData>) => void;
@@ -4678,6 +4734,54 @@ declare module 'react-declarative/components/One/fields/InitField' {
     export default InitField;
 }
 
+declare module 'react-declarative/components/One/fields/DictField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
+        dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
+        dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
+        dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
+        dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
+        dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
+        dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
+        dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
+        dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
+        dictCreateButton?: PickProp<IField<Data, Payload>, "dictCreateButton">;
+        inputType?: PickProp<IField<Data, Payload>, "inputType">;
+        inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
+        inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+        description?: PickProp<IField<Data, Payload>, "description">;
+        outlined?: PickProp<IField<Data, Payload>, "outlined">;
+        title?: PickProp<IField<Data, Payload>, "title">;
+        placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+        readonly?: PickProp<IField<Data, Payload>, "readonly">;
+        disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+        inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+    }
+    export interface IDictFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
+        incorrect: PickProp<IManaged<Data>, "incorrect">;
+        value: PickProp<IManaged<Data>, "value">;
+        loading: PickProp<IManaged<Data>, "loading">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        name: PickProp<IManaged<Data>, "name">;
+    }
+    export const DictField: {
+        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
+        displayName: string;
+    };
+    const _default: {
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled, isVisible, isInvalid, isIncorrect, isReadonly, change, fallback, ready, compute: upperCompute, shouldRecompute, map, object: upperObject, name, title, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, groupRef: ref, fieldRightMargin, fieldBottomMargin, outlinePaper, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
+        displayName: string;
+    };
+    export default _default;
+}
+
 declare module 'react-declarative/model/ComponentFieldInstance' {
     import type IField from "react-declarative/model/IField";
     export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
@@ -4707,6 +4811,83 @@ declare module 'react-declarative/model/ISize' {
     }
     export type ISizeCallback<Data = IAnything> = (data: Data, size: ISize, ref: HTMLDivElement) => string;
     export default ISize;
+}
+
+declare module 'react-declarative/components/SearchView/model/ISearchItem' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ISearchItem<T extends IAnything = IAnything> {
+        label: string;
+        value: string;
+        data?: T;
+    }
+    export default ISearchItem;
+}
+
+declare module 'react-declarative/components/SearchView/model/ISearchViewProps' {
+    import { SxProps } from "@mui/material";
+    import { TextFieldProps } from "@mui/material/TextField";
+    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+    import IAnything from "react-declarative/model/IAnything";
+    import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
+    export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<TextFieldProps, keyof {
+        value: never;
+        onChange: never;
+        className: never;
+        style: never;
+        sx: never;
+        ref: never;
+        onClick: never;
+        disabled: never;
+        InputProps: never;
+        inputProps: never;
+    }> & {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        fullWidth?: boolean;
+        SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
+        CreateButton?: React.ComponentType<{}>;
+        payload?: Payload | (() => Payload);
+        value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
+        searchText?: string | null | (() => null | string | Promise<null | string>);
+        type?: keyof {
+            date: string;
+            email: string;
+            number: string;
+            search: never;
+            tel: never;
+            text: never;
+            time: never;
+            url: never;
+            week: never;
+        };
+        mode?: keyof {
+            none: never;
+            text: never;
+            tel: never;
+            url: never;
+            email: never;
+            numeric: never;
+            decimal: never;
+            search: never;
+        };
+        pattern?: string;
+        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem<Data>[]) => ISearchItem<Data>[] | Promise<ISearchItem<Data>[]>;
+        onChange?: (value: ISearchItem<Data> | null) => void;
+        onCreate?: (value: string) => void;
+        onTextChange?: (value: string) => void;
+        disabled?: boolean;
+        label?: string;
+        placeholder?: string;
+        delay?: number;
+        limit?: number;
+        variant?: "standard" | "outlined" | "filled";
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (error: Error) => void;
+        throwError?: boolean;
+    };
+    export default ISearchViewProps;
 }
 
 declare module 'react-declarative/components/List/api/useLastPagination' {
@@ -5929,6 +6110,19 @@ declare module 'react-declarative/components/common/Expansion' {
     export { default } from 'react-declarative/components/common/Expansion/Expansion';
 }
 
+declare module 'react-declarative/components/SearchView/model/ISearchItemProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+    export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<ISearchItem, keyof {
+        data: never;
+    }> {
+        payload: IAnything;
+        data: T;
+        onClick: () => void;
+    }
+    export default ISearchItemProps;
+}
+
 declare module 'react-declarative/components/List/slots/ActionAddSlot' {
     export * from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
     export * from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
@@ -6092,6 +6286,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictSearch, dictValue, dictSearchText, dictAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -6116,6 +6311,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
     import { IChooseSlot } from 'react-declarative/components/One/slots/ChooseSlot';
     import { ICompleteSlot } from 'react-declarative/components/One/slots/CompleteSlot';
     import { IYesNoSlot } from 'react-declarative/components/One/slots/YesNoSlot';
+    import { IDictSlot } from 'react-declarative/components/One/slots/DictSlot';
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
@@ -6134,6 +6330,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
         File: ComponentType<IFileSlot>;
         Choose: ComponentType<IChooseSlot>;
         Complete: ComponentType<ICompleteSlot>;
+        Dict: ComponentType<IDictSlot>;
     }
     export default ISlotFactoryContext;
 }
@@ -6939,18 +7136,8 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: <T extends unknown = any>({ className, style, sx, type, variant, value, onChange, onTextChange, delay, limit, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, throwError, ...otherProps }: ISearchViewProps<T>) => JSX.Element;
+    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, searchText, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
-}
-
-declare module 'react-declarative/components/SearchView/model/ISearchItem' {
-    import IAnything from "react-declarative/model/IAnything";
-    export interface ISearchItem<T extends IAnything = IAnything> {
-        label: string;
-        value: string;
-        data?: T;
-    }
-    export default ISearchItem;
 }
 
 declare module 'react-declarative/components/ConstraintView/ConstraintView' {
@@ -7111,7 +7298,7 @@ declare module 'react-declarative/components/PaperView/PaperView' {
     }> {
         outlinePaper?: boolean;
     }
-    export const PaperView: React.ForwardRefExoticComponent<Pick<IPaperViewProps, "key" | "color" | "translate" | "defaultValue" | "hidden" | "inputMode" | "tabIndex" | "outlinePaper" | "className" | "style" | "title" | "placeholder" | "sx" | "prefix" | "children" | "classes" | "elevation" | "square" | "variant" | "slot" | "defaultChecked" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "id" | "lang" | "spellCheck" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChange" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClick" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture"> & React.RefAttributes<HTMLDivElement>>;
+    export const PaperView: React.ForwardRefExoticComponent<Pick<IPaperViewProps, "key" | "onChange" | "className" | "style" | "sx" | "onClick" | "classes" | "children" | "color" | "variant" | "slot" | "title" | "defaultChecked" | "defaultValue" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "hidden" | "id" | "lang" | "placeholder" | "spellCheck" | "tabIndex" | "translate" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "prefix" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "inputMode" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture" | "outlinePaper" | "elevation" | "square"> & React.RefAttributes<HTMLDivElement>>;
     export default PaperView;
 }
 
@@ -8877,6 +9064,12 @@ declare module 'react-declarative/components/One/slots/YesNoSlot' {
     export { default } from 'react-declarative/components/One/slots/YesNoSlot/YesNoSlot';
 }
 
+declare module 'react-declarative/components/One/slots/DictSlot' {
+    export * from 'react-declarative/components/One/slots/DictSlot/IDictSlot';
+    export * from 'react-declarative/components/One/slots/DictSlot/DictSlot';
+    export { default } from 'react-declarative/components/One/slots/DictSlot/DictSlot';
+}
+
 declare module 'react-declarative/components/One/slots/FileSlot' {
     export * from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export * from 'react-declarative/components/One/slots/FileSlot/FileSlot';
@@ -8966,48 +9159,6 @@ declare module 'react-declarative/components/ActionTrigger/model/IActionTriggerP
         size?: ButtonProps['size'];
     }
     export default IActionTriggerProps;
-}
-
-declare module 'react-declarative/components/SearchView/model/ISearchViewProps' {
-    import { SxProps } from "@mui/material";
-    import { TextFieldProps } from "@mui/material/TextField";
-    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
-    import IAnything from "react-declarative/model/IAnything";
-    import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
-    export type ISearchViewProps<T extends IAnything = IAnything> = Omit<TextFieldProps, keyof {
-        value: never;
-        onChange: never;
-        className: never;
-        style: never;
-        sx: never;
-        ref: never;
-        onClick: never;
-        disabled: never;
-        InputProps: never;
-    }> & {
-        className?: string;
-        style?: React.CSSProperties;
-        sx?: SxProps;
-        fullWidth?: boolean;
-        SearchItem?: React.ComponentType<ISearchItemProps<T>>;
-        value?: ISearchItem<T> | (() => ISearchItem<T> | Promise<ISearchItem<T>>);
-        type?: "date" | "email" | "number" | "search" | "tel" | "text" | "time" | "url" | "week";
-        handler: (search: string, limit: number, offset: number, initial: boolean, currentRows: ISearchItem<T>[]) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
-        onChange?: (value: ISearchItem<T> | null) => void;
-        onCreate?: (value: string) => void;
-        onTextChange?: (value: string) => void;
-        disabled?: boolean;
-        label?: string;
-        placeholder?: string;
-        delay?: number;
-        limit?: number;
-        variant?: "standard" | "outlined" | "filled";
-        onLoadStart?: () => void;
-        onLoadEnd?: (isOk: boolean) => void;
-        fallback?: (error: Error) => void;
-        throwError?: boolean;
-    };
-    export default ISearchViewProps;
 }
 
 declare module 'react-declarative/components/OutletView/model/IOutletViewProps' {
@@ -9521,6 +9672,20 @@ declare module 'react-declarative/components/One/slots/YesNoSlot/YesNoSlot' {
     export default YesNoSlot;
 }
 
+declare module 'react-declarative/components/One/slots/DictSlot/IDictSlot' {
+    import { IDictFieldProps, IDictFieldPrivate } from "react-declarative/components/One/fields/DictField";
+    type IDictBase = IDictFieldProps & IDictFieldPrivate;
+    export interface IDictSlot extends IDictBase {
+    }
+    export default IDictSlot;
+}
+
+declare module 'react-declarative/components/One/slots/DictSlot/DictSlot' {
+    import IDictSlot from 'react-declarative/components/One/slots/DictSlot/IDictSlot';
+    export const DictSlot: (props: IDictSlot) => JSX.Element;
+    export default DictSlot;
+}
+
 declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {
     import IFileSlot from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export const FileSlot: (props: IFileSlot) => JSX.Element;
@@ -9543,18 +9708,6 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfigI
         setValue: (config: Partial<IConfig>) => void;
     }
     export default OneConfigInstance;
-}
-
-declare module 'react-declarative/components/SearchView/model/ISearchItemProps' {
-    import IAnything from "react-declarative/model/IAnything";
-    import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
-    export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<ISearchItem, keyof {
-        data: never;
-    }> {
-        data: T;
-        onClick: () => void;
-    }
-    export default ISearchItemProps;
 }
 
 declare module 'react-declarative/components/FadeView/components/DefaultFade' {

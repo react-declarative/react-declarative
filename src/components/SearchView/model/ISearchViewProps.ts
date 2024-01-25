@@ -6,7 +6,10 @@ import ISearchItem from "./ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 
-export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
+export type ISearchViewProps<
+  Data extends IAnything = IAnything,
+  Payload = IAnything
+> = Omit<
   TextFieldProps,
   keyof {
     value: never;
@@ -18,32 +21,51 @@ export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
     onClick: never;
     disabled: never;
     InputProps: never;
+    inputProps: never;
   }
 > & {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
   fullWidth?: boolean;
-  SearchItem?: React.ComponentType<ISearchItemProps<T>>;
-  value?: ISearchItem<T> | (() => ISearchItem<T> | Promise<ISearchItem<T>>);
-  type?:
-    | "date"
-    | "email"
-    | "number"
-    | "search"
-    | "tel"
-    | "text"
-    | "time"
-    | "url"
-    | "week";
+  SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
+  CreateButton?: React.ComponentType<{}>;
+  payload?: Payload | (() => Payload);
+  value?:
+    | ISearchItem<Data>
+    | null
+    | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
+  searchText?: string | null | (() => null | string | Promise<null | string>);
+  type?: keyof {
+    date: string;
+    email: string;
+    number: string;
+    search: never;
+    tel: never;
+    text: never;
+    time: never;
+    url: never;
+    week: never;
+  };
+  mode?: keyof {
+    none: never;
+    text: never;
+    tel: never;
+    url: never;
+    email: never;
+    numeric: never;
+    decimal: never;
+    search: never;
+  };
+  pattern?: string;
   handler: (
     search: string,
     limit: number,
     offset: number,
     initial: boolean,
-    currentRows: ISearchItem<T>[]
-  ) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
-  onChange?: (value: ISearchItem<T> | null) => void;
+    currentRows: ISearchItem<Data>[]
+  ) => ISearchItem<Data>[] | Promise<ISearchItem<Data>[]>;
+  onChange?: (value: ISearchItem<Data> | null) => void;
   onCreate?: (value: string) => void;
   onTextChange?: (value: string) => void;
   disabled?: boolean;
