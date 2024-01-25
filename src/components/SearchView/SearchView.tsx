@@ -41,12 +41,15 @@ export const SearchView = <T extends IAnything = IAnything>({
   style,
   sx,
   type = "text",
+  mode = "text",
   variant = "standard",
+  pattern,
   value,
   onChange = () => undefined,
   onTextChange = () => undefined,
   delay = DEFAULT_DELAY,
   limit = DEFAULT_LIMIT,
+  autoComplete,
   fullWidth,
   disabled,
   onCreate,
@@ -76,7 +79,7 @@ export const SearchView = <T extends IAnything = IAnything>({
   const onTextChange$ = useActualCallback(onTextChange);
 
   const setItem = useCallback(
-    (item: ISearchItem) =>
+    (item: ISearchItem | null) =>
       setState((prevState) => ({
         ...prevState,
         item,
@@ -197,11 +200,17 @@ export const SearchView = <T extends IAnything = IAnything>({
         className={className}
         style={style}
         sx={sx}
+        autoComplete={autoComplete}
+        type={type}
         ref={inputRef}
         onClick={() => setOpen(true)}
         value={state.item?.label || state.value}
         disabled={disabled || !initComplete$.current}
+        inputProps={{
+          pattern,
+        }}
         InputProps={{
+          inputMode: mode,
           readOnly: true,
           endAdornment: (
             <InputAdornment
@@ -235,6 +244,9 @@ export const SearchView = <T extends IAnything = IAnything>({
       >
         <SearchInput
           type={type}
+          mode={mode}
+          pattern={pattern}
+          autoComplete={autoComplete}
           reloadSubject={reloadSubject}
           loading={loading}
           getValue={getValue}

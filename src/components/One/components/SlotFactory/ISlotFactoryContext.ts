@@ -17,6 +17,7 @@ import { IFileSlot } from '../../slots/FileSlot/IFileSlot';
 import { IChooseSlot } from '../../slots/ChooseSlot';
 import { ICompleteSlot } from '../../slots/CompleteSlot';
 import { IYesNoSlot } from '../../slots/YesNoSlot';
+import { IDictSlot } from '../../slots/DictSlot';
 
 export interface ISlotFactoryContext {
     CheckBox: ComponentType<ICheckBoxSlot>;
@@ -36,6 +37,7 @@ export interface ISlotFactoryContext {
     File: ComponentType<IFileSlot>;
     Choose: ComponentType<IChooseSlot>;
     Complete: ComponentType<ICompleteSlot>;
+    Dict: ComponentType<IDictSlot>;
 }
 
 export default ISlotFactoryContext;

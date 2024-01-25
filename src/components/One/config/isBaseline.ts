@@ -10,6 +10,7 @@ export const baselineFields = new Set<FieldType>([
     FieldType.Items,
     FieldType.Text,
     FieldType.Time,
+    FieldType.Dict,
 ]);
 
 /**

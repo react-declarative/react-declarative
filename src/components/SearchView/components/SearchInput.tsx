@@ -25,6 +25,9 @@ const useStyles = makeStyles()({
 
 interface ISearchInputProps {
   type: Exclude<ISearchViewProps['type'], undefined>;
+  mode: Exclude<ISearchViewProps['mode'], undefined>;
+  autoComplete: ISearchViewProps['autoComplete'];
+  pattern: ISearchViewProps['pattern'];
   reloadSubject: TSubject<void>;
   onTextChange: (value: string) => void;
   loading: boolean;
@@ -35,8 +38,11 @@ const SEARCH_DEBOUNCE = 1_500;
 
 export const SearchInput = ({
   type,
+  mode,
+  pattern,
   getValue,
   loading,
+  autoComplete,
   onTextChange,
   reloadSubject,
 }: ISearchInputProps) => {
@@ -90,7 +96,12 @@ export const SearchInput = ({
         fullWidth
         disabled={loading}
         defaultValue={getValue}
+        autoComplete={autoComplete}
+        inputProps={{
+          pattern,
+        }}
         InputProps={{
+          inputMode: mode,
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />

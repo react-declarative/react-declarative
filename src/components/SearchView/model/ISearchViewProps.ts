@@ -18,6 +18,7 @@ export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
     onClick: never;
     disabled: never;
     InputProps: never;
+    inputProps: never;
   }
 > & {
   className?: string;
@@ -25,17 +26,29 @@ export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
   sx?: SxProps;
   fullWidth?: boolean;
   SearchItem?: React.ComponentType<ISearchItemProps<T>>;
-  value?: ISearchItem<T> | (() => ISearchItem<T> | Promise<ISearchItem<T>>);
-  type?:
-    | "date"
-    | "email"
-    | "number"
-    | "search"
-    | "tel"
-    | "text"
-    | "time"
-    | "url"
-    | "week";
+  value?: ISearchItem<T> | null | (() => null | ISearchItem<T> | Promise<null | ISearchItem<T>>);
+  type?: keyof {
+    date: string;
+    email: string;
+    number: string;
+    search: never;
+    tel: never;
+    text: never;
+    time: never;
+    url: never;
+    week: never;
+  };
+  mode?: keyof {
+    none: never;
+    text: never;
+    tel: never;
+    url: never;
+    email: never;
+    numeric: never;
+    decimal: never;
+    search: never;
+  };
+  pattern?: string;
   handler: (
     search: string,
     limit: number,
