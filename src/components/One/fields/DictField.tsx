@@ -16,6 +16,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
   dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
   dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
+  dictCreateButton?: PickProp<IField<Data, Payload>, "dictCreateButton">;
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
@@ -63,6 +64,7 @@ export const DictField = ({
   dictOnText,
   dictValue,
   dictSearchItem,
+  dictCreateButton,
   inputMode,
   inputPattern,
   groupRef,
@@ -92,6 +94,7 @@ export const DictField = ({
     dictOnText={dictOnText}
     dictValue={dictValue}
     dictSearchItem={dictSearchItem}
+    dictCreateButton={dictCreateButton}
     inputMode={inputMode}
     inputPattern={inputPattern}
     onChange={onChange}

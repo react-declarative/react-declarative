@@ -6,7 +6,7 @@ import ISearchItem from "./ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 
-export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
+export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<
   TextFieldProps,
   keyof {
     value: never;
@@ -25,8 +25,10 @@ export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
   style?: React.CSSProperties;
   sx?: SxProps;
   fullWidth?: boolean;
-  SearchItem?: React.ComponentType<ISearchItemProps<T>>;
-  value?: ISearchItem<T> | null | (() => null | ISearchItem<T> | Promise<null | ISearchItem<T>>);
+  SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
+  CreateButton?: React.ComponentType<{}>;
+  payload?: Payload | (() => Payload);
+  value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
   type?: keyof {
     date: string;
     email: string;
@@ -54,9 +56,9 @@ export type ISearchViewProps<T extends IAnything = IAnything> = Omit<
     limit: number,
     offset: number,
     initial: boolean,
-    currentRows: ISearchItem<T>[]
-  ) => ISearchItem<T>[] | Promise<ISearchItem<T>[]>;
-  onChange?: (value: ISearchItem<T> | null) => void;
+    currentRows: ISearchItem<Data>[]
+  ) => ISearchItem<Data>[] | Promise<ISearchItem<Data>[]>;
+  onChange?: (value: ISearchItem<Data> | null) => void;
   onCreate?: (value: string) => void;
   onTextChange?: (value: string) => void;
   disabled?: boolean;

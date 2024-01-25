@@ -52,6 +52,7 @@ export const Dict = ({
   dictValue = DEFAULT_VALUE,
   dictAppend,
   dictSearchItem,
+  dictCreateButton,
 }: IDictSlot) => {
   const payload = useOnePayload();
   const { object, setObject } = useOneState<object>();
@@ -123,6 +124,7 @@ export const Dict = ({
       label={title}
       disabled={disabled || loading || readonly}
       SearchItem={dictSearchItem}
+      CreateButton={dictCreateButton}
     />
   );
 };

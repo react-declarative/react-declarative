@@ -503,6 +503,13 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      */
     dictSearchItem?: ISearchViewProps['SearchItem'];
 
+    
+    /**
+     * Функция позволяет переопределить компонент создание записи
+     * в словарь из модалки
+     */
+    dictCreateButton?: ISearchViewProps['CreateButton'];
+
     /**
      * Позволяет выключить отступ. Можно использовать по аналогии
      * с исключением последней запятой при склеивании массива

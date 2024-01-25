@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
 
 import SearchItemDefault from "./components/SearchItem";
+import CreateButtonDefault from "./components/CreateButton";
 import SearchInput from "./components/SearchInput";
 import SearchList from "./components/SearchList";
 
@@ -26,6 +27,7 @@ import ISearchViewProps from "./model/ISearchViewProps";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { SEARCH_VIEW_ROOT } from "./config";
+import useSingleton from "../../hooks/useSingleton";
 
 const DEFAULT_DELAY = 500;
 const DEFAULT_LIMIT = 25;
@@ -36,7 +38,7 @@ interface IState {
   value: string;
 }
 
-export const SearchView = <T extends IAnything = IAnything>({
+export const SearchView = <Data extends IAnything = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
@@ -49,6 +51,7 @@ export const SearchView = <T extends IAnything = IAnything>({
   onTextChange = () => undefined,
   delay = DEFAULT_DELAY,
   limit = DEFAULT_LIMIT,
+  payload: upperPayload = {} as Payload,
   autoComplete,
   fullWidth,
   disabled,
@@ -58,12 +61,15 @@ export const SearchView = <T extends IAnything = IAnything>({
   fallback,
   handler,
   SearchItem = SearchItemDefault,
+  CreateButton = CreateButtonDefault,
   throwError,
   ...otherProps
-}: ISearchViewProps<T>) => {
+}: ISearchViewProps<Data, Payload>) => {
   const reloadSubject = useSubject<void>();
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const payload = useSingleton(upperPayload);
 
   const [initComplete$, setInitComplete] = useActualState(false);
 
@@ -256,6 +262,7 @@ export const SearchView = <T extends IAnything = IAnything>({
           <SearchList
             items={data}
             value={state.value}
+            payload={payload}
             item={state.item}
             hasMore={hasMore}
             loading={loading}
@@ -265,6 +272,7 @@ export const SearchView = <T extends IAnything = IAnything>({
             fallback={fallback}
             throwError={throwError}
             SearchItem={SearchItem}
+            CreateButton={CreateButton}
             onItemChange={handleChangeItem}
             onCreate={
               onCreate
