@@ -493,12 +493,6 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     dictOnText: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
 
     /**
-     * Функция вызывается на выбор элемента кликом из модалки. Подразумевается
-     * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
-     */
-    dictOnItem: (value: string | null, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
-
-    /**
      * Функция позволяет загрузить label для выбранного элемента асинхронно
      */
     dictValue: (value: string, data: Data, payload: Payload) => (ISearchItem | Promise<ISearchItem>);
