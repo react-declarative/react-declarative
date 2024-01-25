@@ -88,6 +88,7 @@ export class Entry<
     filters: [],
     columns: [],
     actions: [],
+    onRows: () => null,
     onSortModelChange: () => null,
     onFilterChange: () => null,
     onChipsChange: () => null,
@@ -333,34 +334,42 @@ export class Entry<
       if (Array.isArray(response)) {
         response.length > this.state.limit &&
           console.warn("List rows count is more than it's capacity");
-        return {
+        const result = {
           rows: response.slice(0, this.state.limit),
           total: null,
         };
+        this.props.onRows!(result.rows);
+        return result;
       } else {
         const { rows = [], total = null } = response || {};
         rows.length > this.state.limit &&
           console.warn("List rows count is more than it's capacity");
-        return { rows: rows.slice(0, this.state.limit), total };
+        const result = { rows: rows.slice(0, this.state.limit), total };
+        this.props.onRows!(result.rows);
+        return result;
       }
     } else {
       if (Array.isArray(this.props.handler)) {
-        return {
+        const result = {
           rows: this.props.handler.slice(
             this.state.offset,
             this.state.limit + this.state.offset
           ),
           total: this.props.handler.length,
         };
+        this.props.onRows!(result.rows);
+        return result;
       } else {
         const { rows = [], total = null } = this.props.handler || {};
-        return {
+        const result = {
           rows: rows.slice(
             this.state.offset,
             this.state.limit + this.state.offset
           ),
           total,
         };
+        this.props.onRows!(result.rows);
+        return result;
       }
     }
   };

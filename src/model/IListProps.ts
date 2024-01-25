@@ -183,6 +183,7 @@ export interface IListProps<
   features?: IOnePublicProps<FilterData>['features'];
   heightRequest?: (height: number) => number;
   widthRequest?: (width: number) => number;
+  onRows?: (rows: RowData[]) => void;
   onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
   onFilterChange?: (data: FilterData) => void;
   onChipsChange?: (data: ListHandlerChips<RowData>) => void;
