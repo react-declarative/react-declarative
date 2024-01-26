@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
-import { makeStyles } from '../../styles';
+import { makeStyles } from "../../styles";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -59,6 +59,8 @@ export const SearchView = <
   variant = "standard",
   pattern,
   value,
+  label,
+  placeholder,
   searchText,
   onChange = () => undefined,
   onTextChange = () => undefined,
@@ -79,7 +81,6 @@ export const SearchView = <
   throwError,
   ...otherProps
 }: ISearchViewProps<Data, Payload>) => {
-
   const { classes } = useStyles();
 
   const reloadSubject = useSubject<void>();
@@ -178,7 +179,7 @@ export const SearchView = <
     if (initComplete$.current) {
       reloadSubject.next();
       onChange$(state.item);
-      onTextChange$(state.item?.label || '');
+      onTextChange$(state.item?.label || "");
     }
   }, [state.item]);
 
@@ -238,6 +239,8 @@ export const SearchView = <
         sx={sx}
         autoComplete={autoComplete}
         type={type}
+        label={label}
+        placeholder={placeholder}
         ref={inputRef}
         onClick={() => setOpen(true)}
         value={textValue}
@@ -284,6 +287,7 @@ export const SearchView = <
               type={type}
               mode={mode}
               pattern={pattern}
+              placeholder={label || placeholder}
               autoComplete={autoComplete}
               reloadSubject={reloadSubject}
               loading={loading}

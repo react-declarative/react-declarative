@@ -3,6 +3,7 @@ import ISearchViewProps from "./ISearchViewProps";
 import TSubject from "../../../model/TSubject";
 
 export interface ISearchInputProps {
+  placeholder?: string;
   type: Exclude<ISearchViewProps["type"], undefined>;
   mode: Exclude<ISearchViewProps["mode"], undefined>;
   autoComplete: ISearchViewProps["autoComplete"];

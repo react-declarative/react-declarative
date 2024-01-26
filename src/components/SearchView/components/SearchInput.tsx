@@ -31,6 +31,7 @@ export const SearchInput = ({
   pattern,
   getValue,
   loading,
+  placeholder,
   autoComplete,
   onTextChange,
   reloadSubject,
@@ -90,6 +91,7 @@ export const SearchInput = ({
         disabled={loading}
         defaultValue={getValue}
         autoComplete={autoComplete}
+        placeholder={placeholder}
         inputProps={{
           pattern,
         }}

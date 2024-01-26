@@ -213,6 +213,7 @@ export const Dict = ({
               disabled={loading}
               value={value}
               autoComplete={autoComplete}
+              placeholder={title || placeholder}
               inputProps={{
                 pattern,
               }}
