@@ -14,11 +14,13 @@ import { useOneState } from "../../../context/StateProvider";
 
 import ISearchInputProps from "../../../../SearchView/model/ISearchInputProps";
 
+import useChangeSubject from "../../../../../hooks/useChangeSubject";
 import useActualValue from "../../../../../hooks/useActualValue";
 
 import deepClone from "../../../../../utils/deepClone";
 import debounce from "../../../../../utils/hof/debounce";
 import formatText from "../../../../../utils/formatText";
+import waitForMove from "../../../../../utils/waitForMove";
 
 import { IDictSlot } from "../../../slots/DictSlot";
 
@@ -91,6 +93,8 @@ export const Dict = ({
 }: IDictSlot) => {
   const payload = useOnePayload();
   const { object, setObject } = useOneState<object>();
+
+  const changeSubject = useChangeSubject(value);
 
   const SearchInput = useMemo(
     (): React.FC<ISearchInputProps> =>
@@ -180,10 +184,6 @@ export const Dict = ({
             setValue(getValue);
           }
         }, [loading]);
-        
-        useEffect(() => () => {
-          emitChangeSearch.flush();
-        }, []);
 
         const emitChangeSearch = useMemo(
           () =>
@@ -192,6 +192,12 @@ export const Dict = ({
             }, SEARCH_DEBOUNCE),
           []
         );
+
+        useEffect(() => () => {
+          emitChangeSearch.flush();
+        }, []);
+
+        useEffect(() => waitForMove(emitChangeSearch.flush), []);
 
         const handleKeySearch = useCallback(
           (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -297,6 +303,7 @@ export const Dict = ({
           rows,
         });
       }}
+      changeSubject={changeSubject}
       mode={inputMode}
       pattern={inputPattern}
       autoComplete={inputAutocomplete}

@@ -7,6 +7,7 @@ import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 import ISearchInputProps from "./ISearchInputProps";
 import ICreateButtonProps from "./ICreateButtonProps";
+import TSubject from "../../../model/TSubject";
 
 export type ISearchViewProps<
   Data extends IAnything = IAnything,
@@ -29,6 +30,7 @@ export type ISearchViewProps<
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps;
+  changeSubject?: TSubject<void>;
   fullWidth?: boolean;
   SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
   SearchInput?: React.ComponentType<ISearchInputProps>;

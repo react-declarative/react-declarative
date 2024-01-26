@@ -62,6 +62,7 @@ export const SearchView = <
   label,
   placeholder,
   searchText,
+  changeSubject: upperChangeSubject,
   onChange = () => undefined,
   onTextChange = () => undefined,
   delay = DEFAULT_DELAY,
@@ -96,6 +97,8 @@ export const SearchView = <
     open: false,
     value: "",
   }));
+
+  const changeSubject = useSubject(upperChangeSubject);
 
   const search$ = useActualValue(state.value);
 
@@ -139,6 +142,13 @@ export const SearchView = <
   useEffect(() => {
     execute();
   }, []);
+
+  useEffect(() => changeSubject.subscribe(() => {
+    if (initComplete$.current) {
+      setInitComplete(false);
+      execute();
+    }
+  }), []);
 
   const {
     data: rawData,

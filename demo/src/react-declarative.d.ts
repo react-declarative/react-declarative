@@ -4846,6 +4846,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
     import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
     import ISearchInputProps from "react-declarative/components/SearchView/model/ISearchInputProps";
     import ICreateButtonProps from "react-declarative/components/SearchView/model/ICreateButtonProps";
+    import TSubject from "react-declarative/model/TSubject";
     export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<TextFieldProps, keyof {
         value: never;
         onChange: never;
@@ -4861,6 +4862,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps;
+        changeSubject?: TSubject<void>;
         fullWidth?: boolean;
         SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
         SearchInput?: React.ComponentType<ISearchInputProps>;
@@ -7183,7 +7185,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, SearchInput, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
+    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, SearchInput, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
 }
 
