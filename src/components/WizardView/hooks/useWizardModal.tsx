@@ -6,9 +6,9 @@ import WizardOutletModal, {
   IWizardModalProps,
 } from "../components/WizardOutletModal";
 
+import useBehaviorSubject from "../../../hooks/useBehaviorSubject";
 import useActualCallback from "../../../hooks/useActualCallback";
 import useSingleton from "../../../hooks/useSingleton";
-import useSubject from "../../../hooks/useSubject";
 
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
@@ -54,7 +54,7 @@ export const useWizardModal = <
   ...outletProps
 }: IParams<Data, Payload>) => {
 
-  const openSubject = useSubject<boolean>();
+  const openSubject = useBehaviorSubject<boolean>();
 
   const history = useSingleton(() => upperHistory || createMemoryHistory());
 
@@ -111,7 +111,7 @@ export const useWizardModal = <
   );
 
   const pickData = useCallback(() => {
-    openSubject.next(false);
+    openSubject.next(true);
   }, []);
 
   return {

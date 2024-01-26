@@ -47,6 +47,14 @@ const useStyles = makeStyles()({
   item: {
     whiteSpace: "break-spaces",
   },
+  stretch: {
+    display: "flex",
+    alignItems: "stretch",
+    justifyContent: "stretch",
+    "& > *:nth-of-type(1)": {
+      flex: 1,
+    },
+  },
 });
 
 export const SearchList = ({
@@ -108,6 +116,7 @@ export const SearchList = ({
     }
     return (
       <div
+        className={classes.stretch}
         onClick={({ currentTarget }) => {
           const root = currentTarget.closest(`.${SEARCH_VIEW_ROOT}`);
           const input = root?.querySelector("input");
@@ -147,7 +156,7 @@ export const SearchList = ({
       {items
         .filter(({ value }) => value !== item?.value)
         .map((item) => (
-          <div key={item.value}>
+          <div className={classes.stretch} key={item.value}>
             <SearchItem
               payload={payload}
               data={item.data!}

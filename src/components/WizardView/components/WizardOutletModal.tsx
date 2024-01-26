@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
+import useSubjectValue from "../../../hooks/useSubjectValue";
 import useActualState from "../../../hooks/useActualState";
 import useElementSize from "../../../hooks/useElementSize";
 import useWindowSize from "../../../hooks/useWindowSize";
@@ -18,6 +19,7 @@ import WizardView from "../WizardView";
 
 import IWizardModal from "../model/IWizardModal";
 
+import TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IWizardViewProps from "../model/IWizardViewProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
@@ -50,7 +52,7 @@ export interface IWizardModalProps<
       outlinePaper: never;
     }
   > {
-  openSubject: TSubject<boolean>;
+  openSubject: TBehaviorSubject<boolean>;
   fullScreen?: boolean;
   withActionButton?: boolean;
   title?: string;
@@ -131,6 +133,10 @@ const useStyles = makeStyles()((theme) => ({
     width: "calc(100vw - 50px)",
     height: "calc(100vh - 50px)",
   },
+  inner: {
+    minHeight: '100% !important',
+    maxHeight: '100% !important',
+  },
   submit: {
     paddingTop: 15,
   },
@@ -174,9 +180,7 @@ export const OutletModal = <
 }: IWizardModalProps<Data, Payload>) => {
   const { classes } = useStyles();
 
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => openSubject.subscribe(setOpen), []);
+  const open = useSubjectValue(openSubject, !!openSubject.data)
 
   const windowBasedSize = useWindowSize({
     compute: ({ height, width }) => ({
@@ -332,6 +336,7 @@ export const OutletModal = <
               {async (...args) => (
                 <WizardView
                   {...outletProps}
+                  className={classes.inner}
                   outlinePaper
                   fallback={fallback}
                   onLoadStart={onLoadStart}
@@ -346,10 +351,10 @@ export const OutletModal = <
             </FetchView>
           )}
         </Box>
-        {!readonly && (
+        {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!withActionButton && (!!loading.current || !data)}
+            disabled={!!loading.current || !data}
             size="large"
             variant="contained"
             color="info"

@@ -9383,6 +9383,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
     import * as React from "react";
     import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IWizardModal from "react-declarative/components/WizardView/model/IWizardModal";
+    import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
@@ -9397,7 +9398,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         id: never;
         outlinePaper: never;
     }> {
-        openSubject: TSubject<boolean>;
+        openSubject: TBehaviorSubject<boolean>;
         fullScreen?: boolean;
         withActionButton?: boolean;
         title?: string;

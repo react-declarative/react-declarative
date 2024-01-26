@@ -381,10 +381,10 @@ export const OutletModal = <
             </FetchView>
           )}
         </Box>
-        {!readonly && (
+        {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!withActionButton && (!!loading.current || !data)}
+            disabled={!!loading.current || !data}
             size="large"
             variant="contained"
             color="info"
