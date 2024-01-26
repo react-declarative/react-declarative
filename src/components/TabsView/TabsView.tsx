@@ -138,7 +138,9 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     if (!route) {
       return -1;
     }
-    const activeStep = tabs.findIndex(({ id }) => id === route.id);
+    const activeStep = tabs.findIndex(
+      ({ isMatch = () => false, id }) => id === route.id || isMatch(route.id)
+    );
     if (activeStep === -1) {
       return lastActiveStep.current;
     }
