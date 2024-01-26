@@ -157,14 +157,15 @@ export const SearchList = ({
         bufferSize={ITEM_BUFFERSIZE}
       >
         {item && (
-          <MenuItem
-            className={classes.item}
-            disabled
-            key={item.value}
-            value={item.value}
-          >
-            {item.label}
-          </MenuItem>
+          <div className={classes.stretch}>
+            <SearchItem
+              disabled
+              payload={payload}
+              data={item.data!}
+              label={item.label}
+              value={item.value}
+            />
+          </div>
         )}
         {renderLoader()}
         {items
@@ -176,6 +177,7 @@ export const SearchList = ({
               key={item.value}
             >
               <SearchItem
+                disabled={false}
                 payload={payload}
                 data={item.data!}
                 label={item.label}

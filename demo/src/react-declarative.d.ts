@@ -6136,6 +6136,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchItemProps' 
     export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<ISearchItem, keyof {
         data: never;
     }> {
+        disabled: boolean;
         payload: IAnything;
         data: T;
     }
