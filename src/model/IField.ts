@@ -484,7 +484,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Поле справочника позволяет создавать новые записи, если
      * поиск не дал результата
      */
-    dictAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+    dictOnAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
 
     /**
      * Функция вызывается на каждое изменение текста. Подразумевается

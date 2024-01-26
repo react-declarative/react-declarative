@@ -1,11 +1,12 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useLayoutEffect, useRef } from "react";
 
 import { makeStyles } from "../../../styles";
 
 import VirtualView from "../../VirtualView";
 
 import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/material/Box";
 
 import ISearchItem from "../model/ISearchItem";
 import IAnything from "../../../model/IAnything";
@@ -33,7 +34,7 @@ interface ISearchListProps {
 
 const ITEM_HEIGHT = 45;
 const ITEM_BUFFERSIZE = 25;
-const MAX_ITEMS_COUNT = 4;
+const MAX_ITEMS_COUNT = 8;
 
 const useStyles = makeStyles()({
   root: {
@@ -76,6 +77,10 @@ export const SearchList = ({
 }: ISearchListProps) => {
   const { classes } = useStyles();
 
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  const [text, setText] = useState("");
+
   const [currentLoading, setCurrentLoading] = useState(0);
 
   const handleLoadStart = useCallback(() => {
@@ -89,6 +94,13 @@ export const SearchList = ({
   }, []);
 
   const loading = upperLoading || !!currentLoading;
+
+  useLayoutEffect(() => {
+    const { current } = rootRef;
+    const root = current?.closest(`.${SEARCH_VIEW_ROOT}`);
+    const input = root?.querySelector("input");
+    setText(input?.value || '');
+  }, [loading]);
 
   const renderLoader = useCallback(() => {
     if (!loading && !!onCreate) {
@@ -108,6 +120,9 @@ export const SearchList = ({
     if (!onCreate) {
       return null;
     }
+    if (!text) {
+      return null;
+    }
     if (item || items.length) {
       return null;
     }
@@ -117,60 +132,60 @@ export const SearchList = ({
     return (
       <div
         className={classes.stretch}
-        onClick={({ currentTarget }) => {
-          const root = currentTarget.closest(`.${SEARCH_VIEW_ROOT}`);
-          const input = root?.querySelector("input");
-          input && onCreate(input.value);
+        onClick={() => {
+          onCreate(text);
         }}
       >
         <CreateButton />
       </div>
     );
-  }, [item, items, loading, onCreate]);
+  }, [item, items, loading, text, onCreate]);
 
   return (
-    <VirtualView
-      key={`${value}-${item?.value}`}
-      className={classes.root}
-      onDataRequest={onDataRequest}
-      onLoadStart={handleLoadStart}
-      onLoadEnd={handleLoadEnd}
-      fallback={fallback}
-      throwError={throwError}
-      loading={loading}
-      hasMore={hasMore}
-      minRowHeight={ITEM_HEIGHT}
-      bufferSize={ITEM_BUFFERSIZE}
-    >
-      {item && (
-        <MenuItem
-          className={classes.item}
-          disabled
-          key={item.value}
-          value={item.value}
-        >
-          {item.label}
-        </MenuItem>
-      )}
-      {renderLoader()}
-      {items
-        .filter(({ value }) => value !== item?.value)
-        .map((item) => (
-          <div
-            className={classes.stretch}
-            onClick={() => onItemChange(item)}
+    <Box ref={rootRef} p={1}>
+      <VirtualView
+        key={`${value}-${item?.value}`}
+        className={classes.root}
+        onDataRequest={onDataRequest}
+        onLoadStart={handleLoadStart}
+        onLoadEnd={handleLoadEnd}
+        fallback={fallback}
+        throwError={throwError}
+        loading={loading}
+        hasMore={hasMore}
+        minRowHeight={ITEM_HEIGHT}
+        bufferSize={ITEM_BUFFERSIZE}
+      >
+        {item && (
+          <MenuItem
+            className={classes.item}
+            disabled
             key={item.value}
+            value={item.value}
           >
-            <SearchItem
-              payload={payload}
-              data={item.data!}
-              label={item.label}
-              value={item.value}
-            />
-          </div>
-        ))}
-      {renderCreate()}
-    </VirtualView>
+            {item.label}
+          </MenuItem>
+        )}
+        {renderLoader()}
+        {items
+          .filter(({ value }) => value !== item?.value)
+          .map((item) => (
+            <div
+              className={classes.stretch}
+              onClick={() => onItemChange(item)}
+              key={item.value}
+            >
+              <SearchItem
+                payload={payload}
+                data={item.data!}
+                label={item.label}
+                value={item.value}
+              />
+            </div>
+          ))}
+        {renderCreate()}
+      </VirtualView>
+    </Box>
   );
 };
 

@@ -12,7 +12,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
   dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
   dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
-  dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
+  dictOnAppend?: PickProp<IField<Data, Payload>, "dictOnAppend">;
   dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
   dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
   dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
@@ -62,7 +62,7 @@ export const DictField = ({
   dictLimit,
   dictDelay,
   dictSearch,
-  dictAppend,
+  dictOnAppend,
   dictOnText,
   dictOnItem,
   dictValue,
@@ -94,7 +94,7 @@ export const DictField = ({
     dictLimit={dictLimit}
     dictDelay={dictDelay}
     dictSearch={dictSearch}
-    dictAppend={dictAppend}
+    dictOnAppend={dictOnAppend}
     dictOnText={dictOnText}
     dictOnItem={dictOnItem}
     dictValue={dictValue}

@@ -17,11 +17,12 @@ import debounce from "../../../utils/hof/debounce";
 import TSubject from "../../../model/TSubject";
 import ISearchViewProps from "../model/ISearchViewProps";
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
   listHeader: {
     background: "transparent",
+    paddingTop: theme.spacing(1.5),
   },
-});
+}));
 
 interface ISearchInputProps {
   type: Exclude<ISearchViewProps['type'], undefined>;

@@ -12,8 +12,6 @@ import deepClone from "../../../../../utils/deepClone";
 
 import { IDictSlot } from "../../../slots/DictSlot";
 
-const ONCHANGE_DELAY = 850; 
-
 const DEFAULT_LIMIT = 25;
 const DEFAULT_DELAY = 500;
 const DEFAULT_ONTEXT = () => null;
@@ -56,7 +54,7 @@ export const Dict = ({
   dictSearch = DEFAULT_SEARCH,
   dictValue = DEFAULT_VALUE,
   dictSearchText = DEFAULT_SEARCHTEXT,
-  dictAppend,
+  dictOnAppend,
   dictSearchItem,
   dictCreateButton,
 }: IDictSlot) => {
@@ -67,13 +65,13 @@ export const Dict = ({
 
   const handleChange = useCallback(
     (object: object) =>
-      setTimeout(() => setObject(
+      setObject(
         deepClone({
           ...object$.current,
           ...object,
         }),
         {}
-      ), ONCHANGE_DELAY),
+      ),
     []
   );
 
@@ -123,14 +121,15 @@ export const Dict = ({
       placeholder={placeholder}
       onChange={(item) => {
         dictOnItem(item?.value || null, object$.current, payload, handleChange);
-        onChange(item?.value || null)
+        onChange(item?.value || null);
       }}
       onTextChange={(search) =>
         dictOnText(search, object$.current, payload, handleChange)
       }
       onCreate={
-        dictAppend
-          ? (search) => dictAppend(search, object$.current, payload, handleChange)
+        dictOnAppend
+          ? (search) =>
+              dictOnAppend(search, object$.current, payload, handleChange)
           : undefined
       }
       label={title}

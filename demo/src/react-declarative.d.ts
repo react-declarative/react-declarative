@@ -1066,7 +1066,7 @@ declare module 'react-declarative/model/IField' {
                 * Поле справочника позволяет создавать новые записи, если
                 * поиск не дал результата
                 */
-            dictAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+            dictOnAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
             /**
                 * Функция вызывается на каждое изменение текста. Подразумевается
                 * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
@@ -4750,7 +4750,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
         dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
         dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
-        dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
+        dictOnAppend?: PickProp<IField<Data, Payload>, "dictOnAppend">;
         dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
         dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
         dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
@@ -4781,7 +4781,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const DictField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictOnItem, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictOnAppend, dictOnText, dictOnItem, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6297,7 +6297,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
-        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
