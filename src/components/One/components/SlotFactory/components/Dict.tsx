@@ -12,9 +12,12 @@ import deepClone from "../../../../../utils/deepClone";
 
 import { IDictSlot } from "../../../slots/DictSlot";
 
+const ONCHANGE_DELAY = 850; 
+
 const DEFAULT_LIMIT = 25;
 const DEFAULT_DELAY = 500;
 const DEFAULT_ONTEXT = () => null;
+const DEFAULT_ONITEM = () => null;
 const DEFAULT_VALUE = () => {
   throw new Error(
     "react-declarative DictField dictValue callback is not provided"
@@ -49,6 +52,7 @@ export const Dict = ({
   dictLimit = DEFAULT_LIMIT,
   dictDelay = DEFAULT_DELAY,
   dictOnText = DEFAULT_ONTEXT,
+  dictOnItem = DEFAULT_ONITEM,
   dictSearch = DEFAULT_SEARCH,
   dictValue = DEFAULT_VALUE,
   dictSearchText = DEFAULT_SEARCHTEXT,
@@ -63,13 +67,13 @@ export const Dict = ({
 
   const handleChange = useCallback(
     (object: object) =>
-      setObject(
+      setTimeout(() => setObject(
         deepClone({
           ...object$.current,
           ...object,
         }),
         {}
-      ),
+      ), ONCHANGE_DELAY),
     []
   );
 
@@ -117,7 +121,10 @@ export const Dict = ({
         return await dictSearchText(object$.current, payload);
       }}
       placeholder={placeholder}
-      onChange={(item) => onChange(item?.value || null)}
+      onChange={(item) => {
+        dictOnItem(item?.value || null, object$.current, payload, handleChange);
+        onChange(item?.value || null)
+      }}
       onTextChange={(search) =>
         dictOnText(search, object$.current, payload, handleChange)
       }

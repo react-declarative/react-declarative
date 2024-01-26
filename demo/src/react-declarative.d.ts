@@ -1061,7 +1061,7 @@ declare module 'react-declarative/model/IField' {
                     rows: ISearchItem[];
                     data: Data;
                     payload: Payload;
-            }) => ISearchItem[];
+            }) => ISearchItem[] | Promise<ISearchItem[]>;
             /**
                 * Поле справочника позволяет создавать новые записи, если
                 * поиск не дал результата
@@ -1072,6 +1072,11 @@ declare module 'react-declarative/model/IField' {
                 * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
                 */
             dictOnText?: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+            /**
+                * Функция вызывается на каждый выбор из модалки. Подразумевается
+                * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
+                */
+            dictOnItem?: (value: string | null, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
             /**
                 * Функция позволяет загрузить label для выбранного элемента асинхронно
                 */
@@ -4747,6 +4752,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
         dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
         dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
+        dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
         dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
         dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
         dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
@@ -4775,7 +4781,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const DictField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictAppend, dictOnText, dictOnItem, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6124,7 +6130,6 @@ declare module 'react-declarative/components/SearchView/model/ISearchItemProps' 
     }> {
         payload: IAnything;
         data: T;
-        onClick: () => void;
     }
     export default ISearchItemProps;
 }
@@ -6292,7 +6297,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, autoFocus, inputRef, onChange, name, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
-        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictSearch, dictValue, dictSearchText, dictAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, name, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictAppend, dictSearchItem, dictCreateButton, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;

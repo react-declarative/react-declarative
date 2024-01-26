@@ -14,6 +14,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
   dictAppend?: PickProp<IField<Data, Payload>, "dictAppend">;
   dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
+  dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
   dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
   dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
   dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
@@ -63,6 +64,7 @@ export const DictField = ({
   dictSearch,
   dictAppend,
   dictOnText,
+  dictOnItem,
   dictValue,
   dictSearchText,
   dictSearchItem,
@@ -94,6 +96,7 @@ export const DictField = ({
     dictSearch={dictSearch}
     dictAppend={dictAppend}
     dictOnText={dictOnText}
+    dictOnItem={dictOnItem}
     dictValue={dictValue}
     dictSearchText={dictSearchText}
     dictSearchItem={dictSearchItem}
@@ -107,4 +110,9 @@ export const DictField = ({
 
 DictField.displayName = "DictField";
 
-export default makeField(DictField);
+export default makeField(DictField, {
+  withApplyQueue: false,
+  skipDirtyClickListener: true,
+  skipFocusReadonly: true,
+  skipDebounce: true,
+});

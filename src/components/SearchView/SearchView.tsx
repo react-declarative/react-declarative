@@ -205,12 +205,15 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
     []
   );
 
-  const getValue = useActualCallback(() => state.item?.label || state.value);
+  const getValue = useActualCallback(() => state.item?.label || state.value || "");
+
+  const textValue = getValue();
 
   return (
     <>
       <TextField
         {...otherProps}
+        key={textValue}
         className={className}
         style={style}
         sx={sx}
@@ -218,7 +221,7 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
         type={type}
         ref={inputRef}
         onClick={() => setOpen(true)}
-        value={state.item?.label || state.value}
+        value={textValue}
         disabled={disabled || !initComplete$.current}
         inputProps={{
           pattern,

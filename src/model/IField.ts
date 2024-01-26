@@ -478,7 +478,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
       rows: ISearchItem[];
       data: Data;
       payload: Payload;
-    }) => ISearchItem[];
+    }) => ISearchItem[] | Promise<ISearchItem[]>;
 
     /**
      * Поле справочника позволяет создавать новые записи, если
@@ -491,6 +491,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
      */
     dictOnText?: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+
+    /**
+     * Функция вызывается на каждый выбор из модалки. Подразумевается
+     * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
+     */
+    dictOnItem?: (value: string | null, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
 
     /**
      * Функция позволяет загрузить label для выбранного элемента асинхронно

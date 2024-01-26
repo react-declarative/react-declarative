@@ -156,13 +156,16 @@ export const SearchList = ({
       {items
         .filter(({ value }) => value !== item?.value)
         .map((item) => (
-          <div className={classes.stretch} key={item.value}>
+          <div
+            className={classes.stretch}
+            onClick={() => onItemChange(item)}
+            key={item.value}
+          >
             <SearchItem
               payload={payload}
               data={item.data!}
               label={item.label}
               value={item.value}
-              onClick={() => onItemChange(item)}
             />
           </div>
         ))}

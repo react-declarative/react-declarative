@@ -15,7 +15,6 @@ const useStyles = makeStyles()({
 export const SearchItem = ({
     value,
     label,
-    onClick,
 }: ISearchItemProps) => {
     const { classes } = useStyles();
     return (
@@ -23,7 +22,6 @@ export const SearchItem = ({
             className={classes.item}
             key={value}
             value={value}
-            onClick={onClick}
         >
             {label}
         </MenuItem>

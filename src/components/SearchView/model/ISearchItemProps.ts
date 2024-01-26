@@ -6,7 +6,6 @@ export interface ISearchItemProps<T extends IAnything = IAnything> extends Omit<
 }> {
     payload: IAnything;
     data: T;
-    onClick: () => void;
 }
 
 export default ISearchItemProps;
