@@ -1,6 +1,6 @@
 import IAnything from "../../../model/IAnything";
 import IWizardOutlet from "./IWizardOutlet";
-import IWizardOutletProps from "./IWizardOutletProps";
+import IWizardModalProps from "./IWizardModalProps";
 
 export type IWizardModal<
   Data = IAnything,
@@ -8,7 +8,7 @@ export type IWizardModal<
 > = Omit<IWizardOutlet<Data, Payload>, keyof {
   element: never;
 }> & {
-  element: (props: IWizardOutletProps<Data, Payload>) => React.ReactElement;
+  element: (props: IWizardModalProps<Data, Payload>) => React.ReactElement;
 };
 
 export default IWizardModal;

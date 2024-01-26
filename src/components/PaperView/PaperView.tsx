@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 
 import classNames from "../../utils/classNames";
 
+export const PAPERVIEW_ROOT = 'react-declatative__PaperView-root';
+
 const useStyles = makeStyles()((theme) => ({
   outline: {
     border: `1px solid ${alpha(
@@ -34,10 +36,10 @@ export const PaperView = forwardRef(({
   const { classes } = useStyles();
   if (outlinePaper) {
     return (
-      <Box className={classNames(className, classes.outline)} {...otherProps} ref={ref}  />
+      <Box className={classNames(className, classes.outline, PAPERVIEW_ROOT)} {...otherProps} ref={ref}  />
     );
   }
-  return <Paper className={className} {...otherProps} ref={ref} />;
+  return <Paper className={classNames(className, PAPERVIEW_ROOT)} {...otherProps} ref={ref} />;
 });
 
 export default PaperView;

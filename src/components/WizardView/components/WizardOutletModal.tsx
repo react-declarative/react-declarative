@@ -136,6 +136,7 @@ const useStyles = makeStyles()((theme) => ({
   inner: {
     minHeight: '100% !important',
     maxHeight: '100% !important',
+    border: 'unset !important',
   },
   submit: {
     paddingTop: 15,
@@ -173,6 +174,7 @@ export const OutletModal = <
   submitLabel = "Submit",
   openSubject,
   readonly,
+  routes,
   onMount,
   onUnmount,
   onClose = () => null,
@@ -337,6 +339,7 @@ export const OutletModal = <
                 <WizardView
                   {...outletProps}
                   className={classes.inner}
+                  routes={routes as any}
                   outlinePaper
                   fallback={fallback}
                   onLoadStart={onLoadStart}

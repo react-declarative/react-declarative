@@ -7299,6 +7299,7 @@ declare module 'react-declarative/components/AlertView/AlertView' {
 declare module 'react-declarative/components/PaperView/PaperView' {
     import * as React from "react";
     import { PaperProps } from "@mui/material/Paper";
+    export const PAPERVIEW_ROOT = "react-declatative__PaperView-root";
     interface IPaperViewProps extends Omit<PaperProps, keyof {
         component: never;
     }> {
@@ -7773,7 +7774,8 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutletProps
 
 declare module 'react-declarative/components/WizardView/model/IWizardStep' {
     export interface IWizardStep {
-        id: string;
+        id?: string;
+        isMatch?: (id: string) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
@@ -7783,11 +7785,11 @@ declare module 'react-declarative/components/WizardView/model/IWizardStep' {
 declare module 'react-declarative/components/WizardView/model/IWizardModal' {
     import IAnything from "react-declarative/model/IAnything";
     import IWizardOutlet from "react-declarative/components/WizardView/model/IWizardOutlet";
-    import IWizardOutletProps from "react-declarative/components/WizardView/model/IWizardOutletProps";
+    import IWizardModalProps from "react-declarative/components/WizardView/model/IWizardModalProps";
     export type IWizardModal<Data = IAnything, Payload = IAnything> = Omit<IWizardOutlet<Data, Payload>, keyof {
         element: never;
     }> & {
-        element: (props: IWizardOutletProps<Data, Payload>) => React.ReactElement;
+        element: (props: IWizardModalProps<Data, Payload>) => React.ReactElement;
     };
     export default IWizardModal;
 }
@@ -9427,7 +9429,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, openSubject, readonly, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
     export default OutletModal;
 }
 

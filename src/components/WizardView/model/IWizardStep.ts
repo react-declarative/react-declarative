@@ -1,5 +1,6 @@
 export interface IWizardStep {
-    id: string;
+    id?: string;
+    isMatch?: (id: string) => boolean;
     label: string;
     icon?: React.ComponentType<any>;
 }

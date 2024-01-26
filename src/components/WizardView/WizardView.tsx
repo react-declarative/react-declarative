@@ -52,7 +52,7 @@ const useStyles = makeStyles()((theme) => ({
   loader: {
     position: "absolute",
     top: HEADER_HEIGHT - LOADER_HEIGHT,
-    height: '4px',
+    height: "4px",
     zIndex: 2,
     left: 0,
     width: "100%",
@@ -114,7 +114,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
         setLoading(0);
         setProgress(progress);
       },
-      ...upperOtherProps
+      ...upperOtherProps,
     }),
     [size.height, size.width, loading]
   );
@@ -136,7 +136,9 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     if (!route) {
       return -1;
     }
-    const activeStep = steps.findIndex(({ id }) => id === route.id);
+    const activeStep = steps.findIndex(
+      ({ isMatch = () => false, id }) => id === route.id || isMatch(route.id)
+    );
     if (activeStep === -1) {
       return lastActiveStep.current;
     }
@@ -145,10 +147,18 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const renderLoader = useCallback(() => {
     if (progress) {
-      return <LinearProgress className={classes.loader} value={progress} variant="determinate" />
+      return (
+        <LinearProgress
+          className={classes.loader}
+          value={progress}
+          variant="determinate"
+        />
+      );
     }
     if (loading) {
-      return <LinearProgress className={classes.loader} variant="indeterminate" />
+      return (
+        <LinearProgress className={classes.loader} variant="indeterminate" />
+      );
     }
     return null;
   }, [loading, progress]);
