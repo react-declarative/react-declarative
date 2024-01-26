@@ -14,8 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import debounce from "../../../utils/hof/debounce";
 
-import TSubject from "../../../model/TSubject";
-import ISearchViewProps from "../model/ISearchViewProps";
+import ISearchInputProps from "../model/ISearchInputProps";
 
 const useStyles = makeStyles()((theme) => ({
   listHeader: {
@@ -23,17 +22,6 @@ const useStyles = makeStyles()((theme) => ({
     paddingTop: theme.spacing(1.5),
   },
 }));
-
-interface ISearchInputProps {
-  type: Exclude<ISearchViewProps['type'], undefined>;
-  mode: Exclude<ISearchViewProps['mode'], undefined>;
-  autoComplete: ISearchViewProps['autoComplete'];
-  pattern: ISearchViewProps['pattern'];
-  reloadSubject: TSubject<void>;
-  onTextChange: (value: string) => void;
-  loading: boolean;
-  getValue: () => string;
-}
 
 const SEARCH_DEBOUNCE = 1_500;
 

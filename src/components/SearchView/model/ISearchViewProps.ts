@@ -5,6 +5,7 @@ import { TextFieldProps } from "@mui/material/TextField";
 import ISearchItem from "./ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
+import ISearchInputProps from "./ISearchInputProps";
 
 export type ISearchViewProps<
   Data extends IAnything = IAnything,
@@ -29,6 +30,7 @@ export type ISearchViewProps<
   sx?: SxProps;
   fullWidth?: boolean;
   SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
+  SearchInput?: React.ComponentType<ISearchInputProps>;
   CreateButton?: React.ComponentType<{}>;
   payload?: Payload | (() => Payload);
   value?:

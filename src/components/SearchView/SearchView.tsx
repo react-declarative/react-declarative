@@ -8,7 +8,7 @@ import Popover from "@mui/material/Popover";
 
 import SearchItemDefault from "./components/SearchItem";
 import CreateButtonDefault from "./components/CreateButton";
-import SearchInput from "./components/SearchInput";
+import SearchInputDefault from "./components/SearchInput";
 import SearchList from "./components/SearchList";
 
 import useActualCallback from "../../hooks/useActualCallback";
@@ -38,7 +38,10 @@ interface IState {
   value: string;
 }
 
-export const SearchView = <Data extends IAnything = IAnything, Payload = IAnything>({
+export const SearchView = <
+  Data extends IAnything = IAnything,
+  Payload = IAnything
+>({
   className,
   style,
   sx,
@@ -62,6 +65,7 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
   fallback,
   handler,
   SearchItem = SearchItemDefault,
+  SearchInput = SearchInputDefault,
   CreateButton = CreateButtonDefault,
   throwError,
   ...otherProps
@@ -205,7 +209,9 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
     []
   );
 
-  const getValue = useActualCallback(() => state.item?.label || state.value || "");
+  const getValue = useActualCallback(
+    () => state.item?.label || state.value || ""
+  );
 
   const textValue = getValue();
 
@@ -259,16 +265,18 @@ export const SearchView = <Data extends IAnything = IAnything, Payload = IAnythi
           setOpen(false);
         }}
       >
-        <SearchInput
-          type={type}
-          mode={mode}
-          pattern={pattern}
-          autoComplete={autoComplete}
-          reloadSubject={reloadSubject}
-          loading={loading}
-          getValue={getValue}
-          onTextChange={handleChangeText}
-        />
+        {state.open && (
+          <SearchInput
+            type={type}
+            mode={mode}
+            pattern={pattern}
+            autoComplete={autoComplete}
+            reloadSubject={reloadSubject}
+            loading={loading}
+            getValue={getValue}
+            onTextChange={handleChangeText}
+          />
+        )}
         {state.open && (
           <SearchList
             items={data}
