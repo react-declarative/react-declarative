@@ -9,7 +9,6 @@ import IWizardStep from "./IWizardStep";
 export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
     history: never;
     routes: never;
-    otherProps: never;
 }> {
     className?: string;
     outlinePaper?: boolean;

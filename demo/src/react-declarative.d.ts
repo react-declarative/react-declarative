@@ -242,10 +242,12 @@ declare module 'react-declarative' {
     export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModalInternal<Data, Payload, Params>;
     export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
     export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
-    import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal } from 'react-declarative/components';
+    import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal, IWizardModal as IWizardModalInternal, IWizardModalProps as IWizardModalPropsInternal } from 'react-declarative/components';
     export type IWizardStep = IWizardStepInternal;
     export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
     export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
+    export type IWizardModalProps<Data = any, Payload = any> = IWizardModalPropsInternal<Data, Payload>;
+    export type IWizardModal<Data = any, Payload = any> = IWizardModalInternal<Data, Payload>;
     import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from 'react-declarative/components';
     export type ITabsStep = ITabsStepInternal;
     export type ITabsOutlet<Data = any, Payload = any> = ITabsOutletInternal<Data, Payload>;
@@ -324,6 +326,7 @@ declare module 'react-declarative' {
     export { useVisibilityView } from 'react-declarative/components';
     export { useFilesView } from 'react-declarative/components';
     export { useOutletModal } from 'react-declarative/components';
+    export { useWizardModal } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
     export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
@@ -5537,6 +5540,9 @@ declare module 'react-declarative/components/WizardView' {
     export { IWizardOutlet } from 'react-declarative/components/WizardView/model/IWizardOutlet';
     export { IWizardOutletProps } from 'react-declarative/components/WizardView/model/IWizardOutletProps';
     export { IWizardStep } from 'react-declarative/components/WizardView/model/IWizardStep';
+    export { IWizardModal } from 'react-declarative/components/WizardView/model/IWizardModal';
+    export { IWizardModalProps } from 'react-declarative/components/WizardView/model/IWizardModalProps';
+    export { useWizardModal } from 'react-declarative/components/WizardView/hooks/useWizardModal';
     export { default } from 'react-declarative/components/WizardView/WizardView';
 }
 
@@ -7694,7 +7700,7 @@ declare module 'react-declarative/components/SecretView/SecretView' {
 
 declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
-    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
+    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
 }
 
@@ -7761,7 +7767,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutletProps
     import IAnything from "react-declarative/model/IAnything";
     import { IOutletProps } from "react-declarative/components/OutletView";
     import { OtherProps } from "react-declarative/components/WizardView/model/IWizardOutlet";
-    export type IWizardOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload> & OtherProps;
+    export type IWizardOutletProps<Data = IAnything, Payload = IAnything, Props = {}> = IOutletProps<Data, Payload, Props> & OtherProps;
     export default IWizardOutletProps;
 }
 
@@ -7772,6 +7778,51 @@ declare module 'react-declarative/components/WizardView/model/IWizardStep' {
         icon?: React.ComponentType<any>;
     }
     export default IWizardStep;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardModal' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IWizardOutlet from "react-declarative/components/WizardView/model/IWizardOutlet";
+    import IWizardOutletProps from "react-declarative/components/WizardView/model/IWizardOutletProps";
+    export type IWizardModal<Data = IAnything, Payload = IAnything> = Omit<IWizardOutlet<Data, Payload>, keyof {
+        element: never;
+    }> & {
+        element: (props: IWizardOutletProps<Data, Payload>) => React.ReactElement;
+    };
+    export default IWizardModal;
+}
+
+declare module 'react-declarative/components/WizardView/model/IWizardModalProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import IWizardOutletProps from "react-declarative/components/WizardView/model/IWizardOutletProps";
+    type ModalOtherProps = {
+        onClose: () => void;
+    };
+    export type IWizardModalProps<Data = IAnything, Payload = IAnything> = IWizardOutletProps<Data, Payload, ModalOtherProps>;
+    export default IWizardModalProps;
+}
+
+declare module 'react-declarative/components/WizardView/hooks/useWizardModal' {
+    import { IWizardModalProps } from "react-declarative/components/WizardView/components/WizardOutletModal";
+    import IAnything from "react-declarative/model/IAnything";
+    import History from "react-declarative/model/History";
+    interface IParams<Data extends {} = Record<string, any>, Payload = IAnything> extends Omit<IWizardModalProps<Data, Payload>, keyof {
+        openSubject: never;
+        history: never;
+        onSubmit: never;
+        className: never;
+    }> {
+        onSubmit?: (data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+        fullScreen?: boolean;
+        history?: History;
+        pathname?: string;
+    }
+    export const useWizardModal: <Data extends {} = Record<string, any>, Payload = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload>) => {
+        open: typeof open;
+        render: () => JSX.Element;
+        pickData: () => void;
+    };
+    export default useWizardModal;
 }
 
 declare module 'react-declarative/components/PortalView/PortalView' {
@@ -9315,7 +9366,6 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
     export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
         history: never;
         routes: never;
-        otherProps: never;
     }> {
         className?: string;
         outlinePaper?: boolean;
@@ -9327,6 +9377,57 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
         pathname?: string;
     }
     export default IWizardViewProps;
+}
+
+declare module 'react-declarative/components/WizardView/components/WizardOutletModal' {
+    import * as React from "react";
+    import { IFetchViewProps } from "react-declarative/components/FetchView";
+    import IWizardModal from "react-declarative/components/WizardView/model/IWizardModal";
+    import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
+    import IAnything from "react-declarative/model/IAnything";
+    import TSubject from "react-declarative/model/TSubject";
+    export interface IWizardModalProps<Data extends {} = Record<string, any>, Payload = IAnything> extends Omit<IWizardViewProps<Data, Payload>, keyof {
+        otherProps: never;
+        onSubmit: never;
+        initialData: never;
+        payload: never;
+        params: never;
+        routes: never;
+        data: never;
+        id: never;
+        outlinePaper: never;
+    }> {
+        openSubject: TSubject<boolean>;
+        fullScreen?: boolean;
+        withActionButton?: boolean;
+        title?: string;
+        fetchState?: IFetchViewProps["state"];
+        reloadSubject?: TSubject<void>;
+        onSubmit?: (data: Data | null, payload: Payload) => Promise<boolean> | boolean;
+        AfterTitle?: React.ComponentType<{
+            onClose: () => void;
+            data: Data | null;
+        }>;
+        BeforeTitle?: React.ComponentType<{
+            onClose: () => void;
+            data: Data | null;
+        }>;
+        routes: IWizardModal<Data, Payload>[];
+        data?: Data | null;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        fallback?: (e: Error) => void;
+        throwError?: boolean;
+        hidden?: boolean;
+        submitLabel?: string;
+        mapPayload?: (data: Record<string, any>[]) => Payload | Promise<Payload>;
+        mapInitialData?: (data: Record<string, any>[]) => Data | Promise<Data>;
+        onMount?: () => void;
+        onUnmount?: () => void;
+        onClose?: () => void;
+    }
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, openSubject, readonly, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
+    export default OutletModal;
 }
 
 declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' {

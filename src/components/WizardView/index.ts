@@ -4,4 +4,7 @@ export * from './components/WizardContainer';
 export { IWizardOutlet } from './model/IWizardOutlet';
 export { IWizardOutletProps } from './model/IWizardOutletProps';
 export { IWizardStep } from './model/IWizardStep';
+export { IWizardModal } from './model/IWizardModal';
+export { IWizardModalProps } from './model/IWizardModalProps';
+export { useWizardModal } from './hooks/useWizardModal';
 export { default } from './WizardView';

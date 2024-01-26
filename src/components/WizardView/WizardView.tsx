@@ -83,6 +83,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   routes,
   onLoadStart,
   onLoadEnd,
+  otherProps: upperOtherProps = {},
   ...outletProps
 }: IWizardViewProps<Data, Payload>) => {
   const { elementRef, size } = useElementSize();
@@ -113,6 +114,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
         setLoading(0);
         setProgress(progress);
       },
+      ...upperOtherProps
     }),
     [size.height, size.width, loading]
   );

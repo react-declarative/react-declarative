@@ -306,11 +306,14 @@ export type IOutletModal<Data = any, Payload = any, Params = any> = IOutletModal
 export type IOutletProps<Data = any, Payload = any, Params = any> = IOutletPropsInternal<Data, Payload, Params>;
 export type IOutletModalProps<Data = any, Payload = any, Params = any> = IOutletModalPropsInternal<Data, Payload, Params>;
 
-import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal } from './components';
+import { IWizardOutlet as IWizardOutletInternal, IWizardOutletProps as IWizardOutletPropsInternal, IWizardStep as IWizardStepInternal, IWizardModal as IWizardModalInternal, IWizardModalProps as IWizardModalPropsInternal } from './components';
 
 export type IWizardStep = IWizardStepInternal;
 export type IWizardOutlet<Data = any, Payload = any> = IWizardOutletInternal<Data, Payload>;
 export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
+
+export type IWizardModalProps<Data = any, Payload = any> = IWizardModalPropsInternal<Data, Payload>;
+export type IWizardModal<Data = any, Payload = any> = IWizardModalInternal<Data, Payload>;
 
 import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from './components';
 
@@ -409,6 +412,7 @@ export { useVisibilityView } from './components';
 export { useFilesView } from './components';
 
 export { useOutletModal } from './components';
+export { useWizardModal } from './components';
 
 export { createField, makeField } from './components';
 export { createLayout, makeLayout } from './components';
