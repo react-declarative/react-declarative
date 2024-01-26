@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
+import { makeStyles } from '../../styles';
+
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
@@ -15,6 +17,7 @@ import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";
 import useActualState from "../../hooks/useActualState";
 import useAsyncAction from "../../hooks/useAsyncAction";
+import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 import useChange from "../../hooks/useChange";
 
@@ -27,7 +30,6 @@ import ISearchViewProps from "./model/ISearchViewProps";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { SEARCH_VIEW_ROOT } from "./config";
-import useSingleton from "../../hooks/useSingleton";
 
 const DEFAULT_DELAY = 500;
 const DEFAULT_LIMIT = 25;
@@ -37,6 +39,13 @@ interface IState {
   open: boolean;
   value: string;
 }
+
+const useStyles = makeStyles()({
+  root: {
+    minHeight: 425,
+    minWidth: 290,
+  },
+});
 
 export const SearchView = <
   Data extends IAnything = IAnything,
@@ -70,6 +79,9 @@ export const SearchView = <
   throwError,
   ...otherProps
 }: ISearchViewProps<Data, Payload>) => {
+
+  const { classes } = useStyles();
+
   const reloadSubject = useSubject<void>();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -166,6 +178,7 @@ export const SearchView = <
     if (initComplete$.current) {
       reloadSubject.next();
       onChange$(state.item);
+      onTextChange$(state.item?.label || '');
     }
   }, [state.item]);
 
@@ -265,44 +278,46 @@ export const SearchView = <
           setOpen(false);
         }}
       >
-        {state.open && (
-          <SearchInput
-            type={type}
-            mode={mode}
-            pattern={pattern}
-            autoComplete={autoComplete}
-            reloadSubject={reloadSubject}
-            loading={loading}
-            getValue={getValue}
-            onTextChange={handleChangeText}
-          />
-        )}
-        {state.open && (
-          <SearchList
-            items={data}
-            value={state.value}
-            payload={payload}
-            item={state.item}
-            hasMore={hasMore}
-            loading={loading}
-            onDataRequest={onSkip}
-            onLoadStart={onLoadStart}
-            onLoadEnd={onLoadEnd}
-            fallback={fallback}
-            throwError={throwError}
-            SearchItem={SearchItem}
-            CreateButton={CreateButton}
-            onItemChange={handleChangeItem}
-            onCreate={
-              onCreate
-                ? (value: string) => {
-                    onCreate(value);
-                    setOpen(false);
-                  }
-                : undefined
-            }
-          />
-        )}
+        <div className={classes.root}>
+          {state.open && (
+            <SearchInput
+              type={type}
+              mode={mode}
+              pattern={pattern}
+              autoComplete={autoComplete}
+              reloadSubject={reloadSubject}
+              loading={loading}
+              getValue={getValue}
+              onTextChange={handleChangeText}
+            />
+          )}
+          {state.open && (
+            <SearchList
+              items={data}
+              value={state.value}
+              payload={payload}
+              item={state.item}
+              hasMore={hasMore}
+              loading={loading}
+              onDataRequest={onSkip}
+              onLoadStart={onLoadStart}
+              onLoadEnd={onLoadEnd}
+              fallback={fallback}
+              throwError={throwError}
+              SearchItem={SearchItem}
+              CreateButton={CreateButton}
+              onItemChange={handleChangeItem}
+              onCreate={
+                onCreate
+                  ? (value: string) => {
+                      onCreate(value);
+                      setOpen(false);
+                    }
+                  : undefined
+              }
+            />
+          )}
+        </div>
       </Popover>
     </>
   );

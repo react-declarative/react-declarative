@@ -22,11 +22,28 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+  inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+  inputFormatter?: PickProp<IField<Data, Payload>, "inputFormatter">;
+  inputFormatterSymbol?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterSymbol"
+  >;
+  inputFormatterAllowed?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterAllowed"
+  >;
+  inputFormatterTemplate?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterTemplate"
+  >;
+  inputFormatterReplace?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterReplace"
+  >;
   description?: PickProp<IField<Data, Payload>, "description">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   title?: PickProp<IField<Data, Payload>, "title">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
-  inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
@@ -73,6 +90,11 @@ export const DictField = ({
   inputPattern,
   groupRef,
   inputRef,
+  inputFormatter,
+  inputFormatterAllowed,
+  inputFormatterReplace,
+  inputFormatterSymbol,
+  inputFormatterTemplate,
   name,
 }: IDictFieldProps & IDictFieldPrivate) => (
   <Dict
@@ -105,6 +127,11 @@ export const DictField = ({
     inputPattern={inputPattern}
     onChange={onChange}
     name={name}
+    inputFormatter={inputFormatter}
+    inputFormatterAllowed={inputFormatterAllowed}
+    inputFormatterReplace={inputFormatterReplace}
+    inputFormatterSymbol={inputFormatterSymbol}
+    inputFormatterTemplate={inputFormatterTemplate}
   />
 );
 
