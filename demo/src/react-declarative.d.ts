@@ -3119,6 +3119,7 @@ declare module 'react-declarative/utils/hof/cancelable' {
 declare module 'react-declarative/utils/hof/debounce' {
     export interface IClearable {
         clear: () => void;
+        flush: () => void;
     }
     export const debounce: <T extends (...args: any[]) => any>(run: T, delay?: number) => T & IClearable;
     export default debounce;

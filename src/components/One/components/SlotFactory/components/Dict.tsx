@@ -168,20 +168,22 @@ export const Dict = ({
         useEffect(
           () =>
             reloadSubject.subscribe(() => {
-              const { current: input } = inputElementRef;
-              if (input) {
-                input.focus();
-                setValue(getValue);
-              }
+              inputElementRef.current?.focus();
+              setValue(getValue);
             }),
           []
         );
 
         useEffect(() => {
           if (!loading) {
+            inputElementRef.current?.focus();
             setValue(getValue);
           }
         }, [loading]);
+        
+        useEffect(() => () => {
+          emitChangeSearch.flush();
+        }, []);
 
         const emitChangeSearch = useMemo(
           () =>
@@ -209,7 +211,7 @@ export const Dict = ({
               autoFocus
               fullWidth
               disabled={loading}
-              defaultValue={value}
+              value={value}
               autoComplete={autoComplete}
               inputProps={{
                 pattern,

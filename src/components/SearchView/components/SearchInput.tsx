@@ -55,7 +55,7 @@ export const SearchInput = ({
     }
   }, [loading]);
 
-  const handleChangeSearch = useMemo(
+  const emitChangeSearch = useMemo(
     () =>
       debounce(
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -65,6 +65,10 @@ export const SearchInput = ({
       ),
     []
   );
+
+  useEffect(() => () => {
+    emitChangeSearch.flush();
+  }, []);
 
   const handleKeySearch = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -109,7 +113,7 @@ export const SearchInput = ({
             </InputAdornment>
           ),
         }}
-        onChange={handleChangeSearch}
+        onChange={emitChangeSearch}
         onKeyDown={handleKeySearch}
         sx={{ mb: 1 }}
       />
