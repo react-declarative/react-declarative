@@ -6,6 +6,7 @@ import ISearchItem from "./ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 import ISearchInputProps from "./ISearchInputProps";
+import ICreateButtonProps from "./ICreateButtonProps";
 
 export type ISearchViewProps<
   Data extends IAnything = IAnything,
@@ -31,7 +32,7 @@ export type ISearchViewProps<
   fullWidth?: boolean;
   SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
   SearchInput?: React.ComponentType<ISearchInputProps>;
-  CreateButton?: React.ComponentType<{}>;
+  CreateButton?: React.ComponentType<ICreateButtonProps>;
   payload?: Payload | (() => Payload);
   value?:
     | ISearchItem<Data>

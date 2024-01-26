@@ -331,6 +331,7 @@ export const Dict = ({
           : undefined
       }
       label={title}
+      payload={payload}
       disabled={disabled || loading || readonly}
       SearchItem={dictSearchItem}
       CreateButton={dictCreateButton}

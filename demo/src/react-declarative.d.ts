@@ -4845,6 +4845,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
     import IAnything from "react-declarative/model/IAnything";
     import ISearchItemProps from "react-declarative/components/SearchView/model/ISearchItemProps";
     import ISearchInputProps from "react-declarative/components/SearchView/model/ISearchInputProps";
+    import ICreateButtonProps from "react-declarative/components/SearchView/model/ICreateButtonProps";
     export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnything> = Omit<TextFieldProps, keyof {
         value: never;
         onChange: never;
@@ -4863,7 +4864,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         fullWidth?: boolean;
         SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
         SearchInput?: React.ComponentType<ISearchInputProps>;
-        CreateButton?: React.ComponentType<{}>;
+        CreateButton?: React.ComponentType<ICreateButtonProps>;
         payload?: Payload | (() => Payload);
         value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
         searchText?: string | null | (() => null | string | Promise<null | string>);
@@ -6158,6 +6159,15 @@ declare module 'react-declarative/components/SearchView/model/ISearchInputProps'
         getValue: () => string;
     }
     export default ISearchInputProps;
+}
+
+declare module 'react-declarative/components/SearchView/model/ICreateButtonProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ICreateButtonProps {
+        search: string;
+        payload: IAnything;
+    }
+    export default ICreateButtonProps;
 }
 
 declare module 'react-declarative/components/List/slots/ActionAddSlot' {

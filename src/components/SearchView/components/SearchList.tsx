@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import ISearchItem from "../model/ISearchItem";
 import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "../model/ISearchItemProps";
+import ICreateButtonProps from "../model/ICreateButtonProps";
 
 import { SEARCH_VIEW_ROOT } from "../config";
 
@@ -22,7 +23,7 @@ interface ISearchListProps {
   hasMore: boolean;
   payload: IAnything;
   SearchItem: React.ComponentType<ISearchItemProps>;
-  CreateButton: React.ComponentType<{}>;
+  CreateButton: React.ComponentType<ICreateButtonProps>;
   onItemChange: (item: ISearchItem) => void;
   onDataRequest: (initial: boolean) => void;
   onLoadStart?: () => void;
@@ -99,7 +100,7 @@ export const SearchList = ({
     const { current } = rootRef;
     const root = current?.closest(`.${SEARCH_VIEW_ROOT}`);
     const input = root?.querySelector("input");
-    setText(input?.value || '');
+    setText(input?.value || "");
   }, [loading]);
 
   const renderLoader = useCallback(() => {
@@ -136,7 +137,7 @@ export const SearchList = ({
           onCreate(text);
         }}
       >
-        <CreateButton />
+        <CreateButton payload={payload} search={text} />
       </div>
     );
   }, [item, items, loading, text, onCreate]);
