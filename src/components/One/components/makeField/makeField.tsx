@@ -272,7 +272,8 @@ export function makeField(
             memory.objectUpdate = true;
             memory.inputUpdate = false;
             if (compute) {
-                const result = compute(object, payload);
+                const visible = isVisible(object, payload);
+                const result = visible ? compute(object, payload) : false;
                 if (result instanceof Promise) {
                     setLoading(true)
                     result
@@ -283,7 +284,6 @@ export function makeField(
                     setValue(result);
                 }
                 const disabled = isDisabled(object, payload);
-                const visible = isVisible(object, payload);
                 const readonly = isReadonly(object, payload);
                 const invalid = isInvalid(object, payload) || null;
                 const incorrect = isIncorrect(object, payload) || null;

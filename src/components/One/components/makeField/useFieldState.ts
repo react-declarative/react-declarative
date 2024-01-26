@@ -3,7 +3,6 @@ import { useState, useMemo } from "react";
 import { IConfig } from "../OneConfig/OneConfigInstance";
 
 import get from "../../../../utils/get";
-import { promiseValue } from "../../../../utils/promiseState";
 
 import IField, { Value } from "../../../../model/IField";
 import IManaged from "../../../../model/IManaged";
@@ -50,14 +49,14 @@ interface IParams {
   isReadonly: Exclude<IField["isReadonly"], undefined>;
 }
 
-const readValue = ({ compute, name, object, payload, config }: IParams) => {
+const readValue = ({ compute, name, object, payload, config }: IParams, visible: boolean) => {
   /**
    * Используйте флаг WITH_SYNC_COMPUTE с осторожностью: может вызывать
    * тормоза рендеринга на больших формах
    */
   if (compute && config.WITH_SYNC_COMPUTE) {
-    const result = compute(object, payload);
-    return result instanceof Promise ? promiseValue(result) || false : result;
+    const result = visible ? compute(object, payload) : false;
+    return result instanceof Promise ? false : result;
   }
   /**
    * Чтобы поле input было React-управляемым, нельзя
@@ -86,14 +85,17 @@ const readState = ({
 });
 
 export const useFieldState = (initialData: IInitialData, config: IParams) => {
-  const [state, setState] = useState<IState>(() => ({
-    groupRef: null as never,
-    focusReadonly: true,
-    loading: false,
-    ...readState(config),
-    value: readValue(config),
-    ...initialData,
-  }));
+  const [state, setState] = useState<IState>(() => {
+    const params = readState(config);
+    return {
+      groupRef: null as never,
+      focusReadonly: true,
+      loading: false,
+      ...params,
+      value: readValue(config, params.visible),
+      ...initialData,
+    };
+  });
 
   const action = useMemo(
     () => ({
