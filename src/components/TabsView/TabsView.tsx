@@ -99,6 +99,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   onTabChange,
   onLoadStart,
   onLoadEnd,
+  otherProps: upperOtherProps = {},
   ...outletProps
 }: ITabsViewProps<Data, Payload>) => {
   const { elementRef, size } = useElementSize();
@@ -119,6 +120,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   const otherProps = useMemo(
     (): OtherProps => ({
       size,
+      ...upperOtherProps
     }),
     [size.height, size.width]
   );

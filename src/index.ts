@@ -315,11 +315,14 @@ export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsIn
 export type IWizardModalProps<Data = any, Payload = any> = IWizardModalPropsInternal<Data, Payload>;
 export type IWizardModal<Data = any, Payload = any> = IWizardModalInternal<Data, Payload>;
 
-import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from './components';
+import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal, ITabsModal as ITabsModalInternal, ITabsModalProps as ITabsModalPropsInternal } from './components';
 
 export type ITabsStep = ITabsStepInternal;
 export type ITabsOutlet<Data = any, Payload = any> = ITabsOutletInternal<Data, Payload>;
 export type ITabsOutletProps<Data = any, Payload = any> = ITabsOutletPropsInternal<Data, Payload>;
+
+export type ITabsModalProps<Data = any, Payload = any> = ITabsModalPropsInternal<Data, Payload>;
+export type ITabsModal<Data = any, Payload = any> = ITabsModalInternal<Data, Payload>;
 
 export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 

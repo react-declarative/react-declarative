@@ -248,10 +248,12 @@ declare module 'react-declarative' {
     export type IWizardOutletProps<Data = any, Payload = any> = IWizardOutletPropsInternal<Data, Payload>;
     export type IWizardModalProps<Data = any, Payload = any> = IWizardModalPropsInternal<Data, Payload>;
     export type IWizardModal<Data = any, Payload = any> = IWizardModalInternal<Data, Payload>;
-    import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal } from 'react-declarative/components';
+    import { ITabsOutlet as ITabsOutletInternal, IWizardOutletProps as ITabsOutletPropsInternal, ITabsStep as ITabsStepInternal, ITabsModal as ITabsModalInternal, ITabsModalProps as ITabsModalPropsInternal } from 'react-declarative/components';
     export type ITabsStep = ITabsStepInternal;
     export type ITabsOutlet<Data = any, Payload = any> = ITabsOutletInternal<Data, Payload>;
     export type ITabsOutletProps<Data = any, Payload = any> = ITabsOutletPropsInternal<Data, Payload>;
+    export type ITabsModalProps<Data = any, Payload = any> = ITabsModalPropsInternal<Data, Payload>;
+    export type ITabsModal<Data = any, Payload = any> = ITabsModalInternal<Data, Payload>;
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
@@ -5511,6 +5513,8 @@ declare module 'react-declarative/components/TabsView' {
     export { ITabsOutlet } from 'react-declarative/components/TabsView/model/ITabsOutlet';
     export { ITabsOutletProps } from 'react-declarative/components/TabsView/model/ITabsOutletProps';
     export { ITabsStep } from 'react-declarative/components/TabsView/model/ITabsStep';
+    export { ITabsModal } from 'react-declarative/components/TabsView/model/ITabsModal';
+    export { ITabsModalProps } from 'react-declarative/components/TabsView/model/ITabsModalProps';
     export { default } from 'react-declarative/components/TabsView/TabsView';
 }
 
@@ -7544,7 +7548,7 @@ declare module 'react-declarative/components/FadeView/FadeView' {
 
 declare module 'react-declarative/components/TabsView/TabsView' {
     import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
-    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs, routes, onTabChange, onLoadStart, onLoadEnd, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
+    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
 
@@ -7568,7 +7572,7 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
     import IAnything from "react-declarative/model/IAnything";
     import { IOutletProps } from "react-declarative/components/OutletView";
     import { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
-    export type ITabsOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload, OtherProps> & OtherProps;
+    export type ITabsOutletProps<Data = IAnything, Payload = IAnything, Other = {}> = IOutletProps<Data, Payload, OtherProps & Other> & OtherProps & Other;
     export default ITabsOutletProps;
 }
 
@@ -7580,6 +7584,29 @@ declare module 'react-declarative/components/TabsView/model/ITabsStep' {
         icon?: React.ComponentType<any>;
     }
     export default ITabsStep;
+}
+
+declare module 'react-declarative/components/TabsView/model/ITabsModal' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ITabsOutlet from "react-declarative/components/TabsView/model/ITabsOutlet";
+    import ITabsModalProps from "react-declarative/components/TabsView/model/ITabsModalProps";
+    export type ITabsModal<Data = IAnything, Payload = IAnything> = Omit<ITabsOutlet<Data, Payload>, keyof {
+        element: never;
+    }> & {
+        element: (props: ITabsModalProps<Data, Payload>) => React.ReactElement;
+    };
+    export default ITabsModal;
+}
+
+declare module 'react-declarative/components/TabsView/model/ITabsModalProps' {
+    import IAnything from "react-declarative/model/IAnything";
+    import ITabsOutletProps from "react-declarative/components/TabsView/model/ITabsOutletProps";
+    import { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
+    type ModalOtherProps = {
+        onClose: () => void;
+    };
+    export type ITabsModalProps<Data = IAnything, Payload = IAnything> = ITabsOutletProps<Data, Payload, ModalOtherProps> & ModalOtherProps & OtherProps;
+    export default ITabsModalProps;
 }
 
 declare module 'react-declarative/components/FetchView/FetchView' {
@@ -9389,7 +9416,6 @@ declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
     export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
         history: never;
         routes: never;
-        otherProps: never;
     }> {
         className?: string;
         outlinePaper?: boolean;
