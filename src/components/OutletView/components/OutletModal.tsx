@@ -375,7 +375,7 @@ export const OutletModal = <
                     params={await mapParams(id, args.flat(1))}
                     readonly={readonly}
                     onChange={handleChange}
-                    otherProps={{ onClose }}
+                    otherProps={{ onClose: handleClose }}
                   />
                 )}
             </FetchView>

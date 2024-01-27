@@ -348,7 +348,7 @@ export const OutletModal = <
                   payload={await mapPayload(args.flat(1))}
                   readonly={readonly}
                   onChange={handleChange}
-                  otherProps={{ onClose }}
+                  otherProps={{ onClose: handleClose }}
                 />
               )}
             </FetchView>
