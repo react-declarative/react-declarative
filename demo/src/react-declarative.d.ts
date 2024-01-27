@@ -7176,14 +7176,16 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         onSubmit?: (data: IRowData['id'][] | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
     }
     export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, selectionMode, handler, fallback, apiRef, reloadSubject, payload: upperPayload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
-        open: boolean;
-        render: () => JSX.Element;
-        pickData: (param?: Param) => void;
+        readonly open: boolean;
+        readonly render: () => JSX.Element;
+        readonly pickData: (param?: Param) => void;
+        readonly close: () => Promise<boolean>;
     };
     export const useSearchModalTyped: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = TypedField<FilterData, Payload>>(params: IParams<FilterData, RowData, Payload, Field>) => {
-        open: boolean;
-        render: () => JSX.Element;
-        pickData: (param?: Param) => void;
+        readonly open: boolean;
+        readonly render: () => JSX.Element;
+        readonly pickData: (param?: Param) => void;
+        readonly close: () => Promise<boolean>;
     };
     export default useSearchModal;
 }
@@ -7326,6 +7328,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         open: typeof open;
         render: () => JSX.Element;
         pickData: (id: Id) => void;
+        close: () => void;
     };
     export default useOutletModal;
 }
@@ -7894,9 +7897,10 @@ declare module 'react-declarative/components/WizardView/hooks/useWizardModal' {
         pathname?: string;
     }
     export const useWizardModal: <Data extends {} = Record<string, any>, Payload = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload>) => {
-        open: typeof open;
-        render: () => JSX.Element;
-        pickData: () => void;
+        readonly open: typeof open;
+        readonly render: () => JSX.Element;
+        readonly pickData: () => void;
+        readonly close: () => void;
     };
     export default useWizardModal;
 }

@@ -130,7 +130,8 @@ export const useSearchModal = <
     open,
     render,
     pickData,
-  };
+    close: () => handleSubmit(null),
+  } as const;
 };
 
 export const useSearchModalTyped = <

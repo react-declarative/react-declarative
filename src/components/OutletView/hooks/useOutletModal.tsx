@@ -121,7 +121,8 @@ export const useOutletModal = <
     open,
     render,
     pickData,
-  };
+    close: handleClose,
+  } as const;
 };
 
 export default useOutletModal;

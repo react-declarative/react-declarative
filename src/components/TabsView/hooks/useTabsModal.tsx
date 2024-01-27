@@ -118,7 +118,8 @@ export const useTabsModal = <
     open,
     render,
     pickData,
-  };
+    close: handleClose,
+  } as const;
 };
 
 export default useTabsModal;

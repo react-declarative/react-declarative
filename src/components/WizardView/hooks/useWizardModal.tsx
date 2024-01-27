@@ -118,7 +118,8 @@ export const useWizardModal = <
     open,
     render,
     pickData,
-  };
+    close: handleClose,
+  } as const;
 };
 
 export default useWizardModal;
