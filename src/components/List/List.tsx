@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useMemo } from "react";
 
 import Entry from "./components/Entry";
 
@@ -7,6 +8,7 @@ import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 import IListProps from "../../model/IListProps";
 import TypedField from "../../model/TypedField";
+import ColumnType from "../../model/ColumnType";
 
 export const List = <
   FilterData extends {} = IAnything,
@@ -22,6 +24,17 @@ export const ListTyped = <
     RowData extends IRowData = IAnything,
 >(
     props: IListProps<FilterData, RowData, TypedField<FilterData>>,
-) => <List<FilterData, RowData> {...props} />;
+) => {
+
+  const columns = useMemo(() => {
+    const { columns = [], rowActions } = props;
+    if (!rowActions?.length) {
+      return columns.filter(({ type }) => type !== ColumnType.Action);
+    }
+    return columns;
+  }, []);
+
+  return <List<FilterData, RowData> {...props} columns={columns} />;
+};
 
 export default List;
