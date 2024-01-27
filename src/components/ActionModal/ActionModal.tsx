@@ -339,7 +339,7 @@ export const ActionModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={withStaticAction || !!loading.current || !data}
+            disabled={!withStaticAction && (!!loading.current || !data)}
             size="large"
             variant="contained"
             color="info"
