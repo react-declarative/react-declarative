@@ -14,9 +14,9 @@ import SearchInputDefault from "./components/SearchInput";
 import SearchList from "./components/SearchList";
 
 import useActualCallback from "../../hooks/useActualCallback";
+import useQueuedAction from "../../hooks/useQueuedAction";
 import useActualValue from "../../hooks/useActualValue";
 import useActualState from "../../hooks/useActualState";
-import useAsyncAction from "../../hooks/useAsyncAction";
 import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 import useChange from "../../hooks/useChange";
@@ -105,7 +105,7 @@ export const SearchView = <
   const onChange$ = useActualCallback(onChange);
   const onTextChange$ = useActualCallback(onTextChange);
 
-  const { execute } = useAsyncAction(
+  const { execute } = useQueuedAction(
     async () => {
       const state: IState = {
         value: "",

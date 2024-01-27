@@ -325,16 +325,16 @@ export const Dict = ({
       }}
       placeholder={placeholder}
       onChange={(item) => {
-        dictOnItem(item?.value || null, object$.current, payload, handleChange);
+        dictOnItem(item?.value || null, object$.current, payload, onChange, handleChange);
         onChange(item?.value || null);
       }}
       onTextChange={(search) =>
-        dictOnText(search, object$.current, payload, handleChange)
+        dictOnText(search, object$.current, payload, onChange, handleChange)
       }
       onCreate={
         dictOnAppend
           ? (search) =>
-              dictOnAppend(search, object$.current, payload, handleChange)
+              dictOnAppend(search, object$.current, payload, onChange, handleChange)
           : undefined
       }
       label={title}

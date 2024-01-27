@@ -484,19 +484,19 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Поле справочника позволяет создавать новые записи, если
      * поиск не дал результата
      */
-    dictOnAppend?: (search: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+    dictOnAppend?: (search: string, data: Data, payload: Payload, onValueChange: (value: string | null) => void, onChange: (value: Data) => void) => void;
 
     /**
      * Функция вызывается на каждое изменение текста. Подразумевается
      * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
      */
-    dictOnText?: (text: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+    dictOnText?: (text: string, data: Data, payload: Payload, onValueChange: (value: string | null) => void, onChange: (data: Data) => void) => void;
 
     /**
      * Функция вызывается на каждый выбор из модалки. Подразумевается
      * запись в целевой объект. Для контекстного поиска по label, value можно записать в другое поле
      */
-    dictOnItem?: (value: string | null, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+    dictOnItem?: (value: string | null, data: Data, payload: Payload, onValueChange: (value: string | null) => void, onChange: (data: Data) => void) => void;
 
     /**
      * Функция позволяет загрузить label для выбранного элемента асинхронно
