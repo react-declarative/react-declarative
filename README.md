@@ -794,7 +794,7 @@ const {
 </ActionButton>
 ```
 
-The `usePreventAction` will [prevent navigate](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) while action is running
+The `usePreventNavigate` will [prevent navigate](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) while action is running
 
 ```tsx
 const { handleLoadStart, handleLoadEnd } = usePreventNavigate({
