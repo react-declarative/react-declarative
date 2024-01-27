@@ -4860,6 +4860,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         disabled: never;
         InputProps: never;
         inputProps: never;
+        fullWidth: never;
     }> & {
         className?: string;
         style?: React.CSSProperties;
@@ -7189,7 +7190,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, SearchItem, SearchInput, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
+    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, inputRef, SearchItem, SearchInput, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
 }
 

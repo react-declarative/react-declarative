@@ -7,6 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Popover from "@mui/material/Popover";
+import Box from "@mui/material/Box";
 
 import SearchItemDefault from "./components/SearchItem";
 import CreateButtonDefault from "./components/CreateButton";
@@ -76,6 +77,7 @@ export const SearchView = <
   onLoadEnd,
   fallback,
   handler,
+  inputRef,
   SearchItem = SearchItemDefault,
   SearchInput = SearchInputDefault,
   CreateButton = CreateButtonDefault,
@@ -86,7 +88,7 @@ export const SearchView = <
 
   const reloadSubject = useSubject<void>();
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const anchorElRef = useRef<HTMLDivElement>(null);
 
   const payload = useSingleton(upperPayload);
 
@@ -143,12 +145,16 @@ export const SearchView = <
     execute();
   }, []);
 
-  useEffect(() => changeSubject.subscribe(() => {
-    if (initComplete$.current) {
-      setInitComplete(false);
-      execute();
-    }
-  }), []);
+  useEffect(
+    () =>
+      changeSubject.subscribe(() => {
+        if (initComplete$.current) {
+          setInitComplete(false);
+          execute();
+        }
+      }),
+    []
+  );
 
   const {
     data: rawData,
@@ -240,14 +246,12 @@ export const SearchView = <
   const textValue = getValue();
 
   return (
-    <>
+    <Box ref={anchorElRef} className={className} style={style} sx={sx}>
       <TextField
         {...otherProps}
+        fullWidth
         key={textValue}
         focused={false}
-        className={className}
-        style={style}
-        sx={sx}
         autoComplete={autoComplete}
         type={type}
         label={label}
@@ -285,7 +289,7 @@ export const SearchView = <
       />
       <Popover
         className={SEARCH_VIEW_ROOT}
-        anchorEl={inputRef.current}
+        anchorEl={anchorElRef.current}
         open={state.open}
         onClose={() => {
           clear();
@@ -334,7 +338,7 @@ export const SearchView = <
           )}
         </div>
       </Popover>
-    </>
+    </Box>
   );
 };
 

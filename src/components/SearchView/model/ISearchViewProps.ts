@@ -25,6 +25,7 @@ export type ISearchViewProps<
     disabled: never;
     InputProps: never;
     inputProps: never;
+    fullWidth: never;
   }
 > & {
   className?: string;
