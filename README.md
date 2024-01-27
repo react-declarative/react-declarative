@@ -733,7 +733,7 @@ const { execute } = useSinglerunAction(
 </ActionIcon>
 ```
 
-The `useQueuedAction` will queue all promise fulfillment. Quite useful while [state reducer pattern](https://en.wikipedia.org/wiki/Redux_(JavaScript_library)) when coding [realtime](https://en.wikipedia.org/wiki/WebSocket).
+The `useQueuedAction` will queue all promise fulfillment in functions execution order. Quite useful while [state reducer pattern](https://en.wikipedia.org/wiki/Redux_(JavaScript_library)) when coding [realtime](https://en.wikipedia.org/wiki/WebSocket).
 
 ```tsx
 const { execute } = useQueuedAction(
@@ -762,6 +762,53 @@ useEffect(() => ioc.kanbanService.updateSubject.subscribe(execute), []);
 
 useEffect(() => ioc.kanbanService.removeSubject.subscribe(execute), []);
 
+```
+
+The `usePreventAction` will prevent any other action execution [while single one is pending](https://en.wikipedia.org/wiki/Semaphore_(programming))
+
+```tsx
+const {
+  handleLoadStart,
+  handleLoadEnd,
+  loading,
+} = usePreventAction();
+
+...
+
+<ActionButton
+  disabled={loading}
+  onLoadStart={handleLoadStart}
+  onLoadEnd={handleLoadEnd}
+>
+  Action 1
+</ActionButton>
+
+...
+
+<ActionButton
+  disabled={loading}
+  onLoadStart={handleLoadStart}
+  onLoadEnd={handleLoadEnd}
+>
+  Action 2
+</ActionButton>
+```
+
+The `usePreventAction` will [prevent navigate](https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa) while action is running
+
+```tsx
+const { handleLoadStart, handleLoadEnd } = usePreventNavigate({
+  history: ioc.routerService,
+});
+
+...
+
+<ActionButton
+  onLoadStart={handleLoadStart}
+  onLoadEnd={handleLoadEnd}
+>
+  Action
+</ActionButton>
 ```
 
 
