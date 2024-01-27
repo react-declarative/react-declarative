@@ -375,6 +375,7 @@ export const OutletModal = <
                     params={await mapParams(id, args.flat(1))}
                     readonly={readonly}
                     onChange={handleChange}
+                    onSubmit={async (data, payload) => await onSubmit(id, data, payload)}
                     otherProps={{ onClose: handleClose }}
                   />
                 )}

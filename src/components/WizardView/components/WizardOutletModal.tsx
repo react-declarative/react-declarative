@@ -348,6 +348,7 @@ export const OutletModal = <
                   payload={await mapPayload(args.flat(1))}
                   readonly={readonly}
                   onChange={handleChange}
+                  onSubmit={onSubmit}
                   otherProps={{ onClose: handleClose }}
                 />
               )}
