@@ -244,6 +244,7 @@ export const SearchView = <
       <TextField
         {...otherProps}
         key={textValue}
+        focused={false}
         className={className}
         style={style}
         sx={sx}
