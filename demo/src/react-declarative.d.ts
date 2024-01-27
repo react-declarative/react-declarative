@@ -7765,11 +7765,13 @@ declare module 'react-declarative/components/WizardView/components/WizardNavigat
         onLoadEnd?: (isOk: boolean) => void;
         hasPrev?: boolean;
         hasNext?: boolean;
+        labelPrev?: string;
+        labelNext?: string;
         onPrev?: () => (void | Promise<void>);
         onNext?: () => (void | Promise<void>);
         throwError?: boolean;
     }
-    export const WizardNavigation: ({ className, style, sx, disabled, fallback, onLoadStart, onLoadEnd, onPrev, onNext, AfterPrev, BeforeNext, hasPrev, hasNext, throwError, ...otherProps }: IWizardNavigationProps) => JSX.Element;
+    export const WizardNavigation: ({ className, style, sx, disabled, fallback, onLoadStart, onLoadEnd, onPrev, onNext, AfterPrev, BeforeNext, hasPrev, hasNext, labelPrev, labelNext, throwError, ...otherProps }: IWizardNavigationProps) => JSX.Element;
     export default WizardNavigation;
 }
 

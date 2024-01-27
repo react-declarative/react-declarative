@@ -21,6 +21,8 @@ interface IWizardNavigationProps extends BoxProps {
   onLoadEnd?: (isOk: boolean) => void;
   hasPrev?: boolean;
   hasNext?: boolean;
+  labelPrev?: string;
+  labelNext?: string;
   onPrev?: () => (void | Promise<void>);
   onNext?: () => (void | Promise<void>);
   throwError?: boolean;
@@ -54,6 +56,8 @@ export const WizardNavigation = ({
   BeforeNext,
   hasPrev = false,
   hasNext = false,
+  labelPrev = "Prev",
+  labelNext = "Next",
   throwError,
   ...otherProps
 }: IWizardNavigationProps) => {
@@ -85,7 +89,7 @@ export const WizardNavigation = ({
         onLoadEnd={handleLoadEnd}
         throwError={throwError}
       >
-        Prev
+        {labelPrev}
       </ActionButton>
       {AfterPrev && <AfterPrev />}
       <div className={classes.stretch} />
@@ -99,7 +103,7 @@ export const WizardNavigation = ({
         onLoadEnd={handleLoadEnd}
         throwError={throwError}
       >
-        Next
+        {labelNext}
       </ActionButton>
     </Box>
   );
