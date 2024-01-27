@@ -118,7 +118,7 @@ export const useTabsModal = <
     open,
     render,
     pickData,
-    close: handleClose,
+    close: handleSubmit(null, {} as Payload),
   } as const;
 };
 

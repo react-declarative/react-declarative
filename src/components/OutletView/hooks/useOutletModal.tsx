@@ -121,7 +121,7 @@ export const useOutletModal = <
     open,
     render,
     pickData,
-    close: handleClose,
+    close: () => handleSubmit(outletIdSubject.data!, null, {} as Payload),
   } as const;
 };
 

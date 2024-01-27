@@ -7329,7 +7329,7 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         readonly open: typeof open;
         readonly render: () => JSX.Element;
         readonly pickData: (id: Id) => void;
-        readonly close: () => void;
+        readonly close: () => Promise<boolean>;
     };
     export default useOutletModal;
 }
@@ -7901,7 +7901,7 @@ declare module 'react-declarative/components/WizardView/hooks/useWizardModal' {
         readonly open: typeof open;
         readonly render: () => JSX.Element;
         readonly pickData: () => void;
-        readonly close: () => void;
+        readonly close: () => Promise<boolean>;
     };
     export default useWizardModal;
 }
