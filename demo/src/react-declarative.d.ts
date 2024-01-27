@@ -7256,7 +7256,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletModal' {
     export type ModalOtherProps = {
         onClose: () => void;
     };
-    export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps>;
+    export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps> & ModalOtherProps;
     export default IOutletModal;
 }
 
@@ -7568,7 +7568,7 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
     import IAnything from "react-declarative/model/IAnything";
     import { IOutletProps } from "react-declarative/components/OutletView";
     import { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
-    export type ITabsOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload> & OtherProps;
+    export type ITabsOutletProps<Data = IAnything, Payload = IAnything> = IOutletProps<Data, Payload, OtherProps> & OtherProps;
     export default ITabsOutletProps;
 }
 
@@ -7846,7 +7846,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardModalProps'
     type ModalOtherProps = {
         onClose: () => void;
     };
-    export type IWizardModalProps<Data = IAnything, Payload = IAnything> = IWizardOutletProps<Data, Payload, ModalOtherProps>;
+    export type IWizardModalProps<Data = IAnything, Payload = IAnything> = IWizardOutletProps<Data, Payload, ModalOtherProps> & ModalOtherProps;
     export default IWizardModalProps;
 }
 

@@ -8,6 +8,6 @@ type ModalOtherProps = {
 export type IWizardModalProps<
   Data = IAnything,
   Payload = IAnything
-> = IWizardOutletProps<Data, Payload, ModalOtherProps>;
+> = IWizardOutletProps<Data, Payload, ModalOtherProps> & ModalOtherProps;
 
 export default IWizardModalProps;
