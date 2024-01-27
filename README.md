@@ -665,6 +665,106 @@ return (
 </VirtualView>
 ```
 
+<img src="./assets/icons/whenthesummerdies.svg" height="35px" align="right">
+
+## Async hooks and Action components
+
+> Hooks for fetching, caching and updating asynchronous data. Promise-based [command pattern](https://docs.devexpress.com/WPF/17353/mvvm-framework/commands/delegate-commands) ui components. The hooks will help you to avoid [multiple POST method execution](https://en.wikipedia.org/wiki/REST) when user missclick button. The components will show load indicator while `onClick` promise is pending
+
+The `useAsyncProgress` will manage percent range of execution (`0% - 100%` for `<LinearProgress />` value)
+
+```tsx
+const { execute } = useAsyncProgress(
+  async ({ data }) => {
+    await createContact(data);
+  },
+  {
+    onProgress: (percent) => {
+      setProgress(percent);
+    },
+    onError: (errors) => {
+      setErrors(errors);
+    },
+    onEnd: (isOk) => {
+      history.replace("/report");
+    },
+  }
+);
+
+...
+
+<ActionButton
+  onClick={async () => {
+    const file = await chooseFile(
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    if (file) {
+      const rows = await parseExcelContacts(file);
+      execute(
+        rows.map((row, idx) => ({
+          data: row,
+          label: `Row №${idx + 2}`,
+        }))
+      );
+    }
+  }}
+>
+  Choose XLSX
+</ActionButton>
+```
+
+The `useSinglerunAction` will not execute any additional calls while original promise is pending
+
+```tsx
+const { execute } = useSinglerunAction(
+  async () => {
+   const file = await chooseFile("image/jpeg, image/png");
+    if (file) {
+      const filePath = await ioc.appwriteService.uploadFile(file);
+      onChange(filePath);
+    }
+  }
+);
+
+...
+
+<ActionIcon onClick={execute}>
+  <CloudUploadIcon />
+</ActionIcon>
+```
+
+The `useQueuedAction` will queue all promise fulfillment. Quite useful while [state reducer pattern](https://en.wikipedia.org/wiki/Redux_(JavaScript_library)) when coding [realtime](https://en.wikipedia.org/wiki/WebSocket).
+
+```tsx
+const { execute } = useQueuedAction(
+  async ({ type, payload }) => {
+    if (type === "create-action") {
+      ...
+    }
+    if (type === "update-action") {
+
+    }
+    if (type === "remove-action") {
+      ...
+    }
+  },
+  {
+    onLoadStart: () => ioc.layoutService.setAppbarLoader(true),
+    onLoadEnd: () => ioc.layoutService.setAppbarLoader(false),
+  }
+);
+
+...
+
+useEffect(() => ioc.kanbanService.createSubject.subscribe(execute), []);
+
+useEffect(() => ioc.kanbanService.updateSubject.subscribe(execute), []);
+
+useEffect(() => ioc.kanbanService.removeSubject.subscribe(execute), []);
+
+```
+
+
 <img src="./assets/icons/cubes.svg" height="35px" align="right">
 
 ## Async pipe port

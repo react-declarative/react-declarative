@@ -7574,7 +7574,8 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
 
 declare module 'react-declarative/components/TabsView/model/ITabsStep' {
     export interface ITabsStep {
-        id: string;
+        id?: string;
+        isMatch?: (id: string) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
