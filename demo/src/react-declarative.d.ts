@@ -7054,6 +7054,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
         waitForChangesDelay?: number;
         withActionButton?: boolean;
+        withStaticAction?: boolean;
         fullScreen?: boolean;
         hidden?: boolean;
         readonly?: boolean;
@@ -7088,7 +7089,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, withStaticAction, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -7104,7 +7105,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         param?: Param;
         onClose?: () => void;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, withActionButton, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
@@ -7263,7 +7264,7 @@ declare module 'react-declarative/components/OutletView/model/IOutletModal' {
     export type ModalOtherProps = {
         onClose: () => void;
     };
-    export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps> & ModalOtherProps;
+    export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps>;
     export default IOutletModal;
 }
 
@@ -7325,10 +7326,10 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         pathname?: string;
     }
     export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, pickDataSubject: upperPickDataSubject, ...outletProps }: IParams<Data, Payload, Params>) => {
-        open: typeof open;
-        render: () => JSX.Element;
-        pickData: (id: Id) => void;
-        close: () => void;
+        readonly open: typeof open;
+        readonly render: () => JSX.Element;
+        readonly pickData: (id: Id) => void;
+        readonly close: () => void;
     };
     export default useOutletModal;
 }
@@ -9352,6 +9353,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
     }> {
         fullScreen?: boolean;
         withActionButton?: boolean;
+        withStaticAction?: boolean;
         outletIdSubject: TBehaviorSubject<Id | null>;
         title?: string;
         fetchState?: IFetchViewProps<Id>["state"];
@@ -9382,7 +9384,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, withStaticAction, throwError, fullScreen, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
@@ -9480,6 +9482,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         openSubject: TBehaviorSubject<boolean>;
         fullScreen?: boolean;
         withActionButton?: boolean;
+        withStaticAction?: boolean;
         title?: string;
         fetchState?: IFetchViewProps["state"];
         reloadSubject?: TSubject<void>;
@@ -9506,7 +9509,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, withStaticAction, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
     export default OutletModal;
 }
 

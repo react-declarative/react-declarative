@@ -9,6 +9,6 @@ export type IOutletModal<
   Data = IAnything,
   Payload = IAnything,
   Params = IAnything
-> = IOutlet<Data, Payload, Params, ModalOtherProps> & ModalOtherProps;
+> = IOutlet<Data, Payload, Params, ModalOtherProps>;
 
 export default IOutletModal;

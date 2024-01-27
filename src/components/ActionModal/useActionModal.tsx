@@ -59,7 +59,6 @@ export const useActionModal = <
   dirty,
   readonly,
   fullScreen,
-  withActionButton,
   title,
 }: IParams<Data, Payload, Field, Param>) => {
 
@@ -93,7 +92,6 @@ export const useActionModal = <
         AfterTitle={AfterTitle}
         open={open}
         hidden={hidden}
-        withActionButton={withActionButton}
         waitForChangesDelay={waitForChangesDelay}
         readonly={readonly}
         fullScreen={fullScreen}

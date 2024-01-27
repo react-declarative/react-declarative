@@ -40,6 +40,7 @@ export interface IActionModalProps<
 > {
   waitForChangesDelay?: number;
   withActionButton?: boolean;
+  withStaticAction?: boolean;
   fullScreen?: boolean;
   hidden?: boolean;
   readonly?: boolean;
@@ -162,6 +163,7 @@ export const ActionModal = <
   hidden = false,
   readonly = false,
   throwError = false,
+  withStaticAction = false,
   submitLabel = "Submit",
   AfterTitle,
   BeforeTitle,
@@ -334,10 +336,10 @@ export const ActionModal = <
             features={features}
           />
         </Box>
-        {!readonly && (
+        {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!withActionButton && (!!loading.current || !data)}
+            disabled={withStaticAction || !!loading.current || !data}
             size="large"
             variant="contained"
             color="info"

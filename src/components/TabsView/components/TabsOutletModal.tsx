@@ -55,6 +55,7 @@ export interface ITabsModalProps<
   openSubject: TBehaviorSubject<boolean>;
   fullScreen?: boolean;
   withActionButton?: boolean;
+  withStaticAction?: boolean;
   title?: string;
   fetchState?: IFetchViewProps["state"];
   reloadSubject?: TSubject<void>;
@@ -169,6 +170,7 @@ export const OutletModal = <
   BeforeTitle,
   title,
   data: upperData = null,
+  withStaticAction = false,
   throwError = false,
   fullScreen = true,
   submitLabel = "Submit",
@@ -358,7 +360,7 @@ export const OutletModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!!loading.current || !data}
+            disabled={withStaticAction || !!loading.current || !data}
             size="large"
             variant="contained"
             color="info"

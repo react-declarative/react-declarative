@@ -55,6 +55,7 @@ export interface IWizardModalProps<
   openSubject: TBehaviorSubject<boolean>;
   fullScreen?: boolean;
   withActionButton?: boolean;
+  withStaticAction?: boolean;
   title?: string;
   fetchState?: IFetchViewProps["state"];
   reloadSubject?: TSubject<void>;
@@ -171,6 +172,7 @@ export const OutletModal = <
   data: upperData = null,
   throwError = false,
   fullScreen = true,
+  withStaticAction = false,
   submitLabel = "Submit",
   openSubject,
   readonly,
@@ -358,7 +360,7 @@ export const OutletModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!!loading.current || !data}
+            disabled={withStaticAction || !!loading.current || !data}
             size="large"
             variant="contained"
             color="info"

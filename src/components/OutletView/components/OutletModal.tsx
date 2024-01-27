@@ -55,6 +55,7 @@ export interface IOutletModalProps<
   > {
   fullScreen?: boolean;
   withActionButton?: boolean;
+  withStaticAction?: boolean;
   outletIdSubject: TBehaviorSubject<Id | null>;
   title?: string;
   fetchState?: IFetchViewProps<Id>["state"];
@@ -178,6 +179,7 @@ export const OutletModal = <
   BeforeTitle,
   title,
   data: upperData = null,
+  withStaticAction = false,
   throwError = false,
   fullScreen = true,
   submitLabel = "Submit",
@@ -385,7 +387,7 @@ export const OutletModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
-            disabled={!!loading.current || !data}
+            disabled={withStaticAction || !!loading.current || !data}
             size="large"
             variant="contained"
             color="info"
