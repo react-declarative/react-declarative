@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
+import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useActualState from "../../../hooks/useActualState";
 import useElementSize from "../../../hooks/useElementSize";
 import useWindowSize from "../../../hooks/useWindowSize";
@@ -27,11 +28,13 @@ import Id from "../model/Id";
 
 import classNames from "../../../utils/classNames";
 import and from "../../../utils/math/and";
+import sleep from "../../../utils/sleep";
 
 const Loader = () => (
   <LoaderView size={24} sx={{ height: "100%", width: "100%" }} />
 );
 
+const WAIT_FOR_CHANGES_DELAY = 1_000;
 const MODAL_ROOT = "outlet-modal__root";
 const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
@@ -183,6 +186,7 @@ export const OutletModal = <
   throwError = false,
   fullScreen = true,
   submitLabel = "Submit",
+  waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   readonly,
   onMount,
   onUnmount,
@@ -257,6 +261,12 @@ export const OutletModal = <
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  const waitForRender = useRenderWaiter([data], 10);
+
+  const waitForChanges = async () => {
+    await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
+  };
+
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -265,11 +275,8 @@ export const OutletModal = <
     try {
       handleLoadStart();
       if (id) {
-        if (withActionButton) {
-          await onSubmit(id, {} as Data, payloadRef.current);
-        } else {
-          await onSubmit(id, data, payloadRef.current);
-        }
+        await waitForChanges();
+        await onSubmit(id, data, payloadRef.current);
       }
     } catch (e: any) {
       isOk = false;

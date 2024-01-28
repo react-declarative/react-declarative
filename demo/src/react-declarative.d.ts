@@ -9404,7 +9404,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, withStaticAction, throwError, fullScreen, submitLabel, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, withStaticAction, throwError, fullScreen, submitLabel, waitForChangesDelay, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
@@ -9529,7 +9529,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, withStaticAction, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, withStaticAction, waitForChangesDelay, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
     export default OutletModal;
 }
 
