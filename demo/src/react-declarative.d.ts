@@ -463,6 +463,7 @@ declare module 'react-declarative' {
     export { createStateProvider } from 'react-declarative/utils/createStateProvider';
     export { createSsStateProvider } from 'react-declarative/utils/createSsStateProvider';
     export { createLsStateProvider } from 'react-declarative/utils/createLsStateProvider';
+    export { normalizeText } from 'react-declarative/utils/normalizeText';
     export { formatText } from 'react-declarative/utils/formatText';
     export { roundTicks } from 'react-declarative/utils/roundTicks';
     export { wordForm } from 'react-declarative/utils/wordForm';
@@ -3030,6 +3031,19 @@ declare module 'react-declarative/utils/createLsStateProvider' {
         initialState: S | (() => S);
     }) => JSX.Element, () => readonly [S, (state: S | ((prevState: S) => S)) => void]];
     export default createLsStateProvider;
+}
+
+declare module 'react-declarative/utils/normalizeText' {
+    import IField from "react-declarative/model/IField";
+    interface IConfig {
+        inputFormatterSymbol: IField["inputFormatterSymbol"];
+        inputFormatterAllowed: IField["inputFormatterAllowed"];
+        inputFormatterReplace: IField["inputFormatterReplace"];
+        inputFormatterTemplate: IField["inputFormatterTemplate"];
+        inputFormatter: IField["inputFormatter"];
+    }
+    export const normalizeText: (text: string, { inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }?: Partial<IConfig>) => string;
+    export default normalizeText;
 }
 
 declare module 'react-declarative/utils/formatText' {

@@ -316,12 +316,14 @@ export const Dict = ({
       type={inputType as any}
       value={async () => {
         if (value) {
-          return await dictValue(value, object$.current, payload);
+          const result = await dictValue(value, object$.current, payload);
+          return result || null;
         }
         return null;
       }}
       searchText={async () => {
-        return await dictSearchText(object$.current, payload);
+        const result = await dictSearchText(object$.current, payload);
+        return result || "";
       }}
       placeholder={placeholder}
       onChange={(item) => {

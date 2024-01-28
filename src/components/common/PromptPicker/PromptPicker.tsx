@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 
 import ModalDialog from "../ModalDialog";
 
@@ -26,8 +26,17 @@ export const PromptPicker = ({
   open = true,
   large,
 }: IPromptPickerProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(defaultValue);
   useEffect(() => setValue(defaultValue), [defaultValue]);
+  useLayoutEffect(() => {
+    const { current: input } = inputRef;
+    if (input) {
+      const { length } = input.value;
+      input.focus();
+      input.setSelectionRange(length, length);
+    }
+  }, []);
   const handleAccept = () => onChange(value);
   const handleDismiss = () => onChange(null);
   return (
@@ -50,7 +59,7 @@ export const PromptPicker = ({
       </DialogTitle>
       <Box p={3}>
         <InputBase
-          autoFocus
+          inputRef={inputRef}
           minRows={3}
           maxRows={large ? 20 : 3}
           multiline

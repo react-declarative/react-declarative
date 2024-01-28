@@ -579,6 +579,7 @@ export { createStateProvider } from './utils/createStateProvider';
 export { createSsStateProvider } from './utils/createSsStateProvider';
 export { createLsStateProvider } from './utils/createLsStateProvider';
 
+export { normalizeText } from './utils/normalizeText';
 export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
 export { wordForm } from './utils/wordForm';
