@@ -45,7 +45,10 @@ export const useActionModal = <
   apiRef,
   changeSubject,
   reloadSubject,
+  withActionButton = true,
+  withStaticAction,
   payload: upperPayload = {} as Payload,
+  BeforeTitle,
   onChange,
   onClose,
   onSubmit = () => true,
@@ -92,6 +95,8 @@ export const useActionModal = <
         AfterTitle={AfterTitle}
         open={open}
         hidden={hidden}
+        withActionButton={withActionButton}
+        withStaticAction={withStaticAction}
         waitForChangesDelay={waitForChangesDelay}
         readonly={readonly}
         fullScreen={fullScreen}
@@ -114,6 +119,7 @@ export const useActionModal = <
         title={title}
         dirty={dirty}
         param={param}
+        BeforeTitle={BeforeTitle}
       />
     ),
     [

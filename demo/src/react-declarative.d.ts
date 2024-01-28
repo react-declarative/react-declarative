@@ -5852,14 +5852,17 @@ declare module 'react-declarative/components/FeatureView/hooks/useFeatureView' {
     interface IParams extends Omit<IFeatureViewProps, keyof {
         changeSubject: never;
     }> {
+        title: IActionModalParams['title'];
         fullScreen: IActionModalParams['fullScreen'];
         fallback: IActionModalParams['fallback'];
         onLoadStart: IActionModalParams['onLoadStart'];
         onLoadEnd: IActionModalParams['onLoadEnd'];
         onSubmit?: (data: string[] | null) => (boolean | Promise<boolean>);
         submitLabel: IActionModalParams['submitLabel'];
+        withStaticAction?: IActionModalParams['withStaticAction'];
+        withActionButton?: IActionModalParams['withActionButton'];
     }
-    export const useFeatureView: ({ data, features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
+    export const useFeatureView: ({ data, title, features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, withActionButton, withStaticAction, }: IParams) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: any) => void;
@@ -7119,7 +7122,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         param?: Param;
         onClose?: () => void;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, payload: upperPayload, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, withActionButton, withStaticAction, payload: upperPayload, BeforeTitle, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
@@ -7442,7 +7445,10 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
     interface IParams<Payload extends IAnything = IAnything> {
         data?: string[] | null;
         fullScreen?: boolean;
+        readonly?: boolean;
         submitLabel?: string;
+        withActionButton?: boolean;
+        withStaticAction?: boolean;
         payload?: Payload | (() => Payload);
         onSubmit?: (data: string[], payload: Payload) => void;
         onChange?: (data: string[], payload: Payload) => void;
@@ -7453,7 +7459,7 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
         onClick?: IFilesViewProps['onClick'];
         onUpload?: IFilesViewProps['onUpload'];
     }
-    export const useFilesView: <Payload extends unknown = any>({ data, fullScreen, submitLabel, payload: upperPayload, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
+    export const useFilesView: <Payload extends unknown = any>({ data, withActionButton, withStaticAction, readonly, fullScreen, submitLabel, payload: upperPayload, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
         render: () => JSX.Element;
         pickFiles: () => void;
     };

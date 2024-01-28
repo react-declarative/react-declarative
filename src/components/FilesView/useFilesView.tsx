@@ -72,7 +72,10 @@ const useStyles = makeStyles()((theme) => ({
 interface IParams<Payload extends IAnything = IAnything> {
   data?: string[] | null;
   fullScreen?: boolean;
+  readonly?: boolean;
   submitLabel?: string;
+  withActionButton?: boolean;
+  withStaticAction?: boolean;
   payload?: Payload | (() => Payload);
   onSubmit?: (data: string[], payload: Payload) => void
   onChange?: (data: string[], payload: Payload) => void;
@@ -86,6 +89,9 @@ interface IParams<Payload extends IAnything = IAnything> {
 
 export const useFilesView = <Payload extends IAnything = IAnything>({
   data = null,
+  withActionButton = true,
+  withStaticAction = false,
+  readonly,
   fullScreen,
   submitLabel = "Save",
   payload: upperPayload = {} as Payload,
@@ -192,20 +198,22 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
             onLoadEnd={handleLoadEnd}
           />
         </Box>
-        <ActionButton
-          className={classes.submit}
-          disabled={!!loading || !dirty}
-          fallback={fallback}
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-          size="large"
-          variant="contained"
-          color="info"
-          fullWidth
-          onClick={handleSubmit}
-        >
-          {submitLabel}
-        </ActionButton>
+        {!readonly && withActionButton && (
+          <ActionButton
+            className={classes.submit}
+            disabled={!withStaticAction && (!!loading || !dirty)}
+            fallback={fallback}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            size="large"
+            variant="contained"
+            color="info"
+            fullWidth
+            onClick={handleSubmit}
+          >
+            {submitLabel}
+          </ActionButton>
+        )}
       </Box>
     </Modal>
   );

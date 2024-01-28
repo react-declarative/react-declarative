@@ -5,16 +5,20 @@ import IFeatureViewProps from "../model/IFeatureViewProps";
 interface IParams extends Omit<IFeatureViewProps, keyof {
   changeSubject: never;
 }> {
+  title: IActionModalParams['title']; 
   fullScreen: IActionModalParams['fullScreen'];
   fallback: IActionModalParams['fallback'];
   onLoadStart: IActionModalParams['onLoadStart'];
   onLoadEnd: IActionModalParams['onLoadEnd'];
   onSubmit?: (data: string[] | null) => (boolean | Promise<boolean>);
   submitLabel: IActionModalParams['submitLabel'];
+  withStaticAction?: IActionModalParams['withStaticAction'];
+  withActionButton?: IActionModalParams['withActionButton'];
 }
 
 export const useFeatureView = ({
   data,
+  title,
   features,
   expandAll,
   readonly,
@@ -25,8 +29,13 @@ export const useFeatureView = ({
   onSubmit,
   onChange,
   submitLabel,
+  withActionButton = true,
+  withStaticAction = false,
 }: IParams) =>
   useActionModal({
+    title,
+    withStaticAction,
+    withActionButton,
     fullScreen,
     fallback,
     onLoadStart,
