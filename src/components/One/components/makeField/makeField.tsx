@@ -24,6 +24,7 @@ import useDebounce from '../../hooks/useDebounce';
 import useManagedCompute from './useManagedCompute';
 import useFieldMemory from './useFieldMemory';
 import useFieldState from './useFieldState';
+import useFieldGuard from './useFieldGuard';
 
 import Group, { IGroupProps } from '../../../common/Group';
 
@@ -40,7 +41,6 @@ import sleep from '../../../../utils/sleep';
 import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
-import useFieldGuard from './useFieldGuard';
 
 const APPLY_ATTEMPTS = 15;
 const APPLY_DELAY = 10;
@@ -154,6 +154,8 @@ export function makeField(
             isIncorrect,
             isReadonly,
         } = useFieldGuard({
+            prefix,
+            name,
             isDisabled: isDisabledUpper,
             isVisible: isVisibleUpper,
             isInvalid: isInvalidUpper,
