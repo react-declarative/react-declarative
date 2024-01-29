@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, useLayoutEffect } from "react";
 
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
@@ -28,10 +28,17 @@ import { ICompleteSlot } from "../../../slots/CompleteSlot";
 
 import queued from "../../../../../utils/hof/queued";
 import deepClone from "../../../../../utils/deepClone";
+import formatText from "../../../../../utils/formatText";
 
 const FETCH_DEBOUNCE = 500;
 const ITEMS_LIMIT = 100;
 const ITEM_HEIGHT = 36;
+
+const NEVER_POS = Symbol("never-pos");
+
+const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
+  return element.selectionStart || element.value.length;
+};
 
 export const Complete = ({
   invalid,
@@ -54,9 +61,18 @@ export const Complete = ({
   tip = () => ["unset"],
   tipSelect,
   autoFocus,
-  inputRef,
   onChange,
   name,
+  inputFormatterSymbol: symbol = "0",
+  inputFormatterAllowed: allowed,
+  inputFormatterReplace: replace,
+  inputFormatterTemplate: template = "",
+  inputFormatter = (raw) =>
+    formatText(raw, template, {
+      symbol,
+      allowed,
+      replace,
+    }),
 }: ICompleteSlot) => {
   const payload = useOnePayload();
   const { object, setObject } = useOneState<object>();
@@ -68,6 +84,7 @@ export const Complete = ({
   } = useOneProps();
 
   const { elementRef: anchorElRef, size } = useElementSize<HTMLDivElement>();
+  const inputElementRef = useRef<HTMLInputElement>(null);
 
   const [open, setOpen] = useState(false);
 
@@ -75,7 +92,6 @@ export const Complete = ({
 
   const [currentLoading, setCurrentLoading] = useState(false);
   const [items, setItems] = useState<string[]>([]);
-  const [cursor, setCursor] = useState<number | null>(null);
 
   const loading = upperLoading || currentLoading;
   const value$ = useActualValue(value);
@@ -87,13 +103,62 @@ export const Complete = ({
 
   const onChange$ = useActualCallback(onChange);
 
-  useEffect(() => {
-    const { current: div } = anchorElRef;
-    const input = div?.querySelector('input') || null;
-    if (input) {
-      input.setSelectionRange(cursor, cursor);
+  const caretManager = useMemo(() => {
+    let lastPos: symbol | number = NEVER_POS;
+
+    const getAdjust = (pos: number) => {
+      let adjust = 0;
+      for (let i = Math.max(pos - 1, 0); i < template.length; i++) {
+        const char = template[i];
+        if (char === symbol) {
+          break;
+        }
+        adjust += 1;
+      }
+      return adjust;
+    };
+
+    return {
+      render: () => {
+        if (inputType !== "text") {
+          return;
+        }
+        const { current: input } = inputElementRef;
+        if (typeof lastPos === "number") {
+          input?.setSelectionRange(lastPos, lastPos);
+          lastPos = NEVER_POS;
+        }
+      },
+      pos: () => {
+        const { current: input } = inputElementRef;
+        if (input) {
+          lastPos = getCaretPos(input);
+          lastPos += getAdjust(lastPos);
+        }
+        return lastPos;
+      },
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!template) {
+      return;
     }
-  }, [anchorElRef, cursor, value]);
+    const { current: input } = inputElementRef;
+    const handler = () => caretManager.pos();
+    input && input.addEventListener("keyup", handler);
+    input && input.addEventListener("click", handler);
+    return () => {
+      input && input.removeEventListener("keyup", handler);
+      input && input.removeEventListener("click", handler);
+    };
+  }, [inputElementRef.current]);
+
+  useLayoutEffect(() => {
+    if (template) {
+      caretManager.render();
+    }
+  }, [value]);
 
   const handleChange = useMemo(
     () =>
@@ -171,7 +236,7 @@ export const Complete = ({
   const handleBlur = () => {
     setOpen(false);
     setSelectedIdx(-1);
-    setCursor(null);
+    inputElementRef.current?.setSelectionRange(null, null);
   };
 
   const handleKeyDown = (key: string, blur: () => void) => {
@@ -193,7 +258,7 @@ export const Complete = ({
       const item = items.find((_, idx) => idx === selectedIdx);
       if (item) {
         handleChange(item);
-        setCursor(item.length);
+        inputElementRef.current?.setSelectionRange(item.length, item.length);
         setOpen(false);
         setSelectedIdx(-1);
         return true;
@@ -218,7 +283,7 @@ export const Complete = ({
           }}
           fullWidth
           name={name}
-          inputRef={inputRef}
+          inputRef={inputElementRef}
           variant={outlined ? "outlined" : "standard"}
           value={String(value || "")}
           helperText={(dirty && (invalid || incorrect)) || description}
@@ -241,7 +306,7 @@ export const Complete = ({
                     e.stopPropagation();
                     if (!loading && !open && !!value) {
                       handleChange("");
-                      setCursor(null);
+                      inputElementRef.current?.setSelectionRange(null, null);
                     }
                   }}
                   disabled={disabled}
@@ -266,8 +331,16 @@ export const Complete = ({
           autoComplete={autoComplete}
           placeholder={placeholder}
           onChange={({ target }) => {
-            setCursor(target.selectionStart);
-            handleChange(target.value);
+            let result = target.value;
+            if (template) {
+              result = "";
+              for (let i = 0; i < target.value.length; i++) {
+                result += target.value[i];
+                result = inputFormatter(result);
+              }
+              caretManager.pos();
+            }
+            onChange(result);
           }}
           onClick={() => setOpen(true)}
           label={title}

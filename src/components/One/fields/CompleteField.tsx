@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Complete from '../../../components/One/slots/CompleteSlot';
+import Complete from "../../../components/One/slots/CompleteSlot";
 
 import makeField from "../components/makeField";
 
@@ -24,8 +24,25 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
-  groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-  inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+  groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+  inputFormatter?: PickProp<IField<Data, Payload>, "inputFormatter">;
+  inputFormatterSymbol?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterSymbol"
+  >;
+  inputFormatterAllowed?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterAllowed"
+  >;
+  inputFormatterTemplate?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterTemplate"
+  >;
+  inputFormatterReplace?: PickProp<
+    IField<Data, Payload>,
+    "inputFormatterReplace"
+  >;
 }
 
 export interface ICompleteFieldPrivate<Data = IAnything> {
@@ -61,6 +78,11 @@ export const CompleteField = ({
   autoFocus,
   inputRef,
   name,
+  inputFormatter,
+  inputFormatterAllowed,
+  inputFormatterReplace,
+  inputFormatterSymbol,
+  inputFormatterTemplate,
 }: ICompleteFieldProps & ICompleteFieldPrivate) => (
   <Complete
     autoFocus={autoFocus}
@@ -84,9 +106,14 @@ export const CompleteField = ({
     loading={loading}
     onChange={onChange}
     name={name}
+    inputFormatter={inputFormatter}
+    inputFormatterAllowed={inputFormatterAllowed}
+    inputFormatterReplace={inputFormatterReplace}
+    inputFormatterSymbol={inputFormatterSymbol}
+    inputFormatterTemplate={inputFormatterTemplate}
   />
 );
 
-CompleteField.displayName = 'CompleteField';
+CompleteField.displayName = "CompleteField";
 
 export default makeField(CompleteField);
