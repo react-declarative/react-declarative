@@ -176,7 +176,7 @@ export const OutletModal = <
   throwError = false,
   fullScreen = true,
   withStaticAction = false,
-  waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
+  waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   submitLabel = "Submit",
   openSubject,
   readonly,

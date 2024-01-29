@@ -140,7 +140,8 @@ export const ActionModal = <
   Field = IField<Data>
 >({
   withActionButton = true,
-  waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
+  withStaticAction = false,
+  waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   onSubmit = () => true,
   onChange = () => undefined,
   onInvalid = () => undefined,
@@ -163,7 +164,6 @@ export const ActionModal = <
   hidden = false,
   readonly = false,
   throwError = false,
-  withStaticAction = false,
   submitLabel = "Submit",
   AfterTitle,
   BeforeTitle,
