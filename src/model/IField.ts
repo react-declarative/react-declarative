@@ -287,6 +287,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     tip?: string[] | ((value: string, data: Data, payload: Payload) => (string[] | Promise<string[]>));
 
     /**
+     * Коллбек выбора элемента из CompleteField
+     */
+    tipSelect?: (value: string, data: Data, payload: Payload, onChange: (data: Data) => void) => void;
+
+    /**
      * Поле, позволяющее передавать собственные значения в FieldType.Items и FieldType.Combo
      */
     freeSolo?: boolean;

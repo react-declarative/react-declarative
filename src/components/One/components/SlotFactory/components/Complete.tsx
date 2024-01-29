@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
@@ -27,6 +27,7 @@ import useDebounce from "../../../hooks/useDebounce";
 import { ICompleteSlot } from "../../../slots/CompleteSlot";
 
 import queued from "../../../../../utils/hof/queued";
+import deepClone from "../../../../../utils/deepClone";
 
 const FETCH_DEBOUNCE = 500;
 const ITEMS_LIMIT = 100;
@@ -51,13 +52,14 @@ export const Complete = ({
   dirty,
   loading: upperLoading,
   tip = () => ["unset"],
+  tipSelect,
   autoFocus,
   inputRef,
   onChange,
   name,
 }: ICompleteSlot) => {
   const payload = useOnePayload();
-  const { object } = useOneState();
+  const { object, setObject } = useOneState<object>();
 
   const {
     fallback = (e: Error) => {
@@ -99,6 +101,18 @@ export const Complete = ({
         setSelectedIdx(-1);
         await onChange$(text);
       }),
+    []
+  );
+
+  const handleChangeObj = useCallback(
+    (object: object) =>
+      setObject(
+        deepClone({
+          ...object$.current,
+          ...object,
+        }),
+        {}
+      ),
     []
   );
 
@@ -299,6 +313,7 @@ export const Complete = ({
                     e.preventDefault();
                     e.stopPropagation();
                     handleChange(value);
+                    tipSelect && tipSelect(value, object$.current, payload, handleChangeObj);
                     setOpen(false);
                   }}
                 >
