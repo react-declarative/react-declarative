@@ -228,7 +228,7 @@ export const ActionModal = <
       handleLoadStart();
       if (open) {
         await waitForChanges();
-        await onSubmit(data$.current, payload, param);
+        await onSubmit(withStaticAction ? {} as Data : data$.current, payload, param);
       }
     } catch (e: any) {
       isOk = false;

@@ -276,7 +276,7 @@ export const OutletModal = <
       handleLoadStart();
       if (id) {
         await waitForChanges();
-        await onSubmit(id, data, payloadRef.current);
+        await onSubmit(id, withStaticAction ? {} as Data : data, payloadRef.current);
       }
     } catch (e: any) {
       isOk = false;

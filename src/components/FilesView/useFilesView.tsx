@@ -148,7 +148,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
 
   const handleSubmit = async () => {
     if (onSubmit) {
-      await onSubmit(files, payload);
+      await onSubmit(withStaticAction ? [] : files, payload);
     }
     setOpen(false);
     setDirty(false);

@@ -40,6 +40,7 @@ import sleep from '../../../../utils/sleep';
 import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
+import useFieldGuard from './useFieldGuard';
 
 const APPLY_ATTEMPTS = 15;
 const APPLY_DELAY = 10;
@@ -84,11 +85,6 @@ interface IChangeConfig {
     skipReadonly?: boolean;
 }
 
-const DEFAULT_IS_DISABLED = () => false;
-const DEFAULT_IS_VISIBLE = () => true;
-const DEFAULT_IS_INVALID = () => null;
-const DEFAULT_IS_INCORRECT = () => null;
-const DEFAULT_IS_READONLY = () => false;
 const DEFAULT_CHANGE = (v: IAnything) => console.log({ v });
 const DEFAULT_FALLBACK = () => null;
 const DEFAULT_READY = () => null;
@@ -119,11 +115,11 @@ export function makeField(
         phoneColumns = '',
         tabletColumns = '',
         desktopColumns = '',
-        isDisabled = DEFAULT_IS_DISABLED,
-        isVisible = DEFAULT_IS_VISIBLE,
-        isInvalid = DEFAULT_IS_INVALID,
-        isIncorrect = DEFAULT_IS_INCORRECT,
-        isReadonly = DEFAULT_IS_READONLY,
+        isDisabled: isDisabledUpper,
+        isVisible: isVisibleUpper,
+        isInvalid: isInvalidUpper,
+        isIncorrect: isIncorrectUpper,
+        isReadonly: isReadonlyUpper,
         change = DEFAULT_CHANGE,
         fallback = DEFAULT_FALLBACK,
         ready = DEFAULT_READY,
@@ -150,6 +146,20 @@ export function makeField(
     }: IEntity<Data>) => {
         const { object: stateObject } = useOneState<Data>();
         const payload = useOnePayload();
+
+        const {
+            isDisabled,
+            isVisible,
+            isInvalid,
+            isIncorrect,
+            isReadonly,
+        } = useFieldGuard({
+            isDisabled: isDisabledUpper,
+            isVisible: isVisibleUpper,
+            isInvalid: isInvalidUpper,
+            isIncorrect: isIncorrectUpper,
+            isReadonly: isReadonlyUpper,
+        });
 
         const object = stateObject || upperObject;
 
