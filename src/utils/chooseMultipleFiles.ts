@@ -1,4 +1,19 @@
-const CLEANUP_DELAY = 300_000;
+import sleep from "./sleep";
+
+const CLEANUP_DELAY = 1_000;
+const AWAIT_DELAY = 7_000;
+
+const waitForResume = () => new Promise<void>((res) => {
+    const handler = () => {
+        document.removeEventListener('mousemove', handler);
+        document.removeEventListener('touchmove', handler);
+        res();
+    };
+    sleep(AWAIT_DELAY).then(() => {
+        document.addEventListener('mousemove', handler);
+        document.addEventListener('touchmove', handler);
+    });
+});
 
 export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | null>((res) => {
     const input = document.createElement('input');
@@ -22,15 +37,7 @@ export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | nul
         res([...files])
         input.value = '';
     }
-    setTimeout(() => {
-        if (isCanceled) {
-            if (document.body.contains(input)) {
-                document.body.removeChild(input);
-            }
-            res(null);
-        }
-    }, CLEANUP_DELAY);
-    window.addEventListener('focus', () => {
+    waitForResume().then(() => {
         setTimeout(() => {
             if (isCanceled) {
                 if (document.body.contains(input)) {
@@ -38,8 +45,8 @@ export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | nul
                 }
                 res(null);
             }
-        }, 300)
-    }, { once: true })
+        }, CLEANUP_DELAY)
+    });
     input.click();
 });
 
