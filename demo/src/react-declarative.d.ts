@@ -106,6 +106,7 @@ declare module 'react-declarative' {
     import { useFile } from 'react-declarative/hooks/useFile';
     import { useConfirm } from 'react-declarative/hooks/useConfirm';
     import { usePrompt } from 'react-declarative/hooks/usePrompt';
+    import { useAlert } from 'react-declarative/hooks/useAlert';
     import { useDate } from 'react-declarative/hooks/useDate';
     import { useTime } from 'react-declarative/hooks/useTime';
     import { useOne } from 'react-declarative/hooks/useOne';
@@ -159,6 +160,7 @@ declare module 'react-declarative' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export type pickPromptFn = ReturnType<typeof usePrompt>;
+    export type pickAlertFn = ReturnType<typeof useAlert>;
     export { default as dayjs } from 'dayjs';
     export { DocumentView } from 'react-declarative/components';
     export { ScrollTopView } from 'react-declarative/components';
@@ -367,6 +369,7 @@ declare module 'react-declarative' {
     export { useDate, useTime };
     export { useConfirm };
     export { usePrompt };
+    export { useAlert };
     export { useSnack };
     export { useModal };
     export { useSize };
@@ -2702,6 +2705,20 @@ declare module 'react-declarative/hooks/usePrompt' {
         toPromise: () => Promise<string | null>;
     };
     export default usePrompt;
+}
+
+declare module 'react-declarative/hooks/useAlert' {
+    type Fn = () => void;
+    interface IParams {
+        title?: string;
+        description?: string;
+        large?: boolean;
+    }
+    export const useAlert: ({ title: defaultTitle, description: defaultDescription, large, }?: IParams) => ({ description, title }?: Partial<IParams>) => {
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<void>;
+    };
+    export default useAlert;
 }
 
 declare module 'react-declarative/hooks/useDate' {
