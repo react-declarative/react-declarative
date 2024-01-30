@@ -321,7 +321,11 @@ export const OutletModal = <
           opacity: 0,
         }),
       }}
-      onClose={handleClose}
+      onClose={() => {
+        if (!!id) {
+          handleClose();
+        }
+      }}
     >
       <Box
         ref={elementRef}

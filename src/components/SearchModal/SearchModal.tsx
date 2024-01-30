@@ -232,7 +232,11 @@ export const SearchModal = <
           opacity: 0,
         }),
       }}
-      onClose={handleClose}
+      onClose={() => {
+        if (open) {
+          handleClose();
+        }
+      }}
     >
       <Box
         className={classNames(classes.root, MODAL_ROOT)}
