@@ -17,7 +17,7 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
     sx?: SxProps;
     onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
     routes: ITabsOutlet<Data, Payload>[];
-    tabs: ITabsStep[];
+    tabs: ITabsStep<Payload>[];
     history?: History;
     pathname?: string;
 }

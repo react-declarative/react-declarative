@@ -19,6 +19,7 @@ import IAnything from "../../model/IAnything";
 
 import useLocalHistory from "../../hooks/useLocalHistory";
 import useElementSize from "../../hooks/useElementSize";
+import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
 
@@ -76,10 +77,11 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
+  payload: upperPayload = {} as Payload,
   outlinePaper = false,
   history: upperHistory,
   pathname = "/",
-  steps,
+  steps: upperSteps,
   routes,
   onLoadStart,
   onLoadEnd,
@@ -87,6 +89,13 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   ...outletProps
 }: IWizardViewProps<Data, Payload>) => {
   const { elementRef, size } = useElementSize();
+
+  const payload = useSingleton(upperPayload);
+
+  const steps = useMemo(
+    () => upperSteps.filter(({ isVisible = () => true }) => isVisible(payload)),
+    []
+  );
 
   const { classes } = useStyles();
 
@@ -188,6 +197,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
           history={history}
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
+          payload={payload}
           {...outletProps}
         />
       </Box>

@@ -7587,7 +7587,7 @@ declare module 'react-declarative/components/FadeView/FadeView' {
 
 declare module 'react-declarative/components/TabsView/TabsView' {
     import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
-    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
+    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs: upperTabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
 
@@ -7616,9 +7616,11 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
 }
 
 declare module 'react-declarative/components/TabsView/model/ITabsStep' {
-    export interface ITabsStep {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ITabsStep<Payload extends IAnything = IAnything> {
         id?: string;
         isMatch?: (id: string) => boolean;
+        isVisible?: (payload: Payload) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
@@ -7811,7 +7813,7 @@ declare module 'react-declarative/components/SecretView/SecretView' {
 
 declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
-    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
+    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, payload: upperPayload, outlinePaper, history: upperHistory, pathname, steps: upperSteps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
 }
 
@@ -7885,9 +7887,11 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutletProps
 }
 
 declare module 'react-declarative/components/WizardView/model/IWizardStep' {
-    export interface IWizardStep {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IWizardStep<Payload extends IAnything = IAnything> {
         id?: string;
         isMatch?: (id: string) => boolean;
+        isVisible?: (payload: Payload) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
@@ -9464,7 +9468,7 @@ declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
         sx?: SxProps;
         onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
         routes: ITabsOutlet<Data, Payload>[];
-        tabs: ITabsStep[];
+        tabs: ITabsStep<Payload>[];
         history?: History;
         pathname?: string;
     }
@@ -9487,7 +9491,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
         style?: React.CSSProperties;
         sx?: SxProps;
         routes: IWizardOutlet<Data, Payload>[];
-        steps: IWizardStep[];
+        steps: IWizardStep<Payload>[];
         history?: History;
         pathname?: string;
     }
