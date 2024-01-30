@@ -106,6 +106,7 @@ declare module 'react-declarative' {
     import { useFile } from 'react-declarative/hooks/useFile';
     import { useConfirm } from 'react-declarative/hooks/useConfirm';
     import { usePrompt } from 'react-declarative/hooks/usePrompt';
+    import { useAlert } from 'react-declarative/hooks/useAlert';
     import { useDate } from 'react-declarative/hooks/useDate';
     import { useTime } from 'react-declarative/hooks/useTime';
     import { useOne } from 'react-declarative/hooks/useOne';
@@ -159,6 +160,7 @@ declare module 'react-declarative' {
     export type pickListFn = ReturnType<typeof useList>;
     export type pickConfirmFn = ReturnType<typeof useConfirm>;
     export type pickPromptFn = ReturnType<typeof usePrompt>;
+    export type pickAlertFn = ReturnType<typeof useAlert>;
     export { default as dayjs } from 'dayjs';
     export { DocumentView } from 'react-declarative/components';
     export { ScrollTopView } from 'react-declarative/components';
@@ -367,6 +369,7 @@ declare module 'react-declarative' {
     export { useDate, useTime };
     export { useConfirm };
     export { usePrompt };
+    export { useAlert };
     export { useSnack };
     export { useModal };
     export { useSize };
@@ -2702,6 +2705,20 @@ declare module 'react-declarative/hooks/usePrompt' {
         toPromise: () => Promise<string | null>;
     };
     export default usePrompt;
+}
+
+declare module 'react-declarative/hooks/useAlert' {
+    type Fn = () => void;
+    interface IParams {
+        title?: string;
+        description?: string;
+        large?: boolean;
+    }
+    export const useAlert: ({ title: defaultTitle, description: defaultDescription, large, }?: IParams) => ({ description, title }?: Partial<IParams>) => {
+        then: (onData: Fn) => void;
+        toPromise: () => Promise<void>;
+    };
+    export default useAlert;
 }
 
 declare module 'react-declarative/hooks/useDate' {
@@ -7587,7 +7604,7 @@ declare module 'react-declarative/components/FadeView/FadeView' {
 
 declare module 'react-declarative/components/TabsView/TabsView' {
     import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
-    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
+    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, payload: upperPayload, pathname, tabs: upperTabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
 
@@ -7616,9 +7633,11 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutletProps' {
 }
 
 declare module 'react-declarative/components/TabsView/model/ITabsStep' {
-    export interface ITabsStep {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ITabsStep<Payload extends IAnything = IAnything> {
         id?: string;
         isMatch?: (id: string) => boolean;
+        isVisible?: (payload: Payload) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
@@ -7811,7 +7830,7 @@ declare module 'react-declarative/components/SecretView/SecretView' {
 
 declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
-    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, history: upperHistory, pathname, steps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
+    export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, payload: upperPayload, outlinePaper, history: upperHistory, pathname, steps: upperSteps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
 }
 
@@ -7885,9 +7904,11 @@ declare module 'react-declarative/components/WizardView/model/IWizardOutletProps
 }
 
 declare module 'react-declarative/components/WizardView/model/IWizardStep' {
-    export interface IWizardStep {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface IWizardStep<Payload extends IAnything = IAnything> {
         id?: string;
         isMatch?: (id: string) => boolean;
+        isVisible?: (payload: Payload) => boolean;
         label: string;
         icon?: React.ComponentType<any>;
     }
@@ -9464,7 +9485,7 @@ declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
         sx?: SxProps;
         onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
         routes: ITabsOutlet<Data, Payload>[];
-        tabs: ITabsStep[];
+        tabs: ITabsStep<Payload>[];
         history?: History;
         pathname?: string;
     }
@@ -9487,7 +9508,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
         style?: React.CSSProperties;
         sx?: SxProps;
         routes: IWizardOutlet<Data, Payload>[];
-        steps: IWizardStep[];
+        steps: IWizardStep<Payload>[];
         history?: History;
         pathname?: string;
     }

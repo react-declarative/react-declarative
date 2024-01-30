@@ -15,7 +15,7 @@ export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnythi
     style?: React.CSSProperties;
     sx?: SxProps;
     routes: IWizardOutlet<Data, Payload>[];
-    steps: IWizardStep[];
+    steps: IWizardStep<Payload>[];
     history?: History;
     pathname?: string;
 }

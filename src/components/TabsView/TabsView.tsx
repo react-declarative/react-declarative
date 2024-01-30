@@ -78,10 +78,9 @@ const useStyles = makeStyles()((theme) => ({
     minHeight: HEADER_HEIGHT,
     height: HEADER_HEIGHT,
   },
-  tabSelected: {
-  },
+  tabSelected: {},
   indicator: {
-    height: '4px',
+    height: "4px",
     background: `${theme.palette.primary.main} !important`,
   },
 }));
@@ -94,7 +93,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   history: upperHistory,
   payload: upperPayload = {} as Payload,
   pathname = "/",
-  tabs,
+  tabs: upperTabs,
   routes,
   onTabChange,
   onLoadStart,
@@ -108,6 +107,11 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  const tabs = useMemo(
+    () => upperTabs.filter(({ isVisible = () => true }) => isVisible(payload)),
+    []
+  );
+
   const { history } = useLocalHistory({
     history: upperHistory,
     pathname,
@@ -120,7 +124,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   const otherProps = useMemo(
     (): OtherProps => ({
       size,
-      ...upperOtherProps
+      ...upperOtherProps,
     }),
     [size.height, size.width]
   );
@@ -184,6 +188,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
           history={history}
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
+          payload={payload}
           {...outletProps}
         />
       </Box>
