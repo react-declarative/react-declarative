@@ -13,6 +13,8 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   maxSlider?: PickProp<IField<Data, Payload>, 'maxSlider'>;
   minSlider?: PickProp<IField<Data, Payload>, 'minSlider'>;
   labelFormatSlider?: PickProp<IField<Data, Payload>, 'labelFormatSlider'>;
+  leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+  trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
   leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
   trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
   leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
@@ -33,6 +35,8 @@ export interface ISliderFieldPrivate<Data = IAnything>  {
 export const SliderField = ({
   value,
   onChange,
+  leadingIconRipple,
+  trailingIconRipple,
   leadingIcon,
   trailingIcon,
   leadingIconClick,
@@ -45,6 +49,8 @@ export const SliderField = ({
   <Slider
     value={value}
     onChange={onChange}
+    leadingIconRipple={leadingIconRipple}
+    trailingIconRipple={trailingIconRipple}
     leadingIcon={leadingIcon}
     trailingIcon={trailingIcon}
     leadingIconClick={leadingIconClick}

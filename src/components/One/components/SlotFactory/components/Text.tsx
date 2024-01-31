@@ -32,9 +32,12 @@ const icons = (
     trailingIconClick: PickProp<IField, 'trailingIconClick'>,
     loading: boolean,
     disabled: boolean,
+    readonly: boolean,
     v: string,
     c: PickProp<IManaged, 'onChange'>,
     cc: (data: IAnything) => void,
+    leadingIconRipple: boolean,
+    trailingIconRipple: boolean,
 ) => ({
     ...(leadingIcon
         ? {
@@ -43,6 +46,7 @@ const icons = (
                     <IconButton
                         edge="start"
                         disabled={disabled}
+                        disableRipple={!leadingIconRipple}
                         onClick={() => {
                             if (leadingIconClick) {
                                 leadingIconClick(v as unknown as IAnything, data, payload, (v) => c(v, {
@@ -51,7 +55,7 @@ const icons = (
                             }
                         }}
                     >
-                        {React.createElement(leadingIcon, { data, payload })}
+                        {React.createElement(leadingIcon, { data, payload, disabled, readonly })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -64,6 +68,7 @@ const icons = (
                     <IconButton
                         edge="end"
                         disabled={disabled}
+                        disableRipple={!trailingIconRipple}
                         onClick={() => {
                             if (trailingIconClick) {
                                 trailingIconClick(v as unknown as IAnything, data, payload, (v) => c(v, {
@@ -72,7 +77,7 @@ const icons = (
                             }
                         }}
                     >
-                        {React.createElement(trailingIcon, { data, payload })}
+                        {React.createElement(trailingIcon, { data, payload, disabled, readonly })}
                     </IconButton>
                 </InputAdornment>
             ),
@@ -117,6 +122,8 @@ export const Text = ({
     trailingIcon: ti,
     leadingIconClick: lic,
     trailingIconClick: tic,
+    leadingIconRipple: lir = true,
+    trailingIconRipple: tir = true,
     inputRows: rows = 1,
     placeholder = "",
     inputAutocomplete: autoComplete = "off",
@@ -237,7 +244,7 @@ export const Text = ({
                 readOnly: readonly,
                 inputMode,
                 autoFocus,
-                ...icons(object, payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange, handleChange),
+                ...icons(object, payload, li, ti, lic, tic, loading, disabled, !!readonly, (value || '').toString(), onChange, handleChange, lir, tir),
             }}
             inputProps={{
                 pattern: inputPattern,

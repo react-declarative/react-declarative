@@ -22,13 +22,17 @@ const createIcon = (
   icon: React.ComponentType<any>,
   data: IAnything,
   payload: IAnything,
+  disabled: boolean,
+  readonly: boolean,
   value: IAnything,
   onChange: (data: IAnything) => void,
   onValueChange: PickProp<IManaged, "onChange">,
   click: PickProp<IManaged, "leadingIconClick">,
-  edge: "start" | "end"
+  edge: "start" | "end",
+  ripple: boolean,
 ) => (
   <IconButton
+    disableRipple={!ripple}
     onClick={() => {
       if (click) {
         click(
@@ -45,7 +49,7 @@ const createIcon = (
     }}
     edge={edge}
   >
-    {React.createElement(icon, { data, payload })}
+    {React.createElement(icon, { data, payload, disabled, readonly })}
   </IconButton>
 );
 
@@ -56,8 +60,12 @@ export const Slider = ({
   trailingIcon: ti,
   leadingIconClick: lic,
   trailingIconClick: tic,
+  leadingIconRipple: lir = true,
+  trailingIconRipple: tir = true,
   labelFormatSlider,
   stepSlider,
+  disabled,
+  readonly,
   maxSlider = 100,
   minSlider = 0,
 }: ISliderSlot) => {
@@ -87,15 +95,19 @@ export const Slider = ({
               li,
               object,
               payload,
+              !!disabled,
+              !!readonly,
               value as IAnything,
               handleChange,
               onChange,
               lic,
-              "end"
+              "end",
+              lir,
             )}
         </Grid>
         <Grid item xs>
           <MatSlider
+            disabled={disabled}
             step={stepSlider}
             marks={!!stepSlider}
             min={minSlider}
@@ -104,7 +116,7 @@ export const Slider = ({
             valueLabelDisplay="auto"
             color="primary"
             value={value || 0}
-            onChange={({}, v) => onChange(v as number)}
+            onChange={({}, v) => !readonly && onChange(v as number)}
             valueLabelFormat={labelFormatSlider}
           />
         </Grid>
@@ -114,11 +126,14 @@ export const Slider = ({
               ti,
               object,
               payload,
+              !!disabled,
+              !!readonly,
               value as IAnything,
               handleChange,
               onChange,
               tic,
-              "start"
+              "start",
+              tir,
             )}
         </Grid>
       </Grid>

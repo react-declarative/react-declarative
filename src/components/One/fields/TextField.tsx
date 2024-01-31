@@ -21,6 +21,8 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   title?: PickProp<IField<Data, Payload>, "title">;
+  leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+  trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
   leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
   trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
   leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
@@ -57,6 +59,8 @@ export const TextField = ({
   outlined = false,
   labelShrink,
   title = "",
+  leadingIconRipple,
+  trailingIconRipple,
   leadingIcon,
   trailingIcon,
   leadingIconClick,
@@ -87,6 +91,8 @@ export const TextField = ({
     description={description}
     outlined={outlined}
     title={title}
+    leadingIconRipple={leadingIconRipple}
+    trailingIconRipple={trailingIconRipple}
     leadingIcon={leadingIcon}
     trailingIcon={trailingIcon}
     labelShrink={labelShrink}

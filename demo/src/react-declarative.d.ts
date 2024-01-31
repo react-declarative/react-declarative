@@ -847,6 +847,11 @@ declare module 'react-declarative/model/IField' {
                 */
             inputRows?: number;
             /**
+                * Ripple эффект для иконок
+                */
+            leadingIconRipple?: boolean;
+            trailingIconRipple?: boolean;
+            /**
                 * Иконки для MatTextField
                 */
             leadingIcon?: React.ComponentType<any>;
@@ -4462,6 +4467,8 @@ declare module 'react-declarative/components/One/fields/SliderField' {
         maxSlider?: PickProp<IField<Data, Payload>, 'maxSlider'>;
         minSlider?: PickProp<IField<Data, Payload>, 'minSlider'>;
         labelFormatSlider?: PickProp<IField<Data, Payload>, 'labelFormatSlider'>;
+        leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+        trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
         leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
         trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
         leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
@@ -4478,7 +4485,7 @@ declare module 'react-declarative/components/One/fields/SliderField' {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
     }
     export const SliderField: {
-        ({ value, onChange, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, stepSlider, maxSlider, minSlider, labelFormatSlider, }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
+        ({ value, onChange, leadingIconRipple, trailingIconRipple, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, stepSlider, maxSlider, minSlider, labelFormatSlider, }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4530,6 +4537,8 @@ declare module 'react-declarative/components/One/fields/TextField' {
         description?: PickProp<IField<Data, Payload>, "description">;
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
+        leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+        trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
         leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
         trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
         leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
@@ -4554,7 +4563,7 @@ declare module 'react-declarative/components/One/fields/TextField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const TextField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, description, outlined, labelShrink, title, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, inputFormatter, inputFormatterSymbol, inputFormatterAllowed, inputFormatterTemplate, dirty, loading, onChange, autoFocus, inputRef, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, description, outlined, labelShrink, title, leadingIconRipple, trailingIconRipple, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, inputRows, placeholder, inputAutocomplete, inputFormatter, inputFormatterSymbol, inputFormatterAllowed, inputFormatterTemplate, dirty, loading, onChange, autoFocus, inputRef, name, }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6379,11 +6388,11 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Rating: ({ value, disabled, readonly, name, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
-        Text: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
+        Text: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, name, }: import("../..").ITextSlot) => JSX.Element;
         Date: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, name, }: import("../..").IDateSlot) => JSX.Element;
         Time: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, labelShrink, placeholder, dirty, autoFocus, inputRef, onChange, name, }: import("../..").ITimeSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
-        Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, labelFormatSlider, stepSlider, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
+        Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, labelFormatSlider, stepSlider, disabled, readonly, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, incorrect, value, disabled, readonly, description, outlined, labelShrink, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, upload, view, name, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, name, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, name, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }: import("../..").ICompleteSlot) => JSX.Element;
