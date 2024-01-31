@@ -72,7 +72,6 @@ export const Choose = ({
           },
         }),
       }}
-      name={name}
       inputRef={inputRef}
       variant={outlined ? "outlined" : "standard"}
       helperText={(dirty && (invalid || incorrect)) || description}

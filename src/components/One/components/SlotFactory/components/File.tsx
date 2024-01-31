@@ -67,7 +67,6 @@ export const FileField = ({
                         },
                     })
                 }}
-                name={name}
                 inputRef={inputRef}
                 variant={outlined ? "outlined" : "standard"}
                 helperText={(dirty && (invalid || incorrect)) || description}

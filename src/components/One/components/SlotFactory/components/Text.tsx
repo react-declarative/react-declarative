@@ -221,7 +221,6 @@ export const Text = ({
 
     return (
         <MatTextField
-            name={name}
             sx={{
                 ...(!outlined && {
                     position: 'relative',

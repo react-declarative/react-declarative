@@ -208,7 +208,6 @@ export const Time = ({
         variant={outlined ? "outlined" : "standard"}
         value={value}
         label={title}
-        name={name}
         helperText={(dirty && (invalid || incorrect)) || description}
         error={dirty && (invalid !== null || incorrect !== null)}
         onChange={({ target }) => handleChange(target.value)}

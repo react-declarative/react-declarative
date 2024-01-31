@@ -281,7 +281,6 @@ export const Dict = ({
 
   return (
     <SearchView
-      name={name}
       sx={{
         ...(!outlined && {
           position: "relative",

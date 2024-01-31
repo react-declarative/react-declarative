@@ -19,7 +19,6 @@ export const Rating = ({
         borderColor="transparent"
     >
         <MatRating
-            name={name}
             onChange={({ }, v) => onChange(v)}
             disabled={disabled}
             value={Number(value)}

@@ -43,7 +43,6 @@ export const Radio = ({
     return (
         <FormGroup>
             <RadioGroup
-                name={name}
                 value={value}
                 onChange={(_, value) => {
                     handleChange(value || null);

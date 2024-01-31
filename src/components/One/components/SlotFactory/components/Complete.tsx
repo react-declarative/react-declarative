@@ -282,7 +282,6 @@ export const Complete = ({
             })
           }}
           fullWidth
-          name={name}
           inputRef={inputElementRef}
           variant={outlined ? "outlined" : "standard"}
           value={String(value || "")}
