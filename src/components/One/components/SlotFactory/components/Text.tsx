@@ -45,7 +45,7 @@ const icons = (
                         disabled={disabled}
                         onClick={() => {
                             if (leadingIconClick) {
-                                leadingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
+                                leadingIconClick(v as unknown as IAnything, data, payload, (v) => c(v, {
                                     skipReadonly: true,
                                 }), cc);
                             }
@@ -66,7 +66,7 @@ const icons = (
                         disabled={disabled}
                         onClick={() => {
                             if (trailingIconClick) {
-                                trailingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
+                                trailingIconClick(v as unknown as IAnything, data, payload, (v) => c(v, {
                                     skipReadonly: true,
                                 }), cc);
                             }

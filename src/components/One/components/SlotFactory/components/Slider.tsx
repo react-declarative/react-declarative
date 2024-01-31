@@ -33,6 +33,7 @@ const createIcon = (
       if (click) {
         click(
           value,
+          data,
           payload,
           (v) =>
             onValueChange(v, {
