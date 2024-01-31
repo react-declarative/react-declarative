@@ -1,20 +1,24 @@
 import * as React from 'react';
-import { useMemo, useRef, useLayoutEffect } from 'react';
+import { useMemo, useRef, useLayoutEffect, useCallback } from 'react';
 
 import IconButton from "@mui/material/IconButton";
 import MatTextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import useActualValue from '../../../../../hooks/useActualValue';
+
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneState } from '../../../context/StateProvider';
 
-import IManaged, { PickProp } from '../../../../../model/IManaged';
 import { ITextSlot } from '../../../slots/TextSlot';
+
+import IManaged, { PickProp } from '../../../../../model/IManaged';
 import { IField } from '../../../../../model/IField';
 import IAnything from '../../../../../model/IAnything';
 
 import formatText from '../../../../../utils/formatText';
+import deepClone from '../../../../../utils/deepClone';
 
 const LOADING_LABEL = 'Loading';
 const NEVER_POS = Symbol('never-pos');
@@ -30,6 +34,7 @@ const icons = (
     disabled: boolean,
     v: string,
     c: PickProp<IManaged, 'onChange'>,
+    cc: (data: IAnything) => void,
 ) => ({
     ...(leadingIcon
         ? {
@@ -42,7 +47,7 @@ const icons = (
                             if (leadingIconClick) {
                                 leadingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
                                     skipReadonly: true,
-                                }));
+                                }), cc);
                             }
                         }}
                     >
@@ -63,7 +68,7 @@ const icons = (
                             if (trailingIconClick) {
                                 trailingIconClick(v as unknown as IAnything, payload, (v) => c(v, {
                                     skipReadonly: true,
-                                }));
+                                }), cc);
                             }
                         }}
                     >
@@ -132,7 +137,21 @@ export const Text = ({
     name,
 }: ITextSlot) => {
     const payload = useOnePayload();
-    const { object } = useOneState();
+    const { object, setObject } = useOneState<object>();
+
+    const object$ = useActualValue(object);
+
+    const handleChange = useCallback(
+      (object: object) =>
+        setObject(
+          deepClone({
+            ...object$.current,
+            ...object,
+          }),
+          {}
+        ),
+      []
+    );
 
     const inputElementRef = useRef<HTMLInputElement | null>();
 
@@ -218,7 +237,7 @@ export const Text = ({
                 readOnly: readonly,
                 inputMode,
                 autoFocus,
-                ...icons(object, payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange),
+                ...icons(object, payload, li, ti, lic, tic, loading, disabled, (value || '').toString(), onChange, handleChange),
             }}
             inputProps={{
                 pattern: inputPattern,

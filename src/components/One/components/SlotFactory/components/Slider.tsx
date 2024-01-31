@@ -1,12 +1,17 @@
 import * as React from "react";
+import { useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import MatSlider from "@mui/material/Slider";
 import IconButton from "@mui/material/IconButton";
 
+import useActualValue from "../../../../../hooks/useActualValue";
+
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
+
+import deepClone from "../../../../../utils/deepClone";
 
 import IAnything from "../../../../../model/IAnything";
 import IManaged, { PickProp } from "../../../../../model/IManaged";
@@ -18,17 +23,22 @@ const createIcon = (
   data: IAnything,
   payload: IAnything,
   value: IAnything,
-  onChange: PickProp<IManaged, "onChange">,
+  onChange: (data: IAnything) => void,
+  onValueChange: PickProp<IManaged, "onChange">,
   click: PickProp<IManaged, "leadingIconClick">,
   edge: "start" | "end"
 ) => (
   <IconButton
     onClick={() => {
       if (click) {
-        click(value, payload, (v) =>
-          onChange(v, {
-            skipReadonly: true,
-          })
+        click(
+          value,
+          payload,
+          (v) =>
+            onValueChange(v, {
+              skipReadonly: true,
+            }),
+          onChange
         );
       }
     }}
@@ -51,7 +61,22 @@ export const Slider = ({
   minSlider = 0,
 }: ISliderSlot) => {
   const payload = useOnePayload();
-  const { object } = useOneState();
+  const { object, setObject } = useOneState<object>();
+
+  const object$ = useActualValue(object);
+
+  const handleChange = useCallback(
+    (object: object) =>
+      setObject(
+        deepClone({
+          ...object$.current,
+          ...object,
+        }),
+        {}
+      ),
+    []
+  );
+
   return (
     <Box mr={1}>
       <Grid alignItems="center" container spacing={2}>
@@ -62,6 +87,7 @@ export const Slider = ({
               object,
               payload,
               value as IAnything,
+              handleChange,
               onChange,
               lic,
               "end"
@@ -88,6 +114,7 @@ export const Slider = ({
               object,
               payload,
               value as IAnything,
+              handleChange,
               onChange,
               tic,
               "start"
