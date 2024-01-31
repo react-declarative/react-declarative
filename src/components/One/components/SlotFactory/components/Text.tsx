@@ -141,7 +141,6 @@ export const Text = ({
     autoFocus,
     inputRef,
     onChange,
-    name,
 }: ITextSlot) => {
     const payload = useOnePayload();
     const { object, setObject } = useOneState<object>();

@@ -69,7 +69,6 @@ export const Dict = ({
   loading,
   inputRef,
   onChange,
-  name,
   dictLimit = DEFAULT_LIMIT,
   dictDelay = DEFAULT_DELAY,
   dictOnText = DEFAULT_ONTEXT,

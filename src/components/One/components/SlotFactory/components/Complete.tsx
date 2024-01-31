@@ -62,7 +62,6 @@ export const Complete = ({
   tipSelect,
   autoFocus,
   onChange,
-  name,
   inputFormatterSymbol: symbol = "0",
   inputFormatterAllowed: allowed,
   inputFormatterReplace: replace,

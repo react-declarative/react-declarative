@@ -36,6 +36,7 @@ export const FileField = ({
     inputRef,
     onChange,
     fileAccept,
+    name,
     upload = (file) => {
         if (file instanceof File) {
             return file.name;
@@ -45,7 +46,6 @@ export const FileField = ({
     view = (filePath) => {
         openBlank(filePath);
     },
-    name,
 }: IFileSlot) => {
     const [currentLoading, setCurrentLoading] = useState(false);
     const payload = useOnePayload();

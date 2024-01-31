@@ -29,7 +29,6 @@ export const Choose = ({
   onChange,
   choose = () => "unknown",
   tr = (value) => value,
-  name,
 }: IChooseSlot) => {
   const [currentLoading, setCurrentLoading] = useState(false);
   const payload = useOnePayload();

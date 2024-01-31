@@ -9,7 +9,6 @@ export const Rating = ({
     value,
     disabled,
     readonly,
-    name,
     onChange,
 }: IRatingSlot) => (
     <Box

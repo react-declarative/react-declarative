@@ -40,7 +40,6 @@ export const Date = ({
   autoFocus,
   inputRef,
   onChange,
-  name,
 }: IDateSlot) => {
   const inputElementRef = useRef<HTMLInputElement | null>();
 

@@ -40,7 +40,6 @@ export const Time = ({
   autoFocus,
   inputRef,
   onChange,
-  name,
 }: ITimeSlot) => {
 
   const inputElementRef = useRef<HTMLInputElement | null>();
