@@ -21,6 +21,7 @@ interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
   style: PickProp<IField, 'style'>;
   children: React.ReactNode;
   onFocus?: () => void;
+  onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const useStyles = makeStyles()({
@@ -54,6 +55,7 @@ export const Item = ({
   fieldBottomMargin = '2',
   children,
   onFocus,
+  onContextMenu,
   ...otherProps
 }: IItemProps, ref: React.Ref<HTMLDivElement>) => {
   const { classes } = useStyles();
@@ -99,6 +101,7 @@ export const Item = ({
       lg={lg}
       xl={xl}
       sx={sx}
+      onContextMenu={onContextMenu}
     >
       <Box
         className={classes.container}

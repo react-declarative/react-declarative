@@ -91,8 +91,8 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Вызываются при фокусировки по филду
    * в компоненте и потере фокуса
    */
-  focus?: (name: string, payload: Payload) => void;
-  blur?: (name: string, payload: Payload) => void;
+  focus?: (name: string, data: Data, payload: Payload) => void;
+  blur?: (name: string, data: Data, payload: Payload) => void;
   /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы

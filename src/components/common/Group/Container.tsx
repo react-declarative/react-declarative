@@ -14,6 +14,7 @@ interface IContainerProps {
   isBaselineAlign?: boolean;
   children: React.ReactNode;
   onFocus?: () => void;
+  onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const n = (v: string) => Number(v) as any;
@@ -26,6 +27,7 @@ export const Container = ({
   isBaselineAlign,
   columnsOverride,
   sx,
+  onContextMenu,
   ...otherProps
 }: IContainerProps, ref: React.Ref<HTMLDivElement>) => {
   const columns = useMemo(() => columnsOverride && n(columnsOverride), []);
@@ -39,6 +41,7 @@ export const Container = ({
       style={style}
       onFocus={onFocus}
       columns={columns}
+      onContextMenu={onContextMenu}
       sx={sx}
     >
       {children}

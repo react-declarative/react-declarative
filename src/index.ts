@@ -426,7 +426,7 @@ export { createField, makeField } from './components';
 export { createLayout, makeLayout } from './components';
 
 export { useListProps, useListCachedRows, useListPayload, useListChips } from './components';
-export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext } from './components';
+export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext, useOneMenu } from './components';
 
 export { useActualCallback };
 export { useActualValue };

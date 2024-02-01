@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 interface IParams<T = HTMLInputElement> {
     onFocus?: React.FocusEventHandler<T>;
     onTouchStart?: React.TouchEventHandler<T>;
+    onContextMenu: React.MouseEventHandler<T>;
     readOnly?: boolean;
 }
 
@@ -11,6 +12,7 @@ interface IResult<T = HTMLInputElement>  {
     readOnly: boolean;
     onFocus: React.FocusEventHandler<T>;
     onTouchStart: React.TouchEventHandler<T>;
+    onContextMenu: React.MouseEventHandler<T>;
 }
 
 /**
@@ -20,6 +22,7 @@ export const usePreventAutofill = <T = HTMLInputElement>({
     readOnly: upperReadOnly,
     onFocus,
     onTouchStart,
+    onContextMenu,
 }: Partial<IParams<T>> = {}): IResult<T> => {
     const [readOnly, setReadOnly] = useState(true);
 
@@ -33,10 +36,17 @@ export const usePreventAutofill = <T = HTMLInputElement>({
         onTouchStart && onTouchStart(e);
     }, [onFocus]);
 
+    const handleContextMenu = useCallback<React.MouseEventHandler<T>>((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onContextMenu && onContextMenu(e);
+    }, [onFocus]);
+
     return {
         readOnly: upperReadOnly || readOnly,
         onFocus: handleFocus,
         onTouchStart: handleTouchStart,
+        onContextMenu: handleContextMenu,
     };
 };
 

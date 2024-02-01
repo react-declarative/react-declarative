@@ -18,13 +18,14 @@ import { makeStyles } from '../../../../styles';
 import { useDebounceConfig } from '../../context/DebounceProvider';
 import { useOnePayload } from '../../context/PayloadProvider';
 import { useOneState } from '../../context/StateProvider';
+import { useOneMenu } from '../../context/MenuProvider';
 
 import useDebounce from '../../hooks/useDebounce';
 
-import useManagedCompute from './useManagedCompute';
-import useFieldMemory from './useFieldMemory';
-import useFieldState from './useFieldState';
-import useFieldGuard from './useFieldGuard';
+import useManagedCompute from './hooks/useManagedCompute';
+import useFieldMemory from './hooks/useFieldMemory';
+import useFieldState from './hooks/useFieldState';
+import useFieldGuard from './hooks/useFieldGuard';
 
 import Group, { IGroupProps } from '../../../common/Group';
 
@@ -90,6 +91,7 @@ const DEFAULT_FALLBACK = () => null;
 const DEFAULT_READY = () => null;
 const DEFAULT_MAP = (data: IAnything) => data;
 const DEFAULT_REF = () => null;
+const DEFAULT_MENU = () => null;
 
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
@@ -129,6 +131,7 @@ export function makeField(
         object: upperObject,
         name = '',
         title = nameToTitle(name) || undefined,
+        menu = DEFAULT_MENU,
         focus,
         blur,
         invalidity,
@@ -138,6 +141,7 @@ export function makeField(
         readonly: upperReadonly = false,
         autoFocus,
         style,
+        menuItems,
         groupRef: ref = DEFAULT_REF,
         fieldRightMargin = fieldConfig.defaultProps?.fieldRightMargin,
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
@@ -146,6 +150,7 @@ export function makeField(
     }: IEntity<Data>) => {
         const { object: stateObject } = useOneState<Data>();
         const payload = useOnePayload();
+        const { createContextMenu } = useOneMenu();
 
         const {
             isDisabled,
@@ -557,14 +562,26 @@ export function makeField(
                     flush();
                 }
                 if (blur) {
-                    blur(name, payload);
+                    blur(name, memory.object$, payload);
                 }
                 setFocusReadonly(true);
             });
             if (focus) {
-                focus(name, payload);
+                focus(name, memory.object$, payload);
             }
         }, []);
+
+        /**
+         * Коллбек для управления контекстным меню
+         */
+        const handleMenu = useMemo(() => createContextMenu({
+            name,
+            menu,
+            menuItems: menuItems!,
+            onValueChange: (value) => managedProps.onChange(value, {
+                skipReadonly: true,
+            }),
+        }), []);
 
         const groupProps: IGroupProps<Data> = {
             ...fieldConfig.defaultProps,
@@ -634,6 +651,7 @@ export function makeField(
                 className={classNames(className, classes.root, classMap)}
                 {...groupProps}
                 onFocus={handleFocus}
+                onContextMenu={handleMenu}
             >
                 <Component {...componentProps as IManaged} />
             </Group>

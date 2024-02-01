@@ -30,6 +30,7 @@ import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
 import isBaseline from "../../config/isBaseline";
+import MenuProvider from "../../context/MenuProvider";
 
 const useStyles = makeStyles()({
   readonly: {
@@ -139,19 +140,21 @@ export const OneGenesis = <
               <FeatureProvider features={features}>
                 <PayloadProvider payload={payload}>
                   <StateProvider<Data, Payload, Field> {...stateParams}>
-                    <SlotFactory {...slots}>
-                      <Group
-                        isBaselineAlign={isBaselineAlign}
-                        className={classNames(className, {
-                          [classes.readonly]: props.readonly,
-                          [classes.rendering]: !rendered,
-                        })}
-                        style={style}
-                        sx={sx}
-                      >
-                        <OneInternal<Data, Payload, Field> {...viewParams} />
-                      </Group>
-                    </SlotFactory>
+                    <MenuProvider>
+                      <SlotFactory {...slots}>
+                        <Group
+                          isBaselineAlign={isBaselineAlign}
+                          className={classNames(className, {
+                            [classes.readonly]: props.readonly,
+                            [classes.rendering]: !rendered,
+                          })}
+                          style={style}
+                          sx={sx}
+                        >
+                          <OneInternal<Data, Payload, Field> {...viewParams} />
+                        </Group>
+                      </SlotFactory>
+                    </MenuProvider>
                   </StateProvider>
                 </PayloadProvider>
               </FeatureProvider>

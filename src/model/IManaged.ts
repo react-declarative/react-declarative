@@ -72,6 +72,7 @@ type Exclude<Data = IAnything> = {
     check: never;
     change: never;
     name: never;
+    menuItems: never;
 } & IManagedShallow<Data>;
 
 /**

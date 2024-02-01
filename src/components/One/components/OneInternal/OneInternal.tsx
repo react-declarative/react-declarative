@@ -8,6 +8,8 @@ import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";
 import isBaseline from "../../config/isBaseline";
 
+import useActualValue from "../../../../hooks/useActualValue";
+
 import { useOneState } from "../../context/StateProvider";
 import { useOneCache } from "../../context/CacheProvider";
 import { useOnePayload } from "../../context/PayloadProvider";
@@ -168,6 +170,12 @@ export const OneInternal = <
   const { object, setObject } = useOneState<Data>();
 
   /**
+   * Для работы с фокусировкой нужно получить ссылку на
+   * актуальный целевой объект
+   */
+  const object$ = useActualValue(object!);
+
+  /**
    * Если в группе нет полей, вызываем инициализацию мануально
    */
   useEffect(() => {
@@ -226,16 +234,16 @@ export const OneInternal = <
               ? focusMap.get(field)
               : focusMap
                   .set(field, (name: string, payload: Payload) => {
-                    field.focus && field.focus(name, payload);
-                    focus && focus(name, payload);
+                    field.focus && field.focus(name, object$.current, payload);
+                    focus && focus(name, object$.current, payload);
                   })
                   .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
                   .set(field, (name: string, payload: Payload) => {
-                    field.blur && field.blur(name, payload);
-                    blur && blur(name, payload);
+                    field.blur && field.blur(name, object$.current, payload);
+                    blur && blur(name, object$.current, payload);
                   })
                   .get(field),
             tr: trMap.has(field)

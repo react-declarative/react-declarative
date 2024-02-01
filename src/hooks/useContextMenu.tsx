@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 
 import useActualCallback from "./useActualCallback";
 import useAsyncAction from "./useAsyncAction";
+import useActualValue from "./useActualValue";
 
 import IOption from "../model/IOption";
 import TSubject from "../model/TSubject";
@@ -110,6 +111,7 @@ export const useContextMenu = <T extends any = object>({
   const [loading, setLoading] = useState(0);
 
   const onAction$ = useActualCallback(onAction);
+  const options$ = useActualValue(options);
 
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
@@ -175,7 +177,7 @@ export const useContextMenu = <T extends any = object>({
                 <BeforeContent />
               </Box>
             )}
-            {options.map(
+            {options$.current.map(
               (
                 {
                   label = "unknown-label",
@@ -262,12 +264,12 @@ export const useContextMenu = <T extends any = object>({
   return {
     elementProps: {
       onContextMenu: (e) => {
-        if (!options.length) {
+        if (!options$.current.length) {
           return;
         }
         e.preventDefault();
         e.stopPropagation();
-        setAnchorEl(e.currentTarget);
+        setAnchorEl(e.target as HTMLDivElement);
       },
     },
     render,
