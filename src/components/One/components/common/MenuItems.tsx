@@ -24,7 +24,6 @@ import IFieldMenu from "../../../../model/IFieldMenu";
 import TSubject from "../../../../model/TSubject";
 import IOption from "../../../../model/IOption";
 
-import singlerun from "../../../../utils/hof/singlerun";
 import deepClone from "../../../../utils/deepClone";
 import sleep from "../../../../utils/sleep";
 
@@ -180,7 +179,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
       <div className={classes.container}>
         {loading !== 0 && (
           <div className={classes.loader}>
-            <CircularProgress />
+            <CircularProgress size={14} />
           </div>
         )}
         <div className={classes.content}>
@@ -197,7 +196,6 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
               },
               idx
             ) => {
-              const click = onClick ? singlerun(onClick) : undefined;
               const Placeholder = () =>
                 !divider ? (
                   <MenuItem
@@ -235,8 +233,8 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
                         <MenuItem
                           disabled={disabled}
                           onClick={() => {
-                            if (click) {
-                              click(object$.current, payload, params$.current.onValueChange, handleChangeObj);
+                            if (onClick) {
+                              onClick(object$.current, payload, params$.current.onValueChange, handleChangeObj);
                               setAnchorEl(null);
                               return;
                             }

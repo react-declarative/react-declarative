@@ -163,7 +163,7 @@ export const useContextMenu = <T extends any = object>({
         <Box className={classes.container}>
           {loading !== 0 && (
             <Box className={classes.loader}>
-              <CircularProgress />
+              <CircularProgress size={14} />
             </Box>
           )}
           <Box
