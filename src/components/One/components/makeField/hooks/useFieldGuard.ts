@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
-import trycatch from "../../../../utils/hof/trycatch";
+import trycatch from "../../../../../utils/hof/trycatch";
 
-import IField from "../../../../model/IField";
+import IField from "../../../../../model/IField";
 
 interface IChunk {
   prefix: string;

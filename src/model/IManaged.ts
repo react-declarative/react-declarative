@@ -54,6 +54,8 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     compute?: PickProp<IField<Data, Payload>, 'compute'>;
     focus?: PickProp<IField<Data, Payload>, 'focus'>;
     blur?: PickProp<IField<Data, Payload>, 'blur'>;
+    menuItems?: PickProp<IField<Data, Payload>, 'menuItems'>;
+    menu?: PickProp<IField<Data, Payload>, 'menu'>;
     map?: PickProp<IField<Data, Payload>, 'map'>;
     defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
@@ -72,6 +74,7 @@ type Exclude<Data = IAnything> = {
     check: never;
     change: never;
     name: never;
+    menuItems: never;
 } & IManagedShallow<Data>;
 
 /**
@@ -82,6 +85,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     name: string;
     value: Value;
     dirty: boolean;
+    withContextMenu: true | undefined;
     disabled: boolean;
     loading: boolean;
     readonly: boolean;

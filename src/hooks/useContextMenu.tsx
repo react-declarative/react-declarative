@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 
 import useActualCallback from "./useActualCallback";
 import useAsyncAction from "./useAsyncAction";
+import useActualValue from "./useActualValue";
 
 import IOption from "../model/IOption";
 import TSubject from "../model/TSubject";
@@ -23,7 +24,7 @@ import { sleep } from "../utils/sleep";
 
 interface IParams<T extends any = object> {
   keepMounted?: boolean;
-  options?: Partial<IOption>[];
+  options: Partial<IOption>[];
   onAction?: (action: string) => void;
   fallback?: (e: Error) => void;
   deps?: any[];
@@ -110,6 +111,7 @@ export const useContextMenu = <T extends any = object>({
   const [loading, setLoading] = useState(0);
 
   const onAction$ = useActualCallback(onAction);
+  const options$ = useActualValue(options);
 
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
@@ -161,7 +163,7 @@ export const useContextMenu = <T extends any = object>({
         <Box className={classes.container}>
           {loading !== 0 && (
             <Box className={classes.loader}>
-              <CircularProgress />
+              <CircularProgress size={14} />
             </Box>
           )}
           <Box
@@ -175,7 +177,7 @@ export const useContextMenu = <T extends any = object>({
                 <BeforeContent />
               </Box>
             )}
-            {options.map(
+            {options$.current.map(
               (
                 {
                   label = "unknown-label",
@@ -262,12 +264,17 @@ export const useContextMenu = <T extends any = object>({
   return {
     elementProps: {
       onContextMenu: (e) => {
-        if (!options.length) {
+        if (!options$.current.length) {
           return;
         }
         e.preventDefault();
         e.stopPropagation();
-        setAnchorEl(e.currentTarget);
+        const pointElement = document.elementFromPoint(e.clientX, e.clientY);
+        if (pointElement) {
+          setAnchorEl(pointElement as unknown as HTMLDivElement);
+        } else {
+          setAnchorEl(e.target as HTMLDivElement);
+        }
       },
     },
     render,

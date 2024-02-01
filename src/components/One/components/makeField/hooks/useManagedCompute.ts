@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useRef } from "react";
 
-import IAnything from "../../../../model/IAnything";
-import IField from "../../../../model/IField";
+import IAnything from "../../../../../model/IAnything";
+import IField from "../../../../../model/IField";
 
-import singleshot from "../../../../utils/hof/singleshot";
+import singleshot from "../../../../../utils/hof/singleshot";
 
 interface IParams {
   compute: IField["compute"];

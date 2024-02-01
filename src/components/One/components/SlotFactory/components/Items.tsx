@@ -20,6 +20,7 @@ import isObject from '../../../../../utils/isObject';
 import { useOneState } from '../../../context/StateProvider';
 import { useOneProps } from '../../../context/PropsProvider';
 import { useOnePayload } from '../../../context/PayloadProvider';
+import { useOneMenu } from '../../../context/MenuProvider';
 
 import { useSubject } from '../../../../../hooks/useSubject';
 import { useAsyncAction } from '../../../../../hooks/useAsyncAction';
@@ -67,7 +68,10 @@ export const Items = ({
     title,
     tr = (s) => s.toString(),
     onChange,
+    withContextMenu,
 }: IItemsSlot) => {
+
+    const { requestSubject } = useOneMenu();
 
     const { object } = useOneState();
     const payload = useOnePayload();
@@ -184,6 +188,10 @@ export const Items = ({
         });
         return () => unsubscribeRef();
     }, [opened]);
+
+    useEffect(() => withContextMenu && requestSubject.subscribe(() => {
+        setOpened(false);
+    }), []);
 
     const handleChange = (value: any) => {
         onChange(value?.length ? value : null);

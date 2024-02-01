@@ -5,6 +5,7 @@ export { createField } from './config/createField';
 export { makeField } from './components/makeField';
 export { createLayout } from './config/createLayout';
 export { makeLayout } from './components/makeLayout'; 
+export { useOneMenu } from './context/MenuProvider';
 export { useOneProps } from './context/PropsProvider';
 export { useOneState } from './context/StateProvider';
 export { useOnePayload } from './context/PayloadProvider';

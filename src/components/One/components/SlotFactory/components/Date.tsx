@@ -13,6 +13,8 @@ import { IDateSlot } from "../../../slots/DateSlot";
 
 import useActualValue from "../../../../../hooks/useActualValue";
 
+import { useOneMenu } from "../../../context/MenuProvider";
+
 import formatText from "../../../../../utils/formatText";
 import * as datetime from "../../../../../utils/datetime";
 
@@ -40,7 +42,10 @@ export const Date = ({
   autoFocus,
   inputRef,
   onChange,
+  withContextMenu,
 }: IDateSlot) => {
+  const { requestSubject } = useOneMenu();
+
   const inputElementRef = useRef<HTMLInputElement | null>();
 
   const incomingUpdate = useRef(false);
@@ -167,6 +172,8 @@ export const Date = ({
   useLayoutEffect(() => {
     caretManager.render();
   }, [value]);
+
+  useEffect(() => withContextMenu && requestSubject.subscribe(handleClose), []);
 
   return (
     <>

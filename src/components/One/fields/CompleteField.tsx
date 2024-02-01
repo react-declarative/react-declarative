@@ -54,6 +54,7 @@ export interface ICompleteFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const CompleteField = ({
@@ -83,6 +84,7 @@ export const CompleteField = ({
   inputFormatterReplace,
   inputFormatterSymbol,
   inputFormatterTemplate,
+  withContextMenu,
 }: ICompleteFieldProps & ICompleteFieldPrivate) => (
   <Complete
     autoFocus={autoFocus}
@@ -94,6 +96,7 @@ export const CompleteField = ({
     disabled={disabled}
     inputType={inputType}
     description={description}
+    withContextMenu={withContextMenu}
     outlined={outlined}
     keepRaw={keepRaw}
     labelShrink={labelShrink}

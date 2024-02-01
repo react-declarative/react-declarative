@@ -1,12 +1,12 @@
 import { useState, useMemo } from "react";
 
-import { IConfig } from "../OneConfig/OneConfigInstance";
+import { IConfig } from "../../OneConfig/OneConfigInstance";
 
-import get from "../../../../utils/get";
+import get from "../../../../../utils/get";
 
-import IField, { Value } from "../../../../model/IField";
-import IManaged from "../../../../model/IManaged";
-import IAnything from "../../../../model/IAnything";
+import IField, { Value } from "../../../../../model/IField";
+import IManaged from "../../../../../model/IManaged";
+import IAnything from "../../../../../model/IAnything";
 
 interface IState {
   groupRef: HTMLDivElement;

@@ -9,6 +9,7 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
     }> {
     onFocus?: IOneProps<Data, Field>['focus'];
     onBlur?: IOneProps<Data, Field>['blur'];
+    onMenu?: IOneProps<Data, Field>['menu'];
     onReady?: IOneProps<Data, Field>['ready'];
     onChange?: IOneProps<Data, Field>['change'];
     onInvalid?: IOneProps<Data, Field>['invalidity'];

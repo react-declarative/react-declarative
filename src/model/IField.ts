@@ -9,6 +9,7 @@ import FieldType from './FieldType';
 import IAnything from './IAnything';
 import ISearchItem from '../components/SearchView/model/ISearchItem';
 import ISearchViewProps from '../components/SearchView/model/ISearchViewProps';
+import IFieldMenu from './IFieldMenu';
 
 export type Value = string | string[] | number | boolean | null;
 
@@ -23,6 +24,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * expansion и line.
      */
     name?: string;
+
+    /**
+     * Позволяет создать контекстное меню
+     */
+    menuItems?: IFieldMenu[];
 
     /**
      * Флаг, убирающий поле из древа отрисовки. Следует использовать для
@@ -67,8 +73,13 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * программиста, а не работа с полем ввода
      * (например, обновление ссылки на изображение)
      */
-    focus?: (name: string, payload: Payload) => void;
-    blur?: (name: string, payload: Payload) => void;
+    focus?: (name: string, data: Data, payload: Payload) => void;
+    blur?: (name: string, data: Data, payload: Payload) => void;
+
+    /**
+     * Коллбек для обработки клика по элементу контекстного меню
+     */
+    menu?: (name: string, action: string, data: Data, payload: Payload) => void;
 
     /**
      * Флаг только на чтение и "круглой окаймовки"

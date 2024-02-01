@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import IAnything from '../../../../model/IAnything';
-import { Value } from '../../../../model/IField';
+import IAnything from '../../../../../model/IAnything';
+import { Value } from '../../../../../model/IField';
 
 interface IMemory {
     inputUpdate: boolean;

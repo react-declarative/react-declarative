@@ -31,6 +31,7 @@ export interface IItemsFieldPrivate<Data = IAnything> {
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   incorrect: PickProp<IManaged<Data>, "incorrect">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const ItemsField = ({
@@ -50,6 +51,7 @@ export const ItemsField = ({
   invalid,
   incorrect,
   title,
+  withContextMenu,
   tr = (s) => s.toString(),
   onChange,
 }: IItemsFieldProps & IItemsFieldPrivate) => (
@@ -72,6 +74,7 @@ export const ItemsField = ({
     title={title}
     tr={tr}
     onChange={onChange}
+    withContextMenu={withContextMenu}
   />
 );
 

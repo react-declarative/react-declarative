@@ -246,7 +246,13 @@ export const SearchView = <
   const textValue = getValue();
 
   return (
-    <Box ref={anchorElRef} className={className} style={style} sx={sx}>
+    <Box
+      ref={anchorElRef}
+      onContextMenu={() => setOpen(false)}
+      className={className}
+      style={style}
+      sx={sx}
+    >
       <TextField
         {...otherProps}
         fullWidth
