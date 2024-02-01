@@ -269,7 +269,12 @@ export const useContextMenu = <T extends any = object>({
         }
         e.preventDefault();
         e.stopPropagation();
-        setAnchorEl(e.target as HTMLDivElement);
+        const pointElement = document.elementFromPoint(e.clientX, e.clientY);
+        if (pointElement) {
+          setAnchorEl(pointElement as unknown as HTMLDivElement);
+        } else {
+          setAnchorEl(e.target as HTMLDivElement);
+        }
       },
     },
     render,
