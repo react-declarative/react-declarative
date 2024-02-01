@@ -28,6 +28,7 @@ export interface IDateFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const DateField = ({
@@ -45,6 +46,7 @@ export const DateField = ({
   autoFocus,
   inputRef,
   onChange,
+  withContextMenu,
   name,
 }: IDateFieldPrivate & IDateFieldProps) => (
   <Date
@@ -60,6 +62,7 @@ export const DateField = ({
     labelShrink={labelShrink}
     title={title}
     placeholder={placeholder}
+    withContextMenu={withContextMenu}
     dirty={dirty}
     onChange={onChange}
     name={name}

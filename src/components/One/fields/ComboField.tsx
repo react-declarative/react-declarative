@@ -32,6 +32,7 @@ export interface IComboFieldPrivate<Data = IAnything>  {
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   incorrect: PickProp<IManaged<Data>, "incorrect">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const ComboField = ({
@@ -51,6 +52,7 @@ export const ComboField = ({
   dirty,
   invalid,
   incorrect,
+  withContextMenu,
   tr = (s) => s.toString(),
   onChange,
 }: IComboFieldProps & IComboFieldPrivate) => (
@@ -71,6 +73,7 @@ export const ComboField = ({
     dirty={dirty}
     invalid={invalid}
     incorrect={incorrect}
+    withContextMenu={withContextMenu}
     tr={tr}
     onChange={onChange}
   />

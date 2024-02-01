@@ -85,6 +85,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     name: string;
     value: Value;
     dirty: boolean;
+    withContextMenu: true | undefined;
     disabled: boolean;
     loading: boolean;
     readonly: boolean;

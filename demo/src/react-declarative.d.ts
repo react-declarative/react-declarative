@@ -1333,6 +1333,7 @@ declare module 'react-declarative/model/IManaged' {
             name: string;
             value: Value;
             dirty: boolean;
+            withContextMenu: true | undefined;
             disabled: boolean;
             loading: boolean;
             readonly: boolean;
@@ -4331,9 +4332,10 @@ declare module 'react-declarative/components/One/fields/ComboField' {
         dirty: PickProp<IManaged<Data>, "dirty">;
         invalid: PickProp<IManaged<Data>, "invalid">;
         incorrect: PickProp<IManaged<Data>, "incorrect">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const ComboField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, watchItemList, noDeselect, labelShrink, title, dirty, invalid, incorrect, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, watchItemList, noDeselect, labelShrink, title, dirty, invalid, incorrect, withContextMenu, tr, onChange, }: IComboFieldProps & IComboFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4399,9 +4401,10 @@ declare module 'react-declarative/components/One/fields/ItemsField' {
         dirty: PickProp<IManaged<Data>, "dirty">;
         invalid: PickProp<IManaged<Data>, "invalid">;
         incorrect: PickProp<IManaged<Data>, "incorrect">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const ItemsField: {
-        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, labelShrink, watchItemList, noDeselect, dirty, invalid, incorrect, title, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
+        ({ value, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, virtualListBox, labelShrink, watchItemList, noDeselect, dirty, invalid, incorrect, title, withContextMenu, tr, onChange, }: IItemsFieldProps & IItemsFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4645,9 +4648,10 @@ declare module 'react-declarative/components/One/fields/DateField' {
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const DateField: {
-        ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, name, }: IDateFieldPrivate & IDateFieldProps): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, withContextMenu, name, }: IDateFieldPrivate & IDateFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4680,9 +4684,10 @@ declare module 'react-declarative/components/One/fields/TimeField' {
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const TimeField: {
-        ({ invalid, incorrect, value, disabled, readonly, labelShrink, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, }: ITimeFieldPrivate & ITimeFieldProps): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, labelShrink, description, outlined, title, placeholder, dirty, autoFocus, inputRef, onChange, name, withContextMenu, }: ITimeFieldPrivate & ITimeFieldProps): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -4729,9 +4734,10 @@ declare module 'react-declarative/components/One/fields/CompleteField' {
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const CompleteField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, description, outlined, keepRaw, title, labelShrink, tip, tipSelect, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, inputFormatter, inputFormatterAllowed, inputFormatterReplace, inputFormatterSymbol, inputFormatterTemplate, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, description, outlined, keepRaw, title, labelShrink, tip, tipSelect, placeholder, inputAutocomplete, dirty, loading, onChange, autoFocus, inputRef, name, inputFormatter, inputFormatterAllowed, inputFormatterReplace, inputFormatterSymbol, inputFormatterTemplate, withContextMenu, }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6467,21 +6473,21 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
     import ISlotFactoryContext from 'react-declarative/components/One/components/SlotFactory/ISlotFactoryContext';
     export const defaultSlots: {
         CheckBox: ({ disabled, onChange, title, value, }: import("../..").ICheckBoxSlot) => JSX.Element;
-        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, watchItemList, labelShrink, noDeselect, freeSolo, title, dirty, invalid, incorrect, tr, onChange, }: import("../..").IComboSlot) => JSX.Element;
-        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, watchItemList, labelShrink, dirty, invalid, incorrect, title, tr, onChange, }: import("../..").IItemsSlot) => JSX.Element;
+        Combo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, virtualListBox, watchItemList, labelShrink, noDeselect, freeSolo, title, dirty, invalid, incorrect, withContextMenu, tr, onChange, }: import("../..").IComboSlot) => JSX.Element;
+        Items: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, itemList, freeSolo, noDeselect, virtualListBox, watchItemList, labelShrink, dirty, invalid, incorrect, title, tr, onChange, withContextMenu, }: import("../..").IItemsSlot) => JSX.Element;
         Line: ({ title, lineTransparent, }: import("../..").ILineSlot) => JSX.Element;
         Radio: ({ disabled, onChange, title, radioValue, value, name, }: import("../..").IRadioSlot) => JSX.Element;
         Rating: ({ value, disabled, readonly, onChange, }: import("../..").IRatingSlot) => JSX.Element;
         Progress: ({ maxPercent, showPercentLabel, value, }: import("../..").IProgressSlot) => JSX.Element;
         Typography: ({ value, placeholder, typoVariant, style, }: import("../..").ITypographySlot) => JSX.Element;
         Text: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, }: import("../..").ITextSlot) => JSX.Element;
-        Date: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, }: import("../..").IDateSlot) => JSX.Element;
-        Time: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, labelShrink, placeholder, dirty, autoFocus, inputRef, onChange, }: import("../..").ITimeSlot) => JSX.Element;
+        Date: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, withContextMenu, }: import("../..").IDateSlot) => JSX.Element;
+        Time: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, labelShrink, placeholder, dirty, autoFocus, inputRef, onChange, withContextMenu, }: import("../..").ITimeSlot) => JSX.Element;
         Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, labelFormatSlider, stepSlider, disabled, readonly, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, incorrect, value, disabled, readonly, description, outlined, labelShrink, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, name, upload, view, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, }: import("../..").IChooseSlot) => JSX.Element;
-        Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }: import("../..").ICompleteSlot) => JSX.Element;
+        Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, withContextMenu, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
         Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
@@ -6614,8 +6620,10 @@ declare module 'react-declarative/components/One/components/makeLayout' {
 declare module 'react-declarative/components/One/context/MenuProvider' {
     import * as React from "react";
     import { IParams } from "react-declarative/components/One/components/common/MenuItems";
+    import TSubject from "react-declarative/model/TSubject";
     interface IContext {
         createContextMenu: (params: IParams) => React.MouseEventHandler<HTMLDivElement>;
+        requestSubject: TSubject<void>;
     }
     interface IMenuProviderProps {
         children: React.ReactNode;

@@ -28,6 +28,7 @@ export interface ITimeFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const TimeField = ({
@@ -46,6 +47,7 @@ export const TimeField = ({
   inputRef,
   onChange,
   name,
+  withContextMenu,
 }: ITimeFieldPrivate & ITimeFieldProps) => (
   <Time
     autoFocus={autoFocus}
@@ -63,6 +65,7 @@ export const TimeField = ({
     dirty={dirty}
     onChange={onChange}
     name={name}
+    withContextMenu={withContextMenu}
   />
 );
 

@@ -2,14 +2,17 @@ import * as React from "react";
 import { useContext, useMemo } from "react";
 import { createContext } from "react";
 
+import MenuItems, { IRequest, IParams } from "../components/common/MenuItems";
+
 import useSubject from "../../../hooks/useSubject";
 
-import MenuItems, { IRequest, IParams } from "../components/common/MenuItems";
+import TSubject from "../../../model/TSubject";
 
 interface IContext {
   createContextMenu: (
     params: IParams
   ) => React.MouseEventHandler<HTMLDivElement>;
+  requestSubject: TSubject<void>;
 }
 
 const MenuContext = createContext<IContext>(null as never);
@@ -42,6 +45,7 @@ export const MenuProvider = ({ children }: IMenuProviderProps) => {
             onValueChange,
           });
         },
+      requestSubject: requestSubject as unknown as TSubject<void>,
     }),
     []
   );

@@ -623,6 +623,7 @@ export function makeField(
             object,
             prefix,
             outlinePaper,
+            withContextMenu: menuItems?.length ? true : undefined,
             ...otherProps,
         };
 

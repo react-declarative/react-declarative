@@ -25,6 +25,7 @@ import TSubject from "../../../../model/TSubject";
 import IOption from "../../../../model/IOption";
 
 import deepClone from "../../../../utils/deepClone";
+import queued from "../../../../utils/hof/queued";
 import sleep from "../../../../utils/sleep";
 
 type IManagedOption = IOption & { onClick?: IFieldMenu["onClick"] };
@@ -52,6 +53,7 @@ interface IMenuItemsProps {
 }
 
 const MENU_MIN_WIDTH = 225;
+const MENU_OPEN_DELAY = 500;
 
 const useStyles = makeStyles()({
   container: {
@@ -144,7 +146,9 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   useEffect(
     () =>
       requestSubject.subscribe(
-        async ({ event, menuItems, menu, name, onValueChange }) => {
+        queued(async ({ event, menuItems, menu, name, onValueChange }) => {
+          /** Nested `<Popover />` unmount delay */
+          await sleep(MENU_OPEN_DELAY);
           setCounter((c) => c + 1);
           setParams({
             name,
@@ -152,8 +156,14 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
             onValueChange,
             menu,
           });
-          setAnchorEl(event.target as HTMLDivElement);
-        }
+          if (document.activeElement instanceof HTMLInputElement) {
+            setAnchorEl(document.activeElement as unknown as HTMLDivElement);
+          } else if (document.activeElement instanceof HTMLTextAreaElement) {
+            setAnchorEl(document.activeElement as unknown as HTMLDivElement);
+          } else {
+            setAnchorEl(event.target as HTMLDivElement);
+          }
+        })
       ),
     []
   );

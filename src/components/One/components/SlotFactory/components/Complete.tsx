@@ -18,6 +18,7 @@ import VirtualView from "../../../../VirtualView";
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
+import { useOneMenu } from "../../../context/MenuProvider";
 
 import useActualCallback from "../../../../../hooks/useActualCallback";
 import useElementSize from "../../../../../hooks/useElementSize";
@@ -72,9 +73,11 @@ export const Complete = ({
       allowed,
       replace,
     }),
+  withContextMenu,
 }: ICompleteSlot) => {
   const payload = useOnePayload();
   const { object, setObject } = useOneState<object>();
+  const { requestSubject } = useOneMenu();
 
   const {
     fallback = (e: Error) => {
@@ -265,6 +268,10 @@ export const Complete = ({
     }
     return false;
   };
+
+  useEffect(() => withContextMenu && requestSubject.subscribe(() => {
+    handleBlur();
+  }), []);
 
   return (
     <>

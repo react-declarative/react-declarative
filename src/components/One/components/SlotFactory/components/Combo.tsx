@@ -17,7 +17,9 @@ import debounce from "../../../../../utils/hof/debounce";
 
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
+import { useOneMenu } from "../../../context/MenuProvider";
 import { useOnePayload } from "../../../context/PayloadProvider";
+
 import { useAsyncAction } from "../../../../../hooks/useAsyncAction";
 import { useActualValue } from "../../../../../hooks/useActualValue";
 import { useRenderWaiter } from "../../../../../hooks/useRenderWaiter";
@@ -62,11 +64,13 @@ export const Combo = ({
   dirty,
   invalid,
   incorrect,
+  withContextMenu,
   tr = (s) => s.toString(),
   onChange,
 }: IComboSlot) => {
   const { object } = useOneState();
   const payload = useOnePayload();
+  const { requestSubject } = useOneMenu();
 
   const { reloadTrigger, doReload } = useReloadTrigger();
 
@@ -233,6 +237,10 @@ export const Combo = ({
     });
     return () => unsubscribeRef();
   }, [opened]);
+
+  useEffect(() => withContextMenu && requestSubject.subscribe(() => {
+    setOpened(false);
+  }), []);
 
   const handleChange = (value: any) => {
     onChange(value || null);
