@@ -53,7 +53,7 @@ interface IMenuItemsProps {
 }
 
 const MENU_MIN_WIDTH = 225;
-const MENU_OPEN_DELAY = 500;
+const MENU_OPEN_DELAY = 450;
 
 const useStyles = makeStyles()({
   container: {
@@ -156,10 +156,9 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
             onValueChange,
             menu,
           });
-          if (document.activeElement instanceof HTMLInputElement) {
-            setAnchorEl(document.activeElement as unknown as HTMLDivElement);
-          } else if (document.activeElement instanceof HTMLTextAreaElement) {
-            setAnchorEl(document.activeElement as unknown as HTMLDivElement);
+          const pointElement = document.elementFromPoint(event.clientX, event.clientY);
+          if (pointElement) {
+            setAnchorEl(pointElement as unknown as HTMLDivElement);
           } else {
             setAnchorEl(event.target as HTMLDivElement);
           }
