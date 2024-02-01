@@ -94,6 +94,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   focus?: (name: string, data: Data, payload: Payload) => void;
   blur?: (name: string, data: Data, payload: Payload) => void;
   /**
+   * Коллбек для управления контекстным меню
+   */
+  menu?: (name: string, action: string, data: Data, payload: Payload) => void;
+  /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы
    */

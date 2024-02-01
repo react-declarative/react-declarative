@@ -8,8 +8,6 @@ import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";
 import isBaseline from "../../config/isBaseline";
 
-import useActualValue from "../../../../hooks/useActualValue";
-
 import { useOneState } from "../../context/StateProvider";
 import { useOneCache } from "../../context/CacheProvider";
 import { useOnePayload } from "../../context/PayloadProvider";
@@ -106,6 +104,7 @@ export const OneInternal = <
   readonly,
   focus,
   blur,
+  menu,
   createField = createFieldInternal,
   createLayout = createLayoutInternal,
   withNamedPlaceholders,
@@ -119,6 +118,7 @@ export const OneInternal = <
   const {
     focusMap,
     blurMap,
+    menuMap,
     baselineMap,
     fieldsMap,
     statefullMap,
@@ -168,12 +168,6 @@ export const OneInternal = <
    */
   const waitingReady = useRef(statefull);
   const { object, setObject } = useOneState<Data>();
-
-  /**
-   * Для работы с фокусировкой нужно получить ссылку на
-   * актуальный целевой объект
-   */
-  const object$ = useActualValue(object!);
 
   /**
    * Если в группе нет полей, вызываем инициализацию мануально
@@ -233,17 +227,25 @@ export const OneInternal = <
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                  .set(field, (name: string, payload: Payload) => {
-                    field.focus && field.focus(name, object$.current, payload);
-                    focus && focus(name, object$.current, payload);
+                  .set(field, (name: string, data: Data, payload: Payload) => {
+                    field.focus && field.focus(name, data, payload);
+                    focus && focus(name, data, payload);
                   })
                   .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                  .set(field, (name: string, payload: Payload) => {
-                    field.blur && field.blur(name, object$.current, payload);
-                    blur && blur(name, object$.current, payload);
+                  .set(field, (name: string, data: Data, payload: Payload) => {
+                    field.blur && field.blur(name, data, payload);
+                    blur && blur(name, data, payload);
+                  })
+                  .get(field),
+            menu: menuMap.has(field)
+              ? menuMap.get(field)
+              : menuMap
+                  .set(field, (name: string, action: string, data: Data, payload: Payload) => {
+                    field.menu && field.menu(name, action, data, payload);
+                    menu && menu(name, action, data, payload);
                   })
                   .get(field),
             tr: trMap.has(field)
@@ -269,6 +271,7 @@ export const OneInternal = <
             handler: object,
             invalidity,
             focus,
+            menu,
             blur,
             dirty,
           };

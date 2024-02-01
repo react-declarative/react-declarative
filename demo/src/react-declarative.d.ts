@@ -1304,6 +1304,8 @@ declare module 'react-declarative/model/IManaged' {
             compute?: PickProp<IField<Data, Payload>, 'compute'>;
             focus?: PickProp<IField<Data, Payload>, 'focus'>;
             blur?: PickProp<IField<Data, Payload>, 'blur'>;
+            menuItems?: PickProp<IField<Data, Payload>, 'menuItems'>;
+            menu?: PickProp<IField<Data, Payload>, 'menu'>;
             map?: PickProp<IField<Data, Payload>, 'map'>;
             defaultValue?: PickProp<IField<Data, Payload>, 'defaultValue'>;
             hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
@@ -1961,7 +1963,7 @@ declare module 'react-declarative/hooks/useContextMenu' {
     import TSubject from "react-declarative/model/TSubject";
     interface IParams<T extends any = object> {
         keepMounted?: boolean;
-        options?: Partial<IOption>[];
+        options: Partial<IOption>[];
         onAction?: (action: string) => void;
         fallback?: (e: Error) => void;
         deps?: any[];
@@ -2143,6 +2145,10 @@ declare module 'react-declarative/model/IOneProps' {
                 */
             focus?: (name: string, data: Data, payload: Payload) => void;
             blur?: (name: string, data: Data, payload: Payload) => void;
+            /**
+                * Коллбек для управления контекстным меню
+                */
+            menu?: (name: string, action: string, data: Data, payload: Payload) => void;
             /**
                 * Вызывается, когда все поля успели отрисоваться
                 * в первый раз, после появления формы
@@ -2896,6 +2902,7 @@ declare module 'react-declarative/model/IOnePublicProps' {
     }> {
         onFocus?: IOneProps<Data, Field>['focus'];
         onBlur?: IOneProps<Data, Field>['blur'];
+        onMenu?: IOneProps<Data, Field>['menu'];
         onReady?: IOneProps<Data, Field>['ready'];
         onChange?: IOneProps<Data, Field>['change'];
         onInvalid?: IOneProps<Data, Field>['invalidity'];
@@ -5019,7 +5026,7 @@ declare module 'react-declarative/model/IFieldMenu' {
     }> {
         isVisible?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
         isDisabled?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
-        onClick: (data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+        onClick?: (data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
     }
     export default IFieldMenu;
 }
@@ -6606,14 +6613,9 @@ declare module 'react-declarative/components/One/components/makeLayout' {
 
 declare module 'react-declarative/components/One/context/MenuProvider' {
     import * as React from "react";
-    import TSubject from "react-declarative/model/TSubject";
     import { IParams } from "react-declarative/components/One/components/common/MenuItems";
     interface IContext {
         createContextMenu: (params: IParams) => React.MouseEventHandler<HTMLDivElement>;
-        menuClickSubject: TSubject<{
-            path: string;
-            action: string;
-        }>;
     }
     interface IMenuProviderProps {
         children: React.ReactNode;

@@ -12,6 +12,7 @@ import Menu from "@mui/material/Menu";
 
 import Async from "../../../Async";
 
+import useSinglerunAction from "../../../../hooks/useSinglerunAction";
 import useActualValue from "../../../../hooks/useActualValue";
 import useActualRef from "../../../../hooks/useActualRef";
 
@@ -23,9 +24,11 @@ import IFieldMenu from "../../../../model/IFieldMenu";
 import TSubject from "../../../../model/TSubject";
 import IOption from "../../../../model/IOption";
 
+import singlerun from "../../../../utils/hof/singlerun";
+import deepClone from "../../../../utils/deepClone";
 import sleep from "../../../../utils/sleep";
 
-type IManagedOption = IOption & { onClick: IFieldMenu["onClick"] };
+type IManagedOption = IOption & { onClick?: IFieldMenu["onClick"] };
 
 export interface IParams {
   name: Exclude<IField["name"], undefined>;
@@ -87,7 +90,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const [params$, setParams] = useActualRef<IParams>(INITIAL_STATE);
   const [counter$, setCounter] = useActualRef(0);
 
-  const { object } = useOneState<object>();
+  const { object, setObject } = useOneState<object>();
   const payload = useOnePayload();
 
   const handleLoadStart = useCallback(() => {
@@ -97,6 +100,31 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const handleLoadEnd = useCallback(() => {
     setLoading((loading) => Math.max(loading - 1, 0));
   }, []);
+
+  const handleChangeObj = useCallback(
+    (object: object) =>
+      setObject(
+        deepClone({
+          ...object$.current,
+          ...object,
+        }),
+        {}
+      ),
+    []
+  );
+
+  const { execute } = useSinglerunAction(async (action: string) => {
+    await params$.current.menu(
+      params$.current.name,
+      action,
+      object$.current,
+      payload
+    );
+    setAnchorEl(null);
+  }, {
+    onLoadStart: handleLoadStart,
+    onLoadEnd: handleLoadEnd,
+  });
 
   const object$ = useActualValue(object);
 
@@ -162,12 +190,14 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
                 label = "unknown-label",
                 action = "unknown-action",
                 divider,
+                onClick,
                 icon: Icon,
                 isDisabled = () => false,
                 isVisible = () => true,
               },
               idx
             ) => {
+              const click = onClick ? singlerun(onClick) : undefined;
               const Placeholder = () =>
                 !divider ? (
                   <MenuItem
@@ -204,14 +234,14 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
                       return (
                         <MenuItem
                           disabled={disabled}
-                          onClick={() =>
-                            params$.current.menu(
-                              params$.current.name,
-                              action,
-                              object$.current,
-                              payload
-                            )
-                          }
+                          onClick={() => {
+                            if (click) {
+                              click(object$.current, payload, params$.current.onValueChange, handleChangeObj);
+                              setAnchorEl(null);
+                              return;
+                            }
+                            execute(action);
+                          }}
                           sx={{
                             minWidth: MENU_MIN_WIDTH,
                           }}

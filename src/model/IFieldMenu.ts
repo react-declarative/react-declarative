@@ -8,7 +8,7 @@ export interface IFieldMenu<Data = IAnything, Payload = IAnything> extends Omit<
 }> {
     isVisible?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
     isDisabled?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
-    onClick: (data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+    onClick?: (data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
 }
 
 export default IFieldMenu;

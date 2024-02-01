@@ -30,6 +30,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     const {
         focus = props.onFocus,
         blur = props.onBlur,
+        menu = props.onMenu,
         ready = props.onReady,
         change = props.onChange,
         invalidity = props.onInvalid,
@@ -42,6 +43,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     const wrappedProps = {
         focus,
         blur,
+        menu,
         ready,
         change,
         invalidity,

@@ -24,7 +24,7 @@ import { sleep } from "../utils/sleep";
 
 interface IParams<T extends any = object> {
   keepMounted?: boolean;
-  options?: Partial<IOption>[];
+  options: Partial<IOption>[];
   onAction?: (action: string) => void;
   fallback?: (e: Error) => void;
   deps?: any[];

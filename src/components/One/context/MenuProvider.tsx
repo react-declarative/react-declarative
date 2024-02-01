@@ -4,18 +4,12 @@ import { createContext } from "react";
 
 import useSubject from "../../../hooks/useSubject";
 
-import TSubject from "../../../model/TSubject";
-
 import MenuItems, { IRequest, IParams } from "../components/common/MenuItems";
 
 interface IContext {
   createContextMenu: (
     params: IParams
   ) => React.MouseEventHandler<HTMLDivElement>;
-  menuClickSubject: TSubject<{
-    path: string;
-    action: string;
-  }>;
 }
 
 const MenuContext = createContext<IContext>(null as never);
@@ -26,7 +20,6 @@ interface IMenuProviderProps {
 
 export const MenuProvider = ({ children }: IMenuProviderProps) => {
   const requestSubject = useSubject<IRequest>();
-  const menuClickSubject = useSubject<{ path: string; action: string }>();
 
   const value = useMemo(
     (): IContext => ({
@@ -49,7 +42,6 @@ export const MenuProvider = ({ children }: IMenuProviderProps) => {
             onValueChange,
           });
         },
-      menuClickSubject,
     }),
     []
   );

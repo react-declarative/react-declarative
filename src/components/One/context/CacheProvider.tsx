@@ -6,8 +6,9 @@ import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 
 interface IContext {
-  focusMap: Map<IField, (name: string, payload: IAnything) => void>;
-  blurMap: Map<IField, (name: string, payload: IAnything) => void>;
+  focusMap: Map<IField, (name: string, data: IAnything, payload: IAnything) => void>;
+  blurMap: Map<IField, (name: string, data: IAnything, payload: IAnything) => void>;
+  menuMap: Map<IField, (name: string, action: string, data: IAnything, payload: IAnything) => void>;
   baselineMap: Map<IField, boolean>;
   fieldsMap: Map<IField[], IField[]>;
   statefullMap: Map<IField[], number>;
@@ -25,8 +26,9 @@ export const CacheProvider = ({ children }: ICacheProviderProps) => {
   const cacheMap = useMemo((): IContext => {
     const fnMap = Object.create(null);
     Object.assign(fnMap, {
-      focusMap: new Map<IField, (name: string, payload: IAnything) => void>(),
-      blurMap: new Map<IField, (name: string, payload: IAnything) => void>(),
+      focusMap: new Map<IField, (name: string, data: IAnything, payload: IAnything) => void>(),
+      blurMap: new Map<IField, (name: string, data: IAnything, payload: IAnything) => void>(),
+      menuMap: new Map<IField, (name: string, action: string, data: IAnything, payload: IAnything) => void>(),
       baselineMap: new Map<IField, boolean>(),
       fieldsMap: new Map<IField[], IField[]>(),
       statefullMap: new Map<IField[], number>(),
