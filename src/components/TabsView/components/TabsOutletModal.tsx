@@ -129,7 +129,7 @@ const useStyles = makeStyles()((theme) => ({
     top: "40%",
     left: "50%",
     maxHeight: "80%",
-    width: 500,
+    width: 'calc(100% - 20px)',
   },
   large: {
     top: "50%",
