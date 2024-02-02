@@ -139,7 +139,6 @@ const KanbanViewInternal = <
   }: IKanbanViewProps<Data, Payload, ColumnType>,
   ref: React.Ref<HTMLDivElement>
 ) => {
-
   const reloadSubject = useSubject(upperReloadSubject);
 
   const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
@@ -215,10 +214,14 @@ const KanbanViewInternal = <
     []
   );
 
-  useEffect(() => reloadSubject.subscribe(() => {
-    fetchRows.clear();
-    fetchLabel.clear();
-  }), []);
+  useEffect(
+    () =>
+      reloadSubject.subscribe(() => {
+        fetchRows.clear();
+        fetchLabel.clear();
+      }),
+    []
+  );
 
   const itemMap = useMemo(() => {
     const itemMap = new Map<
@@ -279,7 +282,8 @@ const KanbanViewInternal = <
                         const currentColumnIdx = columnList.indexOf(column);
                         let isPrevColumn = true;
                         isPrevColumn = isPrevColumn && !withGoBack;
-                        isPrevColumn = isPrevColumn && prevColumnIdx > currentColumnIdx;
+                        isPrevColumn =
+                          isPrevColumn && prevColumnIdx > currentColumnIdx;
                         if (isPrevColumn) {
                           return;
                         }
@@ -289,12 +293,13 @@ const KanbanViewInternal = <
                         setDragColumn(null);
                         fetchLabel.clear(dragId.current);
                         fetchRows.clear(dragId.current);
-                        onChangeColumn && onChangeColumn(
-                          dragId.current!,
-                          column,
-                          item.data,
-                          payload
-                        );
+                        onChangeColumn &&
+                          onChangeColumn(
+                            dragId.current!,
+                            column,
+                            item.data,
+                            payload
+                          );
                         dragId.current = null;
                       }
                     }}
@@ -470,11 +475,20 @@ KanbanViewInternal.enableScrollOnDrag =
       isDragging = dragging;
     });
 
+    const touchStartSubject = Source.create<TouchEvent>((next) => {
+      document.addEventListener("touchstart", next);
+      return () => document.removeEventListener("touchstart", next);
+    });
+
     const unScrollState = scrollStateSubject.connect((left) => {
       scrollViewTarget.scrollLeft = left;
     });
 
-    return compose(unDragOver, unDragState, unScrollState);
+    const disposeFn = compose(unDragOver, unDragState, unScrollState);
+
+    const unTouchStart = touchStartSubject.connect(disposeFn);
+
+    return compose(disposeFn, unTouchStart);
   };
 
 export const KanbanView = forwardRef(
