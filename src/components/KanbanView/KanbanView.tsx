@@ -20,16 +20,16 @@ import { FetchRowsProvider } from "./hooks/useFetchRows";
 import { FetchLabelProvider } from "./hooks/useFetchLabel";
 
 import useSingleton from "../../hooks/useSingleton";
+import useSubject from "../../hooks/useSubject";
 
 import classNames from "../../utils/classNames";
 import Source from "../../utils/rx/Source";
 import ttl from "../../utils/hof/ttl";
+import compose from "../../utils/compose";
 
 import IBoardRowInternal from "./model/IBoardRowInternal";
 import IAnything from "../../model/IAnything";
 import IBoardRow from "./model/IBoardRow";
-import compose from "../../utils/compose";
-import useSubject from "../../hooks/useSubject";
 
 const DEFAULT_BUFFERSIZE = 15;
 const DEFAULT_MINROWHEIGHT = 125;
@@ -44,6 +44,11 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: "column",
     minHeight: "100%",
     width: "100%",
+    [`& .${SCROLL_VIEW_TARGER}`]: {
+      "& > div > div": {
+        marginBottom: theme.spacing(2),
+      },
+    },
   },
   container: {
     position: "relative",
