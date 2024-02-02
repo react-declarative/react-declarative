@@ -53,7 +53,7 @@ interface IMenuItemsProps {
 }
 
 const MENU_MIN_WIDTH = 225;
-const MENU_OPEN_DELAY = 450;
+const MENU_OPEN_DELAY = 350;
 
 const useStyles = makeStyles()({
   container: {

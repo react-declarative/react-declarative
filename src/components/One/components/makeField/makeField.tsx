@@ -574,14 +574,14 @@ export function makeField(
         /**
          * Коллбек для управления контекстным меню
          */
-        const handleMenu = useMemo(() => createContextMenu({
+        const handleMenu = useMemo(() => menuItems ? createContextMenu({
             name,
             menu,
             menuItems: menuItems!,
             onValueChange: (value) => managedProps.onChange(value, {
                 skipReadonly: true,
             }),
-        }), []);
+        }) : undefined, []);
 
         const groupProps: IGroupProps<Data> = {
             ...fieldConfig.defaultProps,
