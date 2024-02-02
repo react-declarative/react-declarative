@@ -36,7 +36,9 @@ const useStyles = makeStyles()((theme) => ({
     },
     "& .MuiTableCell-root": {
       borderBottom: "0 !important",
+      overflow: "hidden",
     },
+    overflow: "hidden",
   },
   row: {
     marginBottom: 16,
@@ -146,13 +148,23 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     return [primaryCol || firstCol, actionCol, cols];
   }, [fullWidth]);
 
+  const maxWidth = useMemo(() => Math.max(fullWidth - 35, 0), [fullWidth]);
+
   return (
     <TableRow
       className={classes.root}
       selected={selection.has(row.id)}
+      sx={{
+        maxWidth,
+      }}
       onClick={handleClick}
     >
-      <TableCell padding="none">
+      <TableCell
+        padding="none"
+        sx={{
+          maxWidth,
+        }}
+      >
         <Table
           className={classNames(classes.row, {
             [classes.disabled]: disabled,

@@ -8570,9 +8570,10 @@ declare module 'react-declarative/components/Spinner/Spinner' {
 }
 
 declare module 'react-declarative/components/Copy/Copy' {
-    import * as React from 'react';
-    import { BoxProps } from '@mui/material/Box';
+    import * as React from "react";
+    import { BoxProps } from "@mui/material/Box";
     interface ICopyProps extends BoxProps {
+        fullWidth?: boolean;
         content: string;
         children?: React.ReactNode;
         onCopy?: () => void;
@@ -8582,7 +8583,7 @@ declare module 'react-declarative/components/Copy/Copy' {
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    export const Copy: ({ className, content, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
+    export const Copy: ({ className, content, fullWidth, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
     export default Copy;
 }
 

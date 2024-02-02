@@ -39,6 +39,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   header: {
     position: "absolute",
+    overflowX: "auto",
     top: 0,
     left: 0,
     height: `${HEADER_HEIGHT}px`,
