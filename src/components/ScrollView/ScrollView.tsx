@@ -20,7 +20,6 @@ const useStyles = makeStyles()({
   container: {
     flex: 1,
     position: "relative",
-    scrollbarWidth: "none",
   },
   overflowX: {
     overflowX: "auto",
@@ -38,6 +37,7 @@ const useStyles = makeStyles()({
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    scrollbarWidth: "none",
   },
   content: {
     position: "absolute",

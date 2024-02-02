@@ -62,6 +62,7 @@ const useStyles = makeStyles()({
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    scrollbarWidth: "none",
   },
   adjust: {
     position: "absolute",
