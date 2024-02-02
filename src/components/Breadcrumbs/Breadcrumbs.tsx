@@ -18,15 +18,12 @@ const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "stretch",
+    justifyContent: "end",
     flexDirection: "row",
     paddingTop: "10px",
     paddingBottom: "10px",
     flexWrap: 'wrap',
     gap: theme.spacing(1),
-    '& > *:nth-of-type(n + 1)': {
-      marginLeft: theme.spacing(1),
-    },
   },
   stretch: {
     flexGrow: 1,
