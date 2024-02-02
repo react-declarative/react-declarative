@@ -16,6 +16,7 @@ import FieldType from "../../../../model/FieldType";
 import classNames from "../../../../utils/classNames";
 import deepFlat from "../../../../utils/deepFlat";
 
+import MenuProvider from "../../context/MenuProvider";
 import StateProvider from "../../context/StateProvider";
 import FeatureProvider from "../../context/FeatureProvider";
 import PayloadProvider from "../../context/PayloadProvider";
@@ -30,7 +31,8 @@ import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
 import isBaseline from "../../config/isBaseline";
-import MenuProvider from "../../context/MenuProvider";
+
+const BASE_CLASS = "react-declarative__oneGenesis";
 
 const useStyles = makeStyles()({
   readonly: {
@@ -144,7 +146,7 @@ export const OneGenesis = <
                       <SlotFactory {...slots}>
                         <Group
                           isBaselineAlign={isBaselineAlign}
-                          className={classNames(className, {
+                          className={classNames(className, BASE_CLASS, {
                             [classes.readonly]: props.readonly,
                             [classes.rendering]: !rendered,
                           })}
