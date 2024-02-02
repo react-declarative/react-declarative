@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme, _, classes: any) => ({
   },
   container: {
     boxSizing: "border-box",
-    width: "400px",
+    width: "min(100vw - 100px, 400px)",
     height: 340,
   },
   list: {

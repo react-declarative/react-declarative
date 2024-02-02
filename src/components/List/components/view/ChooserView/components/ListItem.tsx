@@ -71,6 +71,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
 const useStyles = makeStyles()({
   root: {
     position: "relative",
+    overflow: "hidden",
   },
   checkbox: {
     opacity: 0.2,

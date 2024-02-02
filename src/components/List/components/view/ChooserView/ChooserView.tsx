@@ -101,7 +101,12 @@ export const Chooser = <
     withLoader = false,
   } = props;
 
-  const { elementRef, size: { height, width } } = useElementSize();
+  const { size: { width: dialogWidth } } = useElementSize({
+    target: document.body,
+    selector: '.MuiDialog-container > .MuiPaper-root'
+  });
+
+  const { elementRef, size: { height: rootHeight } } = useElementSize();
 
   const { handlePageChange } = props;
 
@@ -152,12 +157,12 @@ export const Chooser = <
     <Container<FilterData, RowData> {...props} {...state}>
       <Box ref={elementRef} className={classes.root}>
         <Box className={classes.container}>
-          <Box position="relative" style={{ height, width }}>
+          <Box position="relative" style={{ height: rootHeight, width: dialogWidth }}>
             <VirtualView
               scrollYSubject={scrollYSubject}
               minRowHeight={DEFAULT_ITEM_SIZE}
               onDataRequest={async () => void await handleDataRequest()}
-              sx={{ height, width }}
+              sx={{ height: rootHeight, width: dialogWidth }}
             >
               {!loading && state.rows.length === 0 && (
                 <MatListItem className={classes.empty}>

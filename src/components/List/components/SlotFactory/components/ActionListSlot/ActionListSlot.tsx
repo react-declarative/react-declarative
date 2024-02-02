@@ -41,6 +41,9 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.primary.main,
     marginLeft: 'unset !important',
     fontWeight: 'bold',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 }));
 

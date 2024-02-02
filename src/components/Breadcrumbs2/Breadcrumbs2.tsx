@@ -48,6 +48,8 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: "row",
     paddingTop: "10px",
     paddingBottom: "10px",
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
     "& > *:nth-of-type(n + 1)": {
       marginLeft: theme.spacing(1),
     },

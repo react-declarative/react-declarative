@@ -274,7 +274,7 @@ export const ActionMenu = <T extends any = object>({
                   >
                     {async (payload) => {
                       /** mui v5 menu invalid position quickfix */
-                      await sleep(0);
+                      await sleep(600);
                       const disabled = await isDisabled(payload);
                       const visible = await isVisible(payload);
                       if (visible) {
