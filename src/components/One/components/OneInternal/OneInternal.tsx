@@ -229,15 +229,15 @@ export const OneInternal = <
             click: clickMap.has(field)
               ? clickMap.get(field)
               : clickMap
-                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
-                    field.click && field.click(name, data, payload, onValueChange, onChange);
+                  .set(field, (name, e, data, payload, onValueChange, onChange) => {
+                    field.click && field.click(name, e, data, payload, onValueChange, onChange);
                     click && click(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                  .set(field, (name, data, payload, onValueChange, onChange) => {
                     field.focus && field.focus(name, data, payload, onValueChange, onChange);
                     focus && focus(name, data, payload, onValueChange, onChange);
                   })
@@ -245,7 +245,7 @@ export const OneInternal = <
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                  .set(field, (name, data, payload, onValueChange, onChange) => {
                     field.blur && field.blur(name, data, payload, onValueChange, onChange);
                     blur && blur(name, data, payload, onValueChange, onChange);
                   })
@@ -253,7 +253,7 @@ export const OneInternal = <
             menu: menuMap.has(field)
               ? menuMap.get(field)
               : menuMap
-                  .set(field, (name: string, action: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                  .set(field, (name, action, data, payload, onValueChange, onChange) => {
                     field.menu && field.menu(name, action, data, payload, onValueChange, onChange);
                     menu && menu(name, action, data, payload, onValueChange, onChange);
                   })

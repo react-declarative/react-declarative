@@ -738,7 +738,7 @@ declare module 'react-declarative/model/IField' {
                 * Перехват клика по полю, следует использовать для копирования значения
                 * у карточек просмотра без редактирования
                 */
-            click?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+            click?: (name: string, e: React.MouseEvent<HTMLElement>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
             /**
                 * Флаг только на чтение и "круглой окаймовки"
                 */

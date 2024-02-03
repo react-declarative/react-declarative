@@ -595,10 +595,8 @@ export function makeField(
         /**
          * Коллбек для перехвата клика по полю
          */
-        const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            click(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+        const handleClick = useCallback((e: React.MouseEvent<any>) => {
+            click(name, e, memory.object$, payload, (value) => managedProps.onChange(value, {
                 skipReadonly: true,
             }), changeObject);
         }, []);
