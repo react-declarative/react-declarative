@@ -21,6 +21,7 @@ interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
   style: PickProp<IField, 'style'>;
   children: React.ReactNode;
   onFocus?: () => void;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
@@ -54,6 +55,7 @@ export const Item = ({
   fieldRightMargin = '1',
   fieldBottomMargin = '2',
   children,
+  onClick,
   onFocus,
   onContextMenu,
   ...otherProps
@@ -95,6 +97,7 @@ export const Item = ({
       className={classNames(className, classes.root)}
       style={style}
       onFocus={onFocus}
+      onClick={onClick}
       xs={xs}
       sm={sm}
       md={md}

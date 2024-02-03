@@ -61,13 +61,16 @@ const useStyles = makeStyles()({
       },
       '& > * > *': {
         flexGrow: 1,
-      }
+      },
+      pointerEvents: 'all',
     },
     hidden: {
       display: 'none !important',
     },
     fieldReadonly: {
-        pointerEvents: 'none',
+        '& > *': {
+            pointerEvents: 'none !important' as 'none',
+        },
     },
 });
 
@@ -90,6 +93,7 @@ const DEFAULT_CHANGE = (v: IAnything) => console.log({ v });
 const DEFAULT_FALLBACK = () => null;
 const DEFAULT_READY = () => null;
 const DEFAULT_MAP = (data: IAnything) => data;
+const DEFAULT_CLICK = () => null;
 const DEFAULT_REF = () => null;
 const DEFAULT_MENU = () => null;
 
@@ -127,6 +131,7 @@ export function makeField(
         ready = DEFAULT_READY,
         compute: upperCompute,
         shouldRecompute,
+        click = DEFAULT_CLICK,
         map = DEFAULT_MAP,
         object: upperObject,
         name = '',
@@ -587,6 +592,17 @@ export function makeField(
             }),
         }) : undefined, []);
 
+        /**
+         * Коллбек для перехвата клика по полю
+         */
+        const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+            e.preventDefault();
+            e.stopPropagation();
+            click(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                skipReadonly: true,
+            }), changeObject);
+        }, []);
+
         const groupProps: IGroupProps<Data> = {
             ...fieldConfig.defaultProps,
             columns,
@@ -657,6 +673,7 @@ export function makeField(
                 {...groupProps}
                 onFocus={handleFocus}
                 onContextMenu={handleMenu}
+                onClick={handleClick}
             >
                 <Component {...componentProps as IManaged} />
             </Group>

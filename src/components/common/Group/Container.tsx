@@ -14,6 +14,7 @@ interface IContainerProps {
   isBaselineAlign?: boolean;
   children: React.ReactNode;
   onFocus?: () => void;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
@@ -24,6 +25,7 @@ export const Container = ({
   style,
   children,
   onFocus,
+  onClick,
   isBaselineAlign,
   columnsOverride,
   sx,
@@ -39,6 +41,7 @@ export const Container = ({
       alignItems={isBaselineAlign ? "flex-end" : "flex-start"}
       className={className}
       style={style}
+      onClick={onClick}
       onFocus={onFocus}
       columns={columns}
       onContextMenu={onContextMenu}

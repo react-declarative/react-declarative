@@ -98,6 +98,10 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    */
   menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
   /**
+   * Коллбек для перехвата клика по полю
+   */
+  click?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+  /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы
    */

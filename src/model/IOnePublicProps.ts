@@ -12,6 +12,7 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
     onMenu?: IOneProps<Data, Field>['menu'];
     onReady?: IOneProps<Data, Field>['ready'];
     onChange?: IOneProps<Data, Field>['change'];
+    onClick?: IOneProps<Data, Field>['click'];
     onInvalid?: IOneProps<Data, Field>['invalidity'];
     onLoadStart?: IOneProps<Data, Field>['loadStart'];
     onLoadEnd?: IOneProps<Data, Field>['loadEnd'];

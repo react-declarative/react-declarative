@@ -104,6 +104,7 @@ export const OneInternal = <
   readonly,
   focus,
   blur,
+  click,
   menu,
   createField = createFieldInternal,
   createLayout = createLayoutInternal,
@@ -121,6 +122,7 @@ export const OneInternal = <
     menuMap,
     baselineMap,
     fieldsMap,
+    clickMap,
     statefullMap,
     trMap,
     itemListMap,
@@ -224,6 +226,14 @@ export const OneInternal = <
               ? `${field.name || "unknown"}`
               : field.placeholder,
             outlinePaper: field.outlinePaper || upperOutlinePaper,
+            click: clickMap.has(field)
+              ? clickMap.get(field)
+              : clickMap
+                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                    field.click && field.click(name, data, payload, onValueChange, onChange);
+                    click && click(name, data, payload, onValueChange, onChange);
+                  })
+                  .get(field),
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
@@ -271,6 +281,7 @@ export const OneInternal = <
             handler: object,
             invalidity,
             focus,
+            click,
             menu,
             blur,
             dirty,

@@ -8,6 +8,7 @@ interface IContext {
   focusMap: Map<IField, IField['focus']>;
   blurMap: Map<IField, IField['blur']>;
   menuMap: Map<IField, IField['menu']>;
+  clickMap: Map<IField, IField['click']>;
   baselineMap: Map<IField, boolean>;
   fieldsMap: Map<IField[], IField[]>;
   statefullMap: Map<IField[], number>;
@@ -28,6 +29,7 @@ export const CacheProvider = ({ children }: ICacheProviderProps) => {
       focusMap: new Map<IField, IField['focus']>(),
       blurMap: new Map<IField, IField['blur']>(),
       menuMap: new Map<IField, IField['menu']>(),
+      clickMap: new Map<IField, IField['click']>(),
       baselineMap: new Map<IField, boolean>(),
       fieldsMap: new Map<IField[], IField[]>(),
       statefullMap: new Map<IField[], number>(),

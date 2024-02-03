@@ -52,6 +52,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     shouldUpdateItemList?: PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>;
     shouldUpdateTr?: PickProp<IField<Data, Payload>, 'shouldUpdateTr'>;
     compute?: PickProp<IField<Data, Payload>, 'compute'>;
+    click?: PickProp<IField<Data, Payload>, 'click'>;
     focus?: PickProp<IField<Data, Payload>, 'focus'>;
     blur?: PickProp<IField<Data, Payload>, 'blur'>;
     menuItems?: PickProp<IField<Data, Payload>, 'menuItems'>;
@@ -70,10 +71,12 @@ type Exclude<Data = IAnything> = {
     type: never;
     focus: never;
     blur: never;
+    click: never;
     ready: never;
     check: never;
     change: never;
     name: never;
+    menu: never;
     menuItems: never;
 } & IManagedShallow<Data>;
 

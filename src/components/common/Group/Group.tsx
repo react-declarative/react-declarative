@@ -21,6 +21,7 @@ interface IGroupPrivate {
   children: React.ReactNode;
   isItem?: boolean;
   isBaselineAlign?: boolean;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   onFocus?: () => void;
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -49,6 +50,7 @@ export const Group = (
     sx,
     fieldRightMargin = '1',
     fieldBottomMargin = '2',
+    onClick,
     onFocus,
     onContextMenu,
     ...otherProps
@@ -70,6 +72,7 @@ export const Group = (
         fieldRightMargin={fieldRightMargin}
         fieldBottomMargin={fieldBottomMargin}
         onFocus={onFocus}
+        onClick={onClick}
         onContextMenu={onContextMenu}
         sx={sx}
       >
@@ -87,6 +90,7 @@ export const Group = (
         style={style}
         onFocus={onFocus}
         onContextMenu={onContextMenu}
+        onClick={onClick}
         sx={sx}
       >
         {children}
