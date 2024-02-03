@@ -1,17 +1,12 @@
 import * as React from "react";
-import { useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import MatSlider from "@mui/material/Slider";
 import IconButton from "@mui/material/IconButton";
 
-import useActualValue from "../../../../../hooks/useActualValue";
-
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
-
-import deepClone from "../../../../../utils/deepClone";
 
 import IAnything from "../../../../../model/IAnything";
 import IManaged, { PickProp } from "../../../../../model/IManaged";
@@ -70,22 +65,7 @@ export const Slider = ({
   minSlider = 0,
 }: ISliderSlot) => {
   const payload = useOnePayload();
-  const { object, setObject } = useOneState<object>();
-
-  const object$ = useActualValue(object);
-
-  const handleChange = useCallback(
-    (object: object) =>
-      setObject(
-        deepClone({
-          ...object$.current,
-          ...object,
-        }),
-        {}
-      ),
-    []
-  );
-
+  const { object, changeObject: handleChange } = useOneState<object>();
   return (
     <Box mr={1}>
       <Grid alignItems="center" container spacing={2}>

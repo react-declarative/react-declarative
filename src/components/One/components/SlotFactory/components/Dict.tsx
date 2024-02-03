@@ -17,7 +17,6 @@ import ISearchInputProps from "../../../../SearchView/model/ISearchInputProps";
 import useChangeSubject from "../../../../../hooks/useChangeSubject";
 import useActualValue from "../../../../../hooks/useActualValue";
 
-import deepClone from "../../../../../utils/deepClone";
 import debounce from "../../../../../utils/hof/debounce";
 import formatText from "../../../../../utils/formatText";
 import waitForMove from "../../../../../utils/waitForMove";
@@ -91,7 +90,7 @@ export const Dict = ({
     }),
 }: IDictSlot) => {
   const payload = useOnePayload();
-  const { object, setObject } = useOneState<object>();
+  const { object, changeObject: handleChange } = useOneState<object>();
 
   const changeSubject = useChangeSubject(value);
 
@@ -265,18 +264,6 @@ export const Dict = ({
   );
 
   const object$ = useActualValue(object);
-
-  const handleChange = useCallback(
-    (object: object) =>
-      setObject(
-        deepClone({
-          ...object$.current,
-          ...object,
-        }),
-        {}
-      ),
-    []
-  );
 
   return (
     <SearchView

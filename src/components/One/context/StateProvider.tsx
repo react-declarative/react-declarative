@@ -3,12 +3,13 @@ import { useContext, useRef, useCallback, useMemo } from 'react';
 import { createContext } from 'react';
 
 import useResolved from '../hooks/useResolved';
-
 import useActualValue from '../../../hooks/useActualValue';
 
 import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
+
+import deepClone from '../../../utils/deepClone';
 
 interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends 
     IOneProps<Data, Payload, Field> {
@@ -19,6 +20,7 @@ interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field exten
 interface IState<Data = IAnything> {
     object: Data | null;
     setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
+    changeObject: (data: Data) => void;
 }
 
 const StateContext = createContext<IState>(null as never);
@@ -53,7 +55,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         loadEnd,
     });
 
-    const object$ = useActualValue(object);
+    const object$ = useActualValue(object as unknown as object);
 
     const setObject = useCallback((data: Data, fieldInvalidMap: Record<string, boolean>) => {
         const { current: oneInvalidMap } = oneInvalidMapRef;
@@ -72,9 +74,22 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         }
     }, []);
 
+    const changeObject = useCallback(
+        (object: Data) =>
+          setObject(
+            deepClone({
+              ...object$.current,
+              ...object as unknown as object,
+            }),
+            {}
+          ),
+        []
+      );
+
     const managed: IState<Data> = useMemo(() => ({
         object,
         setObject,
+        changeObject,
     }), [object]);
 
     return (

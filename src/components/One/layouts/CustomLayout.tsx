@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
 
 import { makeStyles } from '../../../styles';
 
@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import { useOneState } from "../context/StateProvider";
 import { useOnePayload } from "../context/PayloadProvider";
 
-import deepClone from "../../../utils/deepClone";
 import classNames from "../../../utils/classNames";
 
 import IField from "../../../model/IField";
@@ -67,13 +66,8 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
   ...otherProps
 }: ICustomLayoutProps<Data> & ICustomLayoutPrivate<Data>) => {
   const { classes } = useStyles();
-  const { object, setObject } = useOneState<any>();
+  const { object, changeObject: handleChange } = useOneState<any>();
   const _payload = useOnePayload();
-
-  const handleChange = useCallback(
-    (object: unknown) => setObject(deepClone(object), {}),
-    []
-  );
 
   const props = useMemo(() => {
     const _fieldParams = Object.entries(otherProps as IField)
@@ -81,14 +75,11 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
         ([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam)
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
-    const onChange = (data: Record<string, any>) =>
-      handleChange({ ...object, ...data });
-    const _fieldData = object;
     return {
       ...object,
-      onChange,
+      onChange: handleChange,
       _fieldParams,
-      _fieldData,
+      _fieldData: object,
       _payload,
     };
   }, [object]);

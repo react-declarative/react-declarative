@@ -728,12 +728,12 @@ declare module 'react-declarative/model/IField' {
                 * программиста, а не работа с полем ввода
                 * (например, обновление ссылки на изображение)
                 */
-            focus?: (name: string, data: Data, payload: Payload) => void;
-            blur?: (name: string, data: Data, payload: Payload) => void;
+            focus?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+            blur?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
             /**
                 * Коллбек для обработки клика по элементу контекстного меню
                 */
-            menu?: (name: string, action: string, data: Data, payload: Payload) => void;
+            menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
             /**
                 * Флаг только на чтение и "круглой окаймовки"
                 */
@@ -2060,7 +2060,7 @@ declare module 'react-declarative/model/IMenuGroup' {
 declare module 'react-declarative/model/IOneProps' {
     import React from 'react';
     import { SxProps } from '@mui/material';
-    import IField from 'react-declarative/model/IField';
+    import IField, { Value } from 'react-declarative/model/IField';
     import IEntity from 'react-declarative/model/IEntity';
     import IAnything from 'react-declarative/model/IAnything';
     import IOneApi from 'react-declarative/model/IOneApi';
@@ -2144,12 +2144,12 @@ declare module 'react-declarative/model/IOneProps' {
                 * Вызываются при фокусировки по филду
                 * в компоненте и потере фокуса
                 */
-            focus?: (name: string, data: Data, payload: Payload) => void;
-            blur?: (name: string, data: Data, payload: Payload) => void;
+            focus?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+            blur?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
             /**
                 * Коллбек для управления контекстным меню
                 */
-            menu?: (name: string, action: string, data: Data, payload: Payload) => void;
+            menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
             /**
                 * Вызывается, когда все поля успели отрисоваться
                 * в первый раз, после появления формы
@@ -6658,6 +6658,7 @@ declare module 'react-declarative/components/One/context/StateProvider' {
     interface IState<Data = IAnything> {
         object: Data | null;
         setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
+        changeObject: (data: Data) => void;
     }
     export const StateProvider: <Data extends unknown, Payload extends unknown, Field extends IField<Data, Payload> = IField<Data, Payload>>({ children, ...otherProps }: IStateProviderProps<Data, Payload, Field>) => JSX.Element;
     export const useOneState: <Data extends unknown>() => IState<Data>;

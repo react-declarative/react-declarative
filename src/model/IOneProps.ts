@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SxProps } from '@mui/material';
 
-import IField from './IField';
+import IField, { Value } from './IField';
 import IEntity from './IEntity';
 import IAnything from './IAnything';
 import IOneApi from './IOneApi';
@@ -91,12 +91,12 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Вызываются при фокусировки по филду
    * в компоненте и потере фокуса
    */
-  focus?: (name: string, data: Data, payload: Payload) => void;
-  blur?: (name: string, data: Data, payload: Payload) => void;
+  focus?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+  blur?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
   /**
    * Коллбек для управления контекстным меню
    */
-  menu?: (name: string, action: string, data: Data, payload: Payload) => void;
+  menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
   /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы

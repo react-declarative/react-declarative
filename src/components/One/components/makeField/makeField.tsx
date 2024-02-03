@@ -148,7 +148,7 @@ export function makeField(
         outlinePaper = false,
         ...otherProps
     }: IEntity<Data>) => {
-        const { object: stateObject } = useOneState<Data>();
+        const { object: stateObject, changeObject } = useOneState<Data>();
         const payload = useOnePayload();
         const { createContextMenu } = useOneMenu();
 
@@ -562,12 +562,16 @@ export function makeField(
                     flush();
                 }
                 if (blur) {
-                    blur(name, memory.object$, payload);
+                    blur(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                        skipReadonly: true,
+                    }), changeObject);
                 }
                 setFocusReadonly(true);
             });
             if (focus) {
-                focus(name, memory.object$, payload);
+                focus(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                    skipReadonly: true,
+                }), changeObject);
             }
         }, []);
 

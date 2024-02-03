@@ -227,25 +227,25 @@ export const OneInternal = <
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
-                  .set(field, (name: string, data: Data, payload: Payload) => {
-                    field.focus && field.focus(name, data, payload);
-                    focus && focus(name, data, payload);
+                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                    field.focus && field.focus(name, data, payload, onValueChange, onChange);
+                    focus && focus(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
-                  .set(field, (name: string, data: Data, payload: Payload) => {
-                    field.blur && field.blur(name, data, payload);
-                    blur && blur(name, data, payload);
+                  .set(field, (name: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                    field.blur && field.blur(name, data, payload, onValueChange, onChange);
+                    blur && blur(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
             menu: menuMap.has(field)
               ? menuMap.get(field)
               : menuMap
-                  .set(field, (name: string, action: string, data: Data, payload: Payload) => {
-                    field.menu && field.menu(name, action, data, payload);
-                    menu && menu(name, action, data, payload);
+                  .set(field, (name: string, action: string, data: Data, payload: Payload, onValueChange, onChange) => {
+                    field.menu && field.menu(name, action, data, payload, onValueChange, onChange);
+                    menu && menu(name, action, data, payload, onValueChange, onChange);
                   })
                   .get(field),
             tr: trMap.has(field)

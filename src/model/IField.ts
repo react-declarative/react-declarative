@@ -73,13 +73,13 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * программиста, а не работа с полем ввода
      * (например, обновление ссылки на изображение)
      */
-    focus?: (name: string, data: Data, payload: Payload) => void;
-    blur?: (name: string, data: Data, payload: Payload) => void;
+    focus?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+    blur?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
 
     /**
      * Коллбек для обработки клика по элементу контекстного меню
      */
-    menu?: (name: string, action: string, data: Data, payload: Payload) => void;
+    menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
 
     /**
      * Флаг только на чтение и "круглой окаймовки"

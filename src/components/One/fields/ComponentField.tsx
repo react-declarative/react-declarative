@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Fragment } from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -13,8 +13,6 @@ import { useOneState } from "../../../components/One/context/StateProvider";
 import { DEFAULT_VALUE, useOneContext } from "../context/OneContextProvider";
 import { useOneFeatures } from "../context/FeatureProvider";
 
-import { useActualValue } from "../../../hooks/useActualValue";
-
 import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
@@ -22,7 +20,6 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import type { ComponentFieldInstanceProps } from "../../../model/ComponentFieldInstance";
 
 import classNames from "../../../utils/classNames";
-import deepClone from "../../../utils/deepClone";
 
 type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";
 
@@ -99,17 +96,10 @@ export const ComponentField = ({
 }: IComponentFieldProps & IComponentFieldPrivate) => {
   const { classes } = useStyles();
 
-  const object$ = useActualValue(object);
-
   const [node, setNode] = useState<JSX.Element | null>(null);
-  const { setObject } = useOneState();
+  const { changeObject: handleChange } = useOneState();
   const payload = useOnePayload();
   const features = useOneFeatures();
-
-  const handleChange = useCallback(
-    (object: unknown) => setObject(deepClone(object), {}),
-    []
-  );
 
   useEffect(() => {
     const _fieldParams = Object.entries(otherProps as IField)
@@ -117,14 +107,11 @@ export const ComponentField = ({
         ([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam)
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
-    const onChange = (data: Record<string, any>) =>
-      handleChange({ ...object$.current, ...data });
-    const _fieldData = object;
     const props = {
-      ..._fieldData,
-      onChange,
+      ...object,
+      onChange: handleChange,
       _fieldParams,
-      _fieldData,
+      _fieldData: object,
       outlinePaper,
       payload,
       disabled,

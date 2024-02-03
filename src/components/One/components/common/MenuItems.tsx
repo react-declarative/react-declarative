@@ -24,7 +24,6 @@ import IFieldMenu from "../../../../model/IFieldMenu";
 import TSubject from "../../../../model/TSubject";
 import IOption from "../../../../model/IOption";
 
-import deepClone from "../../../../utils/deepClone";
 import queued from "../../../../utils/hof/queued";
 import sleep from "../../../../utils/sleep";
 
@@ -91,7 +90,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const [params$, setParams] = useActualRef<IParams>(INITIAL_STATE);
   const [counter$, setCounter] = useActualRef(0);
 
-  const { object, setObject } = useOneState<object>();
+  const { object, changeObject} = useOneState<object>();
   const payload = useOnePayload();
 
   const handleLoadStart = useCallback(() => {
@@ -102,24 +101,14 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
     setLoading((loading) => Math.max(loading - 1, 0));
   }, []);
 
-  const handleChangeObj = useCallback(
-    (object: object) =>
-      setObject(
-        deepClone({
-          ...object$.current,
-          ...object,
-        }),
-        {}
-      ),
-    []
-  );
-
   const { execute } = useSinglerunAction(async (action: string) => {
     await params$.current.menu(
       params$.current.name,
       action,
       object$.current,
-      payload
+      payload,
+      params$.current.onValueChange,
+      changeObject,
     );
     setAnchorEl(null);
   }, {
@@ -243,7 +232,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
                           disabled={disabled}
                           onClick={() => {
                             if (onClick) {
-                              onClick(object$.current, payload, params$.current.onValueChange, handleChangeObj);
+                              onClick(object$.current, payload, params$.current.onValueChange, changeObject);
                               setAnchorEl(null);
                               return;
                             }

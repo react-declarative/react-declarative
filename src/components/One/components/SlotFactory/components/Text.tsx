@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { useMemo, useRef, useLayoutEffect, useCallback } from 'react';
+import { useMemo, useRef, useLayoutEffect } from 'react';
 
 import IconButton from "@mui/material/IconButton";
 import MatTextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
-
-import useActualValue from '../../../../../hooks/useActualValue';
 
 import { useOnePayload } from '../../../context/PayloadProvider';
 import { useOneState } from '../../../context/StateProvider';
@@ -18,7 +16,6 @@ import { IField } from '../../../../../model/IField';
 import IAnything from '../../../../../model/IAnything';
 
 import formatText from '../../../../../utils/formatText';
-import deepClone from '../../../../../utils/deepClone';
 
 const LOADING_LABEL = 'Loading';
 const NEVER_POS = Symbol('never-pos');
@@ -143,21 +140,7 @@ export const Text = ({
     onChange,
 }: ITextSlot) => {
     const payload = useOnePayload();
-    const { object, setObject } = useOneState<object>();
-
-    const object$ = useActualValue(object);
-
-    const handleChange = useCallback(
-      (object: object) =>
-        setObject(
-          deepClone({
-            ...object$.current,
-            ...object,
-          }),
-          {}
-        ),
-      []
-    );
+    const { object, changeObject: handleChange } = useOneState<object>();
 
     const inputElementRef = useRef<HTMLInputElement | null>();
 

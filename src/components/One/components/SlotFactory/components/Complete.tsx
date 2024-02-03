@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useCallback, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useMemo, useRef, useLayoutEffect } from "react";
 
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
@@ -28,7 +28,6 @@ import useDebounce from "../../../hooks/useDebounce";
 import { ICompleteSlot } from "../../../slots/CompleteSlot";
 
 import queued from "../../../../../utils/hof/queued";
-import deepClone from "../../../../../utils/deepClone";
 import formatText from "../../../../../utils/formatText";
 
 const FETCH_DEBOUNCE = 500;
@@ -76,7 +75,7 @@ export const Complete = ({
   withContextMenu,
 }: ICompleteSlot) => {
   const payload = useOnePayload();
-  const { object, setObject } = useOneState<object>();
+  const { object, changeObject: handleChangeObj } = useOneState<object>();
   const { requestSubject } = useOneMenu();
 
   const {
@@ -168,18 +167,6 @@ export const Complete = ({
         setSelectedIdx(-1);
         await onChange$(text);
       }),
-    []
-  );
-
-  const handleChangeObj = useCallback(
-    (object: object) =>
-      setObject(
-        deepClone({
-          ...object$.current,
-          ...object,
-        }),
-        {}
-      ),
     []
   );
 
