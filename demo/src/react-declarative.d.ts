@@ -1166,6 +1166,24 @@ declare module 'react-declarative/model/IField' {
                 */
             condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>);
             /**
+                * Позволяет мемоизировать вызов condition
+                */
+            shouldCondition?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
+            /**
+                * Компонент отображения загрузки condition
+                */
+            conditionLoading?: React.ComponentType<{
+                    data: Data;
+                    payload: Payload;
+            }>;
+            /**
+                * Компонент отображения else для condition
+                */
+            conditionElse?: React.ComponentType<{
+                    data: Data;
+                    payload: Payload;
+            }>;
+            /**
                 * mime тип выбираемого файла
                 */
             fileAccept?: string;
@@ -4207,6 +4225,9 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
     import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
     export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
         condition?: PickProp<IField<Data, Payload>, "condition">;
+        shouldCondition?: PickProp<IField<Data, Payload>, "shouldCondition">;
+        conditionLoading?: PickProp<IField<Data, Payload>, "conditionLoading">;
+        conditionElse?: PickProp<IField<Data, Payload>, "conditionElse">;
     }
     interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
         children?: React.ReactNode;
@@ -4220,11 +4241,11 @@ declare module 'react-declarative/components/One/layouts/ConditionLayout' {
       * Потомки передаются насквозь...
       */
     export const ConditionLayout: {
-        <Data extends unknown = any>({ children, condition, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, condition, shouldCondition, conditionLoading: ConditionLoading, conditionElse: ConditionElse, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     const _default: {
-        <Data extends unknown = any>({ children, condition, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
+        <Data extends unknown = any>({ children, condition, shouldCondition, conditionLoading: ConditionLoading, conditionElse: ConditionElse, fallback, object, }: IConditionLayoutProps<Data, any> & IConditionLayoutPrivate<Data>): JSX.Element;
         displayName: string;
     };
     export default _default;

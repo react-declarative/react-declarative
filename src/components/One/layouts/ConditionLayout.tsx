@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 
 import If from "../../If";
 
@@ -14,9 +15,14 @@ import {
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
+import cached from "../../../utils/hof/cached";
+
 export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
   extends IWrappedLayout<Data, Payload> {
   condition?: PickProp<IField<Data, Payload>, "condition">;
+  shouldCondition?: PickProp<IField<Data, Payload>, "shouldCondition">;
+  conditionLoading?: PickProp<IField<Data, Payload>, "conditionLoading">;
+  conditionElse?: PickProp<IField<Data, Payload>, "conditionElse">;
 }
 
 interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
@@ -34,6 +40,9 @@ interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 export const ConditionLayout = <Data extends IAnything = IAnything>({
   children,
   condition = () => true,
+  shouldCondition = () => false,
+  conditionLoading: ConditionLoading,
+  conditionElse: ConditionElse,
   fallback = (e: Error) => {
     throw e;
   },
@@ -41,12 +50,21 @@ export const ConditionLayout = <Data extends IAnything = IAnything>({
 }: IConditionLayoutProps<Data> & IConditionLayoutPrivate<Data>) => {
   const payload = useOnePayload();
 
-  const handleCondition = async (data: Data) => {
-    return await condition(data, payload);
-  };
+  const handler = useMemo(() => cached((prevArgs, currentArgs) =>
+    shouldCondition(prevArgs[0], currentArgs[0], payload), condition), []);
+
+  const handleCondition = useCallback(async (data: Data) => {
+    return await handler(data, payload);
+  }, []);
 
   return (
-    <If condition={handleCondition} fallback={fallback} payload={object}>
+    <If 
+      condition={handleCondition}
+      Loading={ConditionLoading && <ConditionLoading data={object} payload={payload} />}
+      Else={ConditionElse && <ConditionElse data={object} payload={payload} />}
+      fallback={fallback}
+      payload={object}
+    >
       {children}
     </If>
   );

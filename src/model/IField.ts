@@ -593,6 +593,21 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     condition?: ((data: Data, payload: Payload) => boolean) | ((data: Data, payload: Payload) => Promise<boolean>)
 
     /**
+     * Позволяет мемоизировать вызов condition
+     */
+    shouldCondition?: (prevData: Data, nextData: Data, payload: Payload) => boolean;
+
+    /**
+     * Компонент отображения загрузки condition
+     */
+    conditionLoading?: React.ComponentType<{ data: Data; payload: Payload }>;
+
+    /**
+     * Компонент отображения else для condition
+     */
+    conditionElse?: React.ComponentType<{ data: Data; payload: Payload }>;
+
+    /**
      * mime тип выбираемого файла
      */
     fileAccept?: string;
