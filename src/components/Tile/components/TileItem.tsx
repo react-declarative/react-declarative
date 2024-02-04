@@ -82,7 +82,6 @@ export const TileItem = forwardRef(
         ref={ref}
         className={className}
         style={style}
-        disableRipple
         selected={isSelected}
       >
         {React.createElement(children, {
