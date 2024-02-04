@@ -42,6 +42,8 @@ export type ISearchViewProps<
     | null
     | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
   searchText?: string | null | (() => null | string | Promise<null | string>);
+  startAdornment?: React.ReactNode;
+  endAdornment?: React.ReactNode;
   type?: keyof {
     date: string;
     email: string;

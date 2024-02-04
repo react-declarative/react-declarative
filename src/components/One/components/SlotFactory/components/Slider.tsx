@@ -81,7 +81,7 @@ export const Slider = ({
               handleChange,
               onChange,
               lic,
-              "end",
+              "start",
               lir,
             )}
         </Grid>
@@ -112,7 +112,7 @@ export const Slider = ({
               handleChange,
               onChange,
               tic,
-              "start",
+              "end",
               tir,
             )}
         </Grid>

@@ -4923,6 +4923,12 @@ declare module 'react-declarative/components/One/fields/DictField' {
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
         inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+        leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+        trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
+        leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
+        trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
+        leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
+        trailingIconClick?: PickProp<IField<Data, Payload>, 'trailingIconClick'>;
     }
     export interface IDictFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
@@ -4935,7 +4941,7 @@ declare module 'react-declarative/components/One/fields/DictField' {
         name: PickProp<IManaged<Data>, "name">;
     }
     export const DictField: {
-        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictOnAppend, dictOnText, dictOnItem, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, inputFormatter, inputFormatterAllowed, inputFormatterReplace, inputFormatterSymbol, inputFormatterTemplate, name, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
+        ({ invalid, incorrect, value, disabled, readonly, inputType, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, onChange, dictLimit, dictDelay, dictSearch, dictOnAppend, dictOnText, dictOnItem, dictValue, dictSearchText, dictSearchItem, dictCreateButton, inputMode, inputPattern, groupRef, inputRef, inputFormatter, inputFormatterAllowed, inputFormatterReplace, inputFormatterSymbol, inputFormatterTemplate, name, leadingIcon, trailingIcon, leadingIconClick, trailingIconClick, leadingIconRipple, trailingIconRipple, }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -5019,6 +5025,8 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
         payload?: Payload | (() => Payload);
         value?: ISearchItem<Data> | null | (() => null | ISearchItem<Data> | Promise<null | ISearchItem<Data>>);
         searchText?: string | null | (() => null | string | Promise<null | string>);
+        startAdornment?: React.ReactNode;
+        endAdornment?: React.ReactNode;
         type?: keyof {
             date: string;
             email: string;
@@ -6533,7 +6541,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, withContextMenu, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
-        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -7403,7 +7411,7 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, inputRef, SearchItem, SearchInput, CreateButton, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
+    export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, inputRef, SearchItem, SearchInput, CreateButton, startAdornment, endAdornment, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
 }
 

@@ -14,6 +14,9 @@ import { useOneState } from "../../../context/StateProvider";
 
 import ISearchInputProps from "../../../../SearchView/model/ISearchInputProps";
 
+import IManaged, { PickProp } from "../../../../../model/IManaged";
+import IAnything from "../../../../../model/IAnything";
+
 import useChangeSubject from "../../../../../hooks/useChangeSubject";
 import useActualValue from "../../../../../hooks/useActualValue";
 
@@ -49,6 +52,41 @@ const NEVER_POS = Symbol("never-pos");
 const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
+
+const createIcon = (
+  icon: React.ComponentType<any>,
+  data: IAnything,
+  payload: IAnything,
+  disabled: boolean,
+  readonly: boolean,
+  value: IAnything,
+  onChange: (data: IAnything) => void,
+  onValueChange: PickProp<IManaged, "onChange">,
+  click: PickProp<IManaged, "leadingIconClick">,
+  edge: "start" | "end",
+  ripple: boolean,
+) => (
+  <IconButton
+    disableRipple={!ripple}
+    onClick={() => {
+      if (click) {
+        click(
+          value,
+          data,
+          payload,
+          (v) =>
+            onValueChange(v, {
+              skipReadonly: true,
+            }),
+          onChange
+        );
+      }
+    }}
+    edge={edge}
+  >
+    {React.createElement(icon, { data, payload, disabled, readonly })}
+  </IconButton>
+);
 
 export const Dict = ({
   invalid,
@@ -88,6 +126,12 @@ export const Dict = ({
       allowed,
       replace,
     }),
+  leadingIcon: li,
+  trailingIcon: ti,
+  leadingIconClick: lic,
+  trailingIconClick: tic,
+  leadingIconRipple: lir = true,
+  trailingIconRipple: tir = true,
 }: IDictSlot) => {
   const payload = useOnePayload();
   const { object, changeObject: handleChange } = useOneState<object>();
@@ -277,6 +321,34 @@ export const Dict = ({
           },
         }),
       }}
+      startAdornment={li &&
+        createIcon(
+          li,
+          object,
+          payload,
+          !!disabled,
+          !!readonly,
+          value as IAnything,
+          handleChange,
+          onChange,
+          lic,
+          "start",
+          lir,
+        )}
+      endAdornment={ti &&
+        createIcon(
+          ti,
+          object,
+          payload,
+          !!disabled,
+          !!readonly,
+          value as IAnything,
+          handleChange,
+          onChange,
+          tic,
+          "end",
+          tir,
+        )}
       handler={async (search, limit, offset, initial, rows) => {
         return await dictSearch({
           search,

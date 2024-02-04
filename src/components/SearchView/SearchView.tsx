@@ -81,6 +81,8 @@ export const SearchView = <
   SearchItem = SearchItemDefault,
   SearchInput = SearchInputDefault,
   CreateButton = CreateButtonDefault,
+  startAdornment = null,
+  endAdornment = null,
   throwError,
   ...otherProps
 }: ISearchViewProps<Data, Payload>) => {
@@ -272,23 +274,30 @@ export const SearchView = <
         InputProps={{
           inputMode: mode,
           readOnly: true,
+          startAdornment: startAdornment ? (
+            <InputAdornment position="start">
+              {startAdornment}
+            </InputAdornment>
+          ) : undefined,
           endAdornment: (
             <InputAdornment
               sx={{
-                display: state.item ? undefined : "none",
+                display: (state.item || endAdornment) ? undefined : "none",
               }}
               position="end"
             >
-              <IconButton
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleClear();
-                }}
-                edge="end"
-              >
-                <CloseIcon />
-              </IconButton>
+              {state.item ? (
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClear();
+                  }}
+                  edge="end"
+                >
+                  <CloseIcon />
+                </IconButton>
+              ): endAdornment}
             </InputAdornment>
           ),
         }}

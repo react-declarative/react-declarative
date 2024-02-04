@@ -48,6 +48,12 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+  leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+  trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
+  leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
+  trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
+  leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
+  trailingIconClick?: PickProp<IField<Data, Payload>, 'trailingIconClick'>;
 }
 
 export interface IDictFieldPrivate<Data = IAnything> {
@@ -96,6 +102,12 @@ export const DictField = ({
   inputFormatterSymbol,
   inputFormatterTemplate,
   name,
+  leadingIcon,
+  trailingIcon,
+  leadingIconClick,
+  trailingIconClick,
+  leadingIconRipple,
+  trailingIconRipple,
 }: IDictFieldProps & IDictFieldPrivate) => (
   <Dict
     inputRef={inputRef}
@@ -132,6 +144,12 @@ export const DictField = ({
     inputFormatterReplace={inputFormatterReplace}
     inputFormatterSymbol={inputFormatterSymbol}
     inputFormatterTemplate={inputFormatterTemplate}
+    leadingIcon={leadingIcon}
+    trailingIcon={trailingIcon}
+    leadingIconClick={leadingIconClick}
+    trailingIconClick={trailingIconClick}
+    leadingIconRipple={leadingIconRipple}
+    trailingIconRipple={trailingIconRipple}
   />
 );
 
