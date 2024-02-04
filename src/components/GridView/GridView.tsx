@@ -18,7 +18,7 @@ interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   outlinePaper?: boolean;
   sx?: SxProps;
   label?: ICardProps["label"];
-  mobileItem?: ITileProps["children"];
+  mobileItem?: ITileProps<T>["children"];
   BeforeLabel?: ICardProps["BeforeLabel"];
   AfterLabel?: ICardProps["AfterLabel"];
 }

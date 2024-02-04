@@ -8424,7 +8424,7 @@ declare module 'react-declarative/components/GridView/GridView' {
         outlinePaper?: boolean;
         sx?: SxProps;
         label?: ICardProps["label"];
-        mobileItem?: ITileProps["children"];
+        mobileItem?: ITileProps<T>["children"];
         BeforeLabel?: ICardProps["BeforeLabel"];
         AfterLabel?: ICardProps["AfterLabel"];
     }
