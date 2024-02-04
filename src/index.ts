@@ -183,7 +183,10 @@ import {
     TGridSort as TGridSortInternal,
     IGridColumn as IGridColumnInternal,
     IGridAction as IGridActionInternal,
+    ITile as ITileInternal
 } from './components';
+
+export type ITile<RowData extends IRowData = any, Payload extends IAnything = IAnything> = ITileInternal<RowData, Payload>;
 
 export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
 export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
@@ -376,6 +379,7 @@ export { Scaffold2 } from './components';
 export { Countdown } from './components';
 export { Spinner } from './components'; 
 export { Grid } from './components';
+export { Tile } from './components';
 export { Copy } from './components';
 export { Chip } from './components';
 

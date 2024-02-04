@@ -67,6 +67,7 @@ export * from './TreeView';
 export * from './GridView';
 
 export * from './Grid';
+export * from './Tile';
 export * from './Spinner';
 export * from './Async';
 export * from './Copy';

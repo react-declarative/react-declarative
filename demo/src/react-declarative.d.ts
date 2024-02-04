@@ -148,7 +148,8 @@ declare module 'react-declarative' {
     export type IMenuGroup<Data = any> = IMenuGroupInternal<Data>;
     export type IOption<Payload = any> = IOptionInternal<Payload>;
     export type IColumn<FilterData extends {} = IAnything, RowData extends IRowData = any, Payload = any> = IColumnInternal<FilterData, RowData, Payload>;
-    import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal } from 'react-declarative/components';
+    import { TGridSort as TGridSortInternal, IGridColumn as IGridColumnInternal, IGridAction as IGridActionInternal, ITile as ITileInternal } from 'react-declarative/components';
+    export type ITile<RowData extends IRowData = any, Payload extends IAnything = IAnything> = ITileInternal<RowData, Payload>;
     export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
     export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
     export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
@@ -294,6 +295,7 @@ declare module 'react-declarative' {
     export { Countdown } from 'react-declarative/components';
     export { Spinner } from 'react-declarative/components';
     export { Grid } from 'react-declarative/components';
+    export { Tile } from 'react-declarative/components';
     export { Copy } from 'react-declarative/components';
     export { Chip } from 'react-declarative/components';
     export { OneSlotFactory, OneDefaultSlots } from 'react-declarative/components';
@@ -2511,6 +2513,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/TreeView';
     export * from 'react-declarative/components/GridView';
     export * from 'react-declarative/components/Grid';
+    export * from 'react-declarative/components/Tile';
     export * from 'react-declarative/components/Spinner';
     export * from 'react-declarative/components/Async';
     export * from 'react-declarative/components/Copy';
@@ -5792,6 +5795,13 @@ declare module 'react-declarative/components/Grid' {
     export { default } from 'react-declarative/components/Grid/Grid';
 }
 
+declare module 'react-declarative/components/Tile' {
+    export * from 'react-declarative/components/Tile/Tile';
+    export * from 'react-declarative/components/Tile/model/ITile';
+    export * from 'react-declarative/components/Tile/model/ITileProps';
+    export { default } from 'react-declarative/components/Tile/Tile';
+}
+
 declare module 'react-declarative/components/Spinner' {
     export * from 'react-declarative/components/Spinner/Spinner';
     export { default } from 'react-declarative/components/Spinner/Spinner';
@@ -8377,6 +8387,7 @@ declare module 'react-declarative/components/GridView/GridView' {
     import { SxProps } from "@mui/material";
     import { ICardProps } from "react-declarative/components/GridView/components/Card";
     import { IGridProps, RowData } from "react-declarative/components/Grid";
+    import { ITileProps } from "react-declarative/components/Tile";
     import IAnything from "react-declarative/model/IAnything";
     interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
         className?: string;
@@ -8384,10 +8395,11 @@ declare module 'react-declarative/components/GridView/GridView' {
         outlinePaper?: boolean;
         sx?: SxProps;
         label?: ICardProps["label"];
+        mobileItem?: ITileProps["children"];
         BeforeLabel?: ICardProps["BeforeLabel"];
         AfterLabel?: ICardProps["AfterLabel"];
     }
-    export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, outlinePaper, loading, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
+    export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, mobileItem: MobileItem, outlinePaper, loading, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
     export default GridView;
 }
 
@@ -8571,6 +8583,54 @@ declare module 'react-declarative/components/Grid/model/TSort' {
         value: IColumn<T>['field'];
     };
     export default TSort;
+}
+
+declare module 'react-declarative/components/Tile/Tile' {
+    import ITileProps from "react-declarative/components/Tile/model/ITileProps";
+    export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowKey, errorMessage, children, onSkip, onButtonSkip, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
+    export default Tile;
+}
+
+declare module 'react-declarative/components/Tile/model/ITile' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ITile<Data = IAnything, Payload = IAnything> {
+        data: Data;
+        payload: Payload;
+        isSelected: boolean;
+        rowColor: string;
+        toggleSelection: () => void;
+    }
+    export default ITile;
+}
+
+declare module 'react-declarative/components/Tile/model/ITileProps' {
+    import { SxProps } from "@mui/material";
+    import IAnything from "react-declarative/model/IAnything";
+    import SelectionMode from 'react-declarative/model/SelectionMode';
+    import TSubject from "react-declarative/model/TSubject";
+    import ITile from "react-declarative/components/Tile/model/ITile";
+    export interface ITileProps<Data = IAnything, Payload = IAnything> {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        loading?: boolean;
+        hasMore?: boolean;
+        errorMessage?: string | null;
+        bufferSize?: number;
+        minRowHeight?: number;
+        children: React.ComponentType<ITile<Data, Payload>>;
+        rowKey?: string | number | symbol;
+        payload?: Payload | (() => Payload);
+        data: Data[];
+        onSkip?: (initial: boolean) => void;
+        onButtonSkip?: () => void;
+        selectionMode?: SelectionMode;
+        recomputeSubject?: TSubject<void>;
+        rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
+        onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
+        selectedRows?: string[];
+    }
+    export default ITileProps;
 }
 
 declare module 'react-declarative/components/Spinner/Spinner' {
