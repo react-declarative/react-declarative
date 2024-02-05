@@ -543,6 +543,7 @@ declare module 'react-declarative' {
         emdash: "—";
         endash: "–";
         terminator: "\0";
+        bullet: "•";
     };
     export const datetime: {
         DATE_PLACEHOLDER: "DD/MM/YYYY";

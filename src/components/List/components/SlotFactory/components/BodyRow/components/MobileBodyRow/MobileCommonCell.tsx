@@ -13,6 +13,7 @@ import ColumnType from '../../../../../../../../model/ColumnType';
 import fieldToHeader from '../../../../../../helpers/fieldToHeader';
 
 import classNames from '../../../../../../../../utils/classNames';
+import * as typo from '../../../../../../../../utils/typo';
 
 interface IMobileCommonCellProps extends ICommonCellSlot {
     colSpan: number;
@@ -78,8 +79,8 @@ export const MobileCommonCell = ({
         >
             <Box className={classes.container}>
                 {withLabel && (
-                    <Typography variant="body1">
-                        {headerName}
+                    <Typography variant="body1" fontWeight="bold">
+                        {`${typo.bullet} ${headerName}`}
                     </Typography>
                 )}
                 <Box 
