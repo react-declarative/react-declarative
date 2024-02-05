@@ -27,7 +27,7 @@ export const CopyButton = ({
   style,
   sx,
   delay = TOOLTIP_CLOSE_DELAY,
-  variant = "outlined",
+  variant = "text",
   size = "small",
   content,
 }: ICopyButtonProps) => {
