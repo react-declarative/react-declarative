@@ -8743,11 +8743,13 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
         style?: React.CSSProperties;
         sx?: SxProps;
         delay?: number;
+        onClick?: (e: React.MouseEvent<HTMLButtonElement>, doCopy: () => void) => void;
+        startIcon?: React.ReactNode;
         variant?: "text" | "outlined" | "contained";
         size?: "small" | "medium" | "large";
         content: string | number;
     }
-    export const CopyButton: ({ className, style, sx, delay, variant, size, content, }: ICopyButtonProps) => JSX.Element;
+    export const CopyButton: ({ className, style, sx, onClick, delay, variant, size, startIcon, content, }: ICopyButtonProps) => JSX.Element;
     export default CopyButton;
 }
 

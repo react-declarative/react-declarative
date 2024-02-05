@@ -17,6 +17,8 @@ interface ICopyButtonProps {
   style?: React.CSSProperties;
   sx?: SxProps;
   delay?: number;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>, doCopy: () => void) => void;
+  startIcon?: React.ReactNode;
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
   content: string | number;
@@ -26,9 +28,11 @@ export const CopyButton = ({
   className,
   style,
   sx,
+  onClick,
   delay = TOOLTIP_CLOSE_DELAY,
   variant = "text",
   size = "small",
+  startIcon = <ContentCopy />,
   content,
 }: ICopyButtonProps) => {
   const [open, setOpen] = useState(false);
@@ -60,11 +64,19 @@ export const CopyButton = ({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          if (onClick) {
+            onClick(e, () => {
+                setOpen(true);
+                copyToClipboard(String(content));
+                emitClose();
+            });
+            return;
+          }
           setOpen(true);
           copyToClipboard(String(content));
           emitClose();
         }}
-        startIcon={<ContentCopy />}
+        startIcon={startIcon}
         size={size}
       >
         {content}
