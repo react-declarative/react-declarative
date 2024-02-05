@@ -103,6 +103,7 @@ export const Copy = ({
       {!!fullWidth && <div className={classes.stretch} />}
       <Button
         className={classes.icon}
+        variant="outlined"
         onClick={handleClick}
         startIcon={<ContentCopyIcon />}
         size="small"

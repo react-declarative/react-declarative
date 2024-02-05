@@ -16,6 +16,7 @@ import IRowData from "../../../../../../../../model/IRowData";
 import IAnything from "../../../../../../../../model/IAnything";
 
 import ColumnType from "../../../../../../../../model/ColumnType";
+import SelectionMode from "../../../../../../../../model/SelectionMode";
 
 import { IBodyRowSlot, BodyColumn } from "../../../../../../slots/BodyRowSlot";
 
@@ -24,7 +25,6 @@ import classNames from "../../../../../../../../utils/classNames";
 import useProps from "../../../../../../hooks/useProps";
 import useSelection from "../../../../../../hooks/useSelection";
 import useReload from "../../../../../../hooks/useReload";
-import SelectionMode from "../../../../../../../../model/SelectionMode";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -34,14 +34,16 @@ const useStyles = makeStyles()((theme) => ({
         0.04
       ),
     },
+    "& > .MuiTableCell-root": {
+      borderBottom: `1px solid ${theme.palette.divider}`,
+    },
+    overflow: "hidden",
+  },
+  row: {
     "& .MuiTableCell-root": {
       borderBottom: "0 !important",
       overflow: "hidden",
     },
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    overflow: "hidden",
-  },
-  row: {
     marginBottom: 16,
   },
   disabled: {
