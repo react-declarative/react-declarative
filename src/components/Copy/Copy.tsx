@@ -5,8 +5,7 @@ import { makeStyles } from "../../styles";
 
 import Box, { BoxProps } from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
-import ActionButton from "../ActionButton";
+import Button from "@mui/material/Button";
 
 import copyToClipboard from "../../utils/copyToClipboard";
 import classNames from "../../utils/classNames";
@@ -38,6 +37,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   icon: {
     marginRight: theme.spacing(2),
+    overflow: 'hidden',
   },
   stretch: {
     flex: 1,
@@ -101,14 +101,14 @@ export const Copy = ({
         {children}
       </Typography>
       {!!fullWidth && <div className={classes.stretch} />}
-      <ActionButton
+      <Button
         className={classes.icon}
         onClick={handleClick}
         startIcon={<ContentCopyIcon />}
         size="small"
       >
         Copy
-      </ActionButton>
+      </Button>
       {!fullWidth && <div className={classes.stretch} />}
     </Box>
   );
