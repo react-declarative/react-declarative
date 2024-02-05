@@ -568,6 +568,7 @@ export { compareFulltext } from './utils/compareFulltext';
 export { promiseState, promiseValue } from './utils/promiseState';
 export { chooseMultipleFiles } from './utils/chooseMultipleFiles';
 export { errorData } from './utils/errorData';
+export { getMediaContext } from './utils/getMediaContext';
 
 export { getRouteParams } from './utils/getRouteParams';
 export { getRouteItem } from './utils/getRouteItem';

@@ -456,6 +456,7 @@ declare module 'react-declarative' {
     export { promiseState, promiseValue } from 'react-declarative/utils/promiseState';
     export { chooseMultipleFiles } from 'react-declarative/utils/chooseMultipleFiles';
     export { errorData } from 'react-declarative/utils/errorData';
+    export { getMediaContext } from 'react-declarative/utils/getMediaContext';
     export { getRouteParams } from 'react-declarative/utils/getRouteParams';
     export { getRouteItem } from 'react-declarative/utils/getRouteItem';
     export { getElementFromXPath } from 'react-declarative/utils/getElementFromXPath';
@@ -3048,6 +3049,22 @@ declare module 'react-declarative/utils/chooseMultipleFiles' {
 declare module 'react-declarative/utils/errorData' {
     export const errorData: (error: Error) => {};
     export default errorData;
+}
+
+declare module 'react-declarative/utils/getMediaContext' {
+    interface IBreakpoints {
+        xs: number;
+        sm: number;
+        md: number;
+        lg: number;
+        xl: number;
+    }
+    export const getMediaContext: ({ xs, sm, lg, }?: Partial<IBreakpoints>) => {
+        isPhone: boolean;
+        isTablet: boolean;
+        isDesktop: boolean;
+    };
+    export default getMediaContext;
 }
 
 declare module 'react-declarative/utils/getRouteParams' {
