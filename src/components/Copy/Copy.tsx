@@ -5,7 +5,8 @@ import { makeStyles } from "../../styles";
 
 import Box, { BoxProps } from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+
+import ActionButton from "../ActionButton";
 
 import copyToClipboard from "../../utils/copyToClipboard";
 import classNames from "../../utils/classNames";
@@ -100,9 +101,14 @@ export const Copy = ({
         {children}
       </Typography>
       {!!fullWidth && <div className={classes.stretch} />}
-      <IconButton className={classes.icon} onClick={handleClick} size="small">
-        <ContentCopyIcon fontSize="small" />
-      </IconButton>
+      <ActionButton
+        className={classes.icon}
+        onClick={handleClick}
+        startIcon={<ContentCopyIcon />}
+        size="small"
+      >
+        Copy
+      </ActionButton>
       {!fullWidth && <div className={classes.stretch} />}
     </Box>
   );

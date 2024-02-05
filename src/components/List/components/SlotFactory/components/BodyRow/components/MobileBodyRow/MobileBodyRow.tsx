@@ -38,6 +38,7 @@ const useStyles = makeStyles()((theme) => ({
       borderBottom: "0 !important",
       overflow: "hidden",
     },
+    borderBottom: `1px solid ${theme.palette.divider}`,
     overflow: "hidden",
   },
   row: {
