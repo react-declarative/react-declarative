@@ -17,10 +17,17 @@ export const getMediaContext = ({
   // md = 960,
   lg = 1280,
 }: // xl = 1536,
-Partial<IBreakpoints> = {}) => ({
-  isPhone: match(xs, sm),
-  isTablet: match(sm, lg),
-  isDesktop: match(lg, GRID_MAX_WIDTH),
-});
+Partial<IBreakpoints> = {}) => {
+  const isPhone = match(xs, sm);
+  const isTablet = match(sm, lg);
+  const isDesktop = match(lg, GRID_MAX_WIDTH);
+  return {
+    isPhone,
+    isTablet,
+    isDesktop,
+    isWide: isTablet || isDesktop,
+    isMobile: isPhone,
+  };
+};
 
 export default getMediaContext;

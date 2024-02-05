@@ -3063,6 +3063,8 @@ declare module 'react-declarative/utils/getMediaContext' {
         isPhone: boolean;
         isTablet: boolean;
         isDesktop: boolean;
+        isWide: boolean;
+        isMobile: boolean;
     };
     export default getMediaContext;
 }
