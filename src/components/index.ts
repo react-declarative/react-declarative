@@ -72,6 +72,7 @@ export * from './Spinner';
 export * from './Async';
 export * from './Copy';
 export * from './If';
+export * from './CopyButton';
 export * from './SubjectBinding';
 export * from './Countdown';
 export * from './Chip';

@@ -296,6 +296,7 @@ declare module 'react-declarative' {
     export { Spinner } from 'react-declarative/components';
     export { Grid } from 'react-declarative/components';
     export { Tile } from 'react-declarative/components';
+    export { CopyButton } from 'react-declarative/components';
     export { Copy } from 'react-declarative/components';
     export { Chip } from 'react-declarative/components';
     export { OneSlotFactory, OneDefaultSlots } from 'react-declarative/components';
@@ -2538,6 +2539,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/Async';
     export * from 'react-declarative/components/Copy';
     export * from 'react-declarative/components/If';
+    export * from 'react-declarative/components/CopyButton';
     export * from 'react-declarative/components/SubjectBinding';
     export * from 'react-declarative/components/Countdown';
     export * from 'react-declarative/components/Chip';
@@ -5866,6 +5868,11 @@ declare module 'react-declarative/components/If' {
     export { default } from 'react-declarative/components/If/If';
 }
 
+declare module 'react-declarative/components/CopyButton' {
+    export * from 'react-declarative/components/CopyButton/CopyButton';
+    export { default } from 'react-declarative/components/CopyButton/CopyButton';
+}
+
 declare module 'react-declarative/components/SubjectBinding' {
     export * from 'react-declarative/components/SubjectBinding/SubjectBinding';
     export { default } from 'react-declarative/components/SubjectBinding/SubjectBinding';
@@ -8726,6 +8733,22 @@ declare module 'react-declarative/components/If/If' {
     }
     export const If: <T extends unknown = object>({ Else, Loading, children, condition, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, }: IIfProps<T>) => JSX.Element;
     export default If;
+}
+
+declare module 'react-declarative/components/CopyButton/CopyButton' {
+    import * as React from "react";
+    import { SxProps } from "@mui/material";
+    interface ICopyButtonProps {
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps;
+        delay?: number;
+        variant?: "text" | "outlined" | "contained";
+        size?: "small" | "medium" | "large";
+        content: string | number;
+    }
+    export const CopyButton: ({ className, style, sx, delay, variant, size, content, }: ICopyButtonProps) => JSX.Element;
+    export default CopyButton;
 }
 
 declare module 'react-declarative/components/SubjectBinding/SubjectBinding' {

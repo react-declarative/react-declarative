@@ -380,6 +380,7 @@ export { Countdown } from './components';
 export { Spinner } from './components'; 
 export { Grid } from './components';
 export { Tile } from './components';
+export { CopyButton } from './components';
 export { Copy } from './components';
 export { Chip } from './components';
 
