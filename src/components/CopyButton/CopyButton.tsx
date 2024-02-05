@@ -10,7 +10,7 @@ import copyToClipboard from "../../utils/copyToClipboard";
 
 import { ContentCopy } from "@mui/icons-material";
 
-const TOOLTIP_CLOSE_DELAY = 5_000;
+const TOOLTIP_CLOSE_DELAY = 800;
 
 interface ICopyButtonProps {
   className?: string;
