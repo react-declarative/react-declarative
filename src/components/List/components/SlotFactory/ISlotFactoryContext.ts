@@ -15,6 +15,8 @@ import { IOperationListSlot } from '../../slots/OperationListSlot';
 import { ISearchSlot } from '../../slots/SearchSlot';
 
 export interface ISlotFactoryContext {
+    DesktopBodyRow: ComponentType<IBodyRowSlot>;
+    MobileBodyRow: ComponentType<IBodyRowSlot>;
     BodyRow: ComponentType<IBodyRowSlot>;
     CheckboxCell: ComponentType<ICheckboxCellSlot>;
     CommonCell: ComponentType<ICommonCellSlot>;

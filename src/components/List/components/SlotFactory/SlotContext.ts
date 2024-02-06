@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
 import BodyRow from './components/BodyRow';
+import DesktopBodyRow from './components/DesktopBodyRow';
+import MobileBodyRow from './components/MobileBodyRow';
 import CheckboxCell from './components/CheckboxCell';
 import CommonCell from './components/CommonCell';
 import HeadRow from './components/HeadRow';
@@ -29,6 +31,8 @@ export const defaultSlots = {
     FilterListSlot,
     OperationListSlot,
     SearchSlot,
+    DesktopBodyRow,
+    MobileBodyRow,
 };
 
 export const SlotContext = createContext<ISlotFactoryContext>(defaultSlots);

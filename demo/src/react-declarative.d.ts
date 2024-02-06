@@ -337,7 +337,7 @@ declare module 'react-declarative' {
     export { useWizardModal } from 'react-declarative/components';
     export { createField, makeField } from 'react-declarative/components';
     export { createLayout, makeLayout } from 'react-declarative/components';
-    export { useListProps, useListCachedRows, useListPayload, useListChips } from 'react-declarative/components';
+    export { useListProps, useListCachedRows, useListPayload, useListChips, useListReload, useListSelectionState } from 'react-declarative/components';
     export { useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext, useOneMenu } from 'react-declarative/components';
     export { useActualCallback };
     export { useActualValue };
@@ -1507,6 +1507,8 @@ declare module 'react-declarative/components/List' {
     export { useChips as useListChips } from 'react-declarative/components/List/hooks/useChips';
     export { useSearch as useListSearch } from 'react-declarative/components/List/hooks/useSearch';
     export { usePayload as useListPayload } from 'react-declarative/components/List/hooks/usePayload';
+    export { useReload as useListReload } from 'react-declarative/components/List/hooks/useReload';
+    export { useSelection as useListSelectionState } from 'react-declarative/components/List/hooks/useSelection';
     export { ClassicChipListSlot } from 'react-declarative/components/List/common/ClassicChipListSlot';
     export { ClassicFilterListSlot } from 'react-declarative/components/List/common/ClassicFilterListSlot';
     export { DialogFilterListSlot } from 'react-declarative/components/List/common/DialogFilterListSlot';
@@ -5447,6 +5449,30 @@ declare module 'react-declarative/components/List/hooks/usePayload' {
     export default usePayload;
 }
 
+declare module 'react-declarative/components/List/hooks/useReload' {
+    export const useReload: () => (keepPagination?: boolean | undefined) => Promise<void>;
+    export default useReload;
+}
+
+declare module 'react-declarative/components/List/hooks/useSelection' {
+    import React from 'react';
+    import { RowId } from 'react-declarative/model/IRowData';
+    export const useSelection: () => IState;
+    interface ISelectionProviderProps {
+        children: React.ReactNode;
+        selectedRows?: RowId[];
+    }
+    interface IState {
+        selection: Set<RowId>;
+        setSelection: (s: Set<RowId>) => void;
+    }
+    export interface ISelectionReloadRef {
+        reload: (initialChange?: boolean) => void;
+    }
+    export const SelectionProvider: ({ children, selectedRows, }: ISelectionProviderProps) => JSX.Element;
+    export default useSelection;
+}
+
 declare module 'react-declarative/components/List/common/ClassicChipListSlot' {
     import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
     export const ClassicChipListSlot: ({ listChips, loading, }: IChipListSlot) => JSX.Element;
@@ -6481,6 +6507,8 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         FilterListSlot: <FilterData_1 extends {}>({ className, style, height, filterData, filters, change, ready, label, loading, withSearch, withToggledFilters, search, onSearchChange, onFilterChange, onCollapsedChange, }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
         OperationListSlot: ({ className, style, operations, width, }: import("../..").IOperationListSlot) => JSX.Element;
         SearchSlot: ({ className, style, label, loading, search, onSearchChange, }: import("../..").ISearchSlot) => JSX.Element;
+        DesktopBodyRow: <RowData_3 extends import("../../../..").IRowData = any>({ row, mode, columns, disabled, fullWidth, }: import("../..").IBodyRowSlot<RowData_3>) => JSX.Element;
+        MobileBodyRow: <RowData_4 extends import("../../../..").IRowData = any>({ row, mode, disabled, columns, fullWidth, }: import("../..").IBodyRowSlot<RowData_4>) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -6501,6 +6529,8 @@ declare module 'react-declarative/components/List/components/SlotFactory/ISlotFa
     import { IOperationListSlot } from 'react-declarative/components/List/slots/OperationListSlot';
     import { ISearchSlot } from 'react-declarative/components/List/slots/SearchSlot';
     export interface ISlotFactoryContext {
+        DesktopBodyRow: ComponentType<IBodyRowSlot>;
+        MobileBodyRow: ComponentType<IBodyRowSlot>;
         BodyRow: ComponentType<IBodyRowSlot>;
         CheckboxCell: ComponentType<ICheckboxCellSlot>;
         CommonCell: ComponentType<ICommonCellSlot>;

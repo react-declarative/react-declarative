@@ -21,6 +21,8 @@ export { useSortModel as useListSortModel } from './hooks/useSortModel';
 export { useChips as useListChips } from './hooks/useChips';
 export { useSearch as useListSearch } from './hooks/useSearch';
 export { usePayload as useListPayload } from './hooks/usePayload';
+export { useReload as useListReload } from './hooks/useReload';
+export { useSelection as useListSelectionState } from './hooks/useSelection';
 
 export { ClassicChipListSlot } from './common/ClassicChipListSlot';
 export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';

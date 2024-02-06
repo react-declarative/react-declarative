@@ -5,16 +5,16 @@ import Typography from '@mui/material/Typography';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 
-import { makeStyles } from '../../../../../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
-import CommonCellSlot, { ICommonCellSlot } from '../../../../../../slots/CommonCellSlot';
+import CommonCellSlot, { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
-import ColumnType from '../../../../../../../../model/ColumnType';
+import ColumnType from '../../../../../../model/ColumnType';
 
-import fieldToHeader from '../../../../../../helpers/fieldToHeader';
+import fieldToHeader from '../../../../helpers/fieldToHeader';
 
-import classNames from '../../../../../../../../utils/classNames';
-import * as typo from '../../../../../../../../utils/typo';
+import classNames from '../../../../../../utils/classNames';
+import * as typo from '../../../../../../utils/typo';
 
 interface IMobileCommonCellProps extends ICommonCellSlot {
     colSpan: number;
@@ -47,6 +47,7 @@ const useStyles = makeStyles()({
         position: 'relative',
         overflow: 'hidden',
         overflowWrap: 'break-word',
+        fontWeight: 'bold',
         flex: 1,
     },
     shrinkWidth: {
@@ -86,7 +87,7 @@ export const MobileCommonCell = ({
         >
             <Box className={classes.container}>
                 {withLabel && (
-                    <Typography variant="body1" fontWeight="bold">
+                    <Typography variant="body1">
                         {`${typo.bullet} ${headerName}`}
                     </Typography>
                 )}

@@ -812,7 +812,7 @@ const { handleLoadStart, handleLoadEnd } = usePreventNavigate({
 ```
 
 
-<img src="./assets/icons/cubes.svg" height="35px" align="right">
+<img src="./assets/icons/cubes2.svg" height="35px" align="right">
 
 ## Async pipe port
 

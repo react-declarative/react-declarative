@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { makeStyles } from "../../../../../../../../styles";
+import { makeStyles } from "../../../../../../styles";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -8,18 +8,18 @@ import TableCell from "@mui/material/TableCell";
 import CheckboxBodyCell from "./DesktopCheckboxBodyCell";
 import CommonBodyCell from "./DesktopCommonCell";
 
-import IRowData from "../../../../../../../../model/IRowData";
-import IAnything from "../../../../../../../../model/IAnything";
+import IRowData from "../../../../../../model/IRowData";
+import IAnything from "../../../../../../model/IAnything";
 
-import SelectionMode from "../../../../../../../../model/SelectionMode";
+import SelectionMode from "../../../../../../model/SelectionMode";
 
-import { IBodyRowSlot, BodyColumn } from "../../../../../../slots/BodyRowSlot";
+import { IBodyRowSlot, BodyColumn } from "../../../../slots/BodyRowSlot";
 
-import useProps from "../../../../../../hooks/useProps";
-import useReload from "../../../../../../hooks/useReload";
-import useSelection from "../../../../../../hooks/useSelection";
+import useProps from "../../../../hooks/useProps";
+import useReload from "../../../../hooks/useReload";
+import useSelection from "../../../../hooks/useSelection";
 
-import classNames from "../../../../../../../../utils/classNames";
+import classNames from "../../../../../../utils/classNames";
 
 const CELL_PADDING_LEFT = 32;
 

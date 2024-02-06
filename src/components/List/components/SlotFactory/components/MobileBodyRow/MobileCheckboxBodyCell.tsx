@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { makeStyles } from '../../../../../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
 import TableCell from '@mui/material/TableCell';
 
-import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../../../slots/CheckboxCellSlot';
+import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../slots/CheckboxCellSlot';
 
 const useStyles = makeStyles()({
     root: {

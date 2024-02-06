@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import TableCell from '@mui/material/TableCell';
 
-import { makeStyles } from '../../../../../../../../styles';
+import { makeStyles } from '../../../../../../styles';
 
-import CommonCellSlot, { ICommonCellSlot } from '../../../../../../slots/CommonCellSlot';
+import CommonCellSlot, { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 
-import ColumnType from '../../../../../../../../model/ColumnType';
+import ColumnType from '../../../../../../model/ColumnType';
 
 const useStyles = makeStyles()({
     root: {

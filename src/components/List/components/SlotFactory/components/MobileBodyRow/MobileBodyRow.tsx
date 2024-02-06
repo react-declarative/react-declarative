@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useMemo, useState } from "react";
 
-import { makeStyles } from "../../../../../../../../styles";
+import { makeStyles } from "../../../../../../styles";
 import { alpha } from "@mui/material";
 
 import TableRow from "@mui/material/TableRow";
@@ -12,19 +12,19 @@ import TableCell from "@mui/material/TableCell";
 import CheckboxBodyCell from "./MobileCheckboxBodyCell";
 import CommonBodyCell, { CONTENT_CELL } from "./MobileCommonCell";
 
-import IRowData from "../../../../../../../../model/IRowData";
-import IAnything from "../../../../../../../../model/IAnything";
+import IRowData from "../../../../../../model/IRowData";
+import IAnything from "../../../../../../model/IAnything";
 
-import ColumnType from "../../../../../../../../model/ColumnType";
-import SelectionMode from "../../../../../../../../model/SelectionMode";
+import ColumnType from "../../../../../../model/ColumnType";
+import SelectionMode from "../../../../../../model/SelectionMode";
 
-import { IBodyRowSlot, BodyColumn } from "../../../../../../slots/BodyRowSlot";
+import { IBodyRowSlot, BodyColumn } from "../../../../slots/BodyRowSlot";
 
-import classNames from "../../../../../../../../utils/classNames";
+import classNames from "../../../../../../utils/classNames";
 
-import useProps from "../../../../../../hooks/useProps";
-import useSelection from "../../../../../../hooks/useSelection";
-import useReload from "../../../../../../hooks/useReload";
+import useProps from "../../../../hooks/useProps";
+import useSelection from "../../../../hooks/useSelection";
+import useReload from "../../../../hooks/useReload";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
