@@ -10,7 +10,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 
 import CheckboxBodyCell from "./MobileCheckboxBodyCell";
-import CommonBodyCell from "./MobileCommonCell";
+import CommonBodyCell, { CONTENT_CELL } from "./MobileCommonCell";
 
 import IRowData from "../../../../../../../../model/IRowData";
 import IAnything from "../../../../../../../../model/IAnything";
@@ -50,6 +50,11 @@ const useStyles = makeStyles()((theme) => ({
     pointerEvents: "none",
     opacity: 0.5,
   },
+  item: {
+    [`&:has(.${CONTENT_CELL} > :empty)`]: {
+      display: "none",
+    },
+  }
 }));
 
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
@@ -180,7 +185,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
               {actionCol}
             </TableRow>
             {cols.map((col, idx) => (
-              <TableRow key={idx}>{col}</TableRow>
+              <TableRow className={classes.item} key={idx} >{col}</TableRow>
             ))}
           </TableBody>
         </Table>

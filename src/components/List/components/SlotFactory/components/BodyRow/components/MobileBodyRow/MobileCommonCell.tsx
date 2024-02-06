@@ -23,6 +23,7 @@ interface IMobileCommonCellProps extends ICommonCellSlot {
 }
 
 const COMPONENT_MIN_HEIGHT = 70;
+export const CONTENT_CELL = 'react_declarative_listMobileCell';
 
 const useStyles = makeStyles()({
     root: {
@@ -85,12 +86,12 @@ export const MobileCommonCell = ({
         >
             <Box className={classes.container}>
                 {withLabel && (
-                    <Typography variant="body1" color="primary" fontWeight="bold">
+                    <Typography variant="body1" fontWeight="bold">
                         {`${typo.bullet} ${headerName}`}
                     </Typography>
                 )}
                 <Box 
-                    className={classes.content}
+                    className={classNames(classes.content, CONTENT_CELL)}
                     style={{
                         minHeight,
                         maxWidth,
