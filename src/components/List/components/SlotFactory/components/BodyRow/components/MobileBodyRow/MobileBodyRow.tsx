@@ -54,6 +54,9 @@ const useStyles = makeStyles()((theme) => ({
     [`&:has(.${CONTENT_CELL} > :empty)`]: {
       display: "none",
     },
+    [`&:has(.${CONTENT_CELL}:empty)`]: {
+      display: "none",
+    },
   }
 }));
 
