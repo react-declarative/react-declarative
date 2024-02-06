@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import Typography from '@mui/material/Typography';
 import TableCell from '@mui/material/TableCell';
@@ -56,6 +57,7 @@ const useStyles = makeStyles()({
 export const MobileCommonCell = ({
     colSpan,
     withLabel,
+    fullWidth,
     disableGutters,
     ...props
 }: IMobileCommonCellProps) => {
@@ -64,8 +66,12 @@ export const MobileCommonCell = ({
 
     const { column } = props;
 
-    const { minHeight: minHeightCol } = column;
-    const minHeight = minHeightCol || (column.type === ColumnType.Component ? COMPONENT_MIN_HEIGHT : undefined);
+    const minHeight =  useMemo(() => {
+        const { minHeight: minHeightCol } = column;
+        return minHeightCol || (column.type === ColumnType.Component ? COMPONENT_MIN_HEIGHT : undefined)
+    }, []);
+
+    const maxWidth = useMemo(() => Math.max(fullWidth - 35, 0), [fullWidth]);
 
     const { headerName = fieldToHeader(column.field || '') || 'Unknown' } = column;
 
@@ -79,7 +85,7 @@ export const MobileCommonCell = ({
         >
             <Box className={classes.container}>
                 {withLabel && (
-                    <Typography variant="body1" fontWeight="bold">
+                    <Typography variant="body1" color="primary" fontWeight="bold">
                         {`${typo.bullet} ${headerName}`}
                     </Typography>
                 )}
@@ -87,10 +93,12 @@ export const MobileCommonCell = ({
                     className={classes.content}
                     style={{
                         minHeight,
+                        maxWidth,
                     }}
                 >
                     <CommonCellSlot
                         {...props}
+                        fullWidth={fullWidth}
                     />
                 </Box>
             </Box>

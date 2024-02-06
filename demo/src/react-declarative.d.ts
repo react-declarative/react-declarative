@@ -8747,9 +8747,10 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
         startIcon?: React.ReactNode;
         variant?: "text" | "outlined" | "contained";
         size?: "small" | "medium" | "large";
+        color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
         content: string | number;
     }
-    export const CopyButton: ({ className, style, sx, onClick, delay, variant, size, startIcon, content, }: ICopyButtonProps) => JSX.Element;
+    export const CopyButton: ({ className, style, sx, onClick, delay, variant, size, color, startIcon, content, }: ICopyButtonProps) => JSX.Element;
     export default CopyButton;
 }
 

@@ -21,6 +21,7 @@ interface ICopyButtonProps {
   startIcon?: React.ReactNode;
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
+  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   content: string | number;
 }
 
@@ -32,6 +33,7 @@ export const CopyButton = ({
   delay = TOOLTIP_CLOSE_DELAY,
   variant = "text",
   size = "small",
+  color = "info",
   startIcon = <ContentCopy />,
   content,
 }: ICopyButtonProps) => {
@@ -61,6 +63,7 @@ export const CopyButton = ({
     >
       <Button
         variant={variant}
+        color={color}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
