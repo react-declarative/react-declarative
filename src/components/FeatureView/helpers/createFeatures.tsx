@@ -1,4 +1,7 @@
+import * as React from 'react';
 import { alpha } from "@mui/material";
+
+import Typography from "@mui/material/Typography";
 
 import FieldType from "../../../model/FieldType";
 import TypedField from "../../../model/TypedField";
@@ -60,13 +63,21 @@ export const createFeatures = (features: IFeatureGroup[], expandAll = false): Ty
             map,
           }),
           {
-            type: FieldType.Typography,
-            typoVariant: "subtitle2",
-            placeholder: description,
-            style: {
-              opacity: 0.5,
-            },
-            fieldBottomMargin: "0",
+            type: FieldType.Component,
+            element: (data: any) => (
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  opacity:
+                    !data.payload.readonly &&
+                    !data[name]
+                      ? 0.2
+                      : 0.5,
+                }}
+              >
+                {description}
+              </Typography>
+            ),
           },
         ]
       }),

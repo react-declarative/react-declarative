@@ -1,3 +1,7 @@
+import * as React from 'react';
+
+import Typography from "@mui/material/Typography";
+
 import FieldType from "../../../model/FieldType";
 import IField from "../../../model/IField";
 import FeatureType from "../model/FeatureType";
@@ -32,14 +36,21 @@ export const createFeatureItem = (
         display: "inline-grid",
         gridTemplateColumns: "1fr 58px",
         alignItems: "center",
+        width: '100%',
       },
       fields: [
         {
-          type: FieldType.Typography,
-          fieldRightMargin: "0",
-          fieldBottomMargin: "0",
-          typoVariant: "body1",
-          placeholder: label,
+          type: FieldType.Component,
+          element: (data) => (
+            <Typography
+              variant="body1"
+              style={{
+                opacity: !data.payload.readonly && !data[name] ? 0.5 : 1.0,
+              }}
+            >
+              {label}
+            </Typography>
+          ),
         },
         {
           type: FieldType.Text,
@@ -68,16 +79,40 @@ export const createFeatureItem = (
     };
   }
   return {
-    type: FieldType.Switch,
-    defaultValue,
-    isDisabled: (data: any, payload: any) =>
-      or(isDisabled(data, payload), payload.readonly),
-    isVisible,
-    map,
-    name,
-    fieldRightMargin: "0",
-    title: label,
-    fieldBottomMargin: "0",
+    type: FieldType.Div,
+    style: {
+      display: "inline-grid",
+      gridTemplateColumns: "1fr auto",
+      alignItems: "center",
+      width: '100%',
+    },
+    fields: [
+      {
+        type: FieldType.Component,
+        element: (data) => (
+          <Typography
+            variant="body1"
+            style={{
+              opacity: !data.payload.readonly && !data[name] ? 0.5 : 1.0,
+            }}
+          >
+            {label}
+          </Typography>
+        ),
+      },
+      {
+        type: FieldType.Switch,
+        defaultValue,
+        isDisabled: (data: any, payload: any) =>
+          or(isDisabled(data, payload), payload.readonly),
+        isVisible,
+        map,
+        name,
+        fieldRightMargin: "0",
+        title: "",
+        fieldBottomMargin: "0",
+      },
+    ],
   };
 };
 
