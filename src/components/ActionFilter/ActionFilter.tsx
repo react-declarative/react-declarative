@@ -150,6 +150,7 @@ export const ActionFilter = ({
                     sx: {
                         maxHeight: '35vh',
                         overflowY:'auto',
+                        overflowX: 'hidden',
                     },
                 }}
             >

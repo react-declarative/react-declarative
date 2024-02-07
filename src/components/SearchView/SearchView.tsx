@@ -47,6 +47,7 @@ const useStyles = makeStyles()({
     minWidth: 290,
     maxHeight: '35vh',
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
 });
 

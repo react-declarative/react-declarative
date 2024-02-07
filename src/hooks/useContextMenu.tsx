@@ -54,6 +54,7 @@ const useStyles = makeStyles()({
     justifyContent: "stretch",
     maxHeight: '35vh',
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
   content: {
     flex: 1,
