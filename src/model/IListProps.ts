@@ -203,6 +203,7 @@ export interface IListProps<
   handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
+  rowColor?: ((row: RowData) => string);
   isRowDisabled?: (row: RowData, params: {
     filterData: FilterData,
     pagination: ListHandlerPagination,

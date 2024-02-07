@@ -75,7 +75,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   const { selection, setSelection } = useSelection();
 
-  const { onRowClick, onRowAction } = props;
+  const { onRowClick, onRowAction, rowColor = () => 'inherit' } = props;
 
   const handleClick = () => {
     if (!menuOpened) {
@@ -167,6 +167,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
       className={classes.root}
       selected={selection.has(row.id)}
       sx={{
+        background: rowColor(row),
         maxWidth,
       }}
       onClick={handleClick}
