@@ -24,6 +24,7 @@ export const AlertPicker = ({
   return (
     <ModalDialog
       open={open}
+      canCancel={false}
       onAccept={onOk}
     >
       <DialogTitle>
