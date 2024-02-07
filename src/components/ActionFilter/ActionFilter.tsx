@@ -146,6 +146,12 @@ export const ActionFilter = ({
                 anchorEl={anchorEl}
                 open={!!anchorEl}
                 onClose={handleClose}
+                MenuListProps={{
+                    sx: {
+                        maxHeight: '35vh',
+                        overflowY:'auto',
+                    },
+                }}
             >
                 {options.map((option, index) => (
                     <MenuItem

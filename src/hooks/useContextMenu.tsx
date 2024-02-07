@@ -52,6 +52,8 @@ const useStyles = makeStyles()({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
+    maxHeight: '35vh',
+    overflowY: 'auto',
   },
   content: {
     flex: 1,
