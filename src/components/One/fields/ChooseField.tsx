@@ -31,6 +31,7 @@ export interface IChooseFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   dirty: PickProp<IManaged<Data>, "dirty">;
   name: PickProp<IManaged<Data>, "name">;
+  withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
 export const ChooseField = ({
@@ -51,6 +52,7 @@ export const ChooseField = ({
   onChange,
   inputRef,
   name,
+  withContextMenu,
 }: IChooseFieldProps & IChooseFieldPrivate) => (
   <Choose
     inputRef={inputRef}
@@ -64,6 +66,7 @@ export const ChooseField = ({
     outlined={outlined}
     title={title}
     placeholder={placeholder}
+    withContextMenu={withContextMenu}
     choose={choose}
     tr={tr}
     dirty={dirty}

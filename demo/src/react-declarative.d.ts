@@ -4860,9 +4860,10 @@ declare module 'react-declarative/components/One/fields/ChooseField' {
         disabled: PickProp<IManaged<Data>, "disabled">;
         dirty: PickProp<IManaged<Data>, "dirty">;
         name: PickProp<IManaged<Data>, "name">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const ChooseField: {
-        ({ invalid, value, disabled, readonly, incorrect, description, outlined, title, placeholder, labelShrink, choose, tr, dirty, loading, onChange, inputRef, name, }: IChooseFieldProps & IChooseFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, incorrect, description, outlined, title, placeholder, labelShrink, choose, tr, dirty, loading, onChange, inputRef, name, withContextMenu, }: IChooseFieldProps & IChooseFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
