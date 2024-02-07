@@ -354,7 +354,7 @@ export const Complete = ({
       </div>
       <Popover
         open={!!anchorEl}
-        anchorEl={anchorElRef.current}
+        anchorEl={anchorEl}
         onClose={handleBlur}
         anchorOrigin={{
           vertical: "bottom",
@@ -373,6 +373,7 @@ export const Complete = ({
                 ? Math.min(items.length * ITEM_HEIGHT, 250)
                 : ITEM_HEIGHT,
               mb: 1,
+              maxHeight: '35vh',
             }}
             minRowHeight={ITEM_HEIGHT}
           >
