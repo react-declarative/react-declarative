@@ -54,14 +54,18 @@ export const Time = ({
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = ({ clientX, clientY, target }: React.MouseEvent<HTMLButtonElement>) => {
+    const pointTarget = document.elementFromPoint(clientX, clientY);
+    if (pointTarget) {
+      setAnchorEl(pointTarget as HTMLButtonElement);
+      return;
+    }
+    setAnchorEl(target as unknown as HTMLButtonElement);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   const [value, setValue] = useState(
     datetime.parseTime(upperValue || '') ? upperValue : '',

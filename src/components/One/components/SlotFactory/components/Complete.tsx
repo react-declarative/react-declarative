@@ -87,7 +87,20 @@ export const Complete = ({
   const { elementRef: anchorElRef, size } = useElementSize<HTMLDivElement>();
   const inputElementRef = useRef<HTMLInputElement>(null);
 
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+
+  const handleClick = ({ clientX, clientY, target }: React.MouseEvent<HTMLDivElement>) => {
+    const pointTarget = document.elementFromPoint(clientX, clientY);
+    if (pointTarget) {
+      setAnchorEl(pointTarget as HTMLDivElement);
+      return;
+    }
+    setAnchorEl(target as unknown as HTMLDivElement);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const [selectedIdx, setSelectedIdx] = useState(-1);
 
@@ -223,14 +236,14 @@ export const Complete = ({
   }, [valueD, open]);
 
   const handleBlur = () => {
-    setOpen(false);
+    handleClose();
     setSelectedIdx(-1);
     inputElementRef.current?.setSelectionRange(null, null);
   };
 
   const handleKeyDown = (key: string, blur: () => void) => {
     if (key === "Escape") {
-      setOpen(false);
+      handleClose();
       setSelectedIdx(-1);
       blur();
       return true;
@@ -248,7 +261,7 @@ export const Complete = ({
       if (item) {
         handleChange(item);
         inputElementRef.current?.setSelectionRange(item.length, item.length);
-        setOpen(false);
+        handleClose();
         setSelectedIdx(-1);
         return true;
       }
@@ -334,13 +347,13 @@ export const Complete = ({
             }
             onChange(result);
           }}
-          onClick={() => setOpen(true)}
+          onClick={handleClick}
           label={title}
           disabled={disabled}
         />
       </div>
       <Popover
-        open={open}
+        open={!!anchorEl}
         anchorEl={anchorElRef.current}
         onClose={handleBlur}
         anchorOrigin={{
@@ -351,7 +364,7 @@ export const Complete = ({
         disableEnforceFocus
         disableRestoreFocus
       >
-        {open && (
+        {!!anchorEl && (
           <VirtualView
             component={List}
             sx={{
@@ -379,7 +392,7 @@ export const Complete = ({
                     e.stopPropagation();
                     handleChange(value);
                     tipSelect && tipSelect(value, object$.current, payload, handleChangeObj);
-                    setOpen(false);
+                    handleClose();
                   }}
                 >
                   <ListItemText primary={value} />
