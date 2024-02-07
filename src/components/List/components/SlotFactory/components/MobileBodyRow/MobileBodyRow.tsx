@@ -50,14 +50,14 @@ const useStyles = makeStyles()((theme) => ({
     pointerEvents: "none",
     opacity: 0.5,
   },
-  item: {
+  hideIfEmpty: {
     [`&:has(.${CONTENT_CELL} > :empty)`]: {
       display: "none",
     },
     [`&:has(.${CONTENT_CELL}:empty)`]: {
       display: "none",
     },
-  }
+  },
 }));
 
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
@@ -121,6 +121,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
       (column: BodyColumn, idx: number) =>
         (
           <CommonBodyCell
+            className={classNames(column.type !== ColumnType.Component && classes.hideIfEmpty)}
             column={column}
             disabled={disabled}
             row={row}
@@ -188,7 +189,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
               {actionCol}
             </TableRow>
             {cols.map((col, idx) => (
-              <TableRow className={classes.item} key={idx} >{col}</TableRow>
+              <TableRow key={idx} >{col}</TableRow>
             ))}
           </TableBody>
         </Table>

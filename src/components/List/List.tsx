@@ -27,8 +27,8 @@ export const ListTyped = <
 ) => {
 
   const columns = useMemo(() => {
-    const { columns = [], rowActions } = props;
-    if (!rowActions?.length) {
+    const { columns = [], rowActions, onRowAction } = props;
+    if (!rowActions?.length || !onRowAction) {
       return columns.filter(({ type }) => type !== ColumnType.Action);
     }
     return columns;

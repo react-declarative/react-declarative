@@ -17,6 +17,7 @@ import classNames from '../../../../../../utils/classNames';
 import * as typo from '../../../../../../utils/typo';
 
 interface IMobileCommonCellProps extends ICommonCellSlot {
+    className?: string;
     colSpan: number;
     withLabel: boolean;
     disableGutters: boolean;
@@ -57,6 +58,7 @@ const useStyles = makeStyles()({
 });
 
 export const MobileCommonCell = ({
+    className,
     colSpan,
     withLabel,
     fullWidth,
@@ -79,7 +81,7 @@ export const MobileCommonCell = ({
 
     return (
         <TableCell
-            className={classNames(classes.root, {
+            className={classNames(classes.root, className, {
                 [classes.noGutters]: disableGutters,
                 [classes.shrinkWidth]: column.type === ColumnType.Action,
             })}
