@@ -46,7 +46,9 @@ const buildObj = <Data = IAnything, Payload = IAnything>(fields: IField<Data>[],
             .forEach((f) => {
                 if (isStatefull(f as IField)) {
                     create(obj, f.name);
-                    if (typeof f.defaultValue === 'undefined') {
+                    if (typeof f.hidden === 'function' ? f.hidden(payload) : f.hidden) {
+                        return;
+                    } else if (typeof f.defaultValue === 'undefined') {
                         set(obj, f.name, get(obj, f.name) || initialValue(f.type));
                     } else if (typeof f.defaultValue === 'function') {
                         set(obj, f.name, (f.defaultValue as Function)(payload));

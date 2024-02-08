@@ -24,7 +24,8 @@ import NoSsr from "../../../NoSsr";
 import deepMerge from "../../../../utils/deepMerge";
 import deepFlat from "../../../../utils/deepFlat";
 import sleep from "../../../../utils/sleep";
-import set from "../../../../utils/set";
+import set from "../../../../utils/set";;
+import get from "../../../../utils/get";
 import create from "../../../../utils/create";
 
 import GridView from "../view/GridView";
@@ -50,7 +51,7 @@ import SlotFactory from "../SlotFactory";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
 import { SearchProvider } from "../../hooks/useSearch";
-import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
+import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap"
 
 export class Entry<
   FilterData extends {} = IAnything,
@@ -411,13 +412,17 @@ export class Entry<
     const newData: Partial<FilterData> = {};
     deepFlat(this.props.filters)
       .filter(({ name }) => !!name)
-      .map(({ type, name, defaultValue }) => {
+      .forEach(({ type, name, defaultValue, hidden }) => {
         create(newData, name);
-        const fieldValue =
-          typeof defaultValue === "function"
-            ? defaultValue(this.state.payload)
-            : defaultValue;
-        set(newData, name, fieldValue || initialValue(type));
+        if (typeof hidden === 'function' ? hidden(this.state.payload) : hidden) {
+          return;
+        } else if (typeof defaultValue === 'undefined') {
+          set(newData, name, get(newData, name) || initialValue(type));
+        } else if (typeof defaultValue === 'function') {
+          set(newData, name, (defaultValue as Function)(this.state.payload));
+        } else {
+          set(newData, name, defaultValue);
+        }
       });
     if (initialCall) {
       deepMerge(newData, this.props.filterData!);
