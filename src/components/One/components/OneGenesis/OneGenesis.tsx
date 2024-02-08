@@ -91,8 +91,11 @@ export const OneGenesis = <
   const handleChange = useCallback((newData: Data, initial: boolean) => {
     const { current: change } = change$;
     let isValid = true;
-    deepFlat(fields).forEach(({ isInvalid = () => null }: any) => {
-      isValid = isValid && (isInvalid(newData, payload) || null) === null;
+    deepFlat(fields).forEach(({ isInvalid = () => null, hidden }: IField) => {
+      const isHidden = typeof hidden === 'function' ? hidden(payload) : hidden;
+      if (!isHidden) {
+        isValid = isValid && (isInvalid(newData, payload) || null) === null;
+      }
     });
     if (isValid) {
       change(newData, initial);
