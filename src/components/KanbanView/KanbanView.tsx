@@ -165,12 +165,12 @@ const KanbanViewInternal = <
                 typeof visible === "function"
                   ? await visible(id, data, payload)
                   : visible;
-              const visibleValue =
-                typeof visibleResult === "boolean" ? visibleResult : true;
-              const label =
-                typeof value === "function"
+              const visibleValue = !!visibleResult;
+              const label = visibleValue
+                ? typeof value === "function"
                   ? await value(id, data, payload)
-                  : value;
+                  : value
+                : undefined;
               return {
                 visible: visibleValue,
                 value: label,
