@@ -161,11 +161,10 @@ const KanbanViewInternal = <
         ): Promise<IBoardRowInternal[]> => {
           const result = await Promise.all(
             rows.map(async ({ value, visible, ...other }) => {
-              const visibleResult =
+              const visibleValue =
                 typeof visible === "function"
                   ? await visible(id, data, payload)
-                  : visible;
-              const visibleValue = !!visibleResult;
+                  : visible === undefined ? true : !!visible;
               const label = visibleValue
                 ? typeof value === "function"
                   ? await value(id, data, payload)
