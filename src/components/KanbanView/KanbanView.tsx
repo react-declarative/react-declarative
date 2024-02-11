@@ -367,7 +367,7 @@ const KanbanViewInternal = <
                               dragId.current = document.id;
                             }}
                             disabled={disabled}
-                            columns={columnList}
+                            columns={columns}
                             rows={rows}
                             label={document.label || cardLabel}
                             AfterCardContent={AfterCardContent}

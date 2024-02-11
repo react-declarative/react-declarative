@@ -20,6 +20,7 @@ import useAsyncValue from "../../../hooks/useAsyncValue";
 import useFetchLabel from "../hooks/useFetchLabel";
 
 import IAnything from "../../../model/IAnything";
+import IBoardColumn from "../model/IBoardColumn";
 import IBoardItem from "../model/IBoardItem";
 import TSubject from "../../../model/TSubject";
 
@@ -33,7 +34,7 @@ export interface IHeaderProps<ColumnType = any> {
   data: IAnything;
   disabled: boolean;
   column: ColumnType;
-  columns: ColumnType[];
+  columns: IBoardColumn[];
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
@@ -119,12 +120,12 @@ export const Header = ({
   );
 
   const beforeCurrentColumn = useMemo(() => {
-    const currentColumnIdx = columns.findIndex((value) => value === column);
+    const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
     return columns.filter((_, idx) => idx < currentColumnIdx).reverse();
   }, [column]);
 
   const afterCurrentColumn = useMemo(() => {
-    const currentColumnIdx = columns.findIndex((value) => value === column);
+    const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
     return columns.filter((_, idx) => idx > currentColumnIdx);
   }, [column]);
 
@@ -184,11 +185,11 @@ export const Header = ({
             <MenuItem
               key={`${column}-${idx}`}
               onClick={() => {
-                onChangeColumn(id, column, data, payload);
+                onChangeColumn(id, column.column, data, payload);
                 setBeforeAnchorEl(null);
               }}
             >
-              {column}
+              {column.label || column.column}
             </MenuItem>
           ))}
         </Menu>
@@ -212,11 +213,11 @@ export const Header = ({
             <MenuItem
               key={`${column}-${idx}`}
               onClick={() => {
-                onChangeColumn(id, column, data, payload);
+                onChangeColumn(id, column.column, data, payload);
                 setAfterAnchorEl(null);
               }}
             >
-              {column}
+              {column.label || column.column}
             </MenuItem>
           ))}
         </Menu>
