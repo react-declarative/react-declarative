@@ -9,7 +9,7 @@ export interface IVisibilityViewProps {
   outlinePaper?: boolean;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   expandAll?: boolean;
   readonly?: boolean;
   data?: Record<string, string[]> | null;

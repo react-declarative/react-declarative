@@ -15,7 +15,7 @@ const TOOLTIP_CLOSE_DELAY = 800;
 interface ICopyButtonProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   delay?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>, doCopy: () => void) => void;
   startIcon?: React.ReactNode;

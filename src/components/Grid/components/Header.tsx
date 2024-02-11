@@ -33,7 +33,7 @@ const ROW_CHECKBOX_UNIQUE_KEY = randomString();
 interface IHeaderProps<T = RowData> {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   columns: Array<IColumn>;
   sort: IGridProps<T>["sort"];
   rowActions: IGridProps<T>["rowActions"];

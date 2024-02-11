@@ -38,7 +38,7 @@ export interface IActionMenuProps<T extends any = object> {
   className?: string;
   reloadSubject?: TSubject<void>;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   payload?: IAsyncProps<T>["payload"];
   onLoadStart?: IAsyncProps<T>["onLoadStart"];
   onLoadEnd?: IAsyncProps<T>["onLoadEnd"];

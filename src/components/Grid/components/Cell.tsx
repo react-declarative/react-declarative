@@ -16,7 +16,7 @@ import SelectionMode from '../../../model/SelectionMode';
 interface ICellProps extends BoxProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   idx: number;
   column: IColumn;
   children: React.ReactNode;

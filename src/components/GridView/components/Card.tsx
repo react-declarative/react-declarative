@@ -62,7 +62,7 @@ const useStyles = makeStyles()((theme) => ({
 export interface ICardProps<P = IAnything> {
   label?: React.ReactNode;
   outlinePaper?: boolean;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   children?: React.ReactNode;
   className?: string;
   payload?: P;

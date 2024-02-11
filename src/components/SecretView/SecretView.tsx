@@ -35,7 +35,7 @@ interface ISecretViewProps {
   digits?: number;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
 }
 
 interface IState {

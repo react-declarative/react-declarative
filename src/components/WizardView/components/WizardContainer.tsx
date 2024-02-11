@@ -1,6 +1,6 @@
 import * as React from "react";
 import { forwardRef } from "react";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import { makeStyles } from "../../../styles";
 
@@ -12,7 +12,7 @@ interface IWizardContainerProps extends BoxProps {
   ref?: React.Ref<HTMLDivElement | undefined>;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   Navigation?: React.ReactNode;
 }
 

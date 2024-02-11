@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 interface ISearchProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
 }
 
 export const Search = ({

@@ -15,7 +15,7 @@ import randomString from "../../utils/randomString";
 interface IDragDropViewProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   disabled?: boolean;
   multiple?: boolean;
   accept?: string;

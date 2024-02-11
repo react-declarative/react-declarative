@@ -12,7 +12,7 @@ export interface IFeatureViewProps {
     onChange?: (data: string[]) => void;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     readonly?: boolean;
     features: IFeatureGroup[];
     expandAll?: boolean;

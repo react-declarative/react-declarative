@@ -60,7 +60,7 @@ const useStyles = makeStyles()((theme) => ({
 interface IContainerProps {
     passthrough?: boolean;
     label?: string;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     children?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;

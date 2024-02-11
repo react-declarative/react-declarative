@@ -68,7 +68,7 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   /**
    * SX для корневой группы
    */
-  sx?: SxProps;
+  sx?: SxProps<any>;
   /**
    * Позволяет загружать данные в компонент
    */

@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 interface ICenterProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   children: React.ReactNode;
 }
 

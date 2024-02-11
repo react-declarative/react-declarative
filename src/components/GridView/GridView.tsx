@@ -16,7 +16,7 @@ interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
   outlinePaper?: boolean;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   label?: ICardProps["label"];
   mobileItem?: ITileProps<T>["children"];
   BeforeLabel?: ICardProps["BeforeLabel"];

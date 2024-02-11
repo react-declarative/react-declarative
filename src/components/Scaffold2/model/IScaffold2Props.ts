@@ -15,7 +15,7 @@ export interface IScaffold2Props<T = Payload> {
     dense?: boolean;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     appName?: string;
     options: IScaffold2Group<T>[];
     actions?: IScaffold2Action<T>[];

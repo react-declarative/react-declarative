@@ -17,7 +17,7 @@ export interface IMasterDetailProps<Payload = any> {
     onActiveOptionChange?: (activeOption: string, initial: boolean) => void;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     payload?: Payload;
     deps?: any[];
     options: IMasterDetailOption<Payload>[];

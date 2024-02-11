@@ -32,7 +32,7 @@ export interface IFilesViewProps {
   tr?: (item: string) => (string | Promise<string>);
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   accept?: string;
   multiple?: boolean;
   onLoadStart?: () => void;

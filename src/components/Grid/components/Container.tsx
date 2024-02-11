@@ -21,7 +21,7 @@ import classNames from "../../../utils/classNames";
 interface Props {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   header?: React.ReactNode;
   children: React.ReactNode;
 }

@@ -35,7 +35,7 @@ import useMediaContext from "../../../hooks/useMediaContext";
 interface IHeaderProps<T = Payload> extends StackProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   loading?: boolean | number;
   payload?: T;
   isMobile: boolean;

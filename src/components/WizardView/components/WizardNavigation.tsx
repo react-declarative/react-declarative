@@ -12,7 +12,7 @@ import classNames from "../../../utils/classNames";
 interface IWizardNavigationProps extends BoxProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   disabled?: boolean;
   AfterPrev?: React.ComponentType<any>;
   BeforeNext?: React.ComponentType<any>;

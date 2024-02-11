@@ -29,7 +29,7 @@ import { DEFAULT_ROW_HEIGHT } from "../config";
 interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   recomputeSubject: IGridProps["recomputeSubject"];
   scrollXSubject: IGridProps["scrollYSubject"];
   scrollYSubject: IGridProps["scrollXSubject"];

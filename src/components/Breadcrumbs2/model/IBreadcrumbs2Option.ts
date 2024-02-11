@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
@@ -14,6 +16,7 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
         payload: Data,
         disabled: boolean;
     }>;
+    sx?: SxProps<any>;
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);

@@ -14,7 +14,7 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnT
     className?: string;
     rowTtl?: number;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     payload?: (() => Payload) | Payload;
     disabled?: boolean;
     items: IBoardItem<Data, Payload, ColumnType>[];

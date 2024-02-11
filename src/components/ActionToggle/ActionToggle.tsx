@@ -24,7 +24,7 @@ interface IActionToggleProps extends Omit<BoxProps, keyof {
     disabled?: boolean;
     defaultChecked?: boolean;
     throwError?: boolean;
-    sx?: SxProps;
+    sx?: SxProps<any>;
 };
 
 const useStyles = makeStyles()({

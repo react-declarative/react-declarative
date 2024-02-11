@@ -21,7 +21,7 @@ import usePropsContext from "../context/PropsContext";
 interface IOptionItemProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   option: IScaffold2OptionInternal;
   activeOptionPath: string;
   currentPadding: number;

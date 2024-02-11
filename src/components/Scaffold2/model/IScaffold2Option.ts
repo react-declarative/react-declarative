@@ -9,7 +9,7 @@ export interface IScaffold2Option<T = Payload> {
     label?: string;
     lifted?: boolean;
     pin?: boolean;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
     tabs?: IScaffold2Tab<T>[];
     options?: IScaffold2Option<T>[];

@@ -50,7 +50,7 @@ interface IErrorViewProps {
     onButtonClick?: () => void;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
 }
 
 const handleReload = () => {

@@ -12,7 +12,6 @@
 //   ../../@mui/material/Stack
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
-//   ../../@mui/system
 //   ../../@mui/material/Chip
 
 declare module 'react-declarative' {
@@ -2155,7 +2154,7 @@ declare module 'react-declarative/model/IOneProps' {
             /**
                 * SX для корневой группы
                 */
-            sx?: SxProps;
+            sx?: SxProps<any>;
             /**
                 * Позволяет загружать данные в компонент
                 */
@@ -5042,7 +5041,7 @@ declare module 'react-declarative/components/SearchView/model/ISearchViewProps' 
     }> & {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         changeSubject?: TSubject<void>;
         fullWidth?: boolean;
         SearchItem?: React.ComponentType<ISearchItemProps<Data>>;
@@ -6236,7 +6235,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Option' {
         label?: string;
         lifted?: boolean;
         pin?: boolean;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         icon?: React.ComponentType<any>;
         tabs?: IScaffold2Tab<T>[];
         options?: IScaffold2Option<T>[];
@@ -6293,7 +6292,7 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
     interface IBreadcrumbs2Props<T extends any = any> {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         onAction?: (action: string) => void | Promise<void>;
         actions?: IBreadcrumbs2Action<T>[];
         items: IBreadcrumbs2Option<T>[];
@@ -6332,6 +6331,7 @@ declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Act
 }
 
 declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option' {
+    import { SxProps } from "@mui/material";
     import IAnything from "react-declarative/model/IAnything";
     import IOption from "react-declarative/model/IOption";
     import Breadcrumbs2Type from "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type";
@@ -6346,6 +6346,7 @@ declare module 'react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
             payload: Data;
             disabled: boolean;
         }>;
+        sx?: SxProps<any>;
         compute?: (payload: Data) => (Promise<string> | string);
         isVisible?: (payload: Data) => (Promise<boolean> | boolean);
         isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
@@ -7143,7 +7144,7 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         className?: string;
         reloadSubject?: TSubject<void>;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         payload?: IAsyncProps<T>["payload"];
         onLoadStart?: IAsyncProps<T>["onLoadStart"];
         onLoadEnd?: IAsyncProps<T>["onLoadEnd"];
@@ -7202,7 +7203,7 @@ declare module 'react-declarative/components/ActionStopIcon/ActionStopIcon' {
         onClick: never;
     }> {
         children?: React.ReactNode;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         className?: string;
         style?: React.CSSProperties;
         noProgress?: boolean;
@@ -7315,7 +7316,7 @@ declare module 'react-declarative/components/ActionToggle/ActionToggle' {
         disabled?: boolean;
         defaultChecked?: boolean;
         throwError?: boolean;
-        sx?: SxProps;
+        sx?: SxProps<any>;
     }
     export const ActionToggle: ({ className, onClick, onLoadStart, onLoadEnd, fallback, disabled, throwError, checked: upperChecked, defaultChecked, ...otherProps }: IActionToggleProps) => JSX.Element;
     export default ActionToggle;
@@ -7644,7 +7645,7 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
     interface IDragDropViewProps {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         disabled?: boolean;
         multiple?: boolean;
         accept?: string;
@@ -7669,7 +7670,7 @@ declare module 'react-declarative/components/FilesView/FilesView' {
         tr?: (item: string) => (string | Promise<string>);
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         accept?: string;
         multiple?: boolean;
         onLoadStart?: () => void;
@@ -8051,7 +8052,7 @@ declare module 'react-declarative/components/SecretView/SecretView' {
         digits?: number;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
     }
     export const SecretView: ({ className, style, sx, children, enabled, title, description, digits, onCode, }: ISecretViewProps) => JSX.Element;
     export default SecretView;
@@ -8070,7 +8071,7 @@ declare module 'react-declarative/components/WizardView/components/WizardNavigat
     interface IWizardNavigationProps extends BoxProps {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         disabled?: boolean;
         AfterPrev?: React.ComponentType<any>;
         BeforeNext?: React.ComponentType<any>;
@@ -8091,13 +8092,13 @@ declare module 'react-declarative/components/WizardView/components/WizardNavigat
 
 declare module 'react-declarative/components/WizardView/components/WizardContainer' {
     import * as React from "react";
-    import { SxProps } from "@mui/system";
+    import { SxProps } from "@mui/material";
     import { BoxProps } from "@mui/material/Box";
     interface IWizardContainerProps extends BoxProps {
         ref?: React.Ref<HTMLDivElement | undefined>;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         Navigation?: React.ReactNode;
     }
     export const WizardContainer: React.FC<IWizardContainerProps>;
@@ -8214,7 +8215,7 @@ declare module 'react-declarative/components/ErrorView/ErrorView' {
         onButtonClick?: () => void;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
     }
     export const ErrorView: ({ appName, Logo, className, style, sx, buttonLabel, contentLabel, onButtonClick, }: IErrorViewProps) => JSX.Element;
     export default ErrorView;
@@ -8229,7 +8230,7 @@ declare module 'react-declarative/components/AuthView/AuthView' {
     interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         appName?: string;
         fields?: Field[];
         handler?: OneHandler<Data, Payload>;
@@ -8334,7 +8335,7 @@ declare module 'react-declarative/components/InfiniteView/InfiniteView' {
     interface IInfiniteViewProps extends BoxProps {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         children?: React.ReactNode;
         hasMore?: boolean;
         loading?: boolean;
@@ -8481,7 +8482,7 @@ declare module 'react-declarative/components/GridView/GridView' {
         className?: string;
         style?: React.CSSProperties;
         outlinePaper?: boolean;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         label?: ICardProps["label"];
         mobileItem?: ITileProps<T>["children"];
         BeforeLabel?: ICardProps["BeforeLabel"];
@@ -8602,7 +8603,7 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
     export interface IGridProps<T = RowData, P = IAnything> {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         header?: React.ReactNode;
         data: Array<T>;
         columns: Array<IColumn<T>>;
@@ -8700,7 +8701,7 @@ declare module 'react-declarative/components/Tile/model/ITileProps' {
     export interface ITileProps<Data = IAnything, Payload = IAnything> {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         loading?: boolean;
         hasMore?: boolean;
         errorMessage?: string | null;
@@ -8773,7 +8774,7 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
     interface ICopyButtonProps {
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         delay?: number;
         onClick?: (e: React.MouseEvent<HTMLButtonElement>, doCopy: () => void) => void;
         startIcon?: React.ReactNode;
@@ -8953,7 +8954,7 @@ declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps
         onChange?: (data: string[]) => void;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         readonly?: boolean;
         features: IFeatureGroup[];
         expandAll?: boolean;
@@ -8970,7 +8971,7 @@ declare module 'react-declarative/components/VisibilityView/model/IVisibilityVie
         outlinePaper?: boolean;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         expandAll?: boolean;
         readonly?: boolean;
         data?: Record<string, string[]> | null;
@@ -9030,7 +9031,7 @@ declare module 'react-declarative/components/Scaffold2/model/IScaffold2Props' {
         dense?: boolean;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         appName?: string;
         options: IScaffold2Group<T>[];
         actions?: IScaffold2Action<T>[];
@@ -9782,7 +9783,7 @@ declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
         className?: string;
         outlinePaper?: boolean;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
         routes: ITabsOutlet<Data, Payload>[];
         tabs: ITabsStep<Payload>[];
@@ -9806,7 +9807,7 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
         className?: string;
         outlinePaper?: boolean;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         routes: IWizardOutlet<Data, Payload>[];
         steps: IWizardStep<Payload>[];
         history?: History;
@@ -9884,7 +9885,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         className?: string;
         rowTtl?: number;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         payload?: (() => Payload) | Payload;
         disabled?: boolean;
         items: IBoardItem<Data, Payload, ColumnType>[];
@@ -9923,7 +9924,7 @@ declare module 'react-declarative/components/GridView/components/Card' {
     export interface ICardProps<P = IAnything> {
         label?: React.ReactNode;
         outlinePaper?: boolean;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         children?: React.ReactNode;
         className?: string;
         payload?: P;
@@ -9966,7 +9967,7 @@ declare module 'react-declarative/components/MasterDetail/model/IMasterDetailPro
         onActiveOptionChange?: (activeOption: string, initial: boolean) => void;
         className?: string;
         style?: React.CSSProperties;
-        sx?: SxProps;
+        sx?: SxProps<any>;
         payload?: Payload;
         deps?: any[];
         options: IMasterDetailOption<Payload>[];

@@ -27,7 +27,7 @@ interface IActionStopIconProps extends Omit<IconButtonProps, keyof {
     onClick: never;
 }> {
     children?: React.ReactNode;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     className?: string;
     style?: React.CSSProperties;
     noProgress?: boolean;

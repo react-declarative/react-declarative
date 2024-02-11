@@ -32,7 +32,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   path?: string;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   withDarkParent?: boolean;
 }
 

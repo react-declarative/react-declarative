@@ -15,7 +15,7 @@ import SelectionMode from '../../../model/SelectionMode';
 export interface IGridProps<T = RowData, P = IAnything> {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   header?: React.ReactNode;
   data: Array<T>;
   columns: Array<IColumn<T>>;

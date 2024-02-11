@@ -28,7 +28,7 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   value: unknown;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   withDarkParent?: boolean;
 }
 
@@ -71,7 +71,7 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   value: unknown;
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   withDarkParent?: boolean;
 }
 

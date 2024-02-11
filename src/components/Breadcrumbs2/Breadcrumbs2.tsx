@@ -27,7 +27,7 @@ const Fragment = () => <></>;
 interface IBreadcrumbs2Props<T extends any = any> {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   onAction?: (action: string) => void | Promise<void>;
   actions?: IBreadcrumbs2Action<T>[];
   items: IBreadcrumbs2Option<T>[];
@@ -121,6 +121,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                     compute = () => label,
                     isDisabled = () => false,
                     isVisible = () => true,
+                    sx,
                   }) => ({
                     visible: await isVisible(payload!),
                     disabled: await isDisabled(payload!),
@@ -128,6 +129,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                     action,
                     type,
                     label: await compute(payload!),
+                    sx,
                   })
                 )
             );
@@ -137,7 +139,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                   .filter(({ type }) => type === Breadcrumbs2Type.Link)
                   .filter(({ visible }) => visible)
                   .map(
-                    ({ action = "unknown-action", label, disabled }, idx) => (
+                    ({ action = "unknown-action", label, disabled, sx }, idx) => (
                       <Link
                         key={`${action}-${idx}`}
                         className={classNames(classes.link, {
@@ -149,6 +151,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                           return false;
                         }}
                         color="inherit"
+                        sx={sx}
                       >
                         {label}
                       </Link>
@@ -203,12 +206,14 @@ export const Breadcrumbs2 = <T extends any = any>({
                   icon,
                   isDisabled = () => false,
                   isVisible = () => true,
+                  sx,
                 }) => ({
                   visible: await isVisible(payload!),
                   disabled: await isDisabled(payload!),
                   icon,
                   action,
                   label,
+                  sx,
                 })
               )
           );
@@ -218,7 +223,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                 .filter(({ visible }) => visible)
                 .map(
                   (
-                    { action = "unknown-action", label, disabled, icon: Icon },
+                    { action = "unknown-action", label, disabled, icon: Icon, sx },
                     idx
                   ) => (
                     <ActionButton
@@ -231,6 +236,7 @@ export const Breadcrumbs2 = <T extends any = any>({
                       onLoadEnd={handleLoadEnd}
                       fallback={fallback}
                       throwError={throwError}
+                      sx={sx}
                     >
                       {label}
                     </ActionButton>

@@ -30,7 +30,7 @@ export type ISearchViewProps<
 > & {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   changeSubject?: TSubject<void>;
   fullWidth?: boolean;
   SearchItem?: React.ComponentType<ISearchItemProps<Data>>;

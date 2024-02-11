@@ -42,7 +42,7 @@ const ROW_SELECTION_UNIQUE_KEY = randomString();
 interface IContentRowProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   columns: Array<IColumn>;
   row: RowData;
   rowKey: IGridProps["rowKey"];

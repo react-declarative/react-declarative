@@ -13,7 +13,7 @@ export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnythi
     className?: string;
     outlinePaper?: boolean;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
     routes: IWizardOutlet<Data, Payload>[];
     steps: IWizardStep<Payload>[];
     history?: History;

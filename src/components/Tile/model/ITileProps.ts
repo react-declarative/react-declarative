@@ -9,7 +9,7 @@ import ITile from "./ITile";
 export interface ITileProps<Data = IAnything, Payload = IAnything> {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   loading?: boolean;
   hasMore?: boolean;
   errorMessage?: string | null;

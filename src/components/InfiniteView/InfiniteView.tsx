@@ -18,7 +18,7 @@ import sleep from "../../utils/sleep";
 interface IInfiniteViewProps extends BoxProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   children?: React.ReactNode;
   hasMore?: boolean;
   loading?: boolean;

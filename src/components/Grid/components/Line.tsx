@@ -18,7 +18,7 @@ import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
 interface ILineProps {
   className?: string;
   style?: React.CSSProperties;
-  sx?: SxProps;
+  sx?: SxProps<any>;
   columns: Array<IColumn>;
   children: React.ReactNode;
   withRowActions: boolean;
