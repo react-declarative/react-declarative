@@ -23,6 +23,7 @@ interface ICopyButtonProps {
   size?: "small" | "medium" | "large";
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   content: string | number;
+  label?: string | number;
 }
 
 export const CopyButton = ({
@@ -36,6 +37,7 @@ export const CopyButton = ({
   color = "info",
   startIcon = <ContentCopy />,
   content,
+  label = content, 
 }: ICopyButtonProps) => {
   const [open, setOpen] = useState(false);
 
@@ -82,7 +84,7 @@ export const CopyButton = ({
         startIcon={startIcon}
         size={size}
       >
-        {content}
+        {label}
       </Button>
     </Tooltip>
   );
