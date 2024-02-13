@@ -13,8 +13,20 @@ import IAnything from "../../model/IAnything";
 import TypedField from "../../model/TypedField";
 import IOnePublicProps from "../../model/IOnePublicProps";
 
+import useActualCallback from '../../hooks/useActualCallback';
+
 import createFieldInternal from './config/createField';
 import createLayoutInternal from './config/createLayout';
+
+const DEFAULT_ONFOCUS = () => null;
+const DEFAULT_ONBLUR = () => null;
+const DEFAULT_ONMENU = () => null;
+const DEFAULT_ONCLICK = () => null;
+const DEFAULT_ONREADY = () => null;
+const DEFAULT_ONCHANGE = () => null;
+const DEFAULT_ONINVALID = () => null;
+const DEFAULT_ONLOADSTART = () => null;
+const DEFAULT_ONLOADEND = () => null;
 
 export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Payload, Field>) => {
 
@@ -27,16 +39,26 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         updateSubject,
     } = props;
 
+    const onFocus = useActualCallback(props.onFocus || DEFAULT_ONFOCUS);
+    const onBlur = useActualCallback(props.onBlur || DEFAULT_ONBLUR);
+    const onMenu = useActualCallback(props.onMenu || DEFAULT_ONMENU);
+    const onClick = useActualCallback(props.onClick || DEFAULT_ONCLICK);
+    const onReady = useActualCallback(props.onReady || DEFAULT_ONREADY);
+    const onChange = useActualCallback(props.onChange || DEFAULT_ONCHANGE);
+    const onInvalid = useActualCallback(props.onInvalid || DEFAULT_ONINVALID);
+    const onLoadStart = useActualCallback(props.onLoadStart || DEFAULT_ONLOADSTART);
+    const onLoadEnd = useActualCallback(props.onLoadEnd || DEFAULT_ONLOADEND);
+
     const {
-        focus = props.onFocus,
-        blur = props.onBlur,
-        menu = props.onMenu,
-        click = props.onClick,
-        ready = props.onReady,
-        change = props.onChange,
-        invalidity = props.onInvalid,
-        loadStart = props.onLoadStart,
-        loadEnd = props.onLoadEnd,
+        focus = onFocus,
+        blur = onBlur,
+        menu = onMenu,
+        click = onClick,
+        ready = onReady,
+        change = onChange,
+        invalidity = onInvalid,
+        loadStart = onLoadStart,
+        loadEnd = onLoadEnd,
         features: upperFeatures,
         ...otherProps
     } = props;
