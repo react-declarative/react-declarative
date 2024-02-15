@@ -484,7 +484,9 @@ KanbanViewInternal.enableScrollOnDrag =
     });
 
     const touchStartSubject = Source.create<TouchEvent>((next) => {
-      document.addEventListener("touchstart", next);
+      document.addEventListener("touchstart", next, {
+        passive: true,
+      });
       return () => document.removeEventListener("touchstart", next);
     });
 

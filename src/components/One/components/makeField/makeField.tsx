@@ -448,7 +448,9 @@ export function makeField(
          */
         oneConfig.WITH_MOBILE_READONLY_FALLBACK && useEffect(() => {
             const handler = () => setFocusReadonly(false);
-            groupRef && groupRef.addEventListener('touchstart', handler);
+            groupRef && groupRef.addEventListener('touchstart', handler, {
+                passive: false,
+            });
             return () => groupRef && groupRef.removeEventListener('touchstart', handler);
         }, [groupRef]);
 
