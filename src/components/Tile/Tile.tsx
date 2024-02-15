@@ -40,6 +40,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   bufferSize = DEFAULT_BUFFER_SIZE,
   minRowHeight = DEFAULT_MIN_HEIGHT,
   payload: upperPayload = {} as Payload,
+  rowColor = () => 'inherit',
   rowKey = "id",
   errorMessage,
   children,
@@ -96,6 +97,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
           {data.map((item, idx) => (
             <TileItem
               key={item[rowKey] || idx}
+              rowColor={rowColor(item)}
               payload={payload}
               data={item}
               rowKey={rowKey}

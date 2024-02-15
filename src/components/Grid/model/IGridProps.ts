@@ -30,6 +30,7 @@ export interface IGridProps<T = RowData, P = IAnything> {
   loading?: boolean;
   hasMore?: boolean;
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
+  rowColor?: (row: RowData) => string;
   onSkip?: (initial: boolean) => void;
   onButtonSkip?: () => void;
   rowKey?: keyof T;

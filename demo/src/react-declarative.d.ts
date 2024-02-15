@@ -8619,6 +8619,7 @@ declare module 'react-declarative/components/Grid/model/IGridProps' {
         loading?: boolean;
         hasMore?: boolean;
         rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
+        rowColor?: (row: RowData) => string;
         onSkip?: (initial: boolean) => void;
         onButtonSkip?: () => void;
         rowKey?: keyof T;
@@ -8677,7 +8678,7 @@ declare module 'react-declarative/components/Grid/model/TSort' {
 
 declare module 'react-declarative/components/Tile/Tile' {
     import ITileProps from "react-declarative/components/Tile/model/ITileProps";
-    export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowKey, errorMessage, children, onSkip, onButtonSkip, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
+    export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowColor, rowKey, errorMessage, children, onSkip, onButtonSkip, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
     export default Tile;
 }
 
@@ -8687,7 +8688,7 @@ declare module 'react-declarative/components/Tile/model/ITile' {
         data: Data;
         payload: Payload;
         isSelected: boolean;
-        rowColor: string;
+        rowMark: string;
         toggleSelection: () => void;
     }
     export default ITile;
@@ -8717,6 +8718,7 @@ declare module 'react-declarative/components/Tile/model/ITileProps' {
         selectionMode?: SelectionMode;
         recomputeSubject?: TSubject<void>;
         rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
+        rowColor?: (row: Data) => string;
         onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
         selectedRows?: string[];
     }

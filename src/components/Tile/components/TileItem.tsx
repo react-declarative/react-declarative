@@ -19,6 +19,7 @@ interface ITileItemProps {
   payload: IAnything;
   rowKey: Exclude<ITileProps["rowKey"], undefined>;
   children: ITileProps["children"];
+  rowColor: string;
   selectionMode: ITileProps["selectionMode"];
 }
 
@@ -30,19 +31,20 @@ export const TileItem = forwardRef(
       data,
       payload,
       rowKey,
+      rowColor,
       selectionMode,
       children,
     }: ITileItemProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
-    const [rowColor, setRowColor] = useState("");
+    const [rowMarkColor, setRowMarkColor] = useState("");
 
     const { selection, setSelection } = useSelection();
     const rowMark = useRowMark();
 
     const { execute } = useAsyncAction(async () => {
       const color = await rowMark(data);
-      setRowColor(color);
+      setRowMarkColor(color);
     });
 
     useEffect(() => {
@@ -82,13 +84,16 @@ export const TileItem = forwardRef(
         ref={ref}
         className={className}
         style={style}
+        sx={{
+          background: rowColor,
+        }}
         selected={isSelected}
       >
         {React.createElement(children, {
           toggleSelection,
           data,
           payload,
-          rowColor,
+          rowMark: rowMarkColor,
           isSelected,
         })}
       </ListItemButton>

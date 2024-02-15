@@ -24,6 +24,7 @@ export interface ITileProps<Data = IAnything, Payload = IAnything> {
   selectionMode?: SelectionMode;
   recomputeSubject?: TSubject<void>;
   rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
+  rowColor?: (row: Data) => string;
   onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
   selectedRows?: string[];
 }

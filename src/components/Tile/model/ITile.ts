@@ -4,7 +4,7 @@ export interface ITile<Data = IAnything, Payload = IAnything> {
     data: Data;
     payload: Payload;
     isSelected: boolean;
-    rowColor: string;
+    rowMark: string;
     toggleSelection: () => void;
 }
 

@@ -143,16 +143,16 @@ export const ContentRow = forwardRef(
     ref: React.Ref<HTMLDivElement>
   ) => {
     const { classes } = useStyles();
-    const [rowColor, setRowColor] = useState<string>("");
+    const [rowMarkColor, setRowMarkColor] = useState<string>("");
     const recomputeSubject = useSubject(upperRecomputeSubject);
 
-    const { selectionMode = SelectionMode.None } = useGridProps();
+    const { selectionMode = SelectionMode.None, rowColor = () => 'inherit' } = useGridProps();
     const { selection, setSelection } = useSelection();
 
     const { execute } = useAsyncAction(async () => {
       if (typeof rowMark === "function") {
         const color = await rowMark(row);
-        setRowColor(color);
+        setRowMarkColor(color);
       }
     });
 
@@ -224,12 +224,15 @@ export const ContentRow = forwardRef(
         disableRipple
         selected={selection.has(row[rowKey])}
         ref={ref}
+        sx={{
+          background: rowColor(row)
+        }}
         className={classNames(CHILD_ELEMENT, className, classes.noPadding)}
         style={style}
       >
         <Box className={classes.contentRow} sx={sx}>
-          {rowColor && (
-            <Box className={classes.mark} style={{ background: rowColor }} />
+          {rowMarkColor && (
+            <Box className={classes.mark} style={{ background: rowMarkColor }} />
           )}
           {selectionMode !== SelectionMode.None && (
             <Center
