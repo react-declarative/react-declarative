@@ -49,7 +49,7 @@ export const VirtualListBox = forwardRef(
             role={role}
             sx={{
               width: size.width,
-              height: `min(${computeHeight()}px, 35vh)`,
+              height: `min(${computeHeight()}px, 45vh)`,
               maxHeight: '45vh',
             }}
             minRowHeight={MIN_ROW_HEIGHT}

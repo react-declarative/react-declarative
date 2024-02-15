@@ -45,7 +45,7 @@ const useStyles = makeStyles()({
   root: {
     minHeight: 425,
     minWidth: 290,
-    maxHeight: '35vh',
+    maxHeight: '45vh',
     overflowY: 'auto',
     overflowX: 'hidden',
   },

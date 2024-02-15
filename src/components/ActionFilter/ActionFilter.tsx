@@ -148,7 +148,7 @@ export const ActionFilter = ({
                 onClose={handleClose}
                 MenuListProps={{
                     sx: {
-                        maxHeight: '35vh',
+                        maxHeight: '45vh',
                         overflowY:'auto',
                         overflowX: 'hidden',
                     },

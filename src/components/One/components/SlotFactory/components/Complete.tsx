@@ -373,7 +373,7 @@ export const Complete = ({
                 ? Math.min(items.length * ITEM_HEIGHT, 250)
                 : ITEM_HEIGHT,
               mb: 1,
-              maxHeight: '35vh',
+              maxHeight: '45vh',
             }}
             minRowHeight={ITEM_HEIGHT}
           >
