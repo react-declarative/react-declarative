@@ -130,6 +130,7 @@ const KanbanViewInternal = <
     AfterCardContent,
     AfterColumnTitle,
     BeforeColumnTitle,
+    onDataRequest,
     onChangeColumn,
     onCardLabelClick,
     onLoadStart,
@@ -203,6 +204,14 @@ const KanbanViewInternal = <
       ),
     []
   );
+
+  useEffect(() => {
+    onDataRequest && onDataRequest(true);
+  }, []);
+
+  useEffect(() => Source.fromEvent('visibilitychange').connect(() => {
+    onDataRequest && onDataRequest(false);
+  }), []);
 
   useEffect(
     () =>

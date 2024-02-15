@@ -24,6 +24,7 @@ export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnT
     cardLabel?: React.ReactNode | ((id: string, data: Data, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>));
     onChangeColumn?: (id: string, column: ColumnType, data: Data, payload: IAnything) => (void | Promise<void>);
     onCardLabelClick?: (id: string, data: Data, payload: IAnything) => void;
+    onDataRequest?: (initial: boolean) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;

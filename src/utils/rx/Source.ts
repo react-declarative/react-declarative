@@ -8,6 +8,7 @@ import fromInterval from "./source/fromInterval";
 import fromPromise from "./source/fromPromise";
 import fromDelay from './source/fromDelay';
 import fromArray from './source/fromArray';
+import fromEvent from "./source/fromEvent";
 
 import createObserver from "./helpers/createObserver";
 
@@ -185,6 +186,7 @@ export class Source {
     public static fromPromise = fromPromise;
     public static fromDelay = fromDelay;
     public static fromArray = fromArray;
+    public static fromEvent = fromEvent;
 
     public static fromValue = <Data = any>(data: Data | (() => Data)): TObserver<Data> => {
         const observer = new Observer<Data>(() => undefined);

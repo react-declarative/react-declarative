@@ -3480,6 +3480,7 @@ declare module 'react-declarative/utils/rx/Source' {
         static fromPromise: <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: ((e: Error) => void) | undefined) => TObserver<Data>;
         static fromDelay: (delay: number) => TObserver<void>;
         static fromArray: <Data = any>(data: Data) => TObserver<readonly (Data extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? InnerArr extends readonly (infer InnerArr)[] ? any : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : InnerArr : Data)[]>;
+        static fromEvent: (event: keyof DocumentEventMap) => TObserver<Event | MouseEvent | UIEvent | ErrorEvent | ProgressEvent<EventTarget> | SubmitEvent | FocusEvent | ClipboardEvent | AnimationEvent | InputEvent | CompositionEvent | DragEvent | FormDataEvent | PointerEvent | KeyboardEvent | SecurityPolicyViolationEvent | TouchEvent | TransitionEvent | WheelEvent>;
         static fromValue: <Data = any>(data: Data | (() => Data)) => TObserver<Data>;
         static fromSubject: <Data = any>(subject: TSubject<Data>) => Observer<Data>;
         static fromBehaviorSubject: <Data = any>(subject: TBehaviorSubject<Data>) => Observer<Data>;
@@ -8251,7 +8252,7 @@ declare module 'react-declarative/components/KanbanView/KanbanView' {
     import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, deps, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, deps, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onDataRequest, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
         /**
           * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
           */
@@ -9896,6 +9897,7 @@ declare module 'react-declarative/components/KanbanView/model/IKanbanViewProps' 
         cardLabel?: React.ReactNode | ((id: string, data: Data, payload: Payload) => (React.ReactNode | Promise<React.ReactNode>));
         onChangeColumn?: (id: string, column: ColumnType, data: Data, payload: IAnything) => (void | Promise<void>);
         onCardLabelClick?: (id: string, data: Data, payload: IAnything) => void;
+        onDataRequest?: (initial: boolean) => void;
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
