@@ -685,6 +685,9 @@ export const datetime = { ...datetimeInternal };
 
 export { compose } from './utils/compose';
 
+export { getMomentStamp, fromMomentStamp } from './utils/getMomentStamp';
+export { getTimeStamp, fromTimeStamp } from './utils/getTimeStamp';
+
 export { resolveDocuments } from './api/resolveDocuments';
 export { iterateDocuments } from './api/iterateDocuments';
 export { pickDocuments } from './api/pickDocuments';
