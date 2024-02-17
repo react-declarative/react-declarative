@@ -210,7 +210,9 @@ const KanbanViewInternal = <
   }, []);
 
   useEffect(() => Source.fromEvent('visibilitychange').connect(() => {
-    onDataRequest && onDataRequest(false);
+    if (document.visibilityState === 'visible') {
+      onDataRequest && onDataRequest(false);
+    }
   }), []);
 
   useEffect(
