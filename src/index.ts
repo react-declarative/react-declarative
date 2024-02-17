@@ -240,6 +240,7 @@ export { AuthView } from './components';
 export { LoaderView } from './components';
 export { VisibilityView } from './components';
 export { FeatureView } from './components';
+export { CalendarView } from './components';
 export { InfiniteView } from './components';
 export { TabsView } from './components';
 export { SearchView, ISearchItem } from './components';
@@ -273,6 +274,14 @@ import { ICardViewOperation as ICardViewOperationInternal } from './components/C
 
 export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
 export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
+
+import { ICalendarTile as ICalendarTileInternal } from './components/CalendarView';
+import { ICalendarItem as ICalendarItemInternal } from './components/CalendarView';
+import { ICalendarRequest as ICalendarRequestInternal } from './components/CalendarView';
+
+export type ICalendarTile<Data = IAnything, Payload = IAnything> = ICalendarTileInternal<Data, Payload>;
+export type ICalendarItem<Data = IAnything, Payload = IAnything> = ICalendarItemInternal<Data, Payload>;
+export type ICalendarRequest<Payload = IAnything> = ICalendarRequestInternal<Payload>;
 
 import { IFeatureGroup as IFeatureGroupInternal } from './components/FeatureView';
 import { IFeature as IFeatureInternal } from './components/FeatureView';

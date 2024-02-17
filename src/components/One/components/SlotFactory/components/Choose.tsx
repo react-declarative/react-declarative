@@ -1,5 +1,7 @@
 import * as React from "react";
-import { useState, forwardRef } from "react";
+import { forwardRef } from "react";
+
+import { makeStyles } from '../../../../../styles';
 
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,7 +12,17 @@ import { useOneState } from "../../../context/StateProvider";
 import ActionButton from "../../../../ActionButton";
 import Async from "../../../../Async";
 
+import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
+
+import classNames from "../../../../../utils/classNames";
+
 import { IChooseSlot } from "../../../slots/ChooseSlot";
+
+const useStyles = makeStyles()({
+  input: {
+    pointerEvents: 'all',
+  },
+});
 
 export const Choose = ({
   invalid,
@@ -30,11 +42,22 @@ export const Choose = ({
   choose = () => "unknown",
   tr = (value) => value,
 }: IChooseSlot) => {
-  const [currentLoading, setCurrentLoading] = useState(false);
+  const { classes } = useStyles();
+
   const payload = useOnePayload();
   const { object } = useOneState();
 
-  const loading = upperLoading || currentLoading;
+
+  const { execute: handleClick, loading: currentLoading } = useSinglerunAction(
+    async () => {
+      if (value) {
+        onChange(null);
+        return;
+      }
+      const pendingValue = await choose(object, payload);
+      onChange(pendingValue);
+    }
+  );
 
   const Input: React.FC<any> = forwardRef(({ value, ...rest }, ref) => (
     <Async
@@ -51,14 +74,29 @@ export const Choose = ({
       )}
     >
       {async () => {
-        const label = value ? await tr(value, object, payload) || "unset" : "";
-        return <input {...rest} readOnly ref={ref} value={label} type="text" />;
+        const label = value
+          ? (await tr(value, object, payload)) || "unset"
+          : "";
+        return (
+          <input
+            {...rest}
+            readOnly
+            ref={ref}
+            value={label}
+            type="text"
+          />
+        );
       }}
     </Async>
   ));
 
+  const loading = upperLoading || currentLoading;
+
   return (
     <TextField
+      className={classNames({
+        [classes.input]: !readonly,
+      })}
       sx={{
         flex: 1,
         pointerEvents: "none",
@@ -72,6 +110,11 @@ export const Choose = ({
         }),
       }}
       inputRef={inputRef}
+      onClick={() => {
+        if (!value) {
+          handleClick();
+        }
+      }}
       variant={outlined ? "outlined" : "standard"}
       helperText={(dirty && (invalid || incorrect)) || description}
       error={dirty && (invalid !== null || incorrect !== null)}
@@ -90,15 +133,8 @@ export const Choose = ({
               variant="outlined"
               size="small"
               color={value ? "secondary" : "primary"}
-              onLoadStart={() => setCurrentLoading(true)}
-              onLoadEnd={() => setCurrentLoading(false)}
               onClick={async () => {
-                if (value) {
-                  onChange(null);
-                  return;
-                }
-                const pendingValue = await choose(object, payload);
-                onChange(pendingValue);
+                await handleClick();
               }}
             >
               {value && "Deselect"}

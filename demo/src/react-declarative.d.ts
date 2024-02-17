@@ -191,6 +191,7 @@ declare module 'react-declarative' {
     export { LoaderView } from 'react-declarative/components';
     export { VisibilityView } from 'react-declarative/components';
     export { FeatureView } from 'react-declarative/components';
+    export { CalendarView } from 'react-declarative/components';
     export { InfiniteView } from 'react-declarative/components';
     export { TabsView } from 'react-declarative/components';
     export { SearchView, ISearchItem } from 'react-declarative/components';
@@ -216,6 +217,12 @@ declare module 'react-declarative' {
     import { ICardViewOperation as ICardViewOperationInternal } from 'react-declarative/components/CardView';
     export type ICardViewAction<Data extends ICardViewItemData = any> = ICardViewActionInternal<Data>;
     export type ICardViewOperation<Data extends ICardViewItemData = any> = ICardViewOperationInternal<Data>;
+    import { ICalendarTile as ICalendarTileInternal } from 'react-declarative/components/CalendarView';
+    import { ICalendarItem as ICalendarItemInternal } from 'react-declarative/components/CalendarView';
+    import { ICalendarRequest as ICalendarRequestInternal } from 'react-declarative/components/CalendarView';
+    export type ICalendarTile<Data = IAnything, Payload = IAnything> = ICalendarTileInternal<Data, Payload>;
+    export type ICalendarItem<Data = IAnything, Payload = IAnything> = ICalendarItemInternal<Data, Payload>;
+    export type ICalendarRequest<Payload = IAnything> = ICalendarRequestInternal<Payload>;
     import { IFeatureGroup as IFeatureGroupInternal } from 'react-declarative/components/FeatureView';
     import { IFeature as IFeatureInternal } from 'react-declarative/components/FeatureView';
     export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroupInternal<Data, Payload>;
@@ -563,6 +570,8 @@ declare module 'react-declarative' {
         dateStamp: (str?: string) => number;
     };
     export { compose } from 'react-declarative/utils/compose';
+    export { getMomentStamp, fromMomentStamp } from 'react-declarative/utils/getMomentStamp';
+    export { getTimeStamp, fromTimeStamp } from 'react-declarative/utils/getTimeStamp';
     export { resolveDocuments } from 'react-declarative/api/resolveDocuments';
     export { iterateDocuments } from 'react-declarative/api/iterateDocuments';
     export { pickDocuments } from 'react-declarative/api/pickDocuments';
@@ -2531,6 +2540,7 @@ declare module 'react-declarative/components' {
     export * from 'react-declarative/components/VirtualView';
     export * from 'react-declarative/components/LoaderView';
     export * from 'react-declarative/components/FeatureView';
+    export * from 'react-declarative/components/CalendarView';
     export * from 'react-declarative/components/DocumentView';
     export * from 'react-declarative/components/ImageView';
     export * from 'react-declarative/components/TreeView';
@@ -2892,6 +2902,14 @@ declare module 'react-declarative/components/CardView' {
     export * from 'react-declarative/components/CardView/model/ICardViewOperation';
     export { IItemData as ICardViewItemData } from 'react-declarative/components/CardView/model/IItemData';
     export { default } from 'react-declarative/components/CardView/CardView';
+}
+
+declare module 'react-declarative/components/CalendarView' {
+    export * from 'react-declarative/components/CalendarView/CalendarView';
+    export * from 'react-declarative/components/CalendarView/model/ICalendarItem';
+    export * from 'react-declarative/components/CalendarView/model/ICalendarRequest';
+    export * from 'react-declarative/components/CalendarView/model/ICalendarTile';
+    export { default } from 'react-declarative/components/CalendarView/CalendarView';
 }
 
 declare module 'react-declarative/components/FeatureView' {
@@ -3836,6 +3854,23 @@ declare module 'react-declarative/utils/compose' {
     export type Function = (...args: any[]) => any;
     export const compose: (...funcs: Function[]) => Function;
     export default compose;
+}
+
+declare module 'react-declarative/utils/getMomentStamp' {
+    import dayjs from "dayjs";
+    export const DIMENSION = "day";
+    export const GENESIS = "1970-01-01";
+    export type stamp = number;
+    export const getMomentStamp: (end?: dayjs.Dayjs) => stamp;
+    export const fromMomentStamp: (stamp: number) => dayjs.Dayjs;
+    export default getMomentStamp;
+}
+
+declare module 'react-declarative/utils/getTimeStamp' {
+    import dayjs from "dayjs";
+    export const getTimeStamp: (source?: dayjs.Dayjs) => number;
+    export const fromTimeStamp: (stamp: number) => dayjs.Dayjs;
+    export default getTimeStamp;
 }
 
 declare module 'react-declarative/api/resolveDocuments' {
@@ -6056,6 +6091,48 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
         id: string | number;
     }
     export default IItemData;
+}
+
+declare module 'react-declarative/components/CalendarView/CalendarView' {
+    import ICalendarViewProps from "react-declarative/components/CalendarView/model/ICalendarViewProps";
+    export const CalendarView: {
+        <Data extends unknown = any, Payload extends unknown = any>(props: ICalendarViewProps<Data, Payload>): JSX.Element;
+        init(): void;
+    };
+    export default CalendarView;
+}
+
+declare module 'react-declarative/components/CalendarView/model/ICalendarItem' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { stamp } from "react-declarative/utils/getMomentStamp";
+    export interface ICalendarItem<Data = IAnything, Payload = IAnything> {
+        data: Data;
+        payload: Payload;
+        stamp: stamp;
+    }
+    export default ICalendarItem;
+}
+
+declare module 'react-declarative/components/CalendarView/model/ICalendarRequest' {
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ICalendarRequest<Payload extends IAnything = IAnything> {
+        payload: Payload;
+        fromStamp: number;
+        toStamp: number;
+    }
+    export default ICalendarRequest;
+}
+
+declare module 'react-declarative/components/CalendarView/model/ICalendarTile' {
+    import IAnything from "react-declarative/model/IAnything";
+    import { ITile } from "react-declarative/components/Tile";
+    export interface ICalendarTile<Data = IAnything, Payload = IAnything> extends Omit<ITile<Data, Payload>, keyof {
+        toggleSelection: never;
+        isSelected: never;
+    }> {
+        onDaySelect: () => void;
+    }
+    export default ICalendarTile;
 }
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
@@ -8944,6 +9021,55 @@ declare module 'react-declarative/components/CardView/model/ICardViewProps' {
         noFooter?: boolean;
     }
     export default ICardViewProps;
+}
+
+declare module 'react-declarative/components/CalendarView/model/ICalendarViewProps' {
+    import dayjs from "dayjs";
+    import { SxProps } from "@mui/material";
+    import ICalendarRequest from "react-declarative/components/CalendarView/model/ICalendarRequest";
+    import ICalendarItem from "react-declarative/components/CalendarView/model/ICalendarItem";
+    import ICalendarTile from "react-declarative/components/CalendarView/model/ICalendarTile";
+    import { stamp } from "react-declarative/utils/getMomentStamp";
+    import IAnything from "react-declarative/model/IAnything";
+    export interface ICalendarViewProps<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
+        BeforeCalendarHeader?: React.ComponentType<{
+            fromStamp: stamp;
+            toStamp: stamp;
+            payload: Payload;
+        }>;
+        AfterCalendarHeader?: React.ComponentType<{
+            fromStamp: stamp;
+            toStamp: stamp;
+            payload: Payload;
+        }>;
+        BeforeDayHeader?: React.ComponentType<{
+            stamp: stamp;
+            items: ICalendarItem<Data, Payload>[];
+            payload: Payload;
+        }>;
+        AfterDayHeader?: React.ComponentType<{
+            stamp: stamp;
+            items: ICalendarItem<Data, Payload>[];
+            payload: Payload;
+        }>;
+        className?: string;
+        style?: React.CSSProperties;
+        sx?: SxProps<any>;
+        fallback?: (e: Error) => void;
+        onLoadStart?: () => void;
+        onLoadEnd?: (isOk: boolean) => void;
+        throwError?: boolean;
+        handler: ((req: ICalendarRequest<Payload>) => ICalendarItem<Data, Payload>[]) | ((req: ICalendarRequest<Payload>) => Promise<ICalendarItem<Data, Payload>[]>);
+        payload: Payload | (() => Payload);
+        date?: dayjs.Dayjs;
+        minDate?: dayjs.Dayjs;
+        maxDate?: dayjs.Dayjs;
+        onChange: (date: dayjs.Dayjs | null) => void;
+        renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
+        rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
+        rowColor?: (row: Data) => string;
+    }
+    export default ICalendarViewProps;
 }
 
 declare module 'react-declarative/components/FeatureView/model/IFeatureViewProps' {
