@@ -5,7 +5,11 @@ const touchSource = Source.unicast(() =>
         document.addEventListener('touchstart', handler, {
             passive: false,
         });
-        return () => document.removeEventListener('touchstart', handler);
+        document.addEventListener('mousedown', handler);
+        return () => {
+            document.removeEventListener('touchstart', handler);
+            document.removeEventListener('mousedown', handler);
+        };
     })
     .share()
 );
