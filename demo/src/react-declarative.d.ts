@@ -569,6 +569,10 @@ declare module 'react-declarative' {
         timeStamp: (str?: string) => number;
         dateStamp: (str?: string) => number;
     };
+    export const crypt: {
+        crypt: (salt: string, text: string) => string;
+        decrypt: (salt: string, encoded: any) => string;
+    };
     export { compose } from 'react-declarative/utils/compose';
     export { getMomentStamp, fromMomentStamp } from 'react-declarative/utils/getMomentStamp';
     export { getTimeStamp, fromTimeStamp } from 'react-declarative/utils/getTimeStamp';
