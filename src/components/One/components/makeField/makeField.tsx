@@ -11,6 +11,7 @@ import deepCompare from '../../../../utils/deepCompare';
 
 import waitForBlur from '../../../../utils/wairForBlur';
 import waitForMove from '../../../../utils/waitForMove';
+import waitForTab from '../../../../utils/waitForTab';
 import waitForTouch from '../../../../utils/waitForTouch';
 
 import { makeStyles } from '../../../../styles';
@@ -268,6 +269,16 @@ export function makeField(
          * применить изменения
          */
         oneConfig.WITH_WAIT_FOR_MOVE_LISTENER && useEffect(() => waitForMove(() => {
+            if (pending()) {
+                flush();
+            }
+        }), []);
+
+        /**
+         * Если пользователь нажал Tab, следует
+         * применить изменения
+         */
+        oneConfig.WITH_WAIT_FOR_TAB_LISTENER && useEffect(() => waitForTab(() => {
             if (pending()) {
                 flush();
             }

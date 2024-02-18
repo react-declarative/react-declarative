@@ -10372,6 +10372,7 @@ declare module 'react-declarative/components/One/components/OneConfig/OneConfigI
         WITH_DIRTY_CLICK_LISTENER: boolean;
         WITH_MOBILE_READONLY_FALLBACK: boolean;
         WITH_WAIT_FOR_MOVE_LISTENER: boolean;
+        WITH_WAIT_FOR_TAB_LISTENER: boolean;
         WITH_WAIT_FOR_TOUCH_LISTENER: boolean;
         WITH_DISMOUNT_LISTENER: boolean;
         WITH_SYNC_COMPUTE: boolean;
