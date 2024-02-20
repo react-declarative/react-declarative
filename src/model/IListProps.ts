@@ -173,6 +173,7 @@ export interface IListProps<
   className?: string;
   style?: React.CSSProperties;
   title?: string;
+  withRawSearch?: boolean;
   filterLabel?: string;
   actions?: IListAction<RowData, Payload>[];
   operations?: IListOperation<RowData, Payload>[];

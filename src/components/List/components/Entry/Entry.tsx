@@ -328,7 +328,7 @@ export class Entry<
           },
           this.state.sort,
           this.state.chips,
-          ignoreSymbols(this.state.search),
+          this.props.withRawSearch ? this.state.search : ignoreSymbols(this.state.search),
           this.state.payload
         )
       );
