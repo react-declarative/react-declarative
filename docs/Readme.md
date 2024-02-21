@@ -44,8 +44,23 @@ The goal is to create a unified React component for abstract personal account fo
 1. **Automatic State Management** : The component automatically manages form state based on three criteria - field name, a handler function for editing, and an `onChange` callback.
 
 ```tsx
+const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = { key: 'value' }
+
 <One
   handler={handler}
+  fields={[
+    {
+      type: FieldType.Checkbox,
+      title: 'Tomato',
+      defaultValue: true,
+      name: 'isTomatoChecked',
+    },
+    {
+      type: FieldType.Checkbox,
+      title: 'Cheese',
+      name: 'isCheeseChecked',
+    },
+  ]}
   fallback={fallback}
   onChange={change}
   LoadPlaceholder={SpinerComponent}
