@@ -12,7 +12,7 @@ The TypedField interface provides a structured way to define and manage differen
 - `FieldType` is imported from './FieldType'. 
 - `IAnything` is imported from './IAnything'. 
 
-2. **Type Aliases:**  
+2. **Fields and Layouts:**  
 
 - Types like `Group`, `Custom`, `Paper`, `Outline`, etc., are defined using the `TypedFieldFactory` and `TypedFieldFactoryShallow` generics. These types represent different types of layouts and fields. 
 
