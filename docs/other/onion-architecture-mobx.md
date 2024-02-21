@@ -4,7 +4,7 @@
 
 Coding UI components is easier in a functional style. React stands out in this regard, especially after the introduction of hooks, making component code significantly more readable and convenient for modernization. Moreover, creating custom components in a better way is highly time-consuming and challenging in terms of finding skilled personnel. It makes sense to talk about combining the decomposition of the application state in an object-oriented programming (OOP) style and modern practices for building web application views (FP).
 
-# The problem with outdated JavaScript frameworks
+# The problem of outdated JavaScript frameworks
 
 The problem of Backbone, Marionette, and others is that they smear the presentation layer thinly across class methods and are extremely difficult for static type checking. As a result, the Model was often skipped entirely, the View was implemented questionably due to the complexities of adopting a component-based approach, and the Controller was made too intricate through classes built into the standard library that don't always align with business requirements.
 
