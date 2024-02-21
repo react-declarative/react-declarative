@@ -18,7 +18,7 @@
 
 ## Overview
 
-The goal is to create a unified React component for personal account settings forms. The component manages form state, handles validation, and streamlines the development process by reducing boilerplate code.
+The goal is to create a unified React component for settings-like forms. The component manages form state, handles validation, and streamlines the development process by reducing boilerplate code.
 
 ## Key Features 
 
@@ -163,7 +163,7 @@ const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = {
 
 - **Improved Developer Experience** : Streamlines development with automatic state management and customizable field behaviors.
 
-This One form component aims to enhance code maintainability, readability, and efficiency in developing personal account settings forms.
+This One form component aims to enhance code maintainability, readability, and efficiency in developing settings-like forms.
 
 ## Usage
 
