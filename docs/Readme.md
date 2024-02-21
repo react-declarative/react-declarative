@@ -161,7 +161,7 @@ This One form component aims to enhance code maintainability, readability, and e
 
 ## Usage
 
-There are four main props that you need to pay attention to.
+There are four main props which you need to pay attention to.
 
 ### 1. fields
 
