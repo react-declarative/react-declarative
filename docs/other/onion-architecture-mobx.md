@@ -523,7 +523,7 @@ export default ioc;
 
 The singleton `ioc` includes TypeScript typing, allowing for static type checking throughout the application. Additionally, `ioc` is duplicated in the global `window` object, enabling external developers to write extensions for the application without access to the source code.
 
-## View Layer Services
+## View Services Layer
 
 Now let's consider the first service with business logic. As an academic example, this will be the `PersonService`, a service responsible for displaying a list of users with CRUD capabilities, including the ability to modify a list item.
 
