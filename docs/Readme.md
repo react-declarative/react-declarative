@@ -2,7 +2,11 @@
 
 > `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a grid layout. This layout allows for convenient storage, creation, and modification of data, such as a user's profile.
 
-## Source code description:
+## Articles:
+
+1. [React components for undirected data flow](./other/react-components-for-data-flow.md)
+
+## Source code documentation:
 
 1. [OneInternal](./code/OneInternal.md)
 2. [OneGenesis](./code/OneGenesis.md)
