@@ -14,7 +14,7 @@ However, leaving the View in a functional style using ready-made components, wri
 
 To organize a multi-layered architecture, it is necessary to separate application services into basic and business logic services. The cleanest code for doing this is through dependency injection. For example, you can use InversifyJS:
 
-```typescript
+```tsx
 import { injectable, inject } from "inversify";
 import { makeObservable } from "mobx";
 import { action, observable } from "mobx";
@@ -46,7 +46,7 @@ export class SettingsPageService {
 
 However, since decorators are not standardized in JavaScript, and the syntax is complex, I would recommend writing your own Dependency Service and using it for injecting services through functions.
 
-```typescript
+```tsx
 // src/helpers/serviceManager.ts
 
 export const serviceManager = new class {
@@ -109,7 +109,7 @@ We should create basic services; I'll provide examples of some. They should be p
 
 1. **ApiService** : A wrapper for HTTP requests to the server, handling sessions and errors.
 
-```typescript
+```tsx
 // src/lib/base/ApiService.ts
 
 import { makeAutoObservable } from "mobx";
@@ -237,7 +237,7 @@ export default ApiService;
  
 2. **ErrorService** : A service for handling exceptions.
 
-```typescript
+```tsx
 // src/lib/base/ErrorService.ts
 
 import { makeAutoObservable } from "mobx";
@@ -323,7 +323,7 @@ export default ErrorService;
  
 3. **RouterService** : A service for navigating through application pages.
 
-```typescript
+```tsx
 // src/lib/base/RouterService.ts
 
 import { makeAutoObservable } from "mobx";
@@ -439,7 +439,7 @@ export default TYPES;
 
 The file `config.ts` has no exports and is executed once in `ioc.ts` to map factories with string aliases for services.
 
-```typescript
+```tsx
 // src/lib/config.ts
 
 import { provide } from '../helpers/serviceManager'
@@ -463,7 +463,7 @@ provide(TYPES.personService, () => new PersonService());
 
 The `ioc.ts` file joins interdependent services through events to prevent cyclic dependencies. This mechanism is required if you want to write an `AuthService` (in this case, a wrapper over the auth0.com client), as it will depend on `SessionService`, and `SessionService` on `AuthService`.
 
-```typescript
+```tsx
 // src/lib/ioc.ts
 
 import { inject } from '../helpers/serviceManager';
@@ -529,7 +529,7 @@ The singleton `ioc` includes TypeScript typing, allowing for static type checkin
 
 Now let's consider the first service with business logic. As an academic example, this will be the `PersonService`, a service responsible for displaying a list of users with CRUD capabilities, including the ability to modify a list item.
 
-```typescript
+```tsx
 // src/lib/view/PersonService.ts
 
 import { makeAutoObservable } from "mobx";
@@ -612,7 +612,7 @@ The view service is not as complex as the base service, and by using copy-paste,
 
 Ideally, it's better to exclude pagination and input validation from the service with business logic. In my opinion, this code should reside on the component side. This is where a form templating engine with configurations will come in handy.
 
-```typescript
+```tsx
 // src/pages/PersonList.tsx
 
 import { useRef } from 'react';
@@ -708,7 +708,7 @@ export default PersonList;
 
 Data for the list form and list item form is loaded through the `handler` prop of the templating engine and the `list` and `one` methods. This ensures seamless integration of business logic into user interface components. On the plus side, this approach significantly reduces the amount of copy-pasting and maintains a consistent application style.
 
-```typescript
+```tsx
 // src/pages/PersonOne.tsx
 
 import { useState } from 'react';
