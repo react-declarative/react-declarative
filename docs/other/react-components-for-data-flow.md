@@ -11,7 +11,7 @@ Since the frontend state duplicates data structures declared on the backend, the
 
 ## `createProvider` Function 
 
-> Enables placing any object into the React context. Along with Mobx, it can be used to create a shared controller for nested views. The anonymous class methods `getPosts` and `getPostById` use the `fetchApi` function, an alias for `fetch(...).then((data) => data.json())`.
+> Allows placing any object into the React context. Along with Mobx, it can be used to create a shared controller for nested views. The anonymous class methods `getPosts` and `getPostById` use the `fetchApi` function, an alias for `fetch(...).then((data) => data.json())`.
 
 ```tsx
 import { createProvider, fetchApi } from 'react-declarative';
@@ -131,7 +131,7 @@ const [RoleApiProvider, useRoleApi] = createProvider(
 export { roleApiManager, RoleApiProvider, useRoleApi };
 ```
 
-On the page '/sample-page', the list of roles may be required in several code sections, but the request should only be made once. After the user leaves the page, the cached list of roles should be reset.
+On the page `/sample-page`, the list of roles may be required in several code sections, but the request should only be made once. After the user leaves the page, the cached list of roles should be reset.
 
 ```javascript
 import { Switch } from 'react-declarative';
@@ -140,7 +140,7 @@ import { Switch } from 'react-declarative';
 
 const routes = [
   {
-    path: '/sample-page',
+    path: `/sample-page`,
     unload: roleApiManager.unload,
   },
 ];
