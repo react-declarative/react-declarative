@@ -2,7 +2,7 @@
 
 > `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a grid layout. This layout allows for convenient storage, creation, and modification of data, such as a user's profile.
 
-## Source code review:
+## Source code description:
 
 1. [OneInternal](./code/OneInternal.md)
 2. [OneGenesis](./code/OneGenesis.md)
@@ -11,7 +11,115 @@
 5. [makeField](./code/makeField.md)
 6. [TypedField](./code/TypedField.md)
 
-## Props
+## Overview
+
+The goal is to create a unified React component for abstract personal account forms. The component manages form state, handles validation, and streamlines the development process by reducing boilerplate code.
+
+## Key Features 
+
+1. **Field Configuration** : Fields are configured using an object implementing the `IField` interface, defining the field type, structure, and other properties.
+
+```tsx
+<One fields={[
+  {
+    type: FieldType.Group,
+    phoneColumns: '12',
+    columns: '6',
+    fields: [
+      //...
+    ],
+  },
+  {
+    type: FieldType.Group,
+    phoneColumns: '12',
+    columns: '6',
+    fields: [
+      //...
+    ],
+  },
+]} />
+```
+
+ 
+1. **Automatic State Management** : The component automatically manages form state based on three criteria - field name, a handler function for editing, and an `onChange` callback.
+
+```tsx
+<One
+  handler={handler}
+  fallback={fallback}
+  onChange={change}
+  LoadPlaceholder={SpinerComponent}
+/>
+```
+
+1. **Responsive Layout** : The component supports a responsive layout with columns specified for different screen sizes.
+
+```tsx
+<Grid
+  xs={n(phoneColumns || columns || '12')}
+  sm={n(phoneColumns || columns || '12')}
+  md={n(tabletColumns || columns || '12')}
+  lg={n(tabletColumns || desktopColumns || columns || '12')}
+  xl={n(desktopColumns || columns || '12')}>
+  {/*...*/}
+</Grid>
+```
+
+1. **Field Customization** : Fields can be customized with options such as visibility, disabled state, and invalidity.
+
+```tsx
+<One
+  fields={[
+    {
+      type: FieldType.Items,
+      title: 'A sample field',
+      placeholder: 'Multiple selection',
+      name: 'items',
+      itemList: ['a', 'b', 'c'],
+      isVisible: (obj) => obj.visible,
+      isDisabled: (obj) => obj.disabled,
+    },
+    //...
+  ]}
+/>
+```
+
+1. **Additional Features** : The component supports computed fields, event handling for icons, and options for disabling the "Save" button based on form validation.
+
+```tsx
+<One
+  fields={[
+    {
+      type: FieldType.Progress,
+      showPercentLabel: true,
+      name: 'slider',
+    },
+    {
+      type: FieldType.Slider,
+      name: 'slider',
+      leadingIcon: VolumeDown,
+      trailingIcon: VolumeUp,
+      defaultValue: 30,
+      leadingIconClick(v, change) { change(v - 10) },
+      trailingIconClick(v, change) { change(v + 10) },
+    },
+    //...
+  ]}
+/>
+```
+
+## Benefits 
+- **Code Reusability** : Reduces duplication by creating a unified component for form handling. 
+
+- **Simplified Configuration** : Abstracts away complex form configurations into a simple and customizable interface. 
+
+- **Responsive Design** : Easily adapts to different screen sizes with responsive layout options. 
+
+- **Improved Developer Experience** : Streamlines development with automatic state management and customizable field behaviors.
+
+This One form component aims to enhance code maintainability, readability, and efficiency in developing abstract personal account forms.
+
+## Usage
 
 There are four main props that you need to pay attention to.
 
