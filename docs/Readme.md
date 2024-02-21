@@ -22,7 +22,7 @@ The goal is to create a unified React component for settings-like forms. The com
 
 ## Key Features 
 
-1. **Field Configuration** : Fields are configured using an object implementing the `IField` interface, defining the field type, structure, and other properties.
+1. **Field Configuration** : Fields are configured using an array of objects implementing the `IField` interface, defining the field type, structure, and other properties.
 
 > Link to [the demo](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
 
