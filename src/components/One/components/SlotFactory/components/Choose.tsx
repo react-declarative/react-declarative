@@ -13,6 +13,7 @@ import ActionButton from "../../../../ActionButton";
 import Async from "../../../../Async";
 
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
+import useReloadTrigger from "../../../../../hooks/useReloadTrigger";
 
 import classNames from "../../../../../utils/classNames";
 
@@ -47,6 +48,7 @@ export const Choose = ({
   const payload = useOnePayload();
   const { object } = useOneState();
 
+  const { doReload, reloadTrigger } = useReloadTrigger();
 
   const { execute: handleClick, loading: currentLoading } = useSinglerunAction(
     async () => {
@@ -94,6 +96,7 @@ export const Choose = ({
 
   return (
     <TextField
+      key={reloadTrigger}
       className={classNames({
         [classes.input]: !readonly,
       })}
@@ -110,10 +113,12 @@ export const Choose = ({
         }),
       }}
       inputRef={inputRef}
-      onClick={() => {
+      onClick={(e) => {
+        e.currentTarget?.blur();
         if (!value) {
           handleClick();
         }
+        doReload();
       }}
       variant={outlined ? "outlined" : "standard"}
       helperText={(dirty && (invalid || incorrect)) || description}
