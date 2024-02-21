@@ -55,7 +55,7 @@ The goal is to create a unified React component for settings-like forms. The com
 ```
 
  
-2. **Automatic State Management** : The component automatically manages form state based on three criteria - field name, a handler function for editing, and an `onChange` callback.
+2. **Automatic State Management** : The component automatically manages form state based on three criteria - field name, a handler function for fetching data, and an `onChange` callback.
 
 > Link to [the demo](https://jsfiddle.net/tripolskypetr/erw7gcxq/)
 
