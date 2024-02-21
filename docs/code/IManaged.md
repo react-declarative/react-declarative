@@ -4,11 +4,11 @@
 
 During the execution the `<One />` component assign data and calbacks to the field interface in the following order:
 
-0. **IField** - Field retrieved from the userspace
+1. **IField** - Field retrieved from the userspace
 
-1. **IEntity** - A field connected to the instance of the `One` component
+2. **IEntity** - A field connected to the instance of the `One` component
 
-2. **IManaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
+3. **IManaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
 
 ## Adding a new field type
 
