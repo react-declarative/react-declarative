@@ -415,7 +415,7 @@ export default RouterService;
 
 To connect these services, you'll need three files: `types.ts`, `config.ts`, and `ioc.ts`. There's a code
 
-```
+```tsx
 // src/lib/types.ts
 
 const baseServices = {
