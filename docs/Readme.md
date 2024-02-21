@@ -5,6 +5,7 @@
 ## Articles:
 
 1. [React components for undirected data flow](./other/react-components-for-data-flow.md)
+2. [MobX onion architecture](./other/onion-architecture-mobx.md)
 
 ## Source code documentation:
 
