@@ -12,7 +12,7 @@ However, leaving the View in a functional style using ready-made components, wri
 
 ## Dependency Injection
 
-To organize a multi-layered architecture, it is necessary to separate application services into basic and business logic services. The cleanest code for doing this is through dependency injection. For example, you can use InversifyJS:
+To organize a multi-layered architecture, it is necessary to separate application services into base and business logic services. The cleanest code for doing this is through dependency injection. For example, you can use InversifyJS:
 
 ```tsx
 import { injectable, inject } from "inversify";
