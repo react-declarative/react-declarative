@@ -7,7 +7,7 @@
 1. [React components for undirected data flow](./other/react-components-for-data-flow.md)
 2. [MobX onion architecture](./other/onion-architecture-mobx.md)
 
-## Source code documentation:
+## Source Description:
 
 1. [OneInternal](./code/OneInternal.md)
 2. [OneGenesis](./code/OneGenesis.md)
