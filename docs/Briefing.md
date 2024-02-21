@@ -1,10 +1,19 @@
-- # Component `One`
+# `<One />` Component
 
-> `One` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a grid layout. This layout allows for convenient storage, creation, and modification of data, such as a user's profile.
+> `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a grid layout. This layout allows for convenient storage, creation, and modification of data, such as a user's profile.
+
+## Source code review:
+
+1. [OneInternal](./code/OneInternal.md)
+2. [OneGenesis](./code/OneGenesis.md)
+3. [One](./code/One.md)
+4. [IManaged](./code/IManaged.md)
+5. [makeField](./code/makeField.md)
+6. [TypedField](./code/TypedField.md)
 
 ## Key component properties:
 
-### 1. fields
+- 1. fields
 
 This is the primary aspect to work with. Here, you list the fields that should be in the form. It is defined through the `fields` variable (an array) with the type 'TypedField[]'.
 Example:
@@ -55,8 +64,6 @@ export const examplePage = () => (
 );
 ```
 
-
-
 The main properties include:
 
 **type**  - specifies the field type, for example, `type: FieldType.Group`. There are a total of 22 field types.
@@ -79,22 +86,24 @@ To insert a separate component into `fields`, use `type: FieldType.Component`, w
 ```
 
 
-### 2. handler
+ - 2. handler
 
 It should be a function (can return a promise) or a reference to the component's state. It is used to connect the component to the server or mock data. Through variable context composition, you can reach the `id` from the route.
-### 3. fallback
+
+ - 3. fallback
 
 A callback in case of an error in `handler`.
-### 4. onChange
+
+ - 4. onChange
 
 A function triggered when data in the `<One/>` form changes. For example, when the user's name changes.
+
 ## How do `columns` work in the layout?
 > `columns` are responsible for the layout and work on a grid logic. They determine the width each element occupies. The maximum value is '12' (as `columns` is of type `string`), representing the full width. The value "6" would mean half the width, "4" is 1/3 width, "3" is 1/4, and so on. Note: the width refers to the parent's width. The default value is "12".
 
 For example:
 
 ```tsx
-...
 {
     type: FieldType.Group,
     fields: [

@@ -7,6 +7,7 @@ In the `OneGenesis` component, recursion starts within the `OneInternal` compone
 Here's how the recursion works: 
 
 1. **Initialization:**  
+
 - The `OneGenesis` component initializes the rendering process by rendering the `OneInternal` component within its JSX structure. 
 
 2. **Iterating Over Fields:**  
