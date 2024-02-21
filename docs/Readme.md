@@ -61,7 +61,7 @@ The goal is to create a unified React component for abstract personal account fo
 
 ```tsx
 const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = { key: 'value' }
-
+<One
   fields={[
     {
       type: FieldType.Checkbox,
@@ -75,6 +75,7 @@ const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = {
       name: 'isCheeseChecked',
     },
   ]}
+  handler={handler}
   fallback={fallback}
   onChange={change}
   LoadPlaceholder={SpinerComponent}
