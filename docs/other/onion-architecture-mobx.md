@@ -1,6 +1,6 @@
 # Onion architecture or OOP in a modern React / Mobx application
 
-> Link to [original article](https://habr.com/en/articles/669696/)
+> Link to [the original article](https://habr.com/en/articles/669696/)
 
 Coding UI components is easier in a functional style. React stands out in this regard, especially after the introduction of hooks, making component code significantly more readable and convenient for modernization. Moreover, creating custom components in a better way is highly time-consuming and challenging in terms of finding skilled personnel. It makes sense to talk about combining the decomposition of the application state in an object-oriented programming (OOP) style and modern practices for building web application views (FP).
 

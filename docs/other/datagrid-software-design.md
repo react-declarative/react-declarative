@@ -1,6 +1,6 @@
 # DataGrid software design to reduce app cost
 
-> Link to [original article](https://habr.com/en/articles/677070/)
+> Link to [the original article](https://habr.com/en/articles/677070/)
 
 Short time ago, I had the opportunity to participate in the development of an admin panel for a video game with a focus on collaborative competitions. Since the funding was provided through a grant, there was a limited budget.
 

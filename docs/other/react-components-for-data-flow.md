@@ -1,6 +1,6 @@
 # Gentleman's Set of React Components for FullStack Developers to Manage Data Flow
 
-> Link to [original article](https://habr.com/en/articles/676612/)
+> Link to [the original article](https://habr.com/en/articles/676612/)
 
 There exists a toxic stereotype that FullStack developers cannot code frontend and backend both. Often, due to the extensive workload, fullstack programming in React turns into haphazard coding with questionable quality. Code is copied without creating components, and there is no global application state.
 
