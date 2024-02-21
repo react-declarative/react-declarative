@@ -1,4 +1,4 @@
-# `<One />` Component
+# <One /> Component
 
 > `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a grid layout. This layout allows for convenient storage, creation, and modification of data, such as a user's profile.
 
@@ -11,12 +11,11 @@
 5. [makeField](./code/makeField.md)
 6. [TypedField](./code/TypedField.md)
 
-## Key component properties:
+## Props
 
-**1. fields**
+1. fields
 
 This is the primary aspect to work with. Here, you list the fields that should be in the form. It is defined through the `fields` variable (an array) with the type 'TypedField[]'.
-Example:
 
 ```tsx
 const fields: TypedField[] = [
@@ -64,13 +63,13 @@ export const examplePage = () => (
 );
 ```
 
-The main properties include:
+The main props include:
 
-`type`  - specifies the field type, for example, `type: FieldType.Group`. There are a total of 22 field types.
+`type` - specifies the field type, for example, `type: FieldType.Group`. There are a total of 22 field types.
 
-`columns`  - used for layout, with a string value from 1 to 12, where 12 represents the full width (following grid logic).
+`columns` - used for layout, with a string value from 1 to 12, where 12 represents the full width (following grid logic).
 
-`desktopColumns`, `tabletColumns`, and `phoneColumns`  - used to configure the layout on desktop, tablet, and smartphone, respectively.
+`desktopColumns`, `tabletColumns`, and `phoneColumns` - used to configure the layout on desktop, tablet, and smartphone, respectively.
 
 Each field type has its own properties such as `name`, `title`, `fieldBottomMargin`, `outlined`, `defaultValue`, etc.
 
@@ -85,16 +84,15 @@ To insert a separate component into `fields`, use `type: FieldType.Component`, w
 }
 ```
 
-
-**2. handler**
+2. handler
 
 It should be a function (can return a promise) or a reference to the component's state. It is used to connect the component to the server or mock data. Through variable context composition, you can reach the `id` from the route.
 
-**3. fallback**
+3. fallback
 
 A callback in case of an error in `handler`.
 
-**4. onChange**
+4. onChange
 
 A function triggered when data in the `<One/>` form changes. For example, when the user's name changes.
 
@@ -139,10 +137,10 @@ For example:
 
 In this example, the Rating element will occupy 20% of the width, and the second Group element will occupy 80% of the width.
 
-`desktopColumns`  - used for desktop layout;
+`desktopColumns` used for desktop layout;
 
-`tabletColumns`  - used for tablet layout;
+`tabletColumns` used for tablet layout;
 
-`phoneColumns`  - used for smartphone layout;
+`phoneColumns` used for smartphone layout;
 
 You can adjust the bottom and right margin using `fieldBottomMargin` and `fieldRightMargin`, respectively.
