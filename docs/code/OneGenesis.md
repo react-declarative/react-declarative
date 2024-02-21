@@ -20,9 +20,9 @@ Here's how the recursion works:
 - If the field is a layout (based on its `type`), the `createLayout` function is invoked, and the `OneInternal` component is recursively called with the child layout as its argument.
 - This recursive call continues down the hierarchy of layouts and fields until all nested structures are processed. 
 
-4. **Rendering Leaf Fields:**  
+4. **Rendering Input Fields:**  
 
-- When a leaf field (a field without nested structures) is encountered, the `createField` function is called, and the rendering process stops for that branch of recursion. 
+- When an input field (a field without nested structures) is encountered, the `createField` function is called, and the rendering process stops for that branch of recursion. 
 
 5. **Memoization:**  
 
