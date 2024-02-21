@@ -54,18 +54,32 @@ The goal is to create a unified React component for abstract personal account fo
 
 1. **Responsive Layout** : The component supports a responsive layout with columns specified for different screen sizes.
 
+> Link to [the example](https://jsfiddle.net/tripolskypetr/w3mr4akv/)
+
 ```tsx
-<Grid
-  xs={n(phoneColumns || columns || '12')}
-  sm={n(phoneColumns || columns || '12')}
-  md={n(tabletColumns || columns || '12')}
-  lg={n(tabletColumns || desktopColumns || columns || '12')}
-  xl={n(desktopColumns || columns || '12')}>
-  {/*...*/}
-</Grid>
+<One fields={[
+  {
+    type: FieldType.Group,
+    phoneColumns: '12',
+    columns: '6',
+    fields: [
+      //...
+    ],
+  },
+  {
+    type: FieldType.Group,
+    phoneColumns: '12',
+    columns: '6',
+    fields: [
+      //...
+    ],
+  },
+]} />
 ```
 
 1. **Field Customization** : Fields can be customized with options such as visibility, disabled state, and invalidity.
+
+> Link to [the example](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
 
 ```tsx
 <One
@@ -85,6 +99,8 @@ The goal is to create a unified React component for abstract personal account fo
 ```
 
 1. **Additional Features** : The component supports computed fields, event handling for icons, and options for disabling the "Save" button based on form validation.
+
+> Link to [the example](https://jsfiddle.net/tripolskypetr/67m3aoc1/)
 
 ```tsx
 <One
