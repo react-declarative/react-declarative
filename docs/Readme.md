@@ -23,7 +23,7 @@ The goal is to create a unified React component for abstract personal account fo
 
 1. **Field Configuration** : Fields are configured using an object implementing the `IField` interface, defining the field type, structure, and other properties.
 
-> Link to [the example](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
+> Link to [the demo](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
 
 ```tsx
 <One
@@ -56,7 +56,7 @@ The goal is to create a unified React component for abstract personal account fo
  
 2. **Automatic State Management** : The component automatically manages form state based on three criteria - field name, a handler function for editing, and an `onChange` callback.
 
-> Link to [the example](https://jsfiddle.net/tripolskypetr/erw7gcxq/)
+> Link to [the demo](https://jsfiddle.net/tripolskypetr/erw7gcxq/)
 
 ```tsx
 const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = { key: 'value' }
@@ -82,7 +82,7 @@ const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = {
 
 3. **Responsive Layout** : The component supports a responsive layout with columns specified for different screen sizes.
 
-> Link to [the example](https://jsfiddle.net/tripolskypetr/w3mr4akv/)
+> Link to [the demo](https://jsfiddle.net/tripolskypetr/w3mr4akv/)
 
 ```tsx
 <One fields={[
@@ -107,7 +107,7 @@ const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = {
 
 4. **Field Customization** : Fields can be customized with options such as visibility, disabled state, and invalidity.
 
-> Link to [the example](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
+> Link to [the demo](https://jsfiddle.net/tripolskypetr/0pywxmsk/)
 
 ```tsx
 <One
@@ -128,7 +128,7 @@ const handler = () => Promise.resolve({ key: 'value' }) // or simply handler = {
 
 5. **Additional Features** : The component supports computed fields, event handling for icons, and options for disabling the "Save" button based on form validation.
 
-> Link to [the example](https://jsfiddle.net/tripolskypetr/67m3aoc1/)
+> Link to [the demo](https://jsfiddle.net/tripolskypetr/67m3aoc1/)
 
 ```tsx
 <One
