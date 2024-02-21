@@ -165,7 +165,7 @@ There are four main props which you need to pay attention to.
 
 ### 1. fields
 
-This is the primary aspect to work with. Here, you list the fields that should be in the form. It is defined through the `fields` variable (an array) with the type 'TypedField[]'.
+This is the primary aspect to work with. Here, you list the fields that should be in the form. It is defined through the `fields` variable (an array) with the type `TypedField[]`.
 
 ```tsx
 const fields: TypedField[] = [
