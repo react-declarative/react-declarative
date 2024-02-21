@@ -622,7 +622,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Функция для выбора документа из справочника
      * для useSearchModal
      */
-    choose?: (data: Data, payload: Payload) => (Promise<string | null> | string | null);
+    choose?: (data: Data, payload: Payload) => (Promise<string | string[] | null> | string | string[] | null);
 
     /**
      * Свойства для компоновки Hero - инструмента настройки отступов

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { forwardRef } from "react";
 
-import { makeStyles } from '../../../../../styles';
+import { makeStyles } from "../../../../../styles";
 
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -17,13 +17,32 @@ import useReloadTrigger from "../../../../../hooks/useReloadTrigger";
 
 import classNames from "../../../../../utils/classNames";
 
+import IAnything from "../../../../../model/IAnything";
+import IField from "../../../../../model/IField";
+
 import { IChooseSlot } from "../../../slots/ChooseSlot";
 
 const useStyles = makeStyles()({
   input: {
-    pointerEvents: 'all',
+    pointerEvents: "all",
   },
 });
+
+const getLabel = async (
+  value: IAnything,
+  tr: Exclude<IField["tr"], undefined>,
+  data: IAnything,
+  payload: IAnything
+) => {
+  if (Array.isArray(value)) {
+    const chunks = await Promise.all(value.map((v) => tr(v, data, payload)));
+    return chunks.join(", ");
+  } else if (value) {
+    return await tr(value, data, payload);
+  } else {
+    return "";
+  }
+};
 
 export const Choose = ({
   invalid,
@@ -57,7 +76,13 @@ export const Choose = ({
         return;
       }
       const pendingValue = await choose(object, payload);
-      onChange(pendingValue);
+      onChange(
+        Array.isArray(pendingValue)
+          ? pendingValue.length
+            ? pendingValue
+            : null
+          : pendingValue || null
+      );
     }
   );
 
@@ -76,18 +101,8 @@ export const Choose = ({
       )}
     >
       {async () => {
-        const label = value
-          ? (await tr(value, object, payload)) || "unset"
-          : "";
-        return (
-          <input
-            {...rest}
-            readOnly
-            ref={ref}
-            value={label}
-            type="text"
-          />
-        );
+        const label = await getLabel(value, tr, object, payload);
+        return <input {...rest} readOnly ref={ref} value={label} type="text" />;
       }}
     </Async>
   ));
