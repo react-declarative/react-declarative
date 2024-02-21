@@ -13,7 +13,9 @@
 
 ## Props
 
-1. fields
+There are four main props that you need to pay attention to.
+
+### 1. fields
 
 This is the primary aspect to work with. Here, you list the fields that should be in the form. It is defined through the `fields` variable (an array) with the type 'TypedField[]'.
 
@@ -84,15 +86,15 @@ To insert a separate component into `fields`, use `type: FieldType.Component`, w
 }
 ```
 
-2. handler
+### 2. handler
 
 It should be a function (can return a promise) or a reference to the component's state. It is used to connect the component to the server or mock data. Through variable context composition, you can reach the `id` from the route.
 
-3. fallback
+### 3. fallback
 
 A callback in case of an error in `handler`.
 
-4. onChange
+### 4. onChange
 
 A function triggered when data in the `<One/>` form changes. For example, when the user's name changes.
 
