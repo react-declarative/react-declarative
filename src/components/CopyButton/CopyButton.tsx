@@ -13,6 +13,7 @@ import { ContentCopy } from "@mui/icons-material";
 const TOOLTIP_CLOSE_DELAY = 800;
 
 interface ICopyButtonProps {
+  disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
@@ -27,6 +28,7 @@ interface ICopyButtonProps {
 }
 
 export const CopyButton = ({
+  disabled,
   className,
   style,
   sx,
@@ -64,6 +66,7 @@ export const CopyButton = ({
       disableTouchListener
     >
       <Button
+        disabled={disabled}
         variant={variant}
         color={color}
         onClick={(e) => {

@@ -8857,6 +8857,7 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
     import * as React from "react";
     import { SxProps } from "@mui/material";
     interface ICopyButtonProps {
+        disabled?: boolean;
         className?: string;
         style?: React.CSSProperties;
         sx?: SxProps<any>;
@@ -8869,7 +8870,7 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
         content: string | number;
         label?: string | number;
     }
-    export const CopyButton: ({ className, style, sx, onClick, delay, variant, size, color, startIcon, content, label, }: ICopyButtonProps) => JSX.Element;
+    export const CopyButton: ({ disabled, className, style, sx, onClick, delay, variant, size, color, startIcon, content, label, }: ICopyButtonProps) => JSX.Element;
     export default CopyButton;
 }
 
