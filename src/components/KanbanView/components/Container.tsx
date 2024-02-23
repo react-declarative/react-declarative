@@ -84,7 +84,7 @@ export const Container = ({
 
   const fetchRows = useFetchRows();
 
-  const rows = useAsyncValue(
+  const [rows] = useAsyncValue(
     async () => {
       return await fetchRows(id, data, upperRows);
     },

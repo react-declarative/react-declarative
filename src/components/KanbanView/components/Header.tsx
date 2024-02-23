@@ -92,7 +92,7 @@ export const Header = ({
   const fetchLabel = useFetchLabel();
   const { reloadTrigger, doReload } = useReloadTrigger();
 
-  const label = useAsyncValue(async () => {
+  const [label] = useAsyncValue(async () => {
     return await fetchLabel(id, async () => {
       if (typeof labelFn === "function") {
         return await labelFn(id, data, payload);
