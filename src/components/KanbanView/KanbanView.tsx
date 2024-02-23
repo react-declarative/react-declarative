@@ -279,10 +279,11 @@ const KanbanViewInternal = <
         >
           <Box className={classes.container}>
             <ScrollView withScrollbar hideOverflowY className={classes.content}>
-              {columns.map(({ column, rows, label, color = defaultColor }) => {
+              {columns.map(({ column, rows, label, color = defaultColor }, idx) => {
                 const itemList = itemMap.get(column) || [];
                 return (
                   <Box
+                    key={`${column}-${idx}`}
                     onDrop={() => {
                       const item = items.find(
                         ({ id }) => id === dragId.current

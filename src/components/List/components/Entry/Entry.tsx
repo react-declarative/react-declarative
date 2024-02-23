@@ -443,7 +443,7 @@ export class Entry<
     this.isMountedFlag &&
       this.setState((prevState) => ({
         ...prevState,
-        offset: page * this.state.limit,
+        offset: page * prevState.limit,
       }));
     this.props.onPageChange!(page);
   };
@@ -465,7 +465,7 @@ export class Entry<
     this.isMountedFlag &&
       this.setState((prevState) => ({
         ...prevState,
-        rows: rows.slice(0, this.state.limit).map((row) => ({ ...row })),
+        rows: rows.slice(0, prevState.limit).map((row) => ({ ...row })),
       }));
   };
 
