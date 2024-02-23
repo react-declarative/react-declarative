@@ -129,7 +129,7 @@ export const Choose = ({
             ...params.InputProps,
             readOnly: true,
             placeholder,
-            endAdornment: (
+            endAdornment: loading ? params.InputProps.endAdornment : (
               <InputAdornment position="end">
                 <ActionButton
                   sx={{
