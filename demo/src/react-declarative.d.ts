@@ -6587,7 +6587,7 @@ declare module 'react-declarative/components/List/components/SlotFactory/SlotCon
         CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({ column, row, disabled, onMenuToggle, onAction, }: import("../..").ICommonCellSlot<RowData_2>) => any;
         HeadRow: (props: import("../..").IHeadRowSlot<any>) => JSX.Element;
         ActionAdd: ({ action, width, label, isVisible, isDisabled, }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
-        ActionMenu: ({ options, deps, }: import("../..").IActionMenuSlot) => JSX.Element;
+        ActionMenu: ({ options, deps }: import("../..").IActionMenuSlot) => JSX.Element;
         ActionFab: ({ action, label, width, icon: Icon, isVisible, isDisabled, }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
         ChipListSlot: ({ listChips, loading, }: import("../..").IChipListSlot<any>) => JSX.Element;
         ActionListSlot: <FilterData extends {}>({ className, actions, style, title, height, width, deps, }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
