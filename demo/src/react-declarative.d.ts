@@ -2315,7 +2315,7 @@ declare module 'react-declarative/hooks/useAsyncAction' {
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    interface IResult<Data extends any = any, Payload extends any = object> {
+    export interface IResult<Data extends any = any, Payload extends any = object> {
         loading: boolean;
         error: boolean;
         execute: (p?: Payload) => (Promise<Data | null>);
@@ -2325,6 +2325,7 @@ declare module 'react-declarative/hooks/useAsyncAction' {
 }
 
 declare module 'react-declarative/hooks/useAsyncValue' {
+    import { IResult } from "react-declarative/hooks/useAsyncAction";
     interface IParams {
         fallback?: (e: Error) => void;
         onLoadStart?: () => void;
@@ -2332,7 +2333,7 @@ declare module 'react-declarative/hooks/useAsyncValue' {
         throwError?: boolean;
         deps?: any[];
     }
-    export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => Data | null;
+    export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => [Data | null, IResult<void, void>];
     export default useAsyncValue;
 }
 

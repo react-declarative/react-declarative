@@ -1,46 +1,37 @@
 import * as React from "react";
-import { forwardRef } from "react";
-
-import { makeStyles } from "../../../../../styles";
 
 import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
 
 import ActionButton from "../../../../ActionButton";
-import Async from "../../../../Async";
 
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
 import useReloadTrigger from "../../../../../hooks/useReloadTrigger";
-
-import classNames from "../../../../../utils/classNames";
+import useAsyncValue from "../../../../../hooks/useAsyncValue";
 
 import IAnything from "../../../../../model/IAnything";
 import IField from "../../../../../model/IField";
 
 import { IChooseSlot } from "../../../slots/ChooseSlot";
 
-const useStyles = makeStyles()({
-  input: {
-    pointerEvents: "all",
-  },
-});
+const EMPTY_ARRAY: any[] = [];
 
-const getLabel = async (
+const getInputValue = async (
   value: IAnything,
   tr: Exclude<IField["tr"], undefined>,
   data: IAnything,
   payload: IAnything
 ) => {
   if (Array.isArray(value)) {
-    const chunks = await Promise.all(value.map((v) => tr(v, data, payload)));
-    return chunks.join(", ");
+    return await Promise.all(value.map((v) => tr(v, data, payload)));
   } else if (value) {
     return await tr(value, data, payload);
   } else {
-    return "";
+    return null;
   }
 };
 
@@ -62,14 +53,21 @@ export const Choose = ({
   choose = () => "unknown",
   tr = (value) => value,
 }: IChooseSlot) => {
-  const { classes } = useStyles();
-
   const payload = useOnePayload();
   const { object } = useOneState();
 
   const { doReload, reloadTrigger } = useReloadTrigger();
 
-  const { execute: handleClick, loading: currentLoading } = useSinglerunAction(
+  const [inputValue, { loading: currentLoading }] = useAsyncValue(
+    async () => {
+      return await getInputValue(value, tr, object, payload);
+    },
+    {
+      deps: [value],
+    }
+  );
+
+  const { execute: handleClick, loading: chooseLoading } = useSinglerunAction(
     async () => {
       if (value) {
         onChange(null);
@@ -86,94 +84,80 @@ export const Choose = ({
     }
   );
 
-  const Input: React.FC<any> = forwardRef(({ value, ...rest }, ref) => (
-    <Async
-      payload={value}
-      Loader={() => (
-        <input
-          {...rest}
-          readOnly
-          ref={ref}
-          value=""
-          placeholder="Loading..."
-          type="text"
-        />
-      )}
-    >
-      {async () => {
-        const label = await getLabel(value, tr, object, payload);
-        return <input {...rest} readOnly ref={ref} value={label} type="text" />;
-      }}
-    </Async>
-  ));
-
-  const loading = upperLoading || currentLoading;
+  const loading = upperLoading || currentLoading || chooseLoading;
 
   return (
-    <TextField
-      key={reloadTrigger}
-      className={classNames({
-        [classes.input]: !readonly,
-      })}
-      sx={{
-        flex: 1,
-        pointerEvents: "none",
-        ...(!outlined && {
-          position: "relative",
-          mt: 1,
-          "& .MuiFormHelperText-root": {
-            position: "absolute",
-            top: "100%",
-          },
-        }),
-      }}
-      inputRef={inputRef}
-      onClick={(e) => {
-        e.currentTarget?.blur();
-        if (!value) {
-          handleClick();
-        }
-        doReload();
-      }}
-      variant={outlined ? "outlined" : "standard"}
-      helperText={(dirty && (invalid || incorrect)) || description}
-      error={dirty && (invalid !== null || incorrect !== null)}
-      InputProps={{
-        readOnly: true,
-        inputComponent: Input,
-        placeholder,
-        endAdornment: (
-          <InputAdornment position="end">
-            <ActionButton
-              sx={{
-                pointerEvents: readonly ? "none" : "all",
-                mb: outlined ? undefined : 1,
-              }}
-              disabled={loading || disabled}
-              variant="outlined"
-              size="small"
-              color={value ? "secondary" : "primary"}
-              onClick={async () => {
-                await handleClick();
-              }}
-            >
-              {value && "Deselect"}
-              {!value && "Choose"}
-            </ActionButton>
-          </InputAdornment>
-        ),
-      }}
-      InputLabelProps={
-        labelShrink
-          ? {
-              shrink: labelShrink,
-            }
-          : undefined
-      }
-      value={value || ""}
-      placeholder={placeholder}
-      label={title}
+    <Autocomplete
+      key={`${reloadTrigger}-${inputValue}`}
+      fullWidth
+      multiple={Array.isArray(inputValue)}
+      disableClearable
       disabled={disabled}
+      loading={loading}
+      value={inputValue || null}
+      options={EMPTY_ARRAY}
+      onChange={() => null}
+      freeSolo
+      readOnly
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          value={params.inputProps.value}
+          variant={outlined ? "outlined" : "standard"}
+          helperText={(dirty && (invalid || incorrect)) || description}
+          error={dirty && (invalid !== null || incorrect !== null)}
+          sx={{
+            flex: 1,
+            ...(!outlined && {
+              position: "relative",
+              mt: 1,
+              "& .MuiFormHelperText-root": {
+                position: "absolute",
+                top: "100%",
+              },
+            }),
+          }}
+          inputRef={inputRef}
+          onClick={(e) => {
+            e.currentTarget?.blur();
+            if (!value) {
+              handleClick();
+            }
+            doReload();
+          }}
+          InputProps={{
+            ...params.InputProps,
+            readOnly: true,
+            placeholder,
+            endAdornment: loading ? params.InputProps.endAdornment : (
+              <InputAdornment position="end">
+                <ActionButton
+                  sx={{
+                    pointerEvents: readonly ? "none" : "all",
+                    mb: outlined ? undefined : 1,
+                  }}
+                  disabled={loading || disabled}
+                  variant="outlined"
+                  size="small"
+                  color={value ? "secondary" : "primary"}
+                  onClick={async () => {
+                    await handleClick();
+                  }}
+                >
+                  {value && "Deselect"}
+                  {!value && "Choose"}
+                </ActionButton>
+              </InputAdornment>
+            ),
+          }}
+          InputLabelProps={{
+            ...params.InputLabelProps,
+            shrink: labelShrink || undefined,
+          }}
+          placeholder={placeholder}
+          label={title}
+        />
+      )}
     />
   );
 };

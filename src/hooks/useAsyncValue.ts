@@ -1,31 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import useAsyncAction from './useAsyncAction';
+import useAsyncAction, { IResult } from "./useAsyncAction";
 
 interface IParams {
-    fallback?: (e: Error) => void;
-    onLoadStart?: () => void;
-    onLoadEnd?: (isOk: boolean) => void;
-    throwError?: boolean;
-    deps?: any[];
+  fallback?: (e: Error) => void;
+  onLoadStart?: () => void;
+  onLoadEnd?: (isOk: boolean) => void;
+  throwError?: boolean;
+  deps?: any[];
 }
 
-export const useAsyncValue = <Data extends any = any>(run: () => (Data | Promise<Data>), params: IParams = {}): Data | null => {
+export const useAsyncValue = <Data extends any = any>(
+  run: () => Data | Promise<Data>,
+  params: IParams = {}
+): [Data | null, IResult<void, void>] => {
+  const [result, setResult] = useState<Data | null>(null);
 
-    const [result, setResult] = useState<Data | null>(null);
+  const action = useAsyncAction(async () => {
+    const result = await run();
+    setResult(result);
+  }, params);
 
-    const { execute } = useAsyncAction(async () => {
-        const result = await run();
-        setResult(result);
-    }, params);
+  const { deps = [] } = params;
 
-    const { deps = [] } = params;
+  useEffect(() => {
+    action.execute();
+  }, deps);
 
-    useEffect(() => {
-        execute();
-    }, deps);
-
-    return result;
+  return [result, action];
 };
 
 export default useAsyncValue;

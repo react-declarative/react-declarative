@@ -10,7 +10,7 @@ interface IParams {
     throwError?: boolean;
 }
 
-interface IResult<Data extends any = any, Payload extends any = object> {
+export interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
     execute: (p?: Payload) => (Promise<Data | null>);
