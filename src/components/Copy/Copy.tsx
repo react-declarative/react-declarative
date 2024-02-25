@@ -14,6 +14,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 interface ICopyProps extends BoxProps {
   fullWidth?: boolean;
+  transparent?: boolean;
   content: string;
   children?: React.ReactNode;
   onCopy?: () => void;
@@ -61,6 +62,7 @@ export const Copy = ({
   className,
   content,
   fullWidth,
+  transparent,
   children = content,
   onCopy = createCopyHandler(content),
   onCopyClick,
@@ -103,12 +105,12 @@ export const Copy = ({
       {!!fullWidth && <div className={classes.stretch} />}
       <Button
         className={classes.icon}
-        variant="outlined"
+        variant={transparent ? "text" : "outlined"}
         onClick={handleClick}
         startIcon={<ContentCopyIcon />}
         size="small"
       >
-        Copy
+        {!transparent && "Copy"}
       </Button>
       {!fullWidth && <div className={classes.stretch} />}
     </Box>

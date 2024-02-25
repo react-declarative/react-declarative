@@ -8823,6 +8823,7 @@ declare module 'react-declarative/components/Copy/Copy' {
     import { BoxProps } from "@mui/material/Box";
     interface ICopyProps extends BoxProps {
         fullWidth?: boolean;
+        transparent?: boolean;
         content: string;
         children?: React.ReactNode;
         onCopy?: () => void;
@@ -8832,7 +8833,7 @@ declare module 'react-declarative/components/Copy/Copy' {
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
-    export const Copy: ({ className, content, fullWidth, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
+    export const Copy: ({ className, content, fullWidth, transparent, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
     export default Copy;
 }
 
