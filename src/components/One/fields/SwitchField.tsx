@@ -13,6 +13,8 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  switchNoColor?: PickProp<IField<Data, Payload>, "switchNoColor">;
+  switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
 }
 
 export interface ISwitchFieldPrivate<Data = IAnything>  {
@@ -25,6 +27,8 @@ export const SwitchField = ({
   value,
   readonly,
   onChange,
+  switchNoColor,
+  switchActiveLabel,
   title,
 }: ISwitchFieldProps & ISwitchFieldPrivate) => (
   <Switch
@@ -32,6 +36,8 @@ export const SwitchField = ({
     disabled={disabled}
     value={value}
     onChange={onChange}
+    switchNoColor={switchNoColor}
+    switchActiveLabel={switchActiveLabel}
     title={title}
   />
 );

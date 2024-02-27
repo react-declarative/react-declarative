@@ -112,6 +112,16 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     radioValue?: string;
 
     /**
+     * Отключает цвет для Switch
+     */
+    switchNoColor?: boolean;
+
+    /**
+     * Применяет к Switch второй title
+     */
+    switchActiveLabel?: string;
+
+    /**
      * Поле type для MatTextField
      */
     inputType?: keyof {

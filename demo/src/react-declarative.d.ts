@@ -777,6 +777,14 @@ declare module 'react-declarative/model/IField' {
                 */
             radioValue?: string;
             /**
+                * Отключает цвет для Switch
+                */
+            switchNoColor?: boolean;
+            /**
+                * Применяет к Switch второй title
+                */
+            switchActiveLabel?: string;
+            /**
                 * Поле type для MatTextField
                 */
             inputType?: keyof {
@@ -4659,13 +4667,15 @@ declare module 'react-declarative/components/One/fields/SwitchField' {
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        switchNoColor?: PickProp<IField<Data, Payload>, "switchNoColor">;
+        switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
     }
     export interface ISwitchFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, 'onChange'>;
         value: PickProp<IManaged<Data>, 'value'>;
     }
     export const SwitchField: {
-        ({ disabled, value, readonly, onChange, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
+        ({ disabled, value, readonly, onChange, switchNoColor, switchActiveLabel, title, }: ISwitchFieldProps & ISwitchFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6679,7 +6689,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Text: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, title, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, inputRows: rows, placeholder, inputAutocomplete: autoComplete, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, dirty, loading, autoFocus, inputRef, onChange, }: import("../..").ITextSlot) => JSX.Element;
         Date: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, autoFocus, inputRef, onChange, withContextMenu, }: import("../..").IDateSlot) => JSX.Element;
         Time: ({ invalid, incorrect, value: upperValue, disabled, readonly, description, outlined, title, labelShrink, placeholder, dirty, autoFocus, inputRef, onChange, withContextMenu, }: import("../..").ITimeSlot) => JSX.Element;
-        Switch: ({ disabled, value, onChange, title, }: import("../..").ISwitchSlot) => JSX.Element;
+        Switch: ({ disabled, value, onChange, title, switchNoColor, switchActiveLabel, }: import("../..").ISwitchSlot) => JSX.Element;
         Slider: ({ value, onChange, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, labelFormatSlider, stepSlider, disabled, readonly, maxSlider, minSlider, }: import("../..").ISliderSlot) => JSX.Element;
         File: ({ invalid, incorrect, value, disabled, readonly, description, outlined, labelShrink, title, placeholder, dirty, loading: upperLoading, inputRef, onChange, fileAccept, name, upload, view, }: import("../..").IFileSlot) => JSX.Element;
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, }: import("../..").IChooseSlot) => JSX.Element;
