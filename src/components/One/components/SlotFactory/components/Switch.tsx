@@ -2,6 +2,7 @@ import * as React from "react";
 import { useMemo } from "react";
 
 import { makeStyles } from "../../../../../styles";
+import { alpha } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import MatSwitch from "@mui/material/Switch";
@@ -10,11 +11,14 @@ import Typography from "@mui/material/Typography";
 import { ISwitchSlot } from "../../../slots/SwitchSlot";
 
 const useStyles = makeStyles()((theme) => ({
+  switchBase: {
+    color: `${theme.palette.primary.main} !important`,
+  },
   checked: {
-    color: "unset !important",
+    color: `${theme.palette.primary.main} !important`,
   },
   track: {
-    background: `${theme.palette.background.default} !important`,
+    background: `${alpha(theme.palette.primary.main, 0.4)} !important`,
   },
 }));
 
@@ -35,6 +39,7 @@ export const Switch = ({
       <Box
         sx={{
           flex: 1,
+          whiteSpace: "nowrap",
           textAlign: switchActiveLabel ? "right" : undefined,
         }}
       >
@@ -47,7 +52,7 @@ export const Switch = ({
         onChange={(_, checked) => onChange(checked)}
       />
       {!!switchActiveLabel && (
-        <Box sx={{ flex: 1, textAlign: "left" }}>
+        <Box sx={{ flex: 1, whiteSpace: "nowrap", textAlign: "left" }}>
           <Typography variant="body1">{switchActiveLabel}</Typography>
         </Box>
       )}
