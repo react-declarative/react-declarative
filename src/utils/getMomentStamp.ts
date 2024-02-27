@@ -7,7 +7,7 @@ export type stamp = number;
 
 export const getMomentStamp = (end = dayjs()): stamp => {
   const start = dayjs(GENESIS);
-  return end.diff(start, DIMENSION);
+  return Math.floor(end.diff(start, DIMENSION));
 };
 
 export const fromMomentStamp = (stamp: number) => {
