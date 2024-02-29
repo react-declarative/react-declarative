@@ -12,6 +12,31 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
+## Short review
+
+> [!TIP]
+> A few adjectives which can be applied to `react-declarative`
+
+1. Accesible
+
+Every callback you need: field or group of fields focus/blur event, form invalidity state and more
+
+2. Configurable
+
+Each field can be statically hidden by settings dictionary and dynamically by form state condition. Same if you want to disable or make field readonly
+
+3. Extendable
+
+It allow you to override any field type by slot context or inject custom JSX directly into form without additional boilerplate
+
+4. Stable
+
+Tested on several production solutions
+
+5. Documented
+
+An organisation [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
+
 ## Quick start
 
 > There is a `create-react-app` template available [in this repository](https://github.com/react-declarative/cra-template-react-declarative)
