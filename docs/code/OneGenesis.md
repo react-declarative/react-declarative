@@ -1,6 +1,6 @@
 # OneGenesis
 
-> Link [to the source code](../../src/components/One/components/OneGenesis/)
+> Link [to the source code](../../src/components/One/components/OneGenesis/OneGenesis.tsx)
 
 In the `OneGenesis` component, recursion starts within the `OneInternal` component. The `OneInternal` component is responsible for rendering the individual fields and layouts within the form. This recursive rendering allows for the creation of nested structures in the form, such as groups of fields or layouts within layouts.
 

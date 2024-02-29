@@ -1,6 +1,6 @@
 # OneInternal
 
-> Link [to the source code](../../src/components/One/components/OneInternal/)
+> Link [to the source code](../../src/components/One/components/OneInternal/OneInternal.tsx)
 
 `OneInternal` is part of a larger system for creating dynamic forms. Here's an overview of what the code does: 
 

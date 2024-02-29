@@ -1,6 +1,6 @@
 # One
 
-> Link [to the source code](../../src/components/One/One)
+> Link [to the source code](../../src/components/One/One.tsx)
 
 A React component named `One` is a wrapper around the more detailed `OneGenesis` component. It facilitates the creation of dynamic forms by providing a convenient interface and handling various events.
 

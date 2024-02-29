@@ -1,6 +1,6 @@
 # `makeField` higher order component
 
-> Link [to the source code](../../src/components/One/components/makeField/)
+> Link [to the source code](../../src/components/One/components/makeField/makeField.tsx)
 
 The `makeField` utility function is designed to enhance a given React component (`originalComponent`) with advanced form field management capabilities. This utility provides functionality for debouncing, validation, focus management, and more, making it a valuable tool for creating controlled and efficient form fields.
 
