@@ -39,6 +39,7 @@ An organisation [with 25 projects with AI](https://github.com/react-declarative/
 
 ## Quick start
 
+> [!IMPORTANT]
 > There is a `create-react-app` template available [in this repository](https://github.com/react-declarative/cra-template-react-declarative)
 
 ```bash
@@ -55,6 +56,7 @@ npx create-react-app . --template=react-declarative
 
 ## Installation
 
+> [!NOTE]
 > There is a sample app avalible in [demo](./demo/src/index.tsx) folder...
 
 ```bash
@@ -65,6 +67,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 
 ## Demos
 
+> [!NOTE]
 > The `react-declarative` is not just a form builder. This one is the huge framework with dashboard adaptive cards builder, crud-based Grid component and more.<br> Check [the docs folder](./docs/)
 
 This tool also provide it's own way of rapid application development by simplifying app state managament. New features appear frequently, so you should be able to [read the project's storybook](https://github.com/react-declarative/react-declarative-storybook), browse [an organization with sample projects](https://github.com/react-declarative), and [read the source code](https://github.com/react-declarative/react-declarative)
@@ -73,6 +76,7 @@ Several starter kits available
 
 **1. Pure React Starter**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/cra-template-react-declarative](https://github.com/react-declarative/cra-template-react-declarative)
 
 ```bash
@@ -81,6 +85,7 @@ yarn create react-app --template cra-template-react-declarative .
 
 **2. Ethers.js/React Starter**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/cra-template-solidity](https://github.com/react-declarative/cra-template-solidity)
 
 ```bash
@@ -89,6 +94,7 @@ yarn create react-app --template cra-template-solidity .
 
 **3. AppWrite/React Starter**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/cra-template-appwrite](https://github.com/react-declarative/cra-template-appwrite)
 
 ```bash
@@ -99,6 +105,7 @@ and few more quite interesting demo projects
 
 **1. ERC-20 Payment gateway**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/erc20-payment-gateway](https://github.com/react-declarative/erc20-payment-gateway)
 
 ```bash
@@ -107,6 +114,7 @@ git clone https://github.com/react-declarative/erc20-payment-gateway.git
 
 **2. React Face KYC**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/react-face-kyc](https://github.com/react-declarative/react-face-kyc)
 
 ```bash
@@ -115,6 +123,7 @@ git clone https://github.com/react-declarative/react-face-kyc.git
 
 **3. BrainJS Cryptocurrency Trend**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/brainjs-cryptocurrency-trend](https://github.com/react-declarative/brainjs-cryptocurrency-trend)
 
 ```bash
@@ -123,6 +132,7 @@ git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
 
 **4. NFT Mint Tool**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/nft-mint-tool](https://github.com/react-declarative/nft-mint-tool)
 
 ```bash
@@ -131,6 +141,7 @@ git clone https://github.com/react-declarative/nft-mint-tool.git
 
 **5. React PocketBase CRM**
 
+> [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/react-pocketbase-crm](https://github.com/react-declarative/react-pocketbase-crm)
 
 ```bash
@@ -141,6 +152,7 @@ git clone https://github.com/react-declarative/react-pocketbase-crm.git
 
 ## Declarative Scaffold component
 
+> [!NOTE]
 > Link to the [source code](./demo/src/App.Scaffold2.tsx)
 
 The `<Scaffold2 />` implements the basic Material Design visual layout structure by using config instead of manual ui elements composition. 
@@ -396,6 +408,7 @@ const features: IFeatureGroup[] = [
 
 **1. Layout grid**
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/LayoutPage.tsx)
 
 ![layout-grid](./assets/layout.gif)
@@ -437,6 +450,7 @@ const fields: TypedField[] = [
 
 **2. Form validation**
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/ValidationPage.tsx)
 
 ![form-validation](./assets/validation.gif)
@@ -481,6 +495,7 @@ const fields: TypedField[] = [
 
 **3. Gallery of controls**
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/GalleryPage.tsx)
 
 ![gallery](./assets/gallery.gif)
@@ -513,6 +528,7 @@ const fields: TypedField[] = [
 
 **4. JSX Injection**
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/GalleryPage.tsx)
 
 ```tsx
@@ -534,6 +550,7 @@ const fields: TypedField[] = [
 
 **5. UI-Kit override**
 
+> [!NOTE]
 > Link to the [source code](./src/components/One/components/SlotFactory)
 
 ```tsx
@@ -551,6 +568,7 @@ const fields: TypedField[] = [
 
 **6. Hiding fields by business functions**
 
+> [!NOTE]
 > See [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)
 
 ```tsx
@@ -572,6 +590,7 @@ const fields: TypedField[] = [
 
 ## JSON-templated grid engine
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/ListPage.tsx)
 
 Adaptive json-configurable data grid with build-in mobile device support
@@ -664,6 +683,7 @@ return (
 
 ## DOM Frames with infinite scroll and `transparent-api virtualization`
 
+> [!NOTE]
 > You can use [InfiniteView](./src/components/InfiniteView/InfiniteView.tsx) for always-mounted or [VirtualView](./src/components/VirtualView/VirtualView.tsx) for virtualized infinite lists 
 
 ![virtualization](./assets/virtualization.gif)
@@ -694,6 +714,7 @@ return (
 
 ## Async hooks and Action components
 
+> [!NOTE]
 > Hooks for fetching, caching and updating asynchronous data. Promise-based [command pattern](https://docs.devexpress.com/WPF/17353/mvvm-framework/commands/delegate-commands) ui components. The hooks will help you to avoid [multiple POST method execution](https://en.wikipedia.org/wiki/REST) when user missclick button. The components will show load indicator while `onClick` promise is pending
 
 The `useAsyncProgress` will manage percent range of execution (`0% - 100%` for `<LinearProgress />` value)
@@ -841,6 +862,7 @@ const { handleLoadStart, handleLoadEnd } = usePreventNavigate({
 
 ## Async pipe port
 
+> [!NOTE]
 > See [angular2 docs](https://angular.io/api/common/AsyncPipe)
 
 ```tsx
@@ -874,6 +896,7 @@ const PostItem = ({
 
 ## Structural directive port
 
+> [!NOTE]
 > See [angular2 docs](https://angular.io/guide/structural-directives)
 
 ```tsx
@@ -893,6 +916,7 @@ const ProfilePage = () => {
 
 ## Animated view transition
 
+> [!NOTE]
 > Link to the [source code](./demo/src/pages/RevealPage.tsx)
 
 ```tsx
@@ -927,6 +951,7 @@ const PostList = () => {
 
 ## Build-in router
 
+> [!NOTE]
 > Link to the [source code](./demo/src/App.tsx)
 
 ```tsx
@@ -964,6 +989,7 @@ const App = () => (
 
 ## MapReduce Data Pipelines
 
+> [!NOTE]
 > Link to the [source code](https://github.com/react-declarative/react-face-kyc/blob/master/src/hooks/useFaceWasm/emitters.ts)
 
 ```tsx
