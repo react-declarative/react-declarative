@@ -10,8 +10,6 @@
 
 A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
 
-<img src="./assets/icons/masonry.svg" height="35px" align="right">
-
 ## Short review
 
 > [!TIP]
@@ -36,6 +34,8 @@ Tested on several production solutions
 5. **Documented**
 
 An organisation [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
+
+<img src="./assets/icons/masonry.svg" height="35px" align="right">
 
 ## Quick start
 

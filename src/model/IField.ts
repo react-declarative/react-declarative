@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { SxProps } from '@mui/material';
 
-import type ComponentFieldInstance from './ComponentFieldInstance';
+import type ComponentFieldInstance  from './ComponentFieldInstance';
+import type { IDebug }  from './ComponentFieldInstance';
 
 import { ISizeCallback } from './ISize';
 
@@ -24,6 +25,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * expansion и line.
      */
     name?: string;
+
+    /**
+     * Коллбек для отладки
+     */
+    debug?: (params: IDebug<Data, Payload>) => void;
 
     /**
      * Позволяет создать контекстное меню

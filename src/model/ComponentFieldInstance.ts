@@ -1,4 +1,5 @@
 import type IField from "./IField";
+import type IManaged from "./IManaged";
 
 export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   onChange: (data: Partial<Data>) => void;
@@ -11,6 +12,12 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   readonly: boolean;
   features: string[];
 };
+
+export interface IDebug<Data = any, Payload = any> {
+  originalComponent: React.ComponentType<IManaged<Data>>;
+  managedProps: IManaged<Data>;
+  payload: Payload;
+}
 
 export type ComponentFieldInstanceProps = Omit<ComponentFieldInstance, keyof {
   context: never;

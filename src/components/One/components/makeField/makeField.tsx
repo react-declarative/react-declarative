@@ -138,6 +138,7 @@ export function makeField(
         name = '',
         title = nameToTitle(name) || undefined,
         menu = DEFAULT_MENU,
+        debug,
         focus,
         blur,
         invalidity,
@@ -657,6 +658,15 @@ export function makeField(
             withContextMenu: menuItems?.length ? true : undefined,
             ...otherProps,
         };
+
+        /**
+         * Коллбек для отладки
+         */
+        debug && debug({
+            managedProps,
+            originalComponent,
+            payload,
+        });
 
         const classMap = {
             [classes.hidden]: !visible,
