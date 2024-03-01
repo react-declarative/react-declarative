@@ -27,9 +27,9 @@ Each field can be statically hidden by settings dictionary and dynamically by fo
 
 It allow you to override any field type by slot context or inject custom JSX directly into form without additional boilerplate
 
-4. **Stable**
+4. **Maintainable**
 
-Tested on several production solutions
+Write code without going into [technical debt](https://en.wikipedia.org/wiki/Technical_debt). Tested on several production solutions
 
 5. **Documented**
 
