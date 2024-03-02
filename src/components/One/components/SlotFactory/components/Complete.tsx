@@ -217,7 +217,7 @@ export const Complete = ({
             setSelectedIdx(-1);
             setItems([...new Set(items)]);
           } else {
-            throw new Error("CompleteField itemList invalid result");
+            throw new Error("CompleteField tip invalid result");
           }
         } catch (error: any) {
           fallback(error);
