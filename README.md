@@ -33,7 +33,7 @@ Write code without going into [technical debt](https://en.wikipedia.org/wiki/Tec
 
 5. **Scalable**
 
-Easy internationalization with translation dictionaries for Combobox field. JSX Factory labels translation. An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
+Easy internationalization with translation dictionaries for Combobox field. JSX Factory for labels translation. An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
