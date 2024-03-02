@@ -31,9 +31,9 @@ It allow you to override any field type by slot context or inject custom JSX dir
 
 Write code without going into [technical debt](https://en.wikipedia.org/wiki/Technical_debt). Tested on several production solutions
 
-5. **Documented**
+5. **Scalable**
 
-An organisation [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
+Easy internationalization with translation dictionaries for Combobox field. JSX Factory labels translation. An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
