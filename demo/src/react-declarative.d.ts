@@ -51,6 +51,7 @@ declare module 'react-declarative' {
     export { useRouteItem } from 'react-declarative/hooks/useRouteItem';
     export { useRouteParams } from 'react-declarative/hooks/useRouteParams';
     export { useWatchChanges } from 'react-declarative/hooks/useWatchChanges';
+    export { useForceUpdate } from 'react-declarative/hooks/useForceUpdate';
     export { useLocalHistory } from 'react-declarative/hooks/useLocalHistory';
     export { RouteManager } from 'react-declarative/helpers/routeManager';
     export { toRouteUrl } from 'react-declarative/utils/toRouteUrl';
@@ -2072,6 +2073,11 @@ declare module 'react-declarative/hooks/useWatchChanges' {
         };
     };
     export default useWatchChanges;
+}
+
+declare module 'react-declarative/hooks/useForceUpdate' {
+    export const useForceUpdate: () => () => void;
+    export default useForceUpdate;
 }
 
 declare module 'react-declarative/hooks/useLocalHistory' {

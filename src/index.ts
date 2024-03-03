@@ -49,6 +49,7 @@ export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';
 
 export { useWatchChanges } from './hooks/useWatchChanges';
+export { useForceUpdate } from './hooks/useForceUpdate';
 
 export { useLocalHistory } from './hooks/useLocalHistory';
 
