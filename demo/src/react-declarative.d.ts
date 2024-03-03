@@ -3881,8 +3881,8 @@ declare module 'react-declarative/utils/getMomentStamp' {
     export const DIMENSION = "day";
     export const GENESIS = "1970-01-01";
     export type stamp = number;
-    export const getMomentStamp: (end?: dayjs.Dayjs) => stamp;
-    export const fromMomentStamp: (stamp: number) => dayjs.Dayjs;
+    export const getMomentStamp: (end?: dayjs.Dayjs, dimension?: dayjs.ManipulateType) => stamp;
+    export const fromMomentStamp: (stamp: number, dimension?: dayjs.ManipulateType) => dayjs.Dayjs;
     export default getMomentStamp;
 }
 
