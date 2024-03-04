@@ -45,6 +45,7 @@ import { IChooseFieldProps } from '../components/One/fields/ChooseField';
 import { IYesNoFieldProps } from '../components/One/fields/YesNoField';
 import { IInitFieldProps } from '../components/One/fields/InitField';
 import { IDictFieldProps } from '../components/One/fields/DictField';
+import { ITreeFieldProps } from '../components/One/fields/TreeField';
 
 type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
 
@@ -92,6 +93,7 @@ type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fi
 type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
 type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
 type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Dict, IDictFieldProps, Data, Payload>;
+type Tree<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Tree, ITreeFieldProps, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
 type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
 type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
@@ -135,6 +137,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Condition<Data, Payload> ? Condition<Data, Payload>
   : Target extends Init<Data, Payload> ? Init<Data, Payload>
   : Target extends Dict<Data, Payload> ? Dict<Data, Payload>
+  : Target extends Tree<Data, Payload> ? Tree<Data, Payload>
   : never;
 
 /**

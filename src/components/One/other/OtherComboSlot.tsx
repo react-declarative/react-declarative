@@ -16,7 +16,7 @@ export const OtherComboSlot = ({
   readonly,
   description = "",
   placeholder = "",
-  outlined = true,
+  outlined = false,
   itemList = [],
   title = "",
   dirty,

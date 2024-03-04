@@ -627,6 +627,7 @@ declare module 'react-declarative/model/TypedField' {
     import { IYesNoFieldProps } from 'react-declarative/components/One/fields/YesNoField';
     import { IInitFieldProps } from 'react-declarative/components/One/fields/InitField';
     import { IDictFieldProps } from 'react-declarative/components/One/fields/DictField';
+    import { ITreeFieldProps } from 'react-declarative/components/One/fields/TreeField';
     type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
     type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
             [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
@@ -663,6 +664,7 @@ declare module 'react-declarative/model/TypedField' {
     type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
     type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
     type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Dict, IDictFieldProps, Data, Payload>;
+    type Tree<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Tree, ITreeFieldProps, Data, Payload>;
     type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
     type Time<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Time, ITimeFieldProps<Data, Payload>, Data, Payload>;
     type Complete<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Complete, ICompleteFieldProps<Data, Payload>, Data, Payload>;
@@ -671,7 +673,7 @@ declare module 'react-declarative/model/TypedField' {
         * Логическое ветвление компонентов
         * Typescript type-guard
         */
-    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends YesNo<Data, Payload> ? YesNo<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : Target extends Dict<Data, Payload> ? Dict<Data, Payload> : never;
+    export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = any> = Target extends Expansion<Data, Payload> ? Expansion<Data, Payload> : Target extends Group<Data, Payload> ? Group<Data, Payload> : Target extends Paper<Data, Payload> ? Paper<Data, Payload> : Target extends Outline<Data, Payload> ? Outline<Data, Payload> : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload> : Target extends Combo<Data, Payload> ? Combo<Data, Payload> : Target extends Component<Data, Payload> ? Component<Data, Payload> : Target extends Items<Data, Payload> ? Items<Data, Payload> : Target extends Line<Data, Payload> ? Line<Data, Payload> : Target extends Progress<Data, Payload> ? Progress<Data, Payload> : Target extends Radio<Data, Payload> ? Radio<Data, Payload> : Target extends Rating<Data, Payload> ? Rating<Data, Payload> : Target extends Slider<Data, Payload> ? Slider<Data, Payload> : Target extends Switch<Data, Payload> ? Switch<Data, Payload> : Target extends Text<Data, Payload> ? Text<Data, Payload> : Target extends File<Data, Payload> ? File<Data, Payload> : Target extends Choose<Data, Payload> ? Choose<Data, Payload> : Target extends YesNo<Data, Payload> ? YesNo<Data, Payload> : Target extends Date<Data, Payload> ? Date<Data, Payload> : Target extends Time<Data, Payload> ? Time<Data, Payload> : Target extends Complete<Data, Payload> ? Complete<Data, Payload> : Target extends Typography<Data, Payload> ? Typography<Data, Payload> : Target extends Fragment<Data, Payload> ? Fragment<Data, Payload> : Target extends Div<Data, Payload> ? Div<Data, Payload> : Target extends Custom<Data, Payload> ? Custom<Data, Payload> : Target extends Box<Data, Payload> ? Box<Data, Payload> : Target extends Tabs<Data, Payload> ? Tabs<Data, Payload> : Target extends Center<Data, Payload> ? Center<Data, Payload> : Target extends Stretch<Data, Payload> ? Stretch<Data, Payload> : Target extends Hero<Data, Payload> ? Hero<Data, Payload> : Target extends Condition<Data, Payload> ? Condition<Data, Payload> : Target extends Init<Data, Payload> ? Init<Data, Payload> : Target extends Dict<Data, Payload> ? Dict<Data, Payload> : Target extends Tree<Data, Payload> ? Tree<Data, Payload> : never;
     /**
         * IOneProps - генерик, для прикладного программиста мы можем подменить IField
         * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -696,6 +698,7 @@ declare module 'react-declarative/model/IField' {
     import ISearchItem from 'react-declarative/components/SearchView/model/ISearchItem';
     import ISearchViewProps from 'react-declarative/components/SearchView/model/ISearchViewProps';
     import IFieldMenu from 'react-declarative/model/IFieldMenu';
+    import ITreeNode from 'react-declarative/model/ITreeNode';
     export type Value = string | string[] | number | boolean | null;
     /**
         * Объект поля для прикладного программиста
@@ -974,6 +977,10 @@ declare module 'react-declarative/model/IField' {
                 * Варианты выбора для ComboField и ItemsField
                 */
             itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>);
+            /**
+                * Вариант выбора для TreeField
+                */
+            itemTree?: ITreeNode[] | ((data: Data, payload: Payload) => ITreeNode[]) | ((data: Data, payload: Payload) => Promise<ITreeNode[]>);
             /**
                 * Отключает возможность сброса выбора значения для Items и Combo
                 */
@@ -1585,6 +1592,7 @@ declare module 'react-declarative/model/FieldType' {
         Slider = "slider-field",
         Combo = "combo-field",
         Choose = "choose-field",
+        Tree = "tree-field",
         Dict = "dict-field",
         Init = "init-field",
         Complete = "complete-field",
@@ -5040,6 +5048,44 @@ declare module 'react-declarative/components/One/fields/DictField' {
     export default _default;
 }
 
+declare module 'react-declarative/components/One/fields/TreeField' {
+    import IManaged, { PickProp } from "react-declarative/model/IManaged";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
+        description?: PickProp<IField<Data, Payload>, "description">;
+        outlined?: PickProp<IField<Data, Payload>, "outlined">;
+        title?: PickProp<IField<Data, Payload>, "title">;
+        placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
+        readonly?: PickProp<IField<Data, Payload>, "readonly">;
+        disabled?: PickProp<IField<Data, Payload>, "disabled">;
+        groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+        itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
+        tr?: PickProp<IField<Data, Payload>, 'tr'>;
+    }
+    export interface ITreeFieldPrivate<Data = IAnything> {
+        onChange: PickProp<IManaged<Data>, "onChange">;
+        invalid: PickProp<IManaged<Data>, "invalid">;
+        incorrect: PickProp<IManaged<Data>, "incorrect">;
+        value: PickProp<IManaged<Data>, "value">;
+        loading: PickProp<IManaged<Data>, "loading">;
+        disabled: PickProp<IManaged<Data>, "disabled">;
+        dirty: PickProp<IManaged<Data>, "dirty">;
+        name: PickProp<IManaged<Data>, "name">;
+        withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
+    }
+    export const TreeField: {
+        ({ invalid, value, disabled, readonly, incorrect, description, outlined, title, placeholder, itemTree, dirty, loading, onChange, name, withContextMenu, }: ITreeFieldProps & ITreeFieldPrivate): JSX.Element;
+        displayName: string;
+    };
+    const _default: {
+        <Data extends unknown = any>({ className, sx, columns, phoneColumns, tabletColumns, desktopColumns, isDisabled: isDisabledUpper, isVisible: isVisibleUpper, isInvalid: isInvalidUpper, isIncorrect: isIncorrectUpper, isReadonly: isReadonlyUpper, change, fallback, ready, compute: upperCompute, shouldRecompute, click, map, object: upperObject, name, title, menu, debug, focus, blur, invalidity, prefix, dirty: upperDirty, disabled: fieldDisabled, readonly: upperReadonly, autoFocus, style, menuItems, groupRef: ref, fieldRightMargin, fieldBottomMargin, outlinePaper, ...otherProps }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
+        displayName: string;
+    };
+    export default _default;
+}
+
 declare module 'react-declarative/model/ComponentFieldInstance' {
     import type IField from "react-declarative/model/IField";
     import type IManaged from "react-declarative/model/IManaged";
@@ -5175,6 +5221,13 @@ declare module 'react-declarative/model/IFieldMenu' {
         onClick?: (data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
     }
     export default IFieldMenu;
+}
+
+declare module 'react-declarative/model/ITreeNode' {
+    import INode from "react-declarative/components/TreeView/model/INode";
+    export interface ITreeNode extends INode {
+    }
+    export default ITreeNode;
 }
 
 declare module 'react-declarative/components/List/api/useLastPagination' {
@@ -6525,6 +6578,15 @@ declare module 'react-declarative/components/SearchView/model/ICreateButtonProps
     export default ICreateButtonProps;
 }
 
+declare module 'react-declarative/components/TreeView/model/INode' {
+    export interface INode {
+        label: string;
+        value: string;
+        child?: Omit<INode, "child">[];
+    }
+    export default INode;
+}
+
 declare module 'react-declarative/components/List/slots/ActionAddSlot' {
     export * from 'react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot';
     export * from 'react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot';
@@ -6714,6 +6776,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, withContextMenu, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
         Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
+        Tree: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, onChange, itemTree, }: import("../../slots/TreeSlot").ITreeSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -6739,6 +6802,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
     import { ICompleteSlot } from 'react-declarative/components/One/slots/CompleteSlot';
     import { IYesNoSlot } from 'react-declarative/components/One/slots/YesNoSlot';
     import { IDictSlot } from 'react-declarative/components/One/slots/DictSlot';
+    import { ITreeSlot } from 'react-declarative/components/One/slots/TreeSlot';
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
@@ -6758,6 +6822,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
         Choose: ComponentType<IChooseSlot>;
         Complete: ComponentType<ICompleteSlot>;
         Dict: ComponentType<IDictSlot>;
+        Tree: ComponentType<ITreeSlot>;
     }
     export default ISlotFactoryContext;
 }
@@ -8565,22 +8630,15 @@ declare module 'react-declarative/components/TreeView/TreeView' {
     import INode from "react-declarative/components/TreeView/model/INode";
     type ITreeViewProps = {
         value?: string[] | null;
+        readOnly?: boolean;
+        loading?: boolean;
         items: INode[];
         onChange?: (value: string[] | null) => void;
     } & Omit<TextFieldProps, keyof {
         onChange: never;
     }>;
-    export const TreeView: ({ className, style, sx, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
+    export const TreeView: ({ className, style, sx, loading, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
     export default TreeView;
-}
-
-declare module 'react-declarative/components/TreeView/model/INode' {
-    export interface INode {
-        label: string;
-        value: string;
-        child?: Omit<INode, "child">[];
-    }
-    export default INode;
 }
 
 declare module 'react-declarative/components/GridView/GridView' {
@@ -9704,6 +9762,12 @@ declare module 'react-declarative/components/One/slots/DictSlot' {
     export { default } from 'react-declarative/components/One/slots/DictSlot/DictSlot';
 }
 
+declare module 'react-declarative/components/One/slots/TreeSlot' {
+    export * from 'react-declarative/components/One/slots/TreeSlot/ITreeSlot';
+    export * from 'react-declarative/components/One/slots/TreeSlot/TreeSlot';
+    export { default } from 'react-declarative/components/One/slots/TreeSlot/TreeSlot';
+}
+
 declare module 'react-declarative/components/One/slots/FileSlot' {
     export * from 'react-declarative/components/One/slots/FileSlot/IFileSlot';
     export * from 'react-declarative/components/One/slots/FileSlot/FileSlot';
@@ -10391,6 +10455,20 @@ declare module 'react-declarative/components/One/slots/DictSlot/DictSlot' {
     import IDictSlot from 'react-declarative/components/One/slots/DictSlot/IDictSlot';
     export const DictSlot: (props: IDictSlot) => JSX.Element;
     export default DictSlot;
+}
+
+declare module 'react-declarative/components/One/slots/TreeSlot/ITreeSlot' {
+    import { ITreeFieldProps, ITreeFieldPrivate } from "react-declarative/components/One/fields/TreeField";
+    type ITreeBase = ITreeFieldProps & ITreeFieldPrivate;
+    export interface ITreeSlot extends ITreeBase {
+    }
+    export default ITreeSlot;
+}
+
+declare module 'react-declarative/components/One/slots/TreeSlot/TreeSlot' {
+    import ITreeSlot from 'react-declarative/components/One/slots/TreeSlot/ITreeSlot';
+    export const TreeSlot: (props: ITreeSlot) => JSX.Element;
+    export default TreeSlot;
 }
 
 declare module 'react-declarative/components/One/slots/FileSlot/FileSlot' {

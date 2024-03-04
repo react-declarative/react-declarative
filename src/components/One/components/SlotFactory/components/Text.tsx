@@ -113,7 +113,7 @@ export const Text = ({
     inputPattern = undefined,
     labelShrink,
     description = "",
-    outlined = true,
+    outlined = false,
     title = "",
     leadingIcon: li,
     trailingIcon: ti,

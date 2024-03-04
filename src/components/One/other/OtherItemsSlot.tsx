@@ -17,7 +17,7 @@ export const OtherItemsSlot = ({
     readonly,
     description,
     placeholder,
-    outlined = true,
+    outlined = false,
     itemList = [],
     dirty,
     invalid,

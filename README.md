@@ -31,7 +31,11 @@ It allow you to override any field type by slot context or inject custom JSX dir
 
 Write code without going into [technical debt](https://en.wikipedia.org/wiki/Technical_debt). Tested on several production solutions
 
-5. **Scalable**
+5. **Code-Splittable**
+
+JSON templates can be loaded statically, builded dynamically, lazy-loaded dynamically
+
+6. **Scalable**
 
 Easy internationalization with translation dictionaries for Combobox field. JSX Factory for labels translation. An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
 

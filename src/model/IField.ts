@@ -11,6 +11,7 @@ import IAnything from './IAnything';
 import ISearchItem from '../components/SearchView/model/ISearchItem';
 import ISearchViewProps from '../components/SearchView/model/ISearchViewProps';
 import IFieldMenu from './IFieldMenu';
+import ITreeNode from './ITreeNode';
 
 export type Value = string | string[] | number | boolean | null;
 
@@ -344,6 +345,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Варианты выбора для ComboField и ItemsField
      */
     itemList?: string[] | ((data: Data, payload: Payload) => string[]) | ((data: Data, payload: Payload) => Promise<string[]>),
+
+    /**
+     * Вариант выбора для TreeField
+     */
+    itemTree?: ITreeNode[] | ((data: Data, payload: Payload) => ITreeNode[]) | ((data: Data, payload: Payload) => Promise<ITreeNode[]>);
 
     /**
      * Отключает возможность сброса выбора значения для Items и Combo

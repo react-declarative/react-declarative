@@ -55,7 +55,7 @@ export const Items = ({
     readonly,
     description,
     placeholder,
-    outlined = true,
+    outlined = false,
     itemList = [],
     freeSolo,
     noDeselect,

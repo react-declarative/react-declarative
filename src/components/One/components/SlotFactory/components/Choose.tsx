@@ -42,7 +42,7 @@ export const Choose = ({
   disabled,
   readonly,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "",
   placeholder = "Not chosen",
   labelShrink = true,

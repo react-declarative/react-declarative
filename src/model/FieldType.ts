@@ -18,6 +18,7 @@ export enum FieldType {
     Slider = 'slider-field',
     Combo = 'combo-field',
     Choose = 'choose-field',
+    Tree = 'tree-field',
     Dict = 'dict-field',
     Init = 'init-field',
     Complete = 'complete-field',

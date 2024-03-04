@@ -45,7 +45,7 @@ export const YesNoField = ({
   readonly,
   description = "",
   placeholder = "",
-  outlined = true,
+  outlined = false,
   virtualListBox,
   labelShrink,
   noDeselect,

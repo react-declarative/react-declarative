@@ -51,7 +51,7 @@ export const Complete = ({
   inputPattern = undefined,
   labelShrink,
   description = "",
-  outlined = true,
+  outlined = false,
   keepRaw = false,
   title = "",
   placeholder = "",

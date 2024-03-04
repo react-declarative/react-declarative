@@ -53,7 +53,7 @@ export const Combo = ({
   readonly,
   description = "",
   placeholder = "",
-  outlined = true,
+  outlined = false,
   itemList = [],
   virtualListBox,
   watchItemList,
