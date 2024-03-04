@@ -5057,6 +5057,7 @@ declare module 'react-declarative/components/One/fields/TreeField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -8630,12 +8631,13 @@ declare module 'react-declarative/components/TreeView/TreeView' {
     type ITreeViewProps = {
         value?: string[] | null;
         readOnly?: boolean;
+        loading?: boolean;
         items: INode[];
         onChange?: (value: string[] | null) => void;
     } & Omit<TextFieldProps, keyof {
         onChange: never;
     }>;
-    export const TreeView: ({ className, style, sx, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
+    export const TreeView: ({ className, style, sx, loading, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
     export default TreeView;
 }
 

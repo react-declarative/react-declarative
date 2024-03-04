@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -34,6 +34,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 type ITreeViewProps = {
   value?: string[] | null;
   readOnly?: boolean;
+  loading?: boolean;
   items: INode[];
   onChange?: (value: string[] | null) => void;
 } & Omit<
@@ -73,6 +74,7 @@ export const TreeView = ({
   className,
   style,
   sx,
+  loading,
   items: upperItems = [],
   value: upperValue = [],
   onChange = () => undefined,
@@ -80,14 +82,25 @@ export const TreeView = ({
 }: ITreeViewProps) => {
   const { classes } = useStyles();
 
+  const upperChange = useRef(false);
+
   const [value, setValue] = useState(upperValue || []);
   const [opened, setOpened] = useState(false);
+
+  useChange(() => {
+    upperChange.current = true;
+    setValue(upperValue || []);
+  }, [upperValue]);
 
   const { reloadTrigger, doReload } = useReloadTrigger();
 
   const changeSubject = useChangeSubject(value);
 
   useChange(() => {
+    if (upperChange.current) {
+      upperChange.current = false;
+      return;
+    }
     if (value.length) {
       onChange(value);
       return;
@@ -173,6 +186,7 @@ export const TreeView = ({
   return (
     <Autocomplete
       key={reloadTrigger}
+      loading={loading}
       className={className}
       style={style}
       sx={sx}

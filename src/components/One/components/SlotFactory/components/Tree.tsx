@@ -59,6 +59,7 @@ export const Tree = ({
         }),
       }}
       readOnly={readonly}
+      loading={loading}
       items={items || EMPTY_ARRAY}
       value={items?.length ? value : null}
       disabled={disabled || loading}
