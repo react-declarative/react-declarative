@@ -5057,11 +5057,9 @@ declare module 'react-declarative/components/One/fields/TreeField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
-        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
         groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-        inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
         itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
         tr?: PickProp<IField<Data, Payload>, 'tr'>;
     }
@@ -5077,7 +5075,7 @@ declare module 'react-declarative/components/One/fields/TreeField' {
         withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
     }
     export const TreeField: {
-        ({ invalid, value, disabled, readonly, incorrect, description, outlined, title, placeholder, labelShrink, itemTree, dirty, loading, onChange, inputRef, name, withContextMenu, }: ITreeFieldProps & ITreeFieldPrivate): JSX.Element;
+        ({ invalid, value, disabled, readonly, incorrect, description, outlined, title, placeholder, itemTree, dirty, loading, onChange, name, withContextMenu, }: ITreeFieldProps & ITreeFieldPrivate): JSX.Element;
         displayName: string;
     };
     const _default: {
@@ -6777,7 +6775,7 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, withContextMenu, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
         Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
-        Tree: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, itemTree, }: import("../../slots/TreeSlot").ITreeSlot) => JSX.Element;
+        Tree: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, onChange, itemTree, }: import("../../slots/TreeSlot").ITreeSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -8631,6 +8629,7 @@ declare module 'react-declarative/components/TreeView/TreeView' {
     import INode from "react-declarative/components/TreeView/model/INode";
     type ITreeViewProps = {
         value?: string[] | null;
+        readOnly?: boolean;
         items: INode[];
         onChange?: (value: string[] | null) => void;
     } & Omit<TextFieldProps, keyof {

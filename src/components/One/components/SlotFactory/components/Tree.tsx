@@ -21,10 +21,8 @@ export const Tree = ({
   outlined = false,
   title = "",
   placeholder = "",
-  labelShrink,
   dirty,
   loading: upperLoading,
-  inputRef,
   onChange,
   itemTree = EMPTY_ARRAY,
 }: ITreeSlot) => {
@@ -49,7 +47,6 @@ export const Tree = ({
   return (
     <TreeView
       fullWidth
-      inputRef={inputRef}
       sx={{
         flex: 1,
         ...(!outlined && {
@@ -61,18 +58,13 @@ export const Tree = ({
           },
         }),
       }}
+      readOnly={readonly}
       items={items || EMPTY_ARRAY}
       value={items?.length ? value : null}
       disabled={disabled || loading}
       variant={outlined ? "outlined" : "standard"}
       helperText={(dirty && (invalid || incorrect)) || description}
       error={dirty && (invalid !== null || incorrect !== null)}
-      InputProps={{
-        readOnly: readonly,
-      }}
-      InputLabelProps={labelShrink ? {
-        shrink: labelShrink,
-      } : undefined}
       placeholder={placeholder}
       label={title}
       onChange={onChange}

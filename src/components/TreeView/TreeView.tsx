@@ -33,6 +33,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 type ITreeViewProps = {
   value?: string[] | null;
+  readOnly?: boolean;
   items: INode[];
   onChange?: (value: string[] | null) => void;
 } & Omit<
@@ -186,7 +187,7 @@ export const TreeView = ({
         setValue(items.map(({ value }) => value));
       }}
       groupBy={(option) => option.groupId}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option.label || ""}
       renderInput={(params) => <MatTextField {...params} {...textFieldProps} />}
       renderGroup={(params) => {
         const group = groupIdMap.get(params.group);

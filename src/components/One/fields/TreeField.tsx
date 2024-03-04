@@ -17,7 +17,6 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
-  inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
   tr?: PickProp<IField<Data, Payload>, 'tr'>;
 }
@@ -44,23 +43,19 @@ export const TreeField = ({
   outlined = false,
   title = "",
   placeholder = "",
-  labelShrink,
   itemTree,
   dirty,
   loading,
   onChange,
-  inputRef,
   name,
   withContextMenu,
 }: ITreeFieldProps & ITreeFieldPrivate) => (
   <Tree
-    inputRef={inputRef}
     invalid={invalid}
     incorrect={incorrect}
     value={value}
     readonly={readonly}
     disabled={disabled}
-    labelShrink={labelShrink}
     description={description}
     outlined={outlined}
     title={title}
