@@ -5057,12 +5057,9 @@ declare module 'react-declarative/components/One/fields/TreeField' {
         outlined?: PickProp<IField<Data, Payload>, "outlined">;
         title?: PickProp<IField<Data, Payload>, "title">;
         placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
-        labelShrink?: PickProp<IField<Data>, "labelShrink">;
         readonly?: PickProp<IField<Data, Payload>, "readonly">;
         disabled?: PickProp<IField<Data, Payload>, "disabled">;
-        groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
         itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
-        tr?: PickProp<IField<Data, Payload>, 'tr'>;
     }
     export interface ITreeFieldPrivate<Data = IAnything> {
         onChange: PickProp<IManaged<Data>, "onChange">;
