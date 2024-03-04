@@ -53,7 +53,7 @@ export class Translate {
 
     const processRaw = (text: string) => {
         const result = this.tr(text);
-        if (result.length === text.length) {
+        if (result === text) {
             return rawCondition(result) ? rawSymbol : result;
         }
         return result;
