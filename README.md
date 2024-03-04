@@ -33,7 +33,7 @@ Write code without going into [technical debt](https://en.wikipedia.org/wiki/Tec
 
 5. **Code-Splittable**
 
-JSON templates can be loaded statically, builded dynamically, lazy-loaded dynamically
+JSON templates can be downloaded statically, builded dynamically, lazy-loaded dynamically
 
 6. **Scalable**
 
