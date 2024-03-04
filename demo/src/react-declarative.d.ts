@@ -279,7 +279,7 @@ declare module 'react-declarative' {
     export { Translate };
     export const registerTr: (locale?: {
         [x: string]: string;
-    } | undefined, transform?: ((str: string) => string) | undefined) => Translate;
+    } | undefined, transform?: ((str: string) => string) | undefined, config?: Partial<import("./components").ITranslateConfig> | undefined) => Translate;
     export { ModalProvider } from 'react-declarative/components';
     export { SizeProvider } from 'react-declarative/components';
     export { SnackProvider } from 'react-declarative/components';
@@ -7221,20 +7221,27 @@ declare module 'react-declarative/components/Scaffold/model/IScaffoldOption' {
 }
 
 declare module 'react-declarative/components/Translate/Translate' {
-    import React from 'react';
+    import React from "react";
     interface IAttributeCollection {
         [name: string]: unknown;
     }
+    export interface ITranslateConfig {
+        useRawMark: boolean;
+        rawSymbol: string;
+        rawCondition: (text: string) => boolean;
+    }
     type Locale = Record<string, string>;
     type Middleware = (str: string) => string | null;
+    const createElementRef: typeof React.createElement;
     export class Translate {
         readonly transform?: ((str: string) => string) | undefined;
+        readonly config: Partial<ITranslateConfig>;
         get skipList(): string[];
-        constructor(locale?: Locale, transform?: ((str: string) => string) | undefined);
+        constructor(locale?: Locale, transform?: ((str: string) => string) | undefined, config?: Partial<ITranslateConfig>);
         use: (middleware: Middleware) => void;
-        createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => React.DOMElement<IAttributeCollection, Element>;
-        jss: (type: string, props: IAttributeCollection | null) => React.DOMElement<IAttributeCollection, Element>;
-        static install: (locale?: Locale | undefined, transform?: ((str: string) => string) | undefined) => Translate;
+        createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => ReturnType<typeof createElementRef>;
+        jss: (type: string, props: IAttributeCollection | null) => React.ReactElement<{}, string | React.JSXElementConstructor<any>>;
+        static install: (locale?: Locale | undefined, transform?: ((str: string) => string) | undefined, config?: Partial<ITranslateConfig> | undefined) => Translate;
         clear: () => void;
     }
     global {
