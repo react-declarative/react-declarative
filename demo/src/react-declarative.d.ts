@@ -398,6 +398,8 @@ declare module 'react-declarative' {
     import { IDateSlot as IDateSlotInternal } from 'react-declarative/components';
     import { ITimeSlot as ITimeSlotInternal } from 'react-declarative/components';
     import { IFileSlot as IFileSlotInternal } from 'react-declarative/components';
+    import { IDictSlot as IDictSlotInternal } from 'react-declarative/components';
+    import { ITreeSlot as ITreeSlotInternal } from 'react-declarative/components';
     import { IChooseSlot as IChooseSlotIntetnal } from 'react-declarative/components';
     import { IRatingSlot as IRatingSlotInternal } from 'react-declarative/components';
     import { ISliderSlot as ISliderSlotInternal } from 'react-declarative/components';
@@ -434,6 +436,8 @@ declare module 'react-declarative' {
     export type IDateSlot = IDateSlotInternal;
     export type ITimeSlot = ITimeSlotInternal;
     export type IFileSlot = IFileSlotInternal;
+    export type IDictSlot = IDictSlotInternal;
+    export type ITreeSlot = ITreeSlotInternal;
     export type IChooseSlot = IChooseSlotIntetnal;
     export type ITypographySlot = ITypographySlotInternal;
     export type ICompleteSlot = ICompleteSlotInternal;
@@ -6772,8 +6776,8 @@ declare module 'react-declarative/components/One/components/SlotFactory/SlotCont
         Choose: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, labelShrink, dirty, loading: upperLoading, inputRef, onChange, choose, tr, }: import("../..").IChooseSlot) => JSX.Element;
         Complete: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, labelShrink, description, outlined, keepRaw, title, placeholder, inputAutocomplete: autoComplete, dirty, loading: upperLoading, tip, tipSelect, autoFocus, onChange, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, withContextMenu, }: import("../..").ICompleteSlot) => JSX.Element;
         YesNo: ({ value: upperValue, disabled, readonly, description, placeholder, outlined, virtualListBox, labelShrink, noDeselect, title, tr, dirty, invalid, incorrect, onChange, }: import("../..").IYesNoSlot) => JSX.Element;
-        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, }: import("../../slots/DictSlot").IDictSlot) => JSX.Element;
-        Tree: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, onChange, itemTree, }: import("../../slots/TreeSlot").ITreeSlot) => JSX.Element;
+        Dict: ({ invalid, incorrect, value, disabled, readonly, inputType, inputMode, inputPattern, inputAutocomplete, description, outlined, title, placeholder, dirty, loading, inputRef, onChange, dictLimit, dictDelay, dictOnText, dictOnItem, dictSearch, dictValue, dictSearchText, dictOnAppend, dictSearchItem, dictCreateButton, inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, leadingIcon: li, trailingIcon: ti, leadingIconClick: lic, trailingIconClick: tic, leadingIconRipple: lir, trailingIconRipple: tir, }: import("../..").IDictSlot) => JSX.Element;
+        Tree: ({ invalid, incorrect, value, disabled, readonly, description, outlined, title, placeholder, dirty, loading: upperLoading, onChange, itemTree, }: import("../..").ITreeSlot) => JSX.Element;
     };
     export const SlotContext: import("react").Context<ISlotFactoryContext>;
     export default SlotContext;
@@ -6867,6 +6871,8 @@ declare module 'react-declarative/components/One/slots' {
     export * from 'react-declarative/components/One/slots/ChooseSlot';
     export * from 'react-declarative/components/One/slots/CompleteSlot';
     export * from 'react-declarative/components/One/slots/YesNoSlot';
+    export * from 'react-declarative/components/One/slots/DictSlot';
+    export * from 'react-declarative/components/One/slots/TreeSlot';
 }
 
 declare module 'react-declarative/components/One/components/OneConfig' {
