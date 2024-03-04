@@ -7234,9 +7234,9 @@ declare module 'react-declarative/components/Translate/Translate' {
     type Middleware = (str: string) => string | null;
     const createElementRef: typeof React.createElement;
     export class Translate {
-        readonly transform?: ((str: string) => string) | undefined;
         readonly config: Partial<ITranslateConfig>;
         get skipList(): string[];
+        translateText: (text: string) => string;
         constructor(locale?: Locale, transform?: ((str: string) => string) | undefined, config?: Partial<ITranslateConfig>);
         use: (middleware: Middleware) => void;
         createElement: (type: string, props: IAttributeCollection | null, ...children: any[]) => ReturnType<typeof createElementRef>;

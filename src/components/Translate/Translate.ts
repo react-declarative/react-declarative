@@ -38,9 +38,11 @@ export class Translate {
     return [...this._skip];
   }
 
+  public translateText: (text: string) => string;
+
   constructor(
     locale: Locale = {},
-    readonly transform?: (str: string) => string,
+    private transform?: (str: string) => string,
     readonly config: Partial<ITranslateConfig> = {}
   ) {
     const {
@@ -48,17 +50,23 @@ export class Translate {
         useRawMark = false,
         rawCondition = () => true,
     } = config;
+
+    const processRaw = (text: string) => {
+        const result = this.tr(text);
+        if (result.length === text.length) {
+            return rawCondition(result) ? rawSymbol : result;
+        }
+        return result;
+    };
+
     if (useRawMark) {
-        this.createElement = createElementFactory((text) => {
-            const result = this.tr(text);
-            if (result.length === text.length) {
-                return rawCondition(result) ? rawSymbol : result;
-            }
-            return result;
-        });
+        this.createElement = createElementFactory(processRaw);
+        this.translateText = processRaw;
     } else {
         this.createElement = createElementFactory(this.tr);
+        this.translateText = this.tr;
     }
+
     Object.entries(locale).forEach(([k, v]) =>
       this._map.set(k, this.applyMark(v))
     );
