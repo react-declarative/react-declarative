@@ -11,6 +11,7 @@ export const baselineFields = new Set<FieldType>([
     FieldType.Text,
     FieldType.Time,
     FieldType.Dict,
+    FieldType.Tree,
 ]);
 
 /**

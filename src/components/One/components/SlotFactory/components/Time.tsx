@@ -34,7 +34,7 @@ export const Time = ({
   disabled,
   readonly,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "Text",
   labelShrink,
   placeholder = datetime.TIME_PLACEHOLDER,

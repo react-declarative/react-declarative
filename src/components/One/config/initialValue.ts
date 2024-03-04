@@ -20,6 +20,7 @@ const initialValueMap = {
   [FieldType.Init]: null,
   [FieldType.YesNo]: null,
   [FieldType.Dict]: null,
+  [FieldType.Tree]: null,
 };
 
 type InitialValue = typeof initialValueMap;

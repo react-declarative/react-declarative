@@ -22,6 +22,7 @@ import DateField from "../fields/DateField";
 import TimeField from "../fields/TimeField";
 import FileField from "../fields/FileField";
 import ChooseField from "../fields/ChooseField";
+import TreeField from "../fields/TreeField";
 import CompleteField from "../fields/CompleteField";
 import InitField from "../fields/InitField";
 import YesNoField from "../fields/YesNoField";
@@ -50,6 +51,7 @@ Object.assign(fieldMap, {
   [FieldType.YesNo]: YesNoField,
   [FieldType.Init]: InitField,
   [FieldType.Dict]: DictField,
+  [FieldType.Tree]: TreeField,
 });
 
 /**

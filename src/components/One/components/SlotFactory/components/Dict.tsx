@@ -99,7 +99,7 @@ export const Dict = ({
   inputPattern = undefined,
   inputAutocomplete,
   description = "",
-  outlined = true,
+  outlined = false,
   title = "",
   placeholder = "",
   dirty,

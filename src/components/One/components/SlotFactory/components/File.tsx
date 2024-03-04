@@ -27,7 +27,7 @@ export const FileField = ({
     disabled,
     readonly,
     description = "",
-    outlined = true,
+    outlined = false,
     labelShrink,
     title = "",
     placeholder = "No file chosen",
