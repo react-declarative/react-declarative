@@ -170,13 +170,14 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
           onTabChange(id, history, payload);
         }}
       >
-        {tabs.map(({ label, icon: Icon }, idx) => (
+        {tabs.map(({ label, icon: Icon, id }, idx) => (
           <Tab
             key={idx}
             classes={{
               root: classes.tabRoot,
               selected: classes.tabSelected,
             }}
+            value={id || "unknown"}
             label={label}
             icon={Icon && <Icon />}
           />
