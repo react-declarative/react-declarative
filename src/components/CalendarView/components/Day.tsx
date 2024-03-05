@@ -28,6 +28,8 @@ import isToday from "../utils/isToday";
 
 import ICalendarItem from "../model/ICalendarItem";
 
+const DOT_SIDE = 7.5;
+
 const useStyles = makeStyles()((theme) => ({
   buttonAccient: {
     background: alpha(
@@ -71,6 +73,7 @@ export const Day = ({ onChange, day }: IDayProps) => {
     fallback,
     rowMark,
     rowColor,
+    dotSide = DOT_SIDE,
   } = usePropsContext();
 
   const [items, setItems] = useState<ICalendarItem[]>([]);
@@ -193,7 +196,7 @@ export const Day = ({ onChange, day }: IDayProps) => {
         >
           {day.format("DD")}
           {!!total && (
-            <Dot sx={{ mt: "-2.5px" }} side={5} color={getDotColor()} />
+            <Dot sx={{ mt: "-2.5px" }} side={dotSide} color={getDotColor()} />
           )}
         </Center>
       </Button>

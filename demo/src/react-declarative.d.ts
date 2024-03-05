@@ -9143,6 +9143,7 @@ declare module 'react-declarative/components/CalendarView/model/ICalendarViewPro
     import { stamp } from "react-declarative/utils/getMomentStamp";
     import IAnything from "react-declarative/model/IAnything";
     export interface ICalendarViewProps<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
+        dotSide?: number;
         outlinePaper?: boolean;
         transparent?: boolean;
         BeforeCalendarHeader?: React.ComponentType<{

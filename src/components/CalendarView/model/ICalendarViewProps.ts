@@ -13,6 +13,7 @@ export interface ICalendarViewProps<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything
 > {
+  dotSide?: number;
   outlinePaper?: boolean;
   transparent?: boolean;
   BeforeCalendarHeader?: React.ComponentType<{
