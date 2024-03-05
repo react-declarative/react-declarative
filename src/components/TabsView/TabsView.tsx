@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { alpha, darken } from "@mui/material";
 import { makeStyles } from "../../styles";
@@ -10,6 +10,7 @@ import PaperView from "../PaperView";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import ITabsViewProps from "./model/ITabsViewProps";
 import { OtherProps } from "./model/ITabsOutlet";
@@ -50,7 +51,7 @@ const useStyles = makeStyles()((theme) => ({
   loader: {
     position: "absolute",
     top: HEADER_HEIGHT - LOADER_HEIGHT,
-    height: HEADER_HEIGHT,
+    height: `${LOADER_HEIGHT}px`,
     zIndex: 2,
     left: 0,
     width: "100%",
@@ -118,12 +119,24 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   });
 
   const [path, setPath] = useState(history.location.pathname);
+  const [loading, setLoading] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const lastActiveStep = useRef(-1);
 
   const otherProps = useMemo(
     (): OtherProps => ({
       size,
+      loading: !!loading,
+      progress,
+      setLoading: (isLoading) => {
+        setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
+        setProgress(0);
+      },
+      setProgress: (progress) => {
+        setLoading(0);
+        setProgress(progress);
+      },
       ...upperOtherProps,
     }),
     [size.height, size.width]
@@ -134,6 +147,8 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
       history.listen(({ location, action }) => {
         if (action === "REPLACE") {
           setPath(location.pathname);
+          setLoading(0);
+          setProgress(0);
         }
       }),
     []
@@ -153,6 +168,24 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     return (lastActiveStep.current = activeStep);
   }, [path]);
 
+  const renderLoader = useCallback(() => {
+    if (progress) {
+      return (
+        <LinearProgress
+          className={classes.loader}
+          value={progress}
+          variant="determinate"
+        />
+      );
+    }
+    if (loading) {
+      return (
+        <LinearProgress className={classes.loader} variant="indeterminate" />
+      );
+    }
+    return null;
+  }, [loading, progress]);
+
   return (
     <PaperView
       outlinePaper={outlinePaper}
@@ -166,23 +199,23 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
         classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
         value={activeStep}
         sx={{ background: outlinePaper ? "transparent !important" : "inherit" }}
-        onChange={(_, id) => {
-          onTabChange(id, history, payload);
+        onChange={(_, idx) => {
+          onTabChange(tabs[idx].id!, history, payload);
         }}
       >
-        {tabs.map(({ label, icon: Icon, id }, idx) => (
+        {tabs.map(({ label, icon: Icon }, idx) => (
           <Tab
             key={idx}
             classes={{
               root: classes.tabRoot,
               selected: classes.tabSelected,
             }}
-            value={id || "unknown"}
             label={label}
             icon={Icon && <Icon />}
           />
         ))}
       </Tabs>
+      {renderLoader()}
       <div className={classes.adjust} />
       <Box ref={elementRef} className={classes.content}>
         <OutletView<Data, Payload>

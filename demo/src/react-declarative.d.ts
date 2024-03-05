@@ -8033,6 +8033,10 @@ declare module 'react-declarative/components/TabsView/model/ITabsOutlet' {
     import ITabsOutletProps from "react-declarative/components/TabsView/model/ITabsOutletProps";
     export type OtherProps = {
         size: ISize;
+        loading: boolean;
+        progress: number;
+        setLoading: (loading: boolean) => void;
+        setProgress: (progress: number) => void;
     };
     export interface ITabsOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
         element: never;
