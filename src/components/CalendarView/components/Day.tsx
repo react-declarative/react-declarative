@@ -62,7 +62,7 @@ interface IDayProps {
 export const Day = ({ onChange, day }: IDayProps) => {
   const { classes } = useStyles();
 
-  const { BeforeDayHeader, AfterDayHeader } = usePropsContext();
+  const { BeforeDayHeader, AfterDayHeader, onItemClick } = usePropsContext();
 
   const [request] = useRequestContext();
   const {
@@ -167,10 +167,15 @@ export const Day = ({ onChange, day }: IDayProps) => {
             rowMark={rowMark}
             rowColor={rowColor}
             payload={payload}
+            onItemClick={(...args) => {
+              onItemClick && onItemClick(...args);
+              setAnchorEl(null);
+            }}
           >
-            {(props) =>
+            {({ data, rowMark }) =>
               createElement(renderItem, {
-                ...props,
+                ...data,
+                rowMark,
                 onDaySelect: () => onChange(day),
               })
             }

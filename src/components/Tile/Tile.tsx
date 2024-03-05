@@ -46,6 +46,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   children,
   onSkip,
   onButtonSkip,
+  onItemClick,
   onSelectedRows,
   selectedRows,
   selectionMode,
@@ -102,6 +103,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
               data={item}
               rowKey={rowKey}
               selectionMode={selectionMode}
+              onItemClick={onItemClick}
             >
               {children}
             </TileItem>

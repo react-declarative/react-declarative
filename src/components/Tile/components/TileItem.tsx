@@ -19,6 +19,7 @@ interface ITileItemProps {
   payload: IAnything;
   rowKey: Exclude<ITileProps["rowKey"], undefined>;
   children: ITileProps["children"];
+  onItemClick: ITileProps["onItemClick"];
   rowColor: string;
   selectionMode: ITileProps["selectionMode"];
 }
@@ -34,6 +35,7 @@ export const TileItem = forwardRef(
       rowColor,
       selectionMode,
       children,
+      onItemClick,
     }: ITileItemProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
@@ -88,6 +90,10 @@ export const TileItem = forwardRef(
           background: rowColor,
         }}
         selected={isSelected}
+        onClick={() => onItemClick && onItemClick({
+          data,
+          payload,
+        })}
       >
         {React.createElement(children, {
           toggleSelection,

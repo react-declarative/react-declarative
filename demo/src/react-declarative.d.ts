@@ -8864,7 +8864,7 @@ declare module 'react-declarative/components/Grid/model/TSort' {
 
 declare module 'react-declarative/components/Tile/Tile' {
     import ITileProps from "react-declarative/components/Tile/model/ITileProps";
-    export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowColor, rowKey, errorMessage, children, onSkip, onButtonSkip, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
+    export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowColor, rowKey, errorMessage, children, onSkip, onButtonSkip, onItemClick, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
     export default Tile;
 }
 
@@ -8901,6 +8901,10 @@ declare module 'react-declarative/components/Tile/model/ITileProps' {
         data: Data[];
         onSkip?: (initial: boolean) => void;
         onButtonSkip?: () => void;
+        onItemClick?: (item: {
+            data: Data;
+            payload: Payload;
+        }) => void;
         selectionMode?: SelectionMode;
         recomputeSubject?: TSubject<void>;
         rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
@@ -9182,6 +9186,10 @@ declare module 'react-declarative/components/CalendarView/model/ICalendarViewPro
         maxDate?: dayjs.Dayjs;
         onChange?: (date: dayjs.Dayjs | null) => void;
         renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
+        onItemClick: (item: {
+            data: Data;
+            payload: Payload;
+        }) => void;
         rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
         rowColor?: (row: Data) => string;
     }
