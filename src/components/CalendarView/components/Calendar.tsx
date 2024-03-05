@@ -13,8 +13,10 @@ import classNames from "../../../utils/classNames";
 import getWeeks from "../utils/getWeeks";
 import getDays from "../utils/getDays";
 
+import useReloadTrigger from "../../../hooks/useReloadTrigger";
 import useRequestContext from "../context/RequestContext";
 import usePropsContext from "../context/PropsContext";
+import useSubject from "../../../hooks/useSubject";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -58,7 +60,12 @@ export const Calendar = ({
   maxDate,
   date,
 }: ICalendarProps) => {
-  const { handler, payload } = usePropsContext();
+
+  const { reloadTrigger, doReload } = useReloadTrigger();
+
+  const { handler, payload, reloadSubject: upperReloadSubject } = usePropsContext();
+
+  const reloadSubject = useSubject(upperReloadSubject);
 
   const [currentMonth, setCurrentMonth] = useState(
     date.clone().startOf("month")
@@ -85,7 +92,9 @@ export const Calendar = ({
       payload,
       promise: fetch(),
     });
-  }, [currentMonth]);
+  }, [currentMonth, reloadTrigger]);
+
+  useEffect(() => reloadSubject.subscribe(doReload), []);
 
   const renderDays = useCallback(
     (week: dayjs.Dayjs) => {

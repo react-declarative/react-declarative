@@ -9142,7 +9142,9 @@ declare module 'react-declarative/components/CalendarView/model/ICalendarViewPro
     import ICalendarTile from "react-declarative/components/CalendarView/model/ICalendarTile";
     import { stamp } from "react-declarative/utils/getMomentStamp";
     import IAnything from "react-declarative/model/IAnything";
+    import TSubject from "react-declarative/model/TSubject";
     export interface ICalendarViewProps<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
+        reloadSubject?: TSubject<void>;
         dotSide?: number;
         outlinePaper?: boolean;
         transparent?: boolean;

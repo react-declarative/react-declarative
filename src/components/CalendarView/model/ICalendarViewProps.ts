@@ -8,11 +8,13 @@ import ICalendarTile from "./ICalendarTile";
 import { stamp } from "../../../utils/getMomentStamp";
 
 import IAnything from "../../../model/IAnything";
+import TSubject from "../../../model/TSubject";
 
 export interface ICalendarViewProps<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything
 > {
+  reloadSubject?: TSubject<void>;
   dotSide?: number;
   outlinePaper?: boolean;
   transparent?: boolean;
