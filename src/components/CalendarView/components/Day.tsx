@@ -167,8 +167,8 @@ export const Day = ({ onChange, day }: IDayProps) => {
             rowMark={rowMark}
             rowColor={rowColor}
             payload={payload}
-            onItemClick={(...args) => {
-              onItemClick && onItemClick(...args);
+            onItemClick={({ data }) => {
+              onItemClick && onItemClick(data);
               setAnchorEl(null);
             }}
           >
