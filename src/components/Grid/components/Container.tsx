@@ -5,8 +5,6 @@ import { SxProps } from "@mui/material";
 import { makeStyles } from "../../../styles";
 import { alpha } from "@mui/material";
 
-import Paper from "@mui/material/Paper";
-
 import { ISize } from "../model/ISize";
 
 import { useConstraintManager } from "../hooks/useConstraintManager";
@@ -17,9 +15,12 @@ import { getScrollbarHeight } from "../helpers/getScrollbarHeight";
 import useSingleton from "../../../hooks/useSingleton";
 
 import classNames from "../../../utils/classNames";
+import PaperView from "../../PaperView";
 
 interface Props {
   className?: string;
+  outlinePaper?: boolean;
+  transparent?: boolean;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
   header?: React.ReactNode;
@@ -63,6 +64,8 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export const Container = ({
+  outlinePaper,
+  transparent,
   className,
   style,
   sx,
@@ -111,7 +114,9 @@ export const Container = ({
   );
   return (
     <ContainerSizeProvider size={size}>
-      <Paper
+      <PaperView
+        outlinePaper={outlinePaper}
+        transparent={transparent}
         className={classNames(className, classes.root)}
         style={style}
         sx={sx}
@@ -126,7 +131,7 @@ export const Container = ({
             {children}
           </div>
         </div>
-      </Paper>
+      </PaperView>
     </ContainerSizeProvider>
   );
 };
