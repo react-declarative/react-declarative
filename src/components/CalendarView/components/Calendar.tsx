@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from "react";
 import { useCallback, useEffect, useState } from "react";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-import { makeStyles } from '../../../styles';
+import { makeStyles } from "../../../styles";
 
-import CalendarHeader from './CalendarHeader';
-import Day from './Day';
+import CalendarHeader from "./CalendarHeader";
+import Day from "./Day";
 
-import getMomentStamp from '../../../utils/getMomentStamp';
-import classNames from '../../../utils/classNames';
+import getMomentStamp from "../../../utils/getMomentStamp";
+import classNames from "../../../utils/classNames";
 
-import getWeeks from '../utils/getWeeks';
-import getDays from '../utils/getDays';
+import getWeeks from "../utils/getWeeks";
+import getDays from "../utils/getDays";
 
-import useRequestContext from '../context/RequestContext';
-import usePropsContext from '../context/PropsContext';
+import useRequestContext from "../context/RequestContext";
+import usePropsContext from "../context/PropsContext";
 
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -58,7 +58,6 @@ export const Calendar = ({
   maxDate,
   date,
 }: ICalendarProps) => {
-
   const { handler, payload } = usePropsContext();
 
   const [currentMonth, setCurrentMonth] = useState(
@@ -69,13 +68,16 @@ export const Calendar = ({
 
   useEffect(() => {
     const start = getMomentStamp(currentMonth.clone().startOf("week"));
-    const end = getMomentStamp(currentMonth.clone().endOf("month").endOf("week"));
+    const end = getMomentStamp(
+      currentMonth.clone().endOf("month").endOf("week")
+    );
     const fetch = async () => {
-      return await handler({
+      const result = await handler({
         fromStamp: start,
         toStamp: end,
         payload,
-      })
+      });
+      return result.map((item) => ({ ...item, payload }));
     };
     setRequest({
       fromStamp: start,
@@ -102,11 +104,7 @@ export const Calendar = ({
               [classes.inactiveDay]: isDisabled,
             })}
           >
-            <Day
-              day={day}
-              isActive={isActive}
-              onChange={onChange}
-            />
+            <Day day={day} isActive={isActive} onChange={onChange} />
           </div>
         );
       });
@@ -118,7 +116,9 @@ export const Calendar = ({
     const start = currentMonth.clone().startOf("week");
     const end = currentMonth.clone().endOf("month").endOf("week");
     return getWeeks(start, end).map((week) => (
-      <React.Fragment key={`week-${week.toString()}`}>{renderDays(week)}</React.Fragment>
+      <React.Fragment key={`week-${week.toString()}`}>
+        {renderDays(week)}
+      </React.Fragment>
     ));
   }, [currentMonth, renderDays]);
 

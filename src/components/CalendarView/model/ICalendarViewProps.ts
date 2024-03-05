@@ -13,6 +13,8 @@ export interface ICalendarViewProps<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything
 > {
+  outlinePaper?: boolean;
+  transparent?: boolean;
   BeforeCalendarHeader?: React.ComponentType<{
     fromStamp: stamp;
     toStamp: stamp;
@@ -41,13 +43,13 @@ export interface ICalendarViewProps<
   onLoadEnd?: (isOk: boolean) => void;
   throwError?: boolean;
   handler:
-    | ((req: ICalendarRequest<Payload>) => ICalendarItem<Data, Payload>[])
-    | ((req: ICalendarRequest<Payload>) => Promise<ICalendarItem<Data, Payload>[]>);
-  payload: Payload | (() => Payload);
+    | ((req: ICalendarRequest<Payload>) => Omit<ICalendarItem<Data, Payload>, 'payload'>[])
+    | ((req: ICalendarRequest<Payload>) => Promise<Omit<ICalendarItem<Data, Payload>, 'payload'>[]>);
+  payload?: Payload | (() => Payload);
   date?: dayjs.Dayjs;
   minDate?: dayjs.Dayjs;
   maxDate?: dayjs.Dayjs;
-  onChange: (date: dayjs.Dayjs | null) => void;
+  onChange?: (date: dayjs.Dayjs | null) => void;
   renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
   rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
   rowColor?: (row: Data) => string;

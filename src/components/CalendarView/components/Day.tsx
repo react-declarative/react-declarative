@@ -37,6 +37,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   button: {
     minWidth: "unset !important",
+    height: '100%',
     width: "100%",
     '&:hover': {
       background: alpha(

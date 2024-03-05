@@ -9,7 +9,7 @@ import utc from "dayjs/plugin/utc";
 
 import { makeStyles } from "../../styles";
 
-import Paper from "@mui/material/Paper";
+import PaperView from "../PaperView";
 
 import { RequestProvider } from "./context/RequestContext";
 import { PropsProvider } from "./context/PropsContext";
@@ -31,7 +31,7 @@ const MAX_DATE = "2100-01-01";
 const useStyles = makeStyles()((theme) => ({
   container: {
     width: "100%",
-    height: "100%",
+    minHeight: "100%",
     padding: theme.spacing(1),
   },
 }));
@@ -51,10 +51,12 @@ export const CalendarView = <
     date: upperDate = dayjs(),
     minDate = dayjs(MIN_DATE),
     maxDate = dayjs(MAX_DATE),
-    onChange,
+    onChange = () => {},
+    outlinePaper,
+    transparent,
   } = props;
 
-  const payload = useSingleton(props.payload || {} as Payload);
+  const payload = useSingleton(props.payload || ({} as Payload));
 
   const [date, setDate] = useState(() =>
     upperDate.isBefore(minDate) ? minDate : upperDate
@@ -115,20 +117,25 @@ export const CalendarView = <
     );
   };
 
-  const context = useMemo(() => ({
-    ...props,
-    payload,
-  }), []);
+  const context = useMemo(
+    () => ({
+      ...props,
+      payload,
+    }),
+    []
+  );
 
   return (
     <PropsProvider payload={context}>
-      <Paper
+      <PaperView
         className={classNames(classes.container, className)}
         style={style}
         sx={sx}
+        outlinePaper={outlinePaper}
+        transparent={transparent}
       >
         {renderInner()}
-      </Paper>
+      </PaperView>
     </PropsProvider>
   );
 };
