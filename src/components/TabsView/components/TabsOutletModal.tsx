@@ -103,7 +103,6 @@ const useStyles = makeStyles()((theme) => ({
     height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
-    overflowY: "auto",
     borderRadius: 5,
   },
   title: {
@@ -119,8 +118,7 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: "stretch",
     justifyContent: "stretch",
     maxWidth: "100%",
-    overflowX: "hidden",
-    overflowY: "auto",
+    overflow: "hidden",
     "& > *": {
       flex: 1,
     },

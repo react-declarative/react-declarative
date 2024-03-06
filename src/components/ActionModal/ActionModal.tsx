@@ -113,6 +113,7 @@ const useStyles = makeStyles()((theme) => ({
   content: {
     flex: 1,
     overflowY: "auto",
+    overflowX: "hidden",
     paddingTop: theme.spacing(1),
   },
   title: {

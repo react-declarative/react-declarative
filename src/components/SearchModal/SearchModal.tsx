@@ -79,7 +79,6 @@ const useStyles = makeStyles()((theme) => ({
     height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
-    overflowY: "auto",
     borderRadius: 5,
   },
   title: {
