@@ -102,7 +102,7 @@ const useStyles = makeStyles()((theme) => ({
     top: "40%",
     left: "50%",
     maxHeight: "80%",
-    width: 'min(calc(100% - 20px), 450px)',
+    minWidth: "330px",
   },
   large: {
     top: "50%",
@@ -183,8 +183,8 @@ export const ActionModal = <
 
   const { elementRef, size: elementBasedSize } = useElementSize({
     compute: ({ height, width }) => ({
-      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      height: Math.round(Math.floor((height - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
+      width: Math.round(Math.floor((width - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
     }),
     debounce: RESIZE_DEBOUNCE,
   });
