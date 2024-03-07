@@ -41,6 +41,7 @@ const useStyles = makeStyles()((theme) => ({
     left: "50%",
     maxHeight: "80%",
     minWidth: "330px",
+    maxWidth: "450px",
   },
   large: {
     top: "50%",
