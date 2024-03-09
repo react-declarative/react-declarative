@@ -31,15 +31,19 @@ It allow you to override any field type by slot context or [inject custom JSX](.
 
 Write code without going into [technical debt](https://en.wikipedia.org/wiki/Technical_debt). The big diffrence with [jsonforms](https://jsonforms.io/docs/#how-does-it-work) is you actually write less code cause you don't need `data schema`. In `react-declarative` all validations are build into `ui schema`, so backend endpoint can be changed partially if some properties are unused (see [PATCH method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH))
 
-5. **Reliable**
+5. **Reflectable**
+
+Each form schema can be [reflected](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.typeinfo?view=net-8.0) by using `getAvailableFields` for additional inline validations, data cleanup if some fields are not required anymore, data export (generate [excel export](https://www.npmjs.com/package/xlsx) from current form)
+
+6. **Reliable**
 
 React 18 [Concurrent render](https://react.dev/blog/2022/03/29/react-v18#what-is-concurrent-react) used under the hood (state updates in async *useEffect*) so the `jsonforms` will slow down on 200+ fields form, `react-declarative` will not
 
-6. **Code-Splittable**
+7. **Code-Splittable**
 
 JSON templates can be downloaded statically, builded dynamically, [lazy-loaded dynamically](https://webpack.js.org/concepts/module-federation/)
 
-7. **Scalable**
+8. **Scalable**
 
 Easy internationalization with translation dictionaries for Combobox field. [JSX Factory for labels translation](https://github.com/react-declarative/react-i18n-jsx-factory). An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
 
