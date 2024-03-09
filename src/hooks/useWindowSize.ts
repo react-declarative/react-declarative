@@ -5,15 +5,17 @@ import useActualValue from './useActualValue';
 
 const RESIZE_DEBOUNCE = 10;
 
-interface IParams {
+interface IParams<Size extends ISize> {
     debounce: number;
-    compute: (size: ISize) => ISize;
+    compute: (size: ISize) => Size;
+    onResize?: (size: Size) => void;
 }
 
-export const useWindowSize = ({
+export const useWindowSize = <Size extends ISize = ISize>({
     debounce: delay = RESIZE_DEBOUNCE,
-    compute = (size) => size,
-}: Partial<IParams> = {}) => {
+    compute = (size) => size as Size,
+    onResize,
+}: Partial<IParams<Size>> = {}) => {
     
     const getWindowSize = useCallback(() => {
         const size = compute({
@@ -22,10 +24,10 @@ export const useWindowSize = ({
         });
         size.height = Math.floor(size.height);
         size.width = Math.floor(size.width);
-        return (size);
+        return size;
     }, [])
 
-    const [size, setSize] = useState<ISize>(getWindowSize);
+    const [size, setSize] = useState<Size>(getWindowSize);
 
     const size$ = useActualValue(size);
 
@@ -35,6 +37,7 @@ export const useWindowSize = ({
             const pendingSize = getWindowSize();
             if (currentSize.height !== pendingSize.height || currentSize.width !== pendingSize.width) {
                 setSize(pendingSize);
+                onResize && onResize(pendingSize);
             }
         }, delay);
         window.addEventListener('resize', handler);

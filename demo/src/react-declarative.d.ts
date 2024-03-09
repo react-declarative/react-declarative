@@ -9,6 +9,7 @@
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
+//   ../../@mui/system
 //   ../../@mui/material/Stack
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
@@ -2477,28 +2478,30 @@ declare module 'react-declarative/hooks/useElementSize' {
         height: number;
         width: number;
     }
-    interface IParams extends ISize {
+    interface IParams<Size extends ISize> {
+        defaultSize?: ISize;
         target?: HTMLElement | null;
         closest?: string;
         selector?: string;
         debounce?: number;
-        compute?: (size: ISize) => ISize;
-        onResize?: (size: ISize) => void;
+        compute?: (size: ISize) => Size;
+        onResize?: (size: Size) => void;
     }
-    export const useElementSize: <T extends HTMLElement>({ target, closest, selector, height, width, debounce: delay, compute, onResize, }?: Partial<IParams>) => {
+    export const useElementSize: <T extends HTMLElement, Size extends ISize = ISize>({ defaultSize: { height, width, }, target, closest, selector, debounce: delay, compute, onResize, }?: Partial<IParams<Size>>) => {
         elementRef: import("react").RefObject<T>;
-        size: ISize;
+        size: Size;
     };
     export default useElementSize;
 }
 
 declare module 'react-declarative/hooks/useWindowSize' {
     import ISize from 'react-declarative/model/ISize';
-    interface IParams {
+    interface IParams<Size extends ISize> {
         debounce: number;
-        compute: (size: ISize) => ISize;
+        compute: (size: ISize) => Size;
+        onResize?: (size: Size) => void;
     }
-    export const useWindowSize: ({ debounce: delay, compute, }?: Partial<IParams>) => ISize;
+    export const useWindowSize: <Size extends ISize = ISize>({ debounce: delay, compute, onResize, }?: Partial<IParams<Size>>) => Size;
     export default useWindowSize;
 }
 
@@ -7511,12 +7514,19 @@ declare module 'react-declarative/components/ActionToggle/ActionToggle' {
 
 declare module 'react-declarative/components/ActionModal/ActionModal' {
     import * as React from "react";
+    import { SxProps } from "@mui/system";
+    import ISize from "react-declarative/model/ISize";
     import IField from "react-declarative/model/IField";
     import IOneApi from "react-declarative/model/IOneApi";
     import IAnything from "react-declarative/model/IAnything";
     import IOneProps from "react-declarative/model/IOneProps";
     import IOnePublicProps from "react-declarative/model/IOnePublicProps";
     export interface IActionModalProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>, Param = any> {
+        sizeRequest?: (size: ISize) => {
+            height: number;
+            width: number;
+            sx?: SxProps;
+        };
         waitForChangesDelay?: number;
         withActionButton?: boolean;
         withStaticAction?: boolean;
@@ -7554,7 +7564,7 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
-    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, withStaticAction, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, title, apiRef, features, changeSubject, reloadSubject, fullScreen, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
+    export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, withStaticAction, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, fullScreen, sizeRequest, title, apiRef, features, changeSubject, reloadSubject, outlinePaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
 
@@ -7570,7 +7580,7 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         param?: Param;
         onClose?: () => void;
     }
-    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, withActionButton, withStaticAction, payload: upperPayload, BeforeTitle, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, title, }: IParams<Data, Payload, Field, Param>) => {
+    export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, withActionButton, withStaticAction, payload: upperPayload, BeforeTitle, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, submitLabel, throwError, dirty, readonly, fullScreen, sizeRequest, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
         pickData: (param?: Param | undefined) => void;
@@ -7889,9 +7899,16 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
 }
 
 declare module 'react-declarative/components/FilesView/useFilesView' {
+    import { SxProps } from '@mui/material';
     import { IFilesViewProps } from 'react-declarative/components/FilesView/FilesView';
     import IAnything from 'react-declarative/model/IAnything';
+    import ISize from 'react-declarative/model/ISize';
     interface IParams<Payload extends IAnything = IAnything> {
+        sizeRequest?: (size: ISize) => {
+            height: number;
+            width: number;
+            sx?: SxProps;
+        };
         data?: string[] | null;
         fullScreen?: boolean;
         readonly?: boolean;
@@ -7908,7 +7925,7 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
         onClick?: IFilesViewProps['onClick'];
         onUpload?: IFilesViewProps['onUpload'];
     }
-    export const useFilesView: <Payload extends unknown = any>({ data, withActionButton, withStaticAction, readonly, fullScreen, submitLabel, payload: upperPayload, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
+    export const useFilesView: <Payload extends unknown = any>({ data, withActionButton, withStaticAction, readonly, submitLabel, payload: upperPayload, fullScreen, sizeRequest, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
         render: () => JSX.Element;
         pickFiles: () => void;
     };
@@ -9950,12 +9967,14 @@ declare module 'react-declarative/components/OutletView/model/IOtherProps' {
 
 declare module 'react-declarative/components/OutletView/components/OutletModal' {
     import * as React from "react";
+    import { SxProps } from "@mui/material";
     import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IOutletModal, { ModalOtherProps } from "react-declarative/components/OutletView/model/IOutletModal";
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
+    import ISize from "react-declarative/model/ISize";
     import Id from "react-declarative/components/OutletView/model/Id";
     export interface IOutletModalProps<Data extends {} = Record<string, any>, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params, ModalOtherProps>, keyof {
         otherProps: never;
@@ -9967,6 +9986,11 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         data: never;
         id: never;
     }> {
+        sizeRequest?: (size: ISize) => {
+            height: number;
+            width: number;
+            sx?: SxProps;
+        };
         fullScreen?: boolean;
         withActionButton?: boolean;
         withStaticAction?: boolean;
@@ -10000,7 +10024,7 @@ declare module 'react-declarative/components/OutletView/components/OutletModal' 
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, withStaticAction, throwError, fullScreen, submitLabel, waitForChangesDelay, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ withActionButton, hidden, onSubmit, onChange, mapParams, mapInitialData, mapPayload, fullScreen, sizeRequest, onLoadStart, onLoadEnd, fallback, reloadSubject, outletIdSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, withStaticAction, throwError, submitLabel, waitForChangesDelay, readonly, onMount, onUnmount, onClose, ...outletProps }: IOutletModalProps<Data, Payload, Params>) => JSX.Element;
     export default OutletModal;
 }
 
@@ -10078,12 +10102,14 @@ declare module 'react-declarative/components/WizardView/model/IWizardViewProps' 
 
 declare module 'react-declarative/components/WizardView/components/WizardOutletModal' {
     import * as React from "react";
+    import { SxProps } from "@mui/material";
     import { IFetchViewProps } from "react-declarative/components/FetchView";
     import IWizardModal from "react-declarative/components/WizardView/model/IWizardModal";
     import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
     import IAnything from "react-declarative/model/IAnything";
     import TSubject from "react-declarative/model/TSubject";
+    import ISize from "react-declarative/model/ISize";
     export interface IWizardModalProps<Data extends {} = Record<string, any>, Payload = IAnything> extends Omit<IWizardViewProps<Data, Payload>, keyof {
         otherProps: never;
         onSubmit: never;
@@ -10095,6 +10121,11 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         id: never;
         outlinePaper: never;
     }> {
+        sizeRequest?: (size: ISize) => {
+            height: number;
+            width: number;
+            sx?: SxProps;
+        };
         openSubject: TBehaviorSubject<boolean>;
         fullScreen?: boolean;
         withActionButton?: boolean;
@@ -10125,7 +10156,7 @@ declare module 'react-declarative/components/WizardView/components/WizardOutletM
         onUnmount?: () => void;
         onClose?: () => void;
     }
-    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, fullScreen, withStaticAction, waitForChangesDelay, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
+    export const OutletModal: <Data extends {} = Record<string, any>, Payload = any>({ withActionButton, hidden, onSubmit, onChange, mapInitialData, mapPayload, onLoadStart, onLoadEnd, fallback, fullScreen, sizeRequest, reloadSubject, fetchState, AfterTitle, BeforeTitle, title, data: upperData, throwError, withStaticAction, waitForChangesDelay, submitLabel, openSubject, readonly, routes, onMount, onUnmount, onClose, ...outletProps }: IWizardModalProps<Data, Payload>) => JSX.Element;
     export default OutletModal;
 }
 

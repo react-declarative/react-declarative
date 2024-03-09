@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 
 import { makeStyles } from "../../../styles";
+import { SxProps } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -10,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useSubjectValue from "../../../hooks/useSubjectValue";
 import useActualState from "../../../hooks/useActualState";
-import useElementSize from "../../../hooks/useElementSize";
 import useWindowSize from "../../../hooks/useWindowSize";
 
 import ActionButton from "../../ActionButton";
@@ -24,9 +24,9 @@ import TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IWizardViewProps from "../model/IWizardViewProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
+import ISize from "../../../model/ISize";
 
 import classNames from "../../../utils/classNames";
-import and from "../../../utils/math/and";
 import sleep from "../../../utils/sleep";
 
 const Loader = () => (
@@ -35,7 +35,6 @@ const Loader = () => (
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
 const MODAL_ROOT = "outlet-modal__root";
-const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 export interface IWizardModalProps<
@@ -55,6 +54,11 @@ export interface IWizardModalProps<
       outlinePaper: never;
     }
   > {
+  sizeRequest?: (size: ISize) => {
+    height: number;
+    width: number;
+    sx?: SxProps;
+  };
   openSubject: TBehaviorSubject<boolean>;
   fullScreen?: boolean;
   withActionButton?: boolean;
@@ -91,16 +95,16 @@ export interface IWizardModalProps<
 
 const useStyles = makeStyles()((theme) => ({
   root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
     position: "absolute",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
     borderRadius: 5,
@@ -123,19 +127,6 @@ const useStyles = makeStyles()((theme) => ({
       flex: 1,
     },
   },
-  small: {
-    top: "40%",
-    left: "50%",
-    maxHeight: "80%",
-    minWidth: "330px",
-    maxWidth: "450px",
-  },
-  large: {
-    top: "50%",
-    left: "50%",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
-  },
   inner: {
     minHeight: '100% !important',
     maxHeight: '100% !important',
@@ -153,6 +144,26 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
+  height: 0,
+  width: 0,
+  sx: {
+    position: 'static',
+    maxHeight: "80%",
+    minWidth: "330px",
+    maxWidth: "450px",
+    margin: "10px",
+  },
+});
+
+const LARGE_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = ({
+  height,
+  width,
+}) => ({
+  height: height - 50,
+  width: width - 50,
+});
+
 export const OutletModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything
@@ -166,6 +177,8 @@ export const OutletModal = <
   onLoadStart,
   onLoadEnd,
   fallback,
+  fullScreen = true,
+  sizeRequest = fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST,
   reloadSubject,
   fetchState = () => ({}),
   AfterTitle,
@@ -173,7 +186,6 @@ export const OutletModal = <
   title,
   data: upperData = null,
   throwError = false,
-  fullScreen = true,
   withStaticAction = false,
   waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   submitLabel = "Submit",
@@ -189,27 +201,19 @@ export const OutletModal = <
 
   const open = useSubjectValue(openSubject, !!openSubject.data)
 
-  const windowBasedSize = useWindowSize({
-    compute: ({ height, width }) => ({
-      height:
-        Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) *
-        DECIMAL_PLACES,
-      width:
-        Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) *
-        DECIMAL_PLACES,
-    }),
-    debounce: RESIZE_DEBOUNCE,
-  });
-
-  const { elementRef, size: elementBasedSize } = useElementSize({
-    compute: ({ height, width }) => ({
-      height:
-        Math.round(Math.floor((height - 20) / 2) / DECIMAL_PLACES) *
-        DECIMAL_PLACES,
-      width:
-        Math.round(Math.floor((width - 20) / 2) / DECIMAL_PLACES) *
-        DECIMAL_PLACES,
-    }),
+  const requestedSize = useWindowSize({
+    compute: (size) => {
+      const request = sizeRequest(size);
+      return {
+        height: request.height,
+        width: request.width,
+        sx: {
+          top: request.height ? size.height - request.height : undefined,
+          left: request.height ? size.width - request.width : undefined,
+          ...request.sx,
+        },
+      }
+    },
     debounce: RESIZE_DEBOUNCE,
   });
 
@@ -297,6 +301,7 @@ export const OutletModal = <
 
   return (
     <Modal
+      className={classes.root}
       open={open}
       sx={{
         ...(hidden && {
@@ -311,20 +316,11 @@ export const OutletModal = <
       }}
     >
       <Box
-        ref={elementRef}
-        className={classNames(classes.root, MODAL_ROOT, {
-          [classes.small]: !fullScreen,
-          [classes.large]: fullScreen,
-        })}
+        className={classNames(classes.container, MODAL_ROOT)}
         sx={{
-          ...(fullScreen && {
-            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
-          }),
-          ...(!fullScreen && {
-            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
-              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
-              : undefined,
-          }),
+          height: requestedSize.height || undefined,
+          width: requestedSize.width || undefined,
+          ...requestedSize.sx,
         }}
       >
         {title && (

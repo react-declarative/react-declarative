@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 
 import { makeStyles } from "../../../styles";
+import { SxProps } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -9,7 +10,6 @@ import Typography from "@mui/material/Typography";
 
 import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useActualState from "../../../hooks/useActualState";
-import useElementSize from "../../../hooks/useElementSize";
 import useWindowSize from "../../../hooks/useWindowSize";
 import useChange from "../../../hooks/useChange";
 
@@ -24,10 +24,10 @@ import IOutletViewProps from "../model/IOutletViewProps";
 import TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
+import ISize from "../../../model/ISize";
 import Id from "../model/Id";
 
 import classNames from "../../../utils/classNames";
-import and from "../../../utils/math/and";
 import sleep from "../../../utils/sleep";
 
 const Loader = () => (
@@ -36,7 +36,6 @@ const Loader = () => (
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
 const MODAL_ROOT = "outlet-modal__root";
-const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 export interface IOutletModalProps<
@@ -44,18 +43,23 @@ export interface IOutletModalProps<
   Payload = IAnything,
   Params = IAnything
 > extends Omit<
-    IOutletViewProps<Data, Payload, Params, ModalOtherProps>,
-    keyof {
-      otherProps: never;
-      onSubmit: never;
-      initialData: never;
-      payload: never;
-      params: never;
-      routes: never;
-      data: never;
-      id: never;
-    }
-  > {
+  IOutletViewProps<Data, Payload, Params, ModalOtherProps>,
+  keyof {
+    otherProps: never;
+    onSubmit: never;
+    initialData: never;
+    payload: never;
+    params: never;
+    routes: never;
+    data: never;
+    id: never;
+  }
+> {
+  sizeRequest?: (size: ISize) => {
+    height: number;
+    width: number;
+    sx?: SxProps;
+  };
   fullScreen?: boolean;
   withActionButton?: boolean;
   withStaticAction?: boolean;
@@ -102,16 +106,16 @@ export interface IOutletModalProps<
 
 const useStyles = makeStyles()((theme) => ({
   root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
     position: "absolute",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
     borderRadius: 5,
@@ -135,19 +139,6 @@ const useStyles = makeStyles()((theme) => ({
       flex: 1,
     },
   },
-  small: {
-    top: "40%",
-    left: "50%",
-    maxHeight: "80%",
-    minWidth: "330px",
-    maxWidth: "450px",
-  },
-  large: {
-    top: "50%",
-    left: "50%",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
-  },
   submit: {
     paddingTop: 15,
   },
@@ -159,6 +150,27 @@ const useStyles = makeStyles()((theme) => ({
     flex: 1,
   },
 }));
+
+const SMALL_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = () => ({
+  height: 0,
+  width: 0,
+  sx: {
+    position: 'static',
+    maxHeight: "80%",
+    minWidth: "330px",
+    maxWidth: "450px",
+    margin: "10px",
+  },
+});
+
+const LARGE_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = ({
+  height,
+  width,
+}) => ({
+  height: height - 50,
+  width: width - 50,
+});
+
 
 export const OutletModal = <
   Data extends {} = Record<string, any>,
@@ -172,6 +184,8 @@ export const OutletModal = <
   mapParams = (id) => ({ id } as unknown as Params),
   mapInitialData = (id) => ({ id } as unknown as Data),
   mapPayload = (id) => ({ id } as unknown as Payload),
+  fullScreen = true,
+  sizeRequest = fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -184,9 +198,8 @@ export const OutletModal = <
   data: upperData = null,
   withStaticAction = false,
   throwError = false,
-  fullScreen = true,
   submitLabel = "Submit",
-  waitForChangesDelay =  withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
+  waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   readonly,
   onMount,
   onUnmount,
@@ -196,19 +209,19 @@ export const OutletModal = <
   const [id, setId] = useState<string | null>(outletIdSubject.data);
   const { classes } = useStyles();
 
-  const windowBasedSize = useWindowSize({
-    compute: ({ height, width }) => ({
-      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-    }),
-    debounce: RESIZE_DEBOUNCE,
-  });
-
-  const { elementRef, size: elementBasedSize } = useElementSize({
-    compute: ({ height, width }) => ({
-      height: Math.round(Math.floor((height - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-    }),
+  const requestedSize = useWindowSize({
+    compute: (size) => {
+      const request = sizeRequest(size);
+      return {
+        height: request.height,
+        width: request.width,
+        sx: {
+          top: request.height ? size.height - request.height : undefined,
+          left: request.height ? size.width - request.width : undefined,
+          ...request.sx,
+        },
+      }
+    },
     debounce: RESIZE_DEBOUNCE,
   });
 
@@ -328,20 +341,11 @@ export const OutletModal = <
       }}
     >
       <Box
-        ref={elementRef}
-        className={classNames(classes.root, MODAL_ROOT, {
-          [classes.small]: !fullScreen,
-          [classes.large]: fullScreen,
-        })}
+        className={classNames(classes.root, MODAL_ROOT)}
         sx={{
-          ...(fullScreen && {
-            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
-          }),
-          ...(!fullScreen && {
-            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
-              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
-              : undefined,
-          }),
+          height: requestedSize.height || undefined,
+          width: requestedSize.width || undefined,
+          ...requestedSize.sx,
         }}
       >
         {title && (
@@ -378,20 +382,20 @@ export const OutletModal = <
               Loader={Loader}
             >
               {async (...args) => (
-                  <OutletView
-                    {...outletProps}
-                    fallback={fallback}
-                    onLoadStart={onLoadStart}
-                    onLoadEnd={onLoadEnd}
-                    initialData={await mapInitialData(id, args.flat(1))}
-                    payload={await mapPayload(id, args.flat(1))}
-                    params={await mapParams(id, args.flat(1))}
-                    readonly={readonly}
-                    onChange={handleChange}
-                    onSubmit={async (data, payload) => await onSubmit(id, data, payload)}
-                    otherProps={{ onClose: handleClose }}
-                  />
-                )}
+                <OutletView
+                  {...outletProps}
+                  fallback={fallback}
+                  onLoadStart={onLoadStart}
+                  onLoadEnd={onLoadEnd}
+                  initialData={await mapInitialData(id, args.flat(1))}
+                  payload={await mapPayload(id, args.flat(1))}
+                  params={await mapParams(id, args.flat(1))}
+                  readonly={readonly}
+                  onChange={handleChange}
+                  onSubmit={async (data, payload) => await onSubmit(id, data, payload)}
+                  otherProps={{ onClose: handleClose }}
+                />
+              )}
             </FetchView>
           )}
         </Box>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 
 import { makeStyles } from "../../styles";
+import { SxProps } from '@mui/material';
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -12,42 +13,31 @@ import ActionButton from '../ActionButton';
 import useOneArray from '../../hooks/useOneArray';
 import useSingleton from '../../hooks/useSingleton';
 import useWindowSize from '../../hooks/useWindowSize';
-import useElementSize from '../../hooks/useElementSize';
 
 import classNames from '../../utils/classNames';
-import and from '../../utils/math/and';
 
 import IAnything from '../../model/IAnything';
+import ISize from '../../model/ISize';
 
 const MODAL_ROOT = "files-modal__root";
-const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 const useStyles = makeStyles()((theme) => ({
   root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
     position: "absolute",
     padding: 20,
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "stretch",
-    transform: "translate(-50%, -50%)",
     backgroundColor: theme.palette.background.paper,
     borderRadius: 5,
     gap: 5,
-  },
-  small: {
-    top: "40%",
-    left: "50%",
-    maxHeight: "80%",
-    minWidth: "330px",
-    maxWidth: "450px",
-  },
-  large: {
-    top: "50%",
-    left: "50%",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
   },
   content: {
     flex: 1,
@@ -70,7 +60,32 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
+  height: 0,
+  width: 0,
+  sx: {
+    position: 'static',
+    maxHeight: "80%",
+    minWidth: "330px",
+    maxWidth: "450px",
+    margin: "10px",
+  },
+});
+
+const LARGE_SIZE_REQUEST: IParams['sizeRequest'] = ({
+  height,
+  width,
+}) => ({
+  height: height - 50,
+  width: width - 50,
+});
+
 interface IParams<Payload extends IAnything = IAnything> {
+  sizeRequest?: (size: ISize) => {
+    height: number;
+    width: number;
+    sx?: SxProps;
+  };
   data?: string[] | null;
   fullScreen?: boolean;
   readonly?: boolean;
@@ -93,9 +108,10 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
   withActionButton = true,
   withStaticAction = false,
   readonly,
-  fullScreen,
   submitLabel = "Save",
   payload: upperPayload = {} as Payload,
+  fullScreen = false,
+  sizeRequest = fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST,
   onChange,
   onSubmit,
   tr,
@@ -108,19 +124,19 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
-  const windowBasedSize = useWindowSize({
-    compute: ({ height, width }) => ({
-      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-    }),
-    debounce: RESIZE_DEBOUNCE,
-  });
-
-  const { elementRef, size: elementBasedSize } = useElementSize({
-    compute: ({ height, width }) => ({
-      height: Math.round(Math.floor((height - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 20) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-    }),
+  const requestedSize = useWindowSize({
+    compute: (size) => {
+      const request = sizeRequest(size);
+      return {
+        height: request.height,
+        width: request.width,
+        sx: {
+          top: request.height ? size.height - request.height : undefined,
+          left: request.height ? size.width - request.width: undefined,
+          ...request.sx,
+        },
+      }
+    },
     debounce: RESIZE_DEBOUNCE,
   });
 
@@ -166,22 +182,13 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
   };
 
   const render = () => (
-    <Modal open={open} onClose={handleClose}>
+    <Modal className={classes.root} open={open} onClose={handleClose}>
       <Box
-        ref={elementRef}
-        className={classNames(classes.root, MODAL_ROOT, {
-          [classes.small]: !fullScreen,
-          [classes.large]: fullScreen,
-        })}
+        className={classNames(classes.container, MODAL_ROOT)}
         sx={{
-          ...(fullScreen && {
-            transform: `translate(-${windowBasedSize.width}px, -${windowBasedSize.height}px) !important`,
-          }),
-          ...(!fullScreen && {
-            transform: and(!!elementBasedSize.width, !!elementBasedSize.height)
-              ? `translate(-${elementBasedSize.width}px, -${elementBasedSize.height}px) !important`
-              : undefined,
-          }),
+          height: requestedSize.height || undefined,
+          width: requestedSize.width || undefined,
+          ...requestedSize.sx,
         }}
       >
         <Box className={classes.content}>
