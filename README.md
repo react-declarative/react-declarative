@@ -17,7 +17,7 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 1. **Accesible**
 
-Every callback you need: field or group of fields focus/blur event, form invalidity state and more
+Every callback you need: field or group of fields focus/blur event, form invalidity state, [data-testid](https://medium.com/@automationTest/why-your-development-team-should-use-data-testid-attributes-a83f1ca27ebb) and more
 
 2. **Configurable**
 
