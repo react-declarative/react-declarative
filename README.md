@@ -21,11 +21,11 @@ Every callback you need: field or group of fields focus/blur event, form invalid
 
 2. **Configurable**
 
-Each field can be statically hidden by settings dictionary and dynamically by form state condition. Same if you want to disable or make field readonly
+Each field can be statically [hidden by settings dictionary](https://github.com/react-declarative/react-pocketbase-crm?tab=readme-ov-file#feature-model-and-dynamic-field-visibility) and dynamically by form state condition. Same if you want to disable or make field readonly
 
 3. **Extendable**
 
-It allow you to override any field type by slot context or inject custom JSX directly into form without additional boilerplate
+It allow you to override any field type by slot context or [inject custom JSX](./demo/src/pages/GalleryPage.tsx#L206) directly into form without additional boilerplate
 
 4. **Maintainable**
 
@@ -41,7 +41,7 @@ JSON templates can be downloaded statically, builded dynamically, [lazy-loaded d
 
 7. **Scalable**
 
-Easy internationalization with translation dictionaries for Combobox field. JSX Factory for labels translation. An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
+Easy internationalization with translation dictionaries for Combobox field. [JSX Factory for labels translation](https://github.com/react-declarative/react-i18n-jsx-factory). An organisation for tutoring newbies [with 25 projects with AI](https://github.com/react-declarative/brainjs-cryptocurrency-trend), reactive programming and more 
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
