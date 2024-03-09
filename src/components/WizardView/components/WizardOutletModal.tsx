@@ -98,9 +98,10 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: "hidden",
   },
   container: {
-    position: "absolute",
+    position: 'static',
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -148,7 +149,6 @@ const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
   sx: {
-    position: 'static',
     maxHeight: "80%",
     minWidth: "330px",
     maxWidth: "450px",
@@ -207,11 +207,7 @@ export const OutletModal = <
       return {
         height: request.height,
         width: request.width,
-        sx: {
-          top: request.height ? size.height - request.height : undefined,
-          left: request.height ? size.width - request.width : undefined,
-          ...request.sx,
-        },
+        sx: request.sx,
       }
     },
     debounce: RESIZE_DEBOUNCE,
