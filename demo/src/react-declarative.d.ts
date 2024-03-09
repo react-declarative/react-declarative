@@ -7595,11 +7595,13 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
 
 declare module 'react-declarative/components/SearchModal/SearchModal' {
     import * as React from "react";
+    import { SxProps } from "@mui/material";
+    import SelectionMode from "react-declarative/model/SelectionMode";
+    import IListProps from "react-declarative/model/IListProps";
     import IAnything from "react-declarative/model/IAnything";
     import IRowData from "react-declarative/model/IRowData";
     import IField from "react-declarative/model/IField";
-    import IListProps from "react-declarative/model/IListProps";
-    import SelectionMode from "react-declarative/model/SelectionMode";
+    import ISize from "react-declarative/model/ISize";
     export interface ISearchModalProps<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload extends IAnything = IAnything, Field extends IField = IField<FilterData, Payload>> extends Omit<IListProps<FilterData, RowData, Payload, Field>, keyof {
         selectedRows: never;
         heightRequest: never;
@@ -7609,6 +7611,12 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         onLoadEnd: never;
         onRowClick: never;
     }> {
+        fullScreen?: boolean;
+        sizeRequest?: (size: ISize) => {
+            height: number;
+            width: number;
+            sx?: SxProps;
+        };
         title?: string;
         AfterTitle?: React.ComponentType<{
             onClose?: () => void;
@@ -7630,7 +7638,7 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         hidden?: boolean;
         submitLabel?: string;
     }
-    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, BeforeTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+    export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ fullScreen, sizeRequest, hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, BeforeTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
 }
 

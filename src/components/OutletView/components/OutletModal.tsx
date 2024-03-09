@@ -323,6 +323,7 @@ export const OutletModal = <
 
   return (
     <Modal
+      className={classes.root}
       open={!!id}
       sx={{
         ...(hidden && {
@@ -337,7 +338,7 @@ export const OutletModal = <
       }}
     >
       <Box
-        className={classNames(classes.root, MODAL_ROOT)}
+        className={classNames(classes.container, MODAL_ROOT)}
         sx={{
           height: requestedSize.height || undefined,
           width: requestedSize.width || undefined,

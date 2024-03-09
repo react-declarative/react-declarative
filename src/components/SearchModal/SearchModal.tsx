@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 
 import { makeStyles } from "../../styles";
+import { SxProps } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -16,14 +17,14 @@ import useSingleton from "../../hooks/useSingleton";
 
 import classNames from "../../utils/classNames";
 
+import SelectionMode from "../../model/SelectionMode";
+import IListProps from "../../model/IListProps";
 import IAnything from "../../model/IAnything";
 import IRowData from "../../model/IRowData";
 import IField from "../../model/IField";
-import IListProps from "../../model/IListProps";
-import SelectionMode from "../../model/SelectionMode";
+import ISize from "../../model/ISize";
 
 const MODAL_ROOT = "search-modal__root";
-const DECIMAL_PLACES = 10;
 const RESIZE_DEBOUNCE = 10;
 
 export interface ISearchModalProps<
@@ -32,17 +33,23 @@ export interface ISearchModalProps<
   Payload extends IAnything = IAnything,
   Field extends IField = IField<FilterData, Payload>
 > extends Omit<
-    IListProps<FilterData, RowData, Payload, Field>,
-    keyof {
-      selectedRows: never;
-      heightRequest: never;
-      widthRequest: never;
-      onSelectedRows: never;
-      onLoadStart: never;
-      onLoadEnd: never;
-      onRowClick: never;
-    }
-  > {
+  IListProps<FilterData, RowData, Payload, Field>,
+  keyof {
+    selectedRows: never;
+    heightRequest: never;
+    widthRequest: never;
+    onSelectedRows: never;
+    onLoadStart: never;
+    onLoadEnd: never;
+    onRowClick: never;
+  }
+> {
+  fullScreen?: boolean;
+  sizeRequest?: (size: ISize) => {
+    height: number;
+    width: number;
+    sx?: SxProps;
+  };
   title?: string;
   AfterTitle?: React.ComponentType<{
     onClose?: () => void;
@@ -67,16 +74,17 @@ export interface ISearchModalProps<
 
 const useStyles = makeStyles()((theme) => ({
   root: {
-    position: "absolute",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: "hidden",
+  },
+  container: {
+    position: 'static',
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "calc(100vw - 50px)",
-    height: "calc(100vh - 50px)",
     backgroundColor: theme.palette.background.paper,
     padding: 20,
     borderRadius: 5,
@@ -117,12 +125,33 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+const SMALL_SIZE_REQUEST: ISearchModalProps['sizeRequest'] = () => ({
+  height: 0,
+  width: 0,
+  sx: {
+    maxHeight: "80%",
+    minWidth: "330px",
+    maxWidth: "450px",
+    margin: "10px",
+  },
+});
+
+const LARGE_SIZE_REQUEST: ISearchModalProps['sizeRequest'] = ({
+  height,
+  width,
+}) => ({
+  height: height - 50,
+  width: width - 50,
+});
+
 export const SearchModal = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything,
   Field extends IField = IField<FilterData, Payload>
 >({
+  fullScreen = true,
+  sizeRequest = fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST,
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
@@ -143,14 +172,15 @@ export const SearchModal = <
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
 
-  const { height, width } = useWindowSize({
-    compute: ({
-      height,
-      width,
-    }) => ({
-      height: Math.round(Math.floor((height - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-      width: Math.round(Math.floor((width - 50) / 2) / DECIMAL_PLACES) * DECIMAL_PLACES,
-    }),
+  const requestedSize = useWindowSize({
+    compute: (size) => {
+      const request = sizeRequest(size);
+      return {
+        height: request.height,
+        width: request.width,
+        sx: request.sx,
+      }
+    },
     debounce: RESIZE_DEBOUNCE,
   });
 
@@ -225,6 +255,7 @@ export const SearchModal = <
   return (
     <Modal
       open={open}
+      className={classes.root}
       sx={{
         ...(hidden && {
           visibility: "hidden",
@@ -238,10 +269,12 @@ export const SearchModal = <
       }}
     >
       <Box
-        className={classNames(classes.root, MODAL_ROOT)}
+        className={classNames(classes.container, MODAL_ROOT)}
         sx={{
-          transform: `translate(-${width}px, -${height}px) !important`,
-        }}  
+          height: requestedSize.height || undefined,
+          width: requestedSize.width || undefined,
+          ...requestedSize.sx,
+        }}
       >
         {title && (
           <div className={classes.title}>
