@@ -10,6 +10,8 @@
 
 A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
 
+<!--
+
 ## Contents
 
 1. [Short review](./README.md#short-review)
@@ -35,6 +37,8 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 21. [Philosophy notes](./README.md#philosophy-notes)
 22. [License](./README.md#license)
 23. [Thanks](./README.md#thanks)
+
+-->
 
 ## Short review
 
