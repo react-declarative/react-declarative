@@ -10,6 +10,32 @@
 
 A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
 
+## Contents
+
+1. [Short review](./README.md#short-review)
+2. [Quick start](./README.md#quick-start)
+3. [Installation](./README.md#installation)
+4. [Demos](./README.md#demos)
+5. [Declarative Scaffold component](./README.md#declarative-scaffold-component)
+6. [Declarative KanbanView component](./README.md#declarative-kanbanview-component)
+7. [Declarative WizardView component](./README.md#declarative-wizardview-component)
+8. [VisibilityView and FeatureView components](./README.md#visibilityview-and-featureview-components)
+9. [JSON-templated view engine](./README.md#json-templated-view-engine)
+10. [JSON-templated grid engine](./README.md#json-templated-grid-engine)
+11. [DOM Frames with infinite scroll and transparent-api virtualization](./README.md#dom-frames-with-infinite-scroll-and-transparent-api-virtualization)
+12. [Async hooks and Action components](./README.md#async-hooks-and-action-components)
+13. [Async pipe port](./README.md#async-pipe-port)
+14. [Structural directive port](./README.md#structural-directive-port)
+15. [Animated view transition](./README.md#animated-view-transition)
+16. [Build-in router](./README.md#build-in-router)
+17. [MapReduce Data Pipelines](./README.md#mapreduce-data-pipelines)
+18. [Ref-managed MVVM collection](./README.md#ref-managed-mvvm-collection)
+19. [See also](./README.md#see-also)
+20. [Patterns inside](./README.md#patterns-inside)
+21. [Philosophy notes](./README.md#philosophy-notes)
+22. [License](./README.md#license)
+23. [Thanks](./README.md#thanks)
+
 ## Short review
 
 > [!TIP]
@@ -1168,3 +1194,7 @@ import { VirtualView } from 'react-declarative';
 > P.S. Got a question? Feel free to [write It in issues](https://github.com/react-declarative/react-declarative/issues), I need traffic
 
 LGPL 2.1 [@tripolskypetr](https://github.com/tripolskypetr)
+
+## Thanks
+
+Dude, you reached that point, omg. Could you star it on github plz)
