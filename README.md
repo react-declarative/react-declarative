@@ -1197,4 +1197,5 @@ LGPL 2.1 [@tripolskypetr](https://github.com/tripolskypetr)
 
 ## Thanks
 
-Dude, you reached that point, omg. Could you star it on github plz)
+Dude, you reached that point, omg. Could you 
+[Star it on GitHub](https://github.com/react-declarative/react-declarative) plz)
