@@ -62,6 +62,7 @@ export const useActionModal = <
   dirty,
   readonly,
   fullScreen,
+  sizeRequest,
   title,
 }: IParams<Data, Payload, Field, Param>) => {
 
@@ -104,6 +105,7 @@ export const useActionModal = <
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}
         outlinePaper={outlinePaper}
+        sizeRequest={sizeRequest}
         fields={fields}
         handler={handler}
         payload={payload}

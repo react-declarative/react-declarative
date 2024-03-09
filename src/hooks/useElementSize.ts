@@ -9,25 +9,31 @@ interface ISize {
     width: number;
 }
 
-interface IParams extends ISize {
+interface IParams<Size extends ISize> {
+    defaultSize?: ISize;
     target?: HTMLElement | null;
     closest?: string;
     selector?: string;
     debounce?: number;
-    compute?: (size: ISize) => ISize; 
-    onResize?: (size: ISize) => void;
+    compute?: (size: ISize) => Size; 
+    onResize?: (size: Size) => void;
 }
 
-export const useElementSize = <T extends HTMLElement>({
+export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize>({
+    defaultSize: {
+        height,
+        width,
+    } = {
+        height: 0,
+        width: 0,
+    },
     target = null,
     closest,
     selector,
-    height = 0,
-    width = 0,
     debounce: delay = 0,
-    compute = (size) => size,
+    compute = (size) => size as Size,
     onResize,
-}: Partial<IParams> = {}) => {
+}: Partial<IParams<Size>> = {}) => {
 
     const elementRef = useRef<T>(null);
     const isMounted = useRef(true);
@@ -36,10 +42,10 @@ export const useElementSize = <T extends HTMLElement>({
         isMounted.current = false;
     }, [])
 
-    const [size, setSize] = useState<ISize>({
+    const [size, setSize] = useState<Size>({
         height,
         width,
-    });
+    } as Size);
 
     const size$ = useActualValue(size);
 
@@ -65,13 +71,13 @@ export const useElementSize = <T extends HTMLElement>({
         }
 
         const handler = debounce((pendingSize : ISize) => {
-            pendingSize = compute(pendingSize);
-            pendingSize.height = Math.floor(pendingSize.height);
-            pendingSize.width = Math.floor(pendingSize.width);
+            let mappedSize = {...compute(pendingSize)};
+            mappedSize.height = Math.floor(mappedSize.height);
+            mappedSize.width = Math.floor(mappedSize.width);
             const { current: size } = size$;
-            if (size.height !== pendingSize.height || size.width !== pendingSize.width) {
-                isMounted.current && setSize(pendingSize);
-                onResize && onResize(pendingSize);
+            if (size.height !== mappedSize.height || size.width !== mappedSize.width) {
+                isMounted.current && setSize(mappedSize);
+                onResize && onResize(mappedSize);
             }
         }, delay);
 
@@ -80,7 +86,7 @@ export const useElementSize = <T extends HTMLElement>({
             handler({ height, width });
         });
 
-        let pendingSize = compute({ ...element.getBoundingClientRect() });
+        let pendingSize = {...compute({ ...element.getBoundingClientRect() })};
         pendingSize.height = Math.floor(pendingSize.height);
         pendingSize.width = Math.floor(pendingSize.width);
         
