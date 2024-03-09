@@ -33,7 +33,7 @@ Write code without going into [technical debt](https://en.wikipedia.org/wiki/Tec
 
 5. **Reflectable**
 
-Each form schema can be [reflected](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.typeinfo?view=net-8.0) by using `getAvailableFields` for additional inline validations, data cleanup if some fields are not required anymore, data export (generate [excel export](https://www.npmjs.com/package/xlsx) from current form)
+Each form schema can be [reflected](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.typeinfo?view=net-8.0) by using `getAvailableFields` for additional inline validations, data cleanup if some fields are not required anymore, data export (generate [excel export](https://www.npmjs.com/package/xlsx) from current form). That extreamly hard to implement with `jsonforms`
 
 6. **Reliable**
 
