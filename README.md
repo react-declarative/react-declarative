@@ -33,7 +33,7 @@ Write code without going into [technical debt](https://en.wikipedia.org/wiki/Tec
 
 5. **Reliable**
 
-The big diffrence with [jsonforms](https://jsonforms.io/docs/#how-does-it-work) is you actually write less code cause you don't need `data schema`. In `react-declarative` all validations are build into `ui schema`, so backend endpoint can be changed partially if some properties are unused (PATCH method). Also [concurrent render](https://react.dev/blog/2022/03/29/react-v18) used under the hood so the `jsonforms` will slow down on 200+ fields form, `react-declarative` will not
+The big diffrence with [jsonforms](https://jsonforms.io/docs/#how-does-it-work) is you actually write less code cause you don't need `data schema`. In `react-declarative` all validations are build into `ui schema`, so backend endpoint can be changed partially if some properties are unused (PATCH method). Also [concurrent render](https://react.dev/blog/2022/03/29/react-v18#what-is-concurrent-react) used under the hood so the `jsonforms` will slow down on 200+ fields form, `react-declarative` will not
 
 6. **Code-Splittable**
 
