@@ -249,7 +249,6 @@ export const OutletModal = <
     onLoadEnd && onLoadEnd(isOk);
   };
 
-
   const waitForRender = useRenderWaiter([data], 10);
 
   const waitForChanges = async () => {

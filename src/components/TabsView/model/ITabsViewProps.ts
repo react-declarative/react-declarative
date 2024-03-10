@@ -1,4 +1,4 @@
-
+import React from "react";
 import { SxProps } from "@mui/material";
 import History from "../../../model/History";
 import IAnything from "../../../model/IAnything";
@@ -11,6 +11,9 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
     history: never;
     routes: never;
 }> {
+    transparentHeader?: boolean;
+    BeforeTabs?: React.ComponentType<any>;
+    AfterTabs?: React.ComponentType<any>;
     className?: string;
     outlinePaper?: boolean;
     transparentPaper?: boolean;

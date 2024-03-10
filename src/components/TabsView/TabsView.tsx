@@ -42,11 +42,13 @@ const useStyles = makeStyles()((theme) => ({
     left: 0,
     marginLeft: 0,
     height: `${HEADER_HEIGHT}px`,
+    width: "100%",
+  },
+  headerBg: {
     background:
       theme.palette.mode === "dark"
         ? darken(theme.palette.background.paper, 0.06)
         : alpha("#000", 0.05),
-    width: "100%",
   },
   loader: {
     position: "absolute",
@@ -92,6 +94,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   sx,
   outlinePaper = false,
   transparentPaper = false,
+  transparentHeader = false,
   history: upperHistory,
   payload: upperPayload = {} as Payload,
   pathname = "/",
@@ -100,6 +103,8 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   onTabChange,
   onLoadStart,
   onLoadEnd,
+  BeforeTabs,
+  AfterTabs,
   otherProps: upperOtherProps = {},
   ...outletProps
 }: ITabsViewProps<Data, Payload>) => {
@@ -197,7 +202,9 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     >
       <Tabs
         variant="standard"
-        className={classes.header}
+        className={classNames(classes.header, {
+          [classes.headerBg]: !transparentHeader,
+        })}
         classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
         value={activeStep}
         sx={{ background: outlinePaper || transparentPaper ? "transparent !important" : "inherit" }}
@@ -205,6 +212,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
           onTabChange(tabs[idx].id!, history, payload);
         }}
       >
+        {BeforeTabs && <BeforeTabs />}
         {tabs.map(({ label, icon: Icon }, idx) => (
           <Tab
             key={idx}
@@ -216,6 +224,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
             icon={Icon && <Icon />}
           />
         ))}
+        {AfterTabs && <AfterTabs />}
       </Tabs>
       {renderLoader()}
       <div className={classes.adjust} />
