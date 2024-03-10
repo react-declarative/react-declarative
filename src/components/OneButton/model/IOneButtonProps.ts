@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 import IOneProps, { OneHandler } from "../../../model/IOneProps";
 
 import { ButtonProps } from "@mui/material/Button";
@@ -19,6 +21,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onChange: IOneProps<Data, Payload>['change'];
   onInvalid: IOneProps<Data, Payload>['invalidity'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
+  badgeOverlap?: "rectangular" | "circular";
+  badgeSx?: SxProps<any>;
   color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 }
 

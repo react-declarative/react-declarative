@@ -45,6 +45,8 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
   payload: upperPayload = {} as Payload,
   badgeColor = 'info',
   color = 'primary',
+  badgeOverlap,
+  badgeSx,
   onChange,
   onInvalid,
   ...buttonProps
@@ -101,7 +103,12 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
 
   return (
     <>
-      <Badge badgeContent={filterCount} color={badgeColor}>
+      <Badge
+        badgeContent={filterCount}
+        overlap={badgeOverlap}
+        color={badgeColor}
+        sx={badgeSx}
+      >
         <Button
           {...buttonProps}
           onClick={({ currentTarget }) => {

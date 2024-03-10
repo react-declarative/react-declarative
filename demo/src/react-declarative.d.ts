@@ -7127,7 +7127,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
 
 declare module 'react-declarative/components/OneButton/OneButton' {
     import IOneButtonProps from 'react-declarative/components/OneButton/model/IOneButtonProps';
-    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, noBadge, fields, handler, payload: upperPayload, badgeColor, color, onChange, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
+    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, onChange, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
     export default OneButton;
 }
 
@@ -9944,6 +9944,7 @@ declare module 'react-declarative/components/One/components/common/MenuItems' {
 }
 
 declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
+    import { SxProps } from "@mui/material";
     import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
     import { ButtonProps } from "@mui/material/Button";
     import IAnything from "react-declarative/model/IAnything";
@@ -9962,6 +9963,8 @@ declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
         onChange: IOneProps<Data, Payload>['change'];
         onInvalid: IOneProps<Data, Payload>['invalidity'];
         badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
+        badgeOverlap?: "rectangular" | "circular";
+        badgeSx?: SxProps<any>;
         color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
     }
     export default IOneButtonProps;
