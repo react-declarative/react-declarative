@@ -129,6 +129,7 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Превращает FieldType.Paper в FieldType.Outline
    */
   outlinePaper?: boolean;
+  transparentPaper?: boolean;
   /**
    * Отключает ввод данных
    */

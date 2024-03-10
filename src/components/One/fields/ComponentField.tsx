@@ -52,6 +52,7 @@ interface IComponentFieldPrivate<Data = IAnything> {
   disabled: PickProp<IManaged<Data>, "disabled">;
   readonly: PickProp<IManaged<Data>, "readonly">;
   outlinePaper?: PickProp<IField<Data>, "outlinePaper">;
+  transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
 }
 
 const useStyles = makeStyles()({
@@ -91,6 +92,7 @@ export const ComponentField = ({
   watchOneContext,
   element: Element = () => <Fragment />,
   outlinePaper,
+  transparentPaper,
   object,
   ...otherProps
 }: IComponentFieldProps & IComponentFieldPrivate) => {
@@ -113,6 +115,7 @@ export const ComponentField = ({
       _fieldParams,
       _fieldData: object,
       outlinePaper,
+      transparentPaper,
       payload,
       disabled,
       readonly,

@@ -293,6 +293,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Превращает FieldType.Paper в FieldType.Outline
      */
     outlinePaper?: boolean;
+    transparentPaper?: boolean;
 
     /**
      * - Коллбеки, позволяющий перекрасить SliderField.

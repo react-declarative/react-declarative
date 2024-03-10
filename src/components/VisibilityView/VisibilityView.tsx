@@ -16,6 +16,7 @@ type State = Record<string, Record<string, boolean>>;
 export const VisibilityView = ({
   changeSubject,
   outlinePaper,
+  transparentPaper,
   className,
   style,
   sx,
@@ -87,6 +88,7 @@ export const VisibilityView = ({
     <One
       className={className}
       outlinePaper={outlinePaper}
+      transparentPaper={transparentPaper}
       changeSubject={changeSubject}
       style={style}
       sx={sx}

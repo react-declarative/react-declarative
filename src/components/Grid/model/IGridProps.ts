@@ -14,7 +14,7 @@ import SelectionMode from '../../../model/SelectionMode';
 
 export interface IGridProps<T = RowData, P = IAnything> {
   outlinePaper?: boolean;
-  transparent?: boolean;
+  transparentPaper?: boolean;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;

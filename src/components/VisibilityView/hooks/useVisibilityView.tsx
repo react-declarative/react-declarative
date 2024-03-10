@@ -118,7 +118,7 @@ export const useVisibilityView = ({
       onChange && onChange(data);
     },
     submitLabel,
-    outlinePaper: true,
+    transparentPaper: true,
     payload: { readonly },
     fields,
   });

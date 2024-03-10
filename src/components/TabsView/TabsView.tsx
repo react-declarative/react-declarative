@@ -91,6 +91,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   style,
   sx,
   outlinePaper = false,
+  transparentPaper = false,
   history: upperHistory,
   payload: upperPayload = {} as Payload,
   pathname = "/",
@@ -189,6 +190,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   return (
     <PaperView
       outlinePaper={outlinePaper}
+      transparentPaper={transparentPaper}
       className={classNames(classes.root, className)}
       style={style}
       sx={sx}
@@ -198,7 +200,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
         className={classes.header}
         classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
         value={activeStep}
-        sx={{ background: outlinePaper ? "transparent !important" : "inherit" }}
+        sx={{ background: outlinePaper || transparentPaper ? "transparent !important" : "inherit" }}
         onChange={(_, idx) => {
           onTabChange(tabs[idx].id!, history, payload);
         }}

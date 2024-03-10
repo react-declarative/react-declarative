@@ -80,6 +80,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   sx,
   payload: upperPayload = {} as Payload,
   outlinePaper = false,
+  transparentPaper = false,
   history: upperHistory,
   pathname = "/",
   steps: upperSteps,
@@ -176,6 +177,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   return (
     <PaperView
       outlinePaper={outlinePaper}
+      transparentPaper={transparentPaper}
       className={classNames(classes.root, className)}
       style={style}
       sx={sx}
@@ -183,7 +185,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       <Stepper
         className={classes.header}
         activeStep={activeStep}
-        sx={{ background: outlinePaper ? "transparent !important" : "inherit" }}
+        sx={{ background: outlinePaper || transparentPaper ? "transparent !important" : "inherit" }}
       >
         {steps.map(({ label, icon: Icon }, idx) => (
           <Step key={idx} completed={activeStep > idx}>

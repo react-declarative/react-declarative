@@ -170,6 +170,7 @@ export const Container = <
     handleFiltersCollapsed,
     sizeByElement = true,
     withOutlinePaper = false,
+    withTransparentPaper = false,
     rerender = false,
     BeforeActionList,
     AfterActionList,
@@ -346,6 +347,7 @@ export const Container = <
               [classes.noElevation]: isChooser,
             })}
             outlinePaper={withOutlinePaper}
+            transparentPaper={withTransparentPaper}
           >
             <div>
               {!isChooser && Array.isArray(filters) && !!filters.length && (

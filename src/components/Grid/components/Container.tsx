@@ -20,7 +20,7 @@ import PaperView from "../../PaperView";
 interface Props {
   className?: string;
   outlinePaper?: boolean;
-  transparent?: boolean;
+  transparentPaper?: boolean;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
   header?: React.ReactNode;
@@ -65,7 +65,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export const Container = ({
   outlinePaper,
-  transparent,
+  transparentPaper,
   className,
   style,
   sx,
@@ -116,7 +116,7 @@ export const Container = ({
     <ContainerSizeProvider size={size}>
       <PaperView
         outlinePaper={outlinePaper}
-        transparent={transparent}
+        transparentPaper={transparentPaper}
         className={classNames(className, classes.root)}
         style={style}
         sx={sx}

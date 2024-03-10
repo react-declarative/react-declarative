@@ -16,6 +16,7 @@ interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
   outlinePaper?: boolean;
+  transparentPaper?: boolean;
   sx?: SxProps<any>;
   label?: ICardProps["label"];
   mobileItem?: ITileProps<T>["children"];
@@ -42,6 +43,7 @@ export const GridView = <
   payload: upperPayload,
   mobileItem: MobileItem,
   outlinePaper,
+  transparentPaper,
   loading,
   ...otherProps
 }: IGridViewProps<T, P>) => {
@@ -70,6 +72,7 @@ export const GridView = <
   return (
     <Card
       outlinePaper={outlinePaper}
+      transparentPaper={transparentPaper}
       className={className}
       style={style}
       sx={sx}

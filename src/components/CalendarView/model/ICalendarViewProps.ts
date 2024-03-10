@@ -17,7 +17,7 @@ export interface ICalendarViewProps<
   reloadSubject?: TSubject<void>;
   dotSide?: number;
   outlinePaper?: boolean;
-  transparent?: boolean;
+  transparentPaper?: boolean;
   BeforeCalendarHeader?: React.ComponentType<{
     fromStamp: stamp;
     toStamp: stamp;

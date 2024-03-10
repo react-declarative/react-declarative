@@ -101,6 +101,7 @@ export const OneInternal = <
   invalidity = DEFAULT_INVALIDITY_CALLBACK,
   fallback = DEFAULT_FALLBACK,
   outlinePaper: upperOutlinePaper = false,
+  transparentPaper: upperTransparentPaper = false,
   readonly,
   focus,
   blur,
@@ -226,6 +227,7 @@ export const OneInternal = <
               ? `${field.name || "unknown"}`
               : field.placeholder,
             outlinePaper: field.outlinePaper || upperOutlinePaper,
+            transparentPaper: field.transparentPaper || upperTransparentPaper,
             click: clickMap.has(field)
               ? clickMap.get(field)
               : clickMap
@@ -273,6 +275,7 @@ export const OneInternal = <
             prefix: currentPath,
             readonly: readonly || field.readonly,
             outlinePaper: entity.outlinePaper,
+            transparentPaper: entity.transparentPaper,
             withNamedPlaceholders,
             createField,
             createLayout,

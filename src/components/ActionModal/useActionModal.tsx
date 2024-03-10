@@ -57,6 +57,7 @@ export const useActionModal = <
   onInvalid,
   AfterTitle,
   outlinePaper,
+  transparentPaper,
   submitLabel,
   throwError,
   dirty,
@@ -105,6 +106,7 @@ export const useActionModal = <
         changeSubject={changeSubject}
         reloadSubject={reloadSubject}
         outlinePaper={outlinePaper}
+        transparentPaper={transparentPaper}
         sizeRequest={sizeRequest}
         fields={fields}
         handler={handler}

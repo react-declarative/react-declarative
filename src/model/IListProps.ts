@@ -230,6 +230,7 @@ export interface IListProps<
   noDisplayedRows?: boolean;
   withCustomFilters?: boolean;
   withOutlinePaper?: boolean;
+  withTransparentPaper?: boolean;
   withSingleChip?: boolean;
   withAllListOperations?: boolean;
   withSelectOnRowClick?: boolean;

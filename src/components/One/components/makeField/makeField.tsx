@@ -153,6 +153,7 @@ export function makeField(
         fieldRightMargin = fieldConfig.defaultProps?.fieldRightMargin,
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
         outlinePaper = false,
+        transparentPaper = false,
         ...otherProps
     }: IEntity<Data>) => {
         const { object: stateObject, changeObject } = useOneState<Data>();
@@ -655,6 +656,7 @@ export function makeField(
             object,
             prefix,
             outlinePaper,
+            transparentPaper,
             withContextMenu: menuItems?.length ? true : undefined,
             ...otherProps,
         };

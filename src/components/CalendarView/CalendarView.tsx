@@ -53,7 +53,7 @@ export const CalendarView = <
     maxDate = dayjs(MAX_DATE),
     onChange = () => {},
     outlinePaper,
-    transparent,
+    transparentPaper,
   } = props;
 
   const payload = useSingleton(props.payload || ({} as Payload));
@@ -132,7 +132,7 @@ export const CalendarView = <
         style={style}
         sx={sx}
         outlinePaper={outlinePaper}
-        transparent={transparent}
+        transparentPaper={transparentPaper}
       >
         {renderInner()}
       </PaperView>

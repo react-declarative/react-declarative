@@ -52,6 +52,7 @@ export interface IWizardModalProps<
       data: never;
       id: never;
       outlinePaper: never;
+      transparentPaper: never;
     }
   > {
   sizeRequest?: (size: ISize) => {
@@ -344,7 +345,7 @@ export const OutletModal = <
                   {...outletProps}
                   className={classes.inner}
                   routes={routes as any}
-                  outlinePaper
+                  transparentPaper
                   fallback={fallback}
                   onLoadStart={onLoadStart}
                   onLoadEnd={onLoadEnd}

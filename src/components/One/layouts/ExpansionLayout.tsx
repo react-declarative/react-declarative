@@ -17,6 +17,7 @@ export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> ex
 interface IExpansionLayoutPrivate {
   isBaselineAlign: boolean;
   outlinePaper: boolean;
+  transparentPaper: boolean;
   children?: React.ReactNode;
 }
 
@@ -36,6 +37,9 @@ const useStyles = makeStyles()((theme) => ({
     boxShadow: 'none !important',
     border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
     borderRadius: '4px',
+  },
+  transparentPaper: {
+    background: 'transparent',
   }
 }));
 
@@ -56,6 +60,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   description,
   expansionOpened,
   outlinePaper,
+  transparentPaper,
 }: IExpansionLayoutProps<Data> & IExpansionLayoutPrivate) => {
     const { classes } = useStyles();
     return (
@@ -72,7 +77,8 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
         >
             <Expansion 
                 className={classNames(classes.content, {
-                  [classes.outlinePaper]: outlinePaper,
+                  [classes.outlinePaper]: outlinePaper && !transparentPaper,
+                  [classes.transparentPaper]: !outlinePaper && transparentPaper,
                 })}
                 columnsOverride={columnsOverride}
                 expansionOpened={expansionOpened}

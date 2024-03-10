@@ -7,6 +7,7 @@ import TSubject from "../../../model/TSubject";
 export interface IVisibilityViewProps {
   changeSubject?: TSubject<any>;
   outlinePaper?: boolean;
+  transparentPaper?: boolean;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;

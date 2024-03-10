@@ -32,7 +32,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     style,
     sx,
     outlinePaper,
-    transparent,
+    transparentPaper,
     header,
     columns: upperColumns,
     data,
@@ -122,7 +122,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
         <SelectionProvider>
           <Container
             outlinePaper={outlinePaper}
-            transparent={transparent}
+            transparentPaper={transparentPaper}
             className={className}
             header={header}
             style={style}

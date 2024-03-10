@@ -62,6 +62,7 @@ const useStyles = makeStyles()((theme) => ({
 export interface ICardProps<P = IAnything> {
   label?: React.ReactNode;
   outlinePaper?: boolean;
+  transparentPaper?: boolean;
   sx?: SxProps<any>;
   children?: React.ReactNode;
   className?: string;
@@ -75,6 +76,7 @@ export interface ICardProps<P = IAnything> {
 export const Card = ({
   children = null,
   outlinePaper,
+  transparentPaper,
   className,
   style,
   sx,
@@ -89,6 +91,7 @@ export const Card = ({
     <PaperView
       className={classNames(classes.root, className)}
       outlinePaper={outlinePaper}
+      transparentPaper={transparentPaper}
       sx={sx}
       style={style}
     >

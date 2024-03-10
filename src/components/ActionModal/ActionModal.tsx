@@ -54,6 +54,7 @@ export interface IActionModalProps<
   param?: Param;
   features?: IOnePublicProps<Data, Payload>["features"];
   outlinePaper?: IOneProps<Data, Payload>["outlinePaper"];
+  transparentPaper?: IOneProps<Data, Payload>["transparentPaper"];
   handler?: IOneProps<Data, Payload>["handler"];
   payload?: IOneProps<Data, Payload>["payload"];
   changeSubject?: IOneProps<Data, Payload>["changeSubject"];
@@ -176,6 +177,7 @@ export const ActionModal = <
   changeSubject,
   reloadSubject,
   outlinePaper = false,
+  transparentPaper = false,
   open = true,
   dirty = false,
   hidden = false,
@@ -332,6 +334,7 @@ export const ActionModal = <
             })}
             readonly={!!loading.current || readonly}
             outlinePaper={outlinePaper}
+            transparentPaper={transparentPaper}
             invalidity={handleInvalid}
             change={handleChange}
             handler={handler}

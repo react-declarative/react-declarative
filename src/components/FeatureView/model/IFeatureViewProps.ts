@@ -9,6 +9,7 @@ export interface IFeatureViewProps {
     changeSubject?: TSubject<any>;
     data?: string[] | null;
     outlinePaper?: boolean;
+    transparentPaper?: boolean;
     onChange?: (data: string[]) => void;
     className?: string;
     style?: React.CSSProperties;

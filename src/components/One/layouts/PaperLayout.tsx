@@ -5,7 +5,9 @@ import { makeStyles } from "../../../styles";
 
 import Group, { IGroupProps } from "../../../components/common/Group";
 import Paper, { IPaperProps } from "../../../components/common/Paper";
+
 import Outline from "../../../components/common/Outline";
+import Blank from "../../common/Blank";
 
 import classNames from "../../../utils/classNames";
 
@@ -20,6 +22,7 @@ export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
     IGroupProps<Data, Payload> {
   innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
   outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
+  transparentPaper?: PickProp<IField<Data, Payload>, "transparentPaper">;
 }
 
 interface IPaperLayoutPrivate {
@@ -55,6 +58,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   fieldBottomMargin = "0",
   innerPadding: padding = "18px",
   outlinePaper = false,
+  transparentPaper = false,
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
   const { classes } = useStyles();
   return (
@@ -70,7 +74,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
       fieldBottomMargin={fieldBottomMargin}
     >
       {createElement(
-        outlinePaper ? Outline : Paper,
+        transparentPaper ? Blank : outlinePaper ? Outline : Paper,
         {
           className: classes.content,
           columnsOverride: columnsOverride,

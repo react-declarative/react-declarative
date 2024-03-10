@@ -26,17 +26,17 @@ interface IPaperViewProps extends Omit<PaperProps, keyof {
   component: never;
 }> {
   outlinePaper?: boolean;
-  transparent?: boolean;
+  transparentPaper?: boolean;
 }
 
 export const PaperView = forwardRef(({
   className,
   outlinePaper,
-  transparent,
+  transparentPaper,
   ...otherProps
 }: IPaperViewProps, ref: React.Ref<HTMLDivElement>) => {
   const { classes } = useStyles();
-  if (transparent) {
+  if (transparentPaper) {
     return (
       <Box className={classNames(className, PAPERVIEW_ROOT)} {...otherProps} ref={ref}  />
     );

@@ -13,6 +13,7 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
 }> {
     className?: string;
     outlinePaper?: boolean;
+    transparentPaper?: boolean;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
     onTabChange: (id: string, history: MemoryHistory, payload: Payload) => void;
