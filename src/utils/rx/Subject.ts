@@ -15,6 +15,7 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
     constructor() {
         this.next = this.next.bind(this);
         this.toObserver = this.toObserver.bind(this);
+        this.toIteratorContext = this.toIteratorContext.bind(this);
     };
 
     public map = <T = any>(callbackfn: (value: Data) => T): TObserver<T> => {

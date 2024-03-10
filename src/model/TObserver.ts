@@ -16,8 +16,8 @@ export interface TObserver<Data = unknown> {
     share: () => TObserver<Data>;
     toPromise: () => Promise<Data>;
     toIteratorContext: () => {
-        iterator: AsyncGenerator<Data, void, unknown>;
-        done: () => void;
+        iterate(): AsyncGenerator<Data, void, unknown>;
+        done(): void;
     };
 }
 
