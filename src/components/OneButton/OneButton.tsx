@@ -29,8 +29,10 @@ const WAIT_FOR_CHANGES_DELAY = 600;
 const useStyles = makeStyles()((theme) => ({
   root: { 
     minWidth: "300px",
+    maxWidth: "80vw",
     maxHeight: "80vh",
-    overflowY: "auto"
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   content: {
     margin: theme.spacing(1),
@@ -48,6 +50,8 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
   badgeOverlap,
   badgeSx,
   onChange,
+  onFocus,
+  onBlur,
   onInvalid,
   ...buttonProps
 }: IOneButtonProps<Data, Payload>) => {
@@ -151,6 +155,8 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
               setInvalid(true);
               onInvalid && onInvalid(name, msg, payload);
             }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
       </Popover>

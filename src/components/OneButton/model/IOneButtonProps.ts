@@ -11,6 +11,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onChange: never;
   onClick: never;
   onInvalid: never;
+  onFocus: never;
+  onBlur: never;
   color: never;
 }> {
   noBadge?: boolean;
@@ -20,6 +22,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   handler: OneHandler<Data, Payload>;
   onChange: IOneProps<Data, Payload>['change'];
   onInvalid: IOneProps<Data, Payload>['invalidity'];
+  onFocus: IOneProps<Data, Payload>['focus'];
+  onBlur: IOneProps<Data, Payload>['blur'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
   badgeOverlap?: "rectangular" | "circular";
   badgeSx?: SxProps<any>;
