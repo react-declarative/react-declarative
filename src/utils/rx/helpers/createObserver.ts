@@ -17,6 +17,7 @@ export const createObserver = <Data = any>(factory: () => TObserver<Data>): TObs
     unsubscribe: () => factory().unsubscribe(),
     share: () => factory().share(),
     toPromise: () => factory().toPromise(),
+    toIteratorContext: () => factory().toIteratorContext(),
 });
 
 export default createObserver;

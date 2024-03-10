@@ -309,6 +309,23 @@ export class Observer<Data = any> implements TObserver<Data> {
         this.once((data) => res(data));
     });
 
+    public toIteratorContext = () => { 
+        const self = this;
+        let isDone = false;
+        const iterator = (async function* () {
+            do {
+                const next = await self.toPromise();
+                yield next as Data;
+            } while (!isDone);
+        })();
+        return {
+            iterator,
+            done() {
+                isDone = true;
+            },
+        }
+    };
+
 };
 
 export { TObserver };

@@ -122,6 +122,8 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
 
     public toPromise = () => this.toObserver().toPromise();
 
+    public toIteratorContext = () => this.toObserver().toIteratorContext();
+
 };
 
 export { TSubject };

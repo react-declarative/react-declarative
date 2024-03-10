@@ -645,6 +645,8 @@ export { last } from './utils/math/last';
 export { truely } from './utils/math/truely';
 
 export { getAvailableFields } from './utils/getAvailableFields';
+export { getInitialData } from './utils/getInitialData';
+
 export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';
 export { replaceSubstring } from './utils/replaceSubstring';

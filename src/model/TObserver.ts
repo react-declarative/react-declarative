@@ -15,6 +15,10 @@ export interface TObserver<Data = unknown> {
     once: (callbackfn: (value: Data) => void) => () => void;
     share: () => TObserver<Data>;
     toPromise: () => Promise<Data>;
+    toIteratorContext: () => {
+        iterator: AsyncGenerator<Data, void, unknown>;
+        done: () => void;
+    };
 }
 
 export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
