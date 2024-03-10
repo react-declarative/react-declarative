@@ -7,15 +7,15 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
     extends Omit<IOneProps<Data, Payload, Field>, keyof {
         features: never;
     }> {
-    onFocus?: IOneProps<Data, Field>['focus'];
-    onBlur?: IOneProps<Data, Field>['blur'];
-    onMenu?: IOneProps<Data, Field>['menu'];
-    onReady?: IOneProps<Data, Field>['ready'];
-    onChange?: IOneProps<Data, Field>['change'];
-    onClick?: IOneProps<Data, Field>['click'];
-    onInvalid?: IOneProps<Data, Field>['invalidity'];
-    onLoadStart?: IOneProps<Data, Field>['loadStart'];
-    onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
+    onFocus?: IOneProps<Data, Payload, Field>['focus'];
+    onBlur?: IOneProps<Data, Payload, Field>['blur'];
+    onMenu?: IOneProps<Data, Payload, Field>['menu'];
+    onReady?: IOneProps<Data, Payload, Field>['ready'];
+    onChange?: IOneProps<Data, Payload, Field>['change'];
+    onClick?: IOneProps<Data, Payload, Field>['click'];
+    onInvalid?: IOneProps<Data, Payload, Field>['invalidity'];
+    onLoadStart?: IOneProps<Data, Payload, Field>['loadStart'];
+    onLoadEnd?: IOneProps<Data, Payload, Field>['loadEnd'];
     features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
 };
 

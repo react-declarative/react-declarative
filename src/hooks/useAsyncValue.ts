@@ -13,7 +13,7 @@ interface IParams {
 export const useAsyncValue = <Data extends any = any>(
   run: () => Data | Promise<Data>,
   params: IParams = {}
-): [Data | null, IResult<void, void>] => {
+): [Data | null, IResult<void, void>, (data: Data) => void] => {
   const [result, setResult] = useState<Data | null>(null);
 
   const action = useAsyncAction(async () => {
@@ -27,7 +27,7 @@ export const useAsyncValue = <Data extends any = any>(
     action.execute();
   }, deps);
 
-  return [result, action];
+  return [result, action, setResult];
 };
 
 export default useAsyncValue;

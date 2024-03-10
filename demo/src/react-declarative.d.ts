@@ -269,6 +269,7 @@ declare module 'react-declarative' {
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
+    export { OneButton } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped, OneConfig } from 'react-declarative/components';
     export { ClassicChipListSlot } from 'react-declarative/components';
@@ -517,6 +518,7 @@ declare module 'react-declarative' {
     export { last } from 'react-declarative/utils/math/last';
     export { truely } from 'react-declarative/utils/math/truely';
     export { getAvailableFields } from 'react-declarative/utils/getAvailableFields';
+    export { getInitialData } from 'react-declarative/utils/getInitialData';
     export { flatArray } from 'react-declarative/utils/flatArray';
     export { removeExtraSpaces } from 'react-declarative/utils/removeExtraSpaces';
     export { replaceSubstring } from 'react-declarative/utils/replaceSubstring';
@@ -2370,7 +2372,7 @@ declare module 'react-declarative/hooks/useAsyncValue' {
         throwError?: boolean;
         deps?: any[];
     }
-    export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => [Data | null, IResult<void, void>];
+    export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => [Data | null, IResult<void, void>, (data: Data) => void];
     export default useAsyncValue;
 }
 
@@ -2526,6 +2528,7 @@ declare module 'react-declarative/hooks/useChange' {
 
 declare module 'react-declarative/components' {
     export * from 'react-declarative/components/One';
+    export * from 'react-declarative/components/OneButton';
     export * from 'react-declarative/components/Dot';
     export * from 'react-declarative/components/List';
     export * from 'react-declarative/components/NoSsr';
@@ -3003,15 +3006,15 @@ declare module 'react-declarative/model/IOnePublicProps' {
     export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>> extends Omit<IOneProps<Data, Payload, Field>, keyof {
         features: never;
     }> {
-        onFocus?: IOneProps<Data, Field>['focus'];
-        onBlur?: IOneProps<Data, Field>['blur'];
-        onMenu?: IOneProps<Data, Field>['menu'];
-        onReady?: IOneProps<Data, Field>['ready'];
-        onChange?: IOneProps<Data, Field>['change'];
-        onClick?: IOneProps<Data, Field>['click'];
-        onInvalid?: IOneProps<Data, Field>['invalidity'];
-        onLoadStart?: IOneProps<Data, Field>['loadStart'];
-        onLoadEnd?: IOneProps<Data, Field>['loadEnd'];
+        onFocus?: IOneProps<Data, Payload, Field>['focus'];
+        onBlur?: IOneProps<Data, Payload, Field>['blur'];
+        onMenu?: IOneProps<Data, Payload, Field>['menu'];
+        onReady?: IOneProps<Data, Payload, Field>['ready'];
+        onChange?: IOneProps<Data, Payload, Field>['change'];
+        onClick?: IOneProps<Data, Payload, Field>['click'];
+        onInvalid?: IOneProps<Data, Payload, Field>['invalidity'];
+        onLoadStart?: IOneProps<Data, Payload, Field>['loadStart'];
+        onLoadEnd?: IOneProps<Data, Payload, Field>['loadEnd'];
         features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
     }
     export default IOnePublicProps;
@@ -3468,6 +3471,10 @@ declare module 'react-declarative/utils/rx/Observer' {
         merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
         unsubscribe: () => void;
         toPromise: () => Promise<Data>;
+        toIteratorContext: () => {
+            iterate: () => AsyncGenerator<Awaited<Data>, void, unknown>;
+            done(): void;
+        };
     }
     export { TObserver };
     export default Observer;
@@ -3512,6 +3519,10 @@ declare module 'react-declarative/utils/rx/Subject' {
         next(data: Data): Promise<void>;
         toObserver(): TObserver<Data>;
         toPromise: () => Promise<Data>;
+        toIteratorContext: () => {
+            iterate(): AsyncGenerator<Data, void, unknown>;
+            done(): void;
+        };
     }
     export { TSubject };
     export default Subject;
@@ -3609,6 +3620,12 @@ declare module 'react-declarative/utils/getAvailableFields' {
     export default getAvailableFields;
 }
 
+declare module 'react-declarative/utils/getInitialData' {
+    import IField from "react-declarative/model/IField";
+    export const getInitialData: <Data extends {} = any, Payload extends unknown = any>(fields: IField<Data, Payload>[], payload?: Payload) => Data;
+    export default getInitialData;
+}
+
 declare module 'react-declarative/utils/flatArray' {
     export const flatArray: <T = any>(...arr: any[]) => T[];
     export default flatArray;
@@ -3659,6 +3676,10 @@ declare module 'react-declarative/model/TObserver' {
         once: (callbackfn: (value: Data) => void) => () => void;
         share: () => TObserver<Data>;
         toPromise: () => Promise<Data>;
+        toIteratorContext: () => {
+            iterate(): AsyncGenerator<Data, void, unknown>;
+            done(): void;
+        };
     }
     export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
         unsubscribe: never;
@@ -5692,6 +5713,11 @@ declare module 'react-declarative/components/One' {
     export { default } from 'react-declarative/components/One/One';
 }
 
+declare module 'react-declarative/components/OneButton' {
+    export * from 'react-declarative/components/OneButton/OneButton';
+    export { default } from 'react-declarative/components/OneButton/OneButton';
+}
+
 declare module 'react-declarative/components/Dot' {
     export * from 'react-declarative/components/Dot/Dot';
     export { default } from 'react-declarative/components/Dot/Dot';
@@ -7099,6 +7125,12 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     export default usePreventLeave;
 }
 
+declare module 'react-declarative/components/OneButton/OneButton' {
+    import IOneButtonProps from 'react-declarative/components/OneButton/model/IOneButtonProps';
+    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, noBadge, fields, handler, payload: upperPayload, badgeColor, color, onChange, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
+    export default OneButton;
+}
+
 declare module 'react-declarative/components/Dot/Dot' {
     import { BoxProps } from '@mui/material/Box';
     interface IDotProps extends BoxProps {
@@ -8056,7 +8088,7 @@ declare module 'react-declarative/components/FadeView/FadeView' {
 
 declare module 'react-declarative/components/TabsView/TabsView' {
     import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
-    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, transparentPaper, history: upperHistory, payload: upperPayload, pathname, tabs: upperTabs, routes, onTabChange, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
+    export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, transparentPaper, transparentHeader, history: upperHistory, payload: upperPayload, pathname, tabs: upperTabs, routes, onTabChange, onLoadStart, onLoadEnd, BeforeTabs, AfterTabs, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
 
@@ -9911,6 +9943,30 @@ declare module 'react-declarative/components/One/components/common/MenuItems' {
     export default MenuItems;
 }
 
+declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
+    import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
+    import { ButtonProps } from "@mui/material/Button";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IAnything = IAnything> extends Omit<ButtonProps, keyof {
+        onChange: never;
+        onClick: never;
+        onInvalid: never;
+        color: never;
+    }> {
+        noBadge?: boolean;
+        waitForChangesDelay?: number;
+        fields: IField<Data, Payload>[];
+        payload: (Payload | (() => Payload));
+        handler: OneHandler<Data, Payload>;
+        onChange: IOneProps<Data, Payload>['change'];
+        onInvalid: IOneProps<Data, Payload>['invalidity'];
+        badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
+        color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
+    }
+    export default IOneButtonProps;
+}
+
 declare module 'react-declarative/components/ActionFilter/model/IActionFilterProps' {
     import React from "react";
     import IActionFilter from "react-declarative/components/ActionFilter/model/IActionFilter";
@@ -10073,6 +10129,7 @@ declare module 'react-declarative/components/FadeView/components/FadeContainer' 
 }
 
 declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
+    import React from "react";
     import { SxProps } from "@mui/material";
     import History from "react-declarative/model/History";
     import IAnything from "react-declarative/model/IAnything";
@@ -10084,6 +10141,9 @@ declare module 'react-declarative/components/TabsView/model/ITabsViewProps' {
         history: never;
         routes: never;
     }> {
+        transparentHeader?: boolean;
+        BeforeTabs?: React.ComponentType<any>;
+        AfterTabs?: React.ComponentType<any>;
         className?: string;
         outlinePaper?: boolean;
         transparentPaper?: boolean;
