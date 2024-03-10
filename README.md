@@ -67,7 +67,7 @@ Each form schema can be [reflected](https://learn.microsoft.com/en-us/dotnet/api
 
 6. **Reliable**
 
-React 18 [Concurrent render](https://react.dev/blog/2022/03/29/react-v18#what-is-concurrent-react) used under the hood (state updates in async *useEffect*) so the `jsonforms` will slow down on 200+ fields form, `react-declarative` will not
+React 18 [Concurrent render](https://react.dev/blog/2022/03/29/react-v18#what-is-concurrent-react) used under the hood (state updates in async *useEffect*) so the `jsonforms` will slow down on 200+ fields form, `react-declarative` will not. Also [RPS](https://en.wikipedia.org/wiki/Web_server#requests_per_second) optimised by [debounce of form state change event](https://rxjs.dev/api/operators/debounce). That means you will need less hardware measures on a server side to implement autosubmit
 
 7. **Code-Splittable**
 
