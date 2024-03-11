@@ -347,6 +347,7 @@ export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './compon
 export { Async } from './components';
 export { If } from './components';
 
+export { OneIcon } from './components';
 export { OneButton } from './components';
 export { List, ListTyped } from './components';
 export { One, OneTyped, OneConfig } from './components';

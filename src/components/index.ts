@@ -1,4 +1,5 @@
 export * from './One';
+export * from './OneIcon';
 export * from './OneButton';
 export * from './Dot';
 export * from './List';

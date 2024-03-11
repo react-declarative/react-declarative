@@ -269,6 +269,7 @@ declare module 'react-declarative' {
     export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from 'react-declarative/components';
     export { Async } from 'react-declarative/components';
     export { If } from 'react-declarative/components';
+    export { OneIcon } from 'react-declarative/components';
     export { OneButton } from 'react-declarative/components';
     export { List, ListTyped } from 'react-declarative/components';
     export { One, OneTyped, OneConfig } from 'react-declarative/components';
@@ -2528,6 +2529,7 @@ declare module 'react-declarative/hooks/useChange' {
 
 declare module 'react-declarative/components' {
     export * from 'react-declarative/components/One';
+    export * from 'react-declarative/components/OneIcon';
     export * from 'react-declarative/components/OneButton';
     export * from 'react-declarative/components/Dot';
     export * from 'react-declarative/components/List';
@@ -5713,6 +5715,11 @@ declare module 'react-declarative/components/One' {
     export { default } from 'react-declarative/components/One/One';
 }
 
+declare module 'react-declarative/components/OneIcon' {
+    export * from 'react-declarative/components/OneIcon/OneIcon';
+    export { default } from 'react-declarative/components/OneIcon/OneIcon';
+}
+
 declare module 'react-declarative/components/OneButton' {
     export * from 'react-declarative/components/OneButton/OneButton';
     export { default } from 'react-declarative/components/OneButton/OneButton';
@@ -7123,6 +7130,12 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
     }
     export const usePreventLeave: <Data = any, ID = string>({ history, waitForChangesDelay, readonly: upperReadonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, checkDirty, shouldAutoSave, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
+}
+
+declare module 'react-declarative/components/OneIcon/OneIcon' {
+    import IOneIconProps from "react-declarative/components/OneIcon/model/IOneIconProps";
+    export const OneIcon: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, oneSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneIconProps<Data, Payload>) => JSX.Element | null;
+    export default OneIcon;
 }
 
 declare module 'react-declarative/components/OneButton/OneButton' {
@@ -9941,6 +9954,39 @@ declare module 'react-declarative/components/One/components/common/MenuItems' {
     }
     export const MenuItems: ({ requestSubject }: IMenuItemsProps) => JSX.Element;
     export default MenuItems;
+}
+
+declare module 'react-declarative/components/OneIcon/model/IOneIconProps' {
+    import { SxProps } from "@mui/material";
+    import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
+    import { IconButtonProps } from "@mui/material/IconButton";
+    import IAnything from "react-declarative/model/IAnything";
+    import IField from "react-declarative/model/IField";
+    export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IAnything = IAnything> extends Omit<IconButtonProps, keyof {
+        onChange: never;
+        onClick: never;
+        onInvalid: never;
+        onFocus: never;
+        onBlur: never;
+        color: never;
+    }> {
+        noBadge?: boolean;
+        fieldDebounce?: number;
+        waitForChangesDelay?: number;
+        fields: IField<Data, Payload>[];
+        payload?: (Payload | (() => Payload));
+        handler: OneHandler<Data, Payload>;
+        onChange?: IOneProps<Data, Payload>['change'];
+        onInvalid?: IOneProps<Data, Payload>['invalidity'];
+        onFocus?: IOneProps<Data, Payload>['focus'];
+        onBlur?: IOneProps<Data, Payload>['blur'];
+        badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
+        badgeOverlap?: "rectangular" | "circular";
+        badgeSx?: SxProps<any>;
+        oneSx?: SxProps<any>;
+        color?: 'inherit' | 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+    }
+    export default IOneButtonProps;
 }
 
 declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
