@@ -38,7 +38,7 @@ export const Switch = ({
     <Box display="flex" alignItems="center">
       <Box
         sx={{
-          flex: 1,
+          flex: switchActiveLabel ? undefined : 1,
           whiteSpace: "nowrap",
           textAlign: switchActiveLabel ? "right" : undefined,
         }}
