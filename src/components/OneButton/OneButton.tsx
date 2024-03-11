@@ -1,62 +1,66 @@
-import * as React from 'react';
-import { useMemo, useState } from 'react';
+import * as React from "react";
+import { useMemo, useState } from "react";
 
-import { makeStyles } from '../../styles';
+import { makeStyles } from "../../styles";
 
-import One from '../One';
+import One from "../One";
 
-import Popover from '@mui/material/Popover';
-import Button from '@mui/material/Button';
-import Badge from '@mui/material/Badge';
+import Popover from "@mui/material/Popover";
+import Button from "@mui/material/Button";
+import Badge from "@mui/material/Badge";
 
-import IOneButtonProps from './model/IOneButtonProps';
+import IOneButtonProps from "./model/IOneButtonProps";
 
-import useRenderWaiter from '../../hooks/useRenderWaiter';
-import useActualValue from '../../hooks/useActualValue';
-import useAsyncValue from '../../hooks/useAsyncValue';
-import useSingleton from '../../hooks/useSingleton';
-import useChange from '../../hooks/useChange';
+import useRenderWaiter from "../../hooks/useRenderWaiter";
+import useActualValue from "../../hooks/useActualValue";
+import useAsyncValue from "../../hooks/useAsyncValue";
+import useSingleton from "../../hooks/useSingleton";
+import useChange from "../../hooks/useChange";
 
-import getInitialData from '../../utils/getInitialData';
-import singlerun from '../../utils/hof/singlerun';
-import deepMerge from '../../utils/deepMerge';
-import sleep from '../../utils/sleep';
+import getInitialData from "../../utils/getInitialData";
+import singlerun from "../../utils/hof/singlerun";
+import deepMerge from "../../utils/deepMerge";
+import sleep from "../../utils/sleep";
 
-import IAnything from '../../model/IAnything';
+import IAnything from "../../model/IAnything";
 
 const WAIT_FOR_CHANGES_DELAY = 600;
 
 const useStyles = makeStyles()((theme) => ({
-  root: { 
+  content: {
     minWidth: "300px",
     maxWidth: "80vw",
     maxHeight: "80vh",
     overflowY: "auto",
     overflowX: "hidden",
-  },
-  content: {
-    margin: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
-export const OneButton = <Data extends {} = IAnything, Payload extends IAnything = IAnything>({
+export const OneButton = <
+  Data extends {} = IAnything,
+  Payload extends IAnything = IAnything
+>({
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   fieldDebounce,
   noBadge = false,
   fields,
   handler,
   payload: upperPayload = {} as Payload,
-  badgeColor = 'info',
-  color = 'primary',
+  badgeColor = "info",
+  color = "primary",
   badgeOverlap,
   badgeSx,
+  oneSx,
   onChange,
   onFocus,
   onBlur,
   onInvalid,
   ...buttonProps
 }: IOneButtonProps<Data, Payload>) => {
-
   const { classes } = useStyles();
 
   const payload = useSingleton(upperPayload);
@@ -65,12 +69,16 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
 
   const [data, { loading, error }, setData] = useAsyncValue(async () => {
     const getResult = async () => {
-      if (typeof handler === 'function') {
+      if (typeof handler === "function") {
         return await (handler as Function)(payload);
       }
       return handler;
     };
-    const data = deepMerge({}, getInitialData(fields, payload), await getResult());
+    const data = deepMerge(
+      {},
+      getInitialData(fields, payload),
+      await getResult()
+    );
     onChange && onChange(data, true);
     return data;
   });
@@ -86,21 +94,25 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
   };
 
   useChange(() => {
-    if (typeof handler !== 'function') {
+    if (typeof handler !== "function") {
       setData(handler);
     }
   }, [handler]);
 
   const filterCount = useMemo(
-    () => noBadge ? 0 : Object.values(data || {}).filter((v) => v).length,
-    [data],
+    () => (noBadge ? 0 : Object.values(data || {}).filter((v) => v).length),
+    [data]
   );
 
-  const handleClose = useMemo(() => singlerun(async () => {
-    await waitForChanges();
-    onChange && onChange(data$.current, false);
-    setAnchorEl(null);
-  }), []);
+  const handleClose = useMemo(
+    () =>
+      singlerun(async () => {
+        await waitForChanges();
+        onChange && onChange(data$.current, false);
+        setAnchorEl(null);
+      }),
+    []
+  );
 
   if (loading || error) {
     return null;
@@ -138,29 +150,28 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
           horizontal: "right",
         }}
       >
-        <div className={classes.root}>
-          <One
-            className={classes.content}
-            transparentPaper
-            fieldDebounce={fieldDebounce}
-            fields={fields}
-            payload={payload}
-            handler={() => data}
-            onChange={(data, initial) => {
-              if (!initial) {
-                setData(data);
-                setInvalid(false);
-                onChange && onChange(data, false);
-              }
-            }}
-            onInvalid={(name, msg, payload) => {
-              setInvalid(true);
-              onInvalid && onInvalid(name, msg, payload);
-            }}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          />
-        </div>
+        <One
+          className={classes.content}
+          sx={oneSx}
+          transparentPaper
+          fieldDebounce={fieldDebounce}
+          fields={fields}
+          payload={payload}
+          handler={() => data}
+          onChange={(data, initial) => {
+            if (!initial) {
+              setData(data);
+              setInvalid(false);
+              onChange && onChange(data, false);
+            }
+          }}
+          onInvalid={(name, msg, payload) => {
+            setInvalid(true);
+            onInvalid && onInvalid(name, msg, payload);
+          }}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
       </Popover>
     </>
   );

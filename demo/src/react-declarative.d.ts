@@ -7126,8 +7126,8 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
 }
 
 declare module 'react-declarative/components/OneButton/OneButton' {
-    import IOneButtonProps from 'react-declarative/components/OneButton/model/IOneButtonProps';
-    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
+    import IOneButtonProps from "react-declarative/components/OneButton/model/IOneButtonProps";
+    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, oneSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
     export default OneButton;
 }
 
@@ -9961,15 +9961,16 @@ declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
         fieldDebounce?: number;
         waitForChangesDelay?: number;
         fields: IField<Data, Payload>[];
-        payload: (Payload | (() => Payload));
+        payload?: (Payload | (() => Payload));
         handler: OneHandler<Data, Payload>;
-        onChange: IOneProps<Data, Payload>['change'];
-        onInvalid: IOneProps<Data, Payload>['invalidity'];
-        onFocus: IOneProps<Data, Payload>['focus'];
-        onBlur: IOneProps<Data, Payload>['blur'];
+        onChange?: IOneProps<Data, Payload>['change'];
+        onInvalid?: IOneProps<Data, Payload>['invalidity'];
+        onFocus?: IOneProps<Data, Payload>['focus'];
+        onBlur?: IOneProps<Data, Payload>['blur'];
         badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
         badgeOverlap?: "rectangular" | "circular";
         badgeSx?: SxProps<any>;
+        oneSx?: SxProps<any>;
         color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
     }
     export default IOneButtonProps;

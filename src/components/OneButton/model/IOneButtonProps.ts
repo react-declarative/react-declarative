@@ -19,15 +19,16 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   fieldDebounce?: number;
   waitForChangesDelay?: number;
   fields: IField<Data, Payload>[];
-  payload: (Payload | (() => Payload));
+  payload?: (Payload | (() => Payload));
   handler: OneHandler<Data, Payload>;
-  onChange: IOneProps<Data, Payload>['change'];
-  onInvalid: IOneProps<Data, Payload>['invalidity'];
-  onFocus: IOneProps<Data, Payload>['focus'];
-  onBlur: IOneProps<Data, Payload>['blur'];
+  onChange?: IOneProps<Data, Payload>['change'];
+  onInvalid?: IOneProps<Data, Payload>['invalidity'];
+  onFocus?: IOneProps<Data, Payload>['focus'];
+  onBlur?: IOneProps<Data, Payload>['blur'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
   badgeOverlap?: "rectangular" | "circular";
   badgeSx?: SxProps<any>;
+  oneSx?: SxProps<any>;
   color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 }
 
