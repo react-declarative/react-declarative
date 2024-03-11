@@ -16,6 +16,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   color: never;
 }> {
   noBadge?: boolean;
+  fieldDebounce?: number;
   waitForChangesDelay?: number;
   fields: IField<Data, Payload>[];
   payload: (Payload | (() => Payload));

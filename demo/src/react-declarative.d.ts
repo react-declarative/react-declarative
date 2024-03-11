@@ -7127,7 +7127,7 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
 
 declare module 'react-declarative/components/OneButton/OneButton' {
     import IOneButtonProps from 'react-declarative/components/OneButton/model/IOneButtonProps';
-    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
+    export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
     export default OneButton;
 }
 
@@ -9958,6 +9958,7 @@ declare module 'react-declarative/components/OneButton/model/IOneButtonProps' {
         color: never;
     }> {
         noBadge?: boolean;
+        fieldDebounce?: number;
         waitForChangesDelay?: number;
         fields: IField<Data, Payload>[];
         payload: (Payload | (() => Payload));

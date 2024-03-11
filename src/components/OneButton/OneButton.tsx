@@ -41,6 +41,7 @@ const useStyles = makeStyles()((theme) => ({
 
 export const OneButton = <Data extends {} = IAnything, Payload extends IAnything = IAnything>({
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
+  fieldDebounce,
   noBadge = false,
   fields,
   handler,
@@ -141,6 +142,7 @@ export const OneButton = <Data extends {} = IAnything, Payload extends IAnything
           <One
             className={classes.content}
             transparentPaper
+            fieldDebounce={fieldDebounce}
             fields={fields}
             payload={payload}
             handler={() => data}
