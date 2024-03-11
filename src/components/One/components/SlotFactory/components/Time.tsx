@@ -21,7 +21,7 @@ import * as datetime from "../../../../../utils/datetime";
 import AlarmIcon from "@mui/icons-material/AlarmOutlined";
 
 const TIME_TEMPLATE = "##:##";
-const NEVER_POS = Symbol('never-pos');
+const NEVER_POS = Symbol("never-pos");
 
 const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
@@ -44,7 +44,6 @@ export const Time = ({
   onChange,
   withContextMenu,
 }: ITimeSlot) => {
-
   const { requestSubject } = useOneMenu();
 
   const inputElementRef = useRef<HTMLInputElement | null>();
@@ -52,9 +51,15 @@ export const Time = ({
   const incomingUpdate = useRef(false);
   const outgoingUpdate = useRef(false);
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
-  const handleClick = ({ clientX, clientY, target }: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = ({
+    clientX,
+    clientY,
+    target,
+  }: React.MouseEvent<HTMLButtonElement>) => {
     const pointTarget = document.elementFromPoint(clientX, clientY);
     if (pointTarget) {
       setAnchorEl(pointTarget as HTMLButtonElement);
@@ -68,7 +73,7 @@ export const Time = ({
   };
 
   const [value, setValue] = useState(
-    datetime.parseTime(upperValue || '') ? upperValue : '',
+    datetime.parseTime(upperValue || "") ? upperValue : ""
   );
 
   const value$ = useActualValue(value);
@@ -122,8 +127,8 @@ export const Time = ({
         return undefined;
       }
       let now = dayjs();
-      now = now.set('hour', date.hour);
-      now = now.set('minute', date.minute);
+      now = now.set("hour", date.hour);
+      now = now.set("minute", date.minute);
       return now;
     }
     return undefined;
@@ -136,7 +141,7 @@ export const Time = ({
       let adjust = 0;
       for (let i = Math.max(pos - 1, 0); i < TIME_TEMPLATE.length; i++) {
         const char = TIME_TEMPLATE[i];
-        if (char === '#') {
+        if (char === "#") {
           break;
         }
         adjust += 1;
@@ -147,7 +152,7 @@ export const Time = ({
     return {
       render: () => {
         const { current: input } = inputElementRef;
-        if (typeof lastPos === 'number') {
+        if (typeof lastPos === "number") {
           input?.setSelectionRange(lastPos, lastPos);
           lastPos = NEVER_POS;
         }
@@ -160,17 +165,17 @@ export const Time = ({
         }
         return lastPos;
       },
-    }
+    };
   }, []);
 
   useLayoutEffect(() => {
     const { current: input } = inputElementRef;
     const handler = () => caretManager.pos();
-    input && input.addEventListener('keyup', handler);
-    input && input.addEventListener('click', handler);
+    input && input.addEventListener("keyup", handler);
+    input && input.addEventListener("click", handler);
     return () => {
-      input && input.removeEventListener('keyup', handler);
-      input && input.removeEventListener('click', handler);
+      input && input.removeEventListener("keyup", handler);
+      input && input.removeEventListener("click", handler);
     };
   }, [inputElementRef.current]);
 
@@ -185,13 +190,13 @@ export const Time = ({
       <TextField
         sx={{
           ...(!outlined && {
-            position: 'relative',
+            position: "relative",
             mt: 1,
-            '& .MuiFormHelperText-root': {
-                position: 'absolute',
-                top: '100%',
+            "& .MuiFormHelperText-root": {
+              position: "absolute",
+              top: "100%",
             },
-          })
+          }),
         }}
         inputRef={(input: HTMLInputElement | null) => {
           inputElementRef.current = input;
@@ -202,16 +207,20 @@ export const Time = ({
           readOnly: readonly,
           autoFocus,
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment sx={{ position: "relative" }} position="end">
               <IconButton onClick={handleClick} disabled={disabled} edge="end">
                 <AlarmIcon />
               </IconButton>
             </InputAdornment>
           ),
         }}
-        InputLabelProps={labelShrink ? {
-          shrink: labelShrink,
-        } : undefined}
+        InputLabelProps={
+          labelShrink
+            ? {
+                shrink: labelShrink,
+              }
+            : undefined
+        }
         disabled={disabled}
         focused={autoFocus}
         placeholder={placeholder}
@@ -227,16 +236,16 @@ export const Time = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
       >
         <TimePicker
           date={dayjsValue}
           onChange={(value: dayjs.Dayjs | null) => {
             if (value) {
-              const hour = value.get('hour');
-              const minute = value.get('minute');
+              const hour = value.get("hour");
+              const minute = value.get("minute");
               setValue(new datetime.Time(hour, minute).toString());
               return;
             }

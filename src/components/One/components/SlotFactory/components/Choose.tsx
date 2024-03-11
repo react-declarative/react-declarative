@@ -129,10 +129,14 @@ export const Choose = ({
             ...params.InputProps,
             readOnly: true,
             placeholder,
-            endAdornment: loading ? params.InputProps.endAdornment : (
-              <InputAdornment position="end">
+            endAdornment: loading ? (
+              params.InputProps.endAdornment
+            ) : (
+              <InputAdornment sx={{ position: "relative" }} position="end">
                 <ActionButton
                   sx={{
+                    position: "absolute",
+                    right: 0,
                     pointerEvents: readonly ? "none" : "all",
                     mb: outlined ? undefined : 1,
                   }}

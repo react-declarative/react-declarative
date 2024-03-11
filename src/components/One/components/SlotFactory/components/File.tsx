@@ -1,129 +1,137 @@
-import * as React from 'react';
-import { useState } from 'react';
+import * as React from "react";
+import { useState } from "react";
 
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
-import ActionButton from '../../../../ActionButton';
+import ActionButton from "../../../../ActionButton";
 
-import { IFileSlot } from '../../../slots/FileSlot';
+import { IFileSlot } from "../../../slots/FileSlot";
 
-import { useOnePayload } from '../../../context/PayloadProvider';
-import { useOneState } from '../../../context/StateProvider';
+import { useOnePayload } from "../../../context/PayloadProvider";
+import { useOneState } from "../../../context/StateProvider";
 
-import chooseFile from '../../../../../utils/chooseFile';
-import openBlank from '../../../../../utils/openBlank';
+import chooseFile from "../../../../../utils/chooseFile";
+import openBlank from "../../../../../utils/openBlank";
 
-const LOADING_LABEL = 'Loading';
+const LOADING_LABEL = "Loading";
 
 export const FileField = ({
-    invalid,
-    incorrect,
-    value,
-    disabled,
-    readonly,
-    description = "",
-    outlined = false,
-    labelShrink,
-    title = "",
-    placeholder = "No file chosen",
-    dirty,
-    loading: upperLoading,
-    inputRef,
-    onChange,
-    fileAccept,
-    name,
-    upload = (file) => {
-        if (file instanceof File) {
-            return file.name;
-        }
-        return name;
-    },
-    view = (filePath) => {
-        openBlank(filePath);
-    },
+  invalid,
+  incorrect,
+  value,
+  disabled,
+  readonly,
+  description = "",
+  outlined = false,
+  labelShrink,
+  title = "",
+  placeholder = "No file chosen",
+  dirty,
+  loading: upperLoading,
+  inputRef,
+  onChange,
+  fileAccept,
+  name,
+  upload = (file) => {
+    if (file instanceof File) {
+      return file.name;
+    }
+    return name;
+  },
+  view = (filePath) => {
+    openBlank(filePath);
+  },
 }: IFileSlot) => {
-    const [currentLoading, setCurrentLoading] = useState(false);
-    const payload = useOnePayload();
-    const { object } = useOneState();
+  const [currentLoading, setCurrentLoading] = useState(false);
+  const payload = useOnePayload();
+  const { object } = useOneState();
 
-    const loading = upperLoading || currentLoading;
+  const loading = upperLoading || currentLoading;
 
-    return (
-        <Stack direction="row" alignItems={outlined ? "stretch" : "center"} spacing={1}>
-            <TextField
-                sx={{
-                    flex: 1,
-                    ...(!outlined && {
-                        position: 'relative',
-                        mt: 1,
-                        '& .MuiFormHelperText-root': {
-                            position: 'absolute',
-                            top: '100%',
-                        },
-                    })
+  return (
+    <Stack
+      direction="row"
+      alignItems={outlined ? "stretch" : "center"}
+      spacing={1}
+    >
+      <TextField
+        sx={{
+          flex: 1,
+          ...(!outlined && {
+            position: "relative",
+            mt: 1,
+            "& .MuiFormHelperText-root": {
+              position: "absolute",
+              top: "100%",
+            },
+          }),
+        }}
+        inputRef={inputRef}
+        variant={outlined ? "outlined" : "standard"}
+        helperText={(dirty && (invalid || incorrect)) || description}
+        error={dirty && (invalid !== null || incorrect !== null)}
+        InputProps={{
+          readOnly: readonly,
+          endAdornment: (
+            <InputAdornment sx={{ position: "relative" }} position="end">
+              <IconButton
+                edge="end"
+                disabled={disabled || !value}
+                onClick={() => {
+                  onChange(null);
                 }}
-                inputRef={inputRef}
-                variant={outlined ? "outlined" : "standard"}
-                helperText={(dirty && (invalid || incorrect)) || description}
-                error={dirty && (invalid !== null || incorrect !== null)}
-                InputProps={{
-                    readOnly: readonly,
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton
-                                edge="end"
-                                disabled={disabled || !value}
-                                onClick={() => {
-                                    onChange(null);
-                                }}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-                InputLabelProps={labelShrink ? {
-                    shrink: labelShrink,
-                } : undefined}
-                value={loading ? LOADING_LABEL : value ? String(value) : ""}
-                placeholder={placeholder}
-                label={title}
-                disabled={disabled}
-            />
-            {!!value && (
-                <ActionButton
-                    variant="outlined"
-                    onLoadStart={() => setCurrentLoading(true)}
-                    onLoadEnd={() => setCurrentLoading(false)}
-                    onClick={async () => {
-                        await view(value, object, payload);
-                    }}
-                >
-                    View
-                </ActionButton>
-            )}
-            <ActionButton
-                variant="outlined"
-                onLoadStart={() => setCurrentLoading(true)}
-                onLoadEnd={() => setCurrentLoading(false)}
-                onClick={async () => {
-                    const fileBlob = await chooseFile(fileAccept);
-                    if (fileBlob) {
-                        const fileName = await upload(fileBlob, object, payload);
-                        onChange(fileName);
-                    }
-                }}
-            >
-                {loading && "Uploading"}
-                {!loading && "Choose"}
-            </ActionButton>
-        </Stack>
-    );
-}
+              >
+                <CloseIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        InputLabelProps={
+          labelShrink
+            ? {
+                shrink: labelShrink,
+              }
+            : undefined
+        }
+        value={loading ? LOADING_LABEL : value ? String(value) : ""}
+        placeholder={placeholder}
+        label={title}
+        disabled={disabled}
+      />
+      {!!value && (
+        <ActionButton
+          variant="outlined"
+          onLoadStart={() => setCurrentLoading(true)}
+          onLoadEnd={() => setCurrentLoading(false)}
+          onClick={async () => {
+            await view(value, object, payload);
+          }}
+        >
+          View
+        </ActionButton>
+      )}
+      <ActionButton
+        variant="outlined"
+        onLoadStart={() => setCurrentLoading(true)}
+        onLoadEnd={() => setCurrentLoading(false)}
+        onClick={async () => {
+          const fileBlob = await chooseFile(fileAccept);
+          if (fileBlob) {
+            const fileName = await upload(fileBlob, object, payload);
+            onChange(fileName);
+          }
+        }}
+      >
+        {loading && "Uploading"}
+        {!loading && "Choose"}
+      </ActionButton>
+    </Stack>
+  );
+};
 
 export default FileField;

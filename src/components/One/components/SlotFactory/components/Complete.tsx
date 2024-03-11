@@ -89,7 +89,11 @@ export const Complete = ({
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
-  const handleClick = ({ clientX, clientY, target }: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = ({
+    clientX,
+    clientY,
+    target,
+  }: React.MouseEvent<HTMLDivElement>) => {
     const pointTarget = document.elementFromPoint(clientX, clientY);
     if (pointTarget) {
       setAnchorEl(pointTarget as HTMLDivElement);
@@ -269,23 +273,28 @@ export const Complete = ({
     return false;
   };
 
-  useEffect(() => withContextMenu && requestSubject.subscribe(() => {
-    handleBlur();
-  }), []);
+  useEffect(
+    () =>
+      withContextMenu &&
+      requestSubject.subscribe(() => {
+        handleBlur();
+      }),
+    []
+  );
 
   return (
     <>
       <div ref={anchorElRef}>
         <MatTextField
           sx={{
-          ...(!outlined && {
-              position: 'relative',
+            ...(!outlined && {
+              position: "relative",
               mt: 1,
-              '& .MuiFormHelperText-root': {
-                  position: 'absolute',
-                  top: '100%',
+              "& .MuiFormHelperText-root": {
+                position: "absolute",
+                top: "100%",
               },
-            })
+            }),
           }}
           fullWidth
           inputRef={inputElementRef}
@@ -304,7 +313,7 @@ export const Complete = ({
             inputMode,
             autoFocus,
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment sx={{ position: "relative" }} position="end">
                 <IconButton
                   onClick={(e) => {
                     e.preventDefault();
@@ -318,9 +327,7 @@ export const Complete = ({
                   edge="end"
                 >
                   {loading && <CircularProgress color="inherit" size={20} />}
-                  {!loading && !open && !!value && (
-                    <ClearIcon />
-                  )}
+                  {!loading && !open && !!value && <ClearIcon />}
                 </IconButton>
               </InputAdornment>
             ),
@@ -328,9 +335,13 @@ export const Complete = ({
           inputProps={{
             pattern: inputPattern,
           }}
-          InputLabelProps={labelShrink ? {
-            shrink: labelShrink,
-          } : undefined}
+          InputLabelProps={
+            labelShrink
+              ? {
+                  shrink: labelShrink,
+                }
+              : undefined
+          }
           type={inputType}
           focused={autoFocus}
           autoComplete={autoComplete}
@@ -373,7 +384,7 @@ export const Complete = ({
                 ? Math.min(items.length * ITEM_HEIGHT, 250)
                 : ITEM_HEIGHT,
               mb: 1,
-              maxHeight: '45vh',
+              maxHeight: "45vh",
             }}
             minRowHeight={ITEM_HEIGHT}
           >
@@ -392,7 +403,13 @@ export const Complete = ({
                     e.preventDefault();
                     e.stopPropagation();
                     handleChange(value);
-                    tipSelect && tipSelect(value, object$.current, payload, handleChangeObj);
+                    tipSelect &&
+                      tipSelect(
+                        value,
+                        object$.current,
+                        payload,
+                        handleChangeObj
+                      );
                     handleClose();
                   }}
                 >

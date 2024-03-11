@@ -21,7 +21,7 @@ import * as datetime from "../../../../../utils/datetime";
 import CalendarIcon from "@mui/icons-material/CalendarTodayOutlined";
 
 const DATE_TEMPLATE = "##/##/####";
-const NEVER_POS = Symbol('never-pos');
+const NEVER_POS = Symbol("never-pos");
 
 const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
@@ -51,9 +51,15 @@ export const Date = ({
   const incomingUpdate = useRef(false);
   const outgoingUpdate = useRef(false);
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
-  const handleClick = ({ clientX, clientY, target }: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = ({
+    clientX,
+    clientY,
+    target,
+  }: React.MouseEvent<HTMLButtonElement>) => {
     const pointTarget = document.elementFromPoint(clientX, clientY);
     if (pointTarget) {
       setAnchorEl(pointTarget as HTMLButtonElement);
@@ -67,7 +73,7 @@ export const Date = ({
   };
 
   const [value, setValue] = useState(
-    datetime.parseDate(upperValue || '') ? upperValue : '',
+    datetime.parseDate(upperValue || "") ? upperValue : ""
   );
 
   const value$ = useActualValue(value);
@@ -121,9 +127,9 @@ export const Date = ({
         return undefined;
       }
       let now = dayjs();
-      now = now.set('date', date.day);
-      now = now.set('month', date.month - 1);
-      now = now.set('year', date.year);
+      now = now.set("date", date.day);
+      now = now.set("month", date.month - 1);
+      now = now.set("year", date.year);
       return now;
     }
     return undefined;
@@ -136,7 +142,7 @@ export const Date = ({
       let adjust = 0;
       for (let i = Math.max(pos - 1, 0); i < DATE_TEMPLATE.length; i++) {
         const char = DATE_TEMPLATE[i];
-        if (char === '#') {
+        if (char === "#") {
           break;
         }
         adjust += 1;
@@ -147,7 +153,7 @@ export const Date = ({
     return {
       render: () => {
         const { current: input } = inputElementRef;
-        if (typeof lastPos === 'number') {
+        if (typeof lastPos === "number") {
           input?.setSelectionRange(lastPos, lastPos);
           lastPos = NEVER_POS;
         }
@@ -160,17 +166,17 @@ export const Date = ({
         }
         return lastPos;
       },
-    }
+    };
   }, []);
 
   useLayoutEffect(() => {
     const { current: input } = inputElementRef;
     const handler = () => caretManager.pos();
-    input && input.addEventListener('keyup', handler);
-    input && input.addEventListener('click', handler);
+    input && input.addEventListener("keyup", handler);
+    input && input.addEventListener("click", handler);
     return () => {
-      input && input.removeEventListener('keyup', handler);
-      input && input.removeEventListener('click', handler);
+      input && input.removeEventListener("keyup", handler);
+      input && input.removeEventListener("click", handler);
     };
   }, [inputElementRef.current]);
 
@@ -189,29 +195,33 @@ export const Date = ({
         }}
         sx={{
           ...(!outlined && {
-            position: 'relative',
+            position: "relative",
             mt: 1,
-            '& .MuiFormHelperText-root': {
-                position: 'absolute',
-                top: '100%',
+            "& .MuiFormHelperText-root": {
+              position: "absolute",
+              top: "100%",
             },
-          })
+          }),
         }}
         type="text"
         InputProps={{
           readOnly: readonly,
           autoFocus,
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment sx={{ position: "relative" }} position="end">
               <IconButton onClick={handleClick} disabled={disabled} edge="end">
                 <CalendarIcon />
               </IconButton>
             </InputAdornment>
           ),
         }}
-        InputLabelProps={labelShrink ? {
-          shrink: labelShrink,
-        } : undefined}
+        InputLabelProps={
+          labelShrink
+            ? {
+                shrink: labelShrink,
+              }
+            : undefined
+        }
         disabled={disabled}
         focused={autoFocus}
         placeholder={placeholder}
@@ -227,17 +237,17 @@ export const Date = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
       >
         <DatePicker
           date={dayjsValue}
           onChange={(value: dayjs.Dayjs | null) => {
             if (value) {
-              const day = value.get('date');
-              const month = value.get('month') + 1;
-              const year = value.get('year');
+              const day = value.get("date");
+              const month = value.get("month") + 1;
+              const year = value.get("year");
               setValue(new datetime.Date(day, month, year).toString());
               return;
             }

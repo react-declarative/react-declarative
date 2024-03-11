@@ -1,5 +1,12 @@
 import * as React from "react";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import SearchView from "../../../../SearchView";
 
@@ -64,7 +71,7 @@ const createIcon = (
   onValueChange: PickProp<IManaged, "onChange">,
   click: PickProp<IManaged, "leadingIconClick">,
   edge: "start" | "end",
-  ripple: boolean,
+  ripple: boolean
 ) => (
   <IconButton
     disableRipple={!ripple}
@@ -235,9 +242,12 @@ export const Dict = ({
           []
         );
 
-        useEffect(() => () => {
-          emitChangeSearch.flush();
-        }, []);
+        useEffect(
+          () => () => {
+            emitChangeSearch.flush();
+          },
+          []
+        );
 
         useEffect(() => waitForMove(emitChangeSearch.flush), []);
 
@@ -268,12 +278,15 @@ export const Dict = ({
               InputProps={{
                 inputMode: mode,
                 startAdornment: (
-                  <InputAdornment position="start">
+                  <InputAdornment
+                    sx={{ position: "relative" }}
+                    position="start"
+                  >
                     <SearchIcon />
                   </InputAdornment>
                 ),
                 endAdornment: (
-                  <InputAdornment position="end">
+                  <InputAdornment sx={{ position: "relative" }} position="end">
                     <IconButton
                       disabled={loading}
                       onClick={() => {
@@ -321,7 +334,8 @@ export const Dict = ({
           },
         }),
       }}
-      startAdornment={li &&
+      startAdornment={
+        li &&
         createIcon(
           li,
           object,
@@ -333,9 +347,11 @@ export const Dict = ({
           onChange,
           lic,
           "start",
-          lir,
-        )}
-      endAdornment={ti &&
+          lir
+        )
+      }
+      endAdornment={
+        ti &&
         createIcon(
           ti,
           object,
@@ -347,8 +363,9 @@ export const Dict = ({
           onChange,
           tic,
           "end",
-          tir,
-        )}
+          tir
+        )
+      }
       handler={async (search, limit, offset, initial, rows) => {
         return await dictSearch({
           search,
@@ -384,7 +401,13 @@ export const Dict = ({
       }}
       placeholder={placeholder}
       onChange={(item) => {
-        dictOnItem(item?.value || null, object$.current, payload, onChange, handleChange);
+        dictOnItem(
+          item?.value || null,
+          object$.current,
+          payload,
+          onChange,
+          handleChange
+        );
         onChange(item?.value || null);
       }}
       onTextChange={(search) =>
@@ -393,7 +416,13 @@ export const Dict = ({
       onCreate={
         dictOnAppend
           ? (search) =>
-              dictOnAppend(search, object$.current, payload, onChange, handleChange)
+              dictOnAppend(
+                search,
+                object$.current,
+                payload,
+                onChange,
+                handleChange
+              )
           : undefined
       }
       label={title}
