@@ -48,6 +48,24 @@ const createIcon = (
   </IconButton>
 );
 
+/**
+ * Represents a slider component.
+ *
+ * @param value - The current value of the slider.
+ * @param onChange - The callback function to be called when the value of the slider changes.
+ * @param leadingIcon - The leading icon component of the slider.
+ * @param trailingIcon - The trailing icon component of the slider.
+ * @param leadingIconClick - The callback function to be called when the leading icon is clicked.
+ * @param trailingIconClick - The callback function to be called when the trailing icon is clicked.
+ * @param leadingIconRipple - Whether the leading icon supports ripple effect. Default is true.
+ * @param trailingIconRipple - Whether the trailing icon supports ripple effect. Default is true.
+ * @param labelFormatSlider - The format of the value label displayed on the slider.
+ * @param stepSlider - The step value between each selectable value on the slider.
+ * @param disabled - Whether the slider is disabled.
+ * @param readonly - Whether the slider is readonly.
+ * @param maxSlider - The maximum value of the slider. Default is 100.
+ * @param minSlider - The minimum value of the slider. Default is 0.
+ */
 export const Slider = ({
   value,
   onChange,

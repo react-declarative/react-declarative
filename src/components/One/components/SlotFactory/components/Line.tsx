@@ -25,6 +25,15 @@ const useStyles = makeStyles()((theme) => ({
     }
 }));
 
+/**
+ * Represents a line component with optional title and transparency options.
+ * @typedef  ILineSlot
+ * @property title - The title of the line component.
+ * @property lineTransparent - Specifies whether the line component should be transparent or not.
+ *
+ * @param Line - The configuration object for the line component.
+ * @returns - The rendered line component.
+ */
 export const Line = ({
     title = "",
     lineTransparent = false,

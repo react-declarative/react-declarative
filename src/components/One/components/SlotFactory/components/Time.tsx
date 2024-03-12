@@ -27,6 +27,26 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
 
+/**
+ * Represents a Time variable.
+ *
+ * @typedef  Time
+ * @property invalid - Indicates if the value is invalid.
+ * @property incorrect - Indicates if the value is incorrect.
+ * @property value - The upper value.
+ * @property disabled - Indicates if the time is disabled.
+ * @property readonly - Indicates if the time is readonly.
+ * @property description - The description of the time.
+ * @property outlined - Indicates if the time is outlined.
+ * @property title - The title of the time.
+ * @property labelShrink - Indicates if the label is shrunk.
+ * @property placeholder - The placeholder for the time.
+ * @property dirty - Indicates if the time has been modified.
+ * @property autoFocus - Indicates if the time is auto focused.
+ * @property inputRef - The ref for the input element.
+ * @property onChange - The callback function triggered when the value changes.
+ * @property withContextMenu - Indicates if the time has a context menu.
+ */
 export const Time = ({
   invalid,
   incorrect,

@@ -20,6 +20,32 @@ import openBlank from "../../../../../utils/openBlank";
 
 const LOADING_LABEL = "Loading";
 
+/**
+ * FileField component is a form field for selecting and displaying a file.
+ *
+ * @param props - The input props for the FileField component.
+ * @param props.invalid - Defines if the file is invalid.
+ * @param props.incorrect - Defines if the file is incorrect.
+ * @param props.value - The current value of the file field.
+ * @param props.disabled - Defines if the file field is disabled.
+ * @param props.readonly - Defines if the file field is read-only.
+ * @param props.description - The description or helper text of the file field.
+ * @param props.outlined - Defines if the file field is outlined.
+ * @param props.labelShrink - Defines if the label should shrink.
+ * @param props.title - The title or label of the file field.
+ * @param props.placeholder - The placeholder for the file field.
+ * @param props.dirty - Defines if the file field has been changed.
+ * @param props.loading - Defines if the file field is in loading state.
+ * @param props.inputRef - A ref to the file field's input element.
+ * @param props.onChange - The callback function called when the file value changes.
+ * @param props.fileAccept - The accepted file types for file selection.
+ * @param props.name - The name of the file field.
+ * @param props.upload - The function called when a file is uploaded.
+ *   The function takes a file as input and returns the uploaded file's name.
+ * @param props.view - The function called when the file is viewed.
+ *   The function takes the file path as input.
+ * @returns - Returns the JSX element of the FileField component.
+ */
 export const FileField = ({
   invalid,
   incorrect,

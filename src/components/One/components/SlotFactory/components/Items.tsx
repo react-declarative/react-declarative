@@ -49,6 +49,29 @@ interface IState {
     labels: Record<string, string>;
 }
 
+/**
+ * @param Items - The main function that renders the Autocomplete component.
+ * @param Items.value - The value of the autocomplete field. It can be a string or an object.
+ * @param Items.disabled - Determines whether the autocomplete field is disabled or not.
+ * @param Items.readonly - Determines whether the autocomplete field is readonly or not.
+ * @param Items.description - The description of the autocomplete field.
+ * @param Items.placeholder - The placeholder text of the autocomplete field.
+ * @param Items.outlined - Determines whether the autocomplete field has an outlined style or not.
+ * @param Items.itemList - The list of items to be populated in the autocomplete dropdown.
+ * @param Items.freeSolo - Determines whether the user can input values that are not in the itemList.
+ * @param Items.noDeselect - Determines whether the user can deselect values in the autocomplete field.
+ * @param Items.virtualListBox - Determines whether to use a virtual listbox for rendering the autocomplete dropdown.
+ * @param Items.watchItemList - Determines whether to watch for changes in the itemList.
+ * @param Items.labelShrink - Determines whether to shrink the label when the autocomplete field has a value.
+ * @param Items.dirty - Determines whether the autocomplete field has been modified.
+ * @param Items.invalid - Determines whether the autocomplete field has an invalid value.
+ * @param Items.incorrect - Determines whether the autocomplete field has an incorrect value.
+ * @param Items.title - The title text of the autocomplete field.
+ * @param Items.tr - A translation function that takes a string and returns a translated string.
+ * @param Items.onChange - A callback function that is called when the value of the autocomplete field changes.
+ * @param Items.withContextMenu - Determines whether to show a context menu for the autocomplete field.
+ * @returns The Autocomplete component.
+ */
 export const Items = ({
     value: upperValue,
     disabled,

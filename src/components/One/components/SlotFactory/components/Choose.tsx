@@ -35,6 +35,26 @@ const getInputValue = async (
   }
 };
 
+/**
+ * Represents a Choose variable.
+ * @typedef IChooseSlot
+ * @property invalid - The invalid value.
+ * @property incorrect - The incorrect value.
+ * @property value - The value.
+ * @property disabled - The disabled value.
+ * @property readonly - The readonly value.
+ * @property description - The description value.
+ * @property outlined - The outlined value.
+ * @property title - The title value.
+ * @property placeholder - The placeholder value.
+ * @property labelShrink - The labelShrink value.
+ * @property dirty - The dirty value.
+ * @property upperLoading - The upperLoading value.
+ * @property inputRef - The inputRef value.
+ * @property onChange - The onChange value.
+ * @property choose - The choose value.
+ * @property tr - The tr value.
+ */
 export const Choose = ({
   invalid,
   incorrect,

@@ -33,10 +33,10 @@ interface IPaperViewProps extends Omit<PaperProps, keyof {
  * React component for rendering a customizable paper view.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.className - The CSS class name for the paper view.
- * @param {boolean} props.outlinePaper - Specifies whether the paper view should have an outline.
- * @param {boolean} props.transparentPaper - Specifies whether the paper view should be transparent.
+ * @param  props - The component props.
+ * @param props.className - The CSS class name for the paper view.
+ * @param props.outlinePaper - Specifies whether the paper view should have an outline.
+ * @param props.transparentPaper - Specifies whether the paper view should be transparent.
  * @param {React.Ref} ref - The ref to be forwarded to the underlying HTML element.
  * @returns {React.Element} The rendered paper view component.
  */

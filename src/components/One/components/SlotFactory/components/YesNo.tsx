@@ -39,6 +39,25 @@ const OPTIONS = [
   "No",
 ];
 
+/**
+ * Represents a YesNoField component.
+ * @typedef  YesNoField
+ * @property value - The value of the YesNoField.
+ * @property disabled - Indicates whether the YesNoField is disabled.
+ * @property readonly - Indicates whether the YesNoField is readonly.
+ * @property description - The description of the YesNoField.
+ * @property placeholder - The placeholder text of the YesNoField.
+ * @property outlined - Indicates whether the YesNoField is outlined.
+ * @property virtualListBox - Indicates whether to use the virtual list box for the YesNoField.
+ * @property labelShrink - Indicates whether the label should shrink for the YesNoField.
+ * @property noDeselect - Indicates whether deselection is allowed for the YesNoField.
+ * @property title - The title of the YesNoField.
+ * @property tr - The translation function for the YesNoField.
+ * @property dirty - Indicates whether the YesNoField is dirty.
+ * @property invalid - Indicates whether the YesNoField is invalid.
+ * @property incorrect - Indicates whether the YesNoField is incorrect.
+ * @property onChange - The change event handler for the YesNoField.
+ */
 export const YesNoField = ({
   value: upperValue,
   disabled,

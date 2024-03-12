@@ -12,6 +12,17 @@ import useActualValue from '../../../../../hooks/useActualValue';
 
 import { IRadioSlot } from '../../../slots/RadioSlot';
 
+/**
+ * Represents a radio component.
+ *
+ * @typedef  IRadioSlot
+ * @property disabled - Determines if the radio component is disabled.
+ * @property onChange - The function to be called when the value of the radio component changes.
+ * @property title - The title of the radio component.
+ * @property radioValue - The value of the radio component.
+ * @property value - The current selected value of the radio component.
+ * @property [name=''] - The name of the radio component.
+ */
 export const Radio = ({
     disabled,
     onChange,

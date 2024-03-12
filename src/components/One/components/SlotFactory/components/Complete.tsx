@@ -40,6 +40,38 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
 
+/**
+ * Represents a complete field component with various options and functionality.
+ *
+ * @typedef  Complete
+ * @property invalid - Indicates if the field value is invalid.
+ * @property incorrect - Indicates if the field value is incorrect.
+ * @property value - The current value of the field.
+ * @property disabled - Indicates if the field is disabled.
+ * @property readonly - Indicates if the field is readonly.
+ * @property inputType - The type of input element to render (default is "text").
+ * @property inputMode - The input mode of the field (default is "text").
+ * @property inputPattern - The pattern attribute of the input element.
+ * @property labelShrink - Indicates if the label should shrink when the field value is not empty.
+ * @property description - The description text to display below the field.
+ * @property outlined - Indicates if the input element should be outlined.
+ * @property keepRaw - Indicates if the raw value should be kept in the field.
+ * @property title - The title attribute of the input element.
+ * @property placeholder - The placeholder text to display in the input element.
+ * @property inputAutocomplete - The autocomplete attribute of the input element (default is "off").
+ * @property dirty - Indicates if the field value has been modified.
+ * @property loading - Indicates if the field data is currently being loaded.
+ * @property tip - A function that returns an array of data to display as the tip.
+ * @property tipSelect - Indicates if the tip options should be selectable.
+ * @property autoFocus - Indicates if the input element should be focused on mount.
+ * @property onChange - A callback function that is called when the field value changes.
+ * @property inputFormatterSymbol - The symbol used in the input formatter (default is "0").
+ * @property inputFormatterAllowed - An array of allowed characters in the input formatter.
+ * @property inputFormatterReplace - A regular expression used to replace characters in the input formatter.
+ * @property inputFormatterTemplate - The template used in the input formatter.
+ * @property inputFormatter - The function used to format the input value.
+ * @property withContextMenu - Indicates if the context menu should be enabled for the field.
+ */
 export const Complete = ({
   invalid,
   incorrect,

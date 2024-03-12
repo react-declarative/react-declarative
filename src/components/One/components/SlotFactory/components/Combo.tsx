@@ -47,6 +47,29 @@ interface IState {
   labels: Record<string, string>;
 }
 
+/**
+ * Represents a Combo component.
+ * @param value - The selected value(s) of the Combo.
+ * @param disabled - Whether the Combo is disabled or not.
+ * @param readonly - Whether the Combo is readonly or not.
+ * @param description - The description of the Combo.
+ * @param placeholder - The placeholder text of the Combo input.
+ * @param outlined - Whether the Combo is outlined or not.
+ * @param itemList - The list of items/options for the Combo.
+ * @param virtualListBox - Whether to use a virtual list box for the Combo or not.
+ * @param watchItemList - Whether to watch the itemList for changes or not.
+ * @param labelShrink - Whether to shrink the label of the Combo or not.
+ * @param noDeselect - Whether to allow deselecting an item or not.
+ * @param freeSolo - Whether to allow free text input or not.
+ * @param title - The title/label of the Combo.
+ * @param dirty - Whether the Combo value is dirty/changed or not.
+ * @param invalid - Whether the Combo value is invalid or not.
+ * @param incorrect - Whether the Combo value is incorrect or not.
+ * @param withContextMenu - Whether to show a context menu for the Combo or not.
+ * @param tr - The translation function for the Combo.
+ * @param onChange - The change event handler for the Combo.
+ * @returns The Combo component.
+ */
 export const Combo = ({
   value: upperValue,
   disabled,
