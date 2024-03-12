@@ -8,6 +8,15 @@ import { IProgressSlot } from '../../../slots/ProgressSlot';
 
 const percent = (v: number, m: number) => Math.min(100, Math.round((Math.max(Number(v), 0) / m) * 100));
 
+/**
+ * Represents a progress component.
+ *
+ * @param props - The properties for the Progress component.
+ * @param props.maxPercent - The maximum percentage value for the progress.
+ * @param props.showPercentLabel - Flag indicating whether to show the percentage label.
+ * @param props.value - The current value of the progress.
+ * @returns - The Progress component.
+ */
 export const Progress = ({
     maxPercent = 1.0,
     showPercentLabel,

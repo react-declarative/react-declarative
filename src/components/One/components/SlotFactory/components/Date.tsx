@@ -27,6 +27,26 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
 
+/**
+ * Represents a Date component.
+ *
+ * @param Date - The options for the Date component.
+ * @param Date.invalid - If the date value is invalid.
+ * @param Date.incorrect - If the date value is incorrect.
+ * @param Date.value - The uppercased value of the date.
+ * @param Date.disabled - If the Date component is disabled.
+ * @param Date.readonly - If the Date component is readonly.
+ * @param Date.description - The description for the Date component.
+ * @param Date.outlined - If the Date component should be outlined.
+ * @param Date.title - The text to be displayed as the label for the Date component.
+ * @param Date.placeholder - The placeholder text for the Date component.
+ * @param Date.labelShrink - If the label should shrink when the Date component is focused.
+ * @param Date.dirty - If the Date component is dirty.
+ * @param Date.autoFocus - If the Date component should autofocus.
+ * @param Date.inputRef - A reference to the input element of the Date component.
+ * @param Date.onChange - A callback function to be called when the value of the Date component changes.
+ * @param Date.withContextMenu - If the Date component should display a context menu.
+ */
 export const Date = ({
   invalid,
   incorrect,

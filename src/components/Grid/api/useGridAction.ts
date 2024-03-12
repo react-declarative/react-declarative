@@ -28,11 +28,11 @@ interface IParams<Data extends IAnything = IAnything> {
  * @param Object.onRowAction - A callback function executed when a row action is performed. This function receives the action name, the row to perform the action on, and a
  * deselectAll function to deselect all rows.
  * @returns An object containing the following properties:
- *   - {Function} deselectAll - A function that deselects all rows in the grid.
- *   - {Array<Data>} selectedRows - An array of selected rows in the grid.
- *   - {object} gridProps - The grid properties.
- *   - {Function} commitAction - A function that commits a grid action. This function receives the action name and calls the onAction callback function with the selected rows.
- *   - {Function} commitRowAction - A function that commits a row action. This function receives the action name and the row and calls the onRowAction callback function.
+ *   - deselectAll - A function that deselects all rows in the grid.
+ *   - selectedRows - An array of selected rows in the grid.
+ *   - gridProps - The grid properties.
+ *   - commitAction - A function that commits a grid action. This function receives the action name and calls the onAction callback function with the selected rows.
+ *   - commitRowAction - A function that commits a row action. This function receives the action name and the row and calls the onRowAction callback function.
  */
 export const useGridAction = <Data extends IAnything = IAnything>({
     onLoadStart,

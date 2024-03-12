@@ -22,6 +22,17 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a Switch component.
+ * @param props - The properties of the Switch component.
+ * @param props.disabled - Whether the Switch component is disabled.
+ * @param props.value - The value of the Switch component.
+ * @param props.onChange - The callback function when the value of the Switch component changes.
+ * @param props.title - The title of the Switch component.
+ * @param props.switchNoColor - Whether the Switch component has no color.
+ * @param props.switchActiveLabel - The label for the active state of the Switch component.
+ * @returns - The rendered Switch component.
+ */
 export const Switch = ({
   disabled,
   value,

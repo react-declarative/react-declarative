@@ -95,6 +95,47 @@ const createIcon = (
   </IconButton>
 );
 
+/**
+ * @typedef  Dict - A variable with several properties related to a dictionary.
+ * @property invalid - Represents the invalid state of the dictionary.
+ * @property incorrect - Represents the incorrect state of the dictionary.
+ * @property value - Represents the value of the dictionary.
+ * @property disabled - Indicates whether the dictionary is disabled or not.
+ * @property readonly - Indicates whether the dictionary is readonly or not.
+ * @property inputType - Represents the type of the input for the dictionary (default is "text").
+ * @property inputMode - Represents the mode of the input for the dictionary (default is "text").
+ * @property inputPattern - Represents the pattern of the input for the dictionary (default is undefined).
+ * @property inputAutocomplete - Represents the autocomplete attribute of the input for the dictionary.
+ * @property description - Represents the description of the dictionary (default is an empty string).
+ * @property outlined - Indicates whether the dictionary is outlined or not (default is false).
+ * @property title - Represents the title of the dictionary.
+ * @property placeholder - Represents the placeholder of the dictionary.
+ * @property dirty - Represents the dirty state of the dictionary.
+ * @property loading - Indicates whether the dictionary is loading or not.
+ * @property inputRef - Represents the reference of the input for the dictionary.
+ * @property onChange - Represents the change event handler for the dictionary.
+ * @property dictLimit - Represents the limit for the dictionary (default is DEFAULT_LIMIT).
+ * @property dictDelay - Represents the delay for the dictionary (default is DEFAULT_DELAY).
+ * @property dictOnText - Represents the onText event handler for the dictionary (default is DEFAULT_ONTEXT).
+ * @property dictOnItem - Represents the onItem event handler for the dictionary (default is DEFAULT_ONITEM).
+ * @property dictSearch - Represents the search function for the dictionary (default is DEFAULT_SEARCH).
+ * @property dictValue - Represents the value function for the dictionary (default is DEFAULT_VALUE).
+ * @property dictSearchText - Represents the searchText function for the dictionary (default is DEFAULT_SEARCHTEXT).
+ * @property dictOnAppend - Represents the onAppend function for the dictionary.
+ * @property dictSearchItem - Represents the search item for the dictionary.
+ * @property dictCreateButton - Represents the create button for the dictionary.
+ * @property inputFormatterSymbol - Represents the symbol used in the input formatter for the dictionary (default is "0").
+ * @property inputFormatterAllowed - Represents the allowed characters in the input formatter for the dictionary.
+ * @property inputFormatterReplace - Represents the characters to be replaced in the input formatter for the dictionary.
+ * @property inputFormatterTemplate - Represents the template for the input formatter for the dictionary (default is an empty string).
+ * @property inputFormatter - Represents the formatter function for the dictionary.
+ * @property leadingIcon - Represents the leading icon for the dictionary.
+ * @property trailingIcon - Represents the trailing icon for the dictionary.
+ * @property leadingIconClick - Represents the click event handler for the leading icon of the dictionary.
+ * @property trailingIconClick - Represents the click event handler for the trailing icon of the dictionary.
+ * @property leadingIconRipple - Indicates whether the leading icon of the dictionary has ripple effect or not (default is true).
+ * @property trailingIconRipple - Indicates whether the trailing icon of the dictionary has ripple effect or not (default is true).
+ */
 export const Dict = ({
   invalid,
   incorrect,

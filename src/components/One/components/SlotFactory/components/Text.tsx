@@ -126,6 +126,41 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
 
+/**
+ * Variable representing a text input component with various properties and functionalities.
+ * @typedef  Text
+ * @property invalid - Indicates if the input value is invalid.
+ * @property incorrect - Indicates if the input value is incorrect.
+ * @property value - The current value of the input.
+ * @property disabled - Indicates if the input is disabled.
+ * @property readonly - Indicates if the input is read-only.
+ * @property inputType - The type of the input. Defaults to "text".
+ * @property inputMode - The mode of the input. Defaults to "text".
+ * @property inputPattern - The pattern of the input.
+ * @property labelShrink - Indicates if the label should shrink.
+ * @property description - The description of the input.
+ * @property outlined - Indicates if the input is outlined.
+ * @property title - The title of the input.
+ * @property leadingIcon - The leading icon of the input.
+ * @property trailingIcon - The trailing icon of the input.
+ * @property leadingIconClick - The click event handler for the leading icon.
+ * @property trailingIconClick - The click event handler for the trailing icon.
+ * @property leadingIconRipple - Indicates if the leading icon should have a ripple effect. Defaults to true.
+ * @property trailingIconRipple - Indicates if the trailing icon should have a ripple effect. Defaults to true.
+ * @property inputRows - The number of rows for a multiline input. Defaults to 1.
+ * @property placeholder - The placeholder text for the input.
+ * @property inputAutocomplete - The autocomplete attribute for the input. Defaults to "off".
+ * @property inputFormatterSymbol - The symbol used for formatting the input. Defaults to "0".
+ * @property inputFormatterAllowed - An array of characters that are allowed in the formatted input.
+ * @property inputFormatterReplace - An array of characters that should be replaced in the formatted input.
+ * @property inputFormatterTemplate - The template for formatting the input.
+ * @property inputFormatter - A formatter function for the input value.
+ * @property dirty - Indicates if the input value has been changed.
+ * @property loading - Indicates if the input is currently loading.
+ * @property autoFocus - Indicates if the input should be focused automatically.
+ * @property inputRef - A ref callback for the input element.
+ * @property onChange - The change event handler for the input.
+ */
 export const Text = ({
   invalid,
   incorrect,

@@ -18,6 +18,28 @@
 6. [TypedField](./code/TypedField.md)
 7. [react-declarative.d.ts](./code/react-declarative.md)
 
+## Fields properties with JSDoc:
+
+1. [CheckBox](/src/components/One/components/SlotFactory/components/CheckBox.tsx)
+2. [Choose](/src/components/One/components/SlotFactory/components/Choose.tsx)
+3. [Combo](/src/components/One/components/SlotFactory/components/Combo.tsx)
+4. [Complete](/src/components/One/components/SlotFactory/components/Complete.tsx)
+5. [Date](/src/components/One/components/SlotFactory/components/Date.tsx)
+6. [Dict](/src/components/One/components/SlotFactory/components/Dict.tsx)
+7. [File](/src/components/One/components/SlotFactory/components/File.tsx)
+8. [Items](/src/components/One/components/SlotFactory/components/Items.tsx)
+9. [Line](/src/components/One/components/SlotFactory/components/Line.tsx)
+10. [Progress](/src/components/One/components/SlotFactory/components/Progress.tsx)
+11. [Radio](/src/components/One/components/SlotFactory/components/Radio.tsx)
+12. [Rating](/src/components/One/components/SlotFactory/components/Rating.tsx)
+13. [Slider](/src/components/One/components/SlotFactory/components/Slider.tsx)
+14. [Switch](/src/components/One/components/SlotFactory/components/Switch.tsx)
+15. [Text](/src/components/One/components/SlotFactory/components/Text.tsx)
+16. [Time](/src/components/One/components/SlotFactory/components/Time.tsx)
+17. [Tree](/src/components/One/components/SlotFactory/components/Tree.tsx)
+18. [Typography](/src/components/One/components/SlotFactory/components/Typography.tsx)
+19. [YesNo](/src/components/One/components/SlotFactory/components/YesNo.tsx)
+
 ## Overview
 
 The goal is to create a unified React component for settings-like forms. The component manages form state, handles validation, and streamlines the development process by reducing boilerplate code.

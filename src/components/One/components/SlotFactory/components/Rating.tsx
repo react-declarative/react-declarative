@@ -5,6 +5,15 @@ import MatRating from '@mui/material/Rating';
 
 import { IRatingSlot } from '../../../slots/RatingSlot';
 
+/**
+ * Represents a Rating component.
+ *
+ * @typedef  IRatingSlot
+ * @property value - The current value of the rating component.
+ * @property disabled - Determines if the rating component is disabled or not.
+ * @property readonly - Determines if the rating component is readonly or not.
+ * @property onChange - The event handler function that will be called when the rating value changes.
+ */
 export const Rating = ({
     value,
     disabled,
