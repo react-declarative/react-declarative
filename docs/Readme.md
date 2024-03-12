@@ -20,6 +20,8 @@
 
 ## Field properties with JSDoc:
 
+**With slots:**
+
 1. [CheckBox](/src/components/One/components/SlotFactory/components/CheckBox.tsx)
 2. [Choose](/src/components/One/components/SlotFactory/components/Choose.tsx)
 3. [Combo](/src/components/One/components/SlotFactory/components/Combo.tsx)
@@ -40,21 +42,27 @@
 18. [Typography](/src/components/One/components/SlotFactory/components/Typography.tsx)
 19. [YesNo](/src/components/One/components/SlotFactory/components/YesNo.tsx)
 
+**Without slots:**
+
+1. [Component](/src/components/One/fields/ComponentField.tsx)
+2. [Init](/src/components/One/fields/InitField.tsx)
+3. [Line](/src/components/One/fields/Line.tsx)
+
 ## Layout properties with JSDoc:
 
-1. [BoxLayout](/src/components/One/layouts/BoxLayout.tsx)
-2. [CenterLayout](/src/components/One/layouts/CenterLayout.tsx)
-3. [ConditionLayout](/src/components/One/layouts/ConditionLayout.tsx)
-4. [CustomLayout](/src/components/One/layouts/CustomLayout.tsx)
-5. [DivLayout](/src/components/One/layouts/DivLayout.tsx)
-6. [ExpansionLayout](/src/components/One/layouts/ExpansionLayout.tsx)
-7. [FragmentLayout](/src/components/One/layouts/FragmentLayout.tsx)
-8. [GroupLayout](/src/components/One/layouts/GroupLayout.tsx)
-9. [HeroLayout](/src/components/One/layouts/HeroLayout.tsx)
-10. [OutlineLayout](/src/components/One/layouts/OutlineLayout.tsx)
-11. [PaperLayout](/src/components/One/layouts/PaperLayout.tsx)
-12. [StretchLayout](/src/components/One/layouts/StretchLayout.tsx)
-13. [TabsLayout](/src/components/One/layouts/TabsLayout.tsx)
+1. [Box](/src/components/One/layouts/BoxLayout.tsx)
+2. [Center](/src/components/One/layouts/CenterLayout.tsx)
+3. [Condition](/src/components/One/layouts/ConditionLayout.tsx)
+4. [Custom](/src/components/One/layouts/CustomLayout.tsx)
+5. [Div](/src/components/One/layouts/DivLayout.tsx)
+6. [Expansion](/src/components/One/layouts/ExpansionLayout.tsx)
+7. [Fragment](/src/components/One/layouts/FragmentLayout.tsx)
+8. [Group](/src/components/One/layouts/GroupLayout.tsx)
+9. [Hero](/src/components/One/layouts/HeroLayout.tsx)
+10. [Outline](/src/components/One/layouts/OutlineLayout.tsx)
+11. [Paper](/src/components/One/layouts/PaperLayout.tsx)
+12. [Stretch](/src/components/One/layouts/StretchLayout.tsx)
+13. [Tabs](/src/components/One/layouts/TabsLayout.tsx)
 
 ## Overview
 
