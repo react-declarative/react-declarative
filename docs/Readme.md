@@ -42,19 +42,19 @@
 
 ## Layout properties with JSDoc:
 
-1. [BoxLayout.tsx](/src/components/One/layouts/BoxLayout.tsx)
-2. [CenterLayout.tsx](/src/components/One/layouts/CenterLayout.tsx)
-3. [ConditionLayout.tsx](/src/components/One/layouts/ConditionLayout.tsx)
-4. [CustomLayout.tsx](/src/components/One/layouts/CustomLayout.tsx)
-5. [DivLayout.tsx](/src/components/One/layouts/DivLayout.tsx)
-6. [ExpansionLayout.tsx](/src/components/One/layouts/ExpansionLayout.tsx)
-7. [FragmentLayout.tsx](/src/components/One/layouts/FragmentLayout.tsx)
-8. [GroupLayout.tsx](/src/components/One/layouts/GroupLayout.tsx)
-9. [HeroLayout.tsx](/src/components/One/layouts/HeroLayout.tsx)
-10. [OutlineLayout.tsx](/src/components/One/layouts/OutlineLayout.tsx)
-11. [PaperLayout.tsx](/src/components/One/layouts/PaperLayout.tsx)
-12. [StretchLayout.tsx](/src/components/One/layouts/StretchLayout.tsx)
-13. [TabsLayout.tsx](/src/components/One/layouts/TabsLayout.tsx)
+1. [BoxLayout](/src/components/One/layouts/BoxLayout.tsx)
+2. [CenterLayout](/src/components/One/layouts/CenterLayout.tsx)
+3. [ConditionLayout](/src/components/One/layouts/ConditionLayout.tsx)
+4. [CustomLayout](/src/components/One/layouts/CustomLayout.tsx)
+5. [DivLayout](/src/components/One/layouts/DivLayout.tsx)
+6. [ExpansionLayout](/src/components/One/layouts/ExpansionLayout.tsx)
+7. [FragmentLayout](/src/components/One/layouts/FragmentLayout.tsx)
+8. [GroupLayout](/src/components/One/layouts/GroupLayout.tsx)
+9. [HeroLayout](/src/components/One/layouts/HeroLayout.tsx)
+10. [OutlineLayout](/src/components/One/layouts/OutlineLayout.tsx)
+11. [PaperLayout](/src/components/One/layouts/PaperLayout.tsx)
+12. [StretchLayout](/src/components/One/layouts/StretchLayout.tsx)
+13. [TabsLayout](/src/components/One/layouts/TabsLayout.tsx)
 
 ## Overview
 
