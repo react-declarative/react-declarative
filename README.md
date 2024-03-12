@@ -899,6 +899,34 @@ const { handleLoadStart, handleLoadEnd } = usePreventNavigate({
 </ActionButton>
 ```
 
+The `useAsyncValue` will help you to manage [react-hooks/rules-of-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) while working with remote data
+
+```tsx
+const [data, { loading, error }, setData] = useAsyncValue(async () => {
+  return await getData();
+});
+
+if (loading || error) {
+  return null;
+}
+
+return (
+  <pre>
+    {JSON.stringify(data, null, 2)}
+  </pre>
+)
+
+...
+
+const handleChangeData = async () => {
+  const newData = await fetchApi('/api/v1/data', {
+    method: "POST",
+    ...
+  })
+  setData(newData)
+}
+
+```
 
 <img src="./assets/icons/cubes2.svg" height="35px" align="right">
 
