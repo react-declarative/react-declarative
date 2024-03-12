@@ -33,18 +33,18 @@ const cloneDeep = (src: any) => arrays(deepClone(objects(src)));
 /**
  * Function that generates a Scaffold component.
  *
- * @param {Object} props - The props for the Scaffold component.
- * @param {Function|Array|string[]} props.roles - The roles to resolve for the component.
- * @param {any} props.payload - The payload for the component.
- * @param {boolean} [props.throwError] - Whether to throw an error or not.
- * @param {ReactNode} [props.fallback] - The fallback component to render while loading.
- * @param {Object<any, any>} [props.options] - The options to resolve for the component.
- * @param {boolean} [props.loadingLine=false] - Whether to show a loading line or not.
- * @param {number} [props.loading=-1] - The payload for the loading line.
- * @param {ReactNode} [props.Loader=LoaderDefault] - The component to use as the loader.
- * @param {boolean} [props.withPassthrough=false] - Whether to pass the payload to child components or not.
- * @param {Function} [props.onInit] - The function to execute on component initialization.
- * @returns {ReactNode} - The rendered component tree.
+ * @param props - The props for the Scaffold component.
+ * @param props.roles - The roles to resolve for the component.
+ * @param props.payload - The payload for the component.
+ * @param [props.throwError] - Whether to throw an error or not.
+ * @param [props.fallback] - The fallback component to render while loading.
+ * @param [props.options] - The options to resolve for the component.
+ * @param [props.loadingLine=false] - Whether to show a loading line or not.
+ * @param [props.loading=-1] - The payload for the loading line.
+ * @param [props.Loader=LoaderDefault] - The component to use as the loader.
+ * @param [props.withPassthrough=false] - Whether to pass the payload to child components or not.
+ * @param [props.onInit] - The function to execute on component initialization.
+ * @returns - The rendered component tree.
  */
 export const Scaffold = <T extends any = any> ({
     roles,

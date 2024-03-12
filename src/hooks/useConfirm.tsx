@@ -28,12 +28,12 @@ interface IParams {
 /**
  * A hook that provides a confirm dialog functionality.
  *
- * @param {Object} params - The parameter object.
- * @param {string} params.title - The default title of the confirm dialog.
- * @param {string} params.msg - The default message of the confirm dialog.
- * @param {boolean} params.canCancel - The default cancelability flag of the confirm dialog.
+ * @param params - The parameter object.
+ * @param params.title - The default title of the confirm dialog.
+ * @param params.msg - The default message of the confirm dialog.
+ * @param params.canCancel - The default cancelability flag of the confirm dialog.
  *
- * @returns {Function} - A function that can be invoked to show the confirm dialog.
+ * @returns - A function that can be invoked to show the confirm dialog.
  */
 export const useConfirm = ({
   title: defaultTitle = "",

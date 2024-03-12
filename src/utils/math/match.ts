@@ -7,12 +7,12 @@ type Value = number | boolean;
  * @template T - Type of the run value.
  * @template E - Type of the not value.
  *
- * @param {Object} params - The parameters object.
- * @param {A | (() => A)} params.condition - The condition value or a function that returns the condition value.
- * @param {T | (() => T)} params.run - The run value or a function that returns the run value.
- * @param {E | (() => E)} [params.not=false] - The not value or a function that returns the not value. Defaults to false.
+ * @param params - The parameters object.
+ * @param params.condition - The condition value or a function that returns the condition value.
+ * @param params.run - The run value or a function that returns the run value.
+ * @param [params.not=false] - The not value or a function that returns the not value. Defaults to false.
  *
- * @returns {A | T | E} - The result of executing the condition and returning the appropriate value.
+ * @returns - The result of executing the condition and returning the appropriate value.
  */
 export const match = <A = Promise<Value>, T = Promise<Value>, E = false>({
     condition,

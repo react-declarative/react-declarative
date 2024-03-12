@@ -6,9 +6,9 @@ interface IClearable {
  * Caches the result of a function based on the change of arguments.
  * @template T - The type of the function to be cached.
  * @template A - The type of the arguments of the function.
- * @param {function} changed - Function to determine if the arguments have changed.
- * @param {function} run - The function to be cached.
- * @returns {T & IClearable} - The cached function with additional clear method.
+ * @param changed - Function to determine if the arguments have changed.
+ * @param run - The function to be cached.
+ * @returns - The cached function with additional clear method.
  */
 export const cached = <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T): T & IClearable => {
 

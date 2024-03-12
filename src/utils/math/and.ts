@@ -4,8 +4,8 @@ type Value = number | boolean;
  * Performs a logical AND operation on multiple values.
  *
  * @template T - The type of the values
- * @param {T[]} args - The values to perform the logical AND operation on
- * @returns {T} - The result of the logical AND operation
+ * @param args - The values to perform the logical AND operation on
+ * @returns - The result of the logical AND operation
  */
 export const and = <T = Promise<Value>>(...args: T[]): T => {
     if (args.some((arg) => arg instanceof Promise)) {

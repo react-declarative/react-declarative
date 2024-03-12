@@ -3,8 +3,8 @@ import { terminator } from "./typo";
 /**
  * Parses an array of ASCII codes representing key-value pairs and converts them into an object.
  *
- * @param {number[]} state - An array of ASCII codes representing key-value pairs.
- * @returns {T|null} - The parsed object if successful, or null if an error occurred.
+ * @param state - An array of ASCII codes representing key-value pairs.
+ * @returns - The parsed object if successful, or null if an error occurred.
  * @template T - The object type of the parsed result. Defaults to `Record<string, any>`.
  */
 export const parseAsciiParams = <T extends {} = Record<string, any>>(state: number[]): T | null => {

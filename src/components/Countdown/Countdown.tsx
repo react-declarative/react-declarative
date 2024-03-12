@@ -41,8 +41,8 @@ const useStyles = makeStyles()((theme) => ({
  * @property {function} onExpire - The callback function to be called when the countdown expires.
  * @property {object} otherProps - Additional props to be spread onto the root element.
  *
- * @param {ICountdownProps} props - The countdown component props.
- * @returns {JSX.Element} - The countdown component.
+ * @param props - The countdown component props.
+ * @returns - The countdown component.
  */
 export const Countdown = ({
   className,

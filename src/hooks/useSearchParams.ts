@@ -12,8 +12,8 @@ export type Value = string | number | boolean | null | undefined;
  * The returned object will have the same properties as the default values, with values parsed from the URL search parameters.
  *
  * @template T - The type of the default values object.
- * @param {Partial<T> | (() => Partial<T>)} [defaultValues={}] - The default values object or function. Defaults to an empty object.
- * @returns {T} - The parsed search parameters object.
+ * @param [defaultValues={}] - The default values object or function. Defaults to an empty object.
+ * @returns - The parsed search parameters object.
  */
 export const useSearchParams = <T = Record<string, Value>>(
     defaultValues: Partial<T> | (() => Partial<T>) = {}

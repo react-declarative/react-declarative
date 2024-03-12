@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 /**
  * A custom hook that returns a function for force updating a component.
  *
- * @returns {function} The function to be used for force updating.
+ * @returns The function to be used for force updating.
  * @example
  * useForceUpdate();
  */

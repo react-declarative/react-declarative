@@ -21,12 +21,12 @@ interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, ke
  * Binds a collection of entities to a component and provides callbacks for updating the collection.
  *
  * @template T - The type of the entities in the collection.
- * @param {Object} params - The configuration parameters for the binding.
- * @param {Function} params.creator - The function that creates the initial collection and defines how to handle changes.
- * @param {Function} params.onChange - Optional. A callback function called when the collection or its entities change.
- * @param {Array<T>} params.initialValue - Optional. The initial value for the collection.
- * @param {number} params.debounce - Optional. The debounce time for the onChange callback (in milliseconds).
- * @returns {CollectionAdapter<T> | null} - The bound collection or null if still loading.
+ * @param params - The configuration parameters for the binding.
+ * @param params.creator - The function that creates the initial collection and defines how to handle changes.
+ * @param params.onChange - Optional. A callback function called when the collection or its entities change.
+ * @param params.initialValue - Optional. The initial value for the collection.
+ * @param params.debounce - Optional. The debounce time for the onChange callback (in milliseconds).
+ * @returns - The bound collection or null if still loading.
  */
 export const useCollectionBinding = <T extends IEntity = any>({
     creator,

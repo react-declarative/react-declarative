@@ -19,22 +19,22 @@ interface IParams extends Omit<IFeatureViewProps, keyof {
 /**
  * Custom hook for displaying a feature view modal.
  *
- * @param {Object} params - The parameters for the feature view modal.
- * @param {Array} params.data - The feature data.
- * @param {string} params.title - The title of the modal.
- * @param {Array} params.features - The features to display.
- * @param {boolean} params.expandAll - Whether to expand all feature sections.
- * @param {boolean} params.readonly - Whether the modal is readonly.
- * @param {boolean} params.fullScreen - Whether the modal should be displayed in full screen.
- * @param {ReactElement} params.fallback - The fallback react element to display if modal content is unavailable.
- * @param {function} params.onLoadStart - Callback function to be called when modal starts to load.
- * @param {function} params.onLoadEnd - Callback function to be called when modal finishes loading.
- * @param {function} params.onSubmit - Callback function to be called when modal is submitted.
- * @param {function} params.onChange - Callback function to be called when modal value changes.
- * @param {string} params.submitLabel - The label for the submit button.
- * @param {boolean} params.withActionButton - Whether to include an action button in the modal.
- * @param {boolean} params.withStaticAction - Whether to include a static action in the modal.
- * @return {Object} - The modal hook object.
+ * @param params - The parameters for the feature view modal.
+ * @param params.data - The feature data.
+ * @param params.title - The title of the modal.
+ * @param params.features - The features to display.
+ * @param params.expandAll - Whether to expand all feature sections.
+ * @param params.readonly - Whether the modal is readonly.
+ * @param params.fullScreen - Whether the modal should be displayed in full screen.
+ * @param params.fallback - The fallback react element to display if modal content is unavailable.
+ * @param params.onLoadStart - Callback function to be called when modal starts to load.
+ * @param params.onLoadEnd - Callback function to be called when modal finishes loading.
+ * @param params.onSubmit - Callback function to be called when modal is submitted.
+ * @param params.onChange - Callback function to be called when modal value changes.
+ * @param params.submitLabel - The label for the submit button.
+ * @param params.withActionButton - Whether to include an action button in the modal.
+ * @param params.withStaticAction - Whether to include a static action in the modal.
+ * @return - The modal hook object.
  */
 export const useFeatureView = ({
   data,

@@ -3,8 +3,8 @@ import Observer, { TObserver, LISTEN_CONNECT } from "../Observer";
 /**
  * Creates an observer that emits a value after a specified delay.
  *
- * @param {number} delay - The delay in milliseconds.
- * @returns {TObserver<number>} - The observer that emits values after the specified delay.
+ * @param delay - The delay in milliseconds.
+ * @returns - The observer that emits values after the specified delay.
  */
 export const fromInterval = (delay: number): TObserver<number> => {
     let timeout: NodeJS.Timer;

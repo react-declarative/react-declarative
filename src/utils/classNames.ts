@@ -6,8 +6,8 @@
  *  - If an argument is an array, the `classNames` function is recursively called with the array elements as arguments.
  *  - If an argument is an object, its property keys are added as class names if the associated values are truthy.
  *
- * @param {...any} args - The arguments to concatenate into class names.
- * @returns {string} - The concatenated string of class names.
+ * @param args - The arguments to concatenate into class names.
+ * @returns - The concatenated string of class names.
  */
 export const classNames = (...args: any[]) => {
   const classes: Array<string> = [];

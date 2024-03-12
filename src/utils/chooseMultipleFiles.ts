@@ -18,8 +18,8 @@ const waitForResume = () => new Promise<void>((res) => {
 /**
  * Creates a file chooser dialog that allows the user to select multiple files.
  *
- * @param {string} accept - Optional MIME type filter for accepted file types.
- * @returns {Promise<File[] | null>} - A promise that resolves to an array of selected files
+ * @param accept - Optional MIME type filter for accepted file types.
+ * @returns - A promise that resolves to an array of selected files
  * or null if the dialog was canceled.
  */
 export const chooseMultipleFiles = (accept?: string) => new Promise<File[] | null>((res) => {

@@ -48,19 +48,19 @@ const DEFAULT_CHANGE = (data: IAnything) => console.log({ data });
 
 /**
  * Represents the OneGenesis component.
- * @param {Object} props - The props for the component.
- * @param {Function} props.change - The change callback function.
- * @param {Function} props.ready - The ready callback function.
- * @param {Array} props.fields - The fields array.
- * @param {Object} props.slots - The slots object.
- * @param {Object} props.payload - The payload object.
- * @param {Number} props.fieldDebounce - The debounce time for field updates.
- * @param {Object} props.features - The features object.
- * @param {Object} props.context - The context object.
- * @param {string} props.className - The class name for the component.
- * @param {Object} props.style - The style object for the component.
- * @param {Object} props.sx - The inline style object for the component.
- * @return {JSX.Element} - The rendered component.
+ * @param props - The props for the component.
+ * @param props.change - The change callback function.
+ * @param props.ready - The ready callback function.
+ * @param props.fields - The fields array.
+ * @param props.slots - The slots object.
+ * @param props.payload - The payload object.
+ * @param props.fieldDebounce - The debounce time for field updates.
+ * @param props.features - The features object.
+ * @param props.context - The context object.
+ * @param props.className - The class name for the component.
+ * @param props.style - The style object for the component.
+ * @param props.sx - The inline style object for the component.
+ * @return - The rendered component.
  */
 export const OneGenesis = <
   Data extends IAnything = IAnything,

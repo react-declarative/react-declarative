@@ -11,11 +11,11 @@ interface IParams {
 /**
  * Initializes and manages a local history object.
  *
- * @param {Object} options - The options for the local history.
- * @param {Object} options.history - The upper history object to sync with.
- * @param {string} [options.pathname="/"] - The initial pathname for the history.
+ * @param options - The options for the local history.
+ * @param options.history - The upper history object to sync with.
+ * @param [options.pathname="/"] - The initial pathname for the history.
  *
- * @return {Object} - The local history object.
+ * @return - The local history object.
  */
 export const useLocalHistory = ({
   history: upperHistory,

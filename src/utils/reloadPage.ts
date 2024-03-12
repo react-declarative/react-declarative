@@ -11,7 +11,7 @@ declare global {
 /**
  * Reloads the current page.
  *
- * @returns {Promise<void>} A promise that resolves when the page has reloaded.
+ * @returns A promise that resolves when the page has reloaded.
  */
 export const reloadPage = async () => {
     isReloading = true;

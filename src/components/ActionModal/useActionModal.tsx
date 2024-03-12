@@ -35,38 +35,38 @@ export interface IParams<
  * @template Payload - The type of payload data.
  * @template Field - The type of field data.
  * @template Param - The type of param data.
- * @param {object} params - The parameters for configuring the action modal.
- * @param {boolean} params.hidden - Indicates whether the action modal is hidden.
- * @param {Array<Field>} params.fields - The fields for the action modal.
- * @param {number} params.waitForChangesDelay - The delay for waiting on changes.
- * @param {any} params.param - The initial value for the param.
- * @param {Array<string>} params.features - The features for the action modal.
- * @param {Function} params.handler - The handler function for the action modal.
- * @param {ReactNode} params.fallback - The fallback element for the action modal.
- * @param {React.Ref<IApiRef>} params.apiRef - The reference to the API for the action modal.
- * @param {Subject} params.changeSubject - The subject for change events.
- * @param {Subject} params.reloadSubject - The subject for reload events.
- * @param {boolean} params.withActionButton - Indicates whether to include an action button.
- * @param {boolean} params.withStaticAction - Indicates whether to include a static action.
- * @param {Payload} params.payload - The payload data for the action modal.
- * @param {ReactNode} params.BeforeTitle - The element to render before the title.
- * @param {Function} params.onChange - The onChange event handler for the action modal.
- * @param {Function} params.onClose - The onClose event handler for the action modal.
- * @param {Function} params.onSubmit - The onSubmit event handler for the action modal.
- * @param {Function} params.onLoadEnd - The onLoadEnd event handler for the action modal.
- * @param {Function} params.onLoadStart - The onLoadStart event handler for the action modal.
- * @param {Function} params.onInvalid - The onInvalid event handler for the action modal.
- * @param {ReactNode} params.AfterTitle - The element to render after the title.
- * @param {boolean} params.outlinePaper - Indicates whether the paper has an outline.
- * @param {boolean} params.transparentPaper - Indicates whether the paper is transparent.
- * @param {string} params.submitLabel - The label for the submit button.
- * @param {boolean} params.throwError - Indicates whether to throw an error on submit.
- * @param {boolean} params.dirty - Indicates whether the form is dirty.
- * @param {boolean} params.readonly - Indicates whether the form is readonly.
- * @param {boolean} params.fullScreen - Indicates whether the action modal is fullscreen.
- * @param {string} params.sizeRequest - The size request for the action modal.
- * @param {string} params.title - The title for the action modal.
- * @returns {object} - The state and render functions.
+ * @param params - The parameters for configuring the action modal.
+ * @param params.hidden - Indicates whether the action modal is hidden.
+ * @param params.fields - The fields for the action modal.
+ * @param params.waitForChangesDelay - The delay for waiting on changes.
+ * @param params.param - The initial value for the param.
+ * @param params.features - The features for the action modal.
+ * @param params.handler - The handler function for the action modal.
+ * @param params.fallback - The fallback element for the action modal.
+ * @param params.apiRef - The reference to the API for the action modal.
+ * @param params.changeSubject - The subject for change events.
+ * @param params.reloadSubject - The subject for reload events.
+ * @param params.withActionButton - Indicates whether to include an action button.
+ * @param params.withStaticAction - Indicates whether to include a static action.
+ * @param params.payload - The payload data for the action modal.
+ * @param params.BeforeTitle - The element to render before the title.
+ * @param params.onChange - The onChange event handler for the action modal.
+ * @param params.onClose - The onClose event handler for the action modal.
+ * @param params.onSubmit - The onSubmit event handler for the action modal.
+ * @param params.onLoadEnd - The onLoadEnd event handler for the action modal.
+ * @param params.onLoadStart - The onLoadStart event handler for the action modal.
+ * @param params.onInvalid - The onInvalid event handler for the action modal.
+ * @param params.AfterTitle - The element to render after the title.
+ * @param params.outlinePaper - Indicates whether the paper has an outline.
+ * @param params.transparentPaper - Indicates whether the paper is transparent.
+ * @param params.submitLabel - The label for the submit button.
+ * @param params.throwError - Indicates whether to throw an error on submit.
+ * @param params.dirty - Indicates whether the form is dirty.
+ * @param params.readonly - Indicates whether the form is readonly.
+ * @param params.fullScreen - Indicates whether the action modal is fullscreen.
+ * @param params.sizeRequest - The size request for the action modal.
+ * @param params.title - The title for the action modal.
+ * @returns - The state and render functions.
  * @property {boolean} open - Indicates whether the action modal is open or closed.
  * @property {Function} render - The render function for the action modal.
  * @property {Function} pickData - The function for selecting data.

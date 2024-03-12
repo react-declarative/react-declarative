@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 /**
  * Hook for managing grid selection.
  *
- * @returns {Object} - An object containing the following properties:
+ * @returns - An object containing the following properties:
  *  - selectedRows: Array of selected row IDs.
  *  - gridProps: Object with properties for grid selection:
  *    - selectedRows: Array of selected row IDs.

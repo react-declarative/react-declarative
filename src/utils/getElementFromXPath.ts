@@ -1,8 +1,8 @@
 /**
  * Retrieves the first element matching the given XPath expression.
  *
- * @param {string} xpath - The XPath expression to match the element(s).
- * @returns {Element|null} - The first element that matches the XPath expression, or null if no match is found.
+ * @param xpath - The XPath expression to match the element(s).
+ * @returns - The first element that matches the XPath expression, or null if no match is found.
  */
 export const getElementFromXPath = (xpath: string) =>
     document.evaluate(

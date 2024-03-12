@@ -29,14 +29,14 @@ export interface IExecute<Data extends any = any, Payload extends any = object> 
  * @template Data - The type of data returned by the action.
  * @template Payload - The type of payload accepted by the action.
  *
- * @param {function} run - The function that represents the action to be executed.
- * @param {Object} options - Optional parameters for configuring the behavior of the action execution.
- * @param {function} options.onLoadStart - Callback function to be executed when the action starts loading.
- * @param {function} options.onLoadEnd - Callback function to be executed when the action finishes loading.
- * @param {function} options.fallback - Callback function to be executed when an error occurs and `throwError` is set to `false`.
- * @param {boolean} options.throwError - Specifies whether to throw an error if one occurs during the action execution.
+ * @param run - The function that represents the action to be executed.
+ * @param options - Optional parameters for configuring the behavior of the action execution.
+ * @param options.onLoadStart - Callback function to be executed when the action starts loading.
+ * @param options.onLoadEnd - Callback function to be executed when the action finishes loading.
+ * @param options.fallback - Callback function to be executed when an error occurs and `throwError` is set to `false`.
+ * @param options.throwError - Specifies whether to throw an error if one occurs during the action execution.
  *
- * @returns {Object} - The result object containing the loading state, error state, and the execute function to trigger the action execution.
+ * @returns - The result object containing the loading state, error state, and the execute function to trigger the action execution.
  */
 export const useQueuedAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
     onLoadStart,

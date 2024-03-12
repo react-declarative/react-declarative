@@ -13,11 +13,11 @@ const match = (from: number, to: number) =>
 
 /**
  * Calculates the media context based on provided breakpoints.
- * @param {Object} breakpoints - The breakpoints to use for the media context calculation.
- * @param {number} [breakpoints.xs=0] - The extra small breakpoint.
- * @param {number} [breakpoints.sm=600] - The small breakpoint.
- * @param {number} [breakpoints.lg=1280] - The large breakpoint.
- * @returns {Object} - The media context object.
+ * @param breakpoints - The breakpoints to use for the media context calculation.
+ * @param [breakpoints.xs=0] - The extra small breakpoint.
+ * @param [breakpoints.sm=600] - The small breakpoint.
+ * @param [breakpoints.lg=1280] - The large breakpoint.
+ * @returns - The media context object.
  * @property {boolean} isPhone - Indicates if the media context is for a phone.
  * @property {boolean} isTablet - Indicates if the media context is for a tablet.
  * @property {boolean} isDesktop - Indicates if the media context is for a desktop.

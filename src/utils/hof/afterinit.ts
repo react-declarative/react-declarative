@@ -9,8 +9,8 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
  *
  * @template T The type of the promise resolved by the provided function.
  * @template P The type of the arguments passed to the provided function.
- * @param {function(...args: P): Promise<T>} run The function to be wrapped.
- * @returns {IWrappedFn<T, P>} The wrapped function.
+ * @param run The function to be wrapped.
+ * @returns The wrapped function.
  */
 export const afterinit = <T extends any = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 

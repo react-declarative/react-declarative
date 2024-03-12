@@ -13,8 +13,8 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
  *
  * @template T - The resolved value of the Promise.
  * @template P - The types of the arguments passed to the promise function.
- * @param {(...args: P) => Promise<T>} promise - The promise function to be wrapped.
- * @returns {IWrappedFn<T, P>} - The wrapped function.
+ * @param promise - The promise function to be wrapped.
+ * @returns - The wrapped function.
  */
 export const queued = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 

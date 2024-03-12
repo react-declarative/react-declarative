@@ -16,20 +16,20 @@ type State = Record<string, Record<string, boolean>>;
 /**
  * Represents the visibility view component.
  *
- * @param {Object} VisibilityView - The props for the visibility view component.
- * @param {Function} changeSubject - The function to change the subject.
- * @param {boolean} outlinePaper - Whether to outline the paper.
- * @param {boolean} transparentPaper - Whether the paper is transparent.
- * @param {string} className - The CSS class name.
- * @param {Object} style - The style object.
- * @param {string} sx - The sx prop for emotion/styled.
- * @param {boolean} expandAll - Whether to expand all fields.
- * @param {boolean} readonly - Whether the fields are readonly.
- * @param {Function} onChange - The function to handle changes.
- * @param {Array} groups - The array of field groups.
- * @param {Object} data - The data object.
- * @param {Function} keyToTitle - The function to convert a key to a title.
- * @returns {ReactElement} The visibility view component.
+ * @param VisibilityView - The props for the visibility view component.
+ * @param changeSubject - The function to change the subject.
+ * @param outlinePaper - Whether to outline the paper.
+ * @param transparentPaper - Whether the paper is transparent.
+ * @param className - The CSS class name.
+ * @param style - The style object.
+ * @param sx - The sx prop for emotion/styled.
+ * @param expandAll - Whether to expand all fields.
+ * @param readonly - Whether the fields are readonly.
+ * @param onChange - The function to handle changes.
+ * @param groups - The array of field groups.
+ * @param data - The data object.
+ * @param keyToTitle - The function to convert a key to a title.
+ * @returns The visibility view component.
  */
 export const VisibilityView = ({
   changeSubject,

@@ -41,11 +41,11 @@ const useStyles = makeStyles()({
  * Represents a spinner component that displays a loading animation.
  * @component
  *
- * @param {Object} props - The props object for the spinner component.
- * @param {string} props.className - The custom CSS class name for the spinner component.
- * @param {Object} props.otherProps - The additional props to be spread on the root Box element.
+ * @param props - The props object for the spinner component.
+ * @param props.className - The custom CSS class name for the spinner component.
+ * @param props.otherProps - The additional props to be spread on the root Box element.
  *
- * @returns {JSX.Element} The spinner component.
+ * @returns The spinner component.
  */
 export const Spinner = ({ className, ...otherProps }: ISpinnerProps) => {
   const { classes } = useStyles();

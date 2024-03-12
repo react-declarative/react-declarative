@@ -18,16 +18,16 @@ interface IParams<Data extends IRowData = IRowData> {
  *
  * @template Data - The type of the data in the list.
  *
- * @param {IParams<Data>} params - The parameters for configuring the list actions.
- * @param {Function} params.onLoadStart - The function to be called when data loading starts.
- * @param {Function} params.onLoadEnd - The function to be called when data loading ends.
- * @param {Function} params.throwError - The function to be called when an error occurs.
- * @param {Function} params.fallback - The function to be called when data loading fails.
- * @param {Function} params.fetchRow - The function to fetch a single row of data.
- * @param {Function} params.onAction - The function to be called when a bulk action is performed.
- * @param {Function} params.onRowAction - The function to be called when a row action is performed.
+ * @param params - The parameters for configuring the list actions.
+ * @param params.onLoadStart - The function to be called when data loading starts.
+ * @param params.onLoadEnd - The function to be called when data loading ends.
+ * @param params.throwError - The function to be called when an error occurs.
+ * @param params.fallback - The function to be called when data loading fails.
+ * @param params.fetchRow - The function to fetch a single row of data.
+ * @param params.onAction - The function to be called when a bulk action is performed.
+ * @param params.onRowAction - The function to be called when a row action is performed.
  *
- * @returns {{ deselectAll: Function, selectedRows: Array<Data>, listProps: any, commitAction: Function, commitRowAction: Function }} - The list actions and necessary data.
+ * @returns - The list actions and necessary data.
  */
 export const useListAction = <Data extends IRowData = IRowData>({
     onLoadStart,

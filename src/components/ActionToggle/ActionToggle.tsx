@@ -49,16 +49,16 @@ const useStyles = makeStyles()({
  * Represents an action toggle component.
  *
  * @typedef {Object} ActionToggle
- * @param {string} className - The custom class name for the component.
- * @param {function} onClick - The callback function called when the toggle is clicked.
- * @param {function} onLoadStart - The callback function called when the loading starts.
- * @param {function} onLoadEnd - The callback function called when the loading ends.
- * @param {function} fallback - The fallback function called when an error occurs and throwError is false.
- * @param {boolean} disabled - Indicates whether the toggle is disabled.
- * @param {boolean} throwError - Indicates whether an error should be thrown.
- * @param {boolean} checked - Indicates whether the toggle is checked.
- * @param {boolean} defaultChecked - The default value for the checked state.
- * @param {Object} otherProps - Additional props to be spread on the component.
+ * @param className - The custom class name for the component.
+ * @param onClick - The callback function called when the toggle is clicked.
+ * @param onLoadStart - The callback function called when the loading starts.
+ * @param onLoadEnd - The callback function called when the loading ends.
+ * @param fallback - The fallback function called when an error occurs and throwError is false.
+ * @param disabled - Indicates whether the toggle is disabled.
+ * @param throwError - Indicates whether an error should be thrown.
+ * @param checked - Indicates whether the toggle is checked.
+ * @param defaultChecked - The default value for the checked state.
+ * @param otherProps - Additional props to be spread on the component.
  */
 export const ActionToggle = ({
     className,

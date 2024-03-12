@@ -62,35 +62,35 @@ const WAIT_FOR_CHANGES_DELAY = 1_000;
  * @template Data - The data type
  * @template ID - The ID type
  *
- * @param {Object} [params] - The optional parameters
- * @param {History} [params.history] - The history object to use for navigation
- * @param {number} [params.waitForChangesDelay] - The delay in milliseconds to wait for changes
- * @param {boolean} [params.readonly] - Whether the data is readonly
- * @param {Function} [params.onChange] - The callback function to execute when the data changes
- * @param {Function} [params.onLoadStart] - The callback function to execute when loading starts
- * @param {Function} [params.onLoadEnd] - The callback function to execute when loading ends
- * @param {Function} [params.onBlock] - The callback function to execute to block navigation
- * @param {Function} [params.onSave] - The callback function to execute when saving the data
- * @param {Function} [params.onUpdate] - The callback function to execute when updating the data
- * @param {Function} [params.checkUpdate] - The function to check if an update is allowed
- * @param {Function} [params.checkDirty] - The function to check if the data is dirty
- * @param {Function} [params.shouldAutoSave] - The function to determine if autosave should be enabled
- * @param {Object} [params.fallback] - The fallback object to handle errors
- * @param {Subject} [params.updateSubject] - The subject to subscribe to for updates
- * @param {Subject} [params.changeSubject] - The subject to subscribe to for changes
+ * @param [params] - The optional parameters
+ * @param [params.history] - The history object to use for navigation
+ * @param [params.waitForChangesDelay] - The delay in milliseconds to wait for changes
+ * @param [params.readonly] - Whether the data is readonly
+ * @param [params.onChange] - The callback function to execute when the data changes
+ * @param [params.onLoadStart] - The callback function to execute when loading starts
+ * @param [params.onLoadEnd] - The callback function to execute when loading ends
+ * @param [params.onBlock] - The callback function to execute to block navigation
+ * @param [params.onSave] - The callback function to execute when saving the data
+ * @param [params.onUpdate] - The callback function to execute when updating the data
+ * @param [params.checkUpdate] - The function to check if an update is allowed
+ * @param [params.checkDirty] - The function to check if the data is dirty
+ * @param [params.shouldAutoSave] - The function to determine if autosave should be enabled
+ * @param [params.fallback] - The fallback object to handle errors
+ * @param [params.updateSubject] - The subject to subscribe to for updates
+ * @param [params.changeSubject] - The subject to subscribe to for changes
  *
- * @returns {Object} - The PreventLeave hook return object
- * @returns {Function} return.beginSave - The function to begin the save process
- * @returns {Function} return.afterSave - The function to execute after saving
- * @returns {Function} return.dropChanges - The function to drop changes and reset to initial data
- * @returns {Function} return.waitForChanges - The function to wait for changes to settle
- * @returns {Object} return.oneProps - The one props object for OneForm integration
- * @returns {Function} return.oneProps.change - The function to change the data
- * @returns {Function} return.oneProps.invalidity - The function to set the data as invalid
- * @returns {boolean} return.oneProps.readonly - Whether the data is readonly
- * @returns {?Data} return.data - The data object, null if invalid
- * @returns {boolean} return.hasChanged - Whether the data has changed
- * @returns {boolean} return.hasLoading - Whether the data is being loaded
+ * @returns - The PreventLeave hook return object
+ * @returns return.beginSave - The function to begin the save process
+ * @returns return.afterSave - The function to execute after saving
+ * @returns return.dropChanges - The function to drop changes and reset to initial data
+ * @returns return.waitForChanges - The function to wait for changes to settle
+ * @returns return.oneProps - The one props object for OneForm integration
+ * @returns return.oneProps.change - The function to change the data
+ * @returns return.oneProps.invalidity - The function to set the data as invalid
+ * @returns return.oneProps.readonly - Whether the data is readonly
+ * @returns return.data - The data object, null if invalid
+ * @returns return.hasChanged - Whether the data has changed
+ * @returns return.hasLoading - Whether the data is being loaded
  */
 export const usePreventLeave = <Data = IAnything, ID = string>({
   history = DEFAULT_HISTORY,

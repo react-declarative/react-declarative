@@ -15,10 +15,10 @@ const DEFAULT_LOADER_SIZE = 48;
  * @template T - The type of the wrapped React component.
  * @template P - The props type of the wrapped React component.
  *
- * @param {() => Promise<{ default: T }>} factory - A function that returns a promise that resolves to the component.
- * @param {Partial<IParams>} [options={}] - Optional parameters for customizing the loader.
+ * @param factory - A function that returns a promise that resolves to the component.
+ * @param [options={}] - Optional parameters for customizing the loader.
  *
- * @returns {(props: P) => JSX.Element} A function that returns the wrapped component with suspense and loader.
+ * @returns A function that returns the wrapped component with suspense and loader.
  */
 export const heavy = <T extends React.ComponentType<P>, P extends object = any>(
   factory: () => Promise<{ default: T }>,

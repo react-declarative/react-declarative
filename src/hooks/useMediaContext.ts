@@ -5,7 +5,7 @@ import { Theme, useMediaQuery } from '@mui/material';
 /**
  * Returns an object containing information about the current media context.
  *
- * @return {Object} The media context object.
+ * @return The media context object.
  * @property {boolean} isPhone - Indicates whether the current device is a phone.
  * @property {boolean} isTablet - Indicates whether the current device is a tablet.
  * @property {boolean} isDesktop - Indicates whether the current device is a desktop.

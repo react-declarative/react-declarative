@@ -1,8 +1,8 @@
 /**
  * Returns the last element of an array or null if the array is empty or not an array.
  *
- * @param {Array|undefined|null} arr - The array from which to retrieve the last element.
- * @returns {*} - The last element of the array or null.
+ * @param arr - The array from which to retrieve the last element.
+ * @returns - The last element of the array or null.
  */
 export const last = <T = any>(arr: T[] | null | undefined): T | null => {
     if (Array.isArray(arr)) {

@@ -3,9 +3,9 @@ import Observer, { TObserver, LISTEN_CONNECT } from "../Observer";
 /**
  * Creates an observable that emits the result of a given promise callback function.
  *
- * @param {Function} callbackfn - The callback function that returns a promise.
- * @param {Function} [fallbackfn] - The fallback function to handle errors if the promise rejects.
- * @returns {Observer} - The observable observer.
+ * @param callbackfn - The callback function that returns a promise.
+ * @param [fallbackfn] - The fallback function to handle errors if the promise rejects.
+ * @returns - The observable observer.
  *
  * @template Data - The type of data emitted by the observer.
  */

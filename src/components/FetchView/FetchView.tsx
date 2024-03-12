@@ -80,7 +80,7 @@ const useStyles = makeStyles()({
  * @template I - The type of the ninth element in the array of data returned by the state function.
  * @template J - The type of the tenth element in the array of data returned by the state function.
  *
- * @param {Object} props - The props object containing the following properties:
+ * @param props - The props object containing the following properties:
  *  - animation: The animation type for the component.
  *  - className: The CSS class name(s) for the component.
  *  - style: The inline style object for the component.
@@ -93,7 +93,7 @@ const useStyles = makeStyles()({
  *  - payload: The payload for the data fetching.
  *  - otherProps: Any additional props to be passed to the underlying components.
  *
- * @returns {JSX.Element} - The rendered JSX for the FetchView component.
+ * @returns - The rendered JSX for the FetchView component.
  */
 export const FetchView = <P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> ({
     animation,

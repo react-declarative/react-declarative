@@ -38,11 +38,11 @@ const [
 /**
  * Provides the size of a target element.
  *
- * @param {Object} props - The properties used by the SizeProvider component.
- * @param {ReactNode} props.children - The child elements.
- * @param {string} props.className - The class name to be added to the root element.
- * @param {HTMLElement} props.target - The target element to observe for size changes.
- * @returns {ReactElement} The SizeProvider component.
+ * @param props - The properties used by the SizeProvider component.
+ * @param props.children - The child elements.
+ * @param props.className - The class name to be added to the root element.
+ * @param props.target - The target element to observe for size changes.
+ * @returns The SizeProvider component.
  */
 export const SizeProvider = ({
     children,

@@ -52,21 +52,21 @@ const useStyles = makeStyles()({
 
 /**
  * InfiniteView component
- * @param {Object} props - Component props
- * @param {string} props.className - Custom CSS class name
- * @param {Object} props.style - Custom inline styles
- * @param {Object} props.sx - SX prop from theme-ui
- * @param {boolean} [props.loading=false] - Loading state of the component
- * @param {boolean} [props.throwError=false] - Whether or not to throw errors
- * @param {boolean} [props.hasMore=true] - Whether there is more data to load
- * @param {React.ReactNode} props.children - Child components to render
- * @param {any} props.scrollXSubject - Subject for horizontal scroll position
- * @param {any} props.scrollYSubject - Subject for vertical scroll position
- * @param {Function} props.onDataRequest - Callback function to request data
- * @param {Function} props.onLoadStart - Callback function called when data loading starts
- * @param {Function} props.onLoadEnd - Callback function called when data loading ends
- * @param {React.ReactNode} props.fallback - Fallback component to render in case of error
- * @returns {React.ReactNode} Rendered component
+ * @param props - Component props
+ * @param props.className - Custom CSS class name
+ * @param props.style - Custom inline styles
+ * @param props.sx - SX prop from theme-ui
+ * @param [props.loading=false] - Loading state of the component
+ * @param [props.throwError=false] - Whether or not to throw errors
+ * @param [props.hasMore=true] - Whether there is more data to load
+ * @param props.children - Child components to render
+ * @param props.scrollXSubject - Subject for horizontal scroll position
+ * @param props.scrollYSubject - Subject for vertical scroll position
+ * @param props.onDataRequest - Callback function to request data
+ * @param props.onLoadStart - Callback function called when data loading starts
+ * @param props.onLoadEnd - Callback function called when data loading ends
+ * @param props.fallback - Fallback component to render in case of error
+ * @returns Rendered component
  */
 export const InfiniteView = ({
   className,

@@ -40,8 +40,8 @@ const moveSource = Source.unicast(() => {
 /**
  * Waits for a move to occur and executes the provided function.
  *
- * @param {Function} fn - The function to be executed when a move occurs.
- * @returns {void}
+ * @param fn - The function to be executed when a move occurs.
+ * @returns
  */
 export const waitForMove = (fn: () => void) => {
     return moveSource.connect(fn);

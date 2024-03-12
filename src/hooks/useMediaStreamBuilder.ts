@@ -26,18 +26,18 @@ interface IParams {
 
 /**
  * Creates a media stream builder that provides functionality to capture audio, video, and screen using the WebRTC API.
- * @param {Object} [params] - The parameters for the media stream builder.
- * @param {Function} [params.fallback] - The fallback function to be called when an error occurs during capture. It receives an Error object as its argument.
- * @param {Function} [params.onLoadStart] - The callback function to be called when the capture starts.
- * @param {Function} [params.onLoadEnd] - The callback function to be called when the capture ends.
- * @param {Function} [params.onChange] - The callback function to be called when the media stream changes. It receives the media stream and an object with the current capture IDs as
+ * @param [params] - The parameters for the media stream builder.
+ * @param [params.fallback] - The fallback function to be called when an error occurs during capture. It receives an Error object as its argument.
+ * @param [params.onLoadStart] - The callback function to be called when the capture starts.
+ * @param [params.onLoadEnd] - The callback function to be called when the capture ends.
+ * @param [params.onChange] - The callback function to be called when the media stream changes. It receives the media stream and an object with the current capture IDs as
  * arguments.
- * @param {boolean} [params.throwError=false] - Determines whether to throw an error when an error occurs during capture instead of using the fallback function.
- * @param {boolean} [params.withInitialVideo=false] - Determines whether to capture video when the media stream builder is initialized.
- * @param {boolean} [params.withInitialAudio=false] - Determines whether to capture audio when the media stream builder is initialized.
- * @param {number} [params.compressFrame=COMPRESS_FRAME] - The factor to compress the video frame by. (COMPRESS_FRAME is a constant value)
- * @param {number} [params.maxFps=MAX_FPS] - The maximum frame rate of the video capture. (MAX_FPS is a constant value)
- * @returns {Object} The media stream builder.
+ * @param [params.throwError=false] - Determines whether to throw an error when an error occurs during capture instead of using the fallback function.
+ * @param [params.withInitialVideo=false] - Determines whether to capture video when the media stream builder is initialized.
+ * @param [params.withInitialAudio=false] - Determines whether to capture audio when the media stream builder is initialized.
+ * @param [params.compressFrame=COMPRESS_FRAME] - The factor to compress the video frame by. (COMPRESS_FRAME is a constant value)
+ * @param [params.maxFps=MAX_FPS] - The maximum frame rate of the video capture. (MAX_FPS is a constant value)
+ * @returns The media stream builder.
  * @property {MediaStream} mediaStream - The media stream that contains the captured audio and video tracks.
  * @property {boolean} hasAudioCapture - Determines whether audio capture is currently active.
  * @property {boolean} hasCameraCapture - Determines whether camera capture is currently active.

@@ -5,8 +5,8 @@ import createStateProvider from "./createStateProvider";
 
 /**
  * Creates a state provider for React components with support for persistent state storage.
- * @param {string} storageKey - The key used to store the state in the storage manager.
- * @returns {ReactNode[]} - An array containing the WrappedStateProvider and useStateProvider components.
+ * @param storageKey - The key used to store the state in the storage manager.
+ * @returns - An array containing the WrappedStateProvider and useStateProvider components.
  * @template S - The type of the state object.
  */
 export const createSsStateProvider = <S extends unknown>(

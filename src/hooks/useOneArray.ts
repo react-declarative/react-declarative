@@ -6,8 +6,8 @@ import isObject from '../utils/isObject';
  * Hook that manages an array of data.
  *
  * @template T - The type of elements in the array
- * @param {T[] | null | (() => T[])} [initialValue] - Optional initial value for the array
- * @returns {[T[], React.Dispatch<React.SetStateAction<T[] | null>>]} - A tuple containing the managed array and a function to update it
+ * @param [initialValue] - Optional initial value for the array
+ * @returns - A tuple containing the managed array and a function to update it
  */
 export const useOneArray = <T = any>(initialValue?: ((T[] | null) | (() => T[]))) => {
     const [data, setData] = useState<T[] | null>(() => {

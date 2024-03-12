@@ -42,9 +42,9 @@ const useStyles = makeStyles()((theme) => ({
  * @template Data - The type of data to be passed to the component
  * @template Payload - The type of payload to be used in the component
  *
- * @param {ICalendarViewProps<Data, Payload>} props - The props object containing the necessary parameters for the CalendarView component
+ * @param props - The props object containing the necessary parameters for the CalendarView component
  *
- * @returns {React.Node} - The rendered CalendarView component
+ * @returns - The rendered CalendarView component
  */
 export const CalendarView = <
   Data extends IAnything = IAnything,

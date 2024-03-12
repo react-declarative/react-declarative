@@ -6,11 +6,11 @@ type RowId = number;
  * Creates a list editor that allows adding, updating, and removing items.
  *
  * @template Data - The type of data for each item in the list.
- * @param {(id: RowId, item: Data) => React.ReactElement} renderItem - The function that renders each item in the list.
- * @param {Object} options - The options for the list editor.
- * @param {Data[]} [options.initialValue=[]] - The initial list of items.
- * @param {(items: Data[]) => void} [options.onChange] - The callback function called when the list of items changes.
- * @returns {Object} An object with the following properties and methods:
+ * @param renderItem - The function that renders each item in the list.
+ * @param options - The options for the list editor.
+ * @param [options.initialValue=[]] - The initial list of items.
+ * @param [options.onChange] - The callback function called when the list of items changes.
+ * @returns An object with the following properties and methods:
  *   - onAddItem: a function that adds a new item to the list.
  *   - onUpdateItem: a function that updates an item in the list.
  *   - onRemoveItem: a function that removes an item from the list.

@@ -1,9 +1,9 @@
 /**
  * Determines the state of a given promise.
  *
- * @param {Promise<T> | T} promise - The promise to check the state of.
+ * @param promise - The promise to check the state of.
  *
- * @returns {PromiseState} - The state of the promise, which can be either 'sync' or 'async'.
+ * @returns - The state of the promise, which can be either 'sync' or 'async'.
  */
 export const promiseState = <T = any>(promise: Promise<T> | T) => {
     let state: 'sync' | 'async' = 'async';

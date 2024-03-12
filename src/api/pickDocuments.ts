@@ -2,9 +2,9 @@
  * A function that picks a subset of documents from an array of documents, given a limit and offset.
  *
  * @template T - The type of the documents in the array.
- * @param {number} limit - The maximum number of documents to pick.
- * @param {number} offset - The number of documents to skip before picking.
- * @returns {Function} - A function that takes an array of documents and returns an object with `rows` and `done` properties.
+ * @param limit - The maximum number of documents to pick.
+ * @param offset - The number of documents to skip before picking.
+ * @returns - A function that takes an array of documents and returns an object with `rows` and `done` properties.
  *                       The `rows` property contains the picked documents, and `done` property indicates if the picking is finished.
  */
 export const pickDocuments = <T extends any>(

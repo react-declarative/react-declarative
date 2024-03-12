@@ -46,16 +46,16 @@ interface IState {
  * @template Payload - The type of the payload.
  * @template Field - The type of the field.
  *
- * @param {IParams<Data, Payload, Field>} params - The parameters object.
- * @param {IField<Data, Payload>[]} params.fields - The fields array.
- * @param {boolean} params.large - Indicates if the picker is large.
- * @param {string} params.title - The default title.
- * @param {Fn} params.handler - The default handler function.
- * @param {Payload} params.payload - The default payload.
- * @param {number} params.waitForChangesDelay - The delay for waiting changes.
- * @param {any[]} params.features - The additional features.
+ * @param params - The parameters object.
+ * @param params.fields - The fields array.
+ * @param params.large - Indicates if the picker is large.
+ * @param params.title - The default title.
+ * @param params.handler - The default handler function.
+ * @param params.payload - The default payload.
+ * @param params.waitForChangesDelay - The delay for waiting changes.
+ * @param params.features - The additional features.
  *
- * @returns {Function} - The function to open the picker.
+ * @returns - The function to open the picker.
  */
 export const useOne = <
   Data extends IAnything = IAnything,

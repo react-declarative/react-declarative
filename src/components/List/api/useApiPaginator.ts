@@ -51,30 +51,30 @@ const EMPTY_RESPONSE = {
 /**
  * Function that generates a list handler for API pagination.
  *
- * @param {string} path - The API endpoint path.
- * @param {Object} options - The options object.
- * @param {function} options.fetch - The fetch function to use for making API requests (default: window.fetch).
- * @param {string} options.origin - The origin of the API (default: window.location.origin).
- * @param {AbortSignal} options.abortSignal - The AbortSignal object to use for aborting API requests.
- * @param {function} options.removeEmptyFilters - The function to remove empty filters from the filter data (default: removeEmptyFiltersDefault).
- * @param {function} options.fetchParams - The function to generate fetch parameters (e.g. headers, method, body) (default: null).
- * @param {function} options.fallback - The function to handle error fallback (default: null).
- * @param {function} options.onLoadBegin - The function to call before the API request is made (default: null).
- * @param {function} options.onLoadEnd - The function to call after the API request is completed (default: null).
- * @param {function} options.requestMap - The function to map the request URL (default: (url) => url).
- * @param {function} options.responseMap - The function to map the API response (default: (data) => data).
- * @param {function} options.filterHandler - The function to handle filters in the URL (default: (url, filterData) => { ... }).
- * @param {function} options.chipsHandler - The function to handle chips in the URL (default: (url, chips) => { ... }).
- * @param {function} options.sortHandler - The function to handle sorting in the URL (default: (url, sort) => { ... }).
- * @param {function} options.searchHandler - The function to handle search in the URL (default: (url, search) => { ... }).
- * @param {function} options.paginationHandler - The function to handle pagination in the URL (default: (url, pagination) => { ... }).
- * @param {boolean} options.withAbortSignal - A flag to enable/disable abort signal usage (default: true).
- * @param {boolean} options.withPagination - A flag to enable/disable pagination (default: true).
- * @param {boolean} options.withFilters - A flag to enable/disable filters (default: true).
- * @param {boolean} options.withSearch - A flag to enable/disable search (default: true).
- * @param {boolean} options.withChips - A flag to enable/disable chips (default: true).
- * @param {boolean} options.withSort - A flag to enable/disable sorting (default: true).
- * @returns {ListHandler} - The list handler function.
+ * @param path - The API endpoint path.
+ * @param options - The options object.
+ * @param options.fetch - The fetch function to use for making API requests (default: window.fetch).
+ * @param options.origin - The origin of the API (default: window.location.origin).
+ * @param options.abortSignal - The AbortSignal object to use for aborting API requests.
+ * @param options.removeEmptyFilters - The function to remove empty filters from the filter data (default: removeEmptyFiltersDefault).
+ * @param options.fetchParams - The function to generate fetch parameters (e.g. headers, method, body) (default: null).
+ * @param options.fallback - The function to handle error fallback (default: null).
+ * @param options.onLoadBegin - The function to call before the API request is made (default: null).
+ * @param options.onLoadEnd - The function to call after the API request is completed (default: null).
+ * @param options.requestMap - The function to map the request URL (default: (url) => url).
+ * @param options.responseMap - The function to map the API response (default: (data) => data).
+ * @param options.filterHandler - The function to handle filters in the URL (default: (url, filterData) => { ... }).
+ * @param options.chipsHandler - The function to handle chips in the URL (default: (url, chips) => { ... }).
+ * @param options.sortHandler - The function to handle sorting in the URL (default: (url, sort) => { ... }).
+ * @param options.searchHandler - The function to handle search in the URL (default: (url, search) => { ... }).
+ * @param options.paginationHandler - The function to handle pagination in the URL (default: (url, pagination) => { ... }).
+ * @param options.withAbortSignal - A flag to enable/disable abort signal usage (default: true).
+ * @param options.withPagination - A flag to enable/disable pagination (default: true).
+ * @param options.withFilters - A flag to enable/disable filters (default: true).
+ * @param options.withSearch - A flag to enable/disable search (default: true).
+ * @param options.withChips - A flag to enable/disable chips (default: true).
+ * @param options.withSort - A flag to enable/disable sorting (default: true).
+ * @returns - The list handler function.
  */
 export const useApiPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(path: string, {
     fetch = window.fetch,

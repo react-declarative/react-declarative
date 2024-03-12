@@ -12,10 +12,10 @@ import useSingleton from "./useSingleton";
  * @template T - The type of the route parameters.
  * @template I - The type of the switch items.
  *
- * @param {Array<I>} routes - Array of route items.
- * @param {MemoryHistory | BrowserHistory | HashHistory} history - The history object to track route changes.
+ * @param routes - Array of route items.
+ * @param history - The history object to track route changes.
  *
- * @returns {T} - The parameters of the currently active route.
+ * @returns - The parameters of the currently active route.
  */
 export const useRouteParams = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
 

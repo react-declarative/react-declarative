@@ -72,16 +72,16 @@ interface IScrollViewProps extends BoxProps {
 /**
  * This component allows to create a scrollable view container with optional scrollbar.
  *
- * @param {Object} props - The props object.
- * @param {ReactNode} props.children - The content to be rendered inside the ScrollView.
- * @param {string} [props.className] - Optional class name to be added to the root element.
- * @param {CSSProperties} [props.style] - Optional inline styles for the root element.
- * @param {boolean} [props.center=false] - Whether to horizontally center the content within the ScrollView.
- * @param {boolean} [props.withScrollbar=false] - Whether to show a scrollbar within the ScrollView.
- * @param {boolean} [props.hideOverflowX=false] - Whether to hide overflow in the X axis.
- * @param {boolean} [props.hideOverflowY=false] - Whether to hide overflow in the Y axis.
- * @param {IScrollViewProps} [otherProps] - Other props to be spread on the root element.
- * @returns {ReactElement} - The rendered ScrollView component.
+ * @param props - The props object.
+ * @param props.children - The content to be rendered inside the ScrollView.
+ * @param [props.className] - Optional class name to be added to the root element.
+ * @param [props.style] - Optional inline styles for the root element.
+ * @param [props.center=false] - Whether to horizontally center the content within the ScrollView.
+ * @param [props.withScrollbar=false] - Whether to show a scrollbar within the ScrollView.
+ * @param [props.hideOverflowX=false] - Whether to hide overflow in the X axis.
+ * @param [props.hideOverflowY=false] - Whether to hide overflow in the Y axis.
+ * @param [otherProps] - Other props to be spread on the root element.
+ * @returns - The rendered ScrollView component.
  */
 export const ScrollView = ({
   children,

@@ -43,27 +43,27 @@ interface IParams<
  * @template Payload - The type of the payload.
  * @template Field - The type of the field.
  *
- * @param {Object} params - The parameters for configuring the search modal.
- * @param {FilterData} params.param - The initial value for the parameter.
- * @param {string} params.selectionMode - The selection mode for the search modal.
- * @param {Function} params.handler - The handler function for handling events.
- * @param {Function} params.fallback - The fallback function to be executed if an error occurs.
- * @param {*} params.apiRef - The reference to the API.
- * @param {*} params.reloadSubject - The subject for triggering reload events.
- * @param {Payload} params.payload - The initial value for the payload.
- * @param {Function} params.onChange - The callback function for handling change events.
- * @param {Function} params.onAction - The callback function for handling action events.
- * @param {Function} params.onRowAction - The callback function for handling row action events.
- * @param {Function} params.onSubmit - The callback function for handling submit events.
- * @param {Function} params.onLoadEnd - The callback function to be executed when loading ends.
- * @param {Function} params.onLoadStart - The callback function to be executed when loading starts.
- * @param {string} params.submitLabel - The label for the submit button.
- * @param {boolean} params.throwError - Indicates whether to throw an error or not.
- * @param {string} params.title - The title of the search modal.
- * @param {boolean} params.hidden - Indicates whether the search modal should be hidden or not.
- * @param {Object} listProps - Additional properties for customizing the search modal.
+ * @param params - The parameters for configuring the search modal.
+ * @param params.param - The initial value for the parameter.
+ * @param params.selectionMode - The selection mode for the search modal.
+ * @param params.handler - The handler function for handling events.
+ * @param params.fallback - The fallback function to be executed if an error occurs.
+ * @param params.apiRef - The reference to the API.
+ * @param params.reloadSubject - The subject for triggering reload events.
+ * @param params.payload - The initial value for the payload.
+ * @param params.onChange - The callback function for handling change events.
+ * @param params.onAction - The callback function for handling action events.
+ * @param params.onRowAction - The callback function for handling row action events.
+ * @param params.onSubmit - The callback function for handling submit events.
+ * @param params.onLoadEnd - The callback function to be executed when loading ends.
+ * @param params.onLoadStart - The callback function to be executed when loading starts.
+ * @param params.submitLabel - The label for the submit button.
+ * @param params.throwError - Indicates whether to throw an error or not.
+ * @param params.title - The title of the search modal.
+ * @param params.hidden - Indicates whether the search modal should be hidden or not.
+ * @param listProps - Additional properties for customizing the search modal.
  *
- * @returns {Object} An object with properties and methods for controlling the search modal.
+ * @returns An object with properties and methods for controlling the search modal.
  * @property {boolean} open - Indicates whether the search modal is open or not.
  * @property {Function} render - A function for rendering the search modal.
  * @property {Function} pickData - A function for picking data.

@@ -1,8 +1,8 @@
 /**
  * Returns the error message from the given error object.
  *
- * @param {any} error - The error object.
- * @returns {string} The error message.
+ * @param error - The error object.
+ * @returns The error message.
  */
 export const getErrorMessage = (error: any) => {
     let errorMessage = 'Unknown error';

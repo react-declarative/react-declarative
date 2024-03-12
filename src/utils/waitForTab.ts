@@ -14,8 +14,8 @@ const tabSource = Source.unicast(() =>
 /**
  * Waits for a tab to be available and then calls the provided callback function.
  *
- * @param {Function} fn - The callback function to be executed when the tab is available.
- * @returns {void}
+ * @param fn - The callback function to be executed when the tab is available.
+ * @returns
  */
 export const waitForTab = (fn: () => void) => {
     return tabSource.connect(fn);

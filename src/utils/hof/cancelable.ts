@@ -8,8 +8,8 @@ export const CANCELED_SYMBOL = Symbol('cancelable-canceled');
 /**
  * Wraps a promise function and provides cancellation functionality.
  *
- * @param {(...args: P) => Promise<T>} promise - The promise function to wrap.
- * @returns {IWrappedFn<T, P>} The wrapped function with cancellation capability.
+ * @param promise - The promise function to wrap.
+ * @returns The wrapped function with cancellation capability.
  * @template T - The type of the promise's resolved value.
  * @template P - The type of the promise function's arguments.
  */

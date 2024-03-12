@@ -5,8 +5,8 @@ export type Function = (...args: any[]) => any;
  * If no functions are given, the composed function will simply return the input argument.
  * If only one function is given, the composed function will simply return the output of that function.
  *
- * @param {...Function} funcs - The functions to be composed.
- * @returns {Function} - The composed function.
+ * @param funcs - The functions to be composed.
+ * @returns - The composed function.
  */
 export const compose = (...funcs: Function[]) => {
     if (funcs.length === 0) {

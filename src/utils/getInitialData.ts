@@ -14,10 +14,10 @@ import IField from "../model/IField";
  * @template Data - The type of data object to create.
  * @template Payload - The type of payload used for populating default values.
  *
- * @param {IField<Data, Payload>[]} fields - The array of field definitions.
- * @param {Payload} [payload={}] - The payload object used for populating default values.
+ * @param fields - The array of field definitions.
+ * @param [payload={}] - The payload object used for populating default values.
  *
- * @returns {Data} - The generated initial data object.
+ * @returns - The generated initial data object.
  */
 export const getInitialData = <Data extends {} = IAnything, Payload extends IAnything = IAnything>(
     fields: IField<Data, Payload>[], payload: Payload = {} as Payload

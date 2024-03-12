@@ -5,9 +5,9 @@ export interface IClearable {
 /**
  * Throttle function execution to a specific delay.
  * @template T - Function type
- * @param {T} run - Function to be throttled
- * @param {number} delay - Delay in milliseconds (default: 1000)
- * @returns {T & IClearable} - Throttled function with clear method
+ * @param run - Function to be throttled
+ * @param delay - Delay in milliseconds (default: 1000)
+ * @returns - Throttled function with clear method
  */
 export const throttle = <T extends (...args: any[]) => any>(run: T, delay = 1_000): T & IClearable => {
 	let timeoutID: any;

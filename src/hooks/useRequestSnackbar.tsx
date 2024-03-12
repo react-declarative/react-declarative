@@ -23,19 +23,19 @@ export interface IParams {
 /**
  * Represents a custom hook to display a snackbar with request feedback.
  *
- * @param {Object} options - The options for the snackbar.
- * @param {string} options.message - The message to display in the snackbar. Default: "Client update successful".
- * @param {boolean} options.noSnackOnOk - Whether to not display a snackbar when the request is successful. Default: false.
- * @param {boolean} options.loading - Whether the request is still loading.
- * @param {string} options.error - The error message, if any, to display in the snackbar.
- * @param {number} options.delay - The duration for which the snackbar should be displayed. Default: AUTO_HIDE_DURATION.
- * @param {Function} options.onClose - The callback function to execute when the snackbar is closed. Default: () => undefined.
+ * @param options - The options for the snackbar.
+ * @param options.message - The message to display in the snackbar. Default: "Client update successful".
+ * @param options.noSnackOnOk - Whether to not display a snackbar when the request is successful. Default: false.
+ * @param options.loading - Whether the request is still loading.
+ * @param options.error - The error message, if any, to display in the snackbar.
+ * @param options.delay - The duration for which the snackbar should be displayed. Default: AUTO_HIDE_DURATION.
+ * @param options.onClose - The callback function to execute when the snackbar is closed. Default: () => undefined.
  *
- * @returns {Object} - The snackbar hook object.
- * @returns {Function} beginWatch - The function to start watching for changes in the loading and error states.
- * @returns {Function} resetWatcher - The function to reset the watch state.
- * @returns {Function} stopWatch - The function to stop watching for changes.
- * @returns {Function} render - The function to render the snackbar element.
+ * @returns - The snackbar hook object.
+ * @returns beginWatch - The function to start watching for changes in the loading and error states.
+ * @returns resetWatcher - The function to reset the watch state.
+ * @returns stopWatch - The function to stop watching for changes.
+ * @returns render - The function to render the snackbar element.
  */
 export const useRequestSnackbar = ({
   message = "Client update successful",

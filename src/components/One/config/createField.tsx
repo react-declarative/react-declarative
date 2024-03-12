@@ -1,7 +1,5 @@
 import * as React from "react";
 
-/* eslint-disable react/jsx-max-props-per-line */
-
 import FieldType from "../../../model/FieldType";
 import IAnything from "../../../model/IAnything";
 import IEntity from "../../../model/IEntity";

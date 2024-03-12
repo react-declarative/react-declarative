@@ -12,8 +12,8 @@ import ColumnType from "../../model/ColumnType";
 
 /**
  * Represents a list component.
- * @param {IListProps} props - The properties for the list component.
- * @returns {ReactElement} The rendered list component.
+ * @param props - The properties for the list component.
+ * @returns The rendered list component.
  * @template FilterData - The type for the filter data.
  * @template RowData - The type for the row data.
  * @template Payload - The type for the payload.

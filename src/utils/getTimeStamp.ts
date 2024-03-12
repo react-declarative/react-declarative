@@ -4,8 +4,8 @@ import dayjs from "dayjs";
  * Retrieves the timestamp from the given source.
  * If no source is provided, the current timestamp is used.
  *
- * @param {Object} [source] - The source object to retrieve the timestamp from. Defaults to current time.
- * @returns {number} - The timestamp in minutes.
+ * @param [source] - The source object to retrieve the timestamp from. Defaults to current time.
+ * @returns - The timestamp in minutes.
  */
 export const getTimeStamp = (source = dayjs()) => {
   const hour = source.get("hour");
@@ -15,8 +15,8 @@ export const getTimeStamp = (source = dayjs()) => {
 
 /**
  * Converts a timestamp to a date and time using dayjs library.
- * @param {number} stamp - The timestamp to convert.
- * @returns {Date} The date and time corresponding to the given timestamp.
+ * @param stamp - The timestamp to convert.
+ * @returns The date and time corresponding to the given timestamp.
  */
 export const fromTimeStamp = (stamp: number) => {
   const genesis = dayjs().set("hour", 0).set("minute", 0);

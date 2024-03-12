@@ -1,8 +1,8 @@
 /**
  * Extracts the enumerable properties from an Error object and returns them in a new object.
  *
- * @param {Error} error - The Error object.
- * @returns {Object} - An object containing the enumerable properties of the Error object.
+ * @param error - The Error object.
+ * @returns - An object containing the enumerable properties of the Error object.
  */
 export const errorData = (error: Error) => {
     const propertyNames = Object.getOwnPropertyNames(error);

@@ -7,8 +7,8 @@ import useSingleton from "./useSingleton";
  * and a function to update the state value.
  *
  * @template S - The type of the state value
- * @param {S | (() => S)?} initialState - The initial state value or a function that returns the initial state value
- * @returns {[React.MutableRefObject<S>, (dispatch: S | ((prevState: S) => S)) => void]} - An array containing the state reference and handleState function
+ * @param initialState - The initial state value or a function that returns the initial state value
+ * @returns - An array containing the state reference and handleState function
  */
 export const useActualRef = <S = undefined>(initialState?: S | (() => S)) => {
   const defaultValue = useSingleton(initialState);

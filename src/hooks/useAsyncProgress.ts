@@ -48,15 +48,15 @@ const getPercent = (value: number, total: number) =>
  *
  * @template Data - The type of data to be processed.
  * @template Result - The type of the process result.
- * @param {function} process - The process function to be executed on each item.
- * @param {Object} options - Optional parameters for customizing the process behavior.
- * @param {number} options.delay - The delay in milliseconds before each item processing. Default is 0.
- * @param {function} options.onError - Callback function to be executed when an error occurs during processing. Default is an empty function.
- * @param {function} options.onProgress - Callback function to be executed on each progress update. Default is an empty function.
- * @param {function} options.onFinish - Callback function to be executed when all items are finished processing. Default is an empty function.
- * @param {function} options.onBegin - Callback function to be executed when the process begins. Default is an empty function.
- * @param {function} options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
- * @returns {Object} An object containing the execute function, loading state, progress, and errors.
+ * @param process - The process function to be executed on each item.
+ * @param options - Optional parameters for customizing the process behavior.
+ * @param options.delay - The delay in milliseconds before each item processing. Default is 0.
+ * @param options.onError - Callback function to be executed when an error occurs during processing. Default is an empty function.
+ * @param options.onProgress - Callback function to be executed on each progress update. Default is an empty function.
+ * @param options.onFinish - Callback function to be executed when all items are finished processing. Default is an empty function.
+ * @param options.onBegin - Callback function to be executed when the process begins. Default is an empty function.
+ * @param options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
+ * @returns An object containing the execute function, loading state, progress, and errors.
  *
  * @example
  * const items = [

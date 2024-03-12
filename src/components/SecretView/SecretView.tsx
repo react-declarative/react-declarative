@@ -47,16 +47,16 @@ interface IState {
 /**
  * Represents a component that displays a secret view with an input for entering a code.
  *
- * @param {string} className - The class name for the component.
- * @param {Object} style - The inline styles for the component.
- * @param {Object} sx - The sx styles for the component.
- * @param {ReactNode} children - The child components to be rendered.
- * @param {boolean} enabled - Whether the secret view is enabled or disabled. Default is true.
- * @param {string} title - The title for the secret view. Default is "Service menu".
- * @param {string} description - The description for the secret view. Default is "Please type a secret\ncode to continue".
- * @param {number} digits - The total number of digits for the code. Default is DEFAULT_TOTAL_DIGITS.
- * @param {function} onCode - The callback function to be called when the code is entered.
- * @returns {ReactNode} - The rendered secret view component.
+ * @param className - The class name for the component.
+ * @param style - The inline styles for the component.
+ * @param sx - The sx styles for the component.
+ * @param children - The child components to be rendered.
+ * @param enabled - Whether the secret view is enabled or disabled. Default is true.
+ * @param title - The title for the secret view. Default is "Service menu".
+ * @param description - The description for the secret view. Default is "Please type a secret\ncode to continue".
+ * @param digits - The total number of digits for the code. Default is DEFAULT_TOTAL_DIGITS.
+ * @param onCode - The callback function to be called when the code is entered.
+ * @returns - The rendered secret view component.
  */
 export const SecretView = ({
   className,

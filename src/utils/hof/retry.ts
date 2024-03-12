@@ -8,9 +8,9 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
 /**
  * Retries a function multiple times until it succeeds or reaches the maximum number of retries.
  *
- * @param {Function} run - The function to run.
- * @param {number} count - The maximum number of retries (default is 5).
- * @returns {Function} - The wrapped function that can be canceled.
+ * @param run - The function to run.
+ * @param count - The maximum number of retries (default is 5).
+ * @returns - The wrapped function that can be canceled.
  */
 export const retry = <T extends any = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>, count = 5): IWrappedFn<T, P> => {
     const wrappedFn = cancelable(async (...args: any) => {

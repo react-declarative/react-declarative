@@ -1,8 +1,6 @@
 import * as React from "react";
 import { memo, useRef, useCallback, useEffect, Fragment, useMemo } from "react";
 
-/* eslint-disable react/jsx-no-useless-fragment */
-
 import isStatefull, { isLayout } from "../../config/isStatefull";
 import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";

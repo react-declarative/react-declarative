@@ -25,7 +25,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents a component that adjusts the scroll behavior based on certain conditions.
  *
- * @returns {JSX.Element} - The adjusted scroll component.
+ * @returns - The adjusted scroll component.
  */
 export const ScrollAdjust = () => {
     const { classes } = useStyles();

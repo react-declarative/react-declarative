@@ -1,8 +1,8 @@
 /**
  * Checks if an object is empty.
  *
- * @param {Record<string | symbol, any>} obj - The object to check for emptiness.
- * @returns {boolean} - Returns true if the object is empty, otherwise returns false.
+ * @param obj - The object to check for emptiness.
+ * @returns - Returns true if the object is empty, otherwise returns false.
  */
 export function isEmpty(obj: Record<string | symbol, any>) {
     if (Object.getOwnPropertySymbols(obj).length !== 0) {

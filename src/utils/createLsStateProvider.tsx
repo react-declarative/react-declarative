@@ -7,8 +7,8 @@ import createLsManager from './createLsManager';
  * Creates a state provider that persists state in local storage using a given storage key.
  *
  * @template S The type of the state.
- * @param {string} storageKey The key used to store the state value in local storage.
- * @returns {[React.ComponentType<{ onChange?: (state: S) => void, children: React.ReactNode, initialState: S | (() => S) }>, () => S]} A tuple containing the wrapped state provider
+ * @param storageKey The key used to store the state value in local storage.
+ * @returns A tuple containing the wrapped state provider
  * component and the state hook.
  */
 export const createLsStateProvider = <S extends unknown>(

@@ -14,9 +14,9 @@ interface IParams {
  * This function allows you to manage an asynchronous value by providing a run function and optional parameters.
  *
  * @template Data - The data type of the async value.
- * @param {() => Data | Promise<Data>} run - A function that returns the async value or a promise that resolves to the async value.
- * @param {IParams} [params={}] - Optional parameters for customizing the behavior of the async value.
- * @returns {[Data | null, IResult<void, void>, (data: Data) => void]} - An array containing the current async value, action object for executing the async action, and a setter function
+ * @param run - A function that returns the async value or a promise that resolves to the async value.
+ * @param [params={}] - Optional parameters for customizing the behavior of the async value.
+ * @returns - An array containing the current async value, action object for executing the async action, and a setter function
  * to update the async value.
  */
 export const useAsyncValue = <Data extends any = any>(

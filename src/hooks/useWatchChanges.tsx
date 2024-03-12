@@ -6,8 +6,8 @@ import useChange from "./useChange";
 /**
  * Watches for changes in dependencies and provides a subject to track changes.
  *
- * @param {any[]} deps - The dependencies to watch for changes.
- * @returns {Object} An object containing methods and properties for watching changes.
+ * @param deps - The dependencies to watch for changes.
+ * @returns An object containing methods and properties for watching changes.
  */
 export const useWatchChanges = (deps: any[] = []) => {
   const changeSubject = useSubject<void>();

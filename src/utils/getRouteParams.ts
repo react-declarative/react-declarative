@@ -8,9 +8,9 @@ export interface ISwitchItem {
  * Retrieves the route parameters from a given pathname based on a set of routes.
  *
  * @template T - The type of object to return as the parameters.
- * @param {ISwitchItem[]} routes - The array of route objects to search through.
- * @param {string} pathname - The pathname to extract the parameters from.
- * @returns {T | null} - The extracted route parameters or null if no match is found.
+ * @param routes - The array of route objects to search through.
+ * @param pathname - The pathname to extract the parameters from.
+ * @returns - The extracted route parameters or null if no match is found.
  */
 export const getRouteParams = <T = Record<string, any>>(routes: ISwitchItem[], pathname: string): T | null => {
     for (const { path } of routes) {

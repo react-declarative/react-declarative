@@ -7,9 +7,9 @@ export interface IClearable {
  * Creates a debounced version of a function.
  *
  * @template T - The type of the original function.
- * @param {T} run - The function to debounce.
- * @param {number} [delay=1000] - The delay in milliseconds before executing the debounced function.
- * @returns {T & IClearable} - The debounced function with additional methods for clearing and flushing.
+ * @param run - The function to debounce.
+ * @param [delay=1000] - The delay in milliseconds before executing the debounced function.
+ * @returns - The debounced function with additional methods for clearing and flushing.
  */
 export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_000): T & IClearable => {
     let timeout: any;

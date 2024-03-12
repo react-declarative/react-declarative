@@ -1,8 +1,8 @@
 /**
  * Calculates the SHA-256 hash value of a given message.
  *
- * @param {string} message - The message to hash.
- * @returns {Promise<string>} - A promise that resolves to the SHA-256 hash value of the message.
+ * @param message - The message to hash.
+ * @returns - A promise that resolves to the SHA-256 hash value of the message.
  */
 export const sha256 = async (message: string) => {
     const msgBuffer = new TextEncoder().encode(message);                    

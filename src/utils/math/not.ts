@@ -6,8 +6,8 @@ type Value = number | boolean;
  * If the argument is not a Promise, it returns the negation of the argument.
  *
  * @template T - The type of the argument and the return value.
- * @param {T} arg - The argument to apply the logical negation operator.
- * @returns {T} - The result of apply the logical negation operator to the argument.
+ * @param arg - The argument to apply the logical negation operator.
+ * @returns - The result of apply the logical negation operator to the argument.
  */
 export const not = <T = Promise<Value>>(arg: T): T => {
     if (arg instanceof Promise) {

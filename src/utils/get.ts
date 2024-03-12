@@ -1,9 +1,9 @@
 /**
  * Retrieves a value from an object using a given path.
  *
- * @param {any} object - The object from which to retrieve the value.
- * @param {any} path - The path to the desired value, either as an array or dot-separated string.
- * @returns {any} - The value at the specified path, or undefined if it does not exist.
+ * @param object - The object from which to retrieve the value.
+ * @param path - The path to the desired value, either as an array or dot-separated string.
+ * @returns - The value at the specified path, or undefined if it does not exist.
  */
 export const get = (object: any, path: any) => {
     const pathArray = Array.isArray(path) ? path : path.split('.').filter((key: any) => key);

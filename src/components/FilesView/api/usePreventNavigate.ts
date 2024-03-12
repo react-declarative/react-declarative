@@ -19,17 +19,17 @@ interface IParams {
  * Prevents navigation, displays confirmation prompt if specified,
  * and handles loading state changes.
  *
- * @param {Object} history - The history object from react-router-dom.
- * @param {boolean} withConfirm - Determines if a confirmation prompt should be displayed before navigating.
- * @param {Function} onLoadStart - Callback function invoked when loading starts.
- * @param {Function} onLoadEnd - Callback function invoked when loading ends.
- * @returns {{
- *  handleLoadStart: Function,
- *  handleLoadEnd: Function,
- *  unblock: Function,
- *  block: Function,
- *  loading: boolean
- * }} - Object containing methods and state for preventing navigation and handling loading state.
+ * @param history - The history object from react-router-dom.
+ * @param withConfirm - Determines if a confirmation prompt should be displayed before navigating.
+ * @param onLoadStart - Callback function invoked when loading starts.
+ * @param onLoadEnd - Callback function invoked when loading ends.
+ * @returns
+ * 
+ * 
+ * 
+ * 
+ * 
+ *  - Object containing methods and state for preventing navigation and handling loading state.
  */
 export const usePreventNavigate = ({
   history,

@@ -26,7 +26,7 @@ type State = Record<string, boolean>;
  * @property {boolean} expandAll - Whether to expand all features.
  * @property {function} onChange - The function to call when a feature is changed.
  *
- * @returns {Object} The rendered component.
+ * @returns The rendered component.
  */
 export const FeatureView = ({
   changeSubject,

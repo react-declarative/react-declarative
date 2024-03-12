@@ -6,9 +6,9 @@ interface IConfig {
 /**
  * Creates a custom HTML tag element with the given name, style, and optional event handlers.
  *
- * @param {string} [name="bgcolor-red"] - The name of the custom HTML tag element.
- * @param {string} [style=""] - The inline style to apply to the custom HTML tag element.
- * @param {Partial<IConfig>} [{ onClick, onInit }={}] - Optional event handlers for the custom HTML tag element.
+ * @param [name="bgcolor-red"] - The name of the custom HTML tag element.
+ * @param [style=""] - The inline style to apply to the custom HTML tag element.
+ * @param [{ onClick, onInit }={}] - Optional event handlers for the custom HTML tag element.
  */
 export const createCustomTag = (name = "bgcolor-red", style = "", {
     onClick,

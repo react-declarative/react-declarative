@@ -22,13 +22,13 @@ interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
  *
  * @template T - The type of the model data
  *
- * @param {Object} params - The parameters for configuring the model binding
- * @param {Function} params.creator - A callback function for initializing the model
- * @param {Function} [params.onChange] - A callback function to be called when the model changes
- * @param {T} [params.initialValue] - The initial value for the model
- * @param {number} [params.debounce] - The debounce time (in milliseconds) for onChange event
+ * @param params - The parameters for configuring the model binding
+ * @param params.creator - A callback function for initializing the model
+ * @param [params.onChange] - A callback function to be called when the model changes
+ * @param [params.initialValue] - The initial value for the model
+ * @param [params.debounce] - The debounce time (in milliseconds) for onChange event
  *
- * @returns {T|null} - The model data or null if still loading
+ * @returns - The model data or null if still loading
  */
 export const useModelBinding = <T extends {} = any>({
     creator,

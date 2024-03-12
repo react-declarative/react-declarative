@@ -5,9 +5,9 @@ const hasNumberKey = (root: any) => Object.keys(root).find((key) => NUMBER_EXPR.
 /**
  * Converts nested object properties to arrays.
  *
- * @param {any} root - The root object to convert.
- * @param {boolean} [forceArray=false] - Optional parameter to force conversion to arrays even if no numeric keys are present.
- * @returns {any} - The converted object with nested properties converted to arrays.
+ * @param root - The root object to convert.
+ * @param [forceArray=false] - Optional parameter to force conversion to arrays even if no numeric keys are present.
+ * @returns - The converted object with nested properties converted to arrays.
  */
 export const arrays = (root: any, forceArray = false) => {
     let result = root;

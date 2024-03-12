@@ -26,11 +26,11 @@ interface IState {
 
 /**
  * Function for displaying an alert modal.
- * @param {IParams} params - The alert parameters.
- * @param {string} params.title - The title of the alert. Default is "Alert".
- * @param {string} params.description - The description of the alert. Default is an empty string.
- * @param {boolean} params.large - Whether to display a large alert. Default is false.
- * @returns {function} - A function that, when called, displays the alert and returns a Promise.
+ * @param params - The alert parameters.
+ * @param params.title - The title of the alert. Default is "Alert".
+ * @param params.description - The description of the alert. Default is an empty string.
+ * @param params.large - Whether to display a large alert. Default is false.
+ * @returns - A function that, when called, displays the alert and returns a Promise.
  *                      The Promise resolves when the alert is closed.
  *
  * @example

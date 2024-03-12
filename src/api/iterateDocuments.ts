@@ -23,13 +23,13 @@ interface IConfig<Data extends IRowData = IRowData> {
  *
  * @template Data - The type of the row data in the documents.
  *
- * @param {Object} config - The configuration object.
- * @param {number} [config.totalDocuments=TOTAL_DOCUMENTS] - The total number of documents to iterate over.
- * @param {number} [config.limit=REQUEST_LIMIT] - The number of documents to fetch in each request.
- * @param {number} [config.delay=REQUEST_DELAY] - The delay between each request.
- * @param {Function} [config.createRequest=() => []] - The function used to create the request.
+ * @param config - The configuration object.
+ * @param [config.totalDocuments=TOTAL_DOCUMENTS] - The total number of documents to iterate over.
+ * @param [config.limit=REQUEST_LIMIT] - The number of documents to fetch in each request.
+ * @param [config.delay=REQUEST_DELAY] - The delay between each request.
+ * @param [config.createRequest=() => []] - The function used to create the request.
  *
- * @returns {AsyncGenerator} An asynchronous generator that yields an array of documents.
+ * @returns An asynchronous generator that yields an array of documents.
  *
  * @throws {Error} If the response length is greater than the specified limit.
  */

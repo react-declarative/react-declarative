@@ -3,8 +3,8 @@ import reloadPage from "./reloadPage";
 /**
  * A utility class for managing session storage values.
  *
- * @param {string} STORAGE_KEY - The key used to store the value in session storage.
- * @returns {object} - An instance of the class with methods for getting, setting, and clearing the value.
+ * @param STORAGE_KEY - The key used to store the value in session storage.
+ * @returns - An instance of the class with methods for getting, setting, and clearing the value.
  *
  * @template T - The type of the value stored in session storage.
  */

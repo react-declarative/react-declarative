@@ -41,26 +41,26 @@ interface IParams<
  * @template Payload - The type of payload passed during submission.
  * @template Params - The type of additional parameters.
  *
- * @param {object} params - The parameters object.
- * @param {React.ReactNode} params.fallback - The fallback content to be rendered if the modal cannot be displayed.
- * @param {string} [params.pathname="/"] - The pathname for the outlet modal history.
- * @param {object} [params.history] - The history object used to manage navigation.
- * @param {boolean} [params.fullScreen=true] - A boolean value indicating whether the modal should be displayed in full screen.
- * @param {function} params.onLoadEnd - The callback function to be called when the outlet content finishes loading.
- * @param {function} params.onLoadStart - The callback function to be called when the outlet content starts loading.
- * @param {boolean} [params.throwError] - A boolean value indicating whether errors should be thrown during submission.
- * @param {function} params.onChange - The callback function to be called when the outlet content changes.
- * @param {function} [params.onSubmit=() => true] - The callback function to be called when the outlet content is submitted.
- * @param {function} params.onMount - The callback function to be called when the outlet modal is mounted.
- * @param {function} params.onUnmount - The callback function to be called when the outlet modal is unmounted.
- * @param {function} [params.onClose] - The callback function to be called when the outlet modal is closed.
- * @param {string} [params.submitLabel] - The label for the submit button in the outlet modal.
- * @param {string} [params.title] - The title for the outlet modal.
- * @param {boolean} [params.hidden] - A boolean value indicating whether the outlet modal should be hidden.
- * @param {object} [params.pickDataSubject] - The subject used for picking data.
- * @param {object} outletProps - Additional props for the underlying `OutletModal` component.
+ * @param params - The parameters object.
+ * @param params.fallback - The fallback content to be rendered if the modal cannot be displayed.
+ * @param [params.pathname="/"] - The pathname for the outlet modal history.
+ * @param [params.history] - The history object used to manage navigation.
+ * @param [params.fullScreen=true] - A boolean value indicating whether the modal should be displayed in full screen.
+ * @param params.onLoadEnd - The callback function to be called when the outlet content finishes loading.
+ * @param params.onLoadStart - The callback function to be called when the outlet content starts loading.
+ * @param [params.throwError] - A boolean value indicating whether errors should be thrown during submission.
+ * @param params.onChange - The callback function to be called when the outlet content changes.
+ * @param [params.onSubmit=() => true] - The callback function to be called when the outlet content is submitted.
+ * @param params.onMount - The callback function to be called when the outlet modal is mounted.
+ * @param params.onUnmount - The callback function to be called when the outlet modal is unmounted.
+ * @param [params.onClose] - The callback function to be called when the outlet modal is closed.
+ * @param [params.submitLabel] - The label for the submit button in the outlet modal.
+ * @param [params.title] - The title for the outlet modal.
+ * @param [params.hidden] - A boolean value indicating whether the outlet modal should be hidden.
+ * @param [params.pickDataSubject] - The subject used for picking data.
+ * @param outletProps - Additional props for the underlying `OutletModal` component.
  *
- * @returns {object} - An object containing the following methods and properties:
+ * @returns - An object containing the following methods and properties:
  *   - `open` - A boolean value indicating whether the modal is open.
  *   - `render` - A function that renders the outlet modal.
  *   - `pickData` - A function used to pick data for the modal.

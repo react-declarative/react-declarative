@@ -14,7 +14,7 @@ import useChange from '../hooks/useChange';
  * Creates a state provider with a given state type.
  *
  * @template S - The type of the state
- * @returns {[ProviderComponent, useStateProviderFunction]} - A tuple containing the Provider component and the useStateProvider function.
+ * @returns - A tuple containing the Provider component and the useStateProvider function.
  */
 export const createStateProvider = <S extends unknown>() => {
   const Context = createContext<

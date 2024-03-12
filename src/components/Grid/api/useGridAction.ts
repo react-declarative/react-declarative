@@ -17,17 +17,17 @@ interface IParams<Data extends IAnything = IAnything> {
  * Executes grid actions and row actions.
  *
  * @template Data - The type of data in the grid rows.
- * @param {IParams<Data>} Object - The parameters for the useGridAction function.
- * @param {Function} Object.onLoadStart - A callback function executed when a grid action or row action is started.
- * @param {Function} Object.onLoadEnd - A callback function executed when a grid action or row action is completed or failed.
- * @param {boolean} Object.throwError - A flag indicating whether to throw an error if a grid action or row action fails.
- * @param {boolean} Object.fallback - A flag indicating whether to use a fallback solution if a grid action or row action fails.
- * @param {Function} Object.fetchRow - A function that fetches a row.
- * @param {Function} Object.onAction - A callback function executed when a grid action is performed. This function receives the action name, the rows to perform the action on, and a
+ * @param Object - The parameters for the useGridAction function.
+ * @param Object.onLoadStart - A callback function executed when a grid action or row action is started.
+ * @param Object.onLoadEnd - A callback function executed when a grid action or row action is completed or failed.
+ * @param Object.throwError - A flag indicating whether to throw an error if a grid action or row action fails.
+ * @param Object.fallback - A flag indicating whether to use a fallback solution if a grid action or row action fails.
+ * @param Object.fetchRow - A function that fetches a row.
+ * @param Object.onAction - A callback function executed when a grid action is performed. This function receives the action name, the rows to perform the action on, and a
  * deselectAll function to deselect all rows.
- * @param {Function} Object.onRowAction - A callback function executed when a row action is performed. This function receives the action name, the row to perform the action on, and a
+ * @param Object.onRowAction - A callback function executed when a row action is performed. This function receives the action name, the row to perform the action on, and a
  * deselectAll function to deselect all rows.
- * @returns {object} An object containing the following properties:
+ * @returns An object containing the following properties:
  *   - {Function} deselectAll - A function that deselects all rows in the grid.
  *   - {Array<Data>} selectedRows - An array of selected rows in the grid.
  *   - {object} gridProps - The grid properties.

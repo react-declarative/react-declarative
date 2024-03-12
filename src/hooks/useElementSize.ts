@@ -36,8 +36,8 @@ interface IParams<Size extends ISize> {
  * @property {(size: ISize) => Size} compute - A function to compute the size object based on the raw size object. Defaults to a simple type casting.
  * @property {Function} onResize - A callback function called when the element size changes.
  *
- * @param {Partial<IParams<Size>>} options - The optional parameters for the useElementSize function.
- * @returns {{ elementRef: React.RefObject<T>, size: Size }} - An object containing a ref to the element and the current size.
+ * @param options - The optional parameters for the useElementSize function.
+ * @returns - An object containing a ref to the element and the current size.
  */
 export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize>({
     defaultSize: {

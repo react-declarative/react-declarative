@@ -56,8 +56,8 @@ export class Date {
  * Parses a string representation of a date in "dd/mm/yyyy" format and returns a Date object.
  * If the input is not in the correct format or is null, returns null.
  *
- * @param {string | null} date - The string representation of the date to parse.
- * @returns {Date | null} - The parsed Date object or null if the input is not valid.
+ * @param date - The string representation of the date to parse.
+ * @returns - The parsed Date object or null if the input is not valid.
  */
 export const parseDate = (date: string | null): Date | null => {
     if (!date) {
@@ -79,8 +79,8 @@ export const parseDate = (date: string | null): Date | null => {
 /**
  * Serialize a given date to a string representation in the format "dd/MM/yyyy".
  *
- * @param {Date} date - The date to serialize.
- * @returns {string|null} The serialized date or null if the input is not a valid Date object.
+ * @param date - The date to serialize.
+ * @returns The serialized date or null if the input is not a valid Date object.
  */
 export const serializeDate = (date: Date) => {
     let day = '';
@@ -101,8 +101,8 @@ export const serializeDate = (date: Date) => {
 /**
  * Parses a string representation of time into a Time object.
  *
- * @param {string | null} time - The string representation of time to parse.
- * @returns {Time | null} - The parsed Time object or null if input is null or invalid.
+ * @param time - The string representation of time to parse.
+ * @returns - The parsed Time object or null if input is null or invalid.
  */
 export const parseTime = (time: string | null): Time | null => {
     if (!time) {
@@ -123,8 +123,8 @@ export const parseTime = (time: string | null): Time | null => {
 /**
  * Serializes the given time object into a string representation.
  *
- * @param {Time} time - The time object to be serialized.
- * @returns {string|null} - The serialized time string, or null if the input is invalid.
+ * @param time - The time object to be serialized.
+ * @returns - The serialized time string, or null if the input is invalid.
  */
 export const serializeTime = (time: Time) => {
     let hour = '';
@@ -143,7 +143,7 @@ export const serializeTime = (time: Time) => {
 /**
  * Retrieves the current date.
  *
- * @returns {string} The current date in serialized format.
+ * @returns The current date in serialized format.
  */
 export const currentDate = () => {
     const now = new window.Date();
@@ -154,7 +154,7 @@ export const currentDate = () => {
 /**
  * Generates the current time.
  *
- * @returns {string} The current time as a serialized string.
+ * @returns The current time as a serialized string.
  */
 export const currentTime = () => {
     const now = new window.Date();
@@ -165,8 +165,8 @@ export const currentTime = () => {
 /**
  * Converts a string representation of a time to a timestamp.
  *
- * @param {string} [str] - The time string to convert. Defaults to the current time.
- * @returns {number} - The timestamp representation of the given time or -1 if conversion fails.
+ * @param [str] - The time string to convert. Defaults to the current time.
+ * @returns - The timestamp representation of the given time or -1 if conversion fails.
  */
 export const timeStamp = (str = currentTime()) => {
     const time = parseTime(str);
@@ -180,8 +180,8 @@ export const timeStamp = (str = currentTime()) => {
 /**
  * Converts a date string to a timestamp.
  *
- * @param {string} [str=currentDate()] - The date string to convert.
- * @returns {number} - The timestamp if the conversion is successful, -1 otherwise.
+ * @param [str=currentDate()] - The date string to convert.
+ * @returns - The timestamp if the conversion is successful, -1 otherwise.
  */
 export const dateStamp = (str = currentDate()) => {
     const date = parseDate(str);

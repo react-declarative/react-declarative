@@ -36,10 +36,10 @@ const ModalContext = createContext<IContext>(null as never);
  *
  * The ModalProvider component provides a context for managing modals and rendering elements.
  *
- * @param {object} props - The props for the ModalProvider component.
- * @param {ReactNode} props.children - The child nodes to be rendered within the ModalProvider.
+ * @param props - The props for the ModalProvider component.
+ * @param props.children - The child nodes to be rendered within the ModalProvider.
  *
- * @returns {ReactElement} - The ModalProvider component.
+ * @returns - The ModalProvider component.
  */
 export const ModalProvider = ({
     children

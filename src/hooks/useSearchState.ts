@@ -8,8 +8,8 @@ import isObject from '../utils/isObject';
  * Custom hook useSearchState for managing search state in the URL.
  *
  * @template T - Type of the search state object.
- * @param {Partial<T> | (() => Partial<T>)} defaultValues - Default values for the search state object.
- * @returns {Array<readonly [T, React.Dispatch<React.SetStateAction<T>>]>} - An array containing the search state object and a function to update the search state.
+ * @param defaultValues - Default values for the search state object.
+ * @returns - An array containing the search state object and a function to update the search state.
  */
 export const useSearchState = <T extends Record<string, Value>>(defaultValues: Partial<T> | (() => Partial<T>) = {}) => {
     const initialValue = useSearchParams(defaultValues);

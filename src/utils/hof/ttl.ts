@@ -13,11 +13,11 @@ export interface IClearable<K = string> extends IClearableInternal<K> {
  * @template T - The function type.
  * @template A - The argument types of the function.
  * @template K - The key type for caching.
- * @param {T} run - The function to wrap.
- * @param {Object} options - The configuration options.
- * @param {Function} [options.key] - The key generator function that generates a key based on function arguments.
- * @param {number} [options.timeout] - The TTL duration in milliseconds.
- * @returns {T & IClearable<K>} - The wrapped function with caching capability.
+ * @param run - The function to wrap.
+ * @param options - The configuration options.
+ * @param [options.key] - The key generator function that generates a key based on function arguments.
+ * @param [options.timeout] - The TTL duration in milliseconds.
+ * @returns - The wrapped function with caching capability.
  */
 export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(run: T, {
     key = () => NEVER_VALUE as never,

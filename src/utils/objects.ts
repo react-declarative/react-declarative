@@ -1,8 +1,8 @@
 /**
  * Recursively processes an object and its nested properties.
  *
- * @param {any} root - The root object to be processed.
- * @returns {any} - The processed object.
+ * @param root - The root object to be processed.
+ * @returns - The processed object.
  */
 export const objects = (root: any) => {
     let result = root;

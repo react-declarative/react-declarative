@@ -29,8 +29,8 @@ const createDefaultWidthFn = (columnsLength: number) => (fullWidth: number) => {
 /**
  * Represents a grid component with customizable features.
  * @template T - The type of row data in the grid.
- * @param {IGridProps<T>} props - The properties for the grid.
- * @returns {JSX.Element} - The grid component.
+ * @param props - The properties for the grid.
+ * @returns - The grid component.
  */
 export const Grid = <T extends RowData>(props: IGridProps<T>) => {
   const {

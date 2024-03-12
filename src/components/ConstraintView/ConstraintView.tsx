@@ -25,14 +25,14 @@ const match = (from: number, to: number) => (width: number) => width >= from && 
  * Represents a view that is constrained by the device's screen size to render different content
  *
  * @template T - The type of data passed to the view components
- * @param {Object} props - The props for the ConstraintView component
- * @param {React.ComponentType<T>} props.desktopView - The view component to render on desktop devices
- * @param {React.ComponentType<T>} props.tabletView - The view component to render on tablet devices
- * @param {React.ComponentType<T>} props.phoneView - The view component to render on phone devices
- * @param {function(string): void} props.onViewChanged - A callback function invoked when the view changes
- * @param {IChildParams<T>} props.params - The parameters to pass to the view components
- * @param {...otherProps} props - Any other props to pass to the component
- * @returns {React.ReactNode} - The rendered content based on the current device's screen size
+ * @param props - The props for the ConstraintView component
+ * @param props.desktopView - The view component to render on desktop devices
+ * @param props.tabletView - The view component to render on tablet devices
+ * @param props.phoneView - The view component to render on phone devices
+ * @param props.onViewChanged - A callback function invoked when the view changes
+ * @param props.params - The parameters to pass to the view components
+ * @param props - Any other props to pass to the component
+ * @returns - The rendered content based on the current device's screen size
  */
 export const ConstraintView = <T extends IAnything = IAnything>({
     desktopView: Desktop = () => <></>,

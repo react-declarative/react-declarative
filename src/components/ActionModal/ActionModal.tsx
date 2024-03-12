@@ -190,8 +190,8 @@ const LARGE_SIZE_REQUEST: IActionModalProps['sizeRequest'] = ({
  * @property {React.ElementType} [AfterTitle] - The component to be displayed after the title.
  * @property {React.ElementType} [BeforeTitle] - The component to be displayed before the title.
  *
- * @param {IActionModalProps<Data,Payload,Field>} props - The props for the ActionModal component.
- * @returns {React.Element} - The rendered modal component.
+ * @param props - The props for the ActionModal component.
+ * @returns - The rendered modal component.
  */
 export const ActionModal = <
   Data extends IAnything = IAnything,

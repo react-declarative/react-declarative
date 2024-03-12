@@ -36,8 +36,8 @@ const useStyles = makeStyles()({
  * @template T - The type of RowData.
  * @template P - The type of IAnything.
  *
- * @param {IGridViewProps<T, P>} props - The component props.
- * @returns {JSX.Element} - The GridView component.
+ * @param props - The component props.
+ * @returns - The GridView component.
  */
 export const GridView = <
   T extends RowData = RowData,

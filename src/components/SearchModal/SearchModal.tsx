@@ -152,28 +152,28 @@ const LARGE_SIZE_REQUEST: ISearchModalProps['sizeRequest'] = ({
  * @template Payload - The type of payload.
  * @template Field - The type of field.
  *
- * @param {object} props - The props of the component.
- * @param {boolean} [props.fullScreen=true] - Whether the modal should be displayed as full screen.
- * @param {number} [props.sizeRequest] - The size request for the modal.
- * @param {boolean} [props.hidden=false] - Whether the modal should be hidden.
- * @param {function} [props.onSubmit] - The callback function when the form is submitted.
- * @param {function} [props.onChange] - The callback function when the form data changes.
- * @param {function} [props.onLoadStart] - The callback function when the data loading starts.
- * @param {function} [props.onLoadEnd] - The callback function when the data loading ends.
- * @param {function} [props.fallback] - The fallback function when an error occurs.
- * @param {React.Component} [props.AfterTitle] - The component to be rendered after the title.
- * @param {React.Component} [props.BeforeTitle] - The component to be rendered before the title.
- * @param {string} [props.title] - The title of the modal.
- * @param {Payload} [props.payload] - The payload data.
- * @param {boolean} [props.withInitialLoader=true] - Whether to show the initial loader.
- * @param {SelectionMode} [props.selectionMode=SelectionMode.Multiple] - The selection mode for the list.
- * @param {RowData["id"][]} [props.data] - The data for the list.
- * @param {boolean} [props.open=true] - Whether the modal is open.
- * @param {boolean} [props.throwError=false] - Whether to throw an error when an error occurs.
- * @param {string} [props.submitLabel="Submit"] - The label for the submit button.
- * @param {...object} [props.listProps] - The additional props for the list component.
+ * @param props - The props of the component.
+ * @param [props.fullScreen=true] - Whether the modal should be displayed as full screen.
+ * @param [props.sizeRequest] - The size request for the modal.
+ * @param [props.hidden=false] - Whether the modal should be hidden.
+ * @param [props.onSubmit] - The callback function when the form is submitted.
+ * @param [props.onChange] - The callback function when the form data changes.
+ * @param [props.onLoadStart] - The callback function when the data loading starts.
+ * @param [props.onLoadEnd] - The callback function when the data loading ends.
+ * @param [props.fallback] - The fallback function when an error occurs.
+ * @param [props.AfterTitle] - The component to be rendered after the title.
+ * @param [props.BeforeTitle] - The component to be rendered before the title.
+ * @param [props.title] - The title of the modal.
+ * @param [props.payload] - The payload data.
+ * @param [props.withInitialLoader=true] - Whether to show the initial loader.
+ * @param [props.selectionMode=SelectionMode.Multiple] - The selection mode for the list.
+ * @param [props.data] - The data for the list.
+ * @param [props.open=true] - Whether the modal is open.
+ * @param [props.throwError=false] - Whether to throw an error when an error occurs.
+ * @param [props.submitLabel="Submit"] - The label for the submit button.
+ * @param [props.listProps] - The additional props for the list component.
  *
- * @returns {React.Component} The Search Modal component.
+ * @returns The Search Modal component.
  */
 export const SearchModal = <
   FilterData extends {} = IAnything,

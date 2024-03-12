@@ -26,18 +26,18 @@ const Fragment = () => <></>;
  *
  * @template P - Type parameter for the payload object passed to the ping function
  *
- * @param {Object} props - The component props
- * @param {Function} props.ping - The ping function to check online status
- * @param {ReactNode} props.children - The child components to render when online
- * @param {Function} [props.onOnline=() => null] - Callback function to be called when online
- * @param {Function} [props.onOffline=() => null] - Callback function to be called when offline
- * @param {React.Component} [props.Offline=Fragment] - The component to render when offline
- * @param {ReactNode} [props.fallback] - The fallback component to render when an error occurs
- * @param {boolean} [props.throwError] - Indicates if an error should be thrown when an error occurs during ping
- * @param {number} [props.delay=5000] - The delay between consecutive pings (in milliseconds)
- * @param {P} [props.payload] - The payload object to be passed to the ping function
+ * @param props - The component props
+ * @param props.ping - The ping function to check online status
+ * @param props.children - The child components to render when online
+ * @param [props.onOnline=() => null] - Callback function to be called when online
+ * @param [props.onOffline=() => null] - Callback function to be called when offline
+ * @param [props.Offline=Fragment] - The component to render when offline
+ * @param [props.fallback] - The fallback component to render when an error occurs
+ * @param [props.throwError] - Indicates if an error should be thrown when an error occurs during ping
+ * @param [props.delay=5000] - The delay between consecutive pings (in milliseconds)
+ * @param [props.payload] - The payload object to be passed to the ping function
  *
- * @returns {ReactNode|null} - The rendered component or null if initialization is in progress
+ * @returns - The rendered component or null if initialization is in progress
  */
 export const PingView = <P extends any = object>({
     ping,

@@ -3,8 +3,8 @@ import isObject from './isObject';
 /**
  * Creates a deep clone of the given object.
  *
- * @param {*} src - The source object to be cloned.
- * @returns {*} The deep cloned object.
+ * @param src - The source object to be cloned.
+ * @returns The deep cloned object.
  */
 export const deepClone = (src: any) => {
     const target: any = {};
