@@ -29,7 +29,7 @@ const DEFAULT_ONLOADSTART = () => null;
 const DEFAULT_ONLOADEND = () => null;
 
 /**
- * Creates a component called `One` with the given props.
+ * Creates a json template engine called `One` with the given props.
  *
  * @param props - The props for the component.
  * @param props.createField - The function to create a field.
