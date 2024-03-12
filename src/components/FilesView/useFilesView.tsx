@@ -103,6 +103,28 @@ interface IParams<Payload extends IAnything = IAnything> {
   onUpload?: IFilesViewProps['onUpload'];
 }
 
+/**
+ * Represents a reusable component for displaying and managing files.
+ * @template Payload - The payload type (optional)
+ * @param {object} params - The parameters for the component.
+ * @param {any} params.data - The initial data for the files (optional).
+ * @param {boolean} params.withActionButton - Determines if the submit button is displayed (default: true).
+ * @param {boolean} params.withStaticAction - Determines if the submit button should fail silently when clicked (default: false).
+ * @param {boolean} params.readonly - Determines if the files are readonly (optional).
+ * @param {string} params.submitLabel - The label for the submit button (default: "Save").
+ * @param {Payload} params.payload - The payload for the component (optional).
+ * @param {boolean} params.fullScreen - Determines if the component should be displayed in full screen mode (default: false).
+ * @param {function} params.sizeRequest - A function that computes the size request for the component (optional).
+ * @param {function} params.onChange - A callback function for changes in the files (optional).
+ * @param {function} params.onSubmit - A callback function for submitting the files (optional).
+ * @param {object} params.tr - The translations for the component (optional).
+ * @param {React.Component} params.fallback - The fallback component for unsupported file types (optional).
+ * @param {function} params.onLoadStart - A callback function for when loading starts (optional).
+ * @param {function} params.onLoadEnd - A callback function for when loading ends (optional).
+ * @param {function} params.onClick - A callback function for clicking on a file (optional).
+ * @param {function} params.onUpload - A callback function for uploading a file (optional).
+ * @returns {object} - An object with the render function for the component and the pickFiles function to open the file picker.
+ */
 export const useFilesView = <Payload extends IAnything = IAnything>({
   data = null,
   withActionButton = true,

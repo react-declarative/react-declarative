@@ -95,6 +95,31 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Renders a document view component with optional full screen and delete functionality.
+ *
+ * @param {boolean} withFullScreen - Determines if the full screen functionality is enabled. Default: false.
+ * @param {boolean} withDelete - Determines if the delete functionality is enabled. Default: false.
+ * @param {string} className - Additional CSS class name(s) for the root element.
+ * @param {object} style - Additional inline styles for the root element.
+ * @param {string} src - The source URL for the document.
+ * @param {function} onFullScreenClick - The callback function when the full screen button is clicked. Default: openBlank(src).
+ * @param {function} onDeleteClick - The callback function when the delete button is clicked. Default: () => undefined.
+ * @param {function} onLoadStart - The callback function when the document starts loading.
+ * @param {function} onLoadEnd - The callback function when the document finishes loading.
+ * @param {ReactElement} fallback - The fallback element to render if the document is not supported.
+ * @param {boolean} throwError - Determines if an error should be thrown if the document is not supported. Default: false.
+ * @param {boolean} disabled - Determines if the component is disabled. Default: false.
+ * @param {array} options - The action menu options to display.
+ * @param {function} onAction - The callback function when an action is selected from the action menu. Default: () => undefined.
+ * @param {object} payload - Additional payload data for the callback functions.
+ * @param {array} deps - Dependency array for the callback functions of the action menu.
+ * @param {boolean} keepMounted - Determines if the action menu should stay mounted when closed. Default: false.
+ * @param {ReactElement} BeforeContent - The content to display before the action menu.
+ * @param {ReactElement} AfterContent - The content to display after the action menu.
+ * @param {...any} otherProps - Other additional props for the root element.
+ * @returns {ReactElement} The rendered document view component.
+ */
 export const DocumentView = ({
     withFullScreen = false,
     withDelete = false,

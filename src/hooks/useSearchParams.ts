@@ -6,6 +6,15 @@ import set from '../utils/set';
 
 export type Value = string | number | boolean | null | undefined;
 
+/**
+ * Returns an object representing the parsed search parameters from the current URL.
+ * The object will have the specified default values, which can be a partial object or a function that returns a partial object.
+ * The returned object will have the same properties as the default values, with values parsed from the URL search parameters.
+ *
+ * @template T - The type of the default values object.
+ * @param {Partial<T> | (() => Partial<T>)} [defaultValues={}] - The default values object or function. Defaults to an empty object.
+ * @returns {T} - The parsed search parameters object.
+ */
 export const useSearchParams = <T = Record<string, Value>>(
     defaultValues: Partial<T> | (() => Partial<T>) = {}
 ): T => {

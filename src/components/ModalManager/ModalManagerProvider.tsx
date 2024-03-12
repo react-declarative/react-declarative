@@ -52,6 +52,18 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * ModalManagerProvider component provides a context for managing modals in an application.
+ *
+ * @param {Object} props - The props object containing the following properties:
+ *   - children: ReactNode - The child components to be rendered inside the provider.
+ *   - fallback: ReactNode - The fallback component to be rendered when there are no modals.
+ *   - throwError: boolean - Whether to throw an error when an unexpected state occurs.
+ *   - onLoadEnd: function - Callback function to be executed after loading ends.
+ *   - onLoadStart: function - Callback function to be executed before loading starts.
+ *
+ * @returns {ReactElement} The rendered ModalManagerProvider component.
+ */
 export const ModalManagerProvider = ({
     children,
     fallback,

@@ -83,6 +83,50 @@ export const DEFAULT_QUERY: IQuery = {
   search: "",
 };
 
+/**
+ * Handles pagination state using browser history state.
+ * @template FilterData - The type of filter data for the query.
+ * @template RowData - The type of row data for the query.
+ * @param {History} history - The history object from react-router.
+ * @param {Partial<IParams<FilterData, RowData>>} options - Optional parameters for configuring the pagination.
+ * @param {IQuery<FilterData, RowData>} options.initialValue - The initial query value.
+ * @param {(filterData: FilterData) => void} options.onFilterChange - The callback function when filter data changes.
+ * @param {(limit: number) => void} options.onLimitChange - The callback function when limit changes.
+ * @param {(page: number) => void} options.onPageChange - The callback function when page changes.
+ * @param {(sortModel: SortModel) => void} options.onSortModelChange - The callback function when sort model changes.
+ * @param {(chipData: ChipData) => void} options.onChipsChange - The callback function when chip data changes.
+ * @param {(search: string) => void} options.onSearchChange - The callback function when search changes.
+ * @param {(state: IQuery<FilterData, RowData>) => void} options.onChange - The callback function when the state changes.
+ * @param {boolean} options.removeEmptyFilters - Indicates whether to remove empty filters from the query.
+ * @param {React.ReactNode} options.fallback - The fallback component to render when the query is not available.
+ * @returns {Object} - An object containing the pagination state and methods.
+ * @property {Object} listProps - The props to be passed to a list component.
+ * @property {Function} listProps.onFilterChange - The callback function to handle filter change.
+ * @property {Function} listProps.onLimitChange - The callback function to handle limit change.
+ * @property {Function} listProps.onPageChange - The callback function to handle page change.
+ * @property {Function} listProps.onSortModelChange - The callback function to handle sort model change.
+ * @property {Function} listProps.onChipsChange - The callback function to handle chip data change.
+ * @property {Function} listProps.onSearchChange - The callback function to handle search change.
+ * @property {React.ReactNode} listProps.fallback - The fallback component to render when the query is not available.
+ * @property {IQuery<FilterData, RowData>} listProps.filterData - The filter data in the query.
+ * @property {SortModel} listProps.sortModel - The sort model in the query.
+ * @property {ChipData} listProps.chipData - The chip data in the query.
+ * @property {number} listProps.limit - The limit in the query.
+ * @property {number} listProps.page - The page in the query.
+ * @property {string} listProps.search - The search value in the query.
+ * @property {Function} getFilterData - Returns the filter data in the query.
+ * @property {Function} getSortModel - Returns the sort model in the query.
+ * @property {Function} getChipData - Returns the chip data in the query.
+ * @property {Function} getLimit - Returns the limit in the query.
+ * @property {Function} getPage - Returns the page in the query.
+ * @property {Function} getSearch - Returns the search value in the query.
+ * @property {Function} setFilterData - Sets the filter data in the query.
+ * @property {Function} setSortModel - Sets the sort model in the query.
+ * @property {Function} setChipData - Sets the chip data in the query.
+ * @property {Function} setLimit - Sets the limit in the query.
+ * @property {Function} setPage - Sets the page in the query.
+ * @property {Function} setSearch - Sets the search value in the query.
+ */
 export const useHistoryStatePagination = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything

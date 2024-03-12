@@ -31,6 +31,19 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Countdown component displays a countdown timer that expires at a given time.
+ *
+ * @typedef {object} ICountdownProps
+ * @property {string} className - The CSS class name for styling the component.
+ * @property {ReactNode} children - The content to be displayed inside the countdown component.
+ * @property {Date} expireAt - The time at which the countdown expires.
+ * @property {function} onExpire - The callback function to be called when the countdown expires.
+ * @property {object} otherProps - Additional props to be spread onto the root element.
+ *
+ * @param {ICountdownProps} props - The countdown component props.
+ * @returns {JSX.Element} - The countdown component.
+ */
 export const Countdown = ({
   className,
   children,

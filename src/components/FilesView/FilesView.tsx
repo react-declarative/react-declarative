@@ -46,6 +46,28 @@ const Loader = LoaderView.createLoader(24);
 const CONFIRM_MESSAGE = "Are you sure you want to delete this file?";
 const CONFIRM_TITLE = "Confirmation";
 
+/**
+ * A component for displaying a list of files with upload, remove, and click functionalities.
+ *
+ * @param {Array} items - The list of file names to display.
+ * @param {String} className - Additional CSS class names for the root element.
+ * @param {Object} style - Additional inline styles for the root element.
+ * @param {Object} sx - Additional theme styles for the root element.
+ * @param {Boolean} disabled - Flag to disable the component.
+ * @param {Function} onUpload - The callback function when a file is uploaded. It accepts the uploaded file as an argument and should return the name of the uploaded file.
+ * @param {Function} onRemove - The callback function when a file is removed. It accepts the file name as an argument.
+ * @param {Function} onChange - The callback function when the file list changes. It does not accept any arguments.
+ * @param {Function} onClick - The callback function when a file is clicked. It accepts the file name as an argument.
+ * @param {Function} tr - The translation function for translating labels. It accepts a label as an argument and should return the translated label.
+ * @param {String} accept - The file types that can be uploaded. Defaults to ACCEPT_DEFAULT.
+ * @param {Boolean} multiple - Flag to allow multiple file uploads. Defaults to false.
+ * @param {Function} onLoadStart - The callback function when file loading starts.
+ * @param {Function} onLoadEnd - The callback function when file loading ends. It accepts a boolean flag indicating if the loading was successful or not.
+ * @param {Object} fallback - The fallback function to handle errors. It accepts an Error object as an argument.
+ * @param {Boolean} throwError - Flag to throw error instead of handling it with the fallback function.
+ *
+ * @returns {JSX.Element} The FilesView component.
+ */
 export const FilesView = ({
   items = [],
   className,

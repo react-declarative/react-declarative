@@ -43,6 +43,45 @@ interface IProcess<Data extends IAnything> {
 const getPercent = (value: number, total: number) =>
   Math.min(100, Math.round((Math.max(value, 0) / total) * 100));
 
+/**
+ * Executes a process asynchronously with progress tracking and error handling.
+ *
+ * @template Data - The type of data to be processed.
+ * @template Result - The type of the process result.
+ * @param {function} process - The process function to be executed on each item.
+ * @param {Object} options - Optional parameters for customizing the process behavior.
+ * @param {number} options.delay - The delay in milliseconds before each item processing. Default is 0.
+ * @param {function} options.onError - Callback function to be executed when an error occurs during processing. Default is an empty function.
+ * @param {function} options.onProgress - Callback function to be executed on each progress update. Default is an empty function.
+ * @param {function} options.onFinish - Callback function to be executed when all items are finished processing. Default is an empty function.
+ * @param {function} options.onBegin - Callback function to be executed when the process begins. Default is an empty function.
+ * @param {function} options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
+ * @returns {Object} An object containing the execute function, loading state, progress, and errors.
+ *
+ * @example
+ * const items = [
+ *   { label: 'Item 1', data: { id: 1 } },
+ *   { label: 'Item 2', data: { id: 2 } },
+ * ];
+ *
+ * const { execute, loading, progress, errors } = useAsyncProgress(
+ *   async (item: IProcess<Data>) => {
+ *     // Process the data here
+ *   },
+ *   {
+ *     delay: 2000,
+ *     onError: (error) => console.error(error),
+ *     onProgress: (progress) => console.log(progress),
+ *     onFinish: (data, errors, result) => console.log(data, errors, result),
+ *     onBegin: () => console.log('Process started'),
+ *     onEnd: (isOk) => console.log(`Process ended ${isOk ? 'successfully' : 'with errors'}`),
+ *   }
+ * );
+ *
+ * useEffect(() => {
+ *   execute(items);
+ * }, []);
+ */
 export const useAsyncProgress = <
   Data extends IAnything = IAnything,
   Result = void

@@ -1,5 +1,11 @@
 import reloadPage from "./reloadPage";
 
+/**
+ * A utility class for managing local storage values.
+ * @template T - The type of the value to be stored in local storage.
+ * @param {string} STORAGE_KEY - The key to use when storing the value in local storage.
+ * @returns {Object} - An instance of the createLsManager class.
+ */
 export const createLsManager = <T = Record<string, any>>(STORAGE_KEY: string) => new class {
 
     getValue = (): T | null => {

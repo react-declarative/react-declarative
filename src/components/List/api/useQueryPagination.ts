@@ -81,6 +81,23 @@ export const DEFAULT_QUERY: IQuery = {
     search: "",
 };
 
+/**
+ * A hook that provides pagination functionality for querying data.
+ * @template FilterData The type of filter data.
+ * @template RowData The type of row data.
+ * @param {Partial<IQuery<FilterData, RowData>>} [initialValue=DEFAULT_QUERY] - The initial value for the query.
+ * @param {Partial<IParams<FilterData, RowData>>} [options={}] - The options for the hook.
+ * @param {Function} [options.onFilterChange=() => null] - The callback function to handle filter data changes.
+ * @param {Function} [options.onLimitChange=() => null] - The callback function to handle limit changes.
+ * @param {Function} [options.onPageChange=() => null] - The callback function to handle page changes.
+ * @param {Function} [options.onSortModelChange=() => null] - The callback function to handle sort model changes.
+ * @param {Function} [options.onChipsChange=() => null] - The callback function to handle chip data changes.
+ * @param {Function} [options.onSearchChange=() => null] - The callback function to handle search changes.
+ * @param {Function} [options.onChange=() => null] - The callback function to handle state changes.
+ * @param {Function} [options.removeEmptyFilters=removeEmptyFiltersDefault] - The function to remove empty filters.
+ * @param {Object} [options.fallback] - The fallback options.
+ * @returns {Object} An object containing the pagination props and methods.
+ */
 export const useQueryPagination = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,

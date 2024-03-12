@@ -38,8 +38,29 @@ interface IState {
   activeOption: string;
 }
 
+
 /**
+ * OutletView component documentation
+ *
  * @description Use `history.replace` to navigate between subviews
+ *
+ * @param {string} className - The class name of the component
+ * @param {boolean} readonly - Flag indicating if the component should be in read only mode
+ * @param {number} waitForChangesDelay - Delay in milliseconds for waiting for changes before submit
+ * @param {Data} initialData - Initial data object for the component
+ * @param {string} animation - Animation type for the component
+ * @param {Route[]} routes - Array of route objects for the component
+ * @param {Params} params - Parameters object for the component
+ * @param {Payload} upperPayload - Payload object for the component
+ * @param {History} history - History object for the component
+ * @param {Function} fallback - Fallback function for error handling
+ * @param {Function} onChange - Change event handler function
+ * @param {Function} onSubmit - Submit event handler function
+ * @param {Function} onLoadStart - Load start event handler function
+ * @param {Function} onLoadEnd - Load end event handler function
+ * @param {ChangeSubject} upperChangeSubject - Change subject for the component
+ * @param {OtherProps} otherProps - Other properties for the component
+ * @returns {Fragment} The rendered component
  */
 export const OutletView = <
   Data extends {} = Record<string, any>,

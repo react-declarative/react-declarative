@@ -15,6 +15,12 @@ const waitForResume = () => new Promise<void>((res) => {
     });
 });
 
+/**
+ * Opens a file chooser dialog and allows the user to select a file.
+ *
+ * @param {string} [accept] - Optional file type filter. Can be a comma-separated list of MIME types or file extensions.
+ * @returns {Promise<File | null>} A promise that resolves with the selected file or null if the selection was canceled.
+ */
 export const chooseFile = (accept?: string) => new Promise<File | null>((res) => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file')

@@ -10,6 +10,16 @@ interface IChipProps extends Omit<ChipProps, keyof {
     color?: string;
 }
 
+/**
+ * Represents a Chip component with customized color.
+ *
+ * @param {Object} props - The props passed to the Chip component.
+ * @param {string} props.color - The color of the chip. Overrides the primary color of the theme.
+ * @param {Object} props.otherProps - Additional props passed to the underlying MatChip component.
+ * @param {Object} props.otherProps - Additional props passed to the underlying MatChip component.
+ *
+ * @returns {JSX.Element} The rendered Chip component.
+ */
 export const Chip = ({
     color,
     ...otherProps

@@ -28,6 +28,17 @@ interface IState {
   open: boolean;
 }
 
+/**
+ * A function that creates and displays a prompt modal.
+ *
+ * @param {object} usePrompt - The configuration options for the prompt.
+ * @param {string} usePrompt.title - The title of the prompt modal.
+ * @param {string} usePrompt.value - The default value of the prompt input.
+ * @param {string} usePrompt.placeholder - The placeholder text for the prompt input.
+ * @param {boolean} usePrompt.canCancel - Whether the prompt can be cancelled.
+ * @param {boolean} usePrompt.large - Whether to display a large prompt modal.
+ * @returns {function} A function that creates and displays the prompt modal when called.
+ */
 export const usePrompt = ({
   title: defaultTitle = "Prompt",
   value: defaultValue = "",

@@ -58,6 +58,42 @@ export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowDat
     onLoadEnd?: (isOk: boolean) => void;
 }
 
+/**
+ * A utility function for pagination and filtering an array of data rows.
+ *
+ * @template FilterData - The type of the filter data object.
+ * @template RowData - The type of the row data object.
+ *
+ * @param {ListHandler<FilterData, RowData>} rowsHandler - The function that retrieves the data rows.
+ * @param {Object} options - The optional configuration options.
+ * @param {Array<string>} options.searchEntries - The array of property names to search in when using the search feature. Defaults to SEARCH_ENTRIES.
+ * @param {Array<string>} options.searchFilterChars - The array of characters to filter in the search feature. Defaults to FILTER_CHARS.
+ * @param {(rows: Array<any>) => Array<RowData>} options.responseMap - The function to map the rows data to the desired output shape. Defaults to mapping to RowData.
+ * @param {boolean} options.removeEmptyFilters - The flag to remove empty filters from the filter data object. Defaults to removeEmptyFiltersDefault.
+ * @param {(row_a: any, row_b: any, field: string) => number} options.compareFn - The function to compare two rows based on a field value. Defaults to a default comparison logic.
+ * @param {(rows: Array<RowData>, filterData: FilterData) => Array<RowData>} options.filterHandler - The function to filter the rows based on the filter data. Defaults to a default filter
+ * logic.
+ * @param {(rows: Array<RowData>, chips: any) => Array<RowData>} options.chipsHandler - The function to filter the rows based on the chip data. Defaults to a default chip filter logic
+ *.
+ * @param {(rows: Array<RowData>, sort: Array<{field: string, sort: string}>) => Array<RowData>} options.sortHandler - The function to sort the rows based on the sort model. Defaults
+ * to a default sort logic.
+ * @param {(rows: Array<RowData>, search: string) => Array<RowData>} options.searchHandler - The function to search for rows based on a search string. Defaults to a default search logic
+ *.
+ * @param {(rows: Array<RowData>, pagination: {limit: number, offset: number}) => Array<RowData>} options.paginationHandler - The function to paginate the rows based on the pagination
+ * model. Defaults to a default pagination logic.
+ * @param {boolean} options.withPagination - The flag to enable pagination. Defaults to true.
+ * @param {boolean} options.withFilters - The flag to enable filtering. Defaults to true.
+ * @param {boolean} options.withChips - The flag to enable chip filtering. Defaults to true.
+ * @param {boolean} options.withSort - The flag to enable sorting. Defaults to true.
+ * @param {boolean} options.withTotal - The flag to enable total count. Defaults to true.
+ * @param {boolean} options.withSearch - The flag to enable searching. Defaults to true.
+ * @param {Function} options.fallback - The function to handle errors. Defaults to null.
+ * @param {Function} options.onLoadStart - The function to call when the data loading starts. Defaults to null.
+ * @param {Function} options.onLoadEnd - The function to call when the data loading ends. Defaults to null.
+ * @param {Function} options.onData - The function to call when the data is received. Defaults to null.
+ *
+ * @returns {ListHandler<FilterData, RowData>} - The list handler function.
+ */
 export const useArrayPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(rowsHandler: ListHandler<FilterData, RowData>, {
     searchEntries = SEARCH_ENTRIES,
     searchFilterChars = FILTER_CHARS,

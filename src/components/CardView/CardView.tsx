@@ -55,6 +55,14 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Render a CardView component.
+ *
+ * @template ItemData - The type of data for card items.
+ *
+ * @param {ICardViewProps<ItemData>} props - The props for CardView component.
+ * @returns {React.Element} - The CardView component.
+ */
 export const CardView = <ItemData extends IItemData = any>(
   props: ICardViewProps<ItemData>
 ) => {

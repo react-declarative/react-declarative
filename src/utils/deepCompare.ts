@@ -1,5 +1,12 @@
 import isObject from './isObject';
 
+/**
+ * Compares two objects deeply to determine if they are equal.
+ *
+ * @param {any} obj1 - The first object to compare.
+ * @param {any} obj2 - The second object to compare.
+ * @returns {boolean} - Returns true if the objects are equal, false otherwise.
+ */
 export const deepCompare = (obj1: any, obj2: any) => {
     if (obj1 === obj2) {
         return true;

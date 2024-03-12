@@ -88,6 +88,31 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a view component for rendering tabs and associated content.
+ *
+ * @template Data - The type of data associated with the tabs.
+ * @template Payload - The type of payload associated with the tabs.
+ * @param {Object} props - The props for the TabsView component.
+ * @param {string} [props.className] - The CSS class name.
+ * @param {object} [props.style] - The inline style object.
+ * @param {object} [props.sx] - The theme styling object.
+ * @param {boolean} [props.outlinePaper=false] - Whether to use outline paper.
+ * @param {boolean} [props.transparentPaper=false] - Whether the paper is transparent.
+ * @param {boolean} [props.transparentHeader=false] - Whether the header is transparent.
+ * @param {object} [props.history=upperHistory] - The history object for navigation.
+ * @param {Payload} [props.payload=upperPayload] - The payload associated with the tabs.
+ * @param {string} [props.pathname="/"] - The current pathname.
+ * @param {Array<Tab>} [props.tabs=upperTabs] - The array of tabs to render.
+ * @param {Array<Route>} routes - The array of routes associated with the tabs.
+ * @param {function} onTabChange - The callback function fired when a tab is changed.
+ * @param {function} onLoadStart - The callback function fired when the loading starts.
+ * @param {function} onLoadEnd - The callback function fired when the loading ends.
+ * @param {React.Component} BeforeTabs - The component to render before the tabs.
+ * @param {React.Component} AfterTabs - The component to render after the tabs.
+ * @param {object} [props.otherProps=upperOtherProps] - The other props to pass to sub-components.
+ * @returns {React.Element} - The rendered TabsView component.
+ */
 export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,

@@ -32,6 +32,36 @@ interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
   pathname?: string;
 }
 
+/**
+ * Provides a modal component for displaying tabs with content and handling user interactions.
+ *
+ * @template Data - The type of data to be submitted to the modal.
+ * @template Payload - The type of payload to be passed to the onSubmit function.
+ *
+ * @param {Object} params - The configuration parameters for the modal.
+ * @param {any} params.fallback - The fallback content to be displayed when the modal content is not available.
+ * @param {string} [params.pathname="/"] - The pathname to be used for history navigation.
+ * @param {object} [params.history] - The history object to be used for navigation. If not provided, a new memory history object will be created.
+ * @param {boolean} [params.fullScreen=true] - Whether the modal should be displayed in full screen mode.
+ * @param {Function} [params.onLoadEnd] - The function to be called when the modal content finishes loading.
+ * @param {Function} [params.onLoadStart] - The function to be called when the modal content starts loading.
+ * @param {boolean} [params.throwError] - Whether to throw an error if the onSubmit function returns false.
+ * @param {Function} params.onChange - The function to be called when the value of the modal's content changes.
+ * @param {Function} [params.onSubmit] - The function to be called when the modal is submitted. Returns a boolean indicating whether the submission was successful.
+ * @param {Function} [params.onMount] - The function to be called when the modal is mounted.
+ * @param {Function} [params.onUnmount] - The function to be called when the modal is unmounted.
+ * @param {Function} [params.onClose] - The function to be called when the modal is closed.
+ * @param {string} [params.submitLabel] - The label to be used for the submit button in the modal.
+ * @param {string} [params.title] - The title of the modal.
+ * @param {boolean} [params.hidden] - Whether the modal should be hidden initially.
+ * @param {object} outletProps - Additional props to be passed to the TabsOutletModal component.
+ *
+ * @returns {object} - An object containing the following methods:
+ *    - open: A behavior subject representing the open state of the modal.
+ *    - render: A function that renders the modal component.
+ *    - pickData: A function that triggers the opening of the modal.
+ *    - close: A function that closes the modal.
+ */
 export const useTabsModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything

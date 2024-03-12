@@ -8,6 +8,14 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     cancel(): void;
 };
 
+/**
+ * Creates a wrapper function for a Promise that allows for cancellation and clearing of queued Promises.
+ *
+ * @template T - The resolved value of the Promise.
+ * @template P - The types of the arguments passed to the promise function.
+ * @param {(...args: P) => Promise<T>} promise - The promise function to be wrapped.
+ * @returns {IWrappedFn<T, P>} - The wrapped function.
+ */
 export const queued = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
     let lastPromise: Promise<any> = Promise.resolve();

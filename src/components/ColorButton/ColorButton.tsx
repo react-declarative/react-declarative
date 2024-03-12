@@ -41,6 +41,14 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Represents a color button component.
+ * @typedef {Object} IColorButtonProps
+ * @property {string} className - The class name for the color button.
+ * @property {string} value - The initial value for the color button (default: "").
+ * @property {Object} sx - The style object for the color button.
+ * @property {function} onChange - The function to be called when the color button value changes (default: () => null).
+ */
 export const ColorButton = ({
     className,
     value: upperValue = "",

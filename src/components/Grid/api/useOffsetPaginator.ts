@@ -37,6 +37,30 @@ interface IState<Data = RowData> {
   hasMore: boolean;
 }
 
+/**
+ * Implements an offset-based pagination logic for fetching and managing data.
+ *
+ * @template Data - The type of the data to be paginated, extending RowData.
+ *
+ * @param {Object} params - The parameters for configuring the pagination logic.
+ * @param {Subject} params.reloadSubject - The reload subject used to trigger a data reload.
+ * @param {Data[]} params.initialData - The initial data to be displayed.
+ * @param {Function} params.handler - The function for fetching more data.
+ * @param {number} params.limit - The maximum number of items to be fetched per request.
+ * @param {number} params.delay - The delay (in milliseconds) between requests.
+ * @param {Object} queryProps - Additional query properties to be passed to the handler function.
+ *
+ * @returns {Object} - An object containing the paginated data and various utility functions.
+ * @returns {Data[]} data - The paginated data.
+ * @returns {Function} setData - A function to update the paginated data.
+ * @returns {number} offset - The offset of the current page.
+ * @returns {boolean} hasMore - A flag indicating if there are more items to load.
+ * @returns {boolean} loading - A flag indicating if a request is currently loading.
+ * @returns {Error} error - The error object, if an error occurred during the request.
+ * @returns {Function} onSkip - A function to skip to the next page.
+ * @returns {Subject} reloadSubject - The reload subject used to trigger a data reload.
+ * @returns {Function} clear - A function to clear the paginated data and reset the pagination state.
+ */
 export const useOffsetPaginator = <Data extends RowData = RowData>({
   reloadSubject: upperReloadSubject,
   initialData: upperInitialData = [],

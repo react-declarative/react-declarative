@@ -13,6 +13,12 @@ export class Task {
     };
 };
 
+/**
+ * Represents a higher-order function that runs a task only once and provides a way to clear the result.
+ * @template T - The function type.
+ * @param {T} run - The function to be executed.
+ * @returns {T & IClearable} - The wrapped function with additional clear functionality.
+ */
 export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
     let result: Task | undefined = undefined;
     const fn = (...args: any) => {

@@ -11,6 +11,19 @@ const GRID_MAX_WIDTH = 9999999999999999;
 const match = (from: number, to: number) =>
   window.innerWidth >= from && window.innerWidth < to;
 
+/**
+ * Calculates the media context based on provided breakpoints.
+ * @param {Object} breakpoints - The breakpoints to use for the media context calculation.
+ * @param {number} [breakpoints.xs=0] - The extra small breakpoint.
+ * @param {number} [breakpoints.sm=600] - The small breakpoint.
+ * @param {number} [breakpoints.lg=1280] - The large breakpoint.
+ * @returns {Object} - The media context object.
+ * @property {boolean} isPhone - Indicates if the media context is for a phone.
+ * @property {boolean} isTablet - Indicates if the media context is for a tablet.
+ * @property {boolean} isDesktop - Indicates if the media context is for a desktop.
+ * @property {boolean} isWide - Indicates if the media context is for a wide screen.
+ * @property {boolean} isMobile - Indicates if the media context is for a mobile device.
+ */
 export const getMediaContext = ({
   xs = 0,
   sm = 600,

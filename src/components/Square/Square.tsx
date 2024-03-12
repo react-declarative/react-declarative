@@ -40,6 +40,15 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Square component.
+ *
+ * @typedef {Object} Square
+ * @param {string} className - The class name to apply to the Square component.
+ * @param {ReactNode} children - The content to render inside the Square component.
+ * @param {Object} otherProps - Additional props to be spread onto the Square component.
+ * @returns {ReactElement} - The rendered Square component.
+ */
 export const Square = ({
     className,
     children,

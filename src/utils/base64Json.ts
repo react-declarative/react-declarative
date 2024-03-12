@@ -64,6 +64,13 @@ const base64 = new class {
   };
 }
 
+/**
+ * Parses a Base64-encoded JSON string to a JavaScript object.
+ *
+ * @param {string} state - The Base64-encoded JSON string to parse.
+ * @returns {Object | null} - The parsed JavaScript object, or null if parsing fails.
+ * @template T - The type of the parsed JavaScript object. Defaults to Record<string, any>.
+ */
 export const parseBase64Json = <T = Record<string, any>>(state: string): T | null => {
   try {
     return JSON.parse(base64.decode(state))
@@ -72,6 +79,13 @@ export const parseBase64Json = <T = Record<string, any>>(state: string): T | nul
   }
 };
 
+/**
+ * Converts a JavaScript object to a base64 encoded JSON string.
+ *
+ * @template T - The type of the state object being serialized.
+ * @param {T} state - The state object to be serialized.
+ * @returns {string} - The base64 encoded JSON string representation of the state object.
+ */
 export const stringifyBase64Json = <T = Record<string, any>>(state: T) => {
   return base64.encode(JSON.stringify(state));
 };

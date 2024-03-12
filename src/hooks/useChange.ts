@@ -2,6 +2,14 @@ import { useEffect, useRef, useMemo } from 'react';
 
 const Destructor = () => undefined;
 
+/**
+ * Hook for managing the execution of an effect based on changes in dependencies.
+ *
+ * @param {React.EffectCallback} effect - The effect to be executed.
+ * @param {React.DependencyList} [deps=[]] - The dependencies to watch for changes.
+ * @param {boolean} [stopWatchByDefault=false] - Whether to initially stop watching for changes.
+ * @returns {object} - An object containing utility functions for managing the watcher.
+ */
 export const useChange = (
   effect: React.EffectCallback,
   deps: React.DependencyList = [],

@@ -1,6 +1,11 @@
 import { useCallback, useState } from "react";
 import { RowId } from "../../../model/IRowData";
 
+/**
+ * A custom hook that manages the selection of rows in a list.
+ *
+ * @returns {Object} - An object containing the selected rows, list props, and a function to deselect all rows.
+ */
 export const useListSelection = () => {
     const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
     const deselectAll = useCallback(() => setSelectedRows([]), []);

@@ -34,6 +34,20 @@ type IScrollTopViewProps = Omit<
   scrollTarget?: HTMLElement;
 };
 
+/**
+ * Represents a scroll to top button view component.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} [props.className] - The class name for the component.
+ * @param {Object} [props.style] - The inline style for the component.
+ * @param {Object} [props.sx] - The sx prop for the component.
+ * @param {string} [props.color="primary"] - The color of the component.
+ * @param {string} [props.size="medium"] - The size of the component.
+ * @param {Element} [props.scrollTarget=document.documentElement] - The element to scroll when clicked.
+ * @param {Object} [props.otherProps] - Other additional props.
+ *
+ * @returns {React.Component} The scroll to top button view component.
+ */
 export const ScrollTopView = ({
   className,
   style,

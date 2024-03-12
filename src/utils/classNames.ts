@@ -1,3 +1,14 @@
+/**
+ * Concatenates the given arguments into a space-separated string of class names.
+ *
+ * The `classNames` function handles different types of arguments:
+ *  - If an argument is a string, it is considered a class name and added to the final result.
+ *  - If an argument is an array, the `classNames` function is recursively called with the array elements as arguments.
+ *  - If an argument is an object, its property keys are added as class names if the associated values are truthy.
+ *
+ * @param {...any} args - The arguments to concatenate into class names.
+ * @returns {string} - The concatenated string of class names.
+ */
 export const classNames = (...args: any[]) => {
   const classes: Array<string> = [];
   args.forEach((arg) => {

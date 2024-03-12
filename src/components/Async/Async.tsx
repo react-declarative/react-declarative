@@ -26,6 +26,23 @@ export interface IAsyncProps<T extends any = object> {
 
 type Result = React.ReactNode | void;
 
+/**
+ * Async
+ * @template T - The type of the payload data.
+ * @param {Object} params - The parameters object.
+ * @param {Subject} params.reloadSubject - The subject used to trigger a reload of the async data.
+ * @param {boolean} params.loading - A boolean indicating whether the async data is currently being loaded.
+ * @param {ReactNode} params.children - The children component that renders the async data.
+ * @param {ReactNode} params.fallback - The fallback component to render in case of an error.
+ * @param {function} params.Loader - The loader component to render while the async data is being loaded.
+ * @param {function} params.Error - The error component to render in case of an error.
+ * @param {function} params.onLoadStart - A function to be called when the async data loading starts.
+ * @param {function} params.onLoadEnd - A function to be called when the async data loading ends.
+ * @param {*} params.payload - The payload data to be passed to the children component.
+ * @param {Array} params.deps - The dependencies of the async data.
+ * @param {boolean} params.throwError - A boolean indicating whether to throw an error in case of an error or to fallback.
+ * @returns {ReactNode} - The rendered component.
+ */
 export const Async = <T extends any = object>({
     reloadSubject: upperReloadSubject,
     loading: upperLoading,

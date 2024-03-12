@@ -122,6 +122,31 @@ const defaultFields: IField[] = [
     },
 ];
 
+/**
+ * Represents the authentication view component.
+ *
+ * @template Data - The type of data.
+ * @template Payload - The type of payload.
+ * @template Field - The type of field.
+ *
+ * @param {Object} props - The props object.
+ * @param {string} props.className - The class name for the component.
+ * @param {Object} props.style - The inline styles for the component.
+ * @param {Object} props.sx - The sx prop for the component.
+ * @param {string} props.appName - The name of the app.
+ * @param {function} props.Logo - The component for the logo.
+ * @param {Field[]} props.fields - The array of input fields.
+ * @param {function} [props.onLoadStart] - The callback function when the loading starts.
+ * @param {function} [props.onLoadEnd] - The callback function when the loading ends.
+ * @param {boolean} [props.throwError] - A boolean indicating whether to throw an error.
+ * @param {function} [props.handler] - The handler function.
+ * @param {function} [props.fallback] - The fallback function.
+ * @param {function} [props.onAuth] - The callback function for authentication.
+ * @param {React.Component} [props.BeforeSubmit] - The component to render before submitting the form.
+ * @param {React.Component} [props.AfterSubmit] - The component to render after submitting the form.
+ *
+ * @returns {React.Component} The AuthView component.
+ */
 export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>>({
     className,
     style,

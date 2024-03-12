@@ -4,6 +4,12 @@ import randomString from "../utils/randomString";
 
 const INITIAL_VALUE = randomString();
 
+/**
+ * Hook for setting up a reload trigger.
+ *
+ * @param {number} autoReload - The interval for automatic reload triggering in milliseconds. Default is 0 (disabled).
+ * @returns {{ reloadTrigger: any, doReload: function }} - Object containing the reload trigger value and the reload function.
+ */
 export const useReloadTrigger = (autoReload = 0) => {
     const [reloadTrigger, setReloadValue] = useState(INITIAL_VALUE);
     const doReload = useCallback(() => setReloadValue(randomString()), []);

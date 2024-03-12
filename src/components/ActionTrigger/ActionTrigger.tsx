@@ -12,6 +12,28 @@ import useActualCallback from '../../hooks/useActualCallback';
 
 import IActionTriggerProps from './model/IActionTriggerProps';
 
+/**
+ * Renders a component that triggers actions based on user interaction.
+ *
+ * @template T - The type of the payload returned by the action.
+ * @param {Object} props - The props for the component.
+ * @param {Array<Object>} props.actions - An array of objects representing the actions to be triggered. Each object should have the following properties:
+ *   - action: The name of the action to be triggered.
+ *   - label: The label of the action.
+ *   - icon: An optional icon component for the action.
+ *   - isAvailable: An optional function or boolean indicating whether the action is available. If a function is provided, it should return a boolean.
+ * @param {string} [props.variant='outlined'] - The variant of the action buttons.
+ * @param {string} [props.size='medium'] - The size of the action buttons.
+ * @param {Function} [props.onAction=() => {}] - The callback function to be called when an action is triggered.
+ * @param {*} [props.fallback] - The fallback value to be passed to the Async component.
+ * @param {Function} [props.onLoadStart] - The callback function to be called when the async operation starts.
+ * @param {Function} [props.onLoadEnd] - The callback function to be called when the async operation ends.
+ * @param {*} [props.payload] - The payload data to be passed to the async operation.
+ * @param {Array} [props.deps] - The dependencies of the async operation.
+ * @param {boolean} [props.throwError] - Whether to throw an error if the async operation fails.
+ * @param {Object} otherProps - Additional props to be spread onto the container Box component.
+ * @returns {React.ReactNode} - The rendered component.
+ */
 export const ActionTrigger = <T extends any = object>({
     actions,
     variant = 'outlined',

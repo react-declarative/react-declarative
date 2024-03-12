@@ -4,6 +4,17 @@ interface IParams {
     replace?: (char: string) => string | null;
 }
 
+/**
+ * Formats a raw string using a template and optional parameters.
+ *
+ * @param {string} raw - The raw string to be formatted.
+ * @param {string} template - The template string used for formatting.
+ * @param {object} [params] - Optional parameters for customization.
+ * @param {string} [params.symbol='0'] - The symbol used in the template to indicate characters to be replaced.
+ * @param {function} [params.allowed] - A function or regular expression used to filter characters in the raw string.
+ * @param {function} [params.replace] - A function used to replace characters in the raw string.
+ * @returns {string} The formatted string.
+ */
 export const formatText = (raw: string, template: string, {
     symbol = '0',
     allowed,

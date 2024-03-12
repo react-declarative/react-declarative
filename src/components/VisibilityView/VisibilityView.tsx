@@ -13,6 +13,24 @@ import getVariantList from './utils/getVariantList';
 type Data = Record<string, string[]>;
 type State = Record<string, Record<string, boolean>>;
 
+/**
+ * Represents the visibility view component.
+ *
+ * @param {Object} VisibilityView - The props for the visibility view component.
+ * @param {Function} changeSubject - The function to change the subject.
+ * @param {boolean} outlinePaper - Whether to outline the paper.
+ * @param {boolean} transparentPaper - Whether the paper is transparent.
+ * @param {string} className - The CSS class name.
+ * @param {Object} style - The style object.
+ * @param {string} sx - The sx prop for emotion/styled.
+ * @param {boolean} expandAll - Whether to expand all fields.
+ * @param {boolean} readonly - Whether the fields are readonly.
+ * @param {Function} onChange - The function to handle changes.
+ * @param {Array} groups - The array of field groups.
+ * @param {Object} data - The data object.
+ * @param {Function} keyToTitle - The function to convert a key to a title.
+ * @returns {ReactElement} The visibility view component.
+ */
 export const VisibilityView = ({
   changeSubject,
   outlinePaper,

@@ -11,6 +11,14 @@ export class FetchError extends Error {
 
 const PAYLOAD_METHODS: any[] = ['POST', 'PUT', 'PATCH'];
 
+/**
+ * Makes an asynchronous HTTP request using the Fetch API.
+ *
+ * @param {RequestInfo | URL} input - The resource URL or an instance of the URL class.
+ * @param {RequestInit} [init] - The request options.
+ * @returns {Promise<T>} - The response data as a Promise.
+ * @throws {FetchError} - If an error occurs during the request.
+ */
 export const fetchApi = async <T = any>(input: RequestInfo | URL, init?: RequestInit): Promise<T> => {
     const request = input instanceof URL ? input.toString() : input;
     let response: Response | undefined = undefined;

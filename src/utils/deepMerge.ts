@@ -1,5 +1,12 @@
 import isObject from './isObject';
 
+/**
+ * Merges multiple objects into a single object recursively.
+ *
+ * @param {any} target - The target object to merge into.
+ * @param {...any} sources - The source objects to merge from.
+ * @returns {any} - The merged object.
+ */
 export const deepMerge = (target: any, ...sources: any[]): any => {
     if (!sources.length) return target;
     const source = sources.shift();

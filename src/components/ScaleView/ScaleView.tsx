@@ -49,6 +49,15 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a component that scales its children based on its size.
+ * @typedef {Object} IScaleViewProps
+ * @property {React.ReactNode} children - The children elements to be scaled.
+ * @property {string} className - The class name of the root div element.
+ * @property {React.CSSProperties} style - The custom style of the root div element.
+ * @property {boolean} stretch - Determines whether to stretch the scaled children to fit the container.
+ * @property {boolean} center - Determines whether to center the scaled children within the container.
+ */
 export const ScaleView = ({
     children,
     className,

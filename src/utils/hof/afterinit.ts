@@ -3,6 +3,15 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     clear(): void;
 };
 
+/**
+ * Creates a wrapped function that only executes the provided function after the initial call has completed.
+ * The wrapped function can be cleared to allow subsequent calls to execute the provided function again.
+ *
+ * @template T The type of the promise resolved by the provided function.
+ * @template P The type of the arguments passed to the provided function.
+ * @param {function(...args: P): Promise<T>} run The function to be wrapped.
+ * @returns {IWrappedFn<T, P>} The wrapped function.
+ */
 export const afterinit = <T extends any = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
     let hasComplete = false;

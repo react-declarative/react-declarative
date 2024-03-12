@@ -29,6 +29,23 @@ const resolvePass = <T extends any = object>(condition: IIfProps<T>['condition']
     return !!result;
 };
 
+/**
+ * A conditional rendering component with asynchronous support.
+ *
+ * @template T - The type of payload passed to the condition.
+ * @param {object} props - The props object.
+ * @param {React.ReactNode} props.Else - The content to render if the condition is false and not loading.
+ * @param {React.ReactNode} [props.Loading=props.Else] - The content to render while loading.
+ * @param {React.ReactNode} props.children - The content to render if the condition is true.
+ * @param {(() => boolean) | T} props.condition - The condition to evaluate. Can be a function that accepts the payload or a static value.
+ * @param {() => void} [props.fallback] - The function to call if an error occurs and `throwError` is false.
+ * @param {() => void} [props.onLoadStart] - The function to call when loading starts.
+ * @param {(isOk: boolean) => void} [props.onLoadEnd] - The function to call when loading ends. Receives a boolean indicating if the operation was successful.
+ * @param {T} [props.payload] - The payload to pass to the condition function.
+ * @param {any[]} [props.deps=[]] - The dependencies to include in the useEffect hook.
+ * @param {boolean} [props.throwError=false] - Whether to throw an error or call the fallback function if an error occurs.
+ * @returns {React.ReactNode} - The rendered content based on the condition and loading state.
+ */
 export const If = <T extends any = object>({
     Else = null,
     Loading = Else,

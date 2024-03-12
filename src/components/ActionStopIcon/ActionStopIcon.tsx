@@ -86,6 +86,25 @@ const useStyles = makeStyles<{
     },
 }));
 
+/**
+ * Represents an ActionStopIcon component.
+ *
+ * @typedef {Object} IActionStopIconProps
+ * @property {string} className - The CSS class name for the component.
+ * @property {Object} style - The inline CSS styles for the component.
+ * @property {Object} sx - The system styles for the component.
+ * @property {number} size - The size of the icon. Default is DEFAULT_SIZE.
+ * @property {number} thickness - The thickness of the CircularProgress spinner. Default is DEFAULT_THICKNESS.
+ * @property {boolean} noProgress - Flag indicating whether to show the CircularProgress spinner. Default is false.
+ * @property {boolean} throwError - Flag indicating whether to throw an error or trigger the fallback function upon an error. Default is false.
+ * @property {boolean} disabled - Flag indicating whether the component is disabled. Default is false.
+ * @property {Function} onLoadStart - Callback function triggered when the component starts loading.
+ * @property {Function} onLoadEnd - Callback function triggered when the component finishes loading.
+ * @property {Function} fallback - The fallback function to be called when an error occurs and 'throwError' is set to false.
+ * @property {Function} onClick - The click event handler for the component. Default is an empty function.
+ * @property {ReactNode} children - The child element to be rendered inside the component. Default is a CloseIcon.
+ * @property {Object} otherProps - Any additional props for the component.
+ */
 export const ActionStopIcon = ({
     className,
     style,

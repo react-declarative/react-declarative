@@ -51,6 +51,24 @@ interface IBreadcrumbsProps<T extends any = any> {
   AfterMenuContent?: React.ComponentType<any>;
 }
 
+/**
+ * Renders a breadcrumb component with optional save button and action menu.
+ *
+ * @template T - The type of payload used by the actions.
+ * @param {Object} props - The component props.
+ * @param {Function} props.onSave - The callback function called when save button is clicked.
+ * @param {Function} props.onBack - The callback function called when breadcrumb is clicked.
+ * @param {Function} props.onAction - The callback function called when an action is selected from the menu.
+ * @param {Array} props.actions - The list of actions to display in the menu.
+ * @param {boolean} props.saveDisabled - Whether the save button should be disabled.
+ * @param {T} props.payload - The payload object passed to the actions.
+ * @param {string} [props.title='Title'] - The title text for the breadcrumb.
+ * @param {string} [props.subtitle='Subtitle'] - The subtitle text for the breadcrumb.
+ * @param {boolean} [props.withSave=false] - Whether the save button should be displayed.
+ * @param {React.ElementType} [props.BeforeMenuContent] - The optional content to display before the action menu.
+ * @param {React.ElementType} [props.AfterMenuContent] - The optional content to display after the action menu.
+ * @returns {React.ReactNode} The rendered breadcrumb component.
+ */
 export const Breadcrumbs = <T extends any = any>({
   onSave,
   onBack,

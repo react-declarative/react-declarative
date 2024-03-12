@@ -41,6 +41,9 @@ type DetectElementResize = {
   removeResizeListener: ResizeHandler,
 };
 
+/**
+ * A component that automatically resizes its children based on its parent element's size.
+ */
 export class AutoSizer<T extends unknown = object> extends React.Component<IAutoSizerProps<T>, State> {
 
   static defaultProps: Partial<IAutoSizerProps<any>> = {

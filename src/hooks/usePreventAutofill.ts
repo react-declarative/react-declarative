@@ -16,7 +16,17 @@ interface IResult<T = HTMLInputElement>  {
 }
 
 /**
+ * This function takes an object with optional parameters and returns an object with properties and event handlers related to preventing autofill behavior on an HTMLInputElement.
+ *
  * @see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill/36283282
+ *
+ * @template T - The type of the HTMLInputElement.
+ * @param {Partial<IParams<T>>} [params={}] - An object containing optional parameters.
+ * @param {boolean} [params.readOnly] - Specifies whether the input element is read-only.
+ * @param {React.FocusEventHandler<T>} [params.onFocus] - Event handler for the "focus" event.
+ * @param {React.TouchEventHandler<T>} [params.onTouchStart] - Event handler for the "touchstart" event.
+ * @param {React.MouseEventHandler<T>} [params.onContextMenu] - Event handler for the "contextmenu" event.
+ * @returns {IResult<T>} - An object with properties and event handlers related to preventing autofill behavior on an HTMLInputElement.
  */
 export const usePreventAutofill = <T = HTMLInputElement>({
     readOnly: upperReadOnly,

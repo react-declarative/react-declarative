@@ -1,3 +1,11 @@
+/**
+ * Updates the value of a nested object property using a specific path.
+ *
+ * @param {Object} object - The object to update.
+ * @param {(string|string[])} path - The path to the property. Can be either a dot-separated string or an array of strings.
+ * @param {*} value - The new value to set for the property.
+ * @returns {boolean} - Returns true if the property was successfully updated, false otherwise.
+ */
 export const set = (object: any, path: any, value: any) => {
     const pathArray = Array.isArray(path) ? path : path.split('.').filter((key: any) => key);
     const pathArrayFlat = pathArray.flatMap((part: any) => typeof part === 'string' ? part.split('.') : part);

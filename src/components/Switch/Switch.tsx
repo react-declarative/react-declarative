@@ -80,6 +80,27 @@ const DEFAULT_CHILD_FN = ({
 
 const Fragment = () => <></>;
 
+/**
+ * Represents a switch component that renders different elements based on the current location.
+ * @param {Object} SwitchProps - The props for the Switch component.
+ * @param {string} SwitchProps.className - The CSS class name for the component.
+ * @param {Object} SwitchProps.style - The inline style object for the component.
+ * @param {React.Component} SwitchProps.Loader - The loader component to render while initial loading.
+ * @param {React.Component} SwitchProps.Forbidden - The component to render if access to a route is forbidden.
+ * @param {React.Component} SwitchProps.NotFound - The component to render if the requested route is not found.
+ * @param {React.Component} SwitchProps.Error - The component to render if an error occurs.
+ * @param {string} SwitchProps.animation - The animation type for transitioning between elements.
+ * @param {Object} SwitchProps.history - The history object to use for routing. Defaults to DEFAULT_HISTORY if not provided.
+ * @param {Function} SwitchProps.children - The function that returns the child elements to render based on the current location.
+ * @param {React.Component} SwitchProps.fallback - The component to render if an error occurs and throwError is set to false.
+ * @param {Array} SwitchProps.items - The array of route items to match and render components for.
+ * @param {Function} SwitchProps.onLoadStart - The callback function to invoke when the component starts loading.
+ * @param {Function} SwitchProps.onLoadEnd - The callback function to invoke when the component finishes loading.
+ * @param {Function} SwitchProps.onInit - The callback function to invoke when the component initializes. Defaults to an empty function.
+ * @param {Function} SwitchProps.onDispose - The callback function to invoke when the component is disposed. Defaults to an empty function.
+ * @param {boolean} SwitchProps.throwError - Indicates whether to throw an error if an exception occurs. Defaults to false.
+ * @returns {React.Component} The Switch component.
+ */
 export const Switch = ({
   className,
   style,

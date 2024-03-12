@@ -40,6 +40,26 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/** *
+ * @template Data - generic type for data object
+ * @template Payload - generic type for payload object
+ * @typedef {Object} OneIcon
+ * @property {number} [waitForChangesDelay=WAIT_FOR_CHANGES_DELAY] - delay in milliseconds for waiting changes
+ * @property {number} [fieldDebounce] - debounce time in milliseconds for field changes
+ * @property {boolean} [noBadge=false] - flag to disable badge
+ * @property {Array} fields - array of field objects
+ * @property {Function} handler - function to handle data
+ * @property {Payload} [payload={}] - payload object
+ * @property {string} [badgeColor="info"] - color of the badge
+ * @property {string} [color="default"] - color of the icon button
+ * @property {string} badgeOverlap - overlap position for the badge
+ * @property {Object} badgeSx - styles for the badge
+ * @property {Object} oneSx - styles for the One component
+ * @property {Function} onChange - function for handling the change event
+ * @property {Function} onFocus - function for handling the focus event
+ * @property {Function} onBlur - function for handling the blur event
+ * @property {Object} buttonProps - additional props for the IconButton component
+ */
 export const OneIcon = <
   Data extends {} = IAnything,
   Payload extends IAnything = IAnything

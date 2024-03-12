@@ -16,6 +16,19 @@ export interface IResult<Data extends any = any, Payload extends any = object> {
     execute: (p?: Payload) => (Promise<Data | null>);
 }
 
+/**
+ * Executes an asynchronous action with options for handling loading, error, and cancellation.
+ *
+ * @template Data - The data type returned by the action.
+ * @template Payload - The payload type passed to the action.
+ * @param {Function} run - The action function to execute.
+ * @param {object} options - Optional parameters for customizing behavior.
+ * @param {Function} options.onLoadStart - A callback function to run when the action starts loading.
+ * @param {Function} options.onLoadEnd - A callback function to run when the action finishes loading.
+ * @param {Function} options.fallback - A callback function to handle errors when throwError is set to false.
+ * @param {boolean} options.throwError - Whether to throw an error when the action fails.
+ * @returns {object} - An object containing loading, error, and execute properties.
+ */
 export const useAsyncAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
     onLoadStart,
     onLoadEnd,

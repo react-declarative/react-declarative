@@ -1,5 +1,12 @@
 let overrideRef: ((url: string) => void) | null = null
 
+/**
+ * Opens the given URL in a new browser tab.
+ *
+ * @param {string} url - The URL to open in a new tab.
+ *
+ * @returns {void}
+ */
 export const openBlank = (url: string) => {
     if (overrideRef) {
         overrideRef(url);

@@ -24,6 +24,19 @@ const resolveHandler = async <Data = IAnything, Payload = IAnything>(handler: On
     }
 };
 
+/**
+ * Creates a static handler that wraps around an existing handler function.
+ *
+ * @template Data - The data type expected to be returned by the handler.
+ * @template Payload - The payload type expected to be passed to the handler.
+ * @param {OneHandler<Data, Payload>} handler - The existing handler function.
+ * @param {Object} options - The options for the static handler.
+ * @param {Function} options.resultMap - The function to modify the returned data from the handler.
+ * @param {Function} options.onLoadBegin - The function to be called when the handler starts loading.
+ * @param {Function} options.onLoadEnd - The function to be called when the handler finishes loading.
+ * @param {Function} options.fallback - The fallback function to be executed if an error occurs in the handler.
+ * @returns {OneHandler<Data, Payload>} - The static handler function.
+ */
 export const useStaticHandler = <Data extends IAnything = IAnything, Payload = IAnything>(handler: OneHandler<Data, Payload>, {
     resultMap = (data) => data as Data,
     onLoadBegin,

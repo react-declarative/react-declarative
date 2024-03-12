@@ -20,6 +20,15 @@ interface ISnackProviderProps {
 
 const [Provider, useSnack] = createValueProvider<(msg: string) => void>();
 
+/**
+ * SnackProvider is a component that provides snack notifications to its children.
+ *
+ * @param {Object} props - The props for SnackProvider component.
+ * @param {ReactNode} props.children - The children components that will have access to snack notifications.
+ * @param {number} [props.delay] - The delay for auto hiding the snack notifications.
+ *
+ * @returns {ReactNode} - The SnackProvider component.
+ */
 export const SnackProvider = ({
     children,
     delay = AUTO_HIDE_DURATION,

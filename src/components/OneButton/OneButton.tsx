@@ -40,6 +40,31 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a button component with a popover that displays a form.
+ *
+ * @template Data - The type of data for the form.
+ * @template Payload - The type of payload for the button handler.
+ *
+ * @param {Object} props - The properties of the button component.
+ * @param {number} [props.waitForChangesDelay=WAIT_FOR_CHANGES_DELAY] - The delay in milliseconds to wait for changes before updating data.
+ * @param {number} [props.fieldDebounce] - The debounce time in milliseconds for input fields.
+ * @param {boolean} [props.noBadge=false] - Whether to display a badge on the button.
+ * @param {Array} props.fields - The fields for the form.
+ * @param {Function} props.handler - The handler function for the button.
+ * @param {Payload} [props.payload={}] - The payload for the button handler.
+ * @param {string} [props.badgeColor="info"] - The color of the badge.
+ * @param {string} [props.color="primary"] - The color of the button.
+ * @param {string} [props.badgeOverlap] - The overlap mode of the badge.
+ * @param {Object} [props.badgeSx] - The styles for the badge.
+ * @param {Object} [props.oneSx] - The styles for the form.
+ * @param {Function} [props.onChange] - The callback function to be called when the data changes.
+ * @param {Function} [props.onFocus] - The callback function to be called when a field is focused.
+ * @param {Function} [props.onBlur] - The callback function to be called when a field is blurred.
+ * @param {Function} [props.onInvalid] - The callback function to be called when a field is invalid.
+ *
+ * @returns {null | JSX.Element} - Returns null if loading or error, otherwise returns the button component with popover.
+ */
 export const OneButton = <
   Data extends {} = IAnything,
   Payload extends IAnything = IAnything

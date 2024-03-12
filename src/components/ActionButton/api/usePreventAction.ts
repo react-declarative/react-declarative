@@ -6,6 +6,14 @@ interface IParams {
   onLoadEnd?: (isOk: boolean) => void;
 }
 
+/**
+ * A hook that allows preventing an action based on loading state.
+ * @param {Object} [IParams] - The parameters for the hook.
+ * @param {Function} [onLoadStart] - The function to execute when the loading starts.
+ * @param {Function} [onLoadEnd] - The function to execute when the loading ends.
+ * @param {boolean} [disabled] - Whether the action is disabled.
+ * @returns {Object} - An object containing the handleLoadStart, handleLoadEnd, and loading properties.
+ */
 export const usePreventAction = ({
   onLoadStart,
   onLoadEnd,

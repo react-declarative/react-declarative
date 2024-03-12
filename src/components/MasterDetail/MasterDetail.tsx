@@ -39,6 +39,33 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a master-detail component with various modes and customizations.
+ * @template Payload - The payload type for the component.
+ * @param {Object} props - The component props.
+ * @param {MasterDetailMode} props.mode - The mode of the component. Default is MasterDetailMode.Card.
+ * @param {boolean} props.withTransparentTabs - Specifies whether to use transparent tabs. Default is false.
+ * @param {boolean} props.withMenuCollapse - Specifies whether to enable menu collapse. Default is false.
+ * @param {boolean} props.withFixedPos - Specifies whether to fix the position. Default is false.
+ * @param {number} props.fixedPosHeaderAdjust - The adjustment value for the fixed position header. Default is 0.
+ * @param {string} props.title - The title of the component.
+ * @param {string} props.className - The class name for the component.
+ * @param {object} props.style - The inline style object for the component.
+ * @param {object} props.sx - The theme-ui styles for the component.
+ * @param {string} props.activeOption - The initially active option ID.
+ * @param {Payload} props.payload - The payload for the component.
+ * @param {array} props.deps - The dependencies array for the component.
+ * @param {array} props.options - The options array for generating master-detail items.
+ * @param {ReactNode} props.children - The child components.
+ * @param {ComponentType} props.Loader - The loader component to show during async actions. Default is LoaderDefault.
+ * @param {ComponentType} props.Error - The error component to show when an error occurs during async actions. Default is ErrorDefault.
+ * @param {function} props.onActiveOptionChange - The callback function to handle active option change.
+ * @param {ReactNode} props.fallback - The fallback component to show when there are no items available.
+ * @param {function} props.onLoadStart - The callback function to execute when the async action starts.
+ * @param {function} props.onLoadEnd - The callback function to execute when the async action ends.
+ * @param {boolean} props.throwError - Specifies whether to throw an error during async actions.
+ * @returns {JSX.Element} - The rendered component.
+ */
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
     withTransparentTabs = false,

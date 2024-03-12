@@ -7,6 +7,12 @@ interface IParams {
     src: string;
 }
 
+/**
+ * Creates an audio player that can be used to play audio files.
+ *
+ * @param {IParams} params - The parameters for the audio player.
+ * @returns {Object} An object with properties and functions for controlling the audio player.
+ */
 export const useAudioPlayer = ({
     src,
 }: IParams) => {

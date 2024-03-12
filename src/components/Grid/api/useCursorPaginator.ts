@@ -36,6 +36,19 @@ interface IState<Data = RowData> {
   hasMore: boolean;
 }
 
+/**
+ * A function that handles pagination using cursor-based pagination technique.
+ *
+ * @template Data The type of data in each row.
+ * @param {Object} params - The input parameters.
+ * @param {Subject} params.reloadSubject - The reload subject used to trigger a reload.
+ * @param {Array} [params.initialData=[]] - The initial data for the paginator.
+ * @param {Function} params.handler - The handler function for fetching more data.
+ * @param {number} [params.delay=SCROLL_REQUEST_DELAY] - The delay between each scroll request.
+ * @param {number} [params.limit=DEFAULT_LIMIT] - The maximum number of rows to fetch at a time.
+ * @param {Object} queryProps - Additional properties to be passed to the query.
+ * @returns {Object} - An object containing the paginator data and functions.
+ */
 export const useCursorPaginator = <Data extends RowData = RowData>({
   reloadSubject: upperReloadSubject,
   initialData: upperInitialData = [],

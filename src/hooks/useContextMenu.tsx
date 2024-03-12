@@ -94,6 +94,29 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a utility for displaying a context menu.
+ *
+ * @template T - The type of the payload object.
+ *
+ * @param {Object} params - The parameters for configuring the context menu.
+ * @param {boolean} [params.keepMounted=false] - Flag indicating if the menu should remain mounted when closed.
+ * @param {React.ComponentType} [params.AfterContent] - The component to render after the menu items.
+ * @param {React.ComponentType} [params.BeforeContent] - The component to render before the menu items.
+ * @param {any[]} [params.deps] - Dependencies to trigger reload of menu items.
+ * @param {T} [params.payload] - The payload object to pass to menu item handlers.
+ * @param {Function} [params.onLoadStart] - The callback to invoke when the menu items start loading.
+ * @param {Function} [params.onLoadEnd] - The callback to invoke when the menu items finish loading.
+ * @param {Function} [params.onAction=() => undefined] - The callback to invoke when a menu item is clicked.
+ * @param {Object[]} [params.options=[]] - The array of options to render as menu items.
+ * @param {React.ComponentType} [params.fallback] - The component to render as a fallback during loading.
+ * @param {Subject<any>} [params.reloadSubject] - The subject to trigger a reload of menu items.
+ * @param {boolean} [params.throwError] - Flag indicating if an error should be thrown on loading failures.
+ *
+ * @returns {Object} - The object containing the properties and methods for rendering the context menu.
+ * @property {Object} elementProps - The properties to apply to the element that triggers the context menu.
+ * @property {Function} render - The function to render the context menu component.
+ */
 export const useContextMenu = <T extends any = object>({
   keepMounted = false,
   AfterContent,
