@@ -114,8 +114,8 @@ const useStyles = makeStyles()({
  * @param [params.throwError] - Flag indicating if an error should be thrown on loading failures.
  *
  * @returns - The object containing the properties and methods for rendering the context menu.
- * @property {Object} elementProps - The properties to apply to the element that triggers the context menu.
- * @property {Function} render - The function to render the context menu component.
+ * @property elementProps - The properties to apply to the element that triggers the context menu.
+ * @property render - The function to render the context menu component.
  */
 export const useContextMenu = <T extends any = object>({
   keepMounted = false,

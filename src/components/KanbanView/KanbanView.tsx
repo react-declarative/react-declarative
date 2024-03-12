@@ -505,35 +505,35 @@ KanbanViewInternal.enableScrollOnDrag =
 
 /**
  * @template Data, Payload, ColumnType
- * @typedef {Object} IKanbanViewProps - Props for KanbanViewInternal component
- * @property {Subject<boolean>} reloadSubject - Subject that triggers data reload
- * @property {boolean} withUpdateOrder - Determines whether items should be sorted by update date
- * @property {Array<{column: ColumnType; rows: Array<IBoardRow>; label?: string; color?: string}>} columns - Array of columns with corresponding rows, label and color
- * @property {string} className - CSS class name for the component
- * @property {Payload} payload - Payload object for custom data
- * @property {boolean} disabled - Determines whether the component is disabled
- * @property {Array<IBoardItem<Data, Payload, ColumnType>>} items - Array of kanban items
- * @property {React.CSSProperties} style - Inline styles for the component
- * @property {SXProps} sx - Material-UI system styles
- * @property {Array<any>} deps - Array of dependencies
- * @property {boolean} withGoBack - Determines whether to allow going back to previous columns when dragging an item
- * @property {boolean} withHeaderTooltip - Determines whether to show tooltip on column headers
- * @property {(item: IBoardItem<Data, Payload, ColumnType>) => boolean} filterFn - Function to filter kanban items
- * @property {(id: string) => string | Promise<string>} cardLabel - Function to generate card label from item ID
- * @property {number} bufferSize - The number of card items to render in the virtual view
- * @property {number} minRowHeight - Minimum height of each row in the virtual view
- * @property {number} rowTtl - Time-to-live in milliseconds for each row cache
- * @property {React.ComponentType<any>} AfterCardContent - Custom component to render after card content
- * @property {React.ComponentType<any>} AfterColumnTitle - Custom component to render after column title
- * @property {React.ComponentType<any>} BeforeColumnTitle - Custom component to render before column title
- * @property {(id: string, column: ColumnType, data: Data, payload: Payload) => void} onDataRequest - Function called when data is requested
- * @property {(id: string, column: ColumnType, data: Data, payload: Payload) => void} onChangeColumn - Function called when an item is dragged to a new column
- * @property {(id: string) => void} onCardLabelClick - Function called when the card label is clicked
- * @property {() => void} onLoadStart - Function called when data loading starts
- * @property {() => void} onLoadEnd - Function called when data loading ends
- * @property {(item: IBoardItem<Data, Payload, ColumnType>) => React.ReactNode | Promise<React.ReactNode>} fallback - Function or React node to render when an error occurs
- * @property {(err: Error) => void} throwError - Function called when an error occurs
- * @property {React.Ref<HTMLDivElement>} ref - Ref object for the root element of the component
+ * @typedef IKanbanViewProps - Props for KanbanViewInternal component
+ * @property reloadSubject - Subject that triggers data reload
+ * @property withUpdateOrder - Determines whether items should be sorted by update date
+ * @property columns - Array of columns with corresponding rows, label and color
+ * @property className - CSS class name for the component
+ * @property payload - Payload object for custom data
+ * @property disabled - Determines whether the component is disabled
+ * @property items - Array of kanban items
+ * @property style - Inline styles for the component
+ * @property sx - Material-UI system styles
+ * @property deps - Array of dependencies
+ * @property withGoBack - Determines whether to allow going back to previous columns when dragging an item
+ * @property withHeaderTooltip - Determines whether to show tooltip on column headers
+ * @property filterFn - Function to filter kanban items
+ * @property cardLabel - Function to generate card label from item ID
+ * @property bufferSize - The number of card items to render in the virtual view
+ * @property minRowHeight - Minimum height of each row in the virtual view
+ * @property rowTtl - Time-to-live in milliseconds for each row cache
+ * @property AfterCardContent - Custom component to render after card content
+ * @property AfterColumnTitle - Custom component to render after column title
+ * @property BeforeColumnTitle - Custom component to render before column title
+ * @property onDataRequest - Function called when data is requested
+ * @property onChangeColumn - Function called when an item is dragged to a new column
+ * @property onCardLabelClick - Function called when the card label is clicked
+ * @property onLoadStart - Function called when data loading starts
+ * @property onLoadEnd - Function called when data loading ends
+ * @property fallback - Function or React node to render when an error occurs
+ * @property throwError - Function called when an error occurs
+ * @property ref - Ref object for the root element of the component
  */
 export const KanbanView = forwardRef(
   KanbanViewInternal

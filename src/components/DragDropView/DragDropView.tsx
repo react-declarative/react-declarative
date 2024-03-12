@@ -95,15 +95,15 @@ const useStyles = makeStyles()((theme) => ({
 
 /**
  * Represents a drag and drop view component.
- * @typedef {Object} DragDropView
- * @property {string} className - The class name for the component.
- * @property {object} style - The inline style for the component.
- * @property {object} sx - The style object for sx prop.
- * @property {boolean} disabled - Indicates whether the drag and drop functionality is disabled.
- * @property {boolean} multiple - Indicates whether multiple files can be selected.
- * @property {string} accept - The file types that are accepted for upload.
- * @property {function} onData - The callback function called when files are dropped or selected.
- * @property {function} onReject - The callback function called when files are rejected.
+ * @typedef DragDropView
+ * @property className - The class name for the component.
+ * @property style - The inline style for the component.
+ * @property sx - The style object for sx prop.
+ * @property disabled - Indicates whether the drag and drop functionality is disabled.
+ * @property multiple - Indicates whether multiple files can be selected.
+ * @property accept - The file types that are accepted for upload.
+ * @property onData - The callback function called when files are dropped or selected.
+ * @property onReject - The callback function called when files are rejected.
  */
 export const DragDropView = ({
   className,

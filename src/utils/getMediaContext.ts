@@ -18,11 +18,11 @@ const match = (from: number, to: number) =>
  * @param [breakpoints.sm=600] - The small breakpoint.
  * @param [breakpoints.lg=1280] - The large breakpoint.
  * @returns - The media context object.
- * @property {boolean} isPhone - Indicates if the media context is for a phone.
- * @property {boolean} isTablet - Indicates if the media context is for a tablet.
- * @property {boolean} isDesktop - Indicates if the media context is for a desktop.
- * @property {boolean} isWide - Indicates if the media context is for a wide screen.
- * @property {boolean} isMobile - Indicates if the media context is for a mobile device.
+ * @property isPhone - Indicates if the media context is for a phone.
+ * @property isTablet - Indicates if the media context is for a tablet.
+ * @property isDesktop - Indicates if the media context is for a desktop.
+ * @property isWide - Indicates if the media context is for a wide screen.
+ * @property isMobile - Indicates if the media context is for a mobile device.
  */
 export const getMediaContext = ({
   xs = 0,

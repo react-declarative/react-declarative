@@ -75,21 +75,21 @@ const useStyles = makeStyles<{
 
 /**
  * Represents an action icon component.
- * @typedef {Object} ActionIcon
- * @property {string} className - The class name for the component.
- * @property {Object} style - The inline style for the component.
- * @property {Object} sx - The custom styling for the component using SX prop provided by Emotion.
- * @property {boolean} noProgress - Determines if the progress spinner should be shown.
- * @property {boolean} throwError - Determines if an error should be thrown in case of an exception.
- * @property {boolean} disabled - Determines if the component is disabled.
- * @property {Function} onLoadStart - The callback function called when the action starts loading.
- * @property {Function} onLoadEnd - The callback function called when the action finishes loading.
- * @property {Function} onClick - The callback function called when the icon is clicked.
- * @property {Function} fallback - The fallback function called in case of an error and throwError is false.
- * @property {ReactNode} children - The child components of the icon.
- * @property {number} size - The size of the icon.
- * @property {number} thickness - The thickness of the circular progress spinner.
- * @property {...any} otherProps - Other props to be passed to the IconButton component.
+ * @typedef ActionIcon
+ * @property className - The class name for the component.
+ * @property style - The inline style for the component.
+ * @property sx - The custom styling for the component using SX prop provided by Emotion.
+ * @property noProgress - Determines if the progress spinner should be shown.
+ * @property throwError - Determines if an error should be thrown in case of an exception.
+ * @property disabled - Determines if the component is disabled.
+ * @property onLoadStart - The callback function called when the action starts loading.
+ * @property onLoadEnd - The callback function called when the action finishes loading.
+ * @property onClick - The callback function called when the icon is clicked.
+ * @property fallback - The fallback function called in case of an error and throwError is false.
+ * @property children - The child components of the icon.
+ * @property size - The size of the icon.
+ * @property thickness - The thickness of the circular progress spinner.
+ * @property otherProps - Other props to be passed to the IconButton component.
  */
 export const ActionIcon = ({
     className,

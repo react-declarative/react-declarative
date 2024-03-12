@@ -20,15 +20,15 @@ type BoxProps = Omit<MatBoxProps, keyof {
 }>;
 
 /**
- * Represents an action filter component.
+ * Represents an Action Filter component.
  *
- * @typedef {object} ActionFilter
- * @property {Array<object>} actions - The list of available actions.
- * @property {string} label - The label for the component.
- * @property {string} addLabel - The label for the "Add filter" button.
- * @property {object} data - The initial data for the component.
- * @property {function} onChange - The function called when the data changes.
- * @property {object} otherProps - Other additional properties for the component.
+ * @typedef ActionFilter
+ * @property actions - The available filter actions.
+ * @property label - The label for the filter component.
+ * @property addLabel - The label for the "Add filter" button.
+ * @property data - The initial filter data.
+ * @property onChange - The callback function to be called when the filter data changes.
+ * @property otherProps - Additional properties for the Box component.
  */
 export const ActionFilter = ({
     actions,

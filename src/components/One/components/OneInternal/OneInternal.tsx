@@ -86,28 +86,28 @@ const makeTr = (field: IField, payload: IAnything) => {
 };
 
 /**
- * @typedef {Object} IOneInternalProps - Props for the OneInternal component
+ * @typedef IOneInternalProps - Props for the OneInternal component
  * @template Data - The data type
  * @template Payload - The payload type
  * @template Field - The field type
- * @property {boolean} rendered - Whether the component has been rendered
- * @property {Array<Field>} fields - The fields array
- * @property {Array<Feature>} features - The features array
- * @property {boolean} dirty - Whether the fields are dirty
- * @property {function} ready - The ready callback function
- * @property {string} prefix - The prefix string
- * @property {function} invalidity - The invalidity callback function
- * @property {function} fallback - The fallback callback function
- * @property {boolean} outlinePaper - Whether to use outline paper
- * @property {boolean} transparentPaper - Whether to use transparent paper
- * @property {boolean} readonly - Whether the fields are readonly
- * @property {function} focus - The focus callback function
- * @property {function} blur - The blur callback function
- * @property {function} click - The click callback function
- * @property {function} menu - The menu callback function
- * @property {function} createField - The createField function
- * @property {function} createLayout - The createLayout function
- * @property {boolean} withNamedPlaceholders - Whether to use named placeholders
+ * @property rendered - Whether the component has been rendered
+ * @property fields - The fields array
+ * @property features - The features array
+ * @property dirty - Whether the fields are dirty
+ * @property ready - The ready callback function
+ * @property prefix - The prefix string
+ * @property invalidity - The invalidity callback function
+ * @property fallback - The fallback callback function
+ * @property outlinePaper - Whether to use outline paper
+ * @property transparentPaper - Whether to use transparent paper
+ * @property readonly - Whether the fields are readonly
+ * @property focus - The focus callback function
+ * @property blur - The blur callback function
+ * @property click - The click callback function
+ * @property menu - The menu callback function
+ * @property createField - The createField function
+ * @property createLayout - The createLayout function
+ * @property withNamedPlaceholders - Whether to use named placeholders
  */
 export const OneInternal = <
   Data extends IAnything = IAnything,

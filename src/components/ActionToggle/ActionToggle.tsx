@@ -48,7 +48,7 @@ const useStyles = makeStyles()({
 /**
  * Represents an action toggle component.
  *
- * @typedef {Object} ActionToggle
+ * @typedef ActionToggle
  * @param className - The custom class name for the component.
  * @param onClick - The callback function called when the toggle is clicked.
  * @param onLoadStart - The callback function called when the loading starts.

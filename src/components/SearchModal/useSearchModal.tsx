@@ -64,10 +64,10 @@ interface IParams<
  * @param listProps - Additional properties for customizing the search modal.
  *
  * @returns An object with properties and methods for controlling the search modal.
- * @property {boolean} open - Indicates whether the search modal is open or not.
- * @property {Function} render - A function for rendering the search modal.
- * @property {Function} pickData - A function for picking data.
- * @property {Function} close - A function for closing the search modal and handling submit with null data.
+ * @property open - Indicates whether the search modal is open or not.
+ * @property render - A function for rendering the search modal.
+ * @property pickData - A function for picking data.
+ * @property close - A function for closing the search modal and handling submit with null data.
  */
 export const useSearchModal = <
   FilterData extends {} = IAnything,

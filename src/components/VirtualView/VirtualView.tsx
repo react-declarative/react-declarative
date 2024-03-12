@@ -76,23 +76,23 @@ const useStyles = makeStyles()({
 /**
  * VirtualView component
  *
- * @typedef {Object} IVirtualViewProps - virtual view props
- * @property {string} className - CSS class name
- * @property {object} sx - custom styles
- * @property {boolean} withScrollbar - flag indicating if scrollbar is visible
- * @property {number} minRowHeight - minimum row height (default: DEFAULT_MIN_HEIGHT)
- * @property {number} bufferSize - number of additional rows to render (default: DEFAULT_BUFFER_SIZE)
- * @property {ReactNode} children - child elements
- * @property {boolean} hasMore - flag indicating if there is more data to load (default: true)
- * @property {boolean} loading - flag indicating if data is currently being loaded (default: false)
- * @property {() => void} onDataRequest - function to request more data
- * @property {() => void} onLoadStart - function called when data loading starts
- * @property {(isOk: boolean) => void} onLoadEnd - function called when data loading ends
- * @property {() => void} fallback - function called when an error occurs during data loading
- * @property {number} scrollXSubject - scroll x subject
- * @property {number} scrollYSubject - scroll y subject
- * @property {boolean} throwError - flag indicating if errors should be thrown (default: false)
- * @property {any} otherProps - other props
+ * @typedef IVirtualViewProps - virtual view props
+ * @property className - CSS class name
+ * @property sx - custom styles
+ * @property withScrollbar - flag indicating if scrollbar is visible
+ * @property minRowHeight - minimum row height (default: DEFAULT_MIN_HEIGHT)
+ * @property bufferSize - number of additional rows to render (default: DEFAULT_BUFFER_SIZE)
+ * @property children - child elements
+ * @property hasMore - flag indicating if there is more data to load (default: true)
+ * @property loading - flag indicating if data is currently being loaded (default: false)
+ * @property onDataRequest - function to request more data
+ * @property onLoadStart - function called when data loading starts
+ * @property onLoadEnd - function called when data loading ends
+ * @property fallback - function called when an error occurs during data loading
+ * @property scrollXSubject - scroll x subject
+ * @property scrollYSubject - scroll y subject
+ * @property throwError - flag indicating if errors should be thrown (default: false)
+ * @property otherProps - other props
  */
 export const VirtualView = ({
   className,

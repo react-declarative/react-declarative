@@ -96,26 +96,26 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 /**
- * @typedef {Object} IImageViewProps
- * @property {boolean} [withFullScreen=false] - Indicates whether the ImageView should have a full-screen option.
- * @property {boolean} [withDelete=false] - Indicates whether the ImageView should have a delete option.
- * @property {string} [className] - Additional class name for the ImageView component.
- * @property {string} src - The source URL of the image to be displayed.
- * @property {Function} [onFullScreenClick] - Event handler for the full-screen click action. Defaults to opening a blank page with the source URL of the image.
- * @property {Function} [onDeleteClick] - Event handler for the delete click action. Defaults to an empty function.
- * @property {Function} [onLoadStart] - Event handler for the image loading start event.
- * @property {Function} [onLoadEnd] - Event handler for the image loading end event.
- * @property {React.Component} [fallback] - Custom fallback component to be displayed when the image fails to load.
- * @property {boolean} [throwError=false] - Indicates whether an error should be thrown when the image fails to load.
- * @property {boolean} [disabled=false] - Indicates whether the ImageView is disabled.
- * @property {Array} [options] - Array of options for the action menu.
- * @property {Function} [onAction] - Event handler for the action menu click action. Defaults to an empty function.
- * @property {*} [payload] - Additional payload to be passed to the action menu click handler.
- * @property {*} [deps] - Additional dependencies for the action menu.
- * @property {boolean} [keepMounted] - Indicates whether the action menu should remain mounted when closed.
- * @property {React.Component} [BeforeContent] - Custom component to be displayed before the image content.
- * @property {React.Component} [AfterContent] - Custom component to be displayed after the image content.
- * @property {*} [...otherProps] - Additional props to be spread onto the Box component.
+ * @typedef IImageViewProps
+ * @property [withFullScreen=false] - Indicates whether the ImageView should have a full-screen option.
+ * @property [withDelete=false] - Indicates whether the ImageView should have a delete option.
+ * @property [className] - Additional class name for the ImageView component.
+ * @property src - The source URL of the image to be displayed.
+ * @property [onFullScreenClick] - Event handler for the full-screen click action. Defaults to opening a blank page with the source URL of the image.
+ * @property [onDeleteClick] - Event handler for the delete click action. Defaults to an empty function.
+ * @property [onLoadStart] - Event handler for the image loading start event.
+ * @property [onLoadEnd] - Event handler for the image loading end event.
+ * @property [fallback] - Custom fallback component to be displayed when the image fails to load.
+ * @property [throwError=false] - Indicates whether an error should be thrown when the image fails to load.
+ * @property [disabled=false] - Indicates whether the ImageView is disabled.
+ * @property [options] - Array of options for the action menu.
+ * @property [onAction] - Event handler for the action menu click action. Defaults to an empty function.
+ * @property [payload] - Additional payload to be passed to the action menu click handler.
+ * @property [deps] - Additional dependencies for the action menu.
+ * @property [keepMounted] - Indicates whether the action menu should remain mounted when closed.
+ * @property [BeforeContent] - Custom component to be displayed before the image content.
+ * @property [AfterContent] - Custom component to be displayed after the image content.
+ * @property [...otherProps] - Additional props to be spread onto the Box component.
  */
 export const ImageView = ({
     withFullScreen = false,

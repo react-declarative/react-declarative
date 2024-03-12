@@ -25,16 +25,16 @@ interface IParams<Size extends ISize> {
  * @template T - The type of the HTML element.
  * @template Size - The interface defining the size object type.
  *
- * @typedef {{ height: number, width: number }} ISize - The interface defining the size object type.
+ * @typedef  ISize - The interface defining the size object type.
  *
- * @typedef {Object} IParams - The interface defining the optional parameters for the useElementSize function.
- * @property {ISize} defaultSize - The default size of the element.
- * @property {T | null} target - The target element to calculate the size for. If not provided, the component's element will be used.
- * @property {string | null} closest - The selector for the closest ancestor element.
- * @property {string | null} selector - The selector for a specific descendant element.
- * @property {number} debounce - The debounce delay in milliseconds for resizing events. Defaults to 0 (no debounce).
- * @property {(size: ISize) => Size} compute - A function to compute the size object based on the raw size object. Defaults to a simple type casting.
- * @property {Function} onResize - A callback function called when the element size changes.
+ * @typedef IParams - The interface defining the optional parameters for the useElementSize function.
+ * @property defaultSize - The default size of the element.
+ * @property target - The target element to calculate the size for. If not provided, the component's element will be used.
+ * @property closest - The selector for the closest ancestor element.
+ * @property selector - The selector for a specific descendant element.
+ * @property debounce - The debounce delay in milliseconds for resizing events. Defaults to 0 (no debounce).
+ * @property compute - A function to compute the size object based on the raw size object. Defaults to a simple type casting.
+ * @property onResize - A callback function called when the element size changes.
  *
  * @param options - The optional parameters for the useElementSize function.
  * @returns - An object containing a ref to the element and the current size.

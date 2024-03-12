@@ -1495,6 +1495,34 @@ declare module 'react-declarative/components/List/api/useApiPaginator' {
         abortSignal?: AbortSignal;
         responseMap?: <T extends IRowData>(json: RowData[]) => (ListHandlerResult<T> | Promise<ListHandlerResult<T>>);
     }
+    /**
+      * Function that generates a list handler for API pagination.
+      *
+      * @param path - The API endpoint path.
+      * @param options - The options object.
+      * @param options.fetch - The fetch function to use for making API requests (default: window.fetch).
+      * @param options.origin - The origin of the API (default: window.location.origin).
+      * @param options.abortSignal - The AbortSignal object to use for aborting API requests.
+      * @param options.removeEmptyFilters - The function to remove empty filters from the filter data (default: removeEmptyFiltersDefault).
+      * @param options.fetchParams - The function to generate fetch parameters (e.g. headers, method, body) (default: null).
+      * @param options.fallback - The function to handle error fallback (default: null).
+      * @param options.onLoadBegin - The function to call before the API request is made (default: null).
+      * @param options.onLoadEnd - The function to call after the API request is completed (default: null).
+      * @param options.requestMap - The function to map the request URL (default: (url) => url).
+      * @param options.responseMap - The function to map the API response (default: (data) => data).
+      * @param options.filterHandler - The function to handle filters in the URL (default: (url, filterData) => { ... }).
+      * @param options.chipsHandler - The function to handle chips in the URL (default: (url, chips) => { ... }).
+      * @param options.sortHandler - The function to handle sorting in the URL (default: (url, sort) => { ... }).
+      * @param options.searchHandler - The function to handle search in the URL (default: (url, search) => { ... }).
+      * @param options.paginationHandler - The function to handle pagination in the URL (default: (url, pagination) => { ... }).
+      * @param options.withAbortSignal - A flag to enable/disable abort signal usage (default: true).
+      * @param options.withPagination - A flag to enable/disable pagination (default: true).
+      * @param options.withFilters - A flag to enable/disable filters (default: true).
+      * @param options.withSearch - A flag to enable/disable search (default: true).
+      * @param options.withChips - A flag to enable/disable chips (default: true).
+      * @param options.withSort - A flag to enable/disable sorting (default: true).
+      * @returns - The list handler function.
+      */
     export const useApiPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(path: string, { fetch, origin, abortSignal: signal, removeEmptyFilters, fetchParams, fallback, onLoadBegin, onLoadEnd, requestMap, responseMap, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withAbortSignal, withPagination, withFilters, withSearch, withChips, withSort, }?: IApiPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
     export default useApiPaginator;
 }
@@ -1526,6 +1554,42 @@ declare module 'react-declarative/components/List/api/useArrayPaginator' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
+    /**
+      * A utility function for pagination and filtering an array of data rows.
+      *
+      * @template FilterData - The type of the filter data object.
+      * @template RowData - The type of the row data object.
+      *
+      * @param rowsHandler - The function that retrieves the data rows.
+      * @param options - The optional configuration options.
+      * @param options.searchEntries - The array of property names to search in when using the search feature. Defaults to SEARCH_ENTRIES.
+      * @param options.searchFilterChars - The array of characters to filter in the search feature. Defaults to FILTER_CHARS.
+      * @param options.responseMap - The function to map the rows data to the desired output shape. Defaults to mapping to RowData.
+      * @param options.removeEmptyFilters - The flag to remove empty filters from the filter data object. Defaults to removeEmptyFiltersDefault.
+      * @param options.compareFn - The function to compare two rows based on a field value. Defaults to a default comparison logic.
+      * @param options.filterHandler - The function to filter the rows based on the filter data. Defaults to a default filter
+      * logic.
+      * @param options.chipsHandler - The function to filter the rows based on the chip data. Defaults to a default chip filter logic
+      *.
+      * @param options.sortHandler - The function to sort the rows based on the sort model. Defaults
+      * to a default sort logic.
+      * @param options.searchHandler - The function to search for rows based on a search string. Defaults to a default search logic
+      *.
+      * @param options.paginationHandler - The function to paginate the rows based on the pagination
+      * model. Defaults to a default pagination logic.
+      * @param options.withPagination - The flag to enable pagination. Defaults to true.
+      * @param options.withFilters - The flag to enable filtering. Defaults to true.
+      * @param options.withChips - The flag to enable chip filtering. Defaults to true.
+      * @param options.withSort - The flag to enable sorting. Defaults to true.
+      * @param options.withTotal - The flag to enable total count. Defaults to true.
+      * @param options.withSearch - The flag to enable searching. Defaults to true.
+      * @param options.fallback - The function to handle errors. Defaults to null.
+      * @param options.onLoadStart - The function to call when the data loading starts. Defaults to null.
+      * @param options.onLoadEnd - The function to call when the data loading ends. Defaults to null.
+      * @param options.onData - The function to call when the data is received. Defaults to null.
+      *
+      * @returns - The list handler function.
+      */
     export const useArrayPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(rowsHandler: ListHandler<FilterData, RowData, any>, { searchEntries, searchFilterChars, responseMap, removeEmptyFilters, compareFn, filterHandler, chipsHandler, sortHandler, searchHandler, paginationHandler, withPagination, withFilters, withChips, withSort, withTotal, withSearch, fallback, onLoadStart, onLoadEnd, onData, }?: IArrayPaginatorParams<FilterData, RowData>) => ListHandler<FilterData, RowData, any>;
     export default useArrayPaginator;
 }
@@ -1577,6 +1641,25 @@ declare module 'react-declarative/components/One/api/useApiHandler' {
         abortSignal?: AbortSignal;
         fetch?: typeof window.fetch;
     }
+    /**
+      * This function is a generic API handler that fetches data from a specified path using the Fetch API.
+      * It provides options for customizing the fetch request, handling loading state, aborting the request, and error handling.
+      *
+      * @template Data - The type of the data returned from the API
+      * @param path - The relative or absolute path to fetch from
+      * @param options - An object containing optional configuration options for the API handler
+      * @param options.fetch - The fetch function to use (default: window.fetch)
+      * @param options.origin - The origin to use when constructing the URL (default: window.location.origin)
+      * @param options.abortSignal - The AbortSignal object to use for aborting the request (default: abortManager.signal)
+      * @param options.requestMap - A function to transform the URL before making the request (default: (url) => url)
+      * @param options.responseMap - A function to transform the JSON response from the API (default: (json) => json as never)
+      * @param options.onLoadBegin - An optional callback function to execute when the request begins loading
+      * @param options.onLoadEnd - An optional callback function to execute when the request finishes loading
+      * @param options.withAbortSignal - Whether to use the abort signal to cancel the request (default: true)
+      * @param options.fetchParams - An optional function to retrieve additional fetch parameters to be passed to fetch
+      * @param options.fallback - An optional function to handle errors and provide fallback behavior
+      * @returns - The API handler function that can be invoked to make the request and retrieve the data
+      */
     export const useApiHandler: <Data extends unknown = any>(path: string, { fetch, origin, abortSignal: signal, requestMap, responseMap, onLoadBegin, onLoadEnd, withAbortSignal, fetchParams, fallback, }?: IApiHandlerParams<Data>) => OneHandler<Data, any>;
     export default useApiHandler;
 }
@@ -2032,7 +2115,17 @@ declare module 'react-declarative/hooks/usePreventAutofill' {
         onContextMenu: React.MouseEventHandler<T>;
     }
     /**
+      * This function takes an object with optional parameters and returns an object with properties and event handlers related to preventing autofill behavior on an HTMLInputElement.
+      *
       * @see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill/36283282
+      *
+      * @template T - The type of the HTMLInputElement.
+      * @param [params={}] - An object containing optional parameters.
+      * @param [params.readOnly] - Specifies whether the input element is read-only.
+      * @param [params.onFocus] - Event handler for the "focus" event.
+      * @param [params.onTouchStart] - Event handler for the "touchstart" event.
+      * @param [params.onContextMenu] - Event handler for the "contextmenu" event.
+      * @returns - An object with properties and event handlers related to preventing autofill behavior on an HTMLInputElement.
       */
     export const usePreventAutofill: <T = HTMLInputElement>({ readOnly: upperReadOnly, onFocus, onTouchStart, onContextMenu, }?: Partial<IParams<T>>) => IResult<T>;
     export default usePreventAutofill;
@@ -2063,6 +2156,29 @@ declare module 'react-declarative/hooks/useContextMenu' {
         };
         render: () => React.ReactNode;
     }
+    /**
+      * Represents a utility for displaying a context menu.
+      *
+      * @template T - The type of the payload object.
+      *
+      * @param params - The parameters for configuring the context menu.
+      * @param [params.keepMounted=false] - Flag indicating if the menu should remain mounted when closed.
+      * @param [params.AfterContent] - The component to render after the menu items.
+      * @param [params.BeforeContent] - The component to render before the menu items.
+      * @param [params.deps] - Dependencies to trigger reload of menu items.
+      * @param [params.payload] - The payload object to pass to menu item handlers.
+      * @param [params.onLoadStart] - The callback to invoke when the menu items start loading.
+      * @param [params.onLoadEnd] - The callback to invoke when the menu items finish loading.
+      * @param [params.onAction=() => undefined] - The callback to invoke when a menu item is clicked.
+      * @param [params.options=[]] - The array of options to render as menu items.
+      * @param [params.fallback] - The component to render as a fallback during loading.
+      * @param [params.reloadSubject] - The subject to trigger a reload of menu items.
+      * @param [params.throwError] - Flag indicating if an error should be thrown on loading failures.
+      *
+      * @returns - The object containing the properties and methods for rendering the context menu.
+      * @property elementProps - The properties to apply to the element that triggers the context menu.
+      * @property render - The function to render the context menu component.
+      */
     export const useContextMenu: <T extends unknown = object>({ keepMounted, AfterContent, BeforeContent, deps, payload, onLoadStart, onLoadEnd, onAction, options, fallback, reloadSubject, throwError, }: IParams<T>) => IResult;
     export default useContextMenu;
 }
@@ -2070,6 +2186,17 @@ declare module 'react-declarative/hooks/useContextMenu' {
 declare module 'react-declarative/hooks/useRouteItem' {
     import { BrowserHistory, HashHistory, MemoryHistory } from "history";
     import { ISwitchItem } from "react-declarative/helpers/routeManager";
+    /**
+      * Returns the current item based on the provided routes and history.
+      *
+      * @template T - The type of the record for route parameters and data.
+      * @template I - The type of the switch item.
+      *
+      * @param routes - An array of switch items representing the different routes.
+      * @param history - The history object used for navigation.
+      *
+      * @returns - The current switch item based on the provided routes and history.
+      */
     export const useRouteItem: <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => I | null;
     export default useRouteItem;
 }
@@ -2077,11 +2204,28 @@ declare module 'react-declarative/hooks/useRouteItem' {
 declare module 'react-declarative/hooks/useRouteParams' {
     import { BrowserHistory, HashHistory, MemoryHistory } from "history";
     import { ISwitchItem } from "react-declarative/helpers/routeManager";
+    /**
+      * The `useRouteParams` hook is used to retrieve the parameters of the currently active route.
+      *
+      * @template T - The type of the route parameters.
+      * @template I - The type of the switch items.
+      *
+      * @param routes - Array of route items.
+      * @param history - The history object to track route changes.
+      *
+      * @returns - The parameters of the currently active route.
+      */
     export const useRouteParams: <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => T | null;
     export default useRouteParams;
 }
 
 declare module 'react-declarative/hooks/useWatchChanges' {
+    /**
+      * Watches for changes in dependencies and provides a subject to track changes.
+      *
+      * @param deps - The dependencies to watch for changes.
+      * @returns An object containing methods and properties for watching changes.
+      */
     export const useWatchChanges: (deps?: any[]) => {
         readonly useChanges: () => void;
         readonly changeSubject: import("..").Subject<void>;
@@ -2095,6 +2239,13 @@ declare module 'react-declarative/hooks/useWatchChanges' {
 }
 
 declare module 'react-declarative/hooks/useForceUpdate' {
+    /**
+      * A custom hook that returns a function for force updating a component.
+      *
+      * @returns The function to be used for force updating.
+      * @example
+      * useForceUpdate();
+      */
     export const useForceUpdate: () => () => void;
     export default useForceUpdate;
 }
@@ -2105,6 +2256,15 @@ declare module 'react-declarative/hooks/useLocalHistory' {
         history?: History;
         pathname: string;
     }
+    /**
+      * Initializes and manages a local history object.
+      *
+      * @param options - The options for the local history.
+      * @param options.history - The upper history object to sync with.
+      * @param [options.pathname="/"] - The initial pathname for the history.
+      *
+      * @return - The local history object.
+      */
     export const useLocalHistory: ({ history: upperHistory, pathname }?: Partial<IParams>) => {
         history: import("history").MemoryHistory;
     };
@@ -2112,11 +2272,24 @@ declare module 'react-declarative/hooks/useLocalHistory' {
 }
 
 declare module 'react-declarative/utils/toRouteUrl' {
+    /**
+      * Converts a template string and params object into a route URL.
+      * @param template - The template string representing the route URL.
+      * @param params - The parameters object to be filled into the template.
+      * @returns The generated route URL.
+      */
     export const toRouteUrl: (template: string, params: object) => string;
     export default toRouteUrl;
 }
 
 declare module 'react-declarative/utils/parseRouteUrl' {
+    /**
+      * Parses the given route template and URL to match them and returns the result.
+      *
+      * @param template - The route template to match against.
+      * @param url - The URL to be matched.
+      * @returns - The matched result or null if no match is found.
+      */
     export const parseRouteUrl: (template: string, url: string) => import("path-to-regexp").MatchResult<object> | null;
     export default parseRouteUrl;
 }
@@ -2286,31 +2459,76 @@ declare module 'react-declarative/model/IOneProps' {
 }
 
 declare module 'react-declarative/hooks/useActualCallback' {
+    /**
+      * Executes a given callback function while preserving its reference and memoizing it with specified dependencies.
+      *
+      * @template T - Type of the callback function
+      * @param run - The callback function to be executed
+      * @param [deps=[]] - The dependencies to be memoized
+      * @returns - The memoized callback function
+      */
     export const useActualCallback: <T extends (...args: any[]) => any>(run: T, deps?: any[]) => T;
     export default useActualCallback;
 }
 
 declare module 'react-declarative/hooks/useActualValue' {
+    /**
+      * Initializes a ref with the provided value and keeps it up to date.
+      *
+      * @template T - The type of the value.
+      * @param value - The initial value.
+      * @returns - A reference object that contains the provided value.
+      */
     export const useActualValue: <T = undefined>(value: T) => import("react").MutableRefObject<T>;
     export default useActualValue;
 }
 
 declare module 'react-declarative/hooks/useActualState' {
+    /**
+      * Returns an array of values representing the current state and a function to update the state.
+      *
+      * @template S - The type of the state.
+      * @param [initialState] - Optional initial state.
+      * @returns - An array containing the mutable reference to the state and the state update function
+      *.
+      */
     export const useActualState: <S = undefined>(initialState?: S | (() => S) | undefined) => readonly [import("react").MutableRefObject<S>, import("react").Dispatch<import("react").SetStateAction<S>>];
     export default useActualState;
 }
 
 declare module 'react-declarative/hooks/useActualRef' {
+    /**
+      * Custom hook that creates a mutable reference to a state value
+      * and a function to update the state value.
+      *
+      * @template S - The type of the state value
+      * @param initialState - The initial state value or a function that returns the initial state value
+      * @returns - An array containing the state reference and handleState function
+      */
     export const useActualRef: <S = undefined>(initialState?: S | (() => S) | undefined) => readonly [import("react").MutableRefObject<S>, (dispatch: S | ((prevState: S) => S)) => void];
     export default useActualRef;
 }
 
 declare module 'react-declarative/hooks/useRenderWaiter' {
+    /**
+      * Creates a render waiter hook.
+      *
+      * @param [deps] - Optional array of dependencies. When the dependencies change, the render waiter will trigger a re-render.
+      * @param [delay=0] - Optional delay in milliseconds before triggering the render waiter.
+      * @returns - Render waiter function that returns a promise that resolves when the render is complete.
+      */
     export const useRenderWaiter: (deps?: any[] | undefined, delay?: number) => () => Promise<void>;
     export default useRenderWaiter;
 }
 
 declare module 'react-declarative/hooks/useOneArray' {
+    /**
+      * Hook that manages an array of data.
+      *
+      * @template T - The type of elements in the array
+      * @param [initialValue] - Optional initial value for the array
+      * @returns - A tuple containing the managed array and a function to update it
+      */
     export const useOneArray: <T = any>(initialValue?: T[] | (() => T[]) | null | undefined) => readonly [T[], import("react").Dispatch<import("react").SetStateAction<T[] | null>>];
     export const oneArrayIncludes: <T = any>(data: T[] | null, ...items: T[]) => boolean;
     export const isOneArray: <T = any>(data: T[]) => boolean;
@@ -2339,6 +2557,45 @@ declare module 'react-declarative/hooks/useAsyncProgress' {
         label: string;
         data: Data;
     }
+    /**
+      * Executes a process asynchronously with progress tracking and error handling.
+      *
+      * @template Data - The type of data to be processed.
+      * @template Result - The type of the process result.
+      * @param process - The process function to be executed on each item.
+      * @param options - Optional parameters for customizing the process behavior.
+      * @param options.delay - The delay in milliseconds before each item processing. Default is 0.
+      * @param options.onError - Callback function to be executed when an error occurs during processing. Default is an empty function.
+      * @param options.onProgress - Callback function to be executed on each progress update. Default is an empty function.
+      * @param options.onFinish - Callback function to be executed when all items are finished processing. Default is an empty function.
+      * @param options.onBegin - Callback function to be executed when the process begins. Default is an empty function.
+      * @param options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
+      * @returns An object containing the execute function, loading state, progress, and errors.
+      *
+      * @example
+      * const items = [
+      *   { label: 'Item 1', data: { id: 1 } },
+      *   { label: 'Item 2', data: { id: 2 } },
+      * ];
+      *
+      * const { execute, loading, progress, errors } = useAsyncProgress(
+      *   async (item: IProcess<Data>) => {
+      *     // Process the data here
+      *   },
+      *   {
+      *     delay: 2000,
+      *     onError: (error) => console.error(error),
+      *     onProgress: (progress) => console.log(progress),
+      *     onFinish: (data, errors, result) => console.log(data, errors, result),
+      *     onBegin: () => console.log('Process started'),
+      *     onEnd: (isOk) => console.log(`Process ended ${isOk ? 'successfully' : 'with errors'}`),
+      *   }
+      * );
+      *
+      * useEffect(() => {
+      *   execute(items);
+      * }, []);
+      */
     export const useAsyncProgress: <Data extends unknown = any, Result = void>(process: (item: IProcess<Data>) => Result | Promise<Result>, { delay, onError, onProgress, onFinish, onBegin, onEnd, ...otherParams }: IParams<Data, Result>) => {
         readonly errors: IError[];
         readonly progress: number;
@@ -2360,6 +2617,19 @@ declare module 'react-declarative/hooks/useAsyncAction' {
         error: boolean;
         execute: (p?: Payload) => (Promise<Data | null>);
     }
+    /**
+      * Executes an asynchronous action with options for handling loading, error, and cancellation.
+      *
+      * @template Data - The data type returned by the action.
+      * @template Payload - The payload type passed to the action.
+      * @param run - The action function to execute.
+      * @param options - Optional parameters for customizing behavior.
+      * @param options.onLoadStart - A callback function to run when the action starts loading.
+      * @param options.onLoadEnd - A callback function to run when the action finishes loading.
+      * @param options.fallback - A callback function to handle errors when throwError is set to false.
+      * @param options.throwError - Whether to throw an error when the action fails.
+      * @returns - An object containing loading, error, and execute properties.
+      */
     export const useAsyncAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export default useAsyncAction;
 }
@@ -2373,6 +2643,15 @@ declare module 'react-declarative/hooks/useAsyncValue' {
         throwError?: boolean;
         deps?: any[];
     }
+    /**
+      * This function allows you to manage an asynchronous value by providing a run function and optional parameters.
+      *
+      * @template Data - The data type of the async value.
+      * @param run - A function that returns the async value or a promise that resolves to the async value.
+      * @param [params={}] - Optional parameters for customizing the behavior of the async value.
+      * @returns - An array containing the current async value, action object for executing the async action, and a setter function
+      * to update the async value.
+      */
     export const useAsyncValue: <Data extends unknown = any>(run: () => Data | Promise<Data>, params?: IParams) => [Data | null, IResult<void, void>, (data: Data) => void];
     export default useAsyncValue;
 }
@@ -2393,6 +2672,23 @@ declare module 'react-declarative/hooks/useSinglerunAction' {
         (payload?: Payload): Promise<Data | null>;
         clear(): void;
     }
+    /**
+      * Function useSinglerunAction
+      *
+      * @description This function is a custom hook that helps to handle asynchronous actions and manage loading and error states.
+      *
+      * @template Data - The type of data that the asynchronous action will return.
+      * @template Payload - The type of payload that the asynchronous action accepts.
+      *
+      * @param run - The asynchronous action to be executed.
+      * @param options - Additional options for the hook.
+      * @param [options.onLoadStart] - Callback function called when the asynchronous action starts.
+      * @param [options.onLoadEnd] - Callback function called when the asynchronous action ends.
+      * @param [options.fallback] - Callback function called when an error occurs, if `throwError` is set to `false`.
+      * @param [options.throwError] - Flag to determine whether to throw an error or call the `fallback` function when an error occurs. Default is `true`.
+      *
+      * @returns - An object containing the loading state, error state, and an `execute` function to execute the asynchronous action.
+      */
     export const useSinglerunAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export default useSinglerunAction;
 }
@@ -2415,12 +2711,37 @@ declare module 'react-declarative/hooks/useQueuedAction' {
         clear(): void;
         cancel(): void;
     }
+    /**
+      * Executes an asynchronous action with queuing and provides loading and error state.
+      *
+      * @template Data - The type of data returned by the action.
+      * @template Payload - The type of payload accepted by the action.
+      *
+      * @param run - The function that represents the action to be executed.
+      * @param options - Optional parameters for configuring the behavior of the action execution.
+      * @param options.onLoadStart - Callback function to be executed when the action starts loading.
+      * @param options.onLoadEnd - Callback function to be executed when the action finishes loading.
+      * @param options.fallback - Callback function to be executed when an error occurs and `throwError` is set to `false`.
+      * @param options.throwError - Specifies whether to throw an error if one occurs during the action execution.
+      *
+      * @returns - The result object containing the loading state, error state, and the execute function to trigger the action execution.
+      */
     export const useQueuedAction: <Data extends unknown = any, Payload extends unknown = any>(run: (p: Payload) => Data | Promise<Data>, { onLoadStart, onLoadEnd, fallback, throwError, }?: IParams) => IResult<Data, Payload>;
     export { CANCELED_SYMBOL };
     export default useQueuedAction;
 }
 
 declare module 'react-declarative/hooks/useMediaContext' {
+    /**
+      * Returns an object containing information about the current media context.
+      *
+      * @return The media context object.
+      * @property isPhone - Indicates whether the current device is a phone.
+      * @property isTablet - Indicates whether the current device is a tablet.
+      * @property isDesktop - Indicates whether the current device is a desktop.
+      * @property isWide - Indicates whether the current device is a tablet or desktop.
+      * @property isMobile - Indicates whether the current device is a phone.
+      */
     export const useMediaContext: () => {
         isPhone: boolean;
         isTablet: boolean;
@@ -2436,6 +2757,12 @@ declare module 'react-declarative/hooks/useAudioPlayer' {
     interface IParams {
         src: string;
     }
+    /**
+      * Creates an audio player that can be used to play audio files.
+      *
+      * @param params - The parameters for the audio player.
+      * @returns An object with properties and functions for controlling the audio player.
+      */
     export const useAudioPlayer: ({ src, }: IParams) => {
         audioRef: React.RefObject<HTMLAudioElement>;
         render: () => JSX.Element;
@@ -2446,11 +2773,26 @@ declare module 'react-declarative/hooks/useAudioPlayer' {
 
 declare module 'react-declarative/hooks/useChangeSubject' {
     import Subject from "react-declarative/utils/rx/Subject";
+    /**
+      * Creates a subject that emits the given value whenever it changes.
+      *
+      * @template T - The type of the value to be emitted by the subject.
+      *
+      * @param value - The initial value of the subject.
+      *
+      * @returns - The subject that emits the value whenever it changes.
+      */
     export const useChangeSubject: <T = undefined>(value: T) => Subject<T>;
     export default useChangeSubject;
 }
 
 declare module 'react-declarative/hooks/useReloadTrigger' {
+    /**
+      * Hook for setting up a reload trigger.
+      *
+      * @param autoReload - The interval for automatic reload triggering in milliseconds. Default is 0 (disabled).
+      * @returns - Object containing the reload trigger value and the reload function.
+      */
     export const useReloadTrigger: (autoReload?: number) => {
         reloadTrigger: string;
         doReload: () => void;
@@ -2459,23 +2801,50 @@ declare module 'react-declarative/hooks/useReloadTrigger' {
 }
 
 declare module 'react-declarative/hooks/useSingleton' {
+    /**
+      * Returns a singleton instance of a given value or a function that creates the value.
+      *
+      * @template T - The type of the value to be returned.
+      * @param value - The value or function that creates the value.
+      * @returns The singleton instance of the value.
+      */
     export const useSingleton: <T = undefined>(value: T | (() => T)) => T;
     export default useSingleton;
 }
 
 declare module 'react-declarative/hooks/useBehaviorSubject' {
     import BehaviorSubject from "react-declarative/utils/rx/BehaviorSubject";
+    /**
+      * Initializes a new BehaviorSubject with optional initial data value.
+      *
+      * @template Data The type of data stored in the BehaviorSubject.
+      * @param [data=null] The initial value of the BehaviorSubject. Defaults to null.
+      * @returns The newly created BehaviorSubject instance.
+      */
     export const useBehaviorSubject: <Data = any>(data?: Data | null) => BehaviorSubject<Data>;
     export default useBehaviorSubject;
 }
 
 declare module 'react-declarative/hooks/useSubscription' {
+    /**
+      * Subscribes to a function and triggers it as a side effect.
+      *
+      * @param fn - The function to be subscribed to.
+      */
     export const useSubscription: (fn: () => () => void) => void;
     export default useSubscription;
 }
 
 declare module 'react-declarative/hooks/useSubjectValue' {
     import { TSubject } from "react-declarative/utils/rx/Subject";
+    /**
+      * A function that retrieves and sets the value of a subject.
+      *
+      * @template Data - The type of data stored in the subject.
+      * @param target - The subject to subscribe to.
+      * @param [value] - The initial value for the subject, if not provided the subject's initial value will be used.
+      * @returns - The current value of the subject.
+      */
     export const useSubjectValue: <Data = any>(target: TSubject<Data>, value?: Data | (() => Data) | undefined) => Data;
     export default useSubjectValue;
 }
@@ -2494,6 +2863,26 @@ declare module 'react-declarative/hooks/useElementSize' {
         compute?: (size: ISize) => Size;
         onResize?: (size: Size) => void;
     }
+    /**
+      * Calculates the size of an HTML element and updates it when it changes.
+      *
+      * @template T - The type of the HTML element.
+      * @template Size - The interface defining the size object type.
+      *
+      * @typedef  ISize - The interface defining the size object type.
+      *
+      * @typedef IParams - The interface defining the optional parameters for the useElementSize function.
+      * @property defaultSize - The default size of the element.
+      * @property target - The target element to calculate the size for. If not provided, the component's element will be used.
+      * @property closest - The selector for the closest ancestor element.
+      * @property selector - The selector for a specific descendant element.
+      * @property debounce - The debounce delay in milliseconds for resizing events. Defaults to 0 (no debounce).
+      * @property compute - A function to compute the size object based on the raw size object. Defaults to a simple type casting.
+      * @property onResize - A callback function called when the element size changes.
+      *
+      * @param options - The optional parameters for the useElementSize function.
+      * @returns - An object containing a ref to the element and the current size.
+      */
     export const useElementSize: <T extends HTMLElement, Size extends ISize = ISize>({ defaultSize: { height, width, }, target, closest, selector, debounce: delay, compute, onResize, }?: Partial<IParams<Size>>) => {
         elementRef: import("react").RefObject<T>;
         size: Size;
@@ -2508,17 +2897,41 @@ declare module 'react-declarative/hooks/useWindowSize' {
         compute: (size: ISize) => Size;
         onResize?: (size: Size) => void;
     }
+    /**
+      * Returns the size of the window.
+      * @template Size - The type of the size object.
+      * @param [options] - Optional configuration options.
+      * @param [options.debounce] - The delay in milliseconds for debouncing the resize event. Default is `RESIZE_DEBOUNCE`.
+      * @param [options.compute] - A function that computes the size object from the window size. Default is `(size) => size as Size`.
+      * @param [options.onResize] - A callback function to be called when the window size changes.
+      * @returns The size of the window.
+      */
     export const useWindowSize: <Size extends ISize = ISize>({ debounce: delay, compute, onResize, }?: Partial<IParams<Size>>) => Size;
     export default useWindowSize;
 }
 
 declare module 'react-declarative/hooks/useSubject' {
     import Subject, { TSubject } from "react-declarative/utils/rx/Subject";
+    /**
+      * Creates and returns a subject that can be subscribed to.
+      *
+      * @template Data - The data type of the subject.
+      * @param target - An optional target subject to subscribe to.
+      * @returns - The created subject.
+      */
     export const useSubject: <Data = any>(target?: TSubject<Data> | null | undefined) => Subject<Data>;
     export default useSubject;
 }
 
 declare module 'react-declarative/hooks/useChange' {
+    /**
+      * Hook for managing the execution of an effect based on changes in dependencies.
+      *
+      * @param effect - The effect to be executed.
+      * @param [deps=[]] - The dependencies to watch for changes.
+      * @param [stopWatchByDefault=false] - Whether to initially stop watching for changes.
+      * @returns - An object containing utility functions for managing the watcher.
+      */
     export const useChange: (effect: React.EffectCallback, deps?: import("react").DependencyList, stopWatchByDefault?: boolean) => {
         resetWatcher: () => void;
         beginWatch: () => void;
@@ -2625,6 +3038,16 @@ declare module 'react-declarative/hooks/useModel' {
         toObject: () => T;
         toModel: () => Model<T>;
     }
+    /**
+      * Custom hook that creates and manages a model object for a given value.
+      *
+      * @template T - The type of the initial value and model data.
+      * @param params - The parameters for the useModel hook.
+      * @param params.initialValue - The initial value for the model.
+      * @param [params.onChange=() => null] - The function to be called whenever the model value changes.
+      * @param [params.debounce=CHANGE_DEBOUNCE] - The debounce value for handling model value changes.
+      * @returns - The model adapter object.
+      */
     export const useModel: <T extends {} = any>({ initialValue, onChange, debounce }: IParams<T>) => ModelAdapter<T>;
     export default useModel;
 }
@@ -2646,6 +3069,16 @@ declare module 'react-declarative/hooks/useEntity' {
         toObject: () => T;
         toEntity: () => Entity<T>;
     }
+    /**
+      * Creates a hook that manages an entity state.
+      *
+      * @template T - The type of the entity.
+      * @param params - The parameters to configure the hook.
+      * @param params.initialValue - The initial value of the entity.
+      * @param [params.onChange=() => null] - The callback function to execute when the entity changes.
+      * @param [params.debounce=CHANGE_DEBOUNCE] - The debounce delay in milliseconds.
+      * @returns - The entity adapter object.
+      */
     export const useEntity: <T extends IEntity = any>({ initialValue, onChange, debounce, }: IParams<T>) => EntityAdapter<T>;
     export default useEntity;
 }
@@ -2653,6 +3086,21 @@ declare module 'react-declarative/hooks/useEntity' {
 declare module 'react-declarative/hooks/useListEditor' {
     import React from "react";
     type RowId = number;
+    /**
+      * Creates a list editor that allows adding, updating, and removing items.
+      *
+      * @template Data - The type of data for each item in the list.
+      * @param renderItem - The function that renders each item in the list.
+      * @param options - The options for the list editor.
+      * @param [options.initialValue=[]] - The initial list of items.
+      * @param [options.onChange] - The callback function called when the list of items changes.
+      * @returns An object with the following properties and methods:
+      *   - onAddItem: a function that adds a new item to the list.
+      *   - onUpdateItem: a function that updates an item in the list.
+      *   - onRemoveItem: a function that removes an item from the list.
+      *   - items: an array of the current items in the list.
+      *   - render: a function that renders the list of items.
+      */
     export const useListEditor: <Data extends unknown = undefined>(renderItem: (id: RowId, item: Data) => React.ReactElement, { initialValue, onChange, }: {
         initialValue?: Data[] | undefined;
         onChange?: ((items: Data[]) => void) | undefined;
@@ -2682,6 +3130,31 @@ declare module 'react-declarative/hooks/useMediaStreamBuilder' {
         withInitialVideo?: boolean;
         withInitialAudio?: boolean;
     }
+    /**
+      * Creates a media stream builder that provides functionality to capture audio, video, and screen using the WebRTC API.
+      * @param [params] - The parameters for the media stream builder.
+      * @param [params.fallback] - The fallback function to be called when an error occurs during capture. It receives an Error object as its argument.
+      * @param [params.onLoadStart] - The callback function to be called when the capture starts.
+      * @param [params.onLoadEnd] - The callback function to be called when the capture ends.
+      * @param [params.onChange] - The callback function to be called when the media stream changes. It receives the media stream and an object with the current capture IDs as
+      * arguments.
+      * @param [params.throwError=false] - Determines whether to throw an error when an error occurs during capture instead of using the fallback function.
+      * @param [params.withInitialVideo=false] - Determines whether to capture video when the media stream builder is initialized.
+      * @param [params.withInitialAudio=false] - Determines whether to capture audio when the media stream builder is initialized.
+      * @param [params.compressFrame=COMPRESS_FRAME] - The factor to compress the video frame by. (COMPRESS_FRAME is a constant value)
+      * @param [params.maxFps=MAX_FPS] - The maximum frame rate of the video capture. (MAX_FPS is a constant value)
+      * @returns The media stream builder.
+      * @property mediaStream - The media stream that contains the captured audio and video tracks.
+      * @property hasAudioCapture - Determines whether audio capture is currently active.
+      * @property hasCameraCapture - Determines whether camera capture is currently active.
+      * @property hasScreenCapture - Determines whether screen capture is currently active.
+      * @property requestScreenCapture - Function to request screen capture.
+      * @property requestCameraCapture - Function to request camera capture.
+      * @property requestAudioCapture - Function to request audio capture.
+      * @property stopScreenCapture - Function to stop screen capture.
+      * @property stopCameraCapture - Function to stop camera capture.
+      * @property stopAudioCapture - Function to stop audio capture.
+      */
     export const useMediaStreamBuilder: ({ fallback, onLoadStart, onLoadEnd, onChange, throwError, withInitialVideo, withInitialAudio, compressFrame, maxFps, }?: IParams) => {
         mediaStream: MediaStream;
         hasAudioCapture: boolean;
@@ -2738,6 +3211,15 @@ declare module 'react-declarative/hooks/useCollection' {
         toArray: () => T[];
         toCollection: () => Collection<T>;
     }
+    /**
+      * A custom hook that provides a collection management functionality.
+      *
+      * @template T - The type of entities in the collection.
+      * @param [initialValue=[]] - The initial value of the collection.
+      * @param [onChange=() => null] - A callback function to execute when the collection changes.
+      * @param [debounce=CHANGE_DEBOUNCE] - The debounce duration in milliseconds for the collection changes.
+      * @returns - A memoized instance of the CollectionAdapter class.
+      */
     export const useCollection: <T extends IEntity = any>({ initialValue, onChange, debounce, }?: IParams<T>) => CollectionAdapter<T>;
     export default useCollection;
 }
@@ -2751,6 +3233,23 @@ declare module 'react-declarative/hooks/useRequestSnackbar' {
         delay?: number;
         onClose?: (isOk: boolean) => void;
     }
+    /**
+      * Represents a custom hook to display a snackbar with request feedback.
+      *
+      * @param options - The options for the snackbar.
+      * @param options.message - The message to display in the snackbar. Default: "Client update successful".
+      * @param options.noSnackOnOk - Whether to not display a snackbar when the request is successful. Default: false.
+      * @param options.loading - Whether the request is still loading.
+      * @param options.error - The error message, if any, to display in the snackbar.
+      * @param options.delay - The duration for which the snackbar should be displayed. Default: AUTO_HIDE_DURATION.
+      * @param options.onClose - The callback function to execute when the snackbar is closed. Default: () => undefined.
+      *
+      * @returns - The snackbar hook object.
+      * @returns beginWatch - The function to start watching for changes in the loading and error states.
+      * @returns resetWatcher - The function to reset the watch state.
+      * @returns stopWatch - The function to stop watching for changes.
+      * @returns render - The function to render the snackbar element.
+      */
     export const useRequestSnackbar: ({ message, noSnackOnOk, loading, error, delay, onClose, }: IParams) => {
         beginWatch: () => void;
         resetWatcher: () => void;
@@ -2811,6 +3310,68 @@ declare module 'react-declarative/hooks/useList' {
         minWidth?: number;
         title?: string;
     }
+    /**
+      * Creates a ListPicker modal with default or custom configurations and returns a promise that resolves with the selected rows.
+      *
+      * @template RowData - The type of the row data.
+      *
+      * @param options - The options object.
+      * @param options.handler - The handler function to be called when a row is selected.
+      * @param options.columns - The columns to be displayed in the ListPicker.
+      * @param options.rowActions - The actions to be displayed for each row in the ListPicker.
+      * @param options.payload - The payload to be passed to the ListPicker component.
+      * @param options.features - The features to be enabled in the ListPicker.
+      * @param [options.selectionMode=SelectionMode.Single] - The selection mode for the ListPicker.
+      * @param [options.title="Pick item"] - The title of the ListPicker modal.
+      * @param [options.minWidth=425] - The minimum width of the ListPicker modal.
+      * @param [options.minHeight=375] - The minimum height of the ListPicker modal.
+      * @param [options.selectedRows] - The initially selected rows in the ListPicker.
+      *
+      * @returns - A function that creates and opens the ListPicker modal.
+      *
+      * @example
+      * const listPicker = useList({
+      *   handler: handleSelection,
+      *   columns: [
+      *     { label: 'Name', field: 'name' },
+      *     { label: 'Age', field: 'age' }
+      *   ],
+      *   rowActions: [
+      *     { label: 'Edit', action: editRow },
+      *     { label: 'Delete', action: deleteRow }
+      *   ],
+      *   payload: { id: 123 },
+      *   features: ['sorting', 'filtering'],
+      *   selectionMode: SelectionMode.Multiple,
+      *   title: 'Select items',
+      *   minWidth: 500,
+      *   minHeight: 400,
+      *   selectedRows: [1, 2, 3]
+      * });
+      *
+      * listPicker({
+      *   title: 'Custom title',
+      *   minHeight: 300
+      * }).then((selectedRows) => {
+      *   // Handle selected rows
+      * });
+      *
+      * @example
+      * const listPicker = useList({
+      *   handler: handleSelection,
+      *   columns: [],
+      *   rowActions: [],
+      *   payload: null,
+      *   features: [],
+      *   selectionMode: SelectionMode.Single,
+      *   title: 'Pick an item',
+      *   minWidth: 425,
+      *   minHeight: 375,
+      *   selectedRows: null
+      * });
+      *
+      * const selectedRows = await listPicker().toPromise();
+      */
     export const useList: <RowData extends IRowData = any>({ handler, columns, rowActions, payload, features, selectionMode, title: titleDefault, minWidth: minWidthDefault, minHeight: minHeightDefault, selectedRows: selectedRowsDefault, }: IParams<RowData>) => ({ title, minWidth, minHeight, selectedRows, }?: Partial<IParams<RowData>>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<RowData[] | null>;
@@ -2823,6 +3384,9 @@ declare module 'react-declarative/hooks/useFile' {
         accept?: string;
         onSelect?: (...files: File[]) => void;
     }
+    /**
+      * Represents and provides functionality for a file input element.
+      */
     export const useFile: ({ accept, onSelect, }: IParams) => {
         render: () => JSX.Element;
         open: () => void;
@@ -2837,6 +3401,16 @@ declare module 'react-declarative/hooks/useConfirm' {
         msg?: string;
         canCancel?: boolean;
     }
+    /**
+      * A hook that provides a confirm dialog functionality.
+      *
+      * @param params - The parameter object.
+      * @param params.title - The default title of the confirm dialog.
+      * @param params.msg - The default message of the confirm dialog.
+      * @param params.canCancel - The default cancelability flag of the confirm dialog.
+      *
+      * @returns - A function that can be invoked to show the confirm dialog.
+      */
     export const useConfirm: ({ title: defaultTitle, msg: defaultMsg, canCancel: defaultCanCancel, }?: IParams) => ({ canCancel, title, msg }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<boolean>;
@@ -2853,6 +3427,17 @@ declare module 'react-declarative/hooks/usePrompt' {
         placeholder?: string;
         canCancel?: boolean;
     }
+    /**
+      * A function that creates and displays a prompt modal.
+      *
+      * @param usePrompt - The configuration options for the prompt.
+      * @param usePrompt.title - The title of the prompt modal.
+      * @param usePrompt.value - The default value of the prompt input.
+      * @param usePrompt.placeholder - The placeholder text for the prompt input.
+      * @param usePrompt.canCancel - Whether the prompt can be cancelled.
+      * @param usePrompt.large - Whether to display a large prompt modal.
+      * @returns A function that creates and displays the prompt modal when called.
+      */
     export const usePrompt: ({ title: defaultTitle, value: defaultValue, placeholder: defaultPlaceholder, canCancel: defaultCanCancel, large, }?: IParams) => ({ canCancel, title, placeholder, value }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<string | null>;
@@ -2867,6 +3452,25 @@ declare module 'react-declarative/hooks/useAlert' {
         description?: string;
         large?: boolean;
     }
+    /**
+      * Function for displaying an alert modal.
+      * @param params - The alert parameters.
+      * @param params.title - The title of the alert. Default is "Alert".
+      * @param params.description - The description of the alert. Default is an empty string.
+      * @param params.large - Whether to display a large alert. Default is false.
+      * @returns - A function that, when called, displays the alert and returns a Promise.
+      *                      The Promise resolves when the alert is closed.
+      *
+      * @example
+      * const alert = useAlert();
+      * alert({ title: "My Alert", description: "This is my alert message" })
+      *   .then(() => {
+      *     console.log("Alert closed");
+      *   })
+      *   .catch((error) => {
+      *     console.error("Error occurred: ", error);
+      *   });
+      */
     export const useAlert: ({ title: defaultTitle, description: defaultDescription, large, }?: IParams) => ({ description, title }?: Partial<IParams>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<void>;
@@ -2877,6 +3481,20 @@ declare module 'react-declarative/hooks/useAlert' {
 declare module 'react-declarative/hooks/useDate' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
+    /**
+      * useDate
+      *
+      * A custom hook that returns a function for using a modal with a DatePicker component.
+      * The returned function can be used to display the modal and retrieve the selected date.
+      *
+      * @returns A function that can be called to display the modal and retrieve the selected date.
+      *
+      * @example
+      * const dateGetter = useDate();
+      * dateGetter().then((selectedDate) => {
+      *   console.log(selectedDate);
+      * });
+      */
     export const useDate: () => () => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<dayjs.Dayjs | null>;
@@ -2887,6 +3505,12 @@ declare module 'react-declarative/hooks/useDate' {
 declare module 'react-declarative/hooks/useTime' {
     import dayjs from 'dayjs';
     type Fn = (d: dayjs.Dayjs | null) => void;
+    /**
+      * useTime is a custom hook/function that provides a time picker modal functionality.
+      * It returns an object with methods to interact with the time picker.
+      *
+      * @returns - A function that returns an object with methods.
+      */
     export const useTime: () => () => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<dayjs.Dayjs | null>;
@@ -2910,6 +3534,24 @@ declare module 'react-declarative/hooks/useOne' {
         features?: IOnePublicProps<Data, Payload, Field>["features"];
         waitForChangesDelay?: number;
     }
+    /**
+      * Function useOne
+      *
+      * @template Data - The type of data.
+      * @template Payload - The type of the payload.
+      * @template Field - The type of the field.
+      *
+      * @param params - The parameters object.
+      * @param params.fields - The fields array.
+      * @param params.large - Indicates if the picker is large.
+      * @param params.title - The default title.
+      * @param params.handler - The default handler function.
+      * @param params.payload - The default payload.
+      * @param params.waitForChangesDelay - The delay for waiting changes.
+      * @param params.features - The additional features.
+      *
+      * @returns - The function to open the picker.
+      */
     export const useOne: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ fields, large, title: defaultTitle, handler: defaultHandler, payload: defaultPayload, waitForChangesDelay, features, }: IParams<Data, Payload, Field>) => ({ handler, payload, title, }?: Partial<IParams<Data, Payload, Field>>) => {
         then: (onData: Fn) => void;
         toPromise: () => Promise<Data | null>;
@@ -2923,12 +3565,28 @@ declare module 'react-declarative/hooks/useOne' {
 
 declare module 'react-declarative/hooks/useSearchParams' {
     export type Value = string | number | boolean | null | undefined;
+    /**
+      * Returns an object representing the parsed search parameters from the current URL.
+      * The object will have the specified default values, which can be a partial object or a function that returns a partial object.
+      * The returned object will have the same properties as the default values, with values parsed from the URL search parameters.
+      *
+      * @template T - The type of the default values object.
+      * @param [defaultValues={}] - The default values object or function. Defaults to an empty object.
+      * @returns - The parsed search parameters object.
+      */
     export const useSearchParams: <T = Record<string, Value>>(defaultValues?: Partial<T> | (() => Partial<T>)) => T;
     export default useSearchParams;
 }
 
 declare module 'react-declarative/hooks/useSearchState' {
     import { Value } from 'react-declarative/hooks/useSearchParams';
+    /**
+      * Custom hook useSearchState for managing search state in the URL.
+      *
+      * @template T - Type of the search state object.
+      * @param defaultValues - Default values for the search state object.
+      * @returns - An array containing the search state object and a function to update the search state.
+      */
     export const useSearchState: <T extends Record<string, Value>>(defaultValues?: Partial<T> | (() => Partial<T>)) => readonly [T, import("react").Dispatch<import("react").SetStateAction<T>>];
     export default useSearchState;
 }
@@ -3040,11 +3698,25 @@ declare module 'react-declarative/components/One/components/common/VirtualListBo
 declare module 'react-declarative/utils/list2grid' {
     import { IGridColumn } from "react-declarative/components/Grid";
     import IColumn from "react-declarative/model/IColumn";
+    /**
+      * Converts a list of columns and a payload into a grid configuration.
+      *
+      * @param columns - The list of columns.
+      * @param payload - The payload data used for formatting.
+      * @returns - The grid configuration.
+      */
     export const list2grid: (columns: IColumn[], payload: Record<string, any>) => IGridColumn[];
     export default list2grid;
 }
 
 declare module 'react-declarative/utils/openBlank' {
+    /**
+      * Opens the given URL in a new browser tab.
+      *
+      * @param url - The URL to open in a new tab.
+      *
+      * @returns
+      */
     export const openBlank: {
         (url: string): void;
         override(ref: (url: string) => void): void;
@@ -3054,11 +3726,24 @@ declare module 'react-declarative/utils/openBlank' {
 
 declare module 'react-declarative/utils/createDict' {
     type Dict = Record<string, any>;
+    /**
+      * Creates a dictionary object from the given record object.
+      *
+      * @template T - The type of the dictionary object.
+      * @param record - The record object to create the dictionary from.
+      * @returns - The frozen dictionary object.
+      */
     export const createDict: <T extends Dict = Dict>(record: T) => any;
     export default createDict;
 }
 
 declare module 'react-declarative/utils/copyToClipboard' {
+    /**
+      * Copies the given text to the clipboard.
+      *
+      * @param text - The text to be copied.
+      * @returns - A promise that resolves to a boolean indicating whether the copy operation was successful.
+      */
     export const copyToClipboard: {
         (text: string): Promise<boolean>;
         override(ref: (text: string) => (void | Promise<void>)): void;
@@ -3067,6 +3752,15 @@ declare module 'react-declarative/utils/copyToClipboard' {
 }
 
 declare module 'react-declarative/utils/downloadBlank' {
+    /**
+      * Downloads a file from the given URL with the specified name.
+      * If overrideRef is defined, it will be invoked before initiating the download.
+      * The file will be downloaded in a new browser tab or window.
+      *
+      * @param url - The URL of the file to download.
+      * @param name - The name to be used for the downloaded file.
+      * @returns
+      */
     export const downloadBlank: {
         (url: string, name: string): void;
         override(ref: (url: string, name: string) => void): void;
@@ -3075,16 +3769,36 @@ declare module 'react-declarative/utils/downloadBlank' {
 }
 
 declare module 'react-declarative/utils/removeSubstring' {
+    /**
+      * Removes specified substrings from a given text.
+      *
+      * @param text - The input text to remove substrings from.
+      * @param remove - One or more substrings to remove from the text.
+      * @return - The modified text with the specified substrings removed.
+      */
     export const removeSubstring: (text: string, ...remove: string[]) => string;
     export default removeSubstring;
 }
 
 declare module 'react-declarative/utils/chooseFile' {
+    /**
+      * Opens a file chooser dialog and allows the user to select a file.
+      *
+      * @param [accept] - Optional file type filter. Can be a comma-separated list of MIME types or file extensions.
+      * @returns A promise that resolves with the selected file or null if the selection was canceled.
+      */
     export const chooseFile: (accept?: string | undefined) => Promise<File | null>;
     export default chooseFile;
 }
 
 declare module 'react-declarative/utils/loadScript' {
+    /**
+      * Loads an external script dynamically.
+      *
+      * @param src - The source URL of the script to load.
+      * @param [async=false] - Whether to load the script asynchronously.
+      * @returns - A promise that resolves when the script is loaded successfully, or rejects when an error occurs.
+      */
     export const loadScript: (src: string, async?: boolean) => Promise<void>;
     export default loadScript;
 }
@@ -3095,6 +3809,11 @@ declare module 'react-declarative/utils/reloadPage' {
             reload(forceReload: boolean): void;
         }
     }
+    /**
+      * Reloads the current page.
+      *
+      * @returns A promise that resolves when the page has reloaded.
+      */
     export const reloadPage: {
         (): Promise<void>;
         override(ref: () => void): void;
@@ -3103,22 +3822,51 @@ declare module 'react-declarative/utils/reloadPage' {
 }
 
 declare module 'react-declarative/utils/compareFulltext' {
+    /**
+      * Compares the full text in a given data object with a search term.
+      *
+      * @template T - The generic type for the data object.
+      * @param data - The data object to compare.
+      * @param search - The search term to compare against the data object.
+      * @param keys - The keys in the data object to compare against.
+      * @returns - Returns true if the full text in the data object contains the search term, false otherwise.
+      */
     export const compareFulltext: <T extends Record<string, any>>(data: T, search: string, ...keys: string[]) => boolean;
     export default compareFulltext;
 }
 
 declare module 'react-declarative/utils/promiseState' {
+    /**
+      * Determines the state of a given promise.
+      *
+      * @param promise - The promise to check the state of.
+      *
+      * @returns - The state of the promise, which can be either 'sync' or 'async'.
+      */
     export const promiseState: <T = any>(promise: T | Promise<T>) => "async" | "sync";
     export const promiseValue: <T = any>(promise: T | Promise<T>) => T | null;
     export default promiseState;
 }
 
 declare module 'react-declarative/utils/chooseMultipleFiles' {
+    /**
+      * Creates a file chooser dialog that allows the user to select multiple files.
+      *
+      * @param accept - Optional MIME type filter for accepted file types.
+      * @returns - A promise that resolves to an array of selected files
+      * or null if the dialog was canceled.
+      */
     export const chooseMultipleFiles: (accept?: string | undefined) => Promise<File[] | null>;
     export default chooseMultipleFiles;
 }
 
 declare module 'react-declarative/utils/errorData' {
+    /**
+      * Extracts the enumerable properties from an Error object and returns them in a new object.
+      *
+      * @param error - The Error object.
+      * @returns - An object containing the enumerable properties of the Error object.
+      */
     export const errorData: (error: Error) => {};
     export default errorData;
 }
@@ -3131,6 +3879,19 @@ declare module 'react-declarative/utils/getMediaContext' {
         lg: number;
         xl: number;
     }
+    /**
+      * Calculates the media context based on provided breakpoints.
+      * @param breakpoints - The breakpoints to use for the media context calculation.
+      * @param [breakpoints.xs=0] - The extra small breakpoint.
+      * @param [breakpoints.sm=600] - The small breakpoint.
+      * @param [breakpoints.lg=1280] - The large breakpoint.
+      * @returns - The media context object.
+      * @property isPhone - Indicates if the media context is for a phone.
+      * @property isTablet - Indicates if the media context is for a tablet.
+      * @property isDesktop - Indicates if the media context is for a desktop.
+      * @property isWide - Indicates if the media context is for a wide screen.
+      * @property isMobile - Indicates if the media context is for a mobile device.
+      */
     export const getMediaContext: ({ xs, sm, lg, }?: Partial<IBreakpoints>) => {
         isPhone: boolean;
         isTablet: boolean;
@@ -3145,42 +3906,95 @@ declare module 'react-declarative/utils/getRouteParams' {
     export interface ISwitchItem {
         path: string;
     }
+    /**
+      * Retrieves the route parameters from a given pathname based on a set of routes.
+      *
+      * @template T - The type of object to return as the parameters.
+      * @param routes - The array of route objects to search through.
+      * @param pathname - The pathname to extract the parameters from.
+      * @returns - The extracted route parameters or null if no match is found.
+      */
     export const getRouteParams: <T = Record<string, any>>(routes: ISwitchItem[], pathname: string) => T | null;
     export default getRouteParams;
 }
 
 declare module 'react-declarative/utils/getRouteItem' {
     import { ISwitchItem } from 'react-declarative/utils/getRouteParams';
+    /**
+      * Finds a route item that matches the given pathname from the provided routes array.
+      *
+      * @param routes - An array of switch items.
+      * @param pathname - The pathname to match against the route items.
+      * @return - The matched route item, or null if no match is found.
+      */
     export const getRouteItem: <T extends ISwitchItem = ISwitchItem>(routes: T[], pathname: string) => T | null;
     export default getRouteItem;
 }
 
 declare module 'react-declarative/utils/getElementFromXPath' {
+    /**
+      * Retrieves the first element matching the given XPath expression.
+      *
+      * @param xpath - The XPath expression to match the element(s).
+      * @returns - The first element that matches the XPath expression, or null if no match is found.
+      */
     export const getElementFromXPath: (xpath: string) => Node | null;
     export default getElementFromXPath;
 }
 
 declare module 'react-declarative/utils/getXPathFromElement' {
+    /**
+      * Get the XPath of a given HTML element.
+      *
+      * @param element - The HTML element to get the XPath from.
+      * @returns - The XPath of the element, or null if it couldn't be determined.
+      */
     export const getXPathFromElement: (element: HTMLElement) => string | null;
     export default getXPathFromElement;
 }
 
 declare module 'react-declarative/utils/arrays' {
+    /**
+      * Converts nested object properties to arrays.
+      *
+      * @param root - The root object to convert.
+      * @param [forceArray=false] - Optional parameter to force conversion to arrays even if no numeric keys are present.
+      * @returns - The converted object with nested properties converted to arrays.
+      */
     export const arrays: (root: any, forceArray?: boolean) => any;
     export default arrays;
 }
 
 declare module 'react-declarative/utils/objects' {
+    /**
+      * Recursively processes an object and its nested properties.
+      *
+      * @param root - The root object to be processed.
+      * @returns - The processed object.
+      */
     export const objects: (root: any) => any;
     export default objects;
 }
 
 declare module 'react-declarative/utils/compareArray' {
+    /**
+      * Compares two arrays and determines if they are equal.
+      *
+      * @param a_arr - The first array to compare.
+      * @param b_arr - The second array to compare.
+      * @returns - Returns `true` if the arrays are equal, otherwise `false`.
+      */
     export const compareArray: (a_arr: any, b_arr: any) => boolean;
     export default compareArray;
 }
 
 declare module 'react-declarative/utils/isObject' {
+    /**
+      * Check if a given value is an object.
+      *
+      * @param obj - The value to check.
+      * @returns - Returns `true` if the value is an object, else `false`.
+      */
     export const isObject: (obj: any) => boolean;
     export default isObject;
 }
@@ -3192,12 +4006,25 @@ declare module 'react-declarative/utils/fetchApi' {
         readonly response: Response | undefined;
         constructor(originalError: any, request: RequestInfo, response: Response | undefined);
     }
+    /**
+      * Makes an asynchronous HTTP request using the Fetch API.
+      *
+      * @param input - The resource URL or an instance of the URL class.
+      * @param [init] - The request options.
+      * @returns - The response data as a Promise.
+      * @throws {FetchError} - If an error occurs during the request.
+      */
     export const fetchApi: <T = any>(input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<T>;
     export default fetchApi;
 }
 
 declare module 'react-declarative/utils/createValueProvider' {
     import React from 'react';
+    /**
+      * Creates a value provider with a default value.
+      * @param defaultValue - The default value for the provider.
+      * @returns A tuple containing the provider component and a hook to access the value.
+      */
     export const createValueProvider: <P extends unknown = object>(defaultValue?: P | undefined) => readonly [({ children, payload, }: {
         children: React.ReactNode;
         payload: P;
@@ -3207,6 +4034,12 @@ declare module 'react-declarative/utils/createValueProvider' {
 
 declare module 'react-declarative/utils/createStateProvider' {
     import * as React from 'react';
+    /**
+      * Creates a state provider with a given state type.
+      *
+      * @template S - The type of the state
+      * @returns - A tuple containing the Provider component and the useStateProvider function.
+      */
     export const createStateProvider: <S extends unknown>() => readonly [({ children, initialState, onChange, }: {
         onChange?: ((state: S) => void) | undefined;
         children: React.ReactNode;
@@ -3217,6 +4050,12 @@ declare module 'react-declarative/utils/createStateProvider' {
 
 declare module 'react-declarative/utils/createSsStateProvider' {
     import * as React from 'react';
+    /**
+      * Creates a state provider for React components with support for persistent state storage.
+      * @param storageKey - The key used to store the state in the storage manager.
+      * @returns - An array containing the WrappedStateProvider and useStateProvider components.
+      * @template S - The type of the state object.
+      */
     export const createSsStateProvider: <S extends unknown>(storageKey: string) => readonly [({ children, initialState, onChange, }: {
         onChange?: ((state: S) => void) | undefined;
         children: React.ReactNode;
@@ -3227,6 +4066,14 @@ declare module 'react-declarative/utils/createSsStateProvider' {
 
 declare module 'react-declarative/utils/createLsStateProvider' {
     import * as React from 'react';
+    /**
+      * Creates a state provider that persists state in local storage using a given storage key.
+      *
+      * @template S The type of the state.
+      * @param storageKey The key used to store the state value in local storage.
+      * @returns A tuple containing the wrapped state provider
+      * component and the state hook.
+      */
     export const createLsStateProvider: <S extends unknown>(storageKey: string) => readonly [({ children, initialState, onChange, }: {
         onChange?: ((state: S) => void) | undefined;
         children: React.ReactNode;
@@ -3244,6 +4091,18 @@ declare module 'react-declarative/utils/normalizeText' {
         inputFormatterTemplate: IField["inputFormatterTemplate"];
         inputFormatter: IField["inputFormatter"];
     }
+    /**
+      * Normalize text by applying inputFormatter function to each character.
+      *
+      * @param text - The input text to normalize.
+      * @param config - The configuration object.
+      * @param [config.inputFormatterSymbol='0'] - The symbol used in input formatter.
+      * @param [config.inputFormatterAllowed] - The list of allowed characters in input formatter.
+      * @param [config.inputFormatterReplace] - The mapping of characters to be replaced in input formatter.
+      * @param [config.inputFormatterTemplate=''] - The template used in input formatter.
+      * @param [config.inputFormatter] - The input formatter function to apply on each character.
+      * @returns - The normalized text.
+      */
     export const normalizeText: (text: string, { inputFormatterSymbol: symbol, inputFormatterAllowed: allowed, inputFormatterReplace: replace, inputFormatterTemplate: template, inputFormatter, }?: Partial<IConfig>) => string;
     export default normalizeText;
 }
@@ -3254,11 +4113,29 @@ declare module 'react-declarative/utils/formatText' {
         allowed?: RegExp | ((char: string, idx: number) => boolean);
         replace?: (char: string) => string | null;
     }
+    /**
+      * Formats a raw string using a template and optional parameters.
+      *
+      * @param raw - The raw string to be formatted.
+      * @param template - The template string used for formatting.
+      * @param [params] - Optional parameters for customization.
+      * @param [params.symbol='0'] - The symbol used in the template to indicate characters to be replaced.
+      * @param [params.allowed] - A function or regular expression used to filter characters in the raw string.
+      * @param [params.replace] - A function used to replace characters in the raw string.
+      * @returns The formatted string.
+      */
     export const formatText: (raw: string, template: string, { symbol, allowed, replace, }?: IParams) => string;
     export default formatText;
 }
 
 declare module 'react-declarative/utils/roundTicks' {
+    /**
+      * Rounds a number and formats it as a string with a fixed number of decimal places.
+      *
+      * @param price - The number to be formatted.
+      * @param [tickSize=8] - The number of decimal places to round to.
+      * @return - The formatted number as a string.
+      */
     export const roundTicks: (price: number, tickSize?: number) => string;
     export default roundTicks;
 }
@@ -3269,6 +4146,16 @@ declare module 'react-declarative/utils/wordForm' {
         two?: string;
         many: string;
     }
+    /**
+      * Returns a word form based on a given number value.
+      *
+      * @param value - The number value to determine the word form for.
+      * @param options - The options object.
+      * @param options.one - The word form for when the value is 1.
+      * @param options.many - The word form for when the value is 0 or ends with 0, or when the value is between 11 and 20 (inclusive).
+      * @param [options.two=options.many] - The word form for when the value ends with 2 (e.g., 12, 22, 32).
+      * @return The word form with the given number value.
+      */
     export const wordForm: (value: number, { one, many, two, }: IWordForm) => string;
     export default wordForm;
 }
@@ -3277,6 +4164,13 @@ declare module 'react-declarative/utils/hof/singleshot' {
     export interface IClearable {
         clear: () => void;
     }
+    /**
+      * Creates a function that is only executed once, and then memoizes and returns the result.
+      *
+      * @template T - The type of the function to be executed once.
+      * @param run - The function to be executed once.
+      * @returns - The executed function with additional "clear" method to reset the execution state.
+      */
     export const singleshot: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default singleshot;
 }
@@ -3285,6 +4179,12 @@ declare module 'react-declarative/utils/hof/singletick' {
     export interface IClearable {
         clear: () => void;
     }
+    /**
+      * Wraps a function with a single event loop ticking behavior.
+      *
+      * @param run - The function to be wrapped.
+      * @returns A wrapped function that executes with a single ticking behavior.
+      */
     export const singletick: {
         <T extends (...args: any[]) => any>(run: T): T & IClearable;
         delay: number;
@@ -3297,6 +4197,15 @@ declare module 'react-declarative/utils/hof/afterinit' {
         (...args: P): Promise<T>;
         clear(): void;
     }
+    /**
+      * Creates a wrapped function that only executes the provided function after the initial call has completed.
+      * The wrapped function can be cleared to allow subsequent calls to execute the provided function again.
+      *
+      * @template T The type of the promise resolved by the provided function.
+      * @template P The type of the arguments passed to the provided function.
+      * @param run The function to be wrapped.
+      * @returns The wrapped function.
+      */
     export const afterinit: <T extends unknown = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default afterinit;
 }
@@ -3307,6 +4216,13 @@ declare module 'react-declarative/utils/hof/retry' {
         (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
         cancel(): void;
     }
+    /**
+      * Retries a function multiple times until it succeeds or reaches the maximum number of retries.
+      *
+      * @param run - The function to run.
+      * @param count - The maximum number of retries (default is 5).
+      * @returns - The wrapped function that can be canceled.
+      */
     export const retry: <T extends unknown = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>, count?: number) => IWrappedFn<T, P>;
     export default retry;
 }
@@ -3320,6 +4236,12 @@ declare module 'react-declarative/utils/hof/singlerun' {
         get status(): "pending" | "fulfilled" | "rejected";
         constructor(target: Promise<any>);
     }
+    /**
+      * Represents a higher-order function that runs a task only once and provides a way to clear the result.
+      * @template T - The function type.
+      * @param run - The function to be executed.
+      * @returns - The wrapped function with additional clear functionality.
+      */
     export const singlerun: <T extends (...args: any[]) => any>(run: T) => T & IClearable;
     export default singlerun;
 }
@@ -3330,6 +4252,14 @@ declare module 'react-declarative/utils/hof/cancelable' {
         cancel(): void;
     }
     export const CANCELED_SYMBOL: unique symbol;
+    /**
+      * Wraps a promise function and provides cancellation functionality.
+      *
+      * @param promise - The promise function to wrap.
+      * @returns The wrapped function with cancellation capability.
+      * @template T - The type of the promise's resolved value.
+      * @template P - The type of the promise function's arguments.
+      */
     export const cancelable: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default cancelable;
 }
@@ -3339,6 +4269,14 @@ declare module 'react-declarative/utils/hof/debounce' {
         clear: () => void;
         flush: () => void;
     }
+    /**
+      * Creates a debounced version of a function.
+      *
+      * @template T - The type of the original function.
+      * @param run - The function to debounce.
+      * @param [delay=1000] - The delay in milliseconds before executing the debounced function.
+      * @returns - The debounced function with additional methods for clearing and flushing.
+      */
     export const debounce: <T extends (...args: any[]) => any>(run: T, delay?: number) => T & IClearable;
     export default debounce;
 }
@@ -3350,6 +4288,14 @@ declare module 'react-declarative/utils/hof/queued' {
         clear(): void;
         cancel(): void;
     }
+    /**
+      * Creates a wrapper function for a Promise that allows for cancellation and clearing of queued Promises.
+      *
+      * @template T - The resolved value of the Promise.
+      * @template P - The types of the arguments passed to the promise function.
+      * @param promise - The promise function to be wrapped.
+      * @returns - The wrapped function.
+      */
     export const queued: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export { CANCELED_SYMBOL };
     export default queued;
@@ -3361,6 +4307,12 @@ declare module 'react-declarative/utils/hof/lock' {
         beginLock(): void;
         endLock(): Promise<void>;
     }
+    /**
+      * Wraps a promise function with lock functionality.
+      *
+      * @param promise - The promise function to be wrapped.
+      * @returns The wrapped function with lock functionality.
+      */
     export const lock: <T extends unknown = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>) => IWrappedFn<T, P>;
     export default lock;
 }
@@ -3369,6 +4321,14 @@ declare module 'react-declarative/utils/hof/cached' {
     interface IClearable {
         clear: () => void;
     }
+    /**
+      * Caches the result of a function based on the change of arguments.
+      * @template T - The type of the function to be cached.
+      * @template A - The type of the arguments of the function.
+      * @param changed - Function to determine if the arguments have changed.
+      * @param run - The function to be cached.
+      * @returns - The cached function with additional clear method.
+      */
     export const cached: <T extends (...args: A) => any, A extends any[]>(changed: (prevArgs: A, currentArgs: A) => boolean, run: T) => T & IClearable;
     export default cached;
 }
@@ -3381,6 +4341,16 @@ declare module 'react-declarative/utils/hof/memoize' {
         current: T;
     }
     export const GET_VALUE_MAP: unique symbol;
+    /**
+      * A memoization function that caches the result of a function based on its arguments.
+      *
+      * @template T - The function type that will be memoized
+      * @template A - The argument types of the function
+      * @template K - The key type used to store the memoized results
+      * @param key - A function that generates a unique key based on the arguments of the original function
+      * @param run - The original function to be memoized
+      * @returns - A memoized version of the original function with the ability to clear the cache
+      */
     export const memoize: <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T) => T & IClearable<K>;
     export default memoize;
 }
@@ -3390,6 +4360,21 @@ declare module 'react-declarative/utils/hof/trycatch' {
         fallback?: (error: Error) => void;
         defaultValue: null | false;
     }
+    /**
+      * A higher-order function that wraps the provided function with a try-catch block. It catches any errors that occur during the execution of the function and handles them according to
+      * the specified configuration.
+      *
+      * @template T - The type of the function being wrapped
+      * @template A - An array of arguments that the function accepts
+      * @template V - The type of the value returned by the function
+      *
+      * @param run - The function to be wrapped
+      * @param config - The configuration object
+      * @param config.fallback - The fallback function to be called with the caught error (optional)
+      * @param config.defaultValue - The default value to be returned if an error occurs (optional, default: null)
+      *
+      * @returns - The wrapped function that handles errors and returns the result or the default value
+      */
     export const trycatch: <T extends (...args: A) => any, A extends any[], V extends unknown>(run: T, { fallback, defaultValue, }?: Partial<IConfig>) => (...args: A) => ReturnType<T> | null;
     export default trycatch;
 }
@@ -3399,6 +4384,18 @@ declare module 'react-declarative/utils/hof/ttl' {
     export interface IClearable<K = string> extends IClearableInternal<K> {
         gc: () => void;
     }
+    /**
+      * Wrap a function with time-to-live (TTL) caching.
+      *
+      * @template T - The function type.
+      * @template A - The argument types of the function.
+      * @template K - The key type for caching.
+      * @param run - The function to wrap.
+      * @param options - The configuration options.
+      * @param [options.key] - The key generator function that generates a key based on function arguments.
+      * @param [options.timeout] - The TTL duration in milliseconds.
+      * @returns - The wrapped function with caching capability.
+      */
     export const ttl: <T extends (...args: A) => any, A extends any[], K = string>(run: T, { key, timeout, }?: {
         key?: ((args: A) => K) | undefined;
         timeout?: number | undefined;
@@ -3407,11 +4404,24 @@ declare module 'react-declarative/utils/hof/ttl' {
 }
 
 declare module 'react-declarative/utils/sleep' {
+    /**
+      * Delays the execution for the specified amount of time.
+      *
+      * @param [timeout=1000] - The duration to wait in milliseconds.
+      * @returns A promise that resolves once the timeout has elapsed.
+      */
     export const sleep: (timeout?: number) => Promise<void>;
     export default sleep;
 }
 
 declare module 'react-declarative/utils/deepFlat' {
+    /**
+      * A utility function to deep flatten an array of objects.
+      *
+      * @param arr - The input array to be deep flattened.
+      * @returns - The deep flattened array.
+      * @template T - The type of elements in the input array.
+      */
     export const deepFlat: <T = any>(arr?: T[]) => T[];
     export default deepFlat;
 }
@@ -3566,24 +4576,62 @@ declare module 'react-declarative/utils/rx/Source' {
 
 declare module 'react-declarative/utils/math/and' {
     type Value = number | boolean;
+    /**
+      * Performs a logical AND operation on multiple values.
+      *
+      * @template T - The type of the values
+      * @param args - The values to perform the logical AND operation on
+      * @returns - The result of the logical AND operation
+      */
     export const and: <T = Promise<Value>>(...args: T[]) => T;
     export default and;
 }
 
 declare module 'react-declarative/utils/math/or' {
     type Value = number | boolean;
+    /**
+      * Returns a value of type T representing the logical OR operation on the given arguments.
+      *
+      * @param args - The arguments to be evaluated for the logical OR operation.
+      * @returns A value of type T representing the result of the logical OR operation.
+      * @throws If any of the arguments is a rejected promise.
+      * @typeparam T - The type of the arguments and the return value.
+      */
     export const or: <T = Promise<Value>>(...args: T[]) => T;
     export default or;
 }
 
 declare module 'react-declarative/utils/math/not' {
     type Value = number | boolean;
+    /**
+      * Applies the logical negation operator to the given argument.
+      * If the argument is a Promise, it returns a new Promise that resolves to the negation of the resolved value of the argument Promise.
+      * If the argument is not a Promise, it returns the negation of the argument.
+      *
+      * @template T - The type of the argument and the return value.
+      * @param arg - The argument to apply the logical negation operator.
+      * @returns - The result of apply the logical negation operator to the argument.
+      */
     export const not: <T = Promise<Value>>(arg: T) => T;
     export default not;
 }
 
 declare module 'react-declarative/utils/math/match' {
     type Value = number | boolean;
+    /**
+      * Executes conditional branching based on the provided conditions and returns the appropriate value.
+      *
+      * @template A - Type of the condition value.
+      * @template T - Type of the run value.
+      * @template E - Type of the not value.
+      *
+      * @param params - The parameters object.
+      * @param params.condition - The condition value or a function that returns the condition value.
+      * @param params.run - The run value or a function that returns the run value.
+      * @param [params.not=false] - The not value or a function that returns the not value. Defaults to false.
+      *
+      * @returns - The result of executing the condition and returning the appropriate value.
+      */
     export const match: <A = Promise<Value>, T = Promise<Value>, E = false>({ condition, run, not }: {
         condition: A | (() => A);
         run: T | (() => T);
@@ -3593,21 +4641,50 @@ declare module 'react-declarative/utils/math/match' {
 }
 
 declare module 'react-declarative/utils/math/first' {
+    /**
+      * Returns the first element of an array.
+      *
+      * @template T - The type of array elements.
+      * @param arr - The input array.
+      * @returns - The first element of the array, or null if the array is null or empty.
+      */
     export const first: <T = any>(arr: T[] | null | undefined) => T | null;
     export default first;
 }
 
 declare module 'react-declarative/utils/math/join' {
+    /**
+      * Joins multiple arrays into a single array, removing duplicates and filtering out null values.
+      *
+      * @param arr - The arrays to join.
+      * @returns - The joined array.
+      *
+      * @template T - The type of values in the array.
+      */
     export const join: <T = string>(...arr: (T | T[] | null)[] | (T | T[] | null)[][]) => T[];
     export default join;
 }
 
 declare module 'react-declarative/utils/math/last' {
+    /**
+      * Returns the last element of an array or null if the array is empty or not an array.
+      *
+      * @param arr - The array from which to retrieve the last element.
+      * @returns - The last element of the array or null.
+      */
     export const last: <T = any>(arr: T[] | null | undefined) => T | null;
     export default last;
 }
 
 declare module 'react-declarative/utils/math/truely' {
+    /**
+      * Filters an array and removes null values, casting the resulting array to a specific generic type if specified.
+      *
+      * @param arr - The input array containing values of type T or null.
+      * @returns - The filtered array with null values removed.
+      *
+      * @template T - The generic type of the array elements.
+      */
     export const truely: <T = string>(arr: (T | null)[]) => T[];
     export default truely;
 }
@@ -3615,6 +4692,15 @@ declare module 'react-declarative/utils/math/truely' {
 declare module 'react-declarative/utils/getAvailableFields' {
     import IField from "react-declarative/model/IField";
     import IOnePublicProps from "react-declarative/model/IOnePublicProps";
+    /**
+      * Returns an array of available fields based on the provided features.
+      *
+      * @param fields - The list of fields.
+      * @param data - The data object.
+      * @param payload - The payload object.
+      * @param [_features] - The optional features.
+      * @returns - The available fields.
+      */
     export const getAvailableFields: (fields: IField[], data: Record<string, any>, payload: Record<string, any>, _features?: IOnePublicProps["features"]) => {
         visible: IField<any, any>[];
         hidden: IField<any, any>[];
@@ -3624,21 +4710,53 @@ declare module 'react-declarative/utils/getAvailableFields' {
 
 declare module 'react-declarative/utils/getInitialData' {
     import IField from "react-declarative/model/IField";
+    /**
+      * Generates initial data based on provided field definitions and payload.
+      *
+      * @template Data - The type of data object to create.
+      * @template Payload - The type of payload used for populating default values.
+      *
+      * @param fields - The array of field definitions.
+      * @param [payload={}] - The payload object used for populating default values.
+      *
+      * @returns - The generated initial data object.
+      */
     export const getInitialData: <Data extends {} = any, Payload extends unknown = any>(fields: IField<Data, Payload>[], payload?: Payload) => Data;
     export default getInitialData;
 }
 
 declare module 'react-declarative/utils/flatArray' {
+    /**
+      * A function that flattens a given array to a single level.
+      *
+      * @param arr - The array(s) to be flattened.
+      * @returns - The flattened array.
+      * @template T
+      */
     export const flatArray: <T = any>(...arr: any[]) => T[];
     export default flatArray;
 }
 
 declare module 'react-declarative/utils/removeExtraSpaces' {
+    /**
+      * Removes extra spaces from a given string.
+      *
+      * @param str - The input string to remove extra spaces from.
+      * @returns The modified string with extra spaces removed.
+      */
     export const removeExtraSpaces: (str: string) => string;
     export default removeExtraSpaces;
 }
 
 declare module 'react-declarative/utils/replaceSubstring' {
+    /**
+      * Replaces substrings in a given string with specified replacements.
+      *
+      * @param str - The original string.
+      * @param from - The substring(s) to be replaced. Can be an array or a single string.
+      * @param to - The replacement(s) for the substrings. Can be an array or a single string.
+      * @returns - The modified string with the replaced substrings.
+      */
     export const replaceSubstring: (str: string, from: string[] | string, to: string[] | string) => string;
     export default replaceSubstring;
 }
@@ -3703,6 +4821,12 @@ declare module 'react-declarative/model/TPaginator' {
 }
 
 declare module 'react-declarative/utils/getErrorMessage' {
+    /**
+      * Returns the error message from the given error object.
+      *
+      * @param error - The error object.
+      * @returns The error message.
+      */
     export const getErrorMessage: (error: any) => string;
     export default getErrorMessage;
 }
@@ -3820,17 +4944,35 @@ declare module 'react-declarative/utils/mvvm/Model' {
 }
 
 declare module 'react-declarative/utils/formatAmount' {
+    /**
+      * Formats the given value to a specific scale and separates the thousands with a separator.
+      *
+      * @param value - The value to be formatted.
+      * @param [scale=2] - The number of decimal places to round to.
+      * @param [separator=','] - The separator for thousands.
+      * @returns The formatted value.
+      */
     export const formatAmount: (value: number | string, scale?: number, separator?: string) => string;
     export default formatAmount;
 }
 
 declare module 'react-declarative/utils/createWindowHistory' {
     import { BrowserHistory, MemoryHistory } from "history";
+    /**
+      * Determines whether the application should use a memory history or a browser history based on the current environment.
+      * @returns - The appropriate history object based on the current environment.
+      */
     export const createWindowHistory: () => MemoryHistory | BrowserHistory;
     export default createWindowHistory;
 }
 
 declare module 'react-declarative/utils/createLsManager' {
+    /**
+      * A utility class for managing local storage values.
+      * @template T - The type of the value to be stored in local storage.
+      * @param STORAGE_KEY - The key to use when storing the value in local storage.
+      * @returns - An instance of the createLsManager class.
+      */
     export const createLsManager: <T = Record<string, any>>(STORAGE_KEY: string) => {
         getValue: () => T | null;
         setValue: (value: T) => void;
@@ -3840,6 +4982,14 @@ declare module 'react-declarative/utils/createLsManager' {
 }
 
 declare module 'react-declarative/utils/createSsManager' {
+    /**
+      * A utility class for managing session storage values.
+      *
+      * @param STORAGE_KEY - The key used to store the value in session storage.
+      * @returns - An instance of the class with methods for getting, setting, and clearing the value.
+      *
+      * @template T - The type of the value stored in session storage.
+      */
     export const createSsManager: <T = Record<string, any>>(STORAGE_KEY: string) => {
         getValue: () => T | null;
         setValue: (value: T) => void;
@@ -3853,16 +5003,32 @@ declare module 'react-declarative/utils/createCustomTag' {
         onClick: (e: MouseEvent) => void;
         onInit: (element: HTMLDivElement) => void;
     }
+    /**
+      * Creates a custom HTML tag element with the given name, style, and optional event handlers.
+      *
+      * @param [name="bgcolor-red"] - The name of the custom HTML tag element.
+      * @param [style=""] - The inline style to apply to the custom HTML tag element.
+      * @param [{ onClick, onInit }={}] - Optional event handlers for the custom HTML tag element.
+      */
     export const createCustomTag: (name?: string, style?: string, { onClick, onInit, }?: Partial<IConfig>) => void;
     export default createCustomTag;
 }
 
 declare module 'react-declarative/utils/mainColor' {
+    /**
+      * Sets the main color theme of the application.
+      * @param color - The color to set as the main theme color.
+      */
     export const mainColor: (color: string) => void;
     export default mainColor;
 }
 
 declare module 'react-declarative/utils/cacheSrc' {
+    /**
+      * Sets the image source of a given HTMLImageElement by caching the image.
+      * @param url - The URL of the image to cache.
+      * @returns - A function that takes an HTMLImageElement as input and sets its source with the cached image.
+      */
     export const cacheSrc: (url: string) => {
         ref: (element: HTMLImageElement | null) => void;
     };
@@ -3870,11 +5036,32 @@ declare module 'react-declarative/utils/cacheSrc' {
 }
 
 declare module 'react-declarative/utils/base64Json' {
+    /**
+        * Parses a Base64-encoded JSON string to a JavaScript object.
+        *
+        * @param state - The Base64-encoded JSON string to parse.
+        * @returns - The parsed JavaScript object, or null if parsing fails.
+        * @template T - The type of the parsed JavaScript object. Defaults to Record<string, any>.
+        */
     export const parseBase64Json: <T = Record<string, any>>(state: string) => T | null;
+    /**
+        * Converts a JavaScript object to a base64 encoded JSON string.
+        *
+        * @template T - The type of the state object being serialized.
+        * @param state - The state object to be serialized.
+        * @returns - The base64 encoded JSON string representation of the state object.
+        */
     export const stringifyBase64Json: <T = Record<string, any>>(state: T) => string;
 }
 
 declare module 'react-declarative/utils/asciiParams' {
+    /**
+      * Parses an array of ASCII codes representing key-value pairs and converts them into an object.
+      *
+      * @param state - An array of ASCII codes representing key-value pairs.
+      * @returns - The parsed object if successful, or null if an error occurred.
+      * @template T - The object type of the parsed result. Defaults to `Record<string, any>`.
+      */
     export const parseAsciiParams: <T extends {} = Record<string, any>>(state: number[]) => T | null;
     export const serializeAsciiParams: <T extends {} = Record<string, any>>(state: T) => number[];
     export const toBytes32: (str: string) => string;
@@ -3887,39 +5074,100 @@ declare module 'react-declarative/utils/datetime' {
     export const DATE_EXPR: RegExp;
     export const TIME_EXPR: RegExp;
     export class Time {
-        readonly hour: number;
-        readonly minute: number;
-        constructor(hour: number, minute: number);
-        toString: () => string | null;
-        toStamp: () => number;
-        static fromStamp: (stamp: number) => Time;
+            readonly hour: number;
+            readonly minute: number;
+            constructor(hour: number, minute: number);
+            toString: () => string | null;
+            toStamp: () => number;
+            static fromStamp: (stamp: number) => Time;
     }
     export class Date {
-        readonly day: number;
-        readonly month: number;
-        readonly year: number;
-        constructor(day: number, month: number, year: number);
-        toString: () => string | null;
-        toStamp: () => number;
-        static fromStamp: (stamp: number) => Date;
+            readonly day: number;
+            readonly month: number;
+            readonly year: number;
+            constructor(day: number, month: number, year: number);
+            toString: () => string | null;
+            toStamp: () => number;
+            static fromStamp: (stamp: number) => Date;
     }
+    /**
+        * Parses a string representation of a date in "dd/mm/yyyy" format and returns a Date object.
+        * If the input is not in the correct format or is null, returns null.
+        *
+        * @param date - The string representation of the date to parse.
+        * @returns - The parsed Date object or null if the input is not valid.
+        */
     export const parseDate: (date: string | null) => Date | null;
+    /**
+        * Serialize a given date to a string representation in the format "dd/MM/yyyy".
+        *
+        * @param date - The date to serialize.
+        * @returns The serialized date or null if the input is not a valid Date object.
+        */
     export const serializeDate: (date: Date) => string | null;
+    /**
+        * Parses a string representation of time into a Time object.
+        *
+        * @param time - The string representation of time to parse.
+        * @returns - The parsed Time object or null if input is null or invalid.
+        */
     export const parseTime: (time: string | null) => Time | null;
+    /**
+        * Serializes the given time object into a string representation.
+        *
+        * @param time - The time object to be serialized.
+        * @returns - The serialized time string, or null if the input is invalid.
+        */
     export const serializeTime: (time: Time) => string | null;
+    /**
+        * Retrieves the current date.
+        *
+        * @returns The current date in serialized format.
+        */
     export const currentDate: () => string;
+    /**
+        * Generates the current time.
+        *
+        * @returns The current time as a serialized string.
+        */
     export const currentTime: () => string;
+    /**
+        * Converts a string representation of a time to a timestamp.
+        *
+        * @param [str] - The time string to convert. Defaults to the current time.
+        * @returns - The timestamp representation of the given time or -1 if conversion fails.
+        */
     export const timeStamp: (str?: string) => number;
+    /**
+        * Converts a date string to a timestamp.
+        *
+        * @param [str=currentDate()] - The date string to convert.
+        * @returns - The timestamp if the conversion is successful, -1 otherwise.
+        */
     export const dateStamp: (str?: string) => number;
 }
 
 declare module 'react-declarative/utils/waitForMove' {
+    /**
+      * Waits for a move to occur and executes the provided function.
+      *
+      * @param fn - The function to be executed when a move occurs.
+      * @returns
+      */
     export const waitForMove: (fn: () => void) => () => void;
     export default waitForMove;
 }
 
 declare module 'react-declarative/utils/compose' {
     export type Function = (...args: any[]) => any;
+    /**
+      * Compose multiple functions together to create a new function that applies the given functions from right to left.
+      * If no functions are given, the composed function will simply return the input argument.
+      * If only one function is given, the composed function will simply return the output of that function.
+      *
+      * @param funcs - The functions to be composed.
+      * @returns - The composed function.
+      */
     export const compose: (...funcs: Function[]) => Function;
     export default compose;
 }
@@ -3929,19 +5177,52 @@ declare module 'react-declarative/utils/getMomentStamp' {
     export const DIMENSION = "day";
     export const GENESIS = "1970-01-01";
     export type stamp = number;
+    /**
+        * Calculates the moment stamp based on the given end date and dimension.
+        * The moment stamp represents the difference between the end date and the start date in the specified dimension.
+        *
+        * @param [end=dayjs()] - The end date. Defaults to the current date and time.
+        * @param [dimension=DIMENSION] - The dimension to calculate the difference in. Defaults to DIMENSION.
+        * @returns - The moment stamp representing the difference between the end date and the start date.
+        */
     export const getMomentStamp: (end?: dayjs.Dayjs, dimension?: dayjs.ManipulateType) => stamp;
+    /**
+        * Converts a timestamp to a moment in time.
+        *
+        * @param stamp - The timestamp to convert.
+        * @param dimension - The dimension to add to the timestamp. Defaults to `DIMENSION`.
+        * @returns - The moment in time corresponding to the timestamp.
+        */
     export const fromMomentStamp: (stamp: number, dimension?: dayjs.ManipulateType) => dayjs.Dayjs;
     export default getMomentStamp;
 }
 
 declare module 'react-declarative/utils/getTimeStamp' {
     import dayjs from "dayjs";
+    /**
+        * Retrieves the timestamp from the given source.
+        * If no source is provided, the current timestamp is used.
+        *
+        * @param [source] - The source object to retrieve the timestamp from. Defaults to current time.
+        * @returns - The timestamp in minutes.
+        */
     export const getTimeStamp: (source?: dayjs.Dayjs) => number;
+    /**
+        * Converts a timestamp to a date and time using dayjs library.
+        * @param stamp - The timestamp to convert.
+        * @returns The date and time corresponding to the given timestamp.
+        */
     export const fromTimeStamp: (stamp: number) => dayjs.Dayjs;
     export default getTimeStamp;
 }
 
 declare module 'react-declarative/api/resolveDocuments' {
+    /**
+      * Resolves the documents from an async generator and returns them as a flattened array.
+      *
+      * @param iterator - The async generator to resolve documents from.
+      * @returns - A promise that resolves to the flattened array of documents.
+      */
     export const resolveDocuments: <T extends unknown>(iterator: AsyncGenerator<T | T[], void, unknown>) => Promise<T[]>;
     export default resolveDocuments;
 }
@@ -3959,11 +5240,35 @@ declare module 'react-declarative/api/iterateDocuments' {
             lastId: RowId | null;
         } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
     }
+    /**
+      * Asynchronous generator function that iterates over documents.
+      *
+      * @template Data - The type of the row data in the documents.
+      *
+      * @param config - The configuration object.
+      * @param [config.totalDocuments=TOTAL_DOCUMENTS] - The total number of documents to iterate over.
+      * @param [config.limit=REQUEST_LIMIT] - The number of documents to fetch in each request.
+      * @param [config.delay=REQUEST_DELAY] - The delay between each request.
+      * @param [config.createRequest=() => []] - The function used to create the request.
+      *
+      * @returns An asynchronous generator that yields an array of documents.
+      *
+      * @throws {Error} If the response length is greater than the specified limit.
+      */
     export const iterateDocuments: <Data extends IRowData = IRowData>({ totalDocuments, limit, delay, createRequest, }: IConfig<Data>) => AsyncGenerator<Data[], void, unknown>;
     export default iterateDocuments;
 }
 
 declare module 'react-declarative/api/pickDocuments' {
+    /**
+      * A function that picks a subset of documents from an array of documents, given a limit and offset.
+      *
+      * @template T - The type of the documents in the array.
+      * @param limit - The maximum number of documents to pick.
+      * @param offset - The number of documents to skip before picking.
+      * @returns - A function that takes an array of documents and returns an object with `rows` and `done` properties.
+      *                       The `rows` property contains the picked documents, and `done` property indicates if the picking is finished.
+      */
     export const pickDocuments: <T extends unknown>(limit: number, offset: number) => (rows?: T[]) => {
         rows: T[];
         done: boolean;
@@ -3976,6 +5281,17 @@ declare module 'react-declarative/utils/heavy' {
     interface IParams {
         loaderSize: number;
     }
+    /**
+      * Wraps a React component with lazy loading and suspense, displaying a loader while the component is being loaded.
+      *
+      * @template T - The type of the wrapped React component.
+      * @template P - The props type of the wrapped React component.
+      *
+      * @param factory - A function that returns a promise that resolves to the component.
+      * @param [options={}] - Optional parameters for customizing the loader.
+      *
+      * @returns A function that returns the wrapped component with suspense and loader.
+      */
     export const heavy: <T extends React.ComponentType<P>, P extends object = any>(factory: () => Promise<{
         default: T;
     }>, { loaderSize }?: Partial<IParams>) => (props: P) => JSX.Element;
@@ -5280,6 +6596,16 @@ declare module 'react-declarative/components/List/api/useLastPagination' {
         chipData: ListHandlerChips<RowData>;
         search: string;
     }
+    /**
+      * Custom hook for managing pagination state and handling pagination logic.
+      *
+      * @template FilterData - The type of filter data.
+      * @template RowData - The type of row data.
+      *
+      * @param upperHandler - The handler function responsible for fetching data.
+      *
+      * @returns - An object containing the handler function and the state data.
+      */
     export const useLastPagination: <FilterData extends {} = any, RowData extends IRowData = any>(upperHandler: ListHandler<FilterData, RowData, any>) => IResult;
     export default useLastPagination;
 }
@@ -5289,6 +6615,44 @@ declare module 'react-declarative/components/List/List' {
     import IField from "react-declarative/model/IField";
     import IListProps from "react-declarative/model/IListProps";
     import TypedField from "react-declarative/model/TypedField";
+    /**
+      * Represents a List component which renders a collection of entries.
+      *
+      * @template FilterData - The type of the filter data.
+      * @template RowData - The type of the row data.
+      * @template Payload - The type of the payload.
+      * @template Field - The type of the field.
+      *
+      * @param handler - Function to handle the list data. Default value is an empty array.
+      * @param payload - The payload for the list data. Default value is an empty object.
+      * @param fallback - Function to handle errors. Default value is a console.error call.
+      * @param limit - The limit of items per page. Default value is DEFAULT_LIMIT.
+      * @param page - The current page number. Default value is DEFAULT_PAGE.
+      * @param isChooser - Flag to indicate if the list is for choosing items. Default value is false.
+      * @param filters - The array of filters for the list. Default value is an empty array.
+      * @param columns - The array of columns for the list. Default value is an empty array.
+      * @param actions - The array of actions for the list. Default value is an empty array.
+      * @param onRows - Callback function for when list rows change. Default value is a null function.
+      * @param onSortModelChange - Callback function for when sort model changes. Default value is a null function.
+      * @param onFilterChange - Callback function for when filter changes. Default value is a null function.
+      * @param onChipsChange - Callback function for when chip changes. Default value is a null function.
+      * @param onSearchChange - Callback function for when search query changes. Default value is a null function.
+      * @param onPageChange - Callback function for when page changes. Default value is a null function.
+      * @param onLimitChange - Callback function for when limit changes. Default value is a null function.
+      * @param labelDisplayedRows - Function to display the label for displayed rows.
+      * @param selectionLabel - Function to display the label for selected items.
+      * @param filterData - The additional data for filters. Default value is an empty object.
+      * @param withToggledFilters - Flag to indicate if filters are toggled. Default value is false.
+      * @param withCustomFilters - Flag to indicate if custom filters are used. Default value is false.
+      * @param fetchDebounce - The debounce time for fetching the list data. Default value is LIST_FETCH_DEBOUNCE.
+      * @param sortModel - The array of sort model for the list. Default value is an empty array.
+      * @param chips - The array of chips for the list. Default value is an empty array.
+      * @param chipData - The additional data for chips. Default value is an empty object.
+      * @param search - The search query for the list. Default value is an empty string.
+      * @param slots - The slots for the list. Default value is an empty object.
+    
+      * @returns - The List component.
+      */
     export const List: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>(props: IListProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export const ListTyped: <FilterData extends {} = any, RowData extends IRowData = any>(props: IListProps<FilterData, RowData, TypedField<FilterData, any>, IField<FilterData, TypedField<FilterData, any>>>) => JSX.Element;
     export default List;
@@ -5373,6 +6737,23 @@ declare module 'react-declarative/components/List/api/useQueryPagination' {
     type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined>;
     type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>['chipData'], undefined>;
     export const DEFAULT_QUERY: IQuery;
+    /**
+      * A hook that provides pagination functionality for querying data.
+      * @template FilterData The type of filter data.
+      * @template RowData The type of row data.
+      * @param [initialValue=DEFAULT_QUERY] - The initial value for the query.
+      * @param [options={}] - The options for the hook.
+      * @param [options.onFilterChange=() => null] - The callback function to handle filter data changes.
+      * @param [options.onLimitChange=() => null] - The callback function to handle limit changes.
+      * @param [options.onPageChange=() => null] - The callback function to handle page changes.
+      * @param [options.onSortModelChange=() => null] - The callback function to handle sort model changes.
+      * @param [options.onChipsChange=() => null] - The callback function to handle chip data changes.
+      * @param [options.onSearchChange=() => null] - The callback function to handle search changes.
+      * @param [options.onChange=() => null] - The callback function to handle state changes.
+      * @param [options.removeEmptyFilters=removeEmptyFiltersDefault] - The function to remove empty filters.
+      * @param [options.fallback] - The fallback options.
+      * @returns An object containing the pagination props and methods.
+      */
     export const useQueryPagination: <FilterData extends {} = any, RowData extends IRowData = any>(initialValue?: Partial<IQuery<FilterData, RowData>>, { onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         setFilterData: (data: FilterData) => void;
         setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
@@ -5414,6 +6795,17 @@ declare module 'react-declarative/components/List/api/useCachedPaginator' {
         handler: ListHandler<FilterData, RowData>;
         clear: () => void;
     }
+    /**
+      * Creates a cached paginator for list data.
+      *
+      * @template FilterData - The type of the filter data.
+      * @template RowData - The type of the row data.
+      *
+      * @param handler - The list handler function or object.
+      * @param params - The parameters for the paginator.
+      *
+      * @returns - The result containing the paginator handler and clear function.
+      */
     export const useCachedPaginator: <FilterData extends {} = any, RowData extends IRowData = any>(handler: ListHandler<FilterData, RowData, any>, params: IArrayPaginatorParams<FilterData, RowData>) => IResult<FilterData, RowData>;
     export default useCachedPaginator;
 }
@@ -5447,6 +6839,50 @@ declare module 'react-declarative/components/List/api/useHistoryStatePagination'
     type SortModelT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
     type ChipDataT<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = Exclude<IQuery<FilterData, RowData>["chipData"], undefined>;
     export const DEFAULT_QUERY: IQuery;
+    /**
+      * Handles pagination state using browser history state.
+      * @template FilterData - The type of filter data for the query.
+      * @template RowData - The type of row data for the query.
+      * @param history - The history object from react-router.
+      * @param options - Optional parameters for configuring the pagination.
+      * @param options.initialValue - The initial query value.
+      * @param options.onFilterChange - The callback function when filter data changes.
+      * @param options.onLimitChange - The callback function when limit changes.
+      * @param options.onPageChange - The callback function when page changes.
+      * @param options.onSortModelChange - The callback function when sort model changes.
+      * @param options.onChipsChange - The callback function when chip data changes.
+      * @param options.onSearchChange - The callback function when search changes.
+      * @param options.onChange - The callback function when the state changes.
+      * @param options.removeEmptyFilters - Indicates whether to remove empty filters from the query.
+      * @param options.fallback - The fallback component to render when the query is not available.
+      * @returns - An object containing the pagination state and methods.
+      * @property listProps - The props to be passed to a list component.
+      * @property listProps.onFilterChange - The callback function to handle filter change.
+      * @property listProps.onLimitChange - The callback function to handle limit change.
+      * @property listProps.onPageChange - The callback function to handle page change.
+      * @property listProps.onSortModelChange - The callback function to handle sort model change.
+      * @property listProps.onChipsChange - The callback function to handle chip data change.
+      * @property listProps.onSearchChange - The callback function to handle search change.
+      * @property listProps.fallback - The fallback component to render when the query is not available.
+      * @property listProps.filterData - The filter data in the query.
+      * @property listProps.sortModel - The sort model in the query.
+      * @property listProps.chipData - The chip data in the query.
+      * @property listProps.limit - The limit in the query.
+      * @property listProps.page - The page in the query.
+      * @property listProps.search - The search value in the query.
+      * @property getFilterData - Returns the filter data in the query.
+      * @property getSortModel - Returns the sort model in the query.
+      * @property getChipData - Returns the chip data in the query.
+      * @property getLimit - Returns the limit in the query.
+      * @property getPage - Returns the page in the query.
+      * @property getSearch - Returns the search value in the query.
+      * @property setFilterData - Sets the filter data in the query.
+      * @property setSortModel - Sets the sort model in the query.
+      * @property setChipData - Sets the chip data in the query.
+      * @property setLimit - Sets the limit in the query.
+      * @property setPage - Sets the page in the query.
+      * @property setSearch - Sets the search value in the query.
+      */
     export const useHistoryStatePagination: <FilterData extends {} = any, RowData extends IRowData = any>(history: History, { initialValue, onFilterChange: handleFilterChange, onLimitChange: handleLimitChange, onPageChange: handlePageChange, onSortModelChange: handleSortModelChange, onChipsChange: handleChipsChange, onSearchChange: handleSeachChange, onChange: handleChange, removeEmptyFilters, fallback, }?: Partial<IParams<FilterData, RowData>>) => {
         setFilterData: (data: FilterData) => void;
         setSortModel: (sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>) => void;
@@ -5481,6 +6917,11 @@ declare module 'react-declarative/components/List/api/useHistoryStatePagination'
 
 declare module 'react-declarative/components/List/api/useListSelection' {
     import { RowId } from "react-declarative/model/IRowData";
+    /**
+      * A custom hook that manages the selection of rows in a list.
+      *
+      * @returns - An object containing the selected rows, list props, and a function to deselect all rows.
+      */
     export const useListSelection: () => {
         readonly selectedRows: RowId[];
         readonly listProps: {
@@ -5503,6 +6944,22 @@ declare module 'react-declarative/components/List/api/useListAction' {
         throwError?: boolean;
         fallback?: (e: Error) => void;
     }
+    /**
+      * Provides a set of actions and hooks for managing a list of data.
+      *
+      * @template Data - The type of the data in the list.
+      *
+      * @param params - The parameters for configuring the list actions.
+      * @param params.onLoadStart - The function to be called when data loading starts.
+      * @param params.onLoadEnd - The function to be called when data loading ends.
+      * @param params.throwError - The function to be called when an error occurs.
+      * @param params.fallback - The function to be called when data loading fails.
+      * @param params.fetchRow - The function to fetch a single row of data.
+      * @param params.onAction - The function to be called when a bulk action is performed.
+      * @param params.onRowAction - The function to be called when a row action is performed.
+      *
+      * @returns - The list actions and necessary data.
+      */
     export const useListAction: <Data extends IRowData = IRowData>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, onRowAction, }: IParams<Data>) => {
         readonly deselectAll: () => void;
         readonly selectedRows: RowId[];
@@ -6109,6 +7566,16 @@ declare module 'react-declarative/components/ModalProvider/ModalProvider' {
             hideModal: Function;
         };
     }
+    /**
+      * ModalProvider
+      *
+      * The ModalProvider component provides a context for managing modals and rendering elements.
+      *
+      * @param props - The props for the ModalProvider component.
+      * @param props.children - The child nodes to be rendered within the ModalProvider.
+      *
+      * @returns - The ModalProvider component.
+      */
     export const ModalProvider: ({ children }: IModalProviderProps) => JSX.Element;
     export const useModal: IHook;
     export default ModalProvider;
@@ -6121,6 +7588,15 @@ declare module 'react-declarative/components/SnackProvider/SnackProvider' {
         delay?: number;
     }
     const useSnack: () => (msg: string) => void;
+    /**
+      * SnackProvider is a component that provides snack notifications to its children.
+      *
+      * @param props - The props for SnackProvider component.
+      * @param props.children - The children components that will have access to snack notifications.
+      * @param [props.delay] - The delay for auto hiding the snack notifications.
+      *
+      * @returns - The SnackProvider component.
+      */
     export const SnackProvider: ({ children, delay, }: ISnackProviderProps) => JSX.Element;
     export { useSnack };
     export default SnackProvider;
@@ -6135,6 +7611,15 @@ declare module 'react-declarative/components/SizeProvider/SizeProvider' {
         target?: HTMLElement;
     }
     const useSize: () => ISize;
+    /**
+      * Provides the size of a target element.
+      *
+      * @param props - The properties used by the SizeProvider component.
+      * @param props.children - The child elements.
+      * @param props.className - The class name to be added to the root element.
+      * @param props.target - The target element to observe for size changes.
+      * @returns The SizeProvider component.
+      */
     export const SizeProvider: ({ children, className, target, ...props }: ISizeProvider) => JSX.Element;
     export { useSize };
     export default SizeProvider;
@@ -6149,6 +7634,18 @@ declare module 'react-declarative/components/ModalManager/ModalManagerProvider' 
         fallback?: (error: Error) => void;
         children: React.ReactNode;
     }
+    /**
+      * ModalManagerProvider component provides a context for managing modals in an application.
+      *
+      * @param props - The props object containing the following properties:
+      *   - children: ReactNode - The child components to be rendered inside the provider.
+      *   - fallback: ReactNode - The fallback component to be rendered when there are no modals.
+      *   - throwError: boolean - Whether to throw an error when an unexpected state occurs.
+      *   - onLoadEnd: function - Callback function to be executed after loading ends.
+      *   - onLoadStart: function - Callback function to be executed before loading starts.
+      *
+      * @returns The rendered ModalManagerProvider component.
+      */
     export const ModalManagerProvider: ({ children, fallback, throwError, onLoadEnd, onLoadStart, }: IModalManagerProviderProps) => JSX.Element;
     export default ModalManagerProvider;
 }
@@ -6190,6 +7687,14 @@ declare module 'react-declarative/components/common/ListPicker' {
 declare module 'react-declarative/components/CardView/CardView' {
     import ICardViewProps from "react-declarative/components/CardView/model/ICardViewProps";
     import IItemData from "react-declarative/components/CardView/model/IItemData";
+    /**
+      * Render a CardView component.
+      *
+      * @template ItemData - The type of data for card items.
+      *
+      * @param props - The props for CardView component.
+      * @returns - The CardView component.
+      */
     export const CardView: <ItemData extends IItemData = any>(props: ICardViewProps<ItemData, any>) => JSX.Element;
     export default CardView;
 }
@@ -6227,6 +7732,16 @@ declare module 'react-declarative/components/CardView/model/IItemData' {
 
 declare module 'react-declarative/components/CalendarView/CalendarView' {
     import ICalendarViewProps from "react-declarative/components/CalendarView/model/ICalendarViewProps";
+    /**
+      * CalendarView component displays a calendar with various functionalities such as selecting dates, changing months, and changing years.
+      *
+      * @template Data - The type of data to be passed to the component
+      * @template Payload - The type of payload to be used in the component
+      *
+      * @param props - The props object containing the necessary parameters for the CalendarView component
+      *
+      * @returns - The rendered CalendarView component
+      */
     export const CalendarView: {
         <Data extends unknown = any, Payload extends unknown = any>(props: ICalendarViewProps<Data, Payload>): JSX.Element;
         init(): void;
@@ -6269,6 +7784,24 @@ declare module 'react-declarative/components/CalendarView/model/ICalendarTile' {
 
 declare module 'react-declarative/components/FeatureView/FeatureView' {
     import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
+    /**
+      * Represents a feature view component.
+      *
+      * @typedef FeatureView
+      * @property changeSubject - The subject of the change.
+      * @property outlinePaper - Whether to outline the paper.
+      * @property transparentPaper - Whether the paper is transparent.
+      * @property className - The CSS class name for the component.
+      * @property style - The CSS styles for the component.
+      * @property sx - The theme styles for the component.
+      * @property data - The data for the features.
+      * @property readonly - Whether the component is read-only.
+      * @property features - The list of available features.
+      * @property expandAll - Whether to expand all features.
+      * @property onChange - The function to call when a feature is changed.
+      *
+      * @returns The rendered component.
+      */
     export const FeatureView: ({ changeSubject, outlinePaper, transparentPaper, className, style, sx, data, readonly, features, expandAll, onChange, }: IFeatureViewProps) => JSX.Element;
     export default FeatureView;
 }
@@ -6289,6 +7822,26 @@ declare module 'react-declarative/components/FeatureView/hooks/useFeatureView' {
         withStaticAction?: IActionModalParams['withStaticAction'];
         withActionButton?: IActionModalParams['withActionButton'];
     }
+    /**
+      * Custom hook for displaying a feature view modal.
+      *
+      * @param params - The parameters for the feature view modal.
+      * @param params.data - The feature data.
+      * @param params.title - The title of the modal.
+      * @param params.features - The features to display.
+      * @param params.expandAll - Whether to expand all feature sections.
+      * @param params.readonly - Whether the modal is readonly.
+      * @param params.fullScreen - Whether the modal should be displayed in full screen.
+      * @param params.fallback - The fallback react element to display if modal content is unavailable.
+      * @param params.onLoadStart - Callback function to be called when modal starts to load.
+      * @param params.onLoadEnd - Callback function to be called when modal finishes loading.
+      * @param params.onSubmit - Callback function to be called when modal is submitted.
+      * @param params.onChange - Callback function to be called when modal value changes.
+      * @param params.submitLabel - The label for the submit button.
+      * @param params.withActionButton - Whether to include an action button in the modal.
+      * @param params.withStaticAction - Whether to include a static action in the modal.
+      * @return - The modal hook object.
+      */
     export const useFeatureView: ({ data, title, features, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, withActionButton, withStaticAction, }: IParams) => {
         open: boolean;
         render: () => JSX.Element;
@@ -6338,6 +7891,24 @@ declare module 'react-declarative/components/FeatureView/model/FeatureType' {
 
 declare module 'react-declarative/components/VisibilityView/VisibilityView' {
     import IVisibilityViewProps from 'react-declarative/components/VisibilityView/model/IVisibilityViewProps';
+    /**
+      * Represents the visibility view component.
+      *
+      * @param VisibilityView - The props for the visibility view component.
+      * @param changeSubject - The function to change the subject.
+      * @param outlinePaper - Whether to outline the paper.
+      * @param transparentPaper - Whether the paper is transparent.
+      * @param className - The CSS class name.
+      * @param style - The style object.
+      * @param sx - The sx prop for emotion/styled.
+      * @param expandAll - Whether to expand all fields.
+      * @param readonly - Whether the fields are readonly.
+      * @param onChange - The function to handle changes.
+      * @param groups - The array of field groups.
+      * @param data - The data object.
+      * @param keyToTitle - The function to convert a key to a title.
+      * @returns The visibility view component.
+      */
     export const VisibilityView: ({ changeSubject, outlinePaper, transparentPaper, className, style, sx, expandAll, readonly, onChange, groups, data, keyToTitle, }: IVisibilityViewProps) => JSX.Element;
     export default VisibilityView;
 }
@@ -6367,6 +7938,24 @@ declare module 'react-declarative/components/VisibilityView/hooks/useVisibilityV
         onSubmit?: (data: Data | null) => boolean | Promise<boolean>;
         submitLabel: IActionModalParams["submitLabel"];
     }
+    /**
+      * Initializes and returns a visibility view component.
+      *
+      * @param params - The configuration parameters.
+      * @param params.groups - The groups of fields to display.
+      * @param params.data - The initial data values.
+      * @param params.keyToTitle - The function to generate a title from a key.
+      * @param params.expandAll - Flag indicating if all fields should be expanded by default.
+      * @param params.readonly - Flag indicating if the view should be readonly.
+      * @param params.fullScreen - Flag indicating if the view should be displayed in full screen.
+      * @param params.fallback - The component to display if the main component fails to load.
+      * @param params.onLoadStart - The function to call when the view starts loading.
+      * @param params.onLoadEnd - The function to call when the view finishes loading.
+      * @param params.onSubmit - The function to call when the form is submitted.
+      * @param params.onChange - The function to call when the form's data changes.
+      * @param params.submitLabel - The label for the submit button.
+      * @returns - The visibility view component.
+      */
     export const useVisibilityView: ({ groups, data, keyToTitle, expandAll, readonly, fullScreen, fallback, onLoadStart, onLoadEnd, onSubmit, onChange, submitLabel, }: IParams) => {
         open: boolean;
         render: () => JSX.Element;
@@ -6378,6 +7967,33 @@ declare module 'react-declarative/components/VisibilityView/hooks/useVisibilityV
 declare module 'react-declarative/components/RecordView/RecordView' {
     import IData from "react-declarative/components/RecordView/model/IData";
     import IRecordViewProps from "react-declarative/components/RecordView/model/IRecordViewProps";
+    /**
+      * Renders a view to display record data with search capabilities.
+      *
+      * @template Data - The type of the data object.
+      * @template Payload - The type of the payload object.
+      *
+      * @param props - The component props.
+      * @param props.data - The data object to be displayed.
+      * @param [props.search=''] - The search string.
+      * @param [props.onSearchChanged] - The callback function triggered when the search string changes.
+      * @param [props.formatValue] - The function used to format the value of a data key.
+      * @param [props.formatKey] - The function used to format the key of a data entry.
+      * @param [props.withExpandAll=false] - Specifies whether to display an option to expand all entries.
+      * @param [props.withExpandRoot=false] - Specifies whether to display an option to expand the root entry.
+      * @param [props.withExpandLevel=0] - The maximum level of entries to be expanded by default.
+      * @param [props.expandList] - The list of data keys to be expanded by default.
+      * @param [props.keyWidth=2] - The width of the key column.
+      * @param [props.valueWidth=10] - The width of the value column.
+      * @param [props.totalWidth] - The total width of the container.
+      * @param [props.background] - The background color of the container.
+      * @param [props.BeforeSearch] - The component to render before the search field.
+      * @param [props.AfterSearch] - The component to render after the search field.
+      * @param [props.payload] - The payload object to be passed as a prop to the container component.
+      * @param [props.otherProps] - Any other additional props to be passed to the container component.
+      *
+      * @returns The rendered component.
+      */
     export const RecordView: {
         <Data extends unknown = IData, Payload = any>({ data: upperData, search, onSearchChanged, formatValue, formatKey, withExpandAll, withExpandRoot, withExpandLevel, expandList, keyWidth, valueWidth, totalWidth, background, BeforeSearch, AfterSearch, payload, ...otherProps }: IRecordViewProps<Data, Payload>): JSX.Element;
         excelExport: (data: IData, sheetName?: string) => void;
@@ -6393,6 +8009,23 @@ declare module 'react-declarative/components/RecordView/helpers/excelExport' {
 
 declare module 'react-declarative/components/Scaffold2/Scaffold2' {
     import IScaffold2Props from 'react-declarative/components/Scaffold2/model/IScaffold2Props';
+    /**
+      * Represents a scaffold component that provides state management and context providers.
+      * @function Scaffold2
+      * @param props - The props object containing the component's properties.
+      * @param [props.appName="Scaffold2"] - The name of the app.
+      * @param [props.noSearch=false] - Specifies if the search feature is disabled.
+      * @param [props.noAppName=false] - Specifies if the app name should be hidden.
+      * @param props.onInit - The callback function invoked during initialization.
+      * @param props.onLoadStart - The callback function invoked before loading data.
+      * @param props.onLoadEnd - The callback function invoked after loading data.
+      * @param props.fallback - The fallback component to render in case of an error.
+      * @param props.options - The options object.
+      * @param props.payload - The payload object.
+      * @param [props.deps=[]] - The array of dependencies.
+      * @param props.throwError - Specifies if an error should be thrown.
+      * @returns - The rendered component.
+      */
     export const Scaffold2: <T extends unknown = any>(props: IScaffold2Props<T>) => JSX.Element;
     export default Scaffold2;
 }
@@ -6514,6 +8147,26 @@ declare module 'react-declarative/components/Breadcrumbs2/Breadcrumbs2' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * Renders a breadcrumbs component with customizable items and actions.
+      *
+      * @template T - The type of payload data.
+      * @param props - The props object.
+      * @param [props.className] - The class name for the component container.
+      * @param [props.style] - The inline styles for the component container.
+      * @param [props.sx] - The sx prop for the component container.
+      * @param [props.onAction=() => undefined] - The callback function to be called when an action is performed.
+      * @param props.items - The array of breadcrumb items.
+      * @param props.actions - The array of actions to be displayed in the action menu.
+      * @param props.payload - The payload data.
+      * @param [props.BeforeMenuContent] - The custom content to be displayed before the action menu.
+      * @param [props.AfterMenuContent] - The custom content to be displayed after the action menu.
+      * @param [props.onLoadStart] - The callback function to be called when the component is loading.
+      * @param [props.onLoadEnd] - The callback function to be called when the component finishes loading.
+      * @param [props.fallback] - The fallback component to be displayed while loading.
+      * @param [props.throwError] - Whether to throw an error on loading failure.
+      * @returns The breadcrumbs component.
+      */
     export const Breadcrumbs2: <T extends unknown = any>({ className, style, sx, onAction, items, actions, payload, BeforeMenuContent, AfterMenuContent, onLoadStart, onLoadEnd, fallback, throwError, }: IBreadcrumbs2Props<T>) => JSX.Element;
     export default Breadcrumbs2;
 }
@@ -6786,6 +8439,23 @@ declare module 'react-declarative/components/Async/Async' {
         throwError?: boolean;
     }
     type Result = React.ReactNode | void;
+    /**
+      * Async
+      * @template T - The type of the payload data.
+      * @param params - The parameters object.
+      * @param params.reloadSubject - The subject used to trigger a reload of the async data.
+      * @param params.loading - A boolean indicating whether the async data is currently being loaded.
+      * @param params.children - The children component that renders the async data.
+      * @param params.fallback - The fallback component to render in case of an error.
+      * @param params.Loader - The loader component to render while the async data is being loaded.
+      * @param params.Error - The error component to render in case of an error.
+      * @param params.onLoadStart - A function to be called when the async data loading starts.
+      * @param params.onLoadEnd - A function to be called when the async data loading ends.
+      * @param params.payload - The payload data to be passed to the children component.
+      * @param params.deps - The dependencies of the async data.
+      * @param params.throwError - A boolean indicating whether to throw an error in case of an error or to fallback.
+      * @returns - The rendered component.
+      */
     export const Async: <T extends unknown = object>({ reloadSubject: upperReloadSubject, loading: upperLoading, children, fallback, Loader, Error, onLoadStart, onLoadEnd, payload, deps, throwError, }: IAsyncProps<T>) => JSX.Element;
     export default Async;
 }
@@ -6848,6 +8518,29 @@ declare module 'react-declarative/components/One/components/SlotFactory/ISlotFac
     import { IYesNoSlot } from 'react-declarative/components/One/slots/YesNoSlot';
     import { IDictSlot } from 'react-declarative/components/One/slots/DictSlot';
     import { ITreeSlot } from 'react-declarative/components/One/slots/TreeSlot';
+    /**
+      * A context object that provides access to various component types used by the slot factory.
+      * @typedef ISlotFactoryContext
+      * @property CheckBox - The component type for Checkbox slots.
+      * @property Combo - The component type for Combo slots.
+      * @property YesNo - The component type for YesNo slots.
+      * @property Items - The component type for Items slots.
+      * @property Line - The component type for Line slots.
+      * @property Progress - The component type for Progress slots.
+      * @property Radio - The component type for Radio slots.
+      * @property Rating - The component type for Rating slots.
+      * @property Typography - The component type for Typography slots.
+      * @property Text - The component type for Text slots.
+      * @property Date - The component type for Date slots.
+      * @property Time - The component type for Time slots.
+      * @property Switch - The component type for Switch slots.
+      * @property Slider - The component type for Slider slots.
+      * @property File - The component type for File slots.
+      * @property Choose - The component type for Choose slots.
+      * @property Complete - The component type for Complete slots.
+      * @property Dict - The component type for Dict slots.
+      * @property Tree - The component type for Tree slots.
+      */
     export interface ISlotFactoryContext {
         CheckBox: ComponentType<ICheckBoxSlot>;
         Combo: ComponentType<IComboSlot>;
@@ -6876,23 +8569,46 @@ declare module 'react-declarative/components/One/One' {
     import IField from 'react-declarative/model/IField';
     import TypedField from "react-declarative/model/TypedField";
     import IOnePublicProps from "react-declarative/model/IOnePublicProps";
+    /**
+        * Creates a json template engine called `One` with the given props.
+        *
+        * @param props - The props for the component.
+        * @param props.createField - The function to create a field.
+        * @param props.createLayout - The function to create a layout.
+        * @param props.apiRef - The API reference object.
+        * @param props.changeSubject - The subject for change events.
+        * @param props.reloadSubject - The subject for reload events.
+        * @param props.updateSubject - The subject for update events.
+        * @param props.onFocus - The callback function for focus events.
+        * @param props.onBlur - The callback function for blur events.
+        * @param props.onMenu - The callback function for menu events.
+        * @param props.onClick - The callback function for click events.
+        * @param props.onReady - The callback function for ready events.
+        * @param props.onChange - The callback function for change events.
+        * @param props.onInvalid - The callback function for invalid events.
+        * @param props.onLoadStart - The callback function for load start events.
+        * @param props.onLoadEnd - The callback function for load end events.
+        * @param props.features - Additional features for the component.
+        * @param props.otherProps - Additional props for the component.
+        * @returns - The rendered component.
+        */
     export const One: {
-        <Data extends unknown = any, Payload = any, Field = IField<Data, any>>(props: IOnePublicProps<Data, Payload, Field>): JSX.Element;
-        displayName: string;
-        /**
-          * После написания формы можно включить строгую
-          * проверку типов полей
-          * <One.typed handler={...
-          *     ^^^^^^
-          */
-        typed: {
-            <Data_1 extends unknown = any, Payload_1 extends unknown = any, Field_1 = TypedField<Data_1, any>>(props: IOnePublicProps<Data_1, Payload_1, Field_1>): JSX.Element;
+            <Data extends unknown = any, Payload = any, Field = IField<Data, any>>(props: IOnePublicProps<Data, Payload, Field>): JSX.Element;
             displayName: string;
-        };
+            /**
+                * После написания формы можно включить строгую
+                * проверку типов полей
+                * <One.typed handler={...
+                *     ^^^^^^
+                */
+            typed: {
+                    <Data_1 extends unknown = any, Payload_1 extends unknown = any, Field_1 = TypedField<Data_1, any>>(props: IOnePublicProps<Data_1, Payload_1, Field_1>): JSX.Element;
+                    displayName: string;
+            };
     };
     export const OneTyped: {
-        <Data extends unknown = any, Payload extends unknown = any, Field = TypedField<Data, any>>(props: IOnePublicProps<Data, Payload, Field>): JSX.Element;
-        displayName: string;
+            <Data extends unknown = any, Payload extends unknown = any, Field = TypedField<Data, any>>(props: IOnePublicProps<Data, Payload, Field>): JSX.Element;
+            displayName: string;
     };
     export default One;
 }
@@ -7073,6 +8789,22 @@ declare module 'react-declarative/components/One/api/useLocalHandler' {
         data: Data | null;
         change: IOneProps<Data>['change'];
     }
+    /**
+      * Executes a local handler function and manages the state of the data.
+      *
+      * @template Data - The type of the data that will be stored in the state.
+      * @template Payload - The type of the payload that will be passed to the handler function.
+      *
+      * @param handler - The handler function to be executed.
+      * @param options - Additional options for the local handler.
+      * @param options.resultMap - Optional. A function to transform the data before storing it in the state.
+      * @param options.payload - Optional. The payload to be passed to the handler function.
+      * @param options.onLoadBegin - Optional. A callback function to be executed before the handler function.
+      * @param options.onLoadEnd - Optional. A callback function to be executed after the handler function.
+      * @param options.fallback - Optional. A fallback function to handle errors.
+      *
+      * @returns - An object containing the data and a function to change the data.
+      */
     export const useLocalHandler: <Data extends unknown = any, Payload extends unknown = any>(handler: OneHandler<Data, Payload>, { resultMap, payload, onLoadBegin, onLoadEnd, fallback, }?: ILocalHandlerParams<Data, any>) => ILocalHandlerResult<Data>;
     export default useLocalHandler;
 }
@@ -7086,6 +8818,19 @@ declare module 'react-declarative/components/One/api/useStaticHandler' {
         onLoadEnd?: (isOk: boolean) => void;
         fallback?: (e: Error) => void;
     }
+    /**
+      * Creates a static handler that wraps around an existing handler function.
+      *
+      * @template Data - The data type expected to be returned by the handler.
+      * @template Payload - The payload type expected to be passed to the handler.
+      * @param handler - The existing handler function.
+      * @param options - The options for the static handler.
+      * @param options.resultMap - The function to modify the returned data from the handler.
+      * @param options.onLoadBegin - The function to be called when the handler starts loading.
+      * @param options.onLoadEnd - The function to be called when the handler finishes loading.
+      * @param options.fallback - The fallback function to be executed if an error occurs in the handler.
+      * @returns - The static handler function.
+      */
     export const useStaticHandler: <Data extends unknown = any, Payload = any>(handler: OneHandler<Data, Payload>, { resultMap, onLoadBegin, onLoadEnd, fallback, }?: IStaticHandlerParams<Data>) => OneHandler<Data, Payload>;
     export default useStaticHandler;
 }
@@ -7128,18 +8873,99 @@ declare module 'react-declarative/components/One/api/usePreventLeave' {
         dropChanges: () => void;
         waitForChanges: () => Promise<void>;
     }
+    /**
+      * PreventLeave hook documentation
+      *
+      * @template Data - The data type
+      * @template ID - The ID type
+      *
+      * @param [params] - The optional parameters
+      * @param [params.history] - The history object to use for navigation
+      * @param [params.waitForChangesDelay] - The delay in milliseconds to wait for changes
+      * @param [params.readonly] - Whether the data is readonly
+      * @param [params.onChange] - The callback function to execute when the data changes
+      * @param [params.onLoadStart] - The callback function to execute when loading starts
+      * @param [params.onLoadEnd] - The callback function to execute when loading ends
+      * @param [params.onBlock] - The callback function to execute to block navigation
+      * @param [params.onSave] - The callback function to execute when saving the data
+      * @param [params.onUpdate] - The callback function to execute when updating the data
+      * @param [params.checkUpdate] - The function to check if an update is allowed
+      * @param [params.checkDirty] - The function to check if the data is dirty
+      * @param [params.shouldAutoSave] - The function to determine if autosave should be enabled
+      * @param [params.fallback] - The fallback object to handle errors
+      * @param [params.updateSubject] - The subject to subscribe to for updates
+      * @param [params.changeSubject] - The subject to subscribe to for changes
+      *
+      * @returns - The PreventLeave hook return object
+      * @returns return.beginSave - The function to begin the save process
+      * @returns return.afterSave - The function to execute after saving
+      * @returns return.dropChanges - The function to drop changes and reset to initial data
+      * @returns return.waitForChanges - The function to wait for changes to settle
+      * @returns return.oneProps - The one props object for OneForm integration
+      * @returns return.oneProps.change - The function to change the data
+      * @returns return.oneProps.invalidity - The function to set the data as invalid
+      * @returns return.oneProps.readonly - Whether the data is readonly
+      * @returns return.data - The data object, null if invalid
+      * @returns return.hasChanged - Whether the data has changed
+      * @returns return.hasLoading - Whether the data is being loaded
+      */
     export const usePreventLeave: <Data = any, ID = string>({ history, waitForChangesDelay, readonly: upperReadonly, onChange, onLoadStart, onLoadEnd, onBlock, onSave, onUpdate, checkUpdate, checkDirty, shouldAutoSave, fallback, updateSubject: upperUpdateSubject, changeSubject: upperChangeSubject, }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
     export default usePreventLeave;
 }
 
 declare module 'react-declarative/components/OneIcon/OneIcon' {
     import IOneIconProps from "react-declarative/components/OneIcon/model/IOneIconProps";
+    /** *
+      * @template Data - generic type for data object
+      * @template Payload - generic type for payload object
+      * @typedef OneIcon
+      * @property [waitForChangesDelay=WAIT_FOR_CHANGES_DELAY] - delay in milliseconds for waiting changes
+      * @property [fieldDebounce] - debounce time in milliseconds for field changes
+      * @property [noBadge=false] - flag to disable badge
+      * @property fields - array of field objects
+      * @property handler - function to handle data
+      * @property [payload={}] - payload object
+      * @property [badgeColor="info"] - color of the badge
+      * @property [color="default"] - color of the icon button
+      * @property badgeOverlap - overlap position for the badge
+      * @property badgeSx - styles for the badge
+      * @property oneSx - styles for the One component
+      * @property onChange - function for handling the change event
+      * @property onFocus - function for handling the focus event
+      * @property onBlur - function for handling the blur event
+      * @property buttonProps - additional props for the IconButton component
+      */
     export const OneIcon: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, oneSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneIconProps<Data, Payload>) => JSX.Element | null;
     export default OneIcon;
 }
 
 declare module 'react-declarative/components/OneButton/OneButton' {
     import IOneButtonProps from "react-declarative/components/OneButton/model/IOneButtonProps";
+    /**
+      * Represents a button component with a popover that displays a form.
+      *
+      * @template Data - The type of data for the form.
+      * @template Payload - The type of payload for the button handler.
+      *
+      * @param props - The properties of the button component.
+      * @param [props.waitForChangesDelay=WAIT_FOR_CHANGES_DELAY] - The delay in milliseconds to wait for changes before updating data.
+      * @param [props.fieldDebounce] - The debounce time in milliseconds for input fields.
+      * @param [props.noBadge=false] - Whether to display a badge on the button.
+      * @param props.fields - The fields for the form.
+      * @param props.handler - The handler function for the button.
+      * @param [props.payload={}] - The payload for the button handler.
+      * @param [props.badgeColor="info"] - The color of the badge.
+      * @param [props.color="primary"] - The color of the button.
+      * @param [props.badgeOverlap] - The overlap mode of the badge.
+      * @param [props.badgeSx] - The styles for the badge.
+      * @param [props.oneSx] - The styles for the form.
+      * @param [props.onChange] - The callback function to be called when the data changes.
+      * @param [props.onFocus] - The callback function to be called when a field is focused.
+      * @param [props.onBlur] - The callback function to be called when a field is blurred.
+      * @param [props.onInvalid] - The callback function to be called when a field is invalid.
+      *
+      * @returns - Returns null if loading or error, otherwise returns the button component with popover.
+      */
     export const OneButton: <Data extends {} = any, Payload extends unknown = any>({ waitForChangesDelay, fieldDebounce, noBadge, fields, handler, payload: upperPayload, badgeColor, color, badgeOverlap, badgeSx, oneSx, onChange, onFocus, onBlur, onInvalid, ...buttonProps }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
     export default OneButton;
 }
@@ -7150,6 +8976,15 @@ declare module 'react-declarative/components/Dot/Dot' {
         side: number;
         color: string;
     }
+    /**
+      * Represents a Dot component.
+      * @param props - The props object.
+      * @param props.className - The class name of the Dot component.
+      * @param props.color - The background color of the Dot component.
+      * @param props.side - The side length of the Dot component.
+      * @param props.otherProps - Additional props to be spread onto the Dot component.
+      * @returns - The rendered Dot component.
+      */
     export const Dot: ({ className, color: background, side, ...otherProps }: IDotProps) => JSX.Element;
     export default Dot;
 }
@@ -7207,6 +9042,27 @@ declare module 'react-declarative/components/Switch/Switch' {
         path: string;
         params?: Record<string, any>;
     }
+    /**
+      * Represents a switch component that renders different elements based on the current location.
+      * @param SwitchProps - The props for the Switch component.
+      * @param SwitchProps.className - The CSS class name for the component.
+      * @param SwitchProps.style - The inline style object for the component.
+      * @param SwitchProps.Loader - The loader component to render while initial loading.
+      * @param SwitchProps.Forbidden - The component to render if access to a route is forbidden.
+      * @param SwitchProps.NotFound - The component to render if the requested route is not found.
+      * @param SwitchProps.Error - The component to render if an error occurs.
+      * @param SwitchProps.animation - The animation type for transitioning between elements.
+      * @param SwitchProps.history - The history object to use for routing. Defaults to DEFAULT_HISTORY if not provided.
+      * @param SwitchProps.children - The function that returns the child elements to render based on the current location.
+      * @param SwitchProps.fallback - The component to render if an error occurs and throwError is set to false.
+      * @param SwitchProps.items - The array of route items to match and render components for.
+      * @param SwitchProps.onLoadStart - The callback function to invoke when the component starts loading.
+      * @param SwitchProps.onLoadEnd - The callback function to invoke when the component finishes loading.
+      * @param SwitchProps.onInit - The callback function to invoke when the component initializes. Defaults to an empty function.
+      * @param SwitchProps.onDispose - The callback function to invoke when the component is disposed. Defaults to an empty function.
+      * @param SwitchProps.throwError - Indicates whether to throw an error if an exception occurs. Defaults to false.
+      * @returns The Switch component.
+      */
     export const Switch: ({ className, style, Loader, Forbidden, NotFound, Error, animation, history, children, fallback, items: upperItems, onLoadStart, onLoadEnd, onInit, onDispose, throwError, }: ISwitchProps) => JSX.Element;
     export default Switch;
 }
@@ -7215,6 +9071,15 @@ declare module 'react-declarative/components/Center/Center' {
     import { BoxProps } from '@mui/material/Box';
     interface ICenterProps extends BoxProps {
     }
+    /**
+      * A functional component that renders a Box component with given className and otherProps.
+      *
+      * @param props - The properties to configure the Center component.
+      * @param props.className - The className for the Box component.
+      * @param props.otherProps - The other properties to be spread onto the Box component.
+      *
+      * @returns The rendered Center component.
+      */
     export const Center: ({ className, ...otherProps }: ICenterProps) => JSX.Element;
     export default Center;
 }
@@ -7225,12 +9090,37 @@ declare module 'react-declarative/components/Square/Square' {
     interface ISquareProps extends BoxProps {
         children: React.ReactNode;
     }
+    /**
+      * Square component.
+      *
+      * @typedef Square
+      * @param className - The class name to apply to the Square component.
+      * @param children - The content to render inside the Square component.
+      * @param otherProps - Additional props to be spread onto the Square component.
+      * @returns - The rendered Square component.
+      */
     export const Square: ({ className, children, ...otherProps }: ISquareProps) => JSX.Element;
     export default Square;
 }
 
 declare module 'react-declarative/components/Scaffold/Scaffold' {
     import IScaffoldProps from 'react-declarative/components/Scaffold/model/IScaffoldProps';
+    /**
+      * Function that generates a Scaffold component.
+      *
+      * @param props - The props for the Scaffold component.
+      * @param props.roles - The roles to resolve for the component.
+      * @param props.payload - The payload for the component.
+      * @param [props.throwError] - Whether to throw an error or not.
+      * @param [props.fallback] - The fallback component to render while loading.
+      * @param [props.options] - The options to resolve for the component.
+      * @param [props.loadingLine=false] - Whether to show a loading line or not.
+      * @param [props.loading=-1] - The payload for the loading line.
+      * @param [props.Loader=LoaderDefault] - The component to use as the loader.
+      * @param [props.withPassthrough=false] - Whether to pass the payload to child components or not.
+      * @param [props.onInit] - The function to execute on component initialization.
+      * @returns - The rendered component tree.
+      */
     export const Scaffold: <T extends unknown = any>({ roles, payload, throwError, fallback, options, loadingLine, loading, Loader, withPassthrough, onInit, ...props }: IScaffoldProps<T>) => JSX.Element;
     export default Scaffold;
 }
@@ -7292,6 +9182,9 @@ declare module 'react-declarative/components/Translate/Translate' {
     type Locale = Record<string, string>;
     type Middleware = (str: string) => string | null;
     const createElementRef: typeof React.createElement;
+    /**
+      * Translate class for handling text translation and transformation.
+      */
     export class Translate {
         readonly config: Partial<ITranslateConfig>;
         get skipList(): string[];
@@ -7327,6 +9220,24 @@ declare module 'react-declarative/components/Breadcrumbs/Breadcrumbs' {
         BeforeMenuContent?: React.ComponentType<any>;
         AfterMenuContent?: React.ComponentType<any>;
     }
+    /**
+      * Renders a breadcrumb component with optional save button and action menu.
+      *
+      * @template T - The type of payload used by the actions.
+      * @param props - The component props.
+      * @param props.onSave - The callback function called when save button is clicked.
+      * @param props.onBack - The callback function called when breadcrumb is clicked.
+      * @param props.onAction - The callback function called when an action is selected from the menu.
+      * @param props.actions - The list of actions to display in the menu.
+      * @param props.saveDisabled - Whether the save button should be disabled.
+      * @param props.payload - The payload object passed to the actions.
+      * @param [props.title='Title'] - The title text for the breadcrumb.
+      * @param [props.subtitle='Subtitle'] - The subtitle text for the breadcrumb.
+      * @param [props.withSave=false] - Whether the save button should be displayed.
+      * @param [props.BeforeMenuContent] - The optional content to display before the action menu.
+      * @param [props.AfterMenuContent] - The optional content to display after the action menu.
+      * @returns The rendered breadcrumb component.
+      */
     export const Breadcrumbs: <T extends unknown = any>({ onSave, onBack, onAction, actions, saveDisabled, payload, title, subtitle, withSave, BeforeMenuContent, AfterMenuContent, }: IBreadcrumbsProps<T>) => JSX.Element;
     export default Breadcrumbs;
 }
@@ -7364,6 +9275,14 @@ declare module 'react-declarative/components/ColorButton/ColorButton' {
         value?: string;
         onChange?: (color: string) => void;
     }
+    /**
+      * Represents a color button component.
+      * @typedef IColorButtonProps
+      * @property className - The class name for the color button.
+      * @property value - The initial value for the color button (default: "").
+      * @property sx - The style object for the color button.
+      * @property onChange - The function to be called when the color button value changes (default: () => null).
+      */
     export const ColorButton: ({ className, value: upperValue, sx, onChange, ...props }: IColorButtonProps) => JSX.Element;
     export default ColorButton;
 }
@@ -7394,6 +9313,32 @@ declare module 'react-declarative/components/ActionMenu/ActionMenu' {
         BeforeContent?: React.ComponentType<any>;
         AfterContent?: React.ComponentType<any>;
     }
+    /**
+      * ActionMenu is a component that displays a menu of options triggered by a button click.
+      *
+      * @template T - The type of payload passed to the action.
+      *
+      * @param options - An array of option objects that define the content and behavior of each menu option.
+      * @param transparent - Determines whether the menu button should have a transparent style.
+      * @param disabled - Determines whether the menu should be disabled and not respond to user interactions.
+      * @param throwError - Determines whether to throw an error when an asynchronous action fails.
+      * @param fallback - The fallback content to display when an asynchronous action fails.
+      * @param onToggle - A callback function to handle the menu open/close state change event.
+      * @param onAction - A callback function to handle the execution of an action when a menu option is clicked.
+      * @param payload - A payload object to pass to the action callback function.
+      * @param className - Additional CSS class name(s) to apply to the menu button.
+      * @param style - Additional inline styles to apply to the menu button.
+      * @param sx - Additional Stylsx object to apply to the menu button.
+      * @param deps - An array of dependencies to update the menu when changed.
+      * @param onLoadStart - A callback function to handle the start of an asynchronous action.
+      * @param onLoadEnd - A callback function to handle the end of an asynchronous action.
+      * @param keepMounted - Determines whether to keep the menu mounted in the DOM even when closed.
+      * @param BeforeContent - The content to display before the menu options.
+      * @param AfterContent - The content to display after the menu options.
+      * @param reloadSubject - A subject that triggers the reload of the menu options.
+      *
+      * @returns - The rendered ActionMenu component.
+      */
     export const ActionMenu: <T extends unknown = object>({ options, transparent, disabled, throwError, fallback, onToggle, onAction, payload, className, style, sx, deps, onLoadStart, onLoadEnd, keepMounted, BeforeContent, AfterContent, reloadSubject, }: IActionMenuProps<T>) => JSX.Element;
     export default ActionMenu;
 }
@@ -7415,6 +9360,23 @@ declare module 'react-declarative/components/ActionButton/ActionButton' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * Represents an action button component.
+      *
+      * @component
+      * @param props - The component props.
+      * @param [props.Progress=ProgressDefault] - The progress component to show when the button is loading.
+      * @param [props.onClick=()=>{}] - The function to be called when the button is clicked.
+      * @param [props.onLoadStart] - The function to be called when the loading starts.
+      * @param [props.onLoadEnd] - The function to be called when the loading ends.
+      * @param [props.fallback] - The function to be called when an error occurs and throwError is false.
+      * @param [props.children] - The content to be rendered inside the button.
+      * @param [props.disabled] - Whether the button is disabled.
+      * @param [props.throwError=false] - Whether to throw an error when an exception occurs.
+      * @param [props.variant="outlined"] - The button style variant.
+      *
+      * @returns The rendered component.
+      */
     export const ActionButton: ({ Progress, onClick, onLoadStart, onLoadEnd, fallback, children, disabled, throwError, variant, ...otherProps }: IActionButtonProps) => JSX.Element;
     export default ActionButton;
 }
@@ -7425,6 +9387,14 @@ declare module 'react-declarative/components/ActionButton/api/usePreventAction' 
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
+    /**
+      * A hook that allows preventing an action based on loading state.
+      * @param [IParams] - The parameters for the hook.
+      * @param [onLoadStart] - The function to execute when the loading starts.
+      * @param [onLoadEnd] - The function to execute when the loading ends.
+      * @param [disabled] - Whether the action is disabled.
+      * @returns - An object containing the handleLoadStart, handleLoadEnd, and loading properties.
+      */
     export const usePreventAction: ({ onLoadStart, onLoadEnd, disabled, }?: IParams) => {
         readonly handleLoadStart: () => void;
         readonly handleLoadEnd: (isOk: boolean) => void;
@@ -7459,6 +9429,25 @@ declare module 'react-declarative/components/ActionStopIcon/ActionStopIcon' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * Represents an ActionStopIcon component.
+      *
+      * @typedef IActionStopIconProps
+      * @property className - The CSS class name for the component.
+      * @property style - The inline CSS styles for the component.
+      * @property sx - The system styles for the component.
+      * @property size - The size of the icon. Default is DEFAULT_SIZE.
+      * @property thickness - The thickness of the CircularProgress spinner. Default is DEFAULT_THICKNESS.
+      * @property noProgress - Flag indicating whether to show the CircularProgress spinner. Default is false.
+      * @property throwError - Flag indicating whether to throw an error or trigger the fallback function upon an error. Default is false.
+      * @property disabled - Flag indicating whether the component is disabled. Default is false.
+      * @property onLoadStart - Callback function triggered when the component starts loading.
+      * @property onLoadEnd - Callback function triggered when the component finishes loading.
+      * @property fallback - The fallback function to be called when an error occurs and 'throwError' is set to false.
+      * @property onClick - The click event handler for the component. Default is an empty function.
+      * @property children - The child element to be rendered inside the component. Default is a CloseIcon.
+      * @property otherProps - Any additional props for the component.
+      */
     export const ActionStopIcon: ({ className, style, sx, size, thickness, noProgress, throwError, disabled, onLoadStart, onLoadEnd, fallback, onClick, children, ...otherProps }: IActionStopIconProps) => JSX.Element;
     export default ActionStopIcon;
 }
@@ -7479,6 +9468,27 @@ declare module 'react-declarative/components/ActionFab/ActionFab' {
         size?: number;
         noProgress?: boolean;
     }
+    /**
+      * ActionFab component.
+      *
+      * @param props - The component props.
+      * @param props.className - The CSS class name for the root element.
+      * @param props.style - The inline CSS styles for the root element.
+      * @param props.sx - The style object for SX props.
+      * @param props.noProgress - If true, the progress indicator will not be displayed when loading. Default is false.
+      * @param props.throwError - If true, any error thrown during onClick will be re-thrown. Default is false.
+      * @param props.disabled - If true, the component is disabled. Default is false.
+      * @param props.size - The size of the component. Default is DEFAULT_SIZE.
+      * @param props.thickness - The thickness of the progress indicator. Default is DEFAULT_THICKNESS.
+      * @param props.color - The color of the component. Default is "primary".
+      * @param props.onLoadStart - The callback function called when loading starts.
+      * @param props.onLoadEnd - The callback function called when loading ends.
+      * @param props.onClick - The callback function called when the component is clicked.
+      * @param props.fallback - The fallback component to render if an error occurs during onClick.
+      * @param props.children - The child components to render inside the component.
+      * @param props.otherProps - The additional props to pass to the Fab component.
+      * @returns The rendered component.
+      */
     export const ActionFab: ({ className, style, sx, noProgress, throwError, disabled, size, thickness, color, onLoadStart, onLoadEnd, onClick, fallback, children, ...otherProps }: IActionFabProps) => JSX.Element;
     export default ActionFab;
 }
@@ -7489,6 +9499,17 @@ declare module 'react-declarative/components/ActionFilter/ActionFilter' {
     type BoxProps = Omit<MatBoxProps, keyof {
         onChange: never;
     }>;
+    /**
+      * Represents an Action Filter component.
+      *
+      * @typedef ActionFilter
+      * @property actions - The available filter actions.
+      * @property label - The label for the filter component.
+      * @property addLabel - The label for the "Add filter" button.
+      * @property data - The initial filter data.
+      * @property onChange - The callback function to be called when the filter data changes.
+      * @property otherProps - Additional properties for the Box component.
+      */
     export const ActionFilter: ({ actions, label, addLabel, data: initialData, onChange, ...otherProps }: BoxProps & IActionFilterProps) => JSX.Element;
     export default ActionFilter;
 }
@@ -7507,6 +9528,28 @@ declare module 'react-declarative/components/ActionFilter/model/IActionFilter' {
 
 declare module 'react-declarative/components/ActionTrigger/ActionTrigger' {
     import IActionTriggerProps from 'react-declarative/components/ActionTrigger/model/IActionTriggerProps';
+    /**
+      * Renders a component that triggers actions based on user interaction.
+      *
+      * @template T - The type of the payload returned by the action.
+      * @param props - The props for the component.
+      * @param props.actions - An array of objects representing the actions to be triggered. Each object should have the following properties:
+      *   - action: The name of the action to be triggered.
+      *   - label: The label of the action.
+      *   - icon: An optional icon component for the action.
+      *   - isAvailable: An optional function or boolean indicating whether the action is available. If a function is provided, it should return a boolean.
+      * @param [props.variant='outlined'] - The variant of the action buttons.
+      * @param [props.size='medium'] - The size of the action buttons.
+      * @param [props.onAction=() => {}] - The callback function to be called when an action is triggered.
+      * @param [props.fallback] - The fallback value to be passed to the Async component.
+      * @param [props.onLoadStart] - The callback function to be called when the async operation starts.
+      * @param [props.onLoadEnd] - The callback function to be called when the async operation ends.
+      * @param [props.payload] - The payload data to be passed to the async operation.
+      * @param [props.deps] - The dependencies of the async operation.
+      * @param [props.throwError] - Whether to throw an error if the async operation fails.
+      * @param otherProps - Additional props to be spread onto the container Box component.
+      * @returns - The rendered component.
+      */
     export const ActionTrigger: <T extends unknown = object>({ actions, variant, size, onAction, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IActionTriggerProps<T>) => JSX.Element;
     export default ActionTrigger;
 }
@@ -7539,6 +9582,24 @@ declare module 'react-declarative/components/ActionIcon/ActionIcon' {
         thickness?: number;
         noProgress?: boolean;
     }
+    /**
+      * Represents an action icon component.
+      * @typedef ActionIcon
+      * @property className - The class name for the component.
+      * @property style - The inline style for the component.
+      * @property sx - The custom styling for the component using SX prop provided by Emotion.
+      * @property noProgress - Determines if the progress spinner should be shown.
+      * @property throwError - Determines if an error should be thrown in case of an exception.
+      * @property disabled - Determines if the component is disabled.
+      * @property onLoadStart - The callback function called when the action starts loading.
+      * @property onLoadEnd - The callback function called when the action finishes loading.
+      * @property onClick - The callback function called when the icon is clicked.
+      * @property fallback - The fallback function called in case of an error and throwError is false.
+      * @property children - The child components of the icon.
+      * @property size - The size of the icon.
+      * @property thickness - The thickness of the circular progress spinner.
+      * @property otherProps - Other props to be passed to the IconButton component.
+      */
     export const ActionIcon: ({ className, style, sx, noProgress, throwError, disabled, onLoadStart, onLoadEnd, onClick, fallback, children, size, thickness, ...otherProps }: IActionIconProps) => JSX.Element;
     export default ActionIcon;
 }
@@ -7561,6 +9622,21 @@ declare module 'react-declarative/components/ActionToggle/ActionToggle' {
         throwError?: boolean;
         sx?: SxProps<any>;
     }
+    /**
+      * Represents an action toggle component.
+      *
+      * @typedef ActionToggle
+      * @param className - The custom class name for the component.
+      * @param onClick - The callback function called when the toggle is clicked.
+      * @param onLoadStart - The callback function called when the loading starts.
+      * @param onLoadEnd - The callback function called when the loading ends.
+      * @param fallback - The fallback function called when an error occurs and throwError is false.
+      * @param disabled - Indicates whether the toggle is disabled.
+      * @param throwError - Indicates whether an error should be thrown.
+      * @param checked - Indicates whether the toggle is checked.
+      * @param defaultChecked - The default value for the checked state.
+      * @param otherProps - Additional props to be spread on the component.
+      */
     export const ActionToggle: ({ className, onClick, onLoadStart, onLoadEnd, fallback, disabled, throwError, checked: upperChecked, defaultChecked, ...otherProps }: IActionToggleProps) => JSX.Element;
     export default ActionToggle;
 }
@@ -7618,6 +9694,48 @@ declare module 'react-declarative/components/ActionModal/ActionModal' {
         open?: boolean;
         submitLabel?: string;
     }
+    /**
+      * ActionModal is a component that renders a modal dialog with customizable fields and actions.
+      *
+      * @template Data - The type of data for the fields in the modal.
+      * @template Payload - The type of payload that will be passed to the onSubmit callback.
+      * @template Field - The type of field that will be rendered in the modal.
+      *
+      * @typedef IActionModalProps - The props for the ActionModal component.
+      * @property [withActionButton=true] - Determines whether an action button should be displayed.
+      * @property [withStaticAction=false] - Determines whether a static action should be displayed.
+      * @property [waitForChangesDelay=0] - The amount of time to wait for any changes before submitting the form.
+      * @property [onSubmit=()=>true] - The callback function to be called when the form is submitted.
+      * @property [onChange=()=>undefined] - The callback function to be called when any field changes.
+      * @property [onInvalid=()=>undefined] - The callback function to be called when a field becomes invalid.
+      * @property [onLoadStart] - The callback function to be called when the form starts loading.
+      * @property [onLoadEnd] - The callback function to be called when the form finishes loading.
+      * @property [fallback] - The fallback component to be displayed when an error occurs.
+      * @property [fields] - The fields to be rendered in the form.
+      * @property [param] - Additional parameter to be passed to the onSubmit callback.
+      * @property [handler] - The function to be called when any field changes its value.
+      * @property [payload={}] - The payload to be passed to the onSubmit callback.
+      * @property [fullScreen=false] - Determines whether the modal should be displayed in full screen.
+      * @property [sizeRequest] - The function to compute the size of the modal.
+      * @property [title] - The title to be displayed in the modal.
+      * @property [apiRef] - Reference to the api.
+      * @property [features] - Additional features for the ActionModal.
+      * @property [changeSubject] - Subject for changes.
+      * @property [reloadSubject] - Subject for reloads.
+      * @property [outlinePaper=false] - Determines whether the paper component should have an outline.
+      * @property [transparentPaper=false] - Determines whether the paper component should be transparent.
+      * @property [open=true] - Determines whether the modal is open.
+      * @property [dirty=false] - Determines whether any field in the form is dirty.
+      * @property [hidden=false] - Determines whether the modal is hidden.
+      * @property [readonly=false] - Determines whether the modal is read-only.
+      * @property [throwError=false] - Determines whether an error should be thrown on submission error.
+      * @property [submitLabel='Submit'] - The label to be displayed on the action button.
+      * @property [AfterTitle] - The component to be displayed after the title.
+      * @property [BeforeTitle] - The component to be displayed before the title.
+      *
+      * @param props - The props for the ActionModal component.
+      * @returns - The rendered modal component.
+      */
     export const ActionModal: <Data extends unknown = any, Payload = any, Field = IField<Data, any>>({ withActionButton, withStaticAction, waitForChangesDelay, onSubmit, onChange, onInvalid, onLoadStart, onLoadEnd, fallback, fields, param, handler, payload: upperPayload, fullScreen, sizeRequest, title, apiRef, features, changeSubject, reloadSubject, outlinePaper, transparentPaper, open, dirty, hidden, readonly, throwError, submitLabel, AfterTitle, BeforeTitle, }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
     export default ActionModal;
 }
@@ -7634,6 +9752,48 @@ declare module 'react-declarative/components/ActionModal/useActionModal' {
         param?: Param;
         onClose?: () => void;
     }
+    /**
+      * Creates a hook for managing an action modal.
+      * @template Data - The type of data being submitted.
+      * @template Payload - The type of payload data.
+      * @template Field - The type of field data.
+      * @template Param - The type of param data.
+      * @param params - The parameters for configuring the action modal.
+      * @param params.hidden - Indicates whether the action modal is hidden.
+      * @param params.fields - The fields for the action modal.
+      * @param params.waitForChangesDelay - The delay for waiting on changes.
+      * @param params.param - The initial value for the param.
+      * @param params.features - The features for the action modal.
+      * @param params.handler - The handler function for the action modal.
+      * @param params.fallback - The fallback element for the action modal.
+      * @param params.apiRef - The reference to the API for the action modal.
+      * @param params.changeSubject - The subject for change events.
+      * @param params.reloadSubject - The subject for reload events.
+      * @param params.withActionButton - Indicates whether to include an action button.
+      * @param params.withStaticAction - Indicates whether to include a static action.
+      * @param params.payload - The payload data for the action modal.
+      * @param params.BeforeTitle - The element to render before the title.
+      * @param params.onChange - The onChange event handler for the action modal.
+      * @param params.onClose - The onClose event handler for the action modal.
+      * @param params.onSubmit - The onSubmit event handler for the action modal.
+      * @param params.onLoadEnd - The onLoadEnd event handler for the action modal.
+      * @param params.onLoadStart - The onLoadStart event handler for the action modal.
+      * @param params.onInvalid - The onInvalid event handler for the action modal.
+      * @param params.AfterTitle - The element to render after the title.
+      * @param params.outlinePaper - Indicates whether the paper has an outline.
+      * @param params.transparentPaper - Indicates whether the paper is transparent.
+      * @param params.submitLabel - The label for the submit button.
+      * @param params.throwError - Indicates whether to throw an error on submit.
+      * @param params.dirty - Indicates whether the form is dirty.
+      * @param params.readonly - Indicates whether the form is readonly.
+      * @param params.fullScreen - Indicates whether the action modal is fullscreen.
+      * @param params.sizeRequest - The size request for the action modal.
+      * @param params.title - The title for the action modal.
+      * @returns - The state and render functions.
+      * @property open - Indicates whether the action modal is open or closed.
+      * @property render - The render function for the action modal.
+      * @property pickData - The function for selecting data.
+      */
     export const useActionModal: <Data extends unknown = any, Payload extends unknown = any, Field = IField<Data, any>, Param = any>({ hidden, fields, waitForChangesDelay, param: upperParam, features, handler, fallback, apiRef, changeSubject, reloadSubject, withActionButton, withStaticAction, payload: upperPayload, BeforeTitle, onChange, onClose, onSubmit, onLoadEnd, onLoadStart, onInvalid, AfterTitle, outlinePaper, transparentPaper, submitLabel, throwError, dirty, readonly, fullScreen, sizeRequest, title, }: IParams<Data, Payload, Field, Param>) => {
         open: boolean;
         render: () => JSX.Element;
@@ -7692,6 +9852,37 @@ declare module 'react-declarative/components/SearchModal/SearchModal' {
         hidden?: boolean;
         submitLabel?: string;
     }
+    /**
+      * Represents a Search Modal component.
+      *
+      * @template FilterData - The type of filter data.
+      * @template RowData - The type of row data.
+      * @template Payload - The type of payload.
+      * @template Field - The type of field.
+      *
+      * @param props - The props of the component.
+      * @param [props.fullScreen=true] - Whether the modal should be displayed as full screen.
+      * @param [props.sizeRequest] - The size request for the modal.
+      * @param [props.hidden=false] - Whether the modal should be hidden.
+      * @param [props.onSubmit] - The callback function when the form is submitted.
+      * @param [props.onChange] - The callback function when the form data changes.
+      * @param [props.onLoadStart] - The callback function when the data loading starts.
+      * @param [props.onLoadEnd] - The callback function when the data loading ends.
+      * @param [props.fallback] - The fallback function when an error occurs.
+      * @param [props.AfterTitle] - The component to be rendered after the title.
+      * @param [props.BeforeTitle] - The component to be rendered before the title.
+      * @param [props.title] - The title of the modal.
+      * @param [props.payload] - The payload data.
+      * @param [props.withInitialLoader=true] - Whether to show the initial loader.
+      * @param [props.selectionMode=SelectionMode.Multiple] - The selection mode for the list.
+      * @param [props.data] - The data for the list.
+      * @param [props.open=true] - Whether the modal is open.
+      * @param [props.throwError=false] - Whether to throw an error when an error occurs.
+      * @param [props.submitLabel="Submit"] - The label for the submit button.
+      * @param [props.listProps] - The additional props for the list component.
+      *
+      * @returns The Search Modal component.
+      */
     export const SearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ fullScreen, sizeRequest, hidden, onSubmit, onChange, onLoadStart, onLoadEnd, fallback, AfterTitle, BeforeTitle, title, payload: upperPayload, withInitialLoader, selectionMode, data: upperData, open, throwError, submitLabel, ...listProps }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
     export default SearchModal;
 }
@@ -7713,6 +9904,41 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
         param?: Param;
         onSubmit?: (data: IRowData['id'][] | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
     }
+    /**
+      * The useSearchModal function is a custom hook that provides functionality for displaying a search modal.
+      * It accepts various parameters and returns an object with properties and methods for controlling the search modal.
+      *
+      * @template FilterData - The type of the filter data.
+      * @template RowData - The type of the row data.
+      * @template Payload - The type of the payload.
+      * @template Field - The type of the field.
+      *
+      * @param params - The parameters for configuring the search modal.
+      * @param params.param - The initial value for the parameter.
+      * @param params.selectionMode - The selection mode for the search modal.
+      * @param params.handler - The handler function for handling events.
+      * @param params.fallback - The fallback function to be executed if an error occurs.
+      * @param params.apiRef - The reference to the API.
+      * @param params.reloadSubject - The subject for triggering reload events.
+      * @param params.payload - The initial value for the payload.
+      * @param params.onChange - The callback function for handling change events.
+      * @param params.onAction - The callback function for handling action events.
+      * @param params.onRowAction - The callback function for handling row action events.
+      * @param params.onSubmit - The callback function for handling submit events.
+      * @param params.onLoadEnd - The callback function to be executed when loading ends.
+      * @param params.onLoadStart - The callback function to be executed when loading starts.
+      * @param params.submitLabel - The label for the submit button.
+      * @param params.throwError - Indicates whether to throw an error or not.
+      * @param params.title - The title of the search modal.
+      * @param params.hidden - Indicates whether the search modal should be hidden or not.
+      * @param listProps - Additional properties for customizing the search modal.
+      *
+      * @returns An object with properties and methods for controlling the search modal.
+      * @property open - Indicates whether the search modal is open or not.
+      * @property render - A function for rendering the search modal.
+      * @property pickData - A function for picking data.
+      * @property close - A function for closing the search modal and handling submit with null data.
+      */
     export const useSearchModal: <FilterData extends {} = any, RowData extends IRowData = any, Payload extends unknown = any, Field extends IField<any, any> = IField<FilterData, Payload>>({ param: upperParam, selectionMode, handler, fallback, apiRef, reloadSubject, payload: upperPayload, onChange, onAction, onRowAction, onSubmit, onLoadEnd, onLoadStart, submitLabel, throwError, title, hidden, ...listProps }: IParams<FilterData, RowData, Payload, Field>) => {
         readonly open: boolean;
         readonly render: () => JSX.Element;
@@ -7730,6 +9956,49 @@ declare module 'react-declarative/components/SearchModal/useSearchModal' {
 
 declare module 'react-declarative/components/SearchView/SearchView' {
     import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
+    /**
+      * SearchView component documentation
+      *
+      * @template Data - The data type of the component
+      * @template Payload - The payload type of the component
+      *
+      * @param props - The component props
+      * @param [props.className] - The class name for the component
+      * @param [props.style] - The inline style for the component
+      * @param [props.sx] - The sx prop for the component (sx prop is a shorthand for sx={{}} in styled components)
+      * @param [props.type="text"] - The type of the input field
+      * @param [props.mode="text"] - The input mode of the input field
+      * @param [props.variant="standard"] - The variant of the input field
+      * @param [props.pattern] - The pattern attribute of the input field
+      * @param [props.value] - The value of the component
+      * @param [props.label] - The label for the input field
+      * @param [props.placeholder] - The placeholder for the input field
+      * @param [props.searchText] - The search text for the component
+      * @param [props.changeSubject] - The change subject for the component
+      * @param [props.onChange=() => undefined] - The change event handler for the value
+      * @param [props.onTextChange=() => undefined] - The change event handler for the search text
+      * @param [props.delay=DEFAULT_DELAY] - The delay in milliseconds before executing a search
+      * @param [props.limit=DEFAULT_LIMIT] - The maximum number of search results to return
+      * @param [props.payload] - The payload for the search request
+      * @param [props.autoComplete] - The autocomplete attribute for the input field
+      * @param [props.fullWidth] - Whether the input field should take up the full width
+      * @param [props.disabled] - Whether the input field should be disabled
+      * @param [props.onCreate] - The callback to create a new item
+      * @param [props.onLoadStart] - The callback when the search request starts
+      * @param [props.onLoadEnd] - The callback when the search request ends
+      * @param [props.fallback] - The fallback content to display during loading or error
+      * @param props.handler - The search handler function
+      * @param [props.inputRef] - The ref for the input field
+      * @param [props.SearchItem=SearchItemDefault] - The component to render each search item
+      * @param [props.SearchInput=SearchInputDefault] - The component to render the search input
+      * @param [props.CreateButton=CreateButtonDefault] - The component to render the create button
+      * @param [props.startAdornment=null] - The start adornment for the input field
+      * @param [props.endAdornment=null] - The end adornment for the input field
+      * @param [props.throwError] - Whether errors should be thrown or not
+      * @param [props.otherProps] - Any other props that should be passed to the TextField component
+      *
+      * @returns The SearchView component
+      */
     export const SearchView: <Data extends unknown = any, Payload = any>({ className, style, sx, type, mode, variant, pattern, value, label, placeholder, searchText, changeSubject: upperChangeSubject, onChange, onTextChange, delay, limit, payload: upperPayload, autoComplete, fullWidth, disabled, onCreate, onLoadStart, onLoadEnd, fallback, handler, inputRef, SearchItem, SearchInput, CreateButton, startAdornment, endAdornment, throwError, ...otherProps }: ISearchViewProps<Data, Payload>) => JSX.Element;
     export default SearchView;
 }
@@ -7747,6 +10016,19 @@ declare module 'react-declarative/components/ConstraintView/ConstraintView' {
         onViewChanged?: (name: string) => void;
         params?: IChildParams<T>;
     }
+    /**
+      * Represents a view that is constrained by the device's screen size to render different content
+      *
+      * @template T - The type of data passed to the view components
+      * @param props - The props for the ConstraintView component
+      * @param props.desktopView - The view component to render on desktop devices
+      * @param props.tabletView - The view component to render on tablet devices
+      * @param props.phoneView - The view component to render on phone devices
+      * @param props.onViewChanged - A callback function invoked when the view changes
+      * @param props.params - The parameters to pass to the view components
+      * @param props - Any other props to pass to the component
+      * @returns - The rendered content based on the current device's screen size
+      */
     export const ConstraintView: <T extends unknown = any>({ desktopView: Desktop, tabletView: Tablet, phoneView: Phone, onViewChanged, params, ...otherProps }: IConstraintViewProps<T>) => JSX.Element;
     export default ConstraintView;
 }
@@ -7767,6 +10049,20 @@ declare module 'react-declarative/components/ScrollTopView/ScrollTopView' {
     }> & {
         scrollTarget?: HTMLElement;
     };
+    /**
+      * Represents a scroll to top button view component.
+      *
+      * @param props - The component props.
+      * @param [props.className] - The class name for the component.
+      * @param [props.style] - The inline style for the component.
+      * @param [props.sx] - The sx prop for the component.
+      * @param [props.color="primary"] - The color of the component.
+      * @param [props.size="medium"] - The size of the component.
+      * @param [props.scrollTarget=document.documentElement] - The element to scroll when clicked.
+      * @param [props.otherProps] - Other additional props.
+      *
+      * @returns The scroll to top button view component.
+      */
     export const ScrollTopView: ({ className, style, sx, color, size, scrollTarget, ...otherProps }: IScrollTopViewProps) => JSX.Element;
     export default ScrollTopView;
 }
@@ -7775,7 +10071,27 @@ declare module 'react-declarative/components/OutletView/OutletView' {
     import IOutletViewProps from "react-declarative/components/OutletView/model/IOutletViewProps";
     import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
     /**
+      * OutletView component documentation
+      *
       * @description Use `history.replace` to navigate between subviews
+      *
+      * @param className - The class name of the component
+      * @param readonly - Flag indicating if the component should be in read only mode
+      * @param waitForChangesDelay - Delay in milliseconds for waiting for changes before submit
+      * @param initialData - Initial data object for the component
+      * @param animation - Animation type for the component
+      * @param routes - Array of route objects for the component
+      * @param params - Parameters object for the component
+      * @param upperPayload - Payload object for the component
+      * @param history - History object for the component
+      * @param fallback - Fallback function for error handling
+      * @param onChange - Change event handler function
+      * @param onSubmit - Submit event handler function
+      * @param onLoadStart - Load start event handler function
+      * @param onLoadEnd - Load end event handler function
+      * @param upperChangeSubject - Change subject for the component
+      * @param otherProps - Other properties for the component
+      * @returns The rendered component
       */
     export const OutletView: <Data extends {} = Record<string, any>, Payload = any, Params = any, OtherProps = IOtherProps>({ className, readonly, waitForChangesDelay, initialData, animation, routes, params, payload: upperPayload, history, fallback, onChange, onSubmit, onLoadStart, onLoadEnd, changeSubject: upperChangeSubject, otherProps, ...revealProps }: IOutletViewProps<Data, Payload, Params, OtherProps>) => JSX.Element;
     export default OutletView;
@@ -7862,6 +10178,38 @@ declare module 'react-declarative/components/OutletView/hooks/useOutletModal' {
         history?: History;
         pathname?: string;
     }
+    /**
+      * A custom hook that provides functionality for managing and rendering an outlet modal.
+      *
+      * @template Data - The type of data associated with the outlet modal.
+      * @template Payload - The type of payload passed during submission.
+      * @template Params - The type of additional parameters.
+      *
+      * @param params - The parameters object.
+      * @param params.fallback - The fallback content to be rendered if the modal cannot be displayed.
+      * @param [params.pathname="/"] - The pathname for the outlet modal history.
+      * @param [params.history] - The history object used to manage navigation.
+      * @param [params.fullScreen=true] - A boolean value indicating whether the modal should be displayed in full screen.
+      * @param params.onLoadEnd - The callback function to be called when the outlet content finishes loading.
+      * @param params.onLoadStart - The callback function to be called when the outlet content starts loading.
+      * @param [params.throwError] - A boolean value indicating whether errors should be thrown during submission.
+      * @param params.onChange - The callback function to be called when the outlet content changes.
+      * @param [params.onSubmit=() => true] - The callback function to be called when the outlet content is submitted.
+      * @param params.onMount - The callback function to be called when the outlet modal is mounted.
+      * @param params.onUnmount - The callback function to be called when the outlet modal is unmounted.
+      * @param [params.onClose] - The callback function to be called when the outlet modal is closed.
+      * @param [params.submitLabel] - The label for the submit button in the outlet modal.
+      * @param [params.title] - The title for the outlet modal.
+      * @param [params.hidden] - A boolean value indicating whether the outlet modal should be hidden.
+      * @param [params.pickDataSubject] - The subject used for picking data.
+      * @param outletProps - Additional props for the underlying `OutletModal` component.
+      *
+      * @returns - An object containing the following methods and properties:
+      *   - `open` - A boolean value indicating whether the modal is open.
+      *   - `render` - A function that renders the outlet modal.
+      *   - `pickData` - A function used to pick data for the modal.
+      *   - `close` - A function used to close the modal.
+      */
     export const useOutletModal: <Data extends {} = Record<string, any>, Payload = any, Params = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, pickDataSubject: upperPickDataSubject, ...outletProps }: IParams<Data, Payload, Params>) => {
         readonly open: typeof open;
         readonly render: () => JSX.Element;
@@ -7881,6 +10229,16 @@ declare module 'react-declarative/components/AlertView/AlertView' {
         items?: IAlert[];
         variant?: 'standard' | 'filled' | 'outlined';
     }
+    /**
+      * Represents an AlertView component that displays a stack of alerts.
+      *
+      * @param props - The properties used to configure the AlertView component.
+      * @param props.className - The CSS class name for the AlertView component.
+      * @param props.items - An array of items to display as alerts.
+      * @param props.variant - The variant of the alerts. Default is "outlined".
+      * @param props.otherProps - Additional props to be spread to the Stack component.
+      * @returns - The rendered JSX element for the AlertView component.
+      */
     export const AlertView: ({ className, items, variant, ...otherProps }: IAlertViewProps) => JSX.Element;
     export default AlertView;
 }
@@ -7895,6 +10253,17 @@ declare module 'react-declarative/components/PaperView/PaperView' {
         outlinePaper?: boolean;
         transparentPaper?: boolean;
     }
+    /**
+      * React component for rendering a customizable paper view.
+      *
+      * @component
+      * @param {Object} props - The component props.
+      * @param {string} props.className - The CSS class name for the paper view.
+      * @param {boolean} props.outlinePaper - Specifies whether the paper view should have an outline.
+      * @param {boolean} props.transparentPaper - Specifies whether the paper view should be transparent.
+      * @param {React.Ref} ref - The ref to be forwarded to the underlying HTML element.
+      * @returns {React.Element} The rendered paper view component.
+      */
     export const PaperView: React.ForwardRefExoticComponent<Pick<IPaperViewProps, "key" | "onChange" | "className" | "style" | "sx" | "onClick" | "classes" | "children" | "color" | "variant" | "slot" | "title" | "defaultChecked" | "defaultValue" | "suppressContentEditableWarning" | "suppressHydrationWarning" | "accessKey" | "contentEditable" | "contextMenu" | "dir" | "draggable" | "hidden" | "id" | "lang" | "placeholder" | "spellCheck" | "tabIndex" | "translate" | "radioGroup" | "role" | "about" | "datatype" | "inlist" | "prefix" | "property" | "resource" | "typeof" | "vocab" | "autoCapitalize" | "autoCorrect" | "autoSave" | "itemProp" | "itemScope" | "itemType" | "itemID" | "itemRef" | "results" | "security" | "unselectable" | "inputMode" | "is" | "aria-activedescendant" | "aria-atomic" | "aria-autocomplete" | "aria-busy" | "aria-checked" | "aria-colcount" | "aria-colindex" | "aria-colspan" | "aria-controls" | "aria-current" | "aria-describedby" | "aria-details" | "aria-disabled" | "aria-dropeffect" | "aria-errormessage" | "aria-expanded" | "aria-flowto" | "aria-grabbed" | "aria-haspopup" | "aria-hidden" | "aria-invalid" | "aria-keyshortcuts" | "aria-label" | "aria-labelledby" | "aria-level" | "aria-live" | "aria-modal" | "aria-multiline" | "aria-multiselectable" | "aria-orientation" | "aria-owns" | "aria-placeholder" | "aria-posinset" | "aria-pressed" | "aria-readonly" | "aria-relevant" | "aria-required" | "aria-roledescription" | "aria-rowcount" | "aria-rowindex" | "aria-rowspan" | "aria-selected" | "aria-setsize" | "aria-sort" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "dangerouslySetInnerHTML" | "onCopy" | "onCopyCapture" | "onCut" | "onCutCapture" | "onPaste" | "onPasteCapture" | "onCompositionEnd" | "onCompositionEndCapture" | "onCompositionStart" | "onCompositionStartCapture" | "onCompositionUpdate" | "onCompositionUpdateCapture" | "onFocus" | "onFocusCapture" | "onBlur" | "onBlurCapture" | "onChangeCapture" | "onBeforeInput" | "onBeforeInputCapture" | "onInput" | "onInputCapture" | "onReset" | "onResetCapture" | "onSubmit" | "onSubmitCapture" | "onInvalid" | "onInvalidCapture" | "onLoad" | "onLoadCapture" | "onError" | "onErrorCapture" | "onKeyDown" | "onKeyDownCapture" | "onKeyPress" | "onKeyPressCapture" | "onKeyUp" | "onKeyUpCapture" | "onAbort" | "onAbortCapture" | "onCanPlay" | "onCanPlayCapture" | "onCanPlayThrough" | "onCanPlayThroughCapture" | "onDurationChange" | "onDurationChangeCapture" | "onEmptied" | "onEmptiedCapture" | "onEncrypted" | "onEncryptedCapture" | "onEnded" | "onEndedCapture" | "onLoadedData" | "onLoadedDataCapture" | "onLoadedMetadata" | "onLoadedMetadataCapture" | "onLoadStart" | "onLoadStartCapture" | "onPause" | "onPauseCapture" | "onPlay" | "onPlayCapture" | "onPlaying" | "onPlayingCapture" | "onProgress" | "onProgressCapture" | "onRateChange" | "onRateChangeCapture" | "onSeeked" | "onSeekedCapture" | "onSeeking" | "onSeekingCapture" | "onStalled" | "onStalledCapture" | "onSuspend" | "onSuspendCapture" | "onTimeUpdate" | "onTimeUpdateCapture" | "onVolumeChange" | "onVolumeChangeCapture" | "onWaiting" | "onWaitingCapture" | "onAuxClick" | "onAuxClickCapture" | "onClickCapture" | "onContextMenu" | "onContextMenuCapture" | "onDoubleClick" | "onDoubleClickCapture" | "onDrag" | "onDragCapture" | "onDragEnd" | "onDragEndCapture" | "onDragEnter" | "onDragEnterCapture" | "onDragExit" | "onDragExitCapture" | "onDragLeave" | "onDragLeaveCapture" | "onDragOver" | "onDragOverCapture" | "onDragStart" | "onDragStartCapture" | "onDrop" | "onDropCapture" | "onMouseDown" | "onMouseDownCapture" | "onMouseEnter" | "onMouseLeave" | "onMouseMove" | "onMouseMoveCapture" | "onMouseOut" | "onMouseOutCapture" | "onMouseOver" | "onMouseOverCapture" | "onMouseUp" | "onMouseUpCapture" | "onSelect" | "onSelectCapture" | "onTouchCancel" | "onTouchCancelCapture" | "onTouchEnd" | "onTouchEndCapture" | "onTouchMove" | "onTouchMoveCapture" | "onTouchStart" | "onTouchStartCapture" | "onPointerDown" | "onPointerDownCapture" | "onPointerMove" | "onPointerMoveCapture" | "onPointerUp" | "onPointerUpCapture" | "onPointerCancel" | "onPointerCancelCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerOver" | "onPointerOverCapture" | "onPointerOut" | "onPointerOutCapture" | "onGotPointerCapture" | "onGotPointerCaptureCapture" | "onLostPointerCapture" | "onLostPointerCaptureCapture" | "onScroll" | "onScrollCapture" | "onWheel" | "onWheelCapture" | "onAnimationStart" | "onAnimationStartCapture" | "onAnimationEnd" | "onAnimationEndCapture" | "onAnimationIteration" | "onAnimationIterationCapture" | "onTransitionEnd" | "onTransitionEndCapture" | "outlinePaper" | "transparentPaper" | "elevation" | "square"> & React.RefAttributes<HTMLDivElement>>;
     export default PaperView;
 }
@@ -7913,6 +10282,18 @@ declare module 'react-declarative/components/DragDropView/DragDropView' {
         onReject?: (files: File[]) => void;
     }
     export const ACCEPT_DEFAULT = ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel";
+    /**
+      * Represents a drag and drop view component.
+      * @typedef DragDropView
+      * @property className - The class name for the component.
+      * @property style - The inline style for the component.
+      * @property sx - The style object for sx prop.
+      * @property disabled - Indicates whether the drag and drop functionality is disabled.
+      * @property multiple - Indicates whether multiple files can be selected.
+      * @property accept - The file types that are accepted for upload.
+      * @property onData - The callback function called when files are dropped or selected.
+      * @property onReject - The callback function called when files are rejected.
+      */
     export const DragDropView: ({ className, style, sx, disabled, multiple, accept, onData, onReject, }: IDragDropViewProps) => JSX.Element;
     export default DragDropView;
 }
@@ -7938,6 +10319,28 @@ declare module 'react-declarative/components/FilesView/FilesView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * A component for displaying a list of files with upload, remove, and click functionalities.
+      *
+      * @param items - The list of file names to display.
+      * @param className - Additional CSS class names for the root element.
+      * @param style - Additional inline styles for the root element.
+      * @param sx - Additional theme styles for the root element.
+      * @param disabled - Flag to disable the component.
+      * @param onUpload - The callback function when a file is uploaded. It accepts the uploaded file as an argument and should return the name of the uploaded file.
+      * @param onRemove - The callback function when a file is removed. It accepts the file name as an argument.
+      * @param onChange - The callback function when the file list changes. It does not accept any arguments.
+      * @param onClick - The callback function when a file is clicked. It accepts the file name as an argument.
+      * @param tr - The translation function for translating labels. It accepts a label as an argument and should return the translated label.
+      * @param accept - The file types that can be uploaded. Defaults to ACCEPT_DEFAULT.
+      * @param multiple - Flag to allow multiple file uploads. Defaults to false.
+      * @param onLoadStart - The callback function when file loading starts.
+      * @param onLoadEnd - The callback function when file loading ends. It accepts a boolean flag indicating if the loading was successful or not.
+      * @param fallback - The fallback function to handle errors. It accepts an Error object as an argument.
+      * @param throwError - Flag to throw error instead of handling it with the fallback function.
+      *
+      * @returns The FilesView component.
+      */
     export const FilesView: ({ items, className, style, sx, disabled: upperDisabled, onUpload, onRemove, onChange, onClick, tr, accept, multiple, onLoadStart, onLoadEnd, fallback, throwError, }: IFilesViewProps) => JSX.Element;
     export default FilesView;
 }
@@ -7950,6 +10353,22 @@ declare module 'react-declarative/components/FilesView/api/usePreventNavigate' {
         onLoadStart?: () => void;
         onLoadEnd?: (isOk: boolean) => void;
     }
+    /**
+      * Prevents navigation, displays confirmation prompt if specified,
+      * and handles loading state changes.
+      *
+      * @param history - The history object from react-router-dom.
+      * @param withConfirm - Determines if a confirmation prompt should be displayed before navigating.
+      * @param onLoadStart - Callback function invoked when loading starts.
+      * @param onLoadEnd - Callback function invoked when loading ends.
+      * @returns
+      *
+      *
+      *
+      *
+      *
+      *  - Object containing methods and state for preventing navigation and handling loading state.
+      */
     export const usePreventNavigate: ({ history, withConfirm, onLoadStart, onLoadEnd, }: IParams) => {
         readonly handleLoadStart: () => void;
         readonly handleLoadEnd: (isOk: boolean) => void;
@@ -7987,6 +10406,28 @@ declare module 'react-declarative/components/FilesView/useFilesView' {
         onClick?: IFilesViewProps['onClick'];
         onUpload?: IFilesViewProps['onUpload'];
     }
+    /**
+      * Represents a reusable component for displaying and managing files.
+      * @template Payload - The payload type (optional)
+      * @param params - The parameters for the component.
+      * @param params.data - The initial data for the files (optional).
+      * @param params.withActionButton - Determines if the submit button is displayed (default: true).
+      * @param params.withStaticAction - Determines if the submit button should fail silently when clicked (default: false).
+      * @param params.readonly - Determines if the files are readonly (optional).
+      * @param params.submitLabel - The label for the submit button (default: "Save").
+      * @param params.payload - The payload for the component (optional).
+      * @param params.fullScreen - Determines if the component should be displayed in full screen mode (default: false).
+      * @param params.sizeRequest - A function that computes the size request for the component (optional).
+      * @param params.onChange - A callback function for changes in the files (optional).
+      * @param params.onSubmit - A callback function for submitting the files (optional).
+      * @param params.tr - The translations for the component (optional).
+      * @param params.fallback - The fallback component for unsupported file types (optional).
+      * @param params.onLoadStart - A callback function for when loading starts (optional).
+      * @param params.onLoadEnd - A callback function for when loading ends (optional).
+      * @param params.onClick - A callback function for clicking on a file (optional).
+      * @param params.onUpload - A callback function for uploading a file (optional).
+      * @returns - An object with the render function for the component and the pickFiles function to open the file picker.
+      */
     export const useFilesView: <Payload extends unknown = any>({ data, withActionButton, withStaticAction, readonly, submitLabel, payload: upperPayload, fullScreen, sizeRequest, onChange, onSubmit, tr, fallback, onLoadStart, onLoadEnd, onClick, onUpload, }: IParams<Payload>) => {
         render: () => JSX.Element;
         pickFiles: () => void;
@@ -8007,6 +10448,20 @@ declare module 'react-declarative/components/ScrollView/ScrollView' {
         style?: React.CSSProperties;
         center?: boolean;
     }
+    /**
+      * This component allows to create a scrollable view container with optional scrollbar.
+      *
+      * @param props - The props object.
+      * @param props.children - The content to be rendered inside the ScrollView.
+      * @param [props.className] - Optional class name to be added to the root element.
+      * @param [props.style] - Optional inline styles for the root element.
+      * @param [props.center=false] - Whether to horizontally center the content within the ScrollView.
+      * @param [props.withScrollbar=false] - Whether to show a scrollbar within the ScrollView.
+      * @param [props.hideOverflowX=false] - Whether to hide overflow in the X axis.
+      * @param [props.hideOverflowY=false] - Whether to hide overflow in the Y axis.
+      * @param [otherProps] - Other props to be spread on the root element.
+      * @returns - The rendered ScrollView component.
+      */
     export const ScrollView: ({ children, className, style, center, withScrollbar, hideOverflowX, hideOverflowY, ...otherProps }: IScrollViewProps) => JSX.Element;
     export default ScrollView;
 }
@@ -8020,6 +10475,15 @@ declare module 'react-declarative/components/ScaleView/ScaleView' {
         stretch?: boolean;
         center?: boolean;
     }
+    /**
+      * Represents a component that scales its children based on its size.
+      * @typedef IScaleViewProps
+      * @property children - The children elements to be scaled.
+      * @property className - The class name of the root div element.
+      * @property style - The custom style of the root div element.
+      * @property stretch - Determines whether to stretch the scaled children to fit the container.
+      * @property center - Determines whether to center the scaled children within the container.
+      */
     export const ScaleView: ({ children, className, style, stretch, center, }: IScaleViewProps) => JSX.Element;
     export default ScaleView;
 }
@@ -8057,6 +10521,9 @@ declare module 'react-declarative/components/AutoSizer/AutoSizer' {
         addResizeListener: ResizeHandler;
         removeResizeListener: ResizeHandler;
     };
+    /**
+      * A component that automatically resizes its children based on its parent element's size.
+      */
     export class AutoSizer<T extends unknown = object> extends React.Component<IAutoSizerProps<T>, State> {
         static defaultProps: Partial<IAutoSizerProps<any>>;
         lastHeightRequest: (h: number) => number;
@@ -8095,12 +10562,50 @@ declare module 'react-declarative/components/FadeView/FadeView' {
         style?: React.CSSProperties;
         children: React.ReactNode;
     }
+    /**
+      * Represents a fade view component with various customizable options.
+      * @param props - The properties for the FadeView component.
+      * @param props.className - The CSS class name for the FadeView component.
+      * @param props.style - The inline style object for the FadeView component.
+      * @param props.children - The child elements of the FadeView component.
+      * @param props.Fade - The fade effect component to be used.
+      * @param props.color - The color of the fade effect.
+      * @param props.zIndex - The z-index of the fade effect.
+      * @param props.disableBottom - Determines if the fade effect should be disabled at the bottom.
+      * @param props.disableRight - Determines if the fade effect should be disabled at the right side.
+      * @returns - The rendered FadeView component.
+      */
     export const FadeView: ({ className, style, children, Fade, color, zIndex, disableBottom, disableRight, }: IFadeViewProps) => JSX.Element;
     export default FadeView;
 }
 
 declare module 'react-declarative/components/TabsView/TabsView' {
     import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
+    /**
+      * Represents a view component for rendering tabs and associated content.
+      *
+      * @template Data - The type of data associated with the tabs.
+      * @template Payload - The type of payload associated with the tabs.
+      * @param props - The props for the TabsView component.
+      * @param [props.className] - The CSS class name.
+      * @param [props.style] - The inline style object.
+      * @param [props.sx] - The theme styling object.
+      * @param [props.outlinePaper=false] - Whether to use outline paper.
+      * @param [props.transparentPaper=false] - Whether the paper is transparent.
+      * @param [props.transparentHeader=false] - Whether the header is transparent.
+      * @param [props.history=upperHistory] - The history object for navigation.
+      * @param [props.payload=upperPayload] - The payload associated with the tabs.
+      * @param [props.pathname="/"] - The current pathname.
+      * @param [props.tabs=upperTabs] - The array of tabs to render.
+      * @param routes - The array of routes associated with the tabs.
+      * @param onTabChange - The callback function fired when a tab is changed.
+      * @param onLoadStart - The callback function fired when the loading starts.
+      * @param onLoadEnd - The callback function fired when the loading ends.
+      * @param BeforeTabs - The component to render before the tabs.
+      * @param AfterTabs - The component to render after the tabs.
+      * @param [props.otherProps=upperOtherProps] - The other props to pass to sub-components.
+      * @returns - The rendered TabsView component.
+      */
     export const TabsView: <Data extends {} = any, Payload = any>({ className, style, sx, outlinePaper, transparentPaper, transparentHeader, history: upperHistory, payload: upperPayload, pathname, tabs: upperTabs, routes, onTabChange, onLoadStart, onLoadEnd, BeforeTabs, AfterTabs, otherProps: upperOtherProps, ...outletProps }: ITabsViewProps<Data, Payload>) => JSX.Element;
     export default TabsView;
 }
@@ -8190,6 +10695,36 @@ declare module 'react-declarative/components/FetchView/FetchView' {
         state: TupleState<P, A, B, C, D, E, F, G, H, I, J>;
     };
     export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> = IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J> | IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>;
+    /**
+      * FetchView is a React component that provides a convenient way to handle asynchronous data fetching and rendering.
+      *
+      * @template P - The type of the payload for the data fetching.
+      * @template A - The type of the first element in the array of data returned by the state function.
+      * @template B - The type of the second element in the array of data returned by the state function.
+      * @template C - The type of the third element in the array of data returned by the state function.
+      * @template D - The type of the fourth element in the array of data returned by the state function.
+      * @template E - The type of the fifth element in the array of data returned by the state function.
+      * @template F - The type of the sixth element in the array of data returned by the state function.
+      * @template G - The type of the seventh element in the array of data returned by the state function.
+      * @template H - The type of the eighth element in the array of data returned by the state function.
+      * @template I - The type of the ninth element in the array of data returned by the state function.
+      * @template J - The type of the tenth element in the array of data returned by the state function.
+      *
+      * @param props - The props object containing the following properties:
+      *  - animation: The animation type for the component.
+      *  - className: The CSS class name(s) for the component.
+      *  - style: The inline style object for the component.
+      *  - Loader: The component to render while data is being fetched.
+      *  - Error: The component to render if an error occurs during data fetching.
+      *  - onLoadEnd: A callback function to be called when data loading ends.
+      *  - onLoadStart: A callback function to be called when data loading starts.
+      *  - children: A function that receives the fetched data as arguments and returns the JSX to be rendered.
+      *  - state: The function to transform the payload into an array of data.
+      *  - payload: The payload for the data fetching.
+      *  - otherProps: Any additional props to be passed to the underlying components.
+      *
+      * @returns - The rendered JSX for the FetchView component.
+      */
     export const FetchView: <P extends unknown = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any>({ animation, className, style, Loader, Error, onLoadEnd, onLoadStart, children, state, payload, ...otherProps }: IFetchViewProps<P, A, B, C, D, E, F, G, H, I, J>) => JSX.Element;
     export default FetchView;
 }
@@ -8217,6 +10752,26 @@ declare module 'react-declarative/components/WaitView/WaitView' {
         totalAttempts?: number;
         delay?: number;
     }
+    /**
+      * Renders a component with loading, content, and error states based on a condition.
+      *
+      * @template P - The type of the payload.
+      * @template T - The type of the condition result.
+      *
+      * @param props - The component props.
+      * @param props.onDone - A callback function to be executed when the condition is met.
+      * @param props.condition - A function that returns a condition.
+      * @param [props.Loader=Fragment] - The loading component.
+      * @param [props.Content=Fragment] - The content component.
+      * @param [props.Error=Fragment] - The error component.
+      * @param [props.delay=1000] - The delay in milliseconds before retrying the condition.
+      * @param [props.totalAttempts=Infinity] - The maximum number of attempts before showing the error state.
+      * @param [props.conditionMap=(result) => !!result] - A function to map the condition result to a boolean value.
+      * @param props.payload - The payload to be passed to the components.
+      * @param otherProps - Other props to be passed to the Async component.
+      *
+      * @returns The rendered component.
+      */
     export const WaitView: <P extends unknown = object, T extends unknown = object>({ onDone, condition, Loader, Content, Error, delay, totalAttempts, conditionMap, payload, ...otherProps }: IWaitViewProps<P, T>) => JSX.Element | null;
     export default WaitView;
 }
@@ -8234,6 +10789,25 @@ declare module 'react-declarative/components/PingView/PingView' {
         onOnline?: () => void;
         onOffline?: () => void;
     }
+    /**
+      * PingView component for checking online status using a ping function.
+      * Renders children when online, displays offline component when offline.
+      *
+      * @template P - Type parameter for the payload object passed to the ping function
+      *
+      * @param props - The component props
+      * @param props.ping - The ping function to check online status
+      * @param props.children - The child components to render when online
+      * @param [props.onOnline=() => null] - Callback function to be called when online
+      * @param [props.onOffline=() => null] - Callback function to be called when offline
+      * @param [props.Offline=Fragment] - The component to render when offline
+      * @param [props.fallback] - The fallback component to render when an error occurs
+      * @param [props.throwError] - Indicates if an error should be thrown when an error occurs during ping
+      * @param [props.delay=5000] - The delay between consecutive pings (in milliseconds)
+      * @param [props.payload] - The payload object to be passed to the ping function
+      *
+      * @returns - The rendered component or null if initialization is in progress
+      */
     export const PingView: <P extends unknown = object>({ ping, children, onOnline, onOffline, Offline, fallback, throwError, delay, payload, }: IPingViewProps<P>) => JSX.Element | null;
     export default PingView;
 }
@@ -8269,6 +10843,21 @@ declare module 'react-declarative/components/HtmlView/HtmlView' {
         deps?: any[];
         throwError?: boolean;
     }
+    /**
+      * Represents an HTML view component.
+      * @typedef HtmlView
+      * @param children - The children elements.
+      * @param config - The configuration object.
+      * @param handler - The handler function.
+      * @param fallback - The fallback function.
+      * @param onLoadStart - The onLoadStart callback function.
+      * @param onLoadEnd - The onLoadEnd callback function.
+      * @param payload - The payload.
+      * @param deps - The dependencies.
+      * @param throwError - Indicates whether to throw an error if encountered.
+      * @param otherProps - Other additional props.
+      * @returns The HTML view component.
+      */
     export const HtmlView: {
         ({ children, config, handler, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, ...otherProps }: IHtmlViewProps): JSX.Element;
         sanitize: (html: string, config?: Partial<IConfig> | undefined) => string;
@@ -8307,6 +10896,17 @@ declare module 'react-declarative/components/RevealView/RevealView' {
         appear?: boolean;
         children: React.ReactNode;
     }
+    /**
+      * Render a RevealView component that animates the appearance of its children.
+      *
+      * @param props - The component props.
+      * @param props.children - The children to be revealed.
+      * @param [props.className] - The additional CSS class names for the component.
+      * @param [props.style] - The inline CSS styles for the component.
+      * @param [props.animation] - The animation to use for revealing the children.
+      * @param [props.delay=REVEAL_DELAY] - The delay in milliseconds before the children start to appear.
+      * @param [props.appear=true] - Determines whether the children should appear.
+      */
     export const RevealView: ({ children, className, style, animation, delay, appear: upperAppear, }: IRevealViewProps) => JSX.Element;
     export default RevealView;
 }
@@ -8325,12 +10925,50 @@ declare module 'react-declarative/components/SecretView/SecretView' {
         style?: React.CSSProperties;
         sx?: SxProps<any>;
     }
+    /**
+      * Represents a component that displays a secret view with an input for entering a code.
+      *
+      * @param className - The class name for the component.
+      * @param style - The inline styles for the component.
+      * @param sx - The sx styles for the component.
+      * @param children - The child components to be rendered.
+      * @param enabled - Whether the secret view is enabled or disabled. Default is true.
+      * @param title - The title for the secret view. Default is "Service menu".
+      * @param description - The description for the secret view. Default is "Please type a secret\ncode to continue".
+      * @param digits - The total number of digits for the code. Default is DEFAULT_TOTAL_DIGITS.
+      * @param onCode - The callback function to be called when the code is entered.
+      * @returns - The rendered secret view component.
+      */
     export const SecretView: ({ className, style, sx, children, enabled, title, description, digits, onCode, }: ISecretViewProps) => JSX.Element;
     export default SecretView;
 }
 
 declare module 'react-declarative/components/WizardView/WizardView' {
     import IWizardViewProps from "react-declarative/components/WizardView/model/IWizardViewProps";
+    /**
+      * WizardView component.
+      *
+      * @template Data - The type of data object passed to the WizardView.
+      * @template Payload - The type of payload object passed to the WizardView.
+      *
+      * @param props - The props object.
+      * @param props.className - The class name of the WizardView.
+      * @param props.style - The inline styles of the WizardView.
+      * @param props.sx - The sx prop for custom styling.
+      * @param props.payload - The payload object for the WizardView.
+      * @param props.outlinePaper - If true, the PaperView displays an outline.
+      * @param props.transparentPaper - If true, the PaperView displays as transparent.
+      * @param props.history - The history object for the WizardView.
+      * @param props.pathname - The pathname for the WizardView.
+      * @param props.steps - The steps array for the WizardView.
+      * @param props.routes - The routes array for the WizardView.
+      * @param props.onLoadStart - The function to be called when loading starts.
+      * @param props.onLoadEnd - The function to be called when loading ends.
+      * @param props.otherProps - The other props object for the WizardView.
+      * @param outletProps - The outlet props object for the WizardView.
+      *
+      * @returns The rendered WizardView component.
+      */
     export const WizardView: <Data extends {} = any, Payload = any>({ className, style, sx, payload: upperPayload, outlinePaper, transparentPaper, history: upperHistory, pathname, steps: upperSteps, routes, onLoadStart, onLoadEnd, otherProps: upperOtherProps, ...outletProps }: IWizardViewProps<Data, Payload>) => JSX.Element;
     export default WizardView;
 }
@@ -8453,6 +11091,35 @@ declare module 'react-declarative/components/WizardView/hooks/useWizardModal' {
         history?: History;
         pathname?: string;
     }
+    /**
+      * useWizardModal is a custom hook that provides a modal component for wizards.
+      * It accepts various parameters and returns an object with functions and properties
+      * related to the wizard modal.
+      *
+      * @param params - The parameters for the useWizardModal hook.
+      * @param params.fallback - The fallback function to be called when an error occurs during rendering.
+      * @param params.pathname - The pathname for the history object. Defaults to "/".
+      * @param params.history - The history object. If not provided, a new memory history object will be created.
+      * @param params.fullScreen - Determines whether the modal should be displayed in full screen. Defaults to true.
+      * @param params.onLoadEnd - The function to be called when the wizard finishes loading.
+      * @param params.onLoadStart - The function to be called when the wizard starts loading.
+      * @param params.throwError - Determines whether an error should be thrown when an error occurs during submission. Defaults to false.
+      * @param params.onChange - The function to be called when the wizard state changes.
+      * @param params.onSubmit - The function to be called when the wizard is submitted. Defaults to a function that returns true.
+      * @param params.onMount - The function to be called when the wizard component is mounted.
+      * @param params.onUnmount - The function to be called when the wizard component is unmounted.
+      * @param params.onClose - The function to be called when the modal is closed.
+      * @param params.submitLabel - The label for the submit button.
+      * @param params.title - The title of the wizard modal.
+      * @param params.hidden - Determines whether the modal should be hidden. Defaults to false.
+      * @param params.outletProps - Additional props to pass to the WizardOutletModal component.
+      *
+      * @returns - An object with functions and properties related to the wizard modal.
+      * @returns return.open - A boolean value indicating whether the modal is open.
+      * @returns return.render - A function that renders the wizard modal.
+      * @returns return.pickData - A function that triggers the modal to open.
+      * @returns return.close - A function that closes the modal and submits an empty payload.
+      */
     export const useWizardModal: <Data extends {} = Record<string, any>, Payload = any>({ fallback, pathname, history: upperHistory, fullScreen, onLoadEnd, onLoadStart, throwError, onChange, onSubmit, onMount, onUnmount, onClose, submitLabel, title, hidden, ...outletProps }: IParams<Data, Payload>) => {
         readonly open: typeof open;
         readonly render: () => JSX.Element;
@@ -8488,6 +11155,19 @@ declare module 'react-declarative/components/ErrorView/ErrorView' {
         style?: React.CSSProperties;
         sx?: SxProps<any>;
     }
+    /**
+      * Represents an ErrorView component.
+      *
+      * @typedef ErrorView
+      * @property appName - The name of the application to be displayed on the ErrorView.
+      * @property Logo - The logo component to be displayed on the ErrorView.
+      * @property [className] - The additional class name to be applied to the ErrorView container.
+      * @property [style] - The custom CSS styles to be applied to the ErrorView container.
+      * @property [sx] - The custom sx styles to be applied to the ErrorView container (used in Theme UI library).
+      * @property [buttonLabel="Reload page"] - The label text for the button displayed on the ErrorView.
+      * @property [contentLabel] - The content text to be displayed on the ErrorView.
+      * @property [onButtonClick=handleReload] - The click event handler for the button displayed on the ErrorView.
+      */
     export const ErrorView: ({ appName, Logo, className, style, sx, buttonLabel, contentLabel, onButtonClick, }: IErrorViewProps) => JSX.Element;
     export default ErrorView;
 }
@@ -8514,6 +11194,31 @@ declare module 'react-declarative/components/AuthView/AuthView' {
         BeforeSubmit?: React.ComponentType<any>;
         AfterSubmit?: React.ComponentType<any>;
     }
+    /**
+      * Represents the authentication view component.
+      *
+      * @template Data - The type of data.
+      * @template Payload - The type of payload.
+      * @template Field - The type of field.
+      *
+      * @param props - The props object.
+      * @param props.className - The class name for the component.
+      * @param props.style - The inline styles for the component.
+      * @param props.sx - The sx prop for the component.
+      * @param props.appName - The name of the app.
+      * @param props.Logo - The component for the logo.
+      * @param props.fields - The array of input fields.
+      * @param [props.onLoadStart] - The callback function when the loading starts.
+      * @param [props.onLoadEnd] - The callback function when the loading ends.
+      * @param [props.throwError] - A boolean indicating whether to throw an error.
+      * @param [props.handler] - The handler function.
+      * @param [props.fallback] - The fallback function.
+      * @param [props.onAuth] - The callback function for authentication.
+      * @param [props.BeforeSubmit] - The component to render before submitting the form.
+      * @param [props.AfterSubmit] - The component to render after submitting the form.
+      *
+      * @returns The AuthView component.
+      */
     export const AuthView: <Data extends unknown = any, Payload = any, Field = IField<Data, Payload>>({ className, style, sx, appName, Logo, fields, onLoadStart, onLoadEnd, throwError, handler, fallback, onAuth, BeforeSubmit, AfterSubmit, }: IAuthViewProps<Data, Payload, Field>) => JSX.Element;
     export default AuthView;
 }
@@ -8521,15 +11226,47 @@ declare module 'react-declarative/components/AuthView/AuthView' {
 declare module 'react-declarative/components/KanbanView/KanbanView' {
     import * as React from "react";
     import IKanbanViewProps from "react-declarative/components/KanbanView/model/IKanbanViewProps";
+    /**
+        * @template Data, Payload, ColumnType
+        * @typedef IKanbanViewProps - Props for KanbanViewInternal component
+        * @property reloadSubject - Subject that triggers data reload
+        * @property withUpdateOrder - Determines whether items should be sorted by update date
+        * @property columns - Array of columns with corresponding rows, label and color
+        * @property className - CSS class name for the component
+        * @property payload - Payload object for custom data
+        * @property disabled - Determines whether the component is disabled
+        * @property items - Array of kanban items
+        * @property style - Inline styles for the component
+        * @property sx - Material-UI system styles
+        * @property deps - Array of dependencies
+        * @property withGoBack - Determines whether to allow going back to previous columns when dragging an item
+        * @property withHeaderTooltip - Determines whether to show tooltip on column headers
+        * @property filterFn - Function to filter kanban items
+        * @property cardLabel - Function to generate card label from item ID
+        * @property bufferSize - The number of card items to render in the virtual view
+        * @property minRowHeight - Minimum height of each row in the virtual view
+        * @property rowTtl - Time-to-live in milliseconds for each row cache
+        * @property AfterCardContent - Custom component to render after card content
+        * @property AfterColumnTitle - Custom component to render after column title
+        * @property BeforeColumnTitle - Custom component to render before column title
+        * @property onDataRequest - Function called when data is requested
+        * @property onChangeColumn - Function called when an item is dragged to a new column
+        * @property onCardLabelClick - Function called when the card label is clicked
+        * @property onLoadStart - Function called when data loading starts
+        * @property onLoadEnd - Function called when data loading ends
+        * @property fallback - Function or React node to render when an error occurs
+        * @property throwError - Function called when an error occurs
+        * @property ref - Ref object for the root element of the component
+        */
     export const KanbanView: {
-        <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, deps, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onDataRequest, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
-        /**
-          * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
-          */
-        enableScrollOnDrag(ref: React.MutableRefObject<HTMLDivElement | undefined>, { threshold, speed, }?: {
-            threshold?: number | undefined;
-            speed?: number | undefined;
-        }): () => import("../../utils/compose").Function;
+            <Data extends unknown = any, Payload extends unknown = any, ColumnType = any>({ reloadSubject: upperReloadSubject, withUpdateOrder, columns: upperColumns, className, payload: upperPayload, disabled, items, style, sx, deps, withGoBack, withHeaderTooltip, filterFn, cardLabel, bufferSize, minRowHeight, rowTtl, AfterCardContent, AfterColumnTitle, BeforeColumnTitle, onDataRequest, onChangeColumn, onCardLabelClick, onLoadStart, onLoadEnd, fallback, throwError, }: IKanbanViewProps<Data, Payload, ColumnType>, ref: React.Ref<HTMLDivElement>): JSX.Element;
+            /**
+                * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
+                */
+            enableScrollOnDrag(ref: React.MutableRefObject<HTMLDivElement | undefined>, { threshold, speed, }?: {
+                    threshold?: number | undefined;
+                    speed?: number | undefined;
+            }): () => import("../../utils/compose").Function;
     };
     export default KanbanView;
 }
@@ -8618,6 +11355,24 @@ declare module 'react-declarative/components/InfiniteView/InfiniteView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * InfiniteView component
+      * @param props - Component props
+      * @param props.className - Custom CSS class name
+      * @param props.style - Custom inline styles
+      * @param props.sx - SX prop from theme-ui
+      * @param [props.loading=false] - Loading state of the component
+      * @param [props.throwError=false] - Whether or not to throw errors
+      * @param [props.hasMore=true] - Whether there is more data to load
+      * @param props.children - Child components to render
+      * @param props.scrollXSubject - Subject for horizontal scroll position
+      * @param props.scrollYSubject - Subject for vertical scroll position
+      * @param props.onDataRequest - Callback function to request data
+      * @param props.onLoadStart - Callback function called when data loading starts
+      * @param props.onLoadEnd - Callback function called when data loading ends
+      * @param props.fallback - Fallback component to render in case of error
+      * @returns Rendered component
+      */
     export const InfiniteView: ({ className, style, sx, loading: upperLoading, throwError, hasMore, children: upperChildren, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, onDataRequest, onLoadStart, onLoadEnd, fallback, ...otherProps }: IInfiniteViewProps) => JSX.Element;
     export default InfiniteView;
 }
@@ -8645,6 +11400,27 @@ declare module 'react-declarative/components/VirtualView/VirtualView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * VirtualView component
+      *
+      * @typedef IVirtualViewProps - virtual view props
+      * @property className - CSS class name
+      * @property sx - custom styles
+      * @property withScrollbar - flag indicating if scrollbar is visible
+      * @property minRowHeight - minimum row height (default: DEFAULT_MIN_HEIGHT)
+      * @property bufferSize - number of additional rows to render (default: DEFAULT_BUFFER_SIZE)
+      * @property children - child elements
+      * @property hasMore - flag indicating if there is more data to load (default: true)
+      * @property loading - flag indicating if data is currently being loaded (default: false)
+      * @property onDataRequest - function to request more data
+      * @property onLoadStart - function called when data loading starts
+      * @property onLoadEnd - function called when data loading ends
+      * @property fallback - function called when an error occurs during data loading
+      * @property scrollXSubject - scroll x subject
+      * @property scrollYSubject - scroll y subject
+      * @property throwError - flag indicating if errors should be thrown (default: false)
+      * @property otherProps - other props
+      */
     export const VirtualView: ({ className, sx, withScrollbar, minRowHeight, bufferSize: upperBufferSize, children: upperChildren, hasMore, loading: upperLoading, onDataRequest, onLoadStart, onLoadEnd, fallback, scrollXSubject: upperScrollXSubject, scrollYSubject: upperScrollYSubject, throwError, ...otherProps }: IVirtualViewProps) => JSX.Element;
     export default VirtualView;
 }
@@ -8661,6 +11437,22 @@ declare module 'react-declarative/components/LoaderView/LoaderView' {
         throwError?: boolean;
         size?: number | string;
     }
+    /**
+      * Represents a loader view component.
+      *
+      * @param ILoaderViewProps - The props for the LoaderView component.
+      * @param ILoaderViewProps.className - The class name for the component.
+      * @param ILoaderViewProps.onLoadStart - The callback function to be called when loading starts.
+      * @param ILoaderViewProps.onLoadEnd - The callback function to be called when loading ends.
+      * @param ILoaderViewProps.handler - The asynchronous function to handle the loading logic.
+      * @param ILoaderViewProps.fallback - The fallback function to handle errors in loading.
+      * @param ILoaderViewProps.throwError - Indicates if the error should be thrown or handled by the fallback function.
+      * @param ILoaderViewProps.size - The size of the circular progress spinner.
+      * @param ILoaderViewProps.sx - Custom styling for the component.
+      * @param otherProps - Any additional props to be passed to the component.
+      *
+      * @returns The rendered LoaderView component.
+      */
     export const LoaderView: {
         ({ className, onLoadStart, onLoadEnd, handler, fallback, throwError, size, sx, ...otherProps }: ILoaderViewProps): JSX.Element;
         createLoader(size: number): () => JSX.Element;
@@ -8691,6 +11483,31 @@ declare module 'react-declarative/components/DocumentView/DocumentView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * Renders a document view component with optional full screen and delete functionality.
+      *
+      * @param withFullScreen - Determines if the full screen functionality is enabled. Default: false.
+      * @param withDelete - Determines if the delete functionality is enabled. Default: false.
+      * @param className - Additional CSS class name(s) for the root element.
+      * @param style - Additional inline styles for the root element.
+      * @param src - The source URL for the document.
+      * @param onFullScreenClick - The callback function when the full screen button is clicked. Default: openBlank(src).
+      * @param onDeleteClick - The callback function when the delete button is clicked. Default: () => undefined.
+      * @param onLoadStart - The callback function when the document starts loading.
+      * @param onLoadEnd - The callback function when the document finishes loading.
+      * @param fallback - The fallback element to render if the document is not supported.
+      * @param throwError - Determines if an error should be thrown if the document is not supported. Default: false.
+      * @param disabled - Determines if the component is disabled. Default: false.
+      * @param options - The action menu options to display.
+      * @param onAction - The callback function when an action is selected from the action menu. Default: () => undefined.
+      * @param payload - Additional payload data for the callback functions.
+      * @param deps - Dependency array for the callback functions of the action menu.
+      * @param keepMounted - Determines if the action menu should stay mounted when closed. Default: false.
+      * @param BeforeContent - The content to display before the action menu.
+      * @param AfterContent - The content to display after the action menu.
+      * @param otherProps - Other additional props for the root element.
+      * @returns The rendered document view component.
+      */
     export const DocumentView: ({ withFullScreen, withDelete, className, style, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, disabled, options, onAction, payload, deps, keepMounted, BeforeContent, AfterContent, ...otherProps }: IDocumentViewProps) => JSX.Element;
     export default DocumentView;
 }
@@ -8715,6 +11532,28 @@ declare module 'react-declarative/components/ImageView/ImageView' {
         fallback?: (e: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * @typedef IImageViewProps
+      * @property [withFullScreen=false] - Indicates whether the ImageView should have a full-screen option.
+      * @property [withDelete=false] - Indicates whether the ImageView should have a delete option.
+      * @property [className] - Additional class name for the ImageView component.
+      * @property src - The source URL of the image to be displayed.
+      * @property [onFullScreenClick] - Event handler for the full-screen click action. Defaults to opening a blank page with the source URL of the image.
+      * @property [onDeleteClick] - Event handler for the delete click action. Defaults to an empty function.
+      * @property [onLoadStart] - Event handler for the image loading start event.
+      * @property [onLoadEnd] - Event handler for the image loading end event.
+      * @property [fallback] - Custom fallback component to be displayed when the image fails to load.
+      * @property [throwError=false] - Indicates whether an error should be thrown when the image fails to load.
+      * @property [disabled=false] - Indicates whether the ImageView is disabled.
+      * @property [options] - Array of options for the action menu.
+      * @property [onAction] - Event handler for the action menu click action. Defaults to an empty function.
+      * @property [payload] - Additional payload to be passed to the action menu click handler.
+      * @property [deps] - Additional dependencies for the action menu.
+      * @property [keepMounted] - Indicates whether the action menu should remain mounted when closed.
+      * @property [BeforeContent] - Custom component to be displayed before the image content.
+      * @property [AfterContent] - Custom component to be displayed after the image content.
+      * @property [...otherProps] - Additional props to be spread onto the Box component.
+      */
     export const ImageView: ({ withFullScreen, withDelete, className, src, onFullScreenClick, onDeleteClick, onLoadStart, onLoadEnd, fallback, throwError, disabled, options, onAction, payload, deps, keepMounted, BeforeContent, AfterContent, ...otherProps }: IImageViewProps) => JSX.Element;
     export default ImageView;
 }
@@ -8731,6 +11570,18 @@ declare module 'react-declarative/components/TreeView/TreeView' {
     } & Omit<TextFieldProps, keyof {
         onChange: never;
     }>;
+    /**
+      * Represents a TreeView component.
+      *
+      * @param className - The class name of the component.
+      * @param style - The style object of the component.
+      * @param sx - The sx object of the component.
+      * @param loading - Indicates whether the component is in a loading state.
+      * @param items - The items to be displayed in the TreeView.
+      * @param value - The selected values in the TreeView.
+      * @param onChange - The function to be called when the value of the TreeView changes.
+      * @param textFieldProps - Additional props to be passed to the underlying TextField component.
+      */
     export const TreeView: ({ className, style, sx, loading, items: upperItems, value: upperValue, onChange, ...textFieldProps }: ITreeViewProps) => JSX.Element;
     export default TreeView;
 }
@@ -8753,12 +11604,27 @@ declare module 'react-declarative/components/GridView/GridView' {
         BeforeLabel?: ICardProps["BeforeLabel"];
         AfterLabel?: ICardProps["AfterLabel"];
     }
+    /**
+      * Represents a GridView component.
+      *
+      * @template T - The type of RowData.
+      * @template P - The type of IAnything.
+      *
+      * @param props - The component props.
+      * @returns - The GridView component.
+      */
     export const GridView: <T extends unknown = any, P extends unknown = any>({ className, style, sx, label, BeforeLabel, AfterLabel, payload: upperPayload, mobileItem: MobileItem, outlinePaper, transparentPaper, loading, ...otherProps }: IGridViewProps<T, P>) => JSX.Element;
     export default GridView;
 }
 
 declare module 'react-declarative/components/Grid/Grid' {
     import IGridProps from "react-declarative/components/Grid/model/IGridProps";
+    /**
+      * Represents a grid component with customizable features.
+      * @template T - The type of row data in the grid.
+      * @param props - The properties for the grid.
+      * @returns - The grid component.
+      */
     export const Grid: <T extends unknown>(props: IGridProps<T, any>) => JSX.Element;
     export default Grid;
 }
@@ -8777,6 +11643,30 @@ declare module 'react-declarative/components/Grid/api/useOffsetPaginator' {
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * Implements an offset-based pagination logic for fetching and managing data.
+      *
+      * @template Data - The type of the data to be paginated, extending RowData.
+      *
+      * @param params - The parameters for configuring the pagination logic.
+      * @param params.reloadSubject - The reload subject used to trigger a data reload.
+      * @param params.initialData - The initial data to be displayed.
+      * @param params.handler - The function for fetching more data.
+      * @param params.limit - The maximum number of items to be fetched per request.
+      * @param params.delay - The delay (in milliseconds) between requests.
+      * @param queryProps - Additional query properties to be passed to the handler function.
+      *
+      * @returns - An object containing the paginated data and various utility functions.
+      * @returns data - The paginated data.
+      * @returns setData - A function to update the paginated data.
+      * @returns offset - The offset of the current page.
+      * @returns hasMore - A flag indicating if there are more items to load.
+      * @returns loading - A flag indicating if a request is currently loading.
+      * @returns error - The error object, if an error occurred during the request.
+      * @returns onSkip - A function to skip to the next page.
+      * @returns reloadSubject - The reload subject used to trigger a data reload.
+      * @returns clear - A function to clear the paginated data and reset the pagination state.
+      */
     export const useOffsetPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, limit, delay, ...queryProps }: IParams<Data>) => {
         data: Data[];
         setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
@@ -8805,6 +11695,19 @@ declare module 'react-declarative/components/Grid/api/useCursorPaginator' {
         fallback?: (error: Error) => void;
         throwError?: boolean;
     }
+    /**
+      * A function that handles pagination using cursor-based pagination technique.
+      *
+      * @template Data The type of data in each row.
+      * @param params - The input parameters.
+      * @param params.reloadSubject - The reload subject used to trigger a reload.
+      * @param [params.initialData=[]] - The initial data for the paginator.
+      * @param params.handler - The handler function for fetching more data.
+      * @param [params.delay=SCROLL_REQUEST_DELAY] - The delay between each scroll request.
+      * @param [params.limit=DEFAULT_LIMIT] - The maximum number of rows to fetch at a time.
+      * @param queryProps - Additional properties to be passed to the query.
+      * @returns - An object containing the paginator data and functions.
+      */
     export const useCursorPaginator: <Data extends unknown = any>({ reloadSubject: upperReloadSubject, initialData: upperInitialData, handler, delay, limit, ...queryProps }: IParams<Data>) => {
         data: Data[];
         setData: (data: Data[] | ((prevData: Data[]) => Data[])) => void;
@@ -8829,6 +11732,27 @@ declare module 'react-declarative/components/Grid/api/useGridAction' {
         throwError?: boolean;
         fallback?: (e: Error) => void;
     }
+    /**
+      * Executes grid actions and row actions.
+      *
+      * @template Data - The type of data in the grid rows.
+      * @param Object - The parameters for the useGridAction function.
+      * @param Object.onLoadStart - A callback function executed when a grid action or row action is started.
+      * @param Object.onLoadEnd - A callback function executed when a grid action or row action is completed or failed.
+      * @param Object.throwError - A flag indicating whether to throw an error if a grid action or row action fails.
+      * @param Object.fallback - A flag indicating whether to use a fallback solution if a grid action or row action fails.
+      * @param Object.fetchRow - A function that fetches a row.
+      * @param Object.onAction - A callback function executed when a grid action is performed. This function receives the action name, the rows to perform the action on, and a
+      * deselectAll function to deselect all rows.
+      * @param Object.onRowAction - A callback function executed when a row action is performed. This function receives the action name, the row to perform the action on, and a
+      * deselectAll function to deselect all rows.
+      * @returns An object containing the following properties:
+      *   - {Function} deselectAll - A function that deselects all rows in the grid.
+      *   - {Array<Data>} selectedRows - An array of selected rows in the grid.
+      *   - {object} gridProps - The grid properties.
+      *   - {Function} commitAction - A function that commits a grid action. This function receives the action name and calls the onAction callback function with the selected rows.
+      *   - {Function} commitRowAction - A function that commits a row action. This function receives the action name and the row and calls the onRowAction callback function.
+      */
     export const useGridAction: <Data extends unknown = any>({ onLoadStart, onLoadEnd, throwError, fallback, fetchRow, onAction, onRowAction, }: IParams<Data>) => {
         readonly deselectAll: () => void;
         readonly selectedRows: string[];
@@ -8843,6 +11767,16 @@ declare module 'react-declarative/components/Grid/api/useGridAction' {
 }
 
 declare module 'react-declarative/components/Grid/api/useGridSelection' {
+    /**
+      * Hook for managing grid selection.
+      *
+      * @returns - An object containing the following properties:
+      *  - selectedRows: Array of selected row IDs.
+      *  - gridProps: Object with properties for grid selection:
+      *    - selectedRows: Array of selected row IDs.
+      *    - onSelectedRows: Function to handle selected row IDs.
+      *  - deselectAll: Function to clear all selected rows.
+      */
     export const useGridSelection: () => {
         readonly selectedRows: string[];
         readonly gridProps: {
@@ -8944,6 +11878,35 @@ declare module 'react-declarative/components/Grid/model/TSort' {
 
 declare module 'react-declarative/components/Tile/Tile' {
     import ITileProps from "react-declarative/components/Tile/model/ITileProps";
+    /**
+      * Tile component for displaying a list of items in a virtual view.
+      *
+      * @template Data - The type of data in each tile item.
+      * @template Payload - The type of additional payload data.
+      * @param props - The props for the Tile component.
+      * @param [props.className] - The CSS class name for the Tile component.
+      * @param [props.style] - The inline style for the Tile component.
+      * @param [props.sx] - The sx prop for the Tile component (System UI).
+      * @param props.data - The array of data items to be rendered.
+      * @param props.loading - Indicates if the tile list is currently loading data.
+      * @param props.hasMore - Indicates if there are more items to load.
+      * @param [props.bufferSize=10] - The number of items to render outside the visible area.
+      * @param [props.minRowHeight=48] - The minimum height of each row item.
+      * @param [props.payload={}] - Additional payload data to be passed to the TileItem component.
+      * @param [props.rowColor=() => 'inherit'] - A function that returns the background color for each row item.
+      * @param [props.rowKey="id"] - The key to use for identifying each row item.
+      * @param [props.errorMessage] - The error message to display if there was an error loading data.
+      * @param [props.children] - The child elements to be rendered within each TileItem component.
+      * @param [props.onSkip] - A callback function to handle skipping to the next page of data.
+      * @param [props.onButtonSkip] - A callback function to handle skipping to the next page of data when a button is clicked.
+      * @param [props.onItemClick] - A callback function to handle when a row item is clicked.
+      * @param [props.onSelectedRows] - A callback function to handle when a row item is selected.
+      * @param [props.selectedRows] - The array of data items that are currently selected.
+      * @param [props.selectionMode] - The selection mode for the Tile component (e.g., "single", "multiple").
+      * @param [props.recomputeSubject] - The subject(s) to trigger recomputation of row heights.
+      * @param [props.rowMark] - The key to use for identifying each row mark.
+      * @returns The Tile component.
+      */
     export const Tile: <Data extends unknown = any, Payload = any>({ className, style, sx, data, loading, hasMore, bufferSize, minRowHeight, payload: upperPayload, rowColor, rowKey, errorMessage, children, onSkip, onButtonSkip, onItemClick, onSelectedRows, selectedRows, selectionMode, recomputeSubject, rowMark, }: ITileProps<Data, Payload>) => JSX.Element;
     export default Tile;
 }
@@ -9001,6 +11964,16 @@ declare module 'react-declarative/components/Spinner/Spinner' {
         children: never;
     }> {
     }
+    /**
+      * Represents a spinner component that displays a loading animation.
+      * @component
+      *
+      * @param props - The props object for the spinner component.
+      * @param props.className - The custom CSS class name for the spinner component.
+      * @param props.otherProps - The additional props to be spread on the root Box element.
+      *
+      * @returns The spinner component.
+      */
     export const Spinner: ({ className, ...otherProps }: ISpinnerProps) => JSX.Element;
     export default Spinner;
 }
@@ -9020,6 +11993,22 @@ declare module 'react-declarative/components/Copy/Copy' {
         onLoadEnd?: (isOk: boolean) => void;
         throwError?: boolean;
     }
+    /**
+      * Copy Component
+      * @param className - Additional class name for the root element.
+      * @param content - The text content to be copied.
+      * @param fullWidth - If true, the component spans the full width of its container.
+      * @param transparent - If true, the button appears without a border.
+      * @param children - The content of the component.
+      * @param onCopy - Callback function to be called when copying is triggered.
+      * @param onCopyClick - Callback function to be called when the copy button is clicked.
+      * @param onLoadStart - Callback function to be called when copying starts.
+      * @param onLoadEnd - Callback function to be called when copying ends.
+      * @param fallback - Callback function to be called when an error occurs during copying.
+      * @param throwError - If true, an error during copying will cause an exception to be thrown.
+      * @param otherProps - Additional props to be spread to the root element.
+      * @returns
+      */
     export const Copy: ({ className, content, fullWidth, transparent, children, onCopy, onCopyClick, onLoadStart, onLoadEnd, fallback, throwError, ...otherProps }: ICopyProps) => JSX.Element;
     export default Copy;
 }
@@ -9038,6 +12027,23 @@ declare module 'react-declarative/components/If/If' {
         deps?: any[];
         throwError?: boolean;
     }
+    /**
+      * A conditional rendering component with asynchronous support.
+      *
+      * @template T - The type of payload passed to the condition.
+      * @param props - The props object.
+      * @param props.Else - The content to render if the condition is false and not loading.
+      * @param [props.Loading=props.Else] - The content to render while loading.
+      * @param props.children - The content to render if the condition is true.
+      * @param props.condition - The condition to evaluate. Can be a function that accepts the payload or a static value.
+      * @param [props.fallback] - The function to call if an error occurs and `throwError` is false.
+      * @param [props.onLoadStart] - The function to call when loading starts.
+      * @param [props.onLoadEnd] - The function to call when loading ends. Receives a boolean indicating if the operation was successful.
+      * @param [props.payload] - The payload to pass to the condition function.
+      * @param [props.deps=[]] - The dependencies to include in the useEffect hook.
+      * @param [props.throwError=false] - Whether to throw an error or call the fallback function if an error occurs.
+      * @returns - The rendered content based on the condition and loading state.
+      */
     export const If: <T extends unknown = object>({ Else, Loading, children, condition, fallback, onLoadStart, onLoadEnd, payload, deps, throwError, }: IIfProps<T>) => JSX.Element;
     export default If;
 }
@@ -9059,6 +12065,23 @@ declare module 'react-declarative/components/CopyButton/CopyButton' {
         content: string | number;
         label?: string | number;
     }
+    /**
+      * Represents a copy button component.
+      *
+      * @typedef ICopyButtonProps
+      * @property disabled - Determines if the button is disabled.
+      * @property className - The class name for the button.
+      * @property style - The inline style for the button.
+      * @property sx - The custom style for the button using the sx prop from the Material-UI theme.
+      * @property onClick - The click event handler for the button.
+      * @property delay - The delay before the tooltip closes.
+      * @property variant - The variant type of the button.
+      * @property size - The size of the button.
+      * @property color - The color of the button.
+      * @property startIcon - The start icon component of the button.
+      * @property content - The content of the button.
+      * @property label - The label text of the button.
+      */
     export const CopyButton: ({ disabled, className, style, sx, onClick, delay, variant, size, color, startIcon, content, label, }: ICopyButtonProps) => JSX.Element;
     export default CopyButton;
 }
@@ -9086,6 +12109,19 @@ declare module 'react-declarative/components/Countdown/Countdown' {
         expireAt: string | number | Date;
         onExpire?: () => void;
     }
+    /**
+      * Countdown component displays a countdown timer that expires at a given time.
+      *
+      * @typedef  ICountdownProps
+      * @property className - The CSS class name for styling the component.
+      * @} children - The content to be displayed inside the countdown component.
+      * @property expireAt - The time at which the countdown expires.
+      * @property onExpire - The callback function to be called when the countdown expires.
+      * @property otherProps - Additional props to be spread onto the root element.
+      *
+      * @param props - The countdown component props.
+      * @returns - The countdown component.
+      */
     export const Countdown: ({ className, children, expireAt, onExpire, ...otherProps }: ICountdownProps) => JSX.Element;
     export default Countdown;
 }
@@ -9097,6 +12133,16 @@ declare module 'react-declarative/components/Chip/Chip' {
     }> {
         color?: string;
     }
+    /**
+      * Represents a Chip component with customized color.
+      *
+      * @param props - The props passed to the Chip component.
+      * @param props.color - The color of the chip. Overrides the primary color of the theme.
+      * @param props.otherProps - Additional props passed to the underlying MatChip component.
+      * @param props.otherProps - Additional props passed to the underlying MatChip component.
+      *
+      * @returns The rendered Chip component.
+      */
     export const Chip: ({ color, ...otherProps }: IChipProps) => JSX.Element;
     export default Chip;
 }
@@ -9104,6 +12150,11 @@ declare module 'react-declarative/components/Chip/Chip' {
 declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
     import React from 'react';
     type Height = Exclude<React.CSSProperties['height'], undefined>;
+    /**
+      * Represents a component that adjusts the scroll behavior based on certain conditions.
+      *
+      * @returns - The adjusted scroll component.
+      */
     export const ScrollAdjust: {
         (): JSX.Element;
         setAdjustForce(force: boolean): void;
@@ -9115,6 +12166,33 @@ declare module 'react-declarative/components/ScrollAdjust/ScrollAdjust' {
 
 declare module 'react-declarative/components/MasterDetail/MasterDetail' {
     import IMasterDetailProps from 'react-declarative/components/MasterDetail/model/IMasterDetailProps';
+    /**
+      * Represents a master-detail component with various modes and customizations.
+      * @template Payload - The payload type for the component.
+      * @param props - The component props.
+      * @param props.mode - The mode of the component. Default is MasterDetailMode.Card.
+      * @param props.withTransparentTabs - Specifies whether to use transparent tabs. Default is false.
+      * @param props.withMenuCollapse - Specifies whether to enable menu collapse. Default is false.
+      * @param props.withFixedPos - Specifies whether to fix the position. Default is false.
+      * @param props.fixedPosHeaderAdjust - The adjustment value for the fixed position header. Default is 0.
+      * @param props.title - The title of the component.
+      * @param props.className - The class name for the component.
+      * @param props.style - The inline style object for the component.
+      * @param props.sx - The theme-ui styles for the component.
+      * @param props.activeOption - The initially active option ID.
+      * @param props.payload - The payload for the component.
+      * @param props.deps - The dependencies array for the component.
+      * @param props.options - The options array for generating master-detail items.
+      * @param props.children - The child components.
+      * @param props.Loader - The loader component to show during async actions. Default is LoaderDefault.
+      * @param props.Error - The error component to show when an error occurs during async actions. Default is ErrorDefault.
+      * @param props.onActiveOptionChange - The callback function to handle active option change.
+      * @param props.fallback - The fallback component to show when there are no items available.
+      * @param props.onLoadStart - The callback function to execute when the async action starts.
+      * @param props.onLoadEnd - The callback function to execute when the async action ends.
+      * @param props.throwError - Specifies whether to throw an error during async actions.
+      * @returns - The rendered component.
+      */
     export const MasterDetail: <Payload extends unknown = any>({ mode, withTransparentTabs, withMenuCollapse, withFixedPos, fixedPosHeaderAdjust, title, className, style, sx, activeOption: upperActiveOption, payload, deps, options, children, Loader, Error, onActiveOptionChange, fallback, onLoadStart, onLoadEnd, throwError, }: IMasterDetailProps<Payload>) => JSX.Element;
     export default MasterDetail;
 }

@@ -13,18 +13,18 @@ type State = Record<string, boolean>;
 /**
  * Represents a feature view component.
  *
- * @typedef {Object} FeatureView
- * @property {string} changeSubject - The subject of the change.
- * @property {boolean} outlinePaper - Whether to outline the paper.
- * @property {boolean} transparentPaper - Whether the paper is transparent.
- * @property {string} className - The CSS class name for the component.
- * @property {Object} style - The CSS styles for the component.
- * @property {Object} sx - The theme styles for the component.
- * @property {object[]} data - The data for the features.
- * @property {boolean} readonly - Whether the component is read-only.
- * @property {string[]} features - The list of available features.
- * @property {boolean} expandAll - Whether to expand all features.
- * @property {function} onChange - The function to call when a feature is changed.
+ * @typedef FeatureView
+ * @property changeSubject - The subject of the change.
+ * @property outlinePaper - Whether to outline the paper.
+ * @property transparentPaper - Whether the paper is transparent.
+ * @property className - The CSS class name for the component.
+ * @property style - The CSS styles for the component.
+ * @property sx - The theme styles for the component.
+ * @property data - The data for the features.
+ * @property readonly - Whether the component is read-only.
+ * @property features - The list of available features.
+ * @property expandAll - Whether to expand all features.
+ * @property onChange - The function to call when a feature is changed.
  *
  * @returns The rendered component.
  */

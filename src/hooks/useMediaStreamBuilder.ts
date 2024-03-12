@@ -38,16 +38,16 @@ interface IParams {
  * @param [params.compressFrame=COMPRESS_FRAME] - The factor to compress the video frame by. (COMPRESS_FRAME is a constant value)
  * @param [params.maxFps=MAX_FPS] - The maximum frame rate of the video capture. (MAX_FPS is a constant value)
  * @returns The media stream builder.
- * @property {MediaStream} mediaStream - The media stream that contains the captured audio and video tracks.
- * @property {boolean} hasAudioCapture - Determines whether audio capture is currently active.
- * @property {boolean} hasCameraCapture - Determines whether camera capture is currently active.
- * @property {boolean} hasScreenCapture - Determines whether screen capture is currently active.
- * @property {Function} requestScreenCapture - Function to request screen capture.
- * @property {Function} requestCameraCapture - Function to request camera capture.
- * @property {Function} requestAudioCapture - Function to request audio capture.
- * @property {Function} stopScreenCapture - Function to stop screen capture.
- * @property {Function} stopCameraCapture - Function to stop camera capture.
- * @property {Function} stopAudioCapture - Function to stop audio capture.
+ * @property mediaStream - The media stream that contains the captured audio and video tracks.
+ * @property hasAudioCapture - Determines whether audio capture is currently active.
+ * @property hasCameraCapture - Determines whether camera capture is currently active.
+ * @property hasScreenCapture - Determines whether screen capture is currently active.
+ * @property requestScreenCapture - Function to request screen capture.
+ * @property requestCameraCapture - Function to request camera capture.
+ * @property requestAudioCapture - Function to request audio capture.
+ * @property stopScreenCapture - Function to stop screen capture.
+ * @property stopCameraCapture - Function to stop camera capture.
+ * @property stopAudioCapture - Function to stop audio capture.
  */
 export const useMediaStreamBuilder = ({
     fallback,

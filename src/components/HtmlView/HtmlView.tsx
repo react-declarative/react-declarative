@@ -52,7 +52,7 @@ interface IHtmlViewProps<T extends any = object> extends BoxProps {
 
 /**
  * Represents an HTML view component.
- * @typedef {Object} HtmlView
+ * @typedef HtmlView
  * @param children - The children elements.
  * @param config - The configuration object.
  * @param handler - The handler function.

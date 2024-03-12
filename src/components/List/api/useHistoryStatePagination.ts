@@ -100,32 +100,32 @@ export const DEFAULT_QUERY: IQuery = {
  * @param options.removeEmptyFilters - Indicates whether to remove empty filters from the query.
  * @param options.fallback - The fallback component to render when the query is not available.
  * @returns - An object containing the pagination state and methods.
- * @property {Object} listProps - The props to be passed to a list component.
- * @property {Function} listProps.onFilterChange - The callback function to handle filter change.
- * @property {Function} listProps.onLimitChange - The callback function to handle limit change.
- * @property {Function} listProps.onPageChange - The callback function to handle page change.
- * @property {Function} listProps.onSortModelChange - The callback function to handle sort model change.
- * @property {Function} listProps.onChipsChange - The callback function to handle chip data change.
- * @property {Function} listProps.onSearchChange - The callback function to handle search change.
- * @property {React.ReactNode} listProps.fallback - The fallback component to render when the query is not available.
- * @property {IQuery<FilterData, RowData>} listProps.filterData - The filter data in the query.
- * @property {SortModel} listProps.sortModel - The sort model in the query.
- * @property {ChipData} listProps.chipData - The chip data in the query.
- * @property {number} listProps.limit - The limit in the query.
- * @property {number} listProps.page - The page in the query.
- * @property {string} listProps.search - The search value in the query.
- * @property {Function} getFilterData - Returns the filter data in the query.
- * @property {Function} getSortModel - Returns the sort model in the query.
- * @property {Function} getChipData - Returns the chip data in the query.
- * @property {Function} getLimit - Returns the limit in the query.
- * @property {Function} getPage - Returns the page in the query.
- * @property {Function} getSearch - Returns the search value in the query.
- * @property {Function} setFilterData - Sets the filter data in the query.
- * @property {Function} setSortModel - Sets the sort model in the query.
- * @property {Function} setChipData - Sets the chip data in the query.
- * @property {Function} setLimit - Sets the limit in the query.
- * @property {Function} setPage - Sets the page in the query.
- * @property {Function} setSearch - Sets the search value in the query.
+ * @property listProps - The props to be passed to a list component.
+ * @property listProps.onFilterChange - The callback function to handle filter change.
+ * @property listProps.onLimitChange - The callback function to handle limit change.
+ * @property listProps.onPageChange - The callback function to handle page change.
+ * @property listProps.onSortModelChange - The callback function to handle sort model change.
+ * @property listProps.onChipsChange - The callback function to handle chip data change.
+ * @property listProps.onSearchChange - The callback function to handle search change.
+ * @property listProps.fallback - The fallback component to render when the query is not available.
+ * @property listProps.filterData - The filter data in the query.
+ * @property listProps.sortModel - The sort model in the query.
+ * @property listProps.chipData - The chip data in the query.
+ * @property listProps.limit - The limit in the query.
+ * @property listProps.page - The page in the query.
+ * @property listProps.search - The search value in the query.
+ * @property getFilterData - Returns the filter data in the query.
+ * @property getSortModel - Returns the sort model in the query.
+ * @property getChipData - Returns the chip data in the query.
+ * @property getLimit - Returns the limit in the query.
+ * @property getPage - Returns the page in the query.
+ * @property getSearch - Returns the search value in the query.
+ * @property setFilterData - Sets the filter data in the query.
+ * @property setSortModel - Sets the sort model in the query.
+ * @property setChipData - Sets the chip data in the query.
+ * @property setLimit - Sets the limit in the query.
+ * @property setPage - Sets the page in the query.
+ * @property setSearch - Sets the search value in the query.
  */
 export const useHistoryStatePagination = <
   FilterData extends {} = IAnything,

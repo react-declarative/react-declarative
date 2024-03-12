@@ -67,9 +67,9 @@ export interface IParams<
  * @param params.sizeRequest - The size request for the action modal.
  * @param params.title - The title for the action modal.
  * @returns - The state and render functions.
- * @property {boolean} open - Indicates whether the action modal is open or closed.
- * @property {Function} render - The render function for the action modal.
- * @property {Function} pickData - The function for selecting data.
+ * @property open - Indicates whether the action modal is open or closed.
+ * @property render - The render function for the action modal.
+ * @property pickData - The function for selecting data.
  */
 export const useActionModal = <
   Data extends IAnything = IAnything,
