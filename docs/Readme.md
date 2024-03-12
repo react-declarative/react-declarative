@@ -18,7 +18,7 @@
 6. [TypedField](./code/TypedField.md)
 7. [react-declarative.d.ts](./code/react-declarative.md)
 
-## Fields properties docs and source:
+## Fields properties with JSDoc:
 
 1. [CheckBox](/src/components/One/components/SlotFactory/components/CheckBox.tsx)
 2. [Choose](/src/components/One/components/SlotFactory/components/Choose.tsx)
