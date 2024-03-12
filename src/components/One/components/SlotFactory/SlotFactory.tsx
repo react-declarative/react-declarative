@@ -9,6 +9,15 @@ interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
     children: React.ReactNode;
 }
 
+/**
+ * SlotFactory is a function component that wraps its children components with a SlotContext.Provider.
+ * It merges the current slots with the upper slots and provides the merged slots to its descendants through the context.
+ *
+ * @param props - The properties for SlotFactory component.
+ * @param props.children - The children components that will be wrapped by SlotFactory.
+ * @param props.currentSlots - The current slots to be merged with the upper slots.
+ * @returns The rendered SlotFactory component.
+ */
 export const SlotFactory = ({
     children,
     ...currentSlots
