@@ -20,6 +20,23 @@ export interface IParams {
   onClose?: (isOk: boolean) => void;
 }
 
+/**
+ * Represents a custom hook to display a snackbar with request feedback.
+ *
+ * @param options - The options for the snackbar.
+ * @param options.message - The message to display in the snackbar. Default: "Client update successful".
+ * @param options.noSnackOnOk - Whether to not display a snackbar when the request is successful. Default: false.
+ * @param options.loading - Whether the request is still loading.
+ * @param options.error - The error message, if any, to display in the snackbar.
+ * @param options.delay - The duration for which the snackbar should be displayed. Default: AUTO_HIDE_DURATION.
+ * @param options.onClose - The callback function to execute when the snackbar is closed. Default: () => undefined.
+ *
+ * @returns - The snackbar hook object.
+ * @returns beginWatch - The function to start watching for changes in the loading and error states.
+ * @returns resetWatcher - The function to reset the watch state.
+ * @returns stopWatch - The function to stop watching for changes.
+ * @returns render - The function to render the snackbar element.
+ */
 export const useRequestSnackbar = ({
   message = "Client update successful",
   noSnackOnOk = false,

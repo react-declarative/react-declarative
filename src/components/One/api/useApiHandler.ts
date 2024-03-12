@@ -27,6 +27,25 @@ export interface IApiHandlerParams<Data extends IAnything = IAnything> {
 
 const EMPTY_RESPONSE = null;
 
+/**
+ * This function is a generic API handler that fetches data from a specified path using the Fetch API.
+ * It provides options for customizing the fetch request, handling loading state, aborting the request, and error handling.
+ *
+ * @template Data - The type of the data returned from the API
+ * @param path - The relative or absolute path to fetch from
+ * @param options - An object containing optional configuration options for the API handler
+ * @param options.fetch - The fetch function to use (default: window.fetch)
+ * @param options.origin - The origin to use when constructing the URL (default: window.location.origin)
+ * @param options.abortSignal - The AbortSignal object to use for aborting the request (default: abortManager.signal)
+ * @param options.requestMap - A function to transform the URL before making the request (default: (url) => url)
+ * @param options.responseMap - A function to transform the JSON response from the API (default: (json) => json as never)
+ * @param options.onLoadBegin - An optional callback function to execute when the request begins loading
+ * @param options.onLoadEnd - An optional callback function to execute when the request finishes loading
+ * @param options.withAbortSignal - Whether to use the abort signal to cancel the request (default: true)
+ * @param options.fetchParams - An optional function to retrieve additional fetch parameters to be passed to fetch
+ * @param options.fallback - An optional function to handle errors and provide fallback behavior
+ * @returns - The API handler function that can be invoked to make the request and retrieve the data
+ */
 export const useApiHandler = <Data extends IAnything = IAnything>(path: string, {
     fetch = window.fetch,
     origin = window.location.origin,

@@ -39,6 +39,24 @@ interface IState {
   open: boolean;
 }
 
+/**
+ * Function useOne
+ *
+ * @template Data - The type of data.
+ * @template Payload - The type of the payload.
+ * @template Field - The type of the field.
+ *
+ * @param params - The parameters object.
+ * @param params.fields - The fields array.
+ * @param params.large - Indicates if the picker is large.
+ * @param params.title - The default title.
+ * @param params.handler - The default handler function.
+ * @param params.payload - The default payload.
+ * @param params.waitForChangesDelay - The delay for waiting changes.
+ * @param params.features - The additional features.
+ *
+ * @returns - The function to open the picker.
+ */
 export const useOne = <
   Data extends IAnything = IAnything,
   Payload = IAnything,

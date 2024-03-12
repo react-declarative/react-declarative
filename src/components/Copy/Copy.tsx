@@ -58,6 +58,22 @@ const createCopyHandler = (content: React.ReactNode) => async () => {
   await copyToClipboard(String(content));
 };
 
+/**
+ * Copy Component
+ * @param className - Additional class name for the root element.
+ * @param content - The text content to be copied.
+ * @param fullWidth - If true, the component spans the full width of its container.
+ * @param transparent - If true, the button appears without a border.
+ * @param children - The content of the component.
+ * @param onCopy - Callback function to be called when copying is triggered.
+ * @param onCopyClick - Callback function to be called when the copy button is clicked.
+ * @param onLoadStart - Callback function to be called when copying starts.
+ * @param onLoadEnd - Callback function to be called when copying ends.
+ * @param fallback - Callback function to be called when an error occurs during copying.
+ * @param throwError - If true, an error during copying will cause an exception to be thrown.
+ * @param otherProps - Additional props to be spread to the root element.
+ * @returns
+ */
 export const Copy = ({
   className,
   content,

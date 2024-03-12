@@ -25,6 +25,16 @@ export interface IState<FilterData extends {} = IAnything, RowData extends IRowD
     search: string;
 }
 
+/**
+ * Custom hook for managing pagination state and handling pagination logic.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ *
+ * @param upperHandler - The handler function responsible for fetching data.
+ *
+ * @returns - An object containing the handler function and the state data.
+ */
 export const useLastPagination = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(upperHandler: ListHandler<FilterData, RowData>): IResult => {
     const [data, setData] = useState<IState<FilterData, RowData>>({
         filterData: {} as FilterData,

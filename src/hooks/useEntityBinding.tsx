@@ -17,6 +17,17 @@ interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof 
     onChange?: (item: EntityAdapter<T>, initial: boolean) => void;
 }
 
+/**
+ * Custom hook to bind an entity to its creator and handle change events.
+ *
+ * @template T - The type of the entity.
+ * @param params - The parameters object.
+ * @param params.creator - The function to create the entity.
+ * @param params.onChange - The function to handle entity change events.
+ * @param params.initialValue - The initial value of the entity.
+ * @param [params.debounce=CHANGE_DEBOUNCE] - The debounce time for entity changes.
+ * @returns - The entity or null if still loading.
+ */
 export const useEntityBinding = <T extends IEntity = any>({
     creator,
     onChange,

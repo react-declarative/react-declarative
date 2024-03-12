@@ -6,6 +6,17 @@ import { RouteManager, ISwitchItem } from "../helpers/routeManager";
 
 import useSingleton from "./useSingleton";
 
+/**
+ * Returns the current item based on the provided routes and history.
+ *
+ * @template T - The type of the record for route parameters and data.
+ * @template I - The type of the switch item.
+ *
+ * @param routes - An array of switch items representing the different routes.
+ * @param history - The history object used for navigation.
+ *
+ * @returns - The current switch item based on the provided routes and history.
+ */
 export const useRouteItem = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
 
     const routeManager = useSingleton(() => new RouteManager<T, I>(routes, history));

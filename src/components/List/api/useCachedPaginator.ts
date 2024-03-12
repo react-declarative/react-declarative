@@ -13,6 +13,17 @@ interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = 
     clear: () => void;
 }
 
+/**
+ * Creates a cached paginator for list data.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ *
+ * @param handler - The list handler function or object.
+ * @param params - The parameters for the paginator.
+ *
+ * @returns - The result containing the paginator handler and clear function.
+ */
 export const useCachedPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything> (
     handler: ListHandler<FilterData, RowData>,
     params: IArrayPaginatorParams<FilterData, RowData>

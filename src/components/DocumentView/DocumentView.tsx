@@ -95,6 +95,31 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Renders a document view component with optional full screen and delete functionality.
+ *
+ * @param withFullScreen - Determines if the full screen functionality is enabled. Default: false.
+ * @param withDelete - Determines if the delete functionality is enabled. Default: false.
+ * @param className - Additional CSS class name(s) for the root element.
+ * @param style - Additional inline styles for the root element.
+ * @param src - The source URL for the document.
+ * @param onFullScreenClick - The callback function when the full screen button is clicked. Default: openBlank(src).
+ * @param onDeleteClick - The callback function when the delete button is clicked. Default: () => undefined.
+ * @param onLoadStart - The callback function when the document starts loading.
+ * @param onLoadEnd - The callback function when the document finishes loading.
+ * @param fallback - The fallback element to render if the document is not supported.
+ * @param throwError - Determines if an error should be thrown if the document is not supported. Default: false.
+ * @param disabled - Determines if the component is disabled. Default: false.
+ * @param options - The action menu options to display.
+ * @param onAction - The callback function when an action is selected from the action menu. Default: () => undefined.
+ * @param payload - Additional payload data for the callback functions.
+ * @param deps - Dependency array for the callback functions of the action menu.
+ * @param keepMounted - Determines if the action menu should stay mounted when closed. Default: false.
+ * @param BeforeContent - The content to display before the action menu.
+ * @param AfterContent - The content to display after the action menu.
+ * @param otherProps - Other additional props for the root element.
+ * @returns The rendered document view component.
+ */
 export const DocumentView = ({
     withFullScreen = false,
     withDelete = false,

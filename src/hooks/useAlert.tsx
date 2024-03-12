@@ -24,6 +24,25 @@ interface IState {
   open: boolean;
 }
 
+/**
+ * Function for displaying an alert modal.
+ * @param params - The alert parameters.
+ * @param params.title - The title of the alert. Default is "Alert".
+ * @param params.description - The description of the alert. Default is an empty string.
+ * @param params.large - Whether to display a large alert. Default is false.
+ * @returns - A function that, when called, displays the alert and returns a Promise.
+ *                      The Promise resolves when the alert is closed.
+ *
+ * @example
+ * const alert = useAlert();
+ * alert({ title: "My Alert", description: "This is my alert message" })
+ *   .then(() => {
+ *     console.log("Alert closed");
+ *   })
+ *   .catch((error) => {
+ *     console.error("Error occurred: ", error);
+ *   });
+ */
 export const useAlert = ({
   title: defaultTitle = "Alert",
   description: defaultDescription = "",

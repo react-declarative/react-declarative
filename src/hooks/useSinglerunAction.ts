@@ -22,6 +22,23 @@ export interface IExecute<Data extends any = any, Payload extends any = object> 
     clear(): void;
 }
 
+/**
+ * Function useSinglerunAction
+ *
+ * @description This function is a custom hook that helps to handle asynchronous actions and manage loading and error states.
+ *
+ * @template Data - The type of data that the asynchronous action will return.
+ * @template Payload - The type of payload that the asynchronous action accepts.
+ *
+ * @param run - The asynchronous action to be executed.
+ * @param options - Additional options for the hook.
+ * @param [options.onLoadStart] - Callback function called when the asynchronous action starts.
+ * @param [options.onLoadEnd] - Callback function called when the asynchronous action ends.
+ * @param [options.fallback] - Callback function called when an error occurs, if `throwError` is set to `false`.
+ * @param [options.throwError] - Flag to determine whether to throw an error or call the `fallback` function when an error occurs. Default is `true`.
+ *
+ * @returns - An object containing the loading state, error state, and an `execute` function to execute the asynchronous action.
+ */
 export const useSinglerunAction = <Data extends any = any, Payload extends any = any>(run: (p: Payload) => (Data | Promise<Data>), {
     onLoadStart,
     onLoadEnd,

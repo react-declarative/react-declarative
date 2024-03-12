@@ -55,6 +55,19 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a fade view component with various customizable options.
+ * @param props - The properties for the FadeView component.
+ * @param props.className - The CSS class name for the FadeView component.
+ * @param props.style - The inline style object for the FadeView component.
+ * @param props.children - The child elements of the FadeView component.
+ * @param props.Fade - The fade effect component to be used.
+ * @param props.color - The color of the fade effect.
+ * @param props.zIndex - The z-index of the fade effect.
+ * @param props.disableBottom - Determines if the fade effect should be disabled at the bottom.
+ * @param props.disableRight - Determines if the fade effect should be disabled at the right side.
+ * @returns - The rendered FadeView component.
+ */
 export const FadeView = ({
   className,
   style,

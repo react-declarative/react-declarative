@@ -4,6 +4,13 @@ import Subject, { TSubject } from "../utils/rx/Subject";
 
 import useSingleton from "./useSingleton";
 
+/**
+ * Creates and returns a subject that can be subscribed to.
+ *
+ * @template Data - The data type of the subject.
+ * @param target - An optional target subject to subscribe to.
+ * @returns - The created subject.
+ */
 export const useSubject = <Data = any>(target?: TSubject<Data> | null) => {
     const result = useSingleton(() => new Subject<Data>());
     useEffect(() => {

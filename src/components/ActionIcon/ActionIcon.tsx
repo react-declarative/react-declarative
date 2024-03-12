@@ -73,6 +73,24 @@ const useStyles = makeStyles<{
     },
 }));
 
+/**
+ * Represents an action icon component.
+ * @typedef ActionIcon
+ * @property className - The class name for the component.
+ * @property style - The inline style for the component.
+ * @property sx - The custom styling for the component using SX prop provided by Emotion.
+ * @property noProgress - Determines if the progress spinner should be shown.
+ * @property throwError - Determines if an error should be thrown in case of an exception.
+ * @property disabled - Determines if the component is disabled.
+ * @property onLoadStart - The callback function called when the action starts loading.
+ * @property onLoadEnd - The callback function called when the action finishes loading.
+ * @property onClick - The callback function called when the icon is clicked.
+ * @property fallback - The fallback function called in case of an error and throwError is false.
+ * @property children - The child components of the icon.
+ * @property size - The size of the icon.
+ * @property thickness - The thickness of the circular progress spinner.
+ * @property otherProps - Other props to be passed to the IconButton component.
+ */
 export const ActionIcon = ({
     className,
     style,

@@ -70,6 +70,27 @@ const useStyles = makeStyles<{
     },
 }));
 
+/**
+ * ActionFab component.
+ *
+ * @param props - The component props.
+ * @param props.className - The CSS class name for the root element.
+ * @param props.style - The inline CSS styles for the root element.
+ * @param props.sx - The style object for SX props.
+ * @param props.noProgress - If true, the progress indicator will not be displayed when loading. Default is false.
+ * @param props.throwError - If true, any error thrown during onClick will be re-thrown. Default is false.
+ * @param props.disabled - If true, the component is disabled. Default is false.
+ * @param props.size - The size of the component. Default is DEFAULT_SIZE.
+ * @param props.thickness - The thickness of the progress indicator. Default is DEFAULT_THICKNESS.
+ * @param props.color - The color of the component. Default is "primary".
+ * @param props.onLoadStart - The callback function called when loading starts.
+ * @param props.onLoadEnd - The callback function called when loading ends.
+ * @param props.onClick - The callback function called when the component is clicked.
+ * @param props.fallback - The fallback component to render if an error occurs during onClick.
+ * @param props.children - The child components to render inside the component.
+ * @param props.otherProps - The additional props to pass to the Fab component.
+ * @returns The rendered component.
+ */
 export const ActionFab = ({
     className,
     style,

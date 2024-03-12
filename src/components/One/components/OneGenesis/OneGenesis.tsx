@@ -46,6 +46,22 @@ const useStyles = makeStyles()({
 const DEFAULT_READY = () => null;
 const DEFAULT_CHANGE = (data: IAnything) => console.log({ data });
 
+/**
+ * Represents the OneGenesis component.
+ * @param props - The props for the component.
+ * @param props.change - The change callback function.
+ * @param props.ready - The ready callback function.
+ * @param props.fields - The fields array.
+ * @param props.slots - The slots object.
+ * @param props.payload - The payload object.
+ * @param props.fieldDebounce - The debounce time for field updates.
+ * @param props.features - The features object.
+ * @param props.context - The context object.
+ * @param props.className - The class name for the component.
+ * @param props.style - The style object for the component.
+ * @param props.sx - The inline style object for the component.
+ * @return - The rendered component.
+ */
 export const OneGenesis = <
   Data extends IAnything = IAnything,
   Payload = IAnything,

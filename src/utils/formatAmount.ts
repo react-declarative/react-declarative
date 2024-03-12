@@ -1,5 +1,13 @@
 import { nbsp } from "./typo";
 
+/**
+ * Formats the given value to a specific scale and separates the thousands with a separator.
+ *
+ * @param value - The value to be formatted.
+ * @param [scale=2] - The number of decimal places to round to.
+ * @param [separator=','] - The separator for thousands.
+ * @returns The formatted value.
+ */
 export const formatAmount = (
     value: number | string,
     scale = 2,

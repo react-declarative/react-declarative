@@ -65,6 +65,15 @@ const resolveFeatues = (upperFeatures: IOnePublicProps["features"]) => {
   return result;
 };
 
+/**
+ * Returns an array of available fields based on the provided features.
+ *
+ * @param fields - The list of fields.
+ * @param data - The data object.
+ * @param payload - The payload object.
+ * @param [_features] - The optional features.
+ * @returns - The available fields.
+ */
 export const getAvailableFields = (
   fields: IField[],
   data: Record<string, any>,

@@ -34,6 +34,41 @@ interface IParams<
     onSubmit?: (data: IRowData['id'][] | null, payload: Payload, param: Param) => Promise<boolean> | boolean;
   }
 
+/**
+ * The useSearchModal function is a custom hook that provides functionality for displaying a search modal.
+ * It accepts various parameters and returns an object with properties and methods for controlling the search modal.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ * @template Payload - The type of the payload.
+ * @template Field - The type of the field.
+ *
+ * @param params - The parameters for configuring the search modal.
+ * @param params.param - The initial value for the parameter.
+ * @param params.selectionMode - The selection mode for the search modal.
+ * @param params.handler - The handler function for handling events.
+ * @param params.fallback - The fallback function to be executed if an error occurs.
+ * @param params.apiRef - The reference to the API.
+ * @param params.reloadSubject - The subject for triggering reload events.
+ * @param params.payload - The initial value for the payload.
+ * @param params.onChange - The callback function for handling change events.
+ * @param params.onAction - The callback function for handling action events.
+ * @param params.onRowAction - The callback function for handling row action events.
+ * @param params.onSubmit - The callback function for handling submit events.
+ * @param params.onLoadEnd - The callback function to be executed when loading ends.
+ * @param params.onLoadStart - The callback function to be executed when loading starts.
+ * @param params.submitLabel - The label for the submit button.
+ * @param params.throwError - Indicates whether to throw an error or not.
+ * @param params.title - The title of the search modal.
+ * @param params.hidden - Indicates whether the search modal should be hidden or not.
+ * @param listProps - Additional properties for customizing the search modal.
+ *
+ * @returns An object with properties and methods for controlling the search modal.
+ * @property open - Indicates whether the search modal is open or not.
+ * @property render - A function for rendering the search modal.
+ * @property pickData - A function for picking data.
+ * @property close - A function for closing the search modal and handling submit with null data.
+ */
 export const useSearchModal = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

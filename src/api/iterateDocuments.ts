@@ -18,6 +18,21 @@ interface IConfig<Data extends IRowData = IRowData> {
   } & Omit<IConfig<Data>, 'createRequest'>) => (Data[] | Promise<Data[]>);
 }
 
+/**
+ * Asynchronous generator function that iterates over documents.
+ *
+ * @template Data - The type of the row data in the documents.
+ *
+ * @param config - The configuration object.
+ * @param [config.totalDocuments=TOTAL_DOCUMENTS] - The total number of documents to iterate over.
+ * @param [config.limit=REQUEST_LIMIT] - The number of documents to fetch in each request.
+ * @param [config.delay=REQUEST_DELAY] - The delay between each request.
+ * @param [config.createRequest=() => []] - The function used to create the request.
+ *
+ * @returns An asynchronous generator that yields an array of documents.
+ *
+ * @throws {Error} If the response length is greater than the specified limit.
+ */
 export const iterateDocuments = async function* <Data extends IRowData = IRowData>({
   totalDocuments = TOTAL_DOCUMENTS,
   limit = REQUEST_LIMIT,

@@ -19,6 +19,26 @@ interface IParams<Size extends ISize> {
     onResize?: (size: Size) => void;
 }
 
+/**
+ * Calculates the size of an HTML element and updates it when it changes.
+ *
+ * @template T - The type of the HTML element.
+ * @template Size - The interface defining the size object type.
+ *
+ * @typedef  ISize - The interface defining the size object type.
+ *
+ * @typedef IParams - The interface defining the optional parameters for the useElementSize function.
+ * @property defaultSize - The default size of the element.
+ * @property target - The target element to calculate the size for. If not provided, the component's element will be used.
+ * @property closest - The selector for the closest ancestor element.
+ * @property selector - The selector for a specific descendant element.
+ * @property debounce - The debounce delay in milliseconds for resizing events. Defaults to 0 (no debounce).
+ * @property compute - A function to compute the size object based on the raw size object. Defaults to a simple type casting.
+ * @property onResize - A callback function called when the element size changes.
+ *
+ * @param options - The optional parameters for the useElementSize function.
+ * @returns - An object containing a ref to the element and the current size.
+ */
 export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize>({
     defaultSize: {
         height,

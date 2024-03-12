@@ -15,6 +15,22 @@ interface IParams {
   onLoadEnd?: (isOk: boolean) => void;
 }
 
+/**
+ * Prevents navigation, displays confirmation prompt if specified,
+ * and handles loading state changes.
+ *
+ * @param history - The history object from react-router-dom.
+ * @param withConfirm - Determines if a confirmation prompt should be displayed before navigating.
+ * @param onLoadStart - Callback function invoked when loading starts.
+ * @param onLoadEnd - Callback function invoked when loading ends.
+ * @returns
+ * 
+ * 
+ * 
+ * 
+ * 
+ *  - Object containing methods and state for preventing navigation and handling loading state.
+ */
 export const usePreventNavigate = ({
   history,
   withConfirm = false,

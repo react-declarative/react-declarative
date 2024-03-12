@@ -27,6 +27,23 @@ interface ICopyButtonProps {
   label?: string | number;
 }
 
+/**
+ * Represents a copy button component.
+ *
+ * @typedef ICopyButtonProps
+ * @property disabled - Determines if the button is disabled.
+ * @property className - The class name for the button.
+ * @property style - The inline style for the button.
+ * @property sx - The custom style for the button using the sx prop from the Material-UI theme.
+ * @property onClick - The click event handler for the button.
+ * @property delay - The delay before the tooltip closes.
+ * @property variant - The variant type of the button.
+ * @property size - The size of the button.
+ * @property color - The color of the button.
+ * @property startIcon - The start icon component of the button.
+ * @property content - The content of the button.
+ * @property label - The label text of the button.
+ */
 export const CopyButton = ({
   disabled,
   className,

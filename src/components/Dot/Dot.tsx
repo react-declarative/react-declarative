@@ -29,6 +29,15 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a Dot component.
+ * @param props - The props object.
+ * @param props.className - The class name of the Dot component.
+ * @param props.color - The background color of the Dot component.
+ * @param props.side - The side length of the Dot component.
+ * @param props.otherProps - Additional props to be spread onto the Dot component.
+ * @returns - The rendered Dot component.
+ */
 export const Dot = ({
     className,
     color: background,

@@ -230,6 +230,15 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
     toCollection = () => this._collection$.current;
 };
 
+/**
+ * A custom hook that provides a collection management functionality.
+ *
+ * @template T - The type of entities in the collection.
+ * @param [initialValue=[]] - The initial value of the collection.
+ * @param [onChange=() => null] - A callback function to execute when the collection changes.
+ * @param [debounce=CHANGE_DEBOUNCE] - The debounce duration in milliseconds for the collection changes.
+ * @returns - A memoized instance of the CollectionAdapter class.
+ */
 export const useCollection = <T extends IEntity = any>({
     initialValue = [],
     onChange = () => null,

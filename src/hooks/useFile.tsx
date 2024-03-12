@@ -6,6 +6,9 @@ interface IParams {
   onSelect?: (...files: File[]) => void;
 }
 
+/**
+ * Represents and provides functionality for a file input element.
+ */
 export const useFile = ({
   accept,
   onSelect,

@@ -1,5 +1,19 @@
 type Value = number | boolean;
 
+/**
+ * Executes conditional branching based on the provided conditions and returns the appropriate value.
+ *
+ * @template A - Type of the condition value.
+ * @template T - Type of the run value.
+ * @template E - Type of the not value.
+ *
+ * @param params - The parameters object.
+ * @param params.condition - The condition value or a function that returns the condition value.
+ * @param params.run - The run value or a function that returns the run value.
+ * @param [params.not=false] - The not value or a function that returns the not value. Defaults to false.
+ *
+ * @returns - The result of executing the condition and returning the appropriate value.
+ */
 export const match = <A = Promise<Value>, T = Promise<Value>, E = false>({
     condition,
     run,

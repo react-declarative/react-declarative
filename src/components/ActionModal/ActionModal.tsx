@@ -151,6 +151,48 @@ const LARGE_SIZE_REQUEST: IActionModalProps['sizeRequest'] = ({
   width: width - 50,
 });
 
+/**
+ * ActionModal is a component that renders a modal dialog with customizable fields and actions.
+ *
+ * @template Data - The type of data for the fields in the modal.
+ * @template Payload - The type of payload that will be passed to the onSubmit callback.
+ * @template Field - The type of field that will be rendered in the modal.
+ *
+ * @typedef IActionModalProps - The props for the ActionModal component.
+ * @property [withActionButton=true] - Determines whether an action button should be displayed.
+ * @property [withStaticAction=false] - Determines whether a static action should be displayed.
+ * @property [waitForChangesDelay=0] - The amount of time to wait for any changes before submitting the form.
+ * @property [onSubmit=()=>true] - The callback function to be called when the form is submitted.
+ * @property [onChange=()=>undefined] - The callback function to be called when any field changes.
+ * @property [onInvalid=()=>undefined] - The callback function to be called when a field becomes invalid.
+ * @property [onLoadStart] - The callback function to be called when the form starts loading.
+ * @property [onLoadEnd] - The callback function to be called when the form finishes loading.
+ * @property [fallback] - The fallback component to be displayed when an error occurs.
+ * @property [fields] - The fields to be rendered in the form.
+ * @property [param] - Additional parameter to be passed to the onSubmit callback.
+ * @property [handler] - The function to be called when any field changes its value.
+ * @property [payload={}] - The payload to be passed to the onSubmit callback.
+ * @property [fullScreen=false] - Determines whether the modal should be displayed in full screen.
+ * @property [sizeRequest] - The function to compute the size of the modal.
+ * @property [title] - The title to be displayed in the modal.
+ * @property [apiRef] - Reference to the api.
+ * @property [features] - Additional features for the ActionModal.
+ * @property [changeSubject] - Subject for changes.
+ * @property [reloadSubject] - Subject for reloads.
+ * @property [outlinePaper=false] - Determines whether the paper component should have an outline.
+ * @property [transparentPaper=false] - Determines whether the paper component should be transparent.
+ * @property [open=true] - Determines whether the modal is open.
+ * @property [dirty=false] - Determines whether any field in the form is dirty.
+ * @property [hidden=false] - Determines whether the modal is hidden.
+ * @property [readonly=false] - Determines whether the modal is read-only.
+ * @property [throwError=false] - Determines whether an error should be thrown on submission error.
+ * @property [submitLabel='Submit'] - The label to be displayed on the action button.
+ * @property [AfterTitle] - The component to be displayed after the title.
+ * @property [BeforeTitle] - The component to be displayed before the title.
+ *
+ * @param props - The props for the ActionModal component.
+ * @returns - The rendered modal component.
+ */
 export const ActionModal = <
   Data extends IAnything = IAnything,
   Payload = IAnything,

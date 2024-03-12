@@ -10,6 +10,23 @@ import { PropsContextProvider } from './context/PropsContext';
 import IScaffold2Props from './model/IScaffold2Props';
 import Payload from './model/Payload';
 
+/**
+ * Represents a scaffold component that provides state management and context providers.
+ * @function Scaffold2
+ * @param props - The props object containing the component's properties.
+ * @param [props.appName="Scaffold2"] - The name of the app.
+ * @param [props.noSearch=false] - Specifies if the search feature is disabled.
+ * @param [props.noAppName=false] - Specifies if the app name should be hidden.
+ * @param props.onInit - The callback function invoked during initialization.
+ * @param props.onLoadStart - The callback function invoked before loading data.
+ * @param props.onLoadEnd - The callback function invoked after loading data.
+ * @param props.fallback - The fallback component to render in case of an error.
+ * @param props.options - The options object.
+ * @param props.payload - The payload object.
+ * @param [props.deps=[]] - The array of dependencies.
+ * @param props.throwError - Specifies if an error should be thrown.
+ * @returns - The rendered component.
+ */
 export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>) => {
 
     const {

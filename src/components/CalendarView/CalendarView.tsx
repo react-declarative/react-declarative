@@ -36,6 +36,16 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * CalendarView component displays a calendar with various functionalities such as selecting dates, changing months, and changing years.
+ *
+ * @template Data - The type of data to be passed to the component
+ * @template Payload - The type of payload to be used in the component
+ *
+ * @param props - The props object containing the necessary parameters for the CalendarView component
+ *
+ * @returns - The rendered CalendarView component
+ */
 export const CalendarView = <
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything

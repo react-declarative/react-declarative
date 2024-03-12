@@ -8,7 +8,16 @@ interface IParams {
   pathname: string;
 }
 
-export const useLocalHistory = ({ 
+/**
+ * Initializes and manages a local history object.
+ *
+ * @param options - The options for the local history.
+ * @param options.history - The upper history object to sync with.
+ * @param [options.pathname="/"] - The initial pathname for the history.
+ *
+ * @return - The local history object.
+ */
+export const useLocalHistory = ({
   history: upperHistory,
   pathname = "/"
 }: Partial<IParams> = {}) => {

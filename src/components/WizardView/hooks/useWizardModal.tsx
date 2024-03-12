@@ -32,6 +32,35 @@ interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
   pathname?: string;
 }
 
+/**
+ * useWizardModal is a custom hook that provides a modal component for wizards.
+ * It accepts various parameters and returns an object with functions and properties
+ * related to the wizard modal.
+ *
+ * @param params - The parameters for the useWizardModal hook.
+ * @param params.fallback - The fallback function to be called when an error occurs during rendering.
+ * @param params.pathname - The pathname for the history object. Defaults to "/".
+ * @param params.history - The history object. If not provided, a new memory history object will be created.
+ * @param params.fullScreen - Determines whether the modal should be displayed in full screen. Defaults to true.
+ * @param params.onLoadEnd - The function to be called when the wizard finishes loading.
+ * @param params.onLoadStart - The function to be called when the wizard starts loading.
+ * @param params.throwError - Determines whether an error should be thrown when an error occurs during submission. Defaults to false.
+ * @param params.onChange - The function to be called when the wizard state changes.
+ * @param params.onSubmit - The function to be called when the wizard is submitted. Defaults to a function that returns true.
+ * @param params.onMount - The function to be called when the wizard component is mounted.
+ * @param params.onUnmount - The function to be called when the wizard component is unmounted.
+ * @param params.onClose - The function to be called when the modal is closed.
+ * @param params.submitLabel - The label for the submit button.
+ * @param params.title - The title of the wizard modal.
+ * @param params.hidden - Determines whether the modal should be hidden. Defaults to false.
+ * @param params.outletProps - Additional props to pass to the WizardOutletModal component.
+ *
+ * @returns - An object with functions and properties related to the wizard modal.
+ * @returns return.open - A boolean value indicating whether the modal is open.
+ * @returns return.render - A function that renders the wizard modal.
+ * @returns return.pickData - A function that triggers the modal to open.
+ * @returns return.close - A function that closes the modal and submits an empty payload.
+ */
 export const useWizardModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything

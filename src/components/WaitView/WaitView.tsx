@@ -22,6 +22,26 @@ interface IState<T extends any = object> {
 
 const Fragment = () => <></>;
 
+/**
+ * Renders a component with loading, content, and error states based on a condition.
+ *
+ * @template P - The type of the payload.
+ * @template T - The type of the condition result.
+ *
+ * @param props - The component props.
+ * @param props.onDone - A callback function to be executed when the condition is met.
+ * @param props.condition - A function that returns a condition.
+ * @param [props.Loader=Fragment] - The loading component.
+ * @param [props.Content=Fragment] - The content component.
+ * @param [props.Error=Fragment] - The error component.
+ * @param [props.delay=1000] - The delay in milliseconds before retrying the condition.
+ * @param [props.totalAttempts=Infinity] - The maximum number of attempts before showing the error state.
+ * @param [props.conditionMap=(result) => !!result] - A function to map the condition result to a boolean value.
+ * @param props.payload - The payload to be passed to the components.
+ * @param otherProps - Other props to be passed to the Async component.
+ *
+ * @returns The rendered component.
+ */
 export const WaitView = <P extends any = object, T extends any = object>({
     onDone,
     condition,

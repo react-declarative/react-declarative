@@ -14,6 +14,11 @@ const touchSource = Source.unicast(() =>
     .share()
 );
 
+/**
+ * Waits for a touch event and calls the provided function.
+ *
+ * @param fn - The function to be called when a touch event occurs.
+ */
 export const waitForTouch = (fn: () => void) => {
     return touchSource.connect(fn);
 };

@@ -46,6 +46,28 @@ const Loader = LoaderView.createLoader(24);
 const CONFIRM_MESSAGE = "Are you sure you want to delete this file?";
 const CONFIRM_TITLE = "Confirmation";
 
+/**
+ * A component for displaying a list of files with upload, remove, and click functionalities.
+ *
+ * @param items - The list of file names to display.
+ * @param className - Additional CSS class names for the root element.
+ * @param style - Additional inline styles for the root element.
+ * @param sx - Additional theme styles for the root element.
+ * @param disabled - Flag to disable the component.
+ * @param onUpload - The callback function when a file is uploaded. It accepts the uploaded file as an argument and should return the name of the uploaded file.
+ * @param onRemove - The callback function when a file is removed. It accepts the file name as an argument.
+ * @param onChange - The callback function when the file list changes. It does not accept any arguments.
+ * @param onClick - The callback function when a file is clicked. It accepts the file name as an argument.
+ * @param tr - The translation function for translating labels. It accepts a label as an argument and should return the translated label.
+ * @param accept - The file types that can be uploaded. Defaults to ACCEPT_DEFAULT.
+ * @param multiple - Flag to allow multiple file uploads. Defaults to false.
+ * @param onLoadStart - The callback function when file loading starts.
+ * @param onLoadEnd - The callback function when file loading ends. It accepts a boolean flag indicating if the loading was successful or not.
+ * @param fallback - The fallback function to handle errors. It accepts an Error object as an argument.
+ * @param throwError - Flag to throw error instead of handling it with the fallback function.
+ *
+ * @returns The FilesView component.
+ */
 export const FilesView = ({
   items = [],
   className,

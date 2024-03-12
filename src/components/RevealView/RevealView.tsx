@@ -25,6 +25,17 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Render a RevealView component that animates the appearance of its children.
+ *
+ * @param props - The component props.
+ * @param props.children - The children to be revealed.
+ * @param [props.className] - The additional CSS class names for the component.
+ * @param [props.style] - The inline CSS styles for the component.
+ * @param [props.animation] - The animation to use for revealing the children.
+ * @param [props.delay=REVEAL_DELAY] - The delay in milliseconds before the children start to appear.
+ * @param [props.appear=true] - Determines whether the children should appear.
+ */
 export const RevealView = ({
     children,
     className,

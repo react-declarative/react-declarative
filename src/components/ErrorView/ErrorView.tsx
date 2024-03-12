@@ -73,6 +73,19 @@ const contentDefault = (
     </>
 );
 
+/**
+ * Represents an ErrorView component.
+ *
+ * @typedef ErrorView
+ * @property appName - The name of the application to be displayed on the ErrorView.
+ * @property Logo - The logo component to be displayed on the ErrorView.
+ * @property [className] - The additional class name to be applied to the ErrorView container.
+ * @property [style] - The custom CSS styles to be applied to the ErrorView container.
+ * @property [sx] - The custom sx styles to be applied to the ErrorView container (used in Theme UI library).
+ * @property [buttonLabel="Reload page"] - The label text for the button displayed on the ErrorView.
+ * @property [contentLabel] - The content text to be displayed on the ErrorView.
+ * @property [onButtonClick=handleReload] - The click event handler for the button displayed on the ErrorView.
+ */
 export const ErrorView = ({
     appName = 'AppName',
     Logo = LogoDefault,

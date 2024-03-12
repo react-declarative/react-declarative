@@ -1,3 +1,9 @@
+/**
+ * Recursively processes an object and its nested properties.
+ *
+ * @param root - The root object to be processed.
+ * @returns - The processed object.
+ */
 export const objects = (root: any) => {
     let result = root;
     const process = (entry: any, change = (obj: any) => result = obj) => {

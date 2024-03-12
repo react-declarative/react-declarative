@@ -69,6 +69,20 @@ interface IScrollViewProps extends BoxProps {
   center?: boolean;
 }
 
+/**
+ * This component allows to create a scrollable view container with optional scrollbar.
+ *
+ * @param props - The props object.
+ * @param props.children - The content to be rendered inside the ScrollView.
+ * @param [props.className] - Optional class name to be added to the root element.
+ * @param [props.style] - Optional inline styles for the root element.
+ * @param [props.center=false] - Whether to horizontally center the content within the ScrollView.
+ * @param [props.withScrollbar=false] - Whether to show a scrollbar within the ScrollView.
+ * @param [props.hideOverflowX=false] - Whether to hide overflow in the X axis.
+ * @param [props.hideOverflowY=false] - Whether to hide overflow in the Y axis.
+ * @param [otherProps] - Other props to be spread on the root element.
+ * @returns - The rendered ScrollView component.
+ */
 export const ScrollView = ({
   children,
   className,

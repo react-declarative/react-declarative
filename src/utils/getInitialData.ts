@@ -8,6 +8,17 @@ import set from "./set";
 import IAnything from "../model/IAnything";
 import IField from "../model/IField";
 
+/**
+ * Generates initial data based on provided field definitions and payload.
+ *
+ * @template Data - The type of data object to create.
+ * @template Payload - The type of payload used for populating default values.
+ *
+ * @param fields - The array of field definitions.
+ * @param [payload={}] - The payload object used for populating default values.
+ *
+ * @returns - The generated initial data object.
+ */
 export const getInitialData = <Data extends {} = IAnything, Payload extends IAnything = IAnything>(
     fields: IField<Data, Payload>[], payload: Payload = {} as Payload
 ) => {

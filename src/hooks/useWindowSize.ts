@@ -11,6 +11,15 @@ interface IParams<Size extends ISize> {
     onResize?: (size: Size) => void;
 }
 
+/**
+ * Returns the size of the window.
+ * @template Size - The type of the size object.
+ * @param [options] - Optional configuration options.
+ * @param [options.debounce] - The delay in milliseconds for debouncing the resize event. Default is `RESIZE_DEBOUNCE`.
+ * @param [options.compute] - A function that computes the size object from the window size. Default is `(size) => size as Size`.
+ * @param [options.onResize] - A callback function to be called when the window size changes.
+ * @returns The size of the window.
+ */
 export const useWindowSize = <Size extends ISize = ISize>({
     debounce: delay = RESIZE_DEBOUNCE,
     compute = (size) => size as Size,

@@ -7,6 +7,13 @@ export interface ICounted<T> {
   count: number;
 }
 
+/**
+ * Counts the occurrences of each value emitted by the target observer.
+ *
+ * @template T - The type of values emitted by the target observer.
+ * @param target - The target observer to count the occurrences for.
+ * @returns - An observer that emits {@link ICounted} objects containing the value and count.
+ */
 export const count = <T = any>() => (target: TObserver<T>): TObserver<ICounted<T>> => {
   return target
   .reduce<{

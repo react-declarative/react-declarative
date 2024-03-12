@@ -1,3 +1,9 @@
+/**
+ * Get the XPath of a given HTML element.
+ *
+ * @param element - The HTML element to get the XPath from.
+ * @returns - The XPath of the element, or null if it couldn't be determined.
+ */
 export const getXPathFromElement = (element: HTMLElement): string | null => {
     if (element.tagName == "HTML") return "/HTML[1]";
     if (element === document.body) return "/HTML[1]/BODY[1]";

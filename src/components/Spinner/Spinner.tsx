@@ -37,6 +37,16 @@ const useStyles = makeStyles()({
   spin4: createSpin(2_000),
 });
 
+/**
+ * Represents a spinner component that displays a loading animation.
+ * @component
+ *
+ * @param props - The props object for the spinner component.
+ * @param props.className - The custom CSS class name for the spinner component.
+ * @param props.otherProps - The additional props to be spread on the root Box element.
+ *
+ * @returns The spinner component.
+ */
 export const Spinner = ({ className, ...otherProps }: ISpinnerProps) => {
   const { classes } = useStyles();
   const theme = useTheme();

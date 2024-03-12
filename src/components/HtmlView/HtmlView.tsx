@@ -50,6 +50,21 @@ interface IHtmlViewProps<T extends any = object> extends BoxProps {
     throwError?: boolean;
 }
 
+/**
+ * Represents an HTML view component.
+ * @typedef HtmlView
+ * @param children - The children elements.
+ * @param config - The configuration object.
+ * @param handler - The handler function.
+ * @param fallback - The fallback function.
+ * @param onLoadStart - The onLoadStart callback function.
+ * @param onLoadEnd - The onLoadEnd callback function.
+ * @param payload - The payload.
+ * @param deps - The dependencies.
+ * @param throwError - Indicates whether to throw an error if encountered.
+ * @param otherProps - Other additional props.
+ * @returns The HTML view component.
+ */
 export const HtmlView = ({
     children = null,
     config,

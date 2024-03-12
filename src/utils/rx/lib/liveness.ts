@@ -6,6 +6,15 @@ import take from "./take";
 
 const NEVER_VALUE = Symbol('never');
 
+/**
+ * Adds liveness functionality to a given observer stream.
+ *
+ * @template T - The type of values in the observer stream.
+ * @param fallbackfn - The fallback function to be called when liveness times out.
+ * @param waitFor - The time period in milliseconds to wait for liveness before calling the fallback function. Default is 5000 milliseconds.
+ * @param target - The observer stream to add liveness functionality to.
+ * @returns - The modified observer stream with liveness functionality.
+ */
 export const liveness = <T = any>(fallbackfn: () => void, waitFor = 5_000) => (target: TObserver<T>): TObserver<T> => {
     let isOk = true;
     const stream = Source.merge([

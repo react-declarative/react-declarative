@@ -27,6 +27,24 @@ interface IParams
   submitLabel: IActionModalParams["submitLabel"];
 }
 
+/**
+ * Initializes and returns a visibility view component.
+ *
+ * @param params - The configuration parameters.
+ * @param params.groups - The groups of fields to display.
+ * @param params.data - The initial data values.
+ * @param params.keyToTitle - The function to generate a title from a key.
+ * @param params.expandAll - Flag indicating if all fields should be expanded by default.
+ * @param params.readonly - Flag indicating if the view should be readonly.
+ * @param params.fullScreen - Flag indicating if the view should be displayed in full screen.
+ * @param params.fallback - The component to display if the main component fails to load.
+ * @param params.onLoadStart - The function to call when the view starts loading.
+ * @param params.onLoadEnd - The function to call when the view finishes loading.
+ * @param params.onSubmit - The function to call when the form is submitted.
+ * @param params.onChange - The function to call when the form's data changes.
+ * @param params.submitLabel - The label for the submit button.
+ * @returns - The visibility view component.
+ */
 export const useVisibilityView = ({
   groups,
   data,

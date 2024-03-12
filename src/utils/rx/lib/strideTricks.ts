@@ -1,5 +1,13 @@
 import { TObserver } from "../Observer";
 
+/**
+ * Applies stride tricks to a given target observer.
+ * @template T The type of elements in the target observer.
+ * @param strideSize The size of each stride.
+ * @param [step=Math.floor(strideSize / 2)] The step size between each stride.
+ * @returns The transformed observer that emits strided data.
+ * @throws {Error} If the strideSize or step is too big, or if the data is unshaped.
+ */
 export const strideTricks = <T = any>(strideSize: number, step = Math.floor(strideSize / 2)) => (target: TObserver<T[]>): TObserver<T[][]> => {
   let windowSize = -1;
   let totalSteps = -1;

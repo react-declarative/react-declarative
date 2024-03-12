@@ -79,7 +79,6 @@ export const Content = ({
 
   useEffect(() => {
     setIsChecked(path, checked);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, checked]);
 
   const handleCheck = (check: boolean) => {

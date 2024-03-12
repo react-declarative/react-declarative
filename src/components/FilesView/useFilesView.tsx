@@ -103,6 +103,28 @@ interface IParams<Payload extends IAnything = IAnything> {
   onUpload?: IFilesViewProps['onUpload'];
 }
 
+/**
+ * Represents a reusable component for displaying and managing files.
+ * @template Payload - The payload type (optional)
+ * @param params - The parameters for the component.
+ * @param params.data - The initial data for the files (optional).
+ * @param params.withActionButton - Determines if the submit button is displayed (default: true).
+ * @param params.withStaticAction - Determines if the submit button should fail silently when clicked (default: false).
+ * @param params.readonly - Determines if the files are readonly (optional).
+ * @param params.submitLabel - The label for the submit button (default: "Save").
+ * @param params.payload - The payload for the component (optional).
+ * @param params.fullScreen - Determines if the component should be displayed in full screen mode (default: false).
+ * @param params.sizeRequest - A function that computes the size request for the component (optional).
+ * @param params.onChange - A callback function for changes in the files (optional).
+ * @param params.onSubmit - A callback function for submitting the files (optional).
+ * @param params.tr - The translations for the component (optional).
+ * @param params.fallback - The fallback component for unsupported file types (optional).
+ * @param params.onLoadStart - A callback function for when loading starts (optional).
+ * @param params.onLoadEnd - A callback function for when loading ends (optional).
+ * @param params.onClick - A callback function for clicking on a file (optional).
+ * @param params.onUpload - A callback function for uploading a file (optional).
+ * @returns - An object with the render function for the component and the pickFiles function to open the file picker.
+ */
 export const useFilesView = <Payload extends IAnything = IAnything>({
   data = null,
   withActionButton = true,

@@ -58,6 +58,16 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
     public toModel = () => this._model$.current;
 };
 
+/**
+ * Custom hook that creates and manages a model object for a given value.
+ *
+ * @template T - The type of the initial value and model data.
+ * @param params - The parameters for the useModel hook.
+ * @param params.initialValue - The initial value for the model.
+ * @param [params.onChange=() => null] - The function to be called whenever the model value changes.
+ * @param [params.debounce=CHANGE_DEBOUNCE] - The debounce value for handling model value changes.
+ * @returns - The model adapter object.
+ */
 export const useModel = <T extends {} = any>({
     initialValue,
     onChange = () => null,

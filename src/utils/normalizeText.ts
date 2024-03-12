@@ -9,6 +9,18 @@ interface IConfig {
   inputFormatter: IField["inputFormatter"];
 }
 
+/**
+ * Normalize text by applying inputFormatter function to each character.
+ *
+ * @param text - The input text to normalize.
+ * @param config - The configuration object.
+ * @param [config.inputFormatterSymbol='0'] - The symbol used in input formatter.
+ * @param [config.inputFormatterAllowed] - The list of allowed characters in input formatter.
+ * @param [config.inputFormatterReplace] - The mapping of characters to be replaced in input formatter.
+ * @param [config.inputFormatterTemplate=''] - The template used in input formatter.
+ * @param [config.inputFormatter] - The input formatter function to apply on each character.
+ * @returns - The normalized text.
+ */
 export const normalizeText = (
   text: string,
   {

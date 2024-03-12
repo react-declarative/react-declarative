@@ -70,6 +70,18 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a TreeView component.
+ *
+ * @param className - The class name of the component.
+ * @param style - The style object of the component.
+ * @param sx - The sx object of the component.
+ * @param loading - Indicates whether the component is in a loading state.
+ * @param items - The items to be displayed in the TreeView.
+ * @param value - The selected values in the TreeView.
+ * @param onChange - The function to be called when the value of the TreeView changes.
+ * @param textFieldProps - Additional props to be passed to the underlying TextField component.
+ */
 export const TreeView = ({
   className,
   style,

@@ -28,6 +28,9 @@ const createElementFactory =
     return createElementRef(type, props, ...children);
   };
 
+/**
+ * Translate class for handling text translation and transformation.
+ */
 export class Translate {
   private readonly _skip = new Set<string>();
   private readonly _map = new Map<string, string>();

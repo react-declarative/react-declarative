@@ -41,6 +41,23 @@ interface IActionButtonProps extends Omit<ButtonProps, keyof {
     throwError?: boolean;
 };
 
+/**
+ * Represents an action button component.
+ *
+ * @component
+ * @param props - The component props.
+ * @param [props.Progress=ProgressDefault] - The progress component to show when the button is loading.
+ * @param [props.onClick=()=>{}] - The function to be called when the button is clicked.
+ * @param [props.onLoadStart] - The function to be called when the loading starts.
+ * @param [props.onLoadEnd] - The function to be called when the loading ends.
+ * @param [props.fallback] - The function to be called when an error occurs and throwError is false.
+ * @param [props.children] - The content to be rendered inside the button.
+ * @param [props.disabled] - Whether the button is disabled.
+ * @param [props.throwError=false] - Whether to throw an error when an exception occurs.
+ * @param [props.variant="outlined"] - The button style variant.
+ *
+ * @returns The rendered component.
+ */
 export const ActionButton = ({
     Progress = ProgressDefault,
     onClick = () => { },

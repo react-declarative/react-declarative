@@ -99,6 +99,32 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * ActionMenu is a component that displays a menu of options triggered by a button click.
+ *
+ * @template T - The type of payload passed to the action.
+ *
+ * @param options - An array of option objects that define the content and behavior of each menu option.
+ * @param transparent - Determines whether the menu button should have a transparent style.
+ * @param disabled - Determines whether the menu should be disabled and not respond to user interactions.
+ * @param throwError - Determines whether to throw an error when an asynchronous action fails.
+ * @param fallback - The fallback content to display when an asynchronous action fails.
+ * @param onToggle - A callback function to handle the menu open/close state change event.
+ * @param onAction - A callback function to handle the execution of an action when a menu option is clicked.
+ * @param payload - A payload object to pass to the action callback function.
+ * @param className - Additional CSS class name(s) to apply to the menu button.
+ * @param style - Additional inline styles to apply to the menu button.
+ * @param sx - Additional Stylsx object to apply to the menu button.
+ * @param deps - An array of dependencies to update the menu when changed.
+ * @param onLoadStart - A callback function to handle the start of an asynchronous action.
+ * @param onLoadEnd - A callback function to handle the end of an asynchronous action.
+ * @param keepMounted - Determines whether to keep the menu mounted in the DOM even when closed.
+ * @param BeforeContent - The content to display before the menu options.
+ * @param AfterContent - The content to display after the menu options.
+ * @param reloadSubject - A subject that triggers the reload of the menu options.
+ *
+ * @returns - The rendered ActionMenu component.
+ */
 export const ActionMenu = <T extends any = object>({
   options = [],
   transparent = false,

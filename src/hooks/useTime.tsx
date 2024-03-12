@@ -10,6 +10,12 @@ import Subject from '../utils/rx/Subject';
 
 type Fn = (d: dayjs.Dayjs | null) => void;
 
+/**
+ * useTime is a custom hook/function that provides a time picker modal functionality.
+ * It returns an object with methods to interact with the time picker.
+ *
+ * @returns - A function that returns an object with methods.
+ */
 export const useTime = () => {
 
   const changeRef = useRef<Fn>();

@@ -40,6 +40,31 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a button component with a popover that displays a form.
+ *
+ * @template Data - The type of data for the form.
+ * @template Payload - The type of payload for the button handler.
+ *
+ * @param props - The properties of the button component.
+ * @param [props.waitForChangesDelay=WAIT_FOR_CHANGES_DELAY] - The delay in milliseconds to wait for changes before updating data.
+ * @param [props.fieldDebounce] - The debounce time in milliseconds for input fields.
+ * @param [props.noBadge=false] - Whether to display a badge on the button.
+ * @param props.fields - The fields for the form.
+ * @param props.handler - The handler function for the button.
+ * @param [props.payload={}] - The payload for the button handler.
+ * @param [props.badgeColor="info"] - The color of the badge.
+ * @param [props.color="primary"] - The color of the button.
+ * @param [props.badgeOverlap] - The overlap mode of the badge.
+ * @param [props.badgeSx] - The styles for the badge.
+ * @param [props.oneSx] - The styles for the form.
+ * @param [props.onChange] - The callback function to be called when the data changes.
+ * @param [props.onFocus] - The callback function to be called when a field is focused.
+ * @param [props.onBlur] - The callback function to be called when a field is blurred.
+ * @param [props.onInvalid] - The callback function to be called when a field is invalid.
+ *
+ * @returns - Returns null if loading or error, otherwise returns the button component with popover.
+ */
 export const OneButton = <
   Data extends {} = IAnything,
   Payload extends IAnything = IAnything

@@ -4,6 +4,13 @@ import TObserver from "../model/TObserver";
 
 import useSingleton from "./useSingleton";
 
+/**
+ * Custom hook for using an observable data source.
+ *
+ * @template Data The type of data observed.
+ * @param target The observable data source or a function that returns the observable data source.
+ * @returns The shared observable data.
+ */
 export const useSource = <Data = any>(target: TObserver<Data> | (() => TObserver<Data>)) => {
     const value = useSingleton(target);
     useEffect(() => {

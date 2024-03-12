@@ -30,6 +30,22 @@ const deepFlat = <T extends any = any>(arr: IMenuGroup<T>[] = []) => {
 
 const cloneDeep = (src: any) => arrays(deepClone(objects(src))); 
 
+/**
+ * Function that generates a Scaffold component.
+ *
+ * @param props - The props for the Scaffold component.
+ * @param props.roles - The roles to resolve for the component.
+ * @param props.payload - The payload for the component.
+ * @param [props.throwError] - Whether to throw an error or not.
+ * @param [props.fallback] - The fallback component to render while loading.
+ * @param [props.options] - The options to resolve for the component.
+ * @param [props.loadingLine=false] - Whether to show a loading line or not.
+ * @param [props.loading=-1] - The payload for the loading line.
+ * @param [props.Loader=LoaderDefault] - The component to use as the loader.
+ * @param [props.withPassthrough=false] - Whether to pass the payload to child components or not.
+ * @param [props.onInit] - The function to execute on component initialization.
+ * @returns - The rendered component tree.
+ */
 export const Scaffold = <T extends any = any> ({
     roles,
     payload,

@@ -1,5 +1,14 @@
 import Observer, { TObserver, LISTEN_CONNECT } from "../Observer";
 
+/**
+ * Creates an observable that emits the result of a given promise callback function.
+ *
+ * @param callbackfn - The callback function that returns a promise.
+ * @param [fallbackfn] - The fallback function to handle errors if the promise rejects.
+ * @returns - The observable observer.
+ *
+ * @template Data - The type of data emitted by the observer.
+ */
 export const fromPromise = <Data = any>(callbackfn: () => Promise<Data>, fallbackfn?: (e: Error) => void): TObserver<Data> => {
     let isCanceled = false;
     const observer = new Observer(() => {

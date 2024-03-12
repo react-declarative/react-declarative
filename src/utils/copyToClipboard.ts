@@ -32,6 +32,12 @@ const doCopy = async (text: string) => {
     }
 };
 
+/**
+ * Copies the given text to the clipboard.
+ *
+ * @param text - The text to be copied.
+ * @returns - A promise that resolves to a boolean indicating whether the copy operation was successful.
+ */
 export const copyToClipboard = async (text: string) => {
     let isOk = true;
     try {

@@ -10,6 +10,13 @@ import ColumnType from "../model/ColumnType";
 
 import get from './get';
 
+/**
+ * Converts a list of columns and a payload into a grid configuration.
+ *
+ * @param columns - The list of columns.
+ * @param payload - The payload data used for formatting.
+ * @returns - The grid configuration.
+ */
 export const list2grid = (
   columns: IColumn[],
   payload: Record<string, any>

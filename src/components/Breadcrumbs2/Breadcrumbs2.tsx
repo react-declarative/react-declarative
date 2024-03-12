@@ -64,6 +64,26 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a breadcrumbs component with customizable items and actions.
+ *
+ * @template T - The type of payload data.
+ * @param props - The props object.
+ * @param [props.className] - The class name for the component container.
+ * @param [props.style] - The inline styles for the component container.
+ * @param [props.sx] - The sx prop for the component container.
+ * @param [props.onAction=() => undefined] - The callback function to be called when an action is performed.
+ * @param props.items - The array of breadcrumb items.
+ * @param props.actions - The array of actions to be displayed in the action menu.
+ * @param props.payload - The payload data.
+ * @param [props.BeforeMenuContent] - The custom content to be displayed before the action menu.
+ * @param [props.AfterMenuContent] - The custom content to be displayed after the action menu.
+ * @param [props.onLoadStart] - The callback function to be called when the component is loading.
+ * @param [props.onLoadEnd] - The callback function to be called when the component finishes loading.
+ * @param [props.fallback] - The fallback component to be displayed while loading.
+ * @param [props.throwError] - Whether to throw an error on loading failure.
+ * @returns The breadcrumbs component.
+ */
 export const Breadcrumbs2 = <T extends any = any>({
   className,
   style,

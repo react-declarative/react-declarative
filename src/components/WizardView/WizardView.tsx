@@ -74,6 +74,30 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * WizardView component.
+ *
+ * @template Data - The type of data object passed to the WizardView.
+ * @template Payload - The type of payload object passed to the WizardView.
+ *
+ * @param props - The props object.
+ * @param props.className - The class name of the WizardView.
+ * @param props.style - The inline styles of the WizardView.
+ * @param props.sx - The sx prop for custom styling.
+ * @param props.payload - The payload object for the WizardView.
+ * @param props.outlinePaper - If true, the PaperView displays an outline.
+ * @param props.transparentPaper - If true, the PaperView displays as transparent.
+ * @param props.history - The history object for the WizardView.
+ * @param props.pathname - The pathname for the WizardView.
+ * @param props.steps - The steps array for the WizardView.
+ * @param props.routes - The routes array for the WizardView.
+ * @param props.onLoadStart - The function to be called when loading starts.
+ * @param props.onLoadEnd - The function to be called when loading ends.
+ * @param props.otherProps - The other props object for the WizardView.
+ * @param outletProps - The outlet props object for the WizardView.
+ *
+ * @returns The rendered WizardView component.
+ */
 export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,

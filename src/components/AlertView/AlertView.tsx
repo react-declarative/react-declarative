@@ -22,6 +22,16 @@ const useStyles = makeStyles()({
     }
 });
 
+/**
+ * Represents an AlertView component that displays a stack of alerts.
+ *
+ * @param props - The properties used to configure the AlertView component.
+ * @param props.className - The CSS class name for the AlertView component.
+ * @param props.items - An array of items to display as alerts.
+ * @param props.variant - The variant of the alerts. Default is "outlined".
+ * @param props.otherProps - Additional props to be spread to the Stack component.
+ * @returns - The rendered JSX element for the AlertView component.
+ */
 export const AlertView = ({
     className,
     items = [],

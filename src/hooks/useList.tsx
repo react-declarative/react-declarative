@@ -54,6 +54,68 @@ interface IState {
   selectedRows: RowId[] | null;
 }
 
+/**
+ * Creates a ListPicker modal with default or custom configurations and returns a promise that resolves with the selected rows.
+ *
+ * @template RowData - The type of the row data.
+ *
+ * @param options - The options object.
+ * @param options.handler - The handler function to be called when a row is selected.
+ * @param options.columns - The columns to be displayed in the ListPicker.
+ * @param options.rowActions - The actions to be displayed for each row in the ListPicker.
+ * @param options.payload - The payload to be passed to the ListPicker component.
+ * @param options.features - The features to be enabled in the ListPicker.
+ * @param [options.selectionMode=SelectionMode.Single] - The selection mode for the ListPicker.
+ * @param [options.title="Pick item"] - The title of the ListPicker modal.
+ * @param [options.minWidth=425] - The minimum width of the ListPicker modal.
+ * @param [options.minHeight=375] - The minimum height of the ListPicker modal.
+ * @param [options.selectedRows] - The initially selected rows in the ListPicker.
+ *
+ * @returns - A function that creates and opens the ListPicker modal.
+ *
+ * @example
+ * const listPicker = useList({
+ *   handler: handleSelection,
+ *   columns: [
+ *     { label: 'Name', field: 'name' },
+ *     { label: 'Age', field: 'age' }
+ *   ],
+ *   rowActions: [
+ *     { label: 'Edit', action: editRow },
+ *     { label: 'Delete', action: deleteRow }
+ *   ],
+ *   payload: { id: 123 },
+ *   features: ['sorting', 'filtering'],
+ *   selectionMode: SelectionMode.Multiple,
+ *   title: 'Select items',
+ *   minWidth: 500,
+ *   minHeight: 400,
+ *   selectedRows: [1, 2, 3]
+ * });
+ *
+ * listPicker({
+ *   title: 'Custom title',
+ *   minHeight: 300
+ * }).then((selectedRows) => {
+ *   // Handle selected rows
+ * });
+ *
+ * @example
+ * const listPicker = useList({
+ *   handler: handleSelection,
+ *   columns: [],
+ *   rowActions: [],
+ *   payload: null,
+ *   features: [],
+ *   selectionMode: SelectionMode.Single,
+ *   title: 'Pick an item',
+ *   minWidth: 425,
+ *   minHeight: 375,
+ *   selectedRows: null
+ * });
+ *
+ * const selectedRows = await listPicker().toPromise();
+ */
 export const useList = <RowData extends IRowData = IAnything>({
   handler,
   columns,

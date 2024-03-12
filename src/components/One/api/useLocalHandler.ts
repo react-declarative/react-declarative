@@ -30,6 +30,22 @@ const resolveHandler = async <Data = IAnything, Payload = IAnything>(handler: On
     }
 };
 
+/**
+ * Executes a local handler function and manages the state of the data.
+ *
+ * @template Data - The type of the data that will be stored in the state.
+ * @template Payload - The type of the payload that will be passed to the handler function.
+ *
+ * @param handler - The handler function to be executed.
+ * @param options - Additional options for the local handler.
+ * @param options.resultMap - Optional. A function to transform the data before storing it in the state.
+ * @param options.payload - Optional. The payload to be passed to the handler function.
+ * @param options.onLoadBegin - Optional. A callback function to be executed before the handler function.
+ * @param options.onLoadEnd - Optional. A callback function to be executed after the handler function.
+ * @param options.fallback - Optional. A fallback function to handle errors.
+ *
+ * @returns - An object containing the data and a function to change the data.
+ */
 export const useLocalHandler = <Data extends IAnything = IAnything, Payload extends IAnything = IAnything>(handler: OneHandler<Data, Payload>, {
     resultMap = (data) => data as Data,
     payload,

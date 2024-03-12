@@ -22,6 +22,11 @@ const cacheManager = new class {
     };
 };
 
+/**
+ * Sets the image source of a given HTMLImageElement by caching the image.
+ * @param url - The URL of the image to cache.
+ * @returns - A function that takes an HTMLImageElement as input and sets its source with the cached image.
+ */
 export const cacheSrc = (url: string) => ({
     ref: (element: HTMLImageElement | null) => {
         if (element) {

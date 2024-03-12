@@ -9,6 +9,12 @@ interface IWrappedFn<T extends any = any, P extends any[] = any> extends IWrappe
 
 const NEVER_VALUE = Symbol('never');
 
+/**
+ * Wraps a promise function with lock functionality.
+ *
+ * @param promise - The promise function to be wrapped.
+ * @returns The wrapped function with lock functionality.
+ */
 export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...args: P) => Promise<T>): IWrappedFn<T, P> => {
 
     let lockCount = 0;

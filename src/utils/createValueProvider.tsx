@@ -1,6 +1,11 @@
 import React from 'react';
 import { createContext, useContext } from "react";
 
+/**
+ * Creates a value provider with a default value.
+ * @param defaultValue - The default value for the provider.
+ * @returns A tuple containing the provider component and a hook to access the value.
+ */
 export const createValueProvider = <P extends any = object>(defaultValue?: P) => {
 
   const Context = createContext<P>(defaultValue || null as never);

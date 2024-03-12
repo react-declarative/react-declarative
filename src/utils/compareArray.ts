@@ -10,6 +10,13 @@ const compareFn = (a: any, b: any) => {
     }
 };
 
+/**
+ * Compares two arrays and determines if they are equal.
+ *
+ * @param a_arr - The first array to compare.
+ * @param b_arr - The second array to compare.
+ * @returns - Returns `true` if the arrays are equal, otherwise `false`.
+ */
 export const compareArray = (a_arr: any, b_arr: any) => {
     if (Array.isArray(a_arr) && Array.isArray(b_arr)) {
         if (a_arr.length !== b_arr.length) {

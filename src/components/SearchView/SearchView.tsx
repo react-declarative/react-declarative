@@ -51,6 +51,49 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * SearchView component documentation
+ *
+ * @template Data - The data type of the component
+ * @template Payload - The payload type of the component
+ *
+ * @param props - The component props
+ * @param [props.className] - The class name for the component
+ * @param [props.style] - The inline style for the component
+ * @param [props.sx] - The sx prop for the component (sx prop is a shorthand for sx={{}} in styled components)
+ * @param [props.type="text"] - The type of the input field
+ * @param [props.mode="text"] - The input mode of the input field
+ * @param [props.variant="standard"] - The variant of the input field
+ * @param [props.pattern] - The pattern attribute of the input field
+ * @param [props.value] - The value of the component
+ * @param [props.label] - The label for the input field
+ * @param [props.placeholder] - The placeholder for the input field
+ * @param [props.searchText] - The search text for the component
+ * @param [props.changeSubject] - The change subject for the component
+ * @param [props.onChange=() => undefined] - The change event handler for the value
+ * @param [props.onTextChange=() => undefined] - The change event handler for the search text
+ * @param [props.delay=DEFAULT_DELAY] - The delay in milliseconds before executing a search
+ * @param [props.limit=DEFAULT_LIMIT] - The maximum number of search results to return
+ * @param [props.payload] - The payload for the search request
+ * @param [props.autoComplete] - The autocomplete attribute for the input field
+ * @param [props.fullWidth] - Whether the input field should take up the full width
+ * @param [props.disabled] - Whether the input field should be disabled
+ * @param [props.onCreate] - The callback to create a new item
+ * @param [props.onLoadStart] - The callback when the search request starts
+ * @param [props.onLoadEnd] - The callback when the search request ends
+ * @param [props.fallback] - The fallback content to display during loading or error
+ * @param props.handler - The search handler function
+ * @param [props.inputRef] - The ref for the input field
+ * @param [props.SearchItem=SearchItemDefault] - The component to render each search item
+ * @param [props.SearchInput=SearchInputDefault] - The component to render the search input
+ * @param [props.CreateButton=CreateButtonDefault] - The component to render the create button
+ * @param [props.startAdornment=null] - The start adornment for the input field
+ * @param [props.endAdornment=null] - The end adornment for the input field
+ * @param [props.throwError] - Whether errors should be thrown or not
+ * @param [props.otherProps] - Any other props that should be passed to the TextField component
+ *
+ * @returns The SearchView component
+ */
 export const SearchView = <
   Data extends IAnything = IAnything,
   Payload = IAnything

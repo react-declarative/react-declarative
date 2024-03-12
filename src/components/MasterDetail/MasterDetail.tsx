@@ -39,6 +39,33 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a master-detail component with various modes and customizations.
+ * @template Payload - The payload type for the component.
+ * @param props - The component props.
+ * @param props.mode - The mode of the component. Default is MasterDetailMode.Card.
+ * @param props.withTransparentTabs - Specifies whether to use transparent tabs. Default is false.
+ * @param props.withMenuCollapse - Specifies whether to enable menu collapse. Default is false.
+ * @param props.withFixedPos - Specifies whether to fix the position. Default is false.
+ * @param props.fixedPosHeaderAdjust - The adjustment value for the fixed position header. Default is 0.
+ * @param props.title - The title of the component.
+ * @param props.className - The class name for the component.
+ * @param props.style - The inline style object for the component.
+ * @param props.sx - The theme-ui styles for the component.
+ * @param props.activeOption - The initially active option ID.
+ * @param props.payload - The payload for the component.
+ * @param props.deps - The dependencies array for the component.
+ * @param props.options - The options array for generating master-detail items.
+ * @param props.children - The child components.
+ * @param props.Loader - The loader component to show during async actions. Default is LoaderDefault.
+ * @param props.Error - The error component to show when an error occurs during async actions. Default is ErrorDefault.
+ * @param props.onActiveOptionChange - The callback function to handle active option change.
+ * @param props.fallback - The fallback component to show when there are no items available.
+ * @param props.onLoadStart - The callback function to execute when the async action starts.
+ * @param props.onLoadEnd - The callback function to execute when the async action ends.
+ * @param props.throwError - Specifies whether to throw an error during async actions.
+ * @returns - The rendered component.
+ */
 export const MasterDetail = <Payload extends any = any>({
     mode = MasterDetailMode.Card,
     withTransparentTabs = false,

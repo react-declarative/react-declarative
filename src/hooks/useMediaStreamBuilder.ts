@@ -24,6 +24,31 @@ interface IParams {
     withInitialAudio?: boolean;
 }
 
+/**
+ * Creates a media stream builder that provides functionality to capture audio, video, and screen using the WebRTC API.
+ * @param [params] - The parameters for the media stream builder.
+ * @param [params.fallback] - The fallback function to be called when an error occurs during capture. It receives an Error object as its argument.
+ * @param [params.onLoadStart] - The callback function to be called when the capture starts.
+ * @param [params.onLoadEnd] - The callback function to be called when the capture ends.
+ * @param [params.onChange] - The callback function to be called when the media stream changes. It receives the media stream and an object with the current capture IDs as
+ * arguments.
+ * @param [params.throwError=false] - Determines whether to throw an error when an error occurs during capture instead of using the fallback function.
+ * @param [params.withInitialVideo=false] - Determines whether to capture video when the media stream builder is initialized.
+ * @param [params.withInitialAudio=false] - Determines whether to capture audio when the media stream builder is initialized.
+ * @param [params.compressFrame=COMPRESS_FRAME] - The factor to compress the video frame by. (COMPRESS_FRAME is a constant value)
+ * @param [params.maxFps=MAX_FPS] - The maximum frame rate of the video capture. (MAX_FPS is a constant value)
+ * @returns The media stream builder.
+ * @property mediaStream - The media stream that contains the captured audio and video tracks.
+ * @property hasAudioCapture - Determines whether audio capture is currently active.
+ * @property hasCameraCapture - Determines whether camera capture is currently active.
+ * @property hasScreenCapture - Determines whether screen capture is currently active.
+ * @property requestScreenCapture - Function to request screen capture.
+ * @property requestCameraCapture - Function to request camera capture.
+ * @property requestAudioCapture - Function to request audio capture.
+ * @property stopScreenCapture - Function to stop screen capture.
+ * @property stopCameraCapture - Function to stop camera capture.
+ * @property stopAudioCapture - Function to stop audio capture.
+ */
 export const useMediaStreamBuilder = ({
     fallback,
     onLoadStart,

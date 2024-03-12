@@ -80,6 +80,27 @@ const DEFAULT_CHILD_FN = ({
 
 const Fragment = () => <></>;
 
+/**
+ * Represents a switch component that renders different elements based on the current location.
+ * @param SwitchProps - The props for the Switch component.
+ * @param SwitchProps.className - The CSS class name for the component.
+ * @param SwitchProps.style - The inline style object for the component.
+ * @param SwitchProps.Loader - The loader component to render while initial loading.
+ * @param SwitchProps.Forbidden - The component to render if access to a route is forbidden.
+ * @param SwitchProps.NotFound - The component to render if the requested route is not found.
+ * @param SwitchProps.Error - The component to render if an error occurs.
+ * @param SwitchProps.animation - The animation type for transitioning between elements.
+ * @param SwitchProps.history - The history object to use for routing. Defaults to DEFAULT_HISTORY if not provided.
+ * @param SwitchProps.children - The function that returns the child elements to render based on the current location.
+ * @param SwitchProps.fallback - The component to render if an error occurs and throwError is set to false.
+ * @param SwitchProps.items - The array of route items to match and render components for.
+ * @param SwitchProps.onLoadStart - The callback function to invoke when the component starts loading.
+ * @param SwitchProps.onLoadEnd - The callback function to invoke when the component finishes loading.
+ * @param SwitchProps.onInit - The callback function to invoke when the component initializes. Defaults to an empty function.
+ * @param SwitchProps.onDispose - The callback function to invoke when the component is disposed. Defaults to an empty function.
+ * @param SwitchProps.throwError - Indicates whether to throw an error if an exception occurs. Defaults to false.
+ * @returns The Switch component.
+ */
 export const Switch = ({
   className,
   style,

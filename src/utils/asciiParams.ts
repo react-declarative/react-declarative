@@ -1,5 +1,12 @@
 import { terminator } from "./typo";
 
+/**
+ * Parses an array of ASCII codes representing key-value pairs and converts them into an object.
+ *
+ * @param state - An array of ASCII codes representing key-value pairs.
+ * @returns - The parsed object if successful, or null if an error occurred.
+ * @template T - The object type of the parsed result. Defaults to `Record<string, any>`.
+ */
 export const parseAsciiParams = <T extends {} = Record<string, any>>(state: number[]): T | null => {
   try {
     const stringParams = state.map((char) => String.fromCharCode(char)).join('');

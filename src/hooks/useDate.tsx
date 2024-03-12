@@ -10,6 +10,20 @@ import Subject from '../utils/rx/Subject';
 
 type Fn = (d: dayjs.Dayjs | null) => void;
 
+/**
+ * useDate
+ *
+ * A custom hook that returns a function for using a modal with a DatePicker component.
+ * The returned function can be used to display the modal and retrieve the selected date.
+ *
+ * @returns A function that can be called to display the modal and retrieve the selected date.
+ *
+ * @example
+ * const dateGetter = useDate();
+ * dateGetter().then((selectedDate) => {
+ *   console.log(selectedDate);
+ * });
+ */
 export const useDate = () => {
 
   const changeRef = useRef<Fn>();

@@ -34,6 +34,38 @@ interface IParams<
   pathname?: string;
 }
 
+/**
+ * A custom hook that provides functionality for managing and rendering an outlet modal.
+ *
+ * @template Data - The type of data associated with the outlet modal.
+ * @template Payload - The type of payload passed during submission.
+ * @template Params - The type of additional parameters.
+ *
+ * @param params - The parameters object.
+ * @param params.fallback - The fallback content to be rendered if the modal cannot be displayed.
+ * @param [params.pathname="/"] - The pathname for the outlet modal history.
+ * @param [params.history] - The history object used to manage navigation.
+ * @param [params.fullScreen=true] - A boolean value indicating whether the modal should be displayed in full screen.
+ * @param params.onLoadEnd - The callback function to be called when the outlet content finishes loading.
+ * @param params.onLoadStart - The callback function to be called when the outlet content starts loading.
+ * @param [params.throwError] - A boolean value indicating whether errors should be thrown during submission.
+ * @param params.onChange - The callback function to be called when the outlet content changes.
+ * @param [params.onSubmit=() => true] - The callback function to be called when the outlet content is submitted.
+ * @param params.onMount - The callback function to be called when the outlet modal is mounted.
+ * @param params.onUnmount - The callback function to be called when the outlet modal is unmounted.
+ * @param [params.onClose] - The callback function to be called when the outlet modal is closed.
+ * @param [params.submitLabel] - The label for the submit button in the outlet modal.
+ * @param [params.title] - The title for the outlet modal.
+ * @param [params.hidden] - A boolean value indicating whether the outlet modal should be hidden.
+ * @param [params.pickDataSubject] - The subject used for picking data.
+ * @param outletProps - Additional props for the underlying `OutletModal` component.
+ *
+ * @returns - An object containing the following methods and properties:
+ *   - `open` - A boolean value indicating whether the modal is open.
+ *   - `render` - A function that renders the outlet modal.
+ *   - `pickData` - A function used to pick data for the modal.
+ *   - `close` - A function used to close the modal.
+ */
 export const useOutletModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,

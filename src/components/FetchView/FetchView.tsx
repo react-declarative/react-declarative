@@ -65,6 +65,36 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * FetchView is a React component that provides a convenient way to handle asynchronous data fetching and rendering.
+ *
+ * @template P - The type of the payload for the data fetching.
+ * @template A - The type of the first element in the array of data returned by the state function.
+ * @template B - The type of the second element in the array of data returned by the state function.
+ * @template C - The type of the third element in the array of data returned by the state function.
+ * @template D - The type of the fourth element in the array of data returned by the state function.
+ * @template E - The type of the fifth element in the array of data returned by the state function.
+ * @template F - The type of the sixth element in the array of data returned by the state function.
+ * @template G - The type of the seventh element in the array of data returned by the state function.
+ * @template H - The type of the eighth element in the array of data returned by the state function.
+ * @template I - The type of the ninth element in the array of data returned by the state function.
+ * @template J - The type of the tenth element in the array of data returned by the state function.
+ *
+ * @param props - The props object containing the following properties:
+ *  - animation: The animation type for the component.
+ *  - className: The CSS class name(s) for the component.
+ *  - style: The inline style object for the component.
+ *  - Loader: The component to render while data is being fetched.
+ *  - Error: The component to render if an error occurs during data fetching.
+ *  - onLoadEnd: A callback function to be called when data loading ends.
+ *  - onLoadStart: A callback function to be called when data loading starts.
+ *  - children: A function that receives the fetched data as arguments and returns the JSX to be rendered.
+ *  - state: The function to transform the payload into an array of data.
+ *  - payload: The payload for the data fetching.
+ *  - otherProps: Any additional props to be passed to the underlying components.
+ *
+ * @returns - The rendered JSX for the FetchView component.
+ */
 export const FetchView = <P extends any = object, A = any, B = any, C = any, D = any, E = any, F = any, G = any, H = any, I = any, J = any> ({
     animation,
     className,

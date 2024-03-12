@@ -28,6 +28,29 @@ const DEFAULT_ONINVALID = () => null;
 const DEFAULT_ONLOADSTART = () => null;
 const DEFAULT_ONLOADEND = () => null;
 
+/**
+ * Creates a json template engine called `One` with the given props.
+ *
+ * @param props - The props for the component.
+ * @param props.createField - The function to create a field.
+ * @param props.createLayout - The function to create a layout.
+ * @param props.apiRef - The API reference object.
+ * @param props.changeSubject - The subject for change events.
+ * @param props.reloadSubject - The subject for reload events.
+ * @param props.updateSubject - The subject for update events.
+ * @param props.onFocus - The callback function for focus events.
+ * @param props.onBlur - The callback function for blur events.
+ * @param props.onMenu - The callback function for menu events.
+ * @param props.onClick - The callback function for click events.
+ * @param props.onReady - The callback function for ready events.
+ * @param props.onChange - The callback function for change events.
+ * @param props.onInvalid - The callback function for invalid events.
+ * @param props.onLoadStart - The callback function for load start events.
+ * @param props.onLoadEnd - The callback function for load end events.
+ * @param props.features - Additional features for the component.
+ * @param props.otherProps - Additional props for the component.
+ * @returns - The rendered component.
+ */
 export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Payload, Field>) => {
 
     const {

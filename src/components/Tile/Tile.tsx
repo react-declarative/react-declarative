@@ -30,6 +30,35 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Tile component for displaying a list of items in a virtual view.
+ *
+ * @template Data - The type of data in each tile item.
+ * @template Payload - The type of additional payload data.
+ * @param props - The props for the Tile component.
+ * @param [props.className] - The CSS class name for the Tile component.
+ * @param [props.style] - The inline style for the Tile component.
+ * @param [props.sx] - The sx prop for the Tile component (System UI).
+ * @param props.data - The array of data items to be rendered.
+ * @param props.loading - Indicates if the tile list is currently loading data.
+ * @param props.hasMore - Indicates if there are more items to load.
+ * @param [props.bufferSize=10] - The number of items to render outside the visible area.
+ * @param [props.minRowHeight=48] - The minimum height of each row item.
+ * @param [props.payload={}] - Additional payload data to be passed to the TileItem component.
+ * @param [props.rowColor=() => 'inherit'] - A function that returns the background color for each row item.
+ * @param [props.rowKey="id"] - The key to use for identifying each row item.
+ * @param [props.errorMessage] - The error message to display if there was an error loading data.
+ * @param [props.children] - The child elements to be rendered within each TileItem component.
+ * @param [props.onSkip] - A callback function to handle skipping to the next page of data.
+ * @param [props.onButtonSkip] - A callback function to handle skipping to the next page of data when a button is clicked.
+ * @param [props.onItemClick] - A callback function to handle when a row item is clicked.
+ * @param [props.onSelectedRows] - A callback function to handle when a row item is selected.
+ * @param [props.selectedRows] - The array of data items that are currently selected.
+ * @param [props.selectionMode] - The selection mode for the Tile component (e.g., "single", "multiple").
+ * @param [props.recomputeSubject] - The subject(s) to trigger recomputation of row heights.
+ * @param [props.rowMark] - The key to use for identifying each row mark.
+ * @returns The Tile component.
+ */
 export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   className,
   style,

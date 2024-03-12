@@ -61,6 +61,16 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
     toEntity = () => this._entity$.current;
 };
 
+/**
+ * Creates a hook that manages an entity state.
+ *
+ * @template T - The type of the entity.
+ * @param params - The parameters to configure the hook.
+ * @param params.initialValue - The initial value of the entity.
+ * @param [params.onChange=() => null] - The callback function to execute when the entity changes.
+ * @param [params.debounce=CHANGE_DEBOUNCE] - The debounce delay in milliseconds.
+ * @returns - The entity adapter object.
+ */
 export const useEntity = <T extends IEntity = any>({
     initialValue,
     onChange = () => null,

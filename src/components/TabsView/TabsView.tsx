@@ -88,6 +88,31 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a view component for rendering tabs and associated content.
+ *
+ * @template Data - The type of data associated with the tabs.
+ * @template Payload - The type of payload associated with the tabs.
+ * @param props - The props for the TabsView component.
+ * @param [props.className] - The CSS class name.
+ * @param [props.style] - The inline style object.
+ * @param [props.sx] - The theme styling object.
+ * @param [props.outlinePaper=false] - Whether to use outline paper.
+ * @param [props.transparentPaper=false] - Whether the paper is transparent.
+ * @param [props.transparentHeader=false] - Whether the header is transparent.
+ * @param [props.history=upperHistory] - The history object for navigation.
+ * @param [props.payload=upperPayload] - The payload associated with the tabs.
+ * @param [props.pathname="/"] - The current pathname.
+ * @param [props.tabs=upperTabs] - The array of tabs to render.
+ * @param routes - The array of routes associated with the tabs.
+ * @param onTabChange - The callback function fired when a tab is changed.
+ * @param onLoadStart - The callback function fired when the loading starts.
+ * @param onLoadEnd - The callback function fired when the loading ends.
+ * @param BeforeTabs - The component to render before the tabs.
+ * @param AfterTabs - The component to render after the tabs.
+ * @param [props.otherProps=upperOtherProps] - The other props to pass to sub-components.
+ * @returns - The rendered TabsView component.
+ */
 export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,
