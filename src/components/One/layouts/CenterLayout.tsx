@@ -57,6 +57,28 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Component for centering its children with specified layout and alignment.
+ *
+ * @template Data - The data type for any additional props.
+ *
+ * @param props - The component props.
+ * @param props.children - The children to be centered.
+ * @param props.className - The class name for the component.
+ * @param props.style - The inline styles for the component.
+ * @param [props.innerPadding='0px'] - The padding applied to the inner content of the component.
+ * @param [props.columns] - The number of columns for the layout.
+ * @param [props.phoneColumns] - The number of columns for phone layout.
+ * @param [props.tabletColumns] - The number of columns for tablet layout.
+ * @param [props.desktopColumns] - The number of columns for desktop layout.
+ * @param [props.columnsOverride] - Overrides the default number of columns.
+ * @param [props.isBaselineAlign] - Specifies whether the children should be aligned based on the baseline.
+ * @param [props.sx] - Additional styles for the component using sx prop from @mui/system.
+ * @param [props.fieldRightMargin='0'] - The margin applied to the right of each field within the component.
+ * @param [props.fieldBottomMargin='0'] - The margin applied to the bottom of each field within the component.
+ *
+ * @returns - The centered content.
+ */
 export const CenterLayout = <Data extends IAnything = IAnything>({
     children,
     className,

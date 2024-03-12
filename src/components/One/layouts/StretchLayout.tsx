@@ -45,6 +45,19 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * A layout wrapper component that stretches its children horizontally and vertically.
+ *
+ * @template Data - The type of the data passed to the layout.
+ *
+ * @param props - The properties passed to the component.
+ * @param props.children - The children components to be rendered inside the layout.
+ * @param [props.className] - The additional CSS class name(s) to apply to the root element.
+ * @param [props.style] - The inline styles to apply to the root element.
+ * @param [props.innerPadding='0px'] - The padding to apply to the container element.
+ *
+ * @returns - The rendered StretchLayout component.
+ */
 export const StretchLayout = <Data extends IAnything = IAnything>({
     children,
     className,

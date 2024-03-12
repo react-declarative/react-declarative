@@ -43,6 +43,27 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Renders a paper layout component.
+ *
+ * @template Data - The type of data to be used.
+ * @param props - The props object.
+ * @param [props.columns] - The number of columns to display.
+ * @param [props.columnsOverride] - The number of columns to override the default value.
+ * @param [props.phoneColumns] - The number of columns to display on phones.
+ * @param [props.tabletColumns] - The number of columns to display on tablets.
+ * @param [props.desktopColumns] - The number of columns to display on desktops.
+ * @param [props.style] - The CSS styles to be applied.
+ * @param [props.className] - The class name to be applied.
+ * @param [props.children] - The children components to be rendered.
+ * @param [props.isBaselineAlign] - Determines if items should be aligned to the baseline.
+ * @param [props.fieldRightMargin="0"] - The right margin of each field.
+ * @param [props.fieldBottomMargin="0"] - The bottom margin of each field.
+ * @param [props.innerPadding="18px"] - The inner padding of the paper layout.
+ * @param [props.outlinePaper=false] - Determines if the paper should have an outline.
+ * @param [props.transparentPaper=false] - Determines if the paper should be transparent.
+ * @returns - The rendered paper layout component.
+ */
 export const PaperLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,

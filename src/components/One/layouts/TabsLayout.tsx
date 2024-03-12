@@ -100,6 +100,35 @@ const useStyles = makeStyles()((theme, _, classes) => ({
     },
 }));
 
+/**
+ * Represents a layout component for tabs.
+ *
+ * @template Data - The type of data to be used in the tabs.
+ *
+ * @param props - The props for the TabsLayout component.
+ * @param props.children - The content of the TabsLayout component.
+ * @param props.className - The CSS class name for the TabsLayout component.
+ * @param props.style - The inline style for the TabsLayout component.
+ * @param props.tabChange - The callback function for tab change event.
+ * @param [props.tabVariant="fullWidth"] - The variant of the tabs (default: "fullWidth").
+ * @param [props.tabLine=false] - Whether to show a line beneath the tabs (default: false).
+ * @param [props.tabColor="primary"] - The color of the tabs (default: "primary").
+ * @param [props.tabList=["Empty"]] - The list of tab labels (default: ["Empty"]).
+ * @param [props.tabKeepFlow=false] - Whether to keep the flow of content when tabs are switched (default: false).
+ * @param [props.tabBackground=false] - Whether to show a background color behind the content (default: false).
+ * @param [props.tabIndex=0] - The default index of the active tab (default: 0).
+ * @param props.columns - The number of columns for the Group container.
+ * @param props.columnsOverride - The configuration object to override the number of columns for specific breakpoints.
+ * @param props.isBaselineAlign - Whether to align the items based on the baseline.
+ * @param props.sx - The custom CSS properties for the Group container.
+ * @param props.phoneColumns - The number of columns for mobile devices.
+ * @param props.tabletColumns - The number of columns for tablet devices.
+ * @param props.desktopColumns - The number of columns for desktop devices.
+ * @param [props.fieldRightMargin="0"] - The right margin for form fields (default: "0").
+ * @param [props.fieldBottomMargin="0"] - The bottom margin for form fields (default: "0").
+ *
+ * @returns - The rendered TabsLayout component.
+ */
 export const TabsLayout = <Data extends IAnything = IAnything>({
     children,
     className,

@@ -18,7 +18,7 @@
 6. [TypedField](./code/TypedField.md)
 7. [react-declarative.d.ts](./code/react-declarative.md)
 
-## Fields properties with JSDoc:
+## Field properties with JSDoc:
 
 1. [CheckBox](/src/components/One/components/SlotFactory/components/CheckBox.tsx)
 2. [Choose](/src/components/One/components/SlotFactory/components/Choose.tsx)
@@ -39,6 +39,22 @@
 17. [Tree](/src/components/One/components/SlotFactory/components/Tree.tsx)
 18. [Typography](/src/components/One/components/SlotFactory/components/Typography.tsx)
 19. [YesNo](/src/components/One/components/SlotFactory/components/YesNo.tsx)
+
+## Layout properties with JSDoc:
+
+1. [BoxLayout.tsx](/src/components/One/layouts/BoxLayout.tsx)
+2. [CenterLayout.tsx](/src/components/One/layouts/CenterLayout.tsx)
+3. [ConditionLayout.tsx](/src/components/One/layouts/ConditionLayout.tsx)
+4. [CustomLayout.tsx](/src/components/One/layouts/CustomLayout.tsx)
+5. [DivLayout.tsx](/src/components/One/layouts/DivLayout.tsx)
+6. [ExpansionLayout.tsx](/src/components/One/layouts/ExpansionLayout.tsx)
+7. [FragmentLayout.tsx](/src/components/One/layouts/FragmentLayout.tsx)
+8. [GroupLayout.tsx](/src/components/One/layouts/GroupLayout.tsx)
+9. [HeroLayout.tsx](/src/components/One/layouts/HeroLayout.tsx)
+10. [OutlineLayout.tsx](/src/components/One/layouts/OutlineLayout.tsx)
+11. [PaperLayout.tsx](/src/components/One/layouts/PaperLayout.tsx)
+12. [StretchLayout.tsx](/src/components/One/layouts/StretchLayout.tsx)
+13. [TabsLayout.tsx](/src/components/One/layouts/TabsLayout.tsx)
 
 ## Overview
 

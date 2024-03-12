@@ -318,6 +318,27 @@ const Container = <Data extends IAnything>({
   );
 };
 
+/**
+ * HeroLayout is a component that renders a hero section with flexible layout options.
+ *
+ * @template Data - The type of data for the hero layout.
+ *
+ * @param props - The props for the HeroLayout component.
+ * @param props.children - The children of the hero layout.
+ * @param props.className - The custom CSS class name for the hero layout.
+ * @param props.style - The custom inline style for the hero layout.
+ * @param props.object - The data object for the hero layout.
+ * @param props.columns - The number of columns to display in the hero layout.
+ * @param props.columnsOverride - An array of numbers to override the number of columns at different breakpoints.
+ * @param props.isBaselineAlign - Determines whether the items in the hero layout should be baseline aligned.
+ * @param props.sx - The custom style object for the hero layout.
+ * @param props.phoneColumns - The number of columns to display on phones.
+ * @param props.tabletColumns - The number of columns to display on tablets.
+ * @param props.desktopColumns - The number of columns to display on desktops.
+ * @param props.otherProps - Other props to pass to the hero layout component.
+ *
+ * @returns - The rendered hero layout component.
+ */
 export const HeroLayout = <Data extends IAnything = IAnything>({
   children,
   className,

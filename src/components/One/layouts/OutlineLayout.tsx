@@ -35,6 +35,25 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the OutlineLayout component.
+ *
+ * @param props - The props for the OutlineLayout component.
+ * @param props.columns - The number of columns.
+ * @param props.columnsOverride - The number of columns to override.
+ * @param props.sx - The custom inline styles.
+ * @param props.phoneColumns - The number of columns for phone devices.
+ * @param props.tabletColumns - The number of columns for tablet devices.
+ * @param props.desktopColumns - The number of columns for desktop devices.
+ * @param props.style - The custom styles.
+ * @param props.className - The class name.
+ * @param props.children - The child components.
+ * @param props.isBaselineAlign - Indicates whether the items should be baseline aligned.
+ * @param props.fieldRightMargin - The right margin for fields.
+ * @param props.fieldBottomMargin - The bottom margin for fields.
+ * @param props.innerPadding - The inner padding.
+ * @returns The OutlineLayout component.
+ */
 export const OutlineLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,

@@ -43,6 +43,32 @@ const useStyles = makeStyles()((theme) => ({
   }
 }));
 
+/**
+ * Renders an ExpansionLayout component.
+ *
+ * @template Data - The type of data to be used.
+ *
+ * @param props - The props for the ExpansionLayout component.
+ * @param props.columns - The number of columns for the Group component.
+ * @param props.columnsOverride - The number of columns to override the Group's columns prop.
+ * @param props.sx - The style for the ExpansionLayout component.
+ * @param props.phoneColumns - The number of columns to use on phone devices.
+ * @param props.tabletColumns - The number of columns to use on tablet devices.
+ * @param props.desktopColumns - The number of columns to use on desktop devices.
+ * @param props.isBaselineAlign - A boolean value indicating whether to align items to the baseline.
+ * @param [props.fieldRightMargin='0'] - The right margin for the fields within the Group component.
+ * @param [props.fieldBottomMargin='0'] - The bottom margin for the fields within the Group component.
+ * @param props.style - The style object for the ExpansionLayout component.
+ * @param props.className - The class name for the ExpansionLayout component.
+ * @param props.children - The children for the ExpansionLayout component.
+ * @param props.title - The title for the Expansion component.
+ * @param props.description - The description for the Expansion component.
+ * @param props.expansionOpened - A boolean value indicating whether the Expansion should be opened.
+ * @param props.outlinePaper - A boolean value indicating whether to show an outline paper style for the Expansion.
+ * @param props.transparentPaper - A boolean value indicating whether to show a transparent paper style for the Expansion.
+ *
+ * @returns - The rendered ExpansionLayout component.
+ */
 export const ExpansionLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,

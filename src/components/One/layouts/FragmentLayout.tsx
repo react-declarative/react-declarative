@@ -21,8 +21,15 @@ interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 }
 
 /**
- * Компоновка, которую можно скрыть, используя isVisible.
- * Потомки передаются насквозь...
+ * Component that conditionally renders its children based on the visibility criteria.
+ *
+ * @param props - The component props.
+ * @param props.children - The children to be rendered.
+ * @param props.isVisible - The function used to determine if the component should be visible.
+ * @param props.ready - The function to be called when the component is ready.
+ * @param props.object - The object used by the `isVisible` function.
+ *
+ * @returns - The rendered React node.
  */
 export const FragmentLayout = <Data extends IAnything = IAnything>({
     children,

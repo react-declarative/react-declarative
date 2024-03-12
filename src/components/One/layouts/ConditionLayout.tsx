@@ -33,9 +33,18 @@ interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 }
 
 /**
- * Компоновка, которую можно скрыть, используя condition.
- * В отличие от isVisible умеет приходовать промис
- * Потомки передаются насквозь...
+ * Represents a layout component that conditionally renders its children based on given conditions.
+ *
+ * @template Data The type of data passed to the layout.
+ * @param props - The props object containing the following properties:
+ * @param props.children - The children elements to be rendered inside the layout.
+ * @param [props.condition=() => true] - The condition function that determines when the children should be rendered.
+ * @param [props.shouldCondition=() => false] - The function to determine if the condition should be re-evaluated.
+ * @param [props.conditionLoading] - The component to be rendered while condition is evaluating/loading.
+ * @param [props.conditionElse] - The component to be rendered if condition evaluates to false.
+ * @param [props.fallback=(e: Error) => { throw e; }] - The function to handle errors during condition evaluation.
+ * @param [props.object] - The data object to be passed to the condition and children components.
+ * @returns The rendered layout component.
  */
 export const ConditionLayout = <Data extends IAnything = IAnything>({
   children,
