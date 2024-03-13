@@ -30,6 +30,28 @@ export interface ITreeFieldPrivate<Data = IAnything> {
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
+/**
+ * Renders a TreeField component.
+ *
+ * @param props - The props object containing the necessary data for rendering the TreeField.
+ * @param props.invalid - Determines if the TreeField is invalid.
+ * @param props.value - The value of the TreeField.
+ * @param props.disabled - Determines if the TreeField is disabled.
+ * @param props.readonly - Determines if the TreeField is readonly.
+ * @param props.incorrect - Determines if the TreeField is incorrect.
+ * @param props.description - The description text for the TreeField.
+ * @param props.outlined - Determines if the TreeField should have an outlined style.
+ * @param props.title - The title text for the TreeField.
+ * @param props.placeholder - The placeholder text for the TreeField.
+ * @param props.itemTree - The itemTree object for rendering the Tree.
+ * @param props.dirty - Determines if the TreeField has been modified.
+ * @param props.loading - Determines if the TreeField is currently loading.
+ * @param props.onChange - The callback function to be called when the value of the TreeField changes.
+ * @param props.name - The name attribute of the TreeField.
+ * @param props.withContextMenu - Determines if the TreeField should have a context menu.
+ *
+ * @returns The rendered TreeField component.
+ */
 export const TreeField = ({
   invalid,
   value,

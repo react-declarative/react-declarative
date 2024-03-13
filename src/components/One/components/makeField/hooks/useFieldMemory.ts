@@ -31,6 +31,23 @@ interface IMemoryData extends Omit<IMemory, keyof {
     name: string;
 }
 
+/**
+ * Creates a memory object using the given parameters.
+ *
+ * @param memoryData - The data needed to create the memory object.
+ * @param memoryData.prefix - The prefix to use for the memory field name.
+ * @param memoryData.name - The name of the memory field.
+ * @param memoryData.lastDebouncedValue - The last debounced value of the memory field.
+ * @param memoryData.debouncedValue$ - The observable for the debounced value of the memory field.
+ * @param memoryData.fieldReadonly$ - The observable for the readonly state of the memory field.
+ * @param memoryData.focusReadonly$ - The observable for the readonly state of the focus.
+ * @param memoryData.invalid$ - The observable for the invalid state of the memory field.
+ * @param memoryData.object$ - The observable for the object of the memory field.
+ * @param memoryData.upperReadonly$ - The observable for the readonly state of the upper field.
+ * @param memoryData.value$ - The observable for the value of the memory field.
+ * @param memoryData.groupRef$ - The observable for the group reference of the memory field.
+ * @returns - The memory object.
+ */
 export const useFieldMemory = ({
     prefix,
     name,

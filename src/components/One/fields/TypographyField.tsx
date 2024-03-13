@@ -20,6 +20,16 @@ export interface ITypographyFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, 'value'>;
 }
 
+/**
+ * Renders a typography field component.
+ *
+ * @param props - The props for the typography field.
+ * @param [props.value=''] - The value of the typography field.
+ * @param [props.placeholder=''] - The placeholder text for the typography field.
+ * @param [props.typoVariant='body1'] - The typography variant for the field.
+ * @param [props.style] - Additional styles to be applied to the field.
+ * @returns - The rendered typography field component.
+ */
 export const TypographyField = ({
   value = '',
   placeholder = '',

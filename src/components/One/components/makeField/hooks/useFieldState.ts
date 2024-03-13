@@ -84,6 +84,12 @@ const readState = ({
   disabled: isDisabled(object, payload),
 });
 
+/**
+ * useState hook for managing field state.
+ * @param initialData - The initial data for the field state.
+ * @param config - Configuration parameters for the field state.
+ * @returns - An object containing the field state and actions to modify the state.
+ */
 export const useFieldState = (initialData: IInitialData, config: IParams) => {
   const [state, setState] = useState<IState>(() => {
     const params = readState(config);

@@ -20,6 +20,12 @@ export interface ICheckboxFieldPrivate<Data = IAnything>  {
   onChange: PickProp<IManaged<Data>, 'onChange'>;
 }
 
+/**
+ * Represents a checkbox field component.
+ *
+ * @param param - The properties for the checkbox field.
+ * @returns - The checkbox field component.
+ */
 export const CheckboxField = ({
   disabled,
   value,

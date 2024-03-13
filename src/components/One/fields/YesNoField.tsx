@@ -31,6 +31,28 @@ export interface IYesNoFieldPrivate<Data = IAnything>  {
   incorrect: PickProp<IManaged<Data>, "incorrect">;
 }
 
+/**
+ * Represents a Yes/No field component.
+ *
+ * @param props - The properties of the Yes/No field component.
+ * @param props.value - The current value of the field.
+ * @param props.disabled - Determines if the field is disabled.
+ * @param props.readonly - Determines if the field is read-only.
+ * @param props.description - The description or tooltip text for the field.
+ * @param props.placeholder - The text to display when the field is empty.
+ * @param props.outlined - Determines if the field is outlined.
+ * @param props.virtualListBox - Determines if the field uses a virtual list box.
+ * @param props.noDeselect - Determines if the field allows deselecting the value.
+ * @param props.labelShrink - Determines if the label should shrink when the field has a value.
+ * @param props.title - The title attribute of the field.
+ * @param props.tr - The translate map function
+ * @param props.dirty - Determines if the field has been modified.
+ * @param props.invalid - Determines if the field is in an invalid state.
+ * @param props.incorrect - Determines if the field has an incorrect value.
+ * @param props.onChange - The function to call when the field's value changes.
+ *
+ * @returns - The Yes/No field component.
+ */
 export const YesNoField = ({
   value,
   disabled,

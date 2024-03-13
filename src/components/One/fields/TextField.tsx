@@ -48,6 +48,41 @@ export interface ITextFieldPrivate<Data = IAnything> {
   name: PickProp<IManaged<Data>, "name">;
 }
 
+/**
+ * TextField component
+ *
+ * @typedef {Object} TextField
+ * @param invalid - Indicates if the input value is invalid
+ * @param incorrect - Indicates if the input value is incorrect
+ * @param value - The current value of the input field
+ * @param disabled - Indicates if the input field is disabled
+ * @param readonly - Indicates if the input field is read-only
+ * @param inputType - The type of input field (default: "text")
+ * @param description - The description or helper text for the input field
+ * @param outlined - Indicates if the input field is outlined
+ * @param labelShrink - Indicates if the label should shrink when focused
+ * @param title - The title or tooltip for the input field
+ * @param leadingIconRipple - Indicates if clicking the leading icon should trigger a ripple effect
+ * @param trailingIconRipple - Indicates if clicking the trailing icon should trigger a ripple effect
+ * @param leadingIcon - The icon component to display at the start of the input field
+ * @param trailingIcon - The icon component to display at the end of the input field
+ * @param leadingIconClick - The function to call when the leading icon is clicked
+ * @param trailingIconClick - The function to call when the trailing icon is clicked
+ * @param inputRows - The number of rows for a textarea input field (default: 1)
+ * @param placeholder - The placeholder text for the input field
+ * @param inputAutocomplete - The autocomplete behavior for the input field (default: "off")
+ * @param inputFormatter - A function used to format the input value
+ * @param inputFormatterSymbol - The symbol or character used in the input formatter
+ * @param inputFormatterAllowed - The list of allowed characters in the input formatter
+ * @param inputFormatterTemplate - A template string used in the input formatter
+ * @param dirty - Indicates if the input value has been modified
+ * @param loading - Indicates if the input field is in a loading state
+ * @param onChange - The function to call when the input value changes
+ * @param autoFocus - Indicates if the input field should be automatically focused
+ * @param inputRef - The reference to the input element
+ * @param name - The name of the input field
+ * @returns - The TextField component
+ */
 export const TextField = ({
   invalid,
   incorrect,

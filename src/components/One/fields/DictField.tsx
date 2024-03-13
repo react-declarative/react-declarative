@@ -67,6 +67,53 @@ export interface IDictFieldPrivate<Data = IAnything> {
   name: PickProp<IManaged<Data>, "name">;
 }
 
+/**
+ * A component for rendering a DictField.
+ *
+ * @param DictFieldProps - The props for the DictField component.
+ * @param DictFieldProps.invalid - Indicates whether the field is invalid.
+ * @param DictFieldProps.incorrect - Indicates whether the field is incorrect.
+ * @param DictFieldProps.value - The value of the field.
+ * @param DictFieldProps.disabled - Indicates whether the field is disabled.
+ * @param DictFieldProps.readonly - Indicates whether the field is readonly.
+ * @param DictFieldProps.inputType - The type of the input.
+ * @param DictFieldProps.inputAutocomplete - The autocomplete mode for the input.
+ * @param DictFieldProps.description - The description for the field.
+ * @param DictFieldProps.outlined - Indicates whether the field is outlined.
+ * @param DictFieldProps.title - The title for the field.
+ * @param DictFieldProps.placeholder - The placeholder text for the field.
+ * @param DictFieldProps.dirty - Indicates whether the field has been modified.
+ * @param DictFieldProps.loading - Indicates whether the field is loading.
+ * @param DictFieldProps.onChange - The event handler for field value change.
+ * @param DictFieldProps.dictLimit - The limit of the dictionary items.
+ * @param DictFieldProps.dictDelay - The delay for dictionary search.
+ * @param DictFieldProps.dictSearch - The search query for the dictionary.
+ * @param DictFieldProps.dictOnAppend - The event handler for dictionary item append.
+ * @param DictFieldProps.dictOnText - The event handler for dictionary text change.
+ * @param DictFieldProps.dictOnItem - The event handler for dictionary item selection.
+ * @param DictFieldProps.dictValue - The dictionary item value.
+ * @param DictFieldProps.dictSearchText - The search query for dictionary text.
+ * @param DictFieldProps.dictSearchItem - The dictionary item for search.
+ * @param DictFieldProps.dictCreateButton - Indicates whether to provide a create button for dictionary items.
+ * @param DictFieldProps.inputMode - The input mode for the field.
+ * @param DictFieldProps.inputPattern - The input pattern for the field.
+ * @param DictFieldProps.groupRef - The reference to the group containing the field.
+ * @param DictFieldProps.inputRef - The reference to the input field.
+ * @param DictFieldProps.inputFormatter - The input formatter function.
+ * @param DictFieldProps.inputFormatterAllowed - The allowed characters for input formatting.
+ * @param DictFieldProps.inputFormatterReplace - The replacement text for input formatting.
+ * @param DictFieldProps.inputFormatterSymbol - The symbol used for input formatting.
+ * @param DictFieldProps.inputFormatterTemplate - The template for input formatting.
+ * @param DictFieldProps.name - The name of the field.
+ * @param DictFieldProps.leadingIcon - The leading icon for the field.
+ * @param DictFieldProps.trailingIcon - The trailing icon for the field.
+ * @param DictFieldProps.leadingIconClick - The event handler for click on the leading icon.
+ * @param DictFieldProps.trailingIconClick - The event handler for click on the trailing icon.
+ * @param DictFieldProps.leadingIconRipple - Indicates whether the leading icon should have ripple effect.
+ * @param DictFieldProps.trailingIconRipple - Indicates whether the trailing icon should have ripple effect.
+ *
+ * @return - The rendered DictField component.
+ */
 export const DictField = ({
   invalid,
   incorrect,

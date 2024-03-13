@@ -22,6 +22,19 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * A virtual list box component that renders a list of items in a virtualized manner.
+ *
+ * @component
+ *
+ * @param props - The props object.
+ * @param props.className - The class name to apply to the list box container.
+ * @param props.children - The children to render within the list box.
+ * @param props.role - The role attribute value for the list box container.
+ * @param ref - The ref object for accessing the underlying HTMLDivElement.
+ *
+ * @returns {React.ReactElement} The rendered list box component.
+ */
 export const VirtualListBox = forwardRef(
   (
     { className, children, role, ...other }: IVirtualListBoxProps,

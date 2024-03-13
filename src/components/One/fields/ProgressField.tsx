@@ -18,6 +18,21 @@ export interface IProgressFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
 }
 
+/**
+ * Represents a progress field component.
+ *
+ * @typedef {Object} ProgressField
+ * @property {number} maxPercent - The maximum percentage value for the progress field.
+ * @property {boolean} showPercentLabel - Determines if the percentage label should be displayed.
+ * @property {number} value - The current value of the progress field.
+ *
+ * @param props - The props object containing the properties required for the progress field.
+ * @param props.maxPercent - The maximum percentage value for the progress field.
+ * @param props.showPercentLabel - Determines if the percentage label should be displayed.
+ * @param props.value - The current value of the progress field.
+ *
+ * @returns The rendered progress field component.
+ */
 export const ProgressField = ({
   maxPercent = 1.0,
   showPercentLabel,

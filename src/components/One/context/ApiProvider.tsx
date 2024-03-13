@@ -22,6 +22,16 @@ interface IApiProviderProps {
     updateSubject?: IOneProps['updateSubject'] | null;
 }
 
+/**
+ * Represents a provider component that wraps its children components with an API context.
+ *
+ * @typedef IApiProviderProps
+ * @property children - The children components to wrap.
+ * @property apiRef - The reference to the API.
+ * @property reloadSubject - The subject for triggering reload events.
+ * @property changeSubject - The subject for triggering change events.
+ * @property updateSubject - The subject for triggering update events.
+ */
 export const ApiProvider = ({
     children,
     apiRef = null,

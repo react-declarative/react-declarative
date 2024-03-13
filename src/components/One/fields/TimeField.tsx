@@ -31,6 +31,27 @@ export interface ITimeFieldPrivate<Data = IAnything> {
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
+/**
+ * Represents a TimeField component.
+ * @param TimeField - The TimeField component.
+ * @param invalid - Determines if the field is invalid.
+ * @param incorrect - Determines if the field has an incorrect value.
+ * @param value - The current value of the field.
+ * @param disabled - Determines if the field is disabled.
+ * @param readonly - Determines if the field is readonly.
+ * @param labelShrink - Determines if the label should shrink when the field has a value.
+ * @param description - The description of the field.
+ * @param outlined - Determines if the field should be outlined.
+ * @param title - The title attribute of the field.
+ * @param placeholder - The placeholder attribute of the field.
+ * @param dirty - Determines if the field's value has changed.
+ * @param autoFocus - Determines if the field should be focused automatically.
+ * @param inputRef - The ref of the input element.
+ * @param onChange - The event handler for the change event.
+ * @param name - The name attribute of the field.
+ * @param withContextMenu - Determines if the field should have a context menu.
+ * @returns - The rendered TimeField component.
+ */
 export const TimeField = ({
   invalid,
   incorrect,

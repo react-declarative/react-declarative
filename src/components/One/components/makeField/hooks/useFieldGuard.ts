@@ -35,6 +35,19 @@ const createFallback = (name: string, prefix: string, source: string) => {
   };
 };
 
+/**
+ * Creates a guard for field properties.
+ *
+ * @param options - The options object.
+ * @param options.prefix - The prefix for the field.
+ * @param options.name - The name of the field.
+ * @param [options.isDisabled] - Indicates if the field is disabled. Defaults to `DEFAULT_IS_DISABLED`.
+ * @param [options.isVisible] - Indicates if the field is visible. Defaults to `DEFAULT_IS_VISIBLE`.
+ * @param [options.isInvalid] - Indicates if the field is invalid. Defaults to `DEFAULT_IS_INVALID`.
+ * @param [options.isIncorrect] - Indicates if the field is incorrect. Defaults to `DEFAULT_IS_INCORRECT`.
+ * @param [options.isReadonly] - Indicates if the field is readonly. Defaults to `DEFAULT_IS_READONLY`.
+ * @returns - The result object with guarded field properties.
+ */
 export const useFieldGuard = ({
   prefix,
   name,

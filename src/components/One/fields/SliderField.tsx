@@ -32,6 +32,23 @@ export interface ISliderFieldPrivate<Data = IAnything>  {
   onChange: PickProp<IManaged<Data>, 'onChange'>;
 }
 
+/**
+ * Represents a slider field component.
+ * @typedef SliderField
+ * @param value - The current value of the slider.
+ * @param onChange - A callback function to handle slider value changes.
+ * @param leadingIconRipple - Determines if the leading icon should have a ripple effect when clicked.
+ * @param trailingIconRipple - Determines if the trailing icon should have a ripple effect when clicked.
+ * @param leadingIcon - The icon component to be displayed at the start of the slider.
+ * @param trailingIcon - The icon component to be displayed at the end of the slider.
+ * @param leadingIconClick - A callback function to handle click events on the leading icon.
+ * @param trailingIconClick - A callback function to handle click events on the trailing icon.
+ * @param stepSlider - The step value for the slider.
+ * @param maxSlider - The maximum value for the slider.
+ * @param minSlider - The minimum value for the slider.
+ * @param labelFormatSlider - The format string for the label text of the slider.
+ * @returns A Slider component with the specified properties.
+ */
 export const SliderField = ({
   value,
   onChange,

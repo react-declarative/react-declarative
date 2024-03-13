@@ -13,6 +13,18 @@ function valueEquality<T>(left: T, right: T): boolean {
     return left === right;
 }
 
+/**
+ * Debounces the given value with the specified delay.
+ *
+ * @param value - The value to be debounced.
+ * @param delay - The delay in milliseconds before invoking the debounced value.
+ * @param options - The optional configuration options for debounce behavior.
+ * @param options.maxWait - The maximum wait time in milliseconds before invoking the debounced value.
+ * @param options.leading - Determines if the debounced value should be invoked on the leading edge.
+ * @param options.trailing - Determines if the debounced value should be invoked on the trailing edge.
+ * @param options.equalityFn - The custom equality function to compare previous and current values.
+ * @returns An array containing the debounced value and control functions for the debounced callback.
+ */
 export function useDebounce<T extends Value>(
     value: T,
     delay: number,

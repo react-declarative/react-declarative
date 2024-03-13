@@ -12,6 +12,16 @@ interface IParams {
   payload: IAnything;
 }
 
+/**
+ * Manages the compute function for a field.
+ *
+ * @param params - The parameters.
+ * @param params.compute - The compute function.
+ * @param [params.shouldRecompute=() => true] - The function to determine if recomputation is needed.
+ * @param params.object - The object to compute the field from.
+ * @param params.payload - The payload to pass to the compute function.
+ * @returns - The computed field value.
+ */
 export const useManagedCompute = ({
   compute,
   shouldRecompute = () => true,

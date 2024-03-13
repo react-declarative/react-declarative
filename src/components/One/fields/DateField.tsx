@@ -31,6 +31,28 @@ export interface IDateFieldPrivate<Data = IAnything> {
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
+/**
+ * Represents a DateField component.
+ *
+ * @typedef {Object} DateField
+ * @param invalid - Specifies whether the date field is invalid.
+ * @param incorrect - Specifies whether the date field has an incorrect value.
+ * @param value - The value of the date field.
+ * @param disabled - Specifies whether the date field is disabled.
+ * @param readonly - Specifies whether the date field is readonly.
+ * @param description - The description of the date field.
+ * @param outlined - Specifies whether the date field is outlined.
+ * @param title - The title of the date field.
+ * @param placeholder - The placeholder of the date field.
+ * @param labelShrink - Specifies whether the label should shrink when the date field value is not empty.
+ * @param dirty - Specifies whether the date field has been modified.
+ * @param autoFocus - Specifies whether the date field should automatically receive focus.
+ * @param inputRef - A ref for the date field input element.
+ * @param onChange - The event handler for when the value of the date field changes.
+ * @param withContextMenu - Specifies whether the date field should have a context menu.
+ * @param name - The name of the date field.
+ * @return - The Date component with the specified props.
+ */
 export const DateField = ({
   invalid,
   incorrect,

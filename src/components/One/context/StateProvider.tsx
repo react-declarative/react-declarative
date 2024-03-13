@@ -25,6 +25,41 @@ interface IState<Data = IAnything> {
 
 const StateContext = createContext<IState>(null as never);
 
+/**
+ * StateProvider is a component that manages the state of an object and provides it to its children components through a context.
+ * It takes in various props to configure its behavior.
+ *
+ * @template Data - The type of the object being managed by the StateProvider.
+ * @template Payload - The type of the payload used for fetching the object.
+ * @template Field - The type of the field used for validating the object.
+ *
+ * @param props - The props used to configure the StateProvider.
+ * @param props.children - The children components to be rendered within the StateProvider.
+ * @param props.fields - The fields used for validating the object.
+ * @param props.features - The features used for manipulating the object.
+ * @param props.change - The function called when the object is changed.
+ * @param props.fallback - The function called when the object cannot be resolved.
+ * @param props.handler - The function used for fetching the object.
+ * @param props.payload - The payload used for fetching the object.
+ * @param props.loadStart - The function called when the object starts loading.
+ * @param props.loadEnd - The function called when the object finishes loading.
+ *
+ * @return - The rendered children components wrapped in the StateContext.Provider.
+ *
+ * @example
+ * <StateProvider
+ *    fields={fields}
+ *    features={features}
+ *    change={change}
+ *    fallback={fallback}
+ *    handler={handler}
+ *    payload={payload}
+ *    loadStart={loadStart}
+ *    loadEnd={loadEnd}
+ * >
+ *    {children}
+ * </StateProvider>
+ */
 export const StateProvider = <Data extends IAnything, Payload extends IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>>({
     children,
     ...otherProps

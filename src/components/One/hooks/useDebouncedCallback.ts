@@ -25,6 +25,15 @@ export interface DebouncedState<T extends (...args: value[]) => ReturnType<T>> e
     callback: (...args: Parameters<T>) => ReturnType<T>;
 }
 
+/**
+ * Returns a debounced version of the provided callback function.
+ *
+ * @template T - The type of the original callback function.
+ * @param func - The original callback function.
+ * @param [wait] - The debounce wait time in milliseconds (default: 0).
+ * @param [options] - Additional options for debouncing (default: {}).
+ * @returns - An object containing the debounced callback and utility functions.
+ */
 export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<T>>(
     func: T,
     wait?: number,

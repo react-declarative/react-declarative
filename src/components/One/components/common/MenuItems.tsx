@@ -84,6 +84,14 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Renders a menu with a list of options based on the provided props.
+ *
+ * @param props - The menu items props.
+ * @param props.requestSubject - An observer subject to listen for menu requests.
+ *
+ * @returns The rendered menu.
+ */
 export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const { classes } = useStyles();
 

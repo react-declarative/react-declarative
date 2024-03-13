@@ -11,6 +11,26 @@ interface IInitialData extends Omit<IState, keyof {
     visible: never;
 }> {}
 
+/**
+ * The `useLayoutState` hook is used to manage the state of a component and provide actions to modify that state.
+ *
+ * @param initialData - The initial data for the state.
+ * @returns - An object containing the current state and action functions.
+ *
+ * @typedef IInitialData - The initial data for the state.
+ * @property readonly - Specifies whether the state is read-only or not.
+ * @property visible - Specifies whether the state is visible or not.
+ *
+ * @typedef IState - The state of the component.
+ * @property readonly - Specifies whether the state is read-only or not.
+ * @property visible - Specifies whether the state is visible or not.
+ *
+ * @typedef IAction - The actions that can be performed on the state.
+ * @property setDisabled - Sets the disabled state of the component.
+ * @property setReadonly - Sets the readonly state of the component.
+ * @property setVisible - Sets the visible state of the component.
+ *
+ */
 export const useLayoutState = (initialData: IInitialData) => {
 
     const [state, setState] = useState<IState>(() => ({

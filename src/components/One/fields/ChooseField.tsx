@@ -34,6 +34,11 @@ export interface IChooseFieldPrivate<Data = IAnything> {
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
+/**
+ * Represents the ChooseField component.
+ * @param options - The options for the ChooseField component.
+ * @returns The rendered ChooseField component.
+ */
 export const ChooseField = ({
   invalid,
   value,

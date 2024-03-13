@@ -35,6 +35,32 @@ export interface IComboFieldPrivate<Data = IAnything>  {
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
+/**
+ * ComboField component.
+ *
+ * @param props - The props object.
+ * @param props.value - The value of the ComboField.
+ * @param [props.disabled=false] - Specifies whether the ComboField is disabled.
+ * @param [props.readonly=false] - Specifies whether the ComboField is readonly.
+ * @param [props.description=""] - The description of the ComboField.
+ * @param [props.placeholder=""] - The placeholder text of the ComboField.
+ * @param [props.outlined=false] - Specifies whether the ComboField should be outlined.
+ * @param [props.itemList=[]] - The list of items for the ComboField.
+ * @param [props.freeSolo=false] - Specifies whether the ComboField allows free text input.
+ * @param [props.virtualListBox=true] - Specifies whether the ComboField should use a virtual list box for rendering.
+ * @param [props.watchItemList] - Specifies whether to watch changes in the itemList prop.
+ * @param [props.noDeselect] - Specifies whether the ComboField should prevent deselecting options.
+ * @param [props.labelShrink] - Specifies whether the label of the ComboField should shrink when there is a value.
+ * @param [props.title=""] - The title of the ComboField.
+ * @param [props.dirty] - Specifies whether the ComboField has been modified.
+ * @param [props.invalid] - Specifies whether the ComboField is invalid.
+ * @param [props.incorrect] - Specifies whether the ComboField has incorrect data.
+ * @param [props.withContextMenu] - Specifies whether the ComboField should display a context menu.
+ * @param [props.tr=(s) => s.toString()] - The translation function for the ComboField.
+ * @param [props.onChange] - The event handler function for onChange event.
+ *
+ * @returns The ComboField component.
+ */
 export const ComboField = ({
   value,
   disabled,

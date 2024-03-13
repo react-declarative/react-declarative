@@ -10,6 +10,23 @@ import { useOneProps } from '../context/PropsProvider';
 import { useOneState } from '../context/StateProvider';
 import useItemList from './useItemList';
 
+/**
+ * OtherComboSlot is a component that renders a combo slot with autocomplete functionality.
+ *
+ * @param value - The value of the combo slot.
+ * @param disabled - Indicates whether the combo slot is disabled.
+ * @param readonly - Indicates whether the combo slot is readonly.
+ * @param description - The description of the combo slot.
+ * @param placeholder - The placeholder text for the combo slot.
+ * @param outlined - Indicates whether the combo slot should be outlined.
+ * @param itemList - The list of item objects for the combo slot.
+ * @param title - The title of the combo slot.
+ * @param dirty - Indicates whether the combo slot has been modified.
+ * @param invalid - Indicates whether the combo slot is invalid.
+ * @param tr - A translation function to translate strings.
+ * @param onChange - The callback function when the combo slot value changes.
+ * @returns - The rendered combo slot component.
+ */
 export const OtherComboSlot = ({
   value,
   disabled,

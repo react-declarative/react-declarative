@@ -21,6 +21,18 @@ export interface IRatingFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
 }
 
+/**
+ * Renders a Rating field component.
+ *
+ * @param props - The properties for the Rating field.
+ * @param props.value - The current value of the Rating field.
+ * @param props.disabled - Indicates if the Rating field is disabled.
+ * @param props.readonly - Indicates if the Rating field is read-only.
+ * @param props.name - The name of the Rating field.
+ * @param props.onChange - The function to be called when the value of the Rating field changes.
+ *
+ * @returns The rendered Rating field component.
+ */
 export const RatingField = ({
   value,
   disabled,

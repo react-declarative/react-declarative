@@ -42,6 +42,16 @@ const fetchState = async ({
   };
 };
 
+/**
+ * Fetches and manages a list of items based on the given parameters.
+ *
+ * @param params - The parameters for fetching and managing the items.
+ * @param params.itemList - The list of items to fetch and manage.
+ * @param params.defaultList - The default list of items.
+ * @param params.tr - The translation function for translating item labels.
+ *
+ * @returns - The state object containing the fetched and managed items.
+ */
 export const useItemList = ({
   itemList = [],
   defaultList = [],

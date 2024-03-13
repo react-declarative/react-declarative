@@ -22,6 +22,20 @@ export interface ISwitchFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, 'value'>;
 }
 
+/**
+ * Renders a Switch field component.
+ *
+ * @param props - The properties for the Switch field.
+ * @param props.disabled - Indicates whether the Switch field is disabled.
+ * @param props.value - The current value of the Switch field.
+ * @param props.readonly - Indicates whether the Switch field is read-only.
+ * @param props.onChange - The event handler for when the Switch field is changed.
+ * @param props.switchNoColor - Indicates whether the Switch field has no color.
+ * @param props.switchActiveLabel - The label for the active state of the Switch field.
+ * @param props.title - The title of the Switch field.
+ *
+ * @returns A Switch component wrapped in a SwitchField component.
+ */
 export const SwitchField = ({
   disabled,
   value,

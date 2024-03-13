@@ -34,6 +34,28 @@ export interface IFileFieldPrivate<Data = IAnything> {
   name: PickProp<IManaged<Data>, "name">;
 }
 
+/**
+ * FileField component.
+ * @param props - The props object.
+ * @param props.invalid - Specifies if the field is invalid.
+ * @param props.value - The value of the field.
+ * @param props.disabled - Specifies if the field is disabled.
+ * @param props.readonly - Specifies if the field is read-only.
+ * @param props.description - The description of the field.
+ * @param props.outlined - Specifies if the field is outlined.
+ * @param props.title - The title of the field.
+ * @param props.placeholder - The placeholder text of the field.
+ * @param props.incorrect - Specifies if the field has an incorrect value.
+ * @param props.upload - Specifies if the field is for uploading files.
+ * @param props.view - Specifies if the field is for viewing files.
+ * @param props.dirty - Specifies if the field has been changed.
+ * @param props.labelShrink - Specifies if the field's label should shrink.
+ * @param props.loading - Specifies if the field is in a loading state.
+ * @param props.onChange - The change event handler function.
+ * @param props.inputRef - The ref object for the input element.
+ * @param props.name - The name of the field.
+ * @return - The rendered File component with the given props.
+ */
 export const FileField = ({
   invalid,
   value,

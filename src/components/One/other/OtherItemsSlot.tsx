@@ -11,6 +11,25 @@ import { useOneProps } from '../context/PropsProvider';
 import { useOneState } from '../context/StateProvider';
 import { useItemList } from './useItemList';
 
+/**
+ * Represents an input field for selecting multiple items from a list.
+ *
+ * @param OtherItemsSlot - The configuration object for the OtherItemsSlot component.
+ * @param OtherItemsSlot.value - The current selected value(s) for the input field.
+ * @param OtherItemsSlot.disabled - Determines if the input field is disabled or not.
+ * @param OtherItemsSlot.readonly - Determines if the input field is read-only or not.
+ * @param OtherItemsSlot.description - The description text for the input field.
+ * @param OtherItemsSlot.placeholder - The input field's placeholder text.
+ * @param [OtherItemsSlot.outlined=false] - Determines if the input field is outlined or not.
+ * @param [OtherItemsSlot.itemList=[]] - The list of items to be displayed in the autocomplete dropdown.
+ * @param OtherItemsSlot.dirty - Indicates if the input field has been modified.
+ * @param OtherItemsSlot.invalid - Indicates if the input field's value is not valid.
+ * @param OtherItemsSlot.title - The title of the input field.
+ * @param [OtherItemsSlot.tr=(s) => s.toString()] - The translation function for the labels in the dropdown.
+ * @param OtherItemsSlot.onChange - The event handler function for when the selected value(s) change.
+ *
+ * @returns - The OtherItemsSlot component.
+ */
 export const OtherItemsSlot = ({
     value,
     disabled,
