@@ -6,6 +6,13 @@ import IRowData from "./IRowData";
 
 import { Value } from "./IField";
 
+/**
+ * Represents a column in a table.
+ *
+ * @template FilterData - The type of filter data that can be used with the column.
+ * @template RowData - The type of row data used in the table.
+ * @template Payload - The type of payload used with the column.
+ */
 export interface IColumn<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

@@ -1,3 +1,7 @@
+/**
+ * Represents a data row in a table.
+ * @interface
+ */
 export interface IRowData {
     id: RowId;
 }

@@ -8,6 +8,12 @@ export type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
 
+/**
+ * Represents a layout with various properties that control its visibility, disabled state, and other features.
+ *
+ * @template Data - The data type used by the layout.
+ * @template Payload - The payload type used by the layout.
+ */
 export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;

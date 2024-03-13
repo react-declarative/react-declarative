@@ -15,6 +15,9 @@ type DataOrNull<Data = IAnything> = Data | null;
 
 export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload: Payload) => DataOrNull<Data>) | ((payload: Payload) => Promise<DataOrNull<Data>>) | null;
 
+/**
+ * Properties of the <One /> template engine component
+ */
 export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   /**
    * Ссылка на объект API

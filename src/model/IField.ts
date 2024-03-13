@@ -13,6 +13,11 @@ import ISearchViewProps from '../components/SearchView/model/ISearchViewProps';
 import IFieldMenu from './IFieldMenu';
 import ITreeNode from './ITreeNode';
 
+/**
+ * Represents any possible variable value of <One /> component field.
+ *
+ * @typedef {string | string[] | number | boolean | null} Value - Represents a value in JavaScript.
+ */
 export type Value = string | string[] | number | boolean | null;
 
 /**

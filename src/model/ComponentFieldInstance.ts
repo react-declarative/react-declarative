@@ -1,6 +1,11 @@
 import type IField from "./IField";
 import type IManaged from "./IManaged";
 
+/**
+ * Represents parameters for a component field element callback.
+ * @template Data - The data type of the field.
+ * @template Payload - The payload type of the field.
+ */
 export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   onChange: (data: Partial<Data>) => void;
   _fieldData: Data;

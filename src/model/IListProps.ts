@@ -19,6 +19,13 @@ import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
 
+/**
+ * An interface representing the update options for a list action.
+ *
+ * @typeparam RowData - The type of row data.
+ *
+ * @extends IListActionOption<RowData>
+ */
 interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
@@ -28,6 +35,12 @@ interface IUpdateOption<RowData extends IRowData = IAnything> extends Omit<IList
   icon?: IOption['icon'];
 };
 
+/**
+ * Represents a resort option for a list action.
+ * @interface
+ * @template RowData - The type of row data for the resort option.
+ * @extends {Omit<IListActionOption<RowData>, "label" | "icon">}
+ */
 interface IResortOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
@@ -37,6 +50,14 @@ interface IResortOption<RowData extends IRowData = IAnything> extends Omit<IList
   icon?: IOption['icon'];
 }
 
+/**
+ * Represents the options for the "drop-filters" action in a list.
+ *
+ * @template RowData - The type of the row data.
+ *
+ * @interface IDropFiltersOption
+ * @extends {Omit<IListActionOption<RowData>, 'label' | 'icon'>}
+ */
 interface IDropFiltersOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
@@ -46,6 +67,11 @@ interface IDropFiltersOption<RowData extends IRowData = IAnything> extends Omit<
   icon?: IOption['icon'];
 }
 
+/**
+ * Represents an option for adding filters.
+ *
+ * @template RowData - The type of the row data.
+ */
 interface IAddFiltersOption<RowData extends IRowData = IAnything> extends Omit<IListActionOption<RowData>, keyof {
   label: never;
   icon: never;
@@ -55,6 +81,12 @@ interface IAddFiltersOption<RowData extends IRowData = IAnything> extends Omit<I
   icon?: IOption['icon'];
 }
 
+/**
+ * Represents an option for a list action.
+ *
+ * @template RowData - The type of the row data.
+ * @template Payload - The type of the payload.
+ */
 export interface IListActionOption<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> extends Omit<IOption, keyof {
   isVisible: never;
   isDisabled: never;
@@ -63,6 +95,11 @@ export interface IListActionOption<RowData extends IRowData = IAnything, Payload
   isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
 };
 
+/**
+ * Represents an action that can be performed on a list of data.
+ * @template RowData - The type of the row data.
+ * @template Payload - The type of the payload.
+ */
 export interface IListAction<RowData extends IRowData = IAnything, Payload extends IAnything = IAnything> {
   type: ActionType;
   action?: string;
@@ -73,6 +110,11 @@ export interface IListAction<RowData extends IRowData = IAnything, Payload exten
   options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[];
 }
 
+/**
+ * Represents a chip in a list.
+ *
+ * @template RowData - The type of the row data associated with the chip.
+ */
 export interface IListChip<RowData extends IRowData = IAnything> {
   name: keyof RowData,
   label: string;
@@ -80,25 +122,64 @@ export interface IListChip<RowData extends IRowData = IAnything> {
   enabled?: boolean;
 }
 
+/**
+ * Represents the result of a list handling operation.
+ *
+ * @template RowData - The type of the row data.
+ * @typedef {RowData[]} ListHandlerResult
+ * @typedef {{
+ *   rows: RowData[];
+ *   total: number | null;
+ * }} ListHandlerResult[]
+ */
 export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] | {
   rows: RowData[];
   total: number | null;
 };
 
+/**
+ * Represents the avatar for the list item.
+ * @typedef {Object} ListAvatar
+ * @property  [src] - The source URL for the avatar image.
+ * @property  [alt] - The alternate text for the avatar image.
+ */
 export type ListAvatar = {
   src?: string;
   alt?: string;
 };
 
+/**
+ * Represents a pagination handler for a list.
+ *
+ * @typedef {Object} ListHandlerPagination
+ * @property  limit - The number of items to retrieve per page.
+ * @property  offset - The starting index of the items to retrieve.
+ */
 export type ListHandlerPagination = {
   limit: number;
   offset: number;
 };
 
+/**
+ * Represents a list handler for chips.
+ * @template RowData - The type of row data.
+ */
 export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<Record<keyof RowData, boolean>>;
 
+/**
+ * Represents a sorting model for a list handler.
+ *
+ * @template RowData - The type of data in list rows.
+ */
 export type ListHandlerSortModel<RowData extends IRowData = IAnything> = IListSortItem<RowData>[];
 
+/**
+ * Represents a ListHandler class that handles filtering, pagination, sorting, and searching data.
+ *
+ * @param <FilterData> The type of data used for filtering.
+ * @param <RowData> The type of data in each row.
+ * @param <Payload> Optional payload data.
+ */
 export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything, Payload = IAnything> = RowData[] | ((
   data: FilterData,
   pagination: ListHandlerPagination,
@@ -108,6 +189,12 @@ export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowD
   payload: Payload,
 ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
 
+/**
+ * Represents the state of a list.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ */
 export interface IListState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   initComplete: boolean;
   payload: IAnything;
@@ -125,6 +212,12 @@ export interface IListState<FilterData extends {} = IAnything, RowData extends I
   rerender: boolean;
 };
 
+/**
+ * Interface contract for callback functions used in IList functionality.
+ *
+ * @template FilterData - The type of data to be used in filter operations.
+ * @template RowData - The type of data contained in each row.
+ */
 export interface IListCallbacks<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
   handleDefault: () => Promise<void>;
   handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
@@ -140,6 +233,13 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
   ready: () => void;
 };
 
+/**
+ * Represents a slot of position action in a list.
+ * @interface
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ * @template Payload - The type of payload.
+ */
 export interface IPositionActionListSlot<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
@@ -153,11 +253,22 @@ export interface IPositionActionListSlot<
   payload: Payload;
 }
 
+/**
+ * Represents an item used for sorting in a list.
+ * @template RowData - The type of the row data in the list.
+ */
 export interface IListSortItem<RowData extends IRowData = IAnything> {
   field: keyof RowData;
   sort: 'asc' | 'desc';
 }
 
+/**
+ * Interface for the List datagrid component props.
+ * @template FilterData The type of the filter data.
+ * @template RowData The type of the row data.
+ * @template Payload The type of the payload.
+ * @template Field The type of the field.
+ */
 export interface IListProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

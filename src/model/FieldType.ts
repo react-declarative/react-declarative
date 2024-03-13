@@ -1,3 +1,6 @@
+/**
+ * Represents the type of a field in a <One /> component.
+ */
 export enum FieldType {
     Layout = 'custom-layout',
     Switch = 'switch-field',

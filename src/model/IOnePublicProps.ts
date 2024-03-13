@@ -3,6 +3,16 @@ import IField, { Value } from "./IField";
 
 import IOneProps from "./IOneProps";
 
+/**
+ * Represents the interface for the public properties of the class IOnePublicProps.
+ *
+ * @template Data - The type of data.
+ * @template Payload - The type of payload.
+ * @template Field - The type of field.
+ *
+ * @interface IOnePublicProps
+ * @extends Omit<IOneProps<Data, Payload, Field>, keyof { features: never }>
+ */
 export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>>
     extends Omit<IOneProps<Data, Payload, Field>, keyof {
         features: never;

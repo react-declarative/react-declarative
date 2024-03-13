@@ -1,3 +1,9 @@
+/**
+ * TObserver is an interface that represents an observable object.
+ * It provides various methods to transform, filter, merge, and consume data emitted by the observable.
+ *
+ * @template Data - The type of data emitted by the observable.
+ */
 export interface TObserver<Data = unknown> {
     unsubscribe: () => void;
     map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;

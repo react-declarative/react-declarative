@@ -1,3 +1,6 @@
+/**
+ * Represents a Node in a tree structure.
+ */
 export interface INode {
   label: string;
   value: string;

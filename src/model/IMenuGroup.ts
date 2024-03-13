@@ -1,5 +1,10 @@
 import * as React from 'react';
 
+/**
+ * Represents a menu option.
+ *
+ * @template T - The type of the payload for dynamic properties.
+ */
 export interface IMenuOption<T extends any = any> {
     name?: string;
     label: string;

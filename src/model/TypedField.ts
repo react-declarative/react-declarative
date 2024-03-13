@@ -47,14 +47,43 @@ import { IInitFieldProps } from '../components/One/fields/InitField';
 import { IDictFieldProps } from '../components/One/fields/DictField';
 import { ITreeFieldProps } from '../components/One/fields/TreeField';
 
+/**
+ * Represents a class that excludes certain properties from a given type.
+ *
+ * @template Data - The type of data for the managed object.
+ * @template Payload - The type of payload for the managed object.
+ * @type Exclude<Data, Payload>
+ */
 type Exclude<Data = IAnything, Payload = IAnything> = Omit<IManaged<Data, Payload>, keyof IEntity<Data, Payload>>;
 
+/**
+ * A factory class for creating typed fields.
+ *
+ * @template Type - The type of field.
+ * @template Fields - The interface for the fields.
+ * @template Data - The type of data.
+ * @template Payload - The type of payload.
+ */
 type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnything, Payload = IAnything> = {
   [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
 } & {
   type: Type;
 };
 
+/**
+ * Represents a factory for creating typed fields with a shallow data structure.
+ *
+ * @template Type - The type of the field.
+ * @template Fields - The field definitions.
+ * @template Data - The data type.
+ * @template Payload - The payload type.
+ *
+ * @typedef {Object} TypedFieldFactoryShallow
+ * @property {Type} Type - The type of the field.
+ * @property {Fields} Fields - The field definitions.
+ * @property {Data} Data - The data type.
+ * @property {Payload} Payload - The payload type.
+ */
 type TypedFieldFactoryShallow<
   Type extends FieldType,
   Fields extends {},

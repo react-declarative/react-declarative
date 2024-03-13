@@ -1,5 +1,9 @@
 import IOption from "./IOption";
 
+/**
+ * Interface representing a tab.
+ * @template T - The type of the payload.
+ */
 export interface ITab<T extends any = any> extends Omit<IOption, keyof {
     action: never;
     isVisible: never;
