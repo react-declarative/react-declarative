@@ -1,5 +1,7 @@
 # IScaffold2GroupInternal
 
+Represents an internal group in the IScaffold2 component.
+
 ## Properties
 
 ### path

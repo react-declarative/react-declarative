@@ -1,5 +1,7 @@
 # IWizardViewProps
 
+Interface representing the props for the WizardView component.
+
 ## Properties
 
 ### className

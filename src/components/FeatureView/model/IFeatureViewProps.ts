@@ -5,6 +5,9 @@ import { SxProps } from "@mui/material";
 import IFeatureGroup from "./IFeatureGroup";
 import TSubject from '../../../model/TSubject';
 
+/**
+ * Represents the props for the FeatureView component.
+ */
 export interface IFeatureViewProps {
     changeSubject?: TSubject<any>;
     data?: string[] | null;

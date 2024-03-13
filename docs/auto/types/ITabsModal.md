@@ -8,4 +8,4 @@ export type ITabsModal<Data = IAnything, Payload = IAnything> = Omit<ITabsOutlet
 };
 ```
 
-
+Represents a class ITabsModal.

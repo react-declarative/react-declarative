@@ -1,5 +1,7 @@
 # IFeatureViewProps
 
+Represents the props for the FeatureView component.
+
 ## Properties
 
 ### changeSubject

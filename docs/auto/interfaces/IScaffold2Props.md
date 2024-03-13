@@ -1,5 +1,7 @@
 # IScaffold2Props
 
+Represents the properties of the IScaffold2 component.
+
 ## Properties
 
 ### noOptionHover

@@ -66,4 +66,4 @@ export type ISearchViewProps<Data extends IAnything = IAnything, Payload = IAnyt
 };
 ```
 
-
+Interface for the props of the SearchView component.

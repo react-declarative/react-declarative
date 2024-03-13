@@ -6,3 +6,5 @@ export enum FeatureType {
     Number = "number-feature"
 }
 ```
+
+Represents a variant of the feature type.

@@ -11,6 +11,11 @@ export type OtherProps = {
     setProgress: (progress: number) => void;
 };
 
+/**
+ * Represents a tab outlet component.
+ * @template Data - The type of data passed to the tab outlet.
+ * @template Payload - The type of payload received by the tab outlet.
+ */
 export interface ITabsOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
     element: never;
 }> {

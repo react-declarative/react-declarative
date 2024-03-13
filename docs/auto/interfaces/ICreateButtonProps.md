@@ -1,5 +1,7 @@
 # ICreateButtonProps
 
+Represents the properties for creating a button.
+
 ## Properties
 
 ### search

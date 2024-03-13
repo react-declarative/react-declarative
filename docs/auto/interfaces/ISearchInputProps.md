@@ -1,5 +1,7 @@
 # ISearchInputProps
 
+Represents the properties for the SearchInput component.
+
 ## Properties
 
 ### placeholder

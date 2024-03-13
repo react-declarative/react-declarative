@@ -2,6 +2,11 @@ import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 import FeatureType from './FeatureType';
 
+/**
+ * Represents a feature.
+ * @template Data - The data type of the feature.
+ * @template Payload - The payload type of the feature.
+ */
 export interface IFeature<Data extends IAnything = IAnything, Payload = IAnything> {
     type?: FeatureType;
     name: string;

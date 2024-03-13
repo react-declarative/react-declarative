@@ -1,5 +1,7 @@
 # IScaffold2TabInternal
 
+Represents an internal interface for a scaffold tab.
+
 ## Properties
 
 ### id

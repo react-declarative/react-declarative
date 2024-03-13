@@ -6,6 +6,11 @@ type ModalOtherProps = {
   onClose: () => void;
 };
 
+/**
+ * Represents the props for the ITabsModal component.
+ * @template Data The type of data.
+ * @template Payload The type of payload.
+ */
 export type ITabsModalProps<
   Data = IAnything,
   Payload = IAnything

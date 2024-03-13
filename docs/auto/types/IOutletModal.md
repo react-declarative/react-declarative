@@ -4,4 +4,4 @@
 export type IOutletModal<Data = IAnything, Payload = IAnything, Params = IAnything> = IOutlet<Data, Payload, Params, ModalOtherProps>;
 ```
 
-
+Represents an outlet modal.

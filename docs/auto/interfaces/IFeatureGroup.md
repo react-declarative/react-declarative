@@ -1,5 +1,7 @@
 # IFeatureGroup
 
+Represents a feature group that can contain multiple features.
+
 ## Properties
 
 ### title

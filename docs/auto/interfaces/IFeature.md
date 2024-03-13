@@ -1,5 +1,7 @@
 # IFeature
 
+Represents a feature.
+
 ## Properties
 
 ### type

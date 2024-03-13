@@ -64,7 +64,7 @@
 12. [Stretch](/src/components/One/layouts/StretchLayout.tsx)
 13. [Tabs](/src/components/One/layouts/TabsLayout.tsx)
 
-## See also
+## Documentation
 
 1. [API reference](./auto/index.md)
 

@@ -1,5 +1,7 @@
 # IOutletProps
 
+Represents the properties of an outlet inner component.
+
 ## Properties
 
 ### onChange

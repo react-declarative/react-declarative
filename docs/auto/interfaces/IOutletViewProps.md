@@ -1,5 +1,7 @@
 # IOutletViewProps
 
+Props for OutletView component
+
 ## Properties
 
 ### waitForChangesDelay

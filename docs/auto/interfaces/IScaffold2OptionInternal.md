@@ -1,5 +1,7 @@
 # IScaffold2OptionInternal
 
+Represents an internal option for IScaffold2.
+
 ## Properties
 
 ### path

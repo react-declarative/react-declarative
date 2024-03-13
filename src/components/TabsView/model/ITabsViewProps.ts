@@ -7,6 +7,12 @@ import ITabsOutlet, { OtherProps } from "./ITabsOutlet";
 import ITabsStep from "./ITabsStep";
 import { MemoryHistory } from "history";
 
+/**
+ * Represents the props for the ITabsView component.
+ *
+ * @template Data - The data type.
+ * @template Payload - The payload type.
+ */
 export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
     history: never;
     routes: never;

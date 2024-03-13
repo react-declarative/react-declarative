@@ -1,5 +1,7 @@
 # IVisibilityGroup
 
+Represents a visibility group.
+
 ## Properties
 
 ### name

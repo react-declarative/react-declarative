@@ -1,5 +1,7 @@
 # ISearchItem
 
+Represents a search item.
+
 ## Properties
 
 ### label

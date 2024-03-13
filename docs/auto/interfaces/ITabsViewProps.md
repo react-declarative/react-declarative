@@ -1,5 +1,7 @@
 # ITabsViewProps
 
+Represents the props for the ITabsView component.
+
 ## Properties
 
 ### transparentHeader

@@ -1,5 +1,7 @@
 # ISearchModalProps
 
+Represents the properties for the Search Modal component.
+
 ## Properties
 
 ### fullScreen

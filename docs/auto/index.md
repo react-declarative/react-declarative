@@ -1,38 +1,5 @@
 # API reference
 
-## Classes
-
-- [ServiceManager](classes/ServiceManager.md)
-- [RouteManager](classes/RouteManager.md)
-- [ModelAdapter](classes/ModelAdapter.md)
-- [EntityAdapter](classes/EntityAdapter.md)
-- [CollectionEntityAdapter](classes/CollectionEntityAdapter.md)
-- [CollectionAdapter](classes/CollectionAdapter.md)
-- [FetchError](classes/FetchError.md)
-- [Task](classes/Task.md)
-- [BehaviorSubject](classes/BehaviorSubject.md)
-- [EventEmitter](classes/EventEmitter.md)
-- [Observer](classes/Observer.md)
-- [Operator](classes/Operator.md)
-- [Subject](classes/Subject.md)
-- [Source](classes/Source.md)
-- [Entity](classes/Entity.md)
-- [EntityNotFoundError](classes/EntityNotFoundError.md)
-- [Collection](classes/Collection.md)
-- [Model](classes/Model.md)
-- [Time](classes/Time.md)
-- [Date](classes/Date.md)
-- [NoSsr](classes/NoSsr.md)
-- [Translate](classes/Translate.md)
-- [ErrorBoundary](classes/ErrorBoundary.md)
-- [AutoSizer](classes/AutoSizer.md)
-- [Sanitizer](classes/Sanitizer.md)
-- [PortalView](classes/PortalView.md)
-- [ReloadView](classes/ReloadView.md)
-- [SubjectBinding](classes/SubjectBinding.md)
-- [OneConfig](classes/OneConfig.md)
-- [OneConfigInstance](classes/OneConfigInstance.md)
-
 ## Enums
 
 - [FieldType](enums/FieldType.md)
@@ -43,11 +10,6 @@
 - [Breadcrumbs2Type](enums/Breadcrumbs2Type.md)
 - [MasterDetailMode](enums/MasterDetailMode.md)
 - [DisplayMode](enums/DisplayMode.md)
-
-## Functions
-
-- [makeField](functions/makeField.md)
-- [makeLayout](functions/makeLayout.md)
 
 ## Interfaces
 

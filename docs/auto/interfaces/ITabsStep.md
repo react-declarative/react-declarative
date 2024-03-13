@@ -1,5 +1,7 @@
 # ITabsStep
 
+Represents a step in a tabs component.
+
 ## Properties
 
 ### id

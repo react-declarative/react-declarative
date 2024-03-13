@@ -1,5 +1,7 @@
 # IScaffold2Option
 
+Interface representing an option for an IScaffold2 component.
+
 ## Properties
 
 ### id

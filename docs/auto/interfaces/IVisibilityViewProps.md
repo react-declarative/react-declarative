@@ -1,5 +1,7 @@
 # IVisibilityViewProps
 
+Interface representing the props for the VisibilityView component.
+
 ## Properties
 
 ### changeSubject

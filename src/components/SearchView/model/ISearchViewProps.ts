@@ -9,6 +9,11 @@ import ISearchInputProps from "./ISearchInputProps";
 import ICreateButtonProps from "./ICreateButtonProps";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Interface for the props of the SearchView component.
+ * @template Data - Type parameter representing the data type of search items.
+ * @template Payload - Type parameter representing the payload type for async operations.
+ */
 export type ISearchViewProps<
   Data extends IAnything = IAnything,
   Payload = IAnything

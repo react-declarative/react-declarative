@@ -1,6 +1,13 @@
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
 
+/**
+ * Represents the properties of an outlet inner component.
+ *
+ * @template Data - The type of the component's data.
+ * @template Payload - The type of the component's payload.
+ * @template Params - The type of the component's params.
+ */
 export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IAnything> {
     onChange: (data: Data[keyof Data], initial?: boolean) => void;
     onInvalid: (name: string, msg: string) => void;

@@ -4,6 +4,9 @@ import IVisibilityGroup from "./IVisibilityGroup";
 
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Interface representing the props for the VisibilityView component.
+ */
 export interface IVisibilityViewProps {
   changeSubject?: TSubject<any>;
   outlinePaper?: boolean;

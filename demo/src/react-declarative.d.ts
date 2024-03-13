@@ -10620,6 +10620,11 @@ declare module "react-declarative/model/ISize" {
 
 declare module "react-declarative/components/SearchView/model/ISearchItem" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a search item.
+   * @interface
+   * @template T - The type of additional data associated with the search item.
+   */
   export interface ISearchItem<T extends IAnything = IAnything> {
     label: string;
     value: string;
@@ -10637,6 +10642,11 @@ declare module "react-declarative/components/SearchView/model/ISearchViewProps" 
   import ISearchInputProps from "react-declarative/components/SearchView/model/ISearchInputProps";
   import ICreateButtonProps from "react-declarative/components/SearchView/model/ICreateButtonProps";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface for the props of the SearchView component.
+   * @template Data - Type parameter representing the data type of search items.
+   * @template Payload - Type parameter representing the payload type for async operations.
+   */
   export type ISearchViewProps<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -12423,6 +12433,11 @@ declare module "react-declarative/components/FeatureView/model/IFeature" {
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   import FeatureType from "react-declarative/components/FeatureView/model/FeatureType";
+  /**
+   * Represents a feature.
+   * @template Data - The data type of the feature.
+   * @template Payload - The payload type of the feature.
+   */
   export interface IFeature<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -12443,6 +12458,11 @@ declare module "react-declarative/components/FeatureView/model/IFeatureGroup" {
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   import IFeature from "react-declarative/components/FeatureView/model/IFeature";
+  /**
+   * Represents a feature group that can contain multiple features.
+   * @template Data - The type of data associated with the feature group.
+   * @template Payload - The type of payload associated with the feature group.
+   */
   export interface IFeatureGroup<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -12457,6 +12477,10 @@ declare module "react-declarative/components/FeatureView/model/IFeatureGroup" {
 }
 
 declare module "react-declarative/components/FeatureView/model/FeatureType" {
+  /**
+   * Represents a variant of the feature type.
+   * @enum {string}
+   */
   export enum FeatureType {
     Boolean = "boolean-feature",
     Number = "number-feature",
@@ -12503,6 +12527,11 @@ declare module "react-declarative/components/VisibilityView/VisibilityView" {
 
 declare module "react-declarative/components/VisibilityView/model/IVisibilityGroup" {
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents a visibility group.
+   *
+   * @interface
+   */
   export interface IVisibilityGroup {
     name: string;
     title?: string;
@@ -12658,6 +12687,11 @@ declare module "react-declarative/components/Scaffold2/Scaffold2" {
 declare module "react-declarative/components/Scaffold2/model/IScaffold2Action" {
   import IOption from "react-declarative/model/IOption";
   import Payload from "react-declarative/components/Scaffold2/model/Payload";
+  /**
+   * Represents an action for a scaffold.
+   *
+   * @template T - The type of payload.
+   */
   export interface IScaffold2Action<T = Payload>
     extends Omit<
       IOption,
@@ -12678,6 +12712,19 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     IScaffold2OptionInternal,
   } from "react-declarative/components/Scaffold2/model/IScaffold2Option";
   import Payload from "react-declarative/components/Scaffold2/model/Payload";
+  /**
+   * Interface representing a group in IScaffold2.
+   *
+   * @template T - The type of payload for the options in the group.
+   *
+   * @property id - The unique identifier of the group.
+   * @property [label] - The label to be displayed for the group.
+   * @property [icon] - The icon to be displayed for the group.
+   * @property [noHeader] - Flag indicating whether to display the header for the group.
+   * @property [isVisible] - Function or Promise that returns a boolean indicating whether the group is visible.
+   * @property [isDisabled] - Function or Promise that returns a boolean indicating whether the group is disabled.
+   * @property children - The options belonging to the group.
+   */
   export interface IScaffold2Group<T = Payload> {
     id: string;
     label?: string;
@@ -12687,6 +12734,12 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     isDisabled?: () => boolean | Promise<boolean>;
     children: IScaffold2Option<T>[];
   }
+  /**
+   * Represents an internal group in the IScaffold2 component.
+   *
+   * @template T - The type of payload data.
+   * @interface IScaffold2GroupInternal
+   */
   export interface IScaffold2GroupInternal<T = Payload>
     extends Omit<
       IScaffold2Group<T>,
@@ -12710,6 +12763,10 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     IScaffold2TabInternal,
   } from "react-declarative/components/Scaffold2/model/IScaffold2Tab";
   import Payload from "react-declarative/components/Scaffold2/model/Payload";
+  /**
+   * Interface representing an option for an IScaffold2 component.
+   * @template T - The type of the payload used by the option.
+   */
   export interface IScaffold2Option<T = Payload> {
     id: string;
     label?: string;
@@ -12722,6 +12779,11 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     isVisible?: (payload: T) => boolean | Promise<boolean>;
     isDisabled?: (payload: T) => boolean | Promise<boolean>;
   }
+  /**
+   * Represents an internal option for IScaffold2.
+   *
+   * @template T - The type of the payload.
+   */
   export interface IScaffold2OptionInternal<T = Payload>
     extends Omit<
       IScaffold2Option<T>,
@@ -12744,6 +12806,10 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
 declare module "react-declarative/components/Scaffold2/model/IScaffold2Tab" {
   import React from "react";
   import Payload from "react-declarative/components/Scaffold2/model/Payload";
+  /**
+   * Represents a tab in the Scaffold2 component.
+   * @template T - The payload type.
+   */
   export interface IScaffold2Tab<T = Payload> {
     id: string;
     label?: string;
@@ -12752,6 +12818,10 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Tab" {
     isDisabled?: (payload: T) => Promise<boolean> | boolean;
     isActive?: (payload: T) => Promise<boolean> | boolean;
   }
+  /**
+   * Represents an internal interface for a scaffold tab.
+   * @template T - The payload type of the tab.
+   */
   export interface IScaffold2TabInternal<T = Payload>
     extends Omit<
       IScaffold2Tab<T>,
@@ -12919,6 +12989,11 @@ declare module "react-declarative/components/common/Expansion" {
 declare module "react-declarative/components/SearchView/model/ISearchItemProps" {
   import IAnything from "react-declarative/model/IAnything";
   import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+  /**
+   * Represents the properties for a search item.
+   *
+   * @template T - The data type for the search item.
+   */
   export interface ISearchItemProps<T extends IAnything = IAnything>
     extends Omit<
       ISearchItem,
@@ -12936,6 +13011,9 @@ declare module "react-declarative/components/SearchView/model/ISearchItemProps" 
 declare module "react-declarative/components/SearchView/model/ISearchInputProps" {
   import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for the SearchInput component.
+   */
   export interface ISearchInputProps {
     placeholder?: string;
     type: Exclude<ISearchViewProps["type"], undefined>;
@@ -12952,6 +13030,9 @@ declare module "react-declarative/components/SearchView/model/ISearchInputProps"
 
 declare module "react-declarative/components/SearchView/model/ICreateButtonProps" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the properties for creating a button.
+   */
   export interface ICreateButtonProps {
     search: string;
     payload: IAnything;
@@ -15489,6 +15570,13 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
   import IRowData from "react-declarative/model/IRowData";
   import IField from "react-declarative/model/IField";
   import ISize from "react-declarative/model/ISize";
+  /**
+   * Represents the properties for the Search Modal component.
+   * @template FilterData - The type for the filter data.
+   * @template RowData - The type for the row data.
+   * @template Payload - The type for the payload data.
+   * @template Field - The type for the field.
+   */
   export interface ISearchModalProps<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -15834,6 +15922,15 @@ declare module "react-declarative/components/ConstraintView/ConstraintView" {
 }
 
 declare module "react-declarative/components/ConstraintView/useConstraint" {
+  /**
+   * Returns an object with boolean properties indicating whether the given width matches the responsive breakpoints.
+   *
+   * @param width - The width to check against the responsive breakpoints.
+   * @returns - An object with the following properties:
+   *      - isPhone: A boolean indicating whether the width matches the phone breakpoint.
+   *      - isTablet: A boolean indicating whether the width matches the tablet breakpoint.
+   *      - isDesktop: A boolean indicating whether the width matches the desktop breakpoint.
+   */
   export const useConstraint: (width: number) => {
     isPhone: boolean;
     isTablet: boolean;
@@ -15936,6 +16033,37 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
   import IAnything from "react-declarative/model/IAnything";
   import IOutletProps from "react-declarative/components/OutletView/model/IOutletProps";
   import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
+  /**
+   * Represents an outlet that can be used to render content in a specific location in a React application.
+   *
+   * @template Data - The type of data to be passed to the outlet's props.
+   * @template Payload - The type of payload to be passed to the outlet's props.
+   * @template Params - The type of URL parameters to be passed to the outlet's props.
+   * @template OtherProps - Additional properties to be passed to the outlet's props.
+   *
+   * @property id - The unique identifier of the outlet.
+   * @property element - The React component function that renders the outlet's content.
+   * @property [isAvailable] - Optional. A function that determines whether the outlet is available for a given pathname.
+   * @property isActive - A function that determines whether the outlet is active for a given pathname.
+   *
+   * @example
+   *
+   * const sampleOutlet: IOutlet = {
+   *   id: 'sample-outlet',
+   *   element: (props) => <div>{props.title}</div>,
+   *   isAvailable: (pathname) => pathname === '/sample',
+   *   isActive: (pathname) => pathname.startsWith('/sample'),
+   * };
+   *
+   * @example
+   *
+   * const sampleOutlet: IOutlet<number, string, {id: number}> = {
+   *   id: 'sample-outlet',
+   *   element: (props) => <div>{props.data}</div>,
+   *   isAvailable: (pathname) => true,
+   *   isActive: (pathname) => false,
+   * };
+   */
   export interface IOutlet<
     Data = IAnything,
     Payload = IAnything,
@@ -15958,6 +16086,12 @@ declare module "react-declarative/components/OutletView/model/IOutletModal" {
   export type ModalOtherProps = {
     onClose: () => void;
   };
+  /**
+   * Represents an outlet modal.
+   * @template Data - The type of data received from the outlet.
+   * @template Payload - The type of payload used in the outlet.
+   * @template Params - The type of parameters used in the outlet.
+   */
   export type IOutletModal<
     Data = IAnything,
     Payload = IAnything,
@@ -15969,6 +16103,13 @@ declare module "react-declarative/components/OutletView/model/IOutletModal" {
 declare module "react-declarative/components/OutletView/model/IOutletProps" {
   import IAnything from "react-declarative/model/IAnything";
   import History from "react-declarative/model/History";
+  /**
+   * Represents the properties of an outlet inner component.
+   *
+   * @template Data - The type of the component's data.
+   * @template Payload - The type of the component's payload.
+   * @template Params - The type of the component's params.
+   */
   export interface IOutletProps<
     Data = IAnything,
     Payload = IAnything,
@@ -16885,6 +17026,11 @@ declare module "react-declarative/components/TabsView/model/ITabsOutlet" {
     setLoading: (loading: boolean) => void;
     setProgress: (progress: number) => void;
   };
+  /**
+   * Represents a tab outlet component.
+   * @template Data - The type of data passed to the tab outlet.
+   * @template Payload - The type of payload received by the tab outlet.
+   */
   export interface ITabsOutlet<Data = IAnything, Payload = IAnything>
     extends Omit<
       IOutlet<Data, Payload>,
@@ -16901,6 +17047,12 @@ declare module "react-declarative/components/TabsView/model/ITabsOutletProps" {
   import IAnything from "react-declarative/model/IAnything";
   import { IOutletProps } from "react-declarative/components/OutletView";
   import { OtherProps } from "react-declarative/components/TabsView/model/ITabsOutlet";
+  /**
+   * Represents the props for a TabsOutlet component.
+   * @template Data - The type of data to be passed to the TabsOutlet component.
+   * @template Payload - The type of payload to be passed to the TabsOutlet component.
+   * @template Other - Additional properties to be included in the TabsOutlet props.
+   */
   export type ITabsOutletProps<
     Data = IAnything,
     Payload = IAnything,
@@ -16911,6 +17063,11 @@ declare module "react-declarative/components/TabsView/model/ITabsOutletProps" {
 
 declare module "react-declarative/components/TabsView/model/ITabsStep" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a step in a tabs component.
+   *
+   * @template Payload - The type of payload for the step.
+   */
   export interface ITabsStep<Payload extends IAnything = IAnything> {
     id?: string;
     isMatch?: (id: string) => boolean;
@@ -16925,6 +17082,11 @@ declare module "react-declarative/components/TabsView/model/ITabsModal" {
   import IAnything from "react-declarative/model/IAnything";
   import ITabsOutlet from "react-declarative/components/TabsView/model/ITabsOutlet";
   import ITabsModalProps from "react-declarative/components/TabsView/model/ITabsModalProps";
+  /**
+   * Represents a class ITabsModal.
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   */
   export type ITabsModal<Data = IAnything, Payload = IAnything> = Omit<
     ITabsOutlet<Data, Payload>,
     keyof {
@@ -16943,6 +17105,11 @@ declare module "react-declarative/components/TabsView/model/ITabsModalProps" {
   type ModalOtherProps = {
     onClose: () => void;
   };
+  /**
+   * Represents the props for the ITabsModal component.
+   * @template Data The type of data.
+   * @template Payload The type of payload.
+   */
   export type ITabsModalProps<
     Data = IAnything,
     Payload = IAnything,
@@ -17547,6 +17714,12 @@ declare module "react-declarative/components/WizardView/model/IWizardOutlet" {
     progress: number;
     setProgress: (progress: number) => void;
   };
+  /**
+   * Represents an interface for a wizard outlet.
+   *
+   * @template Data - The data type for the outlet.
+   * @template Payload - The payload type for the outlet.
+   */
   export interface IWizardOutlet<Data = IAnything, Payload = IAnything>
     extends Omit<
       IOutlet<Data, Payload>,
@@ -17563,6 +17736,12 @@ declare module "react-declarative/components/WizardView/model/IWizardOutletProps
   import IAnything from "react-declarative/model/IAnything";
   import { IOutletProps } from "react-declarative/components/OutletView";
   import { OtherProps } from "react-declarative/components/WizardView/model/IWizardOutlet";
+  /**
+   * Interface for the props of the WizardOutlet component.
+   * @template Data - The type of data expected by the WizardOutlet component.
+   * @template Payload - The type of payload expected by the WizardOutlet component.
+   * @template Props - Additional props for the WizardOutlet component.
+   */
   export type IWizardOutletProps<
     Data = IAnything,
     Payload = IAnything,
@@ -17573,6 +17752,10 @@ declare module "react-declarative/components/WizardView/model/IWizardOutletProps
 
 declare module "react-declarative/components/WizardView/model/IWizardStep" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a wizard step.
+   * @template Payload - The type of payload for the step.
+   */
   export interface IWizardStep<Payload extends IAnything = IAnything> {
     id?: string;
     isMatch?: (id: string) => boolean;
@@ -17587,6 +17770,12 @@ declare module "react-declarative/components/WizardView/model/IWizardModal" {
   import IAnything from "react-declarative/model/IAnything";
   import IWizardOutlet from "react-declarative/components/WizardView/model/IWizardOutlet";
   import IWizardModalProps from "react-declarative/components/WizardView/model/IWizardModalProps";
+  /**
+   * Represents a modal wizard with specific data and payload types.
+   *
+   * @template Data - The type of data passed to the wizard.
+   * @template Payload - The type of payload returned by the wizard.
+   */
   export type IWizardModal<Data = IAnything, Payload = IAnything> = Omit<
     IWizardOutlet<Data, Payload>,
     keyof {
@@ -17604,6 +17793,11 @@ declare module "react-declarative/components/WizardView/model/IWizardModalProps"
   type ModalOtherProps = {
     onClose: () => void;
   };
+  /**
+   * Interface for the props of the WizardModal component.
+   * @template Data - The type of data for the wizard.
+   * @template Payload - The type of payload for the wizard.
+   */
   export type IWizardModalProps<
     Data = IAnything,
     Payload = IAnything,
@@ -19371,6 +19565,9 @@ declare module "react-declarative/components/FeatureView/model/IFeatureViewProps
   import { SxProps } from "@mui/material";
   import IFeatureGroup from "react-declarative/components/FeatureView/model/IFeatureGroup";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the props for the FeatureView component.
+   */
   export interface IFeatureViewProps {
     changeSubject?: TSubject<any>;
     data?: string[] | null;
@@ -19391,6 +19588,9 @@ declare module "react-declarative/components/VisibilityView/model/IVisibilityVie
   import { SxProps } from "@mui/material";
   import IVisibilityGroup from "react-declarative/components/VisibilityView/model/IVisibilityGroup";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface representing the props for the VisibilityView component.
+   */
   export interface IVisibilityViewProps {
     changeSubject?: TSubject<any>;
     outlinePaper?: boolean;
@@ -19465,6 +19665,9 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
   } from "react-declarative/components/Scaffold2/model/IScaffold2Group";
   import IScaffold2Action from "react-declarative/components/Scaffold2/model/IScaffold2Action";
   import Payload from "react-declarative/components/Scaffold2/model/Payload";
+  /**
+   * Represents the properties of the IScaffold2 component.
+   */
   export interface IScaffold2Props<T = Payload> {
     noOptionHover?: boolean;
     noContent?: boolean;
@@ -20400,6 +20603,14 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
   import History from "react-declarative/model/History";
   import IOutlet from "react-declarative/components/OutletView/model/IOutlet";
   import IOtherProps from "react-declarative/components/OutletView/model/IOtherProps";
+  /**
+   * Props for OutletView component
+   *
+   * @template Data - The type of the data object
+   * @template Payload - The type of the payload object
+   * @template Params - The type of the params object
+   * @template OtherProps - Additional props for the component
+   */
   export interface IOutletViewProps<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
@@ -20610,6 +20821,12 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
   } from "react-declarative/components/TabsView/model/ITabsOutlet";
   import ITabsStep from "react-declarative/components/TabsView/model/ITabsStep";
   import { MemoryHistory } from "history";
+  /**
+   * Represents the props for the ITabsView component.
+   *
+   * @template Data - The data type.
+   * @template Payload - The payload type.
+   */
   export interface ITabsViewProps<
     Data extends {} = IAnything,
     Payload = IAnything,
@@ -20646,6 +20863,12 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
     OtherProps,
   } from "react-declarative/components/WizardView/model/IWizardOutlet";
   import IWizardStep from "react-declarative/components/WizardView/model/IWizardStep";
+  /**
+   * Interface representing the props for the WizardView component.
+   *
+   * @template Data - Type of data object.
+   * @template Payload - Type of payload object.
+   */
   export interface IWizardViewProps<
     Data extends {} = IAnything,
     Payload = IAnything,

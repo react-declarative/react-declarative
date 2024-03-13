@@ -11,6 +11,12 @@ export type OtherProps = {
     setProgress: (progress: number) => void;
 };
 
+/**
+ * Represents an interface for a wizard outlet.
+ *
+ * @template Data - The data type for the outlet.
+ * @template Payload - The payload type for the outlet.
+ */
 export interface IWizardOutlet<Data = IAnything, Payload = IAnything> extends Omit<IOutlet<Data, Payload>, keyof {
     element: never;
 }> {

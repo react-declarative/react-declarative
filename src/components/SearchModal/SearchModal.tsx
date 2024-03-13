@@ -27,6 +27,13 @@ import ISize from "../../model/ISize";
 const MODAL_ROOT = "search-modal__root";
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Represents the properties for the Search Modal component.
+ * @template FilterData - The type for the filter data.
+ * @template RowData - The type for the row data.
+ * @template Payload - The type for the payload data.
+ * @template Field - The type for the field.
+ */
 export interface ISearchModalProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

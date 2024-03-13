@@ -6,6 +6,15 @@ const GRID_MAX_WIDTH = 9999999999999999;
 
 const match = (from: number, to: number) => (width: number) => width >= from && width < to;
 
+/**
+ * Returns an object with boolean properties indicating whether the given width matches the responsive breakpoints.
+ *
+ * @param width - The width to check against the responsive breakpoints.
+ * @returns - An object with the following properties:
+ *      - isPhone: A boolean indicating whether the width matches the phone breakpoint.
+ *      - isTablet: A boolean indicating whether the width matches the tablet breakpoint.
+ *      - isDesktop: A boolean indicating whether the width matches the desktop breakpoint.
+ */
 export const useConstraint = (width: number) => {
     const theme = useTheme();
 

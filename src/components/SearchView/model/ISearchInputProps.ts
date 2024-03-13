@@ -2,6 +2,9 @@ import ISearchViewProps from "./ISearchViewProps";
 
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Represents the properties for the SearchInput component.
+ */
 export interface ISearchInputProps {
   placeholder?: string;
   type: Exclude<ISearchViewProps["type"], undefined>;

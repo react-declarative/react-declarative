@@ -1,5 +1,7 @@
 # IScaffold2Tab
 
+Represents a tab in the Scaffold2 component.
+
 ## Properties
 
 ### id

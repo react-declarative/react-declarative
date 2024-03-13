@@ -1,5 +1,7 @@
 # ITabsOutlet
 
+Represents a tab outlet component.
+
 ## Properties
 
 ### element

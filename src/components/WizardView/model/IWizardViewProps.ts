@@ -6,6 +6,12 @@ import IOutletViewProps from "../../OutletView/model/IOutletViewProps";
 import IWizardOutlet, { OtherProps } from "./IWizardOutlet";
 import IWizardStep from "./IWizardStep";
 
+/**
+ * Interface representing the props for the WizardView component.
+ *
+ * @template Data - Type of data object.
+ * @template Payload - Type of payload object.
+ */
 export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
     history: never;
     routes: never;

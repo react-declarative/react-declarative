@@ -1,5 +1,7 @@
 # IWizardOutlet
 
+Represents an interface for a wizard outlet.
+
 ## Properties
 
 ### element

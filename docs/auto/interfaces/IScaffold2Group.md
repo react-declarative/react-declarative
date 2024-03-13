@@ -1,5 +1,7 @@
 # IScaffold2Group
 
+Interface representing a group in IScaffold2.
+
 ## Properties
 
 ### id

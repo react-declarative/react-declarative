@@ -1,5 +1,7 @@
 # ISearchItemProps
 
+Represents the properties for a search item.
+
 ## Properties
 
 ### disabled

@@ -1,5 +1,7 @@
 # IWizardStep
 
+Represents a wizard step.
+
 ## Properties
 
 ### id

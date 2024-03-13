@@ -1,5 +1,7 @@
 # IScaffold2Action
 
+Represents an action for a scaffold.
+
 ## Properties
 
 ### isVisible

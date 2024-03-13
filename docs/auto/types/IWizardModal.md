@@ -8,4 +8,4 @@ export type IWizardModal<Data = IAnything, Payload = IAnything> = Omit<IWizardOu
 };
 ```
 
-
+Represents a modal wizard with specific data and payload types.

@@ -1,5 +1,7 @@
 # IOutlet
 
+Represents an outlet that can be used to render content in a specific location in a React application.
+
 ## Properties
 
 ### id

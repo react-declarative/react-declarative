@@ -6,6 +6,9 @@ import IScaffold2Group, { IScaffold2GroupInternal } from "./IScaffold2Group";
 import IScaffold2Action from "./IScaffold2Action";
 import Payload from "./Payload";
 
+/**
+ * Represents the properties of the IScaffold2 component.
+ */
 export interface IScaffold2Props<T = Payload> {
     noOptionHover?: boolean;
     noContent?: boolean;
