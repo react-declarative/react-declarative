@@ -2,7 +2,7 @@
 
 # ⚛️ react-declarative
 
-> [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) and [docs folder](./docs/) for more samples...
+> [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) and [docs folder](./docs/Readme.md) for more samples...
 
 [![npm](https://img.shields.io/npm/v/react-declarative.svg?style=flat-square)](https://npmjs.org/package/react-declarative)
 
@@ -110,7 +110,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 ## Demos
 
 > [!NOTE]
-> The `react-declarative` is not just a form builder. This one is the huge framework with dashboard adaptive cards builder, crud-based Grid component and more.<br> Check [the docs folder](./docs/)
+> The `react-declarative` is not just a form builder. This one is the huge framework with dashboard adaptive cards builder, crud-based Grid component and more.<br> Check [the docs folder](./docs/Readme.md)
 
 This tool also provide it's own way of rapid application development by simplifying app state managament. New features appear frequently, so you should be able to [read the project's storybook](https://github.com/react-declarative/react-declarative-storybook), browse [an organization with sample projects](https://github.com/react-declarative), and [read the source code](https://github.com/react-declarative/react-declarative)
 
