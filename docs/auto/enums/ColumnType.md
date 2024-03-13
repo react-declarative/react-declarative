@@ -9,3 +9,5 @@ export enum ColumnType {
     Component = "component-cell"
 }
 ```
+
+Represents the possible types of a column in a table.

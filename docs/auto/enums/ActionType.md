@@ -7,3 +7,5 @@ export enum ActionType {
     Menu = "menu-action"
 }
 ```
+
+Represents different types of actions.

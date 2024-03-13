@@ -2557,6 +2557,9 @@ declare module "react-declarative/model/FieldType" {
 }
 
 declare module "react-declarative/model/ColumnType" {
+  /**
+   * Represents the possible types of a column in a table.
+   */
   export enum ColumnType {
     Text = "text-cell",
     Action = "action-cell",
@@ -2568,6 +2571,9 @@ declare module "react-declarative/model/ColumnType" {
 }
 
 declare module "react-declarative/model/ActionType" {
+  /**
+   * Represents different types of actions.
+   */
   export enum ActionType {
     Add = "add-action",
     Fab = "fab-action",
@@ -21161,6 +21167,9 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailPro
 }
 
 declare module "react-declarative/model/DisplayMode" {
+  /**
+   * Enum representing the display modes for different devices.
+   */
   export enum DisplayMode {
     Phone = "phone",
     Tablet = "tablet",

@@ -1,3 +1,6 @@
+/**
+ * Enum representing the display modes for different devices.
+ */
 export enum DisplayMode {
     Phone = 'phone',
     Tablet = 'tablet',

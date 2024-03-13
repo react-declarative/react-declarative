@@ -7,3 +7,5 @@ export enum DisplayMode {
     Desktop = "desktop"
 }
 ```
+
+Enum representing the display modes for different devices.

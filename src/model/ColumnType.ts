@@ -1,3 +1,6 @@
+/**
+ * Represents the possible types of a column in a table.
+ */
 export enum ColumnType {
     Text = 'text-cell',
     Action = 'action-cell',
