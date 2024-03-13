@@ -51,10 +51,11 @@
   },
   "scripts": {
     "start": "sh ./scripts/start.sh",
-    "build": "rimraf dist && node ./scripts/build.js && npm run typedef",
+    "build": "rimraf dist && node ./scripts/build.js && npm run typedef && npm run docs",
     "typedef": "tsc --emitDeclarationOnly --outDir ./dist/types && node ./scripts/dts.js",
     "postinstall": "node ./scripts/postinstall.js",
     "lint": "eslint --fix --ext .ts,.tsx --ignore-pattern .d.ts ./src",
+    "docs": "rimraf docs/auto && node ./scripts/dts-docs.js ./demo/src/react-declarative.d.ts ./docs/auto",
     "test": "jest --env=jsdom"
   },
   "files": [

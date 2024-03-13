@@ -861,10 +861,25 @@ declare module "react-declarative/model/TypedField" {
   import { IInitFieldProps } from "react-declarative/components/One/fields/InitField";
   import { IDictFieldProps } from "react-declarative/components/One/fields/DictField";
   import { ITreeFieldProps } from "react-declarative/components/One/fields/TreeField";
+  /**
+   * Represents a class that excludes certain properties from a given type.
+   *
+   * @template Data - The type of data for the managed object.
+   * @template Payload - The type of payload for the managed object.
+   * @type Exclude<Data, Payload>
+   */
   type Exclude<Data = IAnything, Payload = IAnything> = Omit<
     IManaged<Data, Payload>,
     keyof IEntity<Data, Payload>
   >;
+  /**
+   * A factory class for creating typed fields.
+   *
+   * @template Type - The type of field.
+   * @template Fields - The interface for the fields.
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   */
   type TypedFieldFactory<
     Type extends FieldType,
     Fields extends {},
@@ -875,6 +890,20 @@ declare module "react-declarative/model/TypedField" {
   } & {
     type: Type;
   };
+  /**
+   * Represents a factory for creating typed fields with a shallow data structure.
+   *
+   * @template Type - The type of the field.
+   * @template Fields - The field definitions.
+   * @template Data - The data type.
+   * @template Payload - The payload type.
+   *
+   * @typedef {Object} TypedFieldFactoryShallow
+   * @property {Type} Type - The type of the field.
+   * @property {Fields} Fields - The field definitions.
+   * @property {Data} Data - The data type.
+   * @property {Payload} Payload - The payload type.
+   */
   type TypedFieldFactoryShallow<
     Type extends FieldType,
     Fields extends {},
@@ -1270,6 +1299,11 @@ declare module "react-declarative/model/IField" {
   import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
   import IFieldMenu from "react-declarative/model/IFieldMenu";
   import ITreeNode from "react-declarative/model/ITreeNode";
+  /**
+   * Represents any possible variable value of <One /> component field.
+   *
+   * @typedef {string | string[] | number | boolean | null} Value - Represents a value in JavaScript.
+   */
   export type Value = string | string[] | number | boolean | null;
   /**
    * Объект поля для прикладного программиста
@@ -2003,6 +2037,12 @@ declare module "react-declarative/model/IManaged" {
   export type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
   };
+  /**
+   * Represents a layout with various properties that control its visibility, disabled state, and other features.
+   *
+   * @template Data - The data type used by the layout.
+   * @template Payload - The payload type used by the layout.
+   */
   export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
     isDisabled?: PickProp<IField<Data, Payload>, "isDisabled">;
@@ -2114,6 +2154,13 @@ declare module "react-declarative/model/IColumn" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
   import { Value } from "react-declarative/model/IField";
+  /**
+   * Represents a column in a table.
+   *
+   * @template FilterData - The type of filter data that can be used with the column.
+   * @template RowData - The type of row data used in the table.
+   * @template Payload - The type of payload used with the column.
+   */
   export interface IColumn<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2467,6 +2514,9 @@ declare module "react-declarative/components/One/api/useApiHandler" {
 }
 
 declare module "react-declarative/model/FieldType" {
+  /**
+   * Represents the type of a field in a <One /> component.
+   */
   export enum FieldType {
     Layout = "custom-layout",
     Switch = "switch-field",
@@ -2527,6 +2577,11 @@ declare module "react-declarative/model/ActionType" {
 }
 
 declare module "react-declarative/model/SelectionMode" {
+  /**
+   * Enum representing different selection modes.
+   *
+   * @enum
+   */
   export enum SelectionMode {
     Single = "single-selection",
     Multiple = "multiple-selection",
@@ -2539,6 +2594,12 @@ declare module "react-declarative/model/IListApi" {
   import { IListState } from "react-declarative/model/IListProps";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents an API for manipulating and retrieving data from a list.
+   *
+   * @template FilterData - The data type for the filter.
+   * @template RowData - The data type for each row in the list.
+   */
   export interface IListApi<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2556,6 +2617,10 @@ declare module "react-declarative/model/IListApi" {
 
 declare module "react-declarative/model/IOneApi" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents an interface for interacting with the One component by api ref.
+   * @template Data - The type of data that the OneApi operates on.
+   */
   export interface IOneApi<Data = IAnything> {
     reload: () => Promise<void>;
     change: (data: Data, initial?: boolean) => void;
@@ -2568,6 +2633,12 @@ declare module "react-declarative/model/IListOperation" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Represents an operation that can be performed on a list of row data.
+   *
+   * @template RowData The type of the row data in the list.
+   * @template Payload The type of the payload for the operation.
+   */
   export interface IListOperation<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -2593,6 +2664,12 @@ declare module "react-declarative/model/IListRowAction" {
   import IOption from "react-declarative/model/IOption";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a row action for a list row.
+   *
+   * @template RowData - The type of data for the row.
+   * @template Payload - The type of payload for the action.
+   */
   export interface IListRowAction<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -2625,6 +2702,13 @@ declare module "react-declarative/model/IListProps" {
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
+  /**
+   * An interface representing the update options for a list action.
+   *
+   * @typeparam RowData - The type of row data.
+   *
+   * @extends IListActionOption<RowData>
+   */
   interface IUpdateOption<RowData extends IRowData = IAnything>
     extends Omit<
       IListActionOption<RowData>,
@@ -2637,6 +2721,12 @@ declare module "react-declarative/model/IListProps" {
     label?: IOption["label"];
     icon?: IOption["icon"];
   }
+  /**
+   * Represents a resort option for a list action.
+   * @interface
+   * @template RowData - The type of row data for the resort option.
+   * @extends {Omit<IListActionOption<RowData>, "label" | "icon">}
+   */
   interface IResortOption<RowData extends IRowData = IAnything>
     extends Omit<
       IListActionOption<RowData>,
@@ -2649,6 +2739,14 @@ declare module "react-declarative/model/IListProps" {
     label?: IOption["label"];
     icon?: IOption["icon"];
   }
+  /**
+   * Represents the options for the "drop-filters" action in a list.
+   *
+   * @template RowData - The type of the row data.
+   *
+   * @interface IDropFiltersOption
+   * @extends {Omit<IListActionOption<RowData>, 'label' | 'icon'>}
+   */
   interface IDropFiltersOption<RowData extends IRowData = IAnything>
     extends Omit<
       IListActionOption<RowData>,
@@ -2661,6 +2759,11 @@ declare module "react-declarative/model/IListProps" {
     label?: IOption["label"];
     icon?: IOption["icon"];
   }
+  /**
+   * Represents an option for adding filters.
+   *
+   * @template RowData - The type of the row data.
+   */
   interface IAddFiltersOption<RowData extends IRowData = IAnything>
     extends Omit<
       IListActionOption<RowData>,
@@ -2673,6 +2776,12 @@ declare module "react-declarative/model/IListProps" {
     label?: IOption["label"];
     icon?: IOption["icon"];
   }
+  /**
+   * Represents an option for a list action.
+   *
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   */
   export interface IListActionOption<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -2692,6 +2801,11 @@ declare module "react-declarative/model/IListProps" {
       payload: Payload,
     ) => Promise<boolean> | boolean;
   }
+  /**
+   * Represents an action that can be performed on a list of data.
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   */
   export interface IListAction<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -2716,31 +2830,75 @@ declare module "react-declarative/model/IListProps" {
       | IAddFiltersOption<RowData>
     )[];
   }
+  /**
+   * Represents a chip in a list.
+   *
+   * @template RowData - The type of the row data associated with the chip.
+   */
   export interface IListChip<RowData extends IRowData = IAnything> {
     name: keyof RowData;
     label: string;
     color?: string;
     enabled?: boolean;
   }
+  /**
+   * Represents the result of a list handling operation.
+   *
+   * @template RowData - The type of the row data.
+   * @typedef {RowData[]} ListHandlerResult
+   * @typedef {{
+   *   rows: RowData[];
+   *   total: number | null;
+   * }} ListHandlerResult[]
+   */
   export type ListHandlerResult<RowData extends IRowData = IAnything> =
     | RowData[]
     | {
         rows: RowData[];
         total: number | null;
       };
+  /**
+   * Represents the avatar for the list item.
+   * @typedef {Object} ListAvatar
+   * @property  [src] - The source URL for the avatar image.
+   * @property  [alt] - The alternate text for the avatar image.
+   */
   export type ListAvatar = {
     src?: string;
     alt?: string;
   };
+  /**
+   * Represents a pagination handler for a list.
+   *
+   * @typedef {Object} ListHandlerPagination
+   * @property  limit - The number of items to retrieve per page.
+   * @property  offset - The starting index of the items to retrieve.
+   */
   export type ListHandlerPagination = {
     limit: number;
     offset: number;
   };
+  /**
+   * Represents a list handler for chips.
+   * @template RowData - The type of row data.
+   */
   export type ListHandlerChips<RowData extends IRowData = IAnything> = Partial<
     Record<keyof RowData, boolean>
   >;
+  /**
+   * Represents a sorting model for a list handler.
+   *
+   * @template RowData - The type of data in list rows.
+   */
   export type ListHandlerSortModel<RowData extends IRowData = IAnything> =
     IListSortItem<RowData>[];
+  /**
+   * Represents a ListHandler class that handles filtering, pagination, sorting, and searching data.
+   *
+   * @param <FilterData> The type of data used for filtering.
+   * @param <RowData> The type of data in each row.
+   * @param <Payload> Optional payload data.
+   */
   export type ListHandler<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2755,6 +2913,12 @@ declare module "react-declarative/model/IListProps" {
         search: string,
         payload: Payload,
       ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
+  /**
+   * Represents the state of a list.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   */
   export interface IListState<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2774,6 +2938,12 @@ declare module "react-declarative/model/IListProps" {
     chips: ListHandlerChips<RowData>;
     rerender: boolean;
   }
+  /**
+   * Interface contract for callback functions used in IList functionality.
+   *
+   * @template FilterData - The type of data to be used in filter operations.
+   * @template RowData - The type of data contained in each row.
+   */
   export interface IListCallbacks<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2791,6 +2961,13 @@ declare module "react-declarative/model/IListProps" {
     handleRerender: () => void;
     ready: () => void;
   }
+  /**
+   * Represents a slot of position action in a list.
+   * @interface
+   * @template FilterData - The type of filter data.
+   * @template RowData - The type of row data.
+   * @template Payload - The type of payload.
+   */
   export interface IPositionActionListSlot<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2803,10 +2980,21 @@ declare module "react-declarative/model/IListProps" {
     search: string;
     payload: Payload;
   }
+  /**
+   * Represents an item used for sorting in a list.
+   * @template RowData - The type of the row data in the list.
+   */
   export interface IListSortItem<RowData extends IRowData = IAnything> {
     field: keyof RowData;
     sort: "asc" | "desc";
   }
+  /**
+   * Interface for the List datagrid component props.
+   * @template FilterData The type of the filter data.
+   * @template RowData The type of the row data.
+   * @template Payload The type of the payload.
+   * @template Field The type of the field.
+   */
   export interface IListProps<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2948,6 +3136,11 @@ declare module "react-declarative/model/IListProps" {
 
 declare module "react-declarative/model/IOption" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents an option for a specific action or behavior.
+   *
+   * @template Payload - The payload type for evaluating option visibility and disabled state.
+   */
   export interface IOption<Payload = IAnything> {
     label?: string;
     action?: string;
@@ -2961,6 +3154,11 @@ declare module "react-declarative/model/IOption" {
 
 declare module "react-declarative/model/IBreadcrumbsOption" {
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Represents the options for the Breadcrumbs component.
+   *
+   * @template T - The type of the payload that can be passed to the isVisible and isDisabled functions.
+   */
   export interface IBreadcrumbsOption<T extends any = any>
     extends Omit<
       IOption,
@@ -3301,6 +3499,11 @@ declare module "react-declarative/utils/parseRouteUrl" {
 
 declare module "react-declarative/model/IMenuGroup" {
   import * as React from "react";
+  /**
+   * Represents a menu option.
+   *
+   * @template T - The type of the payload for dynamic properties.
+   */
   export interface IMenuOption<T extends any = any> {
     name?: string;
     label: string;
@@ -3336,6 +3539,9 @@ declare module "react-declarative/model/IOneProps" {
     | ((payload: Payload) => DataOrNull<Data>)
     | ((payload: Payload) => Promise<DataOrNull<Data>>)
     | null;
+  /**
+   * Properties of the <One /> template engine component
+   */
   export interface IOneProps<
     Data = IAnything,
     Payload = IAnything,
@@ -4901,6 +5107,10 @@ declare module "react-declarative/model/IAnything" {
 }
 
 declare module "react-declarative/model/IRowData" {
+  /**
+   * Represents a data row in a table.
+   * @interface
+   */
   export interface IRowData {
     id: RowId;
   }
@@ -4967,6 +5177,16 @@ declare module "react-declarative/model/IOnePublicProps" {
   import IAnything from "react-declarative/model/IAnything";
   import IField, { Value } from "react-declarative/model/IField";
   import IOneProps from "react-declarative/model/IOneProps";
+  /**
+   * Represents the interface for the public properties of the class IOnePublicProps.
+   *
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   * @template Field - The type of field.
+   *
+   * @interface IOnePublicProps
+   * @extends Omit<IOneProps<Data, Payload, Field>, keyof { features: never }>
+   */
   export interface IOnePublicProps<
     Data = IAnything,
     Payload = IAnything,
@@ -4996,6 +5216,10 @@ declare module "react-declarative/model/IOnePublicProps" {
 
 declare module "react-declarative/model/History" {
   import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+  /**
+   * Represents a history object used for navigation.
+   * @typedef {(MemoryHistory | BrowserHistory | HashHistory)} History
+   */
   export type History = MemoryHistory | BrowserHistory | HashHistory;
   export default History;
 }
@@ -6424,6 +6648,11 @@ declare module "react-declarative/utils/replaceSubstring" {
 }
 
 declare module "react-declarative/model/TSubject" {
+  /**
+   * Interface representing a subject that can be subscribed to and trigger callbacks when data is updated.
+   *
+   * @template Data - The type of data that the subject emits.
+   */
   export interface TSubject<Data = unknown> {
     subscribe: (callback: (data: Data) => void) => () => void;
     once: (callback: (data: Data) => void) => () => void;
@@ -6434,6 +6663,12 @@ declare module "react-declarative/model/TSubject" {
 
 declare module "react-declarative/model/TBehaviorSubject" {
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents a behavior subject.
+   * @template Data The type of data that the behavior subject holds.
+   * @extends TSubject<Data>
+   * @interface
+   */
   export interface TBehaviorSubject<Data = unknown> extends TSubject<Data> {
     data: Data | null;
   }
@@ -6441,6 +6676,12 @@ declare module "react-declarative/model/TBehaviorSubject" {
 }
 
 declare module "react-declarative/model/TObserver" {
+  /**
+   * TObserver is an interface that represents an observable object.
+   * It provides various methods to transform, filter, merge, and consume data emitted by the observable.
+   *
+   * @template Data - The type of data emitted by the observable.
+   */
   export interface TObserver<Data = unknown> {
     unsubscribe: () => void;
     map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
@@ -6490,6 +6731,22 @@ declare module "react-declarative/model/TPaginator" {
     ListHandlerSortModel,
   } from "react-declarative/model/IListProps";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Type definition for TPaginator.
+   *
+   * @template FilterData - The type of data used for filtering.
+   * @template RowData - The type of data representing a row.
+   * @template Payload - The type of additional payload data.
+   *
+   * @param data - The filter data.
+   * @param pagination - The pagination settings.
+   * @param sort - The sorting settings.
+   * @param chips - The chip filters.
+   * @param search - The search string.
+   * @param payload - The additional payload data.
+   *
+   * @returns A promise that resolves to either an array of row data or an object containing rows and total count.
+   */
   export type TPaginator<
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -10309,6 +10566,11 @@ declare module "react-declarative/components/One/fields/TreeField" {
 declare module "react-declarative/model/ComponentFieldInstance" {
   import type IField from "react-declarative/model/IField";
   import type IManaged from "react-declarative/model/IManaged";
+  /**
+   * Represents parameters for a component field element callback.
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   */
   export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     onChange: (data: Partial<Data>) => void;
     _fieldData: Data;
@@ -10339,6 +10601,11 @@ declare module "react-declarative/model/ComponentFieldInstance" {
 
 declare module "react-declarative/model/ISize" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a size with height and width dimensions.
+   *
+   * @interface
+   */
   export interface ISize {
     height: number;
     width: number;
@@ -10455,6 +10722,11 @@ declare module "react-declarative/model/IFieldMenu" {
   import IAnything from "react-declarative/model/IAnything";
   import { Value } from "react-declarative/model/IField";
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Represents a field menu.
+   * @template Data - The type of data for the menu.
+   * @template Payload - The type of payload for the menu.
+   */
   export interface IFieldMenu<Data = IAnything, Payload = IAnything>
     extends Omit<
       IOption,
@@ -10477,6 +10749,9 @@ declare module "react-declarative/model/IFieldMenu" {
 
 declare module "react-declarative/model/ITreeNode" {
   import INode from "react-declarative/components/TreeView/model/INode";
+  /**
+   * Represents a Node in a tree structure.
+   */
   export interface ITreeNode extends INode {}
   export default ITreeNode;
 }
@@ -11848,6 +12123,11 @@ declare module "react-declarative/components/ModalManager/ModalManagerProvider" 
 
 declare module "react-declarative/components/ModalManager/model/IModal" {
   import ModalRender from "react-declarative/components/ModalManager/model/ModalRender";
+  /**
+   * Represents a modal component.
+   *
+   * @interface IModal
+   */
   export interface IModal {
     id: string;
     render: ModalRender;
@@ -11900,6 +12180,13 @@ declare module "react-declarative/components/CardView/CardView" {
 declare module "react-declarative/components/CardView/model/ICardViewAction" {
   import IOption from "react-declarative/model/IOption";
   import IItemData from "react-declarative/components/CardView/model/IItemData";
+  /**
+   * Represents an interface for an action in a card view.
+   * This interface extends the Omit<IOption, keyof { isVisible: never; isDisabled: never; }> interface.
+   *
+   * @template ItemData - The type of data associated with the item.
+   * @template Payload - The type of payload.
+   */
   export interface ICardViewAction<
     ItemData extends IItemData = any,
     Payload extends any = any,
@@ -11922,6 +12209,12 @@ declare module "react-declarative/components/CardView/model/ICardViewAction" {
 declare module "react-declarative/components/CardView/model/ICardViewOperation" {
   import { IActionTrigger } from "react-declarative/components/ActionTrigger";
   import IItemData from "react-declarative/components/CardView/model/IItemData";
+  /**
+   * Interface representing an operation for a card view.
+   *
+   * @template ItemData - The type of the item data.
+   * @template Payload - The type of the payload.
+   */
   export interface ICardViewOperation<
     ItemData extends IItemData = any,
     Payload extends any = any,
@@ -11941,6 +12234,10 @@ declare module "react-declarative/components/CardView/model/ICardViewOperation" 
 }
 
 declare module "react-declarative/components/CardView/model/IItemData" {
+  /**
+   * Represents the data of an item.
+   * @interface
+   */
   export interface IItemData {
     id: string | number;
   }
@@ -11971,6 +12268,14 @@ declare module "react-declarative/components/CalendarView/CalendarView" {
 declare module "react-declarative/components/CalendarView/model/ICalendarItem" {
   import IAnything from "react-declarative/model/IAnything";
   import { stamp } from "react-declarative/utils/getMomentStamp";
+  /**
+   * Represents a calendar item.
+   *
+   * @export
+   * @interface ICalendarItem
+   * @template Data The type of data associated with the calendar item.
+   * @template Payload The type of payload associated with the calendar item.
+   */
   export interface ICalendarItem<Data = IAnything, Payload = IAnything> {
     data: Data;
     payload: Payload;
@@ -11981,6 +12286,10 @@ declare module "react-declarative/components/CalendarView/model/ICalendarItem" {
 
 declare module "react-declarative/components/CalendarView/model/ICalendarRequest" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a calendar request.
+   * @template Payload - The type of payload for the calendar request.
+   */
   export interface ICalendarRequest<Payload extends IAnything = IAnything> {
     payload: Payload;
     fromStamp: number;
@@ -11992,6 +12301,12 @@ declare module "react-declarative/components/CalendarView/model/ICalendarRequest
 declare module "react-declarative/components/CalendarView/model/ICalendarTile" {
   import IAnything from "react-declarative/model/IAnything";
   import { ITile } from "react-declarative/components/Tile";
+  /**
+   * Represents a calendar tile.
+   *
+   * @template Data - The type of data associated with the tile.
+   * @template Payload - The type of additional payload associated with the tile.
+   */
   export interface ICalendarTile<Data = IAnything, Payload = IAnything>
     extends Omit<
       ITile<Data, Payload>,
@@ -12516,6 +12831,9 @@ declare module "react-declarative/components/Breadcrumbs2/Breadcrumbs2" {
 }
 
 declare module "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type" {
+  /**
+   * Represents the type of breadcrumbs in Breadcrumbs2.
+   */
   export enum Breadcrumbs2Type {
     Link = "breadcrumbs2-link",
     Button = "breadcrumbs2-button",
@@ -12527,6 +12845,10 @@ declare module "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type
 declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action" {
   import IAnything from "react-declarative/model/IAnything";
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Interface for defining actions related to breadcrumbs with optional data payload.
+   * @template Data - The type of the data payload.
+   */
   export interface IBreadcrumbs2Action<Data = IAnything>
     extends Omit<
       IOption,
@@ -12546,6 +12868,11 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
   import IAnything from "react-declarative/model/IAnything";
   import IOption from "react-declarative/model/IOption";
   import Breadcrumbs2Type from "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type";
+  /**
+   * Represents an option configuration for IBreadcrumbs2 component.
+   *
+   * @template Data - The type of additional data associated with the option.
+   */
   export interface IBreadcrumbs2Option<Data = IAnything>
     extends Omit<
       IOption,
@@ -12633,6 +12960,9 @@ declare module "react-declarative/components/SearchView/model/ICreateButtonProps
 }
 
 declare module "react-declarative/components/TreeView/model/INode" {
+  /**
+   * Represents a Node in a tree structure.
+   */
   export interface INode {
     label: string;
     value: string;
@@ -14170,6 +14500,10 @@ declare module "react-declarative/components/Scaffold/Scaffold" {
 declare module "react-declarative/components/Scaffold/model/IScaffoldProps" {
   import IMenuGroup from "react-declarative/model/IMenuGroup";
   import IScaffoldOption from "react-declarative/components/Scaffold/model/IScaffoldOption";
+  /**
+   * The interface for the Scaffold component props.
+   * @template T - The type of the payload data.
+   */
   export interface IScaffoldProps<T extends any = any> {
     children: React.ReactNode;
     className?: string;
@@ -14204,6 +14538,10 @@ declare module "react-declarative/components/Scaffold/model/IScaffoldProps" {
 
 declare module "react-declarative/components/Scaffold/model/IScaffoldOption" {
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Interface representing the options for scaffolding.
+   * @template T - The payload type.
+   */
   export interface IScaffoldOption<T extends any = any>
     extends Omit<
       IOption,
@@ -14700,6 +15038,10 @@ declare module "react-declarative/components/ActionFilter/ActionFilter" {
 }
 
 declare module "react-declarative/components/ActionFilter/model/IActionFilter" {
+  /**
+   * Represents an action filter.
+   * @interface
+   */
   export interface IActionFilter {
     action: string;
     label: string;
@@ -14754,6 +15096,10 @@ declare module "react-declarative/components/ActionTrigger/ActionTrigger" {
 declare module "react-declarative/components/ActionTrigger/model/IActionTrigger" {
   import IAnything from "react-declarative/model/IAnything";
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Represents an action trigger that determines when an action can be triggered.
+   * @template Data - The type of data that the trigger function will receive.
+   */
   export interface IActionTrigger<Data extends any = IAnything>
     extends Omit<
       IOption,
@@ -18807,6 +19153,10 @@ declare module "react-declarative/components/MasterDetail/config" {
 
 declare module "react-declarative/components/MasterDetail/model/IMasterDetailOption" {
   import React from "react";
+  /**
+   * Represents a configuration option for a master-detail component.
+   * @template Payload - The type of payload that the option functions will receive.
+   */
   export interface IMasterDetailOption<Payload = any> {
     id: string;
     icon?: React.ComponentType<any>;
@@ -18815,6 +19165,11 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailOpt
     isDisabled?: (payload: Payload) => boolean | Promise<boolean>;
     isActive?: (payload: Payload) => boolean | Promise<boolean>;
   }
+  /**
+   * Represents an internal interface for a master-detail option.
+   *
+   * @template Payload - The type of payload associated with the option.
+   */
   export interface IMasterDetailOptionInternal<Payload = any>
     extends Omit<
       IMasterDetailOption<Payload>,
@@ -18832,6 +19187,9 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailOpt
 }
 
 declare module "react-declarative/components/MasterDetail/model/MasterDetailMode" {
+  /**
+   * Represents the available modes for a master-detail view.
+   */
   export enum MasterDetailMode {
     Paper = "paper",
     Outline = "outline",
@@ -18890,6 +19248,15 @@ declare module "react-declarative/components/CardView/model/ICardViewProps" {
   import ICardViewOperation from "react-declarative/components/CardView/model/ICardViewOperation";
   import ICardViewAction from "react-declarative/components/CardView/model/ICardViewAction";
   import IItemData from "react-declarative/components/CardView/model/IItemData";
+  /**
+   * Represents the properties for the CardView component.
+   *
+   * @template ItemData - The type of data for each item in the CardView.
+   * @template Payload - The type of payload.
+   *
+   * @interface ICardViewProps
+   * @extends {BoxProps}
+   */
   export interface ICardViewProps<
     ItemData extends IItemData = any,
     Payload extends any = any,
@@ -18938,6 +19305,12 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
   import { stamp } from "react-declarative/utils/getMomentStamp";
   import IAnything from "react-declarative/model/IAnything";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface representing the props for the CalendarView component.
+   *
+   * @template Data The type of data associated with each calendar item.
+   * @template Payload The type of payload associated with each calendar item.
+   */
   export interface ICalendarViewProps<
     Data extends IAnything = IAnything,
     Payload extends IAnything = IAnything,
@@ -19037,6 +19410,9 @@ declare module "react-declarative/components/VisibilityView/model/IVisibilityVie
 
 declare module "react-declarative/components/RecordView/model/IData" {
   export type Value = boolean | number | string;
+  /**
+   * Represents a data structure that can hold various types of data.
+   */
   export interface IData {
     [key: string]: IData[] | Value[] | IData | Value;
   }
@@ -19048,6 +19424,13 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
   import { GridSize, BoxProps } from "@mui/material";
   import IData from "react-declarative/components/RecordView/model/IData";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for the props of the RecordView component.
+   *
+   * @template Data - The type of the data.
+   * @template Payload - The type of the payload.
+   * @extends BoxProps - Props for the Box component.
+   */
   export interface IRecordViewProps<Data = IData, Payload = IAnything>
     extends BoxProps {
     background?: string;
@@ -19832,6 +20215,12 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
   import { IconButtonProps } from "@mui/material/IconButton";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties of a context menu button component.
+   *
+   * @template Data - The type of data associated with the button.
+   * @template Payload - The type of payload associated with the button.
+   */
   export interface IOneButtonProps<
     Data extends {} = IAnything,
     Payload extends IAnything = IAnything,
@@ -19886,6 +20275,26 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
   import { ButtonProps } from "@mui/material/Button";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * @interface IOneButtonProps
+   * @template Data - The data type of the IField object's data property
+   * @template Payload - The payload type of the IField object
+   * @property [noBadge] - Determines whether to display a badge on the button. Default is false.
+   * @property [fieldDebounce] - The debounce time in milliseconds for field changes. Default is null.
+   * @property [waitForChangesDelay] - The delay time in milliseconds to wait for changes before invoking the handler. Default is null.
+   * @property fields - An array of IField objects representing the fields associated with the button.
+   * @property [payload] - The payload to be passed to the handler when the button is clicked.
+   * @property handler - The handler function to be invoked when the button is clicked.
+   * @property [onChange] - The change callback function for the button. Default is null.
+   * @property [onInvalid] - The invalidity callback function for the button. Default is null.
+   * @property [onFocus] - The focus callback function for the button. Default is null.
+   * @property [onBlur] - The blur callback function for the button. Default is null.
+   * @property [badgeColor] - The color of the badge. Default is 'primary'.
+   * @property [badgeOverlap] - The overlap type for the badge. Default is 'rectangular'.
+   * @property [badgeSx] - The style for the badge. Default is null.
+   * @property [oneSx] - The style for the button. Default is null.
+   * @property [color] - The color of the button. Default is 'inherit'.
+   */
   export interface IOneButtonProps<
     Data extends {} = IAnything,
     Payload extends IAnything = IAnything,
@@ -19936,6 +20345,9 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
 declare module "react-declarative/components/ActionFilter/model/IActionFilterProps" {
   import React from "react";
   import IActionFilter from "react-declarative/components/ActionFilter/model/IActionFilter";
+  /**
+   * Represents the properties for the ActionFilter component.
+   */
   export interface IActionFilterProps {
     actions: IActionFilter[];
     label?: React.ReactNode;
@@ -19951,6 +20363,10 @@ declare module "react-declarative/components/ActionTrigger/model/IActionTriggerP
   import { ButtonProps } from "@mui/material/Button";
   import { BoxProps } from "@mui/material/Box";
   import { IAsyncProps } from "react-declarative/components/Async";
+  /**
+   * Interface representing the properties of an action trigger component.
+   * @template T - The type of data being passed to the component, defaults to object.
+   */
   export interface IActionTriggerProps<T extends any = object>
     extends Omit<
         IAsyncProps<T>,
@@ -20468,6 +20884,33 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailPro
   import MasterDetailMode from "react-declarative/components/MasterDetail/model/MasterDetailMode";
   import React from "react";
   import { SxProps } from "@mui/material";
+  /**
+   * Props interface for the IMasterDetail component.
+   *
+   * @template Payload - The type of the payload data.
+   *
+   * @property [withTransparentTabs=false] - Determines if the tabs should have a transparent background.
+   * @property [withMenuCollapse=false] - Determines if the menu should collapse when the detail view is open.
+   * @property [withFixedPos=false] - Determines if the component should have a fixed position.
+   * @property [fixedPosHeaderAdjust] - The number of pixels to adjust the header when the component has a fixed position.
+   * @property [mode] - The mode of the master detail component.
+   * @property [title] - The title of the component.
+   * @property children - The child components of the master detail component.
+   * @property [Loader] - The loader component to use.
+   * @property [Error] - The error component to use.
+   * @property [activeOption] - The currently active option.
+   * @property [onActiveOptionChange] - Callback function called when the active option is changed.
+   * @property [className] - The CSS class name for the component.
+   * @property [style] - The inline style for the component.
+   * @property [sx] - The custom styling props for the component.
+   * @property [payload] - The payload data.
+   * @property [deps] - The dependencies for the component.
+   * @property options - The options for the component.
+   * @property [fallback] - The fallback function in case of an error.
+   * @property [onLoadStart] - Callback function called when the data loading starts.
+   * @property [onLoadEnd] - Callback function called when the data loading ends.
+   * @property [throwError=false] - Determines if an error should be thrown.
+   */
   export interface IMasterDetailProps<Payload = any> {
     withTransparentTabs?: boolean;
     withMenuCollapse?: boolean;

@@ -64,6 +64,10 @@
 12. [Stretch](/src/components/One/layouts/StretchLayout.tsx)
 13. [Tabs](/src/components/One/layouts/TabsLayout.tsx)
 
+## See also
+
+1. [API reference](./auto/index.md)
+
 ## Overview
 
 The goal is to create a unified React component for settings-like forms. The component manages form state, handles validation, and streamlines the development process by reducing boilerplate code.
