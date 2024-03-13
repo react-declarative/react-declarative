@@ -51,6 +51,26 @@ interface IResult {
   doInit: () => void | Promise<void>;
 }
 
+/**
+ * Create a state manager with the given parameters
+ *
+ * @param params - The parameters for creating the state manager
+ * @param params.onLoadStart - A callback function called when the loading starts
+ * @param params.onLoadEnd - A callback function called when the loading ends
+ * @param [params.onInit=() => undefined] - A callback function called during initialization
+ * @param [params.fallback] - A fallback function called when an error occurs, if `throwError` is set to `false`
+ * @param [params.options] - Additional options for the state manager
+ * @param [params.payload] - Additional payload for the state manager
+ * @param [params.deps] - Dependencies for the state manager
+ * @param [params.throwError=false] - Flag indicating whether to throw an error or call the fallback function when an error occurs
+ *
+ * @returns - The state manager object with the following properties:
+ *    - `loading` (boolean) - Flag indicating whether the state manager is currently loading
+ *    - `searchText` (string) - The current search text
+ *    - `setSearchText` (Function) - A function to set the search text
+ *    - `filteredGroups` (Array) - The filtered groups based on the search text
+ *    - `doInit` (Function) - A function to initialize the state manager
+ */
 export const createStateManager = ({
   onLoadStart,
   onLoadEnd,
