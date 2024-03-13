@@ -1,3 +1,7 @@
+/**
+ * Represents an action filter.
+ * @interface
+ */
 export interface IActionFilter {
     action: string;
     label: string;

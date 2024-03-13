@@ -10,6 +10,12 @@ import { stamp } from "../../../utils/getMomentStamp";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Interface representing the props for the CalendarView component.
+ *
+ * @template Data The type of data associated with each calendar item.
+ * @template Payload The type of payload associated with each calendar item.
+ */
 export interface ICalendarViewProps<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything

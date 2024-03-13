@@ -7,6 +7,12 @@ import { IconButtonProps } from "@mui/material/IconButton";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Represents the properties of a context menu button component.
+ *
+ * @template Data - The type of data associated with the button.
+ * @template Payload - The type of payload associated with the button.
+ */
 export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IAnything = IAnything> extends Omit<IconButtonProps, keyof {
   onChange: never;
   onClick: never;

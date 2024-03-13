@@ -1,6 +1,10 @@
 import IMenuGroup from "../../../model/IMenuGroup";
 import IScaffoldOption from "./IScaffoldOption";
 
+/**
+ * The interface for the Scaffold component props.
+ * @template T - The type of the payload data.
+ */
 export interface IScaffoldProps<T extends any = any> {
     children: React.ReactNode;
     className?: string;

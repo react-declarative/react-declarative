@@ -2,6 +2,9 @@ import React from "react";
 
 import IActionFilter from "./IActionFilter";
 
+/**
+ * Represents the properties for the ActionFilter component.
+ */
 export interface IActionFilterProps {
     actions: IActionFilter[];
     label?: React.ReactNode;

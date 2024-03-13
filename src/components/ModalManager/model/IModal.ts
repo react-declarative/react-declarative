@@ -1,5 +1,10 @@
 import ModalRender from "./ModalRender";
 
+/**
+ * Represents a modal component.
+ *
+ * @interface IModal
+ */
 export interface IModal {
     id: string;
     render: ModalRender;

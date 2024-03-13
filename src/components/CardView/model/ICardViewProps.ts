@@ -7,6 +7,15 @@ import ICardViewOperation from "./ICardViewOperation";
 import ICardViewAction from "./ICardViewAction";
 import IItemData from "./IItemData";
 
+/**
+ * Represents the properties for the CardView component.
+ *
+ * @template ItemData - The type of data for each item in the CardView.
+ * @template Payload - The type of payload.
+ *
+ * @interface ICardViewProps
+ * @extends {BoxProps}
+ */
 export interface ICardViewProps<ItemData extends IItemData = any, Payload extends any = any> extends BoxProps {
     handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
     scrollXSubject?: TSubject<number>;

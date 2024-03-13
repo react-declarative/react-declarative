@@ -5,6 +5,11 @@ import IOption from "../../../model/IOption";
 
 import Breadcrumbs2Type from "./Breadcrumbs2Type";
 
+/**
+ * Represents an option configuration for IBreadcrumbs2 component.
+ *
+ * @template Data - The type of additional data associated with the option.
+ */
 export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, keyof {
     isVisible: never;
     isDisabled: never;

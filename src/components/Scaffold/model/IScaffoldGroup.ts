@@ -1,5 +1,9 @@
 import { IMenuOption } from "../../../model/IMenuGroup";
 
+/**
+ * Represents an option for scaffold.
+ * @template T - The type of the option value.
+ */
 export interface IScaffoldOption<T extends any = any> extends Omit<IMenuOption<T>, keyof {
     disabled: never;
     visible: never;
@@ -15,6 +19,10 @@ export interface IScaffoldOption<T extends any = any> extends Omit<IMenuOption<T
     bold?: boolean;
 }
 
+/**
+ * Represents a scaffold group.
+ * @template T The type of data associated with the scaffold group.
+ */
 export interface IScaffoldGroup<T extends any = any> extends IScaffoldOption<T> {
     options?: IScaffoldGroup<T>[];
 }

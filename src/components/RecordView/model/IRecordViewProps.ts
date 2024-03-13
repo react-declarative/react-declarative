@@ -4,6 +4,13 @@ import { GridSize, BoxProps } from "@mui/material";
 import IData from './IData';
 import IAnything from "../../../model/IAnything";
 
+/**
+ * Interface for the props of the RecordView component.
+ *
+ * @template Data - The type of the data.
+ * @template Payload - The type of the payload.
+ * @extends BoxProps - Props for the Box component.
+ */
 export interface IRecordViewProps<Data = IData, Payload = IAnything> extends BoxProps {
     background?: string;
     data: Data;
