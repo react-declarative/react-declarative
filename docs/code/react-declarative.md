@@ -22,5 +22,5 @@ Here are some of the key components and utilities this module declaration is def
    
 6. **Various hooks:** e.g., `useAsyncAction`, `useSingleton`, `useMediaContext`, `useWatchChanges`, `useForceUpdate`, etc. These can be used for various tasks such as handling state, managing asynchronous actions, control over rendering, and more.
 
-This module declaration file is probably auto-generated via a tool like the 'dts-bundle' (as specified in the first comment line), which is used to bundle TypeScript declaration (.d.ts) files.
+This module declaration file is auto-generated via a tool 'dts-bundle' (as specified in the first comment line), which is used to bundle TypeScript declaration (.d.ts) files.
 

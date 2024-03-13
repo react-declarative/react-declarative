@@ -3,7 +3,9 @@ const rimraf = require("rimraf");
 const fs = require('fs');
 
 const { createMinifier } = require("dts-minify");
+const prettierSync = require("@prettier/sync");
 const ts = require("typescript");
+
 const minifier = createMinifier(ts);
 
 dts.bundle({
@@ -14,6 +16,17 @@ dts.bundle({
 // @description remove this comment to enable d.ts minification
 // const typedef = minifier.minify(fs.readFileSync('dist/types/react-declarative.d.ts').toString());
 // fs.writeFileSync('dist/types/react-declarative.d.ts', typedef);
+
+const formatdef = prettierSync.format(fs.readFileSync('dist/types/react-declarative.d.ts').toString(), {
+    semi: true,
+    endOfLine: "auto",
+    trailingComma: "all",
+    singleQuote: false,
+    printWidth: 80,
+    tabWidth: 2,
+    parser: 'typescript',
+});
+fs.writeFileSync('dist/types/react-declarative.d.ts', formatdef)
 
 fs.copyFileSync(
     'dist/types/react-declarative.d.ts',

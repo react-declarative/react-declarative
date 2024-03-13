@@ -28,11 +28,11 @@ declare module "react-declarative" {
   import { IApiHandlerParams as IApiHandlerParamsInternal } from "react-declarative/components/One/api/useApiHandler";
   export type IListApiPaginatorParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = IApiPaginatorParamsInternal<FilterData, RowData>;
   export type ILastArrayPaginatorParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = IArrayPaginatorParamsInternal<FilterData, RowData>;
   export type IOneApiHandlerParams<Data = any> =
     IApiHandlerParamsInternal<Data>;
@@ -150,7 +150,7 @@ declare module "react-declarative" {
     IActionTriggerInternal<Data>;
   export type TypedField<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldInternal<Data, Payload>;
   export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<
     Data,
@@ -158,15 +158,15 @@ declare module "react-declarative" {
   >;
   export type IFieldEntity<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = IEntityInternal<Data, Payload>;
   export type IFieldManaged<
     Data = IAnything,
-    Value = IAnything
+    Value = IAnything,
   > = IManagedInternal<Data, Value>;
   export type ListHandler<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = ListHandlerInternal<FilterData, RowData>;
   export type ListHandlerResult<RowData extends IRowData = IAnything> =
     ListHandlerResultInternal<RowData>;
@@ -186,7 +186,7 @@ declare module "react-declarative" {
     IListActionInternal<Data>;
   export type IListApi<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = IListApiInternal<FilterData, RowData>;
   export type IOneApi<Data = IAnything> = IOneApiInternal<Data>;
   export type IMenuOption<Data = any> = IMenuOptionInternal<Data>;
@@ -195,7 +195,7 @@ declare module "react-declarative" {
   export type IColumn<
     FilterData extends {} = IAnything,
     RowData extends IRowData = any,
-    Payload = any
+    Payload = any,
   > = IColumnInternal<FilterData, RowData, Payload>;
   import {
     TGridSort as TGridSortInternal,
@@ -205,7 +205,7 @@ declare module "react-declarative" {
   } from "react-declarative/components";
   export type ITile<
     RowData extends IRowData = any,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > = ITileInternal<RowData, Payload>;
   export type TGridSort<RowData extends IRowData = any> =
     TGridSortInternal<RowData>;
@@ -302,11 +302,11 @@ declare module "react-declarative" {
   import { ICalendarRequest as ICalendarRequestInternal } from "react-declarative/components/CalendarView";
   export type ICalendarTile<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = ICalendarTileInternal<Data, Payload>;
   export type ICalendarItem<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = ICalendarItemInternal<Data, Payload>;
   export type ICalendarRequest<Payload = IAnything> =
     ICalendarRequestInternal<Payload>;
@@ -314,11 +314,11 @@ declare module "react-declarative" {
   import { IFeature as IFeatureInternal } from "react-declarative/components/FeatureView";
   export type IFeatureGroup<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = IFeatureGroupInternal<Data, Payload>;
   export type IFeature<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = IFeatureInternal<Data, Payload>;
   export { FeatureType } from "react-declarative/components/FeatureView";
   export { IVisibilityGroup } from "react-declarative/components/VisibilityView";
@@ -358,22 +358,22 @@ declare module "react-declarative" {
   export type IOutlet<
     Data = any,
     Payload = any,
-    Params = any
+    Params = any,
   > = IOutletInternal<Data, Payload, Params>;
   export type IOutletModal<
     Data = any,
     Payload = any,
-    Params = any
+    Params = any,
   > = IOutletModalInternal<Data, Payload, Params>;
   export type IOutletProps<
     Data = any,
     Payload = any,
-    Params = any
+    Params = any,
   > = IOutletPropsInternal<Data, Payload, Params>;
   export type IOutletModalProps<
     Data = any,
     Payload = any,
-    Params = any
+    Params = any,
   > = IOutletModalPropsInternal<Data, Payload, Params>;
   import {
     IWizardOutlet as IWizardOutletInternal,
@@ -389,11 +389,11 @@ declare module "react-declarative" {
   >;
   export type IWizardOutletProps<
     Data = any,
-    Payload = any
+    Payload = any,
   > = IWizardOutletPropsInternal<Data, Payload>;
   export type IWizardModalProps<
     Data = any,
-    Payload = any
+    Payload = any,
   > = IWizardModalPropsInternal<Data, Payload>;
   export type IWizardModal<Data = any, Payload = any> = IWizardModalInternal<
     Data,
@@ -413,11 +413,11 @@ declare module "react-declarative" {
   >;
   export type ITabsOutletProps<
     Data = any,
-    Payload = any
+    Payload = any,
   > = ITabsOutletPropsInternal<Data, Payload>;
   export type ITabsModalProps<
     Data = any,
-    Payload = any
+    Payload = any,
   > = ITabsModalPropsInternal<Data, Payload>;
   export type ITabsModal<Data = any, Payload = any> = ITabsModalInternal<
     Data,
@@ -448,7 +448,7 @@ declare module "react-declarative" {
         }
       | undefined,
     transform?: ((str: string) => string) | undefined,
-    config?: Partial<import("./components").ITranslateConfig> | undefined
+    config?: Partial<import("./components").ITranslateConfig> | undefined,
   ) => Translate;
   export { ModalProvider } from "react-declarative/components";
   export { SizeProvider } from "react-declarative/components";
@@ -582,7 +582,7 @@ declare module "react-declarative" {
   import { IOnePublicProps as IOnePublicPropsInternal } from "react-declarative/model/IOnePublicProps";
   export type IOnePublicProps<
     Data = IAnything,
-    Field extends IField<Data> = IField<Data>
+    Field extends IField<Data> = IField<Data>,
   > = IOnePublicPropsInternal<Data, Field>;
   import { ICheckBoxSlot as ICheckBoxSlotInternal } from "react-declarative/components";
   import { IYesNoSlot as IYesNoSlotInternal } from "react-declarative/components";
@@ -735,7 +735,7 @@ declare module "react-declarative" {
   export type TPaginator<
     FilterData extends {} = any,
     RowData extends IRowData = any,
-    Payload = any
+    Payload = any,
   > = TPaginatorInternal<FilterData, RowData, Payload>;
   export { getErrorMessage } from "react-declarative/utils/getErrorMessage";
   import {
@@ -869,7 +869,7 @@ declare module "react-declarative/model/TypedField" {
     Type extends FieldType,
     Fields extends {},
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = {
     [Prop in keyof Omit<Fields, keyof Exclude<Data, Payload>>]?: Fields[Prop];
   } & {
@@ -879,7 +879,7 @@ declare module "react-declarative/model/TypedField" {
     Type extends FieldType,
     Fields extends {},
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = IManagedShallow<Data, Payload> &
     TypedFieldFactory<Type, Fields, Data, Payload>;
   type Group<Data = IAnything, Payload = IAnything> = TypedFieldFactory<
@@ -968,7 +968,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Checkbox<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldFactoryShallow<
     FieldType.Checkbox,
     ICheckboxFieldProps<Data, Payload>,
@@ -983,7 +983,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Component<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldFactoryShallow<
     FieldType.Component,
     IComponentFieldProps<Data, Payload>,
@@ -998,7 +998,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Progress<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldFactoryShallow<
     FieldType.Progress,
     IProgressFieldProps<Data, Payload>,
@@ -1085,7 +1085,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Complete<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldFactoryShallow<
     FieldType.Complete,
     ICompleteFieldProps<Data, Payload>,
@@ -1094,7 +1094,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Typography<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldFactoryShallow<
     FieldType.Typography,
     ITypographyFieldProps<Data, Payload>,
@@ -1108,76 +1108,140 @@ declare module "react-declarative/model/TypedField" {
   export type TypedFieldRegistry<
     Data = IAnything,
     Payload = IAnything,
-    Target = any
-  > = Target extends Expansion<Data, Payload>
-    ? Expansion<Data, Payload>
-    : Target extends Group<Data, Payload>
-    ? Group<Data, Payload>
-    : Target extends Paper<Data, Payload>
-    ? Paper<Data, Payload>
-    : Target extends Outline<Data, Payload>
-    ? Outline<Data, Payload>
-    : Target extends Checkbox<Data, Payload>
-    ? Checkbox<Data, Payload>
-    : Target extends Combo<Data, Payload>
-    ? Combo<Data, Payload>
-    : Target extends Component<Data, Payload>
-    ? Component<Data, Payload>
-    : Target extends Items<Data, Payload>
-    ? Items<Data, Payload>
-    : Target extends Line<Data, Payload>
-    ? Line<Data, Payload>
-    : Target extends Progress<Data, Payload>
-    ? Progress<Data, Payload>
-    : Target extends Radio<Data, Payload>
-    ? Radio<Data, Payload>
-    : Target extends Rating<Data, Payload>
-    ? Rating<Data, Payload>
-    : Target extends Slider<Data, Payload>
-    ? Slider<Data, Payload>
-    : Target extends Switch<Data, Payload>
-    ? Switch<Data, Payload>
-    : Target extends Text<Data, Payload>
-    ? Text<Data, Payload>
-    : Target extends File<Data, Payload>
-    ? File<Data, Payload>
-    : Target extends Choose<Data, Payload>
-    ? Choose<Data, Payload>
-    : Target extends YesNo<Data, Payload>
-    ? YesNo<Data, Payload>
-    : Target extends Date<Data, Payload>
-    ? Date<Data, Payload>
-    : Target extends Time<Data, Payload>
-    ? Time<Data, Payload>
-    : Target extends Complete<Data, Payload>
-    ? Complete<Data, Payload>
-    : Target extends Typography<Data, Payload>
-    ? Typography<Data, Payload>
-    : Target extends Fragment<Data, Payload>
-    ? Fragment<Data, Payload>
-    : Target extends Div<Data, Payload>
-    ? Div<Data, Payload>
-    : Target extends Custom<Data, Payload>
-    ? Custom<Data, Payload>
-    : Target extends Box<Data, Payload>
-    ? Box<Data, Payload>
-    : Target extends Tabs<Data, Payload>
-    ? Tabs<Data, Payload>
-    : Target extends Center<Data, Payload>
-    ? Center<Data, Payload>
-    : Target extends Stretch<Data, Payload>
-    ? Stretch<Data, Payload>
-    : Target extends Hero<Data, Payload>
-    ? Hero<Data, Payload>
-    : Target extends Condition<Data, Payload>
-    ? Condition<Data, Payload>
-    : Target extends Init<Data, Payload>
-    ? Init<Data, Payload>
-    : Target extends Dict<Data, Payload>
-    ? Dict<Data, Payload>
-    : Target extends Tree<Data, Payload>
-    ? Tree<Data, Payload>
-    : never;
+    Target = any,
+  > =
+    Target extends Expansion<Data, Payload>
+      ? Expansion<Data, Payload>
+      : Target extends Group<Data, Payload>
+        ? Group<Data, Payload>
+        : Target extends Paper<Data, Payload>
+          ? Paper<Data, Payload>
+          : Target extends Outline<Data, Payload>
+            ? Outline<Data, Payload>
+            : Target extends Checkbox<Data, Payload>
+              ? Checkbox<Data, Payload>
+              : Target extends Combo<Data, Payload>
+                ? Combo<Data, Payload>
+                : Target extends Component<Data, Payload>
+                  ? Component<Data, Payload>
+                  : Target extends Items<Data, Payload>
+                    ? Items<Data, Payload>
+                    : Target extends Line<Data, Payload>
+                      ? Line<Data, Payload>
+                      : Target extends Progress<Data, Payload>
+                        ? Progress<Data, Payload>
+                        : Target extends Radio<Data, Payload>
+                          ? Radio<Data, Payload>
+                          : Target extends Rating<Data, Payload>
+                            ? Rating<Data, Payload>
+                            : Target extends Slider<Data, Payload>
+                              ? Slider<Data, Payload>
+                              : Target extends Switch<Data, Payload>
+                                ? Switch<Data, Payload>
+                                : Target extends Text<Data, Payload>
+                                  ? Text<Data, Payload>
+                                  : Target extends File<Data, Payload>
+                                    ? File<Data, Payload>
+                                    : Target extends Choose<Data, Payload>
+                                      ? Choose<Data, Payload>
+                                      : Target extends YesNo<Data, Payload>
+                                        ? YesNo<Data, Payload>
+                                        : Target extends Date<Data, Payload>
+                                          ? Date<Data, Payload>
+                                          : Target extends Time<Data, Payload>
+                                            ? Time<Data, Payload>
+                                            : Target extends Complete<
+                                                  Data,
+                                                  Payload
+                                                >
+                                              ? Complete<Data, Payload>
+                                              : Target extends Typography<
+                                                    Data,
+                                                    Payload
+                                                  >
+                                                ? Typography<Data, Payload>
+                                                : Target extends Fragment<
+                                                      Data,
+                                                      Payload
+                                                    >
+                                                  ? Fragment<Data, Payload>
+                                                  : Target extends Div<
+                                                        Data,
+                                                        Payload
+                                                      >
+                                                    ? Div<Data, Payload>
+                                                    : Target extends Custom<
+                                                          Data,
+                                                          Payload
+                                                        >
+                                                      ? Custom<Data, Payload>
+                                                      : Target extends Box<
+                                                            Data,
+                                                            Payload
+                                                          >
+                                                        ? Box<Data, Payload>
+                                                        : Target extends Tabs<
+                                                              Data,
+                                                              Payload
+                                                            >
+                                                          ? Tabs<Data, Payload>
+                                                          : Target extends Center<
+                                                                Data,
+                                                                Payload
+                                                              >
+                                                            ? Center<
+                                                                Data,
+                                                                Payload
+                                                              >
+                                                            : Target extends Stretch<
+                                                                  Data,
+                                                                  Payload
+                                                                >
+                                                              ? Stretch<
+                                                                  Data,
+                                                                  Payload
+                                                                >
+                                                              : Target extends Hero<
+                                                                    Data,
+                                                                    Payload
+                                                                  >
+                                                                ? Hero<
+                                                                    Data,
+                                                                    Payload
+                                                                  >
+                                                                : Target extends Condition<
+                                                                      Data,
+                                                                      Payload
+                                                                    >
+                                                                  ? Condition<
+                                                                      Data,
+                                                                      Payload
+                                                                    >
+                                                                  : Target extends Init<
+                                                                        Data,
+                                                                        Payload
+                                                                      >
+                                                                    ? Init<
+                                                                        Data,
+                                                                        Payload
+                                                                      >
+                                                                    : Target extends Dict<
+                                                                          Data,
+                                                                          Payload
+                                                                        >
+                                                                      ? Dict<
+                                                                          Data,
+                                                                          Payload
+                                                                        >
+                                                                      : Target extends Tree<
+                                                                            Data,
+                                                                            Payload
+                                                                          >
+                                                                        ? Tree<
+                                                                            Data,
+                                                                            Payload
+                                                                          >
+                                                                        : never;
   /**
    * IOneProps - генерик, для прикладного программиста мы можем подменить IField
    * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1185,7 +1249,7 @@ declare module "react-declarative/model/TypedField" {
    */
   export type TypedField<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = TypedFieldRegistry<Data, Payload> & {
     name?: string;
     fields?: TypedField<Data, Payload>[];
@@ -1266,14 +1330,14 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     blur?: (
       name: string,
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Коллбек для обработки клика по элементу контекстного меню
@@ -1284,7 +1348,7 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Перехват клика по полю, следует использовать для копирования значения
@@ -1296,7 +1360,7 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Флаг только на чтение и "круглой окаймовки"
@@ -1448,14 +1512,14 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (v: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     trailingIconClick?: (
       value: Value,
       data: Data,
       payload: Payload,
       onValueChange: (v: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Максимальное число для высчитывания процента
@@ -1511,7 +1575,7 @@ declare module "react-declarative/model/IField" {
       | ((
           value: string,
           data: Data,
-          payload: Payload
+          payload: Payload,
         ) => string[] | Promise<string[]>);
     /**
      * Коллбек выбора элемента из CompleteField
@@ -1520,7 +1584,7 @@ declare module "react-declarative/model/IField" {
       value: string,
       data: Data,
       payload: Payload,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Поле, позволяющее передавать собственные значения в FieldType.Items и FieldType.Combo
@@ -1562,7 +1626,7 @@ declare module "react-declarative/model/IField" {
     shouldRecompute?: (
       prevData: Data,
       nextData: Data,
-      payload: Payload
+      payload: Payload,
     ) => boolean;
     /**
      * Позволяет мемоизировать перевод
@@ -1570,7 +1634,7 @@ declare module "react-declarative/model/IField" {
     shouldUpdateTr?: (
       prevArgs: [string, Data],
       currentArgs: [string, Data],
-      payload: Payload
+      payload: Payload,
     ) => boolean;
     /**
      * Позволяет мемоизировать список элементов
@@ -1578,7 +1642,7 @@ declare module "react-declarative/model/IField" {
     shouldUpdateItemList?: (
       prevData: Data,
       currentData: Data,
-      payload: Payload
+      payload: Payload,
     ) => boolean;
     /**
      * Позволяет перевести значения у ComboField и ItemsField
@@ -1716,7 +1780,7 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: string | null) => void,
-      onChange: (value: Data) => void
+      onChange: (value: Data) => void,
     ) => void;
     /**
      * Функция вызывается на каждое изменение текста. Подразумевается
@@ -1727,7 +1791,7 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: string | null) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Функция вызывается на каждый выбор из модалки. Подразумевается
@@ -1738,7 +1802,7 @@ declare module "react-declarative/model/IField" {
       data: Data,
       payload: Payload,
       onValueChange: (value: string | null) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Функция позволяет загрузить label для выбранного элемента асинхронно
@@ -1746,7 +1810,7 @@ declare module "react-declarative/model/IField" {
     dictValue?: (
       value: string,
       data: Data,
-      payload: Payload
+      payload: Payload,
     ) => ISearchItem | Promise<ISearchItem>;
     /**
      * Функция позволяет загрузить searchText для выбранного элемента асинхронно
@@ -1798,7 +1862,7 @@ declare module "react-declarative/model/IField" {
           _fieldParams: IField;
           _payload: Payload;
         }
-      >
+      >,
     ) => React.ReactElement;
     /**
      * Предикат для компоновки Condition
@@ -1812,7 +1876,7 @@ declare module "react-declarative/model/IField" {
     shouldCondition?: (
       prevData: Data,
       nextData: Data,
-      payload: Payload
+      payload: Payload,
     ) => boolean;
     /**
      * Компонент отображения загрузки condition
@@ -1838,7 +1902,7 @@ declare module "react-declarative/model/IField" {
     upload?: (
       file: File,
       data: Data,
-      payload: Payload
+      payload: Payload,
     ) => Promise<string> | string;
     view?: (file: string, data: Data, payload: Payload) => Promise<void> | void;
     /**
@@ -1847,7 +1911,7 @@ declare module "react-declarative/model/IField" {
      */
     choose?: (
       data: Data,
-      payload: Payload
+      payload: Payload,
     ) => Promise<string | string[] | null> | string | string[] | null;
     /**
      * Свойства для компоновки Hero - инструмента настройки отступов
@@ -2033,7 +2097,7 @@ declare module "react-declarative/model/IManaged" {
       v: Value,
       config?: {
         skipReadonly?: boolean;
-      }
+      },
     ) => void;
   }
   export default IManaged;
@@ -2053,7 +2117,7 @@ declare module "react-declarative/model/IColumn" {
   export interface IColumn<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > {
     type: ColumnType;
     field?: string;
@@ -2084,13 +2148,13 @@ declare module "react-declarative/model/IColumn" {
       row: RowData & {
         _payload: Payload;
       },
-      payload: Payload
+      payload: Payload,
     ) => Promise<Value> | Value;
     serialize?: (
       row: RowData & {
         _payload: Payload;
       },
-      payload: Payload
+      payload: Payload,
     ) => Promise<Value> | Value;
     element?: React.ComponentType<
       RowData & {
@@ -2114,7 +2178,7 @@ declare module "react-declarative/components/List/api/useApiPaginator" {
   import IRowData from "react-declarative/model/IRowData";
   export interface IApiPaginatorParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     origin?: string;
     fetch?: typeof window.fetch;
@@ -2137,7 +2201,7 @@ declare module "react-declarative/components/List/api/useApiPaginator" {
     fallback?: (e: Error) => void;
     abortSignal?: AbortSignal;
     responseMap?: <T extends IRowData>(
-      json: RowData[]
+      json: RowData[],
     ) => ListHandlerResult<T> | Promise<ListHandlerResult<T>>;
   }
   /**
@@ -2170,7 +2234,7 @@ declare module "react-declarative/components/List/api/useApiPaginator" {
    */
   export const useApiPaginator: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     path: string,
     {
@@ -2195,7 +2259,7 @@ declare module "react-declarative/components/List/api/useApiPaginator" {
       withSearch,
       withChips,
       withSort,
-    }?: IApiPaginatorParams<FilterData, RowData>
+    }?: IApiPaginatorParams<FilterData, RowData>,
   ) => ListHandler<FilterData, RowData, any>;
   export default useApiPaginator;
 }
@@ -2212,23 +2276,23 @@ declare module "react-declarative/components/List/api/useArrayPaginator" {
   import { IState as ILastPaginationState } from "react-declarative/components/List/api/useLastPagination";
   export interface IArrayPaginatorParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     chipsHandler?: (
       rows: RowData[],
-      chips: ListHandlerChips<RowData>
+      chips: ListHandlerChips<RowData>,
     ) => RowData[];
     sortHandler?: (
       rows: RowData[],
-      sort: ListHandlerSortModel<RowData>
+      sort: ListHandlerSortModel<RowData>,
     ) => RowData[];
     paginationHandler?: (
       rows: RowData[],
-      pagination: ListHandlerPagination
+      pagination: ListHandlerPagination,
     ) => RowData[];
     responseMap?: (
-      json: RowData[]
+      json: RowData[],
     ) => Record<string, any>[] | Promise<Record<string, any>[]>;
     searchHandler?: (rows: RowData[], search: string) => RowData[];
     compareFn?: (a: RowData, b: RowData, field: keyof RowData) => number;
@@ -2244,7 +2308,7 @@ declare module "react-declarative/components/List/api/useArrayPaginator" {
     fallback?: (e: Error) => void;
     onData?: (
       rows: RowData[],
-      state: ILastPaginationState<FilterData, RowData>
+      state: ILastPaginationState<FilterData, RowData>,
     ) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -2287,7 +2351,7 @@ declare module "react-declarative/components/List/api/useArrayPaginator" {
    */
   export const useArrayPaginator: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     rowsHandler: ListHandler<FilterData, RowData, any>,
     {
@@ -2311,7 +2375,7 @@ declare module "react-declarative/components/List/api/useArrayPaginator" {
       onLoadStart,
       onLoadEnd,
       onData,
-    }?: IArrayPaginatorParams<FilterData, RowData>
+    }?: IArrayPaginatorParams<FilterData, RowData>,
   ) => ListHandler<FilterData, RowData, any>;
   export default useArrayPaginator;
 }
@@ -2355,7 +2419,7 @@ declare module "react-declarative/components/One/api/useApiHandler" {
     origin?: string;
     requestMap?: (url: URL) => URL;
     responseMap?: (
-      json: Data
+      json: Data,
     ) => Record<string, any> | Promise<Record<string, any>>;
     onLoadBegin?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -2397,7 +2461,7 @@ declare module "react-declarative/components/One/api/useApiHandler" {
       withAbortSignal,
       fetchParams,
       fallback,
-    }?: IApiHandlerParams<Data>
+    }?: IApiHandlerParams<Data>,
   ) => OneHandler<Data, any>;
   export default useApiHandler;
 }
@@ -2477,7 +2541,7 @@ declare module "react-declarative/model/IListApi" {
   import IRowData from "react-declarative/model/IRowData";
   export interface IListApi<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     reload: (keepPagination?: boolean) => Promise<void>;
     rerender: () => void;
@@ -2506,7 +2570,7 @@ declare module "react-declarative/model/IListOperation" {
   import IOption from "react-declarative/model/IOption";
   export interface IListOperation<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<
       IOption,
       keyof {
@@ -2518,7 +2582,7 @@ declare module "react-declarative/model/IListOperation" {
       | ((
           rowIds: RowData[],
           isAll: boolean,
-          payload: Payload
+          payload: Payload,
         ) => boolean | Promise<boolean>)
       | boolean;
   }
@@ -2531,7 +2595,7 @@ declare module "react-declarative/model/IListRowAction" {
   import IRowData from "react-declarative/model/IRowData";
   export interface IListRowAction<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<
       IOption,
       keyof {
@@ -2611,7 +2675,7 @@ declare module "react-declarative/model/IListProps" {
   }
   export interface IListActionOption<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<
       IOption,
       keyof {
@@ -2621,27 +2685,27 @@ declare module "react-declarative/model/IListProps" {
     > {
     isVisible?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     isDisabled?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
   }
   export interface IListAction<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > {
     type: ActionType;
     action?: string;
     label?: string;
     isVisible?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     isDisabled?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     icon?: React.ComponentType<any>;
     options?: (
@@ -2680,7 +2744,7 @@ declare module "react-declarative/model/IListProps" {
   export type ListHandler<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > =
     | RowData[]
     | ((
@@ -2689,11 +2753,11 @@ declare module "react-declarative/model/IListProps" {
         sort: ListHandlerSortModel<RowData>,
         chips: ListHandlerChips<RowData>,
         search: string,
-        payload: Payload
+        payload: Payload,
       ) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>);
   export interface IListState<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     initComplete: boolean;
     payload: IAnything;
@@ -2712,7 +2776,7 @@ declare module "react-declarative/model/IListProps" {
   }
   export interface IListCallbacks<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     handleDefault: () => Promise<void>;
     handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
@@ -2730,7 +2794,7 @@ declare module "react-declarative/model/IListProps" {
   export interface IPositionActionListSlot<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<IListCallbacks<FilterData, RowData>, "ready"> {
     filterData: Record<string, any>;
     pagination: ListHandlerPagination;
@@ -2747,7 +2811,7 @@ declare module "react-declarative/model/IListProps" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > {
     apiRef?: Ref<IListApi<FilterData, RowData>>;
     BeforeActionList?: React.ComponentType<
@@ -2787,23 +2851,23 @@ declare module "react-declarative/model/IListProps" {
       action: string,
       selectedRows: RowData[],
       isAll: boolean,
-      reload: (keepPagination?: boolean) => Promise<void>
+      reload: (keepPagination?: boolean) => Promise<void>,
     ) => void;
     onRowAction?: (
       action: string,
       row: RowData,
-      reload: (keepPagination?: boolean) => Promise<void>
+      reload: (keepPagination?: boolean) => Promise<void>,
     ) => void;
     onRowClick?: (
       row: RowData,
-      reload: (keepPagination?: boolean) => Promise<void>
+      reload: (keepPagination?: boolean) => Promise<void>,
     ) => void;
     onPageChange?: (page: number) => void;
     onColumnAction?: (
       field: string,
       action: string,
       selectedRows: RowData[],
-      reload: (keepPagination?: boolean) => Promise<void>
+      reload: (keepPagination?: boolean) => Promise<void>,
     ) => void;
     onLimitChange?: (limit: number) => void;
     onLoadStart?: (source: string) => void;
@@ -2811,7 +2875,7 @@ declare module "react-declarative/model/IListProps" {
     onAction?: (
       action: string,
       selectedRows: RowData[],
-      reload: (keepPagination?: boolean) => Promise<void>
+      reload: (keepPagination?: boolean) => Promise<void>,
     ) => void;
     columns: IColumn<FilterData, RowData, Payload>[];
     filters?: Field[];
@@ -2831,7 +2895,7 @@ declare module "react-declarative/model/IListProps" {
         chips: ListHandlerChips<RowData>;
         search: string;
         payload: Payload;
-      }
+      },
     ) => boolean;
     labelDisplayedRows?: (paginationInfo: {
       from: number;
@@ -2940,7 +3004,7 @@ declare module "react-declarative/helpers/serviceManager" {
     registerInstance: <T = object>(key: Key, inst: T) => void;
     registerCreator: <T_1 = object>(
       key: Key,
-      ctor: () => T_1 | Promise<T_1>
+      ctor: () => T_1 | Promise<T_1>,
     ) => void;
     inject: <T_2 = object>(key: Key, verbose?: boolean) => T_2;
     waitForProvide: (verbose?: boolean) => Promise<void>;
@@ -2971,32 +3035,32 @@ declare module "react-declarative/helpers/routeManager" {
   import Subject from "react-declarative/utils/rx/Subject";
   export class RouteManager<
     T extends Record<string, any> = Record<string, any>,
-    I extends ISwitchItem = ISwitchItem
+    I extends ISwitchItem = ISwitchItem,
   > extends Subject<void> {
     get params(): T | null;
     get item(): I | null;
     constructor(
       routes: I[],
-      history: MemoryHistory | BrowserHistory | HashHistory
+      history: MemoryHistory | BrowserHistory | HashHistory,
     );
     dispose: () => void;
   }
   export const createRouteParamsManager: <
     T extends Record<string, any> = Record<string, any>,
-    I extends ISwitchItem = ISwitchItem
+    I extends ISwitchItem = ISwitchItem,
   >(
     routes: I[],
-    history: MemoryHistory | BrowserHistory | HashHistory
+    history: MemoryHistory | BrowserHistory | HashHistory,
   ) => {
     (): T | null;
     clear: void;
   };
   export const createRouteItemManager: <
     T extends Record<string, any> = Record<string, any>,
-    I extends ISwitchItem = ISwitchItem
+    I extends ISwitchItem = ISwitchItem,
   >(
     routes: I[],
-    history: MemoryHistory | BrowserHistory | HashHistory
+    history: MemoryHistory | BrowserHistory | HashHistory,
   ) => {
     (): I | null;
     clear: void;
@@ -3122,10 +3186,10 @@ declare module "react-declarative/hooks/useRouteItem" {
    */
   export const useRouteItem: <
     T extends Record<string, any> = Record<string, any>,
-    I extends ISwitchItem = ISwitchItem
+    I extends ISwitchItem = ISwitchItem,
   >(
     routes: I[],
-    history: MemoryHistory | BrowserHistory | HashHistory
+    history: MemoryHistory | BrowserHistory | HashHistory,
   ) => I | null;
   export default useRouteItem;
 }
@@ -3146,10 +3210,10 @@ declare module "react-declarative/hooks/useRouteParams" {
    */
   export const useRouteParams: <
     T extends Record<string, any> = Record<string, any>,
-    I extends ISwitchItem = ISwitchItem
+    I extends ISwitchItem = ISwitchItem,
   >(
     routes: I[],
-    history: MemoryHistory | BrowserHistory | HashHistory
+    history: MemoryHistory | BrowserHistory | HashHistory,
   ) => T | null;
   export default useRouteParams;
 }
@@ -3230,7 +3294,7 @@ declare module "react-declarative/utils/parseRouteUrl" {
    */
   export const parseRouteUrl: (
     template: string,
-    url: string
+    url: string,
   ) => import("path-to-regexp").MatchResult<object> | null;
   export default parseRouteUrl;
 }
@@ -3275,7 +3339,7 @@ declare module "react-declarative/model/IOneProps" {
   export interface IOneProps<
     Data = IAnything,
     Payload = IAnything,
-    Field = IField<Data, Payload>
+    Field = IField<Data, Payload>,
   > {
     /**
      * Ссылка на объект API
@@ -3307,7 +3371,7 @@ declare module "react-declarative/model/IOneProps" {
      */
     createField?: (
       entity: IEntity<Data>,
-      currentPath: string
+      currentPath: string,
     ) => React.ReactElement;
     /**
      * Фабрика для создания компоновок пользователя
@@ -3315,7 +3379,7 @@ declare module "react-declarative/model/IOneProps" {
     createLayout?: (
       entity: IEntity<Data>,
       children: React.ReactNode,
-      currentPath: string
+      currentPath: string,
     ) => React.ReactElement;
     /**
      * Класс корневой группы
@@ -3364,14 +3428,14 @@ declare module "react-declarative/model/IOneProps" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     blur?: (
       name: string,
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Коллбек для управления контекстным меню
@@ -3382,7 +3446,7 @@ declare module "react-declarative/model/IOneProps" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Коллбек для перехвата клика по полю
@@ -3392,7 +3456,7 @@ declare module "react-declarative/model/IOneProps" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
     /**
      * Вызывается, когда все поля успели отрисоваться
@@ -3450,7 +3514,7 @@ declare module "react-declarative/hooks/useActualCallback" {
    */
   export const useActualCallback: <T extends (...args: any[]) => any>(
     run: T,
-    deps?: any[]
+    deps?: any[],
   ) => T;
   export default useActualCallback;
 }
@@ -3464,7 +3528,7 @@ declare module "react-declarative/hooks/useActualValue" {
    * @returns - A reference object that contains the provided value.
    */
   export const useActualValue: <T = undefined>(
-    value: T
+    value: T,
   ) => import("react").MutableRefObject<T>;
   export default useActualValue;
 }
@@ -3479,10 +3543,10 @@ declare module "react-declarative/hooks/useActualState" {
    *.
    */
   export const useActualState: <S = undefined>(
-    initialState?: S | (() => S) | undefined
+    initialState?: S | (() => S) | undefined,
   ) => readonly [
     import("react").MutableRefObject<S>,
-    import("react").Dispatch<import("react").SetStateAction<S>>
+    import("react").Dispatch<import("react").SetStateAction<S>>,
   ];
   export default useActualState;
 }
@@ -3497,10 +3561,10 @@ declare module "react-declarative/hooks/useActualRef" {
    * @returns - An array containing the state reference and handleState function
    */
   export const useActualRef: <S = undefined>(
-    initialState?: S | (() => S) | undefined
+    initialState?: S | (() => S) | undefined,
   ) => readonly [
     import("react").MutableRefObject<S>,
-    (dispatch: S | ((prevState: S) => S)) => void
+    (dispatch: S | ((prevState: S) => S)) => void,
   ];
   export default useActualRef;
 }
@@ -3515,7 +3579,7 @@ declare module "react-declarative/hooks/useRenderWaiter" {
    */
   export const useRenderWaiter: (
     deps?: any[] | undefined,
-    delay?: number
+    delay?: number,
   ) => () => Promise<void>;
   export default useRenderWaiter;
 }
@@ -3529,10 +3593,10 @@ declare module "react-declarative/hooks/useOneArray" {
    * @returns - A tuple containing the managed array and a function to update it
    */
   export const useOneArray: <T = any>(
-    initialValue?: T[] | (() => T[]) | null | undefined
+    initialValue?: T[] | (() => T[]) | null | undefined,
   ) => readonly [
     T[],
-    import("react").Dispatch<import("react").SetStateAction<T[] | null>>
+    import("react").Dispatch<import("react").SetStateAction<T[] | null>>,
   ];
   export const oneArrayIncludes: <T = any>(
     data: T[] | null,
@@ -3552,7 +3616,7 @@ declare module "react-declarative/hooks/useAsyncProgress" {
     onFinish?: (
       data: Data[],
       errors: IError[],
-      result: (Result | null)[]
+      result: (Result | null)[],
     ) => void;
     onError?: (errors: IError[]) => void;
     onProgress?: (progress: number) => void;
@@ -3617,7 +3681,7 @@ declare module "react-declarative/hooks/useAsyncProgress" {
       onBegin,
       onEnd,
       ...otherParams
-    }: IParams<Data, Result>
+    }: IParams<Data, Result>,
   ) => {
     readonly errors: IError[];
     readonly progress: number;
@@ -3636,7 +3700,7 @@ declare module "react-declarative/hooks/useAsyncAction" {
   }
   export interface IResult<
     Data extends any = any,
-    Payload extends any = object
+    Payload extends any = object,
   > {
     loading: boolean;
     error: boolean;
@@ -3657,10 +3721,10 @@ declare module "react-declarative/hooks/useAsyncAction" {
    */
   export const useAsyncAction: <
     Data extends unknown = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >(
     run: (p: Payload) => Data | Promise<Data>,
-    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams
+    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams,
   ) => IResult<Data, Payload>;
   export default useAsyncAction;
 }
@@ -3685,7 +3749,7 @@ declare module "react-declarative/hooks/useAsyncValue" {
    */
   export const useAsyncValue: <Data extends unknown = any>(
     run: () => Data | Promise<Data>,
-    params?: IParams
+    params?: IParams,
   ) => [Data | null, IResult<void, void>, (data: Data) => void];
   export default useAsyncValue;
 }
@@ -3704,7 +3768,7 @@ declare module "react-declarative/hooks/useSinglerunAction" {
   }
   export interface IExecute<
     Data extends any = any,
-    Payload extends any = object
+    Payload extends any = object,
   > {
     (payload?: Payload): Promise<Data | null>;
     clear(): void;
@@ -3728,10 +3792,10 @@ declare module "react-declarative/hooks/useSinglerunAction" {
    */
   export const useSinglerunAction: <
     Data extends unknown = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >(
     run: (p: Payload) => Data | Promise<Data>,
-    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams
+    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams,
   ) => IResult<Data, Payload>;
   export default useSinglerunAction;
 }
@@ -3746,7 +3810,7 @@ declare module "react-declarative/hooks/useQueuedAction" {
   }
   export interface IResult<
     Data extends any = any,
-    Payload extends any = object
+    Payload extends any = object,
   > {
     loading: boolean;
     error: boolean;
@@ -3754,7 +3818,7 @@ declare module "react-declarative/hooks/useQueuedAction" {
   }
   export interface IExecute<
     Data extends any = any,
-    Payload extends any = object
+    Payload extends any = object,
   > {
     (payload?: Payload): Promise<Data | null>;
     clear(): void;
@@ -3777,10 +3841,10 @@ declare module "react-declarative/hooks/useQueuedAction" {
    */
   export const useQueuedAction: <
     Data extends unknown = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >(
     run: (p: Payload) => Data | Promise<Data>,
-    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams
+    { onLoadStart, onLoadEnd, fallback, throwError }?: IParams,
   ) => IResult<Data, Payload>;
   export { CANCELED_SYMBOL };
   export default useQueuedAction;
@@ -3877,7 +3941,7 @@ declare module "react-declarative/hooks/useBehaviorSubject" {
    * @returns The newly created BehaviorSubject instance.
    */
   export const useBehaviorSubject: <Data = any>(
-    data?: Data | null
+    data?: Data | null,
   ) => BehaviorSubject<Data>;
   export default useBehaviorSubject;
 }
@@ -3904,7 +3968,7 @@ declare module "react-declarative/hooks/useSubjectValue" {
    */
   export const useSubjectValue: <Data = any>(
     target: TSubject<Data>,
-    value?: Data | (() => Data) | undefined
+    value?: Data | (() => Data) | undefined,
   ) => Data;
   export default useSubjectValue;
 }
@@ -3945,7 +4009,7 @@ declare module "react-declarative/hooks/useElementSize" {
    */
   export const useElementSize: <
     T extends HTMLElement,
-    Size extends ISize = ISize
+    Size extends ISize = ISize,
   >({
     defaultSize: { height, width },
     target,
@@ -3995,7 +4059,7 @@ declare module "react-declarative/hooks/useSubject" {
    * @returns - The created subject.
    */
   export const useSubject: <Data = any>(
-    target?: TSubject<Data> | null | undefined
+    target?: TSubject<Data> | null | undefined,
   ) => Subject<Data>;
   export default useSubject;
 }
@@ -4012,7 +4076,7 @@ declare module "react-declarative/hooks/useChange" {
   export const useChange: (
     effect: React.EffectCallback,
     deps?: import("react").DependencyList,
-    stopWatchByDefault?: boolean
+    stopWatchByDefault?: boolean,
   ) => {
     resetWatcher: () => void;
     beginWatch: () => void;
@@ -4114,11 +4178,11 @@ declare module "react-declarative/hooks/useModel" {
   export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
     constructor(
       _model$: React.MutableRefObject<Model<T>>,
-      _dispose: Subject<true>
+      _dispose: Subject<true>,
     );
     get data(): T;
     setData: (
-      data: Partial<T> | ((prevData: T) => Partial<T>)
+      data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
     refresh: () => Promise<void>;
     toObject: () => T;
@@ -4158,12 +4222,12 @@ declare module "react-declarative/hooks/useEntity" {
   {
     constructor(
       _entity$: React.MutableRefObject<Entity<T>>,
-      _dispose: Subject<true>
+      _dispose: Subject<true>,
     );
     get data(): T;
     get id(): string | number;
     setData: (
-      data: Partial<T> | ((prevData: T) => Partial<T>)
+      data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
     refresh: () => Promise<void>;
     toObject: () => T;
@@ -4213,7 +4277,7 @@ declare module "react-declarative/hooks/useListEditor" {
     }: {
       initialValue?: Data[] | undefined;
       onChange?: ((items: Data[]) => void) | undefined;
-    }
+    },
   ) => {
     onAddItem: (data: Data) => number;
     onUpdateItem: (id: RowId, data: Data) => void;
@@ -4233,7 +4297,7 @@ declare module "react-declarative/hooks/useMediaStreamBuilder" {
         audioCaptureId: string;
         cameraCaptureId: string;
         screenCaptureId: string;
-      }
+      },
     ) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -4306,7 +4370,7 @@ declare module "react-declarative/hooks/useCollection" {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
     onChange?: (
       item: CollectionAdapter<T>,
-      target: CollectionEntityAdapter<T> | null
+      target: CollectionEntityAdapter<T> | null,
     ) => void;
     debounce?: number;
   }
@@ -4317,11 +4381,11 @@ declare module "react-declarative/hooks/useCollection" {
     constructor(
       id: IEntity["id"],
       _collection$: React.MutableRefObject<Collection<T>>,
-      _dispose: Subject<true>
+      _dispose: Subject<true>,
     );
     get data(): T;
     setData: (
-      data: Partial<T> | ((prevData: T) => Partial<T>)
+      data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
     refresh: () => Promise<void>;
     toObject: () => T;
@@ -4332,7 +4396,7 @@ declare module "react-declarative/hooks/useCollection" {
   {
     constructor(
       _collection$: React.MutableRefObject<Collection<T>>,
-      _dispose: Subject<true>
+      _dispose: Subject<true>,
     );
     get ids(): (string | number)[];
     get lastIdx(): number;
@@ -4348,19 +4412,19 @@ declare module "react-declarative/hooks/useCollection" {
     removeAll: () => Promise<void>;
     findById: (id: string | number) => CollectionEntityAdapter<T>;
     some: (
-      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean
+      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => boolean;
     forEach: (
-      fn: (value: CollectionEntityAdapter<T>, idx: number) => void
+      fn: (value: CollectionEntityAdapter<T>, idx: number) => void,
     ) => void;
     find: (
-      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean
+      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => CollectionEntityAdapter<T> | undefined;
     filter: (
-      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean
+      fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => CollectionEntityAdapter<T>[];
     map: <V extends unknown = any>(
-      fn: (value: CollectionEntityAdapter<T>, idx: number) => V
+      fn: (value: CollectionEntityAdapter<T>, idx: number) => V,
     ) => V[];
     toArray: () => T[];
     toCollection: () => Collection<T>;
@@ -4735,7 +4799,7 @@ declare module "react-declarative/hooks/useOne" {
   interface IParams<
     Data extends IAnything = IAnything,
     Payload = IAnything,
-    Field = IField<Data, Payload>
+    Field = IField<Data, Payload>,
   > {
     fields: Field[];
     title?: string;
@@ -4766,7 +4830,7 @@ declare module "react-declarative/hooks/useOne" {
   export const useOne: <
     Data extends unknown = any,
     Payload = any,
-    Field = IField<Data, Payload>
+    Field = IField<Data, Payload>,
   >({
     fields,
     large,
@@ -4784,7 +4848,7 @@ declare module "react-declarative/hooks/useOne" {
     toPromise: () => Promise<Data | null>;
   };
   export const useOneTyped: <Data extends unknown = any, Payload = any>(
-    params: IParams<Data, Payload, TypedField<Data, Payload>>
+    params: IParams<Data, Payload, TypedField<Data, Payload>>,
   ) => ({
     handler,
     payload,
@@ -4808,7 +4872,7 @@ declare module "react-declarative/hooks/useSearchParams" {
    * @returns - The parsed search parameters object.
    */
   export const useSearchParams: <T = Record<string, Value>>(
-    defaultValues?: Partial<T> | (() => Partial<T>)
+    defaultValues?: Partial<T> | (() => Partial<T>),
   ) => T;
   export default useSearchParams;
 }
@@ -4823,10 +4887,10 @@ declare module "react-declarative/hooks/useSearchState" {
    * @returns - An array containing the search state object and a function to update the search state.
    */
   export const useSearchState: <T extends Record<string, Value>>(
-    defaultValues?: Partial<T> | (() => Partial<T>)
+    defaultValues?: Partial<T> | (() => Partial<T>),
   ) => readonly [
     T,
-    import("react").Dispatch<import("react").SetStateAction<T>>
+    import("react").Dispatch<import("react").SetStateAction<T>>,
   ];
   export default useSearchState;
 }
@@ -4906,7 +4970,7 @@ declare module "react-declarative/model/IOnePublicProps" {
   export interface IOnePublicProps<
     Data = IAnything,
     Payload = IAnything,
-    Field = IField<Data>
+    Field = IField<Data>,
   > extends Omit<
       IOneProps<Data, Payload, Field>,
       keyof {
@@ -4972,7 +5036,7 @@ declare module "react-declarative/utils/list2grid" {
    */
   export const list2grid: (
     columns: IColumn[],
-    payload: Record<string, any>
+    payload: Record<string, any>,
   ) => IGridColumn[];
   export default list2grid;
 }
@@ -5056,7 +5120,7 @@ declare module "react-declarative/utils/chooseFile" {
    * @returns A promise that resolves with the selected file or null if the selection was canceled.
    */
   export const chooseFile: (
-    accept?: string | undefined
+    accept?: string | undefined,
   ) => Promise<File | null>;
   export default chooseFile;
 }
@@ -5118,7 +5182,7 @@ declare module "react-declarative/utils/promiseState" {
    * @returns - The state of the promise, which can be either 'sync' or 'async'.
    */
   export const promiseState: <T = any>(
-    promise: T | Promise<T>
+    promise: T | Promise<T>,
   ) => "async" | "sync";
   export const promiseValue: <T = any>(promise: T | Promise<T>) => T | null;
   export default promiseState;
@@ -5133,7 +5197,7 @@ declare module "react-declarative/utils/chooseMultipleFiles" {
    * or null if the dialog was canceled.
    */
   export const chooseMultipleFiles: (
-    accept?: string | undefined
+    accept?: string | undefined,
   ) => Promise<File[] | null>;
   export default chooseMultipleFiles;
 }
@@ -5194,7 +5258,7 @@ declare module "react-declarative/utils/getRouteParams" {
    */
   export const getRouteParams: <T = Record<string, any>>(
     routes: ISwitchItem[],
-    pathname: string
+    pathname: string,
   ) => T | null;
   export default getRouteParams;
 }
@@ -5210,7 +5274,7 @@ declare module "react-declarative/utils/getRouteItem" {
    */
   export const getRouteItem: <T extends ISwitchItem = ISwitchItem>(
     routes: T[],
-    pathname: string
+    pathname: string,
   ) => T | null;
   export default getRouteItem;
 }
@@ -5291,7 +5355,7 @@ declare module "react-declarative/utils/fetchApi" {
     constructor(
       originalError: any,
       request: RequestInfo,
-      response: Response | undefined
+      response: Response | undefined,
     );
   }
   /**
@@ -5304,7 +5368,7 @@ declare module "react-declarative/utils/fetchApi" {
    */
   export const fetchApi: <T = any>(
     input: RequestInfo | URL,
-    init?: RequestInit | undefined
+    init?: RequestInit | undefined,
   ) => Promise<T>;
   export default fetchApi;
 }
@@ -5317,7 +5381,7 @@ declare module "react-declarative/utils/createValueProvider" {
    * @returns A tuple containing the provider component and a hook to access the value.
    */
   export const createValueProvider: <P extends unknown = object>(
-    defaultValue?: P | undefined
+    defaultValue?: P | undefined,
   ) => readonly [
     ({
       children,
@@ -5326,7 +5390,7 @@ declare module "react-declarative/utils/createValueProvider" {
       children: React.ReactNode;
       payload: P;
     }) => JSX.Element,
-    () => P
+    () => P,
   ];
   export default createValueProvider;
 }
@@ -5349,7 +5413,7 @@ declare module "react-declarative/utils/createStateProvider" {
       children: React.ReactNode;
       initialState: S | (() => S);
     }) => JSX.Element,
-    () => readonly [S, (state: S | ((prevState: S) => S)) => void]
+    () => readonly [S, (state: S | ((prevState: S) => S)) => void],
   ];
   export default createStateProvider;
 }
@@ -5363,7 +5427,7 @@ declare module "react-declarative/utils/createSsStateProvider" {
    * @template S - The type of the state object.
    */
   export const createSsStateProvider: <S extends unknown>(
-    storageKey: string
+    storageKey: string,
   ) => readonly [
     ({
       children,
@@ -5374,7 +5438,7 @@ declare module "react-declarative/utils/createSsStateProvider" {
       children: React.ReactNode;
       initialState: S | (() => S);
     }) => JSX.Element,
-    () => readonly [S, (state: S | ((prevState: S) => S)) => void]
+    () => readonly [S, (state: S | ((prevState: S) => S)) => void],
   ];
   export default createSsStateProvider;
 }
@@ -5390,7 +5454,7 @@ declare module "react-declarative/utils/createLsStateProvider" {
    * component and the state hook.
    */
   export const createLsStateProvider: <S extends unknown>(
-    storageKey: string
+    storageKey: string,
   ) => readonly [
     ({
       children,
@@ -5401,7 +5465,7 @@ declare module "react-declarative/utils/createLsStateProvider" {
       children: React.ReactNode;
       initialState: S | (() => S);
     }) => JSX.Element,
-    () => readonly [S, (state: S | ((prevState: S) => S)) => void]
+    () => readonly [S, (state: S | ((prevState: S) => S)) => void],
   ];
   export default createLsStateProvider;
 }
@@ -5435,7 +5499,7 @@ declare module "react-declarative/utils/normalizeText" {
       inputFormatterReplace: replace,
       inputFormatterTemplate: template,
       inputFormatter,
-    }?: Partial<IConfig>
+    }?: Partial<IConfig>,
   ) => string;
   export default normalizeText;
 }
@@ -5460,7 +5524,7 @@ declare module "react-declarative/utils/formatText" {
   export const formatText: (
     raw: string,
     template: string,
-    { symbol, allowed, replace }?: IParams
+    { symbol, allowed, replace }?: IParams,
   ) => string;
   export default formatText;
 }
@@ -5495,7 +5559,7 @@ declare module "react-declarative/utils/wordForm" {
    */
   export const wordForm: (
     value: number,
-    { one, many, two }: IWordForm
+    { one, many, two }: IWordForm,
   ) => string;
   export default wordForm;
 }
@@ -5512,7 +5576,7 @@ declare module "react-declarative/utils/hof/singleshot" {
    * @returns - The executed function with additional "clear" method to reset the execution state.
    */
   export const singleshot: <T extends (...args: any[]) => any>(
-    run: T
+    run: T,
   ) => T & IClearable;
   export default singleshot;
 }
@@ -5549,7 +5613,7 @@ declare module "react-declarative/utils/hof/afterinit" {
    * @returns The wrapped function.
    */
   export const afterinit: <T extends unknown = any, P extends any[] = any[]>(
-    run: (...args: P) => Promise<T>
+    run: (...args: P) => Promise<T>,
   ) => IWrappedFn<T, P>;
   export default afterinit;
 }
@@ -5569,7 +5633,7 @@ declare module "react-declarative/utils/hof/retry" {
    */
   export const retry: <T extends unknown = any, P extends any[] = any[]>(
     run: (...args: P) => Promise<T>,
-    count?: number
+    count?: number,
   ) => IWrappedFn<T, P>;
   export default retry;
 }
@@ -5590,7 +5654,7 @@ declare module "react-declarative/utils/hof/singlerun" {
    * @returns - The wrapped function with additional clear functionality.
    */
   export const singlerun: <T extends (...args: any[]) => any>(
-    run: T
+    run: T,
   ) => T & IClearable;
   export default singlerun;
 }
@@ -5610,7 +5674,7 @@ declare module "react-declarative/utils/hof/cancelable" {
    * @template P - The type of the promise function's arguments.
    */
   export const cancelable: <T extends unknown = any, P extends any[] = any[]>(
-    promise: (...args: P) => Promise<T>
+    promise: (...args: P) => Promise<T>,
   ) => IWrappedFn<T, P>;
   export default cancelable;
 }
@@ -5630,7 +5694,7 @@ declare module "react-declarative/utils/hof/debounce" {
    */
   export const debounce: <T extends (...args: any[]) => any>(
     run: T,
-    delay?: number
+    delay?: number,
   ) => T & IClearable;
   export default debounce;
 }
@@ -5651,7 +5715,7 @@ declare module "react-declarative/utils/hof/queued" {
    * @returns - The wrapped function.
    */
   export const queued: <T extends unknown = any, P extends any[] = any[]>(
-    promise: (...args: P) => Promise<T>
+    promise: (...args: P) => Promise<T>,
   ) => IWrappedFn<T, P>;
   export { CANCELED_SYMBOL };
   export default queued;
@@ -5671,7 +5735,7 @@ declare module "react-declarative/utils/hof/lock" {
    * @returns The wrapped function with lock functionality.
    */
   export const lock: <T extends unknown = any, P extends any[] = any[]>(
-    promise: (...args: P) => Promise<T>
+    promise: (...args: P) => Promise<T>,
   ) => IWrappedFn<T, P>;
   export default lock;
 }
@@ -5690,7 +5754,7 @@ declare module "react-declarative/utils/hof/cached" {
    */
   export const cached: <T extends (...args: A) => any, A extends any[]>(
     changed: (prevArgs: A, currentArgs: A) => boolean,
-    run: T
+    run: T,
   ) => T & IClearable;
   export default cached;
 }
@@ -5716,10 +5780,10 @@ declare module "react-declarative/utils/hof/memoize" {
   export const memoize: <
     T extends (...args: A) => any,
     A extends any[],
-    K = string
+    K = string,
   >(
     key: (args: A) => K,
-    run: T
+    run: T,
   ) => T & IClearable<K>;
   export default memoize;
 }
@@ -5747,10 +5811,10 @@ declare module "react-declarative/utils/hof/trycatch" {
   export const trycatch: <
     T extends (...args: A) => any,
     A extends any[],
-    V extends unknown
+    V extends unknown,
   >(
     run: T,
-    { fallback, defaultValue }?: Partial<IConfig>
+    { fallback, defaultValue }?: Partial<IConfig>,
   ) => (...args: A) => ReturnType<T> | null;
   export default trycatch;
 }
@@ -5775,7 +5839,7 @@ declare module "react-declarative/utils/hof/ttl" {
   export const ttl: <
     T extends (...args: A) => any,
     A extends any[],
-    K = string
+    K = string,
   >(
     run: T,
     {
@@ -5784,7 +5848,7 @@ declare module "react-declarative/utils/hof/ttl" {
     }?: {
       key?: ((args: A) => K) | undefined;
       timeout?: number | undefined;
-    }
+    },
   ) => T & IClearable<K>;
   export default ttl;
 }
@@ -5858,23 +5922,23 @@ declare module "react-declarative/utils/rx/Observer" {
     map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => Observer<T>;
     operator: <T = any>(
-      callbackfn: (target: TObserver<Data>) => TObserver<T>
+      callbackfn: (target: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
-      begin: T
+      begin: T,
     ) => Observer<T>;
     split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
     mapAsync: <T = any>(
       callbackfn: (value: Data) => Promise<T>,
-      fallbackfn?: ((e: Error) => void) | undefined
+      fallbackfn?: ((e: Error) => void) | undefined,
     ) => Observer<T>;
     filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
     tap: (callbackfn: (value: Data) => void) => Observer<Data>;
     debounce: (delay?: number | undefined) => Observer<Data>;
     emit: (data: Data) => void;
     connect: (
-      callbackfn: (value: Data) => void
+      callbackfn: (value: Data) => void,
     ) => import("../compose").Function;
     once: (callbackfn: (value: Data) => void) => Fn;
     share: () => this;
@@ -5894,44 +5958,44 @@ declare module "react-declarative/utils/rx/Observer" {
 declare module "react-declarative/utils/rx/Operator" {
   export class Operator {
     static take: <T = any>(
-      count: number
+      count: number,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<T>;
     static skip: <T = any>(
-      the: number
+      the: number,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<T>;
     static pair: <T = any>(
-      by?: number
+      by?: number,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<[T, T]>;
     static group: <T = any>(
-      by: number
+      by: number,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<T[]>;
     static strideTricks: <T = any>(
       strideSize: number,
-      step?: number
+      step?: number,
     ) => (
-      target: import("./Observer").TObserver<T[]>
+      target: import("./Observer").TObserver<T[]>,
     ) => import("./Observer").TObserver<T[][]>;
     static distinct: <T = any, V = any>(
-      getCompareValue?: (value: T) => V
+      getCompareValue?: (value: T) => V,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<T>;
     static liveness: <T = any>(
       fallbackfn: () => void,
-      waitFor?: number
+      waitFor?: number,
     ) => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<T>;
     static count: <T = any>() => (
-      target: import("./Observer").TObserver<T>
+      target: import("./Observer").TObserver<T>,
     ) => import("./Observer").TObserver<import("./lib/count").ICounted<T>>;
   }
   export default Operator;
@@ -5951,16 +6015,16 @@ declare module "react-declarative/utils/rx/Subject" {
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
-      begin: T
+      begin: T,
     ) => TObserver<T>;
     mapAsync: <T = any>(
       callbackfn: (value: Data) => Promise<T>,
-      fallbackfn?: ((e: Error) => void) | undefined
+      fallbackfn?: ((e: Error) => void) | undefined,
     ) => TObserver<T>;
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
     operator: <T = any>(
-      callbackfn: (value: TObserver<Data>) => TObserver<T>
+      callbackfn: (value: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
     split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
     debounce: (delay?: number | undefined) => TObserver<Data>;
@@ -5997,7 +6061,7 @@ declare module "react-declarative/utils/rx/Source" {
       G = never,
       H = never,
       I = never,
-      J = never
+      J = never,
     >(
       observers: [
         TObserver<A>,
@@ -6009,8 +6073,8 @@ declare module "react-declarative/utils/rx/Source" {
         (TObserver<G> | undefined)?,
         (TObserver<H> | undefined)?,
         (TObserver<I> | undefined)?,
-        (TObserver<J> | undefined)?
-      ]
+        (TObserver<J> | undefined)?,
+      ],
     ) => TObserver<A | B | C | D | E | F | G | H | I | J>;
     static join: <
       A = never,
@@ -6022,7 +6086,7 @@ declare module "react-declarative/utils/rx/Source" {
       G = never,
       H = never,
       I = never,
-      J = never
+      J = never,
     >(
       observers: [
         TObserver<A>,
@@ -6034,7 +6098,7 @@ declare module "react-declarative/utils/rx/Source" {
         (TObserver<G> | undefined)?,
         (TObserver<H> | undefined)?,
         (TObserver<I> | undefined)?,
-        (TObserver<J> | undefined)?
+        (TObserver<J> | undefined)?,
       ],
       {
         race,
@@ -6051,47 +6115,47 @@ declare module "react-declarative/utils/rx/Source" {
               (G | undefined)?,
               (H | undefined)?,
               (I | undefined)?,
-              (J | undefined)?
+              (J | undefined)?,
             ]
           | undefined;
         race?: boolean | undefined;
-      }
+      },
     ) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
     static unicast: <Data = any>(
-      factory: () => TObserver<Data>
+      factory: () => TObserver<Data>,
     ) => TObserver<Data> & {
       isUnicasted: true;
     };
     static multicast: <Data = any>(
-      factory: () => TObserver<Data>
+      factory: () => TObserver<Data>,
     ) => TObserver<Data> & {
       isMulticasted: true;
       getRef: any;
     };
     static createHot: <Data = any>(
-      emitter: (next: (data: Data) => void) => (() => void) | void
+      emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
     static createCold: <Data = any>(
-      emitter: (next: (data: Data) => void) => (() => void) | void
+      emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
     static create: <Data = any>(
-      emitter: (next: (data: Data) => void) => (() => void) | void
+      emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
     static pipe: <Data = any, Output = any>(
       target: TObserver<Data>,
       emitter: (
         subject: TSubject<Data>,
-        next: (output: Output) => void
-      ) => (() => void) | void
+        next: (output: Output) => void,
+      ) => (() => void) | void,
     ) => Observer<Output>;
     static fromInterval: (delay: number) => TObserver<number>;
     static fromPromise: <Data = any>(
       callbackfn: () => Promise<Data>,
-      fallbackfn?: ((e: Error) => void) | undefined
+      fallbackfn?: ((e: Error) => void) | undefined,
     ) => TObserver<Data>;
     static fromDelay: (delay: number) => TObserver<void>;
     static fromArray: <Data = any>(
-      data: Data
+      data: Data,
     ) => TObserver<
       readonly (Data extends readonly (infer InnerArr)[]
         ? InnerArr extends readonly (infer InnerArr)[]
@@ -6118,7 +6182,7 @@ declare module "react-declarative/utils/rx/Source" {
         : Data)[]
     >;
     static fromEvent: (
-      event: keyof DocumentEventMap
+      event: keyof DocumentEventMap,
     ) => TObserver<
       | Event
       | MouseEvent
@@ -6141,11 +6205,11 @@ declare module "react-declarative/utils/rx/Source" {
       | WheelEvent
     >;
     static fromValue: <Data = any>(
-      data: Data | (() => Data)
+      data: Data | (() => Data),
     ) => TObserver<Data>;
     static fromSubject: <Data = any>(subject: TSubject<Data>) => Observer<Data>;
     static fromBehaviorSubject: <Data = any>(
-      subject: TBehaviorSubject<Data>
+      subject: TBehaviorSubject<Data>,
     ) => Observer<Data>;
   }
   export default Source;
@@ -6288,7 +6352,7 @@ declare module "react-declarative/utils/getAvailableFields" {
     fields: IField[],
     data: Record<string, any>,
     payload: Record<string, any>,
-    _features?: IOnePublicProps["features"]
+    _features?: IOnePublicProps["features"],
   ) => {
     visible: IField<any, any>[];
     hidden: IField<any, any>[];
@@ -6311,10 +6375,10 @@ declare module "react-declarative/utils/getInitialData" {
    */
   export const getInitialData: <
     Data extends {} = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >(
     fields: IField<Data, Payload>[],
-    payload?: Payload
+    payload?: Payload,
   ) => Data;
   export default getInitialData;
 }
@@ -6354,7 +6418,7 @@ declare module "react-declarative/utils/replaceSubstring" {
   export const replaceSubstring: (
     str: string,
     from: string[] | string,
-    to: string[] | string
+    to: string[] | string,
   ) => string;
   export default replaceSubstring;
 }
@@ -6383,14 +6447,14 @@ declare module "react-declarative/model/TObserver" {
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
-      begin: T
+      begin: T,
     ) => TObserver<T>;
     mapAsync: <T = unknown>(
       callbackfn: (value: Data) => Promise<T>,
-      fallbackfn?: (e: Error) => void
+      fallbackfn?: (e: Error) => void,
     ) => TObserver<T>;
     operator: <T = any>(
-      callbackfn: (target: TObserver<Data>) => TObserver<T>
+      callbackfn: (target: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
@@ -6429,14 +6493,14 @@ declare module "react-declarative/model/TPaginator" {
   export type TPaginator<
     FilterData extends {} = any,
     RowData extends IRowData = any,
-    Payload = any
+    Payload = any,
   > = (
     data: FilterData,
     pagination: ListHandlerPagination,
     sort: ListHandlerSortModel<RowData>,
     chips: ListHandlerChips<RowData>,
     search: string,
-    payload: Payload
+    payload: Payload,
   ) => Promise<
     | {
         rows: RowData[];
@@ -6486,7 +6550,7 @@ declare module "react-declarative/utils/mvvm/Entity" {
     constructor(
       _data: T | Entity<T> | (() => T),
       _debounce?: number,
-      _prevData?: () => T
+      _prevData?: () => T,
     );
     setData: (data: Partial<T> | ((prevData: T) => Partial<T>)) => void;
     handleChange: (change: (item: Entity<T>) => void) => () => void;
@@ -6509,13 +6573,13 @@ declare module "react-declarative/utils/mvvm/Collection" {
     setData(items: T[]): void;
     map<V = any>(callbackfn: (value: IEntityAdapter<T>, idx: number) => V): V[];
     filter(
-      predicate: (value: IEntityAdapter<T>, idx: number) => boolean
+      predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): IEntityAdapter<T>[];
     find(
-      predicate: (value: IEntityAdapter<T>, idx: number) => boolean
+      predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): IEntityAdapter<T> | undefined;
     some(
-      predicate: (value: IEntityAdapter<T>, idx: number) => boolean
+      predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): boolean;
     forEach(callbackfn: (value: IEntityAdapter<T>, idx: number) => void): void;
     push(...items: T[] | T[][]): void;
@@ -6544,17 +6608,17 @@ declare module "react-declarative/utils/mvvm/Collection" {
     constructor(
       entities?: T[] | (() => T[]) | Entity<T>[] | Collection<T>,
       _debounce?: number,
-      _prevData?: () => Entity<T>[]
+      _prevData?: () => Entity<T>[],
     );
     get isEmpty(): boolean;
     setData: (items: T[]) => void;
     clear: () => void;
     map: <V = any>(callbackfn: (value: Entity<T>, idx: number) => V) => V[];
     filter: (
-      predicate: (value: Entity<T>, idx: number) => boolean
+      predicate: (value: Entity<T>, idx: number) => boolean,
     ) => Entity<T>[];
     find: (
-      predicate: (value: Entity<T>, idx: number) => boolean
+      predicate: (value: Entity<T>, idx: number) => boolean,
     ) => Entity<T> | undefined;
     some: (predicate: (value: Entity<T>, idx: number) => boolean) => boolean;
     forEach: (callbackfn: (value: Entity<T>, idx: number) => void) => void;
@@ -6565,7 +6629,7 @@ declare module "react-declarative/utils/mvvm/Collection" {
     removeAll: () => void;
     findById: (id: IEntity["id"]) => Entity<T>;
     handleChange: (
-      change: (collection: Collection<T>, target: Entity<T> | null) => void
+      change: (collection: Collection<T>, target: Entity<T> | null) => void,
     ) => () => void;
     handleDropChanges: () => void;
     refresh: () => Promise<void>;
@@ -6598,7 +6662,7 @@ declare module "react-declarative/utils/mvvm/Model" {
     constructor(
       _data: T | Model<T> | (() => T),
       _debounce?: number,
-      _prevData?: () => T
+      _prevData?: () => T,
     );
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
     handleChange(change: (item: Model<T>) => void): () => void;
@@ -6621,7 +6685,7 @@ declare module "react-declarative/utils/formatAmount" {
   export const formatAmount: (
     value: number | string,
     scale?: number,
-    separator?: string
+    separator?: string,
   ) => string;
   export default formatAmount;
 }
@@ -6644,7 +6708,7 @@ declare module "react-declarative/utils/createLsManager" {
    * @returns - An instance of the createLsManager class.
    */
   export const createLsManager: <T = Record<string, any>>(
-    STORAGE_KEY: string
+    STORAGE_KEY: string,
   ) => {
     getValue: () => T | null;
     setValue: (value: T) => void;
@@ -6663,7 +6727,7 @@ declare module "react-declarative/utils/createSsManager" {
    * @template T - The type of the value stored in session storage.
    */
   export const createSsManager: <T = Record<string, any>>(
-    STORAGE_KEY: string
+    STORAGE_KEY: string,
   ) => {
     getValue: () => T | null;
     setValue: (value: T) => void;
@@ -6687,7 +6751,7 @@ declare module "react-declarative/utils/createCustomTag" {
   export const createCustomTag: (
     name?: string,
     style?: string,
-    { onClick, onInit }?: Partial<IConfig>
+    { onClick, onInit }?: Partial<IConfig>,
   ) => void;
   export default createCustomTag;
 }
@@ -6722,7 +6786,7 @@ declare module "react-declarative/utils/base64Json" {
    * @template T - The type of the parsed JavaScript object. Defaults to Record<string, any>.
    */
   export const parseBase64Json: <T = Record<string, any>>(
-    state: string
+    state: string,
   ) => T | null;
   /**
    * Converts a JavaScript object to a base64 encoded JSON string.
@@ -6732,7 +6796,7 @@ declare module "react-declarative/utils/base64Json" {
    * @returns - The base64 encoded JSON string representation of the state object.
    */
   export const stringifyBase64Json: <T = Record<string, any>>(
-    state: T
+    state: T,
   ) => string;
 }
 
@@ -6745,10 +6809,10 @@ declare module "react-declarative/utils/asciiParams" {
    * @template T - The object type of the parsed result. Defaults to `Record<string, any>`.
    */
   export const parseAsciiParams: <T extends {} = Record<string, any>>(
-    state: number[]
+    state: number[],
   ) => T | null;
   export const serializeAsciiParams: <T extends {} = Record<string, any>>(
-    state: T
+    state: T,
   ) => number[];
   export const toBytes32: (str: string) => string;
   export const fromBytes32: (hex: string) => string;
@@ -6873,7 +6937,7 @@ declare module "react-declarative/utils/getMomentStamp" {
    */
   export const getMomentStamp: (
     end?: dayjs.Dayjs,
-    dimension?: dayjs.ManipulateType
+    dimension?: dayjs.ManipulateType,
   ) => stamp;
   /**
    * Converts a timestamp to a moment in time.
@@ -6884,7 +6948,7 @@ declare module "react-declarative/utils/getMomentStamp" {
    */
   export const fromMomentStamp: (
     stamp: number,
-    dimension?: dayjs.ManipulateType
+    dimension?: dayjs.ManipulateType,
   ) => dayjs.Dayjs;
   export default getMomentStamp;
 }
@@ -6916,7 +6980,7 @@ declare module "react-declarative/api/resolveDocuments" {
    * @returns - A promise that resolves to the flattened array of documents.
    */
   export const resolveDocuments: <T extends unknown>(
-    iterator: AsyncGenerator<T | T[], void, unknown>
+    iterator: AsyncGenerator<T | T[], void, unknown>,
   ) => Promise<T[]>;
   export default resolveDocuments;
 }
@@ -6933,7 +6997,7 @@ declare module "react-declarative/api/iterateDocuments" {
         offset: number;
         page: number;
         lastId: RowId | null;
-      } & Omit<IConfig<Data>, "createRequest">
+      } & Omit<IConfig<Data>, "createRequest">,
     ) => Data[] | Promise<Data[]>;
   }
   /**
@@ -6972,7 +7036,7 @@ declare module "react-declarative/api/pickDocuments" {
    */
   export const pickDocuments: <T extends unknown>(
     limit: number,
-    offset: number
+    offset: number,
   ) => (rows?: T[]) => {
     rows: T[];
     done: boolean;
@@ -6998,12 +7062,12 @@ declare module "react-declarative/utils/heavy" {
    */
   export const heavy: <
     T extends React.ComponentType<P>,
-    P extends object = any
+    P extends object = any,
   >(
     factory: () => Promise<{
       default: T;
     }>,
-    { loaderSize }?: Partial<IParams>
+    { loaderSize }?: Partial<IParams>,
   ) => (props: P) => JSX.Element;
   export default heavy;
 }
@@ -9623,7 +9687,7 @@ declare module "react-declarative/components/One/fields/TypographyField" {
   import IField from "react-declarative/model/IField";
   export interface ITypographyFieldProps<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > {
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     typoVariant?: PickProp<IField<Data, Payload>, "typoVariant">;
@@ -10282,7 +10346,7 @@ declare module "react-declarative/model/ISize" {
   export type ISizeCallback<Data = IAnything> = (
     data: Data,
     size: ISize,
-    ref: HTMLDivElement
+    ref: HTMLDivElement,
   ) => string;
   export default ISize;
 }
@@ -10308,7 +10372,7 @@ declare module "react-declarative/components/SearchView/model/ISearchViewProps" 
   import TSubject from "react-declarative/model/TSubject";
   export type ISearchViewProps<
     Data extends IAnything = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = Omit<
     TextFieldProps,
     keyof {
@@ -10368,7 +10432,7 @@ declare module "react-declarative/components/SearchView/model/ISearchViewProps" 
       limit: number,
       offset: number,
       initial: boolean,
-      currentRows: ISearchItem<Data>[]
+      currentRows: ISearchItem<Data>[],
     ) => ISearchItem<Data>[] | Promise<ISearchItem<Data>[]>;
     onChange?: (value: ISearchItem<Data> | null) => void;
     onCreate?: (value: string) => void;
@@ -10405,7 +10469,7 @@ declare module "react-declarative/model/IFieldMenu" {
       data: Data,
       payload: Payload,
       onValueChange: (value: Value) => void,
-      onChange: (data: Data) => void
+      onChange: (data: Data) => void,
     ) => void;
   }
   export default IFieldMenu;
@@ -10428,14 +10492,14 @@ declare module "react-declarative/components/List/api/useLastPagination" {
   import IRowData from "react-declarative/model/IRowData";
   interface IResult<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     data: IState<FilterData, RowData>;
     handler: ListHandler<FilterData, RowData>;
   }
   export interface IState<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     filterData: FilterData;
     pagination: ListHandlerPagination;
@@ -10455,9 +10519,9 @@ declare module "react-declarative/components/List/api/useLastPagination" {
    */
   export const useLastPagination: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
-    upperHandler: ListHandler<FilterData, RowData, any>
+    upperHandler: ListHandler<FilterData, RowData, any>,
   ) => IResult;
   export default useLastPagination;
 }
@@ -10509,20 +10573,20 @@ declare module "react-declarative/components/List/List" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >(
-    props: IListProps<FilterData, RowData, Payload, Field>
+    props: IListProps<FilterData, RowData, Payload, Field>,
   ) => JSX.Element;
   export const ListTyped: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     props: IListProps<
       FilterData,
       RowData,
       TypedField<FilterData, any>,
       IField<FilterData, TypedField<FilterData, any>>
-    >
+    >,
   ) => JSX.Element;
   export default List;
 }
@@ -10555,7 +10619,7 @@ declare module "react-declarative/components/List/hooks/useProps" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > extends Omit<
         IListProps<FilterData, RowData, Payload, Field>,
         keyof {
@@ -10575,15 +10639,15 @@ declare module "react-declarative/components/List/hooks/useProps" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >(
-    props: IPropContext<FilterData, RowData, Payload, Field>
+    props: IPropContext<FilterData, RowData, Payload, Field>,
   ) => JSX.Element;
   export const useProps: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >() => IPropContext<FilterData, RowData, Payload, Field>;
   export default useProps;
 }
@@ -10593,7 +10657,7 @@ declare module "react-declarative/components/List/hooks/useCachedRows" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData, { RowId } from "react-declarative/model/IRowData";
   export const useCachedRows: <
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >() => IState<RowData>;
   interface ICachedRowsProviderProps {
     children: React.ReactNode;
@@ -10614,7 +10678,7 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
   import IRowData from "react-declarative/model/IRowData";
   interface IQuery<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     filterData: IListProps<FilterData, RowData>["filterData"];
     sortModel: IListProps<FilterData, RowData>["sortModel"];
@@ -10625,7 +10689,7 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
   }
   interface IParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
     onFilterChange: IListProps<FilterData, RowData>["onFilterChange"];
@@ -10639,15 +10703,15 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
   }
   type FilterDataT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
   type SortModelT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
   type ChipDataT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["chipData"], undefined>;
   export const DEFAULT_QUERY: IQuery;
   /**
@@ -10669,7 +10733,7 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
    */
   export const useQueryPagination: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     initialValue?: Partial<IQuery<FilterData, RowData>>,
     {
@@ -10682,11 +10746,11 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
       onChange: handleChange,
       removeEmptyFilters,
       fallback,
-    }?: Partial<IParams<FilterData, RowData>>
+    }?: Partial<IParams<FilterData, RowData>>,
   ) => {
     setFilterData: (data: FilterData) => void;
     setSortModel: (
-      sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>
+      sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>,
     ) => void;
     setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
     setLimit: (limit: number) => void;
@@ -10715,7 +10779,7 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
       onLimitChange: (limit: number) => void;
       onPageChange: (page: number) => void;
       onSortModelChange: (
-        sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>
+        sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>,
       ) => void;
       onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
       onSearchChange: (search: string) => void;
@@ -10731,7 +10795,7 @@ declare module "react-declarative/components/List/api/useCachedPaginator" {
   import { IArrayPaginatorParams } from "react-declarative/components/List/api/useArrayPaginator";
   interface IResult<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     handler: ListHandler<FilterData, RowData>;
     clear: () => void;
@@ -10749,10 +10813,10 @@ declare module "react-declarative/components/List/api/useCachedPaginator" {
    */
   export const useCachedPaginator: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     handler: ListHandler<FilterData, RowData, any>,
-    params: IArrayPaginatorParams<FilterData, RowData>
+    params: IArrayPaginatorParams<FilterData, RowData>,
   ) => IResult<FilterData, RowData>;
   export default useCachedPaginator;
 }
@@ -10764,7 +10828,7 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
   import History from "react-declarative/model/History";
   interface IQuery<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     filterData: IListProps<FilterData, RowData>["filterData"];
     sortModel: IListProps<FilterData, RowData>["sortModel"];
@@ -10775,7 +10839,7 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
   }
   interface IParams<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > {
     initialValue: Partial<IQuery<FilterData, RowData>>;
     removeEmptyFilters: (data: FilterData) => Partial<FilterData>;
@@ -10790,15 +10854,15 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
   }
   type FilterDataT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
   type SortModelT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
   type ChipDataT<
     FilterData extends {} = IAnything,
-    RowData extends IRowData = IAnything
+    RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["chipData"], undefined>;
   export const DEFAULT_QUERY: IQuery;
   /**
@@ -10847,7 +10911,7 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
    */
   export const useHistoryStatePagination: <
     FilterData extends {} = any,
-    RowData extends IRowData = any
+    RowData extends IRowData = any,
   >(
     history: History,
     {
@@ -10861,11 +10925,11 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
       onChange: handleChange,
       removeEmptyFilters,
       fallback,
-    }?: Partial<IParams<FilterData, RowData>>
+    }?: Partial<IParams<FilterData, RowData>>,
   ) => {
     setFilterData: (data: FilterData) => void;
     setSortModel: (
-      sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>
+      sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>,
     ) => void;
     setChipData: (data: Partial<Record<keyof RowData, boolean>>) => void;
     setLimit: (limit: number) => void;
@@ -10894,7 +10958,7 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
       onLimitChange: (limit: number) => void;
       onPageChange: (page: number) => void;
       onSortModelChange: (
-        sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>
+        sort: import("../../../model/IListProps").ListHandlerSortModel<RowData>,
       ) => void;
       onChipsChange: (data: Partial<Record<keyof RowData, boolean>>) => void;
       onSearchChange: (search: string) => void;
@@ -10928,12 +10992,12 @@ declare module "react-declarative/components/List/api/useListAction" {
     onAction?: (
       action: string,
       rows: Data[],
-      deselectAll: () => void
+      deselectAll: () => void,
     ) => Promise<void> | void;
     onRowAction?: (
       action: string,
       row: Data,
-      deselectAll: () => void
+      deselectAll: () => void,
     ) => Promise<void> | void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -10974,7 +11038,7 @@ declare module "react-declarative/components/List/api/useListAction" {
     readonly commitAction: (p?: string | undefined) => Promise<void | null>;
     readonly commitRowAction: (
       action: string,
-      row: Data
+      row: Data,
     ) => Promise<void | null>;
   };
   export default useListAction;
@@ -10997,7 +11061,7 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > = Exclude<
     IListProps<FilterData, RowData, Payload, Field>["filterData"],
     undefined
@@ -11006,7 +11070,7 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > {
     value: IContext<FilterData, RowData, Payload, Field>;
     children: React.ReactNode;
@@ -11015,7 +11079,7 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >({
     children,
     value,
@@ -11024,7 +11088,7 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >() => Exclude<Partial<FilterData>, undefined>;
   export default useFilterData;
 }
@@ -11120,7 +11184,7 @@ declare module "react-declarative/components/List/hooks/usePayload" {
 
 declare module "react-declarative/components/List/hooks/useReload" {
   export const useReload: () => (
-    keepPagination?: boolean | undefined
+    keepPagination?: boolean | undefined,
   ) => Promise<void>;
   export default useReload;
 }
@@ -11670,7 +11734,10 @@ declare module "react-declarative/components/ModalProvider/ModalProvider" {
   }
   type IRenderer = React.ComponentType<IAnything>;
   interface IHook {
-    (render: IRenderer, deps?: any[]): {
+    (
+      render: IRenderer,
+      deps?: any[],
+    ): {
       showModal: Function;
       hideModal: Function;
     };
@@ -11825,7 +11892,7 @@ declare module "react-declarative/components/CardView/CardView" {
    * @returns - The CardView component.
    */
   export const CardView: <ItemData extends IItemData = any>(
-    props: ICardViewProps<ItemData, any>
+    props: ICardViewProps<ItemData, any>,
   ) => JSX.Element;
   export default CardView;
 }
@@ -11835,7 +11902,7 @@ declare module "react-declarative/components/CardView/model/ICardViewAction" {
   import IItemData from "react-declarative/components/CardView/model/IItemData";
   export interface ICardViewAction<
     ItemData extends IItemData = any,
-    Payload extends any = any
+    Payload extends any = any,
   > extends Omit<
       IOption,
       keyof {
@@ -11846,7 +11913,7 @@ declare module "react-declarative/components/CardView/model/ICardViewAction" {
     isVisible?: (row: ItemData, payload: Payload) => Promise<boolean> | boolean;
     isDisabled?: (
       row: ItemData,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
   }
   export default ICardViewAction;
@@ -11857,7 +11924,7 @@ declare module "react-declarative/components/CardView/model/ICardViewOperation" 
   import IItemData from "react-declarative/components/CardView/model/IItemData";
   export interface ICardViewOperation<
     ItemData extends IItemData = any,
-    Payload extends any = any
+    Payload extends any = any,
   > extends Omit<
       IActionTrigger,
       keyof {
@@ -11867,7 +11934,7 @@ declare module "react-declarative/components/CardView/model/ICardViewOperation" 
     isAvailable?: (
       selectedItems: ItemData[],
       isAllSelected: boolean,
-      payload: Payload
+      payload: Payload,
     ) => boolean | Promise<boolean>;
   }
   export default ICardViewOperation;
@@ -11894,7 +11961,7 @@ declare module "react-declarative/components/CalendarView/CalendarView" {
    */
   export const CalendarView: {
     <Data extends unknown = any, Payload extends unknown = any>(
-      props: ICalendarViewProps<Data, Payload>
+      props: ICalendarViewProps<Data, Payload>,
     ): JSX.Element;
     init(): void;
   };
@@ -12043,7 +12110,7 @@ declare module "react-declarative/components/FeatureView/model/IFeature" {
   import FeatureType from "react-declarative/components/FeatureView/model/FeatureType";
   export interface IFeature<
     Data extends IAnything = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > {
     type?: FeatureType;
     name: string;
@@ -12063,7 +12130,7 @@ declare module "react-declarative/components/FeatureView/model/IFeatureGroup" {
   import IFeature from "react-declarative/components/FeatureView/model/IFeature";
   export interface IFeatureGroup<
     Data extends IAnything = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > {
     title: string;
     expanded?: boolean;
@@ -12268,7 +12335,7 @@ declare module "react-declarative/components/Scaffold2/Scaffold2" {
    * @returns - The rendered component.
    */
   export const Scaffold2: <T extends unknown = any>(
-    props: IScaffold2Props<T>
+    props: IScaffold2Props<T>,
   ) => JSX.Element;
   export default Scaffold2;
 }
@@ -12672,7 +12739,7 @@ declare module "react-declarative/components/List/components/SlotFactory/SlotCon
   import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
   export const defaultSlots: {
     BodyRow: <RowData extends import("../../../..").IRowData = any>(
-      props: import("../..").IBodyRowSlot<RowData>
+      props: import("../..").IBodyRowSlot<RowData>,
     ) => JSX.Element;
     CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({
       row,
@@ -13282,7 +13349,7 @@ declare module "react-declarative/components/One/One" {
    */
   export const One: {
     <Data extends unknown = any, Payload = any, Field = IField<Data, any>>(
-      props: IOnePublicProps<Data, Payload, Field>
+      props: IOnePublicProps<Data, Payload, Field>,
     ): JSX.Element;
     displayName: string;
     /**
@@ -13295,9 +13362,9 @@ declare module "react-declarative/components/One/One" {
       <
         Data_1 extends unknown = any,
         Payload_1 extends unknown = any,
-        Field_1 = TypedField<Data_1, any>
+        Field_1 = TypedField<Data_1, any>,
       >(
-        props: IOnePublicProps<Data_1, Payload_1, Field_1>
+        props: IOnePublicProps<Data_1, Payload_1, Field_1>,
       ): JSX.Element;
       displayName: string;
     };
@@ -13306,9 +13373,9 @@ declare module "react-declarative/components/One/One" {
     <
       Data extends unknown = any,
       Payload extends unknown = any,
-      Field = TypedField<Data, any>
+      Field = TypedField<Data, any>,
     >(
-      props: IOnePublicProps<Data, Payload, Field>
+      props: IOnePublicProps<Data, Payload, Field>,
     ): JSX.Element;
     displayName: string;
   };
@@ -13349,7 +13416,7 @@ declare module "react-declarative/components/One/config/createField" {
    */
   export const createField: <Data extends unknown = any>(
     entity: IEntity<Data, any>,
-    currentPath?: string
+    currentPath?: string,
   ) => JSX.Element;
   export default createField;
 }
@@ -13368,7 +13435,7 @@ declare module "react-declarative/components/One/config/createLayout" {
   export const createLayout: <Data extends unknown = any>(
     entity: IEntity<Data, any>,
     children: React.ReactNode,
-    currentPath?: string
+    currentPath?: string,
   ) => JSX.Element;
   export default createLayout;
 }
@@ -13384,7 +13451,7 @@ declare module "react-declarative/components/One/context/MenuProvider" {
   import TSubject from "react-declarative/model/TSubject";
   interface IContext {
     createContextMenu: (
-      params: IParams
+      params: IParams,
     ) => React.MouseEventHandler<HTMLDivElement>;
     requestSubject: TSubject<void>;
   }
@@ -13403,13 +13470,13 @@ declare module "react-declarative/components/One/context/PropsProvider" {
   import IOneProps from "react-declarative/model/IOneProps";
   interface IPropsProviderProps<
     Data extends IAnything = IAnything,
-    Field extends IField<Data> = IField<Data>
+    Field extends IField<Data> = IField<Data>,
   > extends IOneProps<Data, Field> {
     children: React.ReactNode;
   }
   export const PropsProvider: <
     Data extends unknown = any,
-    Field extends IField<Data, any> = IField<Data, any>
+    Field extends IField<Data, any> = IField<Data, any>,
   >({
     children,
     ...props
@@ -13430,7 +13497,7 @@ declare module "react-declarative/components/One/context/StateProvider" {
   interface IStateProviderProps<
     Data = IAnything,
     Payload = IAnything,
-    Field extends IField<Data, Payload> = IField<Data, Payload>
+    Field extends IField<Data, Payload> = IField<Data, Payload>,
   > extends IOneProps<Data, Payload, Field> {
     payload: Payload;
     children: React.ReactElement;
@@ -13478,7 +13545,7 @@ declare module "react-declarative/components/One/context/StateProvider" {
   export const StateProvider: <
     Data extends unknown,
     Payload extends unknown,
-    Field extends IField<Data, Payload> = IField<Data, Payload>
+    Field extends IField<Data, Payload> = IField<Data, Payload>,
   >({
     children,
     ...otherProps
@@ -13535,9 +13602,9 @@ declare module "react-declarative/components/One/context/RadioProvider" {
         state:
           | Record<string, string | null>
           | ((
-              prevState: Record<string, string | null>
-            ) => Record<string, string | null>)
-      ) => void
+              prevState: Record<string, string | null>,
+            ) => Record<string, string | null>),
+      ) => void,
     ];
   export default RadioProvider;
 }
@@ -13637,7 +13704,7 @@ declare module "react-declarative/components/One/api/useLocalHandler" {
   import IAnything from "react-declarative/model/IAnything";
   export interface ILocalHandlerParams<
     Data extends IAnything = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > {
     payload?: Payload;
     resultMap?: (json: Record<string, any> | null) => Data | null;
@@ -13667,7 +13734,7 @@ declare module "react-declarative/components/One/api/useLocalHandler" {
    */
   export const useLocalHandler: <
     Data extends unknown = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >(
     handler: OneHandler<Data, Payload>,
     {
@@ -13676,7 +13743,7 @@ declare module "react-declarative/components/One/api/useLocalHandler" {
       onLoadBegin,
       onLoadEnd,
       fallback,
-    }?: ILocalHandlerParams<Data, any>
+    }?: ILocalHandlerParams<Data, any>,
   ) => ILocalHandlerResult<Data>;
   export default useLocalHandler;
 }
@@ -13705,7 +13772,12 @@ declare module "react-declarative/components/One/api/useStaticHandler" {
    */
   export const useStaticHandler: <Data extends unknown = any, Payload = any>(
     handler: OneHandler<Data, Payload>,
-    { resultMap, onLoadBegin, onLoadEnd, fallback }?: IStaticHandlerParams<Data>
+    {
+      resultMap,
+      onLoadBegin,
+      onLoadEnd,
+      fallback,
+    }?: IStaticHandlerParams<Data>,
   ) => OneHandler<Data, Payload>;
   export default useStaticHandler;
 }
@@ -13876,7 +13948,7 @@ declare module "react-declarative/components/OneButton/OneButton" {
    */
   export const OneButton: <
     Data extends {} = any,
-    Payload extends unknown = any
+    Payload extends unknown = any,
   >({
     waitForChangesDelay,
     fieldDebounce,
@@ -13948,7 +14020,7 @@ declare module "react-declarative/components/Switch/Switch" {
     element?: React.ComponentType<any>;
     guard?: () => boolean | Promise<boolean>;
     prefetch?: (
-      params: Record<string, any>
+      params: Record<string, any>,
     ) => Record<string, any> | Promise<Record<string, any>>;
     unload?: (params: Record<string, any>) => Promise<void> | void;
     redirect?: string | ((params: Record<string, any>) => string | null);
@@ -14169,7 +14241,7 @@ declare module "react-declarative/components/Translate/Translate" {
     constructor(
       locale?: Locale,
       transform?: ((str: string) => string) | undefined,
-      config?: Partial<ITranslateConfig>
+      config?: Partial<ITranslateConfig>,
     );
     use: (middleware: Middleware) => void;
     createElement: (
@@ -14179,12 +14251,12 @@ declare module "react-declarative/components/Translate/Translate" {
     ) => ReturnType<typeof createElementRef>;
     jss: (
       type: string,
-      props: IAttributeCollection | null
+      props: IAttributeCollection | null,
     ) => React.ReactElement<{}, string | React.JSXElementConstructor<any>>;
     static install: (
       locale?: Locale | undefined,
       transform?: ((str: string) => string) | undefined,
-      config?: Partial<ITranslateConfig> | undefined
+      config?: Partial<ITranslateConfig> | undefined,
     ) => Translate;
     clear: () => void;
   }
@@ -14400,7 +14472,7 @@ declare module "react-declarative/components/ActionButton/ActionButton" {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
@@ -14490,7 +14562,7 @@ declare module "react-declarative/components/ActionStopIcon/ActionStopIcon" {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
@@ -14547,7 +14619,7 @@ declare module "react-declarative/components/ActionFab/ActionFab" {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
@@ -14709,7 +14781,7 @@ declare module "react-declarative/components/ActionIcon/ActionIcon" {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     onClick?: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ) => void | Promise<void>;
     fallback?: (e: Error) => void;
     throwError?: boolean;
@@ -14819,7 +14891,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     Data extends IAnything = IAnything,
     Payload = IAnything,
     Field = IField<Data>,
-    Param = any
+    Param = any,
   > {
     sizeRequest?: (size: ISize) => {
       height: number;
@@ -14847,7 +14919,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     onSubmit?: (
       data: Data | null,
       payload: Payload,
-      param: Param
+      param: Param,
     ) => Promise<boolean> | boolean;
     onChange?: (data: Data, initial: boolean) => void;
     onInvalid?: (name: string, msg: string) => void;
@@ -14913,7 +14985,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
   export const ActionModal: <
     Data extends unknown = any,
     Payload = any,
-    Field = IField<Data, any>
+    Field = IField<Data, any>,
   >({
     withActionButton,
     withStaticAction,
@@ -14958,7 +15030,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     Data extends IAnything = IAnything,
     Payload extends IAnything = IAnything,
     Field = IField<Data>,
-    Param = any
+    Param = any,
   > extends Omit<
       IActionModalProps<Data, Payload, Field, Param>,
       keyof {
@@ -15015,7 +15087,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     Data extends unknown = any,
     Payload extends unknown = any,
     Field = IField<Data, any>,
-    Param = any
+    Param = any,
   >({
     hidden,
     fields,
@@ -15053,7 +15125,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     pickData: (param?: Param | undefined) => void;
   };
   export const useActionModalTyped: <Data extends unknown = any>(
-    params: IParams<Data, TypedField<Data, any>, IField<Data, any>, any>
+    params: IParams<Data, TypedField<Data, any>, IField<Data, any>, any>,
   ) => {
     open: boolean;
     render: () => JSX.Element;
@@ -15075,7 +15147,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > extends Omit<
       IListProps<FilterData, RowData, Payload, Field>,
       keyof {
@@ -15107,7 +15179,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     selectionMode?: SelectionMode;
     onSubmit?: (
       data: IRowData["id"][] | null,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
     onLoadStart?: () => void;
@@ -15153,7 +15225,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >({
     fullScreen,
     sizeRequest,
@@ -15189,7 +15261,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-    Field extends IField = IField<FilterData, Payload>
+    Field extends IField = IField<FilterData, Payload>,
   > extends Omit<
       ISearchModalProps<FilterData, RowData, Payload, Field>,
       keyof {
@@ -15204,7 +15276,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     onSubmit?: (
       data: IRowData["id"][] | null,
       payload: Payload,
-      param: Param
+      param: Param,
     ) => Promise<boolean> | boolean;
   }
   /**
@@ -15246,7 +15318,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = IField<FilterData, Payload>
+    Field extends IField<any, any> = IField<FilterData, Payload>,
   >({
     param: upperParam,
     selectionMode,
@@ -15276,9 +15348,9 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     FilterData extends {} = any,
     RowData extends IRowData = any,
     Payload extends unknown = any,
-    Field extends IField<any, any> = TypedField<FilterData, Payload>
+    Field extends IField<any, any> = TypedField<FilterData, Payload>,
   >(
-    params: IParams<FilterData, RowData, Payload, Field>
+    params: IParams<FilterData, RowData, Payload, Field>,
   ) => {
     readonly open: boolean;
     readonly render: () => JSX.Element;
@@ -15490,7 +15562,7 @@ declare module "react-declarative/components/OutletView/OutletView" {
     Data extends {} = Record<string, any>,
     Payload = any,
     Params = any,
-    OtherProps = IOtherProps
+    OtherProps = IOtherProps,
   >({
     className,
     readonly,
@@ -15522,11 +15594,11 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
     Data = IAnything,
     Payload = IAnything,
     Params = IAnything,
-    OtherProps = IOtherProps
+    OtherProps = IOtherProps,
   > {
     id: string;
     element: (
-      props: IOutletProps<Data, Payload, Params> & OtherProps
+      props: IOutletProps<Data, Payload, Params> & OtherProps,
     ) => React.ReactElement;
     isAvailable?: (pathname: string) => boolean;
     isActive: (pathname: string) => boolean;
@@ -15543,7 +15615,7 @@ declare module "react-declarative/components/OutletView/model/IOutletModal" {
   export type IOutletModal<
     Data = IAnything,
     Payload = IAnything,
-    Params = IAnything
+    Params = IAnything,
   > = IOutlet<Data, Payload, Params, ModalOtherProps>;
   export default IOutletModal;
 }
@@ -15554,7 +15626,7 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
   export interface IOutletProps<
     Data = IAnything,
     Payload = IAnything,
-    Params = IAnything
+    Params = IAnything,
   > {
     onChange: (data: Data[keyof Data], initial?: boolean) => void;
     onInvalid: (name: string, msg: string) => void;
@@ -15590,7 +15662,7 @@ declare module "react-declarative/components/OutletView/model/IOutletModalProps"
   export type IOutletModalProps<
     Data = IAnything,
     Payload = IAnything,
-    Params = IAnything
+    Params = IAnything,
   > = IOutletProps<Data, Payload, Params> & ModalOtherProps;
   export default IOutletModalProps;
 }
@@ -15604,7 +15676,7 @@ declare module "react-declarative/components/OutletView/hooks/useOutletModal" {
   interface IParams<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
-    Params = IAnything
+    Params = IAnything,
   > extends Omit<
       IOutletModalProps<Data, Payload, Params>,
       keyof {
@@ -15617,7 +15689,7 @@ declare module "react-declarative/components/OutletView/hooks/useOutletModal" {
     onSubmit?: (
       id: Id,
       data: Data | null,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     pickDataSubject?: TSubject<Id>;
     fullScreen?: boolean;
@@ -15659,7 +15731,7 @@ declare module "react-declarative/components/OutletView/hooks/useOutletModal" {
   export const useOutletModal: <
     Data extends {} = Record<string, any>,
     Payload = any,
-    Params = any
+    Params = any,
   >({
     fallback,
     pathname,
@@ -16350,7 +16422,7 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
     _detectElementResize?: DetectElementResize;
     shouldComponentUpdate(
       nextProps: IAutoSizerProps<T>,
-      nextState: State
+      nextState: State,
     ): boolean;
     componentDidMount(): void;
     componentWillUnmount(): void;
@@ -16486,7 +16558,7 @@ declare module "react-declarative/components/TabsView/model/ITabsOutletProps" {
   export type ITabsOutletProps<
     Data = IAnything,
     Payload = IAnything,
-    Other = {}
+    Other = {},
   > = IOutletProps<Data, Payload, OtherProps & Other> & OtherProps & Other;
   export default ITabsOutletProps;
 }
@@ -16527,7 +16599,7 @@ declare module "react-declarative/components/TabsView/model/ITabsModalProps" {
   };
   export type ITabsModalProps<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = ITabsOutletProps<Data, Payload, ModalOtherProps> &
     ModalOtherProps &
     OtherProps;
@@ -16553,10 +16625,10 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   > =
     | ((
-        payload: P
+        payload: P,
       ) => readonly [
         Promise<A>?,
         Promise<B>?,
@@ -16567,11 +16639,11 @@ declare module "react-declarative/components/FetchView/FetchView" {
         Promise<G>?,
         Promise<H>?,
         Promise<I>?,
-        Promise<J>?
+        Promise<J>?,
       ])
     | ((payload: P) => readonly [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?])
     | ((
-        payload: P
+        payload: P,
       ) => [
         Promise<A>?,
         Promise<B>?,
@@ -16582,7 +16654,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
         Promise<G>?,
         Promise<H>?,
         Promise<I>?,
-        Promise<J>?
+        Promise<J>?,
       ])
     | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?]);
   export interface IFetchViewBaseProps<
@@ -16596,7 +16668,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   > extends Omit<
       IAsyncProps<P>,
       keyof {
@@ -16616,7 +16688,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
       g: G,
       h: H,
       i: I,
-      j: J
+      j: J,
     ) => Promise<Result> | Result;
   }
   export type IFetchViewObjectProps<
@@ -16630,7 +16702,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   > = IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J> & {
     state: ObjectState<P, A>;
   };
@@ -16645,7 +16717,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   > = IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J> & {
     state: TupleState<P, A, B, C, D, E, F, G, H, I, J>;
   };
@@ -16660,7 +16732,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   > =
     | IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J>
     | IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>;
@@ -16705,7 +16777,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
     G = any,
     H = any,
     I = any,
-    J = any
+    J = any,
   >({
     animation,
     className,
@@ -16783,7 +16855,7 @@ declare module "react-declarative/components/WaitView/WaitView" {
    */
   export const WaitView: <
     P extends unknown = object,
-    T extends unknown = object
+    T extends unknown = object,
   >({
     onDone,
     condition,
@@ -17148,7 +17220,7 @@ declare module "react-declarative/components/WizardView/model/IWizardOutletProps
   export type IWizardOutletProps<
     Data = IAnything,
     Payload = IAnything,
-    Props = {}
+    Props = {},
   > = IOutletProps<Data, Payload, Props> & OtherProps;
   export default IWizardOutletProps;
 }
@@ -17188,7 +17260,7 @@ declare module "react-declarative/components/WizardView/model/IWizardModalProps"
   };
   export type IWizardModalProps<
     Data = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > = IWizardOutletProps<Data, Payload, ModalOtherProps> & ModalOtherProps;
   export default IWizardModalProps;
 }
@@ -17209,7 +17281,7 @@ declare module "react-declarative/components/WizardView/hooks/useWizardModal" {
     > {
     onSubmit?: (
       data: Data | null,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     fullScreen?: boolean;
     history?: History;
@@ -17246,7 +17318,7 @@ declare module "react-declarative/components/WizardView/hooks/useWizardModal" {
    */
   export const useWizardModal: <
     Data extends {} = Record<string, any>,
-    Payload = any
+    Payload = any,
   >({
     fallback,
     pathname,
@@ -17334,7 +17406,7 @@ declare module "react-declarative/components/AuthView/AuthView" {
   interface IAuthViewProps<
     Data extends IAnything = IAnything,
     Payload = IAnything,
-    Field = IField<Data, Payload>
+    Field = IField<Data, Payload>,
   > {
     className?: string;
     style?: React.CSSProperties;
@@ -17379,7 +17451,7 @@ declare module "react-declarative/components/AuthView/AuthView" {
   export const AuthView: <
     Data extends unknown = any,
     Payload = any,
-    Field = IField<Data, Payload>
+    Field = IField<Data, Payload>,
   >({
     className,
     style,
@@ -17438,7 +17510,7 @@ declare module "react-declarative/components/KanbanView/KanbanView" {
     <
       Data extends unknown = any,
       Payload extends unknown = any,
-      ColumnType = any
+      ColumnType = any,
     >(
       {
         reloadSubject: upperReloadSubject,
@@ -17469,7 +17541,7 @@ declare module "react-declarative/components/KanbanView/KanbanView" {
         fallback,
         throwError,
       }: IKanbanViewProps<Data, Payload, ColumnType>,
-      ref: React.Ref<HTMLDivElement>
+      ref: React.Ref<HTMLDivElement>,
     ): JSX.Element;
     /**
      * @example useEffect(KanbanViewInternal.enableScrollOnDrag(ref), [])
@@ -17482,7 +17554,7 @@ declare module "react-declarative/components/KanbanView/KanbanView" {
       }?: {
         threshold?: number | undefined;
         speed?: number | undefined;
-      }
+      },
     ): () => import("../../utils/compose").Function;
   };
   export default KanbanView;
@@ -17494,7 +17566,7 @@ declare module "react-declarative/components/KanbanView/model/IBoard" {
   export interface IBoard<
     Data = IAnything,
     Payload = IAnything,
-    ColumnType = IAnything
+    ColumnType = IAnything,
   > {
     id: string;
     label: React.ReactNode;
@@ -17509,7 +17581,7 @@ declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
   export interface IBoardColumn<
     Data = IAnything,
     Payload = IAnything,
-    ColumnType = IAnything
+    ColumnType = IAnything,
   > {
     column: ColumnType;
     color?: string;
@@ -17524,7 +17596,7 @@ declare module "react-declarative/components/KanbanView/model/IBoardItem" {
   export interface IBoardItem<
     Data = IAnything,
     Payload = IAnything,
-    ColumnType = IAnything
+    ColumnType = IAnything,
   > {
     id: string;
     label?:
@@ -17532,7 +17604,7 @@ declare module "react-declarative/components/KanbanView/model/IBoardItem" {
       | ((
           id: string,
           data: Data,
-          payload: Payload
+          payload: Payload,
         ) => React.ReactNode | Promise<React.ReactNode>);
     column: ColumnType;
     data: Data;
@@ -17548,14 +17620,14 @@ declare module "react-declarative/components/KanbanView/model/IBoardRow" {
     value: (
       id: string,
       data: Data,
-      payload: Payload
+      payload: Payload,
     ) => React.ReactNode | Promise<React.ReactNode>;
     visible?:
       | boolean
       | ((
           id: string,
           data: Data,
-          payload: Payload
+          payload: Payload,
         ) => boolean | Promise<boolean>);
     click?: (id: string, data: Data, payload: Payload) => void | Promise<void>;
   }
@@ -17998,7 +18070,7 @@ declare module "react-declarative/components/Grid/Grid" {
    * @returns - The grid component.
    */
   export const Grid: <T extends unknown>(
-    props: IGridProps<T, any>
+    props: IGridProps<T, any>,
   ) => JSX.Element;
   export default Grid;
 }
@@ -18013,7 +18085,7 @@ declare module "react-declarative/components/Grid/api/useOffsetPaginator" {
       limit: number,
       offset: number,
       initial: boolean,
-      currentRows: Data[]
+      currentRows: Data[],
     ) => Data[] | Promise<Data[]>;
     limit?: number;
     delay?: number;
@@ -18077,7 +18149,7 @@ declare module "react-declarative/components/Grid/api/useCursorPaginator" {
       cursor: string | null,
       initial: boolean,
       limit: number,
-      currentRows: Data[]
+      currentRows: Data[],
     ) => Data[] | Promise<Data[]>;
     limit?: number;
     delay?: number;
@@ -18126,12 +18198,12 @@ declare module "react-declarative/components/Grid/api/useGridAction" {
     onAction?: (
       action: string,
       rows: Data[],
-      deselectAll: () => void
+      deselectAll: () => void,
     ) => Promise<void> | void;
     onRowAction?: (
       action: string,
       row: Data,
-      deselectAll: () => void
+      deselectAll: () => void,
     ) => Promise<void> | void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -18177,7 +18249,7 @@ declare module "react-declarative/components/Grid/api/useGridAction" {
     readonly commitAction: (p?: string | undefined) => Promise<void | null>;
     readonly commitRowAction: (
       action: string,
-      row: Data
+      row: Data,
     ) => Promise<void | null>;
   };
   export default useGridAction;
@@ -18284,11 +18356,11 @@ declare module "react-declarative/components/Grid/model/IGridAction" {
     > {
     isVisible?: (
       row: T,
-      payload: IActionMenuProps["payload"]
+      payload: IActionMenuProps["payload"],
     ) => boolean | Promise<boolean>;
     isDisabled?: (
       row: T,
-      payload: IActionMenuProps["payload"]
+      payload: IActionMenuProps["payload"],
     ) => boolean | Promise<boolean>;
   }
   export default IGridAction;
@@ -18535,7 +18607,7 @@ declare module "react-declarative/components/CopyButton/CopyButton" {
     delay?: number;
     onClick?: (
       e: React.MouseEvent<HTMLButtonElement>,
-      doCopy: () => void
+      doCopy: () => void,
     ) => void;
     startIcon?: React.ReactNode;
     variant?: "text" | "outlined" | "contained";
@@ -18820,7 +18892,7 @@ declare module "react-declarative/components/CardView/model/ICardViewProps" {
   import IItemData from "react-declarative/components/CardView/model/IItemData";
   export interface ICardViewProps<
     ItemData extends IItemData = any,
-    Payload extends any = any
+    Payload extends any = any,
   > extends BoxProps {
     handler:
       | ItemData[]
@@ -18836,12 +18908,12 @@ declare module "react-declarative/components/CardView/model/ICardViewProps" {
     formatKey?: (key: keyof ItemData) => React.ReactNode;
     formatValue?: (
       key: keyof ItemData,
-      value: ItemData[keyof ItemData]
+      value: ItemData[keyof ItemData],
     ) => React.ReactNode;
     onOperation?: (
       operation: string,
       selectedItems: ItemData[],
-      isAllSelected: boolean
+      isAllSelected: boolean,
     ) => void | Promise<void>;
     onAction?: (action: string, item: ItemData) => void;
     onCardClick?: (item: ItemData) => void;
@@ -18868,7 +18940,7 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
   import TSubject from "react-declarative/model/TSubject";
   export interface ICalendarViewProps<
     Data extends IAnything = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > {
     reloadSubject?: TSubject<void>;
     dotSide?: number;
@@ -18903,10 +18975,10 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
     throwError?: boolean;
     handler:
       | ((
-          req: ICalendarRequest<Payload>
+          req: ICalendarRequest<Payload>,
         ) => Omit<ICalendarItem<Data, Payload>, "payload">[])
       | ((
-          req: ICalendarRequest<Payload>
+          req: ICalendarRequest<Payload>,
         ) => Promise<Omit<ICalendarItem<Data, Payload>, "payload">[]>);
     payload?: Payload | (() => Payload);
     date?: dayjs.Dayjs;
@@ -18991,7 +19063,7 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
     formatValue?: (
       key: string,
       value: boolean | number | string | null,
-      path: string
+      path: string,
     ) => React.ReactNode;
     formatKey?: (key: string, path: string) => React.ReactNode;
     onSearchChanged?: (search: string) => void;
@@ -19104,7 +19176,7 @@ declare module "react-declarative/components/common/Group/Group" {
         onContextMenu,
         ...otherProps
       }: IGroupProps & IGroupPrivate,
-      ref: React.Ref<HTMLDivElement>
+      ref: React.Ref<HTMLDivElement>,
     ): JSX.Element;
     displayName: string;
   };
@@ -19212,7 +19284,7 @@ declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAdd
   import IRowData from "react-declarative/model/IRowData";
   export interface IActionAddSlot<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > {
     action?: string;
     label?: string;
@@ -19220,11 +19292,11 @@ declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAdd
     width: number;
     isVisible?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     isDisabled?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
   }
   export default IActionAddSlot;
@@ -19242,7 +19314,7 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
   import IRowData from "react-declarative/model/IRowData";
   export interface IActionFabSlot<
     RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > {
     action?: string;
     label?: string;
@@ -19251,11 +19323,11 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
     width: number;
     isVisible?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     isDisabled?: (
       selectedRows: RowData[],
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
   }
   export default IActionFabSlot;
@@ -19664,7 +19736,7 @@ declare module "react-declarative/components/One/components/makeField/makeField"
    */
   export function makeField(
     originalComponent: React.FC<IManaged>,
-    fieldConfig?: IConfig
+    fieldConfig?: IConfig,
   ): {
     <Data extends unknown = any>({
       className,
@@ -19721,7 +19793,7 @@ declare module "react-declarative/components/One/components/makeLayout/makeLayou
     children: React.ReactNode;
   }
   export function makeLayout<T extends ILayout<any>>(
-    originalComponent: React.FC<T>
+    originalComponent: React.FC<T>,
   ): React.FC<T>;
   export default makeLayout;
 }
@@ -19762,7 +19834,7 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
   import IField from "react-declarative/model/IField";
   export interface IOneButtonProps<
     Data extends {} = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<
       IconButtonProps,
       keyof {
@@ -19816,7 +19888,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
   import IField from "react-declarative/model/IField";
   export interface IOneButtonProps<
     Data extends {} = IAnything,
-    Payload extends IAnything = IAnything
+    Payload extends IAnything = IAnything,
   > extends Omit<
       ButtonProps,
       keyof {
@@ -19916,7 +19988,7 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
     Data extends {} = Record<string, any>,
     Payload = IAnything,
     Params = IAnything,
-    OtherProps = IOtherProps
+    OtherProps = IOtherProps,
   > extends Omit<
       BoxProps,
       keyof {
@@ -19936,14 +20008,14 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
       data: Data,
       initial: boolean,
       payload: Payload,
-      source: string
+      source: string,
     ) => void;
     onSubmit?: (
       data: Data,
       payload: Payload,
       config: {
         afterSave: () => Promise<void>;
-      }
+      },
     ) => boolean | Promise<boolean>;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -19975,7 +20047,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
   export interface IOutletModalProps<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
-    Params = IAnything
+    Params = IAnything,
   > extends Omit<
       IOutletViewProps<Data, Payload, Params, ModalOtherProps>,
       keyof {
@@ -20004,7 +20076,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     onSubmit?: (
       id: Id,
       data: Data | null,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     AfterTitle?: React.ComponentType<{
       onClose: () => void;
@@ -20026,15 +20098,15 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     submitLabel?: string;
     mapPayload?: (
       id: Id,
-      data: Record<string, any>[]
+      data: Record<string, any>[],
     ) => Payload | Promise<Payload>;
     mapParams?: (
       id: Id,
-      data: Record<string, any>[]
+      data: Record<string, any>[],
     ) => Params | Promise<Params>;
     mapInitialData?: (
       id: Id,
-      data: Record<string, any>[]
+      data: Record<string, any>[],
     ) => Data | Promise<Data>;
     onMount?: () => void;
     onUnmount?: () => void;
@@ -20043,7 +20115,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
   export const OutletModal: <
     Data extends {} = Record<string, any>,
     Payload = any,
-    Params = any
+    Params = any,
   >({
     withActionButton,
     hidden,
@@ -20124,7 +20196,7 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
   import { MemoryHistory } from "history";
   export interface ITabsViewProps<
     Data extends {} = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > extends Omit<
       IOutletViewProps<Data, Payload, OtherProps>,
       keyof {
@@ -20160,7 +20232,7 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
   import IWizardStep from "react-declarative/components/WizardView/model/IWizardStep";
   export interface IWizardViewProps<
     Data extends {} = IAnything,
-    Payload = IAnything
+    Payload = IAnything,
   > extends Omit<
       IOutletViewProps<Data, Payload, OtherProps>,
       keyof {
@@ -20193,7 +20265,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
   import ISize from "react-declarative/model/ISize";
   export interface IWizardModalProps<
     Data extends {} = Record<string, any>,
-    Payload = IAnything
+    Payload = IAnything,
   > extends Omit<
       IWizardViewProps<Data, Payload>,
       keyof {
@@ -20223,7 +20295,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
     reloadSubject?: TSubject<void>;
     onSubmit?: (
       data: Data | null,
-      payload: Payload
+      payload: Payload,
     ) => Promise<boolean> | boolean;
     AfterTitle?: React.ComponentType<{
       onClose: () => void;
@@ -20249,7 +20321,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
   }
   export const OutletModal: <
     Data extends {} = Record<string, any>,
-    Payload = any
+    Payload = any,
   >({
     withActionButton,
     hidden,
@@ -20292,7 +20364,7 @@ declare module "react-declarative/components/KanbanView/model/IKanbanViewProps" 
   export interface IKanbanViewProps<
     Data = IAnything,
     Payload = IAnything,
-    ColumnType = IAnything
+    ColumnType = IAnything,
   > {
     reloadSubject?: TSubject<void>;
     ref?: React.Ref<HTMLDivElement | undefined>;
@@ -20315,13 +20387,13 @@ declare module "react-declarative/components/KanbanView/model/IKanbanViewProps" 
       | ((
           id: string,
           data: Data,
-          payload: Payload
+          payload: Payload,
         ) => React.ReactNode | Promise<React.ReactNode>);
     onChangeColumn?: (
       id: string,
       column: ColumnType,
       data: Data,
-      payload: IAnything
+      payload: IAnything,
     ) => void | Promise<void>;
     onCardLabelClick?: (id: string, data: Data, payload: IAnything) => void;
     onDataRequest?: (initial: boolean) => void;
