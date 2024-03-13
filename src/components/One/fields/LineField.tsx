@@ -16,6 +16,14 @@ export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Renders a Line component with optional transparency and a title.
+ *
+ * @param props - The props for the LineField component.
+ * @param props.title - The title for the Line component.
+ * @param props.lineTransparent - Whether the Line component should be transparent.
+ * @returns The rendered Line component.
+ */
 export const LineField = ({
   title = '',
   lineTransparent = false,

@@ -86,6 +86,19 @@ const ComponentInstance = ({
     );
 };
 
+/**
+ * Represents a component field.
+ * @param props - The component props.
+ * @param props.disabled - Indicates if the field is disabled.
+ * @param props.readonly - Indicates if the field is readonly.
+ * @param props.watchOneContext - Indicates if the field should watch the One context.
+ * @param props.element - The element to render, default is Fragment.
+ * @param props.outlinePaper - Indicates if the field should have an outline paper.
+ * @param props.transparentPaper - Indicates if the field should have a transparent paper.
+ * @param props.object - A generic object to pass to the field.
+ * @param props.otherProps - Other props to pass to the field.
+ * @param - The rendered field component.
+ */
 export const ComponentField = ({
   disabled,
   readonly,
