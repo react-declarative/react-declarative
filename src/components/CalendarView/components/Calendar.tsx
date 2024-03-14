@@ -33,13 +33,15 @@ const useStyles = makeStyles()((theme) => ({
     gridRowGap: "2px",
   },
   inactiveDay: { opacity: 0.5, pointerEvents: "none" },
-  day: { "& button": { border: "0", color: theme.palette.text.primary } },
+  day: { "& button": { border: "0", color: theme.palette.text.primary, height: '100%' } },
   cell: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     "&:nth-of-type(7n)": { justifyContent: '"flex-end"' },
     "&:nth-of-type(7n + 1)": { justifyContent: '"flex-start"' },
+    margin: theme.spacing(0.5),
+    border: `1px solid ${theme.palette.action.active}`,
   },
 }));
 
