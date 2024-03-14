@@ -5091,15 +5091,22 @@ declare module "react-declarative/hooks/useSearchParams" {
 
 declare module "react-declarative/hooks/useSearchState" {
   import { Value } from "react-declarative/hooks/useSearchParams";
+  interface ISearchStateConfig {
+    prefix?: string;
+    noCleanupOnLeave?: boolean;
+    noCleanupExtra?: boolean;
+  }
   /**
    * Custom hook useSearchState for managing search state in the URL.
    *
    * @template T - Type of the search state object.
    * @param defaultValues - Default values for the search state object.
+   * @param config - The config for search state behaviour
    * @returns - An array containing the search state object and a function to update the search state.
    */
   export const useSearchState: <T extends Record<string, Value>>(
-    defaultValues?: Partial<T> | (() => Partial<T>),
+    defaultValues: Partial<T> | (() => Partial<T>) | undefined,
+    { prefix, noCleanupExtra, noCleanupOnLeave }: ISearchStateConfig,
   ) => readonly [
     T,
     import("react").Dispatch<import("react").SetStateAction<T>>,
@@ -10991,6 +10998,9 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
     onSearchChange: IListProps<FilterData, RowData>["onSearchChange"];
     onChange?: (pagination: string) => void;
     fallback?: (e: Error) => void;
+    prefix?: string;
+    noCleanupOnLeave?: boolean;
+    noCleanupExtra?: boolean;
   }
   type FilterDataT<
     FilterData extends {} = IAnything,
@@ -11020,6 +11030,9 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
    * @param [options.onChange=() => null] - The callback function to handle state changes.
    * @param [options.removeEmptyFilters=removeEmptyFiltersDefault] - The function to remove empty filters.
    * @param [options.fallback] - The fallback options.
+   * @param [options.prefix] - The prefix for searchstate
+   * @param [options.noCleanupOnLeave] - The cleanup flag if changing location
+   * @param [options.noCleanupExtra] - The cleanup flag if remove extra query params
    * @returns An object containing the pagination props and methods.
    */
   export const useQueryPagination: <
@@ -11036,6 +11049,9 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
       onSearchChange: handleSeachChange,
       onChange: handleChange,
       removeEmptyFilters,
+      prefix,
+      noCleanupExtra,
+      noCleanupOnLeave,
       fallback,
     }?: Partial<IParams<FilterData, RowData>>,
   ) => {

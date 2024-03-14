@@ -6,6 +6,12 @@ import IOneProps, {
 
 import IAnything from "../../../model/IAnything";
 
+/**
+ * Represents the parameters for a local handler
+ *
+ * @template Data - The type of data to be returned
+ * @template Payload - The type of payload for the local handler
+ */
 export interface ILocalHandlerParams<Data extends IAnything = IAnything, Payload extends IAnything = IAnything> {
     payload?: Payload;
     resultMap?: (json: Record<string, any> | null) => Data | null;
@@ -14,6 +20,10 @@ export interface ILocalHandlerParams<Data extends IAnything = IAnything, Payload
     fallback?: (e: Error) => void;
 }
 
+/**
+ * Represents the result of handling a local operation.
+ * @template Data - The type of data returned by the operation.
+ */
 export interface ILocalHandlerResult<Data extends IAnything = IAnything> {
     data: Data | null;
     change: IOneProps<Data>['change'];

@@ -78,6 +78,7 @@
 - [IParams](interfaces/IParams.md)
 - [IParams](interfaces/IParams.md)
 - [IParams](interfaces/IParams.md)
+- [ISearchStateConfig](interfaces/ISearchStateConfig.md)
 - [IRowData](interfaces/IRowData.md)
 - [IOnePublicProps](interfaces/IOnePublicProps.md)
 - [IVirtualListBoxProps](interfaces/IVirtualListBoxProps.md)

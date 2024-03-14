@@ -5,33 +5,57 @@ import useSearchParams, { Value } from './useSearchParams';
 import isObject from '../utils/isObject';
 
 /**
+ * Represents the configuration for the search state.
+ * @interface
+ */
+interface ISearchStateConfig {
+    prefix?: string;
+    noCleanupOnLeave?: boolean;
+    noCleanupExtra?: boolean;
+}
+
+/**
  * Custom hook useSearchState for managing search state in the URL.
  *
  * @template T - Type of the search state object.
  * @param defaultValues - Default values for the search state object.
+ * @param config - The config for search state behaviour
  * @returns - An array containing the search state object and a function to update the search state.
  */
-export const useSearchState = <T extends Record<string, Value>>(defaultValues: Partial<T> | (() => Partial<T>) = {}) => {
+export const useSearchState = <T extends Record<string, Value>>(defaultValues: Partial<T> | (() => Partial<T>) = {}, {
+    prefix = "",
+    noCleanupExtra = false,
+    noCleanupOnLeave = false,
+}: ISearchStateConfig) => {
     const initialValue = useSearchParams(defaultValues);
     const [state, setState] = useState(initialValue);
     useEffect(() => {
         const url = new URL(window.location.pathname, window.location.origin);
         Object.entries(state).forEach(([key, value]) => {
             if (Array.isArray(value)) {
-                url.searchParams.set(key, JSON.stringify(value));
+                url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
                 return;
             }
             if (isObject(value)) {
-                url.searchParams.set(key, JSON.stringify(value));
+                url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
                 return;
             }
-            url.searchParams.set(key, String(value));
+            url.searchParams.set(`${prefix}_${key}`, String(value));
         });
         window.history.pushState(null, '', url.toString());
     }, [state]);
     useEffect(() => () => {
         const url = new URL(window.location.pathname, window.location.origin);
-        url.searchParams.forEach((_, key) => url.searchParams.delete(key));
+        if (!noCleanupOnLeave) {
+            url.searchParams.forEach((_, key) => url.searchParams.delete(key));
+        }
+        if (!noCleanupExtra) {
+            url.searchParams.forEach((_, key) => {
+                if (!key.startsWith(`${prefix}_`)) {
+                    url.searchParams.delete(key);
+                }
+            });
+        }
         window.history.pushState(null, '', url.toString());
     }, []);
     return [

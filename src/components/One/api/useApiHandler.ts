@@ -12,6 +12,11 @@ import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
 
+/**
+ * Represents the parameters for an API handler.
+ *
+ * @template Data - The type of the response data.
+ */
 export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
     requestMap?: (url: URL) => URL;

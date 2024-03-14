@@ -8,6 +8,13 @@ import singleshot from '../../../utils/hof/singleshot';
 
 import useArrayPaginator, { IArrayPaginatorParams } from "./useArrayPaginator"
 
+/**
+ * The `IResult` interface represents the result of a query or operation.
+ * It provides methods for handling the result and clearing it.
+ *
+ * @template FilterData - The type for the filter data used in the result.
+ * @template RowData - The type for the row data stored in the result.
+ */
 interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     handler: ListHandler<FilterData, RowData>;
     clear: () => void;

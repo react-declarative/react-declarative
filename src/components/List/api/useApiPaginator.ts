@@ -19,6 +19,12 @@ import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
 import { FetchError } from '../../../utils/fetchApi';
 import queued from '../../../utils/hof/queued';
 
+/**
+ * Represents the parameters required for pagination in an API request.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ */
 export interface IApiPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     origin?: string;
     fetch?: typeof window.fetch;

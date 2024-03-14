@@ -16,6 +16,11 @@ import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Interface for the parameters of the IPreventLeaveParams class.
+ * @template Data - The type of data.
+ * @template ID - The type of ID.
+ */
 export interface IPreventLeaveParams<Data = IAnything, ID = string> {
   history?: BrowserHistory | MemoryHistory | HashHistory;
   waitForChangesDelay?: number;
@@ -34,6 +39,11 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
   fallback?: (e: Error) => void;
 }
 
+/**
+ * Interface for a class that prevents leaving and returning to a page or component.
+ *
+ * @template Data - The type of the data.
+ */
 export interface IPreventLeaveReturn<Data = IAnything> {
   oneProps: {
     change: (data: Data, initial?: boolean) => void;

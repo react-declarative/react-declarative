@@ -6,6 +6,10 @@ import {
 
 import IAnything from "../../../model/IAnything";
 
+/**
+ * Interface defining the properties of the IStaticHandlerParams class.
+ * @template Data - The type of data expected from the resultMap function.
+ */
 export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
     resultMap?: (json: Record<string, any> | null) => Data | null;
     onLoadBegin?: () => void;

@@ -12,6 +12,12 @@ import removeEmptyFiltersDefault from "../helpers/removeEmptyFilters";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
 
+/**
+ * Represents a query object that contains various parameters for filtering, sorting, and pagination.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ */
 interface IQuery<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -24,6 +30,11 @@ interface IQuery<
     search: IListProps<FilterData, RowData>['search'];
 }
 
+/**
+ * Interface for specifying parameters.
+ * @template FilterData - Type for filter data
+ * @template RowData - Type for row data
+ */
 interface IParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -37,8 +48,20 @@ interface IParams<
     onSearchChange: IListProps<FilterData, RowData>['onSearchChange'];
     onChange?: (pagination: string) => void;
     fallback?: (e: Error) => void;
+    prefix?: string;
+    noCleanupOnLeave?: boolean;
+    noCleanupExtra?: boolean;
 }
 
+/**
+ * Represents the result of a query with filtering, sorting, pagination, and search functionality.
+ *
+ * @interface
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ * @extends IParams - extends the `IParams` interface.
+ * @extends IQuery - extends the `IQuery` interface.
+ */
 interface IResult<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -57,16 +80,34 @@ interface IResult<
     setSearch: (search: string) => void;
 };
 
+/**
+ * A generic class representing filtered data based on a given filter and row data.
+ *
+ * @template FilterData The type of filter data.
+ * @template RowData The type of row data.
+ */
 type FilterDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > = Exclude<IQuery<FilterData, RowData>['filterData'], undefined> 
 
+/**
+ * Represents the sort model for sorting the rows in a data grid.
+ *
+ * @typeparam {FilterData} FilterData - The type of filter data used in the query.
+ * @typeparam {RowData} RowData - The type of row data used in the query.
+ */
 type SortModelT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
 > = Exclude<IQuery<FilterData, RowData>['sortModel'], undefined> 
 
+/**
+ * Represents a class that handles chip data for a given query.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ */
 type ChipDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -96,6 +137,9 @@ export const DEFAULT_QUERY: IQuery = {
  * @param [options.onChange=() => null] - The callback function to handle state changes.
  * @param [options.removeEmptyFilters=removeEmptyFiltersDefault] - The function to remove empty filters.
  * @param [options.fallback] - The fallback options.
+ * @param [options.prefix] - The prefix for searchstate
+ * @param [options.noCleanupOnLeave] - The cleanup flag if changing location
+ * @param [options.noCleanupExtra] - The cleanup flag if remove extra query params
  * @returns An object containing the pagination props and methods.
  */
 export const useQueryPagination = <
@@ -110,6 +154,9 @@ export const useQueryPagination = <
     onSearchChange: handleSeachChange = () => null,
     onChange: handleChange = () => null,
     removeEmptyFilters = removeEmptyFiltersDefault,
+    prefix = "list",
+    noCleanupExtra,
+    noCleanupOnLeave,
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
@@ -129,7 +176,11 @@ export const useQueryPagination = <
         limit: defaultValue.limit || DEFAULT_LIMIT,
         page: defaultValue.page || DEFAULT_PAGE,
         search: defaultValue.search || "",
-    }));
+    }), {
+        prefix,
+        noCleanupExtra,
+        noCleanupOnLeave,
+    });
 
     const state$ = useActualValue(state);
 

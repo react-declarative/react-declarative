@@ -12,11 +12,22 @@ import removeEmptyFilters from '../helpers/removeEmptyFilters';
 import IAnything from "../../../model/IAnything";
 import IRowData from "../../../model/IRowData";
 
+/**
+ * Represents the interface for a result.
+ *
+ * @template FilterData The type for the filter data.
+ * @template RowData The type for the row data.
+ */
 interface IResult<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     data: IState<FilterData, RowData>;
     handler: ListHandler<FilterData, RowData>;
 }
 
+/**
+ * Represents the state of a component.
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ */
 export interface IState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     filterData: FilterData;
     pagination: ListHandlerPagination;

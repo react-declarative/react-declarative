@@ -3,6 +3,11 @@ import useAsyncAction from "../../../hooks/useAsyncAction";
 
 import IRowData, { RowId } from "../../../model/IRowData";
 
+/**
+ * Interface for defining parameters for a specific operation.
+ *
+ * @template Data - The type of row data used in the operation.
+ */
 interface IParams<Data extends IRowData = IRowData> {
     fetchRow: (id: RowId) => (Data | Promise<Data>);
     onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);

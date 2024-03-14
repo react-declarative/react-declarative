@@ -35,6 +35,12 @@ const SEARCH_ENTRIES = [
     "description",
 ];
 
+/**
+ * Interface representing the parameters for array pagination.
+ *
+ * @template FilterData - The data type for the filter data.
+ * @template RowData - The data type for each row of data.
+ */
 export interface IArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> {
     filterHandler?: (rows: RowData[], filterData: FilterData) => RowData[];
     chipsHandler?: (rows: RowData[], chips: ListHandlerChips<RowData>) => RowData[];

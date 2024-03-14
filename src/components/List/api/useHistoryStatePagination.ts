@@ -12,6 +12,11 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../config";
 
 import History from "../../../model/History";
 
+/**
+ * Represents a query object used for filtering, sorting, and pagination.
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ */
 interface IQuery<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -24,6 +29,11 @@ interface IQuery<
   search: IListProps<FilterData, RowData>["search"];
 }
 
+/**
+ * Represents the parameters for a list component.
+ * @template FilterData - The type of data used for filtering.
+ * @template RowData - The type of data representing a row.
+ */
 interface IParams<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -40,6 +50,14 @@ interface IParams<
   fallback?: (e: Error) => void;
 }
 
+/**
+ * Represents the result of a query.
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ * @interface
+ * @extends IParams - The interface for query parameters.
+ * @extends IQuery - The interface for query methods.
+ */
 interface IResult<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -59,16 +77,36 @@ interface IResult<
   setSearch: (search: string) => void;
 }
 
+/**
+ * Represents a type that filters data for a query result.
+ * @template FilterData - The type of data used for filtering.
+ * @template RowData - The type of row data in the query result.
+ * @typedef {Exclude<IQuery<FilterData, RowData>["filterData"], undefined>} FilterDataT
+ */
 type FilterDataT<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
 
+/**
+ * Represents the sort model of a query.
+ *
+ * @template FilterData - The type of filter data. Defaults to `IAnything`.
+ * @template RowData - The type of row data. Defaults to `IAnything`.
+ *
+ * @typedef {Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>} SortModelT
+ */
 type SortModelT<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
 
+/**
+ * Represents a type for chip data in a query result.
+ *
+ * @template FilterData - The type of filter data used in the query.
+ * @template RowData - The type of row data returned by the query.
+ */
 type ChipDataT<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
