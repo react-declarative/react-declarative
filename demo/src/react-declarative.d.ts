@@ -5128,8 +5128,8 @@ declare module "react-declarative/hooks/useSearchState" {
    * @returns - An array containing the search state object and a function to update the search state.
    */
   export const useSearchState: <T extends Record<string, Value>>(
-    defaultValues: Partial<T> | (() => Partial<T>) | undefined,
-    { prefix, noCleanupExtra, noCleanupOnLeave }: ISearchStateConfig,
+    defaultValues?: Partial<T> | (() => Partial<T>),
+    { prefix, noCleanupExtra, noCleanupOnLeave }?: ISearchStateConfig,
   ) => readonly [
     T,
     import("react").Dispatch<import("react").SetStateAction<T>>,

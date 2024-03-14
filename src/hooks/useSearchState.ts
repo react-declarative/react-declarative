@@ -26,7 +26,7 @@ export const useSearchState = <T extends Record<string, Value>>(defaultValues: P
     prefix = "",
     noCleanupExtra = false,
     noCleanupOnLeave = false,
-}: ISearchStateConfig) => {
+}: ISearchStateConfig = {}) => {
     const initialValue = useSearchParams(defaultValues, prefix);
     const [state, setState] = useState(initialValue);
     useEffect(() => {
