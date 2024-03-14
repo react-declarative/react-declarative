@@ -1,5 +1,7 @@
 # IStaticHandlerParams
 
+Interface defining the properties of the IStaticHandlerParams class.
+
 ## Properties
 
 ### resultMap

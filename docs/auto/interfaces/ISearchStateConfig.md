@@ -1,5 +1,7 @@
 # ISearchStateConfig
 
+Represents the configuration for the search state.
+
 ## Properties
 
 ### prefix

@@ -1,5 +1,7 @@
 # IPreventLeaveParams
 
+Interface for the parameters of the IPreventLeaveParams class.
+
 ## Properties
 
 ### history

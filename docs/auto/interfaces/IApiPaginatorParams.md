@@ -1,5 +1,7 @@
 # IApiPaginatorParams
 
+Represents the parameters required for pagination in an API request.
+
 ## Properties
 
 ### origin

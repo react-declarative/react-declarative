@@ -1,5 +1,7 @@
 # IPreventLeaveReturn
 
+Interface for a class that prevents leaving and returning to a page or component.
+
 ## Properties
 
 ### oneProps

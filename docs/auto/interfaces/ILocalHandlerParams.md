@@ -1,5 +1,7 @@
 # ILocalHandlerParams
 
+Represents the parameters for a local handler
+
 ## Properties
 
 ### payload

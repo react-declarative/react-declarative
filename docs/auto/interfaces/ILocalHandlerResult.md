@@ -1,5 +1,7 @@
 # ILocalHandlerResult
 
+Represents the result of handling a local operation.
+
 ## Properties
 
 ### data

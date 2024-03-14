@@ -1,5 +1,7 @@
 # IApiHandlerParams
 
+Represents the parameters for an API handler.
+
 ## Properties
 
 ### origin

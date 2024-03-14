@@ -1,5 +1,7 @@
 # IArrayPaginatorParams
 
+Interface representing the parameters for array pagination.
+
 ## Properties
 
 ### filterHandler

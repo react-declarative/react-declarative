@@ -2223,6 +2223,12 @@ declare module "react-declarative/components/List/api/useApiPaginator" {
   } from "react-declarative/model/IListProps";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents the parameters required for pagination in an API request.
+   *
+   * @template FilterData - The type of filter data.
+   * @template RowData - The type of row data.
+   */
   export interface IApiPaginatorParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2321,6 +2327,12 @@ declare module "react-declarative/components/List/api/useArrayPaginator" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
   import { IState as ILastPaginationState } from "react-declarative/components/List/api/useLastPagination";
+  /**
+   * Interface representing the parameters for array pagination.
+   *
+   * @template FilterData - The data type for the filter data.
+   * @template RowData - The data type for each row of data.
+   */
   export interface IArrayPaginatorParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -2462,6 +2474,11 @@ declare module "react-declarative/components/List" {
 declare module "react-declarative/components/One/api/useApiHandler" {
   import { OneHandler } from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the parameters for an API handler.
+   *
+   * @template Data - The type of the response data.
+   */
   export interface IApiHandlerParams<Data extends IAnything = IAnything> {
     origin?: string;
     requestMap?: (url: URL) => URL;
@@ -5081,16 +5098,22 @@ declare module "react-declarative/hooks/useSearchParams" {
    *
    * @template T - The type of the default values object.
    * @param [defaultValues={}] - The default values object or function. Defaults to an empty object.
+   * @param [prefix] - The prefix for search params if managing search
    * @returns - The parsed search parameters object.
    */
   export const useSearchParams: <T = Record<string, Value>>(
     defaultValues?: Partial<T> | (() => Partial<T>),
+    prefix?: string,
   ) => T;
   export default useSearchParams;
 }
 
 declare module "react-declarative/hooks/useSearchState" {
   import { Value } from "react-declarative/hooks/useSearchParams";
+  /**
+   * Represents the configuration for the search state.
+   * @interface
+   */
   interface ISearchStateConfig {
     prefix?: string;
     noCleanupOnLeave?: boolean;
@@ -10788,6 +10811,12 @@ declare module "react-declarative/components/List/api/useLastPagination" {
   } from "react-declarative/model/IListProps";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents the interface for a result.
+   *
+   * @template FilterData The type for the filter data.
+   * @template RowData The type for the row data.
+   */
   interface IResult<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -10795,6 +10824,11 @@ declare module "react-declarative/components/List/api/useLastPagination" {
     data: IState<FilterData, RowData>;
     handler: ListHandler<FilterData, RowData>;
   }
+  /**
+   * Represents the state of a component.
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   */
   export interface IState<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -10974,6 +11008,12 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
   import IAnything from "react-declarative/model/IAnything";
   import IListProps from "react-declarative/model/IListProps";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a query object that contains various parameters for filtering, sorting, and pagination.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   */
   interface IQuery<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -10985,6 +11025,11 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
     page: IListProps<FilterData, RowData>["page"];
     search: IListProps<FilterData, RowData>["search"];
   }
+  /**
+   * Interface for specifying parameters.
+   * @template FilterData - Type for filter data
+   * @template RowData - Type for row data
+   */
   interface IParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11002,14 +11047,32 @@ declare module "react-declarative/components/List/api/useQueryPagination" {
     noCleanupOnLeave?: boolean;
     noCleanupExtra?: boolean;
   }
+  /**
+   * A generic class representing filtered data based on a given filter and row data.
+   *
+   * @template FilterData The type of filter data.
+   * @template RowData The type of row data.
+   */
   type FilterDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
+  /**
+   * Represents the sort model for sorting the rows in a data grid.
+   *
+   * @typeparam {FilterData} FilterData - The type of filter data used in the query.
+   * @typeparam {RowData} RowData - The type of row data used in the query.
+   */
   type SortModelT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
+  /**
+   * Represents a class that handles chip data for a given query.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   */
   type ChipDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11100,6 +11163,13 @@ declare module "react-declarative/components/List/api/useCachedPaginator" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
   import { IArrayPaginatorParams } from "react-declarative/components/List/api/useArrayPaginator";
+  /**
+   * The `IResult` interface represents the result of a query or operation.
+   * It provides methods for handling the result and clearing it.
+   *
+   * @template FilterData - The type for the filter data used in the result.
+   * @template RowData - The type for the row data stored in the result.
+   */
   interface IResult<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11133,6 +11203,11 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
   import IListProps from "react-declarative/model/IListProps";
   import IRowData from "react-declarative/model/IRowData";
   import History from "react-declarative/model/History";
+  /**
+   * Represents a query object used for filtering, sorting, and pagination.
+   * @template FilterData - The type of filter data.
+   * @template RowData - The type of row data.
+   */
   interface IQuery<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11144,6 +11219,11 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
     page: IListProps<FilterData, RowData>["page"];
     search: IListProps<FilterData, RowData>["search"];
   }
+  /**
+   * Represents the parameters for a list component.
+   * @template FilterData - The type of data used for filtering.
+   * @template RowData - The type of data representing a row.
+   */
   interface IParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11159,14 +11239,34 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
     onChange?: (pagination: IQuery) => void;
     fallback?: (e: Error) => void;
   }
+  /**
+   * Represents a type that filters data for a query result.
+   * @template FilterData - The type of data used for filtering.
+   * @template RowData - The type of row data in the query result.
+   * @typedef {Exclude<IQuery<FilterData, RowData>["filterData"], undefined>} FilterDataT
+   */
   type FilterDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["filterData"], undefined>;
+  /**
+   * Represents the sort model of a query.
+   *
+   * @template FilterData - The type of filter data. Defaults to `IAnything`.
+   * @template RowData - The type of row data. Defaults to `IAnything`.
+   *
+   * @typedef {Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>} SortModelT
+   */
   type SortModelT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > = Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>;
+  /**
+   * Represents a type for chip data in a query result.
+   *
+   * @template FilterData - The type of filter data used in the query.
+   * @template RowData - The type of row data returned by the query.
+   */
   type ChipDataT<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -11294,6 +11394,11 @@ declare module "react-declarative/components/List/api/useListSelection" {
 
 declare module "react-declarative/components/List/api/useListAction" {
   import IRowData, { RowId } from "react-declarative/model/IRowData";
+  /**
+   * Interface for defining parameters for a specific operation.
+   *
+   * @template Data - The type of row data used in the operation.
+   */
   interface IParams<Data extends IRowData = IRowData> {
     fetchRow: (id: RowId) => Data | Promise<Data>;
     onAction?: (
@@ -14135,6 +14240,12 @@ declare module "react-declarative/components/One/other/OtherItemsSlot" {
 declare module "react-declarative/components/One/api/useLocalHandler" {
   import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the parameters for a local handler
+   *
+   * @template Data - The type of data to be returned
+   * @template Payload - The type of payload for the local handler
+   */
   export interface ILocalHandlerParams<
     Data extends IAnything = IAnything,
     Payload extends IAnything = IAnything,
@@ -14145,6 +14256,10 @@ declare module "react-declarative/components/One/api/useLocalHandler" {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
   }
+  /**
+   * Represents the result of handling a local operation.
+   * @template Data - The type of data returned by the operation.
+   */
   export interface ILocalHandlerResult<Data extends IAnything = IAnything> {
     data: Data | null;
     change: IOneProps<Data>["change"];
@@ -14184,6 +14299,10 @@ declare module "react-declarative/components/One/api/useLocalHandler" {
 declare module "react-declarative/components/One/api/useStaticHandler" {
   import { OneHandler } from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface defining the properties of the IStaticHandlerParams class.
+   * @template Data - The type of data expected from the resultMap function.
+   */
   export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
     resultMap?: (json: Record<string, any> | null) => Data | null;
     onLoadBegin?: () => void;
@@ -14220,6 +14339,11 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
   import IOneProps from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface for the parameters of the IPreventLeaveParams class.
+   * @template Data - The type of data.
+   * @template ID - The type of ID.
+   */
   export interface IPreventLeaveParams<Data = IAnything, ID = string> {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     waitForChangesDelay?: number;
@@ -14237,6 +14361,11 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
   }
+  /**
+   * Interface for a class that prevents leaving and returning to a page or component.
+   *
+   * @template Data - The type of the data.
+   */
   export interface IPreventLeaveReturn<Data = IAnything> {
     oneProps: {
       change: (data: Data, initial?: boolean) => void;

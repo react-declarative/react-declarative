@@ -1,5 +1,7 @@
 # IQuery
 
+Represents a query object used for filtering, sorting, and pagination.
+
 ## Properties
 
 ### filterData
