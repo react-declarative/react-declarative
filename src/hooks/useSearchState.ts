@@ -30,22 +30,29 @@ export const useSearchState = <T extends Record<string, Value>>(defaultValues: P
     const initialValue = useSearchParams(defaultValues, prefix);
     const [state, setState] = useState(initialValue);
     useEffect(() => {
-        const url = new URL(window.location.pathname, window.location.origin);
+        const url = new URL(window.location.href, window.location.origin);
         Object.entries(state).forEach(([key, value]) => {
-            if (Array.isArray(value)) {
-                url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
-                return;
-            }
-            if (isObject(value)) {
-                url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
-                return;
-            }
-            url.searchParams.set(`${prefix}_${key}`, String(value));
+                if (Array.isArray(value)) {
+                    url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
+                    return;
+                }
+                if (isObject(value)) {
+                    url.searchParams.set(`${prefix}_${key}`, JSON.stringify(value));
+                    return;
+                }
+                url.searchParams.set(`${prefix}_${key}`, String(value));
         });
+        if (!noCleanupExtra) {
+            url.searchParams.forEach((_, key) => {
+                if (!key.startsWith(`${prefix}_`)) {
+                    url.searchParams.delete(key);
+                }
+            });
+        }
         window.history.pushState(null, '', url.toString());
     }, [state]);
     useEffect(() => () => {
-        const url = new URL(window.location.pathname, window.location.origin);
+        const url = new URL(window.location.href, window.location.origin);
         if (!noCleanupOnLeave) {
             url.searchParams.forEach((_, key) => url.searchParams.delete(key));
         }
