@@ -10,6 +10,12 @@ Represents the configuration for the search state.
 prefix: string
 ```
 
+### updateDelay
+
+```ts
+updateDelay: number
+```
+
 ### noCleanupOnLeave
 
 ```ts

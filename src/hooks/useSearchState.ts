@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import useSearchParams, { Value } from "./useSearchParams";
 
@@ -6,12 +6,15 @@ import isObject from "../utils/isObject";
 import queued from "../utils/hof/queued";
 import sleep from "../utils/sleep";
 
+const DEFAULT_UPDATE_DELAY = 500;
+
 /**
  * Represents the configuration for the search state.
  * @interface
  */
 interface ISearchStateConfig {
   prefix?: string;
+  updateDelay?: number;
   noCleanupOnLeave?: boolean;
   noCleanupExtra?: boolean;
 }
@@ -23,7 +26,7 @@ interface ISearchStateConfig {
  */
 interface IStateDispatch {
   state: Record<string, Value>;
-  action: "mount" | "unmount";
+  action: "update" | "unmount";
 }
 
 /**
@@ -37,11 +40,17 @@ const dispatchState = queued(
     { state, action }: IStateDispatch,
     {
       prefix = "",
+      updateDelay = DEFAULT_UPDATE_DELAY,
       noCleanupExtra = false,
       noCleanupOnLeave = false,
-    }: ISearchStateConfig
+    }: ISearchStateConfig,
+    mountRef: React.RefObject<boolean>,
   ) => {
-    if (action === "mount") {
+    await sleep(updateDelay);
+    if (!mountRef.current) {
+      return;
+    }
+    if (action === "update") {
       const url = new URL(window.location.href, window.location.origin);
       Object.entries(state).forEach(([key, value]) => {
         if (Array.isArray(value)) {
@@ -65,10 +74,11 @@ const dispatchState = queued(
     }
     if (action === "unmount") {
       const url = new URL(window.location.href, window.location.origin);
-      if (!noCleanupOnLeave) {
-        for (const key of [...url.searchParams.keys()]) {
-          url.searchParams.delete(key);
-        }
+      if (noCleanupOnLeave) {
+        return;
+      }
+      for (const key of [...url.searchParams.keys()]) {
+        url.searchParams.delete(key);
       }
       if (!noCleanupExtra) {
         for (const key of [...url.searchParams.keys()]) {
@@ -79,7 +89,6 @@ const dispatchState = queued(
       }
       window.history.pushState(null, "", url.toString());
     }
-    await sleep(50);
   }
 );
 
@@ -95,23 +104,27 @@ export const useSearchState = <T extends Record<string, Value>>(
   defaultValues: Partial<T> | (() => Partial<T>) = {},
   {
     prefix = "",
+    updateDelay = DEFAULT_UPDATE_DELAY,
     noCleanupExtra = false,
     noCleanupOnLeave = false,
   }: ISearchStateConfig = {}
 ) => {
   const initialValue = useSearchParams(defaultValues, prefix);
   const [state, setState] = useState(initialValue);
+  const mountRef = useRef(true);
   useEffect(() => {
     dispatchState(
       {
-        action: "mount",
+        action: "update",
         state,
       },
       {
         prefix,
+        updateDelay,
         noCleanupExtra,
         noCleanupOnLeave,
-      }
+      },
+      mountRef
     );
   }, [state]);
   useEffect(
@@ -123,10 +136,13 @@ export const useSearchState = <T extends Record<string, Value>>(
         },
         {
           prefix,
+          updateDelay,
           noCleanupExtra,
           noCleanupOnLeave,
-        }
+        },
+        mountRef
       );
+      mountRef.current = false;
     },
     []
   );

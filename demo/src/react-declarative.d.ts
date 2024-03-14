@@ -5116,6 +5116,7 @@ declare module "react-declarative/hooks/useSearchState" {
    */
   interface ISearchStateConfig {
     prefix?: string;
+    updateDelay?: number;
     noCleanupOnLeave?: boolean;
     noCleanupExtra?: boolean;
   }
@@ -5129,7 +5130,12 @@ declare module "react-declarative/hooks/useSearchState" {
    */
   export const useSearchState: <T extends Record<string, Value>>(
     defaultValues?: Partial<T> | (() => Partial<T>),
-    { prefix, noCleanupExtra, noCleanupOnLeave }?: ISearchStateConfig,
+    {
+      prefix,
+      updateDelay,
+      noCleanupExtra,
+      noCleanupOnLeave,
+    }?: ISearchStateConfig,
   ) => readonly [
     T,
     import("react").Dispatch<import("react").SetStateAction<T>>,

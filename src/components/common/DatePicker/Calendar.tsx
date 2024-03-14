@@ -51,6 +51,8 @@ const useStyles = makeStyles()((theme) => ({
     '& :nth-of-type(7n + 1)': {
       justifyContent: 'flex-start',
     },
+    margin: theme.spacing(0.5),
+    border: `1px solid ${theme.palette.action.active}`,
   },
   container: {},
 }));
