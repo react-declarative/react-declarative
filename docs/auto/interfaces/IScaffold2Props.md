@@ -169,13 +169,13 @@ onAction: (name: string) => void
 ### onOptionClick
 
 ```ts
-onOptionClick: (path: string, id: string) => void
+onOptionClick: (path: string, id: string) => boolean
 ```
 
 ### onOptionGroupClick
 
 ```ts
-onOptionGroupClick: (path: string, id: string) => void
+onOptionGroupClick: (path: string, id: string) => boolean
 ```
 
 ### onTabChange

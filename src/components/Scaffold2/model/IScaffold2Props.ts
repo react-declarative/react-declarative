@@ -37,8 +37,8 @@ export interface IScaffold2Props<T = Payload> {
     AfterContent?: React.ComponentType<any>;
     Copyright?: React.ComponentType<any>;
     onAction?: (name: string) => void;
-    onOptionClick?: (path: string, id: string) => void;
-    onOptionGroupClick?: (path: string, id: string) => void;
+    onOptionClick?: (path: string, id: string) => undefined | boolean;
+    onOptionGroupClick?: (path: string, id: string) => undefined | boolean;
     onTabChange?: (path: string, tab: string, id: string) => void;
     children: React.ReactNode;
     onInit?: () => (void | Promise<void>);
