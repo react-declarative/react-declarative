@@ -1,5 +1,7 @@
 # IModelAdapter
 
+Represents an interface for a model adapter.
+
 ## Properties
 
 ### data

@@ -1,5 +1,7 @@
 # IEntityAdapter
 
+Represents an interface for an entity adapter.
+
 ## Properties
 
 ### id

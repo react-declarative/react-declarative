@@ -1,5 +1,7 @@
 # ICollectionAdapter
 
+An interface representing a collection adapter.
+
 ## Properties
 
 ### items

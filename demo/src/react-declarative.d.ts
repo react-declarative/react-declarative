@@ -6148,13 +6148,34 @@ declare module "react-declarative/utils/rx/BehaviorSubject" {
   import Subject from "react-declarative/utils/rx/Subject";
   import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
   import TObserver, { TObservable } from "react-declarative/model/TObserver";
+  /**
+   * Represents a BehaviorSubject that extends the Subject class and provides the functionality of an observable and an observer.
+   *
+   * @template Data - The type of the data that the BehaviorSubject holds.
+   */
   export class BehaviorSubject<Data = any>
     extends Subject<Data>
     implements TBehaviorSubject<Data>, TObservable<Data>
   {
     constructor(_data?: Data | null);
+    /**
+     * Retrieves the data stored in the instance.
+     *
+     * @return The data stored in the instance.
+     */
     get data(): Data | null;
+    /**
+     * Sets the given data and calls the next method of the super class asynchronously.
+     *
+     * @param data - The data to be set.
+     * @return Resolves when super class's next method is called.
+     */
     next: (data: Data) => Promise<void>;
+    /**
+     * Creates a new observer.
+     *
+     * @returns The observer instance.
+     */
     toObserver: () => TObserver<Data>;
   }
   export { TBehaviorSubject };
@@ -6164,13 +6185,62 @@ declare module "react-declarative/utils/rx/BehaviorSubject" {
 declare module "react-declarative/utils/rx/EventEmitter" {
   type EventKey = string | symbol;
   type Function = (...args: any[]) => void;
+  /**
+   * Class representing an event emitter.
+   * @class
+   */
   export class EventEmitter {
+    /**
+     * Check if the object has any listeners attached to it.
+     *
+     * @return True if the object has listeners, false otherwise.
+     */
     get hasListeners(): boolean;
+    /**
+     * Retrieves the listeners associated with the given event key.
+     *
+     * @param key - The event key to retrieve the listeners for.
+     * @returns An array of listeners associated with the given event key.
+     */
     getListeners: (key: EventKey) => Function[];
+    /**
+     * Subscribes a callback function to the specified event name.
+     *
+     * @param eventName - The key of the event.
+     * @param callback - The callback function to be executed when the event is triggered.
+     * @returns
+     */
     subscribe: (eventName: EventKey, callback: Function) => void;
+    /**
+     * Removes a callback function from the list of event listeners for the specified event.
+     *
+     * @param eventName - The key of the event to unsubscribe from.
+     * @param callback - The callback function to remove from the event listeners.
+     * @returns
+     */
     unsubscribe: (eventName: EventKey, callback: Function) => void;
+    /**
+     * Clears all event handlers registered for the current object.
+     * @function
+     * @memberof unsubscribeAll
+     * @returns
+     */
     unsubscribeAll: () => void;
+    /**
+     * Subscribes a callback function to the given event name. The callback function will be triggered only once when the event is emitted.
+     *
+     * @param eventName - The name of the event to subscribe to.
+     * @param callback - The callback function to be executed when the event is emitted.
+     * @returns - A function that can be called to unsubscribe the callback function from the event.
+     */
     once: (eventName: EventKey, callback: Function) => () => void;
+    /**
+     * Emits the given event with the specified arguments.
+     *
+     * @param eventName - The name of the event to emit.
+     * @param args - The arguments to pass to the event listeners.
+     * @returns - A promise that resolves when all event listeners have completed.
+     */
     emit: (eventName: EventKey, ...args: any[]) => Promise<void>;
   }
   export default EventEmitter;
@@ -6181,39 +6251,185 @@ declare module "react-declarative/utils/rx/Observer" {
   export const LISTEN_CONNECT: unique symbol;
   export const LISTEN_DISCONNECT: unique symbol;
   type Fn = (...args: any[]) => void;
+  /**
+   * A class representing an Observer.
+   *
+   * @template Data - The type of data to observe.
+   */
   export class Observer<Data = any> implements TObserver<Data> {
+    /**
+     * Returns the current value of the 'isShared' property.
+     *
+     * @returns - The value of the 'isShared' property.
+     */
     get isShared(): boolean;
+    /**
+     * Returns whether the given event has any listeners.
+     *
+     * @returns True if there are listeners for the event, otherwise false.
+     */
     get hasListeners(): boolean;
     constructor(dispose: Fn);
+    /**
+     * Sets up a listener for the connect event on the broadcast channel.
+     *
+     * @param fn - The callback function to be executed once the connect event is triggered.
+     * @returns
+     */
     [LISTEN_CONNECT](fn: () => void): void;
+    /**
+     * Adds a listener for the DISCONNECT_EVENT.
+     *
+     * @param fn - The function to be executed when the event occurs.
+     */
     [LISTEN_DISCONNECT](fn: () => void): void;
+    /**
+     * Creates a new Observer.
+     * @template T - The type of the value emitted by the observer.
+     * @param callbackfn - A function to apply to each value emitted by the observer.
+     * @returns - The created Observer.
+     */
     map: <T = any>(callbackfn: (value: Data) => T) => Observer<T>;
+    /**
+     * Applies a callback function to each value emitted by the Observable and flattens the resulting values into a new Observable.
+     *
+     * @template T - The type of values emitted by the Observable.
+     *
+     * @param callbackfn - A callback function that accepts a value emitted by the Observable and returns an array of values or a single value.
+     *
+     * @returns - A new Observer that emits the flattened values.
+     */
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => Observer<T>;
+    /**
+     * Operator function to create a new observer with a transformed data type.
+     *
+     * @template T - The type of the transformed data.
+     * @param callbackfn - A callback function that takes the target observer and returns a new observer with transformed data.
+     * @returns - A new observer with the transformed data type.
+     */
     operator: <T = any>(
       callbackfn: (target: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
+    /**
+     * Reduces the data emitted by an Observer using a callback function and an initial value.
+     *
+     * @template T - The type of the accumulator and the return value.
+     * @param callbackfn - The callback function to execute on each emitted value.
+     *   It takes an accumulator value and the current value being emitted, and returns the new accumulator value.
+     * @param begin - The initial value of the accumulator.
+     * @returns - An Observer that emits the accumulated value after each emission.
+     */
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
       begin: T,
     ) => Observer<T>;
+    /**
+     * Creates and returns an observer function that splits an array of data
+     * into a nested array of a specified length.
+     *
+     * @returns The split observer function.
+     */
     split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
+    /**
+     * Creates an Observer with asynchronous mapping functionality.
+     *
+     * @template T - The type of the result of the mapping function.
+     * @param callbackfn - The function used to map the incoming data.
+     * @param [fallbackfn] - An optional fallback function to handle error cases. If not provided, the error will be rethrown.
+     * @returns - The created Observer.
+     */
     mapAsync: <T = any>(
       callbackfn: (value: Data) => Promise<T>,
       fallbackfn?: ((e: Error) => void) | undefined,
     ) => Observer<T>;
+    /**
+     * Creates a filtered observer.
+     *
+     * @param callbackfn - The filter callback function.
+     * @returns The filtered observer.
+     */
     filter: (callbackfn: (value: Data) => boolean) => Observer<Data>;
+    /**
+     * Attaches a callback function to the tap observer. The callback function will be called with a value of type `Data` when the tap observer is triggered.
+     *
+     * @param callbackfn - A callback function that takes a value of type `Data` as an argument.
+     * @returns - An observer object that can be used to manage the tap subscription.
+     */
     tap: (callbackfn: (value: Data) => void) => Observer<Data>;
+    /**
+     * Creates a debounced observer that emits values at a specified delay.
+     *
+     * @param delay - The delay (in milliseconds) between value emissions.
+     * @returns The debounced observer.
+     */
     debounce: (delay?: number | undefined) => Observer<Data>;
+    /**
+     * Emits the specified data to all observers.
+     *
+     * @param data - The data to be emitted.
+     */
     emit: (data: Data) => void;
+    /**
+     * Subscribes to the `OBSERVER_EVENT` and invokes the provided callback function.
+     * Emits the `CONNECT_EVENT`.
+     * Returns a composed function that will try to dispose and unsubscribe the callback.
+     *
+     * @param callbackfn - The callback function to be invoked when `OBSERVER_EVENT` is emitted.
+     * @returns - The composed function that will try to dispose and unsubscribe the callback.
+     */
     connect: (
       callbackfn: (value: Data) => void,
     ) => import("../compose").Function;
+    /**
+     * Executes a callback function once and provides a way to unsubscribe from further executions.
+     *
+     * @param callbackfn - The callback function to be executed once.
+     * @returns - A function that can be called to unsubscribe from further executions of the callback.
+     */
     once: (callbackfn: (value: Data) => void) => Fn;
+    /**
+     * Marks a variable as shared.
+     *
+     * @returns The shared variable object.
+     */
     share: () => this;
+    /**
+     * Creates an observable sequence that emits values at specified intervals.
+     * @param [interval=1000] - The time interval between emissions in milliseconds.
+     * @returns The observer object to subscribe to.
+     */
     repeat: (interval?: number) => Observer<Data>;
+    /**
+     * Merges an observer with the given observer, returning a new observer that emits values from both observers.
+     *
+     * @template T - The type of value emitted by the observer.
+     * @param observer - The observer to merge with.
+     * @returns - The merged observer.
+     */
     merge: <T = any>(observer: TObserver<T>) => Observer<Data | T>;
+    /**
+     * Unsubscribes from all events and performs cleanup.
+     *
+     * @function
+     * @name unsubscribe
+     * @memberOf undefined
+     *
+     * @returns
+     */
     unsubscribe: () => void;
+    /**
+     * Converts the current instance to a Promise that resolves with the data.
+     *
+     * @returns A Promise that resolves with the data.
+     */
     toPromise: () => Promise<Data>;
+    /**
+     * Creates a context for iterating asynchronously using a generator function.
+     *
+     * @returns The iterator context object.
+     * @property {AsyncGeneratorFunction} iterate - The generator function that can be used to iterate over the values.
+     * @property {Function} done - Marks the iteration as complete.
+     */
     toIteratorContext: () => {
       iterate: () => AsyncGenerator<Awaited<Data>, void, unknown>;
       done(): void;
@@ -6224,6 +6440,9 @@ declare module "react-declarative/utils/rx/Observer" {
 }
 
 declare module "react-declarative/utils/rx/Operator" {
+  /**
+   * Represents a collection of static operator functions.
+   */
   export class Operator {
     static take: <T = any>(
       count: number,
@@ -6275,35 +6494,161 @@ declare module "react-declarative/utils/rx/Subject" {
   import TObserver, { TObservable } from "react-declarative/model/TObserver";
   export const SUBJECT_EVENT: unique symbol;
   type Function = (...args: any[]) => void;
+  /**
+   * Represents a subject that can emit data and be subscribed to.
+   * @class
+   * @implements {TSubject<Data>}
+   * @implements {TObservable<Data>}
+   * @template Data - The type of data that the subject emits.
+   */
   export class Subject<Data = any>
     implements TSubject<Data>, TObservable<Data>
   {
     constructor();
+    /**
+     * Maps the values of the observer using the given callback function.
+     *
+     * @template T - The type of the mapped values.
+     * @param callbackfn - A function that maps each value of the observer.
+     * @returns - An observer with the mapped values.
+     */
     map: <T = any>(callbackfn: (value: Data) => T) => TObserver<T>;
+    /**
+     * Applies a transformation function to each value emitted by the observer and flattens the result into a single observer.
+     * @template T - The type of values emitted by the observer.
+     * @param callbackfn - The transformation function to apply to each value emitted by the observer.
+     * @returns - The observer that emits the flattened values.
+     */
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
+    /**
+     * Applies a reducer function to each value emitted by the observer and returns a single accumulated value.
+     *
+     * @template T - The type of the accumulated value and emitted values
+     * @param callbackfn - A function that accepts the accumulated value and the current emitted value, and returns the new accumulated value
+     * @param begin - The initial value for the accumulator
+     * @returns - An observer that emits the accumulated value when the original observer completes
+     */
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
       begin: T,
     ) => TObserver<T>;
+    /**
+     * Asynchronously maps the emitted values of the observer using the provided callback function.
+     *
+     * @template T - The type of the mapped values.
+     * @param callbackfn - The callback function that maps the emitted values of the observer.
+     * @param [fallbackfn] - The optional fallback function that handles errors during mapping.
+     * @returns - Returns a new observer that emits the mapped values.
+     */
     mapAsync: <T = any>(
       callbackfn: (value: Data) => Promise<T>,
       fallbackfn?: ((e: Error) => void) | undefined,
     ) => TObserver<T>;
+    /**
+     * Applies a filtering function to the observer and returns a new observer with filtered values.
+     *
+     * @param callbackfn - A function that tests each value in the observer. Should return true or false.
+     * @returns - A new observer with filtered values.
+     */
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
+    /**
+     * The tap function allows you to perform side effects without modifying the observed data.
+     *
+     */
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+    /**
+     * Applies a callback function to the values emitted by an observer.
+     *
+     * @param callbackfn - The callback function to apply to the emitted values.
+     * @returns - An observer with the applied operator.
+     *
+     * @template T - The type of values emitted by the observer.
+     *
+     * @memberof Operator
+     * @category Observables
+     */
     operator: <T = any>(
       callbackfn: (value: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
+    /**
+     * Splits the observed data into batches of arrays.
+     *
+     * @returns - The observer that emits batches of arrays.
+     */
     split: () => Observer<ReadonlyArray<FlatArray<Data[], 20>>>;
+    /**
+     * Creates a debounced observer with an optional delay.
+     * @param [delay] - The delay in milliseconds before emitting the data.
+     * @returns - The debounced observer.
+     */
     debounce: (delay?: number | undefined) => TObserver<Data>;
+    /**
+     * Creates an observer that repeats emitting values at a specified interval.
+     *
+     * @param [interval] - The time interval at which to repeat emitting values.
+     * @returns - The created observer.
+     */
     repeat: (interval?: number | undefined) => TObserver<Data>;
+    /**
+     * Merges the provided observer with the current observer instance.
+     * Returns a new observer that emits values from both observers.
+     *
+     * @param observer - The observer to merge with the current observer.
+     * @returns - A new observer that emits values from both observers.
+     */
     merge: <T = any>(observer: TObserver<T>) => TObserver<Data | T>;
+    /**
+     * Subscribes to an event.
+     *
+     * @param callback - The callback function to be invoked when the event is triggered.
+     * @returns - A function to unsubscribe from the event.
+     */
     subscribe: (callback: Function) => () => void;
+    /**
+     * Unsubscribes all event listeners.
+     *
+     * @function unsubscribeAll
+     * @instance
+     * @returns - No return value.
+     */
     unsubscribeAll: () => void;
+    /**
+     * Executes the provided callback function only once.
+     * The callback function will be invoked when the specified event occurs for the first time.
+     *
+     * @param callback - The function to be executed only once.
+     * @returns - A function that removes the registered event listener.
+     */
     once: (callback: Function) => () => void;
+    /**
+     * Calls the next method to emit the specified data using the SUBJECT_EVENT event.
+     *
+     * @param data - The data to be emitted.
+     * @return - Resolves when the emission is complete.
+     */
     next(data: Data): Promise<void>;
+    /**
+     * Creates a new observer to observe the data emitted by a source.
+     *
+     * @template TObserver - The type of observer.
+     * @template Data - The type of data emitted by the source.
+     * @returns - The created observer.
+     */
     toObserver(): TObserver<Data>;
+    /**
+     * Converts an observer-based asynchronous operation into a promise-based asynchronous operation.
+     *
+     * @function toPromise
+     * @instance
+     * @returns A promise representing the completion or failure of the asynchronous operation.
+     */
     toPromise: () => Promise<Data>;
+    /**
+     * Converts the current object to an iterator context.
+     *
+     * @function
+     * @returns The iterator context representing the current object.
+     */
     toIteratorContext: () => {
       iterate(): AsyncGenerator<Data, void, unknown>;
       done(): void;
@@ -6318,7 +6663,28 @@ declare module "react-declarative/utils/rx/Source" {
   import TObserver from "react-declarative/model/TObserver";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { TBehaviorSubject } from "react-declarative/utils/rx/BehaviorSubject";
+  /**
+   * The Source class provides utility functions for creating and manipulating Observers.
+   */
   export class Source {
+    /**
+     * Merges multiple observers into a single observer.
+     *
+     * @template A - The type of observer A.
+     * @template B - The type of observer B.
+     * @template C - The type of observer C.
+     * @template D - The type of observer D.
+     * @template E - The type of observer E.
+     * @template F - The type of observer F.
+     * @template G - The type of observer G.
+     * @template H - The type of observer H.
+     * @template I - The type of observer I.
+     * @template J - The type of observer J.
+     *
+     * @param observers - An array of observers to merge.
+     *
+     * @returns - The merged observer.
+     */
     static merge: <
       A = never,
       B = never,
@@ -6344,6 +6710,27 @@ declare module "react-declarative/utils/rx/Source" {
         (TObserver<J> | undefined)?,
       ],
     ) => TObserver<A | B | C | D | E | F | G | H | I | J>;
+    /**
+     * Creates a join observer that combines the values emitted by multiple Observers into a single Observable.
+     *
+     * @template A - The type of the value emitted by the first Observer.
+     * @template B - The type of the value emitted by the second Observer.
+     * @template C - The type of the value emitted by the third Observer.
+     * @template D - The type of the value emitted by the fourth Observer.
+     * @template E - The type of the value emitted by the fifth Observer.
+     * @template F - The type of the value emitted by the sixth Observer.
+     * @template G - The type of the value emitted by the seventh Observer.
+     * @template H - The type of the value emitted by the eighth Observer.
+     * @template I - The type of the value emitted by the ninth Observer.
+     * @template J - The type of the value emitted by the tenth Observer.
+     *
+     * @param observers - An array of Observers to join.
+     * @param options - Optional parameters for the join operation, including a buffer and a race flag.
+     * @param options.buffer - An array to store the latest emitted values from each Observer. Defaults to an empty array.
+     * @param options.race - A boolean flag indicating whether to emit the combined values immediately or wait for all Observers to emit a value. Defaults to false.
+     *
+     * @returns An Observer that emits an array of values, each value being the latest emitted value from the corresponding Observer.
+     */
     static join: <
       A = never,
       B = never,
@@ -6389,26 +6776,69 @@ declare module "react-declarative/utils/rx/Source" {
         race?: boolean | undefined;
       },
     ) => TObserver<[A, B, C, D, E, F, G, H, I, J]>;
+    /**
+     * @typedef {Object} Unicast
+     * @template Data - The type of data the observer handles.
+     *
+     * @property {function(): TObserver<Data>} factory - A factory function to create the observer.
+     * @property {boolean} isUnicasted - Indicates whether the observer is unicast.
+     *
+     * @returns - A unicast observer instance.
+     */
     static unicast: <Data = any>(
       factory: () => TObserver<Data>,
     ) => TObserver<Data> & {
       isUnicasted: true;
     };
+    /**
+     * Creates a multicast observer.
+     *
+     * @template Data - The type of data being observed.
+     * @param factory - A factory function that creates the observer.
+     * @returns - The multicast observer.
+     */
     static multicast: <Data = any>(
       factory: () => TObserver<Data>,
     ) => TObserver<Data> & {
       isMulticasted: true;
       getRef: any;
     };
+    /**
+     * Creates a hot observable that emits data as it is received from the given emitter.
+     *
+     * @template Data The type of data emitted by the observable.
+     * @param emitter The function that receives a callback to emit data. It should return a cleanup function or `undefined`.
+     * @returns The observer that allows subscribing to and unsubscribing from the emitted data.
+     */
     static createHot: <Data = any>(
       emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
+    /**
+     * Creates a cold observable.
+     *
+     * @param emitter - The emitter function which is called when a subscriber is added.
+     *                            It should return a function that is called when the subscription is unsubscribed,
+     *                            or return `undefined` if no cleanup is needed.
+     * @returns - The created observer.
+     */
     static createCold: <Data = any>(
       emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
+    /**
+     * Creates a new instance of the Cold object.
+     */
     static create: <Data = any>(
       emitter: (next: (data: Data) => void) => (() => void) | void,
     ) => Observer<Data>;
+    /**
+     * Creates a pipe that connects an observer to a subject and emits output values based on a given emitter function.
+     *
+     * @param target - The observer that will receive output values.
+     * @param emitter - A function that takes a subject and a next function and returns an unsubscribe function.
+     * @returns The observer that is connected to the subject and emits output values.
+     * @template Data - The type of data that will be observed.
+     * @template Output - The type of output that will be emitted.
+     */
     static pipe: <Data = any, Output = any>(
       target: TObserver<Data>,
       emitter: (
@@ -6472,10 +6902,30 @@ declare module "react-declarative/utils/rx/Source" {
       | TransitionEvent
       | WheelEvent
     >;
+    /**
+     * Creates a new observer that emits a value from the given data or function.
+     *
+     * @param data - The data or function to emit from the observer.
+     * @returns - The created observer.
+     */
     static fromValue: <Data = any>(
       data: Data | (() => Data),
     ) => TObserver<Data>;
+    /**
+     * Creates an observer from the given subject and returns it.
+     *
+     * @template Data - The type of data emitted by the observer.
+     * @param subject - The subject to create the observer from.
+     * @returns - The observer created from the subject.
+     */
     static fromSubject: <Data = any>(subject: TSubject<Data>) => Observer<Data>;
+    /**
+     * Creates an observer from a BehaviorSubject.
+     *
+     * @template Data The type of data emitted by the BehaviorSubject.
+     * @param subject - The BehaviorSubject to create the observer from.
+     * @returns The observer created from the BehaviorSubject.
+     */
     static fromBehaviorSubject: <Data = any>(
       subject: TBehaviorSubject<Data>,
     ) => Observer<Data>;
@@ -6830,9 +7280,17 @@ declare module "react-declarative/utils/mvvm/Entity" {
     CHANGE_SYMBOL,
     REFRESH_SYMBOL,
   } from "react-declarative/utils/mvvm/Model";
+  /**
+   * Represents an entity with an identifier.
+   */
   export interface IEntity {
     id: string | number;
   }
+  /**
+   * Represents an interface for an entity adapter.
+   *
+   * @template T - The type of the entity.
+   */
   export interface IEntityAdapter<T extends IEntity = any> {
     id: IEntity["id"];
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
@@ -6866,6 +7324,10 @@ declare module "react-declarative/utils/mvvm/Collection" {
     IEntityAdapter,
   } from "react-declarative/utils/mvvm/Entity";
   export const REORDER_SYMBOL: unique symbol;
+  /**
+   * An interface representing a collection adapter.
+   * @template T - The type of entities in the collection.
+   */
   export interface ICollectionAdapter<T extends IEntity = any> {
     items: IEntityAdapter<T>[];
     lastIdx: number;
@@ -6945,12 +7407,21 @@ declare module "react-declarative/utils/mvvm/Model" {
   export const CHANGE_SYMBOL: unique symbol;
   export const REFRESH_SYMBOL: unique symbol;
   export const CHANGE_DEBOUNCE = 1000;
+  /**
+   * Represents an interface for a model adapter.
+   * @template T The type of data that the adapter handles.
+   */
   export interface IModelAdapter<T extends {} = any> {
     data: T;
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
     refresh(): void;
     toObject(): T;
   }
+  /**
+   * Class representing a model.
+   * @extends EventEmitter
+   * @implements IModelAdapter
+   */
   export class Model<T extends {} = any>
     extends EventEmitter
     implements IModelAdapter<T>
@@ -6997,9 +7468,13 @@ declare module "react-declarative/utils/formatStr" {
    *
    * @param str - The string containing placeholders.
    * @param args - The values to replace the placeholders with.
+   * @example `formatStr("hello {1} world {0} foo {}", 1,2,3) // hello 2 world 1 foo 3`
    * @returns - The string with replaced placeholders.
    */
-  export const formatStr: (str: string, ...args: string[]) => string;
+  export const formatStr: (
+    str: string,
+    ...args: (string | number | boolean)[]
+  ) => string;
   export default formatStr;
 }
 
@@ -10967,6 +11442,13 @@ declare module "react-declarative/components/List/hooks/useProps" {
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a context object for providing properties to a component.
+   * @template FilterData - The type of filter data.
+   * @template RowData - The type of row data.
+   * @template Payload - The type of payload data.
+   * @template Field - The type of field data.
+   */
   interface IPropContext<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -10987,6 +11469,18 @@ declare module "react-declarative/components/List/hooks/useProps" {
       IListCallbacks<FilterData, RowData> {
     children: React.ReactNode;
   }
+  /**
+   * PropProvider is a higher-order component that provides a PropContext context to its children.
+   *
+   * @template FilterData - The data type for the filter data.
+   * @template RowData - The data type for the row data.
+   * @template Payload - The data type for the payload.
+   * @template Field - The data type for the field.
+   *
+   * @param props - The props for the PropProvider component.
+   *
+   * @returns - The JSX element wrapped with PropContext.Provider.
+   */
   export const PropProvider: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -10995,6 +11489,16 @@ declare module "react-declarative/components/List/hooks/useProps" {
   >(
     props: IPropContext<FilterData, RowData, Payload, Field>,
   ) => JSX.Element;
+  /**
+   * Retrieves the current props from the PropContext.
+   *
+   * @returns The props from the PropContext.
+   *
+   * @template FilterData The filter data type.
+   * @template RowData The row data type.
+   * @template Payload The payload type.
+   * @template Field The field type.
+   */
   export const useProps: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -11018,6 +11522,13 @@ declare module "react-declarative/components/List/hooks/useCachedRows" {
     cachedRows: Map<RowId, RowData>;
     selectedRows: RowData[];
   }
+  /**
+   * A component for caching and providing rows and selected rows.
+   *
+   * @template RowData - Type parameter for the row data.
+   * @param props - The component props.
+   * @return - The rendered component.
+   */
   export const CachedRowsProvider: <RowData extends IRowData = any>({
     children,
   }: ICachedRowsProviderProps) => JSX.Element;
@@ -11532,6 +12043,15 @@ declare module "react-declarative/components/List/hooks/usePagination" {
   interface IProps extends IContext {
     children: React.ReactNode;
   }
+  /**
+   * PaginationProvider component serves as a provider for limiting and offsetting pagination data.
+   *
+   * @param children - The child component(s) that will be rendered within the provider.
+   * @param limit - The maximum number of items to be displayed per page.
+   * @param offset - The starting index of the items to be displayed.
+   *
+   * @returns - The PaginationProvider component.
+   */
   export const PaginationProvider: ({
     children,
     limit,
@@ -11556,6 +12076,13 @@ declare module "react-declarative/components/List/hooks/useSortModel" {
     sortModel: Map<IListSortItem["field"], IListSortItem>;
     setSortModel: (s: Map<IListSortItem["field"], IListSortItem>) => void;
   }
+  /**
+   * Provides sorting functionality for a list component.
+   *
+   * @typedef {Object} SortModelProvider
+   * @property {ReactNode} children - The child components.
+   * @property {Array.<Object>} sortModel - The initial sort model.
+   */
   export const SortModelProvider: ({
     children,
     sortModel: upperSortModel,
@@ -11579,6 +12106,14 @@ declare module "react-declarative/components/List/hooks/useChips" {
     chips: Map<string, boolean>;
     setChips: (s: Map<string, boolean>) => void;
   }
+  /**
+   * Provides chips functionality to its children components.
+   *
+   * @typedef {Object} IChipsProviderProps
+   * @property {ReactNode} children - The children components of the ChipsProvider.
+   * @property {Array<{ name: string, enabled?: boolean }>} chips - The array of chips with their initial enabled state.
+   * @property {Object} chipData - The object containing chip data where the key is the chip name and the value is the chip data.
+   */
   export const ChipsProvider: ({
     children,
     chips: upperChips,
@@ -11606,6 +12141,15 @@ declare module "react-declarative/components/List/hooks/usePayload" {
     children: React.ReactNode;
     value: Exclude<IListProps["payload"], undefined>;
   }
+  /**
+   * PayloadProvider component.
+   *
+   * @param props - The component props.
+   * @param props.children - The child components.
+   * @param [props.value={}] - The initial value of the payload.
+   *
+   * @returns - The component's rendered output.
+   */
   export const PayloadProvider: ({
     children,
     value,
@@ -11615,6 +12159,17 @@ declare module "react-declarative/components/List/hooks/usePayload" {
 }
 
 declare module "react-declarative/components/List/hooks/useReload" {
+  /**
+   * A function that returns a callback function for reloading data.
+   *
+   * @function
+   * @returns A callback function for reloading data.
+   *
+   * @example
+   * const reloadCallback = useReload();
+   * reloadCallback(); // reloads data and resets pagination
+   * reloadCallback(true); // reloads data without resetting pagination
+   */
   export const useReload: () => (
     keepPagination?: boolean | undefined,
   ) => Promise<void>;
@@ -11727,6 +12282,13 @@ declare module "react-declarative/components/List/hooks/useColumnConfig" {
     columns: IColumn[];
     storageKey: string;
   }
+  /**
+   * Manages column configuration for sorting modal.
+   *
+   * @param params - The parameters for the sorting modal.
+   * @returns - An object containing the open state, render function, sorted columns, and pick
+   *Columns function.
+   */
   export const useColumnConfig: ({ columns, storageKey }: ISortModalProps) => {
     open: boolean;
     render: () => JSX.Element;
