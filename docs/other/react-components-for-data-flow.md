@@ -2,7 +2,7 @@
 
 > Link to [the original article](https://habr.com/en/articles/676612/)
 
-There exists a toxic stereotype that FullStack developers cannot code frontend and backend both. Often, due to the extensive workload, fullstack programming in React turns into haphazard coding with questionable quality. Code is copied without creating components, and there is no global application state.
+Often, due to the extensive workload, fullstack programming in React turns into haphazard coding with questionable quality. Code is copied without creating components, and there is no global application state.
 
 In this article, I will provide examples of using several components that allow deploying a feature to a test environment with minimal effort. This ensures that the code fetching data from the server is easily refactorable in the near future.
 

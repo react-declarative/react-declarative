@@ -7,6 +7,9 @@ import skip from "./lib/skip";
 import strideTricks from "./lib/strideTricks";
 import take from "./lib/take";
 
+/**
+ * Represents a collection of static operator functions.
+ */
 export class Operator {
   public static take = take;
   public static skip = skip;

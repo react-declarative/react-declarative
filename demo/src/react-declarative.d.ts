@@ -756,6 +756,7 @@ declare module "react-declarative" {
   export { Entity } from "react-declarative/utils/mvvm/Entity";
   export { Model } from "react-declarative/utils/mvvm/Model";
   export { formatAmount } from "react-declarative/utils/formatAmount";
+  export { formatStr } from "react-declarative/utils/formatStr";
   export { createWindowHistory } from "react-declarative/utils/createWindowHistory";
   export { createLsManager } from "react-declarative/utils/createLsManager";
   export { createSsManager } from "react-declarative/utils/createSsManager";
@@ -6988,6 +6989,18 @@ declare module "react-declarative/utils/formatAmount" {
     separator?: string,
   ) => string;
   export default formatAmount;
+}
+
+declare module "react-declarative/utils/formatStr" {
+  /**
+   * Replaces placeholders in a string with corresponding values.
+   *
+   * @param str - The string containing placeholders.
+   * @param args - The values to replace the placeholders with.
+   * @returns - The string with replaced placeholders.
+   */
+  export const formatStr: (str: string, ...args: string[]) => string;
+  export default formatStr;
 }
 
 declare module "react-declarative/utils/createWindowHistory" {

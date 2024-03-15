@@ -680,6 +680,7 @@ export { Entity } from './utils/mvvm/Entity';
 export { Model } from './utils/mvvm/Model';
 
 export { formatAmount } from './utils/formatAmount';
+export { formatStr } from './utils/formatStr';
 
 export { createWindowHistory } from './utils/createWindowHistory';
 export { createLsManager } from './utils/createLsManager';

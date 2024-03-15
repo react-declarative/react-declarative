@@ -7,10 +7,18 @@ import Model, { CHANGE_DEBOUNCE } from "./Model";
 
 export { CHANGE_DEBOUNCE, CHANGE_SYMBOL, REFRESH_SYMBOL } from './Model';
 
+/**
+ * Represents an entity with an identifier.
+ */
 export interface IEntity {
     id: string | number;
 }
 
+/**
+ * Represents an interface for an entity adapter.
+ *
+ * @template T - The type of the entity.
+ */
 export interface IEntityAdapter<T extends IEntity = any> {
     id: IEntity['id'];
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;

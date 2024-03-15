@@ -10,6 +10,10 @@ import Entity, { IEntity, CHANGE_SYMBOL, CHANGE_DEBOUNCE, REFRESH_SYMBOL, IEntit
 
 export const REORDER_SYMBOL = Symbol('reorder');
 
+/**
+ * An interface representing a collection adapter.
+ * @template T - The type of entities in the collection.
+ */
 export interface ICollectionAdapter<T extends IEntity = any> {
     items: IEntityAdapter<T>[];
     lastIdx: number;

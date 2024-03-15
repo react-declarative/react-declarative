@@ -1,4 +1,4 @@
-let overrideRef: ((url: string, name: string) => void) | null = null
+let overrideRef: ((url: string, name: string) => void) | null = null;
 
 /**
  * Downloads a file from the given URL with the specified name.
@@ -10,26 +10,36 @@ let overrideRef: ((url: string, name: string) => void) | null = null
  * @returns
  */
 export const downloadBlank = (url: string, name: string) => {
-    if (overrideRef) {
-        overrideRef(url, name);
-        return;
-    }
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = name;
-    a.style.display = 'none';
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.addEventListener('click', () => queueMicrotask(() => {
-        URL.revokeObjectURL(url);
-    }), {
-        once: true,
+  if (overrideRef) {
+    overrideRef(url, name);
+    return;
+  }
+  fetch(url)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const uri = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = uri;
+      a.download = name;
+      a.style.display = "none";
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.addEventListener(
+        "click",
+        () =>
+          queueMicrotask(() => {
+            URL.revokeObjectURL(uri);
+          }),
+        {
+          once: true,
+        }
+      );
+      a.click();
     });
-    a.click();
-}
+};
 
 downloadBlank.override = (ref: (url: string, name: string) => void) => {
-    overrideRef = ref;
+  overrideRef = ref;
 };
 
 export default downloadBlank;

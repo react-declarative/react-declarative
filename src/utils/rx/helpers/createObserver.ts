@@ -1,5 +1,15 @@
 import { TObserver } from "../Observer";
 
+/**
+ * A utility function for creating observer objects that can be chained
+ * with multiple operators.
+ *
+ * @template Data The type of data emitted by the observer.
+ *
+ * @param factory A function that returns an observer.
+ *
+ * @returns The created observer object.
+ */
 export const createObserver = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> => ({
     tap: (callbackfn) => factory().tap(callbackfn),
     debounce: (delay) => factory().debounce(delay),
