@@ -147,6 +147,17 @@ export class Entry<
     this.isMountedFlag &&
     this.setState((prevState) => ({ ...prevState, filtersCollapsed }));
 
+  /**
+   * Handles the component's componentDidUpdate lifecycle method.
+   * - Calls the handleUpdateRef method.
+   * - Checks if rerender state is true. If true, calls the beginRerender method.
+   * - If rerender state is false, calls the beginFetchQueue method.
+   *
+   * @memberOf Component
+   * @function
+   * @name componentDidUpdate
+   * @returns
+   */
   public componentDidUpdate = () => {
     this.handleUpdateRef();
     if (this.state.rerender) {
@@ -156,12 +167,29 @@ export class Entry<
     }
   };
 
+  /**
+   * Component lifecycle method invoked immediately after a component is mounted.
+   *
+   * Sets the 'isMountedFlag' to true. Calls 'handleEmptyFilters()' and 'handleUpdateRef()'
+   * methods to handle empty filters and update references, respectively.
+   *
+   * @memberof Component
+   * @function componentDidMount
+   * @returns
+   */
   public componentDidMount = () => {
     this.isMountedFlag = true;
     this.handleEmptyFilters();
     this.handleUpdateRef();
   };
 
+  /**
+   * Method called before the component is unmounted.
+   * It is responsible for cleaning up any side effects or subscriptions before the component is removed from the DOM.
+   * @memberOf Component
+   *
+   * @returns
+   */
   public componentWillUnmount = () => {
     this.isFetchingFlag = false;
     this.isMountedFlag = false;
@@ -173,6 +201,14 @@ export class Entry<
     this.unSetRowsSubject && this.unSetRowsSubject();
   };
 
+  /**
+   * Function to begin rerendering the component.
+   *
+   * It queues the rerendering task as a microtask,
+   * flushes any synchronous updates, and updates the state
+   * to disable further rerenders if the component is still mounted.
+   * It also sets a flag to indicate that a rerender is requested.
+   */
   private beginRerender = () => {
     queueMicrotask(() =>
       flushSync(() => {
@@ -186,6 +222,11 @@ export class Entry<
     );
   };
 
+  /**
+   * Begins fetching the queue based on the state of filtersCollapsed.
+   * If filtersCollapsed has not changed, calls handleFetchQueue.
+   * Otherwise, updates prevState.filtersCollapsed.
+   */
   private beginFetchQueue = () => {
     if (this.prevState.filtersCollapsed === this.state.filtersCollapsed) {
       this.handleFetchQueue();
@@ -194,6 +235,14 @@ export class Entry<
     }
   };
 
+  /**
+   * Debounces the execution of a function that handles fetching data,
+   * ensuring that it is called only after a certain delay has passed.
+   *
+   * @param [delay=LIST_FETCH_DEBOUNCE] - The delay in milliseconds before
+   *     executing the function.
+   * @returns - The debounced function.
+   */
   private createHandleFetchQueue = (delay = LIST_FETCH_DEBOUNCE) =>
     debounce(() => {
       const updateQueue = [this.handlePageChanged, this.handleParamsChanged];
@@ -220,8 +269,18 @@ export class Entry<
       this.prevState = { ...this.state };
     }, delay);
 
+  /**
+   * Creates a handle for the fetch queue.
+   *
+   * @returns {Object} The handle object for the fetch queue.
+   */
   private handleFetchQueue = this.createHandleFetchQueue();
 
+  /**
+   * Handles the page change event.
+   * Determines if the page change is valid and triggers a reload if necessary.
+   * @returns - True if the page change is valid, otherwise false.
+   */
   private handlePageChanged = () => {
     let isOk = false;
     isOk = isOk || this.prevState.offset === this.state.offset;
@@ -232,6 +291,10 @@ export class Entry<
     return isOk;
   };
 
+  /**
+   * Handle method to check if any params have changed.
+   * @returns Returns true if any of the parameters have changed, false otherwise.
+   */
   private handleParamsChanged = () => {
     let isOk = false;
     isOk = isOk || this.prevState.chips === this.state.chips;
@@ -244,6 +307,12 @@ export class Entry<
     return isOk;
   };
 
+  /**
+   * Updates the reference to the API instance for the current component.
+   * It sets up event subscriptions for various API actions.
+   *
+   * @function handleUpdateRef
+   */
   private handleUpdateRef = () => {
     const { apiRef } = this.props;
     const instance: IListApi<FilterData, RowData> = {
@@ -298,6 +367,12 @@ export class Entry<
     }
   };
 
+  /**
+   * Handles empty filters by checking if filters exist and if they are custom filters
+   *
+   * @function handleEmptyFilters
+   * @memberof namespace
+   */
   private handleEmptyFilters = () => {
     let hasFilters = true;
     hasFilters = hasFilters && Array.isArray(this.props.filters);
@@ -309,6 +384,16 @@ export class Entry<
     this.prevState.filtersCollapsed = this.state.filtersCollapsed;
   };
 
+  /**
+   * Handles rows of data based on the given filter data.
+   *
+   * @param filterData - The filter data to apply.
+   * @param [keepPagination=false] - Whether to keep the current pagination or reset it.
+   * @returns
+   * 
+   * 
+   *  The resulting rows and total count.
+   */
   private handleRows = async (
     filterData: FilterData,
     keepPagination = false
@@ -375,6 +460,14 @@ export class Entry<
     }
   };
 
+  /**
+   * Handle filter function
+   *
+   * @async
+   * @param filterData - The filter data to be applied
+   * @param [keepPagination=false] - Flag to indicate whether to keep the current pagination or not
+   * @returns
+   */
   private handleFilter = async (
     filterData: FilterData,
     keepPagination = false
@@ -408,6 +501,12 @@ export class Entry<
     }
   };
 
+  /**
+   * Asynchronously handles default values for filters.
+   *
+   * @param initialCall - Indicates if this is the initial call.
+   * @returns - A promise that resolves when the default handling is complete.
+   */
   private handleDefault = async (initialCall = false) => {
     const newData: Partial<FilterData> = {};
     deepFlat(this.props.filters)
@@ -431,6 +530,13 @@ export class Entry<
     !initialCall && this.props.onPageChange!(0);
   };
 
+  /**
+   * Reloads the data by clearing constraints and scroll manager, and applying filters.
+   * Optionally updates the page number to 0.
+   *
+   * @param [keepPagination=true] - Flag to specify whether to update the page number.
+   * @returns - Promise that resolves when the reload process is complete.
+   */
   private handleReload = async (keepPagination = true) => {
     this.constraintManager.constraintManager.clear();
     this.scrollManager.clear();
@@ -438,6 +544,11 @@ export class Entry<
     !keepPagination && this.props.onPageChange!(0);
   };
 
+  /**
+   * Function to handle page change.
+   *
+   * @param page - The new page number.
+   */
   private handlePageChange = (page: number) => {
     this.isFetchingFlag = true;
     this.isMountedFlag &&
@@ -448,6 +559,12 @@ export class Entry<
     this.props.onPageChange!(page);
   };
 
+  /**
+   * Handles a change in the limit
+   *
+   * @param newLimit - The new limit value
+   * @returns
+   */
   private handleLimitChange = (newLimit: number) => {
     this.isFetchingFlag = true;
     const newPage = Math.floor(this.state.offset / newLimit);
@@ -460,6 +577,12 @@ export class Entry<
     this.props.onLimitChange!(newLimit);
   };
 
+  /**
+   * Updates the state with new rows.
+   *
+   * @param rows - Array of row data to be updated.
+   * @return
+   */
   private handleRowsChange = (rows: RowData[]) => {
     this.isPatchingFlag = true;
     this.isMountedFlag &&
@@ -469,6 +592,11 @@ export class Entry<
       }));
   };
 
+  /**
+   * Updates the sort model and triggers related actions.
+   *
+   * @param sort - The new sort model.
+   */
   private handleSortModel = (sort: ListHandlerSortModel) => {
     this.isFetchingFlag = true;
     this.isMountedFlag &&
@@ -481,6 +609,12 @@ export class Entry<
     this.props.onPageChange!(0);
   };
 
+  /**
+   * Updates the chips and triggers necessary actions when the chips are handled.
+   *
+   * @param chips - The list of chips to be handled.
+   * @returns
+   */
   private handleChips = (chips: ListHandlerChips) => {
     this.isFetchingFlag = true;
     this.isMountedFlag &&
@@ -493,6 +627,13 @@ export class Entry<
     this.props.onPageChange!(0);
   };
 
+  /**
+   * Handles the search functionality.
+   *
+   * @param search - The search string.
+   *
+   * @returns
+   */
   private handleSearch = (search: string) => {
     this.isFetchingFlag = true;
     this.isMountedFlag &&
@@ -505,6 +646,15 @@ export class Entry<
     this.props.onPageChange!(0);
   };
 
+  /**
+   * Function to handle rerendering of component.
+   * It uses `queueMicrotask()` and `flushSync()` to ensure synchronous updates.
+   * If the component is currently mounted, it updates the state to trigger a rerender.
+   *
+   * @function handleRerender
+   * @memberof Component
+   * @returns
+   */
   private handleRerender = () => {
     queueMicrotask(() =>
       flushSync(() => {
@@ -517,9 +667,21 @@ export class Entry<
     );
   };
 
+  /**
+   * Sets the state of filtersCollapsed and calls the setFiltersCollapsed method.
+   *
+   * @param filtersCollapsed - The new value for filtersCollapsed.
+   *
+   * @returns
+   */
   private handleFiltersCollapsed = (filtersCollapsed: boolean) =>
     this.setFiltersCollapsed(filtersCollapsed);
 
+  /**
+   * Returns a collection of callback functions.
+   *
+   * @return - The collection of callback functions.
+   */
   private getCallbacks = (): IListCallbacks => ({
     handlePageChange: this.handlePageChange,
     handleLimitChange: this.handleLimitChange,
@@ -539,6 +701,11 @@ export class Entry<
     },
   });
 
+  /**
+   * Renders the inner component based on the current props and state values.
+   *
+   * @returns The rendered JSX element.
+   */
   public renderInner = () => {
     const callbacks = this.getCallbacks();
     if (this.props.isChooser) {
@@ -574,6 +741,11 @@ export class Entry<
     }
   };
 
+  /**
+   * Renders the component with nested providers and props
+   *
+   * @returns The rendered component
+   */
   public render = () => {
     const callbacks = this.getCallbacks();
     return (
