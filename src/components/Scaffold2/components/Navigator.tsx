@@ -2,7 +2,7 @@ import * as React from "react";
 import { Theme, alpha } from "@mui/material";
 
 import Divider from "@mui/material/Divider";
-import Drawer, { DrawerProps } from "@mui/material/Drawer";
+import SwipeableDrawer, { SwipeableDrawerProps } from "@mui/material/SwipeableDrawer";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
@@ -32,7 +32,7 @@ const itemCategory = {
   px: 3,
 };
 
-interface INavigatorProps<T = Payload> extends DrawerProps {
+interface INavigatorProps<T = Payload> extends SwipeableDrawerProps {
   appName?: string;
   noAppName?: boolean;
   noSearch?: boolean;
@@ -63,7 +63,7 @@ export const Navigator = <T extends Payload = Payload>({
   onOptionGroupClick = () => undefined,
   ...otherProps
 }: INavigatorProps<T>) => (
-  <Drawer
+  <SwipeableDrawer
     variant="permanent"
     sx={{
       ...sx,
@@ -208,7 +208,7 @@ export const Navigator = <T extends Payload = Payload>({
       </List>
       {AfterContent && <AfterContent />}
     </Paper>
-  </Drawer>
+  </SwipeableDrawer>
 );
 
 export default Navigator;

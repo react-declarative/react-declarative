@@ -137,10 +137,14 @@ export const Container = <T extends Payload = Payload>({
               onClose={handleDrawerToggle}
               onOptionGroupClick={handleOptionGroupClick}
               onOptionClick={handleOptionClick}
+              onOpen={() => setMobileOpen(true)}
             />
           )}
           {!isMobile && (
             <Navigator<T>
+              open
+              disableSwipeToOpen
+              disableDiscovery
               PaperProps={{ style: { width: DRAWER_WIDTH } }}
               sx={{ display: { sm: "block", xs: "none" }, width: DRAWER_WIDTH }}
               activeOptionPath={activeOptionPath}
@@ -155,6 +159,8 @@ export const Container = <T extends Payload = Payload>({
               AfterContent={AfterContent}
               onOptionGroupClick={handleOptionGroupClick}
               onOptionClick={handleOptionClick}
+              onOpen={() => {}}
+              onClose={() => {}}
             />
           )}
         </Box>

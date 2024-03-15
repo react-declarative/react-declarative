@@ -3039,6 +3039,7 @@ declare module "react-declarative/model/IListProps" {
     >;
     fetchDebounce?: number;
     className?: string;
+    denseHeight?: number;
     style?: React.CSSProperties;
     title?: string;
     withRawSearch?: boolean;

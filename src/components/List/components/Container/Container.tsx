@@ -1,5 +1,5 @@
 import * as React from "react";
-import { forwardRef, useEffect } from "react";
+import { forwardRef, useEffect, useMemo } from "react";
 import { makeStyles } from "../../../../styles";
 
 import Box from "@mui/material/Box";
@@ -22,6 +22,7 @@ import useConstraintManager from "../../hooks/useConstraintManager";
 import useRowDisabledMap from "../../hooks/useRowDisabledMap";
 
 import useElementSize from "../../../../hooks/useElementSize";
+import useMediaContext from "../../../../hooks/useMediaContext";
 
 import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
@@ -30,13 +31,13 @@ import ChipListSlot from "../../slots/ChipListSlot";
 import SearchSlot from "../../slots/SearchSlot";
 
 export const CONTAINER_MARK = "react-declarative__contentMark";
-const EMPTY_ARRAY: any[] = [];
 
+const EMPTY_ARRAY: any[] = [];
 const RESIZE_DELAY = 100;
 
 interface IContainerProps<
   FilterData extends {} = IAnything,
-  RowData extends IRowData = IAnything
+  RowData extends IRowData = IAnything,
 > extends Omit<
       IListProps<FilterData, RowData>,
       keyof {
@@ -116,11 +117,14 @@ const useStyles = makeStyles()({
       flex: 1,
     },
   },
+  hidden: {
+    display: "none",
+  },
 });
 
 export const Container = <
   FilterData extends {} = IAnything,
-  RowData extends IRowData = IAnything
+  RowData extends IRowData = IAnything,
 >(
   props: IContainerProps<FilterData, RowData>,
   ref: any
@@ -133,12 +137,15 @@ export const Container = <
   const { constraintManager } = useConstraintManager();
   const [rowDisabledMap] = useRowDisabledMap();
 
+  const { isMobile } = useMediaContext();
+
   const {
     className,
     style,
     filters = [],
     actions = [],
     listChips,
+    denseHeight,
     heightRequest = (v) => v,
     widthRequest = (v) => v,
     operations,
@@ -188,6 +195,17 @@ export const Container = <
     onResize,
   });
 
+  const isDense = useMemo(() => {
+    if (isMobile) {
+      return false;
+    }
+    const { height } = rootElementSize;
+    if (denseHeight) {
+      return denseHeight > height;
+    }
+    return false;
+  }, [denseHeight, rootElementSize.height, isMobile]);
+
   const { elementRef: contentElementRef, size: contentElementSize } =
     useElementSize({
       debounce: RESIZE_DELAY,
@@ -211,7 +229,11 @@ export const Container = <
           className={classNames(classes.content, classes.stretch)}
         >
           {initComplete && (
-            <div>
+            <div
+              className={classNames({
+                [classes.hidden]: isDense,
+              })}
+            >
               {BeforeActionList && (
                 <Box className={classes.beforeActionList}>
                   <BeforeActionList
@@ -251,7 +273,11 @@ export const Container = <
           </div>
 
           {initComplete && (
-            <div>
+            <div
+              className={classNames({
+                [classes.hidden]: isDense,
+              })}
+            >
               {AfterActionList && (
                 <Box className={classes.afterActionList}>
                   <AfterActionList
@@ -279,7 +305,11 @@ export const Container = <
           )}
 
           {initComplete && (
-            <div>
+            <div
+              className={classNames({
+                [classes.hidden]: isDense,
+              })}
+            >
               {BeforeOperationList && (
                 <Box className={classes.beforeActionList}>
                   <BeforeOperationList
@@ -306,7 +336,11 @@ export const Container = <
             </div>
           )}
 
-          <div>
+          <div
+            className={classNames({
+              [classes.hidden]: isDense,
+            })}
+          >
             {Array.isArray(operations) && !!operations.length && (
               <OperationListSlot
                 operations={operations}
@@ -316,7 +350,11 @@ export const Container = <
           </div>
 
           {initComplete && (
-            <div>
+            <div
+              className={classNames({
+                [classes.hidden]: isDense,
+              })}
+            >
               {AfterOperationList && (
                 <Box className={classes.beforeActionList}>
                   <AfterOperationList
@@ -385,7 +423,11 @@ export const Container = <
                   />
                 )}
             </div>
-            <div>
+            <div
+              className={classNames({
+                [classes.hidden]: isDense,
+              })}
+            >
               {!isChooser && Array.isArray(listChips) && !!listChips.length && (
                 <ChipListSlot listChips={listChips} loading={loading} />
               )}

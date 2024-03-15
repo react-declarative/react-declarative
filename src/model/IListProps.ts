@@ -282,6 +282,7 @@ export interface IListProps<
   AfterOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   fetchDebounce?: number;
   className?: string;
+  denseHeight?: number;
   style?: React.CSSProperties;
   title?: string;
   withRawSearch?: boolean;

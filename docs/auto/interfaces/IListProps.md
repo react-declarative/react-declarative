@@ -46,6 +46,12 @@ fetchDebounce: number
 className: string
 ```
 
+### denseHeight
+
+```ts
+denseHeight: number
+```
+
 ### style
 
 ```ts
