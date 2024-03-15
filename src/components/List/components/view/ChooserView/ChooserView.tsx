@@ -81,6 +81,15 @@ interface IChooserState<
   filterData: IChooserProps<FilterData, RowData>["filterData"];
 }
 
+/**
+ * Chooser component that displays a list of rows and allows filtering and pagination.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ *
+ * @param props - The props for the Chooser component.
+ * @returns The rendered component.
+ */
 export const Chooser = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything

@@ -51,6 +51,10 @@ const useStyles = makeStyles()((theme, _, classes) => ({
     },
 }));
 
+/**
+ * SortModal component for sorting columns.
+ * @param ISortModalProps - The props object for SortModal. (columns, onClose)
+ */
 export const SortModal = ({
     columns,
     onClose,

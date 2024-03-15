@@ -23,6 +23,13 @@ export interface IBodyRowProps<RowData extends IRowData = IAnything> {
   row: RowData;
 }
 
+/**
+ * Renders a row in the body of a table.
+ *
+ * @template RowData - The type of data for the row.
+ * @param props - The props for the BodyRow component.
+ * @returns - The rendered row.
+ */
 export const BodyRow = <RowData extends IRowData = IAnything>({
   fullWidth,
   mode,

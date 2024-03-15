@@ -7,6 +7,13 @@ import IField from '../../../model/IField';
 
 import IRowData from '../../../model/IRowData';
 
+/**
+ * Represents a context object for providing properties to a component.
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ * @template Payload - The type of payload data.
+ * @template Field - The type of field data.
+ */
 interface IPropContext<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -28,6 +35,18 @@ interface IPropContext<
 
 const PropContext = React.createContext<IPropContext>(null as never);
 
+/**
+ * PropProvider is a higher-order component that provides a PropContext context to its children.
+ *
+ * @template FilterData - The data type for the filter data.
+ * @template RowData - The data type for the row data.
+ * @template Payload - The data type for the payload.
+ * @template Field - The data type for the field.
+ *
+ * @param props - The props for the PropProvider component.
+ *
+ * @returns - The JSX element wrapped with PropContext.Provider.
+ */
 export const PropProvider = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -39,6 +58,16 @@ export const PropProvider = <
     </PropContext.Provider>
 );
 
+/**
+ * Retrieves the current props from the PropContext.
+ *
+ * @returns The props from the PropContext.
+ *
+ * @template FilterData The filter data type.
+ * @template RowData The row data type.
+ * @template Payload The payload type.
+ * @template Field The field type.
+ */
 export const useProps = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,

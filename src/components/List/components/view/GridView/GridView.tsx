@@ -88,6 +88,14 @@ interface IGridViewProps<
   listChips: IListProps["chips"];
 }
 
+/**
+ * Represents a GridView component.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ * @param props - The props for the GridView component.
+ * @returns - The rendered GridView.
+ */
 export const GridView = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything

@@ -20,6 +20,14 @@ interface IState {
     setChips: (s: Map<string, boolean>) => void;
 }
 
+/**
+ * Provides chips functionality to its children components.
+ *
+ * @typedef {Object} IChipsProviderProps
+ * @property {ReactNode} children - The children components of the ChipsProvider.
+ * @property {Array<{ name: string, enabled?: boolean }>} chips - The array of chips with their initial enabled state.
+ * @property {Object} chipData - The object containing chip data where the key is the chip name and the value is the chip data.
+ */
 export const ChipsProvider = ({
     children,
     chips: upperChips,

@@ -157,6 +157,13 @@ type ITablePaginationProps = TablePaginationProps & {
     height: number;
 };
 
+/**
+ * Represents a table pagination component.
+ * @param width - The width of the table pagination.
+ * @param height - The height of the table pagination.
+ * @param props - Additional props passed to the component.
+ * @returns The rendered table pagination component.
+ */
 export const TablePagination = ({
     width,
     height,

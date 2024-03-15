@@ -1,3 +1,7 @@
+/**
+ * Scroll Manager
+ * Manages the scrolling behavior of a given HTML element.
+ */
 export const createScrollManager = () => new class {
 
     _currentElement?: HTMLElement;

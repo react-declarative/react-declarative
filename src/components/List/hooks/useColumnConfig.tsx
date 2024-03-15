@@ -80,6 +80,13 @@ interface IColumnEntry {
   displayName?: string;
 }
 
+/**
+ * Manages column configuration for sorting modal.
+ *
+ * @param params - The parameters for the sorting modal.
+ * @returns - An object containing the open state, render function, sorted columns, and pick
+ *Columns function.
+ */
 export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
   const { classes } = useStyles();
   const [open, setOpen] = useState<boolean>(false);

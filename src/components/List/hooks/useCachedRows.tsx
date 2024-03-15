@@ -21,6 +21,13 @@ interface IState<RowData extends IRowData = IAnything> {
     selectedRows: RowData[];
 }
 
+/**
+ * A component for caching and providing rows and selected rows.
+ *
+ * @template RowData - Type parameter for the row data.
+ * @param props - The component props.
+ * @return - The rendered component.
+ */
 export const CachedRowsProvider = <RowData extends IRowData = IAnything>({
     children,
 }: ICachedRowsProviderProps) => {

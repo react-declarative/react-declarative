@@ -18,6 +18,11 @@ export interface IHeadRowProps {
   mode: DisplayMode;
 }
 
+/**
+ * Represents a HeadRow component.
+ * @param IHeadRowProps - The props for the HeadRow component.
+ * @returns The rendered HeadRow component.
+ */
 export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
   const { columns: listColumns } = useProps();
 

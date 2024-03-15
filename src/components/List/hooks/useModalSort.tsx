@@ -20,6 +20,14 @@ interface IModalSortProviderProps {
     children: React.ReactNode;
 }
 
+/**
+ * The InternalProvider component is responsible for providing sorting functionality
+ * to its children components.
+ *
+ * @param props - The props for the InternalProvider component.
+ * @param props.children - The children components.
+ * @returns - The rendered InternalProvider component.
+ */
 const InternalProvider = ({
     children,
 }: IModalSortProviderProps) => {
@@ -51,6 +59,14 @@ const InternalProvider = ({
     );
 };
 
+/**
+ * ModalSortProvider is a component that acts as a provider for sorting modal functionality.
+ * It wraps the children components with the necessary providers to enable modal sorting.
+ *
+ * @param props - The component props.
+ * @param props.children - The child components to be wrapped by the modal sorting providers.
+ * @returns - The wrapped child components with modal sorting providers.
+ */
 export const ModalSortProvider = ({
     children,
 }: IModalSortProviderProps) => (

@@ -33,6 +33,10 @@ const CELL_PADDING_LEFT = 32;
 
 type Dimension = string | number | boolean;
 
+/**
+ * Creates a constraint manager to memoize computed values based on column constraints.
+ * @returns An object containing the constraint manager and a method to wrap columns.
+ */
 export const createConstraintManager = () => {
 
     const constraintManager = new class {

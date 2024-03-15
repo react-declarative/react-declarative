@@ -9,6 +9,13 @@ interface IParams<RowData extends IRowData = IAnything> {
     row: RowData;
 }
 
+/**
+ * Sets and retrieves the mark for a given row in a table.
+ *
+ * @template RowData - The type of data contained in the row
+ * @param params - The row data params
+ * @returns The mark for the given row
+ */
 export const useRowMark = <RowData extends IRowData = IAnything>({
     row,
 }: IParams<RowData>) => {

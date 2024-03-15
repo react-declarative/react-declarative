@@ -122,6 +122,17 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a Container component.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ *
+ * @param props - The props for the Container component.
+ * @param ref - The ref object.
+ *
+ * @returns The rendered Container component.
+ */
 export const Container = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

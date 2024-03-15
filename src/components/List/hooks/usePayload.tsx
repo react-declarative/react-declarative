@@ -13,6 +13,15 @@ interface IPayloadProviderProps {
     value: Exclude<IListProps['payload'], undefined>;
 }
 
+/**
+ * PayloadProvider component.
+ *
+ * @param props - The component props.
+ * @param props.children - The child components.
+ * @param [props.value={}] - The initial value of the payload.
+ *
+ * @returns - The component's rendered output.
+ */
 export const PayloadProvider = ({
     children,
     value = {},

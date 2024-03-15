@@ -20,6 +20,13 @@ interface IState {
     setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;
 }
 
+/**
+ * Provides sorting functionality for a list component.
+ *
+ * @typedef {Object} SortModelProvider
+ * @property {ReactNode} children - The child components.
+ * @property {Array.<Object>} sortModel - The initial sort model.
+ */
 export const SortModelProvider = ({
     children,
     sortModel: upperSortModel,
