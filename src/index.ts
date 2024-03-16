@@ -586,6 +586,7 @@ export { reloadPage } from './utils/reloadPage';
 export { compareFulltext } from './utils/compareFulltext';
 export { promiseState, promiseValue } from './utils/promiseState';
 export { chooseMultipleFiles } from './utils/chooseMultipleFiles';
+export { preventBrowserHistorySwipeGestures } from './utils/preventBrowserHistorySwipeGestures';
 export { errorData } from './utils/errorData';
 export { getMediaContext } from './utils/getMediaContext';
 

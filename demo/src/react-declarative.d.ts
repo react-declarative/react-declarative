@@ -667,6 +667,7 @@ declare module "react-declarative" {
     promiseValue,
   } from "react-declarative/utils/promiseState";
   export { chooseMultipleFiles } from "react-declarative/utils/chooseMultipleFiles";
+  export { preventBrowserHistorySwipeGestures } from "react-declarative/utils/preventBrowserHistorySwipeGestures";
   export { errorData } from "react-declarative/utils/errorData";
   export { getMediaContext } from "react-declarative/utils/getMediaContext";
   export { getRouteParams } from "react-declarative/utils/getRouteParams";
@@ -5481,6 +5482,20 @@ declare module "react-declarative/utils/chooseMultipleFiles" {
     accept?: string | undefined,
   ) => Promise<File[] | null>;
   export default chooseMultipleFiles;
+}
+
+declare module "react-declarative/utils/preventBrowserHistorySwipeGestures" {
+  /**
+   * Prevents browser history swipe gestures.
+   *
+   * This function adds an event listener to the `touchstart` event and checks if the touch event occurs
+   * at the edges of the screen. If a touch event occurs at the left or right 10% of the screen width,
+   * it prevents the default behavior which could trigger browser history swipe gestures.
+   *
+   * @return The function to remove the event listener.
+   */
+  export const preventBrowserHistorySwipeGestures: () => () => void;
+  export default preventBrowserHistorySwipeGestures;
 }
 
 declare module "react-declarative/utils/errorData" {
@@ -20451,6 +20466,9 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
+    disableBackdropTransition?: boolean;
+    disableDiscovery?: boolean;
+    swipeAreaWidth?: number;
   }
   export interface IScaffold2InternalProps<T = Payload>
     extends Omit<

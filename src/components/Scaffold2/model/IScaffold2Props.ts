@@ -46,6 +46,9 @@ export interface IScaffold2Props<T = Payload> {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
+    disableBackdropTransition?: boolean;
+    disableDiscovery?: boolean;
+    swipeAreaWidth?: number;
 }
 
 export interface IScaffold2InternalProps<T = Payload> extends Omit<IScaffold2Props<T>, keyof {

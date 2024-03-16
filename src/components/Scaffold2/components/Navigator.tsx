@@ -2,7 +2,9 @@ import * as React from "react";
 import { Theme, alpha } from "@mui/material";
 
 import Divider from "@mui/material/Divider";
-import SwipeableDrawer, { SwipeableDrawerProps } from "@mui/material/SwipeableDrawer";
+import SwipeableDrawer, {
+  SwipeableDrawerProps,
+} from "@mui/material/SwipeableDrawer";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
@@ -16,14 +18,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { IScaffold2GroupInternal } from "../model/IScaffold2Group";
 import Payload from "../model/Payload";
 
-import useUserAgent from "../../../hooks/useUserAgent";
+import usePropsContext from "../context/PropsContext";
 
 import idToLabel from "../utils/idToLabel";
 
 import MenuOption from "./MenuOption";
 import Search from "./Search";
 
-export const DRAWER_BACKGROUND = 'react-declarative__scaffold2Background';
+export const DRAWER_BACKGROUND = "react-declarative__scaffold2Background";
 
 const itemCategory = {
   boxShadow: (theme: Theme) => {
@@ -65,12 +67,17 @@ export const Navigator = <T extends Payload = Payload>({
   onOptionGroupClick = () => undefined,
   ...otherProps
 }: INavigatorProps<T>) => {
-  const { isAppleMobile } = useUserAgent();
+  const {
+    disableBackdropTransition = true,
+    disableDiscovery = false,
+    swipeAreaWidth = 65,
+  } = usePropsContext();
   return (
     <SwipeableDrawer
       variant="permanent"
-      disableBackdropTransition={!isAppleMobile}
-      disableDiscovery={isAppleMobile}
+      disableBackdropTransition={disableBackdropTransition}
+      disableDiscovery={disableDiscovery}
+      swipeAreaWidth={swipeAreaWidth}
       sx={{
         ...sx,
         display: "flex",
@@ -83,10 +90,10 @@ export const Navigator = <T extends Payload = Payload>({
         className={DRAWER_BACKGROUND}
         sx={{
           flex: 1,
-          display: 'flex',
-          alignItems: 'stretch',
-          justifyContent: 'stretch',
-          flexDirection: 'column'
+          display: "flex",
+          alignItems: "stretch",
+          justifyContent: "stretch",
+          flexDirection: "column",
         }}
       >
         {BeforeContent && <BeforeContent />}
@@ -97,7 +104,7 @@ export const Navigator = <T extends Payload = Payload>({
                 ...itemCategory,
                 py: 2,
                 fontSize: 22,
-                background: 'transparent',
+                background: "transparent",
               }}
             >
               {appName}
@@ -106,7 +113,7 @@ export const Navigator = <T extends Payload = Payload>({
           {BeforeSearch && (
             <ListItem
               sx={{
-                background: 'transparent',
+                background: "transparent",
                 boxShadow: (theme: Theme) => {
                   const color = alpha(theme.palette.background.default, 0.1);
                   return `0 -1px 0 ${color} inset`;
@@ -129,7 +136,7 @@ export const Navigator = <T extends Payload = Payload>({
           {AfterSearch && (
             <ListItem
               sx={{
-                background: 'transparent',
+                background: "transparent",
                 boxShadow: (theme: Theme) => {
                   const color = alpha(theme.palette.background.default, 0.1);
                   return `0 -1px 0 ${color} inset`;
@@ -147,19 +154,23 @@ export const Navigator = <T extends Payload = Payload>({
           {options
             .filter(({ visible }) => visible)
             .map(
-              ({
-                id,
-                path,
-                label,
-                disabled: upperDisabled,
-                noHeader = false,
-                icon: Icon,
-                children,
-              }, idx, options) => (
+              (
+                {
+                  id,
+                  path,
+                  label,
+                  disabled: upperDisabled,
+                  noHeader = false,
+                  icon: Icon,
+                  children,
+                },
+                idx,
+                options
+              ) => (
                 <Box
                   key={id}
                   sx={{
-                    background: 'transparent',
+                    background: "transparent",
                     ...(noHeader && {
                       pt: idx === 0 ? 0 : 2,
                     }),
@@ -168,7 +179,10 @@ export const Navigator = <T extends Payload = Payload>({
                   {!noHeader && (
                     <ListItem
                       sx={{
-                        background: (theme) => theme.palette.mode === "dark" ? alpha(theme.palette.primary.main, 0.023) : undefined,
+                        background: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? alpha(theme.palette.primary.main, 0.023)
+                            : undefined,
                         py: 2,
                         px: 3,
                       }}
@@ -195,7 +209,10 @@ export const Navigator = <T extends Payload = Payload>({
                   )}
                   {children
                     .filter(({ visible }) => visible)
-                    .sort(({ pin: a = false }, { pin: b = false }) => Number(b) - Number(a))
+                    .sort(
+                      ({ pin: a = false }, { pin: b = false }) =>
+                        Number(b) - Number(a)
+                    )
                     .map((option, idx) => (
                       <MenuOption
                         key={`${option.id}-${idx}`}

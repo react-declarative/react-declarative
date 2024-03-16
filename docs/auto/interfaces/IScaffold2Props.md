@@ -219,3 +219,21 @@ fallback: (e: Error) => void
 ```ts
 throwError: boolean
 ```
+
+### disableBackdropTransition
+
+```ts
+disableBackdropTransition: boolean
+```
+
+### disableDiscovery
+
+```ts
+disableDiscovery: boolean
+```
+
+### swipeAreaWidth
+
+```ts
+swipeAreaWidth: number
+```
