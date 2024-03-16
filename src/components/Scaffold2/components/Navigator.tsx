@@ -19,6 +19,7 @@ import { IScaffold2GroupInternal } from "../model/IScaffold2Group";
 import Payload from "../model/Payload";
 
 import usePropsContext from "../context/PropsContext";
+import useUserAgent from "../../../hooks/useUserAgent";
 
 import idToLabel from "../utils/idToLabel";
 
@@ -68,9 +69,12 @@ export const Navigator = <T extends Payload = Payload>({
   ...otherProps
 }: INavigatorProps<T>) => {
   const {
+    isAppleMobile,
+  } = useUserAgent();
+  const {
     disableBackdropTransition = true,
-    disableDiscovery = false,
-    disableSwipeToOpen = false,
+    disableDiscovery = isAppleMobile,
+    disableSwipeToOpen = isAppleMobile,
     swipeAreaWidth = 20,
   } = usePropsContext();
   return (
