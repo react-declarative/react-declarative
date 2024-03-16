@@ -47,4 +47,6 @@ export const ProgressField = ({
 
 ProgressField.displayName = 'ProgressField';
 
-export default makeField(ProgressField);
+export default makeField(ProgressField, {
+  skipFocusBlurCall: true,
+});

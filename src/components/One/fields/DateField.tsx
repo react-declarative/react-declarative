@@ -97,4 +97,5 @@ export default makeField(DateField, {
   withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
+  skipFocusBlurCall: true,
 });

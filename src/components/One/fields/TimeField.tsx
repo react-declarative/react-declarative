@@ -96,4 +96,5 @@ export default makeField(TimeField, {
   withApplyQueue: true,
   skipDebounce: true,
   skipDirtyClickListener: true,
+  skipFocusBlurCall: true,
 });

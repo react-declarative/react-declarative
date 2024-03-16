@@ -163,5 +163,6 @@ export default makeField(ComponentField, {
   withApplyQueue: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,
+  skipFocusBlurCall: true,
   skipDebounce: true,
 });

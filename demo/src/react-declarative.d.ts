@@ -21070,6 +21070,7 @@ declare module "react-declarative/components/One/components/makeField/makeField"
     skipDebounce?: boolean;
     skipDirtyClickListener?: boolean;
     skipFocusReadonly?: boolean;
+    skipFocusBlurCall?: boolean;
     defaultProps?: Partial<
       Omit<
         IField<Data>,

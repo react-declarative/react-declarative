@@ -102,4 +102,5 @@ export default makeField(FileField, {
   withApplyQueue: true,
   skipDirtyClickListener: true,
   skipDebounce: true,
+  skipFocusBlurCall: true,
 });

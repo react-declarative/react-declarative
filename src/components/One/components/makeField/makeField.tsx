@@ -80,6 +80,7 @@ interface IConfig<Data = IAnything> {
     skipDebounce?: boolean;
     skipDirtyClickListener?: boolean;
     skipFocusReadonly?: boolean;
+    skipFocusBlurCall?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -109,6 +110,7 @@ export function makeField(
         withApplyQueue: false,
         skipDirtyClickListener: false,
         skipFocusReadonly: false,
+        skipFocusBlurCall: false,
         skipDebounce: false,
         defaultProps: { },
     },
@@ -577,21 +579,23 @@ export function makeField(
             if (!fieldReadonly && !upperReadonly) {
                 setFocusReadonly(false);
             }
-            groupRef && waitForBlur(groupRef, oneConfig.FIELD_BLUR_DEBOUNCE).then(() => {
-                if (pending()) {
-                    flush();
-                }
-                if (blur) {
-                    blur(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+            if (!fieldConfig.skipFocusBlurCall) {
+                groupRef && waitForBlur(groupRef, oneConfig.FIELD_BLUR_DEBOUNCE).then(() => {
+                    if (pending()) {
+                        flush();
+                    }
+                    if (blur) {
+                        blur(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                            skipReadonly: true,
+                        }), changeObject);
+                    }
+                    setFocusReadonly(true);
+                });
+                if (focus) {
+                    focus(name, memory.object$, payload, (value) => managedProps.onChange(value, {
                         skipReadonly: true,
                     }), changeObject);
                 }
-                setFocusReadonly(true);
-            });
-            if (focus) {
-                focus(name, memory.object$, payload, (value) => managedProps.onChange(value, {
-                    skipReadonly: true,
-                }), changeObject);
             }
         }, []);
 

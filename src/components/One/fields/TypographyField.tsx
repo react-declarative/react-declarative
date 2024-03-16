@@ -46,4 +46,6 @@ export const TypographyField = ({
 
 TypographyField.displayName = 'TypographyField';
 
-export default makeField(TypographyField);
+export default makeField(TypographyField, {
+  skipFocusBlurCall: true,
+});

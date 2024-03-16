@@ -87,5 +87,6 @@ export default makeField(ChooseField, {
   withApplyQueue: true,
   skipDirtyClickListener: true,
   skipFocusReadonly: true,
+  skipFocusBlurCall: true,
   skipDebounce: true,
 });

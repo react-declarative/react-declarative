@@ -40,5 +40,6 @@ export default makeField(LineField, {
   defaultProps: {
     fieldRightMargin: FIELD_NEVER_MARGIN,
     fieldBottomMargin: FIELD_NEVER_MARGIN,
-  }
+  },
+  skipFocusBlurCall: true,
 });
