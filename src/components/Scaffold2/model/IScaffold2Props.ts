@@ -48,6 +48,7 @@ export interface IScaffold2Props<T = Payload> {
     throwError?: boolean;
     disableBackdropTransition?: boolean;
     disableDiscovery?: boolean;
+    disableSwipeToOpen?: boolean;
     swipeAreaWidth?: number;
 }
 

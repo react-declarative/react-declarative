@@ -20468,6 +20468,7 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
     throwError?: boolean;
     disableBackdropTransition?: boolean;
     disableDiscovery?: boolean;
+    disableSwipeToOpen?: boolean;
     swipeAreaWidth?: number;
   }
   export interface IScaffold2InternalProps<T = Payload>

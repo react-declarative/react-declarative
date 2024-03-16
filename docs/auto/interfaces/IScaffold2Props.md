@@ -232,6 +232,12 @@ disableBackdropTransition: boolean
 disableDiscovery: boolean
 ```
 
+### disableSwipeToOpen
+
+```ts
+disableSwipeToOpen: boolean
+```
+
 ### swipeAreaWidth
 
 ```ts

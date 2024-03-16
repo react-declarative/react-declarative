@@ -70,12 +70,14 @@ export const Navigator = <T extends Payload = Payload>({
   const {
     disableBackdropTransition = true,
     disableDiscovery = false,
+    disableSwipeToOpen = false,
     swipeAreaWidth = 65,
   } = usePropsContext();
   return (
     <SwipeableDrawer
       variant="permanent"
       disableBackdropTransition={disableBackdropTransition}
+      disableSwipeToOpen={disableSwipeToOpen}
       disableDiscovery={disableDiscovery}
       swipeAreaWidth={swipeAreaWidth}
       sx={{
