@@ -61,6 +61,7 @@ declare module "react-declarative" {
   export { useWatchChanges } from "react-declarative/hooks/useWatchChanges";
   export { useForceUpdate } from "react-declarative/hooks/useForceUpdate";
   export { useUserAgent } from "react-declarative/hooks/useUserAgent";
+  export { usePointer } from "react-declarative/hooks/usePointer";
   export { useLocalHistory } from "react-declarative/hooks/useLocalHistory";
   export { RouteManager } from "react-declarative/helpers/routeManager";
   export { toRouteUrl } from "react-declarative/utils/toRouteUrl";
@@ -655,6 +656,7 @@ declare module "react-declarative" {
   export { list2grid } from "react-declarative/utils/list2grid";
   export { openBlank } from "react-declarative/utils/openBlank";
   export { createDict } from "react-declarative/utils/createDict";
+  export { createPointer } from "react-declarative/utils/oop/Pointer";
   export { copyToClipboard } from "react-declarative/utils/copyToClipboard";
   export { downloadBlank } from "react-declarative/utils/downloadBlank";
   export { removeSubstring } from "react-declarative/utils/removeSubstring";
@@ -3486,6 +3488,23 @@ declare module "react-declarative/hooks/useUserAgent" {
   export default useUserAgent;
 }
 
+declare module "react-declarative/hooks/usePointer" {
+  /**
+   * Creates a pointer using the given reference.
+   *
+   * @template T - The type of the reference object.
+   * @param ref - The reference object.
+   * @returns - The pointer object.
+   */
+  export const usePointer: <T extends object>(
+    ref?: T | undefined,
+  ) => {
+    instance: {};
+    setPointer(ref: T): void;
+  };
+  export default usePointer;
+}
+
 declare module "react-declarative/hooks/useLocalHistory" {
   import History from "react-declarative/model/History";
   interface IParams {
@@ -5349,6 +5368,23 @@ declare module "react-declarative/utils/createDict" {
    */
   export const createDict: <T extends Dict = Dict>(record: T) => any;
   export default createDict;
+}
+
+declare module "react-declarative/utils/oop/Pointer" {
+  /**
+   * Represents a pointer that can be assigned to another object asynchronously without updating reference.
+   *
+   * @template T - The type of the object reference.
+   * @param ref - The object reference to be assigned.
+   * @returns - The pointer object with instance and setPointer methods.
+   */
+  export const createPointer: <T extends object>(
+    ref?: T | undefined,
+  ) => {
+    instance: {};
+    setPointer(ref: T): void;
+  };
+  export default createPointer;
 }
 
 declare module "react-declarative/utils/copyToClipboard" {

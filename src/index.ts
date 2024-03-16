@@ -52,6 +52,7 @@ export { useWatchChanges } from './hooks/useWatchChanges';
 export { useForceUpdate } from './hooks/useForceUpdate';
 
 export { useUserAgent } from './hooks/useUserAgent';
+export { usePointer } from './hooks/usePointer';
 
 export { useLocalHistory } from './hooks/useLocalHistory';
 
@@ -577,6 +578,7 @@ export { VirtualListBox } from './components/One/components/common/VirtualListBo
 export { list2grid } from './utils/list2grid';
 export { openBlank } from './utils/openBlank';
 export { createDict } from './utils/createDict';
+export { createPointer } from './utils/oop/Pointer';
 export { copyToClipboard } from './utils/copyToClipboard';
 export { downloadBlank } from './utils/downloadBlank';
 export { removeSubstring } from './utils/removeSubstring';
