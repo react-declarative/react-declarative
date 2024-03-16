@@ -51,6 +51,8 @@ export { useRouteParams } from './hooks/useRouteParams';
 export { useWatchChanges } from './hooks/useWatchChanges';
 export { useForceUpdate } from './hooks/useForceUpdate';
 
+export { useUserAgent } from './hooks/useUserAgent';
+
 export { useLocalHistory } from './hooks/useLocalHistory';
 
 export { RouteManager } from './helpers/routeManager';

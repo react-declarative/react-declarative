@@ -60,6 +60,7 @@ declare module "react-declarative" {
   export { useRouteParams } from "react-declarative/hooks/useRouteParams";
   export { useWatchChanges } from "react-declarative/hooks/useWatchChanges";
   export { useForceUpdate } from "react-declarative/hooks/useForceUpdate";
+  export { useUserAgent } from "react-declarative/hooks/useUserAgent";
   export { useLocalHistory } from "react-declarative/hooks/useLocalHistory";
   export { RouteManager } from "react-declarative/helpers/routeManager";
   export { toRouteUrl } from "react-declarative/utils/toRouteUrl";
@@ -3470,6 +3471,18 @@ declare module "react-declarative/hooks/useForceUpdate" {
    */
   export const useForceUpdate: () => () => void;
   export default useForceUpdate;
+}
+
+declare module "react-declarative/hooks/useUserAgent" {
+  /**
+   * Returns an object that contains information about the user agent.
+   * @returns - The user agent information.
+   * @property isAppleMobile - Indicates whether the user agent is an Apple mobile device (iPad, iPhone, or iPod).
+   */
+  export const useUserAgent: () => {
+    isAppleMobile: boolean;
+  };
+  export default useUserAgent;
 }
 
 declare module "react-declarative/hooks/useLocalHistory" {
