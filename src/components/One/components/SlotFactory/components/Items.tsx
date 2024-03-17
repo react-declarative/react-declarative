@@ -316,6 +316,7 @@ export const Items = ({
             key={reloadTrigger}
             multiple
             loading={loading}
+            disabled={disabled}
             disableCloseOnSelect
             disableClearable={noDeselect}
             freeSolo={freeSolo}
