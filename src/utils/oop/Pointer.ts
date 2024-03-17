@@ -6,15 +6,15 @@
  * @returns - The pointer object with instance and setPointer methods.
  */
 export const createPointer = <T extends object>(ref?: T) => {
-    const instance = new class {
+    const pointer = new class {
         constructor() {
             ref && Object.setPrototypeOf(this, ref);
         }
     };
     return {
-        instance,
+        pointer,
         setPointer(ref: T) {
-            Object.setPrototypeOf(instance, ref);
+            Object.setPrototypeOf(pointer, ref);
         }
     };
 };

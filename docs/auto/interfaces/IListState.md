@@ -28,6 +28,12 @@ filterData: FilterData
 isChooser: boolean
 ```
 
+### isInfinite
+
+```ts
+isInfinite: boolean
+```
+
 ### rows
 
 ```ts

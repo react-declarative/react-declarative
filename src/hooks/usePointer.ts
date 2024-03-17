@@ -10,7 +10,10 @@ import createPointer from "../utils/oop/Pointer";
  * @returns - The pointer object.
  */
 export const usePointer = <T extends object>(ref?: T) => {
-    return useMemo(() => createPointer(ref), []);
+    return useMemo(() => {
+        const { pointer, setPointer } = createPointer(ref);
+        return [pointer, setPointer] as const;
+    }, []);
 };
 
 export default usePointer;

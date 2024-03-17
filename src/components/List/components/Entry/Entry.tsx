@@ -30,6 +30,7 @@ import create from "../../../../utils/create";
 
 import GridView from "../view/GridView";
 import ChooserView from "../view/ChooserView";
+import InfiniteView from "../view/InfiniteView";
 
 import { ConstraintManagerProvider } from "../../hooks/useConstraintManager";
 import { ScrollManagerProvider } from "../../hooks/useScrollManager";
@@ -47,11 +48,12 @@ import createScrollManager from "../../helpers/createScrollManager";
 import createConstraintManager from "../../helpers/createConstraintManager";
 import ignoreSymbols from "../../helpers/ignoreSymbols";
 
-import SlotFactory from "../SlotFactory";
+import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
 import { SearchProvider } from "../../hooks/useSearch";
-import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap"
+
+import SlotFactory from "../SlotFactory";
 
 export class Entry<
   FilterData extends {} = IAnything,
@@ -86,6 +88,7 @@ export class Entry<
     limit: DEFAULT_LIMIT,
     page: DEFAULT_PAGE,
     isChooser: false,
+    isInfinite: false,
     filters: [],
     columns: [],
     actions: [],
@@ -111,6 +114,17 @@ export class Entry<
 
   constructor(props: IListProps<FilterData, RowData, Payload, Field>) {
     super(props);
+
+    const getOffset = () => {
+      if (this.props.isChooser) {
+        return 0;
+      }
+      if (this.props.isInfinite) {
+        return 0;
+      }
+      return this.props.limit! * this.props.page!
+    }
+
     this.state = {
       initComplete: false,
       payload:
@@ -118,10 +132,11 @@ export class Entry<
           ? (this.props.payload as Function)()
           : this.props.payload,
       isChooser: this.props.isChooser!,
+      isInfinite: this.props.isInfinite!,
       filterData: this.props.filterData as never,
       rows: [] as never,
       limit: this.props.limit!,
-      offset: this.props.limit! * this.props.page!,
+      offset: getOffset(),
       total: null,
       search: this.props.search || "",
       loading: false,
@@ -708,7 +723,22 @@ export class Entry<
    */
   public renderInner = () => {
     const callbacks = this.getCallbacks();
-    if (this.props.isChooser) {
+    if (this.props.isInfinite) {
+      return (
+        <InfiniteView<FilterData, RowData>
+          {...this.props}
+          {...this.state}
+          handler={this.props.handler}
+          filters={this.props.filters}
+          columns={this.props.columns}
+          actions={this.props.actions}
+          limit={this.state.limit}
+          offset={this.state.offset}
+          listChips={this.props.chips}
+          {...callbacks}
+        />
+      );
+    } else if (this.props.isChooser) {
       return (
         <ChooserView<FilterData, RowData>
           {...this.props}

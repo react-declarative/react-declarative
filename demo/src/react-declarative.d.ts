@@ -2955,6 +2955,7 @@ declare module "react-declarative/model/IListProps" {
     payload: IAnything;
     filterData: FilterData;
     isChooser: boolean;
+    isInfinite: boolean;
     rows: RowData[];
     limit: number;
     offset: number;
@@ -3098,10 +3099,7 @@ declare module "react-declarative/model/IListProps" {
     filters?: Field[];
     handler: ListHandler<FilterData, RowData>;
     payload?: Payload | (() => Payload);
-    rowMark?:
-      | ((row: RowData) => string)
-      | ((row: RowData) => Promise<string>)
-      | string;
+    rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
     rowColor?: (row: RowData) => string;
     isRowDisabled?: (
       row: RowData,
@@ -3158,6 +3156,7 @@ declare module "react-declarative/model/IListProps" {
     filterData?: Partial<FilterData>;
     sortModel?: ListHandlerSortModel<RowData>;
     isChooser?: boolean;
+    isInfinite?: boolean;
     slots?: Partial<ISlotFactoryContext>;
   }
   export default IListProps;
@@ -3498,10 +3497,7 @@ declare module "react-declarative/hooks/usePointer" {
    */
   export const usePointer: <T extends object>(
     ref?: T | undefined,
-  ) => {
-    instance: {};
-    setPointer(ref: T): void;
-  };
+  ) => readonly [{}, (ref: T) => void];
   export default usePointer;
 }
 
@@ -5381,7 +5377,7 @@ declare module "react-declarative/utils/oop/Pointer" {
   export const createPointer: <T extends object>(
     ref?: T | undefined,
   ) => {
-    instance: {};
+    pointer: {};
     setPointer(ref: T): void;
   };
   export default createPointer;
@@ -11526,6 +11522,7 @@ declare module "react-declarative/components/List/hooks/useProps" {
           search: never;
           filterData: never;
           isChooser: never;
+          isInfinite: never;
           payload: never;
         }
       >,

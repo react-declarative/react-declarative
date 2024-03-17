@@ -47,6 +47,7 @@ interface IContainerProps<
         search: never;
         filterData: never;
         isChooser: never;
+        isInfinite: never;
         payload: never;
       }
     >,

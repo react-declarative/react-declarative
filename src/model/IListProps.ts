@@ -200,6 +200,7 @@ export interface IListState<FilterData extends {} = IAnything, RowData extends I
   payload: IAnything;
   filterData: FilterData;
   isChooser: boolean;
+  isInfinite: boolean;
   rows: RowData[];
   limit: number;
   offset: number;
@@ -315,7 +316,7 @@ export interface IListProps<
   filters?: Field[];
   handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);
-  rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>) | string;
+  rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
   rowColor?: ((row: RowData) => string);
   isRowDisabled?: (row: RowData, params: {
     filterData: FilterData,
@@ -363,6 +364,7 @@ export interface IListProps<
   filterData?: Partial<FilterData>;
   sortModel?: ListHandlerSortModel<RowData>;
   isChooser?: boolean;
+  isInfinite?: boolean;
   slots?: Partial<ISlotFactoryContext>;
 }
 

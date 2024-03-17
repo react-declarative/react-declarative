@@ -247,7 +247,7 @@ payload: Payload | (() => Payload)
 ### rowMark
 
 ```ts
-rowMark: string | ((row: RowData) => string) | ((row: RowData) => Promise<string>)
+rowMark: ((row: RowData) => string) | ((row: RowData) => Promise<string>)
 ```
 
 ### rowColor
@@ -458,6 +458,12 @@ sortModel: ListHandlerSortModel<RowData>
 
 ```ts
 isChooser: boolean
+```
+
+### isInfinite
+
+```ts
+isInfinite: boolean
 ```
 
 ### slots
