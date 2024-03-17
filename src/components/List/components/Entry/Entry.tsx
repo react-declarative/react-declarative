@@ -138,7 +138,7 @@ export class Entry<
           : this.props.payload,
       isChooser: this.props.isChooser!,
       isInfinite: this.props.isInfinite!,
-      isCustom: this.props.isCustom!,
+      isCustom: !!this.props.customTemplate || this.props.isCustom!,
       filterData: this.props.filterData as never,
       rows: [] as never,
       limit: this.props.limit!,
