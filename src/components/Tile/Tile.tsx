@@ -80,6 +80,8 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   selectedRows,
   selectionMode,
   recomputeSubject,
+  scrollXSubject,
+  scrollYSubject,
   rowMark,
 }: ITileProps<Data, Payload>) => {
   const { classes } = useStyles();
@@ -102,6 +104,8 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
           className={className}
           style={style}
           sx={sx}
+          scrollYSubject={scrollYSubject}
+          scrollXSubject={scrollXSubject}
           minRowHeight={minRowHeight}
           bufferSize={bufferSize}
           loading={loading}

@@ -1,34 +1,35 @@
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 import { makeStyles } from "../../../../../styles";
 
 import Box from "@mui/material/Box";
-import MatListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-
-import NotInterested from "@mui/icons-material/NotInterested";
 
 import IListProps, {
   IListState,
   IListCallbacks,
 } from "../../../../../model/IListProps";
+
+import SelectionMode from "../../../../../model/SelectionMode";
 import IAnything from "../../../../../model/IAnything";
 import IRowData from "../../../../../model/IRowData";
 
+import useReload from "../../../hooks/useReload";
+
 import useSubject from "../../../../../hooks/useSubject";
+import useSelection from "../../../hooks/useSelection";
+
 import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
 
 import ModalLoader from "./components/ModalLoader";
-import ListItem from "./components/ListItem";
+import DefaultTemplate from "./components/DefaultTemplate";
 
 import Container from "../../Container";
-import VirtualView from "../../../../VirtualView";
+import Tile from "../../../../Tile";
 
-const DEFAULT_ITEM_SIZE = 75;
+const DEFAULT_ITEM_SIZE = 45;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -51,7 +52,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-interface IChooserProps<
+interface ICustomProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > extends Omit<
@@ -75,32 +76,34 @@ interface IChooserProps<
   listChips: IListProps["chips"];
 }
 
-interface IChooserState<
+interface ICustomState<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > {
-  rows: IChooserProps<FilterData, RowData>["rows"];
-  filterData: IChooserProps<FilterData, RowData>["filterData"];
+  rows: ICustomProps<FilterData, RowData>["rows"];
+  filterData: ICustomProps<FilterData, RowData>["filterData"];
 }
 
 /**
- * Chooser component that displays a list of rows and allows filtering and pagination.
+ * CustomView component represents list with infinite scroll behaviour and custom template.
  *
  * @template FilterData - The type of filter data.
  * @template RowData - The type of row data.
  *
- * @param props - The props for the Chooser component.
- * @returns The rendered component.
+ * @param props - The props object containing the necessary parameters.
+ * @returns - The CustomView component.
  */
-export const Chooser = <
+export const CustomView = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 >(
-  props: IChooserProps<FilterData, RowData>
+  props: ICustomProps<FilterData, RowData>
 ) => {
   const { classes } = useStyles();
 
   const scrollYSubject = useSubject<number>();
+
+  const { selection, setSelection } = useSelection();
 
   const {
     rows: upperRows,
@@ -109,19 +112,49 @@ export const Chooser = <
     limit,
     total,
     loading,
+    payload,
+    rowMark,
+    rowColor,
+    selectionMode = SelectionMode.None,
+    customTemplate: CustomTemplate = DefaultTemplate,
     withLoader = false,
+    onRowClick,
   } = props;
 
-  const { size: { width: dialogWidth } } = useElementSize({
-    target: document.body,
-    selector: '.MuiDialog-container > .MuiPaper-root'
-  });
+  const reload = useReload();
 
-  const { elementRef, size: { height: rootHeight } } = useElementSize();
+  const selectedRows = useMemo(() => {
+    return [...selection] as string[]
+  }, [selection]);
+
+  const handleRowClick = (row: any) => {
+    if (
+      props.withSelectOnRowClick &&
+      props.selectionMode !== SelectionMode.None
+    ) {
+      if (props.selectionMode === SelectionMode.Single) {
+        if (selection.has(row.id) && selection.size === 1) {
+          selection.delete(row.id);
+        } else {
+          selection.clear();
+          selection.add(row.id);
+        }
+      } else {
+        selection.has(row.id)
+          ? selection.delete(row.id)
+          : selection.add(row.id);
+      }
+      setSelection(selection);
+    } else {
+      onRowClick && onRowClick(row, reload);
+    }
+  };
+
+  const { elementRef, size: { height: rootHeight, width: rootWidth } } = useElementSize();
 
   const { handlePageChange } = props;
 
-  const [state, setState] = useState<IChooserState>({
+  const [state, setState] = useState<ICustomState>({
     rows: upperRows,
     filterData: upperFilterData,
   });
@@ -168,25 +201,32 @@ export const Chooser = <
     <Container<FilterData, RowData> {...props} {...state}>
       <Box ref={elementRef} className={classes.root}>
         <Box className={classes.container}>
-          <Box position="relative" style={{ height: rootHeight, width: dialogWidth }}>
-            <VirtualView
+          <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
+            <Tile
               scrollYSubject={scrollYSubject}
               minRowHeight={DEFAULT_ITEM_SIZE}
-              onDataRequest={async () => void await handleDataRequest()}
-              sx={{ height: rootHeight, width: dialogWidth }}
+              hasMore={hasMore}
+              bufferSize={limit * 2}
+              selectedRows={selectedRows}
+              onSelectedRows={(ids, initial) => {
+                if (!initial) {
+                  setSelection(new Set(ids));
+                }
+              }}
+              selectionMode={selectionMode}
+              payload={payload}
+              rowMark={rowMark}
+              rowKey="id"
+              rowColor={rowColor}
+              data={state.rows}
+              onSkip={async () => void await handleDataRequest()}
+              onItemClick={({ data }) => {
+                handleRowClick(data);
+              }}
+              sx={{ height: rootHeight, width: rootWidth }}
             >
-              {!loading && state.rows.length === 0 && (
-                <MatListItem className={classes.empty}>
-                  <ListItemIcon>
-                    <NotInterested />
-                  </ListItemIcon>
-                  <ListItemText primary="Empty" secondary="Nothing found" />
-                </MatListItem>
-              )}
-              {state.rows.map((row, idx) => (
-                <ListItem key={`${row.id}-${idx}`} row={row} />
-              ))}
-            </VirtualView>
+              {CustomTemplate}
+            </Tile>
             <ModalLoader open={withLoader && loading} />
           </Box>
         </Box>
@@ -195,4 +235,4 @@ export const Chooser = <
   );
 };
 
-export default Chooser;
+export default CustomView;

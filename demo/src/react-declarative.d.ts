@@ -2728,6 +2728,7 @@ declare module "react-declarative/model/IListProps" {
   import IListApi from "react-declarative/model/IListApi";
   import IOption from "react-declarative/model/IOption";
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
+  import ITile from "react-declarative/components/Tile/model/ITile";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
   /**
@@ -2956,6 +2957,7 @@ declare module "react-declarative/model/IListProps" {
     filterData: FilterData;
     isChooser: boolean;
     isInfinite: boolean;
+    isCustom: boolean;
     rows: RowData[];
     limit: number;
     offset: number;
@@ -3043,6 +3045,7 @@ declare module "react-declarative/model/IListProps" {
     AfterOperationList?: React.ComponentType<
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
+    customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
     fetchDebounce?: number;
     className?: string;
     denseHeight?: number;
@@ -3157,6 +3160,8 @@ declare module "react-declarative/model/IListProps" {
     sortModel?: ListHandlerSortModel<RowData>;
     isChooser?: boolean;
     isInfinite?: boolean;
+    isCustom?: boolean;
+    isDense?: boolean;
     slots?: Partial<ISlotFactoryContext>;
   }
   export default IListProps;
@@ -11523,6 +11528,7 @@ declare module "react-declarative/components/List/hooks/useProps" {
           filterData: never;
           isChooser: never;
           isInfinite: never;
+          isCustom: never;
           payload: never;
         }
       >,
@@ -12357,6 +12363,18 @@ declare module "react-declarative/components/List/hooks/useColumnConfig" {
     pickColumns: () => void;
   };
   export default useColumnConfig;
+}
+
+declare module "react-declarative/components/Tile/model/ITile" {
+  import IAnything from "react-declarative/model/IAnything";
+  export interface ITile<Data = IAnything, Payload = IAnything> {
+    data: Data;
+    payload: Payload;
+    isSelected: boolean;
+    rowMark: string;
+    toggleSelection: () => void;
+  }
+  export default ITile;
 }
 
 declare module "react-declarative/components/Async" {
@@ -19761,21 +19779,11 @@ declare module "react-declarative/components/Tile/Tile" {
     selectedRows,
     selectionMode,
     recomputeSubject,
+    scrollXSubject,
+    scrollYSubject,
     rowMark,
   }: ITileProps<Data, Payload>) => JSX.Element;
   export default Tile;
-}
-
-declare module "react-declarative/components/Tile/model/ITile" {
-  import IAnything from "react-declarative/model/IAnything";
-  export interface ITile<Data = IAnything, Payload = IAnything> {
-    data: Data;
-    payload: Payload;
-    isSelected: boolean;
-    rowMark: string;
-    toggleSelection: () => void;
-  }
-  export default ITile;
 }
 
 declare module "react-declarative/components/Tile/model/ITileProps" {
@@ -19790,6 +19798,8 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
     sx?: SxProps<any>;
     loading?: boolean;
     hasMore?: boolean;
+    scrollYSubject?: TSubject<number>;
+    scrollXSubject?: TSubject<number>;
     errorMessage?: string | null;
     bufferSize?: number;
     minRowHeight?: number;

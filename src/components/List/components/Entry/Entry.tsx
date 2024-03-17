@@ -54,6 +54,7 @@ import { PaginationProvider } from "../../hooks/usePagination";
 import { SearchProvider } from "../../hooks/useSearch";
 
 import SlotFactory from "../SlotFactory";
+import CustomView from "../view/CustomView";
 
 export class Entry<
   FilterData extends {} = IAnything,
@@ -89,6 +90,7 @@ export class Entry<
     page: DEFAULT_PAGE,
     isChooser: false,
     isInfinite: false,
+    isCustom: false,
     filters: [],
     columns: [],
     actions: [],
@@ -122,6 +124,9 @@ export class Entry<
       if (this.props.isInfinite) {
         return 0;
       }
+      if (this.props.isCustom) {
+        return 0;
+      }
       return this.props.limit! * this.props.page!
     }
 
@@ -133,6 +138,7 @@ export class Entry<
           : this.props.payload,
       isChooser: this.props.isChooser!,
       isInfinite: this.props.isInfinite!,
+      isCustom: this.props.isCustom!,
       filterData: this.props.filterData as never,
       rows: [] as never,
       limit: this.props.limit!,
@@ -723,7 +729,22 @@ export class Entry<
    */
   public renderInner = () => {
     const callbacks = this.getCallbacks();
-    if (this.props.isInfinite) {
+    if (this.props.isCustom) {
+      return (
+        <CustomView<FilterData, RowData>
+          {...this.props}
+          {...this.state}
+          handler={this.props.handler}
+          filters={this.props.filters}
+          columns={this.props.columns}
+          actions={this.props.actions}
+          limit={this.state.limit}
+          offset={this.state.offset}
+          listChips={this.props.chips}
+          {...callbacks}
+        />
+      );
+    } else if (this.props.isInfinite) {
       return (
         <InfiniteView<FilterData, RowData>
           {...this.props}

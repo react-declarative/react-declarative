@@ -66,6 +66,7 @@ interface IInfiniteProps<
         filterData: never;
         isChooser: never;
         isInfinite: never;
+        isCustom: never;
         payload: never;
       }
     >,

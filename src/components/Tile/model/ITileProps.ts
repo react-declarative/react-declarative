@@ -12,6 +12,8 @@ export interface ITileProps<Data = IAnything, Payload = IAnything> {
   sx?: SxProps<any>;
   loading?: boolean;
   hasMore?: boolean;
+  scrollYSubject?: TSubject<number>;
+  scrollXSubject?: TSubject<number>;
   errorMessage?: string | null;
   bufferSize?: number;
   minRowHeight?: number;

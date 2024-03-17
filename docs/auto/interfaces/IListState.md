@@ -34,6 +34,12 @@ isChooser: boolean
 isInfinite: boolean
 ```
 
+### isCustom
+
+```ts
+isCustom: boolean
+```
+
 ### rows
 
 ```ts

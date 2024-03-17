@@ -27,6 +27,7 @@ interface IPropContext<
         filterData: never;
         isChooser: never;
         isInfinite: never;
+        isCustom: never;
         payload: never;
     }>,
     IListState<FilterData, RowData>,

@@ -14,6 +14,7 @@ import IField from './IField';
 import IListApi from './IListApi';
 import IOption from './IOption';
 import IOnePublicProps from './IOnePublicProps';
+import ITile from '../components/Tile/model/ITile';
 
 import { TSubject } from '../utils/rx/Subject';
 
@@ -201,6 +202,7 @@ export interface IListState<FilterData extends {} = IAnything, RowData extends I
   filterData: FilterData;
   isChooser: boolean;
   isInfinite: boolean;
+  isCustom: boolean;
   rows: RowData[];
   limit: number;
   offset: number;
@@ -281,6 +283,7 @@ export interface IListProps<
   AfterActionList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   BeforeOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   AfterOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
+  customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
   fetchDebounce?: number;
   className?: string;
   denseHeight?: number;
@@ -365,6 +368,8 @@ export interface IListProps<
   sortModel?: ListHandlerSortModel<RowData>;
   isChooser?: boolean;
   isInfinite?: boolean;
+  isCustom?: boolean;
+  isDense?: boolean;
   slots?: Partial<ISlotFactoryContext>;
 }
 

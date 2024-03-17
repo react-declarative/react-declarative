@@ -34,6 +34,12 @@ BeforeOperationList: ComponentType<IPositionActionListSlot<FilterData, RowData, 
 AfterOperationList: ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>
 ```
 
+### customTemplate
+
+```ts
+customTemplate: ComponentType<ITile<RowData, Payload>>
+```
+
 ### fetchDebounce
 
 ```ts
@@ -464,6 +470,18 @@ isChooser: boolean
 
 ```ts
 isInfinite: boolean
+```
+
+### isCustom
+
+```ts
+isCustom: boolean
+```
+
+### isDense
+
+```ts
+isDense: boolean
 ```
 
 ### slots

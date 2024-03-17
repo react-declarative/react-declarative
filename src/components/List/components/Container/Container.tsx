@@ -48,6 +48,7 @@ interface IContainerProps<
         filterData: never;
         isChooser: never;
         isInfinite: never;
+        isCustom: never;
         payload: never;
       }
     >,
@@ -158,6 +159,7 @@ export const Container = <
     actions = [],
     listChips,
     denseHeight,
+    isDense: isDenseProp,
     heightRequest = (v) => v,
     widthRequest = (v) => v,
     operations,
@@ -208,6 +210,9 @@ export const Container = <
   });
 
   const isDense = useMemo(() => {
+    if (isDenseProp) {
+      return true;
+    }
     if (isMobile) {
       return false;
     }
@@ -216,7 +221,7 @@ export const Container = <
       return denseHeight > height;
     }
     return false;
-  }, [denseHeight, rootElementSize.height, isMobile]);
+  }, [denseHeight, rootElementSize.height, isMobile, isDenseProp]);
 
   const { elementRef: contentElementRef, size: contentElementSize } =
     useElementSize({

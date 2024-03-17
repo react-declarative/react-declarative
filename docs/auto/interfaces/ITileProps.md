@@ -32,6 +32,18 @@ loading: boolean
 hasMore: boolean
 ```
 
+### scrollYSubject
+
+```ts
+scrollYSubject: TSubject<number>
+```
+
+### scrollXSubject
+
+```ts
+scrollXSubject: TSubject<number>
+```
+
 ### errorMessage
 
 ```ts
