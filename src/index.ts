@@ -653,6 +653,7 @@ export { truely } from './utils/math/truely';
 
 export { getAvailableFields } from './utils/getAvailableFields';
 export { getInitialData } from './utils/getInitialData';
+export { getFilterCount } from './utils/getFilterCount';
 
 export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';

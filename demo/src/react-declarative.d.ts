@@ -723,6 +723,7 @@ declare module "react-declarative" {
   export { truely } from "react-declarative/utils/math/truely";
   export { getAvailableFields } from "react-declarative/utils/getAvailableFields";
   export { getInitialData } from "react-declarative/utils/getInitialData";
+  export { getFilterCount } from "react-declarative/utils/getFilterCount";
   export { flatArray } from "react-declarative/utils/flatArray";
   export { removeExtraSpaces } from "react-declarative/utils/removeExtraSpaces";
   export { replaceSubstring } from "react-declarative/utils/replaceSubstring";
@@ -7164,6 +7165,23 @@ declare module "react-declarative/utils/getInitialData" {
     payload?: Payload,
   ) => Data;
   export default getInitialData;
+}
+
+declare module "react-declarative/utils/getFilterCount" {
+  /**
+   * Counts the number of non-empty and non-ignored values in the given filter data object.
+   *
+   * @param filterData - The filter data object.
+   * @param ignore - The function to determine if a key-value pair should be ignored. It should accept
+   *                            a key and a value, and return true if the pair should be ignored, or false otherwise.
+   *                            Default value is a function that always returns false.
+   * @returns - The count of non-empty and non-ignored values in the filter data object.
+   */
+  export const getFilterCount: (
+    filterData: Record<string, unknown>,
+    ignore?: (key: string, value: any) => boolean,
+  ) => number;
+  export default getFilterCount;
 }
 
 declare module "react-declarative/utils/flatArray" {
