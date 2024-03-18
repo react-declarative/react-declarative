@@ -105,7 +105,7 @@ src
     │   PersonService.ts
 ```
 
-We should create basic services; I'll provide examples of some. They should be placed in the src/lib/base folder. 
+We should create base services; I'll provide examples of some. They should be placed in the src/lib/base folder. 
 
 1. **ApiService** : A wrapper for HTTP requests to the server, handling sessions and errors.
 

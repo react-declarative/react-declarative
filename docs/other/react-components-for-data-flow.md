@@ -7,7 +7,7 @@ Often, due to the extensive workload, fullstack programming in React turns into 
 In this article, I will provide examples of using several components that allow deploying a feature to a test environment with minimal effort. This ensures that the code fetching data from the server is easily refactorable in the near future.
 
 The ideal UI state for FullStack is a stateless state
-Since the frontend state duplicates data structures declared on the backend, the likely cause of poor code is the desire to save on their frontend descriptions. As an alternative, I dare to suggest reviving the use of a stateless approach for simple React applications.
+Since the frontend state duplicates data structures declared on the backend, the likely cause of poor code is the desire to save on their frontend descriptions. As an alternative, I dare to suggest reviving the use of a stateless approach to simplify the codebase of React applications.
 
 ## `createProvider` Function 
 
