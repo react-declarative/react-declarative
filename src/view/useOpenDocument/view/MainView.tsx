@@ -28,6 +28,7 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
       const mime = blobType?.mime || blob.type;
       const url = URL.createObjectURL(new Blob([blob], { type: mime }));
       onChange({
+        ...data,
         blob,
         url,
         mime,
