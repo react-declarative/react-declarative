@@ -819,6 +819,7 @@ declare module "react-declarative" {
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
+  export { useOpenDocument } from "react-declarative/view/useOpenDocument";
   export { heavy } from "react-declarative/utils/heavy";
 }
 
@@ -7916,6 +7917,11 @@ declare module "react-declarative/api/pickDocuments" {
   export default pickDocuments;
 }
 
+declare module "react-declarative/view/useOpenDocument" {
+  export * from "react-declarative/view/useOpenDocument/useOpenDocument";
+  export { default } from "react-declarative/view/useOpenDocument/useOpenDocument";
+}
+
 declare module "react-declarative/utils/heavy" {
   import * as React from "react";
   interface IParams {
@@ -13771,6 +13777,75 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
     isDisabled?: (payload: Data) => Promise<boolean> | boolean;
   }
   export default IBreadcrumbs2Option;
+}
+
+declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
+  /**
+   * Represents the interface for the parameters of a useOpenDocument hook.
+   *
+   * @interface IParams
+   */
+  interface IParams {
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (error: Error) => void;
+    onMount?: () => void;
+    onUnmount?: () => void;
+    onClose?: () => void;
+    title?: string;
+    submitLabel?: string;
+    onSubmit?: (
+      url: string,
+      data: {
+        main: {
+          blob: Blob | null;
+          mime: string;
+        };
+      } | null,
+    ) => boolean | Promise<boolean>;
+  }
+  /**
+   * Represents a request object for fetching a file from a URL for useOpenDocument hook.
+   * @interface
+   */
+  interface IRequest {
+    url: string;
+    fileName: string;
+    placeholder?: string;
+  }
+  /**
+   * A hook which allows displaying and interacting with a document preview.
+   *
+   * @param options - An optional object containing the following parameters:
+   *   @param [options.onLoadStart] - The callback function to be executed when the document starts loading.
+   *   @param [options.onLoadEnd] - The callback function to be executed when the document finishes loading.
+   *   @param [options.fallback] - The fallback content to be displayed while the document is loading.
+   *   @param [options.onMount] - The callback function to be executed when the component is mounted.
+   *   @param [options.onUnmount] - The callback function to be executed when the component is unmounted.
+   *   @param [options.onSubmit] - The callback function to be executed when the submit button is clicked.
+   *   @param [options.onClose] - The callback function to be executed when the component is closed.
+   *   @param [options.title="Document preview"] - The title of the component.
+   *   @param [options.submitLabel="Download"] - The label of the submit button.
+   *
+   * @returns - An object containing the following properties:
+   *   @returns render - The render function for rendering the document preview component.
+   *   @returns pickData - A function to pick the data for displaying the document preview.
+   */
+  export const useOpenDocument: ({
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    onMount,
+    onUnmount,
+    onSubmit,
+    onClose,
+    title,
+    submitLabel,
+  }?: IParams) => {
+    render: () => JSX.Element;
+    pickData: (request: IRequest) => void;
+  };
+  export default useOpenDocument;
 }
 
 declare module "react-declarative/components/common/Group" {

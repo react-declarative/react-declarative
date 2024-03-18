@@ -246,6 +246,8 @@
 - [IBreadcrumbs2Props](interfaces/IBreadcrumbs2Props.md)
 - [IBreadcrumbs2Action](interfaces/IBreadcrumbs2Action.md)
 - [IBreadcrumbs2Option](interfaces/IBreadcrumbs2Option.md)
+- [IParams](interfaces/IParams.md)
+- [IRequest](interfaces/IRequest.md)
 - [ISearchItemProps](interfaces/ISearchItemProps.md)
 - [ISearchInputProps](interfaces/ISearchInputProps.md)
 - [ICreateButtonProps](interfaces/ICreateButtonProps.md)

@@ -719,4 +719,6 @@ export { resolveDocuments } from './api/resolveDocuments';
 export { iterateDocuments } from './api/iterateDocuments';
 export { pickDocuments } from './api/pickDocuments';
 
+export { useOpenDocument } from './view/useOpenDocument';
+
 export { heavy } from './utils/heavy';
