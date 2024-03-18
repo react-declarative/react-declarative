@@ -108,7 +108,7 @@ export const OutletView = <
       changeSubject.subscribe(([key, value]) => {
         setData((prevData) => ({
           ...prevData,
-          [key]: {
+          [key]: Array.isArray(value) ? value : {
             ...prevData[key],
             ...value,
           },
@@ -350,7 +350,7 @@ export const OutletView = <
     });
     setData((prevData) => ({
       ...prevData,
-      [id]: {
+      [id]: Array.isArray(pendingData) ? pendingData : {
         ...prevData[id],
         ...pendingData,
       },
