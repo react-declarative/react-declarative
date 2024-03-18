@@ -9,7 +9,7 @@ import DocumentView from '../../../components/DocumentView';
 import { IOutletModalProps } from '../../../components/OutletView';
 
 /**
- * Renders a video player with a download button.
+ * Renders a pdf iframe with a download button.
  *
  * @component
  * @param formState - The form state object.
