@@ -40,6 +40,12 @@ AfterOperationList: ComponentType<IPositionActionListSlot<FilterData, RowData, P
 customTemplate: ComponentType<ITile<RowData, Payload>>
 ```
 
+### customTemplateMinHeight
+
+```ts
+customTemplateMinHeight: number
+```
+
 ### fetchDebounce
 
 ```ts

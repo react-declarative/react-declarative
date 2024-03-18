@@ -3047,6 +3047,7 @@ declare module "react-declarative/model/IListProps" {
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
     customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+    customTemplateMinHeight?: number;
     fetchDebounce?: number;
     className?: string;
     denseHeight?: number;

@@ -284,6 +284,7 @@ export interface IListProps<
   BeforeOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   AfterOperationList?: React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>;
   customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+  customTemplateMinHeight?: number;
   fetchDebounce?: number;
   className?: string;
   denseHeight?: number;

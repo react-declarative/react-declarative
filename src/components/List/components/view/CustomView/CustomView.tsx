@@ -117,6 +117,7 @@ export const CustomView = <
     rowColor,
     selectionMode = SelectionMode.None,
     customTemplate: CustomTemplate = DefaultTemplate,
+    customTemplateMinHeight = DEFAULT_ITEM_SIZE,
     withLoader = false,
     onRowClick,
   } = props;
@@ -204,7 +205,7 @@ export const CustomView = <
           <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
             <Tile
               scrollYSubject={scrollYSubject}
-              minRowHeight={DEFAULT_ITEM_SIZE}
+              minRowHeight={customTemplateMinHeight}
               hasMore={hasMore}
               bufferSize={limit * 2}
               selectedRows={selectedRows}
