@@ -13800,6 +13800,7 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
         main: {
           blob: Blob | null;
           mime: string;
+          fileName: string;
         };
       } | null,
     ) => boolean | Promise<boolean>;

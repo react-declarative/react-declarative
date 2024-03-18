@@ -36,7 +36,7 @@ interface IParams {
   submitLabel?: string;
   onSubmit?: (
     url: string,
-    data: { main: { blob: Blob | null; mime: string } } | null,
+    data: { main: { blob: Blob | null; mime: string; fileName: string; } } | null,
   ) => boolean | Promise<boolean>;
 }
 
