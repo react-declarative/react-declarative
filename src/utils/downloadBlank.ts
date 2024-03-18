@@ -1,3 +1,5 @@
+import { fileTypeFromBlob } from "file-type/core";
+
 let overrideRef: ((url: string, name: string) => void) | null = null;
 
 /**
@@ -14,8 +16,15 @@ export const downloadBlank = (url: string, name: string) => {
     overrideRef(url, name);
     return;
   }
-  fetch(url)
+  fetch(url, {
+    mode: 'no-cors'
+  })
     .then((response) => response.blob())
+    .then(async (blob) => {
+      const blobType = await fileTypeFromBlob(blob);
+      const type = blobType?.mime || blob.type;
+      return new Blob([blob], { type });
+    })
     .then((blob) => {
       const uri = URL.createObjectURL(blob);
       const a = document.createElement("a");

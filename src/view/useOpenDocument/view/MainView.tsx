@@ -22,7 +22,9 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
 
   useAsyncValue(async () => {
     try {
-      const response = await fetch(data.url);
+      const response = await fetch(data.url, {
+        mode: 'no-cors',
+      });
       const blob = await response.blob();
       const blobType = await fileTypeFromBlob(blob);
       const mime = blobType?.mime || blob.type;
