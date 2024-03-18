@@ -108,7 +108,10 @@ export const OutletView = <
       changeSubject.subscribe(([key, value]) => {
         setData((prevData) => ({
           ...prevData,
-          [key]: value,
+          [key]: {
+            ...prevData[key],
+            ...value,
+          },
         }));
         setInvalid((prevInvalid) => {
           prevInvalid.delete(key);
@@ -347,7 +350,10 @@ export const OutletView = <
     });
     setData((prevData) => ({
       ...prevData,
-      [id]: pendingData,
+      [id]: {
+        ...prevData[id],
+        ...pendingData,
+      },
     }));
     if (!initial) {
       setChanged(true);
