@@ -2,7 +2,7 @@
 
 # ⚛️ react-declarative
 
-> [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) and [docs folder](./docs/Readme.md) for more samples...
+> [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook) and [the docs folder](./docs/Readme.md) for more samples...
 
 [![npm](https://img.shields.io/npm/v/react-declarative.svg?style=flat-square)](https://npmjs.org/package/react-declarative)
 
