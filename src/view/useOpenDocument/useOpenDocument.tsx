@@ -10,6 +10,7 @@ import ImageView from "./view/ImageView";
 import VideoView from "./view/VideoView";
 import AudioView from "./view/AudioView";
 import ErrorView from "./view/ErrorView";
+import PdfView from './view/PdfView';
 
 import useActualRef from "../../hooks/useActualRef";
 import { useOutletModal } from "../../components/OutletView";
@@ -60,6 +61,11 @@ const routes: IOutletModal[] = [
     id: "file",
     element: FileView,
     isActive: (url) => !!parseRouteUrl("/file", url),
+  },
+  {
+    id: "pdf",
+    element: PdfView,
+    isActive: (url) => !!parseRouteUrl("/pdf", url),
   },
   {
     id: "image",

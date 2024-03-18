@@ -40,6 +40,8 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
         history.replace("/audio");
       } else if (mime.startsWith("video/")) {
         history.replace("/video");
+      } else if (mime.endsWith("/pdf")) {
+        history.replace("/pdf");
       } else {
         history.replace("/file");
       }
