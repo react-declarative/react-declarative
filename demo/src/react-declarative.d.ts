@@ -20790,6 +20790,11 @@ declare module "react-declarative/components/Copy/Copy" {
 
 declare module "react-declarative/components/If/If" {
   import * as React from "react";
+  /**
+   * Represents the props for the IIf component.
+   *
+   * @template T - The type of the payload.
+   */
   export interface IIfProps<T extends any = object> {
     Else?: React.ReactNode;
     Loading?: React.ReactNode;

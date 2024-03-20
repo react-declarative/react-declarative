@@ -1,5 +1,7 @@
 # IIfProps
 
+Represents the props for the IIf component.
+
 ## Properties
 
 ### Else

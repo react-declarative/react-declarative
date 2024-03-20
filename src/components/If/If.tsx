@@ -7,6 +7,11 @@ import { promiseValue } from '../../utils/promiseState';
 
 import useActualValue from '../../hooks/useActualValue';
 
+/**
+ * Represents the props for the IIf component.
+ *
+ * @template T - The type of the payload.
+ */
 export interface IIfProps<T extends any = object> {
     Else?: React.ReactNode;
     Loading?: React.ReactNode;
@@ -20,6 +25,14 @@ export interface IIfProps<T extends any = object> {
     throwError?: boolean;
 }
 
+/**
+ * Resolves a condition with a payload and returns a boolean result.
+ *
+ * @template T - The type of the payload.
+ * @param condition - The condition to evaluate.
+ * @param payload - The payload to pass to the condition.
+ * @returns - The resolved result.
+ */
 const resolvePass = <T extends any = object>(condition: IIfProps<T>['condition'], payload: IIfProps<T>['payload']) => {
     let result: boolean | null = false;
     if (typeof condition === 'function') {
