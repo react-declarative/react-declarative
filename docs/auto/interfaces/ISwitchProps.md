@@ -1,5 +1,7 @@
 # ISwitchProps
 
+Represents the properties for the Switch component.
+
 ## Properties
 
 ### className

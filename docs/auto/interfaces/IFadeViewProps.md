@@ -1,5 +1,7 @@
 # IFadeViewProps
 
+Represents the props for the FadeView component.
+
 ## Properties
 
 ### className

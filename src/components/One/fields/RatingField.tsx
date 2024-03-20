@@ -8,12 +8,23 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Represents the properties for a rating field component.
+ *
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 
+/**
+ * Interface representing a private rating field.
+ *
+ * @template Data - The type of data associated with the field.
+ */
 export interface IRatingFieldPrivate<Data = IAnything> {
   name?: string;
   value: PickProp<IManaged<Data>, "value">;

@@ -1,5 +1,7 @@
 # IActionMenuProps
 
+Represents the properties of the ActionMenu component.
+
 ## Properties
 
 ### keepMounted

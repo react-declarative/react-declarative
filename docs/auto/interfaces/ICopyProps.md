@@ -1,5 +1,7 @@
 # ICopyProps
 
+Represents an interface for copying properties.
+
 ## Properties
 
 ### fullWidth

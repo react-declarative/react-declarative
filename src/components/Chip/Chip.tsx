@@ -4,6 +4,9 @@ import { useMemo } from 'react';
 import MatChip, { ChipProps } from '@mui/material/Chip';
 import { createTheme, Theme, ThemeProvider, useTheme } from '@mui/material';
 
+/**
+ * Interface for extending the `ChipProps` with an optional `color` property.
+ */
 interface IChipProps extends Omit<ChipProps, keyof {
     color: never;
 }> {

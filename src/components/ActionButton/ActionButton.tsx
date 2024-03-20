@@ -8,6 +8,15 @@ import Box from '@mui/material/Box';
 
 import useActualValue from '../../hooks/useActualValue';
 
+/**
+ * Represents a component that displays a loading indicator and content.
+ *
+ * @param props - The properties of the component.
+ * @param props.children - The content to be displayed.
+ * @param props.loading - Whether or not to display the loading indicator.
+ *
+ * @returns The rendered component.
+ */
 const ProgressDefault = ({
     loading,
     children,
@@ -30,6 +39,10 @@ const ProgressDefault = ({
     </Stack>
 );
 
+/**
+ * Represents the properties for an ActionButton component.
+ * @interface
+ */
 interface IActionButtonProps extends Omit<ButtonProps, keyof {
     onClick: never;
 }> {

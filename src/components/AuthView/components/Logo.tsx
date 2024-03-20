@@ -2,10 +2,16 @@ import * as React from 'react';
 
 import Typography from "@mui/material/Typography";
 
+/**
+ * Represents the properties of a logo component.
+ */
 interface ILogoProps {
     appName: string;
 }
 
+/**
+ * Represents a logo component.
+ */
 export const Logo = ({
     appName,
 }: ILogoProps) => (

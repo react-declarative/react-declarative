@@ -10,4 +10,4 @@ type FadeContainerT = Pick<IFadeContainerProps, keyof {
 }>;
 ```
 
-
+Represents a fade container used for adding fading effects to a component.

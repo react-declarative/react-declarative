@@ -25,6 +25,11 @@ import Fab from "@mui/material/Fab";
 import IOption from "../../model/IOption";
 import TSubject from "../../model/TSubject";
 
+/**
+ * Represents the properties of the ActionMenu component.
+ *
+ * @template T - The type of payload.
+ */
 export interface IActionMenuProps<T extends any = object> {
   keepMounted?: boolean;
   options?: Partial<IOption>[];

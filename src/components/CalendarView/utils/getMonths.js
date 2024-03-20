@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
 
+/**
+ * Retrieves an array of the next 12 months starting from the current month.
+ *
+ * @returns The array of the next 12 months.
+ */
 export const getMonths = () => {
   const months = [];
   const startDate = dayjs().startOf("year");

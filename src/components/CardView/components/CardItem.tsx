@@ -26,10 +26,21 @@ import keyToTitle from "../utils/keyToTitle";
 
 export const MIN_ROW_HEIGHT = 225;
 
+/**
+ * Represents the properties for a card item component.
+ *
+ * @template ItemData - The type of the item data.
+ */
 interface ICardItemProps<ItemData extends IItemData = any> extends PaperProps {
   item: ItemData;
 }
 
+/**
+ * Formats a given value based on certain conditions and returns the formatted value.
+ *
+ * @param value - The value to be formatted.
+ * @returns - The formatted value.
+ */
 const defaultFormatter = (value: React.ReactNode) => {
   if (
     value == null ||
@@ -147,6 +158,14 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * A component that represents an item in a card layout.
+ *
+ * @template ItemData - The type of data for the item.
+ * @param params - The parameters for the component.
+ * @param ref - A reference to the component's root element.
+ * @returns - The rendered component.
+ */
 const CardItemInternal = <ItemData extends IItemData = any>(
   { item, className, style, sx, ...otherProps }: ICardItemProps<ItemData>,
   ref: React.Ref<HTMLDivElement>

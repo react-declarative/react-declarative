@@ -1,5 +1,7 @@
 # ICheckboxFieldPrivate
 
+Represents a private interface for a Checkbox field.
+
 ## Properties
 
 ### value

@@ -1,5 +1,7 @@
 # IConstraintViewProps
 
+Interface for props of ConstraintView component.
+
 ## Properties
 
 ### phoneView

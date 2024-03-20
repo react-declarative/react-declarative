@@ -1,5 +1,7 @@
 # ITimeFieldPrivate
 
+Represents a private interface for the TimeField component.
+
 ## Properties
 
 ### onChange

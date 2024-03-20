@@ -1,5 +1,7 @@
 # IPayloadProviderProps
 
+An interface representing the props for the PayloadProvider component.
+
 ## Properties
 
 ### children

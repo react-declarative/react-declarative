@@ -6,6 +6,11 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import classNames from '../../utils/classNames';
 
+/**
+ * Interface for Dot props.
+ * @interface
+ * @extends BoxProps
+ */
 interface IDotProps extends BoxProps {
     side: number;
     color: string;

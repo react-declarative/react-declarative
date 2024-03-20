@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Interface for the props of the ITreeField component.
+ *
+ * @template Data The type of data in the field.
+ * @template Payload The type of payload in the field.
+ */
 export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -18,6 +24,11 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
   itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
 }
 
+/**
+ * Represents the private interface for the TreeField component.
+ *
+ * @template Data The type of data for the TreeField component.
+ */
 export interface ITreeFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

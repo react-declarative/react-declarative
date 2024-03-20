@@ -8,6 +8,12 @@ import IManaged, { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
+/**
+ * Represents the properties for a switch field component.
+ *
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
   title?: PickProp<IField<Data, Payload>, 'title'>;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -17,6 +23,11 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
   switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
 }
 
+/**
+ * Represents a private interface for a switch field.
+ *
+ * @template Data - The type of data associated with the switch field.
+ */
 export interface ISwitchFieldPrivate<Data = IAnything>  {
   onChange: PickProp<IManaged<Data>, 'onChange'>;
   value: PickProp<IManaged<Data>, 'value'>;

@@ -1,5 +1,7 @@
 # ITreeFieldProps
 
+Interface for the props of the ITreeField component.
+
 ## Properties
 
 ### description

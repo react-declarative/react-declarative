@@ -1,6 +1,9 @@
 import FieldType from "../../../model/FieldType";
 import IField from "../../../model/IField";
 
+/**
+ * Set of FieldType values representing the baseline fields.
+ */
 export const baselineFields = new Set<FieldType>([
     FieldType.Choose,
     FieldType.Combo,

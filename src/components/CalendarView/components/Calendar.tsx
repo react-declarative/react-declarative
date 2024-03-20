@@ -45,6 +45,9 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the properties for the Calendar component.
+ */
 interface ICalendarProps {
   onChange: (date: dayjs.Dayjs | null) => void;
   onHeaderMonthClick: () => void;
@@ -54,6 +57,17 @@ interface ICalendarProps {
   date: dayjs.Dayjs;
 }
 
+/**
+ * Represents a calendar component.
+ *
+ * @typedef {object} ICalendarProps
+ * @property {function} onChange - Callback function triggered when a date is selected.
+ * @property {function} onHeaderMonthClick - Callback function triggered when the header month is clicked.
+ * @property {function} onHeaderYearClick- Callback function triggered when the header year is clicked.
+ * @property {dayjs.Dayjs} minDate - The minimum selectable date.
+ * @property {dayjs.Dayjs} maxDate - The maximum selectable date.
+ * @property {dayjs.Dayjs} date - The currently selected date.
+ */
 export const Calendar = ({
   onChange,
   onHeaderMonthClick,

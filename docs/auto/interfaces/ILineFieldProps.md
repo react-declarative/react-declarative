@@ -1,5 +1,7 @@
 # ILineFieldProps
 
+Represents the properties of a line field.
+
 ## Properties
 
 ### title

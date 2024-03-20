@@ -1,5 +1,7 @@
 # ITextFieldProps
 
+Represents the properties for a text field component.
+
 ## Properties
 
 ### inputType

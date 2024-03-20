@@ -1,5 +1,7 @@
 # IDefaultFadeProps
 
+Interface representing the props for the DefaultFade component.
+
 ## Properties
 
 ### className

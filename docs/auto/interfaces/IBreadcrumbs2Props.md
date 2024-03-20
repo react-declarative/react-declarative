@@ -1,5 +1,7 @@
 # IBreadcrumbs2Props
 
+An interface representing the props for the IBreadcrumbs2 component.
+
 ## Properties
 
 ### className

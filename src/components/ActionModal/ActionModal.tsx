@@ -30,6 +30,13 @@ import IOnePublicProps from "../../model/IOnePublicProps";
 const MODAL_ROOT = "action-modal__root";
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Interface representing the props for the ActionModal component.
+ * @template Data - The type of the data.
+ * @template Payload - The type of the payload.
+ * @template Field - The type of the field.
+ * @template Param - The type of the parameter.
+ */
 export interface IActionModalProps<
   Data extends IAnything = IAnything,
   Payload = IAnything,

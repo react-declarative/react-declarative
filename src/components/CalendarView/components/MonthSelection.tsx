@@ -48,6 +48,11 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the properties for a MonthSelection component.
+ *
+ * @interface IMonthSelectionProps
+ */
 interface IMonthSelectionProps {
   date: dayjs.Dayjs;
   minDate: dayjs.Dayjs;
@@ -55,6 +60,17 @@ interface IMonthSelectionProps {
   onChange: (change: dayjs.Dayjs) => void;
 }
 
+/**
+ * Represents a Month Selection component.
+ *
+ * @param props - The component properties.
+ * @param props.date - The selected date.
+ * @param props.minDate - The minimum selectable date.
+ * @param props.maxDate - The maximum selectable date.
+ * @param props.onChange - The callback function to handle date selection change.
+ *
+ * @returns - The Month Selection component.
+ */
 export const MonthSelection = ({
   date,
   minDate,

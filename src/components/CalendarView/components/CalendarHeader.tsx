@@ -45,6 +45,11 @@ const useStyles = makeStyles()((theme) => ({
   noBorder: { border: "0" },
 }));
 
+/**
+ * Represents the properties for the CalendarHeader component.
+ *
+ * @interface ICalendarHeaderProps
+ */
 interface ICalendarHeaderProps {
   currentMonth: dayjs.Dayjs;
   onMonthChange: (month: dayjs.Dayjs) => void;
@@ -52,6 +57,15 @@ interface ICalendarHeaderProps {
   onHeaderYearClick: () => void;
 }
 
+/**
+ * CalendarHeader component.
+ *
+ * @param currentMonth - The current month.
+ * @param onMonthChange - The callback function when the month changes.
+ * @param onHeaderMonthClick - The callback function when the month in the header is clicked.
+ * @param onHeaderYearClick - The callback function when the year in the header is clicked.
+ * @returns The rendered CalendarHeader component.
+ */
 export const CalendarHeader = ({
   currentMonth,
   onMonthChange,

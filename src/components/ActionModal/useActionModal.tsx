@@ -12,6 +12,13 @@ import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 
+/**
+ * Interface for the Params class.
+ * @template Data - The type of the data.
+ * @template Payload - The type of the payload.
+ * @template Field - The type of the field.
+ * @template Param - The type of the param.
+ */
 export interface IParams<
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,

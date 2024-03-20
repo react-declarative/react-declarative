@@ -37,6 +37,12 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
   "value",
 ];
 
+/**
+ * Props interface for the IComponentField component.
+ *
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   element?: PickProp<IField<Data, Payload>, "element">;
@@ -47,6 +53,11 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
   sx?: PickProp<IField<Data, Payload>, "sx">;
 }
 
+/**
+ * @interface
+ * @template Data - The type of data for the component field
+ * @description Represents the private interface for a component field
+ */
 interface IComponentFieldPrivate<Data = IAnything> {
   object: PickProp<IManaged<Data>, "object">;
   disabled: PickProp<IManaged<Data>, "disabled">;

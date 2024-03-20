@@ -11,12 +11,24 @@ import IOneProps from '../../../model/IOneProps';
 
 import deepClone from '../../../utils/deepClone';
 
-interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends 
+/**
+ * Interface representing the props for a StateProvider component.
+ *
+ * @template Data - The type of the data object.
+ * @template Payload - The type of the payload object.
+ * @template Field - The type of the field object.
+ */
+interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>> extends
     IOneProps<Data, Payload, Field> {
     payload: Payload;
     children: React.ReactElement;
 }
 
+/**
+ * Represents the interface for a state object.
+ *
+ * @template Data The type of data held by the state object.
+ */
 interface IState<Data = IAnything> {
     object: Data | null;
     setObject: (data: Data, invalidMap: Record<string, boolean>) => void;

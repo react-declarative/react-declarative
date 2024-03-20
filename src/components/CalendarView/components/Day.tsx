@@ -53,12 +53,24 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Interface for props of a day component.
+ */
 interface IDayProps {
   onChange: (date: dayjs.Dayjs) => void;
   isActive: boolean;
   day: dayjs.Dayjs;
 }
 
+/**
+ * Renders a Day component.
+ *
+ * @param props - The component props.
+ * @param props.onChange - The function called when the day is changed.
+ * @param props.day - The current day.
+ *
+ * @returns The rendered Day component.
+ */
 export const Day = ({ onChange, day }: IDayProps) => {
   const { classes } = useStyles();
 

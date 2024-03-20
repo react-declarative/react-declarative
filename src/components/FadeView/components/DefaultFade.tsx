@@ -8,6 +8,9 @@ import { alpha } from '@mui/material';
 
 import classNames from '../../../utils/classNames';
 
+/**
+ * Interface representing the props for the DefaultFade component.
+ */
 interface IDefaultFadeProps {
     className: string;
     visible: boolean;

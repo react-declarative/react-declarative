@@ -1,5 +1,7 @@
 # IComboFieldProps
 
+Represents the properties for the ComboField component.
+
 ## Properties
 
 ### description

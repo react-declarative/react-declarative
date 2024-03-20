@@ -13,6 +13,9 @@ import FadeContainer, {
 
 import classNames from "../../utils/classNames";
 
+/**
+ * Represents a fade container used for adding fading effects to a component.
+ */
 type FadeContainerT = Pick<
   IFadeContainerProps,
   keyof {
@@ -24,6 +27,9 @@ type FadeContainerT = Pick<
   }
 >;
 
+/**
+ * Represents the props for the FadeView component.
+ */
 interface IFadeViewProps extends FadeContainerT {
   className?: string;
   style?: React.CSSProperties;

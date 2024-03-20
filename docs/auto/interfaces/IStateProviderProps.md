@@ -1,5 +1,7 @@
 # IStateProviderProps
 
+Interface representing the props for a StateProvider component.
+
 ## Properties
 
 ### payload

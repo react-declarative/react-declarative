@@ -1,5 +1,7 @@
 # ICompleteFieldProps
 
+Interface for specifying the props of a complete field.
+
 ## Properties
 
 ### inputType

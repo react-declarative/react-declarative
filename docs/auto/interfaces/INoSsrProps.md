@@ -1,5 +1,7 @@
 # INoSsrProps
 
+Interface for props of a component that should not be rendered on the server side.
+
 ## Properties
 
 ### ServerView

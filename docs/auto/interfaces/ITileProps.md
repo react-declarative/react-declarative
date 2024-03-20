@@ -1,5 +1,7 @@
 # ITileProps
 
+Represents the properties required for the `ITile` component.
+
 ## Properties
 
 ### className

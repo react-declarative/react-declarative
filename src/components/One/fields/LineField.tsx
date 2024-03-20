@@ -10,6 +10,11 @@ import IField from '../../../model/IField';
 
 const FIELD_NEVER_MARGIN = '0';
 
+/**
+ * Represents the properties of a line field.
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, 'title'>;
   lineTransparent?: PickProp<IField<Data, Payload>, 'lineTransparent'>;

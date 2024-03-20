@@ -8,6 +8,10 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Interface for specifying the props of a complete field.
+ * @template Data, Payload - The types of data and payload.
+ */
 export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
@@ -45,6 +49,11 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
   >;
 }
 
+/**
+ * Represents a private interface for a complete field.
+ *
+ * @template Data - The type of the field's data.
+ */
 export interface ICompleteFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

@@ -6,4 +6,5 @@ type BoxProps = Omit<MatBoxProps, keyof {
 }>;
 ```
 
-
+Represents the properties for a Box component.
+Extends the MatBoxProps and removes the 'onChange' property.

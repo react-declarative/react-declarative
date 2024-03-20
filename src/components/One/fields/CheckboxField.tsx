@@ -8,6 +8,12 @@ import IManaged, { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
+/**
+ * Interface representing props for the CheckboxField component.
+ *
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, 'title'>;
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -15,6 +21,11 @@ export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Represents a private interface for a Checkbox field.
+ * @interface
+ * @template Data - The type of data associated with the Checkbox field.
+ */
 export interface ICheckboxFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, 'value'>;
   onChange: PickProp<IManaged<Data>, 'onChange'>;

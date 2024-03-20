@@ -17,6 +17,9 @@ import useQueuedAction from '../../hooks/useQueuedAction';
 
 import IModal from './model/IModal';
 
+/**
+ * Represents the properties for the `ModalManagerProvider` component.
+ */
 interface IModalManagerProviderProps {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -25,10 +28,19 @@ interface IModalManagerProviderProps {
     children: React.ReactNode;
 }
 
+/**
+ * Represents an entity that can be used as a modal in an application.
+ * @interface
+ * @extends IModal
+ */
 interface IModalEntity extends IModal {
     key: string;
 }
 
+/**
+ * Represents the state of the application.
+ * @interface
+ */
 interface IState {
     modalStack: IModalEntity[];
     count: number;

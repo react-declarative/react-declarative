@@ -2,6 +2,10 @@ import { useActionModal, IParams as IActionModalParams } from "../../ActionModal
 import createFeatures from "../helpers/createFeatures";
 import IFeatureViewProps from "../model/IFeatureViewProps";
 
+/**
+ * Represents the parameters for a feature view.
+ * @interface IParams
+ */
 interface IParams extends Omit<IFeatureViewProps, keyof {
   changeSubject: never;
 }> {

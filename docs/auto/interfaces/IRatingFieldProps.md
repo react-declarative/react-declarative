@@ -1,5 +1,7 @@
 # IRatingFieldProps
 
+Represents the properties for a rating field component.
+
 ## Properties
 
 ### readonly

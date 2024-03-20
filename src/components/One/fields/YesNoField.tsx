@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Interface representing the props for the YesNoField component.
+ *
+ * @template Data - The type of the data.
+ * @template Payload - The type of the payload.
+ */
 export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -22,6 +28,10 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Represents a private interface for a Yes/No field
+ * @template Data - The data type associated with the field
+ */
 export interface IYesNoFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, "value">;
   readonly: PickProp<IManaged<Data>, "readonly">;

@@ -5,6 +5,10 @@ import { createContext } from 'react';
 import IOneApi from '../../../model/IOneApi';
 import IOneProps from '../../../model/IOneProps';
 
+/**
+ * Represents the context object used by the application.
+ * @interface Context
+ */
 interface Context {
     apiRef: React.Ref<IOneApi> | null;
     reloadSubject: Exclude<IOneProps['reloadSubject'], undefined> | null;
@@ -14,6 +18,9 @@ interface Context {
 
 const ApiContext = createContext<Context>(null as never);
 
+/**
+ * Represents the properties for the `ApiProvider` component.
+ */
 interface IApiProviderProps {
     children: React.ReactNode;
     apiRef?: React.Ref<IOneApi> | null;

@@ -1,5 +1,7 @@
 # ICountdownProps
 
+Interface for the Countdown component props.
+
 ## Properties
 
 ### children

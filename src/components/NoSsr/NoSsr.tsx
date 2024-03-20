@@ -1,16 +1,27 @@
 import * as React from "react";
 
+/**
+ * Interface for props of a component that should not be rendered on the server side.
+ * @interface INoSsrProps
+ */
 interface INoSsrProps {
   ServerView?: React.ComponentType<any>;
   children?: React.ReactNode;
 }
 
+/**
+ * Represents a state.
+ * @interface State
+ */
 interface State {
   canRender: boolean;
 }
 
 const Fragment = () => <></>;
 
+/**
+ * Represents a component that handles server-side rendering (SSR) and client-side rendering (CSR) conditionally.
+ */
 export class NoSsr extends React.Component<INoSsrProps, State> {
 
   constructor(props: INoSsrProps) {

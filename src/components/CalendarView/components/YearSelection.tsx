@@ -47,6 +47,9 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * The interface for the props of the YearSelection component.
+ */
 interface IYearSelectionProps {
   date: dayjs.Dayjs;
   minDate: dayjs.Dayjs;
@@ -54,6 +57,14 @@ interface IYearSelectionProps {
   onChange: (change: dayjs.Dayjs) => void;
 }
 
+/**
+ * Represents a year selection component.
+ * @typedef YearSelection
+ * @property date - The selected date.
+ * @property minDate - The minimum allowed date.
+ * @property maxDate - The maximum allowed date.
+ * @property onChange - The callback function called when the selected date changes.
+ */
 export const YearSelection = ({
   date,
   minDate,

@@ -1,5 +1,10 @@
 import * as React from 'react';
 
+/**
+ * Interface representing the initialization properties for a Field component.
+ *
+ * @interface IInitFieldProps
+ */
 export interface IInitFieldProps {
 }
 

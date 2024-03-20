@@ -1,5 +1,7 @@
 # ISwitchItem
 
+Represents an item in a switch component.
+
 ## Properties
 
 ### path

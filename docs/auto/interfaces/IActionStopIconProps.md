@@ -1,5 +1,7 @@
 # IActionStopIconProps
 
+Represents the properties for the ActionStopIcon component. This class extends the IconButtonProps interface and adds additional properties.
+
 ## Properties
 
 ### children

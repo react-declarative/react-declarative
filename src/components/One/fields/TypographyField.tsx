@@ -8,6 +8,12 @@ import IManaged, { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
+/**
+ * Interface for props of the TypographyField component.
+ *
+ * @template Data - The data type of the field.
+ * @template Payload - The payload type of the field.
+ */
 export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
   placeholder?: PickProp<IField<Data, Payload>, 'placeholder'>;
   typoVariant?: PickProp<IField<Data, Payload>, 'typoVariant'>;
@@ -16,6 +22,11 @@ export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Represents a private interface for a typography field.
+ *
+ * @template Data - The type of data the field holds.
+ */
 export interface ITypographyFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, 'value'>;
 }

@@ -1,5 +1,7 @@
 # IActionButtonProps
 
+Represents the properties for an ActionButton component.
+
 ## Properties
 
 ### Progress

@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Represents the properties for the ComboField component.
+ *
+ * @template Data - The type of data associated with the field.
+ * @template Payload - The type of payload associated with the field.
+ */
 export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -25,6 +31,10 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Represents the private interface for the ComboField class.
+ * @template Data - The type of data managed by the ComboField.
+ */
 export interface IComboFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, "value">;
   readonly: PickProp<IManaged<Data>, "readonly">;

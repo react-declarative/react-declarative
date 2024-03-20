@@ -12,6 +12,11 @@ import { ContentCopy } from "@mui/icons-material";
 
 const TOOLTIP_CLOSE_DELAY = 800;
 
+/**
+ * Represents the properties for the CopyButton component.
+ *
+ * @interface ICopyButtonProps
+ */
 interface ICopyButtonProps {
   disabled?: boolean;
   className?: string;

@@ -1,5 +1,7 @@
 # IActionToggleProps
 
+Interface for props of ActionToggle component.
+
 ## Properties
 
 ### onLoadStart

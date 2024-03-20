@@ -1,5 +1,7 @@
 # IErrorViewProps
 
+Defines the props for the ErrorView component.
+
 ## Properties
 
 ### appName

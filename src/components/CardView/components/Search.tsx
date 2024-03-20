@@ -17,10 +17,22 @@ import debounce from "../../../utils/hof/debounce";
 
 const SEARCH_DEBOUNCE = 1_000;
 
+/**
+ * Interface representing the props for search component.
+ *
+ * @interface ISearchProps
+ */
 interface ISearchProps {
   disabled: boolean;
 }
 
+/**
+ * Search component.
+ *
+ * @param props - The component props.
+ * @param props.disabled - Flag indicating if the search component is disabled.
+ * @returns The search component.
+ */
 export const Search = ({ disabled }: ISearchProps) => {
   const { state, action } = useStateContext();
   const [search, setSearch] = useState(state.search);

@@ -8,6 +8,12 @@ import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
 
+/**
+ * A set of properties for the `TimeField` component.
+ *
+ * @template Data - The type of data expected to be stored in the field.
+ * @template Payload - The type of payload expected to be returned on field change.
+ */
 export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, "title">;
   description?: PickProp<IField<Data, Payload>, "description">;
@@ -20,6 +26,11 @@ export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
 }
 
+/**
+ * Represents a private interface for the TimeField component.
+ *
+ * @template Data The type of data associated with the TimeField component.
+ */
 export interface ITimeFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

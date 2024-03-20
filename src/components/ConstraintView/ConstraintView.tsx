@@ -7,6 +7,10 @@ import AutoSizer, { IAutoSizerProps, IChildParams } from '../AutoSizer';
 
 import IAnything from '../../model/IAnything';
 
+/**
+ * Interface for props of ConstraintView component.
+ * @template T - Type parameter for IConstraintViewProps.
+ */
 interface IConstraintViewProps<T extends IAnything = IAnything> extends Omit<IAutoSizerProps<T>, keyof {
     children: never;
 }> {

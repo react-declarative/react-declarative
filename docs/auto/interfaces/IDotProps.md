@@ -1,5 +1,7 @@
 # IDotProps
 
+Interface for Dot props.
+
 ## Properties
 
 ### side

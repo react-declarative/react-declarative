@@ -8,6 +8,46 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Props for the IDictField component.
+ *
+ * @template Data - The data type of the field.
+ * @template Payload - The payload type of the field.
+ *
+ * @property [dictLimit] - The limit of items shown in the dictionary.
+ * @property [dictDelay] - The delay between input and dictionary search.
+ * @property [dictSearch] - The search function for the dictionary.
+ * @property [dictOnAppend] - The function called when an item is appended to the dictionary.
+ * @property [dictOnText] - The function called when the text of a dictionary item is updated.
+ * @property [dictOnItem] - The function called when a dictionary item is selected.
+ * @property [dictValue] - The selected value from the dictionary.
+ * @property [dictSearchText] - The text being searched in the dictionary.
+ * @property [dictSearchItem] - The item being searched in the dictionary.
+ * @property [dictCreateButton] - The button to create a new item in the dictionary.
+ * @property [inputType] - The type of input element.
+ * @property [inputMode] - The input mode.
+ * @property [inputPattern] - The regex pattern for input validation.
+ * @property [inputAutocomplete] - The autocomplete option for the input.
+ * @property [inputFormatter] - The function to format the input value.
+ * @property [inputFormatterSymbol] - The symbol used for formatting.
+ * @property [inputFormatterAllowed] - The allowed characters for formatting.
+ * @property [inputFormatterTemplate] - The template for formatting.
+ * @property [inputFormatterReplace] - The replace option for formatting.
+ * @property [description] - The description of the field.
+ * @property [outlined] - Whether the field should be outlined.
+ * @property [title] - The title of the field.
+ * @property [placeholder] - The placeholder text for the input.
+ * @property [readonly] - Whether the field should be read-only.
+ * @property [disabled] - Whether the field should be disabled.
+ * @property [groupRef] - The ref for the group element.
+ * @property [inputRef] - The ref for the input element.
+ * @property [leadingIconRipple] - Whether the leading icon should have ripple effect.
+ * @property [trailingIconRipple] - Whether the trailing icon should have ripple effect.
+ * @property [leadingIcon] - The icon element for the leading icon.
+ * @property [trailingIcon] - The icon element for the trailing icon.
+ * @property [leadingIconClick] - The function to call when the leading icon is clicked.
+ * @property [trailingIconClick] - The function to call when the trailing icon is clicked.
+ */
 export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
   dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;

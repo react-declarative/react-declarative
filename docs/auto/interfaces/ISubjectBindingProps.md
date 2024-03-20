@@ -1,5 +1,7 @@
 # ISubjectBindingProps
 
+Represents the properties for the SubjectBinding component.
+
 ## Properties
 
 ### target

@@ -10,6 +10,10 @@ import useSubject from '../../hooks/useSubject';
 
 import TSubject from '../../model/TSubject';
 
+/**
+ * Represents the properties for an asynchronous component.
+ * @template T - The type of the payload.
+ */
 export interface IAsyncProps<T extends any = object> {
     loading?: boolean;
     reloadSubject?: TSubject<void>;

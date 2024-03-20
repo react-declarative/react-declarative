@@ -1,5 +1,7 @@
 # IColorButtonProps
 
+Interface representing the props for the ColorButton component.
+
 ## Properties
 
 ### value

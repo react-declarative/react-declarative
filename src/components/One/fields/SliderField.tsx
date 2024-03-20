@@ -8,6 +8,11 @@ import IField from '../../../model/IField';
 import IAnything from '../../../model/IAnything';
 import IManaged, { PickProp } from '../../../model/IManaged';
 
+/**
+ * Interface representing the properties of a Slider Field component.
+ * @template Data - The data type used in the Field component.
+ * @template Payload - The payload type used in the Field component.
+ */
 export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   stepSlider?: PickProp<IField<Data, Payload>, 'stepSlider'>;
   maxSlider?: PickProp<IField<Data, Payload>, 'maxSlider'>;
@@ -27,6 +32,12 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 
+/**
+ * Represents a private interface for a slider field component.
+ *
+ * @template Data - The type of data associated with the slider field.
+ * @interface ISliderFieldPrivate
+ */
 export interface ISliderFieldPrivate<Data = IAnything>  {
   value: PickProp<IManaged<Data>, 'value'>;
   onChange: PickProp<IManaged<Data>, 'onChange'>;

@@ -1,5 +1,7 @@
 # IDateFieldPrivate
 
+Represents a private interface for a date field.
+
 ## Properties
 
 ### onChange

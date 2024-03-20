@@ -1,5 +1,7 @@
 # IFadeContainerProps
 
+Represents the properties for the FadeContainer component.
+
 ## Properties
 
 ### className

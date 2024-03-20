@@ -2,12 +2,19 @@ import * as React from 'react'
 
 import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
 
+/**
+ * Represents the props of an ErrorBoundary component.
+ */
 interface IErrorBoundaryProps {
   onError?: (error: Error, errorInfo: any) => void;
   history: MemoryHistory | BrowserHistory | HashHistory;
   children?: React.ReactNode;
 }
 
+/**
+ * @typedef {Object} IErrorBoundaryState
+ * @property {boolean} hasError - Indicates if an error has occurred.
+ */
 interface IErrorBoundaryState {
   hasError: boolean;
 }

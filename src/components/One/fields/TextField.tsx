@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Represents the properties for a text field component.
+ *
+ * @template Data - The type of data associated with the field.
+ * @template Payload - The type of payload associated with the field.
+ */
 export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
@@ -37,6 +43,11 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
 }
 
+/**
+ * Represents a private interface for an input field.
+ *
+ * @template Data - The type of data managed by the input field.
+ */
 export interface ITextFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

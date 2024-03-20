@@ -21,6 +21,9 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a Footer component.
+ */
 export const Footer = () => {
   const { classes } = useStyles();
   const { state } = useStateContext();

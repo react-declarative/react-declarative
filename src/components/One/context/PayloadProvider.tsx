@@ -6,6 +6,9 @@ import IOneProps from '../../../model/IOneProps';
 
 const PayloadContext = createContext<Exclude<IOneProps['payload'], undefined>>(null as never);
 
+/**
+ * An interface representing the props for the PayloadProvider component.
+ */
 interface IPayloadProviderProps {
     children: React.ReactNode;
     payload?: IOneProps['payload'];
@@ -13,6 +16,12 @@ interface IPayloadProviderProps {
 
 const OBJECT_VALUE = {};
 
+/**
+ * PayloadProvider component
+ * @param children - The child components to render within the provider
+ * @param payload - The payload value to be provided by the provider
+ * @returns - The rendered component with payload context provider
+ */
 export const PayloadProvider = ({
     children,
     payload = OBJECT_VALUE,

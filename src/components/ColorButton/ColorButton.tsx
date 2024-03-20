@@ -13,6 +13,9 @@ import debounce from '../../utils/hof/debounce'
 
 import PaletteIcon from '@mui/icons-material/Palette';
 
+/**
+ * Interface representing the props for the ColorButton component.
+ */
 interface IColorButtonProps extends Omit<BoxProps, keyof {
     value: never;
     onChange: never;

@@ -1,5 +1,7 @@
 # IComboFieldPrivate
 
+Represents the private interface for the ComboField class.
+
 ## Properties
 
 ### value

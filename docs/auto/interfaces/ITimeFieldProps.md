@@ -1,5 +1,7 @@
 # ITimeFieldProps
 
+A set of properties for the `TimeField` component.
+
 ## Properties
 
 ### title

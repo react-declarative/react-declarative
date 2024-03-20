@@ -12,6 +12,10 @@ import UploadIcon from "@mui/icons-material/CloudUpload";
 import classNames from "../../utils/classNames";
 import randomString from "../../utils/randomString";
 
+/**
+ * @interface IDragDropViewProps
+ * Represents the props for the DragDropView component.
+ */
 interface IDragDropViewProps {
   className?: string;
   style?: React.CSSProperties;
@@ -23,6 +27,11 @@ interface IDragDropViewProps {
   onReject?: (files: File[]) => void;
 }
 
+/**
+ * Represents the state of an input.
+ *
+ * @interface IState
+ */
 interface IState {
   inputId: string;
   dragActive: boolean;

@@ -24,6 +24,24 @@ import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
 
+/**
+ * An interface representing the props for the IBreadcrumbs2 component.
+ *
+ * @template T - The type of payload.
+ * @property [className] - The class name to be applied to the component.
+ * @property [style] - The inline style to be applied to the component.
+ * @property [sx] - The custom styling props for the component.
+ * @property [onAction] - The callback function triggered when an action is performed.
+ * @property actions - The list of actions for the breadcrumbs.
+ * @property items - The list of options for the breadcrumbs.
+ * @property [payload] - The payload for the breadcrumbs.
+ * @property [BeforeMenuContent] - The component to be rendered before the menu content.
+ * @property [AfterMenuContent] - The component to be rendered after the menu content.
+ * @property [onLoadStart] - The callback function triggered when the component starts loading.
+ * @property [onLoadEnd] - The callback function triggered when the component finishes loading.
+ * @property [fallback] - The callback function triggered when an error occurs.
+ * @property [throwError] - A flag indicating whether the component should throw an error.
+ */
 interface IBreadcrumbs2Props<T extends any = any> {
   className?: string;
   style?: React.CSSProperties;

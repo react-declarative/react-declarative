@@ -1,5 +1,7 @@
 # IComponentFieldProps
 
+Props interface for the IComponentField component.
+
 ## Properties
 
 ### placeholder

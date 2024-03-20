@@ -2,6 +2,9 @@ import * as React from 'react';
 
 import Typography from "@mui/material/Typography";
 
+/**
+ * Interface representing the props for a Logo component.
+ */
 interface ILogoProps {
     appName: string;
 }

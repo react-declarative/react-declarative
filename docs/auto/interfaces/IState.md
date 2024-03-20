@@ -1,5 +1,7 @@
 # IState
 
+Represents the interface for a state object.
+
 ## Properties
 
 ### object

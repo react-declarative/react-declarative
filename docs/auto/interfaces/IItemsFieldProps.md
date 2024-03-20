@@ -1,5 +1,7 @@
 # IItemsFieldProps
 
+Props for the IItemsField component.
+
 ## Properties
 
 ### description

@@ -4,6 +4,10 @@ type Function = (...args: any) => any;
 
 const RESIZE_EVENT = Symbol('resize-event');
 
+/**
+ * Creates a utility function to detect element resize events.
+ * @returns An object containing two methods: addResizeListener and removeResizeListener.
+ */
 export const createDetectElementResize = () => {
   
   const eventManager = new EventEmitter();

@@ -1,5 +1,7 @@
 # ITreeFieldPrivate
 
+Represents the private interface for the TreeField component.
+
 ## Properties
 
 ### onChange

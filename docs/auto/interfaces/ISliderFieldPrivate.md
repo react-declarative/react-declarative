@@ -1,5 +1,7 @@
 # ISliderFieldPrivate
 
+Represents a private interface for a slider field component.
+
 ## Properties
 
 ### value

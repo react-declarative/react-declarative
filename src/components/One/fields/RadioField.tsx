@@ -8,6 +8,11 @@ import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
 
+/**
+ * Interface for defining props of a radio field component.
+ * @template Data - The data type.
+ * @template Payload - The payload type.
+ */
 export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, "title">;
   radioValue?: PickProp<IField<Data, Payload>, "radioValue">;
@@ -16,6 +21,11 @@ export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 
+/**
+ * Represents a private interface for a radio field.
+ *
+ * @template Data - the type of data the radio field manages
+ */
 export interface IRadioFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
   onChange: PickProp<IManaged<Data>, "onChange">;

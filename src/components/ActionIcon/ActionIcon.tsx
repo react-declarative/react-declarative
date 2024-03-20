@@ -14,6 +14,19 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
+/**
+ * Props for the ActionIcon component.
+ *
+ * @typedef IActionIconProps
+ * @property [onLoadStart] - A callback function triggered when the icon starts loading.
+ * @property [onLoadEnd] - A callback function triggered when the icon finishes loading.
+ * @property [onClick] - A callback function triggered when the icon is clicked.
+ * @property [fallback] - A callback function triggered when an error occurs while loading the icon.
+ * @property [throwError] - Indicates whether an error should be thrown if the icon fails to load.
+ * @property [size] - The size of the icon.
+ * @property [thickness] - The thickness of the icon.
+ * @property [noProgress] - Indicates whether to hide the progress indicator during loading.
+ */
 interface IActionIconProps extends Omit<IconButtonProps, keyof {
     onClick: never;
     size: never;

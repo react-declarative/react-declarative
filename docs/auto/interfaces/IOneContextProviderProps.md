@@ -1,5 +1,7 @@
 # IOneContextProviderProps
 
+Interface that represents the props for the `OneContextProvider` component.
+
 ## Properties
 
 ### context

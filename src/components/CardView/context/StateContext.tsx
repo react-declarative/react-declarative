@@ -3,6 +3,10 @@ import { useContext, createContext } from 'react';
 
 import IItemData from '../model/IItemData';
 
+/**
+ * Represents the state of the application.
+ * @template ItemData - The type of data for each item in the state.
+ */
 export interface IState<ItemData extends IItemData = any> {
     items: ItemData[];
     hasMore: boolean;
@@ -14,6 +18,10 @@ export interface IState<ItemData extends IItemData = any> {
     selectedIds: Set<IItemData['id']>;
 }
 
+/**
+ * Represents a context with state and action for manipulating the state.
+ * @template ItemData - The type of item data.
+ */
 interface IContext<ItemData extends IItemData = any>  {
     state: IState<ItemData>;
     action: {

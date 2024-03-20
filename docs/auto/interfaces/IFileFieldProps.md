@@ -1,5 +1,7 @@
 # IFileFieldProps
 
+Interface representing props for the IFileField component.
+
 ## Properties
 
 ### description

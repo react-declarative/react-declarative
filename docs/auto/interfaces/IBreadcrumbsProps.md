@@ -1,5 +1,7 @@
 # IBreadcrumbsProps
 
+Represents the props for the Breadcrumbs component.
+
 ## Properties
 
 ### onSave

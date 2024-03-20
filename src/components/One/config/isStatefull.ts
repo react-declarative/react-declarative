@@ -1,6 +1,9 @@
 import FieldType from '../../../model/FieldType';
 import IField from '../../../model/IField';
 
+/**
+ * Represents a set of FieldType layouts.
+ */
 const layouts: Set<FieldType> = new Set([
     FieldType.Group,
     FieldType.Box,

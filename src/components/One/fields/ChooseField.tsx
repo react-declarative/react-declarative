@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Props for the IChooseField component.
+ *
+ * @template Data - The data type of the field.
+ * @template Payload - The payload type of the field.
+ */
 export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -22,6 +28,11 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
   tr?: PickProp<IField<Data, Payload>, 'tr'>;
 }
 
+/**
+ * Represents an interface for choosing private fields.
+ *
+ * @template Data - The type of data for the private fields.
+ */
 export interface IChooseFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

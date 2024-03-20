@@ -1,5 +1,7 @@
 # IChooseFieldPrivate
 
+Represents an interface for choosing private fields.
+
 ## Properties
 
 ### onChange

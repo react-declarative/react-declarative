@@ -1,5 +1,7 @@
 # IItemsFieldPrivate
 
+Represents a private interface for an items field.
+
 ## Properties
 
 ### onChange

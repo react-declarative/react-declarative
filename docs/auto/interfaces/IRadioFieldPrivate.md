@@ -1,5 +1,7 @@
 # IRadioFieldPrivate
 
+Represents a private interface for a radio field.
+
 ## Properties
 
 ### value

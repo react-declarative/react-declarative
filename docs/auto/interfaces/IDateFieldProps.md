@@ -1,5 +1,7 @@
 # IDateFieldProps
 
+Represents the properties of a date field component.
+
 ## Properties
 
 ### title

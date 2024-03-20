@@ -9,6 +9,9 @@ type Payload = any;
 
 const PayloadContext = createContext<Payload>(null as never);
 
+/**
+ * Represents the properties for the `IPayloadContextProvider` component.
+ */
 interface IPayloadContextProviderProps {
     children: React.ReactNode;
     value: Exclude<ICardViewProps['payload'], undefined>;

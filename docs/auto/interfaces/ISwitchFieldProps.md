@@ -1,5 +1,7 @@
 # ISwitchFieldProps
 
+Represents the properties for a switch field component.
+
 ## Properties
 
 ### title

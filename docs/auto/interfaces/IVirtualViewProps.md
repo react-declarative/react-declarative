@@ -1,5 +1,7 @@
 # IVirtualViewProps
 
+Represents the props for the VirtualView component.
+
 ## Properties
 
 ### withScrollbar

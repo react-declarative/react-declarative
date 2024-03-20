@@ -1,5 +1,7 @@
 # IProgressFieldProps
 
+Represents the props for the ProgressField component.
+
 ## Properties
 
 ### maxPercent

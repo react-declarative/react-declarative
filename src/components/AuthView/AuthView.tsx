@@ -71,6 +71,14 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * @interface IAuthViewProps
+ * @template Data - The data type for the fields in the authentication view
+ * @template Payload - The payload type for the authentication handler
+ * @template Field - The field type for the authentication fields
+ *
+ * Represents the props for an authentication view component.
+ */
 interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
     className?: string;
     style?: React.CSSProperties;

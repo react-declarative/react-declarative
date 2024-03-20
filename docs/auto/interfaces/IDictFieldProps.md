@@ -1,5 +1,7 @@
 # IDictFieldProps
 
+Props for the IDictField component.
+
 ## Properties
 
 ### dictLimit

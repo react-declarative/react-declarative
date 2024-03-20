@@ -1,5 +1,7 @@
 # ISliderFieldProps
 
+Interface representing the properties of a Slider Field component.
+
 ## Properties
 
 ### stepSlider

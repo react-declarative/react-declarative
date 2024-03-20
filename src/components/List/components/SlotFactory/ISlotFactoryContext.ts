@@ -14,6 +14,11 @@ import { IFilterListSlot } from '../../slots/FilterListSlot';
 import { IOperationListSlot } from '../../slots/OperationListSlot';
 import { ISearchSlot } from '../../slots/SearchSlot';
 
+/**
+ * Interface representing the context for the Slot Factory.
+ *
+ * @interface ISlotFactoryContext
+ */
 export interface ISlotFactoryContext {
     DesktopBodyRow: ComponentType<IBodyRowSlot>;
     MobileBodyRow: ComponentType<IBodyRowSlot>;

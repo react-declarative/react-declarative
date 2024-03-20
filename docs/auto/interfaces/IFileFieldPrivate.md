@@ -1,5 +1,7 @@
 # IFileFieldPrivate
 
+Interface representing a private file field.
+
 ## Properties
 
 ### onChange

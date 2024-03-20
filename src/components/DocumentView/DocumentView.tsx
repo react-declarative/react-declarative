@@ -20,6 +20,13 @@ import openBlank from '../../utils/openBlank';
 
 const FAB_SIZE = 48;
 
+/**
+ * Interface representing the props for the DocumentView component.
+ *
+ * @template T - The expected type for the document data.
+ *
+ * @interface IDocumentViewProps
+ */
 interface IDocumentViewProps<T extends any = object> extends BoxProps, Omit<IActionMenuProps<T>, keyof {
     className: never;
     style: never;

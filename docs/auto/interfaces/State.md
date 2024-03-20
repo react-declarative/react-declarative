@@ -1,5 +1,7 @@
 # State
 
+Represents a state.
+
 ## Properties
 
 ### canRender

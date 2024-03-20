@@ -6,11 +6,19 @@ import Stack, { StackProps } from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 import classNames from '../../utils/classNames';
 
+/**
+ * Represents an alert with a specific color and content.
+ *
+ * @interface IAlert
+ */
 interface IAlert {
     color: 'success' | 'info' | 'warning' | 'error';
     content: string;
 }
 
+/**
+ * Represents the properties for the AlertView component.
+ */
 interface IAlertViewProps extends StackProps {
     items?: IAlert[];
     variant?: 'standard' | 'filled' | 'outlined';

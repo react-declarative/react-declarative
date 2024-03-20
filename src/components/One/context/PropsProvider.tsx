@@ -8,6 +8,9 @@ import IOneProps from "../../../model/IOneProps";
 
 const PropsContext = createContext<IOneProps<any, any>>(null as never);
 
+/**
+ * Represents the props for the `PropsProvider` component.
+ */
 interface IPropsProviderProps<
   Data extends IAnything = IAnything,
   Field extends IField<Data> = IField<Data>
@@ -15,6 +18,17 @@ interface IPropsProviderProps<
   children: React.ReactNode;
 }
 
+/**
+ * Provider component for providing props through context.
+ *
+ * @template Data - The data type for the props being provided.
+ * @template Field - The field type for the props being provided.
+ *
+ * @param props - The props for the PropsProvider component.
+ * @param props.children - The children to be rendered.
+ *
+ * @returns - The rendered PropsProvider component.
+ */
 export const PropsProvider = <
   Data extends IAnything = IAnything,
   Field extends IField<Data> = IField<Data>

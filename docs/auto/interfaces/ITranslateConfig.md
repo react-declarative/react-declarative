@@ -1,5 +1,7 @@
 # ITranslateConfig
 
+Represents the configuration options for translation.
+
 ## Properties
 
 ### useRawMark

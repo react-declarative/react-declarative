@@ -41,6 +41,9 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the properties for the FadeContainer component.
+ */
 export interface IFadeContainerProps {
   className?: string;
   Fade?: typeof DefaultFade;
@@ -53,6 +56,11 @@ export interface IFadeContainerProps {
   disableRight?: boolean;
 }
 
+/**
+ * Interface representing a fade state.
+ *
+ * @interface
+ */
 interface IFadeState {
   visible: boolean;
   none: boolean;

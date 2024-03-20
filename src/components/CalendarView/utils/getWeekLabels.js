@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
 
+/**
+ * Retrieves an array of week labels based on the current locale.
+ *
+ * @returns An array of week labels.
+ */
 export const getWeekLabels = () => {
   const localeData = dayjs.localeData();
   const weekdays = localeData.weekdays();

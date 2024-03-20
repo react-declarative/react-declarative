@@ -23,13 +23,7 @@ interface IParams {
  * @param withConfirm - Determines if a confirmation prompt should be displayed before navigating.
  * @param onLoadStart - Callback function invoked when loading starts.
  * @param onLoadEnd - Callback function invoked when loading ends.
- * @returns
- * 
- * 
- * 
- * 
- * 
- *  - Object containing methods and state for preventing navigation and handling loading state.
+ * @returns Object containing methods and state for preventing navigation and handling loading state.
  */
 export const usePreventNavigate = ({
   history,

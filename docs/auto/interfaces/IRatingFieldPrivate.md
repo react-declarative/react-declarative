@@ -1,5 +1,7 @@
 # IRatingFieldPrivate
 
+Interface representing a private rating field.
+
 ## Properties
 
 ### name

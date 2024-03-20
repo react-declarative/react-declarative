@@ -6,6 +6,11 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import classNames from '../../utils/classNames';
 
+/**
+ * Represents the properties for the Center component.
+ *
+ * @interface ICenterProps
+ */
 interface ICenterProps extends BoxProps {
 }
 

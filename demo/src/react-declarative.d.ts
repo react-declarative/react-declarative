@@ -8944,12 +8944,23 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing props for the CheckboxField component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
+  /**
+   * Represents a private interface for a Checkbox field.
+   * @interface
+   * @template Data - The type of data associated with the Checkbox field.
+   */
   export interface ICheckboxFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     onChange: PickProp<IManaged<Data>, "onChange">;
@@ -9021,6 +9032,11 @@ declare module "react-declarative/components/One/fields/FileField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing props for the IFileField component.
+   * @template Data - The data type for the field.
+   * @template Payload - The payload type for the field.
+   */
   export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -9035,6 +9051,11 @@ declare module "react-declarative/components/One/fields/FileField" {
     upload?: PickProp<IField<Data, Payload>, "upload">;
     view?: PickProp<IField<Data, Payload>, "view">;
   }
+  /**
+   * Interface representing a private file field.
+   *
+   * @template Data - The type of data associated with the file field.
+   */
   export interface IFileFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -9140,6 +9161,12 @@ declare module "react-declarative/components/One/fields/ComboField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for the ComboField component.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   */
   export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -9156,6 +9183,10 @@ declare module "react-declarative/components/One/fields/ComboField" {
     tr?: PickProp<IField<Data, Payload>, "tr">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
+  /**
+   * Represents the private interface for the ComboField class.
+   * @template Data - The type of data managed by the ComboField.
+   */
   export interface IComboFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     readonly: PickProp<IManaged<Data>, "readonly">;
@@ -9266,6 +9297,12 @@ declare module "react-declarative/components/One/fields/ComponentField" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Props interface for the IComponentField component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     element?: PickProp<IField<Data, Payload>, "element">;
@@ -9275,6 +9312,11 @@ declare module "react-declarative/components/One/fields/ComponentField" {
     style?: PickProp<IField<Data, Payload>, "style">;
     sx?: PickProp<IField<Data, Payload>, "sx">;
   }
+  /**
+   * @interface
+   * @template Data - The type of data for the component field
+   * @description Represents the private interface for a component field
+   */
   interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, "object">;
     disabled: PickProp<IManaged<Data>, "disabled">;
@@ -9359,6 +9401,12 @@ declare module "react-declarative/components/One/fields/ItemsField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Props for the IItemsField component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -9375,6 +9423,12 @@ declare module "react-declarative/components/One/fields/ItemsField" {
     labelShrink?: PickProp<IField<Data>, "labelShrink">;
     watchItemList?: PickProp<IField<Data>, "watchItemList">;
   }
+  /**
+   * Represents a private interface for an items field.
+   *
+   * @interface IItemsFieldPrivate
+   * @template Data The type of data managed by the items field.
+   */
   export interface IItemsFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     value: PickProp<IManaged<Data>, "value">;
@@ -9484,6 +9538,11 @@ declare module "react-declarative/components/One/fields/LineField" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties of a line field.
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     lineTransparent?: PickProp<IField<Data, Payload>, "lineTransparent">;
@@ -9552,11 +9611,20 @@ declare module "react-declarative/components/One/fields/ProgressField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the props for the ProgressField component.
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   */
   export interface IProgressFieldProps<Data = IAnything, Payload = IAnything> {
     maxPercent?: PickProp<IField<Data, Payload>, "maxPercent">;
     showPercentLabel?: PickProp<IField<Data, Payload>, "showPercentLabel">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
+  /**
+   * Represents a private progress field.
+   * @template Data - The type of data associated with the field.
+   */
   export interface IProgressFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
   }
@@ -9634,6 +9702,11 @@ declare module "react-declarative/components/One/fields/RadioField" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Interface for defining props of a radio field component.
+   * @template Data - The data type.
+   * @template Payload - The payload type.
+   */
   export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     radioValue?: PickProp<IField<Data, Payload>, "radioValue">;
@@ -9641,6 +9714,11 @@ declare module "react-declarative/components/One/fields/RadioField" {
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
   }
+  /**
+   * Represents a private interface for a radio field.
+   *
+   * @template Data - the type of data the radio field manages
+   */
   export interface IRadioFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     onChange: PickProp<IManaged<Data>, "onChange">;
@@ -9721,11 +9799,22 @@ declare module "react-declarative/components/One/fields/RatingField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for a rating field component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
   }
+  /**
+   * Interface representing a private rating field.
+   *
+   * @template Data - The type of data associated with the field.
+   */
   export interface IRatingFieldPrivate<Data = IAnything> {
     name?: string;
     value: PickProp<IManaged<Data>, "value">;
@@ -9805,6 +9894,11 @@ declare module "react-declarative/components/One/fields/SliderField" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Interface representing the properties of a Slider Field component.
+   * @template Data - The data type used in the Field component.
+   * @template Payload - The payload type used in the Field component.
+   */
   export interface ISliderFieldProps<Data = IAnything, Payload = IAnything> {
     stepSlider?: PickProp<IField<Data, Payload>, "stepSlider">;
     maxSlider?: PickProp<IField<Data, Payload>, "maxSlider">;
@@ -9823,6 +9917,12 @@ declare module "react-declarative/components/One/fields/SliderField" {
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
   }
+  /**
+   * Represents a private interface for a slider field component.
+   *
+   * @template Data - The type of data associated with the slider field.
+   * @interface ISliderFieldPrivate
+   */
   export interface ISliderFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     onChange: PickProp<IManaged<Data>, "onChange">;
@@ -9912,6 +10012,12 @@ declare module "react-declarative/components/One/fields/SwitchField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for a switch field component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
   export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
@@ -9920,6 +10026,11 @@ declare module "react-declarative/components/One/fields/SwitchField" {
     switchNoColor?: PickProp<IField<Data, Payload>, "switchNoColor">;
     switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
   }
+  /**
+   * Represents a private interface for a switch field.
+   *
+   * @template Data - The type of data associated with the switch field.
+   */
   export interface ISwitchFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     value: PickProp<IManaged<Data>, "value">;
@@ -10001,6 +10112,12 @@ declare module "react-declarative/components/One/fields/TextField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for a text field component.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   */
   export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
     inputType?: PickProp<IField<Data, Payload>, "inputType">;
     inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
@@ -10041,6 +10158,11 @@ declare module "react-declarative/components/One/fields/TextField" {
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     labelShrink?: PickProp<IField<Data, Payload>, "labelShrink">;
   }
+  /**
+   * Represents a private interface for an input field.
+   *
+   * @template Data - The type of data managed by the input field.
+   */
   export interface ITextFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -10171,6 +10293,12 @@ declare module "react-declarative/components/One/fields/DateField" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Represents the properties of a date field component.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   */
   export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     description?: PickProp<IField<Data, Payload>, "description">;
@@ -10182,6 +10310,10 @@ declare module "react-declarative/components/One/fields/DateField" {
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
   }
+  /**
+   * Represents a private interface for a date field.
+   * @template Data - The type of data managed by the field.
+   */
   export interface IDateFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -10286,6 +10418,12 @@ declare module "react-declarative/components/One/fields/TimeField" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * A set of properties for the `TimeField` component.
+   *
+   * @template Data - The type of data expected to be stored in the field.
+   * @template Payload - The type of payload expected to be returned on field change.
+   */
   export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     description?: PickProp<IField<Data, Payload>, "description">;
@@ -10297,6 +10435,11 @@ declare module "react-declarative/components/One/fields/TimeField" {
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     labelShrink?: PickProp<IField<Data>, "labelShrink">;
   }
+  /**
+   * Represents a private interface for the TimeField component.
+   *
+   * @template Data The type of data associated with the TimeField component.
+   */
   export interface ITimeFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -10400,6 +10543,10 @@ declare module "react-declarative/components/One/fields/CompleteField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface for specifying the props of a complete field.
+   * @template Data, Payload - The types of data and payload.
+   */
   export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
     inputType?: PickProp<IField<Data, Payload>, "inputType">;
     inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
@@ -10436,6 +10583,11 @@ declare module "react-declarative/components/One/fields/CompleteField" {
       "inputFormatterReplace"
     >;
   }
+  /**
+   * Represents a private interface for a complete field.
+   *
+   * @template Data - The type of the field's data.
+   */
   export interface ICompleteFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -10563,6 +10715,12 @@ declare module "react-declarative/components/One/fields/TypographyField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface for props of the TypographyField component.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   */
   export interface ITypographyFieldProps<
     Data = IAnything,
     Payload = IAnything,
@@ -10573,6 +10731,11 @@ declare module "react-declarative/components/One/fields/TypographyField" {
     style?: PickProp<IField<Data, Payload>, "style">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
+  /**
+   * Represents a private interface for a typography field.
+   *
+   * @template Data - The type of data the field holds.
+   */
   export interface ITypographyFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
   }
@@ -10646,6 +10809,12 @@ declare module "react-declarative/components/One/fields/ChooseField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Props for the IChooseField component.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   */
   export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -10659,6 +10828,11 @@ declare module "react-declarative/components/One/fields/ChooseField" {
     choose?: PickProp<IField<Data, Payload>, "choose">;
     tr?: PickProp<IField<Data, Payload>, "tr">;
   }
+  /**
+   * Represents an interface for choosing private fields.
+   *
+   * @template Data - The type of data for the private fields.
+   */
   export interface IChooseFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -10749,6 +10923,12 @@ declare module "react-declarative/components/One/fields/YesNoField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing the props for the YesNoField component.
+   *
+   * @template Data - The type of the data.
+   * @template Payload - The type of the payload.
+   */
   export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -10762,6 +10942,10 @@ declare module "react-declarative/components/One/fields/YesNoField" {
     title?: PickProp<IField<Data, Payload>, "title">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
+  /**
+   * Represents a private interface for a Yes/No field
+   * @template Data - The data type associated with the field
+   */
   export interface IYesNoFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     readonly: PickProp<IManaged<Data>, "readonly">;
@@ -10861,6 +11045,11 @@ declare module "react-declarative/components/One/fields/YesNoField" {
 
 declare module "react-declarative/components/One/fields/InitField" {
   import * as React from "react";
+  /**
+   * Interface representing the initialization properties for a Field component.
+   *
+   * @interface IInitFieldProps
+   */
   export interface IInitFieldProps {}
   /**
    * Represents a React functional component which initializes a property on a target object.
@@ -10875,6 +11064,46 @@ declare module "react-declarative/components/One/fields/DictField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Props for the IDictField component.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   *
+   * @property [dictLimit] - The limit of items shown in the dictionary.
+   * @property [dictDelay] - The delay between input and dictionary search.
+   * @property [dictSearch] - The search function for the dictionary.
+   * @property [dictOnAppend] - The function called when an item is appended to the dictionary.
+   * @property [dictOnText] - The function called when the text of a dictionary item is updated.
+   * @property [dictOnItem] - The function called when a dictionary item is selected.
+   * @property [dictValue] - The selected value from the dictionary.
+   * @property [dictSearchText] - The text being searched in the dictionary.
+   * @property [dictSearchItem] - The item being searched in the dictionary.
+   * @property [dictCreateButton] - The button to create a new item in the dictionary.
+   * @property [inputType] - The type of input element.
+   * @property [inputMode] - The input mode.
+   * @property [inputPattern] - The regex pattern for input validation.
+   * @property [inputAutocomplete] - The autocomplete option for the input.
+   * @property [inputFormatter] - The function to format the input value.
+   * @property [inputFormatterSymbol] - The symbol used for formatting.
+   * @property [inputFormatterAllowed] - The allowed characters for formatting.
+   * @property [inputFormatterTemplate] - The template for formatting.
+   * @property [inputFormatterReplace] - The replace option for formatting.
+   * @property [description] - The description of the field.
+   * @property [outlined] - Whether the field should be outlined.
+   * @property [title] - The title of the field.
+   * @property [placeholder] - The placeholder text for the input.
+   * @property [readonly] - Whether the field should be read-only.
+   * @property [disabled] - Whether the field should be disabled.
+   * @property [groupRef] - The ref for the group element.
+   * @property [inputRef] - The ref for the input element.
+   * @property [leadingIconRipple] - Whether the leading icon should have ripple effect.
+   * @property [trailingIconRipple] - Whether the trailing icon should have ripple effect.
+   * @property [leadingIcon] - The icon element for the leading icon.
+   * @property [trailingIcon] - The icon element for the trailing icon.
+   * @property [leadingIconClick] - The function to call when the leading icon is clicked.
+   * @property [trailingIconClick] - The function to call when the trailing icon is clicked.
+   */
   export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
     dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
     dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
@@ -11075,6 +11304,12 @@ declare module "react-declarative/components/One/fields/TreeField" {
   import IManaged, { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface for the props of the ITreeField component.
+   *
+   * @template Data The type of data in the field.
+   * @template Payload The type of payload in the field.
+   */
   export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
     description?: PickProp<IField<Data, Payload>, "description">;
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -11084,6 +11319,11 @@ declare module "react-declarative/components/One/fields/TreeField" {
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     itemTree?: PickProp<IField<Data, Payload>, "itemTree">;
   }
+  /**
+   * Represents the private interface for the TreeField component.
+   *
+   * @template Data The type of data for the TreeField component.
+   */
   export interface ITreeFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -12392,6 +12632,11 @@ declare module "react-declarative/components/List/hooks/useColumnConfig" {
 
 declare module "react-declarative/components/Tile/model/ITile" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a tile.
+   * @template Data - The type of the data stored in the tile.
+   * @template Payload - The type of the payload stored in the tile.
+   */
   export interface ITile<Data = IAnything, Payload = IAnything> {
     data: Data;
     payload: Payload;
@@ -12859,6 +13104,9 @@ declare module "react-declarative/components/ModalProvider/ModalProvider" {
 
 declare module "react-declarative/components/SnackProvider/SnackProvider" {
   import * as React from "react";
+  /**
+   * Interface representing props for SnackProvider component.
+   */
   interface ISnackProviderProps {
     children: React.ReactNode;
     delay?: number;
@@ -12915,6 +13163,9 @@ declare module "react-declarative/components/SizeProvider/SizeProvider" {
 
 declare module "react-declarative/components/ModalManager/ModalManagerProvider" {
   import * as React from "react";
+  /**
+   * Represents the properties for the `ModalManagerProvider` component.
+   */
   interface IModalManagerProviderProps {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
@@ -12968,12 +13219,22 @@ declare module "react-declarative/components/ModalManager/model/ModalRender" {
 
 declare module "react-declarative/components/ModalManager/hooks/useModalManager" {
   import IModal from "react-declarative/components/ModalManager/model/IModal";
+  /**
+   * Represents a result object with a total property and push, pop, and clear methods.
+   *
+   * @interface
+   */
   interface IResult {
     total: number;
     push: (modal: IModal) => void;
     pop: () => void;
     clear: () => void;
   }
+  /**
+   * Returns a result object for managing modals using the ModalManagerContext.
+   *
+   * @return The result object for managing modals.
+   */
   export const useModalManager: () => IResult;
   export default useModalManager;
 }
@@ -13182,6 +13443,10 @@ declare module "react-declarative/components/FeatureView/FeatureView" {
 declare module "react-declarative/components/FeatureView/hooks/useFeatureView" {
   import { IParams as IActionModalParams } from "react-declarative/components/ActionModal";
   import IFeatureViewProps from "react-declarative/components/FeatureView/model/IFeatureViewProps";
+  /**
+   * Represents the parameters for a feature view.
+   * @interface IParams
+   */
   interface IParams
     extends Omit<
       IFeatureViewProps,
@@ -13358,6 +13623,12 @@ declare module "react-declarative/components/VisibilityView/hooks/useVisibilityV
   import { IParams as IActionModalParams } from "react-declarative/components/ActionModal";
   import IVisibilityViewProps from "react-declarative/components/VisibilityView/model/IVisibilityViewProps";
   type Data = Record<string, string[]>;
+  /**
+   * Interface for defining parameters for a class.
+   * @interface
+   * @extends IVisibilityViewProps
+   * @extends Omit<IActionModalParams, 'changeSubject'>
+   */
   interface IParams
     extends Omit<
       IVisibilityViewProps,
@@ -13660,6 +13931,24 @@ declare module "react-declarative/components/Breadcrumbs2/Breadcrumbs2" {
   import { SxProps } from "@mui/material";
   import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
   import IBreadcrumbs2Option from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Option";
+  /**
+   * An interface representing the props for the IBreadcrumbs2 component.
+   *
+   * @template T - The type of payload.
+   * @property [className] - The class name to be applied to the component.
+   * @property [style] - The inline style to be applied to the component.
+   * @property [sx] - The custom styling props for the component.
+   * @property [onAction] - The callback function triggered when an action is performed.
+   * @property actions - The list of actions for the breadcrumbs.
+   * @property items - The list of options for the breadcrumbs.
+   * @property [payload] - The payload for the breadcrumbs.
+   * @property [BeforeMenuContent] - The component to be rendered before the menu content.
+   * @property [AfterMenuContent] - The component to be rendered after the menu content.
+   * @property [onLoadStart] - The callback function triggered when the component starts loading.
+   * @property [onLoadEnd] - The callback function triggered when the component finishes loading.
+   * @property [fallback] - The callback function triggered when an error occurs.
+   * @property [throwError] - A flag indicating whether the component should throw an error.
+   */
   interface IBreadcrumbs2Props<T extends any = any> {
     className?: string;
     style?: React.CSSProperties;
@@ -14143,6 +14432,11 @@ declare module "react-declarative/components/List/components/SlotFactory/ISlotFa
   import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
   import { IOperationListSlot } from "react-declarative/components/List/slots/OperationListSlot";
   import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
+  /**
+   * Interface representing the context for the Slot Factory.
+   *
+   * @interface ISlotFactoryContext
+   */
   export interface ISlotFactoryContext {
     DesktopBodyRow: ComponentType<IBodyRowSlot>;
     MobileBodyRow: ComponentType<IBodyRowSlot>;
@@ -14165,6 +14459,10 @@ declare module "react-declarative/components/List/components/SlotFactory/ISlotFa
 declare module "react-declarative/components/Async/Async" {
   import * as React from "react";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for an asynchronous component.
+   * @template T - The type of the payload.
+   */
   export interface IAsyncProps<T extends any = object> {
     loading?: boolean;
     reloadSubject?: TSubject<void>;
@@ -14743,15 +15041,27 @@ declare module "react-declarative/components/One/context/MenuProvider" {
   import * as React from "react";
   import { IParams } from "react-declarative/components/One/components/common/MenuItems";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents an interface for a context object.
+   */
   interface IContext {
     createContextMenu: (
       params: IParams,
     ) => React.MouseEventHandler<HTMLDivElement>;
     requestSubject: TSubject<void>;
   }
+  /**
+   * Interface for the props of the MenuProvider component.
+   */
   interface IMenuProviderProps {
     children: React.ReactNode;
   }
+  /**
+   * MenuProvider is a React component that provides menu related functionality to its children components.
+   *
+   * @param props - The props for the MenuProvider component.
+   * @returns - The rendered JSX element.
+   */
   export const MenuProvider: ({ children }: IMenuProviderProps) => JSX.Element;
   export const useOneMenu: () => IContext;
   export default MenuProvider;
@@ -14762,12 +15072,26 @@ declare module "react-declarative/components/One/context/PropsProvider" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IOneProps from "react-declarative/model/IOneProps";
+  /**
+   * Represents the props for the `PropsProvider` component.
+   */
   interface IPropsProviderProps<
     Data extends IAnything = IAnything,
     Field extends IField<Data> = IField<Data>,
   > extends IOneProps<Data, Field> {
     children: React.ReactNode;
   }
+  /**
+   * Provider component for providing props through context.
+   *
+   * @template Data - The data type for the props being provided.
+   * @template Field - The field type for the props being provided.
+   *
+   * @param props - The props for the PropsProvider component.
+   * @param props.children - The children to be rendered.
+   *
+   * @returns - The rendered PropsProvider component.
+   */
   export const PropsProvider: <
     Data extends unknown = any,
     Field extends IField<Data, any> = IField<Data, any>,
@@ -14788,6 +15112,13 @@ declare module "react-declarative/components/One/context/StateProvider" {
   import IField from "react-declarative/model/IField";
   import IAnything from "react-declarative/model/IAnything";
   import IOneProps from "react-declarative/model/IOneProps";
+  /**
+   * Interface representing the props for a StateProvider component.
+   *
+   * @template Data - The type of the data object.
+   * @template Payload - The type of the payload object.
+   * @template Field - The type of the field object.
+   */
   interface IStateProviderProps<
     Data = IAnything,
     Payload = IAnything,
@@ -14796,6 +15127,11 @@ declare module "react-declarative/components/One/context/StateProvider" {
     payload: Payload;
     children: React.ReactElement;
   }
+  /**
+   * Represents the interface for a state object.
+   *
+   * @template Data The type of data held by the state object.
+   */
   interface IState<Data = IAnything> {
     object: Data | null;
     setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
@@ -14851,10 +15187,19 @@ declare module "react-declarative/components/One/context/StateProvider" {
 declare module "react-declarative/components/One/context/PayloadProvider" {
   import * as React from "react";
   import IOneProps from "react-declarative/model/IOneProps";
+  /**
+   * An interface representing the props for the PayloadProvider component.
+   */
   interface IPayloadProviderProps {
     children: React.ReactNode;
     payload?: IOneProps["payload"];
   }
+  /**
+   * PayloadProvider component
+   * @param children - The child components to render within the provider
+   * @param payload - The payload value to be provided by the provider
+   * @returns - The rendered component with payload context provider
+   */
   export const PayloadProvider: ({
     children,
     payload,
@@ -14907,10 +15252,20 @@ declare module "react-declarative/components/One/context/OneContextProvider" {
   import * as React from "react";
   import IOneProps from "react-declarative/model/IOneProps";
   export const DEFAULT_VALUE: {};
+  /**
+   * Interface that represents the props for the `OneContextProvider` component.
+   */
   interface IOneContextProviderProps {
     context: IOneProps["context"];
     children: React.ReactNode;
   }
+  /**
+   * OneContextProvider function provides a context to its child components.
+   * @param props - The props object containing the following properties:
+   * @param props.context - The context value to be provided to child components. Default value is set to DEFAULT_VALUE.
+   * @param props.children - The child components to be wrapped by the context provider.
+   * @returns - The wrapped child components with the provided context value.
+   */
   export const OneContextProvider: ({
     context,
     children,
@@ -15290,6 +15645,11 @@ declare module "react-declarative/components/OneButton/OneButton" {
 
 declare module "react-declarative/components/Dot/Dot" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for Dot props.
+   * @interface
+   * @extends BoxProps
+   */
   interface IDotProps extends BoxProps {
     side: number;
     color: string;
@@ -15314,13 +15674,24 @@ declare module "react-declarative/components/Dot/Dot" {
 
 declare module "react-declarative/components/NoSsr/NoSsr" {
   import * as React from "react";
+  /**
+   * Interface for props of a component that should not be rendered on the server side.
+   * @interface INoSsrProps
+   */
   interface INoSsrProps {
     ServerView?: React.ComponentType<any>;
     children?: React.ReactNode;
   }
+  /**
+   * Represents a state.
+   * @interface State
+   */
   interface State {
     canRender: boolean;
   }
+  /**
+   * Represents a component that handles server-side rendering (SSR) and client-side rendering (CSR) conditionally.
+   */
   export class NoSsr extends React.Component<INoSsrProps, State> {
     constructor(props: INoSsrProps);
     componentDidMount: () => void;
@@ -15333,6 +15704,10 @@ declare module "react-declarative/components/Switch/Switch" {
   import * as React from "react";
   import { BrowserHistory, HashHistory, MemoryHistory } from "history";
   import { IFetchViewProps } from "react-declarative/components/FetchView";
+  /**
+   * Represents an item in a switch component.
+   * @interface ISwitchItem
+   */
   export interface ISwitchItem {
     path: string;
     element?: React.ComponentType<any>;
@@ -15343,6 +15718,9 @@ declare module "react-declarative/components/Switch/Switch" {
     unload?: (params: Record<string, any>) => Promise<void> | void;
     redirect?: string | ((params: Record<string, any>) => string | null);
   }
+  /**
+   * Represents the properties for the Switch component.
+   */
   export interface ISwitchProps {
     className?: string;
     style?: React.CSSProperties;
@@ -15361,6 +15739,11 @@ declare module "react-declarative/components/Switch/Switch" {
     throwError?: boolean;
     children?: (result: ISwitchResult) => React.ReactNode;
   }
+  /**
+   * Represents the result of a switch operation in a routing system.
+   *
+   * @interface
+   */
   interface ISwitchResult {
     element: React.ComponentType<any>;
     key: string;
@@ -15411,6 +15794,11 @@ declare module "react-declarative/components/Switch/Switch" {
 
 declare module "react-declarative/components/Center/Center" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Represents the properties for the Center component.
+   *
+   * @interface ICenterProps
+   */
   interface ICenterProps extends BoxProps {}
   /**
    * A functional component that renders a Box component with given className and otherProps.
@@ -15546,9 +15934,17 @@ declare module "react-declarative/components/Scaffold/model/IScaffoldOption" {
 
 declare module "react-declarative/components/Translate/Translate" {
   import React from "react";
+  /**
+   * Represents a collection of attributes.
+   * @interface
+   */
   interface IAttributeCollection {
     [name: string]: unknown;
   }
+  /**
+   * Represents the configuration options for translation.
+   * @interface
+   */
   export interface ITranslateConfig {
     useRawMark: boolean;
     rawSymbol: string;
@@ -15597,6 +15993,23 @@ declare module "react-declarative/components/Translate/Translate" {
 declare module "react-declarative/components/Breadcrumbs/Breadcrumbs" {
   import * as React from "react";
   import IBreadcrumbsOption from "react-declarative/model/IBreadcrumbsOption";
+  /**
+   * Represents the props for the Breadcrumbs component.
+   *
+   * @template T - The type of payload.
+   *
+   * @property [onSave] - The callback function for the save action.
+   * @property [onBack] - The callback function for the back action.
+   * @property [onAction] - The callback function for custom actions.
+   * @property [actions] - The available actions.
+   * @property [saveDisabled] - Indicates if the save action is disabled.
+   * @property [title] - The title of the breadcrumbs.
+   * @property [subtitle] - The subtitle of the breadcrumbs.
+   * @property [withSave] - Indicates if the save action is included.
+   * @property [payload] - The payload for custom actions.
+   * @property [BeforeMenuContent] - The additional content to be displayed before the menu.
+   * @property [AfterMenuContent] - The additional content to be displayed after the menu.
+   */
   interface IBreadcrumbsProps<T extends any = any> {
     onSave?: () => void;
     onBack?: () => void;
@@ -15647,11 +16060,18 @@ declare module "react-declarative/components/Breadcrumbs/Breadcrumbs" {
 declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
   import * as React from "react";
   import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+  /**
+   * Represents the props of an ErrorBoundary component.
+   */
   interface IErrorBoundaryProps {
     onError?: (error: Error, errorInfo: any) => void;
     history: MemoryHistory | BrowserHistory | HashHistory;
     children?: React.ReactNode;
   }
+  /**
+   * @typedef {Object} IErrorBoundaryState
+   * @property {boolean} hasError - Indicates if an error has occurred.
+   */
   interface IErrorBoundaryState {
     hasError: boolean;
   }
@@ -15672,6 +16092,9 @@ declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
 
 declare module "react-declarative/components/ColorButton/ColorButton" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface representing the props for the ColorButton component.
+   */
   interface IColorButtonProps
     extends Omit<
       BoxProps,
@@ -15708,6 +16131,11 @@ declare module "react-declarative/components/ActionMenu/ActionMenu" {
   import { IAsyncProps } from "react-declarative/components/Async";
   import IOption from "react-declarative/model/IOption";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties of the ActionMenu component.
+   *
+   * @template T - The type of payload.
+   */
   export interface IActionMenuProps<T extends any = object> {
     keepMounted?: boolean;
     options?: Partial<IOption>[];
@@ -15780,6 +16208,15 @@ declare module "react-declarative/components/ActionMenu/ActionMenu" {
 declare module "react-declarative/components/ActionButton/ActionButton" {
   import * as React from "react";
   import { ButtonProps } from "@mui/material/Button";
+  /**
+   * Represents a component that displays a loading indicator and content.
+   *
+   * @param props - The properties of the component.
+   * @param props.children - The content to be displayed.
+   * @param props.loading - Whether or not to display the loading indicator.
+   *
+   * @returns The rendered component.
+   */
   const ProgressDefault: ({
     loading,
     children,
@@ -15787,6 +16224,10 @@ declare module "react-declarative/components/ActionButton/ActionButton" {
     children: React.ReactNode;
     loading: boolean;
   }) => JSX.Element;
+  /**
+   * Represents the properties for an ActionButton component.
+   * @interface
+   */
   interface IActionButtonProps
     extends Omit<
       ButtonProps,
@@ -15836,6 +16277,11 @@ declare module "react-declarative/components/ActionButton/ActionButton" {
 }
 
 declare module "react-declarative/components/ActionButton/api/usePreventAction" {
+  /**
+   * Represents a set of parameters for a certain functionality.
+   *
+   * @interface
+   */
   interface IParams {
     disabled?: boolean;
     onLoadStart?: () => void;
@@ -15865,6 +16311,10 @@ declare module "react-declarative/components/ActionStopIcon/ActionStopIcon" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
   import { IconButtonProps } from "@mui/material/IconButton";
+  /**
+   * Represents the properties for the ActionStopIcon component. This class extends the IconButtonProps interface and adds additional properties.
+   * @interface
+   */
   interface IActionStopIconProps
     extends Omit<
       IconButtonProps,
@@ -15934,6 +16384,11 @@ declare module "react-declarative/components/ActionStopIcon/ActionStopIcon" {
 declare module "react-declarative/components/ActionFab/ActionFab" {
   import * as React from "react";
   import { FabProps } from "@mui/material/Fab";
+  /**
+   * Represents the props for the ActionFab component.
+   * @interface
+   * @extends FabProps
+   */
   interface IActionFabProps
     extends Omit<
       FabProps,
@@ -15997,6 +16452,10 @@ declare module "react-declarative/components/ActionFab/ActionFab" {
 declare module "react-declarative/components/ActionFilter/ActionFilter" {
   import { BoxProps as MatBoxProps } from "@mui/material/Box";
   import IActionFilterProps from "react-declarative/components/ActionFilter/model/IActionFilterProps";
+  /**
+   * Represents the properties for a Box component.
+   * Extends the MatBoxProps and removes the 'onChange' property.
+   */
   type BoxProps = Omit<
     MatBoxProps,
     keyof {
@@ -16104,6 +16563,19 @@ declare module "react-declarative/components/ActionTrigger/model/IActionTrigger"
 declare module "react-declarative/components/ActionIcon/ActionIcon" {
   import * as React from "react";
   import { IconButtonProps } from "@mui/material/IconButton";
+  /**
+   * Props for the ActionIcon component.
+   *
+   * @typedef IActionIconProps
+   * @property [onLoadStart] - A callback function triggered when the icon starts loading.
+   * @property [onLoadEnd] - A callback function triggered when the icon finishes loading.
+   * @property [onClick] - A callback function triggered when the icon is clicked.
+   * @property [fallback] - A callback function triggered when an error occurs while loading the icon.
+   * @property [throwError] - Indicates whether an error should be thrown if the icon fails to load.
+   * @property [size] - The size of the icon.
+   * @property [thickness] - The thickness of the icon.
+   * @property [noProgress] - Indicates whether to hide the progress indicator during loading.
+   */
   interface IActionIconProps
     extends Omit<
       IconButtonProps,
@@ -16163,6 +16635,9 @@ declare module "react-declarative/components/ActionIcon/ActionIcon" {
 declare module "react-declarative/components/ActionToggle/ActionToggle" {
   import { SxProps } from "@mui/material";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for props of ActionToggle component.
+   */
   interface IActionToggleProps
     extends Omit<
       BoxProps,
@@ -16221,6 +16696,13 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
   import IAnything from "react-declarative/model/IAnything";
   import IOneProps from "react-declarative/model/IOneProps";
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
+  /**
+   * Interface representing the props for the ActionModal component.
+   * @template Data - The type of the data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   * @template Param - The type of the parameter.
+   */
   export interface IActionModalProps<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -16360,6 +16842,13 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
   import TypedField from "react-declarative/model/TypedField";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface for the Params class.
+   * @template Data - The type of the data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   * @template Param - The type of the param.
+   */
   export interface IParams<
     Data extends IAnything = IAnything,
     Payload extends IAnything = IAnything,
@@ -16598,6 +17087,14 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
   import IField from "react-declarative/model/IField";
   import IRowData from "react-declarative/model/IRowData";
   type Param = IRowData["id"][];
+  /**
+   * Interface representing the parameters for a class.
+   *
+   * @template FilterData - Type for the filter data.
+   * @template RowData - Type for the row data.
+   * @template Payload - Type for the payload.
+   * @template Field - Type for the field.
+   */
   interface IParams<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -16791,6 +17288,10 @@ declare module "react-declarative/components/ConstraintView/ConstraintView" {
     IChildParams,
   } from "react-declarative/components/AutoSizer";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for props of ConstraintView component.
+   * @template T - Type parameter for IConstraintViewProps.
+   */
   interface IConstraintViewProps<T extends IAnything = IAnything>
     extends Omit<
       IAutoSizerProps<T>,
@@ -17155,10 +17656,18 @@ declare module "react-declarative/components/OutletView/hooks/useOutletModal" {
 
 declare module "react-declarative/components/AlertView/AlertView" {
   import { StackProps } from "@mui/material/Stack";
+  /**
+   * Represents an alert with a specific color and content.
+   *
+   * @interface IAlert
+   */
   interface IAlert {
     color: "success" | "info" | "warning" | "error";
     content: string;
   }
+  /**
+   * Represents the properties for the AlertView component.
+   */
   interface IAlertViewProps extends StackProps {
     items?: IAlert[];
     variant?: "standard" | "filled" | "outlined";
@@ -17481,6 +17990,10 @@ declare module "react-declarative/components/PaperView/PaperView" {
 declare module "react-declarative/components/DragDropView/DragDropView" {
   import * as React from "react";
   import { SxProps } from "@mui/material/styles";
+  /**
+   * @interface IDragDropViewProps
+   * Represents the props for the DragDropView component.
+   */
   interface IDragDropViewProps {
     className?: string;
     style?: React.CSSProperties;
@@ -17598,13 +18111,7 @@ declare module "react-declarative/components/FilesView/api/usePreventNavigate" {
    * @param withConfirm - Determines if a confirmation prompt should be displayed before navigating.
    * @param onLoadStart - Callback function invoked when loading starts.
    * @param onLoadEnd - Callback function invoked when loading ends.
-   * @returns
-   *
-   *
-   *
-   *
-   *
-   *  - Object containing methods and state for preventing navigation and handling loading state.
+   * @returns Object containing methods and state for preventing navigation and handling loading state.
    */
   export const usePreventNavigate: ({
     history,
@@ -17830,6 +18337,9 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
 declare module "react-declarative/components/FadeView/FadeView" {
   import * as React from "react";
   import { IFadeContainerProps } from "react-declarative/components/FadeView/components/FadeContainer";
+  /**
+   * Represents a fade container used for adding fading effects to a component.
+   */
   type FadeContainerT = Pick<
     IFadeContainerProps,
     keyof {
@@ -17840,6 +18350,9 @@ declare module "react-declarative/components/FadeView/FadeView" {
       disableRight: never;
     }
   >;
+  /**
+   * Represents the props for the FadeView component.
+   */
   interface IFadeViewProps extends FadeContainerT {
     className?: string;
     style?: React.CSSProperties;
@@ -18405,6 +18918,9 @@ declare module "react-declarative/components/HtmlView/HtmlView" {
 
 declare module "react-declarative/components/OfflineView/OfflineView" {
   import * as React from "react";
+  /**
+   * Represents the props for the OfflineView component.
+   */
   interface IOfflineViewProps {
     children?: React.ReactNode;
     onOnline?: () => void;
@@ -18413,6 +18929,10 @@ declare module "react-declarative/components/OfflineView/OfflineView" {
     config?: IConfig;
     Offline?: React.ComponentType<any>;
   }
+  /**
+   * Represents a configuration for an API request.
+   * @interface
+   */
   interface IConfig {
     url: string;
     method?: string;
@@ -18808,6 +19328,9 @@ declare module "react-declarative/components/PortalView/PortalView" {
 declare module "react-declarative/components/ErrorView/ErrorView" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
+  /**
+   * Defines the props for the ErrorView component.
+   */
   interface IErrorViewProps {
     appName?: string;
     Logo?: React.ComponentType<any>;
@@ -18850,6 +19373,14 @@ declare module "react-declarative/components/AuthView/AuthView" {
   import { OneHandler } from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * @interface IAuthViewProps
+   * @template Data - The data type for the fields in the authentication view
+   * @template Payload - The payload type for the authentication handler
+   * @template Field - The field type for the authentication fields
+   *
+   * Represents the props for an authentication view component.
+   */
   interface IAuthViewProps<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -19162,6 +19693,11 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
   import { TSubject } from "react-declarative/utils/rx/Subject";
   export const ROOT_ELEMENT = "virtual-view-root";
   export const CHILD_ELEMENT = "virtual-view-child";
+  /**
+   * Represents the props for the VirtualView component.
+   * @interface
+   * @extends BoxProps
+   */
   export interface IVirtualViewProps
     extends Omit<
       BoxProps,
@@ -19278,6 +19814,13 @@ declare module "react-declarative/components/DocumentView/DocumentView" {
   import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
   import { IActionMenuProps } from "react-declarative/components/ActionMenu";
+  /**
+   * Interface representing the props for the DocumentView component.
+   *
+   * @template T - The expected type for the document data.
+   *
+   * @interface IDocumentViewProps
+   */
   interface IDocumentViewProps<T extends any = object>
     extends BoxProps,
       Omit<
@@ -19426,6 +19969,17 @@ declare module "react-declarative/components/ImageView/ImageView" {
 declare module "react-declarative/components/TreeView/TreeView" {
   import { TextFieldProps } from "@mui/material/TextField";
   import INode from "react-declarative/components/TreeView/model/INode";
+  /**
+   * Represents the properties for the ITreeView component.
+   *
+   * @typedef ITreeViewProps
+   * @property [value] - The selected values in the tree view.
+   * @property [readOnly=false] - Specifies whether the tree view is read-only or not.
+   * @property [loading=false] - Specifies whether the tree view is in loading state or not.
+   * @property items - The nodes to render in the tree view.
+   * @property [onChange] - The function to be called when the value in the tree view changes. It accepts a single parameter which is the new selected value or null.
+   * @property [TextFieldProps] - The additional properties for the TextField component.
+   */
   type ITreeViewProps = {
     value?: string[] | null;
     readOnly?: boolean;
@@ -19887,6 +20441,12 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
   import SelectionMode from "react-declarative/model/SelectionMode";
   import TSubject from "react-declarative/model/TSubject";
   import ITile from "react-declarative/components/Tile/model/ITile";
+  /**
+   * Represents the properties required for the `ITile` component.
+   *
+   * @template Data - The type of data used in the tile.
+   * @template Payload - The type of payload used in the tile.
+   */
   export interface ITileProps<Data = IAnything, Payload = IAnything> {
     className?: string;
     style?: React.CSSProperties;
@@ -19917,6 +20477,10 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
 
 declare module "react-declarative/components/Spinner/Spinner" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * The `ISpinnerProps` interface represents the properties of the Spinner component.
+   * It extends the `BoxProps` interface and excludes the `children` property.
+   */
   interface ISpinnerProps
     extends Omit<
       BoxProps,
@@ -19944,6 +20508,11 @@ declare module "react-declarative/components/Spinner/Spinner" {
 declare module "react-declarative/components/Copy/Copy" {
   import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Represents an interface for copying properties.
+   *
+   * @interface
+   */
   interface ICopyProps extends BoxProps {
     fullWidth?: boolean;
     transparent?: boolean;
@@ -20038,6 +20607,11 @@ declare module "react-declarative/components/If/If" {
 declare module "react-declarative/components/CopyButton/CopyButton" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
+  /**
+   * Represents the properties for the CopyButton component.
+   *
+   * @interface ICopyButtonProps
+   */
   interface ICopyButtonProps {
     disabled?: boolean;
     className?: string;
@@ -20099,6 +20673,9 @@ declare module "react-declarative/components/CopyButton/CopyButton" {
 declare module "react-declarative/components/SubjectBinding/SubjectBinding" {
   import * as React from "react";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for the SubjectBinding component.
+   */
   interface ISubjectBindingProps {
     target?: TSubject<any>;
     children: React.ReactNode;
@@ -20114,6 +20691,9 @@ declare module "react-declarative/components/SubjectBinding/SubjectBinding" {
 declare module "react-declarative/components/Countdown/Countdown" {
   import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for the Countdown component props.
+   */
   export interface ICountdownProps extends BoxProps {
     children?: React.ReactNode;
     expireAt: string | number | Date;
@@ -20144,6 +20724,9 @@ declare module "react-declarative/components/Countdown/Countdown" {
 
 declare module "react-declarative/components/Chip/Chip" {
   import { ChipProps } from "@mui/material/Chip";
+  /**
+   * Interface for extending the `ChipProps` with an optional `color` property.
+   */
   interface IChipProps
     extends Omit<
       ChipProps,
@@ -21689,6 +22272,9 @@ declare module "react-declarative/components/FadeView/components/FadeContainer" 
   import * as React from "react";
   import DefaultFade from "react-declarative/components/FadeView/components/DefaultFade";
   export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
+  /**
+   * Represents the properties for the FadeContainer component.
+   */
   export interface IFadeContainerProps {
     className?: string;
     Fade?: typeof DefaultFade;
@@ -22625,6 +23211,9 @@ declare module "react-declarative/components/One/components/OneConfig/OneConfigI
 }
 
 declare module "react-declarative/components/FadeView/components/DefaultFade" {
+  /**
+   * Interface representing the props for the DefaultFade component.
+   */
   interface IDefaultFadeProps {
     className: string;
     visible: boolean;

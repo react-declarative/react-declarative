@@ -8,6 +8,12 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Props for the IItemsField component.
+ *
+ * @template Data - The type of data for the field.
+ * @template Payload - The type of payload for the field.
+ */
 export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
@@ -25,6 +31,12 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   watchItemList?: PickProp<IField<Data>, "watchItemList">;
 }
 
+/**
+ * Represents a private interface for an items field.
+ *
+ * @interface IItemsFieldPrivate
+ * @template Data The type of data managed by the items field.
+ */
 export interface IItemsFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   value: PickProp<IManaged<Data>, 'value'>;

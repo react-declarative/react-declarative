@@ -57,6 +57,9 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Interface representing the props for the Container component.
+ */
 interface IContainerProps {
     passthrough?: boolean;
     label?: string;

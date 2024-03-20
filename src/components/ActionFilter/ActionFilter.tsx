@@ -15,6 +15,10 @@ import useActualCallback from '../../hooks/useActualCallback';
 
 import IActionFilterProps from './model/IActionFilterProps';
 
+/**
+ * Represents the properties for a Box component.
+ * Extends the MatBoxProps and removes the 'onChange' property.
+ */
 type BoxProps = Omit<MatBoxProps, keyof {
     onChange: never;
 }>;

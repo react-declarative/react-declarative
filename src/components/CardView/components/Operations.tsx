@@ -16,6 +16,11 @@ import useSelectionContext from "../context/SelectionContext";
 
 import classNames from "../../../utils/classNames";
 
+/**
+ * Interface representing the properties for IOperations component.
+ * @interface IOperationsProps
+ * @extends BoxProps
+ */
 interface IOperationsProps extends BoxProps {
   disabled: boolean;
 }
@@ -38,6 +43,12 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Component for rendering operations and checkboxes.
+ *
+ * @param props - The properties for the Operations component.
+ * @returns The rendered Operations component.
+ */
 export const Operations = ({
   className,
   style,

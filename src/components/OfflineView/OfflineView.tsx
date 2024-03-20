@@ -1,6 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 
+/**
+ * Represents the props for the OfflineView component.
+ */
 interface IOfflineViewProps {
   children?: React.ReactNode;
   onOnline?: () => void;
@@ -10,6 +13,10 @@ interface IOfflineViewProps {
   Offline?: React.ComponentType<any>;
 }
 
+/**
+ * Represents a configuration for an API request.
+ * @interface
+ */
 interface IConfig {
   url: string;
   method?: string;
@@ -17,6 +24,11 @@ interface IConfig {
   timeout?: number;
 }
 
+/**
+ * Represents the interface for the state of a specific object.
+ *
+ * @interface IState
+ */
 interface IState {
   isOnline: boolean;
   initComplete: boolean;

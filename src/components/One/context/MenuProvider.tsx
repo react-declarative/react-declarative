@@ -8,6 +8,9 @@ import useSubject from "../../../hooks/useSubject";
 
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Represents an interface for a context object.
+ */
 interface IContext {
   createContextMenu: (
     params: IParams
@@ -17,10 +20,19 @@ interface IContext {
 
 const MenuContext = createContext<IContext>(null as never);
 
+/**
+ * Interface for the props of the MenuProvider component.
+ */
 interface IMenuProviderProps {
   children: React.ReactNode;
 }
 
+/**
+ * MenuProvider is a React component that provides menu related functionality to its children components.
+ *
+ * @param props - The props for the MenuProvider component.
+ * @returns - The rendered JSX element.
+ */
 export const MenuProvider = ({ children }: IMenuProviderProps) => {
   const requestSubject = useSubject<IRequest>();
 

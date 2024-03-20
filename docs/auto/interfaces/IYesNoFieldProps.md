@@ -1,5 +1,7 @@
 # IYesNoFieldProps
 
+Interface representing the props for the YesNoField component.
+
 ## Properties
 
 ### description

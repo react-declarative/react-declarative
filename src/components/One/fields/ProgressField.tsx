@@ -8,12 +8,21 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 
+/**
+ * Represents the props for the ProgressField component.
+ * @template Data - The type of data associated with the field.
+ * @template Payload - The type of payload associated with the field.
+ */
 export interface IProgressFieldProps<Data = IAnything, Payload = IAnything> {
   maxPercent?: PickProp<IField<Data, Payload>, "maxPercent">;
   showPercentLabel?: PickProp<IField<Data, Payload>, "showPercentLabel">;
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 
+/**
+ * Represents a private progress field.
+ * @template Data - The type of data associated with the field.
+ */
 export interface IProgressFieldPrivate<Data = IAnything> {
   value: PickProp<IManaged<Data>, "value">;
 }

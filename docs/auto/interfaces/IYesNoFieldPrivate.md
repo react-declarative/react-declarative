@@ -1,5 +1,7 @@
 # IYesNoFieldPrivate
 
+Represents a private interface for a Yes/No field
+
 ## Properties
 
 ### value

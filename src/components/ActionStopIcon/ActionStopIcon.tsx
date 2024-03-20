@@ -18,6 +18,10 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
+/**
+ * Represents the properties for the ActionStopIcon component. This class extends the IconButtonProps interface and adds additional properties.
+ * @interface
+ */
 interface IActionStopIconProps extends Omit<IconButtonProps, keyof {
     className: never;
     style: never;

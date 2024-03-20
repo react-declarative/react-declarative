@@ -1,5 +1,7 @@
 # IRadioFieldProps
 
+Interface for defining props of a radio field component.
+
 ## Properties
 
 ### title

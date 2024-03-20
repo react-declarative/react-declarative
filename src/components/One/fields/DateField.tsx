@@ -8,6 +8,12 @@ import IField from "../../../model/IField";
 import IAnything from "../../../model/IAnything";
 import IManaged, { PickProp } from "../../../model/IManaged";
 
+/**
+ * Represents the properties of a date field component.
+ *
+ * @template Data - The type of data associated with the field.
+ * @template Payload - The type of payload associated with the field.
+ */
 export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, "title">;
   description?: PickProp<IField<Data, Payload>, "description">;
@@ -20,6 +26,10 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
 }
 
+/**
+ * Represents a private interface for a date field.
+ * @template Data - The type of data managed by the field.
+ */
 export interface IDateFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

@@ -6,6 +6,9 @@ import useStateContext from "./StateContext";
 
 import IItemData from "../model/IItemData";
 
+/**
+ * Represents the current context of the application.
+ */
 interface Context {
   selectedItems: IItemData[];
   toggleSelection: (id: IItemData["id"]) => void;

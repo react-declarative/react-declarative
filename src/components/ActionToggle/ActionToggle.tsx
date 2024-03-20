@@ -11,6 +11,9 @@ import classNames from "../../utils/classNames";
 
 import useActualValue from '../../hooks/useActualValue';
 
+/**
+ * Interface for props of ActionToggle component.
+ */
 interface IActionToggleProps extends Omit<BoxProps, keyof {
     onChange: never;
     onClick: never;

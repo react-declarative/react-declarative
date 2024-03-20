@@ -5,6 +5,13 @@ import { red } from '@mui/material/colors';
 
 import Box from '@mui/material/Box';
 
+/**
+ * Creates a placeholder component.
+ *
+ * @param text - The text to display in the placeholder.
+ * @param [sx] - Additional styling properties for the placeholder component.
+ * @returns A function that returns a placeholder component.
+ */
 const createPlaceholder = (text: string, sx?: SxProps) => () => (
     <Box
         sx={{

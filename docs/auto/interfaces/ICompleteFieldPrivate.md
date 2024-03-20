@@ -1,5 +1,7 @@
 # ICompleteFieldPrivate
 
+Represents a private interface for a complete field.
+
 ## Properties
 
 ### onChange

@@ -8,6 +8,11 @@ import IManaged, { PickProp } from "../../../model/IManaged";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+/**
+ * Interface representing props for the IFileField component.
+ * @template Data - The data type for the field.
+ * @template Payload - The payload type for the field.
+ */
 export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
   description?: PickProp<IField<Data, Payload>, "description">;
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
@@ -23,6 +28,11 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
   view?: PickProp<IField<Data, Payload>, 'view'>;
 }
 
+/**
+ * Interface representing a private file field.
+ *
+ * @template Data - The type of data associated with the file field.
+ */
 export interface IFileFieldPrivate<Data = IAnything> {
   onChange: PickProp<IManaged<Data>, "onChange">;
   invalid: PickProp<IManaged<Data>, "invalid">;

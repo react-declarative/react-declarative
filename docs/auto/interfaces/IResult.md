@@ -1,5 +1,7 @@
 # IResult
 
+Represents a result object with a total property and push, pop, and clear methods.
+
 ## Properties
 
 ### total

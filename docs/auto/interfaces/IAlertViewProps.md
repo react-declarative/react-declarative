@@ -1,5 +1,7 @@
 # IAlertViewProps
 
+Represents the properties for the AlertView component.
+
 ## Properties
 
 ### items

@@ -11,6 +11,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import useActualCallback from "../../hooks/useActualCallback";
 import classNames from "../../utils/classNames";
 
+/**
+ * Interface for the Countdown component props.
+ */
 export interface ICountdownProps extends BoxProps {
   children?: React.ReactNode;
   expireAt: string | number | Date;

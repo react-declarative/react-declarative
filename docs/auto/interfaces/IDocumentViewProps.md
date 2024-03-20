@@ -1,5 +1,7 @@
 # IDocumentViewProps
 
+Interface representing the props for the DocumentView component.
+
 ## Properties
 
 ### withFullScreen

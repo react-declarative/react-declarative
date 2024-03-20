@@ -1,5 +1,7 @@
 # IActionFabProps
 
+Represents the props for the ActionFab component.
+
 ## Properties
 
 ### onLoadStart

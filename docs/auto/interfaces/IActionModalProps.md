@@ -1,5 +1,7 @@
 # IActionModalProps
 
+Interface representing the props for the ActionModal component.
+
 ## Properties
 
 ### sizeRequest

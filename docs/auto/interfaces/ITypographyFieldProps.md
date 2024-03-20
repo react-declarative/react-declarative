@@ -1,5 +1,7 @@
 # ITypographyFieldProps
 
+Interface for props of the TypographyField component.
+
 ## Properties
 
 ### placeholder

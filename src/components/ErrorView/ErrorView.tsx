@@ -42,6 +42,9 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Defines the props for the ErrorView component.
+ */
 interface IErrorViewProps {
     appName?: string;
     Logo?: React.ComponentType<any>;

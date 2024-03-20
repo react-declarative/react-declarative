@@ -1,5 +1,7 @@
 # ICheckboxFieldProps
 
+Interface representing props for the CheckboxField component.
+
 ## Properties
 
 ### title

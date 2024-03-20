@@ -37,6 +37,23 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the props for the Breadcrumbs component.
+ *
+ * @template T - The type of payload.
+ *
+ * @property [onSave] - The callback function for the save action.
+ * @property [onBack] - The callback function for the back action.
+ * @property [onAction] - The callback function for custom actions.
+ * @property [actions] - The available actions.
+ * @property [saveDisabled] - Indicates if the save action is disabled.
+ * @property [title] - The title of the breadcrumbs.
+ * @property [subtitle] - The subtitle of the breadcrumbs.
+ * @property [withSave] - Indicates if the save action is included.
+ * @property [payload] - The payload for custom actions.
+ * @property [BeforeMenuContent] - The additional content to be displayed before the menu.
+ * @property [AfterMenuContent] - The additional content to be displayed after the menu.
+ */
 interface IBreadcrumbsProps<T extends any = any> {
   onSave?: () => void;
   onBack?: () => void;

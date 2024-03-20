@@ -1,5 +1,7 @@
 # IErrorBoundaryProps
 
+Represents the props of an ErrorBoundary component.
+
 ## Properties
 
 ### onError

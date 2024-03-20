@@ -12,6 +12,11 @@ import classNames from "../../utils/classNames";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
+/**
+ * Represents an interface for copying properties.
+ *
+ * @interface
+ */
 interface ICopyProps extends BoxProps {
   fullWidth?: boolean;
   transparent?: boolean;

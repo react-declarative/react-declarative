@@ -1,5 +1,7 @@
 # ICopyButtonProps
 
+Represents the properties for the CopyButton component.
+
 ## Properties
 
 ### disabled

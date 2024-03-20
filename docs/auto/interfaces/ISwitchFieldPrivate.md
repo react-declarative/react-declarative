@@ -1,5 +1,7 @@
 # ISwitchFieldPrivate
 
+Represents a private interface for a switch field.
+
 ## Properties
 
 ### onChange

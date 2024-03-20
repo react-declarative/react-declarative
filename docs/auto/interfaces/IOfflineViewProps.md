@@ -1,5 +1,7 @@
 # IOfflineViewProps
 
+Represents the props for the OfflineView component.
+
 ## Properties
 
 ### children

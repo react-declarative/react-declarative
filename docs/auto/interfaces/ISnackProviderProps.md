@@ -1,5 +1,7 @@
 # ISnackProviderProps
 
+Interface representing props for SnackProvider component.
+
 ## Properties
 
 ### children

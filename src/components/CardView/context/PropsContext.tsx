@@ -6,6 +6,10 @@ import IItemData from '../model/IItemData';
 
 const PropsContext = createContext<ICardViewProps>(null as never);
 
+/**
+ * The IPropsContextProviderProps interface represents the props that should be passed to the PropsContextProvider component.
+ * It defines the expected shape of the props object.
+ */
 interface IPropsContextProviderProps<ItemData extends IItemData = any> {
     value: ICardViewProps<ItemData>;
     children: React.ReactNode;

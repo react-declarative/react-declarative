@@ -14,6 +14,11 @@ import classNames from '../../utils/classNames';
 const DEFAULT_THICKNESS = 3.6;
 const DEFAULT_SIZE = 40;
 
+/**
+ * Represents the props for the ActionFab component.
+ * @interface
+ * @extends FabProps
+ */
 interface IActionFabProps extends Omit<FabProps, keyof {
     onClick: never;
     size?: never;

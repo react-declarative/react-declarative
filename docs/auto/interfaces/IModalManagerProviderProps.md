@@ -1,5 +1,7 @@
 # IModalManagerProviderProps
 
+Represents the properties for the `ModalManagerProvider` component.
+
 ## Properties
 
 ### onLoadStart

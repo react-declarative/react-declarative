@@ -1,5 +1,7 @@
 # ITile
 
+Represents a tile.
+
 ## Properties
 
 ### data

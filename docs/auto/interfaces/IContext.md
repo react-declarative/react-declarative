@@ -1,5 +1,7 @@
 # IContext
 
+Represents an interface for a context object.
+
 ## Properties
 
 ### createContextMenu

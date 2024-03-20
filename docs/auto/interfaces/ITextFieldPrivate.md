@@ -1,5 +1,7 @@
 # ITextFieldPrivate
 
+Represents a private interface for an input field.
+
 ## Properties
 
 ### onChange

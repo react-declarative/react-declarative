@@ -1,5 +1,7 @@
 # IAsyncProps
 
+Represents the properties for an asynchronous component.
+
 ## Properties
 
 ### loading

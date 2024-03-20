@@ -1,5 +1,7 @@
 # IChooseFieldProps
 
+Props for the IChooseField component.
+
 ## Properties
 
 ### description

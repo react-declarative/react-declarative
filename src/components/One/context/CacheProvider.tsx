@@ -4,6 +4,11 @@ import { createContext } from "react";
 
 import IField from "../../../model/IField";
 
+/**
+ * An interface representing a context that holds mappings between fields and their corresponding values.
+ *
+ * @interface IContext
+ */
 interface IContext {
   focusMap: Map<IField, IField['focus']>;
   blurMap: Map<IField, IField['blur']>;

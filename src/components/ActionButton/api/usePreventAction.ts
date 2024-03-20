@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+/**
+ * Represents a set of parameters for a certain functionality.
+ *
+ * @interface
+ */
 interface IParams {
   disabled?: boolean;
   onLoadStart?: () => void;
