@@ -59,6 +59,9 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the properties of an `IScrollView` component.
+ */
 interface IScrollViewProps extends BoxProps {
   withScrollbar?: boolean;
   hideOverflowX?: boolean;

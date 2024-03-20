@@ -1,5 +1,7 @@
 # IHeroWidth
 
+Represents the interface for calculating hero widths.
+
 ## Properties
 
 ### width

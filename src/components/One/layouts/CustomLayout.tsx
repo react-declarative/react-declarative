@@ -40,6 +40,12 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
   "value",
 ];
 
+/**
+ * An interface representing a custom layout private.
+ *
+ * @template Data - Type for the data of the entity.
+ * @extends {IEntity<Data>}
+ */
 interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
   children?: React.ReactNode;
 }

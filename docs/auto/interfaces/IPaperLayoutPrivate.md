@@ -1,5 +1,7 @@
 # IPaperLayoutPrivate
 
+Represents the private interface for the PaperLayout component.
+
 ## Properties
 
 ### isBaselineAlign

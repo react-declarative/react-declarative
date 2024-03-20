@@ -1,5 +1,7 @@
 # IConditionLayoutPrivate
 
+The `IConditionLayoutPrivate` interface defines the structure for a class that represents a private condition layout.
+
 ## Properties
 
 ### children

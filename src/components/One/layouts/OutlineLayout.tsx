@@ -13,10 +13,23 @@ import IField from "../../../model/IField";
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
+/**
+ * Represents the props for the OutlineLayout component.
+ *
+ * @template Data - The type of data for the outline.
+ * @template Payload - The type of payload for the outline.
+ *
+ * @extends {IOutlineProps<Data, Payload>} - The props required for the Outline component.
+ * @extends {IGroupProps<Data, Payload>} - The props required for the Group component.
+ */
 export interface IOutlineLayoutProps<Data = IAnything, Payload = IAnything> extends IOutlineProps<Data, Payload>, IGroupProps<Data, Payload> {
   innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
 }
 
+/**
+ * Represents the private interface for the OutlineLayout class.
+ * @interface IOutlineLayoutPrivate
+ */
 interface IOutlineLayoutPrivate {
   isBaselineAlign: boolean;
   children?: React.ReactNode;

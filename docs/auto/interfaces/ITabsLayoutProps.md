@@ -1,5 +1,7 @@
 # ITabsLayoutProps
 
+Interface representing the props for the ITabsLayout component.
+
 ## Properties
 
 ### className

@@ -1,5 +1,7 @@
 # IGroupLayoutPrivate
 
+Represents the private interface for the GroupLayout class.
+
 ## Properties
 
 ### isBaselineAlign

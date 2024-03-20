@@ -7956,11 +7956,22 @@ declare module "react-declarative/components/One/layouts/FragmentLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Represents the props for the IFragmentLayout component.
+   *
+   * @template Data - The type of data for the fragment layout.
+   * @template Payload - The type of payload for the fragment layout.
+   */
   export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
     features?: PickProp<IField<Data, Payload>, "features">;
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
   }
+  /**
+   * Represents a private layout interface for a fragment.
+   * @interface
+   * @template Data - The type of data the fragment holds.
+   */
   interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
     ready: PickProp<IEntity<Data>, "ready">;
@@ -8003,12 +8014,26 @@ declare module "react-declarative/components/One/layouts/DivLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Interface for specifying the props of a DivLayout component.
+   * @template Data - The type of data that the DivLayout component uses.
+   * @template Payload - The type of payload that the DivLayout component uses.
+   * @extends IWrappedLayout<Data>
+   */
   export interface IDivLayoutProps<Data = IAnything, Payload = IAnything>
     extends IWrappedLayout<Data> {
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
   }
+  /**
+   * Represents a private interface for the DivLayout class.
+   *
+   * @template Data - The data type for the entity.
+   * @extends IEntity<Data>
+   *
+   * @property {React.ReactNode} children - The child components to be rendered within the DivLayout.
+   */
   interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
   }
@@ -8049,12 +8074,25 @@ declare module "react-declarative/components/One/layouts/BoxLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Interface for specifying props for the IBoxLayout class.
+   *
+   * @template Data - The type of data for the layout.
+   * @template Payload - The type of payload for the layout.
+   */
   export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything>
     extends IWrappedLayout<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
     sx?: PickProp<IField<Data, Payload>, "sx">;
   }
+  /**
+   * Represents a private interface for a BoxLayout component.
+   *
+   * @interface IBoxLayoutPrivate
+   * @extends {IEntity<Data>}
+   * @template Data - The type of data associated with the BoxLayout.
+   */
   interface IBoxLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
   }
@@ -8099,6 +8137,9 @@ declare module "react-declarative/components/One/layouts/TabsLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Interface representing the props for the ITabsLayout component.
+   */
   export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything>
     extends IGroupProps<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, "className">;
@@ -8112,6 +8153,11 @@ declare module "react-declarative/components/One/layouts/TabsLayout" {
     tabKeepFlow?: PickProp<IField<Data, Payload>, "tabKeepFlow">;
     tabBackground?: PickProp<IField<Data, Payload>, "tabBackground">;
   }
+  /**
+   * Represents a private interface for `ITabsLayout`.
+   *
+   * @template Data - The type of data associated with the entity.
+   */
   interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8205,12 +8251,23 @@ declare module "react-declarative/components/One/layouts/CenterLayout" {
   import IAnything from "react-declarative/model/IAnything";
   import { PickProp } from "react-declarative/model/IManaged";
   import { IGroupProps } from "react-declarative/components/common/Group";
+  /**
+   * Interface for defining props for the CenterLayout component.
+   *
+   * @template Data - The data type.
+   * @template Payload - The payload type.
+   * @extends IGroupProps<Data> - The props interface that the CenterLayoutProps extends.
+   */
   export interface ICenterLayoutProps<Data = IAnything, Payload = IAnything>
     extends IGroupProps<Data> {
     innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
   }
+  /**
+   * Interface representing a private center layout entity.
+   * @template Data - The type of data associated with the entity.
+   */
   interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8282,12 +8339,25 @@ declare module "react-declarative/components/One/layouts/StretchLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Represents the props for a stretch layout component.
+   *
+   * @template Data - The type of data being passed to the layout.
+   * @template Payload - The type of payload being passed to the layout.
+   */
   export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything>
     extends IWrappedLayout<Data> {
     innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
   }
+  /**
+   * Represents a private interface for the StrechLayout component.
+   *
+   * @interface IStretchLayoutPrivate
+   * @template Data - the type of the data.
+   * @extends IEntity<Data>
+   */
   interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
   }
@@ -8331,8 +8401,19 @@ declare module "react-declarative/components/One/layouts/GroupLayout" {
   import * as React from "react";
   import { IGroupProps } from "react-declarative/components/common/Group";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for defining the props of GroupLayout component.
+   *
+   * @template Data - The type of data associated with the group.
+   * @template Payload - The type of payload associated with the group.
+   */
   export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything>
     extends IGroupProps<Data, Payload> {}
+  /**
+   * Represents the private interface for the GroupLayout class.
+   *
+   * @interface
+   */
   interface IGroupLayoutPrivate {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8400,11 +8481,24 @@ declare module "react-declarative/components/One/layouts/OutlineLayout" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the props for the OutlineLayout component.
+   *
+   * @template Data - The type of data for the outline.
+   * @template Payload - The type of payload for the outline.
+   *
+   * @extends {IOutlineProps<Data, Payload>} - The props required for the Outline component.
+   * @extends {IGroupProps<Data, Payload>} - The props required for the Group component.
+   */
   export interface IOutlineLayoutProps<Data = IAnything, Payload = IAnything>
     extends IOutlineProps<Data, Payload>,
       IGroupProps<Data, Payload> {
     innerPadding?: PickProp<IField<Data, Payload>, "innerPadding">;
   }
+  /**
+   * Represents the private interface for the OutlineLayout class.
+   * @interface IOutlineLayoutPrivate
+   */
   interface IOutlineLayoutPrivate {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8474,6 +8568,15 @@ declare module "react-declarative/components/One/layouts/PaperLayout" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing the props for the IPaperLayout component.
+   *
+   * @template Data - The type of data to be used in the component.
+   * @template Payload - The type of payload to be used in the component.
+   *
+   * @extends {IPaperProps<Data, Payload>}
+   * @extends {IGroupProps<Data, Payload>}
+   */
   export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
     extends IPaperProps<Data, Payload>,
       IGroupProps<Data, Payload> {
@@ -8481,6 +8584,9 @@ declare module "react-declarative/components/One/layouts/PaperLayout" {
     outlinePaper?: PickProp<IField<Data, Payload>, "outlinePaper">;
     transparentPaper?: PickProp<IField<Data, Payload>, "transparentPaper">;
   }
+  /**
+   * Represents the private interface for the PaperLayout component.
+   */
   interface IPaperLayoutPrivate {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8554,9 +8660,19 @@ declare module "react-declarative/components/One/layouts/ExpansionLayout" {
   import { IExpansionProps } from "react-declarative/components/common/Expansion";
   import { IGroupProps } from "react-declarative/components/common/Group";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the properties for an Expansion Layout component.
+   * @template Data - The data type for the expansion layout.
+   * @template Payload - The payload type for the expansion layout.
+   */
   export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything>
     extends IExpansionProps<Data, Payload>,
       IGroupProps<Data, Payload> {}
+  /**
+   * Represents the private configuration options for an Expansion Layout.
+   *
+   * @interface IExpansionLayoutPrivate
+   */
   interface IExpansionLayoutPrivate {
     isBaselineAlign: boolean;
     outlinePaper: boolean;
@@ -8645,66 +8761,128 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
     IGroupProps,
   } from "react-declarative/components/common/Group";
   import IEntity from "react-declarative/model/IEntity";
+  /**
+   * Represents an interface for a hero top section.
+   * @template Data - The data type for the hero top section.
+   * @template Payload - The payload type for the hero top section.
+   */
   interface IHeroTop<Data = IAnything, Payload = IAnything> {
     top?: PickProp<IField<Data, Payload>, "top">;
     phoneTop?: PickProp<IField<Data, Payload>, "phoneTop">;
     tabletTop?: PickProp<IField<Data, Payload>, "tabletTop">;
     desktopTop?: PickProp<IField<Data, Payload>, "desktopTop">;
   }
+  /**
+   * Interface representing the left positioning properties for a hero element.
+   *
+   * @template Data - The data type of the hero element.
+   * @template Payload - The payload type of the hero element.
+   */
   interface IHeroLeft<Data = IAnything, Payload = IAnything> {
     left?: PickProp<IField<Data, Payload>, "left">;
     phoneLeft?: PickProp<IField<Data, Payload>, "phoneLeft">;
     tabletLeft?: PickProp<IField<Data, Payload>, "tabletLeft">;
     desktopLeft?: PickProp<IField<Data, Payload>, "desktopLeft">;
   }
+  /**
+   * Represents the interface for defining the right properties of a hero.
+   * @template Data - The type of the data being used.
+   * @template Payload - The type of the payload being used.
+   */
   interface IHeroRight<Data = IAnything, Payload = IAnything> {
     right?: PickProp<IField<Data, Payload>, "right">;
     phoneRight?: PickProp<IField<Data, Payload>, "phoneRight">;
     tabletRight?: PickProp<IField<Data, Payload>, "tabletRight">;
     desktopRight?: PickProp<IField<Data, Payload>, "desktopRight">;
   }
+  /**
+   * Represents the interface for the bottom section of a hero component.
+   *
+   * @template Data - The type of data for the hero component.
+   * @template Payload - The type of payload for the hero component.
+   */
   interface IHeroBottom<Data = IAnything, Payload = IAnything> {
     bottom?: PickProp<IField<Data, Payload>, "bottom">;
     phoneBottom?: PickProp<IField<Data, Payload>, "phoneBottom">;
     tabletBottom?: PickProp<IField<Data, Payload>, "tabletBottom">;
     desktopBottom?: PickProp<IField<Data, Payload>, "desktopBottom">;
   }
+  /**
+   * An interface representing the height properties of a hero.
+   *
+   * @template Data - The type of data used by the height properties.
+   * @template Payload - The type of payload used by the height properties.
+   */
   interface IHeroHeight<Data = IAnything, Payload = IAnything> {
     height?: PickProp<IField<Data, Payload>, "height">;
     phoneHeight?: PickProp<IField<Data, Payload>, "phoneHeight">;
     tabletHeight?: PickProp<IField<Data, Payload>, "tabletHeight">;
     desktopHeight?: PickProp<IField<Data, Payload>, "desktopHeight">;
   }
+  /**
+   * Represents an interface for setting minimum heights for different devices.
+   * @template Data - The type of data used in the interface.
+   * @template Payload - The type of payload used in the interface.
+   */
   interface IHeroMinHeight<Data = IAnything, Payload = IAnything> {
     minHeight?: PickProp<IField<Data, Payload>, "minHeight">;
     phoneMinHeight?: PickProp<IField<Data, Payload>, "phoneMinHeight">;
     tabletMinHeight?: PickProp<IField<Data, Payload>, "tabletMinHeight">;
     desktopMinHeight?: PickProp<IField<Data, Payload>, "desktopMinHeight">;
   }
+  /**
+   * Interface defining the maximum height properties for a hero element.
+   *
+   * @template Data - The type of data associated with the hero element.
+   * @template Payload - The type of payload associated with the hero element.
+   */
   interface IHeroMaxHeight<Data = IAnything, Payload = IAnything> {
     maxHeight?: PickProp<IField<Data, Payload>, "maxHeight">;
     phoneMaxHeight?: PickProp<IField<Data, Payload>, "phoneMaxHeight">;
     tabletMaxHeight?: PickProp<IField<Data, Payload>, "tabletMaxHeight">;
     desktopMaxHeight?: PickProp<IField<Data, Payload>, "desktopMaxHeight">;
   }
+  /**
+   * Represents the interface for calculating hero widths.
+   *
+   * @template Data - The type of data manipulated by the hero.
+   * @template Payload - The type of payload used for the hero.
+   */
   interface IHeroWidth<Data = IAnything, Payload = IAnything> {
     width?: PickProp<IField<Data, Payload>, "width">;
     phoneWidth?: PickProp<IField<Data, Payload>, "phoneWidth">;
     tabletWidth?: PickProp<IField<Data, Payload>, "tabletWidth">;
     desktopWidth?: PickProp<IField<Data, Payload>, "desktopWidth">;
   }
+  /**
+   * Represents the minimum width constraints for a hero component.
+   *
+   * @template Data - The data type for the component.
+   * @template Payload - The payload type for the component.
+   */
   interface IHeroMinWidth<Data = IAnything, Payload = IAnything> {
     minWidth?: PickProp<IField<Data, Payload>, "minWidth">;
     phoneMinWidth?: PickProp<IField<Data, Payload>, "phoneMinWidth">;
     tabletMinWidth?: PickProp<IField<Data, Payload>, "tabletMinWidth">;
     desktopMinWidth?: PickProp<IField<Data, Payload>, "desktopMinWidth">;
   }
+  /**
+   * Represents the interface for maximum widths of a hero component.
+   * @template Data - The type of data for the hero component.
+   * @template Payload - The type of payload for the hero component.
+   */
   interface IHeroMaxWidth<Data = IAnything, Payload = IAnything> {
     maxWidth?: PickProp<IField<Data, Payload>, "maxWidth">;
     phoneMaxWidth?: PickProp<IField<Data, Payload>, "phoneMaxWidth">;
     tabletMaxWidth?: PickProp<IField<Data, Payload>, "tabletMaxWidth">;
     desktopMaxWidth?: PickProp<IField<Data, Payload>, "desktopMaxWidth">;
   }
+  /**
+   * Interface representing the style configuration for a hero component.
+   *
+   * @template Data - The type of the data passed to the hero component.
+   * @template Payload - The type of the payload passed to the hero component.
+   */
   interface IHeroStyle<Data = IAnything, Payload = IAnything> {
     heroOuterStyle?: PickProp<IField<Data, Payload>, "heroOuterStyle">;
     heroOuterPhoneStyle?: PickProp<
@@ -8733,6 +8911,11 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
       "heroInnerDesktopStyle"
     >;
   }
+  /**
+   * Interface representing a Hero registry.
+   *
+   * @template D - The data type for the hero registry.
+   */
   type IHeroRegistry<D = IAnything> = IHeroTop<D> &
     IHeroLeft<D> &
     IHeroRight<D> &
@@ -8744,6 +8927,11 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
     IHeroMinHeight<D> &
     IHeroMaxHeight<D> &
     IHeroStyle<D>;
+  /**
+   * Represents a group of data.
+   *
+   * @template Data - The type of data in the group.
+   */
   type Group<Data = IAnything> = Omit<
     IGroupProps<Data>,
     keyof {
@@ -8751,6 +8939,12 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
       fieldBottomMargin: never;
     }
   >;
+  /**
+   * Interface representing the properties for the HeroLayout component.
+   *
+   * @template Data - The type of data associated with the component.
+   * @template Payload - The type of payload associated with the component.
+   */
   export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything>
     extends IHeroRegistry<Data>,
       Group<Data>,
@@ -8759,6 +8953,11 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
     style?: PickProp<IField<Data, Payload>, "style">;
     object: PickProp<IEntity<Data>, "object">;
   }
+  /**
+   * Represents the private interface for the HeroLayout component.
+   *
+   * @interface IHeroLayoutPrivate
+   */
   interface IHeroLayoutPrivate {
     isBaselineAlign: boolean;
     children?: React.ReactNode;
@@ -8827,6 +9026,12 @@ declare module "react-declarative/components/One/layouts/ConditionLayout" {
   import IEntity from "react-declarative/model/IEntity";
   import IAnything from "react-declarative/model/IAnything";
   import { IWrappedLayout, PickProp } from "react-declarative/model/IManaged";
+  /**
+   * Represents the props for a conditional layout component.
+   *
+   * @template Data - The data type associated with the layout component.
+   * @template Payload - The payload type associated with the layout component.
+   */
   export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
     extends IWrappedLayout<Data, Payload> {
     condition?: PickProp<IField<Data, Payload>, "condition">;
@@ -8834,6 +9039,13 @@ declare module "react-declarative/components/One/layouts/ConditionLayout" {
     conditionLoading?: PickProp<IField<Data, Payload>, "conditionLoading">;
     conditionElse?: PickProp<IField<Data, Payload>, "conditionElse">;
   }
+  /**
+   * The `IConditionLayoutPrivate` interface defines the structure for a class that represents a private condition layout.
+   *
+   * @template Data The type of data for the entity.
+   * @interface
+   * @extends {IEntity<Data>}
+   */
   interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
     fallback: PickProp<IEntity<Data>, "fallback">;
@@ -8897,6 +9109,12 @@ declare module "react-declarative/components/One/layouts/CustomLayout" {
     customLayout?: PickProp<IField<Data, Payload>, "customLayout">;
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
   }
+  /**
+   * An interface representing a custom layout private.
+   *
+   * @template Data - Type for the data of the entity.
+   * @extends {IEntity<Data>}
+   */
   interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
   }
@@ -18205,6 +18423,9 @@ declare module "react-declarative/components/ScrollView/ScrollView" {
   import * as React from "react";
   import { BoxProps } from "@mui/material";
   export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
+  /**
+   * Represents the properties of an `IScrollView` component.
+   */
   interface IScrollViewProps extends BoxProps {
     withScrollbar?: boolean;
     hideOverflowX?: boolean;
@@ -18243,6 +18464,9 @@ declare module "react-declarative/components/ScrollView/ScrollView" {
 
 declare module "react-declarative/components/ScaleView/ScaleView" {
   import * as React from "react";
+  /**
+   * Interface for the properties of the ScaleView component.
+   */
   interface IScaleViewProps {
     className?: string;
     style?: React.CSSProperties;
@@ -19763,6 +19987,12 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
 
 declare module "react-declarative/components/LoaderView/LoaderView" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for the props of the LoaderView component.
+   *
+   * @interface ILoaderViewProps
+   * @extends BoxProps
+   */
   interface ILoaderViewProps
     extends Omit<
       BoxProps,

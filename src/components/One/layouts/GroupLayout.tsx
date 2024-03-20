@@ -10,8 +10,19 @@ import IAnything from "../../../model/IAnything";
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
+/**
+ * Interface for defining the props of GroupLayout component.
+ *
+ * @template Data - The type of data associated with the group.
+ * @template Payload - The type of payload associated with the group.
+ */
 export interface IGroupLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {}
 
+/**
+ * Represents the private interface for the GroupLayout class.
+ *
+ * @interface
+ */
 interface IGroupLayoutPrivate {
   isBaselineAlign: boolean;
   children?: React.ReactNode;

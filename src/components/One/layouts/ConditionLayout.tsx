@@ -17,6 +17,12 @@ import makeLayout from "../components/makeLayout/makeLayout";
 
 import cached from "../../../utils/hof/cached";
 
+/**
+ * Represents the props for a conditional layout component.
+ *
+ * @template Data - The data type associated with the layout component.
+ * @template Payload - The payload type associated with the layout component.
+ */
 export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
   extends IWrappedLayout<Data, Payload> {
   condition?: PickProp<IField<Data, Payload>, "condition">;
@@ -25,6 +31,13 @@ export interface IConditionLayoutProps<Data = IAnything, Payload = IAnything>
   conditionElse?: PickProp<IField<Data, Payload>, "conditionElse">;
 }
 
+/**
+ * The `IConditionLayoutPrivate` interface defines the structure for a class that represents a private condition layout.
+ *
+ * @template Data The type of data for the entity.
+ * @interface
+ * @extends {IEntity<Data>}
+ */
 interface IConditionLayoutPrivate<Data = IAnything> extends IEntity<Data> {
   children?: React.ReactNode;
   fallback: PickProp<IEntity<Data>, "fallback">;

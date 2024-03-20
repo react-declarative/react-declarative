@@ -1,5 +1,7 @@
 # IHeroStyle
 
+Interface representing the style configuration for a hero component.
+
 ## Properties
 
 ### heroOuterStyle

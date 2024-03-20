@@ -17,6 +17,15 @@ import IField from "../../../model/IField";
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
+/**
+ * Interface representing the props for the IPaperLayout component.
+ *
+ * @template Data - The type of data to be used in the component.
+ * @template Payload - The type of payload to be used in the component.
+ *
+ * @extends {IPaperProps<Data, Payload>}
+ * @extends {IGroupProps<Data, Payload>}
+ */
 export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
   extends IPaperProps<Data, Payload>,
     IGroupProps<Data, Payload> {
@@ -25,6 +34,9 @@ export interface IPaperLayoutProps<Data = IAnything, Payload = IAnything>
   transparentPaper?: PickProp<IField<Data, Payload>, "transparentPaper">;
 }
 
+/**
+ * Represents the private interface for the PaperLayout component.
+ */
 interface IPaperLayoutPrivate {
   isBaselineAlign: boolean;
   children?: React.ReactNode;

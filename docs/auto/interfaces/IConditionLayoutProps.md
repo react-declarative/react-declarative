@@ -1,5 +1,7 @@
 # IConditionLayoutProps
 
+Represents the props for a conditional layout component.
+
 ## Properties
 
 ### condition

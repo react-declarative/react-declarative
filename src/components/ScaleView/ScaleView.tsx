@@ -11,6 +11,9 @@ import classNames from '../../utils/classNames';
 const SCALE_CONTAINER = 'react-declarative__scaleContainer';
 const SCALE_DEBOUNCE = 1_000;
 
+/**
+ * Interface for the properties of the ScaleView component.
+ */
 interface IScaleViewProps {
     className?: string;
     style?: React.CSSProperties;

@@ -7,12 +7,26 @@ import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
+/**
+ * Interface for specifying the props of a DivLayout component.
+ * @template Data - The type of data that the DivLayout component uses.
+ * @template Payload - The type of payload that the DivLayout component uses.
+ * @extends IWrappedLayout<Data>
+ */
 export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
+/**
+ * Represents a private interface for the DivLayout class.
+ *
+ * @template Data - The data type for the entity.
+ * @extends IEntity<Data>
+ *
+ * @property {React.ReactNode} children - The child components to be rendered within the DivLayout.
+ */
 interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
 }

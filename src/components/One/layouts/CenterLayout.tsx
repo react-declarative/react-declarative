@@ -21,12 +21,23 @@ const CENTER_DEBOUNCE = 250;
 
 declare var ResizeObserver: any;
 
+/**
+ * Interface for defining props for the CenterLayout component.
+ *
+ * @template Data - The data type.
+ * @template Payload - The payload type.
+ * @extends IGroupProps<Data> - The props interface that the CenterLayoutProps extends.
+ */
 export interface ICenterLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data> {
     innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
+/**
+ * Interface representing a private center layout entity.
+ * @template Data - The type of data associated with the entity.
+ */
 interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     isBaselineAlign: boolean;
     children?: React.ReactNode;

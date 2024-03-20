@@ -1,5 +1,7 @@
 # IDivLayoutProps
 
+Interface for specifying the props of a DivLayout component.
+
 ## Properties
 
 ### className

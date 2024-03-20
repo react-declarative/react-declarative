@@ -1,5 +1,7 @@
 # IHeroMinWidth
 
+Represents the minimum width constraints for a hero component.
+
 ## Properties
 
 ### minWidth

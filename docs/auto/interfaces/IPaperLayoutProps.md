@@ -1,5 +1,7 @@
 # IPaperLayoutProps
 
+Interface representing the props for the IPaperLayout component.
+
 ## Properties
 
 ### innerPadding

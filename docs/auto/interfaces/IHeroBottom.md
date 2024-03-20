@@ -1,5 +1,7 @@
 # IHeroBottom
 
+Represents the interface for the bottom section of a hero component.
+
 ## Properties
 
 ### bottom

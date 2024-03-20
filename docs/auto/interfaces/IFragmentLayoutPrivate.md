@@ -1,5 +1,7 @@
 # IFragmentLayoutPrivate
 
+Represents a private layout interface for a fragment.
+
 ## Properties
 
 ### children

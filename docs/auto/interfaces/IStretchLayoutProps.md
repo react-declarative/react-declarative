@@ -1,5 +1,7 @@
 # IStretchLayoutProps
 
+Represents the props for a stretch layout component.
+
 ## Properties
 
 ### innerPadding

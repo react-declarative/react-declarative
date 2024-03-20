@@ -1,5 +1,7 @@
 # IHeroLeft
 
+Interface representing the left positioning properties for a hero element.
+
 ## Properties
 
 ### left

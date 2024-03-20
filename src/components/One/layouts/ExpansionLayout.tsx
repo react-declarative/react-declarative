@@ -12,8 +12,18 @@ import IAnything from "../../../model/IAnything";
 
 import makeLayout from "../components/makeLayout/makeLayout";
 
+/**
+ * Represents the properties for an Expansion Layout component.
+ * @template Data - The data type for the expansion layout.
+ * @template Payload - The payload type for the expansion layout.
+ */
 export interface IExpansionLayoutProps<Data = IAnything, Payload = IAnything> extends IExpansionProps<Data, Payload>, IGroupProps<Data, Payload> {}
 
+/**
+ * Represents the private configuration options for an Expansion Layout.
+ *
+ * @interface IExpansionLayoutPrivate
+ */
 interface IExpansionLayoutPrivate {
   isBaselineAlign: boolean;
   outlinePaper: boolean;

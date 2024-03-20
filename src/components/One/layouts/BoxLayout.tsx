@@ -9,12 +9,25 @@ import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
+/**
+ * Interface for specifying props for the IBoxLayout class.
+ *
+ * @template Data - The type of data for the layout.
+ * @template Payload - The type of payload for the layout.
+ */
 export interface IBoxLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
     sx?: PickProp<IField<Data, Payload>, 'sx'>;
 }
 
+/**
+ * Represents a private interface for a BoxLayout component.
+ *
+ * @interface IBoxLayoutPrivate
+ * @extends {IEntity<Data>}
+ * @template Data - The type of data associated with the BoxLayout.
+ */
 interface IBoxLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
 }

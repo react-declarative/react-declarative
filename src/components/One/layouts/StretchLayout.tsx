@@ -11,12 +11,25 @@ import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
+/**
+ * Represents the props for a stretch layout component.
+ *
+ * @template Data - The type of data being passed to the layout.
+ * @template Payload - The type of payload being passed to the layout.
+ */
 export interface IStretchLayoutProps<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data> {
     innerPadding?: PickProp<IField<Data, Payload>, 'innerPadding'>;
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
+/**
+ * Represents a private interface for the StrechLayout component.
+ *
+ * @interface IStretchLayoutPrivate
+ * @template Data - the type of the data.
+ * @extends IEntity<Data>
+ */
 interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
 }

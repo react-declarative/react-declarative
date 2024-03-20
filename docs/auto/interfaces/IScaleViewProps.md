@@ -1,5 +1,7 @@
 # IScaleViewProps
 
+Interface for the properties of the ScaleView component.
+
 ## Properties
 
 ### className

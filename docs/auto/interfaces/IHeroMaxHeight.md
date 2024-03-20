@@ -1,5 +1,7 @@
 # IHeroMaxHeight
 
+Interface defining the maximum height properties for a hero element.
+
 ## Properties
 
 ### maxHeight

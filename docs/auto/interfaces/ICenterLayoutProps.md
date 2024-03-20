@@ -1,5 +1,7 @@
 # ICenterLayoutProps
 
+Interface for defining props for the CenterLayout component.
+
 ## Properties
 
 ### innerPadding

@@ -1,5 +1,7 @@
 # ITabsLayoutPrivate
 
+Represents a private interface for `ITabsLayout`.
+
 ## Properties
 
 ### isBaselineAlign

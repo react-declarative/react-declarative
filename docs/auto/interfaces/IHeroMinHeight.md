@@ -1,5 +1,7 @@
 # IHeroMinHeight
 
+Represents an interface for setting minimum heights for different devices.
+
 ## Properties
 
 ### minHeight

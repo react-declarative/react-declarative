@@ -8,6 +8,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import classNames from "../../utils/classNames";
 
+/**
+ * Interface for the props of the LoaderView component.
+ *
+ * @interface ILoaderViewProps
+ * @extends BoxProps
+ */
 interface ILoaderViewProps
   extends Omit<
     BoxProps,

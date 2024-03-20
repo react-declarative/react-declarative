@@ -1,5 +1,7 @@
 # IHeroHeight
 
+An interface representing the height properties of a hero.
+
 ## Properties
 
 ### height

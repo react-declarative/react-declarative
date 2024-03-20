@@ -1,5 +1,7 @@
 # IHeroLayoutProps
 
+Interface representing the properties for the HeroLayout component.
+
 ## Properties
 
 ### className

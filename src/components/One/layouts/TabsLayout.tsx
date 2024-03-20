@@ -19,6 +19,9 @@ import { PickProp } from '../../../model/IManaged';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
+/**
+ * Interface representing the props for the ITabsLayout component.
+ */
 export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends IGroupProps<Data, Payload> {
     className?: PickProp<IField<Data, Payload>, 'className'>;
     style?: PickProp<IField<Data, Payload>, 'style'>;
@@ -34,6 +37,11 @@ export interface ITabsLayoutProps<Data = IAnything, Payload = IAnything> extends
 
 const TABS_SELECTOR = 'react-declarative__tabsLayoutHeader';
 
+/**
+ * Represents a private interface for `ITabsLayout`.
+ *
+ * @template Data - The type of data associated with the entity.
+ */
 interface ITabsLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     isBaselineAlign: boolean;
     children?: React.ReactNode;

@@ -1,5 +1,7 @@
 # IScrollViewProps
 
+Represents the properties of an `IScrollView` component.
+
 ## Properties
 
 ### withScrollbar

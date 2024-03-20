@@ -1,5 +1,7 @@
 # IHeroRight
 
+Represents the interface for defining the right properties of a hero.
+
 ## Properties
 
 ### right

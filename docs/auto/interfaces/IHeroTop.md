@@ -1,5 +1,7 @@
 # IHeroTop
 
+Represents an interface for a hero top section.
+
 ## Properties
 
 ### top

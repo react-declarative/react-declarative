@@ -9,12 +9,23 @@ import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 import { useOneState } from '../context/StateProvider';
 
+/**
+ * Represents the props for the IFragmentLayout component.
+ *
+ * @template Data - The type of data for the fragment layout.
+ * @template Payload - The type of payload for the fragment layout.
+ */
 export interface IFragmentLayoutProps<Data = IAnything, Payload = IAnything> {
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
     features?: PickProp<IField<Data, Payload>, 'features'>;
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
+/**
+ * Represents a private layout interface for a fragment.
+ * @interface
+ * @template Data - The type of data the fragment holds.
+ */
 interface IFragmentLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
     ready: PickProp<IEntity<Data>, 'ready'>;

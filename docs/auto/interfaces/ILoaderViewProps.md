@@ -1,5 +1,7 @@
 # ILoaderViewProps
 
+Interface for the props of the LoaderView component.
+
 ## Properties
 
 ### onLoadStart

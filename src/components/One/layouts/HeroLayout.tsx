@@ -26,6 +26,11 @@ const DEFAULT_E_SIZE = 'unset';
 const GRID_MAX_WIDTH = 9999999999999999;
 const FIELD_NEVER_MARGIN = '0';
 
+/**
+ * Represents an interface for a hero top section.
+ * @template Data - The data type for the hero top section.
+ * @template Payload - The payload type for the hero top section.
+ */
 interface IHeroTop<Data = IAnything, Payload = IAnything>  {
   top?: PickProp<IField<Data, Payload>, 'top'>;
   phoneTop?: PickProp<IField<Data, Payload>, 'phoneTop'>;
@@ -33,6 +38,12 @@ interface IHeroTop<Data = IAnything, Payload = IAnything>  {
   desktopTop?: PickProp<IField<Data, Payload>, 'desktopTop'>;
 }
 
+/**
+ * Interface representing the left positioning properties for a hero element.
+ *
+ * @template Data - The data type of the hero element.
+ * @template Payload - The payload type of the hero element.
+ */
 interface IHeroLeft<Data = IAnything, Payload = IAnything>  {
   left?: PickProp<IField<Data, Payload>, 'left'>;
   phoneLeft?: PickProp<IField<Data, Payload>, 'phoneLeft'>;
@@ -40,6 +51,11 @@ interface IHeroLeft<Data = IAnything, Payload = IAnything>  {
   desktopLeft?: PickProp<IField<Data, Payload>, 'desktopLeft'>;
 }
 
+/**
+ * Represents the interface for defining the right properties of a hero.
+ * @template Data - The type of the data being used.
+ * @template Payload - The type of the payload being used.
+ */
 interface IHeroRight<Data = IAnything, Payload = IAnything>  {
   right?: PickProp<IField<Data, Payload>, 'right'>;
   phoneRight?: PickProp<IField<Data, Payload>, 'phoneRight'>;
@@ -47,6 +63,12 @@ interface IHeroRight<Data = IAnything, Payload = IAnything>  {
   desktopRight?: PickProp<IField<Data, Payload>, 'desktopRight'>;
 }
 
+/**
+ * Represents the interface for the bottom section of a hero component.
+ *
+ * @template Data - The type of data for the hero component.
+ * @template Payload - The type of payload for the hero component.
+ */
 interface IHeroBottom<Data = IAnything, Payload = IAnything>  {
   bottom?: PickProp<IField<Data, Payload>, 'bottom'>;
   phoneBottom?: PickProp<IField<Data, Payload>, 'phoneBottom'>;
@@ -54,6 +76,12 @@ interface IHeroBottom<Data = IAnything, Payload = IAnything>  {
   desktopBottom?: PickProp<IField<Data, Payload>, 'desktopBottom'>;
 }
 
+/**
+ * An interface representing the height properties of a hero.
+ *
+ * @template Data - The type of data used by the height properties.
+ * @template Payload - The type of payload used by the height properties.
+ */
 interface IHeroHeight<Data = IAnything, Payload = IAnything>  {
   height?: PickProp<IField<Data, Payload>, 'height'>;
   phoneHeight?: PickProp<IField<Data, Payload>, 'phoneHeight'>;
@@ -61,6 +89,11 @@ interface IHeroHeight<Data = IAnything, Payload = IAnything>  {
   desktopHeight?: PickProp<IField<Data, Payload>, 'desktopHeight'>;
 }
 
+/**
+ * Represents an interface for setting minimum heights for different devices.
+ * @template Data - The type of data used in the interface.
+ * @template Payload - The type of payload used in the interface.
+ */
 interface IHeroMinHeight<Data = IAnything, Payload = IAnything>  {
   minHeight?: PickProp<IField<Data, Payload>, 'minHeight'>;
   phoneMinHeight?: PickProp<IField<Data, Payload>, 'phoneMinHeight'>;
@@ -68,6 +101,12 @@ interface IHeroMinHeight<Data = IAnything, Payload = IAnything>  {
   desktopMinHeight?: PickProp<IField<Data, Payload>, 'desktopMinHeight'>;
 }
 
+/**
+ * Interface defining the maximum height properties for a hero element.
+ *
+ * @template Data - The type of data associated with the hero element.
+ * @template Payload - The type of payload associated with the hero element.
+ */
 interface IHeroMaxHeight<Data = IAnything, Payload = IAnything>  {
   maxHeight?: PickProp<IField<Data, Payload>, 'maxHeight'>;
   phoneMaxHeight?: PickProp<IField<Data, Payload>, 'phoneMaxHeight'>;
@@ -75,6 +114,12 @@ interface IHeroMaxHeight<Data = IAnything, Payload = IAnything>  {
   desktopMaxHeight?: PickProp<IField<Data, Payload>, 'desktopMaxHeight'>;
 }
 
+/**
+ * Represents the interface for calculating hero widths.
+ *
+ * @template Data - The type of data manipulated by the hero.
+ * @template Payload - The type of payload used for the hero.
+ */
 interface IHeroWidth<Data = IAnything, Payload = IAnything>  {
   width?: PickProp<IField<Data, Payload>, 'width'>;
   phoneWidth?: PickProp<IField<Data, Payload>, 'phoneWidth'>;
@@ -82,6 +127,12 @@ interface IHeroWidth<Data = IAnything, Payload = IAnything>  {
   desktopWidth?: PickProp<IField<Data, Payload>, 'desktopWidth'>;
 }
 
+/**
+ * Represents the minimum width constraints for a hero component.
+ *
+ * @template Data - The data type for the component.
+ * @template Payload - The payload type for the component.
+ */
 interface IHeroMinWidth<Data = IAnything, Payload = IAnything>  {
   minWidth?: PickProp<IField<Data, Payload>, 'minWidth'>;
   phoneMinWidth?: PickProp<IField<Data, Payload>, 'phoneMinWidth'>;
@@ -89,6 +140,11 @@ interface IHeroMinWidth<Data = IAnything, Payload = IAnything>  {
   desktopMinWidth?: PickProp<IField<Data, Payload>, 'desktopMinWidth'>;
 }
 
+/**
+ * Represents the interface for maximum widths of a hero component.
+ * @template Data - The type of data for the hero component.
+ * @template Payload - The type of payload for the hero component.
+ */
 interface IHeroMaxWidth<Data = IAnything, Payload = IAnything>  {
   maxWidth?: PickProp<IField<Data, Payload>, 'maxWidth'>;
   phoneMaxWidth?: PickProp<IField<Data, Payload>, 'phoneMaxWidth'>;
@@ -96,6 +152,12 @@ interface IHeroMaxWidth<Data = IAnything, Payload = IAnything>  {
   desktopMaxWidth?: PickProp<IField<Data, Payload>, 'desktopMaxWidth'>;
 }
 
+/**
+ * Interface representing the style configuration for a hero component.
+ *
+ * @template Data - The type of the data passed to the hero component.
+ * @template Payload - The type of the payload passed to the hero component.
+ */
 interface IHeroStyle<Data = IAnything, Payload = IAnything>  {
   heroOuterStyle?: PickProp<IField<Data, Payload>, 'heroOuterStyle'>;
   heroOuterPhoneStyle?: PickProp<IField<Data, Payload>, 'heroOuterPhoneStyle'>;
@@ -107,7 +169,12 @@ interface IHeroStyle<Data = IAnything, Payload = IAnything>  {
   heroInnerDesktopStyle?: PickProp<IField<Data, Payload>, 'heroInnerDesktopStyle'>;
 }
 
-type IHeroRegistry<D = IAnything> = 
+/**
+ * Interface representing a Hero registry.
+ *
+ * @template D - The data type for the hero registry.
+ */
+type IHeroRegistry<D = IAnything> =
   IHeroTop<D>
     & IHeroLeft<D>
     & IHeroRight<D>
@@ -147,22 +214,43 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a group of data.
+ *
+ * @template Data - The type of data in the group.
+ */
 type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
   fieldRightMargin: never;
   fieldBottomMargin: never;
 }>;
 
+/**
+ * Interface representing the properties for the HeroLayout component.
+ *
+ * @template Data - The type of data associated with the component.
+ * @template Payload - The type of payload associated with the component.
+ */
 export interface IHeroLayoutProps<Data = IAnything, Payload = IAnything> extends IHeroRegistry<Data>, Group<Data>, IWrappedLayout<Data> {
   className?: PickProp<IField<Data, Payload>, 'className'>;
   style?: PickProp<IField<Data, Payload>, 'style'>;
   object: PickProp<IEntity<Data>, 'object'>;
 }
 
+/**
+ * Represents the private interface for the HeroLayout component.
+ *
+ * @interface IHeroLayoutPrivate
+ */
 interface IHeroLayoutPrivate {
   isBaselineAlign: boolean;
   children?: React.ReactNode;
 }
 
+/**
+ * Interface representing breakpoints for responsive design.
+ *
+ * @interface
+ */
 interface IBreakpoints {
   xs: number;
   sm: number;
@@ -171,6 +259,10 @@ interface IBreakpoints {
   xl: number;
 }
 
+/**
+ * Represents the properties for a container component.
+ * @template Data - The type of data for the container component.
+ */
 interface IContainerProps<Data extends IAnything> {
   children: React.ReactNode;
   className: string;

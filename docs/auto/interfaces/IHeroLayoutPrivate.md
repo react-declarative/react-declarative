@@ -1,5 +1,7 @@
 # IHeroLayoutPrivate
 
+Represents the private interface for the HeroLayout component.
+
 ## Properties
 
 ### isBaselineAlign

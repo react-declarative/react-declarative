@@ -1,5 +1,7 @@
 # IBoxLayoutProps
 
+Interface for specifying props for the IBoxLayout class.
+
 ## Properties
 
 ### className

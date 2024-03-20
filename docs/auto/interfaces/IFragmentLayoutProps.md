@@ -1,5 +1,7 @@
 # IFragmentLayoutProps
 
+Represents the props for the IFragmentLayout component.
+
 ## Properties
 
 ### isVisible

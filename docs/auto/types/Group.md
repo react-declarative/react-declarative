@@ -7,4 +7,4 @@ type Group<Data = IAnything> = Omit<IGroupProps<Data>, keyof {
 }>;
 ```
 
-
+Represents a group of data.

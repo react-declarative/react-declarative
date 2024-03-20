@@ -1,5 +1,7 @@
 # IHeroMaxWidth
 
+Represents the interface for maximum widths of a hero component.
+
 ## Properties
 
 ### maxWidth

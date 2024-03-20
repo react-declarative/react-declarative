@@ -1,5 +1,7 @@
 # IExpansionLayoutPrivate
 
+Represents the private configuration options for an Expansion Layout.
+
 ## Properties
 
 ### isBaselineAlign
