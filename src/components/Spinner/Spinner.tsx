@@ -6,10 +6,22 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 import classNames from "../../utils/classNames";
 
+/**
+ * The `ISpinnerProps` interface represents the properties of the Spinner component.
+ * It extends the `BoxProps` interface and excludes the `children` property.
+ */
 interface ISpinnerProps extends Omit<BoxProps, keyof {
   children: never;
 }> {}
 
+/**
+ * Represents a function that creates a spin animation.
+ * @param [ms=1000] - The duration in milliseconds for the animation.
+ * @returns - An object representing the spin animation.
+ * @property {string} transformBox - The value for the `transformBox` CSS property.
+ * @property {string} transformOrigin - The value for the `transformOrigin` CSS property.
+ * @property {string} animation - The CSS animation property with keyframes and duration.
+ */
 const createSpin = (ms = 1_000) => ({
   transformBox: 'fill-box',
   transformOrigin: 'center',

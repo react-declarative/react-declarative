@@ -37,6 +37,37 @@ const MODAL_ROOT = "outlet-modal__root";
 const WAIT_FOR_CHANGES_DELAY = 1_000;
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Represents the props for the ITabsModal component.
+ *
+ * @template Data - The type of data being passed to the ITabsModal component.
+ * @template Payload - The type of payload being passed to the ITabsModal component.
+ *
+ * @property sizeRequest - A function that determines the size of the ITabsModal.
+ * @property openSubject - The behavior subject that determines if the ITabsModal is open or closed.
+ * @property fullScreen - Determines if the ITabsModal should be full screen or not.
+ * @property withActionButton - Determines if the ITabsModal has an action button or not.
+ * @property withStaticAction - Determines if the ITabsModal has a static action or not.
+ * @property title - The title of the ITabsModal.
+ * @property fetchState - The fetch state of the ITabsModal.
+ * @property reloadSubject - The subject that triggers a reload of the ITabsModal.
+ * @property onSubmit - A function that handles the submission of data and payload.
+ * @property AfterTitle - A component that is rendered after the title of the ITabsModal.
+ * @property BeforeTitle - A component that is rendered before the title of the ITabsModal.
+ * @property routes - The routes of the ITabsModal.
+ * @property data - The data of the ITabsModal.
+ * @property onLoadStart - A function that is called when the ITabsModal starts loading.
+ * @property onLoadEnd - A function that is called when the ITabsModal finishes loading.
+ * @property fallback - A function that is called when an error occurs in the ITabsModal.
+ * @property throwError - Determines if the ITabsModal should throw an error or not.
+ * @property hidden - Determines if the ITabsModal should be hidden or not.
+ * @property submitLabel - The label for the submit button of the ITabsModal.
+ * @property mapPayload - A function that maps the data to the payload.
+ * @property mapInitialData - A function that maps the data to the initialData.
+ * @property onMount - A function that is called when the ITabsModal is mounted.
+ * @property onUnmount - A function that is called when the ITabsModal is unmounted.
+ * @property onClose - A function that is called when the ITabsModal is closed.
+ */
 export interface ITabsModalProps<
   Data extends {} = Record<string, any>,
   Payload = IAnything

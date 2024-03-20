@@ -15,6 +15,9 @@ const RowMarkContext = createContext<RowMark>(null as never);
 
 export const useRowMark = () => useContext(RowMarkContext);
 
+/**
+ * Interface representing the props for the IRowMarkProvider component.
+ */
 interface IRowMarkProviderProps {
   rowMark: ITileProps["rowMark"];
   rowKey: ITileProps["rowKey"];
@@ -22,6 +25,16 @@ interface IRowMarkProviderProps {
   children: React.ReactNode;
 }
 
+/**
+ * RowMarkProvider component provides row marks for each row in a table.
+ *
+ * @param props - The properties passed to the RowMarkProvider component.
+ * @param props.children - The child elements to be wrapped by the RowMarkProvider.
+ * @param [props.rowKey="id"] - The key used to identify each row in the table.
+ * @param props.recomputeSubject - The subject used to trigger recomputation of row marks.
+ * @param [props.rowMark=() => ""] - The function used to compute the row mark.
+ * @returns The RowMarkProvider component.
+ */
 export const RowMarkProvider = ({
   children,
   rowKey = "id",

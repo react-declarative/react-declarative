@@ -12,6 +12,9 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a searchable item in a drop-down menu.
+ * */
 export const SearchItem = ({
     value,
     label,

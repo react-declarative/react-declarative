@@ -12,6 +12,9 @@ import SelectionMode from "../../../model/SelectionMode";
 import IAnything from "../../../model/IAnything";
 import ITileProps from "../model/ITileProps";
 
+/**
+ * Represents the props for the TileItem component.
+ */
 interface ITileItemProps {
   className?: string;
   style?: React.CSSProperties;
@@ -24,6 +27,11 @@ interface ITileItemProps {
   selectionMode: ITileProps["selectionMode"];
 }
 
+/**
+ * A tile item component that can be used in a list or grid layout.
+ *
+ * @component
+ */
 export const TileItem = forwardRef(
   (
     {

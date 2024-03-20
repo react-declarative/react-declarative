@@ -14,6 +14,14 @@ import IRowData from "../../model/IRowData";
 
 type Param = IRowData['id'][];
 
+/**
+ * Interface representing the parameters for a class.
+ *
+ * @template FilterData - Type for the filter data.
+ * @template RowData - Type for the row data.
+ * @template Payload - Type for the payload.
+ * @template Field - Type for the field.
+ */
 interface IParams<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

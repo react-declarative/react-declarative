@@ -7,17 +7,31 @@ const SelectionContext = createContext<IState>(null as never);
 
 export const useSelection = () => useContext(SelectionContext);
 
+/**
+ * Interface representing the props for the ISelectionProvider component.
+ */
 interface ISelectionProviderProps {
     selectedRows: ITileProps['selectedRows'];
     onSelectedRows: ITileProps['onSelectedRows'];
     children: React.ReactNode;
 }
 
+/**
+ * @interface
+ * Represents the state of a selection.
+ */
 interface IState {
     selection: Set<string>;
     setSelection: (s: Set<string>) => void;
 }
 
+/**
+ * Compares two sets to check if they are similar.
+ *
+ * @param s1 - The first set to compare.
+ * @param s2 - The second set to compare.
+ * @returns Returns true if the two sets are similar, otherwise false.
+ */
 const compareSelection = (s1: Set<string>, s2: Set<string>) => {
     if (s1.size !== s2.size) {
         return false;
@@ -37,6 +51,13 @@ const compareSelection = (s1: Set<string>, s2: Set<string>) => {
     }
 };
 
+/**
+ * A component that provides selection functionality for its children.
+ * @typedef {Object} ISelectionProviderProps
+ * @property {React.ReactNode} children - The child components to wrap with selection functionality.
+ * @property {string[]} selectedRows - The currently selected rows.
+ * @property {function} onSelectedRows - Callback function to handle selection changes.
+ */
 export const SelectionProvider = ({
     children,
     selectedRows,

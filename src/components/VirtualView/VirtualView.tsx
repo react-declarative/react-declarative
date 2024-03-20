@@ -30,6 +30,11 @@ export const CHILD_ELEMENT = "virtual-view-child";
 
 const DATASET_ID = "list_item_idx";
 
+/**
+ * Represents the props for the VirtualView component.
+ * @interface
+ * @extends BoxProps
+ */
 export interface IVirtualViewProps
   extends Omit<
     BoxProps,

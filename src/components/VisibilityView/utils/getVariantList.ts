@@ -18,6 +18,13 @@ const VARIANT_FIELD_TYPE = new Set([
   FieldType.Component,
 ]);
 
+/**
+ * Retrieves a list of variants based on the given fields.
+ *
+ * @param fields - The array of fields to process.
+ * @param keyToTitle - (Optional) A function to derive the title from the field name. Default is identity function.
+ * @returns - The list of variants, each containing a label and value.
+ */
 export const getVariantList = (fields: IField[], keyToTitle = (v: string) => v) => {
   const variantList: { label: string; value: string }[] = [];
   for (const { name, type, title, placeholder } of deepFlat<IField>(

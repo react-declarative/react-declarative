@@ -59,6 +59,25 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents a searchable list component.
+ * @typedef ISearchListProps
+ * @property value - The current value of the search list.
+ * @property items - An array of items to be displayed in the list.
+ * @property item - The currently selected item in the list.
+ * @property payload - Additional data payload for the search list.
+ * @property loading - Indicates if the search list is currently in a loading state.
+ * @property hasMore - Indicates if there are more items available to load.
+ * @property SearchItem - The component used to display each item in the list.
+ * @property CreateButton - The component used to create a new item in the list.
+ * @property onItemChange - Callback function called when an item in the list is changed.
+ * @property onDataRequest - Callback function called when more data is requested to be loaded.
+ * @property onCreate - Callback function called when a new item is created.
+ * @property onLoadStart - Callback function called when the loading state starts.
+ * @property onLoadEnd - Callback function called when the loading state ends.
+ * @property fallback - The component to be rendered when there are no items in the list.
+ * @property throwError - The component to be rendered when an error occurs.
+ */
 export const SearchList = ({
   value,
   items,

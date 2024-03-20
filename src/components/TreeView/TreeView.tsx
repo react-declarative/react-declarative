@@ -31,6 +31,17 @@ const MOUSE_OUT_DEBOUNCE = 45;
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+/**
+ * Represents the properties for the ITreeView component.
+ *
+ * @typedef ITreeViewProps
+ * @property [value] - The selected values in the tree view.
+ * @property [readOnly=false] - Specifies whether the tree view is read-only or not.
+ * @property [loading=false] - Specifies whether the tree view is in loading state or not.
+ * @property items - The nodes to render in the tree view.
+ * @property [onChange] - The function to be called when the value in the tree view changes. It accepts a single parameter which is the new selected value or null.
+ * @property [TextFieldProps] - The additional properties for the TextField component.
+ */
 type ITreeViewProps = {
   value?: string[] | null;
   readOnly?: boolean;

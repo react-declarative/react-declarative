@@ -1,9 +1,17 @@
 import React from "react";
 
+/**
+ * Represents a collection of attributes.
+ * @interface
+ */
 interface IAttributeCollection {
   [name: string]: unknown;
 }
 
+/**
+ * Represents the configuration options for translation.
+ * @interface
+ */
 export interface ITranslateConfig {
   useRawMark: boolean;
   rawSymbol: string;
@@ -17,6 +25,17 @@ const createElementRef = React.createElement;
 
 const TRANSLATE_MARK = Symbol("translated");
 
+/**
+ * Function to create an element factory.
+ *
+ * @param process - A function to process the text before creating the element.
+ * @returns - The element factory function.
+ *
+ * @param type - The type of the element to create.
+ * @param props - Optional attribute collection for the element.
+ * @param children - Optional children to be appended to the element.
+ * @returns - The created DOM element.
+ */
 const createElementFactory =
   (process: (text: string) => string) =>
   (type: string, props: IAttributeCollection | null, ...children: any[]) => {

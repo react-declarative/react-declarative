@@ -25,6 +25,20 @@ const useStyles = makeStyles()((theme) => ({
 
 const SEARCH_DEBOUNCE = 1_500;
 
+/**
+ * Represents a search input component.
+ *
+ * @param SearchInput - The search input configuration.
+ * @param SearchInput.type - The type of input.
+ * @param SearchInput.mode - The input mode.
+ * @param SearchInput.pattern - The input pattern.
+ * @param SearchInput.getValue - A function that returns the current value of the input.
+ * @param SearchInput.loading - Specifies if the search is currently loading.
+ * @param SearchInput.placeholder - The placeholder text for the input.
+ * @param SearchInput.autoComplete - Specifies if the input has auto-completion enabled.
+ * @param SearchInput.onTextChange - The callback function when the input text changes.
+ * @param SearchInput.reloadSubject - The subject for reloading the search input.
+ */
 export const SearchInput = ({
   type,
   mode,

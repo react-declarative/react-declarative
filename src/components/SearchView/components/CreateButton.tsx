@@ -10,6 +10,11 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Function to create a search item.
+ *
+ * @returns The created search item.
+ */
 export const SearchCreate = () => {
   const { classes } = useStyles();
   return (

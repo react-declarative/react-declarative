@@ -6,6 +6,11 @@ import Snackbar from "@mui/material/Snackbar";
 import randomString from '../../utils/randomString';
 import createValueProvider from '../../utils/createValueProvider';
 
+/**
+ * Represents a snack.
+ *
+ * @interface ISnack
+ */
 interface ISnack {
     key: string;
     message: string;
@@ -13,6 +18,9 @@ interface ISnack {
 
 const AUTO_HIDE_DURATION = 5000;
 
+/**
+ * Interface representing props for SnackProvider component.
+ */
 interface ISnackProviderProps {
     children: React.ReactNode;
     delay?: number;

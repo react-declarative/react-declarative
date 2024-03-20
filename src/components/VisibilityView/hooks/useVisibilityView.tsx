@@ -12,6 +12,12 @@ import FieldType from '../../../model/FieldType';
 type Data = Record<string, string[]>;
 type State = Record<string, Record<string, boolean>>;
 
+/**
+ * Interface for defining parameters for a class.
+ * @interface
+ * @extends IVisibilityViewProps
+ * @extends Omit<IActionModalParams, 'changeSubject'>
+ */
 interface IParams
   extends Omit<
     IVisibilityViewProps,

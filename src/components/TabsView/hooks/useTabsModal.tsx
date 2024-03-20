@@ -13,6 +13,11 @@ import useSingleton from "../../../hooks/useSingleton";
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
 
+/**
+ * Interface representing the parameter options for a class or function.
+ * @template Data The type of data to be submitted.
+ * @template Payload The type of payload to be submitted.
+ */
 interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
   extends Omit<
     ITabsModalProps<Data, Payload>,

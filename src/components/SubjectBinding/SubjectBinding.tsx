@@ -2,6 +2,9 @@ import * as React from "react";
 
 import TSubject from "../../model/TSubject";
 
+/**
+ * Represents the properties for the SubjectBinding component.
+ */
 interface ISubjectBindingProps {
   target?: TSubject<any>;
   children: React.ReactNode;

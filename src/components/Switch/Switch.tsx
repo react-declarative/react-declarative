@@ -23,6 +23,10 @@ import createWindowHistory from "../../utils/createWindowHistory";
 import randomString from "../../utils/randomString";
 import sleep from "../../utils/sleep";
 
+/**
+ * Represents an item in a switch component.
+ * @interface ISwitchItem
+ */
 export interface ISwitchItem {
   path: string;
   element?: React.ComponentType<any>;
@@ -34,6 +38,9 @@ export interface ISwitchItem {
   redirect?: string | ((params: Record<string, any>) => string | null);
 }
 
+/**
+ * Represents the properties for the Switch component.
+ */
 export interface ISwitchProps {
   className?: string;
   style?: React.CSSProperties;
@@ -63,6 +70,11 @@ const canActivate = async (item: ISwitchItem) => {
   }
 };
 
+/**
+ * Represents the result of a switch operation in a routing system.
+ *
+ * @interface
+ */
 interface ISwitchResult {
   element: React.ComponentType<any>;
   key: string;

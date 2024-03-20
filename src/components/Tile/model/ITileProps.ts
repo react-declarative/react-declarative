@@ -6,6 +6,12 @@ import TSubject from "../../../model/TSubject";
 
 import ITile from "./ITile";
 
+/**
+ * Represents the properties required for the `ITile` component.
+ *
+ * @template Data - The type of data used in the tile.
+ * @template Payload - The type of payload used in the tile.
+ */
 export interface ITileProps<Data = IAnything, Payload = IAnything> {
   className?: string;
   style?: React.CSSProperties;
