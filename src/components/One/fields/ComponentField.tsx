@@ -44,6 +44,7 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
  * @template Payload - The type of payload for the field.
  */
 export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+  name?: PickProp<IField<Data, Payload>, "name">;
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   element?: PickProp<IField<Data, Payload>, "element">;
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
@@ -61,7 +62,10 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
 interface IComponentFieldPrivate<Data = IAnything> {
   object: PickProp<IManaged<Data>, "object">;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  invalid: PickProp<IManaged<Data>, "invalid">;
+  incorrect: PickProp<IManaged<Data>, "incorrect">;
   readonly: PickProp<IManaged<Data>, "readonly">;
+  onChange: PickProp<IManaged<Data>, "onChange">;
   outlinePaper?: PickProp<IField<Data>, "outlinePaper">;
   transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
 }
@@ -112,12 +116,15 @@ const ComponentInstance = ({
  */
 export const ComponentField = ({
   disabled,
+  invalid,
+  incorrect,
   readonly,
   watchOneContext,
   element: Element = () => <Fragment />,
   outlinePaper,
   transparentPaper,
   object,
+  onChange: onValueChange,
   ...otherProps
 }: IComponentFieldProps & IComponentFieldPrivate) => {
   const { classes } = useStyles();
@@ -136,10 +143,13 @@ export const ComponentField = ({
     const props = {
       ...object,
       onChange: handleChange,
+      onValueChange,
       _fieldParams,
       _fieldData: object,
       outlinePaper,
       transparentPaper,
+      invalid,
+      incorrect,
       payload,
       disabled,
       readonly,
@@ -150,7 +160,7 @@ export const ComponentField = ({
         return;
     }
     setNode(() => <Element {...props} context={DEFAULT_VALUE} />);
-  }, [object, disabled, readonly]);
+  }, [object, disabled, invalid, incorrect, readonly]);
 
   return (
     <Box

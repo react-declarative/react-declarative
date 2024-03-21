@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
   useRef,
   useMemo,
+  forwardRef,
 } from "react";
 
 import { makeStyles } from "../../styles";
@@ -432,5 +433,21 @@ export const VirtualView = ({
     </Box>
   );
 };
+
+interface IVirtualized {
+  className?: never;
+  style?: never;
+}
+
+VirtualView.virtualize = <T extends IVirtualized = {}>(OriginalComponent: React.ComponentType<T>) => forwardRef(
+  (
+    { className, style, ...otherProps }: T,
+    ref: React.Ref<HTMLDivElement>,
+  ) => (
+    <div className={className} style={style} ref={ref}>
+      <OriginalComponent {...otherProps as unknown as T} />
+    </div>
+  )
+);
 
 export default VirtualView;
