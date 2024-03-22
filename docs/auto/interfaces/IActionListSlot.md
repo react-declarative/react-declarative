@@ -1,5 +1,7 @@
 # IActionListSlot
 
+Represents a slot in an action list.
+
 ## Properties
 
 ### className

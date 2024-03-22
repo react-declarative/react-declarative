@@ -43,6 +43,13 @@ export const RowMarkProvider = ({
 }: IRowMarkProviderProps) => {
   const recomputeSubject = useSubject(upperRecomputeSubject);
 
+  /**
+   * Memoizes a function to calculate the row mark.
+   *
+   * @param {function} rowKey - The function to extract the key from the row.
+   * @param {function} upperRowMark - The function to calculate the upper row mark.
+   * @returns {any} The memoized row mark value.
+   */
   const rowMark = useMemo(
     () => memoize(([row]) => row[rowKey] || row, upperRowMark),
     []

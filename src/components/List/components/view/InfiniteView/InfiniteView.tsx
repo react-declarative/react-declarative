@@ -53,6 +53,11 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Interface for the IInfiniteProps class.
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ */
 interface IInfiniteProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -77,6 +82,12 @@ interface IInfiniteProps<
   listChips: IListProps["chips"];
 }
 
+/**
+ * Represents an infinite state interface.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ */
 interface IInfiniteState<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -133,6 +144,12 @@ export const InfiniteView = <
     return [...selection] as string[]
   }, [selection]);
 
+  /**
+   * Handles the click event on a row.
+   *
+   * @param row - The clicked row object.
+   * @returns
+   */
   const handleRowClick = (row: any) => {
     if (
       props.withSelectOnRowClick &&
@@ -165,6 +182,13 @@ export const InfiniteView = <
     filterData: upperFilterData,
   });
 
+  /**
+   * Updates the state with clean rows and filter data.
+   * Resets the scroll position to the top.
+   *
+   * @function handleCleanRows
+   * @returns {void}
+   */
   const handleCleanRows = useCallback(() => {
     setState(() => ({
       rows: upperRows,
@@ -173,6 +197,14 @@ export const InfiniteView = <
     scrollYSubject.next(0);
   }, [upperRows, upperFilterData]);
 
+  /**
+   * Handles appending rows to state.
+   *
+   * This function is used with the useCallback hook to memoize any changes to the function reference.
+   * It appends new rows to the existing rows in state by filtering out rows with duplicate ids.
+   *
+   * @returns {void}
+   */
   const handleAppendRows = useCallback(
     () =>
       setState(({ rows, ...state }) => {

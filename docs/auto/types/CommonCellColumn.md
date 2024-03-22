@@ -8,4 +8,4 @@ export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<IColum
 };
 ```
 
-
+Represents a common cell column.

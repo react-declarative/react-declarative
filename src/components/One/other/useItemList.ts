@@ -6,6 +6,10 @@ import { useOneState } from "../context/StateProvider";
 
 const LOAD_SOURCE = 'items-field';
 
+/**
+ * Represents the parameters for a certain operation.
+ * @interface
+ */
 interface IParams {
   itemList: IField<any>['itemList'];
   tr: IField<any>['tr'];
@@ -14,19 +18,48 @@ interface IParams {
   defaultList?: string[];
 }
 
+/**
+ * Represents the state of items and labels.
+ * @interface
+ */
 interface IItemsState {
   items: string[];
   labels: Record<string, string>;
 }
 
+/**
+ * Represents the interface for a loading state.
+ *
+ * @interface ILoadingState
+ * @property {boolean} loading - Indicates if the state is currently loading.
+ * @property {boolean} loaded - Indicates if the state has finished loading.
+ */
 interface ILoadingState {
   loading: boolean;
   loaded: boolean;
 }
 
+/**
+ * Represents the state of an application.
+ *
+ * @interface
+ * @extends {IItemsState}
+ * @extends {ILoadingState}
+ */
 interface IState extends IItemsState, ILoadingState {
 }
 
+/**
+ * Fetches the state of items asynchronously.
+ *
+ * @param params - The parameters for fetching the state.
+ * @param params.itemList - The list of items to fetch the state for.
+ * @param [params.tr] - The translation function for converting item labels.
+ * @param [params.payload] - The payload object to be used in the translation function.
+ * @param [params.object] - The object to be used in the translation function.
+ *
+ * @returns The state of the fetched items.
+ */
 const fetchState = async ({
   itemList = [],
   tr = v => v,

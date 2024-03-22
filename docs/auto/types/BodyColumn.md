@@ -8,4 +8,4 @@ export type BodyColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowD
 };
 ```
 
-
+Represents a column in the body of a table.

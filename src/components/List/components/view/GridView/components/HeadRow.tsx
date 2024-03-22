@@ -34,6 +34,26 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
   const search = useSearch();
   const payload = usePayload();
 
+  /**
+   * visibilityRequest - Represents a memoized visibility request.
+   *
+   * @typedef {Object} IVisibilityRequest
+   * @property {Object} filterData - The filter data object.
+   * @property {Object} pagination - The pagination object.
+   * @property {Array} sortModel - The sort model array.
+   * @property {Object} chips - The chips object.
+   * @property {string} search - The search string.
+   * @property {Object} payload - The payload object.
+   *
+   * @param {Object} filterData - The filter data to include in the visibility request.
+   * @param {Object} pagination - The pagination to include in the visibility request.
+   * @param {Array} sortModel - The sort model to include in the visibility request.
+   * @param {Object} chips - The chips to include in the visibility request.
+   * @param {string} search - The search string to include in the visibility request.
+   * @param {Object} payload - The payload to include in the visibility request.
+   *
+   * @returns {IVisibilityRequest} - The memoized visibility request object.
+   */
   const visibilityRequest = useMemo(
     (): IVisibilityRequest => ({
       filterData,
@@ -46,6 +66,14 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
     [filterData, pagination, sortModel, chips, search, payload]
   );
 
+  /**
+   * Represents the columns used in a particular component.
+   *
+   * @typedef {Object} HeadColumn
+   * @property {string} title - The title of the column.
+   * @property {number} width - The width of the column.
+   * @property {boolean} isVisible - Indicates whether the column is visible.
+   */
   const columns = useMemo(
     () =>
       wrapColumns({

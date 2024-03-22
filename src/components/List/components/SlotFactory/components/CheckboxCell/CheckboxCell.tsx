@@ -16,6 +16,10 @@ import useSelection from '../../../../hooks/useSelection';
 import useRowMark from '../../../../hooks/useRowMark';
 import useProps from '../../../../hooks/useProps';
 
+/**
+ * Interface for defining props for a CheckboxCell component.
+ * @template RowData - The type of data in the row.
+ */
 export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
     disabled: boolean;
@@ -34,6 +38,13 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * CheckboxCell component for rendering checkboxes in a table cell.
+ *
+ * @template RowData - The type of the data for each row in the table
+ * @param props - The props for the CheckboxCell component
+ * @returns - The rendered CheckboxCell component
+ */
 export const CheckboxCell = <RowData extends IRowData = IAnything>({
     row,
     disabled,

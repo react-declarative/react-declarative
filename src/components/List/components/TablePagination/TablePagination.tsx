@@ -74,6 +74,12 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Generates a default label for the selected items based on the given size.
+ *
+ * @param size - The number of selected items.
+ * @returns A string representing the default label.
+ */
 const selectionLabelDefault = (size: number) => {
     return `Selected: ${wordForm(size, {
         one: 'item',
@@ -81,12 +87,26 @@ const selectionLabelDefault = (size: number) => {
     })}`;
 };
 
+/**
+ * Function that returns a component for displaying a loading indicator.
+ * This component uses Material-UI's CircularProgress component to show a loading spinner.
+ *
+ * @return The loading indicator component.
+ * @category Components
+ */
 const SelectionLabelLoader = () => (
     <CircularProgress
         size="16px"
     />
 );
 
+/**
+ * TablePaginationContainer is a React functional component that renders a container for table pagination.
+ * It accepts props to style and customize the container.
+ *
+ * @param props - The props object containing styling and customization options for the container
+ * @returns - A container element with pagination features
+ */
 const TablePaginationContainer = (props: BoxProps) => {
     const { classes } = useStyles();
     const { selection } = useSelection();
@@ -117,6 +137,16 @@ const TablePaginationContainer = (props: BoxProps) => {
     );
 };
 
+/**
+ * Renders a table pagination with options like page number, rows per page, etc.
+ *
+ * @param options - The options object for configuring the pagination.
+ * @param [options.className] - The class name for the pagination container.
+ * @param options.rowsPerPage - The number of rows to display per page.
+ * @param options.count - The total number of rows in the table.
+ * @param options.page - The current page number.
+ * @param options.onPageChange - The callback function to be called when the page is changed.
+ */
 const TableActions = ({
     className,
     count,
@@ -152,6 +182,9 @@ const TableActions = ({
     );
 };
 
+/**
+ * Interface for the props of the TablePagination component.
+ */
 type ITablePaginationProps = TablePaginationProps & {
     width: number;
     height: number;
@@ -192,6 +225,13 @@ export const TablePagination = ({
         onPageChange
     } = props;
 
+    /**
+     * Handles the arrow keydown event.
+     *
+     * @param {Event} e - The keyboard event object.
+     * @param {number} go - The number of pages to move.
+     * @returns {void}
+     */
     const handleArrowKeydown = useActualCallback((e: any, go: number) => {
         if (count === -1) {
             onPageChange(e, Math.max(page + go, 0));

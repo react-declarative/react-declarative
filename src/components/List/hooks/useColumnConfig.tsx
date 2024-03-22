@@ -91,6 +91,11 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
   const { classes } = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
+  /**
+   * Represents a storage manager variable.
+   *
+   * @returns {object} - The storage manager object.
+   */
   const storageManager = useMemo(
     () => {
       const manager = createLsManager<IColumnEntry[]>(`${storageKey}_v1`)

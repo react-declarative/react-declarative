@@ -1,5 +1,7 @@
 # ISortModelProviderProps
 
+Interface for the props of the `ISortModelProvider` component.
+
 ## Properties
 
 ### children

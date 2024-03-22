@@ -51,6 +51,12 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Interface for the Chooser component props
+ *
+ * @template FilterData - The type of filter data
+ * @template RowData - The type of row data
+ */
 interface IChooserProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -75,6 +81,12 @@ interface IChooserProps<
   listChips: IListProps["chips"];
 }
 
+/**
+ * An interface representing the state of a chooser component.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ */
 interface IChooserState<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -126,6 +138,17 @@ export const Chooser = <
     filterData: upperFilterData,
   });
 
+  /**
+   * Handle function for cleaning rows and resetting data filter.
+   *
+   * @function handleCleanRows
+   * @callback
+   * @returns {void}
+   *
+   * @example
+   * // Usage
+   * handleCleanRows();
+   */
   const handleCleanRows = useCallback(() => {
     setState(() => ({
       rows: upperRows,
@@ -134,6 +157,11 @@ export const Chooser = <
     scrollYSubject.next(0);
   }, [upperRows, upperFilterData]);
 
+  /**
+   * Function to handle appending rows to the current state rows.
+   *
+   * @returns {void}
+   */
   const handleAppendRows = useCallback(
     () =>
       setState(({ rows, ...state }) => {
@@ -154,6 +182,13 @@ export const Chooser = <
 
   const waitForRequest = useRenderWaiter([loading]);
 
+  /**
+   * Handles a data request.
+   *
+   * @param {object} request - The request object containing information about the data request.
+   * @param {function} callback - The callback function to be executed when the data request is handled.
+   * @returns {void}
+   */
   const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;
     isOk = isOk && hasMore;

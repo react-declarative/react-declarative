@@ -5,6 +5,12 @@ import IRowData from '../../../model/IRowData';
 
 import useProps from './useProps';
 
+/**
+ * Represents the parameters for a specific operation.
+ *
+ * @interface
+ * @template RowData The type of the row data.
+ */
 interface IParams<RowData extends IRowData = IAnything> {
     row: RowData;
 }

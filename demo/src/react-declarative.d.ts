@@ -12807,6 +12807,14 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents the context for a specific instance of a list component.
+   *
+   * @template FilterData - The type of the filter data object.
+   * @template RowData - The type of the row data object.
+   * @template Payload - The type of the payload object.
+   * @template Field - The type of the field object.
+   */
   type IContext<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -12816,6 +12824,14 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     IListProps<FilterData, RowData, Payload, Field>["filterData"],
     undefined
   >;
+  /**
+   * Represents the interface for the props of a React component.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   */
   interface IProps<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -12825,6 +12841,19 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     value: IContext<FilterData, RowData, Payload, Field>;
     children: React.ReactNode;
   }
+  /**
+   * Provides filtered data to its children components.
+   * @template FilterData - The type of the data used for filtering.
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   *
+   * @param props - The props for the FilterDataProvider.
+   * @param props.children - The children components.
+   * @param props.value - The value used for filtering.
+   *
+   * @returns The FilterDataProvider component.
+   */
   export const FilterDataProvider: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -12834,6 +12863,16 @@ declare module "react-declarative/components/List/hooks/useFilterData" {
     children,
     value,
   }: IProps<FilterData, RowData, Payload, Field>) => JSX.Element;
+  /**
+   * Retrieves the filter data from the FilterDataContext.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   *
+   * @returns The filter context as IContext<FilterData, RowData, Payload, Field>.
+   */
   export const useFilterData: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -12847,6 +12886,11 @@ declare module "react-declarative/components/List/hooks/usePagination" {
   import * as React from "react";
   import { ListHandlerPagination } from "react-declarative/model/IListProps";
   type IContext = ListHandlerPagination;
+  /**
+   * @interface IProps
+   * @extends IContext
+   * @description Represents the properties of a React component.
+   */
   interface IProps extends IContext {
     children: React.ReactNode;
   }
@@ -12875,10 +12919,16 @@ declare module "react-declarative/components/List/hooks/useSortModel" {
     ListHandlerSortModel,
   } from "react-declarative/model/IListProps";
   export const useSortModel: () => IState;
+  /**
+   * Interface for the props of the `ISortModelProvider` component.
+   */
   interface ISortModelProviderProps {
     children: React.ReactNode;
     sortModel: ListHandlerSortModel;
   }
+  /**
+   * Represents the interface for managing the state of a list sorting model.
+   */
   interface IState {
     sortModel: Map<IListSortItem["field"], IListSortItem>;
     setSortModel: (s: Map<IListSortItem["field"], IListSortItem>) => void;
@@ -12932,6 +12982,11 @@ declare module "react-declarative/components/List/hooks/useChips" {
 declare module "react-declarative/components/List/hooks/useSearch" {
   import * as React from "react";
   type IContext = string;
+  /**
+   * @typedef {Object} IProps
+   * @property {IContext} value - The context value to be passed to the children.
+   * @property {React.ReactNode} children - The React node to be rendered as children.
+   */
   interface IProps {
     value: IContext;
     children: React.ReactNode;
@@ -12944,6 +12999,9 @@ declare module "react-declarative/components/List/hooks/useSearch" {
 declare module "react-declarative/components/List/hooks/usePayload" {
   import * as React from "react";
   import IListProps from "react-declarative/model/IListProps";
+  /**
+   * Interface representing the props for the IPayloadProvider component.
+   */
   interface IPayloadProviderProps {
     children: React.ReactNode;
     value: Exclude<IListProps["payload"], undefined>;
@@ -12987,10 +13045,17 @@ declare module "react-declarative/components/List/hooks/useSelection" {
   import React from "react";
   import { RowId } from "react-declarative/model/IRowData";
   export const useSelection: () => IState;
+  /**
+   * Represents the properties for the ISelectionProvider component.
+   */
   interface ISelectionProviderProps {
     children: React.ReactNode;
     selectedRows?: RowId[];
   }
+  /**
+   * Represents the state of a selection.
+   * @interface
+   */
   interface IState {
     selection: Set<RowId>;
     setSelection: (s: Set<RowId>) => void;
@@ -13007,6 +13072,13 @@ declare module "react-declarative/components/List/hooks/useSelection" {
 
 declare module "react-declarative/components/List/common/ClassicChipListSlot" {
   import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+  /**
+   * Renders a chip list in a slot layout.
+   *
+   * @param listChips - The array of chip objects to be rendered.
+   * @param loading - Indicates whether the chip list is currently loading.
+   * @returns - The rendered chip list slot component.
+   */
   export const ClassicChipListSlot: ({
     listChips,
     loading,
@@ -13016,6 +13088,30 @@ declare module "react-declarative/components/List/common/ClassicChipListSlot" {
 
 declare module "react-declarative/components/List/common/ClassicFilterListSlot" {
   import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  /**
+   * Represents a classic filter list slot component.
+   *
+   * @template FilterData - The data type of the filter.
+   *
+   * @param props - The props for the component.
+   * @param props.className - The class name for the component.
+   * @param props.style - The inline style for the component.
+   * @param props.height - The height of the component.
+   * @param props.filterData - The filter data for the component.
+   * @param props.filters - The filters for the component.
+   * @param props.change - The function to call when the filter changes.
+   * @param props.ready - Indicates if the component is ready.
+   * @param props.label - The label for the component.
+   * @param props.loading - Indicates if the component is loading.
+   * @param props.withSearch - Indicates if the component has search functionality.
+   * @param props.withToggledFilters - Indicates if the component has toggled filters.
+   * @param props.search - The search query for the component.
+   * @param props.onSearchChange - The function to call when the search query changes.
+   * @param props.onFilterChange - The function to call when the filter changes.
+   * @param props.onCollapsedChange - The function to call when the component's collapsed state changes.
+   *
+   * @returns The classic filter list slot component.
+   */
   export const ClassicFilterListSlot: <FilterData extends {}>({
     className,
     style,
@@ -13038,6 +13134,27 @@ declare module "react-declarative/components/List/common/ClassicFilterListSlot" 
 
 declare module "react-declarative/components/List/common/DialogFilterListSlot" {
   import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  /**
+   * DialogFilterListSlot represents a reusable component for displaying and managing a list of filters in a dialog.
+   *
+   * @template FilterData - The type of the filter data.
+   *
+   * @param props - The props for the component.
+   * @param props.className - The class name for the component.
+   * @param props.style - The inline style for the component.
+   * @param props.filterData - The filter data.
+   * @param props.filters - The list of filters.
+   * @param props.change - The function to call when the filters are changed.
+   * @param props.label - The label for the filter list.
+   * @param props.loading - Indicates if the filter list is currently loading.
+   * @param props.withSearch - Indicates if a search input should be displayed.
+   * @param props.withToggledFilters - Indicates if the filters should be toggled.
+   * @param props.search - The search value.
+   * @param props.onSearchChange - The function to call when the search value is changed.
+   * @param props.onFilterChange - The function to call when a filter is changed.
+   *
+   * @returns - The rendered component.
+   */
   export const DialogFilterListSlot: <FilterData extends {}>({
     className,
     style,
@@ -13057,6 +13174,23 @@ declare module "react-declarative/components/List/common/DialogFilterListSlot" {
 
 declare module "react-declarative/components/List/common/ModalFilterListSlot" {
   import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  /**
+   * ModalFilterListSlot is a component that displays a filter list with a modal.
+   *
+   * @typedef {Object} FilterData - The type of filter data.
+   * @property {string} className - The class name for the component.
+   * @property {Object} style - The inline style for the component.
+   * @property {FilterData} filterData - The filter data object.
+   * @property {Array} filters - The array of filters for the modal.
+   * @property {Function} change - The function to handle filter change event.
+   * @property {string} label - The label for the filter list.
+   * @property {boolean} loading - The loading state of the component.
+   * @property {boolean} withSearch - Whether to show the search input or not.
+   * @property {boolean} withToggledFilters - Whether to show the filter button or not.
+   * @property {string} search - The search query for the search input.
+   * @property {Function} onSearchChange - The function to handle search change event.
+   * @property {Function} onFilterChange - The function to handle filter change event.
+   */
   export const ModalFilterListSlot: <FilterData extends {}>({
     className,
     style,
@@ -13076,6 +13210,13 @@ declare module "react-declarative/components/List/common/ModalFilterListSlot" {
 
 declare module "react-declarative/components/List/common/ModernChipListSlot" {
   import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+  /**
+   * Renders a chip list slot component.
+   *
+   * @param listChips - The list of chips to render.
+   * @param loading - Indicates whether the component is in a loading state.
+   * @returns - The chip list slot component.
+   */
   export const ModernChipListSlot: ({
     listChips,
     loading,
@@ -21998,6 +22139,12 @@ declare module "react-declarative/components/common/Expansion/Expansion" {
 declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot" {
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Interface for adding a slot in an action.
+   *
+   * @template RowData - The type of data for selected rows.
+   * @template Payload - The type of payload data.
+   */
   export interface IActionAddSlot<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -22020,6 +22167,12 @@ declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAdd
 
 declare module "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot" {
   import IActionAddSlot from "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot";
+  /**
+   * ActionAddSlot function.
+   *
+   * @param props - Props object for the ActionAddSlot component.
+   * @returns - ActionAdd component with the given props.
+   */
   export const ActionAddSlot: (props: IActionAddSlot) => JSX.Element;
   export default ActionAddSlot;
 }
@@ -22028,6 +22181,12 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
   import React from "react";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents an action slot for a FAB (Floating Action Button).
+   *
+   * @template RowData - The type of data for the selected rows.
+   * @template Payload - The type of data for the action payload.
+   */
   export interface IActionFabSlot<
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
@@ -22051,6 +22210,11 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
 
 declare module "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot" {
   import IActionFabSlot from "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot";
+  /**
+   * Represents a component that renders an action floating action button slot.
+   * @param props - The props for the action floating action button slot.
+   * @returns - The rendered action floating action button slot.
+   */
   export const ActionFabSlot: (props: IActionFabSlot) => JSX.Element;
   export default ActionFabSlot;
 }
@@ -22058,6 +22222,11 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/ActionFabS
 declare module "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot" {
   import IAnything from "react-declarative/model/IAnything";
   import { IListActionOption } from "react-declarative/model/IListProps";
+  /**
+   * Represents an action menu slot.
+   *
+   * @interface IActionMenuSlot
+   */
   export interface IActionMenuSlot {
     options?: Partial<IListActionOption>[];
     deps?: IAnything[];
@@ -22067,6 +22236,11 @@ declare module "react-declarative/components/List/slots/ActionMenuSlot/IActionMe
 
 declare module "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot" {
   import IActionMenuSlot from "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot";
+  /**
+   * Renders an action menu slot component.
+   * @param props - The props for the action menu slot component
+   * @returns - The rendered action menu slot component
+   */
   export const ActionMenuSlot: (props: IActionMenuSlot) => JSX.Element;
   export default ActionMenuSlot;
 }
@@ -22076,6 +22250,10 @@ declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot
   import IRowData from "react-declarative/model/IRowData";
   import IColumn from "react-declarative/model/IColumn";
   import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a column in the body of a table.
+   * @template RowData - The type of data in the table rows.
+   */
   export type BodyColumn<RowData extends IRowData = IAnything> = Omit<
     IColumn<RowData>,
     keyof {
@@ -22084,6 +22262,11 @@ declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot
   > & {
     width: string;
   };
+  /**
+   * Represents a slot for a body row in a table.
+   *
+   * @template RowData - The type of data associated with the row.
+   */
   export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
     fullWidth: number;
     row: RowData;
@@ -22096,6 +22279,12 @@ declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot
 
 declare module "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot" {
   import IBodyRowSlot from "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot";
+  /**
+   * Function that renders a body row slot component.
+   *
+   * @param props - The props object containing the properties for the body row slot component.
+   * @returns - The rendered body row component.
+   */
   export const BodyRowSlot: (props: IBodyRowSlot) => JSX.Element;
   export default BodyRowSlot;
 }
@@ -22104,6 +22293,14 @@ declare module "react-declarative/components/List/slots/CheckboxCellSlot/ICheckb
   import IAnything from "react-declarative/model/IAnything";
   import IRowData from "react-declarative/model/IRowData";
   import { ICheckboxCellProps } from "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell";
+  /**
+   * Represents a slot for a checkbox cell in a table.
+   *
+   * @template RowData - The type of data for the row in the table.
+   *
+   * @interface
+   * @extends ICheckboxCellProps<RowData>
+   */
   export interface ICheckboxCellSlot<RowData extends IRowData = IAnything>
     extends ICheckboxCellProps<RowData> {}
   export default ICheckboxCellSlot;
@@ -22111,6 +22308,12 @@ declare module "react-declarative/components/List/slots/CheckboxCellSlot/ICheckb
 
 declare module "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot" {
   import ICheckboxCellSlot from "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot";
+  /**
+   * Renders a checkbox inside a cell slot.
+   *
+   * @param props - The props object for the checkbox cell slot.
+   * @returns The rendered checkbox cell slot.
+   */
   export const CheckboxCellSlot: (props: ICheckboxCellSlot) => JSX.Element;
   export default CheckboxCellSlot;
 }
@@ -22121,6 +22324,11 @@ declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCe
   import IRowData from "react-declarative/model/IRowData";
   import IColumn from "react-declarative/model/IColumn";
   import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a common cell column.
+   *
+   * @template RowData - The type of the row data for the column.
+   */
   export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<
     IColumn<RowData>,
     keyof {
@@ -22129,6 +22337,20 @@ declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCe
   > & {
     width: string;
   };
+  /**
+   * Represents a common cell slot.
+   *
+   * @template RowData - The type of row data used in the cell slot.
+   *
+   * @property {CommonCellColumn<RowData>} column - The column associated with the cell slot.
+   * @property {RowData} row - The row data associated with the cell slot.
+   * @property {number} idx - The index of the cell slot.
+   * @property {number} fullWidth - The full width of the cell slot.
+   * @property {boolean} disabled - Indicates if the cell slot is disabled.
+   * @property {DisplayMode} mode - The display mode of the cell slot.
+   * @property {IActionMenuProps['onToggle']} onMenuToggle - The function to call when the menu toggle is triggered.
+   * @property {IActionMenuProps['onAction']} onAction - The function to call when an action is triggered in the menu.
+   */
   export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
     column: CommonCellColumn<RowData>;
     row: RowData;
@@ -22144,6 +22366,12 @@ declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCe
 
 declare module "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot" {
   import ICommonCellSlot from "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot";
+  /**
+   * Represents a common cell slot component.
+   *
+   * @param props - The props object containing the required data for the component.
+   * @returns - The rendered CommonCell component.
+   */
   export const CommonCellSlot: (props: ICommonCellSlot) => JSX.Element;
   export default CommonCellSlot;
 }
@@ -22153,6 +22381,11 @@ declare module "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot
   import IRowData from "react-declarative/model/IRowData";
   import IColumn from "react-declarative/model/IColumn";
   import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a column in a table's header.
+   *
+   * @template RowData - The type of data in the rows of the table.
+   */
   export type HeadColumn<RowData extends IRowData = IAnything> = Omit<
     IColumn<RowData>,
     keyof {
@@ -22161,6 +22394,10 @@ declare module "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot
   > & {
     width: string;
   };
+  /**
+   * Interface for the head row slot of a table component.
+   * @template RowData - The type of data for each row.
+   */
   export interface IHeadRowSlot<RowData extends IRowData = IAnything> {
     columns: HeadColumn<RowData>[];
     fullWidth: number;
@@ -22171,6 +22408,11 @@ declare module "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot
 
 declare module "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot" {
   import IHeadRowSlot from "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot";
+  /**
+   * Represents a slot component for displaying a head row in a table.
+   * @param props - The props for the component.
+   * @returns The rendered head row slot component.
+   */
   export const HeadRowSlot: (props: IHeadRowSlot) => JSX.Element;
   export default HeadRowSlot;
 }
@@ -22178,6 +22420,11 @@ declare module "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot"
 declare module "react-declarative/components/List/slots/ActionListSlot/IActionListSlot" {
   import { IListAction } from "react-declarative/model/IListProps";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a slot in an action list.
+   *
+   * @template FilterData - The type of filter data for this slot.
+   */
   export interface IActionListSlot<FilterData extends {} = IAnything> {
     className?: string;
     style?: React.CSSProperties;
@@ -22193,6 +22440,11 @@ declare module "react-declarative/components/List/slots/ActionListSlot/IActionLi
 
 declare module "react-declarative/components/List/slots/ActionListSlot/ActionListSlot" {
   import IActionListSlot from "react-declarative/components/List/slots/ActionListSlot/IActionListSlot";
+  /**
+   * Function component representing an action list slot.
+   * @param props - The properties for the action list slot.
+   * @returns - The rendered action list slot.
+   */
   export const ActionListSlot: (props: IActionListSlot) => JSX.Element;
   export default ActionListSlot;
 }
@@ -22201,6 +22453,10 @@ declare module "react-declarative/components/List/slots/ChipListSlot/IChipListSl
   import IAnything from "react-declarative/model/IAnything";
   import IListProps from "react-declarative/model/IListProps";
   import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a slot in a chip list.
+   * @template RowData - The type of data in the chip list row.
+   */
   export interface IChipListSlot<RowData extends IRowData = IAnything> {
     listChips: IListProps<RowData>["chips"];
     loading: boolean;
@@ -22210,6 +22466,12 @@ declare module "react-declarative/components/List/slots/ChipListSlot/IChipListSl
 
 declare module "react-declarative/components/List/slots/ChipListSlot/ChipListSlot" {
   import IChipListSlot from "react-declarative/components/List/slots/ChipListSlot/IChipListSlot";
+  /**
+   * Renders a chip list slot component.
+   *
+   * @param props - The props for the chip list slot.
+   * @returns - The rendered chip list slot component.
+   */
   export const ChipListSlot: (props: IChipListSlot) => JSX.Element;
   export default ChipListSlot;
 }
@@ -22217,6 +22479,11 @@ declare module "react-declarative/components/List/slots/ChipListSlot/ChipListSlo
 declare module "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot" {
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents a filter list slot.
+   *
+   * @template FilterData - The type of filter data.
+   */
   export interface IFilterListSlot<FilterData extends {} = IAnything> {
     className?: string;
     filterData: FilterData;
@@ -22241,12 +22508,25 @@ declare module "react-declarative/components/List/slots/FilterListSlot/IFilterLi
 
 declare module "react-declarative/components/List/slots/FilterListSlot/FilterListSlot" {
   import IFilterListSlot from "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot";
+  /**
+   * A component that renders a slot for a filter list.
+   *
+   * @param props - The props for the component.
+   * @param props - The context object for the filter list slot.
+   *
+   * @returns The rendered filter list slot component.
+   */
   export const FilterListSlot: (props: IFilterListSlot) => JSX.Element;
   export default FilterListSlot;
 }
 
 declare module "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot" {
   import IListOperation from "react-declarative/model/IListOperation";
+  /**
+   * A interface representing a list of operations in a slot.
+   *
+   * @interface
+   */
   export interface IOperationListSlot {
     className?: string;
     style?: React.CSSProperties;
@@ -22258,11 +22538,24 @@ declare module "react-declarative/components/List/slots/OperationListSlot/IOpera
 
 declare module "react-declarative/components/List/slots/OperationListSlot/OperationListSlot" {
   import IOperationListSlot from "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot";
+  /**
+   * Represents a slot component for rendering an operation list.
+   *
+   * @component
+   *
+   * @param props - The props for the component.
+   * @returns The rendered React node.
+   */
   export const OperationListSlot: (props: IOperationListSlot) => JSX.Element;
   export default OperationListSlot;
 }
 
 declare module "react-declarative/components/List/slots/SearchSlot/ISearchSlot" {
+  /**
+   * Represents a search slot with various properties and functions.
+   *
+   * @interface ISearchSlot
+   */
   export interface ISearchSlot {
     className?: string;
     style?: React.CSSProperties;
@@ -22279,6 +22572,13 @@ declare module "react-declarative/components/List/slots/SearchSlot/ISearchSlot" 
 
 declare module "react-declarative/components/List/slots/SearchSlot/SearchSlot" {
   import ISearchSlot from "react-declarative/components/List/slots/SearchSlot/ISearchSlot";
+  /**
+   * Renders a SearchSlot component.
+   *
+   * @param props - The properties passed to the SearchSlot component.
+   * @param props.SearchSlot - The SearchSlot component passed as a context.
+   * @returns - The rendered SearchSlot component.
+   */
   export const SearchSlot: (props: ISearchSlot) => JSX.Element;
   export default SearchSlot;
 }
@@ -22416,6 +22716,9 @@ declare module "react-declarative/components/One/slots/FileSlot" {
 declare module "react-declarative/components/One/components/OneConfig/OneConfig" {
   import { IConfig } from "react-declarative/components/One/components/OneConfig/OneConfigInstance";
   export const GET_REF_SYMBOL: unique symbol;
+  /**
+   * Class representing the OneConfig.
+   */
   export class OneConfig {
     static [GET_REF_SYMBOL]: () => IConfig;
     static setValue: (config: Partial<IConfig>) => void;
@@ -23415,10 +23718,21 @@ declare module "react-declarative/model/DisplayMode" {
 declare module "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell" {
   import IRowData from "react-declarative/model/IRowData";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for defining props for a CheckboxCell component.
+   * @template RowData - The type of data in the row.
+   */
   export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
     row: RowData;
     disabled: boolean;
   }
+  /**
+   * CheckboxCell component for rendering checkboxes in a table cell.
+   *
+   * @template RowData - The type of the data for each row in the table
+   * @param props - The props for the CheckboxCell component
+   * @returns - The rendered CheckboxCell component
+   */
   export const CheckboxCell: <RowData extends IRowData = any>({
     row,
     disabled,
@@ -23958,6 +24272,10 @@ declare module "react-declarative/components/One/components/OneConfig/OneConfigI
     CUSTOM_FIELD_DEBOUNCE: number;
     FIELD_BLUR_DEBOUNCE: number;
   }
+  /**
+   * Class representing a OneConfigInstance.
+   * @class
+   */
   export class OneConfigInstance {
     getRef: () => IConfig;
     setValue: (config: Partial<IConfig>) => void;

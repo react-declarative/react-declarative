@@ -1,5 +1,7 @@
 # IActionAddSlot
 
+Interface for adding a slot in an action.
+
 ## Properties
 
 ### action

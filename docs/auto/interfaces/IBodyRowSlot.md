@@ -1,5 +1,7 @@
 # IBodyRowSlot
 
+Represents a slot for a body row in a table.
+
 ## Properties
 
 ### fullWidth

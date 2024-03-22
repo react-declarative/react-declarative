@@ -1,5 +1,7 @@
 # IActionFabSlot
 
+Represents an action slot for a FAB (Floating Action Button).
+
 ## Properties
 
 ### action

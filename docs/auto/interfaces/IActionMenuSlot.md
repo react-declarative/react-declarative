@@ -1,5 +1,7 @@
 # IActionMenuSlot
 
+Represents an action menu slot.
+
 ## Properties
 
 ### options

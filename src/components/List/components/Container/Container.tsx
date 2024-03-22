@@ -35,6 +35,24 @@ export const CONTAINER_MARK = "react-declarative__contentMark";
 const EMPTY_ARRAY: any[] = [];
 const RESIZE_DELAY = 100;
 
+/**
+ * @interface IContainerProps
+ * @template FilterData - The type of the filter data
+ * @template RowData - The type of the row data
+ *
+ * @extends Omit<IListProps<FilterData, RowData>, keyof { ref: never; limit: never; chips: never; search: never; filterData: never; isChooser: never; isInfinite: never; isCustom: never
+ *; payload: never; }>
+ * @extends IListState<FilterData, RowData>
+ * @extends IListCallbacks<FilterData, RowData>
+ *
+ * @property {string | undefined} className - The class name for the container.
+ * @property {React.CSSProperties | undefined} style - The inline style for the container.
+ * @property {React.ReactNode} children - The children elements of the container.
+ * @property {() => void} ready - The callback function to be called when the container is ready.
+ * @property {IListProps["chips"]} listChips - The list of chips for the container.
+ * @property {(instance: HTMLDivElement) => void | undefined} ref - The callback function to be called when the container is mounted.
+ * @property {IAutoSizerProps["onResize"] | undefined} onResize - The callback function to be called when the container is resized.
+ */
 interface IContainerProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
@@ -209,6 +227,17 @@ export const Container = <
     onResize,
   });
 
+  /**
+   * Determines whether the component should render in dense mode.
+   *
+   * @function
+   * @returns {boolean} - True if the component should render in dense mode, false otherwise.
+   * @param {boolean} isDenseProp - Indicates if the component should render in dense mode.
+   * @param {boolean} isMobile - Indicates if the component is being rendered on a mobile device.
+   * @param {number} denseHeight - The height threshold for the component to be considered dense.
+   * @param {Object} rootElementSize - The size of the root element.
+   * @param {number} rootElementSize.height - The height of the root element.
+   */
   const isDense = useMemo(() => {
     if (isDenseProp) {
       return true;

@@ -75,6 +75,30 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a classic filter list slot component.
+ *
+ * @template FilterData - The data type of the filter.
+ *
+ * @param props - The props for the component.
+ * @param props.className - The class name for the component.
+ * @param props.style - The inline style for the component.
+ * @param props.height - The height of the component.
+ * @param props.filterData - The filter data for the component.
+ * @param props.filters - The filters for the component.
+ * @param props.change - The function to call when the filter changes.
+ * @param props.ready - Indicates if the component is ready.
+ * @param props.label - The label for the component.
+ * @param props.loading - Indicates if the component is loading.
+ * @param props.withSearch - Indicates if the component has search functionality.
+ * @param props.withToggledFilters - Indicates if the component has toggled filters.
+ * @param props.search - The search query for the component.
+ * @param props.onSearchChange - The function to call when the search query changes.
+ * @param props.onFilterChange - The function to call when the filter changes.
+ * @param props.onCollapsedChange - The function to call when the component's collapsed state changes.
+ *
+ * @returns The classic filter list slot component.
+ */
 export const ClassicFilterListSlot = <FilterData extends {}>({
   className,
   style,
@@ -124,6 +148,14 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
     };
   }, []);
 
+  /**
+   * Callback function for handling the end of collapse animation.
+   * Triggers the provided `onCollapsedChange` function and sets a timeout to enable the component after 100 milliseconds
+   * if the component is initialized.
+   *
+   * @callback handleCollapseEnd
+   * @param {boolean} collapsed - Indicates if the component is collapsed.
+   */
   const handleCollapseEnd = useCallback(() => {
     if (isInitialized.current) {
       onCollapsedChange(collapsed);
@@ -135,6 +167,13 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
     onSearchChange("");
   };
 
+  /**
+   * Renders the label component based on the value of 'withSearch' variable.
+   * If 'withSearch' is true, it renders a TextField component with search functionality.
+   * If 'withSearch' is false, it renders a Typography component with the label text.
+   *
+   * @returns The rendered label component.
+   */
   const renderLabel = () => {
     if (withSearch) {
       return (

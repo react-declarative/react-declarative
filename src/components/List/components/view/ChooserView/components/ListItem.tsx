@@ -28,6 +28,16 @@ import SelectionMode from "../../../../../../model/SelectionMode";
 
 const LOAD_SOURCE = "list-item";
 
+/**
+ * Render the content for a column in a table row.
+ *
+ * @template RowData - The type of the row data.
+ * @param params - The parameters for rendering the column content.
+ * @param params.row - The data for the table row.
+ * @param [params.fallback] - The fallback content to display while loading.
+ * @param [params.column] - The column configuration for the table.
+ * @returns - The rendered column content.
+ */
 const ColumnContent = <RowData extends IRowData = IAnything>({
   row,
   fallback,
@@ -78,11 +88,24 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the props for the ChooserListItem component.
+ *
+ * @template RowData - The type of the row data.
+ */
 interface IChooserListItemProps<RowData extends IRowData = IAnything> {
   row: RowData;
   style?: React.CSSProperties;
 }
 
+/**
+ * Represents a list item in the chooser component.
+ * @template RowData - The type of data in the row.
+ * @param props - The props for the list item component.
+ * @param props.row - The data for the row.
+ * @param props.style - The CSS styles for the list item.
+ * @returns The rendered list item component.
+ */
 export const ListItem = <RowData extends IRowData = IAnything>({
   row,
   style,
@@ -115,6 +138,14 @@ export const ListItem = <RowData extends IRowData = IAnything>({
   const secondaryColumn = columns.find(({ secondary }) => secondary);
   const avararColumn = columns.find(({ avatar }) => avatar);
 
+  /**
+   * Represents the primary variable.
+   *
+   * @typedef {React.ReactElement} Primary
+   * @property {RowData} row - The row data.
+   * @property {string | React.ReactElement} fallback - The fallback value or element.
+   * @property {Column<RowData>} column - The primary column.
+   */
   const primary = (
     <ColumnContent<RowData>
       row={row}
@@ -123,6 +154,18 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     />
   );
 
+  /**
+   * The `secondary` variable is used to store the result of a ternary operation.
+   *
+   * @type {ColumnContent<RowData>|null} The content displayed in the secondary column.
+   *
+   * @param {RowData} row - The data of a row.
+   * @param {any} fallback - The fallback value if `secondaryColumn` is falsy.
+   * @param {Column} secondaryColumn - The secondary column to be displayed if truthy.
+   *
+   * @returns {ColumnContent<RowData>|null} The content displayed in the secondary column,
+   * or `null` if `secondaryColumn` is falsy.
+   */
   const secondary = secondaryColumn ? (
     <ColumnContent<RowData>
       row={row}
@@ -131,6 +174,16 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     />
   ) : null;
 
+  /**
+   * Represents an avatar.
+   *
+   * @typedef {import("path/to/ColumnContent").ColumnContent} ColumnContent
+   * @typedef {import("path/to/RowData").RowData} RowData
+   *
+   * @property {ColumnContent<RowData> | null} avatarColumn - The column content representing the avatar.
+   * @property {RowData} row - The row data for the avatar.
+   * @property {string} fallback - The fallback value for the avatar.
+   */
   const avatar = avararColumn ? (
     <ColumnContent<RowData>
       row={row}
@@ -139,6 +192,14 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     />
   ) : null;
 
+  /**
+   * Handles click events for the menu.
+   * If the menu is not opened, it performs different actions based on the configuration:
+   * - If withSelectOnRowClick is true and selectionMode is not SelectionMode.None,
+   *   it modifies the selection based on the selectionMode and the current selection state.
+   * - If withSelectOnRowClick is false or selectionMode is SelectionMode.None,
+   *   it calls the onRowClick function with the row and reload parameters.
+   */
   const handleClick = () => {
     if (!menuOpened) {
       if (withSelectOnRowClick && selectionMode !== SelectionMode.None) {
@@ -161,6 +222,12 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     }
   };
 
+  /**
+   * Handles the toggling of the menu.
+   *
+   * @param opened - Indicates whether the menu should be opened or closed.
+   * @returns
+   */
   const handleMenuToggle = (opened: boolean) => {
     setMenuOpened(opened);
   };

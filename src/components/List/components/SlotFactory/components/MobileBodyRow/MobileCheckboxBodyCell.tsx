@@ -14,6 +14,11 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a mobile checkbox body cell component.
+ * @param props - The properties for the component.
+ * @returns The mobile checkbox body cell component.
+ */
 export const MobileCheckboxBodyCell = (props: ICheckboxCellSlot) => {
     const { classes } = useStyles();
     return (

@@ -53,6 +53,17 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a search input component with label, loading state, and search functionality.
+ * @param props - The properties of the SearchSlot component.
+ * @param props.className - The additional CSS class name for the root element of the component.
+ * @param props.style - The inline CSS style object for the root element of the component.
+ * @param props.label - The label text for the search input component.
+ * @param props.loading - The loading state of the search input component.
+ * @param props.search - The current search value of the search input component.
+ * @param props.onSearchChange - The callback function triggered when the search value changes.
+ * @returns - The rendered SearchSlot component.
+ */
 export const SearchSlot = ({
   className,
   style,

@@ -21,6 +21,9 @@ import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
 
 import useSortModel from '../../hooks/useSortModel';
 
+/**
+ * Represents the properties for the SortModal component.
+ */
 interface ISortModalProps {
     columns: IColumn[];
     onClose: () => void;

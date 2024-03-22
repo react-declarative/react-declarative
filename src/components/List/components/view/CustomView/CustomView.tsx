@@ -52,6 +52,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * @interface ICustomProps
+ *
+ * Represents the custom props for a list component.
+ * @template FilterData - The type of data for filters.
+ * @template RowData - The type of data for each row in the list.
+ */
 interface ICustomProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -76,6 +83,13 @@ interface ICustomProps<
   listChips: IListProps["chips"];
 }
 
+/**
+ * Represents a custom state for a specific functionality.
+ *
+ * @interface ICustomState
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ */
 interface ICustomState<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
@@ -128,6 +142,14 @@ export const CustomView = <
     return [...selection] as string[]
   }, [selection]);
 
+  /**
+   * Handles the click event of a row.
+   * If `withSelectOnRowClick` prop is true and `selectionMode` is not `SelectionMode.None`,
+   * it handles the selection logic based on the `selectionMode`.
+   * Otherwise, it invokes `onRowClick` callback with the clicked `row` and `reload` function.
+   *
+   * @param row - The clicked row.
+   */
   const handleRowClick = (row: any) => {
     if (
       props.withSelectOnRowClick &&
@@ -160,6 +182,19 @@ export const CustomView = <
     filterData: upperFilterData,
   });
 
+  /**
+   * Handles cleaning the rows and updating the state.
+   *
+   * @function handleCleanRows
+   * @callback
+   * @memberof module:Utils
+   *
+   * @param {function} setState - The function to set the state.
+   * @param {Array} upperRows - The updated rows.
+   * @param {Array} upperFilterData - The updated filter data.
+   *
+   * @returns {void}
+   */
   const handleCleanRows = useCallback(() => {
     setState(() => ({
       rows: upperRows,
@@ -168,6 +203,12 @@ export const CustomView = <
     scrollYSubject.next(0);
   }, [upperRows, upperFilterData]);
 
+  /**
+   * A callback function used to handle appending rows to the state.
+   *
+   * @callback handleAppendRows
+   * @returns {void}
+   */
   const handleAppendRows = useCallback(
     () =>
       setState(({ rows, ...state }) => {

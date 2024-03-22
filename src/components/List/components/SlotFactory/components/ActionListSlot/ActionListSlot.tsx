@@ -47,6 +47,24 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a list of actions with customizable filters.
+ *
+ * @template FilterData - The type of the filter data.
+ *
+ * @param props - The props object.
+ * @param props.className - The class name of the component.
+ * @param props.actions - The array of actions to render.
+ * @param props.style - The inline styles for the component.
+ * @param props.title - The title of the action list.
+ * @param props.height - The height of the action list.
+ * @param props.width - The width of the action list.
+ * @param [props.deps] - The dependencies array.
+ *
+ * @returns - The ActionListSlot component.
+ *
+ * @throws {Error} - If the action type is unknown.
+ */
 export const ActionListSlot = <FilterData extends {}>({
   className,
   actions,

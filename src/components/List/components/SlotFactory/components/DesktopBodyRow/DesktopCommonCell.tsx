@@ -18,6 +18,13 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * The `DesktopCommonCell` component is used to render a common cell in a desktop environment.
+ *
+ * @param props - The component properties
+ * @param props.column - The column object that defines the cell properties
+ * @returns - The rendered desktop common cell component
+ */
 export const DesktopCommonCell = (props: ICommonCellSlot) => {
 
     const { classes } = useStyles();

@@ -10,11 +10,17 @@ const SortModelContext = createContext<IState>(null as never);
 
 export const useSortModel = () => useContext(SortModelContext);
 
+/**
+ * Interface for the props of the `ISortModelProvider` component.
+ */
 interface ISortModelProviderProps {
     children: React.ReactNode;
     sortModel: ListHandlerSortModel;
 }
 
+/**
+ * Represents the interface for managing the state of a list sorting model.
+ */
 interface IState {
     sortModel: Map<IListSortItem['field'], IListSortItem>;
     setSortModel: (s: Map<IListSortItem['field'], IListSortItem>) => void;

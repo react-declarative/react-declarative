@@ -39,6 +39,11 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents a common cell component that renders different types of columns in a table.
+ * @template RowData The data type of the row.
+ * @param props - The props for the CommonCell component.
+ */
 export const CommonCell = <RowData extends IRowData = IAnything>({
     column,
     row,

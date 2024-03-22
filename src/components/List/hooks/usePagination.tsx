@@ -5,6 +5,11 @@ import { ListHandlerPagination } from "../../../model/IListProps";
 
 type IContext = ListHandlerPagination;
 
+/**
+ * @interface IProps
+ * @extends IContext
+ * @description Represents the properties of a React component.
+ */
 interface IProps extends IContext {
   children: React.ReactNode;
 }

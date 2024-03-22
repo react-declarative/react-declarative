@@ -38,6 +38,20 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Render a row in the desktop body of a table.
+ *
+ * @template RowData - The type of the row data in the table.
+ *
+ * @param props - The properties for the row.
+ * @param props.row - The data for the row.
+ * @param props.mode - The current mode of the table.
+ * @param props.columns - The columns to render in the row.
+ * @param props.disabled - Indicates if the row is disabled.
+ * @param props.fullWidth - Indicates if the row should fill the width of the table.
+ *
+ * @returns - The rendered row component.
+ */
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   row,
   mode,

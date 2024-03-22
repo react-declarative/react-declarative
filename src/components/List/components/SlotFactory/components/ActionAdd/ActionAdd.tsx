@@ -38,6 +38,18 @@ const useStyles = makeStyles()({
 
 const [ShrinkProvider, useShrink] = createValueProvider<boolean>();
 
+/**
+ * Represents an action slot that adds an action.
+ *
+ * @param props - The properties used to configure the action slot.
+ * @param props.action - The name of the action.
+ * @param props.width - The width of the action slot.
+ * @param props.label - The label of the action button.
+ * @param props.isVisible - The function used to determine if the action slot is visible.
+ * @param props.isDisabled - The function used to determine if the action slot is disabled.
+ *
+ * @returns - The rendered action slot component.
+ */
 export const ActionAdd = ({
     action = 'add-action',
     width,

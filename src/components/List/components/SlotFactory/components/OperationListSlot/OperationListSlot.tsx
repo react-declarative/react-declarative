@@ -62,6 +62,16 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a component that displays a list of operations.
+ *
+ * @param props - The component props.
+ * @param props.className - The class name for the root element.
+ * @param props.style - The inline style for the root element.
+ * @param props.operations - The list of operations to display.
+ * @param props.width - The width of the component.
+ * @returns The rendered component.
+ */
 export const OperationListSlot = ({
   className,
   style,

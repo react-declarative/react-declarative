@@ -1,5 +1,7 @@
 # IChipListSlot
 
+Represents a slot in a chip list.
+
 ## Properties
 
 ### listChips

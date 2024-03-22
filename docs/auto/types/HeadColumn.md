@@ -8,4 +8,4 @@ export type HeadColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowD
 };
 ```
 
-
+Represents a column in a table's header.

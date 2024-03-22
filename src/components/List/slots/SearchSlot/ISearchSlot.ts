@@ -1,3 +1,8 @@
+/**
+ * Represents a search slot with various properties and functions.
+ *
+ * @interface ISearchSlot
+ */
 export interface ISearchSlot {
     className?: string;
     style?: React.CSSProperties;

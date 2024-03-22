@@ -66,11 +66,24 @@ export const SelectionProvider = ({
 
     const [selection, setSelection] = useState(new Set<string>(selectedRows));
 
+    /**
+     * Handles the change in selection.
+     *
+     * @param selection - The new selection.
+     * @param [initialChange=false] - Indicates whether it is an initial change.
+     */
     const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
         onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
 
+    /**
+     * Represents a variable value.
+     *
+     * @typedef {Object} VariableValue
+     * @property {*} selection - The current selection value.
+     * @property {Function} setSelection - The function to handle selection changes.
+     */
     const value = {
         selection,
         setSelection: handleSelectionChange,

@@ -74,6 +74,27 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * DialogFilterListSlot represents a reusable component for displaying and managing a list of filters in a dialog.
+ *
+ * @template FilterData - The type of the filter data.
+ *
+ * @param props - The props for the component.
+ * @param props.className - The class name for the component.
+ * @param props.style - The inline style for the component.
+ * @param props.filterData - The filter data.
+ * @param props.filters - The list of filters.
+ * @param props.change - The function to call when the filters are changed.
+ * @param props.label - The label for the filter list.
+ * @param props.loading - Indicates if the filter list is currently loading.
+ * @param props.withSearch - Indicates if a search input should be displayed.
+ * @param props.withToggledFilters - Indicates if the filters should be toggled.
+ * @param props.search - The search value.
+ * @param props.onSearchChange - The function to call when the search value is changed.
+ * @param props.onFilterChange - The function to call when a filter is changed.
+ *
+ * @returns - The rendered component.
+ */
 export const DialogFilterListSlot = <FilterData extends {}>({
   className,
   style,
@@ -121,6 +142,11 @@ export const DialogFilterListSlot = <FilterData extends {}>({
 
   const { classes } = useStyles();
 
+  /**
+   * Handles the change event for a filter.
+   *
+   * @param data - The data for the filter.
+   */
   const handleChange = (data: FilterData) => {
     onFilterChange(data);
     change(data);
@@ -130,6 +156,14 @@ export const DialogFilterListSlot = <FilterData extends {}>({
     onSearchChange("");
   };
 
+  /**
+   * Renders a label based on the value of `withSearch` variable.
+   *
+   * If `withSearch` is true, it renders a TextField component with search functionality.
+   * If `withSearch` is false, it renders a Typography component with the provided label.
+   *
+   * @returns - The rendered label.
+   */
   const renderLabel = () => {
     if (withSearch) {
       return (
@@ -182,6 +216,15 @@ export const DialogFilterListSlot = <FilterData extends {}>({
     }
   };
 
+  /**
+   * useMemo hook that calculates the count of non-null, non-empty, and non-false values in the filterData object.
+   *
+   * @function
+   * @name filtersCount
+   * @returns {number} - The count of valid filters.
+   * @param {Object} filterData - The object containing filter data.
+   * @returns {number} - The count of valid filters.
+   */
   const filtersCount = useMemo(() => {
     const keys = Object.keys(filterData || {});
     let counter = 0;

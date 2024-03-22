@@ -8,6 +8,9 @@ import classNames from '../../../../../../utils/classNames';
 import { makeStyles } from '../../../../../../styles';
 import { alpha } from '@mui/material';
 
+/**
+ * Represents the props for the ModalLoader component.
+ */
 interface IModalLoaderProps {
     open: boolean;
 }
@@ -32,6 +35,14 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Renders a modal loader component.
+ *
+ * @param props - The props for the modal loader component.
+ * @param props.open - The flag indicating whether the modal is open or not.
+ *
+ * @returns - The rendered modal loader component.
+ */
 export const ModalLoader = ({
     open,
 }: IModalLoaderProps) => {

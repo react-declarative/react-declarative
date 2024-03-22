@@ -60,6 +60,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a row in the desktop view of the table body.
+ *
+ * @template RowData - The type of data for each row.
+ * @param param - The parameters for rendering the row.
+ * @returns - The rendered row component.
+ */
 export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   row,
   mode,

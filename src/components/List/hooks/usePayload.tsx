@@ -8,6 +8,9 @@ import IListProps from '../../../model/IListProps';
 
 const PayloadContext = createContext<IAnything>(null as never);
 
+/**
+ * Interface representing the props for the IPayloadProvider component.
+ */
 interface IPayloadProviderProps {
     children: React.ReactNode;
     value: Exclude<IListProps['payload'], undefined>;

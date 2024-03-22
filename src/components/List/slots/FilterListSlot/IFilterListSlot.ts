@@ -1,6 +1,11 @@
 import IAnything from "../../../../model/IAnything";
 import IField from "../../../../model/IField";
 
+/**
+ * Represents a filter list slot.
+ *
+ * @template FilterData - The type of filter data.
+ */
 export interface IFilterListSlot<FilterData extends {} = IAnything> {
     className?: string;
     filterData: FilterData;

@@ -173,6 +173,12 @@ export const GridView = <
     []
   );
 
+  /**
+   * Renders the inner content of a table based on the specified display mode.
+   *
+   * @param mode - The display mode of the table.
+   * @returns - The inner content of the table.
+   */
   const renderInner = (mode: DisplayMode) => (
     <>
       <TableHead className={classes.tableHead}>
@@ -194,6 +200,14 @@ export const GridView = <
     </>
   );
 
+  /**
+   * Renders the child element based on the current display mode.
+   * If the display mode is desktop, the child element is rendered with DisplayMode.Desktop.
+   * If the display mode is tablet, the child element is rendered with DisplayMode.Tablet.
+   * If the display mode is phone or any other mode, the child element is rendered with DisplayMode.Phone.
+   *
+   * @returns - The rendered child element
+   */
   const renderChild = () => {
     if (isDesktop) {
       return renderInner(DisplayMode.Desktop);

@@ -9,11 +9,18 @@ const SelectionContext = createContext<IState>(null as never);
 
 export const useSelection = () => useContext(SelectionContext);
 
+/**
+ * Represents the properties for the ISelectionProvider component.
+ */
 interface ISelectionProviderProps {
     children: React.ReactNode;
     selectedRows?: RowId[];
 }
 
+/**
+ * Represents the state of a selection.
+ * @interface
+ */
 interface IState {
     selection: Set<RowId>;
     setSelection: (s: Set<RowId>) => void;

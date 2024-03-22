@@ -1,5 +1,7 @@
 # ICommonCellSlot
 
+Represents a common cell slot.
+
 ## Properties
 
 ### column

@@ -9,6 +9,11 @@ import Box from '@mui/material/Box';
 
 import useRowMark from '../../../../../hooks/useRowMark';
 
+/**
+ * Interface representing the props for an individual row component.
+ *
+ * @template RowData - The type of data representing the row.
+ */
 interface IRowMarkProps<RowData extends IRowData = IAnything> {
     row: RowData,
 }
@@ -23,6 +28,13 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Function that renders a row mark component.
+ *
+ * @template RowData - The type of data for the row.
+ * @param props - The props for the row mark component.
+ * @returns The row mark component.
+ */
 const RowMark = <RowData extends IRowData = IAnything>({
     row
 }: IRowMarkProps<RowData>) => {

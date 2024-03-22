@@ -12,6 +12,12 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * A functional component that represents a checkbox body cell in a desktop view.
+ *
+ * @param props - The props object containing necessary data.
+ * @returns - The rendered checkbox body cell.
+ */
 export const DesktopCheckboxBodyCell = (props: ICheckboxCellSlot) => {
     const { classes } = useStyles();
     return (

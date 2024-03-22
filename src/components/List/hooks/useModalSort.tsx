@@ -34,6 +34,11 @@ const InternalProvider = ({
 
     const { columns: listColumns } = useProps();
 
+    /**
+     * Retrieves sortable columns from a given list of columns.
+     *
+     * @returns {Array} The list of sortable columns.
+     */
     const columns = useMemo(() => {
         return listColumns.filter((column) => {
             let isSortable = !!column.field;

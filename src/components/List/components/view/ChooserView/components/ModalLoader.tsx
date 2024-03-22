@@ -32,6 +32,13 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Renders a modal loader component.
+ *
+ * @param props - The props for the ModalLoader component.
+ * @param props.open - Indicates whether the modal loader is open.
+ * @returns The rendered ModalLoader component.
+ */
 export const ModalLoader = ({
     open,
 }: IModalLoaderProps) => {

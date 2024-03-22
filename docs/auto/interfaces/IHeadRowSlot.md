@@ -1,5 +1,7 @@
 # IHeadRowSlot
 
+Interface for the head row slot of a table component.
+
 ## Properties
 
 ### columns

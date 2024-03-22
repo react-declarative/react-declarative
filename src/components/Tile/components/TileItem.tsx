@@ -64,6 +64,16 @@ export const TileItem = forwardRef(
       };
     }, []);
 
+    /**
+     * Toggle the selection of a specific row.
+     *
+     * @param {function} callback - The callback function to be executed when the selection is toggled.
+     * @param {object} data - The data object containing the rowKey.
+     * @param {string} rowKey - The key identifier of the row to be toggled.
+     * @param {number} selectionMode - The selection mode determining how many rows can be selected at once.
+     * @param {Set} selection - The current selection set.
+     * @param {function} setSelection - The function to update the selection.
+     */
     const toggleSelection = useCallback(() => {
       const id = data[rowKey];
       if (!id) {

@@ -2,6 +2,11 @@ import DisplayMode from "../../..//model/DisplayMode";
 import IColumn from "../../..//model/IColumn";
 import { ListHandlerPagination, ListHandlerSortModel } from "../../../model/IListProps";
 
+/**
+ * Represents the parameters required to compute a certain column in a display mode.
+ *
+ * @interface
+ */
 interface IComputeParams {
     column: IColumn;
     mode: DisplayMode;
@@ -10,6 +15,10 @@ interface IComputeParams {
     visibilityRequest: IVisibilityRequest;
 }
 
+/**
+ * Represents the parameters required by a class.
+ * @interface IParams
+ */
 export interface IParams {
     columns: IColumn[];
     fullWidth: number;
@@ -19,6 +28,11 @@ export interface IParams {
 
 type Key = string | number | symbol;
 
+/**
+ * Represents a visibility request object.
+ *
+ * @interface IVisibilityRequest
+ */
 export interface IVisibilityRequest {
     filterData: Record<string, any>;
     pagination: ListHandlerPagination;
@@ -39,6 +53,11 @@ type Dimension = string | number | boolean;
  */
 export const createConstraintManager = () => {
 
+    /**
+     * A class representing a constraint manager.
+     *
+     * @class
+     */
     const constraintManager = new class {
         _cache = new Map<string, Dimension>();
         memoize = (column: string, compute: () => Dimension) => {
@@ -55,6 +74,16 @@ export const createConstraintManager = () => {
         };
     };
 
+    /**
+     * Computes the hidden value for a column based on the given parameters.
+     *
+     * @param computeParams - The parameters for computing the hidden value.
+     * @param computeParams.column - The column to compute the hidden value for.
+     * @param computeParams.fullWidth - The full width of the column.
+     * @param computeParams.mode - The display mode for the column.
+     * @param computeParams.idx - The index of the column.
+     * @returns - The computed hidden value.
+     */
     const computeHidden = ({
         column,
         fullWidth,
@@ -76,6 +105,17 @@ export const createConstraintManager = () => {
     };
 
     
+    /**
+     * Computes the visibility of a column based on the given parameters.
+     *
+     * @param params - The parameters for computing the visibility.
+     * @param params.column - The column of which the visibility needs to be computed.
+     * @param params.fullWidth - The full width of the column.
+     * @param params.visibilityRequest - The visibility request for the column.
+     * @param params.idx - The index of the column.
+     *
+     * @returns - The computed visibility of the column.
+     */
     const computeVisibility = ({
         column,
         fullWidth,
@@ -92,6 +132,15 @@ export const createConstraintManager = () => {
         return constraintManager.memoize(`column-visibility-${fullWidth}-${idx}`, compute);
     };
 
+    /**
+     * Compute the order value for a given column based on the provided parameters.
+     *
+     * @param fullWidth - Whether the column spans the full width of the container.
+     * @param column - The column object containing order values.
+     * @param mode - The display mode (Desktop, Tablet, Phone).
+     * @param idx - The index of the column.
+     * @returns The computed order value.
+     */
     const computeOrder = ({
         fullWidth,
         column,
@@ -112,6 +161,16 @@ export const createConstraintManager = () => {
         return constraintManager.memoize(`column-order-${fullWidth}-${idx}`, compute) as number;
     };
 
+    /**
+     * Computes the width for a column based on the provided parameters.
+     *
+     * @param computeParams - The parameters for computing the width.
+     * @param computeParams.fullWidth - The full width of the container.
+     * @param computeParams.column - The column configuration object.
+     * @param computeParams.idx - The index of the column.
+     *
+     * @returns - The computed width of the column.
+     */
     const computeWidth = ({
         fullWidth,
         column,
@@ -126,6 +185,15 @@ export const createConstraintManager = () => {
         return constraintManager.memoize(`column-width-${fullWidth}-${idx}`, compute) as string;
     };
 
+    /**
+     * Filters and sorts the given columns based on the provided parameters.
+     * @param params - The parameters for wrapping columns.
+     * @param params.columns - The columns to be wrapped.
+     * @param params.fullWidth - Indicates whether the columns should fill the full width.
+     * @param params.mode - The mode to determine how the columns should be wrapped.
+     * @param params.visibilityRequest - The visibility request object.
+     * @returns - The filtered and sorted columns.
+     */
     const wrapColumns = ({
         columns,
         fullWidth,

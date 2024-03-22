@@ -1,5 +1,7 @@
 # ICheckboxCellProps
 
+Interface for defining props for a CheckboxCell component.
+
 ## Properties
 
 ### row

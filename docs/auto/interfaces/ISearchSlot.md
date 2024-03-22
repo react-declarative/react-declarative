@@ -1,5 +1,7 @@
 # ISearchSlot
 
+Represents a search slot with various properties and functions.
+
 ## Properties
 
 ### className

@@ -1,5 +1,7 @@
 # IOperationListSlot
 
+A interface representing a list of operations in a slot.
+
 ## Properties
 
 ### className

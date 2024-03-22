@@ -20,6 +20,12 @@ import IActionMenuSlot from "../../../../slots/ActionMenuSlot/IActionMenuSlot";
 
 const LOAD_SOURCE = "action-menu";
 
+/**
+ * Represents an ActionMenu component.
+ * @param options - An array of action options.
+ * @param deps - An array of dependencies for the component.
+ * @returns - The rendered ActionMenu component.
+ */
 export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
   const { selectedRows } = useCachedRows();
 

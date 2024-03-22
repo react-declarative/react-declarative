@@ -25,6 +25,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a chip list in a slot layout.
+ *
+ * @param listChips - The array of chip objects to be rendered.
+ * @param loading - Indicates whether the chip list is currently loading.
+ * @returns - The rendered chip list slot component.
+ */
 export const ClassicChipListSlot = ({
   listChips = [],
   loading,
@@ -35,6 +42,13 @@ export const ClassicChipListSlot = ({
 
   const { chips, setChips } = useChips();
 
+  /**
+   * Creates a toggle handler function for managing state of a chip.
+   *
+   * @param name - The name of the chip.
+   * @param [state=true] - The initial state of the chip. Default is true.
+   * @returns - The toggle handler function.
+   */
   const createToggleHandler =
     (name: string, state = true) =>
     () => {
@@ -45,6 +59,12 @@ export const ClassicChipListSlot = ({
       setChips(chips);
     };
 
+  /**
+   * Renders a chip based on the given chip data.
+   *
+   * @param chip - The chip data.
+   * @returns - The rendered chip component.
+   */
   const renderChip = (chip: IListChip) => {
     const name = chip.name.toString();
     const enabled = !!chips.get(name);
@@ -60,10 +80,22 @@ export const ClassicChipListSlot = ({
     );
   };
 
+  /**
+   * Returns an array of enabled chips based on the provided list of chips.
+   *
+   * @param {Array} listChips - The list of chips to filter and map.
+   * @returns {Array} The array of enabled chips.
+   */
   const enabledChips = listChips
     .filter(({ name }) => chips.get(name.toString()))
     .map(renderChip);
 
+  /**
+   * Filters and maps the given list of chips based on the presence of their names in the chips object.
+   *
+   * @param {Array} listChips - The list of chips to filter and map.
+   * @returns {Array} - The filtered and mapped chips.
+   */
   const disabledChips = listChips
     .filter(({ name }) => !chips.get(name.toString()))
     .map(renderChip);

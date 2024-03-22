@@ -12,6 +12,12 @@ import { IBodyRowSlot } from "../../../../slots/BodyRowSlot";
 
 import useProps from "../../../../hooks/useProps";
 
+/**
+ * Represents a body row component for displaying data in a table.
+ *
+ * @param props - The properties for the body row component.
+ * @returns The rendered body row component.
+ */
 export const BodyRow = <RowData extends IRowData = IAnything>(
   props: IBodyRowSlot<RowData>
 ) => {

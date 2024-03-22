@@ -1,5 +1,7 @@
 # IFilterListSlot
 
+Represents a filter list slot.
+
 ## Properties
 
 ### className

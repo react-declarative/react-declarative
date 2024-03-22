@@ -25,6 +25,7 @@ import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
+
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
@@ -73,6 +74,23 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * ModalFilterListSlot is a component that displays a filter list with a modal.
+ *
+ * @typedef {Object} FilterData - The type of filter data.
+ * @property {string} className - The class name for the component.
+ * @property {Object} style - The inline style for the component.
+ * @property {FilterData} filterData - The filter data object.
+ * @property {Array} filters - The array of filters for the modal.
+ * @property {Function} change - The function to handle filter change event.
+ * @property {string} label - The label for the filter list.
+ * @property {boolean} loading - The loading state of the component.
+ * @property {boolean} withSearch - Whether to show the search input or not.
+ * @property {boolean} withToggledFilters - Whether to show the filter button or not.
+ * @property {string} search - The search query for the search input.
+ * @property {Function} onSearchChange - The function to handle search change event.
+ * @property {Function} onFilterChange - The function to handle filter change event.
+ */
 export const ModalFilterListSlot = <FilterData extends {}>({
   className,
   style,
@@ -128,6 +146,13 @@ export const ModalFilterListSlot = <FilterData extends {}>({
     onSearchChange("");
   };
 
+  /**
+   * Calculates the count of non-null, non-empty, and non-false values in the filterData object.
+   *
+   * @function
+   * @name filtersCount
+   * @returns {number} The count of non-null, non-empty, and non-false values in the filterData object.
+   */
   const filtersCount = useMemo(() => {
     const keys = Object.keys(filterData || {});
     let counter = 0;
@@ -146,6 +171,10 @@ export const ModalFilterListSlot = <FilterData extends {}>({
     return counter;
   }, [filterData]);
 
+  /**
+   * Render the label based on the provided configuration.
+   * @returns The rendered label JSX element.
+   */
   const renderLabel = () => {
     if (withSearch) {
       return (

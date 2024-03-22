@@ -1,5 +1,7 @@
 # ISelectionProviderProps
 
+Represents the properties for the ISelectionProvider component.
+
 ## Properties
 
 ### children

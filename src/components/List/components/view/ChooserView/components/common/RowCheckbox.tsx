@@ -12,10 +12,24 @@ import IRowData from '../../../../../../../model/IRowData';
 import useSelection from '../../../../../hooks/useSelection';
 import useToggleHandler from '../../../../../hooks/useToggleHandler';
 
+/**
+ * Represents the properties for a row checkbox component.
+ *
+ * @template RowData - The type of the data for the row. It must implement the IRowData interface.
+ */
 interface IRowCheckboxProps<RowData extends IRowData = IAnything> {
     row: RowData,
 }
 
+/**
+ * Represents a checkbox component for a row in a table.
+ *
+ * @template RowData - The type of data associated with a table row.
+ *
+ * @param props - The props for the component.
+ *
+ * @returns - The rendered checkbox component.
+ */
 const RowCheckbox = <RowData extends IRowData = IAnything>({
     row,
 }: IRowCheckboxProps<RowData>) => {

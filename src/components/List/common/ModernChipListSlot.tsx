@@ -27,6 +27,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Renders a chip list slot component.
+ *
+ * @param listChips - The list of chips to render.
+ * @param loading - Indicates whether the component is in a loading state.
+ * @returns - The chip list slot component.
+ */
 export const ModernChipListSlot = ({
   listChips = [],
   loading,
@@ -37,6 +44,13 @@ export const ModernChipListSlot = ({
 
   const { withSingleChip } = useProps();
 
+  /**
+   * Creates a toggle handler function that sets the state of a named chip.
+   *
+   * @param name - The name of the chip to toggle.
+   * @param [state=true] - The initial state of the chip.
+   * @returns - The toggle handler function.
+   */
   const createToggleHandler =
     (name: string, state = true) =>
     () => {
@@ -47,6 +61,13 @@ export const ModernChipListSlot = ({
       setChips(chips);
     };
 
+  /**
+   * Renders a chip element with the given properties.
+   *
+   * @param chip - The chip object to render.
+   * @param idx - The index of the chip in the list.
+   * @returns The rendered chip element.
+   */
   const renderChip = (chip: IListChip, idx: number) => {
     const name = chip.name.toString();
     const enabled = !!chips.get(name);

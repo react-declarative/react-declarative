@@ -37,6 +37,19 @@ const useStyles = makeStyles()({
 
 const [ShrinkProvider, useShrink] = createValueProvider<boolean>();
 
+/**
+ * Renders an action FAB (Floating Action Button) component
+ *
+ * @param options - The options for the action FAB
+ * @param options.action - The name of the action
+ * @param options.label - The label for the button
+ * @param options.width - The width of the component
+ * @param options.icon - The icon component to display
+ * @param options.isVisible - A function that returns a boolean indicating if the FAB is visible
+ * @param options.isDisabled - A function that returns a boolean indicating if the FAB is disabled
+ *
+ * @returns The rendered action FAB component
+ */
 export const ActionFab = ({
     action = 'fab-action',
     label,
