@@ -9,6 +9,10 @@ import TypedField from "../../../model/TypedField";
 
 import or from "../../../utils/math/or";
 
+/**
+ * Interface representing parameters for a field.
+ * @interface IParams
+ */
 interface IParams {
   defaultValue?: string | boolean;
   isDisabled?: IField["isDisabled"];
@@ -18,6 +22,19 @@ interface IParams {
   name: string;
 }
 
+/**
+ * Creates a feature item.
+ *
+ * @param type - The type of the feature.
+ * @param params - The parameters for the feature item.
+ * @param params.defaultValue - The default value for the feature item.
+ * @param params.label - The label for the feature item.
+ * @param params.name - The name of the feature item.
+ * @param [params.isDisabled=() => false] - The function to determine if the feature item is disabled.
+ * @param params.isVisible - Indicates if the feature item is visible.
+ * @param params.map - The function to map the feature item's value.
+ * @returns The created feature item.
+ */
 export const createFeatureItem = (
   type: FeatureType,
   {

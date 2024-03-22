@@ -24,6 +24,9 @@ import IBoardColumn from "../model/IBoardColumn";
 import IBoardItem from "../model/IBoardItem";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Represents the properties for the Header component.
+ */
 export interface IHeaderProps<ColumnType = any> {
   id: string;
   reloadSubject: TSubject<void>;
@@ -69,6 +72,29 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Header component for displaying and navigating through columns.
+ *
+ * @param props - The props object containing the following properties:
+ *   - id {string} - The id of the header.
+ *   - payload {Object} - The payload object.
+ *   - column {string} - The current column.
+ *   - columns {Array} - The array of columns.
+ *   - data {Array} - The data array.
+ *   - disabled {boolean} - Indicates if the header is disabled.
+ *   - reloadSubject {Subject} - The reload subject.
+ *   - withGoBack {boolean} - Indicates if the go back button should be displayed.
+ *   - withHeaderTooltip {boolean} - Indicates if the header tooltip should be displayed.
+ *   - label {Function} - The label function or column name.
+ *   - onChangeColumn {Function} - The function to call when a column is changed.
+ *   - onCardLabelClick {Function} - The function to call when the card label is clicked.
+ *   - fallback {ReactElement} - The fallback component to render.
+ *   - onLoadEnd {Function} - The function to call when the async value loading ends.
+ *   - onLoadStart {Function} - The function to call when the async value loading starts.
+ *   - throwError {boolean} - Indicates if an error should be thrown.
+ *
+ * @returns The Header component.
+ */
 export const Header = ({
   id,
   payload,

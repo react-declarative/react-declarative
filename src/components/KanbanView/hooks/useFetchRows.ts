@@ -4,6 +4,15 @@ import IAnything from "../../../model/IAnything";
 import IBoardRow from "../model/IBoardRow";
 import IBoardRowInternal from "../model/IBoardRowInternal";
 
+/**
+ * Represents a functional interface for handling board manipulation.
+ *
+ * @callback Fn
+ * @param {string} id - The ID of the board.
+ * @param {IAnything} data - The data to be processed.
+ * @param {IBoardRow[]} rows - The array of board rows.
+ * @returns {Promise<IBoardRowInternal[]>} - A Promise that resolves to an array of internal board rows.
+ */
 interface Fn {
   (id: string, data: IAnything, rows: IBoardRow[]): Promise<
     IBoardRowInternal[]

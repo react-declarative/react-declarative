@@ -26,6 +26,20 @@ const useStyles = makeStyles()((theme) => ({
   },
 }))
 
+/**
+ * A customizable date picker component.
+ *
+ * @param props - The component props.
+ * @param props.date - The initial date to display in the date picker.
+ * @param props.minDate - The minimum selectable date in the date picker. Defaults to '1900-01-01'.
+ * @param props.maxDate - The maximum selectable date in the date picker. Defaults to '2100-01-01'.
+ * @param props.onChange - The callback function triggered when the selected date is changed.
+ * @param props.disableFuture - Boolean indicating whether future dates should be disabled. Defaults to false.
+ * @param props.animateYearScrolling - Boolean indicating whether to animate the year scrolling. Defaults to true.
+ * @param props.openToYearSelection - Boolean indicating whether to open the date picker in year selection mode. Defaults to false.
+ *
+ * @returns The date picker component.
+ */
 export const DatePicker = ({
   date: upperDate = dayjs(),
   minDate = '1900-01-01',

@@ -121,16 +121,31 @@ export const Breadcrumbs2 = <T extends any = any>({
 
   const [loading$, setLoading] = useActualState(0);
 
+  /**
+   * Increases the loading count and triggers the onLoadStart event.
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading count by one and triggers the onLoadEnd callback function.
+   *
+   * @param isOk - Determines if the loading operation was successful.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => Math.max(loading - 1, 0));
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * Asynchronous callback for handling an action.
+   *
+   * @param {string} action - The action to be processed.
+   * @returns {Promise<void>} - A promise that resolves once the action is processed.
+   */
   const onAction$ = useActualCallback(async (action: string) => {
     if (loading$.current > 1) {
       return;

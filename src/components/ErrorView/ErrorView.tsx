@@ -56,6 +56,18 @@ interface IErrorViewProps {
     sx?: SxProps<any>;
 }
 
+/**
+ * Function to handle page reload based on the protocol.
+ * If the protocol is not 'file:', it will reload the page by setting the location href to a modified URL with no pathname, search, and hash.
+ * If the protocol is 'file:', it will simply reload the page.
+ *
+ * @function
+ * @name handleReload
+ * @memberOf window
+ *
+ * @example
+ * handleReload();
+ */
 const handleReload = () => {
     const { href, origin, protocol } = window.location;
     if (protocol !== 'file:') {
@@ -69,6 +81,11 @@ const handleReload = () => {
     }
 };
 
+/**
+ * Default content for an uncaught exception message.
+ *
+ * @type {React.ReactNode}
+ */
 const contentDefault = (
     <>
         It looks like this app finished with uncaught exception<br />

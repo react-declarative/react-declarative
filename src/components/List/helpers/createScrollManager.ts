@@ -12,7 +12,6 @@ export const createScrollManager = () => new class {
      * Handles scrolling of the element.
      *
      * @function _handleScroll
-     * @memberof ClassName
      *
      * @description This function is responsible for handling the scrolling of the element.
      * It retrieves the scrollLeft value of the element, and updates the _lastScrollX property.
@@ -44,7 +43,6 @@ export const createScrollManager = () => new class {
     /**
      * Scrolls the current element to the specified x-coordinate.
      *
-     * @memberof YourClass
      * @method
      * @name scrollTop
      * @returns

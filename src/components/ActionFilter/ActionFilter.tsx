@@ -56,6 +56,13 @@ export const ActionFilter = ({
 
     const options = actions.filter(({ action }) => !data.has(action))
 
+    /**
+     * Updates data based on specified action.
+     *
+     * @param action - The action to perform.
+     *
+     * @returns
+     */
     const handleAddFilter = (action: string) => {
         const item = actions.find((item) => item.action === action);
         if (item) {

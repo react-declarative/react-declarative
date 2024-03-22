@@ -190,6 +190,14 @@ const CardItemInternal = <ItemData extends IItemData = any>(
   const { isPhone, isTablet, isDesktop } = useMediaContext();
   const { toggleSelection } = useSelectionContext();
 
+  /**
+   * useMemo to transform an object into an array of key-value pairs
+   * and optionally filter the desired fields.
+   *
+   * @param {Function} callback - The callback function to be memoized.
+   * @param {array} dependencies - The dependencies array to trigger memoization.
+   * @returns {array} - The transformed and filtered array of entries.
+   */
   const entries = useMemo(() => {
     let result = Object.entries(item);
     if (pickFields) {
@@ -198,10 +206,32 @@ const CardItemInternal = <ItemData extends IItemData = any>(
     return result;
   }, [pickFields]);
 
+  /**
+   * Represents the media for a card item.
+   *
+   * @type {Object}
+   * @property {Function} cardMedia - A memoized function that returns the formatted media for the card item.
+   * @property {Function} cardMedia.formatMedia - A function that formats the media for the card item.
+   * @property {Any} cardMedia.item - The item used to format the media.
+   *
+   * @param {Any} item - The item that is used to format the media.
+   * @returns {Object} The media for the card item.
+   */
   const cardMedia = useMemo(() => {
     return formatMedia(item);
   }, [item])
 
+  /**
+   * Executes a callback function when the handleClick event is triggered.
+   *
+   * @callback handleClick
+   * @param {function} onCardClick - The callback function to be executed when the card is clicked.
+   * @param {object} state - The state object.
+   * @param {boolean} state.menuOpened - The flag whether the menu is opened.
+   * @param {object} item - The item object.
+   * @param {*} item - The item value.
+   * @returns {void}
+   */
   const handleClick = useCallback(() => {
     if (!state.menuOpened) {
       onCardClick(item);

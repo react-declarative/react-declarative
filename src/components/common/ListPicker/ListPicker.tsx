@@ -22,6 +22,10 @@ import IListRowAction from '../../../model/IListRowAction';
 
 import useChange from '../../../hooks/useChange';
 
+/**
+ * Represents the props for the IListPicker component.
+ * @template RowData - The type of data for each row in the list.
+ */
 export interface IListPickerProps<RowData extends IRowData = IAnything> {
   onChange: (data: RowId[] | null) => void;
   handler: IListProps<RowData>['handler'];
@@ -59,6 +63,26 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * ListPicker component displays a list of items in a modal dialog and allows the user to make a selection.
+ *
+ * @template RowData - The type of data displayed in each row of the list.
+ *
+ * @param props - The component props.
+ * @param props.onChange - The callback function that is called when the user selects or dismisses the selection. Receives an array of selected rows or null
+ * if dismissed.
+ * @param props.handler - The handler function for the list.
+ * @param props.title - The title of the modal dialog.
+ * @param props.columns - The list of columns to be displayed in the list.
+ * @param props.open - Whether to show the modal dialog or not.
+ * @param props.selectionMode - The selection mode for the list.
+ * @param props.selectedRows - The initially selected rows in the list.
+ * @param props.minHeight - The minimum height of the list container.
+ * @param props.minWidth - The minimum width of the list container.
+ * @param props.rowActions - The actions to be displayed for each row in the list.
+ *
+ * @returns The rendered ListPicker component.
+ */
 export const ListPicker = <RowData extends IRowData = IAnything>({
   onChange = (data) => console.log({ data }),
   handler,

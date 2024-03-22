@@ -33,6 +33,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Calculates the range of years between the minimum date and the maximum date.
+ *
+ * @param minDate - The minimum date of the range.
+ * @param maxDate - The maximum date of the range.
+ * @return - An array of dayjs objects representing the years within the range.
+ */
 const getYears = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   const total = maxDate.diff(minDate, 'years') + 1;
   const years: dayjs.Dayjs[] = [];
@@ -42,6 +49,18 @@ const getYears = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   return years;
 };
 
+/**
+ * Represents a year selection component.
+ *
+ * @param options - The options for the YearSelection component.
+ * @param options.date - The current date to show.
+ * @param options.minDate - The minimum date that can be selected.
+ * @param options.maxDate - The maximum date that can be selected.
+ * @param options.onChange - The callback function to be called when a year is selected.
+ * @param options.disableFuture - A flag indicating if future years should be disabled.
+ * @param options.animateYearScrolling - A flag indicating if scrolling to the selected year should be animated.
+ * @returns The rendered YearSelection component.
+ */
 export const YearSelection = ({
   date = dayjs(),
   minDate = dayjs(),

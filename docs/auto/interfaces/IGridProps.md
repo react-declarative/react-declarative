@@ -1,5 +1,7 @@
 # IGridProps
 
+Represents the properties of the IGrid component.
+
 ## Properties
 
 ### outlinePaper

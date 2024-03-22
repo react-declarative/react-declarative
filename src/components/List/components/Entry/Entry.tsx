@@ -194,7 +194,6 @@ export class Entry<
    * Sets the 'isMountedFlag' to true. Calls 'handleEmptyFilters()' and 'handleUpdateRef()'
    * methods to handle empty filters and update references, respectively.
    *
-   * @memberof Component
    * @function componentDidMount
    * @returns
    */
@@ -392,7 +391,6 @@ export class Entry<
    * Handles empty filters by checking if filters exist and if they are custom filters
    *
    * @function handleEmptyFilters
-   * @memberof namespace
    */
   private handleEmptyFilters = () => {
     let hasFilters = true;
@@ -673,7 +671,6 @@ export class Entry<
    * If the component is currently mounted, it updates the state to trigger a rerender.
    *
    * @function handleRerender
-   * @memberof Component
    * @returns
    */
   private handleRerender = () => {

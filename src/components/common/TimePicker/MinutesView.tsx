@@ -7,6 +7,13 @@ import { MINUTES } from './time';
 import Clock from './Clock';
 import ClockNumber from './ClockNumber';
 
+/**
+ * Renders a clock view for selecting minutes.
+ * @param props - The component props.
+ * @param props.onChange - The callback function to be called when minutes are changed.
+ * @param props.date - The current date.
+ * @returns The MinutesView component.
+ */
 export const MinutesView = ({
   onChange = (change: any) => console.log({change}),
   date = dayjs(),

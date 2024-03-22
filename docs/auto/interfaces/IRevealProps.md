@@ -1,5 +1,7 @@
 # IRevealProps
 
+Interface for the props of the Reveal component.
+
 ## Properties
 
 ### animation

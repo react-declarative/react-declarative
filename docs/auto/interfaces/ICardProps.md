@@ -1,5 +1,7 @@
 # ICardProps
 
+Represents the properties for the `Card` component.
+
 ## Properties
 
 ### label

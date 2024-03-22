@@ -52,6 +52,16 @@ const useStyles = makeStyles()(() => ({
     },
 }));
 
+/**
+ * Represents a component that applies a fade effect to its background.
+ * @typedef {Object} IDefaultFadeProps
+ * @property {string} className - The additional CSS class to be applied to the root element.
+ * @property {boolean} visible - Determines if the component is visible.
+ * @property {string} color - The color of the fade effect. If not provided, the default background color of the theme will be used.
+ * @property {boolean} none - Determines if the fade effect should not be applied.
+ * @property {string} position - The position of the fade effect. Can be either 'bottom' or 'right'.
+ * @property {number} zIndex - The z-index of the root element.
+ */
 export const DefaultFade = ({
     className,
     visible,

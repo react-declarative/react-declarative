@@ -38,6 +38,14 @@ const useStyles = makeStyles()((theme: Theme) => ({
   },
 }));
 
+/**
+ * Represents a clock number component.
+ * @param [selected=false] - Indicates if the clock number is selected.
+ * @param [label=''] - The label of the clock number.
+ * @param [index=0] - The index of the clock number.
+ * @param [...otherProps] - Any other props that should be passed to the component.
+ * @returns The clock number component.
+ */
 export const ClockNumber = ({
   selected = false,
   label = '',

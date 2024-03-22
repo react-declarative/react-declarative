@@ -1,5 +1,7 @@
 # IColumn
 
+Represents a column in a table.
+
 ## Properties
 
 ### field

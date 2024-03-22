@@ -16,6 +16,17 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a toolbar button component.
+ *
+ * @typedef {Object} ToolbarButton
+ * @param selected - Sets the selected state of the button. Default is false.
+ * @param className - Additional classes to apply to the button.
+ * @param label - The text label to display on the button.
+ * @param other - Additional props to pass to the Typography component.
+ * @returns - The rendered toolbar button.
+ *
+ */
 export const ToolbarButton = ({
   selected = false,
   className = '',

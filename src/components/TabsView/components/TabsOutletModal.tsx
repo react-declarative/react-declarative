@@ -177,6 +177,20 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * SMALL_SIZE_REQUEST variable represents a size request for a modal component.
+ *
+ * It is a callback function that returns an object with the following properties:
+ *  - height: The height of the modal in pixels. Default value is 0.
+ *  - width: The width of the modal in pixels. Default value is 0.
+ *  - sx: An object containing custom styling properties for the modal. It has the following properties:
+ *    - maxHeight: The maximum height of the modal in CSS units. Default value is "80%".
+ *    - minWidth: The minimum width of the modal in CSS units. Default value is "330px".
+ *    - maxWidth: The maximum width of the modal in CSS units. Default value is "450px".
+ *    - margin: The margin around the modal in CSS units. Default value is "10px".
+ *
+ * @type {ITabsModalProps['sizeRequest']}
+ */
 const SMALL_SIZE_REQUEST: ITabsModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
@@ -188,6 +202,12 @@ const SMALL_SIZE_REQUEST: ITabsModalProps['sizeRequest'] = () => ({
   },
 });
 
+/**
+ * Function to calculate the height and width of a large size request.
+ *
+ * @param sizeRequest - The size request object containing the height and width.
+ * @returns - The modified size request object with reduced height and width.
+ */
 const LARGE_SIZE_REQUEST: ITabsModalProps['sizeRequest'] = ({
   height,
   width,
@@ -233,6 +253,14 @@ export const OutletModal = <
 
   const open = useSubjectValue(openSubject, !!openSubject.data)
 
+  /**
+   * Calculates the requested size based on the window size.
+   *
+   * @param {Object} options - The options for calculating the requested size.
+   * @param {Function} options.compute - The compute function that takes the current window size and returns the requested size.
+   * @param {number} options.debounce - The debounce time in milliseconds to delay recomputing the requested size.
+   * @returns {Object} The requested size with height, width, and sx properties.
+   */
   const requestedSize = useWindowSize({
     compute: (size) => {
       const request = sizeRequest(size);
@@ -259,6 +287,14 @@ export const OutletModal = <
     setData(upperData);
   }, [open]);
 
+  /**
+   * Updates the data and triggers the onChange event.
+   *
+   * @param data - The new data.
+   * @param initial - Indicates if the change is initial or not.
+   * @param payload - The payload associated with the change.
+   * @param source - The source of the change.
+   */
   const handleChange = (
     data: Data,
     initial: boolean,
@@ -270,11 +306,22 @@ export const OutletModal = <
     onChange(data, initial, payload, source);
   };
 
+  /**
+   * Increases the loading counter by 1 and invokes the onLoadStart callback if provided.
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Handles the end of a load operation.
+   *
+   * @param isOk - Indicates whether the load operation was successful.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
@@ -282,10 +329,23 @@ export const OutletModal = <
 
   const waitForRender = useRenderWaiter([data], 10);
 
+  /**
+   * Waits for changes to occur.
+   *
+   * @async
+   * @function waitForChanges
+   * @returns A promise that resolves when changes occur.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
+  /**
+   * Asynchronous function that handles accepting user input.
+   * @async
+   * @function handleAccept
+   * @returns
+   */
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -307,6 +367,11 @@ export const OutletModal = <
     }
   };
 
+  /**
+   * Executes the handleClose function asynchronously.
+   *
+   * @returns - A promise that resolves when the handleClose function has completed.
+   */
   const handleClose = async () => {
     if (loading.current) {
       return;

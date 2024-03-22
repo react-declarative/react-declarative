@@ -90,6 +90,14 @@ export const Async = <T extends any = object>({
             executionRef.current.cancel();
         }
 
+        /**
+         * Executes a cancelable asynchronous function.
+         *
+         * @function
+         * @param {Function} fn - The asynchronous function to execute.
+         * @returns {Promise} - A promise that resolves with the result of the function or null if the function returns undefined.
+         * @throws {Error} - If an error occurs during execution of the function, it will be thrown.
+         */
         const execute = cancelable(async () => {
             let isOk = true;
             onLoadStart && onLoadStart();
@@ -110,6 +118,12 @@ export const Async = <T extends any = object>({
 
         executionRef.current = execute;
 
+        /**
+         * Executes a process asynchronously.
+         *
+         * @returns A promise that resolves when the process completes.
+         * @throws {Error} If an error occurs and throwError is set to true.
+         */
         const process = async () => {
             let isCanceled = false;
             isMounted.current && setCurrentLoading(true);

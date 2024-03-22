@@ -245,6 +245,13 @@ export const OutletModal = <
 
   const open = useSubjectValue(openSubject, !!openSubject.data)
 
+  /**
+   * Compute the requested size based on the current window size.
+   * @param {Object} options - The options for computing the requested size.
+   * @param {Function} options.compute - The function to compute the requested size.
+   * @param {number} options.debounce - The debounce delay for resizing events.
+   * @returns {Object} - The computed requested size.
+   */
   const requestedSize = useWindowSize({
     compute: (size) => {
       const request = sizeRequest(size);
@@ -271,6 +278,16 @@ export const OutletModal = <
     setData(upperData);
   }, [open]);
 
+  /**
+   * Updates the data and triggers the onChange callback.
+   *
+   * @param data - The updated data value.
+   * @param initial - Indicates if this is the initial data update.
+   * @param payload - The payload associated with the data update.
+   * @param source - The source of the data update.
+   *
+   * @returns
+   */
   const handleChange = (
     data: Data,
     initial: boolean,
@@ -282,22 +299,57 @@ export const OutletModal = <
     onChange(data, initial, payload, source);
   };
 
+  /**
+   * Function that is called when a loading event starts.
+   * It increments the loading state and calls the onLoadStart function if provided.
+   *
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading counter by 1 and triggers the onLoadEnd callback if provided.
+   *
+   * @param isOk - Indicates whether the loading process ended successfully or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * A function that returns a promise that resolves when a render is completed.
+   *
+   * @param {Array} data - An array of data used for rendering.
+   * @param {number} timeout - The maximum amount of time (in milliseconds) to wait for a render to complete.
+   * @returns {Promise} A promise that resolves when the render is completed.
+   */
   const waitForRender = useRenderWaiter([data], 10);
 
+  /**
+   * Waits for changes to occur by awaiting the completion of the first resolved promise
+   * between the promises returned by `waitForRender()` and `sleep(waitForChangesDelay)`.
+   *
+   * @async
+   * @function waitForChanges
+   * @returns A promise that resolves when changes occur.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
+  /**
+   * Handle the accept action.
+   *
+   * @async
+   * @function
+   * @returns
+   * @throws {Error} - If throwError is set to true and an error occurs.
+   */
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -319,6 +371,13 @@ export const OutletModal = <
     }
   };
 
+  /**
+   * Closes the handle, handling loading states and error fallback.
+   *
+   * @async
+   * @function handleClose
+   * @returns
+   */
   const handleClose = async () => {
     if (loading.current) {
       return;

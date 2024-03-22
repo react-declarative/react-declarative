@@ -1,6 +1,11 @@
 import Dimension from './Dimension';
 import RowData from './RowData';
 
+/**
+ * Represents a column in a table.
+ *
+ * @template T - The type of the row data.
+ */
 export interface IColumn<T = RowData> {
   field?: keyof T;
   label: string;

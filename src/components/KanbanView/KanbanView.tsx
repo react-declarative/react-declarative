@@ -103,6 +103,44 @@ const useStyles = makeStyles()((theme) => ({
     cursor: "not-allowed",
   },
 }));
+/**
+ * KanbanViewInternal is a React component that renders a kanban board view. It displays items in columns and allows dragging and dropping of items between columns.
+ *
+ * @template Data - The type of data associated with each item in the kanban board columns.
+ * @template Payload - The type of payload to be passed to various event handlers.
+ * @template ColumnType - The type of column identifier.
+ *
+ * @param props - The props object.
+ * @param props.reloadSubject - An observable that triggers a reload of the data.
+ * @param [props.withUpdateOrder] - A flag indicating whether to update the order of items based on their updatedAt property.
+ * @param props.columns - An array of column definitions.
+ * @param [props.className] - Additional CSS class to apply to the component.
+ * @param [props.payload={}] - The payload object to be passed to various event handlers.
+ * @param [props.disabled=false] - A flag indicating whether the component is disabled.
+ * @param props.items - The array of items to be displayed in the kanban board.
+ * @param [props.style] - Additional inline styles to apply to the component.
+ * @param [props.sx] - Additional sx styles to apply to the component.
+ * @param [props.deps=[]] - An array of dependencies to watch for changes.
+ * @param [props.withGoBack=false] - A flag indicating whether to allow items to be dragged back to the previous column.
+ * @param [props.withHeaderTooltip=false] - A flag indicating whether to show a tooltip on the column header.
+ * @param [props.filterFn=() => true] - A function to filter the items to be displayed in the kanban board.
+ * @param [props.cardLabel=(id) => id] - A function to generate the label for each card.
+ * @param [props.bufferSize=DEFAULT_BUFFERSIZE] - The buffer size for the virtual view.
+ * @param [props.minRowHeight=DEFAULT_MINROWHEIGHT] - The minimum height of each row in the virtual view.
+ * @param [props.rowTtl=DEFAULT_ROWTTL] - The time-to-live for each row in the virtual view cache.
+ * @param [props.AfterCardContent] - React node to be displayed after the card content.
+ * @param [props.AfterColumnTitle] - A function to render additional content after the column title.
+ * @param [props.BeforeColumnTitle] - A function to render additional content before the column title.
+ * @param [props.onDataRequest] - A callback function to be called when data is requested.
+ * @param [props.onChangeColumn] - A callback function to be called when an item is moved to a different column.
+ * @param [props.onCardLabelClick] - A callback function to be called when a card label is clicked.
+ * @param [props.onLoadStart] - A callback function to be called when the data loading starts.
+ * @param [props.onLoadEnd] - A callback function to be called when the data loading ends.
+ * @param [props.fallback] - React node to be displayed when data loading fails.
+ * @param [props.throwError] - A flag indicating whether to throw an error when data loading fails.
+ * @param ref - A ref object to attach to the root element of the component.
+ * @returns - The rendered KanbanViewInternal component.
+ */
 const KanbanViewInternal = <
   Data extends IAnything = IAnything,
   Payload extends IAnything = IAnything,
@@ -151,6 +189,14 @@ const KanbanViewInternal = <
   const payload = useSingleton(upperPayload);
   const columns = useSingleton(upperColumns);
 
+  /**
+   * Fetches transformed rows from a given set of rows.
+   *
+   * @param {string} id - The ID used for fetching the rows.
+   * @param {IAnything} data - Additional data used for transformations.
+   * @param {IBoardRow[]} rows - The rows to be transformed.
+   * @returns {Promise<IBoardRowInternal[]>} The transformed rows.
+   */
   const fetchRows = useMemo(
     () =>
       ttl(
@@ -187,6 +233,13 @@ const KanbanViewInternal = <
     []
   );
 
+  /**
+   * A memoized function that fetches a label.
+   *
+   * @param {string} _ - The unused parameter.
+   * @param {Function} fn - A function that returns a React node or a promise that resolves to a React node.
+   * @return {Promise<React.ReactNode>} - A promise that resolves to a React node.
+   */
   const fetchLabel = useMemo(
     () =>
       ttl(
@@ -232,6 +285,31 @@ const KanbanViewInternal = <
     []
   );
 
+  /**
+   * Variable: itemMap
+   *
+   * Description:
+   * The `itemMap` variable is a memoized `Map` object where keys are of type `ColumnType`
+   * and values are arrays of `IBoardItem<Data, Payload, ColumnType>`.
+   *
+   * The `itemMap` is created by using the `useMemo()` hook. It performs the following steps:
+   *  1. Initializes an empty `Map` object.
+   *  2. Filters `items` array using the provided `filterFn`.
+   *  3. If `withUpdateOrder` is `true`, sorts the filtered `itemListAll` based on the `updatedAt` property in descending order.
+   *  4. Iterates through each `column` in the `columns` array.
+   *      a. Filters `itemListAll` to get items with matching `column` property.
+   *      b. Sets the `column` as the key and the filtered `itemList` as the value in the `itemMap`.
+   *  5. Returns the final `itemMap`.
+   *
+   *
+   * @param {IBoardItem<Data, Payload, ColumnType>[]} items - The list of board items.
+   * @param {ColumnType} columns - The list of columns.
+   * @param {function} filterFn - The filter function used to filter the items.
+   * @param {boolean} withUpdateOrder - Flag indicating whether to sort the items based on `updatedAt` property.
+   * @param {...any} deps - Additional dependencies used by `useMemo()` hook.
+   *
+   * @returns {Map<ColumnType, IBoardItem<Data, Payload, ColumnType>[]>} - The memoized map of items grouped by columns.
+   */
   const itemMap = useMemo(() => {
     const itemMap = new Map<
       ColumnType,
@@ -256,6 +334,14 @@ const KanbanViewInternal = <
     fetchLabel.clear();
   }, [itemMap, ...deps]);
 
+  /**
+   * Retrieves a list of columns from a given array of objects using the "columns" key.
+   * This list is memoized using React's useMemo hook, ensuring that it is only computed when the dependencies change.
+   *
+   * @param {Array} columns - The array of objects containing columns.
+   *
+   * @returns {Array} - The resulting list of columns.
+   */
   const columnList = useMemo(() => columns.map(({ column }) => column), []);
   const defaultColor = useMemo(
     () =>

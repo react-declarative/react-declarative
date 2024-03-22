@@ -7,6 +7,9 @@ import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import DialogTitle from "@mui/material/DialogTitle";
 
+/**
+ * Represents the properties of the PromptPicker component.
+ */
 interface IPromptPickerProps {
   onChange: (result: string | null) => void;
   title: string;
@@ -17,6 +20,17 @@ interface IPromptPickerProps {
   canCancel?: boolean;
 }
 
+/**
+ * Represents a prompt picker component.
+ * @param props - The props object.
+ * @param props.onChange - The function called when the value is changed. Default: console.log({ result }).
+ * @param props.canCancel - Determines if the picker can be canceled. Default: true.
+ * @param props.title - The title of the picker.
+ * @param props.value - The default value of the picker.
+ * @param props.placeholder - The placeholder text for the input field.
+ * @param props.open - Determines if the picker is open. Default: true.
+ * @param props.large - Determines if the picker should be displayed in a large size. Default: false.
+ */
 export const PromptPicker = ({
   onChange = (result) => console.log({ result }),
   canCancel = true,

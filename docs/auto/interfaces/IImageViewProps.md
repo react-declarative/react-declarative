@@ -1,5 +1,7 @@
 # IImageViewProps
 
+Interface for the props of the ImageView component.
+
 ## Properties
 
 ### withFullScreen

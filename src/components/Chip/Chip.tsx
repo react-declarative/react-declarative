@@ -30,6 +30,13 @@ export const Chip = ({
 
     const theme = useTheme<Theme>();
 
+    /**
+     * Creates a chip theme using the provided theme and color.
+     *
+     * @param {object} theme - The base theme object.
+     * @param {string} color - The color to be used as the primary color of the chip theme.
+     * @returns {object} The chip theme object.
+     */
     const chipTheme = useMemo(() => createTheme({
         ...theme,
         palette: {

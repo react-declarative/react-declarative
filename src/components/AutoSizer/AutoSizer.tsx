@@ -6,10 +6,20 @@ import deepCompare from "../../utils/deepCompare";
 
 import ISize from "../../model/ISize";
 
+/**
+ * The `IChildParams` interface defines the parameters for creating a child element.
+ * It extends the `ISize` interface and allows specifying an optional payload of type `T`.
+ *
+ * @template T - The type of the payload.
+ */
 export interface IChildParams<T extends any = unknown> extends ISize {
   payload?: T;
 }
 
+/**
+ * Represents the properties for the AutoSizer component.
+ * @template T - The type of the payload.
+ */
 export interface IAutoSizerProps<T extends any = unknown> {
   children: (s: IChildParams<T>) => any;
   className?: string;
@@ -27,6 +37,14 @@ export interface IAutoSizerProps<T extends any = unknown> {
   selector?: string;
 }
 
+/**
+ * Represents the state of an element.
+ * @typedef {Object} State
+ * @property {number} height - The height of the element.
+ * @property {number} width - The width of the element.
+ * @property {number} childHeight - The height of the child element.
+ * @property {number} childWidth - The width of the child element.
+ */
 type State = {
   height: number;
   width: number;
@@ -34,8 +52,29 @@ type State = {
   childWidth: number;
 };
 
+/**
+ * ResizeHandler is a function that can be used to handle resizing of an HTML element.
+ *
+ * @param {HTMLElement} element - The HTML element to be resized.
+ * @param {function} onResize - The callback function to be called when resize occurs.
+ * @return {void}
+ */
 type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
 
+/**
+ * DetectElementResize is a class that provides methods for adding and removing
+ * resize listeners to an element.
+ *
+ * @typedef {function(Element, ResizeCallback): void} ResizeHandler
+ * @param {Element} element - The element to which the resize listener will be added or removed.
+ * @param {ResizeCallback} callback - The callback function to be called when the element is resized.
+ * @callback ResizeCallback
+ * @param {Element} element - The element that has been resized.
+ *
+ * @typedef {object} DetectElementResize
+ * @property {ResizeHandler} addResizeListener - Adds a resize listener to the specified element.
+ * @property {ResizeHandler} removeResizeListener - Removes the resize listener from the specified element.
+ */
 type DetectElementResize = {
   addResizeListener: ResizeHandler,
   removeResizeListener: ResizeHandler,
@@ -46,6 +85,11 @@ type DetectElementResize = {
  */
 export class AutoSizer<T extends unknown = object> extends React.Component<IAutoSizerProps<T>, State> {
 
+  /**
+   * Default properties for the AutoSizer component.
+   *
+   * @type {Partial<IAutoSizerProps<any>>}
+   */
   static defaultProps: Partial<IAutoSizerProps<any>> = {
     onResize: () => {},
     heightRequest: (h) => h,
@@ -58,6 +102,12 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
   lastHeightRequest = this.props.heightRequest!;
   lastWidthRequest = this.props.widthRequest!;
 
+  /**
+   * Updates the last height and width request values based on the provided nextProps object.
+   *
+   * @param nextProps - The next props object containing heightRequest and widthRequest values.
+   * @returns
+   */
   private _patchSizeRequest = (nextProps: IAutoSizerProps<T>) => {
     if (nextProps.heightRequest) {
       this.lastHeightRequest = nextProps.heightRequest;
@@ -67,6 +117,15 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     }
   };
 
+  /**
+   * Represents the state of a component.
+   *
+   * @typedef {object} State
+   * @property {number} height - The height of the component. Defaults to 0 if not provided.
+   * @property {number} width - The width of the component. Defaults to 0 if not provided.
+   * @property {number} childHeight - The height of the child component. Defaults to 0 if not provided.
+   * @property {number} childWidth - The width of the child component. Defaults to 0 if not provided.
+   */
   state = {
     height: this.props.defaultHeight || 0,
     width: this.props.defaultWidth || 0,
@@ -78,6 +137,13 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
   _autoSizer?: HTMLElement | null;
   _detectElementResize?: DetectElementResize;
 
+  /**
+   * Determines whether the component should update based on the changes in the nextProps and nextState.
+   *
+   * @param nextProps - The next props that will be received by the component.
+   * @param nextState - The next state that will be set in the component.
+   * @returns - Returns true if the component should update, otherwise false.
+   */
   shouldComponentUpdate(nextProps: IAutoSizerProps<T>, nextState: State) {
     this._patchSizeRequest(nextProps);
     let isStateChanged = false;
@@ -98,6 +164,12 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     }
   }
 
+  /**
+   * Executes after the component has been mounted to the DOM.
+   * It sets up the element for resizing and calls the resize event handler.
+   *
+   * @return
+   */
   componentDidMount() {
 
     let element = this.props.target || this._autoSizer;
@@ -130,6 +202,11 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     }
   }
 
+  /**
+   * This method is invoked immediately before a component is unmounted and destroyed.
+   *
+   * It removes the resize listener if it exists and the parent node is defined.
+   */
   componentWillUnmount() {
     if (this._detectElementResize && this._parentNode) {
       this._detectElementResize.removeResizeListener(
@@ -139,6 +216,11 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     }
   }
 
+  /**
+   * Renders a container div with specified child parameters and styles.
+   * @function
+   * @returns - The rendered container div element.
+   */
   render() {
     const {
       children,
@@ -176,6 +258,13 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     );
   }
 
+  /**
+   * Function that handles the resize event.
+   *
+   * @function _onResize
+   * @private
+   * @returns
+   */
   _onResize = () => {
     const { onResize } = this.props;
 
@@ -213,6 +302,12 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
     }
   };
 
+  /**
+   * Sets the reference to the autoSizer element.
+   *
+   * @param autoSizer - The autoSizer element or null.
+   * @returns
+   */
   _setRef = (autoSizer: HTMLElement | null) => {
     this._autoSizer = autoSizer;
   }

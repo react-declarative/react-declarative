@@ -61,6 +61,21 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a small size request object.
+ *
+ * @typedef {Object} SMALL_SIZE_REQUEST
+ * @property {number} height - The height of the request. Default: 0.
+ * @property {number} width - The width of the request. Default: 0.
+ * @property {Object} sx - The style object for the request.
+ * @property {string} sx.maxHeight - The maximum height of the request's style. Default: "80%".
+ * @property {string} sx.minWidth - The minimum width of the request's style. Default: "330px".
+ * @property {string} sx.maxWidth - The maximum width of the request's style. Default: "450px".
+ * @property {string} sx.margin - The margin of the request's style. Default: "10px".
+ *
+ * @example
+ * const sizeRequest = SMALL_SIZE_REQUEST();
+ */
 const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
   height: 0,
   width: 0,
@@ -72,6 +87,24 @@ const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
   },
 });
 
+/**
+ * Modifies the given size request by reducing its height and width by 50 units.
+ *
+ * @param sizeRequest - The original size request object.
+ * @param sizeRequest.height - The original height value.
+ * @param sizeRequest.width - The original width value.
+ * @returns - The modified size request object.
+ * @throws {TypeError} - If the sizeRequest parameter is not an object or if height and width are not numbers.
+ *
+ * @example
+ * const sizeRequest = {
+ *   height: 300,
+ *   width: 400
+ * };
+ *
+ * const modifiedRequest = LARGE_SIZE_REQUEST(sizeRequest);
+ * // modifiedRequest => { height: 250, width: 350 }
+ */
 const LARGE_SIZE_REQUEST: IParams['sizeRequest'] = ({
   height,
   width,
@@ -80,6 +113,10 @@ const LARGE_SIZE_REQUEST: IParams['sizeRequest'] = ({
   width: width - 50,
 });
 
+/**
+ * Represents the interface for the class IParams.
+ * @template Payload - The payload type for the interface.
+ */
 interface IParams<Payload extends IAnything = IAnything> {
   sizeRequest?: (size: ISize) => {
     height: number;
@@ -146,6 +183,16 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  /**
+   * Computes the requested size based on the current window size.
+   *
+   * @param {Object} options - The options to customize the computation.
+   * @param {function} options.compute - A function that takes the window size as an argument
+   *                                     and returns an object containing the requested height, width, and sx.
+   * @param {number} options.debounce - The debounce duration in milliseconds to wait after a window resize
+   *                                    before computing the requested size. Default is 300 milliseconds.
+   * @returns {Object} - The computed requested size object with height, width, and sx properties.
+   */
   const requestedSize = useWindowSize({
     compute: (size) => {
       const request = sizeRequest(size);
@@ -169,18 +216,36 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
 
   const { classes } = useStyles();
 
+  /**
+   * Changes the files and triggers the onChange event.
+   *
+   * @param files - The new files to be set.
+   */
   const handleChange = (files: string[]) => {
     setFiles(files);
     setDirty(true);
     onChange && onChange(data || [], payload);
   };
 
+  /**
+   * Closes the file handle by updating the file state and resetting related flags.
+   *
+   * @function handleClose
+   * @returns
+   */
   const handleClose = () => {
     setFiles(data);
     setOpen(false);
     setDirty(false);
   };
 
+  /**
+   * Handles form submit action.
+   *
+   * @async
+   * @function handleSubmit
+   * @returns - A promise that resolves void.
+   */
   const handleSubmit = async () => {
     if (onSubmit) {
       await onSubmit(withStaticAction ? [] : files, payload);
@@ -189,16 +254,30 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
     setDirty(false);
   };
 
+  /**
+   * Increases the loading counter and triggers the onLoadStart callback function.
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decrements the loading counter and triggers the onLoadEnd callback, if provided.
+   *
+   * @param isOk - Indicates whether the load operation was successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * Renders the modal with a files view and an optional submit action button.
+   *
+   * @returns The rendered modal component.
+   */
   const render = () => (
     <Modal className={classes.root} open={open} onClose={handleClose}>
       <Box

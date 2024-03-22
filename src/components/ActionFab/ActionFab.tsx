@@ -129,6 +129,11 @@ export const ActionFab = ({
 
     const loading$ = useActualValue(loading);
 
+    /**
+     * Handles the click event of a button.
+     * @param event - The click event.
+     * @returns
+     */
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const { current: loading } = loading$;
         if (loading) {

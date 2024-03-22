@@ -3,6 +3,10 @@ import useAsyncAction from "../../../hooks/useAsyncAction";
 
 import IAnything from "../../../model/IAnything";
 
+/**
+ * Represents a class that defines parameters for data fetching and actions handling.
+ * @template Data - The type of the data.
+ */
 interface IParams<Data extends IAnything = IAnything> {
     fetchRow: (id: string) => (Data | Promise<Data>);
     onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
@@ -45,6 +49,15 @@ export const useGridAction = <Data extends IAnything = IAnything>({
 }: IParams<Data>) => {
     const { deselectAll, gridProps, selectedRows } = useGridSelection();
 
+    /**
+     * Represents a commit action that can be performed on a version control system.
+     *
+     * @typedef {Object} CommitAction
+     * @property {string} action - The type of commit action to be performed. Valid values are 'add', 'update', and 'delete'.
+     * @property {string} path - The path to the file or directory on which the commit action is to be performed.
+     * @property {string|null} content - The content of the file to be added or updated. Null for 'delete' actions.
+     * @property {string|null} comment - The comment or description for the commit action. Null for 'delete' actions.
+     */
     const { execute: commitAction } = useAsyncAction(async (action: string) => {
         if (onAction) {
             const rows = await Promise.all(selectedRows.map(fetchRow));
@@ -57,6 +70,14 @@ export const useGridAction = <Data extends IAnything = IAnything>({
         fallback,
     });
 
+    /**
+     * Represents a commit row action.
+     *
+     * @typedef {Object} commitRowAction
+     * @property {string} action - The action performed on the row.
+     * @property {number} rowIndex - The index of the row.
+     * @property {Object} rowData - The data associated with the row.
+     */
     const { execute: commitRowAction } = useAsyncAction(async (dto: {
         action: string;
         row: Data;

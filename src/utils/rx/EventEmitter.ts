@@ -57,7 +57,6 @@ export class EventEmitter {
     /**
      * Clears all event handlers registered for the current object.
      * @function
-     * @memberof unsubscribeAll
      * @returns
      */
     public unsubscribeAll = () => {

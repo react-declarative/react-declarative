@@ -1,5 +1,7 @@
 # IKanbanViewProps
 
+Represents the properties for the KanbanView component.
+
 ## Properties
 
 ### reloadSubject

@@ -1,5 +1,7 @@
 # IExpansionPrivate
 
+Interface for private expansion components.
+
 ## Properties
 
 ### children

@@ -16,6 +16,9 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Interface for the Collapse component props.
+ */
 export interface ICollapseProps extends Omit<BoxProps, keyof {
   title: never;
 }> {
@@ -24,6 +27,18 @@ export interface ICollapseProps extends Omit<BoxProps, keyof {
   onCheck?: (checked: boolean) => void;
 };
 
+/**
+ * Represents a collapsible component with optional title and child content.
+ * The collapse state can be controlled using the `checked` prop.
+ *
+ * @param props - The component props.
+ * @param props.children - The child content to be displayed when the collapse is expanded.
+ * @param props.title - The optional title of the collapse.
+ * @param props.checked - The initial state of the collapse. If true, the collapse is expanded. If false, the collapse is collapsed.
+ * @param props.onCheck - The callback function called when the collapse state is changed. It receives the new state as an argument.
+ * @param props.otherProps - Additional props to be spread to the root Box component.
+ * @returns The rendered collapse component.
+ */
 export const Collapse = ({
   children,
   title,
@@ -40,6 +55,12 @@ export const Collapse = ({
     }
   }, [upperChecked]);
 
+  /**
+   * Function that handles a change in value.
+   *
+   * @function
+   * @name handleChange
+   */
   const handleChange = () => {
     const newValue = !checked;
     if (onCheck) {

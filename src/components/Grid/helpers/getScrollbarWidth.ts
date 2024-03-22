@@ -1,3 +1,8 @@
+/**
+ * Calculates the width of the scrollbar in the current browser.
+ *
+ * @returns The width of the scrollbar in pixels.
+ */
 export const getScrollbarWidth = () => {
     const outer = document.createElement('div');
     outer.style.position = 'fixed';

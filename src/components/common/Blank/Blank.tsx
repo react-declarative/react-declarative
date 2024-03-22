@@ -25,11 +25,22 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the properties for the Outline component.
+ *
+ * @template Data - The type of data used in the component.
+ * @template Payload - The type of payload used in the component.
+ */
 export interface IOutlineProps<Data = IAnything, Payload = IAnything> {
   className?: PickProp<IField<Data, Payload>, 'className'>;
   style?: PickProp<IField<Data, Payload>, 'style'>;
 }
 
+/**
+ * Represents the private interface for the Outline component.
+ * @template Data - The type of data used by the Outline component.
+ * @template Payload - The type of payload used by the Outline component.
+ */
 interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
   children: React.ReactNode;
   columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
@@ -37,6 +48,19 @@ interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
   isBaselineAlign: boolean;
 }
 
+/**
+ * Represents an outline component.
+ *
+ * @function
+ * @param props - The component props.
+ * @param [props.className=""] - The class name for the component.
+ * @param [props.columnsOverride] - Object representing the columns override for the component.
+ * @param [props.style] - Object representing the inline style for the component.
+ * @param [props.children] - The children elements or components.
+ * @param [props.isBaselineAlign] - Flag indicating if the content should be baseline aligned.
+ * @param [props.sx] - Object representing the style system props for the component.
+ * @returns The rendered outline component.
+ */
 export const Outline = ({
   className = "",
   columnsOverride,

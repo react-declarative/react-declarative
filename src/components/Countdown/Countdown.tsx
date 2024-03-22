@@ -61,6 +61,11 @@ export const Countdown = ({
 
   const onExpire$ = useActualCallback(onExpire);
 
+  /**
+   * Represents the timeout value.
+   *
+   * @typedef {Date} Timeout
+   */
   const timeout = useMemo(() => {
     const date = new Date(expireAt);
     return new Date(+date - Date.now());
@@ -82,6 +87,12 @@ export const Countdown = ({
     }
   }, [timeout]);
 
+  /**
+   * Renders the inner content based on the given timeout value. If the timeout is negative, it will render the children if available, otherwise it will render a default content. If the
+   * timeout is non-negative, it will render the time value based on the minutes and seconds of the timeout.
+   *
+   * @returns {JSX.Element} The rendered inner content.
+   */
   const renderInner = useCallback(() => {
     if (+timeout < 0) {
       return children ? (

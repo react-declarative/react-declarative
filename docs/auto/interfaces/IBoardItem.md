@@ -1,5 +1,7 @@
 # IBoardItem
 
+Interface representing a board item.
+
 ## Properties
 
 ### id

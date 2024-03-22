@@ -1,5 +1,7 @@
 # IOutlinePrivate
 
+Interface representing a private outline.
+
 ## Properties
 
 ### children

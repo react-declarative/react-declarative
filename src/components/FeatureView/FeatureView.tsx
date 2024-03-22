@@ -45,6 +45,15 @@ export const FeatureView = ({
     return createFeatures(features, expandAll);
   }, []);
 
+  /**
+   * Calculates the value to be memoized based on the given data.
+   *
+   * @function
+   * @name useMemo
+   * @param {Array} data - The data to be used for calculating the value.
+   * @returns {Object} - The calculated value.
+   * @typedef {Object} State - The state object.
+   */
   const value = useMemo(
     () => {
       if (!data) {
@@ -63,6 +72,12 @@ export const FeatureView = ({
 
   const handler = useCallback(() => value, [data]);
 
+  /**
+   * A callback function that handles the change of data.
+   *
+   * @param {Data} data - The data object to handle.
+   * @param {boolean} initial - Indicates whether the change is initial.
+   */
   const handleChange = useCallback((data: Data, initial: boolean) => {
     if (data && !initial) {
       const features = Object.entries(data)

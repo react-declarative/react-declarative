@@ -52,6 +52,17 @@ export const ActionTrigger = <T extends any = object>({
 
     const onAction$ = useActualCallback(onAction);
 
+    /**
+     * Represents the asynchronous properties.
+     *
+     * @typedef {Object} AsyncProps
+     * @property {Function} fallback - The callback function to be called while the asynchronous operation is in progress.
+     * @property {Function} onLoadStart - The callback function to be called when the asynchronous operation starts.
+     * @property {Function} onLoadEnd - The callback function to be called when the asynchronous operation ends.
+     * @property {Object} payload - The payload object to be passed to the asynchronous operation.
+     * @property {Array} deps - The dependencies required by the asynchronous operation.
+     * @property {boolean} throwError - A boolean flag indicating whether an error should be thrown on failure.
+     */
     const asyncProps = {
         fallback,
         onLoadStart,
@@ -61,6 +72,12 @@ export const ActionTrigger = <T extends any = object>({
         throwError,
     };
 
+    /**
+     * Represents a Loader component that displays a loading animation with a label and an optional icon.
+     * @constructor
+     *
+     * @return The Loader component.
+     */
     const Loader = () => (
         <>
             {actions.map(({ label, icon: Icon }, idx) => (
@@ -93,8 +110,24 @@ export const ActionTrigger = <T extends any = object>({
         </>
     );
 
+    /**
+     * Creates a trigger handler for a specific action.
+     *
+     * @param action - The action to handle.
+     * @returns - The trigger handler function.
+     */
     const createTriggerHandler = (action: string) => async () => await onAction$(action);
 
+    /**
+     * Represents a trigger component.
+     *
+     * @param props - The properties object.
+     * @param props.action - The action associated with the trigger.
+     * @param props.available - Indicates if the trigger is available or not.
+     * @param props.label - The label of the trigger.
+     * @param [props.icon] - The icon component for the trigger.
+     * @returns - The trigger component.
+     */
     const Trigger = ({
         action,
         available,

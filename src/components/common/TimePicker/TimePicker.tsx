@@ -49,6 +49,15 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * A TimePicker component that allows users to select a time.
+ *
+ * @param [options] - The options for the TimePicker.
+ * @param [options.onChange] - The callback function triggered when the selected time changes.
+ * @param [options.date] - The initial date and time to display in the TimePicker.
+ *
+ * @returns The TimePicker component.
+ */
 export const TimePicker = ({
   onChange = (change: any) => console.log({change}),
   date: upperDate = dayjs(),

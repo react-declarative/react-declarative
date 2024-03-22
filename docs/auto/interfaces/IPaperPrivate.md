@@ -1,5 +1,7 @@
 # IPaperPrivate
 
+The `IPaperPrivate` interface is used to describe a private paper component.
+
 ## Properties
 
 ### children

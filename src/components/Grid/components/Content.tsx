@@ -26,6 +26,9 @@ import useSubject from "../../../hooks/useSubject";
 
 import { DEFAULT_ROW_HEIGHT } from "../config";
 
+/**
+ * Represents the props for the Content component.
+ */
 interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
@@ -63,6 +66,35 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Renders the content of a virtual view table.
+ *
+ * @param props - The props object.
+ * @param props.className - The CSS class name for the content.
+ * @param props.style - The inline style object for the content.
+ * @param props.sx - The sx prop for the content.
+ * @param props.recomputeSubject - The recompute subject function.
+ * @param props.scrollXSubject - The scrollX subject function.
+ * @param props.scrollYSubject - The scrollY subject function.
+ * @param props.columns - The columns of the table.
+ * @param props.loading - Indicates if the table is in a loading state.
+ * @param props.data - The data to be rendered in the table.
+ * @param props.rowKey - The key to identify each row in the table.
+ * @param props.hasMore - Indicates if there is more data available.
+ * @param props.errorMessage - The error message to be displayed.
+ * @param props.rowActions - The actions available for each row.
+ * @param props.payload - The payload object for the content.
+ * @param props.minRowHeight - The minimum height of each row.
+ * @param props.bufferSize - The number of buffers to use for the virtual view.
+ * @param props.onTableRowClick - The click event handler for a table row.
+ * @param props.onRowAction - The event handler for a row action.
+ * @param props.onButtonSkip - The click event handler for the show more button.
+ * @param props.onSkip - The event handler for skipping data.
+ * @param props.onScrollX - The event handler for the horizontal scroll.
+ * @param props.rowMark - The function to mark a row.
+ *
+ * @returns The content component.
+ */
 export const Content = ({
   className,
   style,

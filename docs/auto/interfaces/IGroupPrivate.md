@@ -1,5 +1,7 @@
 # IGroupPrivate
 
+Represents a private interface for a group component.
+
 ## Properties
 
 ### children

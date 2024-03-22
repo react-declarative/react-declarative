@@ -187,7 +187,6 @@ export const CustomView = <
    *
    * @function handleCleanRows
    * @callback
-   * @memberof module:Utils
    *
    * @param {function} setState - The function to set the state.
    * @param {Array} upperRows - The updated rows.

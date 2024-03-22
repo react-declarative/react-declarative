@@ -4612,12 +4612,41 @@ declare module "react-declarative/hooks/useModel" {
       _model$: React.MutableRefObject<Model<T>>,
       _dispose: Subject<true>,
     );
+    /**
+     * Retrieves the current data value from the model.
+     *
+     * @returns The current data value.
+     */
     get data(): T;
+    /**
+     * Sets the data of the variable.
+     *
+     * @param data - The data to set. It can be a partial object of type T or a function that accepts the previous data and returns a partial
+     * object of type T.
+     * @returns - A promise that resolves when the data is set.
+     */
     setData: (
       data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
+    /**
+     * Asynchronously refreshes the current model.
+     *
+     * @returns A Promise that resolves when the model has been refreshed.
+     */
     refresh: () => Promise<void>;
+    /**
+     * Converts the current state of the object to a plain JavaScript object.
+     *
+     * @function toObject
+     * @instance
+     * @returns The object converted to a plain JavaScript object.
+     */
     toObject: () => T;
+    /**
+     * Retrieves the current state of the model.
+     *
+     * @returns The current state of the model.
+     */
     toModel: () => Model<T>;
   }
   /**
@@ -4662,17 +4691,58 @@ declare module "react-declarative/hooks/useEntity" {
   export class EntityAdapter<T extends IEntity = any>
     implements IEntityAdapter<T>
   {
+    /**
+     * Represents a Constructor.
+     * @class
+     * @param _entity$ - The _entity$ parameter.
+     * @param _dispose - The _dispose parameter.
+     * @constructor
+     */
     constructor(
       _entity$: React.MutableRefObject<Entity<T>>,
       _dispose: Subject<true>,
     );
+    /**
+     * Retrieves the data associated with the current entity.
+     *
+     * @returns The data object.
+     */
     get data(): T;
+    /**
+     * Retrieve the ID of the current entity.
+     *
+     * @returns The ID of the current entity.
+     */
     get id(): string | number;
+    /**
+     * Sets the data for the object.
+     *
+     * @param data - The data to set.
+     *                  Can be either a partial object of type T or a function that takes the previous data of type T and returns a partial object of type T.
+     * @return - A Promise that resolves after the data is set.
+     */
     setData: (
       data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
+    /**
+     * Refreshes the entity data.
+     * @async
+     * @function refresh
+     * @returns
+     */
     refresh: () => Promise<void>;
+    /**
+     * Converts the current value of the `_entity$` property to an object.
+     *
+     * @function toObject
+     * @returns The `_entity$` property value converted to an object.
+     */
     toObject: () => T;
+    /**
+     * Retrieves the current entity object.
+     *
+     * @returns The current entity object.
+     */
     toEntity: () => Entity<T>;
   }
   /**
@@ -4849,11 +4919,42 @@ declare module "react-declarative/hooks/useCollection" {
       _dispose: Subject<true>,
     );
     get data(): T;
+    /**
+     * Sets the data for the entity.
+     *
+     * @async
+     * @param data - The data to set. It can be either a partial object of type T or a function that takes the previous data of type T and returns
+     * a partial object of type T.
+     * @returns - A promise that resolves when the data is set.
+     * @throws {EntityNotFoundError} - If the entity (with the given ID) is not found in the collection.
+     */
     setData: (
       data: Partial<T> | ((prevData: T) => Partial<T>),
     ) => Promise<void>;
+    /**
+     * Refreshes the entity asynchronously.
+     *
+     * @returns A Promise that resolves once the entity is refreshed.
+     * @throws {Error} If an error occurs while refreshing the entity.
+     */
     refresh: () => Promise<void>;
+    /**
+     * Converts the current object to a plain JavaScript object.
+     *
+     * @memberOf [variable name]
+     *
+     * @throws {Error} If the entity is not found in the collection.
+     *
+     * @return A plain JavaScript object representing the current entity.
+     */
     toObject: () => T;
+    /**
+     * Retrieves the entity with the specified ID from the current collection.
+     *
+     * @throws {Error} If the entity is not found in the collection.
+     *
+     * @returns The entity with the specified ID.
+     */
     toEntity: () => Entity<T>;
   }
   /**
@@ -4864,39 +4965,175 @@ declare module "react-declarative/hooks/useCollection" {
   export class CollectionAdapter<T extends IEntity = any>
     implements ICollectionAdapter<T>
   {
+    /**
+     * Constructor for creating an instance of the class.
+     *
+     * @param _collection$ - The mutable reference object for the collection.
+     * @param _dispose - The subject used for disposing.
+     */
     constructor(
       _collection$: React.MutableRefObject<Collection<T>>,
       _dispose: Subject<true>,
     );
+    /**
+     * Retrieves the IDs from the current collection.
+     *
+     * @returns The IDs from the current collection.
+     */
     get ids(): (string | number)[];
+    /**
+     * Returns the last index from the current collection.
+     * @return The last index of the current collection.
+     */
     get lastIdx(): number;
+    /**
+     * Retrieve the items from the current collection.
+     *
+     * @return An array of CollectionEntityAdapter instances.
+     */
     get items(): CollectionEntityAdapter<T>[];
+    /**
+     * Checks if the collection is empty.
+     *
+     * @function
+     * @returns - True if the collection is empty, otherwise false.
+     */
     get isEmpty(): boolean;
+    /**
+     * Sets new data for the collection.
+     *
+     * @param items - The new collection data.
+     * @returns - A promise that resolves when the new data is set.
+     */
     setData: (items: T[]) => Promise<void>;
+    /**
+     * Refreshes the current collection after waiting for listeners.
+     *
+     * @async
+     * @function
+     * @returns A promise that resolves after the collection is refreshed.
+     */
     refresh: () => Promise<void>;
+    /**
+     * Clears the collection.
+     * @async
+     * @function
+     * @returns
+     */
     clear: () => Promise<void>;
+    /**
+     * Asynchronously pushes item(s) to the collection.
+     *
+     * @param items - The item(s) to push.
+     * @returns A Promise that resolves once the item(s) are pushed to the collection.
+     */
     push: (...items: T[] | T[][]) => Promise<void>;
+    /**
+     * Upserts one or more items into the current collection.
+     *
+     * @param items - One or more items to upsert into the collection.
+     *
+     * @returns - A Promise that resolves when the upsert operation is complete.
+     */
     upsert: (...items: T[] | T[][]) => Promise<void>;
+    /**
+     * Removes an entity from the collection.
+     *
+     * @param entity - The entity to be removed from the collection.
+     * @returns - A Promise that resolves when the entity is successfully removed.
+     */
     remove: (entity: IEntity) => Promise<void>;
+    /**
+     * Removes an item from the collection by its ID.
+     *
+     * @async
+     * @param id - The ID of the item to remove.
+     * @returns A promise that resolves with no value.
+     */
     removeById: (id: string | number) => Promise<void>;
+    /**
+     * Removes all items from the collection.
+     *
+     * @async
+     * @function removeAll
+     * @instance
+     *
+     * @returns A promise that resolves once all items are removed.
+     */
     removeAll: () => Promise<void>;
+    /**
+     * Finds an entity by its ID in the current collection.
+     *
+     * @param id - The ID of the entity to be found.
+     * @returns - An instance of CollectionEntityAdapter representing the found entity.
+     */
     findById: (id: string | number) => CollectionEntityAdapter<T>;
+    /**
+     * Checks if any element of the collection satisfies the provided testing function.
+     *
+     * @param fn - The testing function to apply to each element of the collection.
+     *                       It should take two arguments: the current element of the collection
+     *                       and its index. Returns a boolean value indicating whether the element
+     *                       satisfies the testing condition.
+     * @returns - A boolean value indicating whether any element of the collection satisfies
+     *                     the testing function.
+     */
     some: (
       fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => boolean;
+    /**
+     * Performs a given function on each element of the collection.
+     *
+     * @param fn - The function to be executed on each element.
+     *        The function should take two parameters: the current value in the collection
+     *        and the index of the current value.
+     */
     forEach: (
       fn: (value: CollectionEntityAdapter<T>, idx: number) => void,
     ) => void;
+    /**
+     * Finds the first element in the collection that satisfies the given condition.
+     *
+     * @param fn - The condition to be satisfied.
+     * @return - The first element that satisfies the condition, or undefined if no element satisfies the condition.
+     */
     find: (
       fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => CollectionEntityAdapter<T> | undefined;
+    /**
+     * Filters the items in the collection based on the provided function.
+     *
+     * @param fn - A function used to filter the collection items.
+     *   The function should accept two parameters: value and idx.
+     *   - value: The current item being processed in the collection.
+     *   - idx: The index of the current item being processed in the collection.
+     *
+     * @returns - An array containing the filtered items from the collection.
+     */
     filter: (
       fn: (value: CollectionEntityAdapter<T>, idx: number) => boolean,
     ) => CollectionEntityAdapter<T>[];
+    /**
+     * Maps over the items in the collection and returns an array of values.
+     *
+     * @template V - The type of the mapped values.
+     * @param fn - The mapping function.
+     * @returns - An array of values obtained by applying the mapping function to each item.
+     */
     map: <V extends unknown = any>(
       fn: (value: CollectionEntityAdapter<T>, idx: number) => V,
     ) => V[];
+    /**
+     * Retrieves an array representation of the current collection.
+     *
+     * @returns - An array representation of the current collection.
+     */
     toArray: () => T[];
+    /**
+     * Retrieve the current value of the collection.
+     *
+     * @returns The current value of the collection.
+     */
     toCollection: () => Collection<T>;
   }
   /**
@@ -6531,7 +6768,6 @@ declare module "react-declarative/utils/rx/EventEmitter" {
     /**
      * Clears all event handlers registered for the current object.
      * @function
-     * @memberof unsubscribeAll
      * @returns
      */
     unsubscribeAll: () => void;
@@ -6873,7 +7109,6 @@ declare module "react-declarative/utils/rx/Subject" {
      *
      * @template T - The type of values emitted by the observer.
      *
-     * @memberof Operator
      * @category Observables
      */
     operator: <T = any>(
@@ -7631,13 +7866,33 @@ declare module "react-declarative/utils/mvvm/Entity" {
     extends Model<T>
     implements IEntityAdapter<T>
   {
+    /**
+     * Retrieves the id value from the data object.
+     *
+     * @returns The id value.
+     */
     get id(): string | number;
     constructor(
       _data: T | Entity<T> | (() => T),
       _debounce?: number,
       _prevData?: () => T,
     );
+    /**
+     * Sets the data for the given variable.
+     *
+     * @param data - The data to be set.
+     *    This can either be a partial object of type T or a function that takes the previous data
+     *    of type T and returns a partial object of type T.
+     *
+     * @returns
+     */
     setData: (data: Partial<T> | ((prevData: T) => Partial<T>)) => void;
+    /**
+     * Handles change events.
+     *
+     * @param change - The change event handler function.
+     * @returns - The function to unregister the change event.
+     */
     handleChange: (change: (item: Entity<T>) => void) => () => void;
   }
   export default Entity;
@@ -7691,37 +7946,188 @@ declare module "react-declarative/utils/mvvm/Collection" {
   {
     protected _debounce: number;
     protected _prevData: () => Entity<T>[];
+    /**
+     * Retrieves the items stored in the current instance.
+     *
+     * @returns The array of items stored in the current instance.
+     */
     get items(): Entity<T>[];
+    /**
+     * Returns the last index of the items in the object.
+     *
+     * @return The last index of the items.
+     */
     get lastIdx(): number;
+    /**
+     * Returns an array of all the IDs stored in the object.
+     *
+     * @returns An array containing all the IDs stored in the object.
+     */
     get ids(): (string | number)[];
+    /**
+     * Constructor for the Collection class.
+     * Initializes a new instance of Collection with the given entities and optional debounce value and prevData function.
+     *
+     * @param entities - The initial entities for the Collection.
+     *     It can be an array of entities, a function that returns an array of entities, an array of Entity objects,
+     *     or an instance of Collection.
+     * @param [_debounce=CHANGE_DEBOUNCE] - Optional debounce value for entity changes.
+     * @param [_prevData=() => this.items] - Optional function that returns the previous data of the Collection items.
+     * @return
+     */
     constructor(
       entities?: T[] | (() => T[]) | Entity<T>[] | Collection<T>,
       _debounce?: number,
       _prevData?: () => Entity<T>[],
     );
+    /**
+     * Checks if the collection is empty.
+     *
+     * @returns - True if the collection is empty, false otherwise.
+     */
     get isEmpty(): boolean;
+    /**
+     * Sets the data for the software and performs necessary operations.
+     *
+     * @param items - The array of items to set as data.
+     * @returns
+     */
     setData: (items: T[]) => void;
+    /**
+     * Clear function that performs the following operations:
+     * 1. Disposes of any resources held by this class.
+     * 2. Reorders any elements as necessary.
+     *
+     * @function
+     * @name clear
+     * @memberof global
+     * @returns
+     */
     clear: () => void;
+    /**
+     * Applies a callback function to each value in the map and returns a new array of the results.
+     *
+     * @template V - The type of the elements in the resulting array.
+     * @param callbackfn - A function that accepts a value and its index, and returns a new value.
+     * @returns An array containing the results of applying the callback function to each value in the map.
+     */
     map: <V = any>(callbackfn: (value: Entity<T>, idx: number) => V) => V[];
+    /**
+     * Filter method for an array of items.
+     *
+     * @param predicate - The function used to test each item in the array.
+     * @returns - The filtered array of items.
+     */
     filter: (
       predicate: (value: Entity<T>, idx: number) => boolean,
     ) => Entity<T>[];
+    /**
+     * Finds an entity in the list of items based on the given predicate.
+     *
+     * @param predicate - The predicate function used to determine if an entity matches the condition.
+     *                              The predicate should accept two parameters: value and idx, representing
+     *                              the current entity and its index respectively. It should return a boolean
+     *                              value indicating whether the entity matches the condition.
+     *
+     * @returns - The entity that matches the condition specified by the predicate. If no entity
+     *                        matches the condition, undefined is returned.
+     */
     find: (
       predicate: (value: Entity<T>, idx: number) => boolean,
     ) => Entity<T> | undefined;
+    /**
+     * Checks if at least one element in the array passes the provided test.
+     *
+     * @param predicate - The test function used to check each element.
+     * @param predicate.value - The current element being checked.
+     * @param predicate.idx - The index of the current element being checked.
+     * @returns - True if any element passes the test, false otherwise.
+     */
     some: (predicate: (value: Entity<T>, idx: number) => boolean) => boolean;
+    /**
+     * Calls a function for each element in the array and passes the value and index as arguments.
+     *
+     * @param callbackfn - The function to call for each element, accepts the value and index as arguments.
+     */
     forEach: (callbackfn: (value: Entity<T>, idx: number) => void) => void;
+    /**
+     * Adds items to the collection and performs necessary operations.
+     *
+     * @param items - The items to be added to the collection.
+     */
     push: (...items: T[] | T[][]) => void;
+    /**
+     * Upsert function for adding or updating items in a collection.
+     *
+     * @param items - An array of items to be added or updated.
+     */
     upsert: (...items: T[] | T[][]) => void;
+    /**
+     * Removes an item from the collection by its ID.
+     *
+     * @param item - The item to be removed.
+     * @returns
+     */
     remove: (item: IEntity) => void;
+    /**
+     * Removes an item from the collection by its id.
+     *
+     * @param id - The id of the item to be removed.
+     * @throws {EntityNotFoundError} If the item with the given id is not found in the collection.
+     */
     removeById: (id: IEntity["id"]) => void;
+    /**
+     * Removes all items from the collection and performs necessary cleanup.
+     *
+     * @function
+     * @memberof Collection
+     * @name removeAll
+     * @return
+     */
     removeAll: () => void;
+    /**
+     * Finds an entity by its ID.
+     *
+     * @param id - The ID of the entity to find.
+     * @returns - The found entity.
+     * @throws {EntityNotFoundError} - If the entity with the given ID does not exist.
+     */
     findById: (id: IEntity["id"]) => Entity<T>;
+    /**
+     * Attaches a change handler to the given collection.
+     *
+     * @param change - The function to be called when a change occurs in the collection.
+     *                           It should accept two parameters:
+     *                             - collection: The collection that has changed.
+     *                             - target: The entity that has been modified, or null if the entire collection has changed.
+     * @returns - A function that can be called to detach the change handler from the collection.
+     */
     handleChange: (
       change: (collection: Collection<T>, target: Entity<T> | null) => void,
     ) => () => void;
+    /**
+     * Handles drop changes for all entities in the collection.
+     * Triggers the drop changes event after processing.
+     *
+     * @memberof ClassName
+     * @function handleDropChanges
+     * @returns
+     */
     handleDropChanges: () => void;
+    /**
+     * Executes a refresh action triggering an event.
+     *
+     * @function refresh
+     * @instance
+     *
+     * @emits REFRESH_SYMBOL
+     */
     refresh: () => Promise<void>;
+    /**
+     * Converts an array of objects to an array of plain objects using the "toObject" method of each object.
+     *
+     * @returns The new array with each object converted to a plain object.
+     */
     toArray: () => T[];
   }
   export default Collection;
@@ -7756,16 +8162,58 @@ declare module "react-declarative/utils/mvvm/Model" {
     protected _prevData: () => T;
     protected _dropChanges: Subject<void>;
     protected _data: T;
+    /**
+     * Retrieves the value of the data property.
+     *
+     * @return The frozen data.
+     */
     get data(): T;
     constructor(
       _data: T | Model<T> | (() => T),
       _debounce?: number,
       _prevData?: () => T,
     );
+    /**
+     * Sets the data for the object.
+     *
+     * @param data - The data to be set. It can be a partial object or a function that takes the previous data and returns a partial object.
+     *
+     * @return
+     */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    /**
+     * Handles changes made to the Model.
+     *
+     * @param change - The callback function to be executed when a change occurs in the Model.
+     *                           It accepts a single parameter representing the changed item of type Model<T>.
+     *
+     * @return - A cleanup function that unsubscribes the callback from the CHANGE_SYMBOL event,
+     *                      unsubscribes the callback from the REFRESH_SYMBOL event, clears the debounce function,
+     *                      and unsubscribes the drop function.
+     */
     handleChange(change: (item: Model<T>) => void): () => void;
+    /**
+     * Handles the changes when an item is dropped.
+     *
+     * @function handleDropChanges
+     * @memberof ClassName
+     * @returns
+     */
     handleDropChanges: () => void;
+    /**
+     * A function that triggers a refresh event.
+     *
+     * @function
+     * @memberOf global
+     * @returns
+     */
     refresh: () => Promise<void>;
+    /**
+     * Converts the object into a plain JavaScript object.
+     *
+     * @function
+     * @returns - The plain JavaScript object representation.
+     */
     toObject: () => T;
   }
   export default Model;
@@ -8101,6 +8549,10 @@ declare module "react-declarative/api/resolveDocuments" {
 
 declare module "react-declarative/api/iterateDocuments" {
   import IRowData, { RowId } from "react-declarative/model/IRowData";
+  /**
+   * Represents a configuration interface for data retrieval.
+   * @template Data - The type of row data.
+   */
   interface IConfig<Data extends IRowData = IRowData> {
     totalDocuments?: number;
     limit?: number;
@@ -16713,6 +17165,9 @@ declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
   interface IErrorBoundaryState {
     hasError: boolean;
   }
+  /**
+   * Represents an error boundary component in React.
+   */
   export class ErrorBoundary extends React.Component<
     IErrorBoundaryProps,
     IErrorBoundaryState
@@ -18778,6 +19233,10 @@ declare module "react-declarative/components/FilesView/useFilesView" {
   import { IFilesViewProps } from "react-declarative/components/FilesView/FilesView";
   import IAnything from "react-declarative/model/IAnything";
   import ISize from "react-declarative/model/ISize";
+  /**
+   * Represents the interface for the class IParams.
+   * @template Payload - The payload type for the interface.
+   */
   interface IParams<Payload extends IAnything = IAnything> {
     sizeRequest?: (size: ISize) => {
       height: number;
@@ -18923,9 +19382,19 @@ declare module "react-declarative/components/ScaleView/ScaleView" {
 declare module "react-declarative/components/AutoSizer/AutoSizer" {
   import * as React from "react";
   import ISize from "react-declarative/model/ISize";
+  /**
+   * The `IChildParams` interface defines the parameters for creating a child element.
+   * It extends the `ISize` interface and allows specifying an optional payload of type `T`.
+   *
+   * @template T - The type of the payload.
+   */
   export interface IChildParams<T extends any = unknown> extends ISize {
     payload?: T;
   }
+  /**
+   * Represents the properties for the AutoSizer component.
+   * @template T - The type of the payload.
+   */
   export interface IAutoSizerProps<T extends any = unknown> {
     children: (s: IChildParams<T>) => any;
     className?: string;
@@ -18942,13 +19411,42 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
     closest?: string;
     selector?: string;
   }
+  /**
+   * Represents the state of an element.
+   * @typedef {Object} State
+   * @property {number} height - The height of the element.
+   * @property {number} width - The width of the element.
+   * @property {number} childHeight - The height of the child element.
+   * @property {number} childWidth - The width of the child element.
+   */
   type State = {
     height: number;
     width: number;
     childHeight: number;
     childWidth: number;
   };
+  /**
+   * ResizeHandler is a function that can be used to handle resizing of an HTML element.
+   *
+   * @param {HTMLElement} element - The HTML element to be resized.
+   * @param {function} onResize - The callback function to be called when resize occurs.
+   * @return {void}
+   */
   type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
+  /**
+   * DetectElementResize is a class that provides methods for adding and removing
+   * resize listeners to an element.
+   *
+   * @typedef {function(Element, ResizeCallback): void} ResizeHandler
+   * @param {Element} element - The element to which the resize listener will be added or removed.
+   * @param {ResizeCallback} callback - The callback function to be called when the element is resized.
+   * @callback ResizeCallback
+   * @param {Element} element - The element that has been resized.
+   *
+   * @typedef {object} DetectElementResize
+   * @property {ResizeHandler} addResizeListener - Adds a resize listener to the specified element.
+   * @property {ResizeHandler} removeResizeListener - Removes the resize listener from the specified element.
+   */
   type DetectElementResize = {
     addResizeListener: ResizeHandler;
     removeResizeListener: ResizeHandler;
@@ -18960,9 +19458,23 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
     IAutoSizerProps<T>,
     State
   > {
+    /**
+     * Default properties for the AutoSizer component.
+     *
+     * @type {Partial<IAutoSizerProps<any>>}
+     */
     static defaultProps: Partial<IAutoSizerProps<any>>;
     lastHeightRequest: (h: number) => number;
     lastWidthRequest: (w: number) => number;
+    /**
+     * Represents the state of a component.
+     *
+     * @typedef {object} State
+     * @property {number} height - The height of the component. Defaults to 0 if not provided.
+     * @property {number} width - The width of the component. Defaults to 0 if not provided.
+     * @property {number} childHeight - The height of the child component. Defaults to 0 if not provided.
+     * @property {number} childWidth - The width of the child component. Defaults to 0 if not provided.
+     */
     state: {
       height: number;
       width: number;
@@ -18972,14 +19484,50 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
     _parentNode?: HTMLElement;
     _autoSizer?: HTMLElement | null;
     _detectElementResize?: DetectElementResize;
+    /**
+     * Determines whether the component should update based on the changes in the nextProps and nextState.
+     *
+     * @param nextProps - The next props that will be received by the component.
+     * @param nextState - The next state that will be set in the component.
+     * @returns - Returns true if the component should update, otherwise false.
+     */
     shouldComponentUpdate(
       nextProps: IAutoSizerProps<T>,
       nextState: State,
     ): boolean;
+    /**
+     * Executes after the component has been mounted to the DOM.
+     * It sets up the element for resizing and calls the resize event handler.
+     *
+     * @return
+     */
     componentDidMount(): void;
+    /**
+     * This method is invoked immediately before a component is unmounted and destroyed.
+     *
+     * It removes the resize listener if it exists and the parent node is defined.
+     */
     componentWillUnmount(): void;
+    /**
+     * Renders a container div with specified child parameters and styles.
+     * @function
+     * @returns - The rendered container div element.
+     */
     render(): JSX.Element;
+    /**
+     * Function that handles the resize event.
+     *
+     * @function _onResize
+     * @private
+     * @returns
+     */
     _onResize: () => void;
+    /**
+     * Sets the reference to the autoSizer element.
+     *
+     * @param autoSizer - The autoSizer element or null.
+     * @returns
+     */
     _setRef: (autoSizer: HTMLElement | null) => void;
   }
   export default AutoSizer;
@@ -19204,10 +19752,37 @@ declare module "react-declarative/components/FetchView/FetchView" {
   import * as React from "react";
   import { IAsyncProps } from "react-declarative/components/Async";
   import { IRevealProps } from "react-declarative/components/FetchView/components/Reveal";
+  /**
+   * Represents the possible types of the Result class.
+   *
+   * @typedef {React.ReactNode} ResultType
+   * @typedef {void} VoidType
+   */
   type Result = React.ReactNode | void;
+  /**
+   * Represents the state of an object with optional payload and result.
+   *
+   * @template P - The type of the payload.
+   * @template A - The type of the result.
+   */
   type ObjectState<P extends any = object, A = any> =
     | ((payload: P) => Promise<A>)
     | ((payload: P) => A);
+  /**
+   * Represents a tuple state with optional promises in TypeScript.
+   *
+   * @template P - The type of the payload.
+   * @template A - The type of the first element of the tuple.
+   * @template B - The type of the second element of the tuple.
+   * @template C - The type of the third element of the tuple.
+   * @template D - The type of the fourth element of the tuple.
+   * @template E - The type of the fifth element of the tuple.
+   * @template F - The type of the sixth element of the tuple.
+   * @template G - The type of the seventh element of the tuple.
+   * @template H - The type of the eighth element of the tuple.
+   * @template I - The type of the ninth element of the tuple.
+   * @template J - The type of the tenth element of the tuple.
+   */
   type TupleState<
     P extends any = object,
     A = any,
@@ -19251,6 +19826,21 @@ declare module "react-declarative/components/FetchView/FetchView" {
         Promise<J>?,
       ])
     | ((payload: P) => [A?, B?, C?, D?, E?, F?, G?, H?, I?, J?]);
+  /**
+   * Props interface for the IFetchViewBase component.
+   *
+   * @template P - Type of the component's props.
+   * @template A - Type of parameter A.
+   * @template B - Type of parameter B.
+   * @template C - Type of parameter C.
+   * @template D - Type of parameter D.
+   * @template E - Type of parameter E.
+   * @template F - Type of parameter F.
+   * @template G - Type of parameter G.
+   * @template H - Type of parameter H.
+   * @template I - Type of parameter I.
+   * @template J - Type of parameter J.
+   */
   export interface IFetchViewBaseProps<
     P extends any = object,
     A = any,
@@ -19285,6 +19875,21 @@ declare module "react-declarative/components/FetchView/FetchView" {
       j: J,
     ) => Promise<Result> | Result;
   }
+  /**
+   * Represents the properties required to fetch view object.
+   *
+   * @template P - The type of the props object.
+   * @template A - The type of the additional data.
+   * @template B - The type of additional data B.
+   * @template C - The type of additional data C.
+   * @template D - The type of additional data D.
+   * @template E - The type of additional data E.
+   * @template F - The type of additional data F.
+   * @template G - The type of additional data G.
+   * @template H - The type of additional data H.
+   * @template I - The type of additional data I.
+   * @template J - The type of additional data J.
+   */
   export type IFetchViewObjectProps<
     P extends any = object,
     A = any,
@@ -19300,6 +19905,21 @@ declare module "react-declarative/components/FetchView/FetchView" {
   > = IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J> & {
     state: ObjectState<P, A>;
   };
+  /**
+   * Represents the properties required by the `IFetchViewTuple` component.
+   *
+   * @template P - The type of the component's props.
+   * @template A - The type of the first element in the tuple state.
+   * @template B - The type of the second element in the tuple state.
+   * @template C - The type of the third element in the tuple state.
+   * @template D - The type of the fourth element in the tuple state.
+   * @template E - The type of the fifth element in the tuple state.
+   * @template F - The type of the sixth element in the tuple state.
+   * @template G - The type of the seventh element in the tuple state.
+   * @template H - The type of the eighth element in the tuple state.
+   * @template I - The type of the ninth element in the tuple state.
+   * @template J - The type of the tenth element in the tuple state.
+   */
   export type IFetchViewTupleProps<
     P extends any = object,
     A = any,
@@ -19315,6 +19935,23 @@ declare module "react-declarative/components/FetchView/FetchView" {
   > = IFetchViewBaseProps<P, A, B, C, D, E, F, G, H, I, J> & {
     state: TupleState<P, A, B, C, D, E, F, G, H, I, J>;
   };
+  /**
+   * @typedef {object} IFetchViewProps
+   * @template P - The type parameter for the main component props
+   * @template A - The type parameter for the first additional prop
+   * @template B - The type parameter for the second additional prop
+   * @template C - The type parameter for the third additional prop
+   * @template D - The type parameter for the fourth additional prop
+   * @template E - The type parameter for the fifth additional prop
+   * @template F - The type parameter for the sixth additional prop
+   * @template G - The type parameter for the seventh additional prop
+   * @template H - The type parameter for the eighth additional prop
+   * @template I - The type parameter for the ninth additional prop
+   * @template J - The type parameter for the tenth additional prop
+   *
+   * Represents the props required for the FetchView component.
+   * The props can be either in a tuple format or in an object format.
+   */
   export type IFetchViewProps<
     P extends any = object,
     A = any,
@@ -19390,10 +20027,27 @@ declare module "react-declarative/components/FetchView/FetchView" {
 
 declare module "react-declarative/components/FetchView/components/Reveal" {
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for the props of the Reveal component.
+   *
+   * @interface IRevealProps
+   * @extends BoxProps
+   */
   export interface IRevealProps extends BoxProps {
     animation?: "slideDown" | "fadeIn" | "scale" | "none";
     appear?: boolean;
   }
+  /**
+   * Reveal component.
+   *
+   * @param children - The content to reveal.
+   * @param className - Custom CSS class name(s) to apply.
+   * @param animation - The animation effect to apply when revealing the content. (default: 'slideDown')
+   * @param appear - Flag indicating whether the content should appear on mount. (default: true)
+   * @param otherProps - Additional props to be spread on the root element.
+   *
+   * @returns - The rendered component.
+   */
   export const Reveal: ({
     children,
     className,
@@ -19520,6 +20174,9 @@ declare module "react-declarative/components/PingView/PingView" {
 declare module "react-declarative/components/HtmlView/HtmlView" {
   import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Represents the configuration settings for the application.
+   */
   interface IConfig {
     allowElements: string[];
     blockElements: string[];
@@ -19529,6 +20186,10 @@ declare module "react-declarative/components/HtmlView/HtmlView" {
     allowCustomElements: boolean;
     allowComments: boolean;
   }
+  /**
+   * Class representing a Sanitizer.
+   * @class
+   */
   class Sanitizer {
     constructor(config?: Partial<IConfig>);
   }
@@ -19539,6 +20200,11 @@ declare module "react-declarative/components/HtmlView/HtmlView" {
       ) => Sanitizer;
     }
   }
+  /**
+   * Props for the HtmlView component.
+   *
+   * @template T - The type of the payload data.
+   */
   interface IHtmlViewProps<T extends any = object> extends BoxProps {
     children?: React.ReactNode;
     config?: Partial<IConfig>;
@@ -20274,6 +20940,13 @@ declare module "react-declarative/components/KanbanView/KanbanView" {
 declare module "react-declarative/components/KanbanView/model/IBoard" {
   import IAnything from "react-declarative/model/IAnything";
   import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
+  /**
+   * Interface representing a board.
+   *
+   * @template Data - The type of data stored in the board.
+   * @template Payload - The type of payload stored in the board.
+   * @template ColumnType - The type of column in the board.
+   */
   export interface IBoard<
     Data = IAnything,
     Payload = IAnything,
@@ -20289,6 +20962,13 @@ declare module "react-declarative/components/KanbanView/model/IBoard" {
 declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
   import IAnything from "react-declarative/model/IAnything";
   import IBoardRow from "react-declarative/components/KanbanView/model/IBoardRow";
+  /**
+   * Interface representing a board column.
+   *
+   * @template Data - Type of data for each row in the column.
+   * @template Payload - Type of payload for each row in the column.
+   * @template ColumnType - Type of column.
+   */
   export interface IBoardColumn<
     Data = IAnything,
     Payload = IAnything,
@@ -20304,6 +20984,13 @@ declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
 
 declare module "react-declarative/components/KanbanView/model/IBoardItem" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface representing a board item.
+   *
+   * @template Data - The type of data for the board item.
+   * @template Payload - The type of payload for the board item.
+   * @template ColumnType - The type of column for the board item.
+   */
   export interface IBoardItem<
     Data = IAnything,
     Payload = IAnything,
@@ -20326,6 +21013,12 @@ declare module "react-declarative/components/KanbanView/model/IBoardItem" {
 
 declare module "react-declarative/components/KanbanView/model/IBoardRow" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a row in a board with data and payload.
+   *
+   * @template Data - The type of data for the row.
+   * @template Payload - The type of payload for the row.
+   */
   export interface IBoardRow<Data = IAnything, Payload = IAnything> {
     label: React.ReactNode;
     value: (
@@ -20376,6 +21069,9 @@ declare module "react-declarative/components/InfiniteView/InfiniteView" {
   import { BoxProps } from "@mui/material/Box";
   import { SxProps } from "@mui/material";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the props for the InfiniteView component.
+   */
   interface IInfiniteViewProps extends BoxProps {
     className?: string;
     style?: React.CSSProperties;
@@ -20673,6 +21369,15 @@ declare module "react-declarative/components/DocumentView/DocumentView" {
 declare module "react-declarative/components/ImageView/ImageView" {
   import { BoxProps } from "@mui/material/Box";
   import { IActionMenuProps } from "react-declarative/components/ActionMenu";
+  /**
+   * Interface for the props of the ImageView component.
+   *
+   * @template T - The type of data that can be passed to the action menu.
+   *
+   * @interface
+   * @extends BoxProps - Props for the parent Box component.
+   * @extends Omit<IActionMenuProps<T>, keyof { className: never; style: never; sx: never; transparent: never; onToggle: never; }> - Omitted props from the IActionMenuProps interface.
+   */
   interface IImageViewProps<T extends any = object>
     extends BoxProps,
       Omit<
@@ -20799,6 +21504,12 @@ declare module "react-declarative/components/GridView/GridView" {
   import { IGridProps, RowData } from "react-declarative/components/Grid";
   import { ITileProps } from "react-declarative/components/Tile";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for GridView component props.
+   *
+   * @template T - Type of the row data.
+   * @template P - Type of the additional props.
+   */
   interface IGridViewProps<T = RowData, P = IAnything>
     extends IGridProps<T, P> {
     className?: string;
@@ -20854,6 +21565,11 @@ declare module "react-declarative/components/Grid/Grid" {
 declare module "react-declarative/components/Grid/api/useOffsetPaginator" {
   import TSubject from "react-declarative/model/TSubject";
   import RowData from "react-declarative/components/Grid/model/RowData";
+  /**
+   * Represents the parameters required to configure a data handler for fetching and processing data.
+   *
+   * @template Data - The type of data to be handled.
+   */
   interface IParams<Data = RowData> {
     reloadSubject?: TSubject<void>;
     initialData?: Data[];
@@ -20918,6 +21634,10 @@ declare module "react-declarative/components/Grid/api/useOffsetPaginator" {
 declare module "react-declarative/components/Grid/api/useCursorPaginator" {
   import TSubject from "react-declarative/model/TSubject";
   import RowData from "react-declarative/components/Grid/model/RowData";
+  /**
+   * Interface representing the parameters for fetching data.
+   * @template Data - Type of data
+   */
   interface IParams<Data = RowData> {
     reloadSubject?: TSubject<void>;
     initialData?: Data[];
@@ -20969,6 +21689,10 @@ declare module "react-declarative/components/Grid/api/useCursorPaginator" {
 
 declare module "react-declarative/components/Grid/api/useGridAction" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a class that defines parameters for data fetching and actions handling.
+   * @template Data - The type of the data.
+   */
   interface IParams<Data extends IAnything = IAnything> {
     fetchRow: (id: string) => Data | Promise<Data>;
     onAction?: (
@@ -21064,6 +21788,12 @@ declare module "react-declarative/components/Grid/model/IGridProps" {
   import { IVirtualViewProps } from "react-declarative/components/VirtualView";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import SelectionMode from "react-declarative/model/SelectionMode";
+  /**
+   * Represents the properties of the IGrid component.
+   *
+   * @template T - The type of the RowData.
+   * @template P - The type of the payload.
+   */
   export interface IGridProps<T = RowData, P = IAnything> {
     outlinePaper?: boolean;
     transparentPaper?: boolean;
@@ -21108,6 +21838,11 @@ declare module "react-declarative/components/Grid/model/RowData" {
 declare module "react-declarative/components/Grid/model/IColumn" {
   import Dimension from "react-declarative/components/Grid/model/Dimension";
   import RowData from "react-declarative/components/Grid/model/RowData";
+  /**
+   * Represents a column in a table.
+   *
+   * @template T - The type of the row data.
+   */
   export interface IColumn<T = RowData> {
     field?: keyof T;
     label: string;
@@ -21122,6 +21857,10 @@ declare module "react-declarative/components/Grid/model/IColumn" {
 declare module "react-declarative/components/Grid/model/IGridAction" {
   import { IActionMenuProps } from "react-declarative/components/ActionMenu";
   import IOption from "react-declarative/model/IOption";
+  /**
+   * Represents an interface for grid actions.
+   * @template T - The type of the row data.
+   */
   export interface IGridAction<T>
     extends Omit<
       IOption,
@@ -21144,6 +21883,11 @@ declare module "react-declarative/components/Grid/model/IGridAction" {
 
 declare module "react-declarative/components/Grid/model/TSort" {
   import { IColumn } from "react-declarative/components/Grid/model/IColumn";
+  /**
+   * Represents a TSort object used for sorting data in a specific direction based on a column value.
+   *
+   * @template T - The type of the column value.
+   */
   export type TSort<T> = {
     sortDirection: "ASC" | "DESC";
     value: IColumn<T>["field"];
@@ -21667,6 +22411,10 @@ declare module "react-declarative/components/common/ListPicker/ListPicker" {
   import IColumn from "react-declarative/model/IColumn";
   import SelectionMode from "react-declarative/model/SelectionMode";
   import IListRowAction from "react-declarative/model/IListRowAction";
+  /**
+   * Represents the props for the IListPicker component.
+   * @template RowData - The type of data for each row in the list.
+   */
   export interface IListPickerProps<RowData extends IRowData = IAnything> {
     onChange: (data: RowId[] | null) => void;
     handler: IListProps<RowData>["handler"];
@@ -21687,6 +22435,26 @@ declare module "react-declarative/components/common/ListPicker/ListPicker" {
     open: boolean;
     rowActions?: IListRowAction[];
   }
+  /**
+   * ListPicker component displays a list of items in a modal dialog and allows the user to make a selection.
+   *
+   * @template RowData - The type of data displayed in each row of the list.
+   *
+   * @param props - The component props.
+   * @param props.onChange - The callback function that is called when the user selects or dismisses the selection. Receives an array of selected rows or null
+   * if dismissed.
+   * @param props.handler - The handler function for the list.
+   * @param props.title - The title of the modal dialog.
+   * @param props.columns - The list of columns to be displayed in the list.
+   * @param props.open - Whether to show the modal dialog or not.
+   * @param props.selectionMode - The selection mode for the list.
+   * @param props.selectedRows - The initially selected rows in the list.
+   * @param props.minHeight - The minimum height of the list container.
+   * @param props.minWidth - The minimum width of the list container.
+   * @param props.rowActions - The actions to be displayed for each row in the list.
+   *
+   * @returns The rendered ListPicker component.
+   */
   export const ListPicker: <RowData extends IRowData = any>({
     onChange,
     handler,
@@ -21999,11 +22767,23 @@ declare module "react-declarative/components/common/Group/Group" {
   import { IManagedLayout, PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the props for a group component.
+   *
+   * @template Data - The type of data accepted by the group component.
+   * @template Payload - The type of payload used by the group component.
+   * @extends IManagedLayout - Inherit props from IManagedLayout.
+   */
   export interface IGroupProps<Data = IAnything, Payload = IAnything>
     extends IManagedLayout<Data, Payload> {
     style?: PickProp<IField<Data, Payload>, "style">;
     className?: PickProp<IField<Data, Payload>, "className">;
   }
+  /**
+   * Represents a private interface for a group component.
+   *
+   * @interface IGroupPrivate
+   */
   interface IGroupPrivate {
     children: React.ReactNode;
     isItem?: boolean;
@@ -22012,6 +22792,32 @@ declare module "react-declarative/components/common/Group/Group" {
     onFocus?: () => void;
     onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
   }
+  /**
+   * Group component
+   *
+   * @typedef {Object} Group
+   * @property {string} className - The class name of the group
+   * @property {string} columns - The columns property of the group
+   * @property {string} phoneColumns - The phone columns property of the group
+   * @property {string} tabletColumns - The tablet columns property of the group
+   * @property {string} desktopColumns - The desktop columns property of the group
+   * @property {React.ReactNode} children - The children of the group
+   * @property {boolean} isItem - Whether the group is an item
+   * @property {boolean} isBaselineAlign - Whether to align the group baseline
+   * @property {object} style - The style object of the group
+   * @property {string} columnsOverride - The columns override property of the group
+   * @property {string} sx - The sx property of the group
+   * @property {string} fieldRightMargin - The right margin of the field
+   * @property {string} fieldBottomMargin - The bottom margin of the field
+   * @property {function} onClick - The onClick event handler of the group
+   * @property {function} onFocus - The onFocus event handler of the group
+   * @property {function} onContextMenu - The onContextMenu event handler of the group
+   * @property {Object} ...otherProps - Other props passed to the group
+   * @property {React.Ref<HTMLDivElement>} ref - The ref of the group
+   *
+   * @param Group - The Group component function
+   * @returns The rendered component
+   */
   export const Group: {
     (
       {
@@ -22048,16 +22854,39 @@ declare module "react-declarative/components/common/Outline/Outline" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Interface for the `Outline` component props.
+   *
+   * @template Data - The data type of the component.
+   * @template Payload - The payload type of the component.
+   */
   export interface IOutlineProps<Data = IAnything, Payload = IAnything> {
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
   }
+  /**
+   * Interface representing a private outline.
+   *
+   * @template Data - The data type used in the outline.
+   * @template Payload - The payload type used in the outline.
+   */
   interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
     children: React.ReactNode;
     columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
     sx?: PickProp<IField<Data, Payload>, "sx">;
     isBaselineAlign: boolean;
   }
+  /**
+   * Render an outline component.
+   *
+   * @param [className=""] - The class name for the outline component.
+   * @param [columnsOverride] - An object representing the column overrides.
+   * @param [style] - Inline styles for the outline component.
+   * @param children - The content to be rendered within the outline component.
+   * @param [isBaselineAlign] - Flag indicating whether to align items to the baseline.
+   * @param sx - The custom styling for the outline component using the sx prop.
+   * @returns The rendered outline component.
+   */
   export const Outline: {
     ({
       className,
@@ -22077,16 +22906,41 @@ declare module "react-declarative/components/common/Paper/Paper" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the props for the Paper component.
+   *
+   * @template Data - The type of data used by the component.
+   * @template Payload - The type of payload used by the component.
+   */
   export interface IPaperProps<Data = IAnything, Payload = IAnything> {
     className?: PickProp<IField<Data, Payload>, "className">;
     style?: PickProp<IField<Data, Payload>, "style">;
   }
+  /**
+   * The `IPaperPrivate` interface is used to describe a private paper component.
+   *
+   * @template Data - The type of data for the paper component.
+   * @template Payload - The type of payload for the paper component.
+   */
   interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
     children: React.ReactNode;
     isBaselineAlign: boolean;
     columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
     sx?: PickProp<IField<Data, Payload>, "sx">;
   }
+  /**
+   * Represents a Paper component that displays a block of content with a paper-like background.
+   *
+   * @typedef {Object} Paper
+   * @param [className=""] - The additional CSS class name(s) to apply to the Paper component.
+   * @param [style] - The inline style object to apply to the Paper component.
+   * @param children - The content to be rendered inside the Paper component.
+   * @param columnsOverride - The number of columns to override the default layout.
+   * @param isBaselineAlign - Specifies whether to align the child elements on the baseline.
+   * @param sx - The custom style object to apply to the Paper component using sx prop from the Material-UI theme.
+   *
+   * @returns - The rendered Paper component.
+   */
   export const Paper: {
     ({
       className,
@@ -22106,6 +22960,12 @@ declare module "react-declarative/components/common/Expansion/Expansion" {
   import { PickProp } from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for the Expansion component.
+   *
+   * @template Data - The type of data associated with the component.
+   * @template Payload - The type of payload associated with the component.
+   */
   export interface IExpansionProps<Data = IAnything, Payload = IAnything> {
     title?: PickProp<IField<Data, Payload>, "title">;
     style?: PickProp<IField<Data, Payload>, "style">;
@@ -22113,12 +22973,33 @@ declare module "react-declarative/components/common/Expansion/Expansion" {
     className?: PickProp<IField<Data, Payload>, "className">;
     expansionOpened?: PickProp<IField<Data, Payload>, "expansionOpened">;
   }
+  /**
+   * Interface for private expansion components.
+   *
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   */
   interface IExpansionPrivate<Data = IAnything, Payload = IAnything> {
     children: React.ReactNode;
     columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
     sx?: PickProp<IField<Data, Payload>, "sx">;
     isBaselineAlign: boolean;
   }
+  /**
+   * Expansion component used for creating expandable sections in UI.
+   *
+   * @param props - The props for the Expansion component.
+   * @param props.title - The title of the expansion section.
+   * @param props.description - The description of the expansion section.
+   * @param props.className - The CSS class name for the expansion section.
+   * @param props.columnsOverride - Override columns for Group component.
+   * @param props.isBaselineAlign - Specifies if the content of the expansion section should be baseline-aligned.
+   * @param props.sx - The style object for the expansion section.
+   * @param props.style - The inline style object for the expansion section.
+   * @param props.children - The content of the expansion section.
+   * @param props.expansionOpened - Specifies if the expansion section should be initially expanded.
+   * @returns The rendered Expansion component.
+   */
   export const Expansion: {
     ({
       title,
@@ -23296,6 +24177,22 @@ declare module "react-declarative/components/FadeView/components/FadeContainer" 
     disableBottom?: boolean;
     disableRight?: boolean;
   }
+  /**
+   * Represents a container component that fades out its content on certain scroll and resize events.
+   *
+   * @typedef {Object} FadeContainer
+   * @property {string} className - The CSS class names to apply to the root element.
+   * @property {Object} style - The inline CSS styles to apply to the root element.
+   * @property {string} color - The color of the fade effect.
+   * @property {ReactNode} children - The content to be rendered inside the container.
+   * @property {boolean} disableBottom - Whether or not to disable the bottom fade effect. Default is false.
+   * @property {boolean} disableRight - Whether or not to disable the right fade effect. Default is false.
+   * @property {number} zIndex - The z-index of the fade effect. Default is 9.
+   * @property {ReactComponent} Fade - The fade effect component to use. Default is DefaultFade.
+   * @property {string} selector - The CSS selector to find the scroll view element. Default is `.${SCROLL_VIEW_TARGER}`.
+   *
+   * @returns - The rendered FadeContainer component.
+   */
   export const FadeContainer: ({
     className,
     style,
@@ -23543,6 +24440,13 @@ declare module "react-declarative/components/KanbanView/model/IKanbanViewProps" 
   import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
   import IBoardItem from "react-declarative/components/KanbanView/model/IBoardItem";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for the KanbanView component.
+   *
+   * @template Data - The type of data associated with each item.
+   * @template Payload - The type of payload associated with each item.
+   * @template ColumnType - The type of column associated with each item.
+   */
   export interface IKanbanViewProps<
     Data = IAnything,
     Payload = IAnything,
@@ -23605,6 +24509,22 @@ declare module "react-declarative/components/GridView/components/Card" {
   import * as React from "react";
   import { SxProps } from "@mui/material/styles";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the properties for the `Card` component.
+   *
+   * @template P - The type for the payload data.
+   * @property {React.ReactNode} [label] - The label for the card.
+   * @property {boolean} [outlinePaper] - Whether to show the card with an outline paper.
+   * @property {boolean} [transparentPaper] - Whether to show the card with a transparent paper.
+   * @property {SxProps<any>} [sx] - The styling props for the card.
+   * @property {React.ReactNode} [children] - The content of the card.
+   * @property {string} [className] - The CSS class name for the card.
+   * @property {P} [payload] - The payload data.
+   * @property {boolean} loading - Whether the card is in a loading state.
+   * @property {React.CSSProperties} [style] - The inline style for the card.
+   * @property {React.ComponentType<{ payload: P; loading: boolean }>} [BeforeLabel] - The component to render before the label.
+   * @property {React.ComponentType<{ payload: P; loading: boolean }>} [AfterLabel] - The component to render after the label.
+   */
   export interface ICardProps<P = IAnything> {
     label?: React.ReactNode;
     outlinePaper?: boolean;
@@ -23624,6 +24544,25 @@ declare module "react-declarative/components/GridView/components/Card" {
       loading: boolean;
     }>;
   }
+  /**
+   * Represents a Card component.
+   *
+   * @typedef {Object} Card
+   * @property {?React.ReactNode} children - The content of the card.
+   * @property {boolean} outlinePaper - Whether to show an outline paper.
+   * @property {boolean} transparentPaper - Whether to show a transparent paper.
+   * @property {string} className - Additional CSS class names for the card.
+   * @property {Object} style - Additional inline styles for the card.
+   * @property {Object} sx - Custom styles for Scalable Box component.
+   * @property {string} label - The label for the card.
+   * @property {any} payload - Payload data associated with the card.
+   * @property {boolean} loading - Whether the card is in a loading state.
+   * @property {?React.ComponentType} BeforeLabel - The component to render before the label.
+   * @property {?React.ComponentType} AfterLabel - The component to render after the label.
+   *
+   * @param props - The properties passed to the Card component.
+   * @returns - The rendered Card component.
+   */
   export const Card: ({
     children,
     outlinePaper,
@@ -24295,6 +25234,16 @@ declare module "react-declarative/components/FadeView/components/DefaultFade" {
     color?: string;
     none: boolean;
   }
+  /**
+   * Represents a component that applies a fade effect to its background.
+   * @typedef {Object} IDefaultFadeProps
+   * @property {string} className - The additional CSS class to be applied to the root element.
+   * @property {boolean} visible - Determines if the component is visible.
+   * @property {string} color - The color of the fade effect. If not provided, the default background color of the theme will be used.
+   * @property {boolean} none - Determines if the fade effect should not be applied.
+   * @property {string} position - The position of the fade effect. Can be either 'bottom' or 'right'.
+   * @property {number} zIndex - The z-index of the root element.
+   */
   export const DefaultFade: ({
     className,
     visible,

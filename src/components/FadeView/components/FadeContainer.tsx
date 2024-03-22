@@ -68,6 +68,22 @@ interface IFadeState {
 
 declare var ResizeObserver: any;
 
+/**
+ * Represents a container component that fades out its content on certain scroll and resize events.
+ *
+ * @typedef {Object} FadeContainer
+ * @property {string} className - The CSS class names to apply to the root element.
+ * @property {Object} style - The inline CSS styles to apply to the root element.
+ * @property {string} color - The color of the fade effect.
+ * @property {ReactNode} children - The content to be rendered inside the container.
+ * @property {boolean} disableBottom - Whether or not to disable the bottom fade effect. Default is false.
+ * @property {boolean} disableRight - Whether or not to disable the right fade effect. Default is false.
+ * @property {number} zIndex - The z-index of the fade effect. Default is 9.
+ * @property {ReactComponent} Fade - The fade effect component to use. Default is DefaultFade.
+ * @property {string} selector - The CSS selector to find the scroll view element. Default is `.${SCROLL_VIEW_TARGER}`.
+ *
+ * @returns - The rendered FadeContainer component.
+ */
 export const FadeContainer = ({
   className,
   style,

@@ -7,11 +7,21 @@ const GridPropsContext = createContext<IGridProps>(null as never);
 
 export const useGridProps = () => useContext(GridPropsContext);
 
+/**
+ * Interface representing the props for the IGridPropsProvider component.
+ */
 interface IGridPropsProviderProps {
   children: React.ReactNode;
   value: IGridProps;
 }
 
+/**
+ * Provides Grid properties to its children.
+ * @param props - The component props.
+ * @param props.children - The child components to render.
+ * @param props.value - The Grid properties value.
+ * @returns - The rendered JSX.
+ */
 export const GridPropsProvider = ({
   children,
   value,

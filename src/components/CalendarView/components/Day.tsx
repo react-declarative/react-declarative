@@ -119,6 +119,10 @@ export const Day = ({ onChange, day }: IDayProps) => {
     execute();
   }, [request]);
 
+  /**
+   * Returns the color for a dot based on certain conditions.
+   * @returns - The color for the dot. Possible values are "red", "orange", or "green".
+   */
   const getDotColor = () => {
     if (day.isBefore(dayjs().add(-1, "days"))) {
       return "red";
@@ -129,6 +133,13 @@ export const Day = ({ onChange, day }: IDayProps) => {
     return "green";
   };
 
+  /**
+   * Render the inner content based on the value of the "items" array.
+   * If the "items" array is empty, it renders a message indicating that no tasks are assigned for the day.
+   * Otherwise, it renders a list of tasks for the day.
+   *
+   * @returns The rendered inner content.
+   */
   const renderInner = () => {
     if (items.length === 0) {
       return (

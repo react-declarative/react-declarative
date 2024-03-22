@@ -6,4 +6,4 @@ export type IFetchViewObjectProps<P extends any = object, A = any, B = any, C = 
 };
 ```
 
-
+Represents the properties required to fetch view object.

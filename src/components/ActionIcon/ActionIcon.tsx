@@ -136,6 +136,13 @@ export const ActionIcon = ({
 
     const loading$ = useActualValue(loading);
 
+    /**
+     * Handles click events on a button element.
+     *
+     * @param event - The click event object.
+     * @returns - A Promise that resolves when the click event is handled.
+     * @async
+     */
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const { current: loading } = loading$;
         if (loading) {

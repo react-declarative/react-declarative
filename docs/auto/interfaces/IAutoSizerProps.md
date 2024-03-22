@@ -1,5 +1,7 @@
 # IAutoSizerProps
 
+Represents the properties for the AutoSizer component.
+
 ## Properties
 
 ### children

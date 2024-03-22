@@ -74,6 +74,13 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     [upperColumns]
   );
 
+  /**
+   * useMemo for creating column array based on upperColumns and defaultWidthFn.
+   *
+   * @param {Array} upperColumns - Array of columns configuration.
+   * @param {Function} defaultWidthFn - Default width function.
+   * @return {Array} - Array of columns with calculated width and other properties.
+   */
   const columns = useMemo(
     () =>
       upperColumns.map(
@@ -107,6 +114,12 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     return undefined;
   }, [recomputeSubject, constraintManager]);
 
+  /**
+   * Creates a memoized throttle function that publishes the scrollX value to the scrollXSubject.
+   *
+   * @param {number} scrollX - The horizontal scroll value.
+   * @returns {Function} - The memoized throttle function.
+   */
   const handleScrollX = useMemo(
     () =>
       throttle((scrollX: number) => {

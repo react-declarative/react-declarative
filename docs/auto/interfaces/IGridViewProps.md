@@ -1,5 +1,7 @@
 # IGridViewProps
 
+Interface for GridView component props.
+
 ## Properties
 
 ### className

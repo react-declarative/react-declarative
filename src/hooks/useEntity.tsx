@@ -29,6 +29,10 @@ const WAIT_FOR_LISTENERS_DELAY = 10;
  * @template T - The type of the entity.
  */
 export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
+    /**
+     * Waits for listeners to be added or for the object to be disposed.
+     * @returns A promise that resolves to a boolean indicating if the object is disposed or not.
+     */
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
@@ -44,13 +48,37 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
         };
         process();
     });
+    /**
+     * Represents a Constructor.
+     * @class
+     * @param _entity$ - The _entity$ parameter.
+     * @param _dispose - The _dispose parameter.
+     * @constructor
+     */
     constructor(private _entity$: React.MutableRefObject<Entity<T>>, private _dispose: Subject<true>) { }
+    /**
+     * Retrieves the data associated with the current entity.
+     *
+     * @returns The data object.
+     */
     get data() {
         return this._entity$.current.data;
     };
+    /**
+     * Retrieve the ID of the current entity.
+     *
+     * @returns The ID of the current entity.
+     */
     get id() {
         return this._entity$.current.id;
     };
+    /**
+     * Sets the data for the object.
+     *
+     * @param data - The data to set.
+     *                  Can be either a partial object of type T or a function that takes the previous data of type T and returns a partial object of type T.
+     * @return - A Promise that resolves after the data is set.
+     */
     setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
         await this._waitForListeners().then((isDisposed) => {
             if (isDisposed) {
@@ -59,6 +87,12 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
             this._entity$.current.setData(data as any);
         });
     };
+    /**
+     * Refreshes the entity data.
+     * @async
+     * @function refresh
+     * @returns
+     */
     refresh = async () => {
         await this._waitForListeners().then((isDisposed) => { 
             if (isDisposed) {
@@ -67,7 +101,18 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
             this._entity$.current.refresh();
         });
     };
+    /**
+     * Converts the current value of the `_entity$` property to an object.
+     *
+     * @function toObject
+     * @returns The `_entity$` property value converted to an object.
+     */
     toObject = () => this._entity$.current.toObject();
+    /**
+     * Retrieves the current entity object.
+     *
+     * @returns The current entity object.
+     */
     toEntity = () => this._entity$.current;
 };
 

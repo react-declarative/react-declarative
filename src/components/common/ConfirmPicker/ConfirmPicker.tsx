@@ -6,6 +6,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 
+/**
+ * Interface for the ConfirmPicker component props.
+ */
 interface IConfirmPickerProps {
   onChange: (result: boolean) => void;
   title: string;
@@ -14,6 +17,16 @@ interface IConfirmPickerProps {
   canCancel?: boolean;
 }
 
+/**
+ * Represents a Confirmation Picker component.
+ * @param props - The properties of the ConfirmPicker component.
+ * @param props.onChange - The callback function when the picker value changes.
+ * @param props.canCancel - Specifies if the picker can be cancelled.
+ * @param props.title - The title of the picker.
+ * @param props.msg - The message displayed in the picker.
+ * @param props.open - Specifies if the picker is open.
+ * @returns - The ConfirmPicker component.
+ */
 export const ConfirmPicker = ({
   onChange = (result: boolean) => console.log({ result }),
   canCancel = true,

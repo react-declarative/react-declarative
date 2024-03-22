@@ -9,6 +9,14 @@ interface ILogoProps {
     appName: string;
 }
 
+/**
+ * Represents the logo component.
+ *
+ * @param props - The properties to configure the logo.
+ * @param props.appName - The name of the application to display in the logo.
+ *
+ * @returns - The logo component.
+ */
 export const Logo = ({
     appName,
 }: ILogoProps) => (

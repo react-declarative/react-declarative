@@ -94,6 +94,13 @@ export const ActionToggle = ({
     const loading$ = useActualValue(loading);
     const checked$ = useActualValue(checked);
 
+    /**
+     * Handles the change event.
+     *
+     * @async
+     * @function
+     * @returns
+     */
     const handleChange = async () => {
         const { current: loading } = loading$;
         const { current: checked } = checked$;

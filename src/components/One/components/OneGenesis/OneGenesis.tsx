@@ -180,7 +180,6 @@ export const OneGenesis = <
    * Determines if the baseline alignment is true.
    *
    * @typedef {boolean} isBaselineAlign
-   * @memberof module:Alignments
    * @example
    *
    * const fieldsSnapshot = [{ id: 1, isBaseline: true }, { id: 2, isBaseline: false }];

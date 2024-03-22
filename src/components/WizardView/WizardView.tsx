@@ -118,6 +118,12 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  /**
+   * Returns a memoized version of upperSteps filtered by a given predicate.
+   *
+   * @param {Object} payload - The payload to be passed to the isVisible function.
+   * @returns {Array} - The filtered array of steps.
+   */
   const steps = useMemo(
     () => upperSteps.filter(({ isVisible = () => true }) => isVisible(payload)),
     []
@@ -125,6 +131,15 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const { classes } = useStyles();
 
+  /**
+   * Represents a variable to store and track the history of values.
+   * @class
+   *
+   * @property {Array} values - An array to store the history of values.
+   *
+   * @constructor
+   * Creates a new instance of the History variable.
+   */
   const { history } = useLocalHistory({
     history: upperHistory,
     pathname,
@@ -136,6 +151,16 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const lastActiveStep = useRef(-1);
 
+  /**
+   * Represents additional properties for a component.
+   *
+   * @typedef {Object} OtherProps
+   * @property {number} size - The size of the component.
+   * @property {boolean} loading - Indicates if the component is currently loading.
+   * @property {number} progress - The progress of the component.
+   * @property {Function} setLoading - A function to set the loading state of the component.
+   * @property {Function} setProgress - A function to set the progress of the component.
+   */
   const otherProps = useMemo(
     (): OtherProps => ({
       size,
@@ -166,6 +191,31 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     []
   );
 
+  /**
+   * Returns the active step based on the current route and steps.
+   *
+   * @returns {number} The active step index. Returns -1 if no active step is found.
+   *
+   * @param {string} path - The current route path.
+   * @param {Array} routes - The array of routes.
+   * @param {Array} steps - The array of steps.
+   * @param {Object} lastActiveStep - The last active step reference.
+   *
+   * @example
+   * const activeStep = useMemo(() => {
+   *   const route = routes.find(({ isActive }) => isActive(path));
+   *   if (!route) {
+   *     return -1;
+   *   }
+   *   const activeStep = steps.findIndex(
+   *     ({ isMatch = () => false, id }) => id === route.id || isMatch(route.id)
+   *   );
+   *   if (activeStep === -1) {
+   *     return lastActiveStep.current;
+   *   }
+   *   return (lastActiveStep.current = activeStep);
+   * }, [path]);
+   */
   const activeStep = useMemo(() => {
     const route = routes.find(({ isActive }) => isActive(path));
     if (!route) {
@@ -180,6 +230,11 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     return (lastActiveStep.current = activeStep);
   }, [path]);
 
+  /**
+   * Render a loader component based on the state of `loading` and `progress`.
+   *
+   * @returns {ReactElement|null} The loader component or null.
+   */
   const renderLoader = useCallback(() => {
     if (progress) {
       return (

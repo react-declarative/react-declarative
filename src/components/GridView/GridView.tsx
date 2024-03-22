@@ -12,6 +12,12 @@ import useMediaContext from "../../hooks/useMediaContext";
 
 import IAnything from "../../model/IAnything";
 
+/**
+ * Interface for GridView component props.
+ *
+ * @template T - Type of the row data.
+ * @template P - Type of the additional props.
+ */
 interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
@@ -62,6 +68,11 @@ export const GridView = <
 
   const { isMobile } = useMediaContext();
 
+  /**
+   * Renders the inner content based on the condition.
+   *
+   * @returns - The rendered content.
+   */
   const renderInner = () => {
     if (isMobile && MobileItem) {
       return (

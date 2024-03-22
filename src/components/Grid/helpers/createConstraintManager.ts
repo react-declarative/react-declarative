@@ -1,5 +1,10 @@
 import Dimension from '../model/Dimension';
 
+/**
+ * Creates a constraint manager that allows for memoization of computed dimensions.
+ *
+ * @returns The constraint manager object.
+ */
 export const createConstraintManager = () => {
   const cache = new Map<string, Dimension>();
   const memoize = (column: string, compute: () => Dimension) => {

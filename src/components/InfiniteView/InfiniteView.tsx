@@ -15,6 +15,9 @@ import TSubject from "../../model/TSubject";
 import classNames from "../../utils/classNames";
 import sleep from "../../utils/sleep";
 
+/**
+ * Represents the props for the InfiniteView component.
+ */
 interface IInfiniteViewProps extends BoxProps {
   className?: string;
   style?: React.CSSProperties;

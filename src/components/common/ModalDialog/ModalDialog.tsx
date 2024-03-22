@@ -16,6 +16,11 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the props for a modal dialog component.
+ * @interface
+ * @extends DialogProps
+ */
 interface IModalDialogProps extends DialogProps {
   children: React.ReactNode;
   disabled?: boolean;
@@ -27,6 +32,19 @@ interface IModalDialogProps extends DialogProps {
   onDismiss?: () => void;
 }
 
+/**
+ * Represents a modal dialog component.
+ * @typedef {Object} IModalDialogProps
+ * @property {ReactNode} children - The content inside the dialog.
+ * @property {boolean} disabled - Specifies if the dialog is disabled.
+ * @property {boolean} invalid - Specifies if the dialog is invalid.
+ * @property {boolean} dividers - Specifies if the dialog content should have dividers.
+ * @property {boolean} canCancel - Specifies if the dialog can be canceled.
+ * @property {boolean} noSave - Specifies if the dialog has save functionality disabled.
+ * @property {function} onAccept - The callback function to be executed when the 'OK' button is clicked. Default value is a function that prints 'accept'.
+ * @property {function} onDismiss - The callback function to be executed when the 'Cancel' button is clicked. Default value is a function that prints 'dismiss'.
+ * @property {...any} other - Any other properties that can be passed to the Dialog component.
+ */
 export const ModalDialog = ({
   children,
   disabled,

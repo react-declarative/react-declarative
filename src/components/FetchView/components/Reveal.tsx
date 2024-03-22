@@ -6,6 +6,12 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import classNames from '../../../utils/classNames';
 
+/**
+ * Interface for the props of the Reveal component.
+ *
+ * @interface IRevealProps
+ * @extends BoxProps
+ */
 export interface IRevealProps extends BoxProps {
     animation?: 'slideDown' | 'fadeIn' | 'scale' | 'none';
     appear?: boolean;
@@ -46,6 +52,17 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Reveal component.
+ *
+ * @param children - The content to reveal.
+ * @param className - Custom CSS class name(s) to apply.
+ * @param animation - The animation effect to apply when revealing the content. (default: 'slideDown')
+ * @param appear - Flag indicating whether the content should appear on mount. (default: true)
+ * @param otherProps - Additional props to be spread on the root element.
+ *
+ * @returns - The rendered component.
+ */
 export const Reveal = ({
     children,
     className,
@@ -55,6 +72,13 @@ export const Reveal = ({
 }: IRevealProps) => {
     const { classes } = useStyles();
 
+    /**
+     * Represents a map of animation effects.
+     * @typedef {Object} AnimationMap
+     * @property {string} slideDown - The class name for the slide down animation effect.
+     * @property {string} fadeIn - The class name for the fade in animation effect.
+     * @property {string} scale - The class name for the scale animation effect.
+     */
     const animationMap: Record<string, any> = {
         slideDown: classes.slideDown,
         fadeIn: classes.fadeIn,

@@ -96,6 +96,11 @@ interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything
     AfterSubmit?: React.ComponentType<any>;
 }
 
+/**
+ * Variable defaultFields contains an array of IField objects.
+ *
+ * @type {IField[]}
+ */
 const defaultFields: IField[] = [
     {
         type: FieldType.Text,

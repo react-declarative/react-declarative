@@ -137,6 +137,12 @@ export const DragDropView = ({
   const allowedTypes = useMemo(() => new Set(accept.split(", ")), [accept]);
   const acceptAll = useMemo(() => accept === '*', [accept]);
 
+  /**
+   * Handles drag events.
+   *
+   * @param event - The drag event.
+   * @returns
+   */
   const handleDrag = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -149,6 +155,11 @@ export const DragDropView = ({
     }
   };
 
+  /**
+   * Handles the drop event when files are dropped onto the target element.
+   *
+   * @param event - The drop event object.
+   */
   const handleDrop = (event: React.DragEvent) => {
     if (disabled) {
       return;
@@ -164,6 +175,12 @@ export const DragDropView = ({
     }
   };
 
+  /**
+   * Handles change event of an input element.
+   *
+   * @param event - The change event object.
+   * @returns
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       return;
@@ -178,6 +195,11 @@ export const DragDropView = ({
     }
   };
 
+  /**
+   * Prevents the default form submission behavior when a form is submitted.
+   *
+   * @param event - The form submission event object.
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => event.preventDefault();
 
   return (

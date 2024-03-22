@@ -50,6 +50,12 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Creates a copy handler for the given content.
+ *
+ * @param content - The content to copy.
+ * @returns - A Promise that resolves when the content is successfully copied.
+ */
 const createCopyHandler = (content: React.ReactNode) => async () => {
   let isOk = false;
   isOk = isOk || typeof content === "string";
@@ -95,6 +101,13 @@ export const Copy = ({
 }: ICopyProps) => {
   const { classes } = useStyles();
 
+  /**
+   * handleClick
+   *
+   * A callback function that handles the click event.
+   *
+   * @param {Object} e - The click event object.
+   */
   const handleClick = useCallback(
     async (e: any) => {
       e.preventDefault();

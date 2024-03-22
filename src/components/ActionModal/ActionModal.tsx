@@ -139,6 +139,19 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * The `SMALL_SIZE_REQUEST` variable is a function that returns an object containing the properties for
+ * configuring the size of a modal component. It is of type `IActionModalProps['sizeRequest']`.
+ *
+ * @returns The size configuration object.
+ * @property {number} height - The height of the modal component. This value is set to 0.
+ * @property {number} width - The width of the modal component. This value is set to 0.
+ * @property {object} sx - An object with additional style properties for the modal component.
+ * @property {string} sx.maxHeight - The maximum height of the modal component. This value is set to "80%".
+ * @property {string} sx.minWidth - The minimum width of the modal component. This value is set to "330px".
+ * @property {string} sx.maxWidth - The maximum width of the modal component. This value is set to "450px".
+ * @property {string} sx.margin - The margin around the modal component. This value is set to "10px".
+ */
 const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
@@ -150,6 +163,17 @@ const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
   },
 });
 
+/**
+ * Description: A function that modifies the size request for a modal action.
+ *
+ * @param sizeRequest - The original size request object containing height and width.
+ * @param sizeRequest.height - The current height of the modal.
+ * @param sizeRequest.width - The current width of the modal.
+ *
+ * @returns - The modified size request object with reduced height and width.
+ * @returns - The modified size request object with reduced height.
+ * @returns - The modified size request object with reduced width.
+ */
 const LARGE_SIZE_REQUEST: IActionModalProps['sizeRequest'] = ({
   height,
   width,

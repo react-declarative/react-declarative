@@ -17,6 +17,9 @@ import useSingleton from "../../../hooks/useSingleton";
 import classNames from "../../../utils/classNames";
 import PaperView from "../../PaperView";
 
+/**
+ * Props interface for Props class.
+ */
 interface Props {
   className?: string;
   outlinePaper?: boolean;
@@ -63,6 +66,18 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a container component that wraps and displays its children.
+ *
+ * @typedef {Object} Props - The props for the Container component.
+ * @property {boolean} outlinePaper - Determines whether to display outline paper for the Container.
+ * @property {boolean} transparentPaper - Determines whether the Container paper is transparent.
+ * @property {string} className - The CSS class name for the Container.
+ * @property {Object} style - The CSS styles for the Container.
+ * @property {Object} sx - The theme styles for the Container.
+ * @property {ReactNode} header - The header content for the Container.
+ * @property {ReactNode} children - The children elements of the Container.
+ */
 export const Container = ({
   outlinePaper,
   transparentPaper,

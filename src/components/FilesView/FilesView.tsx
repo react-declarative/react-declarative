@@ -95,11 +95,22 @@ export const FilesView = ({
     msg: CONFIRM_MESSAGE,
   });
 
+  /**
+   * Function that handles the load start event.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading count by 1 and calls the `onLoadEnd` function if it is not null.
+   *
+   * @param isOk - Indicates if the load operation is successful.
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => Math.max(loading - 1, 0));
     onLoadEnd && onLoadEnd(isOk);
@@ -119,6 +130,13 @@ export const FilesView = ({
   const items$ = useActualValue(items);
   const onChange$ = useActualCallback(onChange);
 
+  /**
+   * Handles the removal of an item from a list.
+   *
+   * @param item - The item to be removed.
+   * @returns - Resolves when the item has been removed successfully.
+   * @throws {Error} - If an error occurs during the removal process and throwError is true.
+   */
   const handleRemove = async (item: string) => {
     let isOk = true;
     try {
@@ -137,6 +155,12 @@ export const FilesView = ({
     }
   };
 
+  /**
+   * Asynchronously handles uploading multiple files.
+   *
+   * @param files - An array of files to upload.
+   * @returns - A promise that resolves when all files are uploaded and handled.
+   */
   const handleData = async (files: File[]) => {
     let isOk = true;
     try {
@@ -164,6 +188,12 @@ export const FilesView = ({
     }
   };
 
+  /**
+   * Handles the click event.
+   *
+   * @param file - The file to be processed.
+   * @returns - A promise that resolves when the click event is handled.
+   */
   const handleClick = async (file: string) => {
     let isOk = true;
     try {

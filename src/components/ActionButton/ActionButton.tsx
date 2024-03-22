@@ -94,6 +94,12 @@ export const ActionButton = ({
 
     const loading$ = useActualValue(loading);
 
+    /**
+     * Handles click event for a button.
+     *
+     * @param event - The click event.
+     * @returns - Promise that resolves when the click handling is completed.
+     */
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const { current: loading } = loading$;
         if (loading) {

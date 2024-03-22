@@ -1,5 +1,7 @@
 # IGridAction
 
+Represents an interface for grid actions.
+
 ## Properties
 
 ### isVisible

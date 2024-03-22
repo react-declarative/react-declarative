@@ -28,6 +28,12 @@ export const useAsyncValue = <Data extends any = any>(
 ): [Data | null, IResult<void, void>, (data: Data) => void] => {
   const [result, setResult] = useState<Data | null>(null);
 
+  /**
+   * Executes an asynchronous action with parameters.
+   *
+   * @param {Function} action - The asynchronous action to be executed.
+   * @param {Array} params - The parameters to be passed to the action.
+   */
   const action = useAsyncAction(async () => {
     const result = await run();
     setResult(result);

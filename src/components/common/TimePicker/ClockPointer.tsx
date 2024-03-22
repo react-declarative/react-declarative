@@ -31,6 +31,15 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * ClockPointer represents a clock hand that can be displayed on a clock face.
+ *
+ * @param props - Configuration options for the ClockPointer.
+ * @param props.hasSelected - Indicates whether the ClockPointer is selected.
+ * @param props.value - The current value of the ClockPointer.
+ * @param props.max - The maximum value for the ClockPointer.
+ * @returns - JSX element representing the ClockPointer.
+ */
 export const ClockPointer = ({
   hasSelected = false,
   value = 0,

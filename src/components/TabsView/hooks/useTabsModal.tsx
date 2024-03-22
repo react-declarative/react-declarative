@@ -95,6 +95,13 @@ export const useTabsModal = <
 
   const onSubmit$ = useActualCallback(onSubmit);
 
+  /**
+   * Handles submit action.
+   *
+   * @param {Data | null} data - The data to submit.
+   * @param {Payload} payload - The payload to submit.
+   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating success.
+   */
   const handleSubmit = useCallback(
     async (data: Data | null, payload: Payload) => {
       const result = await onSubmit$(data, payload);
@@ -106,11 +113,24 @@ export const useTabsModal = <
     []
   );
 
+  /**
+   * A callback function used to handle closing.
+   *
+   * @function
+   * @name handleClose
+   *
+   * @returns {void}
+   */
   const handleClose = useCallback(() => {
     openSubject.next(false);
     onClose && onClose();
   }, []);
 
+  /**
+   * Renders a TabsOutletModal component.
+   *
+   * @returns {Component} The rendered TabsOutletModal component.
+   */
   const render = useCallback(
     () => (
       <TabsOutletModal
@@ -145,6 +165,13 @@ export const useTabsModal = <
     ]
   );
 
+  /**
+   * The pickData function is a callback function that opens the subject when called.
+   * It is used to notify the observers about a change in the subject.
+   *
+   * @callback pickData
+   * @return {void}
+   */
   const pickData = useCallback(() => {
     openSubject.next(true);
   }, []);

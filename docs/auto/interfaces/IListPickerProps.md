@@ -1,5 +1,7 @@
 # IListPickerProps
 
+Represents the props for the IListPicker component.
+
 ## Properties
 
 ### onChange

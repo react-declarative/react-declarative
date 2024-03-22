@@ -19,6 +19,9 @@ import IBoardRow from "../model/IBoardRow";
 import useFetchRows from "../hooks/useFetchRows";
 import useReloadTrigger from "../../../hooks/useReloadTrigger";
 
+/**
+ * Represents the properties for the `Container` component.
+ */
 export interface IContainerProps
   extends IHeaderProps,
     Omit<IContentProps, "rows"> {
@@ -58,6 +61,27 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * @typedef {Object} IContainerProps
+ * @property {string} id - The ID of the container.
+ * @property {string} column - The current column of the container.
+ * @property {string} label - The label of the container.
+ * @property {Array<string>} columns - The columns of the container.
+ * @property {Subject} reloadSubject - The subject for triggering reload.
+ * @property {Array<string>} rows - The initial rows of the container.
+ * @property {boolean} withGoBack - Flag indicating whether to show a "Go Back" button.
+ * @property {boolean} withHeaderTooltip - Flag indicating whether to show a tooltip on the header.
+ * @property {any} data - The data for fetching rows.
+ * @property {React.ReactElement} fallback - The fallback view to be displayed while loading rows.
+ * @property {Function} onLoadEnd - The callback function called when loading ends.
+ * @property {Function} onLoadStart - The callback function called before loading starts.
+ * @property {Function} throwError - The callback function called when an error occurs during loading.
+ * @property {boolean} disabled - Flag indicating whether the container is disabled.
+ * @property {Function} onChangeColumn - The callback function called when the column is changed.
+ * @property {Function} onCardLabelClick - The callback function called when the card label is clicked.
+ * @property {any} payload - The payload for rendering components.
+ * @property {React.ReactElement} AfterCardContent - The component to be rendered after the content.
+ */
 export const Container = ({
   id,
   column,

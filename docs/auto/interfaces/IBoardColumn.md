@@ -1,5 +1,7 @@
 # IBoardColumn
 
+Interface representing a board column.
+
 ## Properties
 
 ### column

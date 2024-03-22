@@ -6,4 +6,4 @@ export type IFetchViewTupleProps<P extends any = object, A = any, B = any, C = a
 };
 ```
 
-
+Represents the properties required by the `IFetchViewTuple` component.

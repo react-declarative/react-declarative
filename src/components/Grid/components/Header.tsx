@@ -30,6 +30,11 @@ import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
 const ROW_CHECKBOX_UNIQUE_KEY = randomString();
 
+/**
+ * Represents the properties of the Header component.
+ *
+ * @template T - The type of row data.
+ */
 interface IHeaderProps<T = RowData> {
   className?: string;
   style?: React.CSSProperties;
@@ -105,6 +110,21 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the header component of a data grid.
+ * @template T - The type of the row data.
+ * @param props - The props for the header component.
+ * @param props.className - The CSS class name for the header component.
+ * @param props.style - The inline style for the header component.
+ * @param props.sx - The sx prop for the header component.
+ * @param props.columns - The array of column definitions.
+ * @param props.sort - The sort configuration.
+ * @param props.rowActions - The array of row actions.
+ * @param props.scrollXSubject - The observable for the x-axis scroll position.
+ * @param props.onClickHeaderColumn - The callback function for clicking on a header column.
+ * @param props.onScrollX - The callback function for horizontal scrolling.
+ * @returns - The rendered header component.
+ */
 export const Header = <T extends RowData>({
   className,
   style,

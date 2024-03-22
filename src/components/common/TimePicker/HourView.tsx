@@ -7,6 +7,13 @@ import { HOURS } from './time';
 import Clock from './Clock';
 import ClockNumber from './ClockNumber';
 
+/**
+ * Represents an HourView component that allows the user to select an hour value using a ClockNumber component.
+ * @param props - The props object containing the optional date and onChange properties.
+ * @param props.date - The current date value. Defaults to the current day and time.
+ * @param props.onChange - The function to be called when the hour value is changed. Defaults to logging the change object to the console.
+ * @returns - The HourView component.
+ */
 export const HourView = ({
   date = dayjs(),
   onChange = (change: any) => console.log({change}),

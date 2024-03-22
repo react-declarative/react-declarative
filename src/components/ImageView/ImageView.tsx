@@ -18,6 +18,15 @@ import openBlank from '../../utils/openBlank';
 
 const FAB_SIZE = 48;
 
+/**
+ * Interface for the props of the ImageView component.
+ *
+ * @template T - The type of data that can be passed to the action menu.
+ *
+ * @interface
+ * @extends BoxProps - Props for the parent Box component.
+ * @extends Omit<IActionMenuProps<T>, keyof { className: never; style: never; sx: never; transparent: never; onToggle: never; }> - Omitted props from the IActionMenuProps interface.
+ */
 interface IImageViewProps<T extends any = object> extends BoxProps, Omit<IActionMenuProps<T>, keyof {
     className: never;
     style: never;

@@ -7,4 +7,4 @@ export type TSort<T> = {
 };
 ```
 
-
+Represents a TSort object used for sorting data in a specific direction based on a column value.

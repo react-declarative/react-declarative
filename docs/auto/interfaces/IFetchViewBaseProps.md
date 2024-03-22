@@ -1,5 +1,7 @@
 # IFetchViewBaseProps
 
+Props interface for the IFetchViewBase component.
+
 ## Properties
 
 ### animation

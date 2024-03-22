@@ -23,6 +23,13 @@ interface IConstraintViewProps<T extends IAnything = IAnything> extends Omit<IAu
 
 const GRID_MAX_WIDTH = 9999999999999999;
 
+/**
+ * Represents a function that returns a boolean value indicating whether a given width falls within a specified range.
+ *
+ * @param from - The lower bound of the range (inclusive).
+ * @param to - The upper bound of the range (exclusive).
+ * @returns - A function that takes a width and returns true if it is within the specified range, false otherwise.
+ */
 const match = (from: number, to: number) => (width: number) => width >= from && width < to;
 
 /**
@@ -78,6 +85,12 @@ export const ConstraintView = <T extends IAnything = IAnything>({
 
     }, [theme]);
 
+    /**
+     * This function handles the view change.
+     *
+     * @param name - The name of the view to be changed to.
+     * @returns
+     */
     const handleView = (name: string) => {
         if (lastView.current !== name) {
             onViewChanged && onViewChanged(name);
@@ -85,6 +98,14 @@ export const ConstraintView = <T extends IAnything = IAnything>({
         lastView.current = name;
     }
 
+    /**
+     * Renders content based on the width and payload.
+     *
+     * @param props - The object containing width and payload.
+     * @param props.width - The width value.
+     * @param props.payload - The payload object.
+     * @returns - The rendered content based on the conditions.
+     */
     const renderContent = ({ width, payload }: IChildParams<T>) => {
         const params = typeof payload === 'object' ? payload : { payload };
         if (isPhone(width)) {

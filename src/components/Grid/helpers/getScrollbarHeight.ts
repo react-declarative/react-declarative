@@ -1,3 +1,8 @@
+/**
+ * Calculates the height of the scrollbar in the current browser.
+ *
+ * @returns The height of the scrollbar in pixels.
+ */
 export const getScrollbarHeight = () => {
     const outer = document.createElement('div');
     outer.style.position = 'fixed';

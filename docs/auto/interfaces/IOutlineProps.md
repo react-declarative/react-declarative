@@ -1,5 +1,7 @@
 # IOutlineProps
 
+Interface for the `Outline` component props.
+
 ## Properties
 
 ### className

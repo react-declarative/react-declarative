@@ -1,5 +1,7 @@
 # IHtmlViewProps
 
+Props for the HtmlView component.
+
 ## Properties
 
 ### children

@@ -48,4 +48,4 @@ type TupleState<P extends any = object, A = any, B = any, C = any, D = any, E = 
 ]);
 ```
 
-
+Represents a tuple state with optional promises in TypeScript.

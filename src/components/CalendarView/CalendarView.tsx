@@ -80,11 +80,23 @@ export const CalendarView = <
 
   const startOfDay = date.startOf("day");
 
+  /**
+   * Changes the year of the given date and updates the state.
+   *
+   * @param date - The date object whose year needs to be changed.
+   * @returns
+   */
   const onYearChange = (date: dayjs.Dayjs) => {
     setShowYearSelection(false);
     setDate(date.clone().set("year", date.get("year")));
   };
 
+  /**
+   * Updates the selected month and hides the month selection panel.
+   *
+   * @param date - The new selected date.
+   * @returns
+   */
   const onMonthChange = (date: dayjs.Dayjs) => {
     setShowMonthSelection(false);
     setDate(date.clone().set("month", date.get("month")));

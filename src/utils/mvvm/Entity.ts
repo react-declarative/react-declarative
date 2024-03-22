@@ -32,6 +32,11 @@ export interface IEntityAdapter<T extends IEntity = any> {
  */
 export class Entity<T extends IEntity = any> extends Model<T> implements IEntityAdapter<T> {
 
+    /**
+     * Retrieves the id value from the data object.
+     *
+     * @returns The id value.
+     */
     public get id() {
         return this._data.id;
     };
@@ -40,6 +45,15 @@ export class Entity<T extends IEntity = any> extends Model<T> implements IEntity
         super(_data, _debounce, _prevData);
     };
 
+    /**
+     * Sets the data for the given variable.
+     *
+     * @param data - The data to be set.
+     *    This can either be a partial object of type T or a function that takes the previous data
+     *    of type T and returns a partial object of type T.
+     *
+     * @returns
+     */
     public setData = (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
         if (typeof data === 'function') {
             data = data(this._prevData());
@@ -52,6 +66,12 @@ export class Entity<T extends IEntity = any> extends Model<T> implements IEntity
         });
     };
 
+    /**
+     * Handles change events.
+     *
+     * @param change - The change event handler function.
+     * @returns - The function to unregister the change event.
+     */
     public handleChange = (change: (item: Entity<T>) => void): () => void => {
         return super.handleChange(change as (item: Model<T>) => void);
     };

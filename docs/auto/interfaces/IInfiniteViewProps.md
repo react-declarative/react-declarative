@@ -1,5 +1,7 @@
 # IInfiniteViewProps
 
+Represents the props for the InfiniteView component.
+
 ## Properties
 
 ### className

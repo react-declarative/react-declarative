@@ -59,6 +59,22 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the properties for the `Card` component.
+ *
+ * @template P - The type for the payload data.
+ * @property {React.ReactNode} [label] - The label for the card.
+ * @property {boolean} [outlinePaper] - Whether to show the card with an outline paper.
+ * @property {boolean} [transparentPaper] - Whether to show the card with a transparent paper.
+ * @property {SxProps<any>} [sx] - The styling props for the card.
+ * @property {React.ReactNode} [children] - The content of the card.
+ * @property {string} [className] - The CSS class name for the card.
+ * @property {P} [payload] - The payload data.
+ * @property {boolean} loading - Whether the card is in a loading state.
+ * @property {React.CSSProperties} [style] - The inline style for the card.
+ * @property {React.ComponentType<{ payload: P; loading: boolean }>} [BeforeLabel] - The component to render before the label.
+ * @property {React.ComponentType<{ payload: P; loading: boolean }>} [AfterLabel] - The component to render after the label.
+ */
 export interface ICardProps<P = IAnything> {
   label?: React.ReactNode;
   outlinePaper?: boolean;
@@ -73,6 +89,25 @@ export interface ICardProps<P = IAnything> {
   AfterLabel?: React.ComponentType<{ payload: P; loading: boolean }>;
 }
 
+/**
+ * Represents a Card component.
+ *
+ * @typedef {Object} Card
+ * @property {?React.ReactNode} children - The content of the card.
+ * @property {boolean} outlinePaper - Whether to show an outline paper.
+ * @property {boolean} transparentPaper - Whether to show a transparent paper.
+ * @property {string} className - Additional CSS class names for the card.
+ * @property {Object} style - Additional inline styles for the card.
+ * @property {Object} sx - Custom styles for Scalable Box component.
+ * @property {string} label - The label for the card.
+ * @property {any} payload - Payload data associated with the card.
+ * @property {boolean} loading - Whether the card is in a loading state.
+ * @property {?React.ComponentType} BeforeLabel - The component to render before the label.
+ * @property {?React.ComponentType} AfterLabel - The component to render after the label.
+ *
+ * @param props - The properties passed to the Card component.
+ * @returns - The rendered Card component.
+ */
 export const Card = ({
   children = null,
   outlinePaper,

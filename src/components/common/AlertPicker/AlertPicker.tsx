@@ -6,6 +6,9 @@ import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import DialogTitle from "@mui/material/DialogTitle";
 
+/**
+ * Represents the props for the AlertPicker component.
+ */
 interface IAlertPickerProps {
   onOk: () => void;
   title: string;
@@ -14,6 +17,18 @@ interface IAlertPickerProps {
   open?: boolean;
 }
 
+/**
+ * AlertPicker component displays a modal dialog with a title and a description.
+ * It is used for showing alert messages to users.
+ *
+ * @param props - The properties passed to the component.
+ * @param props.onOk - The callback function to be executed when the user clicks the accept button.
+ * @param props.title - The title of the alert message.
+ * @param props.description - The description of the alert message.
+ * @param [props.open=true] - Indicates whether the alert picker is open or not.
+ * @param [props.large] - Indicates whether to display the alert picker in a large size or not.
+ * @returns - The JSX element representing the AlertPicker component.
+ */
 export const AlertPicker = ({
   onOk,
   title,

@@ -1,5 +1,7 @@
 # IBoardRow
 
+Represents a row in a board with data and payload.
+
 ## Properties
 
 ### label

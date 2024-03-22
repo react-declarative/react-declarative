@@ -55,6 +55,13 @@ const useStyles = makeStyles()((theme) => ({
   container: {},
 }));
 
+/**
+ * Calculates all the days between the given minimum and maximum date.
+ *
+ * @param minDate - The minimum date.
+ * @param maxDate - The maximum date.
+ * @returns An array of all the days between the minimum and maximum date.
+ */
 const getDays = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   const total = maxDate.diff(minDate, 'days') + 1;
   const days: dayjs.Dayjs[] = [];
@@ -64,6 +71,13 @@ const getDays = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   return days;
 };
 
+/**
+ * Calculates the array of weeks between two given dates.
+ *
+ * @param minDate - The minimum date.
+ * @param maxDate - The maximum date.
+ * @returns The array of weeks between minDate and maxDate.
+ */
 const getWeeks = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   const total = maxDate.diff(minDate, 'weeks') + 1;
   const weeks: dayjs.Dayjs[] = [];
@@ -73,6 +87,14 @@ const getWeeks = (minDate: dayjs.Dayjs, maxDate: dayjs.Dayjs) => {
   return weeks;
 };
 
+/**
+ * Creates a Calendar component.
+ *
+ * @param onChange - Callback function that will be invoked when the date selection changes.
+ * @param disableFuture - Determines whether future dates should be disabled.
+ * @param date - The initial date for the calendar, in dayjs format.
+ * @returns - A calendar component.
+ */
 export const Calendar = ({
   onChange = (change: any) => console.log({change}),
   disableFuture = false,
@@ -82,6 +104,13 @@ export const Calendar = ({
   const [currentMonth, setCurrentMonth] = useState(
     date.clone().startOf('month')
   );
+  /**
+   * Renders the days of a given week.
+   *
+   * @param {dayjs.Dayjs} week - The week to render the days for.
+   *
+   * @returns {React.ReactNode} - The rendered days as React nodes.
+   */
   const renderDays = useCallback((week: dayjs.Dayjs) => {
     const end = week.clone().endOf('week');
     const currentMonthNumber = currentMonth.get('month');
@@ -104,6 +133,12 @@ export const Calendar = ({
         );
       });
   }, [disableFuture, classes, date, currentMonth]);
+  /**
+   * Renders the weeks of the current month.
+   *
+   * @returns {Component[]} - An array of React components representing the weeks.
+   * @category Rendering
+   */
   const renderWeeks = useCallback(() => {
     const start = currentMonth.clone().startOf('week');
     const end = currentMonth.clone().endOf('month').endOf('week');

@@ -167,6 +167,12 @@ export const useAsyncProgress = <
       setProgress(0);
       setErrors([]);
 
+      /**
+       * Executes a process asynchronously and waits for a specific delay before returning the result.
+       *
+       * @param item - The item to process.
+       * @returns - A Promise that resolves to the result of the process.
+       */
       const execute = async (item: IProcess<Data>) => {
         const [result] = await Promise.all([process(item), sleep(delay)]);
         return result;

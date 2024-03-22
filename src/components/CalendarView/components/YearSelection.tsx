@@ -73,6 +73,11 @@ export const YearSelection = ({
 }: IYearSelectionProps) => {
   const currentYear = date.get("year");
 
+  /**
+   * An array of year groups generated based on the given minDate and maxDate.
+   *
+   * @type {number[][]}
+   */
   const yearGroups = useMemo(() => {
     return getYears(minDate, maxDate)
       .map((year) => year.get("year"))
@@ -94,6 +99,13 @@ export const YearSelection = ({
     yearGroups.findIndex((line) => line.includes(currentYear))
   );
 
+  /**
+   * Handles the selection of a year.
+   *
+   * @param {number} year - The year to set as the date.
+   *
+   * @returns {void}
+   */
   const onYearSelect = useCallback(
     (year: number) => {
       const newDate = date.clone().set("year", year);
@@ -110,6 +122,12 @@ export const YearSelection = ({
     [date, maxDate, minDate, onChange]
   );
 
+  /**
+   * Increments the selectedPage state value by 1, if the nextPage value is less than the length of yearGroups array.
+   * Updates the selectedPage state with the new value.
+   *
+   * @function handleNextPage
+   */
   const handleNextPage = () => {
     const nextPage = selectedPage + 1;
     if (nextPage < yearGroups.length) {
@@ -117,6 +135,13 @@ export const YearSelection = ({
     }
   };
 
+  /**
+   * Updates the selected page to the previous page.
+   *
+   * @function
+   * @name handlePrevPage
+   * @returns
+   */
   const handlePrevPage = () => {
     setSelectedPage(Math.max(selectedPage - 1, 0));
   };

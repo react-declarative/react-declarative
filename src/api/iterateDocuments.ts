@@ -6,6 +6,10 @@ const TOTAL_DOCUMENTS = 10_000;
 const REQUEST_LIMIT = 5_000;
 const REQUEST_DELAY = 100;
 
+/**
+ * Represents a configuration interface for data retrieval.
+ * @template Data - The type of row data.
+ */
 interface IConfig<Data extends IRowData = IRowData> {
   totalDocuments?: number;
   limit?: number;
@@ -40,6 +44,18 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   createRequest = () => [],
 }: IConfig<Data>): AsyncGenerator<Data[], void, unknown> {
 
+  /**
+   * Creates a request and returns the result asynchronously.
+   *
+   * @name createRequest
+   * @function
+   * @param args - The arguments to pass to the createRequest function.
+   * @returns A promise that resolves to the result of the request.
+   *
+   * @example
+   * // Usage:
+   * const result = await createRequest(...args);
+   */
   const request: typeof createRequest = async (...args) => {
     const [result] = await Promise.all([
       createRequest(...args),
@@ -51,6 +67,15 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   let counter = 0;
   let lastId = null;
 
+  /**
+   * Represents the last query made to the server.
+   *
+   * @typedef {Object} LastQuery
+   * @property {number|null} lastId - The ID of the last object fetched. Defaults to null.
+   * @property {number} offset - The offset used in pagination. Defaults to 0.
+   * @property {number} page - The current page number. Defaults to 0.
+   * @property {number} limit - The maximum number of objects to fetch per request.
+   */
   let lastQuery = request({
     lastId: null,
     offset: 0,
@@ -69,6 +94,10 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
     }
     lastId = response[response.length - 1].id || null;
     counter += limit;
+    /**
+     * Represents the last query made by the user.
+     * @class
+     */
     lastQuery = request({
       lastId,
       offset: counter,

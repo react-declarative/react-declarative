@@ -4,6 +4,13 @@ import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Represents the properties for the KanbanView component.
+ *
+ * @template Data - The type of data associated with each item.
+ * @template Payload - The type of payload associated with each item.
+ * @template ColumnType - The type of column associated with each item.
+ */
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     reloadSubject?: TSubject<void>;
     ref?: React.Ref<HTMLDivElement | undefined>;

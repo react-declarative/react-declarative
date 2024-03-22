@@ -15,6 +15,13 @@ interface IPropsContextProviderProps<ItemData extends IItemData = any> {
     children: React.ReactNode;
 }
 
+/**
+ * PropsContextProvider component.
+ *
+ * @template ItemData - The type of the item data.
+ * @param props - The props for the component.
+ * @returns The PropsContextProvider component.
+ */
 export const PropsContextProvider = <ItemData extends IItemData = any>({
     value,
     children,

@@ -134,12 +134,54 @@ export const useActionModal = <
   const onSubmit$ = useActualCallback(onSubmit);
   const param$ = useActualValue(param);
 
+  /**
+   * Handles the submit action asynchronously.
+   *
+   * @param {Data | null} data - The data to be submitted.
+   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating the result of the submit action.
+   */
   const handleSubmit = useCallback(async (data: Data | null) => {
     const result = await onSubmit$(data, payload, param$.current);
     setOpen(!result);
     return result;
   }, []);
 
+  /**
+   * Renders an <ActionModal> component with the given props.
+   *
+   * @returns {React.Component} The rendered ActionModal component.
+   *
+   * @param {Function} AfterTitle - The function to render after the title of the ActionModal.
+   * @param {boolean} open - Whether the ActionModal is open or not.
+   * @param {boolean} hidden - Whether the ActionModal is hidden or not.
+   * @param {boolean} withActionButton - Whether to display an action button in the ActionModal.
+   * @param {boolean} withStaticAction - Whether to display a static action in the ActionModal.
+   * @param {number} waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the ActionModal.
+   * @param {boolean} readonly - Whether the ActionModal is readonly or not.
+   * @param {boolean} fullScreen - Whether the ActionModal is full screen or not.
+   * @param {object} apiRef - The reference to an API object.
+   * @param {any} changeSubject - The subject to use for change events.
+   * @param {any} reloadSubject - The subject to use for reload events.
+   * @param {boolean} outlinePaper - Whether to display the ActionModal with an outlined paper style.
+   * @param {boolean} transparentPaper - Whether to display the ActionModal with a transparent paper style.
+   * @param {string} sizeRequest - The requested size of the ActionModal.
+   * @param {array} fields - The fields to display in the ActionModal.
+   * @param {function} handler - The handler function to be executed when the ActionModal is submitted.
+   * @param {object} payload - The payload object to be passed to the handler function.
+   * @param {element} fallback - The fallback element to display when the ActionModal is empty.
+   * @param {function} onChange - The function to be executed when a field in the ActionModal changes.
+   * @param {function} onInvalid - The function to be executed when the ActionModal becomes invalid.
+   * @param {function} onLoadEnd - The function to be executed when the ActionModal finishes loading.
+   * @param {function} onLoadStart - The function to be executed when the ActionModal starts loading.
+   * @param {string} submitLabel - The label to display on the submit button of the ActionModal.
+   * @param {boolean} throwError - Whether to throw an error when the ActionModal encounters an error.
+   * @param {function} onSubmit - The function to be executed when the submit button of the ActionModal is clicked.
+   * @param {object} features - The additional features to be passed to the ActionModal.
+   * @param {string} title - The title to display in the ActionModal.
+   * @param {boolean} dirty - Whether the ActionModal is dirty or not.
+   * @param {any} param - The parameter to pass to the ActionModal.
+   * @param {Function} BeforeTitle - The function to render before the title of the ActionModal.
+   */
   const render = useCallback(
     () => (
       <ActionModal

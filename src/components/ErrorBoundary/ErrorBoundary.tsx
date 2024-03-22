@@ -19,6 +19,9 @@ interface IErrorBoundaryState {
   hasError: boolean;
 }
 
+/**
+ * Represents an error boundary component in React.
+ */
 export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
 
   static getDerivedStateFromError() {

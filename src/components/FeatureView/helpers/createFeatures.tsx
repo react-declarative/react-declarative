@@ -11,6 +11,13 @@ import FeatureType from "../model/FeatureType";
 
 import createFeatureItem from "./createFeatureItem";
 
+/**
+ * Creates an array of TypedField objects based on the given array of IFeatureGroup objects.
+ *
+ * @param features - The array of features to create typed fields for.
+ * @param [expandAll=false] - Whether all features should be expanded by default.
+ * @returns - The array of typed fields created from the given features.
+ */
 export const createFeatures = (features: IFeatureGroup[], expandAll = false): TypedField[] =>
   features.map(({ title, expanded = false, children, isVisible, isDisabled }) => ({
     type: FieldType.Expansion,

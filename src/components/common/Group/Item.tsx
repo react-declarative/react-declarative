@@ -16,6 +16,12 @@ const FULL_ROW = '12';
 
 const n = (v: string) => Number(v) as any;
 
+/**
+ * Interface representing the props for an item component.
+ *
+ * @interface IItemProps
+ * @extends Omit<IManagedLayout, 'hidden'>
+ */
 interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
   className: PickProp<IField, 'className'>;
   style: PickProp<IField, 'style'>;
@@ -44,6 +50,26 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents an item in a grid layout.
+ * @typedef {Object} Item
+ * @param className - The CSS class to apply to the item.
+ * @param style - The inline style object to apply to the item.
+ * @param sx - The sx prop for the item.
+ * @param columns - The number of columns the item should occupy in all screen sizes.
+ * @param phoneColumns - The number of columns the item should occupy on phones.
+ * @param tabletColumns - The number of columns the item should occupy on tablets.
+ * @param desktopColumns - The number of columns the item should occupy on desktops.
+ * @param fieldRightMargin - The right margin for the item.
+ * @param fieldBottomMargin - The bottom margin for the item.
+ * @param children - The child elements of the item.
+ * @param onClick - The click event handler for the item.
+ * @param onFocus - The focus event handler for the item.
+ * @param onContextMenu - The context menu event handler for the item.
+ * @param otherProps - Additional props to apply to the item.
+ * @param ref - The ref object for the item.
+ * @returns - The rendered item element.
+ */
 export const Item = ({
   className,
   style,

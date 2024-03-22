@@ -11,6 +11,11 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import classNames from '../../../utils/classNames';
 
+/**
+ * Get an array of abbreviated weekday names.
+ *
+ * @returns An array of abbreviated weekday names.
+ */
 const getWeekdaysMin = () => {
   const { weekdays, weekdaysMin, weekStart = 0 } = dayjs.Ls[dayjs.locale()];
   const days = weekdaysMin! || weekdays;
@@ -48,6 +53,13 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Creates a calendar header component.
+ * @param options - The options object.
+ * @param options.currentMonth - The current month. Should be a dayjs object. Defaults to the current month.
+ * @param options.onMonthChange - The callback function to handle month changes. Defaults to logging the selected month.
+ * @returns The calendar header component JSX element.
+ */
 export const CalendarHeader = ({
   currentMonth = dayjs(),
   onMonthChange = (month: any) => console.log({month}),

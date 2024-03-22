@@ -14,6 +14,11 @@ import RowData from "../model/RowData";
 const DEFAULT_LIMIT = 25;
 const SCROLL_REQUEST_DELAY = 100;
 
+/**
+ * Represents the parameters required to configure a data handler for fetching and processing data.
+ *
+ * @template Data - The type of data to be handled.
+ */
 interface IParams<Data = RowData> {
   reloadSubject?: TSubject<void>;
   initialData?: Data[];
@@ -31,6 +36,11 @@ interface IParams<Data = RowData> {
   throwError?: boolean;
 }
 
+/**
+ * @interface
+ * Represents the state of a component or system.
+ * @template Data - The type of data stored in the state.
+ */
 interface IState<Data = RowData> {
   data: Data[];
   prevOffset: number;
@@ -81,6 +91,23 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
 
   const handler$ = useActualCallback(handler);
 
+  /**
+   * Function to fetch data from a specific source.
+   *
+   * @param {string} url - The URL to fetch the data from.
+   * @param {Object} options - Additional options to customize the data fetching process.
+   * @param {boolean} options.cache - Specify whether to cache the fetched data or not.
+   * @param {number} options.timeout - Specify the timeout in milliseconds for the data fetching request.
+   * @param {string} options.method - The HTTP method to use for the request, defaults to 'GET'.
+   * @param {Object} options.headers - Additional headers to include in the request.
+   * @param {function} options.onProgress - Callback function to handle request progress updates.
+   * @param {function} options.onError - Callback function to handle request errors.
+   * @param {function} options.onSuccess - Callback function to handle successful request completion.
+   *
+   * @returns {Promise} - A promise that resolves with the fetched data.
+   *
+   * @throws {Error} - If the URL is not a valid string or if any of the options are of invalid type.
+   */
   const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
     return await handler$(
       limit,
@@ -90,6 +117,17 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     );
   });
 
+  /**
+   * Handler function that is called when a skip event occurs.
+   * Skipped events typically occur when there is an error or exception in the execution
+   * of a process or workflow, and the execution is intentionally skipped to a specific step.
+   *
+   * @param {Object} event - The skip event object containing relevant information about the skip.
+   * @param {string} event.step - The step that was skipped.
+   * @param {string} event.reason - The reason for skipping the step.
+   * @param {Object} event.data - Optional data associated with the skip event.
+   * @return {void}
+   */
   const {
     execute: onSkip,
     loading,
@@ -124,6 +162,13 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     []
   );
 
+  /**
+   * Sets the data of the component state.
+   *
+   * @param {Data[] | ((prevData: Data[]) => Data[])} data - The new data to set.
+   *   If a function is provided, it receives the previous data as a parameter and should return the updated data.
+   *   If an array is provided, it replaces the current data with the new array.
+   */
   const setData = useCallback(
     (data: Data[] | ((prevData: Data[]) => Data[])) =>
       setState((prevState) => ({
@@ -136,6 +181,9 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     []
   );
 
+  /**
+   * Clears the data and sets the initial state.
+   */
   const clear = useCallback(() => {
     setInitialData$([]);
     fetchData.cancel();

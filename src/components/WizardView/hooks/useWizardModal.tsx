@@ -94,6 +94,13 @@ export const useWizardModal = <
 
   const onSubmit$ = useActualCallback(onSubmit);
 
+  /**
+   * Handles form submission.
+   *
+   * @param {Data | null} data - The form data to be submitted.
+   * @param {Payload} payload - Additional payload for the submission.
+   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating if the submission was successful.
+   */
   const handleSubmit = useCallback(
     async (data: Data | null, payload: Payload) => {
       const result = await onSubmit$(data, payload);
@@ -105,6 +112,20 @@ export const useWizardModal = <
     []
   );
 
+  /**
+   * Handles the close event.
+   *
+   * @function
+   * @name handleClose
+   * @returns {void}
+   *
+   * @description
+   * This function is used to handle the close event. It updates the 'openSubject' by emitting a 'false' value.
+   * It also calls the 'onClose' function if it is provided.
+   *
+   * This function is implemented using the 'useCallback' hook with an empty dependency array ([]) to ensure that the function is
+   * memoized and only changes when its dependencies change.
+   */
   const handleClose = useCallback(() => {
     openSubject.next(false);
     onClose && onClose();

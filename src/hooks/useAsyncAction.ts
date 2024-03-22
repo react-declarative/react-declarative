@@ -65,11 +65,29 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
 
     const run$ = useActualCallback(run);
 
+    /**
+     * Executes a given payload asynchronously.
+     * @param {Payload} payload - The payload to be executed.
+     * @returns {Promise<Data|null>} - The result of the execution, or null if canceled.
+     */
     const execute = useCallback(async (payload?: Payload) => {
         if (executionRef.current) {
             executionRef.current.cancel();
         }
 
+        /**
+         * Executes a cancelable function with the given onLoadStart and onLoadEnd callbacks.
+         * The function can return a Promise or a value. If it returns a Promise,
+         * the function waits for the Promise to resolve before returning the result.
+         * If the function throws an error, it also calls onLoadEnd with an isOk flag set to false.
+         *
+         * @template T - The type of the result data.
+         * @param {() => Promise<T> | T} func - The cancelable function to execute.
+         * @param {Function} onLoadStart - The callback function called before the execution of the function.
+         * @param {Function} onLoadEnd - The callback function called after the execution of the function.
+         * @returns {Promise<T | null>} - A Promise that resolves with the result of the function, or null if the function did not return anything.
+         * @throws - If the executed function throws an error, it will be rethrown.
+         */
         const execution = cancelable<Data | null>(async () => {
             let isOk = true;
             onLoadStart && onLoadStart();

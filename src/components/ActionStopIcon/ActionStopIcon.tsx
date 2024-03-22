@@ -140,6 +140,11 @@ export const ActionStopIcon = ({
 
     const loading$ = useActualValue(loading);
 
+    /**
+     * Handles the click event on a button.
+     * @param event - The click event.
+     * @returns - A Promise that resolves when the click event is handled.
+     */
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const { current: loading } = loading$;
         if (loading) {

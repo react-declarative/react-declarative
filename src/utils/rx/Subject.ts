@@ -114,7 +114,6 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
      *
      * @template T - The type of values emitted by the observer.
      *
-     * @memberof Operator
      * @category Observables
      */
     public operator = <T = any>(callbackfn: (value: TObserver<Data>) => TObserver<T>): TObserver<T> => {

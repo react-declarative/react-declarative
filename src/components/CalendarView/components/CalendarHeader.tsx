@@ -83,10 +83,21 @@ export const CalendarHeader = ({
 
   const { classes } = useStyles();
 
+  /**
+   * The starting timestamp for the given month.
+   *
+   * @type {number}
+   */
   const fromStamp = useMemo(
     () => getMomentStamp(currentMonth.clone().startOf("week")),
     []
   );
+
+  /**
+   * Represents a memoized timestamp value.
+   *
+   * @type {any}
+   */
   const toStamp = useMemo(
     () => getMomentStamp(currentMonth.clone().endOf("month").endOf("week")),
     []

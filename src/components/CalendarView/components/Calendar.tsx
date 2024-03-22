@@ -112,6 +112,12 @@ export const Calendar = ({
 
   useEffect(() => reloadSubject.subscribe(doReload), []);
 
+  /**
+   * Renders the days of a given week.
+   *
+   * @param {dayjs.Dayjs} week - The week to render the days for.
+   * @return {Array<JSX.Element>} - The rendered days as an array of JSX elements.
+   */
   const renderDays = useCallback(
     (week: dayjs.Dayjs) => {
       const end = week.clone().endOf("week");
@@ -137,6 +143,21 @@ export const Calendar = ({
     [currentMonth, date, maxDate, minDate, onChange]
   );
 
+  /**
+   * Renders the weeks within the current month.
+   *
+   * @returns {React.Element[]} The rendered weeks.
+   *
+   * @remarks
+   * This function uses the currentMonth and renderDays variables to determine
+   * the start and end dates of the weeks to render. It then calls the getWeeks
+   * function to get a list of weeks between the start and end dates. Finally,
+   * for each week in the list, it calls the renderDays function to render the
+   * individual days of the week.
+   *
+   * @example
+   * const weeks = renderWeeks();
+   */
   const renderWeeks = useCallback(() => {
     const start = currentMonth.clone().startOf("week");
     const end = currentMonth.clone().endOf("month").endOf("week");

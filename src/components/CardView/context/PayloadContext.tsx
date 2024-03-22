@@ -17,6 +17,14 @@ interface IPayloadContextProviderProps {
     value: Exclude<ICardViewProps['payload'], undefined>;
 }
 
+/**
+ * A higher-order component that provides a payload context to its descendants.
+ *
+ * @param props - The component props.
+ * @param props.children - The children components.
+ * @param props.value - The payload value to provide to the context.
+ * @returns - The modified component with the payload context provider.
+ */
 export const PayloadContextProvider = ({
     children,
     value,

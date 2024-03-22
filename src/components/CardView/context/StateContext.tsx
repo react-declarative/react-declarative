@@ -34,6 +34,11 @@ interface IContext<ItemData extends IItemData = any>  {
 
 const StateContext = createContext<IContext>(null as never);
 
+/**
+ * Interface representing the props for the State Context Provider.
+ *
+ * @template ItemData - The type of data for the context items.
+ */
 interface IStateContextProviderProps<ItemData extends IItemData = any>  {
     children: React.ReactNode;
     value: IContext<ItemData>;

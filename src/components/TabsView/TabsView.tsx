@@ -139,6 +139,11 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  /**
+   * A memoized value representing an array of upper tabs based on the provided payload.
+   *
+   * @type {Array} Array of upper tabs
+   */
   const tabs = useMemo(
     () => upperTabs.filter(({ isVisible = () => true }) => isVisible(payload)),
     []
@@ -155,6 +160,15 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
 
   const lastActiveStep = useRef(-1);
 
+  /**
+   * @typedef {Object} OtherProps
+   * @property {number} size - The size of the props
+   * @property {boolean} loading - Indicates if the props are currently loading
+   * @property {number} progress - The progress of the props loading
+   * @property {function} setLoading - Function to set the loading state
+   * @property {function} setProgress - Function to set the progress of the props loading
+   * @property {object} upperOtherProps - Additional props to be included
+   */
   const otherProps = useMemo(
     (): OtherProps => ({
       size,
@@ -185,6 +199,15 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     []
   );
 
+  /**
+   * Computes the active step index based on the current route and tabs.
+   *
+   * @function
+   * @name activeStep
+   * @returns {number} The index of the active step. Returns -1 if no active step is found.
+   * @param {string} path - The current route path.
+   *
+   */
   const activeStep = useMemo(() => {
     const route = routes.find(({ isActive }) => isActive(path));
     if (!route) {
@@ -199,6 +222,11 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     return (lastActiveStep.current = activeStep);
   }, [path]);
 
+  /**
+   * Renders a loader component based on the state of loading and progress.
+   *
+   * @returns {React.ReactNode} - The loader component to be rendered.
+   */
   const renderLoader = useCallback(() => {
     if (progress) {
       return (

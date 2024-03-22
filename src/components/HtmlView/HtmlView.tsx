@@ -4,6 +4,9 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
+/**
+ * Represents the configuration settings for the application.
+ */
 interface IConfig {
     allowElements: string[];
     blockElements: string[];
@@ -14,6 +17,10 @@ interface IConfig {
     allowComments: boolean;
 }
 
+/**
+ * Class representing a Sanitizer.
+ * @class
+ */
 declare class Sanitizer {
     constructor(config?: Partial<IConfig>);
 }
@@ -28,6 +35,13 @@ interface Element extends HTMLElement {
     setHTML: (...args: any) => any;
 }
 
+/**
+ * Sanitizes an HTML string using a sanitizer object. If a sanitizer object is not available, it returns the input HTML string as is.
+ *
+ * @param html - The HTML string to sanitize.
+ * @param [config] - Optional configuration object for the sanitizer.
+ * @returns - The sanitized HTML string or the input HTML string if no sanitizer is available.
+ */
 const sanitize = (html: string, config?: Partial<IConfig>) => {
     if ('Sanitizer' in window) {
         const sanitizer = new window.Sanitizer(config);
@@ -38,6 +52,11 @@ const sanitize = (html: string, config?: Partial<IConfig>) => {
     return html;
 };
 
+/**
+ * Props for the HtmlView component.
+ *
+ * @template T - The type of the payload data.
+ */
 interface IHtmlViewProps<T extends any = object> extends BoxProps {
     children?: React.ReactNode;
     config?: Partial<IConfig>;

@@ -51,6 +51,9 @@ const touch = new class {
   };
 };
 
+/**
+ * Represents the properties for the Clock component.
+ */
 interface IClockProps {
   type: string;
   value: number;
@@ -58,6 +61,15 @@ interface IClockProps {
   onChange: (value: any) => void;
 }
 
+/**
+ * Represents a Clock component.
+ * @param props - The properties of the Clock component.
+ * @param props.type - The type of the clock.
+ * @param props.value - The current value of the clock.
+ * @param props.children - The child components of the clock.
+ * @param props.onChange - The callback function that is called when the value of the clock changes.
+ * @returns A React functional component representing the Clock.
+ */
 export const Clock = ({
   type = '',
   value = 0,

@@ -1,5 +1,7 @@
 # IExpansionProps
 
+Represents the properties for the Expansion component.
+
 ## Properties
 
 ### title

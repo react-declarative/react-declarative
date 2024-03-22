@@ -84,6 +84,11 @@ export const MonthSelection = ({
 
   const { classes } = useStyles();
 
+  /**
+   * A callback function that is triggered when a month is selected.
+   *
+   * @param {number} month - The selected month (0 - 11, where 0 represents January).
+   */
   const onMonthSelect = useCallback(
     (month: number) => {
       let pendingDate = date.clone().set("month", month);
@@ -101,6 +106,12 @@ export const MonthSelection = ({
     [currentYear, date, maxDate, minDate, onChange]
   );
 
+  /**
+   * Handles the next year based on the current year and the maximum date.
+   *
+   * @function handleNextYear
+   * @returns
+   */
   const handleNextYear = () => {
     const pendingYear = currentYear + 1;
     if (pendingYear <= maxDate.get("year")) {
@@ -108,6 +119,12 @@ export const MonthSelection = ({
     }
   };
 
+  /**
+   * Handles previous year.
+   *
+   * @function handlePrevYear
+   * @returns
+   */
   const handlePrevYear = () => {
     const pendingYear = currentYear - 1;
     if (pendingYear >= minDate.get("year")) {

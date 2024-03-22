@@ -42,6 +42,11 @@ export const usePreventNavigate = ({
   });
 
   useEffect(() => {
+    /**
+     * Handle navigation logic
+     *
+     * @param retry - Function to retry navigation
+     */
     const handleNavigate = (retry: () => void) => {
       if (withConfirm) {
         pickConfirm().then((result) => {
@@ -53,6 +58,11 @@ export const usePreventNavigate = ({
       }
     };
 
+    /**
+     * Creates a router blocker function which is used to block navigation in the history.
+     *
+     * @returns A blocker function that calls the handleNavigate function when navigation is blocked.
+     */
     const createRouterBlocker = () =>
       history.block(({ retry }) => handleNavigate(retry));
 

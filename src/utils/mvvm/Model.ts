@@ -28,10 +28,24 @@ export class Model<T extends {} = any> extends EventEmitter implements IModelAda
     protected _dropChanges = new Subject<void>();
     protected _data: T;
 
+    /**
+     * Retrieves the value of the data property.
+     *
+     * @return The frozen data.
+     */
     public get data(): T {
         return Object.freeze(this._data);
     };
 
+    /**
+     * Triggers the change event.
+     *
+     * @function _change
+     * @instance
+     * @name _change
+     * @summary Triggers the change event and emits the change symbol.
+     * @returns
+     */
     private _change = () => {
         this.emit(CHANGE_SYMBOL, this);
     };
@@ -55,6 +69,13 @@ export class Model<T extends {} = any> extends EventEmitter implements IModelAda
         });*/
     };
 
+    /**
+     * Sets the data for the object.
+     *
+     * @param data - The data to be set. It can be a partial object or a function that takes the previous data and returns a partial object.
+     *
+     * @return
+     */
     public setData(data: Partial<T> | ((prevData: T) => Partial<T>)) {
         if (typeof data === 'function') {
             data = data(this._prevData());
@@ -66,6 +87,16 @@ export class Model<T extends {} = any> extends EventEmitter implements IModelAda
         this._change();
     };
 
+    /**
+     * Handles changes made to the Model.
+     *
+     * @param change - The callback function to be executed when a change occurs in the Model.
+     *                           It accepts a single parameter representing the changed item of type Model<T>.
+     *
+     * @return - A cleanup function that unsubscribes the callback from the CHANGE_SYMBOL event,
+     *                      unsubscribes the callback from the REFRESH_SYMBOL event, clears the debounce function,
+     *                      and unsubscribes the drop function.
+     */
     public handleChange(change: (item: Model<T>) => void) {
         const fn = debounce(change, this._debounce);
         const drop = this._dropChanges.subscribe(fn.clear);
@@ -79,12 +110,32 @@ export class Model<T extends {} = any> extends EventEmitter implements IModelAda
         };
     };
 
+    /**
+     * Handles the changes when an item is dropped.
+     *
+     * @function handleDropChanges
+     * @memberof ClassName
+     * @returns
+     */
     public handleDropChanges = () => {
         this._dropChanges.next();
     };
 
+    /**
+     * A function that triggers a refresh event.
+     *
+     * @function
+     * @memberOf global
+     * @returns
+     */
     public refresh = () => this.emit(REFRESH_SYMBOL, this);
 
+    /**
+     * Converts the object into a plain JavaScript object.
+     *
+     * @function
+     * @returns - The plain JavaScript object representation.
+     */
     public toObject = () => this.data;
 
 };

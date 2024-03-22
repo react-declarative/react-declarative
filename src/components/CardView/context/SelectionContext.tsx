@@ -17,6 +17,9 @@ interface Context {
 
 const SelectionContext = createContext<Context>(null as never);
 
+/**
+ * Represents the props for the ISelectionContextProvider component.
+ */
 interface ISelectionContextProviderProps {
   children: React.ReactNode;
 }
@@ -31,6 +34,12 @@ export const SelectionContextProvider = ({
     () => new Map<IItemData["id"], IItemData>()
   );
 
+  /**
+   * Toggles the selection of an item.
+   *
+   * @param {IItemData["id"]} id - The ID of the item to toggle the selection for.
+   * @returns {void}
+   */
   const toggleSelection = useActualCallback((id: IItemData["id"]) => {
     const pendingSelectedIds = new Set(state.selectedIds);
     const pendingSelectedItems = new Map(selectedItems);
@@ -45,11 +54,27 @@ export const SelectionContextProvider = ({
     setSelectedItems(pendingSelectedItems);
   });
 
+  /**
+   * Executes the provided callback function `useActualCallback` when `dropSelection` is invoked.
+   * The callback function sets the selected IDs to an empty set and the selected items to an empty map.
+   *
+   * @function dropSelection
+   * @param {function} useActualCallback - The callback function to be executed when `dropSelection` is invoked.
+   * @returns {void}
+   */
   const dropSelection = useActualCallback(() => {
     action.setSelectedIds(new Set());
     setSelectedItems(new Map());
   });
 
+  /**
+   * Represents a memoized value for the context.
+   *
+   * @typedef {Object} ContextValue
+   * @property {Array} selectedItems - An array of selected items.
+   * @property {Function} toggleSelection - A function to toggle the selection of items.
+   * @property {Function} dropSelection - A function to drop the selection of items.
+   */
   const contextValue = useMemo(() => ({
     selectedItems: [...selectedItems.values()],
     toggleSelection,

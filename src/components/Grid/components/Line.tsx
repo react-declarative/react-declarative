@@ -15,6 +15,9 @@ import classNames from '../../../utils/classNames';
 
 import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
 
+/**
+ * Represents the properties for a Line component.
+ */
 interface ILineProps {
   className?: string;
   style?: React.CSSProperties;
@@ -24,6 +27,20 @@ interface ILineProps {
   withRowActions: boolean;
 }
 
+/**
+ * A React component that represents a line.
+ *
+ * @component
+ * @param {ILineProps} props - The properties for the line component.
+ * @param {string} props.className - The additional CSS class name for the line component.
+ * @param {object} props.style - The inline style object for the line component.
+ * @param {object} props.sx - The inline style object for the line component using theme-ui.
+ * @param {Array<IColumn>} props.columns - The columns to be rendered in the line component.
+ * @param {ReactNode} props.children - The child components of the line component.
+ * @param {boolean} props.withRowActions - Indicates whether or not the line component has row actions.
+ * @param {React.Ref} ref - The ref for the line component.
+ * @returns {ReactElement} The line component.
+ */
 export const Line = forwardRef(
   (
     { className, style, sx, columns, children, withRowActions }: ILineProps,
