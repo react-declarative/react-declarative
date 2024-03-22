@@ -8,4 +8,4 @@ export type ComponentFieldInstanceProps = Omit<ComponentFieldInstance, keyof {
 };
 ```
 
-
+Represents the props for a specific instance of a component field.

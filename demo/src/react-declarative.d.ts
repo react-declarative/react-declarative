@@ -3211,10 +3211,17 @@ declare module "react-declarative/model/IBreadcrumbsOption" {
 
 declare module "react-declarative/helpers/serviceManager" {
   type Key = string | symbol;
+  /**
+   * Represents a service for service lifecycle.
+   * @interface
+   */
   export interface IService {
     prefetch?: () => Promise<void>;
     unload?: () => Promise<void>;
   }
+  /**
+   * Class representing a Service Manager.
+   */
   class ServiceManager {
     constructor(_name?: string);
     registerInstance: <T = object>(key: Key, inst: T) => void;
@@ -3233,6 +3240,11 @@ declare module "react-declarative/helpers/serviceManager" {
       __reactDeclarative_ServiceManager: ServiceManager;
     }
   }
+  /**
+   * An implementation of the IServiceManager interface.
+   *
+   * @class
+   */
   export const serviceManager: {
     _serviceManager: ServiceManager;
     registerInstance: <T = object>(key: Key, inst: T) => void;
@@ -3252,6 +3264,12 @@ declare module "react-declarative/helpers/serviceManager" {
     prefetch: (verbose?: boolean) => Promise<void>,
     unload: (verbose?: boolean) => Promise<void>;
   export { provide, inject, waitForProvide, prefetch, unload };
+  /**
+   * Create a service manager with the given name.
+   *
+   * @param name - The name of the service manager. Default value is 'unknown'.
+   * @returns - An object containing various methods related to the service manager.
+   */
   export const createServiceManager: (name?: string) => {
     serviceManager: ServiceManager;
     provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void;
@@ -3267,6 +3285,12 @@ declare module "react-declarative/helpers/routeManager" {
   import { BrowserHistory, HashHistory, MemoryHistory } from "history";
   import { ISwitchItem } from "react-declarative/utils/getRouteParams";
   import Subject from "react-declarative/utils/rx/Subject";
+  /**
+   * Class representing a RouteManager.
+   *
+   * @template T - Type for the route parameters.
+   * @template I - Type for the route items.
+   */
   export class RouteManager<
     T extends Record<string, any> = Record<string, any>,
     I extends ISwitchItem = ISwitchItem,
@@ -3279,6 +3303,19 @@ declare module "react-declarative/helpers/routeManager" {
     );
     dispose: () => void;
   }
+  /**
+   * Creates a route parameters manager.
+   *
+   * @template T - The type of the route parameters object.
+   * @extends {Record<string, any>}
+   * @template I - The type of the switch item object.
+   * @extends {ISwitchItem}
+   *
+   * @param routes - The list of routes.
+   * @param history - The history object.
+   *
+   * @returns - The function that returns the current route parameters object.
+   */
   export const createRouteParamsManager: <
     T extends Record<string, any> = Record<string, any>,
     I extends ISwitchItem = ISwitchItem,
@@ -3289,6 +3326,14 @@ declare module "react-declarative/helpers/routeManager" {
     (): T | null;
     clear: void;
   };
+  /**
+   * A function that creates a route item manager.
+   *
+   * @param routes - An array of switch items representing routes.
+   * @param history - The history object to be used for navigation.
+   *
+   * @returns - A function that returns the current route item.
+   */
   export const createRouteItemManager: <
     T extends Record<string, any> = Record<string, any>,
     I extends ISwitchItem = ISwitchItem,
@@ -3305,12 +3350,21 @@ declare module "react-declarative/helpers/routeManager" {
 
 declare module "react-declarative/hooks/usePreventAutofill" {
   import * as React from "react";
+  /**
+   * Interface representing parameters for a component.
+   *
+   * @template T - The type of the input element.
+   */
   interface IParams<T = HTMLInputElement> {
     onFocus?: React.FocusEventHandler<T>;
     onTouchStart?: React.TouchEventHandler<T>;
     onContextMenu: React.MouseEventHandler<T>;
     readOnly?: boolean;
   }
+  /**
+   * Interface for representing the result of an operation or request.
+   * @template T - The type of the element being handled.
+   */
   interface IResult<T = HTMLInputElement> {
     readOnly: boolean;
     onFocus: React.FocusEventHandler<T>;
@@ -3344,6 +3398,10 @@ declare module "react-declarative/hooks/useContextMenu" {
   import { IAsyncProps } from "react-declarative/components/Async";
   import IOption from "react-declarative/model/IOption";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the parameters for a certain action.
+   * @template T - The type of the payload object.
+   */
   interface IParams<T extends any = object> {
     keepMounted?: boolean;
     options: Partial<IOption>[];
@@ -3358,6 +3416,13 @@ declare module "react-declarative/hooks/useContextMenu" {
     BeforeContent?: React.ComponentType<any>;
     AfterContent?: React.ComponentType<any>;
   }
+  /**
+   * @interface IResult
+   * Represents the interface for a context menu.
+   * @property elementProps - The properties for the result element.
+   * @property elementProps.onContextMenu - The callback function for the context menu event.
+   * @property render - The function that renders the result.
+   */
   interface IResult {
     elementProps: {
       onContextMenu: React.MouseEventHandler<HTMLDivElement>;
@@ -3511,6 +3576,11 @@ declare module "react-declarative/hooks/usePointer" {
 
 declare module "react-declarative/hooks/useLocalHistory" {
   import History from "react-declarative/model/History";
+  /**
+   * Represents the parameters for navigating to a specific pathname in a web application.
+   *
+   * @interface
+   */
   interface IParams {
     history?: History;
     pathname: string;
@@ -3877,6 +3947,12 @@ declare module "react-declarative/hooks/useOneArray" {
 
 declare module "react-declarative/hooks/useAsyncProgress" {
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the parameters for a function or method.
+   * @interface
+   * @template Data - The type of data to be processed.
+   * @template Result - The type of result to be returned.
+   */
   interface IParams<Data extends IAnything, Result = void> {
     delay?: number;
     onBegin?: () => void;
@@ -3891,11 +3967,19 @@ declare module "react-declarative/hooks/useAsyncProgress" {
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
   }
+  /**
+   * Represents the interface for an Error object.
+   * @interface
+   */
   interface IError {
     label: string;
     message: string;
     error: Error;
   }
+  /**
+   * The `IProcess` interface represents a process with a label and associated data.
+   * @template Data - The type of data associated with the process.
+   */
   interface IProcess<Data extends IAnything> {
     label: string;
     data: Data;
@@ -3960,12 +4044,28 @@ declare module "react-declarative/hooks/useAsyncProgress" {
 }
 
 declare module "react-declarative/hooks/useAsyncAction" {
+  /**
+   * Interface for defining optional parameters for a function.
+   *
+   * @typedef {object} IParams
+   * @property [fallback] - Function to handle error if it occurs.
+   * @property [onLoadStart] - Function to be called when loading starts.
+   * @property [onLoadEnd] - Function to be called when loading ends,
+   *                                                  with a boolean indicating if it was successful or not.
+   * @property [throwError] - Whether to throw an error or not.
+   */
   interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
   }
+  /**
+   * Represents the result of an operation.
+   *
+   * @template Data - The type of data returned by the operation.
+   * @template Payload - The type of payload accepted by the execute method.
+   */
   export interface IResult<
     Data extends any = any,
     Payload extends any = object,
@@ -3999,6 +4099,9 @@ declare module "react-declarative/hooks/useAsyncAction" {
 
 declare module "react-declarative/hooks/useAsyncValue" {
   import { IResult } from "react-declarative/hooks/useAsyncAction";
+  /**
+   * Represents the options for configuring various parameters.
+   */
   interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -4023,17 +4126,35 @@ declare module "react-declarative/hooks/useAsyncValue" {
 }
 
 declare module "react-declarative/hooks/useSinglerunAction" {
+  /**
+   * @typedef {Object} IParams
+   * @property [fallback] - The function to be called when an error occurs.
+   * @property [onLoadStart] - The function to be called when the load starts.
+   * @property [onLoadEnd] - The function to be called when the load ends.
+   * @property [throwError=false] - Determines if an error should be thrown.
+   */
   interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
   }
+  /**
+   * Interface representing the result of an operation.
+   *
+   * @template Data - The type of the data returned by the operation.
+   * @template Payload - The type of the payload used for the operation.
+   */
   interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
     execute: IExecute<Data, Payload>;
   }
+  /**
+   * Represents an interface for executing an action with a payload and returning data asynchronously.
+   * @template Data - The type of data returned by the execution.
+   * @template Payload - The type of payload accepted by the execution.
+   */
   export interface IExecute<
     Data extends any = any,
     Payload extends any = object,
@@ -4070,12 +4191,20 @@ declare module "react-declarative/hooks/useSinglerunAction" {
 
 declare module "react-declarative/hooks/useQueuedAction" {
   import { CANCELED_SYMBOL } from "react-declarative/utils/hof/queued";
+  /**
+   * Interface for defining parameters of an asynchronous operation.
+   */
   interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
   }
+  /**
+   * Represents the result of an asynchronous operation.
+   * @template Data - The type of the data returned by the operation.
+   * @template Payload - The type of the payload used by the operation.
+   */
   export interface IResult<
     Data extends any = any,
     Payload extends any = object,
@@ -4141,6 +4270,10 @@ declare module "react-declarative/hooks/useMediaContext" {
 
 declare module "react-declarative/hooks/useAudioPlayer" {
   import * as React from "react";
+  /**
+   * Represents the parameters for a specific operation.
+   * @interface
+   */
   interface IParams {
     src: string;
   }
@@ -4242,10 +4375,28 @@ declare module "react-declarative/hooks/useSubjectValue" {
 }
 
 declare module "react-declarative/hooks/useElementSize" {
+  /**
+   * Represents the size of an object or element.
+   *
+   * @interface
+   */
   interface ISize {
     height: number;
     width: number;
   }
+  /**
+   * Represents the parameters used by a class.
+   *
+   * @template Size - The size type used in the class.
+   *
+   * @property {ISize} [defaultSize] - The default size to be used if size is not provided.
+   * @property [target] - The target element for the operation.
+   * @property [closest] - The closest element selector.
+   * @property [selector] - The element selector.
+   * @property [debounce] - The debounce time in milliseconds.
+   * @property [compute] - The function used to compute the size.
+   * @property [onResize] - The callback function to be executed on resize.
+   */
   interface IParams<Size extends ISize> {
     defaultSize?: ISize;
     target?: HTMLElement | null;
@@ -4295,6 +4446,11 @@ declare module "react-declarative/hooks/useElementSize" {
 
 declare module "react-declarative/hooks/useWindowSize" {
   import ISize from "react-declarative/model/ISize";
+  /**
+   * Represents a set of parameters with generic size and optional resize event handler.
+   * @interface
+   * @template Size - The type of the size the parameters can compute and resize to.
+   */
   interface IParams<Size extends ISize> {
     debounce: number;
     compute: (size: ISize) => Size;
@@ -4438,11 +4594,19 @@ declare module "react-declarative/components" {
 declare module "react-declarative/hooks/useModel" {
   import Model, { IModelAdapter } from "react-declarative/utils/mvvm/Model";
   import Subject from "react-declarative/utils/rx/Subject";
+  /**
+   * Represents the parameters for a class.
+   * @template T - The type of the initial value.
+   */
   export interface IParams<T extends {} = any> {
     initialValue: T | Model<T> | (() => T);
     onChange?: (item: ModelAdapter<T>) => void;
     debounce?: number;
   }
+  /**
+   * ModelAdapter class that implements the IModelAdapter interface.
+   * It adapts a React.MutableRefObject<Model<T>> and provides methods to interact with the underlying model.
+   */
   export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
     constructor(
       _model$: React.MutableRefObject<Model<T>>,
@@ -4480,11 +4644,21 @@ declare module "react-declarative/hooks/useEntity" {
     IEntityAdapter,
   } from "react-declarative/utils/mvvm/Entity";
   import Subject from "react-declarative/utils/rx/Subject";
+  /**
+   * Represents the parameters for a class.
+   *
+   * @template T - The type of the entity.
+   */
   export interface IParams<T extends IEntity = any> {
     initialValue: T | Entity<T> | (() => T);
     onChange?: (item: EntityAdapter<T>) => void;
     debounce?: number;
   }
+  /**
+   * Class representing an Entity Adapter.
+   *
+   * @template T - The type of the entity.
+   */
   export class EntityAdapter<T extends IEntity = any>
     implements IEntityAdapter<T>
   {
@@ -4557,6 +4731,20 @@ declare module "react-declarative/hooks/useListEditor" {
 }
 
 declare module "react-declarative/hooks/useMediaStreamBuilder" {
+  /**
+   * Represents the parameters for a certain functionality.
+   *
+   * @interface IParams
+   * @property [fallback] - Callback function to handle errors.
+   * @property [onChange] - Callback function called when a change occurs.
+   * @property [onLoadStart] - Callback function called when the load starts.
+   * @property [onLoadEnd] - Callback function called when the load ends.
+   * @property [throwError] - Flag indicating whether to throw an error.
+   * @property [compressFrame] - Number representing the compression frame.
+   * @property [maxFps] - Number representing the maximum frames per second.
+   * @property [withInitialVideo] - Flag indicating whether initial video is present.
+   * @property [withInitialAudio] - Flag indicating whether initial audio is present.
+   */
   interface IParams {
     fallback?: (e: Error) => void;
     onChange?: (
@@ -4634,6 +4822,11 @@ declare module "react-declarative/hooks/useCollection" {
     IEntity,
     IEntityAdapter,
   } from "react-declarative/utils/mvvm/Entity";
+  /**
+   * Interface representing the parameters for a specific operation.
+   *
+   * @template T - Type of the entity.
+   */
   export interface IParams<T extends IEntity = any> {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
     onChange?: (
@@ -4642,6 +4835,10 @@ declare module "react-declarative/hooks/useCollection" {
     ) => void;
     debounce?: number;
   }
+  /**
+   * Class representing a Collection Entity Adapter.
+   * @implements {IEntityAdapter<T>}
+   */
   export class CollectionEntityAdapter<T extends IEntity = any>
     implements IEntityAdapter<T>
   {
@@ -4659,6 +4856,11 @@ declare module "react-declarative/hooks/useCollection" {
     toObject: () => T;
     toEntity: () => Entity<T>;
   }
+  /**
+   * CollectionAdapter class is used to adapt a collection of entities.
+   * It provides various methods for manipulating and accessing the collection.
+   * @typeparam T - The type of entity in the collection
+   */
   export class CollectionAdapter<T extends IEntity = any>
     implements ICollectionAdapter<T>
   {
@@ -4715,6 +4917,11 @@ declare module "react-declarative/hooks/useCollection" {
 }
 
 declare module "react-declarative/hooks/useRequestSnackbar" {
+  /**
+   * Represents the parameters for a certain functionality.
+   *
+   * @interface IParams
+   */
   export interface IParams {
     noSnackOnOk?: boolean;
     message?: string;
@@ -4787,6 +4994,10 @@ declare module "react-declarative/hooks/useList" {
   import SelectionMode from "react-declarative/model/SelectionMode";
   import { IListPickerProps } from "react-declarative/components/common/ListPicker";
   type Fn<Data = IAnything> = (d: Data[] | null) => void;
+  /**
+   * Represents a set of parameters for the IParams class.
+   * @template RowData - The type of the row data.
+   */
   interface IParams<RowData extends IRowData = IAnything>
     extends Omit<
       IListPickerProps<RowData>,
@@ -4900,6 +5111,11 @@ declare module "react-declarative/hooks/useList" {
 }
 
 declare module "react-declarative/hooks/useFile" {
+  /**
+   * Represents a set of parameters for a function or method.
+   *
+   * @interface
+   */
   interface IParams {
     accept?: string;
     onSelect?: (...files: File[]) => void;
@@ -4916,6 +5132,11 @@ declare module "react-declarative/hooks/useFile" {
 
 declare module "react-declarative/hooks/useConfirm" {
   type Fn = (result: boolean) => void;
+  /**
+   * Represents the parameters for a certain operation.
+   *
+   * @interface IParams
+   */
   interface IParams {
     title?: string;
     msg?: string;
@@ -4944,6 +5165,11 @@ declare module "react-declarative/hooks/useConfirm" {
 
 declare module "react-declarative/hooks/usePrompt" {
   type Fn = (result: string | null) => void;
+  /**
+   * Represents the parameters for a component.
+   *
+   * @interface IParams
+   */
   interface IParams {
     title?: string;
     value?: string;
@@ -4982,6 +5208,11 @@ declare module "react-declarative/hooks/usePrompt" {
 
 declare module "react-declarative/hooks/useAlert" {
   type Fn = () => void;
+  /**
+   * Represents the interface for the parameters used in a specific context.
+   *
+   * @interface IParams
+   */
   interface IParams {
     title?: string;
     description?: string;
@@ -5064,6 +5295,13 @@ declare module "react-declarative/hooks/useOne" {
   import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   type Fn<Data = IAnything> = (d: Data | null) => void;
+  /**
+   * Represents the parameters for a specific functionality or operation.
+   *
+   * @template Data - The type of data associated with the functionality or operation.
+   * @template Payload - The type of payload associated with the functionality or operation.
+   * @template Field - The type of field associated with the functionality or operation.
+   */
   interface IParams<
     Data extends IAnything = IAnything,
     Payload = IAnything,
@@ -6953,10 +7191,10 @@ declare module "react-declarative/utils/rx/Source" {
       | Event
       | MouseEvent
       | UIEvent
+      | FocusEvent
       | ErrorEvent
       | ProgressEvent<EventTarget>
       | SubmitEvent
-      | FocusEvent
       | ClipboardEvent
       | AnimationEvent
       | InputEvent
@@ -9522,6 +9760,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
    * @template Payload - The type of payload for the field.
    */
   export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+    name?: PickProp<IField<Data, Payload>, "name">;
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     element?: PickProp<IField<Data, Payload>, "element">;
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
@@ -9538,7 +9777,10 @@ declare module "react-declarative/components/One/fields/ComponentField" {
   interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, "object">;
     disabled: PickProp<IManaged<Data>, "disabled">;
+    invalid: PickProp<IManaged<Data>, "invalid">;
+    incorrect: PickProp<IManaged<Data>, "incorrect">;
     readonly: PickProp<IManaged<Data>, "readonly">;
+    onChange: PickProp<IManaged<Data>, "onChange">;
     outlinePaper?: PickProp<IField<Data>, "outlinePaper">;
     transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
   }
@@ -9558,12 +9800,15 @@ declare module "react-declarative/components/One/fields/ComponentField" {
   export const ComponentField: {
     ({
       disabled,
+      invalid,
+      incorrect,
       readonly,
       watchOneContext,
       element: Element,
       outlinePaper,
       transparentPaper,
       object,
+      onChange: onValueChange,
       ...otherProps
     }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
     displayName: string;
@@ -11652,6 +11897,7 @@ declare module "react-declarative/model/ComponentFieldInstance" {
    */
   export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     onChange: (data: Partial<Data>) => void;
+    onValueChange: IManaged<Data, Payload>["onChange"];
     _fieldData: Data;
     _fieldParams: IField;
     context: Record<string, any>;
@@ -11660,13 +11906,21 @@ declare module "react-declarative/model/ComponentFieldInstance" {
     payload: Payload;
     disabled: boolean;
     readonly: boolean;
+    incorrect: IManaged<Data, Payload>["incorrect"];
+    invalid: IManaged<Data, Payload>["invalid"];
     features: string[];
   };
+  /**
+   * Interface representing a debug object.
+   */
   export interface IDebug<Data = any, Payload = any> {
     originalComponent: React.ComponentType<IManaged<Data>>;
     managedProps: IManaged<Data>;
     payload: Payload;
   }
+  /**
+   * Represents the props for a specific instance of a component field.
+   */
   export type ComponentFieldInstanceProps = Omit<
     ComponentFieldInstance,
     keyof {
@@ -13350,6 +13604,11 @@ declare module "react-declarative/components/SnackProvider/SnackProvider" {
 declare module "react-declarative/components/SizeProvider/SizeProvider" {
   import { BoxProps } from "@mui/material/Box";
   import ISize from "react-declarative/model/ISize";
+  /**
+   * Represents a size provider that provides size information for rendering components.
+   * This interface extends the `BoxProps` interface from the `@material-ui/core` library, and allows
+   * customization of the target element for size measurement.
+   */
   interface ISizeProvider
     extends Omit<
       BoxProps,
@@ -14319,6 +14578,7 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
   interface IRequest {
     url: string;
     fileName: string;
+    sizeOriginal?: number;
     placeholder?: string;
   }
   /**
@@ -14538,6 +14798,9 @@ declare module "react-declarative/components/List/components/SlotFactory/SlotFac
 
 declare module "react-declarative/components/List/components/SlotFactory/SlotContext" {
   import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * @description Variable holding an array of default slot components.
+   */
   export const defaultSlots: {
     BodyRow: <RowData extends import("../../../..").IRowData = any>(
       props: import("../..").IBodyRowSlot<RowData>,
@@ -16037,6 +16300,9 @@ declare module "react-declarative/components/Center/Center" {
 declare module "react-declarative/components/Square/Square" {
   import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Represents the props for a Square component.
+   */
   interface ISquareProps extends BoxProps {
     children: React.ReactNode;
   }
@@ -17937,20 +18203,27 @@ declare module "react-declarative/components/PaperView/PaperView" {
   export const PaperView: React.ForwardRefExoticComponent<
     Pick<
       IPaperViewProps,
-      | "key"
       | "onChange"
+      | "defaultValue"
+      | "hidden"
+      | "sx"
+      | "inputMode"
+      | "tabIndex"
+      | "outlinePaper"
+      | "transparentPaper"
       | "className"
       | "style"
-      | "sx"
+      | "title"
+      | "placeholder"
+      | "prefix"
+      | "key"
       | "onClick"
       | "classes"
       | "children"
       | "color"
       | "variant"
       | "slot"
-      | "title"
       | "defaultChecked"
-      | "defaultValue"
       | "suppressContentEditableWarning"
       | "suppressHydrationWarning"
       | "accessKey"
@@ -17958,19 +18231,15 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "contextMenu"
       | "dir"
       | "draggable"
-      | "hidden"
       | "id"
       | "lang"
-      | "placeholder"
       | "spellCheck"
-      | "tabIndex"
       | "translate"
       | "radioGroup"
       | "role"
       | "about"
       | "datatype"
       | "inlist"
-      | "prefix"
       | "property"
       | "resource"
       | "typeof"
@@ -17986,7 +18255,6 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "results"
       | "security"
       | "unselectable"
-      | "inputMode"
       | "is"
       | "aria-activedescendant"
       | "aria-atomic"
@@ -18195,8 +18463,6 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "onAnimationIterationCapture"
       | "onTransitionEnd"
       | "onTransitionEndCapture"
-      | "outlinePaper"
-      | "transparentPaper"
       | "elevation"
       | "square"
     > &
@@ -18663,6 +18929,16 @@ declare module "react-declarative/components/TabsView/model/ITabsOutlet" {
   import ISize from "react-declarative/model/ISize";
   import { IOutlet } from "react-declarative/components/OutletView";
   import ITabsOutletProps from "react-declarative/components/TabsView/model/ITabsOutletProps";
+  /**
+   * Represents a set of additional properties.
+   *
+   * @typedef {Object} OtherProps
+   * @property {ISize} size - The size of the object.
+   * @property {boolean} loading - Indicates if the object is currently loading.
+   * @property {number} progress - The progress of loading the object.
+   * @property {function} setLoading - A function to set the loading state of the object.
+   * @property {function} setProgress - A function to set the progress of loading the object.
+   */
   export type OtherProps = {
     size: ISize;
     loading: boolean;
@@ -18970,6 +19246,12 @@ declare module "react-declarative/components/FetchView/components/Reveal" {
 declare module "react-declarative/components/WaitView/WaitView" {
   import * as React from "react";
   import { IAsyncProps } from "react-declarative/components/Async";
+  /**
+   * Interface representing the props for the WaitView component.
+   *
+   * @template P - The type of additional props for the Content component.
+   * @template T - The type of the condition result.
+   */
   interface IWaitViewProps<P extends any = object, T extends any = object>
     extends Omit<
       IAsyncProps<P>,
@@ -19210,6 +19492,9 @@ declare module "react-declarative/components/RevealView/RevealView" {
 declare module "react-declarative/components/SecretView/SecretView" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
+  /**
+   * Interface for the SecretView component props.
+   */
   interface ISecretViewProps {
     children?: React.ReactNode;
     onCode?: (code: number) => void;
@@ -19298,6 +19583,9 @@ declare module "react-declarative/components/WizardView/components/WizardNavigat
   import * as React from "react";
   import { SxProps } from "@mui/material";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Interface for the properties of the Wizard Navigation component.
+   */
   interface IWizardNavigationProps extends BoxProps {
     className?: string;
     style?: React.CSSProperties;
@@ -19316,6 +19604,28 @@ declare module "react-declarative/components/WizardView/components/WizardNavigat
     onNext?: () => void | Promise<void>;
     throwError?: boolean;
   }
+  /**
+   * Represents a component for navigating through a wizard.
+   * @typedef {Object} WizardNavigation
+   * @property {string} className - The CSS class name for the component.
+   * @property {Object} style - The inline style object for the component.
+   * @property {Object} sx - The sx prop for the component.
+   * @property {boolean} disabled - Whether the component is disabled or not.
+   * @property {boolean} fallback - The fallback prop for the component.
+   * @property {function} onLoadStart - The onLoadStart prop for the component.
+   * @property {function} onLoadEnd - The onLoadEnd prop for the component.
+   * @property {function} onPrev - The onPrev prop for the component.
+   * @property {function} onNext - The onNext prop for the component.
+   * @property {function} AfterPrev - The AfterPrev prop for the component.
+   * @property {function} BeforeNext - The BeforeNext prop for the component.
+   * @property {boolean} hasPrev - Whether the component has a previous step or not.
+   * @property {boolean} hasNext - Whether the component has a next step or not.
+   * @property {string} labelPrev - The label for the previous button.
+   * @property {string} labelNext - The label for the next button.
+   * @property {boolean} throwError - Whether an error should be thrown or not.
+   * @property {...otherProps} - The additional props for the component.
+   * @returns The rendered component.
+   */
   export const WizardNavigation: ({
     className,
     style,
@@ -19342,6 +19652,9 @@ declare module "react-declarative/components/WizardView/components/WizardContain
   import * as React from "react";
   import { SxProps } from "@mui/material";
   import { BoxProps } from "@mui/material/Box";
+  /**
+   * Represents the props for the WizardContainer component.
+   */
   interface IWizardContainerProps extends BoxProps {
     ref?: React.Ref<HTMLDivElement | undefined>;
     className?: string;
@@ -19349,6 +19662,18 @@ declare module "react-declarative/components/WizardView/components/WizardContain
     sx?: SxProps<any>;
     Navigation?: React.ReactNode;
   }
+  /**
+   * WizardContainer
+   *
+   * A container component that wraps the WizardContainerInternal component.
+   * It is a functional component of type React.FC, which takes an IWizardContainerProps as its props.
+   * It is created using `forwardRef` to allow obtaining a reference to the rendered DOM element for external usage.
+   *
+   * @component
+   * @param {React.ForwardedRef<unknown>} ref - A forwarded reference to the underlying WizardContainerInternal component.
+   * @param {IWizardContainerProps} props - The props for the WizardContainer component.
+   * @returns {React.ReactElement} The rendered WizardContainer component.
+   */
   export const WizardContainer: React.FC<IWizardContainerProps>;
   export default WizardContainer;
 }
@@ -19358,6 +19683,18 @@ declare module "react-declarative/components/WizardView/model/IWizardOutlet" {
   import ISize from "react-declarative/model/ISize";
   import { IOutlet } from "react-declarative/components/OutletView";
   import IWizardOutletProps from "react-declarative/components/WizardView/model/IWizardOutletProps";
+  /**
+   * Represents additional properties for a component.
+   *
+   * @typedef {Object} OtherProps
+   * @property {ISize} size - The size of the component.
+   * @property {boolean} loading - Specifies if the component is being loaded.
+   * @property {function} setLoading - Sets the loading state of the component.
+   * @property {number} progress - The progress of the component.
+   * @property {function} setProgress - Sets the progress of the component.
+   *
+   * @since 1.0.0
+   */
   export type OtherProps = {
     size: ISize;
     loading: boolean;
@@ -19441,6 +19778,12 @@ declare module "react-declarative/components/WizardView/model/IWizardModal" {
 declare module "react-declarative/components/WizardView/model/IWizardModalProps" {
   import IAnything from "react-declarative/model/IAnything";
   import IWizardOutletProps from "react-declarative/components/WizardView/model/IWizardOutletProps";
+  /**
+   * Represents the additional properties for a modal component.
+   *
+   * @typedef {Object} ModalOtherProps
+   * @property {function} onClose - The function to be called when the modal is closed.
+   */
   type ModalOtherProps = {
     onClose: () => void;
   };
@@ -19460,6 +19803,11 @@ declare module "react-declarative/components/WizardView/hooks/useWizardModal" {
   import { IWizardModalProps } from "react-declarative/components/WizardView/components/WizardOutletModal";
   import IAnything from "react-declarative/model/IAnything";
   import History from "react-declarative/model/History";
+  /**
+   * Represents the interface for the Params class.
+   * @template Data - The type of the Data parameter.
+   * @template Payload - The type of the Payload parameter.
+   */
   interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
     extends Omit<
       IWizardModalProps<Data, Payload>,
@@ -19964,24 +20312,48 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
    * @property throwError - flag indicating if errors should be thrown (default: false)
    * @property otherProps - other props
    */
-  export const VirtualView: ({
-    className,
-    sx,
-    withScrollbar,
-    minRowHeight,
-    bufferSize: upperBufferSize,
-    children: upperChildren,
-    hasMore,
-    loading: upperLoading,
-    onDataRequest,
-    onLoadStart,
-    onLoadEnd,
-    fallback,
-    scrollXSubject: upperScrollXSubject,
-    scrollYSubject: upperScrollYSubject,
-    throwError,
-    ...otherProps
-  }: IVirtualViewProps) => JSX.Element;
+  export const VirtualView: {
+    ({
+      className,
+      sx,
+      withScrollbar,
+      minRowHeight,
+      bufferSize: upperBufferSize,
+      children: upperChildren,
+      hasMore,
+      loading: upperLoading,
+      onDataRequest,
+      onLoadStart,
+      onLoadEnd,
+      fallback,
+      scrollXSubject: upperScrollXSubject,
+      scrollYSubject: upperScrollYSubject,
+      throwError,
+      ...otherProps
+    }: IVirtualViewProps): JSX.Element;
+    /**
+     * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
+     *
+     * @param viewId - The unique identifier of the view.
+     * @param data - The array of data to be rendered.
+     * @param bufferSize - The number of elements to be rendered in the viewport.
+     * @param renderItem - The function responsible for rendering each item in the data array.
+     * @param updateItem - The function responsible for updating an already rendered item with new data.
+     * @param removeItem - The function responsible for removing an item from the view.
+     * @param keyExtractor - The function responsible for extracting the unique identifier of each item in the data array.
+     * @param scrollEventName - The scroll event name (e.g. 'scroll', 'touchmove') to listen for viewport changes.
+     * @param viewportElement - The DOM element representing the viewport.
+     */
+    virtualize<T extends IVirtualized = {}>(
+      OriginalComponent: React.ComponentType<T>,
+    ): React.ForwardRefExoticComponent<
+      React.PropsWithoutRef<T> & React.RefAttributes<HTMLDivElement>
+    >;
+  };
+  interface IVirtualized {
+    className?: never;
+    style?: never;
+  }
   export default VirtualView;
 }
 
@@ -20006,6 +20378,8 @@ declare module "react-declarative/components/LoaderView/LoaderView" {
     fallback?: (e: Error) => void;
     throwError?: boolean;
     size?: number | string;
+    variant?: "determinate" | "indeterminate";
+    value?: number;
   }
   /**
    * Represents a loader view component.
@@ -20033,6 +20407,8 @@ declare module "react-declarative/components/LoaderView/LoaderView" {
       throwError,
       size,
       sx,
+      variant,
+      value,
       ...otherProps
     }: ILoaderViewProps): JSX.Element;
     createLoader(size: number): () => JSX.Element;
@@ -20915,6 +21291,11 @@ declare module "react-declarative/components/SubjectBinding/SubjectBinding" {
     target?: TSubject<any>;
     children: React.ReactNode;
   }
+  /**
+   * A React component that binds to a subject and updates when the subject emits a value.
+   *
+   * @extends React.Component
+   */
   export class SubjectBinding extends React.Component<ISubjectBindingProps> {
     componentDidMount: () => void;
     componentWillUnmount: () => void;
@@ -22627,6 +23008,12 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
   import IAnything from "react-declarative/model/IAnything";
   import TSubject from "react-declarative/model/TSubject";
   import ISize from "react-declarative/model/ISize";
+  /**
+   * Interface for props of the WizardModal component.
+   *
+   * @template Data - The type of data passed to the wizard.
+   * @template Payload - The type of payload passed to the wizard.
+   */
   export interface IWizardModalProps<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
@@ -22683,6 +23070,43 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
     onUnmount?: () => void;
     onClose?: () => void;
   }
+  /**
+   * OutletModal is a component that displays a modal with a form and allows the user to submit the form data.
+   *
+   * @template Data - The type of the form data
+   * @template Payload - The type of the payload to be sent when submitting the form
+   *
+   * @param withActionButton - If true, display a submit button in the modal (default: false)
+   * @param hidden - If true, the modal is hidden (default: false)
+   * @param onSubmit - The function to handle form submission (default: () => true)
+   * @param onChange - The function to handle form data changes (default: () => undefined)
+   * @param mapInitialData - The function to map the initial form data (default: () => ({} as Data))
+   * @param mapPayload - The function to map the payload to be sent (default: () => ({} as Payload))
+   * @param onLoadStart - The function to be called when data loading starts
+   * @param onLoadEnd - The function to be called when data loading ends
+   * @param fallback - The function to be called if an error occurs (default: undefined)
+   * @param fullScreen - If true, the modal will occupy the full screen (default: true)
+   * @param sizeRequest - The function to compute the size of the modal (default: fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST)
+   * @param reloadSubject - The subject to trigger form data reload
+   * @param fetchState - The function to compute the state of the data fetching (default: () => ({}))
+   * @param AfterTitle - The component to be rendered after the title
+   * @param BeforeTitle - The component to be rendered before the title
+   * @param title - The title of the modal
+   * @param upperData - The initial form data (default: null)
+   * @param throwError - If true, throw an error when an error occurs (default: false)
+   * @param withStaticAction - If true, the submit button is always enabled (default: false)
+   * @param waitForChangesDelay - The delay in ms to wait for form data changes (default: withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY)
+   * @param submitLabel - The label of the submit button (default: "Submit")
+   * @param openSubject - The subject to control the visibility of the modal
+   * @param readonly - If true, the form is read-only (default: undefined)
+   * @param routes - The routes object for the wizard component
+   * @param onMount - The function to be called when the component is mounted
+   * @param onUnmount - The function to be called when the component is unmounted
+   * @param onClose - The function to handle modal closure (default: () => null)
+   * @param outletProps - Other props for the OutletModal component
+   *
+   * @returns The rendered OutletModal component
+   */
   export const OutletModal: <
     Data extends {} = Record<string, any>,
     Payload = any,

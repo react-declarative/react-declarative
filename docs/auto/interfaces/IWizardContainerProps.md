@@ -1,5 +1,7 @@
 # IWizardContainerProps
 
+Represents the props for the WizardContainer component.
+
 ## Properties
 
 ### ref

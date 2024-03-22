@@ -344,6 +344,7 @@
 - [IReloadViewProps](interfaces/IReloadViewProps.md)
 - [IInfiniteViewProps](interfaces/IInfiniteViewProps.md)
 - [IVirtualViewProps](interfaces/IVirtualViewProps.md)
+- [IVirtualized](interfaces/IVirtualized.md)
 - [ILoaderViewProps](interfaces/ILoaderViewProps.md)
 - [IDocumentViewProps](interfaces/IDocumentViewProps.md)
 - [IImageViewProps](interfaces/IImageViewProps.md)

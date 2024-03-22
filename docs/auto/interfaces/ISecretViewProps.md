@@ -1,5 +1,7 @@
 # ISecretViewProps
 
+Interface for the SecretView component props.
+
 ## Properties
 
 ### children

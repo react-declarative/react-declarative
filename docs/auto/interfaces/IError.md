@@ -1,5 +1,7 @@
 # IError
 
+Represents the interface for an Error object.
+
 ## Properties
 
 ### label

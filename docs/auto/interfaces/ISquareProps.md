@@ -1,5 +1,7 @@
 # ISquareProps
 
+Represents the props for a Square component.
+
 ## Properties
 
 ### children

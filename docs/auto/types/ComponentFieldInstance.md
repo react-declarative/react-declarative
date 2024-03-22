@@ -3,6 +3,7 @@
 ```ts
 export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     onChange: (data: Partial<Data>) => void;
+    onValueChange: IManaged<Data, Payload>["onChange"];
     _fieldData: Data;
     _fieldParams: IField;
     context: Record<string, any>;
@@ -11,6 +12,8 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     payload: Payload;
     disabled: boolean;
     readonly: boolean;
+    incorrect: IManaged<Data, Payload>["incorrect"];
+    invalid: IManaged<Data, Payload>["invalid"];
     features: string[];
 };
 ```

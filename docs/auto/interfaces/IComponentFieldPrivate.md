@@ -14,10 +14,28 @@ object: Data
 disabled: boolean
 ```
 
+### invalid
+
+```ts
+invalid: string
+```
+
+### incorrect
+
+```ts
+incorrect: string
+```
+
 ### readonly
 
 ```ts
 readonly: boolean
+```
+
+### onChange
+
+```ts
+onChange: (v: any, config?: { skipReadonly?: boolean; }) => void
 ```
 
 ### outlinePaper

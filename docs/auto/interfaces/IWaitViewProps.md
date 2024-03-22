@@ -1,5 +1,7 @@
 # IWaitViewProps
 
+Interface representing the props for the WaitView component.
+
 ## Properties
 
 ### Content

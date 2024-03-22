@@ -1,5 +1,7 @@
 # IWizardModalProps
 
+Interface for props of the WizardModal component.
+
 ## Properties
 
 ### sizeRequest

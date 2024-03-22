@@ -39,3 +39,15 @@ throwError: boolean
 ```ts
 size: string | number
 ```
+
+### variant
+
+```ts
+variant: "determinate" | "indeterminate"
+```
+
+### value
+
+```ts
+value: number
+```

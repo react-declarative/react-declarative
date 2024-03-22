@@ -1,5 +1,7 @@
 # IDebug
 
+Interface representing a debug object.
+
 ## Properties
 
 ### originalComponent

@@ -27,6 +27,8 @@ interface ILoaderViewProps
   fallback?: (e: Error) => void;
   throwError?: boolean;
   size?: number | string;
+  variant?: "determinate" | "indeterminate";
+  value?: number;
 }
 
 const useStyles = makeStyles()({
@@ -61,6 +63,8 @@ export const LoaderView = ({
   throwError,
   size,
   sx,
+  variant,
+  value,
   ...otherProps
 }: ILoaderViewProps) => {
   const { classes } = useStyles();
@@ -98,7 +102,7 @@ export const LoaderView = ({
       }}
       {...otherProps}
     >
-      <CircularProgress size={size} />
+      <CircularProgress variant={variant} value={value} size={size} />
     </Box>
   );
 };

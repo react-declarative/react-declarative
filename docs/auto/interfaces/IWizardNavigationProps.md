@@ -1,5 +1,7 @@
 # IWizardNavigationProps
 
+Interface for the properties of the Wizard Navigation component.
+
 ## Properties
 
 ### className

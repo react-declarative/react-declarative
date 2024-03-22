@@ -439,6 +439,19 @@ interface IVirtualized {
   style?: never;
 }
 
+/**
+ * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
+ *
+ * @param viewId - The unique identifier of the view.
+ * @param data - The array of data to be rendered.
+ * @param bufferSize - The number of elements to be rendered in the viewport.
+ * @param renderItem - The function responsible for rendering each item in the data array.
+ * @param updateItem - The function responsible for updating an already rendered item with new data.
+ * @param removeItem - The function responsible for removing an item from the view.
+ * @param keyExtractor - The function responsible for extracting the unique identifier of each item in the data array.
+ * @param scrollEventName - The scroll event name (e.g. 'scroll', 'touchmove') to listen for viewport changes.
+ * @param viewportElement - The DOM element representing the viewport.
+ */
 VirtualView.virtualize = <T extends IVirtualized = {}>(OriginalComponent: React.ComponentType<T>) => forwardRef(
   (
     { className, style, ...otherProps }: T,

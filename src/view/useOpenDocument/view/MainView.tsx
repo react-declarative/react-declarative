@@ -1,13 +1,34 @@
-import * as React from 'react';
+import * as React from "react";
+import { useState } from "react";
 
 import { fileTypeFromBlob } from "file-type/core";
 
-import LoaderView from '../../../components/LoaderView';
+import LoaderView from "../../../components/LoaderView";
 
-import useRenderWaiter from '../../../hooks/useRenderWaiter';
-import useAsyncValue from '../../../hooks/useAsyncValue';
+import useRenderWaiter from "../../../hooks/useRenderWaiter";
+import useAsyncValue from "../../../hooks/useAsyncValue";
 
-import { IOutletModalProps } from '../../../components/OutletView';
+import { IOutletModalProps } from "../../../components/OutletView";
+import downloadBlob from "../utils/downloadBlob";
+
+const fetchFile = async (
+  url: string,
+  onProgress?: (progress: number) => void,
+  sizeOriginal?: number
+) => {
+  try {
+    return await downloadBlob(url, {
+      onProgress,
+      sizeOriginal,
+    });
+  } catch (error) {
+    console.log("fetchFile downloadBlob error", error);
+    const response = await fetch(url, {
+      mode: "no-cors",
+    });
+    return await response.blob();
+  }
+};
 
 /**
  * Represents the main view component.
@@ -18,14 +39,13 @@ import { IOutletModalProps } from '../../../components/OutletView';
  * @param props.data - The data object.
  */
 export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
+  const [progress, setProgress] = useState(0);
+
   const waitForChanges = useRenderWaiter([data], 10);
 
   useAsyncValue(async () => {
     try {
-      const response = await fetch(data.url, {
-        mode: 'no-cors',
-      });
-      const blob = await response.blob();
+      const blob = await fetchFile(data.url, setProgress, data.sizeOriginal);
       const blobType = await fileTypeFromBlob(blob);
       const mime = blobType?.mime || blob.type;
       const url = URL.createObjectURL(new Blob([blob], { type: mime }));
@@ -53,7 +73,14 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
     }
   });
 
-  return <LoaderView size={48} sx={{ height: 275 }} />;
+  return (
+    <LoaderView
+      variant={progress ? "determinate" : "indeterminate"}
+      value={progress || undefined}
+      size={48}
+      sx={{ height: 275 }}
+    />
+  );
 };
 
 export default MainView;

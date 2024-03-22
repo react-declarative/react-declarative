@@ -4,6 +4,12 @@ Props interface for the IComponentField component.
 
 ## Properties
 
+### name
+
+```ts
+name: string
+```
+
 ### placeholder
 
 ```ts

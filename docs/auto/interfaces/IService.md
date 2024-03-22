@@ -1,5 +1,7 @@
 # IService
 
+Represents a service for service lifecycle.
+
 ## Properties
 
 ### prefetch

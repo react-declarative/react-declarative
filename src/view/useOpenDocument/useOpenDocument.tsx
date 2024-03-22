@@ -48,6 +48,7 @@ interface IParams {
 interface IRequest {
   url: string;
   fileName: string;
+  sizeOriginal?: number;
   placeholder?: string;
 }
 
