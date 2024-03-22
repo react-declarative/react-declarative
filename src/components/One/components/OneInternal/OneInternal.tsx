@@ -238,6 +238,14 @@ export const OneInternal = <
             change: handleChange,
             ready: handleReady,
             fallback,
+            /**
+             * Checks if a given field is baseline aligned.
+             *
+             * @param {Object} field - The field object to check.
+             * @param {Map} baselineMap - The map containing the baseline information.
+             * @param {Array} fields - The array of fields to check for baselines.
+             * @returns {boolean} Returns true if the field is baseline aligned, false otherwise.
+             */
             isBaselineAlign:
               baselineMap.get(field) === undefined
                 ? !!baselineMap
@@ -250,6 +258,13 @@ export const OneInternal = <
               : field.placeholder,
             outlinePaper: field.outlinePaper || upperOutlinePaper,
             transparentPaper: field.transparentPaper || upperTransparentPaper,
+            /**
+             * Retrieves the function associated with the given field from the click map.
+             * If no function is found, returns the click map itself.
+             *
+             * @param {string} field - The field to search in the click map.
+             * @returns {function|Map} - The function associated with the field, or the click map.
+             */
             click: clickMap.has(field)
               ? clickMap.get(field)
               : clickMap
@@ -258,6 +273,17 @@ export const OneInternal = <
                     click && click(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
+            /**
+             * Determines if the provided field exists in the focusMap.
+             *
+             * If the field exists, the corresponding value is returned from the focusMap.
+             * If the field does not exist, the focusMap is updated with a new value created as a function.
+             * The function takes in parameters and calls "focus" and "focus" (if they exist) passing in the parameters.
+             * Then, the updated value is returned from the focusMap.
+             *
+             * @param {string} field - The field to check in the focusMap.
+             * @returns {any} - The value associated with the field in the focusMap.
+             */
             focus: focusMap.has(field)
               ? focusMap.get(field)
               : focusMap
@@ -266,6 +292,16 @@ export const OneInternal = <
                     focus && focus(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
+            /**
+             * Checks if a field exists in the blur map, and returns its value if found.
+             * If the field does not exist, it adds a new entry to the blur map and returns it.
+             * The new entry is a function that invokes the `blur` method of the `field`, if available,
+             * and then invokes the `blur` method passed as an argument.
+             *
+             * @param {object} field - The field to check or add to the blur map.
+             * @returns {function} - The value associated with the field in the blur map,
+             *                       or a new function added to the blur map for the field.
+             */
             blur: blurMap.has(field)
               ? blurMap.get(field)
               : blurMap
@@ -274,6 +310,15 @@ export const OneInternal = <
                     blur && blur(name, data, payload, onValueChange, onChange);
                   })
                   .get(field),
+            /**
+             * Checks if field exists in the menuMap. If it exists, return the menu function associated with the field.
+             * If it does not exist, create a new entry in the menuMap and associate it with a new menu function defined
+             * by the provided parameters and return the menu function.
+             *
+             * @param {string} field - The field to check in the menuMap.
+             *
+             * @returns {function} - The menu function associated with the field in the menuMap.
+             */
             menu: menuMap.has(field)
               ? menuMap.get(field)
               : menuMap
@@ -282,9 +327,26 @@ export const OneInternal = <
                     menu && menu(name, action, data, payload, onValueChange, onChange);
                   })
                   .get(field),
+            /**
+             * Checks if a field exists in the trMap. If the field exists, it returns the corresponding translation. If the field does not exist, it creates a new translation using the `makeTr`
+             * function, stores it in the trMap, and returns the translation.
+             *
+             * @param {string} field - The field to check in the trMap.
+             * @param {any} payload - The payload to use when creating a new translation.
+             * @returns {string} - The translation for the specified field.
+             */
             tr: trMap.has(field)
               ? trMap.get(field)
               : trMap.set(field, makeTr(field, payload)).get(field),
+            /**
+             * Returns the itemList for the given field. If the field exists in the itemListMap,
+             * the corresponding itemList is returned. Otherwise, a new itemList is created using
+             * makeItemList function and added to the itemListMap.
+             *
+             * @param {string} field - The field for which to get the itemList.
+             * @param {any} payload - The payload to be used in makeItemList function.
+             * @returns {any[]} - The itemList for the given field.
+             */
             itemList: itemListMap.has(field)
               ? itemListMap.get(field)
               : itemListMap.set(field, makeItemList(field, payload)).get(field),

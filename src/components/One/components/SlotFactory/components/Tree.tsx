@@ -49,6 +49,15 @@ export const Tree = ({
   const payload = useOnePayload();
   const { object } = useOneState();
 
+  /**
+   * Represents a collection of items.
+   *
+   * @typedef {Object[]} Items
+   * @property {string} name - The name of the item.
+   * @property {number} quantity - The quantity of the item.
+   * @property {string} [description] - The description of the item. (Optional)
+   * @property {string[]} [tags] - The tags associated with the item. (Optional)
+   */
   const [items, { loading: currentLoading }] = useAsyncValue(
     async () => {
       if (typeof itemTree === 'function') {

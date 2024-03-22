@@ -114,6 +114,13 @@ export const Items = ({
 
     const labels$ = useActualValue(state.labels);
 
+    /**
+     * Memoized value casted to array.
+     *
+     * @type {Array}
+     * @param {any} upperValue - The value used to compute the memoized array.
+     * @returns {Array} - The memoized array value.
+     */
     const arrayValue = useMemo(() => {
         if (typeof upperValue === 'string') {
             return [upperValue];
@@ -127,6 +134,12 @@ export const Items = ({
 
     const prevValue = useRef(arrayValue);
 
+    /**
+     * Memoizes the value based on the input array value.
+     *
+     * @param {any[]} arrayValue - The array value.
+     * @returns {any} - The memoized value.
+     */
     const value = useMemo(() => {
         if (compareArray(prevValue.current, arrayValue)) {
             return prevValue.current;
@@ -221,6 +234,13 @@ export const Items = ({
         changeSubject.next();
     };
 
+    /**
+     * Renders tags based on the given values using the Autocomplete component.
+     *
+     * @param value - An array of values to render as tags.
+     * @param getTagProps - A function that receives an index and returns props for a tag.
+     * @returns An array of Chip components representing the rendered tags.
+     */
     const renderTags = (value: any[], getTagProps: AutocompleteRenderGetTagProps) => {
         const { current: labels } = labels$;
         return value.map((option: string, index: number) => (
@@ -232,6 +252,12 @@ export const Items = ({
         ))
     };
 
+    /**
+     * Retrieves the option label based on the provided value.
+     *
+     * @param v - The value for which to retrieve the label.
+     * @returns The label for the given value.
+     */
     const getOptionLabel = (v: string) => {
         const { current: labels } = labels$;
         if (freeSolo) {

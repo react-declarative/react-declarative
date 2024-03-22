@@ -121,6 +121,12 @@ export const Complete = ({
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
+  /**
+   * Handles click events.
+   *
+   * @param event - The click event object.
+   * @returns
+   */
   const handleClick = ({
     clientX,
     clientY,
@@ -153,6 +159,9 @@ export const Complete = ({
 
   const onChange$ = useActualCallback(onChange);
 
+  /**
+   * Manages the caret (cursor) position in an input element.
+   */
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 
@@ -219,6 +228,11 @@ export const Complete = ({
     []
   );
 
+  /**
+   * Memoized function for handling requests.
+   *
+   * @returns {void}
+   */
   const handleRequest = useMemo(
     () =>
       queued(async () => {
@@ -271,12 +285,24 @@ export const Complete = ({
     handleRequest();
   }, [valueD, open]);
 
+  /**
+   * Handles the blur event.
+   *
+   * This function closes the handle, resets the selected index, and clears the selection range of the input element.
+   */
   const handleBlur = () => {
     handleClose();
     setSelectedIdx(-1);
     inputElementRef.current?.setSelectionRange(null, null);
   };
 
+  /**
+   * Handles key down events for a specific key.
+   *
+   * @param key - The key value from the event.
+   * @param blur - A function to blur the input element.
+   * @returns - Returns true if the key event was handled, otherwise false.
+   */
   const handleKeyDown = (key: string, blur: () => void) => {
     if (key === "Escape") {
       handleClose();

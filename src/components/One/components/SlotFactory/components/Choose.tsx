@@ -78,7 +78,12 @@ export const Choose = ({
 
   const { doReload, reloadTrigger } = useReloadTrigger();
 
-  const [inputValue, { loading: currentLoading }] = useAsyncValue(
+  /**
+   * Represents the value of an input.
+   *
+   * @typedef {string|number|boolean|null} inputValue
+   */
+    const [inputValue, { loading: currentLoading }] = useAsyncValue(
     async () => {
       return await getInputValue(value, tr, object, payload);
     },
@@ -87,7 +92,13 @@ export const Choose = ({
     }
   );
 
-  const { execute: handleClick, loading: chooseLoading } = useSinglerunAction(
+  /**
+   * Handles the click event.
+   *
+   * @param {Event} event - The click event object.
+   * @returns {void}
+   */
+    const { execute: handleClick, loading: chooseLoading } = useSinglerunAction(
     async () => {
       if (value) {
         onChange(null);

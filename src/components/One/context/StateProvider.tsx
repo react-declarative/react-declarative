@@ -104,6 +104,13 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
 
     const object$ = useActualValue(object as unknown as object);
 
+    /**
+     * Updates the object state and checks if any fields are marked as invalid.
+     *
+     * @param {Data} data - The new data object to set.
+     * @param {Record<string, boolean>} fieldInvalidMap - A map indicating which fields are invalid.
+     * @returns {void}
+     */
     const setObject = useCallback((data: Data, fieldInvalidMap: Record<string, boolean>) => {
         const { current: oneInvalidMap } = oneInvalidMapRef;
         const { current: object } = object$;
@@ -121,6 +128,13 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         }
     }, []);
 
+    /**
+     * Updates the state of the object using a deep clone operation.
+     *
+     * @param {Data} object - The new data to be merged into the object.
+     *
+     * @returns {void}
+     */
     const changeObject = useCallback(
         (object: Data) =>
           setObject(
@@ -133,6 +147,14 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         []
       );
 
+    /**
+     * Represents a managed state object.
+     *
+     * @typedef {Object} IState
+     * @property {Data} object - The current object value.
+     * @property {Function} setObject - A function to set the object value.
+     * @property {Function} changeObject - A function to change the object value.
+     */
     const managed: IState<Data> = useMemo(() => ({
         object,
         setObject,

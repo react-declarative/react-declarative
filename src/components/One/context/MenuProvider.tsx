@@ -36,6 +36,13 @@ interface IMenuProviderProps {
 export const MenuProvider = ({ children }: IMenuProviderProps) => {
   const requestSubject = useSubject<IRequest>();
 
+  /**
+   * Represents a context object with utility functions.
+   *
+   * @typedef {Object} IContext
+   * @property {function} createContextMenu - Function to create a context menu.
+   * @property {TSubject} requestSubject - The request subject.
+   */
   const value = useMemo(
     (): IContext => ({
       createContextMenu:

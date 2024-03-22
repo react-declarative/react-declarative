@@ -87,6 +87,15 @@ export const YesNoField = ({
   const payload = useOnePayload();
   const { object } = useOneState();
 
+  /**
+   * A memoized value based on the value of `upperValue`.
+   * If `upperValue` is `true`, the memoized value is "Yes".
+   * If `upperValue` is `false`, the memoized value is "No".
+   * If `upperValue` is neither `true` nor `false`, the memoized value is `null`.
+   * The memoized value is recalculated whenever `upperValue` changes.
+   *
+   * @type {string|null}
+   */
   const value = useMemo(() => {
     if (upperValue === true) {
       return "Yes";
@@ -120,11 +129,27 @@ export const YesNoField = ({
     execute();
   }, []);
 
+  /**
+   * Retrieves the label associated with a given value.
+   *
+   * @param v - The value for which to retrieve the label.
+   * @returns - The label associated with the given value, or the value itself if no label is found.
+   */
   const getOptionLabel = (v: string) => {
     const { current: labels } = labels$;
     return labels[v] || v;
   };
 
+  /**
+   * Generates a render input function for an autocomplete component.
+   *
+   * @param loading - Indicates if the autocomplete is loading.
+   * @param readonly - Indicates if the autocomplete is in readonly mode.
+   * @returns - A render input function.
+   *
+   * @param params - Render input parameters.
+   * @returns - The rendered input component.
+   */
   const createRenderInput =
     (loading: boolean, readonly: boolean) =>
     (params: AutocompleteRenderInputParams) =>
@@ -165,6 +190,14 @@ export const YesNoField = ({
         />
       );
 
+  /**
+   * Renders an option for the Autocomplete component.
+   *
+   * @param props - The props to be applied to the li element.
+   * @param option - The option object to be rendered.
+   * @param state - The state of the render option.
+   * @returns - The rendered li element.
+   */
   const renderOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
     option: any,
@@ -207,6 +240,11 @@ export const YesNoField = ({
     return () => unsubscribeRef();
   }, [opened]);
 
+  /**
+   * Handles the change in value.
+   *
+   * @param value - The new value.
+   */
   const handleChange = (value: any) => {
     onChange(value === "Yes" ? true : value === "No" ? false : null);
     changeSubject.next();

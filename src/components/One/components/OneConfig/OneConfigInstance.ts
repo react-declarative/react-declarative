@@ -29,6 +29,10 @@ const INITIAL_CONFIG: IConfig = {
     FIELD_BLUR_DEBOUNCE: BLUR_DEBOUNCE,
 };
 
+/**
+ * Class representing a OneConfigInstance.
+ * @class
+ */
 export class OneConfigInstance {
     private _config: IConfig = INITIAL_CONFIG;
     getRef = () => this._config;

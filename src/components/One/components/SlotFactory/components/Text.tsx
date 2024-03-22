@@ -20,6 +20,26 @@ import formatText from "../../../../../utils/formatText";
 const LOADING_LABEL = "Loading";
 const NEVER_POS = Symbol("never-pos");
 
+/**
+ * Represents a set of icons.
+ *
+ * @param icons - The icons object.
+ * @param icons.data - The data object.
+ * @param icons.payload - The payload object.
+ * @param icons.leadingIcon - The leading icon component.
+ * @param icons.trailingIcon - The trailing icon component.
+ * @param icons.leadingIconClick - The leading icon click handler.
+ * @param icons.trailingIconClick - The trailing icon click handler.
+ * @param icons.loading - Indicates if icons are in loading state.
+ * @param icons.disabled - Indicates if the icons are disabled.
+ * @param icons.readonly - Indicates if the icons are read-only.
+ * @param icons.v - The v value.
+ * @param icons.c - The onChange function.
+ * @param icons.cc - The cc function.
+ * @param icons.leadingIconRipple - Indicates if the leading icon has ripple effect.
+ * @param icons.trailingIconRipple - Indicates if the trailing icon has ripple effect.
+ * @returns - The icons object with their respective properties.
+ */
 const icons = (
   data: IAnything,
   payload: IAnything,
@@ -117,11 +137,28 @@ const icons = (
     : {}),
 });
 
+/**
+ * Creates an object representing a multiline based on the number of input rows.
+ *
+ * @param inputRows - The number of input rows.
+ * @returns - The multiline object.
+ *
+ * @example
+ * const inputRows = 3;
+ * const multiline = createMultiline(inputRows);
+ * // => { multiline: true, rows: 3 }
+ */
 const multiline = (inputRows: number) => ({
   multiline: inputRows > 1,
   rows: inputRows,
 });
 
+/**
+ * Retrieves the current caret position within an HTML input or textarea element.
+ *
+ * @param element - The input or textarea element.
+ * @returns - The current caret position.
+ */
 const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
@@ -204,6 +241,12 @@ export const Text = ({
 
   const inputElementRef = useRef<HTMLInputElement | null>();
 
+  /**
+   * Represents a caret manager for handling caret position in an input element.
+   * @typedef {Object} CaretManager
+   * @property {Function} render - Renders the caret position in the input element.
+   * @property {Function} pos - Gets the current caret position in the input element.
+   */
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 

@@ -75,6 +75,10 @@ export const Time = ({
     null
   );
 
+  /**
+   * Handle click event on button element.
+   * @param event - The click event object.
+   */
   const handleClick = ({
     clientX,
     clientY,
@@ -127,6 +131,12 @@ export const Time = ({
     }
   }, [value]);
 
+  /**
+   * Handles the change of input value.
+   *
+   * @param value - The new value of the input.
+   * @returns
+   */
   const handleChange = (value: string) => {
     let result = "";
     for (let i = 0; i < value.length; i++) {
@@ -140,6 +150,14 @@ export const Time = ({
     setValue(result);
   };
 
+  /**
+   * A memoized value computed from the given `value` using `useMemo`.
+   *
+   * @param {any} value - The input value used to compute the `dayjsValue`.
+   *
+   * @returns {Dayjs | undefined} - The computed `dayjsValue` which is a `Dayjs` object representing the parsed `value` as a time.
+   *
+   */
   const dayjsValue = useMemo(() => {
     if (value) {
       const date = datetime.parseTime(value);
@@ -154,6 +172,9 @@ export const Time = ({
     return undefined;
   }, [value]);
 
+  /**
+   * Manages the caret position in an input element.
+   */
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 

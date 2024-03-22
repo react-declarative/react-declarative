@@ -75,6 +75,12 @@ export const Date = ({
     null
   );
 
+  /**
+   * Handles the click event on a button element.
+   *
+   * @param event - The click event object.
+   * @returns
+   */
   const handleClick = ({
     clientX,
     clientY,
@@ -127,6 +133,13 @@ export const Date = ({
     }
   }, [value]);
 
+  /**
+   * Handles the change event for the given value.
+   *
+   * @param value - The value to handle the change event for.
+   *
+   * @returns
+   */
   const handleChange = (value: string) => {
     let result = "";
     for (let i = 0; i < value.length; i++) {
@@ -140,6 +153,18 @@ export const Date = ({
     setValue(result);
   };
 
+  /**
+   * Represents a memoized Day.js value.
+   *
+   * This variable is created using the useMemo hook to memoize the Day.js value based on the provided value.
+   * If the value is truthy, a Day.js instance is created by parsing the value using the datetime.parseDate function.
+   * If the parsed date is valid, the current time is set to the parsed date's day, month, and year values.
+   *
+   * @type {DayJS | undefined}
+   * @since [Initial version]
+   * @see datetime.parseDate
+   * @see https://day.js.org/
+   */
   const dayjsValue = useMemo(() => {
     if (value) {
       const date = datetime.parseDate(value);

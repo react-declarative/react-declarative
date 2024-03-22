@@ -42,6 +42,24 @@ export function makeLayout<T extends ILayout<any>>(
 
     const Component = memo(originalComponent) as unknown as React.FC<IEntity>;
 
+    /**
+     * Renders a component based on input data and conditions.
+     *
+     * @template Data - The type of data that the component accepts
+     * @param props - The component props
+     * @param [props.className] - The class name for the component
+     * @param props.object - The main data object for the component
+     * @param [props.isVisible=true] - Whether the component is visible or not
+     * @param [props.isReadonly=false] - Whether the component is readonly or not
+     * @param [props.isDisabled=false] - Whether the component is disabled or not
+     * @param [props.disabled=false] - Whether the component is disabled or not (alternative prop)
+     * @param [props.phoneHidden] - Whether the component is hidden on phone devices or not, or a function that returns a boolean
+     * @param [props.tabletHidden] - Whether the component is hidden on tablet devices or not, or a function that returns a boolean
+     * @param [props.desktopHidden] - Whether the component is hidden on desktop devices or not, or a function that returns a boolean
+     * @param props.ready - A callback function to be executed when the component is ready
+     * @param props.otherProps - Additional props to pass to the component
+     * @returns - The rendered component or null if not visible
+     */
     const component = <Data extends IAnything = IAnything>({
         className,
         object: upperObject,

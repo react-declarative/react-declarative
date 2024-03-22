@@ -2,6 +2,9 @@ import OneConfigInstance, { IConfig } from './OneConfigInstance';
 
 export const GET_REF_SYMBOL = Symbol('get-reference');
 
+/**
+ * Class representing the OneConfig.
+ */
 export class OneConfig {
     private static readonly instance = new OneConfigInstance();
     public static [GET_REF_SYMBOL] = OneConfig.instance.getRef;

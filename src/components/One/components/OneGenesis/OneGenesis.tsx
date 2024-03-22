@@ -95,6 +95,15 @@ export const OneGenesis = <
   const ready$ = useActualValue(ready);
   const change$ = useActualValue(change);
 
+  /**
+   * A callback function that handles the ready state.
+   *
+   * This callback function is used to set the component's rendered state as true and call the ready function, if the component is not already in the ready state. It is a memoized callback
+   * function created using the useCallback hook.
+   *
+   * @function handleReady
+   * @returns {void}
+   */
   const handleReady = useCallback(() => {
     const { current: ready } = ready$;
     if (!isReady.current) {
@@ -104,6 +113,14 @@ export const OneGenesis = <
     }
   }, []);
 
+  /**
+   * Handles the change event by validating the new data and calling the provided callback function if the data is valid.
+   *
+   * @param {Data} newData - The new data being passed to the event handler.
+   * @param {boolean} initial - Indicates if the data is being changed initially or not.
+   *
+   * @returns {void}
+   */
   const handleChange = useCallback((newData: Data, initial: boolean) => {
     const { current: change } = change$;
     let isValid = true;
@@ -118,6 +135,16 @@ export const OneGenesis = <
     }
   }, []);
 
+  /**
+   * Represents the state parameters.
+   * @typedef {Object} StateParams
+   * @property {Object} props - The additional properties.
+   * @property {undefined} context - The context information.
+   * @property {Object} fields - The fields snapshot.
+   * @property {function} change - The change handler function.
+   * @property {Object} features - The feature details.
+   * @property {Object} payload - The payload information.
+   */
   const stateParams = {
     ...props,
     context: undefined,
@@ -127,6 +154,18 @@ export const OneGenesis = <
     payload,
   };
 
+  /**
+   * Represents the view parameters for rendering a view.
+   *
+   * @typedef {Object} ViewParams
+   * @property {Object} props - The props to pass to the view component.
+   * @property {undefined} context - The context of the view.
+   * @property {Object} fields - The fields snapshot for the view.
+   * @property {function} ready - The callback function to handle the ready state.
+   * @property {Object} features - The features for the view.
+   * @property {Object} payload - The payload for the view.
+   * @property {boolean} rendered - Indicates whether the view has been rendered.
+   */
   const viewParams = {
     ...props,
     context: undefined,
@@ -137,6 +176,18 @@ export const OneGenesis = <
     rendered,
   };
 
+  /**
+   * Determines if the baseline alignment is true.
+   *
+   * @typedef {boolean} isBaselineAlign
+   * @memberof module:Alignments
+   * @example
+   *
+   * const fieldsSnapshot = [{ id: 1, isBaseline: true }, { id: 2, isBaseline: false }];
+   * const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
+   *
+   * console.log(isBaselineAlign); // Output: true
+   */
   const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
 
   return (

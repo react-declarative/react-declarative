@@ -110,6 +110,12 @@ export const Combo = ({
 
   const labels$ = useActualValue(state.labels);
 
+  /**
+   * Returns a memoized value based on the given `upperValue`.
+   *
+   * @param {*} upperValue - The value to compute the memoized value from.
+   * @returns {*} - The computed memoized value.
+   */
   const value = useMemo(() => {
     if (Array.isArray(upperValue)) {
       const [first] = upperValue;
@@ -171,6 +177,15 @@ export const Combo = ({
     execute(object);
   }, [valueHash, disabled, dirty, invalid, incorrect, object, readonly]);
 
+  /**
+   * Creates a render input function for an Autocomplete component.
+   *
+   * @param loading - Indicates if the Autocomplete is in a loading state.
+   * @param readonly - Indicates if the Autocomplete is in a readonly state.
+   * @returns A render input function for the Autocomplete component.
+   * @param params - The Autocomplete render input parameters.
+   * @returns The rendered input element.
+   */
   const createRenderInput =
     (loading: boolean, readonly: boolean) =>
     (params: AutocompleteRenderInputParams) =>
@@ -265,6 +280,13 @@ export const Combo = ({
     setOpened(false);
   }), []);
 
+  /**
+   * Handles the change of a value and triggers the corresponding
+   * callback and event.
+   *
+   * @param value - The new value for the change event.
+   * @returns
+   */
   const handleChange = (value: any) => {
     onChange(value || null);
     changeSubject.next();
