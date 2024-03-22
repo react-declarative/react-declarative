@@ -18,6 +18,9 @@ import SearchSlot from './components/SearchSlot';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
+/**
+ * @description Variable holding an array of default slot components.
+ */
 export const defaultSlots = {
     BodyRow,
     CheckboxCell,
