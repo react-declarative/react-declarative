@@ -10,11 +10,15 @@ Represents a field menu.
 isVisible: (data: Data, payload: Payload) => boolean | Promise<boolean>
 ```
 
+Determines the visibility of an element based on the given data and payload.
+
 ### isDisabled
 
 ```ts
 isDisabled: (data: Data, payload: Payload) => boolean | Promise<boolean>
 ```
+
+Checks whether the given data and payload indicate that the feature is disabled.
 
 ### onClick
 

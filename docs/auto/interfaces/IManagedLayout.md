@@ -57,3 +57,5 @@ fieldBottomMargin: string
 ```ts
 features: string[]
 ```
+
+Retrieves the 'features' property from a given variable.

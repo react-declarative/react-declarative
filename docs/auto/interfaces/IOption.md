@@ -34,8 +34,12 @@ icon: ComponentType<any>
 isVisible: (payload: Payload) => boolean | Promise<boolean>
 ```
 
+Checks the visibility of a given payload.
+
 ### isDisabled
 
 ```ts
 isDisabled: (payload: Payload) => boolean | Promise<boolean>
 ```
+
+Checks if the provided payload indicates that the element is disabled.

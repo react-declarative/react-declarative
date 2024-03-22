@@ -2051,13 +2051,61 @@ declare module "react-declarative/model/IManaged" {
    * @template Payload - The payload type used by the layout.
    */
   export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
+    /**
+     * Represents the `isVisible` property of a field in a form.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'isVisible'>} isVisible
+     * @property {boolean} isVisible - Indicates whether the field is visible or not.
+     */
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
+    /**
+     * Represents the `isDisabled` property of a field in a form.
+     * The `isDisabled` property determines whether the field is disabled or not.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'isDisabled'>} isDisabled
+     * @property {boolean} [isDisabled] - Indicates whether the field is disabled.
+     */
     isDisabled?: PickProp<IField<Data, Payload>, "isDisabled">;
+    /**
+     * Retrieves the value of the 'isReadonly' property from the given variable.
+     *
+     * @param {IField<Data, Payload>} variable - The variable to retrieve the property from.
+     * @returns {PickProp<IField<Data, Payload>, 'isReadonly'>} The value of the 'isReadonly' property.
+     */
     isReadonly?: PickProp<IField<Data, Payload>, "isReadonly">;
+    /**
+     * Retrieves the 'features' property from a given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The property name to retrieve.
+     * @param {T} variable - The variable to extract the property from.
+     * @returns {Pick<T, K>} - The extracted 'features' property.
+     */
     features?: PickProp<IField<Data, Payload>, "features">;
+    /**
+     * Represents the `disabled` property of a field.
+     *
+     * @typedef {boolean} Disabled
+     */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
+    /**
+     * Represents the `phoneHidden` property of a field object.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'phoneHidden'>} phoneHidden
+     * @property {boolean} phoneHidden - Specifies whether the phone field should be hidden.
+     */
     phoneHidden?: PickProp<IField<Data, Payload>, "phoneHidden">;
+    /**
+     * Represents the optional property 'tabletHidden' in a field object.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'tabletHidden'>} tabletHidden
+     */
     tabletHidden?: PickProp<IField<Data, Payload>, "tabletHidden">;
+    /**
+     * Represents the optional property `desktopHidden` of type `PickProp<IField<Data, Payload>, 'desktopHidden'>`.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'desktopHidden'>} desktopHidden
+     */
     desktopHidden?: PickProp<IField<Data, Payload>, "desktopHidden">;
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
     noBaseline?: PickProp<IField<Data, Payload>, "noBaseline">;
@@ -2084,28 +2132,197 @@ declare module "react-declarative/model/IManaged" {
    */
   export interface IManagedShallow<Data = IAnything, Payload = IAnything>
     extends IManagedLayout<Data> {
+    /**
+     * Represents the `isDisabled` property of a field object.
+     *
+     * @typedef {import("<path to PickProp>").PickProp} PickProp
+     * @typedef {import("<path to IField>").IField} IField
+     * @typedef {import("<path to Data>").Data} Data
+     * @typedef {import("<path to Payload>").Payload} Payload
+     *
+     * @type {PickProp<IField<Data, Payload>, 'isDisabled'>}
+     *
+     * @description
+     * The `isDisabled` property indicates whether a field is disabled or not.
+     * If `isDisabled` is `true`, the field is disabled, meaning it cannot be interacted with.
+     * If `isDisabled` is `false`, the field is enabled and can be interacted with.
+     *
+     */
     isDisabled?: PickProp<IField<Data, Payload>, "isDisabled">;
+    /**
+     * Determines the visibility of a field.
+     *
+     * @typedef {boolean} isVisible
+     * @description The `isVisible` property is used to determine whether a field is visible or hidden.
+     *
+     * @param {IField<Data, Payload>} field - The field object that contains the `isVisible` property.
+     *
+     * @returns {boolean} - Returns `true` if the field is visible, `false` otherwise.
+     */
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
+    /**
+     * Determines if the field is readonly.
+     *
+     * @typedef {boolean} isReadonly
+     */
     isReadonly?: PickProp<IField<Data, Payload>, "isReadonly">;
+    /**
+     * Represents the `isInvalid` field of a given field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'isInvalid'>} IsInvalid
+     */
     isInvalid?: PickProp<IField<Data, Payload>, "isInvalid">;
+    /**
+     * Checks if the field is incorrect.
+     *
+     * @template T - The object type to check.
+     * @template K - The propertyname to pick from the object type.
+     * @param obj - The object to check.
+     * @param prop - The property name to pick from the object type.
+     * @returns - A boolean indicating whether the field is incorrect.
+     */
     isIncorrect?: PickProp<IField<Data, Payload>, "isIncorrect">;
     invalidity?: PickProp<IField<Data, Payload>, "invalidity">;
+    /**
+     * Determines if the field should be recomputed.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'shouldRecompute'>} shouldRecompute
+     *
+     * @property {boolean} shouldRecompute - Indicates whether the field should be recomputed.
+     */
     shouldRecompute?: PickProp<IField<Data, Payload>, "shouldRecompute">;
+    /**
+     * Check if 'shouldUpdateItemList' property is present in the given variable.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>} shouldUpdateItemList
+     * @param {shouldUpdateItemList} shouldUpdateItemList - The variable to be checked.
+     * @returns {boolean} - Returns true if 'shouldUpdateItemList' property is present, otherwise false.
+     */
     shouldUpdateItemList?: PickProp<
       IField<Data, Payload>,
       "shouldUpdateItemList"
     >;
+    /**
+     * Determines if the 'shouldUpdateTr' property should be updated.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateTr'>} shouldUpdateTr
+     * @property {boolean} shouldUpdateTr.value - The current value of the 'shouldUpdateTr' property.
+     * @property {boolean} shouldUpdateTr.isReady - Indicates if the 'shouldUpdateTr' property is ready for update.
+     * @property {boolean} shouldUpdateTr.isEnabled - Determines if the 'shouldUpdateTr' property is enabled.
+     */
     shouldUpdateTr?: PickProp<IField<Data, Payload>, "shouldUpdateTr">;
+    /**
+     * Represents the debug property of a field.
+     * @template Data - The type of data associated with the field.
+     * @template Payload - The type of payload associated with the field.
+     * @typedef {PickProp<IField<Data, Payload>, 'debug'>} debug
+     *
+     * @property {boolean} value - The value of the debug property.
+     * @property {PickProp<IField<Data, Payload>, 'debug'>} props - Additional properties of the field.
+     */
     debug?: PickProp<IField<Data, Payload>, "debug">;
+    /**
+     * Type definition for the `compute` property of an object.
+     *
+     * @template T - The type of the `IField` object.
+     * @template Payload - The type of the payload used in the `IField` object.
+     * @template K - The property key to pick from `IField<Data, Payload>`.
+     *
+     * @typedef {PickProp<T, 'compute'>} compute
+     *
+     * @param {IField<Data, Payload>} object - The `IField` object to pick the `compute` property from.
+     *
+     * @returns {compute} - The value of the `compute` property from the `IField` object.
+     */
     compute?: PickProp<IField<Data, Payload>, "compute">;
+    /**
+     * Represents the "click" property of a specific field in a data object.
+     *
+     * @template Data - The type of the data object containing the field.
+     * @template Payload - The type of the payload associated with the click event.
+     */
     click?: PickProp<IField<Data, Payload>, "click">;
+    /**
+     * Type definition for the `focus` property with pick properties.
+     *
+     * The `focus` property is used to pick a specific property from an object type.
+     * This type definition is a utility type that leverages Pick and keyof to select
+     * the specified property from the provided object type.
+     *
+     * @template T - The object type from which to pick the property.
+     * @template K - The name of the property to select.
+     *
+     * @typedef PickProp
+     * @type {Pick<T, K>}
+     */
     focus?: PickProp<IField<Data, Payload>, "focus">;
+    /**
+     * Type definition for the 'blur' property.
+     *
+     * The 'blur' property is an optional property of type PickProp<IField<Data, Payload>, 'blur'>.
+     * It represents whether the field should be blurred or not.
+     *
+     * @template Data - The data object type.
+     * @template Payload - The payload type.
+     * @property {(keyof Data | keyof Payload)[]} blur - The properties of the field to be blurred.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'blur'>} BlurType
+     */
     blur?: PickProp<IField<Data, Payload>, "blur">;
+    /**
+     * Represents the menuItems property of a field in a form.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'menuItems'>} menuItems
+     */
     menuItems?: PickProp<IField<Data, Payload>, "menuItems">;
+    /**
+     * Represents the 'menu' variable.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'menu'>} menu
+     * @property {IField<Data, Payload>} - The original field object from which the 'menu' property was picked
+     * @property {Payload} menu - The 'menu' property of the field object
+     * @property {Data} menu.data - The data associated with the 'menu' property
+     * @property {Payload} menu.payload - The payload associated with the 'menu' property
+     */
     menu?: PickProp<IField<Data, Payload>, "menu">;
+    /**
+     * Represents a map property of a field.
+     *
+     * @template Data - The type of data object associated with the field.
+     * @template Payload - The type of payload associated with the map property.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'map'>} Map
+     *
+     * @property {string} key - The key associated with the map property.
+     * @property {Payload} value - The value associated with the map property.
+     */
     map?: PickProp<IField<Data, Payload>, "map">;
+    /**
+     * Retrieves the defaultValue property from the given field.
+     *
+     * @param {IField<Data, Payload>} field - The field to get the defaultValue from.
+     * @returns {PickProp<IField<Data, Payload>, 'defaultValue'> | undefined} - The defaultValue of the field, if defined.
+     */
     defaultValue?: PickProp<IField<Data, Payload>, "defaultValue">;
+    /**
+     * Type definition for the 'hidden' property of a field in a form.
+     *
+     * @template Data - The type of data object expected by the form.
+     * @template Payload - The type of payload expected when submitting the form.
+     * @template T - The type of the 'hidden' property in the field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} hidden
+     *
+     * @property {T} hidden - The value of the 'hidden' property of the field.
+     */
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
+    /**
+     * Extracts the 'features' property from the given variable.
+     *
+     * @param {IField<Data, Payload>} variable - The variable to pick 'features' property from.
+     *
+     * @returns {PickProp<IField<Data, Payload>, 'features'>} - The extracted 'features' property.
+     */
     features?: PickProp<IField<Data, Payload>, "features">;
   }
   /**
@@ -2634,12 +2851,54 @@ declare module "react-declarative/model/IListApi" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > {
+    /**
+     * Reloads the data.
+     *
+     * @param {boolean} [keepPagination] - Indicates whether to keep the current pagination state.
+     *
+     * @returns {Promise<void>} A promise that resolves when the data has been reloaded.
+     */
     reload: (keepPagination?: boolean) => Promise<void>;
+    /**
+     * Function to trigger a re-render of the component or element.
+     *
+     * @function rerender
+     * @returns {void} Returns nothing.
+     */
     rerender: () => void;
+    /**
+     * Sets the limit value for a given variable.
+     *
+     * @param {number} limit - The limit value to be set.
+     * @returns {void}
+     */
     setLimit: (limit: number) => void;
+    /**
+     * Sets the current page number of the application.
+     *
+     * @param {number} page - The page number to set.
+     * @returns {void}
+     */
     setPage: (page: number) => void;
+    /**
+     * Sets the rows for the data table.
+     *
+     * @param {RowData[]} rows - An array of row data to set.
+     * @returns {void}
+     */
     setRows: (rows: RowData[]) => void;
+    /**
+     * Sets the filter data for filtering data.
+     *
+     * @param {FilterData} filterData - The filter data object.
+     * @returns {void}
+     */
     setFilterData: (filterData: FilterData) => void;
+    /**
+     * Retrieves the state of the list.
+     *
+     * @returns {IListState<FilterData, RowData>} The state of the list.
+     */
     getState: () => IListState<FilterData, RowData>;
   }
   export default IListApi;
@@ -2652,8 +2911,28 @@ declare module "react-declarative/model/IOneApi" {
    * @template Data - The type of data that the OneApi operates on.
    */
   export interface IOneApi<Data = IAnything> {
+    /**
+     * Reloads the current page.
+     *
+     * @function reload
+     * @returns {Promise<void>} - A Promise that resolves when the page reload is completed.
+     */
     reload: () => Promise<void>;
+    /**
+     * Changes the provided data.
+     *
+     * @param {Data} data - The data to be changed.
+     * @param {boolean} [initial=false] - Indicates if the change is an initial change.
+     * @returns {void}
+     */
     change: (data: Data, initial?: boolean) => void;
+    /**
+     * Retrieves the data.
+     *
+     * @function
+     * @name getData
+     * @returns {Data} The retrieved data.
+     */
     getData: () => Data;
   }
   export default IOneApi;
@@ -2679,6 +2958,15 @@ declare module "react-declarative/model/IListOperation" {
         isDisabled: never;
       }
     > {
+    /**
+     * Determines if the 'isAvailable' variable is a function or a boolean.
+     *
+     * @param {Array<RowData>} rowIds - Array of row identifiers.
+     * @param {boolean} isAll - Indicates if all rows are considered.
+     * @param {Payload} payload - Additional payload data.
+     *
+     * @returns {boolean | Promise<boolean>} - A boolean value or a promise resolving to a boolean indicating availability.
+     */
     isAvailable?:
       | ((
           rowIds: RowData[],
@@ -2710,7 +2998,24 @@ declare module "react-declarative/model/IListRowAction" {
         isDisabled: never;
       }
     > {
+    /**
+     * Determines the visibility of a row based on the provided row data and payload.
+     *
+     * @param {RowData} row - The data for the row being evaluated.
+     * @param {Payload} payload - Additional information or data that can be used to determine the row's visibility.
+     *
+     * @returns {Promise<boolean> | boolean} - A boolean value indicating whether the row should be visible or not.
+     *
+     * @async
+     */
     isVisible?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
+    /**
+     * Checks if a row is disabled based on the row data and payload.
+     *
+     * @param {RowData} row - The row data to check.
+     * @param {Payload} payload - The payload to use for checking.
+     * @returns {Promise<boolean> | boolean} - A Promise or boolean indicating if the row is disabled.
+     */
     isDisabled?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
     enabled?: boolean;
   }
@@ -3182,7 +3487,20 @@ declare module "react-declarative/model/IOption" {
     action?: string;
     divider?: boolean;
     icon?: React.ComponentType<any>;
+    /**
+     * Checks the visibility of a given payload.
+     *
+     * @param {Payload} payload - The payload to check visibility for.
+     * @returns {Promise<boolean> | boolean} - A Promise that resolves to a boolean value indicating the visibility status of the payload, or a boolean value directly indicating the visibility
+     * status.
+     */
     isVisible?: (payload: Payload) => Promise<boolean> | boolean;
+    /**
+     * Checks if the provided payload indicates that the element is disabled.
+     *
+     * @param {Payload} payload - The payload to check.
+     * @returns {Promise<boolean> | boolean} - A boolean value indicating if the element is disabled.
+     */
     isDisabled?: (payload: Payload) => Promise<boolean> | boolean;
   }
   export default IOption;
@@ -3203,7 +3521,20 @@ declare module "react-declarative/model/IBreadcrumbsOption" {
         isDisabled: never;
       }
     > {
+    /**
+     * Determines whether the given payload is visible.
+     *
+     * @param {T} payload - The payload to be checked for visibility.
+     * @returns {Promise<boolean> | boolean} - A promise that resolves to a boolean or a direct boolean value indicating the visibility of the payload.
+     */
     isVisible?: (payload: T) => Promise<boolean> | boolean;
+    /**
+     * Checks if the payload is disabled.
+     *
+     * @param {T} payload - The payload to check.
+     *
+     * @returns {Promise<boolean> | boolean} - A promise or a boolean indicating if the payload is disabled.
+     */
     isDisabled?: (payload: T) => Promise<boolean> | boolean;
   }
   export default IBreadcrumbsOption;
@@ -3639,6 +3970,11 @@ declare module "react-declarative/model/IMenuGroup" {
   export interface IMenuOption<T extends any = any> {
     name?: string;
     label: string;
+    /**
+     * Represents a variable called 'icon' which is a React component type that can accept any props.
+     *
+     * @typedef {React.ComponentType<any>} Icon
+     */
     icon?: React.ComponentType<any>;
     lifted?: boolean;
     roles?: string[];
@@ -3646,8 +3982,39 @@ declare module "react-declarative/model/IMenuGroup" {
     visible?: boolean;
     disabled?: boolean;
     getRoles?: ((payload: T) => string[]) | ((payload: T) => Promise<string[]>);
+    /**
+     * Determines whether the payload is in bold format.
+     *
+     * @typeparam T - The type of the payload.
+     * @param {T} payload - The payload to check.
+     * @returns {boolean | Promise<boolean>} - Returns `true` if the payload is in bold format,
+     * otherwise returns `false` or a promise that resolves to `true` or `false`.
+     */
     isBold?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
+    /**
+     * Determines if the payload is disabled.
+     *
+     * @param {T} payload - The payload to check for disablement.
+     * @return {boolean | Promise<boolean>} - Returns `true` if the payload is disabled, otherwise `false`.
+     *
+     * @callback IsDisabledCallback
+     * @param {T} payload - The payload to check for disablement.
+     * @return {boolean} - Returns `true` if the payload is disabled, otherwise `false`.
+     *
+     * @callback IsDisabledAsyncCallback
+     * @param {T} payload - The payload to check for disablement.
+     * @return {Promise<boolean>} - Returns a promise that resolves to `true` if the payload is disabled, otherwise `false`.
+     */
     isDisabled?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
+    /**
+     * Determines the visibility of a payload based on specified conditions.
+     *
+     * @param {((payload: T) => boolean) | ((payload: T) => Promise<boolean>)} isVisible - A function that takes a payload as a parameter and returns a boolean value or a Promise that resolves
+     * to a boolean value indicating visibility.
+     *
+     * @returns {boolean | Promise<boolean>} - If the isVisible function returns a boolean value, this function will return the evaluated value. If the isVisible function returns a Promise
+     *, this function will return a Promise that resolves to a boolean value.
+     */
     isVisible?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
   }
   export interface IMenuGroup<T extends any = any> extends IMenuOption<T> {
@@ -5753,15 +6120,128 @@ declare module "react-declarative/model/IOnePublicProps" {
         features: never;
       }
     > {
+    /**
+     * Represents an optional onFocus event handler.
+     *
+     * @template Data - The data type of the component.
+     * @template Payload - The type of the event payload.
+     * @template Field - The type of the focused field.
+     *
+     * @param {Data} data - The current data of the component.
+     * @param {Payload} payload - The event payload.
+     * @param {Field} field - The focused field.
+     *
+     * @return {void} - This function does not return any value.
+     */
     onFocus?: IOneProps<Data, Payload, Field>["focus"];
+    /**
+     * Called when the blur event is triggered on the component.
+     *
+     * @callback onBlurCallback
+     * @param {Data} data - The data related to the component.
+     * @param {Payload} payload - The payload associated with the blur event.
+     * @param {Field} field - The field on which the blur event occurred.
+     */
     onBlur?: IOneProps<Data, Payload, Field>["blur"];
+    /**
+     * Represents the optional 'onMenu' property of type `IOneProps<Data, Payload, Field>['menu']`.
+     * This property is used to define the event handler function when a menu action is triggered.
+     * The event handler will receive three arguments: `data`, `payload`, and `field`.
+     *
+     * @typeParam Data - The data type for the menu.
+     * @typeParam Payload - The payload type for the menu.
+     * @typeParam Field - The field type for the menu.
+     *
+     * @param {Data} data - The data associated with the menu.
+     * @param {Payload} payload - The payload associated with the menu.
+     * @param {Field} field - The field associated with the menu.
+     *
+     * @returns {void}
+     */
     onMenu?: IOneProps<Data, Payload, Field>["menu"];
+    /**
+     * Represents the `onReady` property of `IOneProps`.
+     *
+     * @template Data - The type of the data being handled.
+     * @template Payload - The type of the payload being used.
+     * @template Field - The type of the field being manipulated.
+     *
+     * @property {IOneProps<Data, Payload, Field>['ready']} [onReady] - Optional property that defines a callback
+     * function to be executed when the component is ready.
+     */
     onReady?: IOneProps<Data, Payload, Field>["ready"];
+    /**
+     * The `onChange` function is an optional property of the `IOneProps` interface.
+     * It represents the callback function that is invoked when a change event occurs.
+     *
+     * @template Data - The type of data being handled.
+     * @template Payload - The type of payload being passed to the callback function.
+     * @template Field - The type of field being modified.
+     *
+     * @param {Payload} payload - The payload passed to the callback function.
+     * @param {Field} field - The field being modified.
+     * @returns {void}
+     */
     onChange?: IOneProps<Data, Payload, Field>["change"];
+    /**
+     * Represents a callback function that gets triggered when an onClick event occurs.
+     *
+     * @template Data - The type of data associated with the component.
+     * @template Payload - The type of payload that is passed to the function.
+     * @template Field - The type of field used by the component.
+     *
+     * @param {Data} data - The data associated with the component.
+     * @param {Payload} payload - The payload passed to the function.
+     * @param {Field} field - The field used by the component.
+     *
+     * @returns {void}
+     */
     onClick?: IOneProps<Data, Payload, Field>["click"];
+    /**
+     * Represents the onInvalid callback function, an optional property of the IOneProps interface.
+     * This function is executed when the invalidity condition is met.
+     *
+     * @template Data - The type of data being processed.
+     * @template Payload - The type of payload being passed.
+     * @template Field - The type of field being validated.
+     *
+     * @param invalidity - The invalidity details of the field being validated.
+     *
+     * @returns void
+     */
     onInvalid?: IOneProps<Data, Payload, Field>["invalidity"];
+    /**
+     * Represents the `onLoadStart` event handler of a component.
+     *
+     * @template Data - The type of data passed to the component.
+     * @template Payload - The type of payload passed to the event handler.
+     * @template Field - The type of field associated with the event.
+     *
+     * @param {Payload} payload - The payload passed to the event handler.
+     *
+     * @returns {void}
+     */
     onLoadStart?: IOneProps<Data, Payload, Field>["loadStart"];
+    /**
+     * Represents the optional `onLoadEnd` property of the `IOneProps` interface.
+     *
+     * This property defines a callback function that is invoked when the loading of data ends.
+     *
+     * @template Data - The type of the data being loaded.
+     * @template Payload - The type of the payload sent with the load operation.
+     * @template Field - The type of the field affected by the load operation.
+     *
+     * @param {Data} data - The loaded data.
+     * @param {Payload} payload - The payload sent with the load operation.
+     * @param {Field} field - The field affected by the load operation.
+     * @returns {void}
+     */
     onLoadEnd?: IOneProps<Data, Payload, Field>["loadEnd"];
+    /**
+     * Represents the features of a variable.
+     *
+     * @typedef {Record<string, Value> | string[] | (() => (string[] | Record<string, Value>))} Features
+     */
     features?:
       | Record<string, Value>
       | string[]
@@ -7709,8 +8189,37 @@ declare module "react-declarative/model/TSubject" {
    * @template Data - The type of data that the subject emits.
    */
   export interface TSubject<Data = unknown> {
+    /**
+     * Subscribe to receive data updates.
+     *
+     * @param {Function} callback - The callback function to be called when data is received.
+     *                             It takes a single parameter, `data`, of type `Data`.
+     *                             The callback function is expected to have a `void` return type.
+     *
+     * @returns {Function} - The unsubscribe function. Call this function to stop receiving data updates.
+     *                      It has a `void` return type.
+     *
+     * @typedef {Object} Data - The data received by the callback function.
+     * @property {*} [property1] - The first property of the data.
+     * @property {*} [property2] - The second property of the data.
+     * @property {*} [property3] - The third property of the data.
+     */
     subscribe: (callback: (data: Data) => void) => () => void;
+    /**
+     * Executes the provided callback function once, and returns a cleanup function.
+     *
+     * @param {Function} callback - A callback function to be executed once.
+     *                            - The callback function is expected to take one argument of type Data and have no return value.
+     *
+     * @returns {Function} - A cleanup function that can be executed to cancel any pending or ongoing execution of the callback.
+     */
     once: (callback: (data: Data) => void) => () => void;
+    /**
+     * Executes the next function with the provided data.
+     *
+     * @param {Data} data - The data to be passed to the next function.
+     * @returns {void}
+     */
     next: (data: Data) => void;
   }
   export default TSubject;
@@ -7738,30 +8247,141 @@ declare module "react-declarative/model/TObserver" {
    * @template Data - The type of data emitted by the observable.
    */
   export interface TObserver<Data = unknown> {
+    /**
+     * Unsubscribe Function
+     *
+     * @returns {void}
+     */
     unsubscribe: () => void;
+    /**
+     * Applies a callback function to each value in a map and returns an observer for the result.
+     *
+     * @template T - The generic type of the result
+     * @param {function(value: Data): T} callbackfn - The callback function to be applied to each value
+     * @returns {TObserver<T>} - An observer for the result of the callback function
+     */
     map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
+    /**
+     * Applies a callback function to each element of the Data array and flattens the result into a single array.
+     *
+     * @template T - The type of elements in the result array.
+     * @param {Function} callbackfn - A function that transforms each element of the Data array into an array of values.
+     * @returns {TObserver<T>} - An observer that emits the flattened array of transformed values.
+     */
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
+    /**
+     * Represents a function to reduce the data in an array-like structure.
+     *
+     * @template T - The type of the accumulator and current value.
+     * @param {function(acm: T, cur: Data): T} callbackfn - A function that accepts the accumulator (acm) and the current value (cur), and returns the new accumulator value.
+     * @param {T} begin - The initial value of the accumulator.
+     * @returns {TObserver<T>} - Returns a TObserver object to observe the reduced value.
+     */
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
       begin: T,
     ) => TObserver<T>;
+    /**
+     * Asynchronously applies a callback function to each element of the data stream and returns a TObserver<T> object.
+     *
+     * @template T - The type of the result returned by the callback function.
+     * @param {function(value: Data): Promise<T>} callbackfn - The callback function to apply to each element of the data stream.
+     * @param {function(e: Error): void} [fallbackfn] - Optional fallback function to handle any errors that occur during the mapping process.
+     * @returns {TObserver<T>} - The observer object that can be used to subscribe and handle the mapped data stream.
+     */
     mapAsync: <T = unknown>(
       callbackfn: (value: Data) => Promise<T>,
       fallbackfn?: (e: Error) => void,
     ) => TObserver<T>;
+    /**
+     * @template T - The type of the target observer
+     * @param {Function} callbackfn - The callback function to be executed
+     * @returns {TObserver<T>} - The observer of type T
+     */
     operator: <T = any>(
       callbackfn: (target: TObserver<Data>) => TObserver<T>,
     ) => TObserver<T>;
+    /**
+     * Creates a filtered observer that applies a callback function to each value emitted by the source observer and only emits the values for which the callback returns true.
+     *
+     * @param {function(value: Data): boolean} callbackfn - A function called for each value emitted by the source observer. Should return true to include the value in the filtered observer
+     *, or false otherwise.
+     * @returns {TObserver<Data>} A new observer that only emits values for which the callback returns true.
+     */
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
+    /**
+     * Merges the provided observer with another observer of type T, returning a new observer that emits values
+     * of type `Data | T`.
+     *
+     * @template T - The type of the observer to merge with.
+     * @param {TObserver<T>} observer - The observer to merge with.
+     * @returns {TObserver<Data | T>} - The merged observer.
+     */
     merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
+    /**
+     * Represents a tap function that takes a callback function to be executed.
+     *
+     * @param {callbackfn} callbackfn - The callback function to be executed.
+     * @returns {TObserver<Data>} - The observer used for subscribing to the tap function.
+     *
+     * @template Data - The type of data that the callback function takes as input.
+     */
     tap: (callbackfn: (value: Data) => void) => TObserver<Data>;
+    /**
+     * Represents a function that splits an array into multiple arrays of a specified length.
+     *
+     * @returns {TObserver<ReadonlyArray<FlatArray<Data[], 20>>>} An observer that emits an array of arrays where each subarray contains a maximum of 20 elements.
+     */
     split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
+    /**
+     * Creates a debounced observer with optional delay.
+     *
+     * @param {number} [delay] - The delay in milliseconds before emitting the observation.
+     * @returns {TObserver<Data>} - The debounced observer.
+     */
     debounce: (delay?: number) => TObserver<Data>;
+    /**
+     * A function that returns an observer with optional interval.
+     *
+     * @param {number} [interval] - The optional interval in milliseconds.
+     * @returns {TObserver<Data>} - An observer.
+     */
     repeat: (interval?: number) => TObserver<Data>;
+    /**
+     * Represents a connection with a callback function.
+     * @typicalname connect
+     *
+     * @param {function} callbackfn - The callback function to be executed when a value is received.
+     * @param {Data} value - The value received by the callback function.
+     * @returns {function} - A function that can be used to disconnect the connection.
+     */
     connect: (callbackfn: (value: Data) => void) => () => void;
+    /**
+     * Executes a given callback function once and returns a function that can be used to cancel the execution.
+     *
+     * @param {function} callbackfn - The callback function to execute once.
+     * @returns {function} - A function that can be used to cancel the execution of the callback function.
+     */
     once: (callbackfn: (value: Data) => void) => () => void;
+    /**
+     * Represents a function that returns a TObserver object.
+     *
+     * @typedef {Function} share
+     * @returns {TObserver<Data>} The TObserver object
+     */
     share: () => TObserver<Data>;
+    /**
+     * Converts the given value to a Promise with the specified data type.
+     *
+     * @function toPromise
+     * @returns {Promise<Data>} A Promise with the specified data type.
+     */
     toPromise: () => Promise<Data>;
+    /**
+     * Represents an iterator context.
+     *
+     * @interface
+     */
     toIteratorContext: () => {
       iterate(): AsyncGenerator<Data, void, unknown>;
       done(): void;
@@ -12351,17 +12971,100 @@ declare module "react-declarative/model/ComponentFieldInstance" {
    * @template Payload - The payload type of the field.
    */
   export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
+    /**
+     * A callback function type that is called when a change event occurs.
+     *
+     * @callback onChange
+     * @param {Partial<Data>} data - The partial data that has changed.
+     * @returns {void}
+     */
     onChange: (data: Partial<Data>) => void;
+    /**
+     * Callback function to handle the change event of a managed data object.
+     *
+     * @callback onValueChange
+     * @memberof IManaged
+     * @template Data - The type of data managed by the object.
+     * @template Payload - The type of payload passed to the change event handler.
+     * @param {Data} data - The updated data after the change.
+     * @param {Payload} payload - The payload passed to the change event handler.
+     * @returns {void}
+     */
     onValueChange: IManaged<Data, Payload>["onChange"];
+    /**
+     * Represents the field data.
+     *
+     * @typedef {object} FieldData
+     * @property {Data} data - The data object.
+     */
     _fieldData: Data;
+    /**
+     * Represents a field parameter for a particular field.
+     *
+     * @typedef {Object} IField
+     * @property {string} name - The name of the field.
+     * @property {string} type - The data type of the field.
+     * @property {boolean} required - Indicates if the field is required.
+     * @property {number} length - The maximum length of the field value.
+     */
     _fieldParams: IField;
+    /**
+     * Represents the context variable.
+     *
+     * @typedef {Record<string, any>} Context
+     */
     context: Record<string, any>;
+    /**
+     * Represents whether an outline paper is present.
+     *
+     * @type {boolean}
+     */
     outlinePaper: boolean;
+    /**
+     * Represents whether the paper is transparent.
+     *
+     * @type {boolean}
+     */
     transparentPaper: boolean;
+    /**
+     * Represents a payload object.
+     *
+     * @class
+     * @classdesc This class represents a payload object that can be used to send data between systems.
+     */
     payload: Payload;
+    /**
+     * Represents the state of disablement.
+     *
+     * @typedef {boolean} Disabled
+     */
     disabled: boolean;
+    /**
+     * Indicates whether a variable is read-only or not.
+     *
+     * @type {boolean}
+     */
     readonly: boolean;
+    /**
+     * The 'incorrect' property of IManaged<Data, Payload> interface represents the incorrect value of a managed data object.
+     *
+     * @template Data - The type of the managed data object.
+     * @template Payload - The type of data payload that represents the incorrect value.
+     *
+     * @type {Payload}
+     */
     incorrect: IManaged<Data, Payload>["incorrect"];
+    /**
+     * Represents the `invalid` property of the `IManaged` interface.
+     *
+     * This property stores the invalid state of a managed object in relation to
+     * its data and payload types.
+     *
+     * @template Data - The data type of the managed object.
+     * @template Payload - The payload type of the managed object.
+     *
+     * @type {boolean}
+     */
     invalid: IManaged<Data, Payload>["invalid"];
     features: string[];
   };
@@ -12533,8 +13236,34 @@ declare module "react-declarative/model/IFieldMenu" {
         isDisabled: never;
       }
     > {
+    /**
+     * Determines the visibility of an element based on the given data and payload.
+     *
+     * @param {Data} data - The data used for determining visibility.
+     * @param {Payload} payload - Additional payload used for determining visibility.
+     * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean value or a boolean value indicating the visibility of the element.
+     */
     isVisible?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
+    /**
+     * Checks whether the given data and payload indicate that the feature is disabled.
+     *
+     * @param {Data} data - The data used to determine if the feature is disabled.
+     * @param {Payload} payload - The payload used to determine if the feature is disabled.
+     * @returns {Promise<boolean> | boolean} - Returns a Promise resolving to a boolean indicating whether the feature is disabled. If a Promise is returned, it resolves to `true` if the
+     * feature is disabled, otherwise it resolves to `false`. If a boolean is returned directly, it indicates whether the feature is disabled.
+     */
     isDisabled?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
+    /**
+     * Represents a callback function that is triggered on click event.
+     * @callback onClick
+     * @param {Data} data - The data object associated with the click event.
+     * @param {Payload} payload - The payload object associated with the click event.
+     * @param {function} onValueChange - A callback function that is called when the value of `data` is changed.
+     *                                  It is passed the new value as a parameter.
+     * @param {function} onChange - A callback function that is called when any change occurs in `data`.
+     *                             It is passed the updated `data` object as a parameter.
+     * @returns {void}
+     */
     onClick?: (
       data: Data,
       payload: Payload,

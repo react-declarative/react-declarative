@@ -22,11 +22,15 @@ isDisabled: (v: Data, payload: Payload) => boolean
 isReadonly: (v: Data, payload: Payload) => boolean
 ```
 
+Retrieves the value of the 'isReadonly' property from the given variable.
+
 ### features
 
 ```ts
 features: string[]
 ```
+
+Retrieves the 'features' property from a given variable.
 
 ### disabled
 

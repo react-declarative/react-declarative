@@ -18,11 +18,15 @@ isDisabled: (v: Data, payload: Payload) => boolean
 isVisible: (v: Data, payload: Payload) => boolean
 ```
 
+Determines the visibility of a field.
+
 ### isReadonly
 
 ```ts
 isReadonly: (v: Data, payload: Payload) => boolean
 ```
+
+Retrieves the value of the 'isReadonly' property from the given variable.
 
 ### isInvalid
 
@@ -35,6 +39,8 @@ isInvalid: (v: Data, payload: Payload) => string
 ```ts
 isIncorrect: (v: Data, payload: Payload) => string
 ```
+
+Checks if the field is incorrect.
 
 ### invalidity
 
@@ -54,6 +60,8 @@ shouldRecompute: (prevData: Data, nextData: Data, payload: Payload) => boolean
 shouldUpdateItemList: (prevData: Data, currentData: Data, payload: Payload) => boolean
 ```
 
+Check if 'shouldUpdateItemList' property is present in the given variable.
+
 ### shouldUpdateTr
 
 ```ts
@@ -72,11 +80,15 @@ debug: (params: IDebug<Data, Payload>) => void
 compute: (v: Data, payload: Payload) => Value | Promise<Value>
 ```
 
+Type definition for the `compute` property of an object.
+
 ### click
 
 ```ts
 click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
 ```
+
+Represents the "click" property of a specific field in a data object.
 
 ### focus
 
@@ -114,6 +126,8 @@ map: (data: Data, payload: Payload) => Data
 defaultValue: Value | ((payload: Payload) => Value)
 ```
 
+Retrieves the defaultValue property from the given field.
+
 ### hidden
 
 ```ts
@@ -125,3 +139,5 @@ hidden: boolean | ((payload: Payload) => boolean)
 ```ts
 features: string[]
 ```
+
+Extracts the 'features' property from the given variable.

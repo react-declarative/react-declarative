@@ -10,8 +10,12 @@ Represents the options for the Breadcrumbs component.
 isVisible: (payload: T) => boolean | Promise<boolean>
 ```
 
+Determines whether the given payload is visible.
+
 ### isDisabled
 
 ```ts
 isDisabled: (payload: T) => boolean | Promise<boolean>
 ```
+
+Checks if the payload is disabled.

@@ -13,7 +13,24 @@ export interface IListRowAction<RowData extends IRowData = IAnything, Payload ex
     isVisible: never;
     isDisabled: never;
 }> {
+    /**
+     * Determines the visibility of a row based on the provided row data and payload.
+     *
+     * @param {RowData} row - The data for the row being evaluated.
+     * @param {Payload} payload - Additional information or data that can be used to determine the row's visibility.
+     *
+     * @returns {Promise<boolean> | boolean} - A boolean value indicating whether the row should be visible or not.
+     *
+     * @async
+     */
     isVisible?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
+    /**
+     * Checks if a row is disabled based on the row data and payload.
+     *
+     * @param {RowData} row - The row data to check.
+     * @param {Payload} payload - The payload to use for checking.
+     * @returns {Promise<boolean> | boolean} - A Promise or boolean indicating if the row is disabled.
+     */
     isDisabled?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
     enabled?: boolean;
 }

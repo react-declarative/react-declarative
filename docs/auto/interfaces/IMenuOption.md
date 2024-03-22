@@ -64,14 +64,20 @@ getRoles: ((payload: T) => string[]) | ((payload: T) => Promise<string[]>)
 isBold: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>)
 ```
 
+Determines whether the payload is in bold format.
+
 ### isDisabled
 
 ```ts
 isDisabled: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>)
 ```
 
+Determines if the payload is disabled.
+
 ### isVisible
 
 ```ts
 isVisible: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>)
 ```
+
+Determines the visibility of a payload based on specified conditions.
