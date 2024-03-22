@@ -1,5 +1,7 @@
 # IParams
 
+Interface for defining parameters for a component.
+
 ## Properties
 
 ### name

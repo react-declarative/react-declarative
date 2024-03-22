@@ -5545,6 +5545,9 @@ declare module "react-declarative/model/History" {
 
 declare module "react-declarative/components/One/components/common/VirtualListBox" {
   import * as React from "react";
+  /**
+   * Interface for the props of the VirtualListBox component.
+   */
   interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
     children?: React.ReactNode;
   }
@@ -14216,6 +14219,12 @@ declare module "react-declarative/components/RecordView/RecordView" {
 
 declare module "react-declarative/components/RecordView/helpers/excelExport" {
   import IData from "react-declarative/components/RecordView/model/IData";
+  /**
+   * Export data to Excel.
+   *
+   * @param data - The data to export to Excel.
+   * @param [sheetName="Records"] - The name of the sheet in the Excel file. Default is "Records".
+   */
   export const excelExport: (data: IData, sheetName?: string) => void;
   export default excelExport;
 }
@@ -14994,6 +15003,10 @@ declare module "react-declarative/components/Async/Async" {
 declare module "react-declarative/components/One/components/SlotFactory/SlotFactory" {
   import * as React from "react";
   import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * Represents the properties for the ISlotFactory component.
+   * @interface
+   */
   interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
     children: React.ReactNode;
   }
@@ -18052,6 +18065,13 @@ declare module "react-declarative/components/OutletView/hooks/useOutletModal" {
   import History from "react-declarative/model/History";
   import Id from "react-declarative/components/OutletView/model/Id";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface representing the parameters for a component.
+   *
+   * @template Data - The type of data that the component expects.
+   * @template Payload - The type of payload that will be passed to the onSubmit callback.
+   * @template Params - The type of additional parameters that can be passed to the component.
+   */
   interface IParams<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
@@ -20187,10 +20207,18 @@ declare module "react-declarative/components/KanbanView/model/IBoardRow" {
 declare module "react-declarative/components/ReloadView/ReloadView" {
   import * as React from "react";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface for the props of a ReloadView component.
+   */
   interface IReloadViewProps {
     reloadTrigger: TSubject<any>;
     children?: React.ReactNode;
   }
+  /**
+   * Represents a reload view component.
+   * @class
+   * @public
+   */
   export class ReloadView extends React.Component<IReloadViewProps> {
     _disconnectListener: (() => void) | undefined;
     doSubscribe: () => void;
@@ -22402,6 +22430,11 @@ declare module "react-declarative/components/One/components/makeField/makeField"
   import IManaged from "react-declarative/model/IManaged";
   import IEntity from "react-declarative/model/IEntity";
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the configuration options for makeField hoc.
+   *
+   * @template Data - The type of data the configuration will handle.
+   */
   interface IConfig<Data = IAnything> {
     withApplyQueue?: boolean;
     skipDebounce?: boolean;
@@ -22491,15 +22524,27 @@ declare module "react-declarative/components/One/components/common/MenuItems" {
   import * as React from "react";
   import IField, { Value } from "react-declarative/model/IField";
   import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Interface for defining parameters for a component.
+   *
+   * @interface
+   */
   export interface IParams {
     name: Exclude<IField["name"], undefined>;
     menuItems: Exclude<IField["menuItems"], undefined>;
     onValueChange: (value: Value) => void;
     menu: Exclude<IField["menu"], undefined>;
   }
+  /**
+   * Represents the IRequest interface.
+   * This interface extends IParams interface, and adds an event property of type React.MouseEvent<HTMLDivElement>.
+   */
   export interface IRequest extends IParams {
     event: React.MouseEvent<HTMLDivElement>;
   }
+  /**
+   * Represents the properties for the MenuItems component
+   */
   interface IMenuItemsProps {
     requestSubject: TSubject<IRequest>;
   }
@@ -22774,6 +22819,12 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
   import TSubject from "react-declarative/model/TSubject";
   import ISize from "react-declarative/model/ISize";
   import Id from "react-declarative/components/OutletView/model/Id";
+  /**
+   * Interface for the OutletModalProps class.
+   * @template Data - The data type for storing the data.
+   * @template Payload - The payload type.
+   * @template Params - The params type.
+   */
   export interface IOutletModalProps<
     Data extends {} = Record<string, any>,
     Payload = IAnything,
@@ -22842,6 +22893,46 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     onUnmount?: () => void;
     onClose?: () => void;
   }
+  /**
+   * A modal component for displaying and editing data.
+   *
+   * @template Data - The type of the data to be displayed in the modal.
+   * @template Payload - The type of the payload to be passed when submitting the form.
+   * @template Params - The type of the parameters to pass to the map functions.
+   *
+   * @typedef {Object} OutletModal
+   * @property {boolean} withActionButton - Determines whether to display an action button in the modal. Default is `false`.
+   * @property {boolean} hidden - Determines whether the modal is hidden. Default is `false`.
+   * @property {function} onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
+   * @property {function} onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
+   * @property {function} mapParams - Function to transform the outlet ID into request parameters. Default is `(id) => ({ id })`.
+   * @property {function} mapInitialData - Function to map the outlet ID and additional arguments to initial data. Default is `(id) => ({ id })`.
+   * @property {function} mapPayload - Function to map the outlet ID and additional arguments to payload data. Default is `(id) => ({ id })`.
+   * @property {boolean} fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
+   * @property {Object} sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
+   * @property {function} onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
+   * @property {function} onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
+   * @property {Object} fallback - Fallback component to be rendered if an error occurs.
+   * @property {Object} reloadSubject - Observable subject for triggering a reload of the modal.
+   * @property {Object} outletIdSubject - Observable subject for providing the outlet ID.
+   * @property {function} fetchState - Function to return the current fetch state. Default is `() => ({})`.
+   * @property {Object} AfterTitle - Component to be rendered after the title.
+   * @property {Object} BeforeTitle - Component to be rendered before the title.
+   * @property {string} title - The title of the modal.
+   * @property {Data} data - The initial data to be displayed in the modal. Default is `null`.
+   * @property {boolean} withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
+   * @property {boolean} throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
+   * @property {string} submitLabel - The label of the action button. Default is "Submit".
+   * @property {number} waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
+   * @property {boolean} readonly - Determines whether the modal is in read-only mode. Default is `false`.
+   * @property {function} onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
+   * @property {function} onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
+   * @property {function} onClose - Callback function that is called when the modal is closed. Default is `() => null`.
+   * @property {Object} outletProps - Additional props to pass to the `OutletView` component.
+   *
+   * @param props - The props for the OutletModal component.
+   * @returns - The rendered outlet modal component.
+   */
   export const OutletModal: <
     Data extends {} = Record<string, any>,
     Payload = any,
@@ -23851,6 +23942,11 @@ declare module "react-declarative/components/One/slots/FileSlot/FileSlot" {
 }
 
 declare module "react-declarative/components/One/components/OneConfig/OneConfigInstance" {
+  /**
+   * Represents a configuration object for the one component.
+   *
+   * @interface IConfig
+   */
   export interface IConfig {
     WITH_DIRTY_CLICK_LISTENER: boolean;
     WITH_MOBILE_READONLY_FALLBACK: boolean;

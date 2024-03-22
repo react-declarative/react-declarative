@@ -33,6 +33,10 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents the state of a certain component.
+ * @interface
+ */
 interface IState {
   component: React.ComponentType<any>;
   activeOption: string;
@@ -168,11 +172,23 @@ export const OutletView = <
     [onChange]
   );
 
+  /**
+   * Handles the load start event.
+   * Calls the `onLoadStart` function if it exists.
+   * Increases the value of the `loading` variable by 1.
+   *
+   * @function
+   */
   const handleLoadStart = () => {
     onLoadStart && onLoadStart();
     setLoading((loading) => loading + 1);
   };
 
+  /**
+   * Handles the end of loading process.
+   * @param isOk - Indicates whether the loading process was successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     onLoadEnd && onLoadEnd(isOk);
     setLoading((loading) => loading - 1);
@@ -184,12 +200,27 @@ export const OutletView = <
   const waitForRender = useRenderWaiter([data, changed], 10);
   const waitForLeave = () => leaveSubject.toPromise();
 
+  /**
+   * Executes the afterSave function.
+   *
+   * @async
+   * @function afterSave
+   * @returns A promise that resolves after executing the afterSave function.
+   */
   const afterSave = async () => {
     unsubscribeRef.current && unsubscribeRef.current();
     setChanged(false);
     await Promise.race([waitForRender(), waitForLeave()]);
   };
 
+  /**
+   * Waits for changes to occur.
+   *
+   * @async
+   * @function waitForChanges
+   * @returns A Promise that resolves when changes occur.
+   * @throws {Error} If an error occurs during the process.
+   */
   const waitForChanges = async () => {
     const unblock = history.block(() => {});
     handleLoadStart();
@@ -201,6 +232,10 @@ export const OutletView = <
     }
   };
 
+  /**
+   * Asynchronous function that saves the data if it has changed and passes validation checks.
+   * @returns Returns a promise that resolves with a boolean indicating if the save operation was successful.
+   */
   const beginSave = async () => {
     if (!hasChanged$.current) {
       return false;
@@ -283,12 +318,26 @@ export const OutletView = <
       });
     };
 
+    /**
+     * Handles navigation logic by waiting for confirmation,
+     * unsubscribing, and retrying if necessary.
+     *
+     * @param retry - A function to be called if navigation retry is necessary
+     * @returns - A promise that resolves after completing the navigation handling
+     */
     const handleNavigate = async (retry: () => void) => {
       const isOk = await waitForConfirm();
       isOk && unsubscribe();
       isOk && retry();
     };
 
+    /**
+     * Creates a router subject.
+     *
+     * @returns A function to initialize the router subject.
+     *
+     * @param history.block - A function that listens for history changes.
+     */
     const createRouterSubject = () =>
       history.block(({ retry, location }) => {
         if (
@@ -303,6 +352,10 @@ export const OutletView = <
         handleNavigate(retry);
       });
 
+    /**
+     * Creates an unload subject that adds an event listener for the "beforeunload" event and returns a function to remove the event listener.
+     * @returns A function that removes the event listener.
+     */
     const createUnloadSubject = () => {
       const handler = (e: any) => {
         e.preventDefault();
@@ -317,12 +370,32 @@ export const OutletView = <
     let unsubscribeRouter: ReturnType<typeof createRouterSubject>;
     let unsubscribeUnload: ReturnType<typeof createUnloadSubject>;
 
+    /**
+     * Unsubscribe function
+     *
+     * This function is used to unsubscribe from various event handlers or clean up resources.
+     * It checks for the existence of specific unsubscribe functions and calls them accordingly.
+     * It also sets the `unsubscribeRef.current` to `null`.
+     *
+     * @function
+     * @name unsubscribe
+     * @returns
+     */
     const unsubscribe = () => {
       unsubscribeRouter && unsubscribeRouter();
       unsubscribeUnload && unsubscribeUnload();
       unsubscribeRef.current = null;
     };
 
+    /**
+     * Initializes the subscription.
+     *
+     * This function creates a router subject and an unload subject, and assigns them
+     * to the corresponding variables. It also assigns the unsubscribe function to
+     * `unsubscribeRef.current`.
+     *
+     * @returns
+     */
     const subscribe = () => {
       unsubscribeRouter = createRouterSubject();
       unsubscribeUnload = createUnloadSubject();
@@ -336,6 +409,15 @@ export const OutletView = <
     return unsubscribe;
   }, [data, changed, pathname]);
 
+  /**
+   * Handles the change of a specific data item.
+   *
+   * @param id - The ID of the data item.
+   * @param pendingData - The pending data to be assigned to the data item.
+   * @param initial - Indicates if it is the initial change or not.
+   *
+   * @returns
+   */
   const handleChange = (
     id: string,
     pendingData: Data[keyof Data],
@@ -355,6 +437,12 @@ export const OutletView = <
     changeRef.current = id;
   };
 
+  /**
+   * A memoized function that handles rendering based on the current pathname.
+   *
+   * @type {Function}
+   * @return {Promise<void>} A promise that resolves when the rendering is complete.
+   */
   const renderHandler = useMemo(
     () =>
       queued(async () => {
@@ -383,6 +471,19 @@ export const OutletView = <
     renderHandler();
   }, [pathname]);
 
+  /**
+   * Memoized form state object.
+   *
+   * @typedef {Object} FormState
+   *
+   * @property {Data} data - The current form data.
+   * @property {boolean} hasChanged - Indicates whether the form data has changed.
+   * @property {boolean} hasLoading - Indicates whether the form is currently loading.
+   * @property {boolean} hasInvalid - Indicates whether the form data is invalid.
+   * @property {string} id - The ID of the form (either "create" or a custom ID from `params`).
+   * @property {function} change - A function to update the form data and set the `hasChanged` flag.
+   * @property {Payload} payload - An optional payload associated with the form.
+   */
   const formState = useMemo(
     () => ({
       data,
@@ -408,6 +509,11 @@ export const OutletView = <
     ]
   );
 
+  /**
+   * Represents the properties for an outlet component.
+   *
+   * @template Data - The type of data that will be handled by the outlet component.
+   */
   const outletProps: IOutletProps<Data> = {
     dirty: hasInvalid || hasChanged,
     history,

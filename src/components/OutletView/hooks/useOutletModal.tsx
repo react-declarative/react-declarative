@@ -14,6 +14,13 @@ import History from "../../../model/History";
 import Id from "../model/Id";
 import TSubject from "../../../model/TSubject";
 
+/**
+ * Interface representing the parameters for a component.
+ *
+ * @template Data - The type of data that the component expects.
+ * @template Payload - The type of payload that will be passed to the onSubmit callback.
+ * @template Params - The type of additional parameters that can be passed to the component.
+ */
 interface IParams<
   Data extends {} = Record<string, any>,
   Payload = IAnything,

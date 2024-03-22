@@ -5,6 +5,10 @@ import IField from "../../../../../model/IField";
 
 import singleshot from "../../../../../utils/hof/singleshot";
 
+/**
+ * Represents the parameters required for a computation.
+ * @interface
+ */
 interface IParams {
   compute: IField["compute"];
   shouldRecompute: IField["shouldRecompute"];

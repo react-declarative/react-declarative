@@ -112,6 +112,12 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Flattens a menu hierarchy into a single-level array of items.
+ * @param items - The menu items to flatten.
+ * @param items[].options - The submenu options for the menu item.
+ * @returns - The flattened menu items.
+ */
 const flatifyMenu = (items: IScaffoldGroup[]) => {
   const result = [];
   while (items.length) {
@@ -123,6 +129,16 @@ const flatifyMenu = (items: IScaffoldGroup[]) => {
   return result;
 };
 
+/**
+ * Filters the given array of options based on the provided keyword and current roles.
+ *
+ * @param options - The array of options to filter.
+ * @param config - The configuration object.
+ * @param config.keyword - The keyword to filter the options by.
+ * @param [config.currentRoles] - The current roles to use for filtering.
+ *
+ * @returns - The filtered array of options.
+ */
 const filerFlatMenu = (options: IScaffoldOption[], {
   keyword,
   currentRoles,
@@ -146,6 +162,10 @@ const cleanupMenu = (entry: Partial<IScaffoldGroup>, allowed: Set<IScaffoldGroup
     }
   });
 
+/**
+ * Interface representing the properties of a content component.
+ * @template T - The type of the content component props.
+ */
 interface IContentProps<T extends any = any> extends Omit<IScaffoldProps<T>, keyof {
   roles: never;
   throwError: never;
@@ -154,6 +174,30 @@ interface IContentProps<T extends any = any> extends Omit<IScaffoldProps<T>, key
   roles?: string[];
 }
 
+/**
+ * Render the main content scaffold for the application.
+ *
+ * @template T - Type for the content
+ * @param props - The component props
+ * @param props.children - The content to be rendered inside the scaffold
+ * @param [props.className] - Additional CSS class for the scaffold
+ * @param [props.style] - Inline CSS styles for the scaffold
+ * @param [props.selected] - Flag indicating if the scaffold is selected
+ * @param [props.title='Scaffold'] - The title of the scaffold
+ * @param [props.options=[]] - Array of menu options for the scaffold
+ * @param [props.dense=false] - Flag indicating if the scaffold should be rendered in dense mode
+ * @param [props.colored=true] - Flag indicating if the scaffold should be rendered with color
+ * @param [props.actions] - Array of action options for the scaffold
+ * @param [props.payload] - The payload data for the scaffold
+ * @param [props.roles] - Array of roles for the scaffold
+ * @param [props.onOptionClick] - Callback function when a menu option is clicked
+ * @param [props.onAction] - Callback function when an action is triggered
+ * @param [props.BeforeSearch] - Optional component to render above the search bar
+ * @param [props.AfterSearch] - Optional component to render below the search bar
+ * @param [props.AfterMenuContent] - Optional component to render after the menu content
+ * @param [props.BeforeMenuContent] - Optional component to render before the menu content
+ * @returns - The rendered scaffold component
+ */
 export const Content = <T extends any = any>({
   children,
   className,

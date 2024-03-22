@@ -38,6 +38,12 @@ const WAIT_FOR_CHANGES_DELAY = 1_000;
 const MODAL_ROOT = "outlet-modal__root";
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Interface for the OutletModalProps class.
+ * @template Data - The data type for storing the data.
+ * @template Payload - The payload type.
+ * @template Params - The params type.
+ */
 export interface IOutletModalProps<
   Data extends {} = Record<string, any>,
   Payload = IAnything,
@@ -152,6 +158,9 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the small size request for an outlet modal.
+ */
 const SMALL_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
@@ -163,6 +172,17 @@ const SMALL_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = () => ({
   },
 });
 
+/**
+ * Represents a function that modifies the height and width of an outlet modal.
+ *
+ * @param sizeRequest - The original size request of the outlet modal.
+ * @param sizeRequest.height - The original height of the outlet modal.
+ * @param sizeRequest.width - The original width of the outlet modal.
+ *
+ * @returns - The modified size request of the outlet modal.
+ * @returns - The modified height of the outlet modal.
+ * @returns - The modified width of the outlet modal.
+ */
 const LARGE_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = ({
   height,
   width,
@@ -172,6 +192,46 @@ const LARGE_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = ({
 });
 
 
+/**
+ * A modal component for displaying and editing data.
+ *
+ * @template Data - The type of the data to be displayed in the modal.
+ * @template Payload - The type of the payload to be passed when submitting the form.
+ * @template Params - The type of the parameters to pass to the map functions.
+ *
+ * @typedef {Object} OutletModal
+ * @property {boolean} withActionButton - Determines whether to display an action button in the modal. Default is `false`.
+ * @property {boolean} hidden - Determines whether the modal is hidden. Default is `false`.
+ * @property {function} onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
+ * @property {function} onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
+ * @property {function} mapParams - Function to transform the outlet ID into request parameters. Default is `(id) => ({ id })`.
+ * @property {function} mapInitialData - Function to map the outlet ID and additional arguments to initial data. Default is `(id) => ({ id })`.
+ * @property {function} mapPayload - Function to map the outlet ID and additional arguments to payload data. Default is `(id) => ({ id })`.
+ * @property {boolean} fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
+ * @property {Object} sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
+ * @property {function} onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
+ * @property {function} onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
+ * @property {Object} fallback - Fallback component to be rendered if an error occurs.
+ * @property {Object} reloadSubject - Observable subject for triggering a reload of the modal.
+ * @property {Object} outletIdSubject - Observable subject for providing the outlet ID.
+ * @property {function} fetchState - Function to return the current fetch state. Default is `() => ({})`.
+ * @property {Object} AfterTitle - Component to be rendered after the title.
+ * @property {Object} BeforeTitle - Component to be rendered before the title.
+ * @property {string} title - The title of the modal.
+ * @property {Data} data - The initial data to be displayed in the modal. Default is `null`.
+ * @property {boolean} withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
+ * @property {boolean} throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
+ * @property {string} submitLabel - The label of the action button. Default is "Submit".
+ * @property {number} waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
+ * @property {boolean} readonly - Determines whether the modal is in read-only mode. Default is `false`.
+ * @property {function} onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
+ * @property {function} onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
+ * @property {function} onClose - Callback function that is called when the modal is closed. Default is `() => null`.
+ * @property {Object} outletProps - Additional props to pass to the `OutletView` component.
+ *
+ * @param props - The props for the OutletModal component.
+ * @returns - The rendered outlet modal component.
+ */
 export const OutletModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything,

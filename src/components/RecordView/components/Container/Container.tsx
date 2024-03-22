@@ -18,6 +18,10 @@ import IRecordViewProps from '../../model/IRecordViewProps';
 import useSearch from '../../context/SearchContext';
 import usePreventAutofill from '../../../../hooks/usePreventAutofill';
 
+/**
+ * Interface for ContainerProps which extends BoxProps
+ * @interface
+ */
 export interface IContainerProps extends BoxProps {
   keyWidth: GridSize;
   valueWidth: GridSize;
@@ -55,6 +59,22 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Container is a React component that displays a searchable content container with various customizable options.
+ *
+ * @param props - The props object containing properties for configuring the Container component.
+ * @param props.formatValue - The function to format the display value of each item in the container.
+ * @param props.formatKey - The function to format the display key of each item in the container.
+ * @param props.keyWidth - The width of the key column in pixels.
+ * @param props.valueWidth - The width of the value column in pixels.
+ * @param props.totalWidth - The total width of the container in pixels.
+ * @param props.background - The CSS background property for the container.
+ * @param props.BeforeSearch - The component to render before the search input field.
+ * @param props.AfterSearch - The component to render after the search input field.
+ * @param props.payload - Custom payload data to be passed to BeforeSearch and AfterSearch components.
+ * @param otherProps - Other properties to be passed down to the container element.
+ * @returns - The rendered Container component.
+ */
 export const Container = ({
   formatValue,
   formatKey,

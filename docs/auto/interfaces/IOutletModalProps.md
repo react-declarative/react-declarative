@@ -1,5 +1,7 @@
 # IOutletModalProps
 
+Interface for the OutletModalProps class.
+
 ## Properties
 
 ### sizeRequest

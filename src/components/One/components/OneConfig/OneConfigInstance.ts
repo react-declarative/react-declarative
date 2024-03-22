@@ -1,5 +1,10 @@
 import { BLUR_DEBOUNCE, FIELD_DEBOUNCE } from "../../config/config";
 
+/**
+ * Represents a configuration object for the one component.
+ *
+ * @interface IConfig
+ */
 export interface IConfig {
     WITH_DIRTY_CLICK_LISTENER: boolean;
     WITH_MOBILE_READONLY_FALLBACK: boolean;

@@ -14,6 +14,9 @@ import IRecordViewProps from '../../model/IRecordViewProps';
 import classNames from '../../../../utils/classNames';
 import isObject from '../../../../utils/isObject';
 
+/**
+ * Represents the properties of an item in a record view.
+ */
 export interface IItemProps extends Pick<IRecordViewProps, keyof {
   keyWidth: never;
   valueWidth: never;
@@ -32,6 +35,12 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   withDarkParent?: boolean;
 }
 
+/**
+ * Returns display value for a given variable.
+ *
+ * @param value - The value to be displayed.
+ * @returns - The display value.
+ */
 const row = (value: React.ReactNode) => {
   if (value == null || value === undefined || value === '' || value === 'null') {
     return '—';
@@ -59,6 +68,9 @@ const row = (value: React.ReactNode) => {
   }
 };
 
+/**
+ * Represents the props for an item in a record view.
+ */
 export interface IItemProps extends Pick<IRecordViewProps, keyof {
   keyWidth: never;
   valueWidth: never;
@@ -100,6 +112,23 @@ const useStyles = makeStyles<{
   },
 }));
 
+/**
+ * Represents an item component.
+ *
+ * @param ItemProps - The props for the item component.
+ * @param ItemProps.formatValue - The formatting function for the item's value.
+ * @param ItemProps.formatKey - The formatting function for the item's key.
+ * @param ItemProps.keyWidth - The width of the item's key column.
+ * @param ItemProps.valueWidth - The width of the item's value column.
+ * @param ItemProps.totalWidth - The total width of the item component.
+ * @param ItemProps.value - The value of the item.
+ * @param ItemProps.itemKey - The key of the item.
+ * @param ItemProps.path - The path of the item.
+ * @param ItemProps.index - The index of the item.
+ * @param ItemProps.background - The background color of the item.
+ * @param ItemProps.withDarkParent - Indicates if the item has a dark parent.
+ * @returns The rendered item component.
+ */
 export const Item = ({
   formatValue,
   formatKey,

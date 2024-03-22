@@ -1,5 +1,7 @@
 # IMenuItemsProps
 
+Represents the properties for the MenuItems component
+
 ## Properties
 
 ### requestSubject

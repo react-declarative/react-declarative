@@ -75,6 +75,11 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents the configuration options for makeField hoc.
+ *
+ * @template Data - The type of data the configuration will handle.
+ */
 interface IConfig<Data = IAnything> {
     withApplyQueue?: boolean;
     skipDebounce?: boolean;
@@ -87,6 +92,10 @@ interface IConfig<Data = IAnything> {
     }>>;
 }
 
+/**
+ * Represents the configuration options for making changes.
+ * @interface
+ */
 interface IChangeConfig {
     skipReadonly?: boolean;
 }

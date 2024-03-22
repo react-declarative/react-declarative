@@ -14,6 +14,9 @@ import IMenuGroup from '../../../model/IMenuGroup';
 
 const PADDING_LEFT_STEP = 12;
 
+/**
+ * Represents the props for the SideMenu component.
+ */
 interface ISideMenuProps {
     options: IMenuGroup[];
     paddingLeft?: number;
@@ -21,6 +24,14 @@ interface ISideMenuProps {
     onClick: (name: string) => void;
 }
 
+/**
+ * Represents a side menu component.
+ * @typedef {Object} SideMenu
+ * @param paddingLeft - The left padding of the side menu.
+ * @param selected - The currently selected option.
+ * @param options - The list of menu options.
+ * @param onClick - The click event handler for menu options.
+ */
 export const SideMenu = ({
     paddingLeft = -PADDING_LEFT_STEP,
     selected,

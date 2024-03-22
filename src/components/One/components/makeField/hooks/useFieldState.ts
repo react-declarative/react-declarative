@@ -8,6 +8,10 @@ import IField, { Value } from "../../../../../model/IField";
 import IManaged from "../../../../../model/IManaged";
 import IAnything from "../../../../../model/IAnything";
 
+/**
+ * Represents the state of a component.
+ * @interface
+ */
 interface IState {
   groupRef: HTMLDivElement;
   focusReadonly: boolean;
@@ -21,6 +25,15 @@ interface IState {
   value: Value;
 }
 
+/**
+ * @interface IInitialData
+ *
+ * This interface extends the IState interface and defines the initial data structure
+ * for a class implementing it. It excludes certain properties from IState using the Omit
+ * utility type.
+ *
+ * @template IState - The extended interface representing the state.
+ */
 interface IInitialData
   extends Omit<
     IState,
@@ -36,6 +49,11 @@ interface IInitialData
     }
   > {}
 
+/**
+ * Represents a set of parameters used for some functionality.
+ *
+ * @interface IParams
+ */
 interface IParams {
   name: IManaged["name"];
   payload: IAnything;
@@ -49,6 +67,19 @@ interface IParams {
   isReadonly: Exclude<IField["isReadonly"], undefined>;
 }
 
+/**
+ * Reads the value based on the provided parameters.
+ *
+ * @param params - The parameters needed to read the value.
+ * @param params.compute - The compute function used to compute the value.
+ * @param params.name - The name of the property to be read from the object.
+ * @param params.object - The object from which to read the value.
+ * @param params.payload - The payload to be passed to the compute function.
+ * @param params.config - The configuration object.
+ * @param visible - The visibility flag.
+ *
+ * @returns - The value read from the object or false if the value cannot be computed or found.
+ */
 const readValue = ({ compute, name, object, payload, config }: IParams, visible: boolean) => {
   /**
    * Используйте флаг WITH_SYNC_COMPUTE с осторожностью: может вызывать

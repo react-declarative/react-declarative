@@ -1,5 +1,7 @@
 # IConfig
 
+Represents a configuration object for the one component.
+
 ## Properties
 
 ### WITH_DIRTY_CLICK_LISTENER

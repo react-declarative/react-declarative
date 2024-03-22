@@ -3,6 +3,11 @@ import { useMemo } from 'react';
 import IAnything from '../../../../../model/IAnything';
 import { Value } from '../../../../../model/IField';
 
+/**
+ * Represents the interface for managing the memory state in the application.
+ *
+ * @interface IMemory
+ */
 interface IMemory {
     inputUpdate: boolean;
     objectUpdate: boolean;
@@ -20,6 +25,12 @@ interface IMemory {
     groupRef$: HTMLDivElement;
 }
 
+/**
+ * Represents an interface for memory data.
+ *
+ * @interface
+ * @extends Omit<IMemory, 'inputUpdate' | 'objectUpdate' | 'initComplete' | 'isMounted' | 'fieldName'>
+ */
 interface IMemoryData extends Omit<IMemory, keyof {
     inputUpdate: never;
     objectUpdate: never;

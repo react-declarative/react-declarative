@@ -1,11 +1,19 @@
 import { useState, useMemo } from "react";
 
+/**
+ * Represents the state of a particular element.
+ *
+ * @interface IState
+ */
 interface IState {
     disabled: boolean;
     readonly: boolean;
     visible: boolean;
 }
 
+/**
+ * Represents an interface for initial data.
+ */
 interface IInitialData extends Omit<IState, keyof {
     readonly: never;
     visible: never;

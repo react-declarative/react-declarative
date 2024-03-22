@@ -20,6 +20,9 @@ import useSearch from '../../context/SearchContext';
 
 import IData from '../../model/IData';
 
+/**
+ * Represents the properties for the `Content` component.
+ */
 export interface IContentProps extends Pick<IRecordViewProps, keyof {
   keyWidth: never;
   valueWidth: never;
@@ -59,6 +62,22 @@ const useStyles = makeStyles<{
   },
 }));
 
+/**
+ * Renders the content of a collapsible panel.
+ *
+ * @param [path='root'] - The current path of the content.
+ * @param data - The data to be rendered.
+ * @param keyWidth - The width of the key column.
+ * @param valueWidth - The width of the value column.
+ * @param totalWidth - The total width of the content.
+ * @param [formatValue] - The function to format the value.
+ * @param [formatKey] - The function to format the key.
+ * @param [withDarkParent=false] - Whether the parent content has a dark background.
+ * @param [background] - The background color of the content.
+ * @param [otherProps] - Other additional props.
+ *
+ * @returns - The rendered content.
+ */
 export const Content = ({
   path = 'root',
   data,

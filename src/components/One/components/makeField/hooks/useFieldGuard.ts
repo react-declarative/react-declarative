@@ -4,6 +4,11 @@ import trycatch from "../../../../../utils/hof/trycatch";
 
 import IField from "../../../../../model/IField";
 
+/**
+ * Represents a chunk of data.
+ *
+ * @interface IChunk
+ */
 interface IChunk {
   prefix: string;
   name: string;
@@ -14,6 +19,11 @@ interface IChunk {
   isReadonly: IField["isReadonly"];
 }
 
+/**
+ * Represents the result of a field's validation.
+ *
+ * @interface IResult
+ */
 interface IResult {
   isDisabled: Exclude<IField["isDisabled"], undefined>;
   isVisible: Exclude<IField["isVisible"], undefined>;
@@ -28,6 +38,14 @@ const DEFAULT_IS_INVALID = () => null;
 const DEFAULT_IS_INCORRECT = () => null;
 const DEFAULT_IS_READONLY = () => false;
 
+/**
+ * Creates a fallback function.
+ *
+ * @param name - The name of the fallback function.
+ * @param prefix - The prefix to be added to the name.
+ * @param source - The source of the fallback function.
+ * @returns - The fallback function that logs the error to the console.
+ */
 const createFallback = (name: string, prefix: string, source: string) => {
   const fieldName = `${prefix}(${name || 'unknown'})`;
   return (error: Error) => {

@@ -14,6 +14,10 @@ import { IMenuOption } from '../../../model/IMenuGroup';
 
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 
+/**
+ * Represents props for a menu option
+ * @interface
+ */
 interface IMenuOptionProps {
     option: IMenuOption;
     icon?: React.ComponentType<any>;
@@ -56,6 +60,22 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Represents a menu option component.
+ *
+ * @component
+ *
+ * @param props - The properties of the component.
+ * @param props.option - The option data.
+ * @param [props.style] - The inline style object for the component.
+ * @param [props.icon] - The icon component to display.
+ * @param [props.selected] - Indicates whether the option is selected.
+ * @param [props.className] - The additional CSS class name(s) for the component.
+ * @param [props.onClick] - The function to call when the option is clicked.
+ * @param [props.currentPadding] - The padding for the option.
+ *
+ * @returns The rendered component.
+ */
 export const MenuOption: React.FC<IMenuOptionProps> = ({
     option,
     style,

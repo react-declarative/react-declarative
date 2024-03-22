@@ -2,11 +2,19 @@ import * as React from 'react';
 
 import TSubject from '../../model/TSubject';
 
+/**
+ * Interface for the props of a ReloadView component.
+ */
 interface IReloadViewProps {
     reloadTrigger: TSubject<any>;
     children?: React.ReactNode;
 }
 
+/**
+ * Represents a reload view component.
+ * @class
+ * @public
+ */
 export class ReloadView extends React.Component<IReloadViewProps> {
 
     _disconnectListener: (() => void) | undefined;

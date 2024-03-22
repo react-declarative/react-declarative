@@ -20,6 +20,10 @@ import useActualValue from '../../../../hooks/useActualValue';
 
 const SearchContext = createContext<Context>(null as never);
 
+/**
+ * Represents a context object.
+ * @interface
+ */
 export interface Context {
   data: IData;
   search: string;
@@ -28,12 +32,30 @@ export interface Context {
   setIsChecked: (path: string, checked: boolean) => void;
 }
 
+/**
+ * Represents the state of the application.
+ *
+ * @interface State
+ */
 export interface State {
   search: string;
   data: IData;
   checked: Set<string>;
 }
 
+/**
+ * Props interface for the component.
+ *
+ * @typedef {Object} Props
+ * @property {IData} data - The data object used by the component.
+ * @property {string} search - The search keyword used by the component.
+ * @property {boolean} withExpandAll - Indicates whether to display the expand all button.
+ * @property {boolean} withExpandRoot - Indicates whether to display the expand root button.
+ * @property {number} withExpandLevel - The expand level used by the component.
+ * @property {string[]} [expandList] - The list of items to expand.
+ * @property {React.ReactNode} children - The child components passed to the component.
+ * @property {(search: string) => void} [onSearchChanged] - The callback function triggered when the search keyword changes.
+ */
 export interface Props {
   data: IData;
   search: string;
@@ -45,12 +67,31 @@ export interface Props {
   onSearchChanged?: (search: string) => void;
 }
 
+/**
+ * Represents a Hook object.
+ *
+ * @interface
+ * @extends Context
+ */
 export interface Hook extends Omit<Context, keyof {
   checked: never;
 }> {
   isSearching: boolean;
 }
 
+/**
+ * SearchProvider is a component that provides search functionality for a data set.
+ *
+ * @typedef {object} Props - The props for the SearchProvider component.
+ * @property {ReactNode} children - The children nodes of the SearchProvider component.
+ * @property {string} search - The initial search query. Default value is an empty string.
+ * @property {boolean} withExpandAll - Flag to indicate if all namespaces should be expanded. Default value is false.
+ * @property {boolean} withExpandRoot - Flag to indicate if root namespaces should be expanded. Default value is false.
+ * @property {number} withExpandLevel - The maximum level of namespaces to expand. Default value is 0.
+ * @property {Array<string>} expandList - The list of specific namespaces to expand.
+ * @property {object} data - The data set to be searched.
+ * @property {function} onSearchChanged - The callback function to be called when the search query changes.
+ */
 export const SearchProvider = ({
   children,
   search: initialSearch = '',
@@ -64,6 +105,15 @@ export const SearchProvider = ({
 
   const onSearchChanged$ = useActualCallback(onSearchChanged);
 
+  /**
+   * Returns an array of all namespace paths in the upperData object.
+   * Namespace paths are derived from the paths of all objects in the upperData object.
+   *
+   * @returns {string[]} - An array of namespace paths.
+   *
+   * @example
+   * getExpandAllNamespaces();
+   */
   const getExpandAllNamespaces = useCallback(
     () =>
       deepFlat(upperData)
@@ -78,6 +128,11 @@ export const SearchProvider = ({
     [upperData]
   );
 
+  /**
+   * Retrieves a list of root namespaces from a given data object.
+   *
+   * @returns {Array<String>} - An array of root namespace names.
+   */
   const getExpandRootNamespaces = useCallback(
     () =>
       deepFlat(upperData)
@@ -95,6 +150,11 @@ export const SearchProvider = ({
     [upperData],
   );
 
+  /**
+   * Returns an array of namespaces to be expanded based on the given data structure and expand level.
+   *
+   * @returns {Array} An array of namespaces.
+   */
   const getExpandLevelNamespaces = useCallback(
     () =>
       deepFlat(upperData)
@@ -112,6 +172,11 @@ export const SearchProvider = ({
     [upperData, withExpandLevel],
   );
 
+  /**
+   * Returns the initial expand value for a given configuration.
+   *
+   * @returns {Array} The initial expand value.
+   */
   const getInitialExpand = useCallback(() => {
     if (withExpandAll) {
       return getExpandAllNamespaces();
@@ -188,11 +253,23 @@ export const SearchProvider = ({
     onSearchChanged$(state.search);
   }, [state.search, onSearchChanged$]);
 
+  /**
+   * setSearch is a callback function that updates the search state of a component.
+   *
+   * @param {string} search - The search string to update the state with.
+   * @returns {void}
+   */
   const setSearch = useCallback(
     (search: string) => setState((prevState) => ({ ...prevState, search })),
     []
   );
 
+  /**
+   * A custom callback function that checks if a given path is present in the `state.checked` set.
+   *
+   * @param {string} path - The path to check.
+   * @returns {boolean} - Returns `true` if the path is present in the `state.checked` set, otherwise `false`.
+   */
   const isChecked = useCallback(
     (path: string) => {
       const normalPath = path.startsWith('root.')
@@ -203,6 +280,12 @@ export const SearchProvider = ({
     [state.checked]
   );
 
+  /**
+   * Updates the checked state of a specific path.
+   *
+   * @param {string} path - The path to update the checked state for.
+   * @param {boolean} checked - The new checked value for the path.
+   */
   const setIsChecked = useCallback(
     (path: string, checked: boolean) => {
       const normalPath = path.startsWith('root.')
@@ -221,6 +304,18 @@ export const SearchProvider = ({
     [state.checked]
   );
 
+  /**
+   * Returns a memoized context object constructed from the given parameters.
+   *
+   * @returns {Context} The memoized context object.
+   *
+   * @param {Object} state - The state object.
+   * @param {Data} state.data - The data property of the state.
+   * @param {string} state.search - The search property of the state.
+   * @param {Function} setSearch - The setSearch function.
+   * @param {boolean} isChecked - The isChecked property.
+   * @param {Function} setIsChecked - The setIsChecked function.
+   */
   const context = useMemo(
     (): Context => ({
       data: state.data,
@@ -239,6 +334,11 @@ export const SearchProvider = ({
   );
 };
 
+/**
+ * Returns a hook that retrieves search information from the SearchContext.
+ *
+ * @returns The hook that provides search information.
+ */
 export const useSearch = (): Hook => {
   const { search, ...other } = useContext(SearchContext);
   return {

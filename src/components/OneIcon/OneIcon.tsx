@@ -105,10 +105,23 @@ export const OneIcon = <
 
   const [invalid, setInvalid] = useState(false);
 
+  /**
+   * Waits for the rendering of data to complete.
+   *
+   * @param {Array} data - The data to render.
+   * @param {number} timeout - The maximum time in milliseconds to wait for rendering to complete.
+   * @returns {Promise} - A promise that resolves when rendering is complete or rejects if it times out.
+   */
   const waitForRender = useRenderWaiter([data], 10);
 
   const data$ = useActualValue(data);
 
+  /**
+   * This function waits for changes to occur by waiting for the first event to happen between the rendering of the page
+   * and a delay specified by 'waitForChangesDelay'.
+   *
+   * @returns A promise that resolves when the first event occurs between the rendering of the page and the specified delay.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
@@ -119,11 +132,24 @@ export const OneIcon = <
     }
   }, [handler]);
 
+  /**
+   * Calculate the count of filtered values based on the given data and noBadge flag.
+   *
+   * @param {boolean} noBadge - A flag indicating whether to exclude badge values.
+   * @param {Object} data - The data object containing values to filter.
+   * @returns {number} - The count of filtered values.
+   */
   const filterCount = useMemo(
     () => (noBadge ? 0 : Object.values(data || {}).filter((v) => v).length),
     [data]
   );
 
+  /**
+   * useMemo function that creates a handle for closing an element.
+   * The handle will trigger the provided onChange function with the current data and false,
+   * and set the anchor element to null after waiting for changes.
+   * @returns {function} The handleClose function
+   */
   const handleClose = useMemo(
     () =>
       singlerun(async () => {

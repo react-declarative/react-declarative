@@ -22,6 +22,12 @@ const useStyles = makeStyles()((theme) => ({
     }
 }));
 
+/**
+ * Represents a loader component.
+ *
+ * @constructor
+ * @returns The loader component.
+ */
 export const Loader = () => {
     const { classes } = useStyles();
     return (

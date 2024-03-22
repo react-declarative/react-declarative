@@ -9,6 +9,9 @@ import useElementSize from "../../../../hooks/useElementSize";
 
 import classNames from "../../../../utils/classNames";
 
+/**
+ * Interface for the props of the VirtualListBox component.
+ */
 interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }

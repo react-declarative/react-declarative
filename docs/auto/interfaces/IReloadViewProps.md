@@ -1,5 +1,7 @@
 # IReloadViewProps
 
+Interface for the props of a ReloadView component.
+
 ## Properties
 
 ### reloadTrigger

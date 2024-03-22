@@ -29,6 +29,11 @@ import sleep from "../../../../utils/sleep";
 
 type IManagedOption = IOption & { onClick?: IFieldMenu["onClick"] };
 
+/**
+ * Interface for defining parameters for a component.
+ *
+ * @interface
+ */
 export interface IParams {
   name: Exclude<IField["name"], undefined>;
   menuItems: Exclude<IField["menuItems"], undefined>;
@@ -36,10 +41,22 @@ export interface IParams {
   menu: Exclude<IField["menu"], undefined>;
 }
 
+/**
+ * Represents the IRequest interface.
+ * This interface extends IParams interface, and adds an event property of type React.MouseEvent<HTMLDivElement>.
+ */
 export interface IRequest extends IParams {
   event: React.MouseEvent<HTMLDivElement>;
 }
 
+/**
+ * Represents the initial state for the params object.
+ * @typedef {object} IParams
+ * @property {string} name - The initial value for the 'name' property.
+ * @property {Function} menu - The initial value for the 'menu' property, which is a function that returns null.
+ * @property {Array} menuItems - The initial value for the 'menuItems' property, which is an empty array.
+ * @property {Function} onValueChange - The initial value for the 'onValueChange' property, which is a function that returns null.
+ */
 const INITIAL_STATE: IParams = {
   name: "",
   menu: () => null,
@@ -47,6 +64,9 @@ const INITIAL_STATE: IParams = {
   onValueChange: () => null,
 };
 
+/**
+ * Represents the properties for the MenuItems component
+ */
 interface IMenuItemsProps {
   requestSubject: TSubject<IRequest>;
 }
