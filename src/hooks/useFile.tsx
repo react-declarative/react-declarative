@@ -1,6 +1,11 @@
 import React from 'react';
 import { useRef } from 'react';
 
+/**
+ * Represents a set of parameters for a function or method.
+ *
+ * @interface
+ */
 interface IParams {
   accept?: string;
   onSelect?: (...files: File[]) => void;

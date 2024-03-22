@@ -12,6 +12,11 @@ interface ISubjectBindingProps {
 
 type Function = () => void;
 
+/**
+ * A React component that binds to a subject and updates when the subject emits a value.
+ *
+ * @extends React.Component
+ */
 export class SubjectBinding extends React.Component<ISubjectBindingProps> {
   private unsubscribe?: Function;
 

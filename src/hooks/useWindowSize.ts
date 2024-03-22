@@ -5,6 +5,11 @@ import useActualValue from './useActualValue';
 
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Represents a set of parameters with generic size and optional resize event handler.
+ * @interface
+ * @template Size - The type of the size the parameters can compute and resize to.
+ */
 interface IParams<Size extends ISize> {
     debounce: number;
     compute: (size: ISize) => Size;

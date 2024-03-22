@@ -3,6 +3,16 @@ import { useLayoutEffect, useRef, useState, useCallback } from 'react';
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../utils/hof/cancelable';
 import useActualCallback from './useActualCallback';
 
+/**
+ * Interface for defining optional parameters for a function.
+ *
+ * @typedef {object} IParams
+ * @property [fallback] - Function to handle error if it occurs.
+ * @property [onLoadStart] - Function to be called when loading starts.
+ * @property [onLoadEnd] - Function to be called when loading ends,
+ *                                                  with a boolean indicating if it was successful or not.
+ * @property [throwError] - Whether to throw an error or not.
+ */
 interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -10,6 +20,12 @@ interface IParams {
     throwError?: boolean;
 }
 
+/**
+ * Represents the result of an operation.
+ *
+ * @template Data - The type of data returned by the operation.
+ * @template Payload - The type of payload accepted by the execute method.
+ */
 export interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;

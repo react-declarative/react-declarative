@@ -22,12 +22,18 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   features: string[];
 };
 
+/**
+ * Interface representing a debug object.
+ */
 export interface IDebug<Data = any, Payload = any> {
   originalComponent: React.ComponentType<IManaged<Data>>;
   managedProps: IManaged<Data>;
   payload: Payload;
 }
 
+/**
+ * Represents the props for a specific instance of a component field.
+ */
 export type ComponentFieldInstanceProps = Omit<ComponentFieldInstance, keyof {
   context: never;
 }> & {

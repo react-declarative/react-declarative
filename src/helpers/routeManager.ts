@@ -5,6 +5,12 @@ import getRouteParams, { ISwitchItem } from "../utils/getRouteParams";
 
 import Subject from "../utils/rx/Subject";
 
+/**
+ * Class representing a RouteManager.
+ *
+ * @template T - Type for the route parameters.
+ * @template I - Type for the route items.
+ */
 export class RouteManager<T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem> extends Subject<void> {
 
     private _item: I | null = null;
@@ -36,6 +42,19 @@ export class RouteManager<T extends Record<string, any> = Record<string, any>, I
 
 };
 
+/**
+ * Creates a route parameters manager.
+ *
+ * @template T - The type of the route parameters object.
+ * @extends {Record<string, any>}
+ * @template I - The type of the switch item object.
+ * @extends {ISwitchItem}
+ *
+ * @param routes - The list of routes.
+ * @param history - The history object.
+ *
+ * @returns - The function that returns the current route parameters object.
+ */
 export const createRouteParamsManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
     const routeManager = new RouteManager<T, I>(routes, history);
     const fn = () => routeManager.params;
@@ -43,6 +62,14 @@ export const createRouteParamsManager = <T extends Record<string, any> = Record<
     return fn;
 };
 
+/**
+ * A function that creates a route item manager.
+ *
+ * @param routes - An array of switch items representing routes.
+ * @param history - The history object to be used for navigation.
+ *
+ * @returns - A function that returns the current route item.
+ */
 export const createRouteItemManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
     const routeManager = new RouteManager<T, I>(routes, history);
     const fn = () => routeManager.item;

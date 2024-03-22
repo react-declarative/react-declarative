@@ -12,12 +12,21 @@ import Entity, { IEntity, IEntityAdapter, CHANGE_DEBOUNCE } from "../utils/mvvm/
 import useActualCallback from './useActualCallback';
 import useSingleton from './useSingleton';
 
+/**
+ * Interface representing the parameters for a specific operation.
+ *
+ * @template T - Type of the entity.
+ */
 export interface IParams<T extends IEntity = any> {
     initialValue?: T[] | (() => T[]) | Entity<T>[] | Collection<T>;
     onChange?: (item: CollectionAdapter<T>, target: CollectionEntityAdapter<T> | null) => void;
     debounce?: number;
 }
 
+/**
+ * Class representing a Collection Entity Adapter.
+ * @implements {IEntityAdapter<T>}
+ */
 export class CollectionEntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
     private _waitForListeners = () => new Promise<boolean>(async (res, rej) => {
         let isDisposed = false;
@@ -113,6 +122,11 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
 
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
+/**
+ * CollectionAdapter class is used to adapt a collection of entities.
+ * It provides various methods for manipulating and accessing the collection.
+ * @typeparam T - The type of entity in the collection
+ */
 export class CollectionAdapter<T extends IEntity = any> implements ICollectionAdapter<T> {
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;

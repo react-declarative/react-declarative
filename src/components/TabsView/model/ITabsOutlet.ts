@@ -3,6 +3,16 @@ import ISize from "../../../model/ISize";
 import { IOutlet } from "../../OutletView";
 import ITabsOutletProps from "./ITabsOutletProps";
 
+/**
+ * Represents a set of additional properties.
+ *
+ * @typedef {Object} OtherProps
+ * @property {ISize} size - The size of the object.
+ * @property {boolean} loading - Indicates if the object is currently loading.
+ * @property {number} progress - The progress of loading the object.
+ * @property {function} setLoading - A function to set the loading state of the object.
+ * @property {function} setProgress - A function to set the progress of loading the object.
+ */
 export type OtherProps = {
     size: ISize;
     loading: boolean;

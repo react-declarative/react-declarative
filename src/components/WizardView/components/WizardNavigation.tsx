@@ -9,6 +9,9 @@ import ActionButton, { usePreventAction } from "../../ActionButton";
 
 import classNames from "../../../utils/classNames";
 
+/**
+ * Interface for the properties of the Wizard Navigation component.
+ */
 interface IWizardNavigationProps extends BoxProps {
   className?: string;
   style?: React.CSSProperties;
@@ -42,6 +45,28 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents a component for navigating through a wizard.
+ * @typedef {Object} WizardNavigation
+ * @property {string} className - The CSS class name for the component.
+ * @property {Object} style - The inline style object for the component.
+ * @property {Object} sx - The sx prop for the component.
+ * @property {boolean} disabled - Whether the component is disabled or not.
+ * @property {boolean} fallback - The fallback prop for the component.
+ * @property {function} onLoadStart - The onLoadStart prop for the component.
+ * @property {function} onLoadEnd - The onLoadEnd prop for the component.
+ * @property {function} onPrev - The onPrev prop for the component.
+ * @property {function} onNext - The onNext prop for the component.
+ * @property {function} AfterPrev - The AfterPrev prop for the component.
+ * @property {function} BeforeNext - The BeforeNext prop for the component.
+ * @property {boolean} hasPrev - Whether the component has a previous step or not.
+ * @property {boolean} hasNext - Whether the component has a next step or not.
+ * @property {string} labelPrev - The label for the previous button.
+ * @property {string} labelNext - The label for the next button.
+ * @property {boolean} throwError - Whether an error should be thrown or not.
+ * @property {...otherProps} - The additional props for the component.
+ * @returns The rendered component.
+ */
 export const WizardNavigation = ({
   className,
   style,

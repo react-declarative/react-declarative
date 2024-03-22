@@ -12,6 +12,11 @@ import Subject from "../utils/rx/Subject";
 
 type Fn = (result: string | null) => void;
 
+/**
+ * Represents the parameters for a component.
+ *
+ * @interface IParams
+ */
 interface IParams {
   title?: string;
   value?: string;
@@ -20,6 +25,11 @@ interface IParams {
   canCancel?: boolean;
 }
 
+/**
+ * Represents the state of an object.
+ *
+ * @interface
+ */
 interface IState {
   currentCanCancel: boolean;
   currentPlaceholder: string;

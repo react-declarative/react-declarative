@@ -10,6 +10,11 @@ import sleep from '../utils/sleep';
 import useActualCallback from './useActualCallback';
 import useSingleton from './useSingleton';
 
+/**
+ * Represents the parameters for a class.
+ *
+ * @template T - The type of the entity.
+ */
 export interface IParams<T extends IEntity = any> {
     initialValue: T | Entity<T> | (() => T);
     onChange?: (item: EntityAdapter<T>) => void;
@@ -18,6 +23,11 @@ export interface IParams<T extends IEntity = any> {
 
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
+/**
+ * Class representing an Entity Adapter.
+ *
+ * @template T - The type of the entity.
+ */
 export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T> {
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;

@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 
 import Async, { IAsyncProps } from '../Async';
 
+/**
+ * Interface representing the props for the WaitView component.
+ *
+ * @template P - The type of additional props for the Content component.
+ * @template T - The type of the condition result.
+ */
 interface IWaitViewProps<P extends any = object, T extends any = object> extends Omit<IAsyncProps<P>, keyof {
     children: never;
 }> {
@@ -14,6 +20,11 @@ interface IWaitViewProps<P extends any = object, T extends any = object> extends
     delay?: number;
 };
 
+/**
+ * Represents a state for a specific application.
+ *
+ * @template T - The type of payload that the state holds, defaults to object.
+ */
 interface IState<T extends any = object> {
     payload: T | undefined;
     attempt: number;

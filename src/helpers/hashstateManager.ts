@@ -1,5 +1,13 @@
 import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
 
+/**
+ * HashstateManager Class
+ *
+ * @class
+ * @classdesc A class that provides methods to get and set the hash value in the history object.
+ *
+ * @param history - The history object to work with.
+ */
 export const createHashstateManager = (history: MemoryHistory | BrowserHistory | HashHistory) => new class {
 
     getValue = () => {

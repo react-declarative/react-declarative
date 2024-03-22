@@ -8,6 +8,10 @@ import useChangeSubject from "./useChangeSubject";
 import useSingleton from "./useSingleton";
 import useChange from "./useChange";
 
+/**
+ * Represents the interface for defining parameters of a class.
+ * @template T - The type of the model.
+ */
 interface IParams<T extends {} = any> extends Omit<IModelParams<T>, keyof {
     initialValue: never;
     onChange: never;

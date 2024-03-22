@@ -3,11 +3,20 @@ import singleshot from "../utils/hof/singleshot";
 
 type Key = string | symbol;
 
+/**
+ * Represents a service for service lifecycle.
+ * @interface
+ */
 export interface IService {
     prefetch?: () => Promise<void>;
     unload?: () => Promise<void>;
 }
 
+/**
+ * Represents a reference to an instance of a class.
+ *
+ * @param name - The name of the instance reference.
+ */
 const createInstanceRef = (name: string) => class InstanceRef<T extends object> {
 
     private readonly queueFactory = queued(async (promise: Promise<object>) => await promise);
@@ -40,6 +49,9 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
     };
 };
 
+/**
+ * Class representing a Service Manager.
+ */
 class ServiceManager {
 
     private readonly InstanceRef = createInstanceRef(this._name);
@@ -166,6 +178,9 @@ class ServiceManager {
 
 };
 
+/**
+ * Represents the interface for the IServiceManager class.
+ */
 type IServiceManager = {
     [P in keyof InstanceType<typeof ServiceManager>]: InstanceType<typeof ServiceManager>[P];
 };
@@ -176,6 +191,11 @@ declare global {
     }
 }
 
+/**
+ * An implementation of the IServiceManager interface.
+ *
+ * @class
+ */
 export const serviceManager = new class implements Omit<IServiceManager, keyof {
     waitForProvide: never;
     prefetch: never;
@@ -215,6 +235,12 @@ export {
     unload,
 };
 
+/**
+ * Create a service manager with the given name.
+ *
+ * @param name - The name of the service manager. Default value is 'unknown'.
+ * @returns - An object containing various methods related to the service manager.
+ */
 export const createServiceManager = (name = 'unknown') => {
 
     const localServiceManager = new ServiceManager(name);

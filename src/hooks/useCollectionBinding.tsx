@@ -8,6 +8,10 @@ import useChangeSubject from "./useChangeSubject";
 import useSingleton from "./useSingleton";
 import useChange from "./useChange";
 
+/**
+ * Interface for defining params of a collection
+ * @template T - Type of entity
+ */
 interface IParams<T extends IEntity = any> extends Omit<ICollectionParams<T>, keyof {
     initialValue: never;
     onChange: never;

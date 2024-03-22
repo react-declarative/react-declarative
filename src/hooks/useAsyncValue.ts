@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 
 import useAsyncAction, { IResult } from "./useAsyncAction";
 
+/**
+ * Represents the options for configuring various parameters.
+ */
 interface IParams {
   fallback?: (e: Error) => void;
   onLoadStart?: () => void;

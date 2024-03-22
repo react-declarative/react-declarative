@@ -18,6 +18,13 @@ import Subject from "../utils/rx/Subject";
 
 type Fn<Data = IAnything> = (d: Data | null) => void;
 
+/**
+ * Represents the parameters for a specific functionality or operation.
+ *
+ * @template Data - The type of data associated with the functionality or operation.
+ * @template Payload - The type of payload associated with the functionality or operation.
+ * @template Field - The type of field associated with the functionality or operation.
+ */
 interface IParams<
   Data extends IAnything = IAnything,
   Payload = IAnything,
@@ -32,6 +39,10 @@ interface IParams<
   waitForChangesDelay?: number;
 }
 
+/**
+ * Represents the state of a component with the following properties:
+ * @interface IState
+ */
 interface IState {
   currentHandler: OneHandler;
   currentPayload: Exclude<IOneProps["payload"], undefined>;

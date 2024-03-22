@@ -9,6 +9,12 @@ import sleep from "../utils/sleep";
 
 import IAnything from "../model/IAnything";
 
+/**
+ * Represents the parameters for a function or method.
+ * @interface
+ * @template Data - The type of data to be processed.
+ * @template Result - The type of result to be returned.
+ */
 interface IParams<Data extends IAnything, Result = void> {
   delay?: number;
   onBegin?: () => void;
@@ -24,22 +30,41 @@ interface IParams<Data extends IAnything, Result = void> {
   onLoadEnd?: (isOk: boolean) => void;
 }
 
+/**
+ * Represents the interface for an Error object.
+ * @interface
+ */
 interface IError {
   label: string;
   message: string;
   error: Error;
 }
 
+/**
+ * Represents the state of a specific operation.
+ * @interface
+ */
 interface IState {
   errors: IError[];
   progress: number;
 }
 
+/**
+ * The `IProcess` interface represents a process with a label and associated data.
+ * @template Data - The type of data associated with the process.
+ */
 interface IProcess<Data extends IAnything> {
   label: string;
   data: Data;
 }
 
+/**
+ * Calculate the percentage of a value relative to a total.
+ *
+ * @param value - The value to calculate the percentage for.
+ * @param total - The total value used as the denominator in the calculation.
+ * @returns The calculated percentage value as a number.
+ */
 const getPercent = (value: number, total: number) =>
   Math.min(100, Math.round((Math.max(value, 0) / total) * 100));
 

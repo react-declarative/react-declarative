@@ -18,6 +18,10 @@ import Subject from "../utils/rx/Subject";
 
 type Fn<Data = IAnything> = (d: Data[] | null) => void;
 
+/**
+ * Represents a set of parameters for the IParams class.
+ * @template RowData - The type of the row data.
+ */
 interface IParams<RowData extends IRowData = IAnything>
   extends Omit<
     IListPickerProps<RowData>,

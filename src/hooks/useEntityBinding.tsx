@@ -8,6 +8,10 @@ import useChangeSubject from "./useChangeSubject";
 import useSingleton from "./useSingleton";
 import useChange from "./useChange";
 
+/**
+ * Represents the parameters for a class.
+ * @template T - The type of entity.
+ */
 interface IParams<T extends IEntity = any> extends Omit<IEntityParams<T>, keyof {
     initialValue: never;
     onChange: never;

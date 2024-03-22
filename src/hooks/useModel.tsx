@@ -10,6 +10,10 @@ import sleep from '../utils/sleep';
 import useActualCallback from './useActualCallback';
 import useSingleton from './useSingleton';
 
+/**
+ * Represents the parameters for a class.
+ * @template T - The type of the initial value.
+ */
 export interface IParams<T extends {} = any> {
     initialValue: T | Model<T> | (() => T);
     onChange?: (item: ModelAdapter<T>) => void;
@@ -18,6 +22,10 @@ export interface IParams<T extends {} = any> {
 
 const WAIT_FOR_LISTENERS_DELAY = 10;
 
+/**
+ * ModelAdapter class that implements the IModelAdapter interface.
+ * It adapts a React.MutableRefObject<Model<T>> and provides methods to interact with the underlying model.
+ */
 export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
         let isDisposed = false;

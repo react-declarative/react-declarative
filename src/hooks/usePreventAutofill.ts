@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { useState, useCallback } from 'react';
 
+/**
+ * Interface representing parameters for a component.
+ *
+ * @template T - The type of the input element.
+ */
 interface IParams<T = HTMLInputElement> {
     onFocus?: React.FocusEventHandler<T>;
     onTouchStart?: React.TouchEventHandler<T>;
@@ -8,6 +13,10 @@ interface IParams<T = HTMLInputElement> {
     readOnly?: boolean;
 }
 
+/**
+ * Interface for representing the result of an operation or request.
+ * @template T - The type of the element being handled.
+ */
 interface IResult<T = HTMLInputElement>  {
     readOnly: boolean;
     onFocus: React.FocusEventHandler<T>;

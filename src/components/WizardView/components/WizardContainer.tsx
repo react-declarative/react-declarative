@@ -8,6 +8,9 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 import classNames from "../../../utils/classNames";
 
+/**
+ * Represents the props for the WizardContainer component.
+ */
 interface IWizardContainerProps extends BoxProps {
   ref?: React.Ref<HTMLDivElement | undefined>;
   className?: string;
@@ -30,6 +33,18 @@ const useStyles = makeStyles()({
   },
 });
 
+/**
+ * Represents an internal component for the WizardContainer.
+ *
+ * @param IWizardContainerProps - The props for the WizardContainer.
+ * @param IWizardContainerProps.className - The class name for the component.
+ * @param IWizardContainerProps.Navigation - The navigation component for the wizard.
+ * @param IWizardContainerProps.children - The children components of the WizardContainer.
+ * @param ...otherProps - Additional props for the Box component.
+ * @param ref - Reference to the HTMLDivElement or undefined.
+ *
+ * @returns The rendered WizardContainerInternal component.
+ */
 const WizardContainerInternal = (
   { className, Navigation, children, ...otherProps }: IWizardContainerProps,
   ref: React.Ref<HTMLDivElement | undefined>
@@ -47,6 +62,18 @@ const WizardContainerInternal = (
   );
 };
 
+/**
+ * WizardContainer
+ *
+ * A container component that wraps the WizardContainerInternal component.
+ * It is a functional component of type React.FC, which takes an IWizardContainerProps as its props.
+ * It is created using `forwardRef` to allow obtaining a reference to the rendered DOM element for external usage.
+ *
+ * @component
+ * @param {React.ForwardedRef<unknown>} ref - A forwarded reference to the underlying WizardContainerInternal component.
+ * @param {IWizardContainerProps} props - The props for the WizardContainer component.
+ * @returns {React.ReactElement} The rendered WizardContainer component.
+ */
 export const WizardContainer = forwardRef(
   WizardContainerInternal
 ) as unknown as React.FC<IWizardContainerProps>;

@@ -4,11 +4,29 @@ import useActualValue from "./useActualValue";
 
 import debounce from "../utils/hof/debounce";
 
+/**
+ * Represents the size of an object or element.
+ *
+ * @interface
+ */
 interface ISize {
     height: number;
     width: number;
 }
 
+/**
+ * Represents the parameters used by a class.
+ *
+ * @template Size - The size type used in the class.
+ *
+ * @property {ISize} [defaultSize] - The default size to be used if size is not provided.
+ * @property [target] - The target element for the operation.
+ * @property [closest] - The closest element selector.
+ * @property [selector] - The element selector.
+ * @property [debounce] - The debounce time in milliseconds.
+ * @property [compute] - The function used to compute the size.
+ * @property [onResize] - The callback function to be executed on resize.
+ */
 interface IParams<Size extends ISize> {
     defaultSize?: ISize;
     target?: HTMLElement | null;

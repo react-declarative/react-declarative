@@ -4,6 +4,9 @@ import queued, { CANCELED_SYMBOL } from '../utils/hof/queued';
 
 import useActualCallback from './useActualCallback';
 
+/**
+ * Interface for defining parameters of an asynchronous operation.
+ */
 interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -11,6 +14,11 @@ interface IParams {
     throwError?: boolean;
 }
 
+/**
+ * Represents the result of an asynchronous operation.
+ * @template Data - The type of the data returned by the operation.
+ * @template Payload - The type of the payload used by the operation.
+ */
 export interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;

@@ -15,6 +15,9 @@ import ICreateButtonProps from "../model/ICreateButtonProps";
 
 import { SEARCH_VIEW_ROOT } from "../config";
 
+/**
+ * Interface for the props of the SearchList component.
+ */
 interface ISearchListProps {
   value: string;
   items: ISearchItem[];

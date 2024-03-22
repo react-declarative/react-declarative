@@ -1,3 +1,8 @@
+/**
+ * Manages the ability to abort operations using the AbortController API.
+ *
+ * @class
+ */
 export const abortManager = new class {
     
     _lastInstance?: AbortController;

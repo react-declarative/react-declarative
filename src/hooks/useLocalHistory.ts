@@ -3,6 +3,11 @@ import { createMemoryHistory } from "history";
 
 import History from "../model/History";
 
+/**
+ * Represents the parameters for navigating to a specific pathname in a web application.
+ *
+ * @interface
+ */
 interface IParams {
   history?: History;
   pathname: string;

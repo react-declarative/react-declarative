@@ -13,6 +13,11 @@ import useSingleton from "../../../hooks/useSingleton";
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
 
+/**
+ * Represents the interface for the Params class.
+ * @template Data - The type of the Data parameter.
+ * @template Payload - The type of the Payload parameter.
+ */
 interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
   extends Omit<
     IWizardModalProps<Data, Payload>,

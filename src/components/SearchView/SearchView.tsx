@@ -35,6 +35,10 @@ import { SEARCH_VIEW_ROOT } from "./config";
 const DEFAULT_DELAY = 500;
 const DEFAULT_LIMIT = 25;
 
+/**
+ * Represents the state of a component.
+ * @interface
+ */
 interface IState {
   item: ISearchItem | null;
   open: boolean;

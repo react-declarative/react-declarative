@@ -12,6 +12,10 @@ import Subject from "../utils/rx/Subject";
 
 type Fn = (result: boolean) => void;
 
+/**
+ * Represents the state of an object.
+ * @interface
+ */
 interface IState {
   currentCanCancel: boolean;
   currentTitle: string;
@@ -19,6 +23,11 @@ interface IState {
   open: boolean;
 }
 
+/**
+ * Represents the parameters for a certain operation.
+ *
+ * @interface IParams
+ */
 interface IParams {
   title?: string;
   msg?: string;

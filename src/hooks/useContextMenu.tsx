@@ -22,6 +22,10 @@ import TSubject from "../model/TSubject";
 
 import { sleep } from "../utils/sleep";
 
+/**
+ * Represents the parameters for a certain action.
+ * @template T - The type of the payload object.
+ */
 interface IParams<T extends any = object> {
   keepMounted?: boolean;
   options: Partial<IOption>[];
@@ -37,6 +41,13 @@ interface IParams<T extends any = object> {
   AfterContent?: React.ComponentType<any>;
 }
 
+/**
+ * @interface IResult
+ * Represents the interface for a context menu.
+ * @property elementProps - The properties for the result element.
+ * @property elementProps.onContextMenu - The callback function for the context menu event.
+ * @property render - The function that renders the result.
+ */
 interface IResult {
   elementProps: {
     onContextMenu: React.MouseEventHandler<HTMLDivElement>;

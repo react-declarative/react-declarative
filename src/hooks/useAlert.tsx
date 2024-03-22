@@ -12,12 +12,21 @@ import Subject from "../utils/rx/Subject";
 
 type Fn = () => void;
 
+/**
+ * Represents the interface for the parameters used in a specific context.
+ *
+ * @interface IParams
+ */
 interface IParams {
   title?: string;
   description?: string;
   large?: boolean;
 }
 
+/**
+ * Represents a state of a certain object.
+ * @interface IState
+ */
 interface IState {
   currentDescription: string;
   currentTitle: string;

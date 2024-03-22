@@ -11,6 +11,11 @@ import classNames from '../../utils/classNames';
 
 import ISize from '../../model/ISize';
 
+/**
+ * Represents a size provider that provides size information for rendering components.
+ * This interface extends the `BoxProps` interface from the `@material-ui/core` library, and allows
+ * customization of the target element for size measurement.
+ */
 interface ISizeProvider extends Omit<BoxProps, keyof {
     ref: never;
 }> {

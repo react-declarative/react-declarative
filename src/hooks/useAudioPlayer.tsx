@@ -3,6 +3,10 @@ import { useRef, useState } from 'react';
 
 import useReloadTrigger from './useReloadTrigger';
 
+/**
+ * Represents the parameters for a specific operation.
+ * @interface
+ */
 interface IParams {
     src: string;
 }

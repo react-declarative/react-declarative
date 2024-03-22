@@ -4,6 +4,13 @@ import singlerun from '../utils/hof/singlerun';
 
 import useActualCallback from './useActualCallback';
 
+/**
+ * @typedef {Object} IParams
+ * @property [fallback] - The function to be called when an error occurs.
+ * @property [onLoadStart] - The function to be called when the load starts.
+ * @property [onLoadEnd] - The function to be called when the load ends.
+ * @property [throwError=false] - Determines if an error should be thrown.
+ */
 interface IParams {
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -11,12 +18,23 @@ interface IParams {
     throwError?: boolean;
 }
 
+/**
+ * Interface representing the result of an operation.
+ *
+ * @template Data - The type of the data returned by the operation.
+ * @template Payload - The type of the payload used for the operation.
+ */
 interface IResult<Data extends any = any, Payload extends any = object> {
     loading: boolean;
     error: boolean;
     execute: IExecute<Data, Payload>;
 }
 
+/**
+ * Represents an interface for executing an action with a payload and returning data asynchronously.
+ * @template Data - The type of data returned by the execution.
+ * @template Payload - The type of payload accepted by the execution.
+ */
 export interface IExecute<Data extends any = any, Payload extends any = object> {
     (payload?: Payload): Promise<Data | null>;
     clear(): void;

@@ -8,6 +8,20 @@ import useSingleton from './useSingleton';
 const COMPRESS_FRAME = 0.8;
 const MAX_FPS = 25;
 
+/**
+ * Represents the parameters for a certain functionality.
+ *
+ * @interface IParams
+ * @property [fallback] - Callback function to handle errors.
+ * @property [onChange] - Callback function called when a change occurs.
+ * @property [onLoadStart] - Callback function called when the load starts.
+ * @property [onLoadEnd] - Callback function called when the load ends.
+ * @property [throwError] - Flag indicating whether to throw an error.
+ * @property [compressFrame] - Number representing the compression frame.
+ * @property [maxFps] - Number representing the maximum frames per second.
+ * @property [withInitialVideo] - Flag indicating whether initial video is present.
+ * @property [withInitialAudio] - Flag indicating whether initial audio is present.
+ */
 interface IParams {
     fallback?: (e: Error) => void;
     onChange?: (stream: MediaStream, ids: {

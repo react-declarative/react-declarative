@@ -26,6 +26,9 @@ const INITIAL_STATE: IState = {
 
 const DIALOG_CONTAINER = 'MuiDialog-container';
 
+/**
+ * Interface for the SecretView component props.
+ */
 interface ISecretViewProps {
   children?: React.ReactNode;
   onCode?: (code: number) => void;
@@ -38,6 +41,10 @@ interface ISecretViewProps {
   sx?: SxProps<any>;
 }
 
+/**
+ * Interface representing the state of an entity.
+ * @interface
+ */
 interface IState {
   value: string;
   open: boolean;

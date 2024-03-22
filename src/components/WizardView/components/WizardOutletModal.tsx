@@ -37,6 +37,12 @@ const WAIT_FOR_CHANGES_DELAY = 1_000;
 const MODAL_ROOT = "outlet-modal__root";
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * Interface for props of the WizardModal component.
+ *
+ * @template Data - The type of data passed to the wizard.
+ * @template Payload - The type of payload passed to the wizard.
+ */
 export interface IWizardModalProps<
   Data extends {} = Record<string, any>,
   Payload = IAnything
@@ -165,6 +171,43 @@ const LARGE_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = ({
   width: width - 50,
 });
 
+/**
+ * OutletModal is a component that displays a modal with a form and allows the user to submit the form data.
+ *
+ * @template Data - The type of the form data
+ * @template Payload - The type of the payload to be sent when submitting the form
+ *
+ * @param withActionButton - If true, display a submit button in the modal (default: false)
+ * @param hidden - If true, the modal is hidden (default: false)
+ * @param onSubmit - The function to handle form submission (default: () => true)
+ * @param onChange - The function to handle form data changes (default: () => undefined)
+ * @param mapInitialData - The function to map the initial form data (default: () => ({} as Data))
+ * @param mapPayload - The function to map the payload to be sent (default: () => ({} as Payload))
+ * @param onLoadStart - The function to be called when data loading starts
+ * @param onLoadEnd - The function to be called when data loading ends
+ * @param fallback - The function to be called if an error occurs (default: undefined)
+ * @param fullScreen - If true, the modal will occupy the full screen (default: true)
+ * @param sizeRequest - The function to compute the size of the modal (default: fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST)
+ * @param reloadSubject - The subject to trigger form data reload
+ * @param fetchState - The function to compute the state of the data fetching (default: () => ({}))
+ * @param AfterTitle - The component to be rendered after the title
+ * @param BeforeTitle - The component to be rendered before the title
+ * @param title - The title of the modal
+ * @param upperData - The initial form data (default: null)
+ * @param throwError - If true, throw an error when an error occurs (default: false)
+ * @param withStaticAction - If true, the submit button is always enabled (default: false)
+ * @param waitForChangesDelay - The delay in ms to wait for form data changes (default: withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY)
+ * @param submitLabel - The label of the submit button (default: "Submit")
+ * @param openSubject - The subject to control the visibility of the modal
+ * @param readonly - If true, the form is read-only (default: undefined)
+ * @param routes - The routes object for the wizard component
+ * @param onMount - The function to be called when the component is mounted
+ * @param onUnmount - The function to be called when the component is unmounted
+ * @param onClose - The function to handle modal closure (default: () => null)
+ * @param outletProps - Other props for the OutletModal component
+ *
+ * @returns The rendered OutletModal component
+ */
 export const OutletModal = <
   Data extends {} = Record<string, any>,
   Payload = IAnything

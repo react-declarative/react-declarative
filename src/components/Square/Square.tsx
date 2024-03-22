@@ -5,6 +5,9 @@ import { makeStyles } from "../../styles";
 import Box, { BoxProps } from '@mui/material/Box';
 import classNames from '../../utils/classNames';
 
+/**
+ * Represents the props for a Square component.
+ */
 interface ISquareProps extends BoxProps {
     children: React.ReactNode;
 }

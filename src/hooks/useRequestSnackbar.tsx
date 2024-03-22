@@ -11,6 +11,11 @@ import useActualCallback from './useActualCallback';
 
 const AUTO_HIDE_DURATION = 5000;
 
+/**
+ * Represents the parameters for a certain functionality.
+ *
+ * @interface IParams
+ */
 export interface IParams {
   noSnackOnOk?: boolean;
   message?: string;
