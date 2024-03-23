@@ -7,10 +7,22 @@ import {
   createTheme,
 } from "@mui/material/styles";
 
+/**
+ * Represents a theme provider provider for React components.
+ * @interface
+ */
 interface IThemeProviderProvider {
   children: React.ReactNode;
 }
 
+/**
+ * Component that provides a themed environment for its children.
+ *
+ * @component
+ * @param props - The component props.
+ * @param props.children - The children elements to be rendered within the themed environment.
+ * @returns The themed environment with its children elements.
+ */
 export const ThemeProvider = ({ children }: IThemeProviderProvider) => {
   const upperTheme = useTheme();
   const theme = useMemo(() => {

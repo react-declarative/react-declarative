@@ -28,6 +28,18 @@ import Search from "./Search";
 
 export const DRAWER_BACKGROUND = "react-declarative__scaffold2Background";
 
+/**
+ * @typedef {import('theme-ui').Theme} Theme
+ *
+ * @typedef {Object} itemCategory
+ * @property {Function} boxShadow - A function that calculates the box shadow value for the item category.
+ * @param {Theme} theme - The theme to be used for the calculation.
+ * @returns {string} - The calculated box shadow value.
+ *
+ * @property {number} py - The padding on the y-axis for the item category.
+ *
+ * @property {number} px - The padding on the x-axis for the item category.
+ */
 const itemCategory = {
   boxShadow: (theme: Theme) => {
     const color = alpha(theme.palette.background.default, 0.1);
@@ -37,6 +49,11 @@ const itemCategory = {
   px: 3,
 };
 
+/**
+ * Interface representing the props for the Navigator component.
+ * @template T - The type of the payload.
+ * @extends SwipeableDrawerProps - Props from SwipeableDrawer component.
+ */
 interface INavigatorProps<T = Payload> extends SwipeableDrawerProps {
   appName?: string;
   noAppName?: boolean;
@@ -52,6 +69,27 @@ interface INavigatorProps<T = Payload> extends SwipeableDrawerProps {
   onOptionGroupClick?: (path: string, id: string) => void;
 }
 
+/**
+ * Represents a Navigator component that displays a permanent drawer with options and content.
+ *
+ * @template T - The type of payload.
+ * @param props - The props for the Navigator component.
+ * @param props.sx - The custom styles for the Navigator component.
+ * @param props.options - The options to be displayed in the Navigator component.
+ * @param props.appName - The name of the application.
+ * @param props.noAppName - Whether to hide the application name.
+ * @param props.noSearch - Whether to hide the search functionality.
+ * @param props.payload - The payload object.
+ * @param props.activeOptionPath - The path of the active option.
+ * @param props.BeforeSearch - The function to be executed before the search.
+ * @param props.AfterSearch - The function to be executed after the search.
+ * @param props.BeforeContent - The function to be executed before the content.
+ * @param props.AfterContent - The function to be executed after the content.
+ * @param props.onOptionClick - The function to be executed when an option is clicked.
+ * @param props.onOptionGroupClick - The function to be executed when an option group is clicked.
+ * @param otherProps - The additional props.
+ * @returns The Navigator component.
+ */
 export const Navigator = <T extends Payload = Payload>({
   sx,
   options,

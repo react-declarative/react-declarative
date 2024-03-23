@@ -10,12 +10,24 @@ import usePreventAutofill from "../../../hooks/usePreventAutofill";
 
 import CloseIcon from "@mui/icons-material/Close";
 
+/**
+ * Interface for Search component props.
+ */
 interface ISearchProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
 }
 
+/**
+ * Search component
+ *
+ * @param props - The props object.
+ * @param props.className - The class name for the component.
+ * @param props.style - The style object for the component.
+ * @param props.sx - Additional inline style for the component.
+ * @returns The Search component.
+ */
 export const Search = ({
   className,
   style,

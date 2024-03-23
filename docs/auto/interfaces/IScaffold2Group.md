@@ -34,11 +34,15 @@ noHeader: boolean
 isVisible: () => boolean | Promise<boolean>
 ```
 
+Checks if the element is visible.
+
 ### isDisabled
 
 ```ts
 isDisabled: () => boolean | Promise<boolean>
 ```
+
+Checks if the element is disabled.
 
 ### children
 

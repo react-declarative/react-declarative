@@ -36,7 +36,15 @@ export const Bootstrap = ({
 
     useEffect(() => {
         onMount && onMount(count, modalStack);
-        setMounted(true)
+        setMounted(true);
+        /**
+         * Calls the `onUnmount` function and passes the `count` and `modalStack` as parameters
+         *
+         * @param count - The count parameter to be passed to `onUnmount` function
+         * @param modalStack - The modal stack to be passed to `onUnmount` function
+         *
+         * @returns
+         */
         return () => {
             onUnmount && onUnmount(count, modalStack);
         };

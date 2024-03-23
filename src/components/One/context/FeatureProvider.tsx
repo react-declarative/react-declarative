@@ -13,6 +13,13 @@ interface IFeatureProviderProps {
 
 const ARRAY_VALUE: string[] = [];
 
+/**
+ * Represents a feature provider.
+ * @param props - The feature provider props.
+ * @param props.children - The child components.
+ * @param [props.features=ARRAY_VALUE] - The array of features.
+ * @returns - The feature provider component.
+ */
 export const FeatureProvider = ({
     children,
     features = ARRAY_VALUE,

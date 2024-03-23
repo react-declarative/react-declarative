@@ -27,11 +27,26 @@ import deepFlat, { Entry } from "../utils/deepFlat";
 import idToLabel from "../utils/idToLabel";
 import getNamespaces from "../utils/getNamespaces";
 
+/**
+ * The EntryInternal class represents an entry in the scaffold,
+ * which combines functionality from multiple interfaces.
+ * It extends the IScaffold2GroupInternal, IScaffold2OptionInternal,
+ * IScaffold2Group, and IScaffold2Option interfaces.
+ *
+ * @implements {IScaffold2GroupInternal}
+ * @implements {IScaffold2OptionInternal}
+ * @implements {IScaffold2Group}
+ * @implements {IScaffold2Option}
+ */
 type EntryInternal = IScaffold2GroupInternal &
   IScaffold2OptionInternal &
   IScaffold2Group &
   IScaffold2Option;
 
+/**
+ * Represents the parameters for a certain class.
+ * @interface
+ */
 interface IParams {
   onInit?: () => void | Promise<void>;
   onLoadStart?: () => void;
@@ -43,6 +58,11 @@ interface IParams {
   deps: any[];
 }
 
+/**
+ * Represents the result of a search operation.
+ *
+ * @interface IResult
+ */
 interface IResult {
   loading: boolean;
   filteredGroups: IScaffold2GroupInternal[];
@@ -94,6 +114,12 @@ export const createStateManager = ({
     []
   );
 
+  /**
+   * Builds groups and updates the state with the result.
+   *
+   * @param {Payload} payload - The payload object to pass to isVisible, isDisabled, and isActive functions.
+   * @returns {void}
+   */
   const buildGroups = useCallback(
     async (payload: Payload) => {
       const result: Entry[] = arrays(
@@ -159,6 +185,18 @@ export const createStateManager = ({
     [options, payload, ...deps]
   );
 
+  /**
+   * Initializes the component.
+   *
+   * @function doInit
+   * @async
+   * @callback
+   * @description This function initializes the component by invoking the onLoadStart, setLoading, onInit,
+   *              and buildGroups functions sequentially. It also handles error fallback or throwing the error,
+   *              and invokes the onLoadEnd function with a boolean flag indicating if the initialization was
+   *              successful or not. Finally, it updates the loading status by invoking the setLoading function.
+   * @returns {void}
+   */
   const doInit = useCallback(async () => {
     let isOk = true;
     try {
@@ -183,6 +221,11 @@ export const createStateManager = ({
     buildGroups(payload);
   }, [payload, ...deps]);
 
+  /**
+   * Holds the filtered groups based on the searchText.
+   *
+   * @type {IScaffold2GroupInternal[]}
+   */
   const filteredGroups = useMemo(() => {
     const result: IScaffold2GroupInternal[] = arrays(deepClone(objects(groups)));
     if (!searchText) {
@@ -220,6 +263,9 @@ type StateContextType = ReturnType<typeof createStateManager>;
 
 const StateContext = createContext<StateContextType>(null as never);
 
+/**
+ * Represents the properties for the StateContextProvider component.
+ */
 interface IStateContextProviderProps {
   value: StateContextType;
   children: React.ReactNode;

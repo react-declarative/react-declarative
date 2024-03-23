@@ -32,6 +32,27 @@ import idToLabel from "../utils/idToLabel";
 import MenuIcon from "@mui/icons-material/Menu";
 import useMediaContext from "../../../hooks/useMediaContext";
 
+/**
+ * Represents the props for the Header component.
+ * @template T - The type of the payload object.
+ * @extends StackProps - Inherited props from Stack component.
+ * @property {string} [className] - Additional class name for the component.
+ * @property {React.CSSProperties} [style] - Inline style for the component.
+ * @property {SxProps<any>} [sx] - Styled System props for custom styling.
+ * @property {boolean | number} [loading] - Loading state of the component.
+ * @property {T} [payload] - Payload object of type T.
+ * @property {boolean} isMobile - Indicates if the component is being rendered on a mobile device.
+ * @property {string} [appName] - Name of the application.
+ * @property {IScaffold2GroupInternal<T>[]} options - Array of internal scaffold group objects.
+ * @property {IScaffold2Action<T>[]} [actions] - Array of scaffold action objects.
+ * @property {React.ComponentType<any>} [BeforeMenuContent] - React component to render before the menu content.
+ * @property {React.ComponentType<any>} [AfterMenuContent] - React component to render after the menu content.
+ * @property {string} activeOptionPath - Active option path.
+ * @property {string} activeTabPath - Active tab path.
+ * @property {() => void} onDrawerToggle - Event handler for toggling the drawer.
+ * @property {(name: string) => void} [onAction] - Event handler for scaffold actions.
+ * @property {(path: string, tab: string, id: string) => void} [onTabChange] - Event handler for tab changes.
+ */
 interface IHeaderProps<T = Payload> extends StackProps {
   className?: string;
   style?: React.CSSProperties;
@@ -110,6 +131,13 @@ export const Header = <T extends Payload = Payload>({
     };
   }, [activeOptionPath, options, appName]);
 
+  /**
+   * Computes the active tab path based on the given tabs and upperActiveTabPath.
+   *
+   * @param {Array<Object>} tabs - The array of tabs.
+   * @param {string} upperActiveTabPath - The upper active tab path.
+   * @returns {string} - The active tab path.
+   */
   const activeTabPath = useMemo(() => {
     const activeTab = tabs.find(({ active }) => active);
     if (activeTab) {
@@ -118,10 +146,26 @@ export const Header = <T extends Payload = Payload>({
     return upperActiveTabPath;
   }, [tabs, upperActiveTabPath]);
 
+  /**
+   * Determines if there are any visible tabs.
+   *
+   * @returns {boolean} - A boolean value indicating if there are any visible tabs.
+   *
+   * @param {Array<Object>} tabs - An array of tab objects.
+   * @param {boolean} tabs.visible - A flag indicating the visibility of the tab.
+   *
+   */
   const hasTabs = useMemo(() => {
     return !!tabs.filter(({ visible }) => visible).length;
   }, [tabs]);
 
+  /**
+   * Handles the tab change event.
+   *
+   * @param {string} path - The new path of the tab.
+   * @param {string} tabId - The ID of the new tab.
+   * @returns {void}
+   */
   const handleTabChange = useCallback(
     (path: string, tabId: string) => {
       onTabChange && onTabChange(path, tabId, id);

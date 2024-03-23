@@ -56,21 +56,6 @@ const StateContext = createContext<IState>(null as never);
  * @param props.loadStart - The function called when the object starts loading.
  * @param props.loadEnd - The function called when the object finishes loading.
  *
- * @return - The rendered children components wrapped in the StateContext.Provider.
- *
- * @example
- * <StateProvider
- *    fields={fields}
- *    features={features}
- *    change={change}
- *    fallback={fallback}
- *    handler={handler}
- *    payload={payload}
- *    loadStart={loadStart}
- *    loadEnd={loadEnd}
- * >
- *    {children}
- * </StateProvider>
  */
 export const StateProvider = <Data extends IAnything, Payload extends IAnything, Field extends IField<Data, Payload> = IField<Data, Payload>>({
     children,

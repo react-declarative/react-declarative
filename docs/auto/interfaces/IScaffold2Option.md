@@ -46,11 +46,15 @@ icon: ComponentType<any>
 tabs: IScaffold2Tab<T>[]
 ```
 
+Represents an array of `IScaffold2Tab` objects.
+
 ### options
 
 ```ts
 options: IScaffold2Option<T>[]
 ```
+
+Represents an array of options for a variable.
 
 ### isVisible
 
@@ -58,8 +62,12 @@ options: IScaffold2Option<T>[]
 isVisible: (payload: T) => boolean | Promise<boolean>
 ```
 
+Determines the visibility of a given payload.
+
 ### isDisabled
 
 ```ts
 isDisabled: (payload: T) => boolean | Promise<boolean>
 ```
+
+Checks if a payload is disabled.

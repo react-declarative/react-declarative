@@ -18,6 +18,11 @@ import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 import { DRAWER_WIDTH } from "../config";
 import usePropsContext from "../context/PropsContext";
 
+/**
+ * Represents the properties for an option item.
+ *
+ * @interface IOptionItemProps
+ */
 interface IOptionItemProps {
   className?: string;
   style?: React.CSSProperties;
@@ -28,6 +33,18 @@ interface IOptionItemProps {
   onClick: (path: string, id: string) => void;
 }
 
+/**
+ * Represents an OptionItem component.
+ *
+ * @typedef {Object} OptionItem
+ * @property {string} className - The CSS class name for the component.
+ * @property {Object} style - The inline styles for the component.
+ * @property {Object} sx - The system styles for the component.
+ * @property {Object} option - The data for the option.
+ * @property {function} onClick - The function to be called when the option is clicked.
+ * @property {string} activeOptionPath - The active path of the option.
+ * @property {number} currentPadding - The current padding of the option.
+ */
 export const OptionItem = ({
   className,
   style,

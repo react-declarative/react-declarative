@@ -130,11 +130,15 @@ BeforeSearch: ComponentType<any>
 AfterSearch: ComponentType<any>
 ```
 
+Represents a React component type for the AfterSearch component.
+
 ### BeforeMenuContent
 
 ```ts
 BeforeMenuContent: ComponentType<any>
 ```
+
+Represents the type definition for the BeforeMenuContent variable.
 
 ### AfterMenuContent
 
@@ -160,11 +164,17 @@ AfterContent: ComponentType<any>
 Copyright: ComponentType<any>
 ```
 
+The Copyright component is a React component that represents a copyright notice.
+It can be used in a React application to display the copyright information.
+
 ### onAction
 
 ```ts
 onAction: (name: string) => void
 ```
+
+Represents a optional callback function that is triggered when an action is performed.
+The function takes a `name` parameter of type `string` and returns `void`.
 
 ### onOptionClick
 
@@ -172,17 +182,23 @@ onAction: (name: string) => void
 onOptionClick: (path: string, id: string) => boolean
 ```
 
+Callback function that is triggered when an option is clicked.
+
 ### onOptionGroupClick
 
 ```ts
 onOptionGroupClick: (path: string, id: string) => boolean
 ```
 
+Function called when an option group is clicked.
+
 ### onTabChange
 
 ```ts
 onTabChange: (path: string, tab: string, id: string) => void
 ```
+
+Represents a callback for when a tab change event occurs.
 
 ### children
 
@@ -214,6 +230,8 @@ onLoadEnd: (isOk: boolean) => void
 fallback: (e: Error) => void
 ```
 
+Represents a function that acts as a fallback, which is executed when an error occurs.
+
 ### throwError
 
 ```ts
@@ -226,11 +244,15 @@ throwError: boolean
 disableBackdropTransition: boolean
 ```
 
+Flag to indicate whether backdrop transition should be disabled.
+
 ### disableDiscovery
 
 ```ts
 disableDiscovery: boolean
 ```
+
+The variable `disableDiscovery` determines if the discovery feature is enabled or disabled.
 
 ### disableSwipeToOpen
 
@@ -238,8 +260,12 @@ disableDiscovery: boolean
 disableSwipeToOpen: boolean
 ```
 
+Represents whether swipe to open functionality is disabled or not.
+
 ### swipeAreaWidth
 
 ```ts
 swipeAreaWidth: number
 ```
+
+The width of the swipe area.

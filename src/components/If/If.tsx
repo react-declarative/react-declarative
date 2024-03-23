@@ -84,11 +84,23 @@ export const If = <T extends any = object>({
 
     const condition$ = useActualValue(condition);
 
+    /**
+     * Function that handles the load start event.
+     *
+     * @function handleLoadStart
+     * @returns
+     */
     const handleLoadStart = () => {
         setLoading((loading) => loading + 1);
         onLoadStart && onLoadStart();
     };
 
+    /**
+     * Decrements the loading count and calls the onLoadEnd handler if it exists.
+     *
+     * @param isOk - Indicates whether loading was successful or not.
+     * @returns
+     */
     const handleLoadEnd = (isOk: boolean) => {
         setLoading((loading) => loading - 1);
         onLoadEnd && onLoadEnd(isOk);
@@ -102,6 +114,12 @@ export const If = <T extends any = object>({
             executionRef.current.cancel();
         }
 
+        /**
+         * Executes a cancelable asynchronous function.
+         *
+         * @param {function} fn - The cancelable function to be executed.
+         *
+         */
         const execute = cancelable(async () => {
             let isOk = true;
             handleLoadStart();
@@ -121,6 +139,12 @@ export const If = <T extends any = object>({
 
         executionRef.current = execute;
 
+        /**
+         * Asynchronous function that executes a process.
+         *
+         * @returns A promise that resolves when the process is complete.
+         * @throws {Error} If an error occurs and `throwError` is `true`.
+         */
         const process = async () => {
             try {
                 const result = await execute();

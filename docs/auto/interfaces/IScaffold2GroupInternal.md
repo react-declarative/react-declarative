@@ -27,3 +27,5 @@ disabled: boolean
 ```ts
 children: IScaffold2OptionInternal<T>[]
 ```
+
+Represents a collection of internal options for a Scaffold2 component.

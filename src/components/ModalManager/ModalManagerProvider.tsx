@@ -46,12 +46,23 @@ interface IState {
     count: number;
 }
 
+/**
+ * @typedef {object} IModalEntity
+ * @property {string} key - The key of the modal entity.
+ * @property {string} id - The id of the modal entity.
+ * @property {function} render - The render function for the modal entity.
+ */
 const DEFAULT_MODAL: IModalEntity = {
     key: randomString(),
     id: "unknown",
     render: () => null,
 };
 
+/**
+ * @typedef {Object} IState
+ * @property {Array} modalStack - The stack of modals.
+ * @property {number} count - The count.
+ */
 const INITIAL_STATE: IState = {
     modalStack: [],
     count: 0,
@@ -91,6 +102,12 @@ export const ModalManagerProvider = ({
 
     const modalStack$ = useActualValue(modalStack);
 
+    /**
+     * Sets the modal stack and updates the state.
+     *
+     * @param {IModalEntity[]} modalStack - The new modal stack.
+     * @returns {void}
+     */
     const setModalStack = useCallback((modalStack: IModalEntity[]) => setState(({ count }) => ({
         modalStack,
         count: modalStack.length === 0 ? 0 : count + 1,
@@ -105,6 +122,15 @@ export const ModalManagerProvider = ({
         throwError,
     })
 
+    /**
+     * A memoized object that encapsulates modal stack operations.
+     *
+     * @typedef {Object} ModalStack
+     * @property {Array<IModal>} modalStack - The current modal stack.
+     * @property {Function} pop - Removes the first modal from the stack.
+     * @property {Function} push - Adds a new modal to the stack.
+     * @property {Function} clear - Clears the modal stack.
+     */
     const value = useMemo(() => ({
         modalStack: modalStack$.current,
         pop: () => setModalStack(modalStack$.current.slice(1)),
@@ -115,6 +141,19 @@ export const ModalManagerProvider = ({
         clear: () => setState(INITIAL_STATE),
     }), [modalStack]);
 
+    /**
+     * Creates a memoized modal entity based on the given modal stack.
+     *
+     * @returns {IModalEntity} The memoized modal entity.
+     *
+     * @description
+     * The `modal` variable is a memoized modal entity created using the `useMemo` hook.
+     * It takes the `modalStack` as a dependency and returns the memoized entity.
+     * The returned entity includes the properties `onInit`, `onMount`, `onUnmount`, and other properties.
+     * The value of these properties are modified versions of the corresponding properties from the `modal` object.
+     * The `onInit`, `onMount`, and `onUnmount` properties are wrapped in a function that calls the original function with any given arguments.
+     * The other properties are spread from the `modal` object.
+     */
     const modal = useMemo((): IModalEntity => {
         const [modal = DEFAULT_MODAL] = modalStack; 
         const {
@@ -131,6 +170,14 @@ export const ModalManagerProvider = ({
         };
     }, [modalStack]);
 
+    /**
+     * Variable backdrop
+     *
+     * @type {Object}
+     * @description Returns a memoized version of the theme object with the MuiBackdrop component's root style overridden to have a transparent background.
+     * @param {Object} theme - The original theme object.
+     * @returns {Object} The customized theme object with the MuiBackdrop component's root style overridden.
+     */
     const backdrop = useMemo(() => createTheme({
         ...theme,
         components: {
@@ -145,6 +192,9 @@ export const ModalManagerProvider = ({
         },
     }), [theme]);
 
+    /**
+     * Represents a stack of modals
+     */
     const stack = useMemo(() => {
         return modalStack.slice(1, modalStack.length);
     }, [modalStack]);

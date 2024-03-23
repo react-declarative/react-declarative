@@ -102,13 +102,43 @@ export const ListPicker = <RowData extends IRowData = IAnything>({
       setSelectedRows(upperSelectedRows);
     }
   }, [upperSelectedRows]);
+  /**
+   * Modifies the state of selected rows based on the given parameters.
+   *
+   * @param rows - The array of row ids to modify the state for.
+   * @param initialChange - A flag indicating if this is the initial change or not.
+   *                                 If false, it sets `selectedRows` to the provided `rows`.
+   */
   const handleChange = (rows: RowId[], initialChange: boolean) => {
     if (!initialChange) {
       setSelectedRows(rows);
     }
   };
+  /**
+   * Callback function called when accepting changes.
+   *
+   * @function handleAccept
+   * @memberof module:yourModule
+   * @param onChange - The function to be called with selected rows as an argument.
+   * @returns
+   */
   const handleAccept = () => onChange(selectedRows);
+  /**
+   * Handles the dismiss event.
+   * This function is responsible for calling the onChange function with a null value.
+   *
+   * @function
+   * @name handleDismiss
+   * @returns
+   */
   const handleDismiss = () => onChange(null);
+  /**
+   * Handles click event on row in a table.
+   *
+   * @param data - The row data containing the id of the clicked row.
+   *
+   * @return
+   */
   const handleClick = ({ id: rowId }: RowData) => setSelectedRows((selectedRows) => {
     if (selectedRows && selectionMode === SelectionMode.Multiple) {
       return [...selectedRows, rowId];

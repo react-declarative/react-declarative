@@ -14,6 +14,11 @@ import useStateContext from "../context/StateContext";
 import usePropsContext from "../context/PropsContext";
 import useHoverContext from "../context/HoverContext";
 
+/**
+ * Represents the properties for a menu option.
+ *
+ * @interface IMenuOptionProps
+ */
 interface IMenuOptionProps {
   option: IScaffold2OptionInternal | IScaffold2OptionInternal[];
   disabled?: boolean;
@@ -48,6 +53,34 @@ const MenuGroup = ({
   const upperLifted = useLifted();
   const [hoverPath] = useHoverContext();
 
+  /**
+   * Calculates the value of the `nestedLifted` variable based on the current `hoverPath` and `option.path`.
+   *
+   * If `hoverPath` is an empty string, the value of `nestedLifted` is `false`.
+   * If `hoverPath` is equal to `option.path`, the value of `nestedLifted` is `true`.
+   * Otherwise, the value of `nestedLifted` is determined by checking if `hoverPath` starts with `option.path`.
+   *
+   * @returns {boolean} The calculated value of the `nestedLifted` variable.
+   *
+   * @param {string} hoverPath - The current hover path
+   * @param {string} option.path - The value of the option path
+   *
+   * @example
+   * const hoverPath = "/path/to/hover";
+   * const option = {
+   *    path: "/path/to"
+   * };
+   *
+   * const nestedLifted = useMemo(() => {
+   *   if (hoverPath === "") {
+   *     return false;
+   *   }
+   *   if (hoverPath === option.path) {
+   *     return true;
+   *   }
+   *   return hoverPath.startsWith(option.path);
+   * }, [hoverPath]);
+   */
   const nestedLifted = useMemo(() => {
     if (hoverPath === "") {
       return false;
@@ -58,6 +91,11 @@ const MenuGroup = ({
     return hoverPath.startsWith(option.path);
   }, [hoverPath]);
 
+  /**
+   * Calculate the lifted value based on the specified conditions.
+   *
+   * @returns {boolean} The computed lifted value.
+   */
   const computeLifted = useActualCallback(
     () => option.lifted || activeOptionPath.includes(option.path)
   );
@@ -76,6 +114,12 @@ const MenuGroup = ({
 
   const defaultIcon = lifted ? () => <LessIcon /> : () => <MoreIcon />;
 
+  /**
+   * Function to handle the click event.
+   * It updates the value of "lifted" state and calls the onGroupClick function.
+   *
+   * @function handleClick
+   */
   const handleClick = () => {
     setLifted((lifted) => {
       if (onOptionGroupClick) {

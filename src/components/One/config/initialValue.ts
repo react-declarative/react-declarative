@@ -50,6 +50,12 @@ const initialValueMap = {
 
 type InitialValue = typeof initialValueMap;
 
+/**
+ * Returns the initial value based on the specified type.
+ *
+ * @param type - The type of the initial value.
+ * @returns - The initial value.
+ */
 export const initialValue = (type: FieldType): InitialValue[keyof InitialValue] | string => {
   const initialValue = initialValueMap[type];
   if (initialValue === undefined) {

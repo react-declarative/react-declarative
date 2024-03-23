@@ -353,6 +353,30 @@ export const OneInternal = <
             object,
             dirty,
           };
+          /**
+           * Represents the internal props for component `one`.
+           *
+           * @template Data - The type of data used by the component.
+           *
+           * @property {boolean} rendered - Determines if the component is rendered.
+           * @property {Function} ready - Callback function for when the component is ready.
+           * @property {string} prefix - The current path prefix.
+           * @property {boolean} readonly - Determines if the component is readonly.
+           * @property {boolean} outlinePaper - Determines if the entity has an outline paper.
+           * @property {boolean} transparentPaper - Determines if the entity has a transparent paper.
+           * @property {boolean} withNamedPlaceholders - Determines if the component has named placeholders.
+           * @property {Function} createField - Function for creating a field.
+           * @property {Function} createLayout - Function for creating a layout.
+           * @property {Array} fields - The list of fields.
+           * @property {Array} features - The list of features.
+           * @property {object} handler - The object handler.
+           * @property {boolean} invalidity - Determines if the component is invalid.
+           * @property {boolean} focus - Determines if the component is focused.
+           * @property {boolean} click - Determines if the component is clicked.
+           * @property {boolean} menu - Determines if the component has a menu.
+           * @property {boolean} blur - Determines if the component is blurred.
+           * @property {boolean} dirty - Determines if the component is dirty.
+           */
           const one: IOneInternalProps<Data> = {
             rendered,
             ready: handleReady,

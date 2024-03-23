@@ -20,6 +20,12 @@ const layouts: Set<FieldType> = new Set([
     FieldType.Layout,
 ]);
 
+/**
+ * Checks if a given FieldType is a layout type.
+ *
+ * @param type - The FieldType to check.
+ * @returns - Returns true if the FieldType is a layout type, otherwise false.
+ */
 export const isLayout = (type: FieldType) => layouts.has(type);
 
 /**

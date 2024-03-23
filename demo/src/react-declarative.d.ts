@@ -17258,8 +17258,28 @@ declare module "react-declarative/components/ModalManager/model/IModal" {
   export interface IModal {
     id: string;
     render: ModalRender;
+    /**
+     * Function called when the component initializes.
+     *
+     * @typedef {function} onInit
+     * @return {Promise<void> | void} Returns a Promise that resolves when the initialization is complete, or undefined if there is no need for an asynchronous operation.
+     */
     onInit?: () => Promise<void> | void;
+    /**
+     * Function called when the component mounts.
+     *
+     * @param {number} count - The count parameter for the onMount function.
+     * @param {IModal[]} stack - The stack parameter for the onMount function.
+     * @returns {Promise<void> | void} - A Promise that resolves to void or a void value.
+     */
     onMount?: (count: number, stack: IModal[]) => Promise<void> | void;
+    /**
+     * Callback function called when unmounting occurs.
+     *
+     * @param {number} count - The count value.
+     * @param {IModal[]} stack - The stack of modals.
+     * @returns {Promise<void> | void} - A Promise that resolves when the function completes or void if no Promise is returned.
+     */
     onUnmount?: (count: number, stack: IModal[]) => Promise<void> | void;
   }
   export default IModal;
@@ -17279,8 +17299,20 @@ declare module "react-declarative/components/ModalManager/hooks/useModalManager"
    */
   interface IResult {
     total: number;
+    /**
+     * Pushes a modal onto the stack.
+     *
+     * @param {IModal} modal - The modal object to be pushed.
+     * @returns {void}
+     */
     push: (modal: IModal) => void;
+    /**
+     * Removes the last element from an array and returns undefined.
+     */
     pop: () => void;
+    /**
+     * Clears the modal stack.
+     */
     clear: () => void;
   }
   /**
@@ -17843,7 +17875,19 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Action" {
         isDisabled: never;
       }
     > {
+    /**
+     * Determines the visibility of an element based on a provided payload.
+     *
+     * @param {T} payload - The payload used to determine the visibility.
+     * @returns {Promise<boolean> | boolean} - A promise or a boolean value indicating the visibility of the element.
+     */
     isVisible?: (payload: T) => Promise<boolean> | boolean;
+    /**
+     * Indicates whether a certain payload is disabled.
+     *
+     * @param {T} payload - The payload to check for disabled status.
+     * @returns {Promise<boolean> | boolean} - A Promise or boolean value representing the disabled status.
+     */
     isDisabled?: (payload: T) => Promise<boolean> | boolean;
   }
   export default IScaffold2Action;
@@ -17873,7 +17917,17 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     label?: string;
     icon?: React.ComponentType;
     noHeader?: boolean;
+    /**
+     * Checks if the element is visible.
+     *
+     * @returns {boolean|Promise<boolean>} - True if the element is visible.
+     */
     isVisible?: () => boolean | Promise<boolean>;
+    /**
+     * Checks if the element is disabled.
+     *
+     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a promise that resolves to a boolean value.
+     */
     isDisabled?: () => boolean | Promise<boolean>;
     children: IScaffold2Option<T>[];
   }
@@ -17895,6 +17949,11 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     path: string;
     visible: boolean;
     disabled: boolean;
+    /**
+     * Represents a collection of internal options for a Scaffold2 component.
+     *
+     * @template T - The type of the options.
+     */
     children: IScaffold2OptionInternal<T>[];
   }
   export default IScaffold2Group;
@@ -17917,9 +17976,29 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     pin?: boolean;
     sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
+    /**
+     * Represents an array of `IScaffold2Tab` objects.
+     * @template T - The type of the `IScaffold2Tab` object.
+     */
     tabs?: IScaffold2Tab<T>[];
+    /**
+     * Represents an array of options for a variable.
+     * @template T The type of the options.
+     */
     options?: IScaffold2Option<T>[];
+    /**
+     * Determines the visibility of a given payload.
+     *
+     * @param {T} payload - The payload to check visibility for.
+     * @returns {boolean | Promise<boolean>} - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
+     */
     isVisible?: (payload: T) => boolean | Promise<boolean>;
+    /**
+     * Checks if a payload is disabled.
+     *
+     * @param {T} payload - The payload to check.
+     * @returns {boolean|Promise<boolean>} - True if the payload is disabled, false otherwise.
+     */
     isDisabled?: (payload: T) => boolean | Promise<boolean>;
   }
   /**
@@ -17940,7 +18019,17 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     path: string;
     visible: boolean;
     disabled: boolean;
+    /**
+     * Options for the given variable.
+     *
+     * @template T - The type of the options.
+     */
     options?: IScaffold2OptionInternal<T>[];
+    /**
+     * Represents an array of internal scaffold tabs.
+     * @template T - The type of data associated with the tabs.
+     * @typedef {Array<IScaffold2TabInternal<T>>} Tabs
+     */
     tabs?: IScaffold2TabInternal<T>[];
   }
   export default IScaffold2Option;
@@ -19251,21 +19340,6 @@ declare module "react-declarative/components/One/context/StateProvider" {
    * @param props.loadStart - The function called when the object starts loading.
    * @param props.loadEnd - The function called when the object finishes loading.
    *
-   * @return - The rendered children components wrapped in the StateContext.Provider.
-   *
-   * @example
-   * <StateProvider
-   *    fields={fields}
-   *    features={features}
-   *    change={change}
-   *    fallback={fallback}
-   *    handler={handler}
-   *    payload={payload}
-   *    loadStart={loadStart}
-   *    loadEnd={loadEnd}
-   * >
-   *    {children}
-   * </StateProvider>
    */
   export const StateProvider: <
     Data extends unknown,
@@ -19310,6 +19384,13 @@ declare module "react-declarative/components/One/context/FeatureProvider" {
     children: React.ReactNode;
     features?: IOneProps["features"];
   }
+  /**
+   * Represents a feature provider.
+   * @param props - The feature provider props.
+   * @param props.children - The child components.
+   * @param [props.features=ARRAY_VALUE] - The array of features.
+   * @returns - The feature provider component.
+   */
   export const FeatureProvider: ({
     children,
     features,
@@ -25540,8 +25621,24 @@ declare module "react-declarative/components/ScrollAdjust/ScrollAdjust" {
    */
   export const ScrollAdjust: {
     (): JSX.Element;
+    /**
+     * Sets the value to adjust the scroll force.
+     *
+     * @param force - The force to adjust the scroll.
+     */
     setAdjustForce(force: boolean): void;
+    /**
+     * Sets the adjustment height for scrollbars.
+     *
+     * @param adjustHeight - The height to adjust the scrollbars.
+     * @returns
+     */
     setAdjustHeight(height: Height): void;
+    /**
+     * Sets the adjustment filler for ScrollAdjust component.
+     *
+     * @param filler - The HTML element to be used as adjustment filler.
+     */
     setAdjustFiller(element: React.ComponentType<any>): void;
   };
   export default ScrollAdjust;
@@ -25969,33 +26066,199 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
     actions?: IScaffold2Action<T>[];
     loading?: boolean | number;
     payload?: T;
+    /**
+     * An array of dependencies.
+     *
+     * @typedef {any[]} Dependencies
+     */
     deps?: any[];
+    /**
+     * Specifies the active option path.
+     *
+     * @typedef {string} activeOptionPath
+     * @description This variable holds the path of the currently active option.
+     *              The path is represented as a string value.
+     */
     activeOptionPath: string;
+    /**
+     * Represents the path of the active tab.
+     *
+     * @typedef {string} activeTabPath
+     *
+     * @description
+     * The `activeTabPath` variable is an optional string that represents the path of the active tab.
+     * It is used to track and store the current tab's path within the application.
+     */
     activeTabPath?: string;
+    /**
+     * Represents the type definition for the `AfterAppName` variable.
+     *
+     * @typedef {import('react').ComponentType<any>} AfterAppName
+     *
+     * @description
+     * A variable of type `React.ComponentType<any>` representing a React component.
+     */
     AfterAppName?: React.ComponentType<any>;
+    /**
+     * Represents a React component BeforeActionMenu.
+     *
+     * @component
+     * @typedef {React.ComponentType<any>} BeforeActionMenu
+     */
     BeforeActionMenu?: React.ComponentType<any>;
+    /**
+     * BeforeSearch is a React component type used for rendering a component before the search functionality.
+     *
+     * @typedef {React.ComponentType<any>} BeforeSearch
+     * @memberof module:components
+     * @see {@link https://reactjs.org/docs/react-component.html|React.ComponentType}
+     */
     BeforeSearch?: React.ComponentType<any>;
+    /**
+     * Represents a React component type for the AfterSearch component.
+     *
+     */
     AfterSearch?: React.ComponentType<any>;
+    /**
+     * Represents the type definition for the BeforeMenuContent variable.
+     *
+     * @description
+     * This variable represents a React component that serves as the content to be rendered
+     * before the menu component. It can accept any props as specified by the `any` type.
+     */
     BeforeMenuContent?: React.ComponentType<any>;
+    /**
+     * Type definition for the variable AfterMenuContent.
+     *
+     * @typedef {React.ComponentType<any>} AfterMenuContent
+     * @description A React component type that represents the content to be rendered after a menu component.
+     */
     AfterMenuContent?: React.ComponentType<any>;
+    /**
+     * Represents the `BeforeContent` variable.
+     *
+     * @typedef {React.ComponentType<any>} BeforeContent
+     * @description This variable is a React component type that can accept any props. It is typically used to render content that should appear before the main content within a parent component
+     */
     BeforeContent?: React.ComponentType<any>;
+    /**
+     * Represents a React component type for rendering content after the main content.
+     *
+     * @typedef {React.ComponentType<any>} AfterContent
+     */
     AfterContent?: React.ComponentType<any>;
+    /**
+     * The Copyright component is a React component that represents a copyright notice.
+     * It can be used in a React application to display the copyright information.
+     *
+     * @component
+     * @category UI Components
+     *
+     * @param {any} props - The properties of the Copyright component.
+     *
+     * @returns {React.ComponentType<any>} The Copyright React component.
+     */
     Copyright?: React.ComponentType<any>;
+    /**
+     * Represents a optional callback function that is triggered when an action is performed.
+     * The function takes a `name` parameter of type `string` and returns `void`.
+     *
+     * @typedef {function} onAction
+     * @param {string} name - The name of the action being performed.
+     * @returns {void}
+     */
     onAction?: (name: string) => void;
+    /**
+     * Callback function that is triggered when an option is clicked.
+     *
+     * @param {string} path - The path of the option.
+     * @param {string} id - The ID of the option.
+     * @returns {undefined | boolean} - Returns undefined or a boolean value based on the processing of the option click.
+     */
     onOptionClick?: (path: string, id: string) => undefined | boolean;
+    /**
+     * Function called when an option group is clicked.
+     *
+     * @param {string} path - The path of the option group.
+     * @param {string} id - The ID of the clicked option group.
+     * @return {undefined | boolean} - Returns undefined or a boolean value.
+     */
     onOptionGroupClick?: (path: string, id: string) => undefined | boolean;
+    /**
+     * Represents a callback for when a tab change event occurs.
+     *
+     * @param {string} path - The current path of the tab.
+     * @param {string} tab - The name of the tab that was changed to.
+     * @param {string} id - The unique identifier of the tab.
+     * @returns {void}
+     */
     onTabChange?: (path: string, tab: string, id: string) => void;
     children: React.ReactNode;
+    /**
+     * @typedef {() => (void | Promise<void>)} onInit
+     * @description Represents a function that may or may not initialize something.
+     * The function returns either void or a Promise that resolves to void.
+     */
     onInit?: () => void | Promise<void>;
+    /**
+     * Represents a callback function that will be invoked when a load operation starts.
+     *
+     * @callback onLoadStart
+     * @returns {void}
+     */
     onLoadStart?: () => void;
+    /**
+     * Represents a callback function that is called when the loading process ends.
+     *
+     * @callback onLoadEnd
+     * @param {boolean} isOk - A boolean value indicating whether the loading process was successful.
+     * @returns {void} This callback does not return anything.
+     */
     onLoadEnd?: (isOk: boolean) => void;
+    /**
+     * Represents a function that acts as a fallback, which is executed when an error occurs.
+     * @param {Error} e - The error that occurred.
+     * @returns {void}
+     */
     fallback?: (e: Error) => void;
+    /**
+     * Indicates whether an error should be thrown.
+     *
+     * @typedef {boolean} throwError
+     */
     throwError?: boolean;
+    /**
+     * Flag to indicate whether backdrop transition should be disabled.
+     *
+     * @type {boolean}
+     * @optional
+     */
     disableBackdropTransition?: boolean;
+    /**
+     * The variable `disableDiscovery` determines if the discovery feature is enabled or disabled.
+     *
+     * @type {boolean|undefined}
+     * @default undefined
+     */
     disableDiscovery?: boolean;
+    /**
+     * Represents whether swipe to open functionality is disabled or not.
+     *
+     * @type {boolean}
+     * @default false
+     */
     disableSwipeToOpen?: boolean;
+    /**
+     * The width of the swipe area.
+     * @type {number} - Optional parameter, represents the width of the swipe area in pixels.
+     */
     swipeAreaWidth?: number;
   }
+  /**
+   * Represents the internal props for the IScaffold2 component.
+   *
+   * @template T - The type of payload.
+   */
   export interface IScaffold2InternalProps<T = Payload>
     extends Omit<
       IScaffold2Props<T>,

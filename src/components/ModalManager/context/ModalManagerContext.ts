@@ -11,13 +11,32 @@ import IContext from '../model/IContext';
  * @property {Function} clear - Function to clear all modals from the stack.
  */
 export const ModalManagerContext = createContext<IContext>({
+    /**
+     * Represents a stack to store modal objects.
+     * @type {Array}
+     */
     modalStack: [],
+    /**
+     * Removes and returns the top element from the stack.
+     *
+     * @throws {Error} Throws an error if no context is provided for ModalManager.
+     */
     pop: () => {
         throw new Error('ModalManager no context provided');
     },
+    /**
+     * Throws an error indicating that the ModalManager has no context provided.
+     *
+     * @throws {Error} Indicates that ModalManager no context provided.
+     */
     push: () => {
         throw new Error('ModalManager no context provided');
     },
+    /**
+     * Clear function of ModalManager.
+     *
+     * @throws {Error} Throws an error if no context is provided.
+     */
     clear: () => {
         throw new Error('ModalManager no context provided');
     },

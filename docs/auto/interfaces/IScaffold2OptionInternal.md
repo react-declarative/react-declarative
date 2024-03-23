@@ -28,6 +28,8 @@ disabled: boolean
 options: IScaffold2OptionInternal<T>[]
 ```
 
+Options for the given variable.
+
 ### tabs
 
 ```ts

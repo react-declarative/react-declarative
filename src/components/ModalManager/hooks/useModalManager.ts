@@ -9,8 +9,20 @@ import IModal from "../model/IModal";
  */
 interface IResult {
     total: number;
+    /**
+     * Pushes a modal onto the stack.
+     *
+     * @param {IModal} modal - The modal object to be pushed.
+     * @returns {void}
+     */
     push: (modal: IModal) => void;
+    /**
+     * Removes the last element from an array and returns undefined.
+     */
     pop: () => void;
+    /**
+     * Clears the modal stack.
+     */
     clear: () => void;
 }
 

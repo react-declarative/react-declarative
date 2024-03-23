@@ -80,10 +80,25 @@ export const Container = <T extends Payload = Payload>({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
 
+  /**
+   * Toggles the mobile drawer state.
+   *
+   * @function
+   * @name handleDrawerToggle
+   * @returns
+   */
   const handleDrawerToggle = () => {
     setMobileOpen((mobileOpen) => !mobileOpen);
   };
 
+  /**
+   * Handles the click event of an option group.
+   *
+   * @param path - The path of the option group.
+   * @param id - The ID of the option group.
+   *
+   * @returns
+   */
   const handleOptionGroupClick = (path: string, id: string) => {
     if (onOptionGroupClick) {
       const mobileOpen = onOptionGroupClick(path, id);
@@ -93,6 +108,13 @@ export const Container = <T extends Payload = Payload>({
     }
   };
 
+  /**
+   * Handles the click event for an option.
+   *
+   * @param path - The path of the option.
+   * @param id - The identifier of the option.
+   * @returns
+   */
   const handleOptionClick = (path: string, id: string) => {
     if (onOptionClick) {
       const mobileOpen = onOptionClick(path, id);

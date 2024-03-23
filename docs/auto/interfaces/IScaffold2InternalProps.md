@@ -1,5 +1,7 @@
 # IScaffold2InternalProps
 
+Represents the internal props for the IScaffold2 component.
+
 ## Properties
 
 ### options
