@@ -75,6 +75,13 @@ export const useSinglerunAction = <Data extends any = any, Payload extends any =
       isMounted.current = false;
     }, []);
 
+    /**
+     * Executes a function asynchronously using the useMemo hook.
+     *
+     * @param {Function} callback - The function to be executed asynchronously.
+     *
+     * @returns {any} - The result of the execution.
+     */
     const execute = useMemo(() => singlerun(async (payload?: Payload) => {
 
         const execution = async () => {

@@ -19,6 +19,15 @@ export const useFile = ({
   onSelect,
 }: IParams) => {
   const inputRef = useRef<HTMLInputElement>(null)
+  /**
+   * Handles the 'onChange' event of an input element.
+   *
+   * This function is responsible for retrieving the selected files from an input element,
+   * calling the 'onSelect' function with the selected files as arguments, and then clearing
+   * the input element's value.
+   *
+   * @returns This function does not return a value.
+   */
   const onChange = () => {
     const files = inputRef.current?.files;
     if (!files?.length) {
@@ -28,6 +37,11 @@ export const useFile = ({
       inputRef.current && (inputRef.current.value = '')
     }
   };
+  /**
+   * Renders a file input element with specified attributes.
+   *
+   * @returns The rendered file input element.
+   */
   const render = () => (
     <input
       type="file"

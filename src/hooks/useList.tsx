@@ -16,6 +16,11 @@ import useActualRef from "./useActualRef";
 
 import Subject from "../utils/rx/Subject";
 
+/**
+ * Represents a function that takes an array of data as input.
+ *
+ * @template Data - The type of data that the function takes as input.
+ */
 type Fn<Data = IAnything> = (d: Data[] | null) => void;
 
 /**
@@ -50,6 +55,10 @@ interface IParams<RowData extends IRowData = IAnything>
   title?: string;
 }
 
+/**
+ * Represents the state of a component.
+ * @interface IState
+ */
 interface IState {
   open: boolean;
   title: string;
@@ -130,6 +139,12 @@ export const useList = <RowData extends IRowData = IAnything>({
 
   const changeRef = useRef<Fn>();
 
+  /**
+   * Handles change event.
+   *
+   * @param data - The data to be passed to the handleChange function.
+   * @returns
+   */
   const handleChange: Fn = (data) => {
     const { current } = changeRef;
     if (current) {

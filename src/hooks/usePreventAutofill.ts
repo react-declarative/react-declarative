@@ -45,16 +45,36 @@ export const usePreventAutofill = <T = HTMLInputElement>({
 }: Partial<IParams<T>> = {}): IResult<T> => {
     const [readOnly, setReadOnly] = useState(true);
 
+    /**
+     * Handles the focus event for a component.
+     *
+     * @param {React.FocusEvent<T>} e - The focus event object.
+     * @returns {void}
+     */
     const handleFocus = useCallback<React.FocusEventHandler<T>>((e) => {
         setReadOnly(false);
         onFocus && onFocus(e);
     }, [onFocus]);
 
+    /**
+     * Handles touch start event.
+     *
+     * @callback TouchEventHandler
+     * @param {React.TouchEvent<T>} e - The touch event object.
+     * @returns {void}
+     */
     const handleTouchStart = useCallback<React.TouchEventHandler<T>>((e) => {
         setReadOnly(false);
         onTouchStart && onTouchStart(e);
     }, [onFocus]);
 
+    /**
+     * Callback function to handle the context menu event.
+     *
+     * @function
+     * @param {React.MouseEvent<T>} e - The mouse event object.
+     * @returns {void}
+     */
     const handleContextMenu = useCallback<React.MouseEventHandler<T>>((e) => {
         e.preventDefault();
         e.stopPropagation();

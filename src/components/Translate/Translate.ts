@@ -87,6 +87,12 @@ export class Translate {
         rawCondition = () => true,
     } = config;
 
+    /**
+     * Processes the raw text by applying transformations and conditions.
+     *
+     * @param text - The raw text to be processed.
+     * @returns The processed text.
+     */
     const processRaw = (text: string) => {
         const result = this.tr(text);
         if (result === text) {

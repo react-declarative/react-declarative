@@ -22,6 +22,12 @@ export const useDate = () => {
 
   const changeRef = useRef<Fn>();
 
+  /**
+   * A function to handle change of date.
+   *
+   * @param date - The new date value.
+   * @returns
+   */
   const handleChange: Fn = (date) => {
     const { current } = changeRef;
     if (current) {

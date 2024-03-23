@@ -4322,6 +4322,16 @@ declare module "react-declarative/hooks/useWatchChanges" {
    * @returns An object containing methods and properties for watching changes.
    */
   export const useWatchChanges: (deps?: any[]) => {
+    /**
+     * Subscribe to the 'changeSubject' and update the state using useState.
+     * The state is updated to the opposite value of the current state.
+     *
+     * This function should be used inside a functional component to automatically update the state when the 'changeSubject' emits a new value.
+     *
+     * @param changeSubject - The subject to subscribe to for changes.
+     * @returns
+     *
+     */
     readonly useChanges: () => void;
     readonly changeSubject: import("..").Subject<void>;
     readonly watch: {
@@ -4497,6 +4507,11 @@ declare module "react-declarative/model/IOneProps" {
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/One/components/SlotFactory";
   type DataOrNull<Data = IAnything> = Data | null;
+  /**
+   * Represents a OneHandler class that can handle data or perform asynchronous tasks with payload.
+   * @template Data - The type of data that the OneHandler can handle.
+   * @template Payload - The type of payload that the OneHandler can accept.
+   */
   export type OneHandler<Data = IAnything, Payload = IAnything> =
     | Data
     | ((payload: Payload) => DataOrNull<Data>)
@@ -4767,6 +4782,14 @@ declare module "react-declarative/hooks/useOneArray" {
     T[],
     import("react").Dispatch<import("react").SetStateAction<T[] | null>>,
   ];
+  /**
+   * Checks if an array includes any of the provided items.
+   *
+   * @template T - The type of the array element and items.
+   * @param data - The array to be checked for inclusion.
+   * @param items - The items to check for inclusion in the array.
+   * @returns - True if any of the items is found in the array, false otherwise.
+   */
   export const oneArrayIncludes: <T = any>(
     data: T[] | null,
     ...items: T[]
@@ -5021,6 +5044,10 @@ declare module "react-declarative/hooks/useQueuedAction" {
     error: boolean;
     execute: IExecute<Data, Payload>;
   }
+  /**
+   * @interface IExecute
+   * @template Data, Payload
+   */
   export interface IExecute<
     Data extends any = any,
     Payload extends any = object,
@@ -6062,6 +6089,11 @@ declare module "react-declarative/hooks/useList" {
   import IListProps from "react-declarative/model/IListProps";
   import SelectionMode from "react-declarative/model/SelectionMode";
   import { IListPickerProps } from "react-declarative/components/common/ListPicker";
+  /**
+   * Represents a function that takes an array of data as input.
+   *
+   * @template Data - The type of data that the function takes as input.
+   */
   type Fn<Data = IAnything> = (d: Data[] | null) => void;
   /**
    * Represents a set of parameters for the IParams class.
@@ -15459,6 +15491,15 @@ declare module "react-declarative/model/ISize" {
     height: number;
     width: number;
   }
+  /**
+   * Type definition for a callback function that handles size and data changes.
+   *
+   * @template Data - The type of data being passed to the callback function.
+   * @param data - The data being passed to the callback function.
+   * @param size - The size information.
+   * @param ref - The reference to the HTML div element.
+   * @returns A string representing the result of the callback function.
+   */
   export type ISizeCallback<Data = IAnything> = (
     data: Data,
     size: ISize,
@@ -17223,10 +17264,31 @@ declare module "react-declarative/components/MasterDetail" {
 declare module "react-declarative/components/ModalProvider/ModalProvider" {
   import * as React from "react";
   import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for the properties of the ModalProvider component.
+   */
   interface IModalProviderProps {
     children: React.ReactNode;
   }
+  /**
+   * Represents an interface for a renderer component.
+   *
+   * @typedef {React.ComponentType<IAnything>} IRenderer
+   *
+   * @interface
+   */
   type IRenderer = React.ComponentType<IAnything>;
+  /**
+   * Represents a hook that provides methods for rendering and manipulating modals.
+   *
+   * @typedef {function} IHook
+   * @param {IRenderer} render - The renderer to use for rendering the modals.
+   * @param {any[]} [deps] - Optional dependencies required for the hook.
+   * @returns {object} An object containing the methods for showing and hiding modals.
+   *
+   * @method showModal - Show a modal.
+   * @method hideModal - Hide a modal.
+   */
   interface IHook {
     (
       render: IRenderer,
@@ -17249,6 +17311,17 @@ declare module "react-declarative/components/ModalProvider/ModalProvider" {
   export const ModalProvider: ({
     children,
   }: IModalProviderProps) => JSX.Element;
+  /**
+   * useModal is a custom hook that provides functionality to show and hide a modal.
+   *
+   * @typedef {Object} IHook
+   * @property {Function} showModal - A function that shows the modal.
+   * @property {Function} hideModal - A function that hides the modal.
+   *
+   * @param renderer - The renderer function to be executed when the modal is shown.
+   * @param deps - The dependencies array to trigger updates when the modal is shown.
+   * @returns The object containing the showModal and hideModal functions.
+   */
   export const useModal: IHook;
   export default ModalProvider;
 }

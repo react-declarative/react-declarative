@@ -25,6 +25,10 @@ export interface IResult<Data extends any = any, Payload extends any = object> {
     execute: IExecute<Data, Payload>;
 }
 
+/**
+ * @interface IExecute
+ * @template Data, Payload
+ */
 export interface IExecute<Data extends any = any, Payload extends any = object> {
     (payload?: Payload): Promise<Data | null>;
     clear(): void;

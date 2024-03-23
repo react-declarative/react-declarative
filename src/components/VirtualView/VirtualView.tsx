@@ -125,6 +125,11 @@ export const VirtualView = ({
   const scrollXSubject = useSubject(upperScrollXSubject);
   const scrollYSubject = useSubject(upperScrollYSubject);
 
+  /**
+   * Represents a memoized array of React children.
+   *
+   * @typedef {React.Node[]} Children
+   */
   const children = useMemo(() => {
     isChildrenChanged.current = true;
     return React.Children.toArray(upperChildren);
@@ -173,6 +178,11 @@ export const VirtualView = ({
     }
   });
 
+  /**
+   * A variable representing a singleton instance of a `Map<number, HTMLDivElement>` object.
+   *
+   * @type {Map<number, HTMLDivElement>}
+   */
   const elementRefMap = useSingleton(() => new Map<number, HTMLDivElement>());
 
   const [container, setContainer] = useState<HTMLDivElement | null>(null);

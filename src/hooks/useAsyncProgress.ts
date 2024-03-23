@@ -111,6 +111,11 @@ export const useAsyncProgress = <
   const onEnd$ = useActualCallback(onEnd);
   const onBegin$ = useActualCallback(onBegin);
 
+  /**
+   * Sets the progress value in the state.
+   * @param {number} progress - The value of the progress.
+   * @returns {void}
+   */
   const setProgress = useCallback(
     (progress: number) =>
       setState((prevState) => ({
@@ -120,6 +125,11 @@ export const useAsyncProgress = <
     []
   );
 
+  /**
+   * Sets the errors in the state.
+   *
+   * @param {Array} errors - An array of IError objects representing the errors.
+   */
   const setErrors = useCallback(
     (errors: IError[]) =>
       setState((prevState) => ({
@@ -129,6 +139,13 @@ export const useAsyncProgress = <
     []
   );
 
+  /**
+   * Handles an error by updating the state with the error object
+   *
+   * @param {IError} error - The error object to be handled
+   *
+   * @returns {void}
+   */
   const handleError = useCallback(
     (error: IError) =>
       setState((prevState) => ({

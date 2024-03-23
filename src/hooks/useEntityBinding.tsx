@@ -42,6 +42,13 @@ export const useEntityBinding = <T extends IEntity = any>({
     const [loading, setLoading] = useState(true);
     const initComplete = useRef(false);
 
+    /**
+     * @function handleChange
+     * @description Handles the change event for a given item.
+     *
+     * @param item - The item to handle change for.
+     * @returns
+     */
     const handleChange = (item: EntityAdapter<T>) => onChange && onChange(item, !initComplete.current);
 
     const entity = useEntity<T>({

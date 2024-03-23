@@ -88,6 +88,14 @@ export const useMediaStreamBuilder = ({
 
     const mediaStream = useSingleton(() => new MediaStream());
 
+    /**
+     * Requests screen capture using the actual callback.
+     *
+     * @async
+     * @function requestScreenCapture
+     * @returns {Promise<void>} - A Promise that resolves when the screen capture is successfully requested.
+     * @throws {Error} - Throws an error if the screen capture request fails and throwError is set to true.
+     */
     const requestScreenCapture = useActualCallback(async () => {
         let isOk = true;
         try {

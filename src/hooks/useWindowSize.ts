@@ -31,6 +31,13 @@ export const useWindowSize = <Size extends ISize = ISize>({
     onResize,
 }: Partial<IParams<Size>> = {}) => {
     
+    /**
+     * Retrieves the current window size.
+     *
+     * @returns {Object} The size of the window.
+     *                   - height: The height of the window as a whole number.
+     *                   - width: The width of the window as a whole number.
+     */
     const getWindowSize = useCallback(() => {
         const size = compute({
             height: Math.floor(window.innerHeight),

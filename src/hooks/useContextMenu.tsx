@@ -150,11 +150,22 @@ export const useContextMenu = <T extends any = object>({
   const onAction$ = useActualCallback(onAction);
   const options$ = useActualValue(options);
 
+  /**
+   * Increases the loading count and triggers the onLoadStart callback.
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Function to handle the load end event.
+   *
+   * @param isOk - Indicates whether the load is successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => Math.max(loading - 1, 0));
     onLoadEnd && onLoadEnd(isOk);
@@ -167,6 +178,13 @@ export const useContextMenu = <T extends any = object>({
     fallback,
   });
 
+  /**
+   * Handles the click event.
+   *
+   * @param item - The item being clicked.
+   * @param e - The event object.
+   * @returns
+   */
   const handleClick = (item: string) => (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -174,6 +192,11 @@ export const useContextMenu = <T extends any = object>({
     setAnchorEl(null);
   };
 
+  /**
+   * Renders a Menu component with custom behavior and styling.
+   *
+   * @returns The rendered Menu component.
+   */
   const render = () => {
     return (
       <Menu

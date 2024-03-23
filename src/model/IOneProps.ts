@@ -13,6 +13,11 @@ import { ISlotFactoryContext } from '../components/One/components/SlotFactory';
 
 type DataOrNull<Data = IAnything> = Data | null;
 
+/**
+ * Represents a OneHandler class that can handle data or perform asynchronous tasks with payload.
+ * @template Data - The type of data that the OneHandler can handle.
+ * @template Payload - The type of payload that the OneHandler can accept.
+ */
 export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload: Payload) => DataOrNull<Data>) | ((payload: Payload) => Promise<DataOrNull<Data>>) | null;
 
 /**

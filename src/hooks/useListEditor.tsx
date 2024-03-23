@@ -31,6 +31,12 @@ export const useListEditor = <Data extends any = undefined>(renderItem: (id: Row
 
     const createId = () => Math.max(...items.keys(), 0) + 1;
 
+    /**
+     * Adds an item to the collection.
+     *
+     * @param data - The data of the item to be added.
+     * @returns - The generated ID of the added item.
+     */
     const onAddItem = (data: Data) => {
         const id = createId();
         items.set(id, data);
@@ -38,11 +44,24 @@ export const useListEditor = <Data extends any = undefined>(renderItem: (id: Row
         return id;
     };
 
+    /**
+     * Removes an item from the items map using the given ID.
+     *
+     * @param id - The ID of the item to be removed.
+     * @returns
+     */
     const onRemoveItem = (id: RowId) => {
         items.delete(id);
         setItems(new Map(items));
     };
 
+    /**
+     * Updates an item in the collection.
+     *
+     * @param id - The ID of the item to be updated.
+     * @param data - The updated data for the item.
+     * @returns
+     */
     const onUpdateItem = (id: RowId, data: Data) => {
         items.set(id, data);
         setItems(new Map(items));
@@ -58,6 +77,11 @@ export const useListEditor = <Data extends any = undefined>(renderItem: (id: Row
         onChange && onChange(itemList);
     }, [itemList]);
 
+    /**
+     * Renders a list of items using the renderItem function.
+     *
+     * @returns The rendered list of items.
+     */
     const render = () => (
         <>
             {[...items.entries()].map(([id, item], idx) => (

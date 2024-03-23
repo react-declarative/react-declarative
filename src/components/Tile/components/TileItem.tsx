@@ -95,6 +95,13 @@ export const TileItem = forwardRef(
       setSelection(new Set(selection));
     }, [selection]);
 
+    /**
+     * Determines whether a specific data item is currently selected.
+     *
+     * @param {Set} selection - The set containing selected row keys.
+     * @param {string} rowKey - The key for the data item to check.
+     * @returns {boolean} - True if the data item is selected, false otherwise.
+     */
     const isSelected = useMemo(() => {
       return selection.has(data[rowKey]);
     }, [selection]);

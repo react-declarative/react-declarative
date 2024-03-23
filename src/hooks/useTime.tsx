@@ -20,6 +20,12 @@ export const useTime = () => {
 
   const changeRef = useRef<Fn>();
 
+  /**
+   * Function to handle change of time
+   *
+   * @param time - The time to be passed to the changeRef.current function
+   * @returns
+   */
   const handleChange: Fn = (time) => {
     const { current } = changeRef;
     if (current) {

@@ -100,6 +100,12 @@ export const usePrompt = ({
     }
   }, [defaultValue]);
 
+  /**
+   * Handles the change event.
+   *
+   * @param value - The value to be passed to the callback function.
+   * @returns
+   */
   const handleChange: Fn = (value) => {
     const { current } = changeRef;
     if (current) {

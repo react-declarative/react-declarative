@@ -23,6 +23,14 @@ export const useOneArray = <T = any>(initialValue?: ((T[] | null) | (() => T[]))
     return [managedData, setData] as const;
 };
 
+/**
+ * Checks if an array includes any of the provided items.
+ *
+ * @template T - The type of the array element and items.
+ * @param data - The array to be checked for inclusion.
+ * @param items - The items to check for inclusion in the array.
+ * @returns - True if any of the items is found in the array, false otherwise.
+ */
 export const oneArrayIncludes = <T = any>(data: T[] | null, ...items: T[]) => {
     if (typeof data === 'string') {
         data = [data];
