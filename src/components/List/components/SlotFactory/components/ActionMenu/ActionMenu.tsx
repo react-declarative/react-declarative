@@ -36,6 +36,11 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
 
   const { onAction, fallback, onLoadStart, onLoadEnd, loading } = useProps();
 
+  /**
+   * Executes an action based on the given input.
+   *
+   * @param {string} action - The action to be executed.
+   */
   const handleAction = useActualCallback((action: string) => {
     if (action === "update-now") {
       reloadList();
@@ -47,7 +52,19 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
     onAction && onAction(action, selectedRows, reloadList);
   });
 
+  /**
+   * Callback function for handling load start event.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+  /**
+   * Handles the load end event.
+   *
+   * @param isOk - A boolean indicating whether the load is successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) =>
     onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 

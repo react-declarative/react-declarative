@@ -75,6 +75,12 @@ export const SearchSlot = ({
 
   const { classes } = useStyles();
 
+  /**
+   * Executes the cleanup process for search functionality.
+   *
+   * @function handleSearchCleanup
+   * @returns
+   */
   const handleSearchCleanup = () => {
     onSearchChange("");
   };

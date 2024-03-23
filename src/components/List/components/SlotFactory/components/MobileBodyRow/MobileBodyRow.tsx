@@ -84,6 +84,21 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   const { onRowClick, onRowAction, rowColor = () => 'inherit' } = props;
 
+  /**
+   * Function to handle click event.
+   * It performs the following actions:
+   * - If `menuOpened` is false:
+   *   - If `props.withSelectOnRowClick` is true and `props.selectionMode` is not `SelectionMode.None`:
+   *     - If `props.selectionMode` is `SelectionMode.Single`:
+   *       - If `selection` contains `row.id` and `selection` size is 1, remove `row.id` from `selection`.
+   *       - Otherwise, clear `selection` and add `row.id` to `selection`.
+   *     - Otherwise, check if `selection` contains `row.id`. If true, remove `row.id` from `selection`,
+   *       otherwise add `row.id` to `selection`.
+   *     - Set `selection` state with updated `selection`.
+   *   - Otherwise, if `onRowClick` is defined, call `onRowClick` callback with `row` and `reload` parameters.
+   *
+   * @returns
+   */
   const handleClick = () => {
     if (!menuOpened) {
       if (
@@ -109,10 +124,21 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     }
   };
 
+  /**
+   * Sets the state of the menu based on the provided boolean value.
+   *
+   * @param opened - Specifies whether the menu is opened or not.
+   * @returns
+   */
   const handleMenuToggle = (opened: boolean) => {
     setMenuOpened(opened);
   };
 
+  /**
+   * Handles an action triggered by the user.
+   *
+   * @param action - The action to be handled.
+   */
   const handleAction = (action: string) => {
     onRowAction && onRowAction(action, row, reload);
   };

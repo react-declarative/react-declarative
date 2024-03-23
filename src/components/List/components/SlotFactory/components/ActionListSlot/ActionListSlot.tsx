@@ -82,7 +82,20 @@ export const ActionListSlot = <FilterData extends {}>({
 
   const hasOperations = Array.isArray(operations) && !!operations.length;
 
-  const createAction = ({ 
+  /**
+   * Creates an action component based on the given options.
+   * @param options - The options for the action.
+   * @param options.type - The type of action.
+   * @param options.options - The options for the action menu.
+   * @param options.isDisabled - Whether the action is disabled.
+   * @param options.isVisible - Whether the action is visible.
+   * @param options.label - The label of the action.
+   * @param options.icon - The icon of the action.
+   * @param options.action - The action function.
+   * @returns The action component.
+   * @throws {Error} If the action type is unknown.
+   */
+  const createAction = ({
     type, 
     options: upperOptions = [],
     isDisabled,

@@ -99,6 +99,11 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     fallback,
   } = props;
 
+  /**
+   * Represents whether all rows in the selection are selected.
+   *
+   * @type {boolean}
+   */
   const isAllSelected = useMemo(() => {
     for (const row of props.rows) {
       if (!selection.has(row.id)) {
@@ -108,9 +113,28 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     return !!props.rows.length;
   }, [selection, props.rows]);
 
+  /**
+   * Checks if the selection size is not 0 and isAllSelected is false.
+   *
+   * @type {boolean}
+   */
   const isIndeterminate = !!selection.size && !isAllSelected;
 
+  /**
+   * Renders a checkbox or radio button based on the selection mode.
+   *
+   * @returns The rendered checkbox or radio button.
+   */
   const renderCheckbox = () => {
+    /**
+     * Handles the click event of a checkbox.
+     * If the selection mode is None, the function returns without performing any action.
+     * If the selection mode is Single, the function clears the selection.
+     * If the selection mode is not Single and all items are selected, the function clears the selection.
+     * Otherwise, the function adds the IDs of the rows from the props to the selection.
+     *
+     * @returns
+     */
     const handleCheckboxClick = () => {
       if (selectionMode === SelectionMode.None) {
         return;
@@ -127,6 +151,13 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
       setSelection(selection);
     };
 
+    /**
+     * Handles the click event of the radio button.
+     * Clears the current selection by resetting the selection to an empty Set.
+     *
+     * @function handleRadioClick
+     * @returns
+     */
     const handleRadioClick = () => {
       setSelection(new Set());
     };

@@ -101,10 +101,22 @@ export const OperationListSlot = ({
 
   const handleOperation = useActualCallback(onOperation);
 
+  /**
+   * Creates a handle operation click function.
+   *
+   * @param action - The action to perform.
+   * @returns - The function that handles the operation click.
+   */
   const createHandleOperationClick = (action: string) => () => {
     handleOperation(action, selectedRows, isAll, reload);
   };
 
+  /**
+   * Represents a checkbox component that can be used to toggle the selection of all items.
+   *
+   * @class
+   * @component
+   */
   const AllCheckbox = (
     <Checkbox
       disabled={loading}

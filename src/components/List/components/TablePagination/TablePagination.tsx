@@ -214,6 +214,14 @@ export const TablePagination = ({
 
     const isGrow =  width > ACTION_GROW && withRangePagination;
 
+    /**
+     * Represents the Actions variable.
+     *
+     * @typedef {TableActions|undefined} Actions
+     * @property {TableActions} isGrow - The value of Actions when isGrow is true.
+     * @property {undefined} undefined - The value of Actions when isGrow is false.
+     * @public
+     */
     const Actions = isGrow
         ? TableActions
         : undefined;

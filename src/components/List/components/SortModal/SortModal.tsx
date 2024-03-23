@@ -68,6 +68,10 @@ export const SortModal = ({
     const { sortModel: resultSortModel, setSortModel: setResultSortModel } = useSortModel();
     const [ sortModel, setSortModel ] = useState(new Map(resultSortModel));
 
+    /**
+     * Handles the sort toggle for a given id.
+     * @param id - The id of the element to be sorted.
+     */
     const handleSortToggle = (id: string) => {
         const sortModelCopy = new Map(sortModel);
         const sortTarget = sortModelCopy.get(id);
@@ -89,15 +93,39 @@ export const SortModal = ({
         setSortModel(sortModelCopy);
     };
 
+    /**
+     * Handles the accept action.
+     *
+     * @function handleAccept
+     *
+     * @returns
+     */
     const handleAccept = () => {
         setResultSortModel(sortModel);
         onClose();
     };
 
+    /**
+     * Handles the dismissal of a component or element.
+     *
+     * This function calls the onClose() function to handle the dismissal
+     * of a component or element. The onClose() function should have been
+     * defined elsewhere in the code.
+     *
+     * @function handleDismiss
+     * @returns
+     */
     const handleDismiss = () => {
         onClose();
     };
 
+    /**
+     * Sortable columns.
+     *
+     * @typedef {Object[]} SortableColumns
+     * @property {boolean} sortable - Indicates if the column is sortable.
+     * @property {*} other - Other properties of the column.
+     */
     const sortableColumns = columns
         .map(({ sortable = true, ...other }) => ({ sortable, ...other }))
         .filter(({ sortable }) => sortable);

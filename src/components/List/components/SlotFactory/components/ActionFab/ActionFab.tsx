@@ -75,14 +75,42 @@ export const ActionFab = ({
         onLoadEnd,
     } = listProps;
 
+    /**
+     * Sets up a click event handler for a given element.
+     *
+     * @param {function} callback - The callback function to be executed when the element is clicked.
+     * @param {Event} e - The event object passed to the callback function.
+     * @returns {void}
+     */
     const handleClick = useActualCallback((e: any) => {
         e.stopPropagation();
         onAction && onAction(action, selectedRows, reload);
     });
 
+    /**
+     * A function that handles the load start event.
+     *
+     * @function
+     * @name handleLoadStart
+     *
+     * @returns
+     *
+     * @example
+     * handleLoadStart();
+     */
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    /**
+     * Function to handle the load end event.
+     *
+     * @param isOk - Flag indicates if the load was successful.
+     */
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
+    /**
+     * Represents a Loader component that renders a Button or a Fab based on certain conditions.
+     * @constructor
+     * @global
+     */
     const Loader = () => {
         const isShrink = useShrink();
         if (label && !isShrink) {

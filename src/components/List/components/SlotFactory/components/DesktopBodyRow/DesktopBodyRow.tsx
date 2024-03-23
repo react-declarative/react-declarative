@@ -69,6 +69,13 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   const { onRowClick, onRowAction, rowColor = () => 'inherit' } = props;
 
+  /**
+   * The handleClick function handles the click event for a specific row.
+   * It performs different actions based on the current state of the menu and
+   * the selection mode of the table.
+   *
+   * @returns
+   */
   const handleClick = () => {
     if (!menuOpened) {
       if (
@@ -94,10 +101,21 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     }
   };
 
+  /**
+   * Handles the toggling of the menu.
+   *
+   * @param opened - Indicates whether the menu should be opened or closed.
+   */
   const handleMenuToggle = (opened: boolean) => {
     setMenuOpened(opened);
   };
 
+  /**
+   * Handles the given action by calling the onRowAction function with the provided parameters.
+   *
+   * @param action - The action to handle.
+   * @returns
+   */
   const handleAction = (action: string) => {
     onRowAction && onRowAction(action, row, reload);
   };

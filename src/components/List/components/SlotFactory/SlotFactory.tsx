@@ -5,6 +5,9 @@ import ISlotFactoryContext from './ISlotFactoryContext';
 
 import SlotContext from './SlotContext';
 
+/**
+ * Interface for the props of the SlotFactory component.
+ */
 interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
     children: React.ReactNode;
 }

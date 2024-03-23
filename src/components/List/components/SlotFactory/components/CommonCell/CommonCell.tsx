@@ -119,7 +119,21 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
                     ...other
                 }) => ({
                     ...other,
+                    /**
+                     * Determines whether the specified row is visible.
+                     *
+                     * @param row$ - The row object.
+                     * @param _payload - Optional payload object.
+                     * @returns - True if the row is visible, false otherwise.
+                     */
                     isVisible: () => isVisible(row$.current, _payload),
+                    /**
+                     * Check if the given row is disabled based on provided payload.
+                     *
+                     * @param row - The current row object.
+                     * @param payload - The payload object used for checking if row is disabled.
+                     * @returns - True if the row is disabled, false otherwise.
+                     */
                     isDisabled: () => isDisabled(row$.current, _payload),
                 }))}
                 onToggle={onMenuToggle}
