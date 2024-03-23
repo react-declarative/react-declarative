@@ -1,5 +1,7 @@
 # IWordForm
 
+Represents a word form with singular, optional dual, and plural forms.
+
 ## Properties
 
 ### one

@@ -1,5 +1,7 @@
 # IPingViewProps
 
+Represents the properties of the PingView component.
+
 ## Properties
 
 ### children

@@ -1,5 +1,7 @@
 # IRevealViewProps
 
+Represents the properties for the RevealView component.
+
 ## Properties
 
 ### className

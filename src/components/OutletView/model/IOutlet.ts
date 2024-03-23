@@ -26,19 +26,29 @@ import IOtherProps from './IOtherProps';
  *   isActive: (pathname) => pathname.startsWith('/sample'),
  * };
  *
- * @example
- *
- * const sampleOutlet: IOutlet<number, string, {id: number}> = {
- *   id: 'sample-outlet',
- *   element: (props) => <div>{props.data}</div>,
- *   isAvailable: (pathname) => true,
- *   isActive: (pathname) => false,
- * };
  */
 export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything, OtherProps = IOtherProps> {
     id: string;
+    /**
+     * Renders an element for the active outlet
+     *
+     * @param {IOutletProps<Data, Payload, Params> & OtherProps} props - The props to pass to the element.
+     * @returns {React.ReactElement} - The rendered element.
+     */
     element: (props: IOutletProps<Data, Payload, Params> & OtherProps) => React.ReactElement;
+    /**
+     * Checks if a given path is available.
+     *
+     * @param {string} pathname - The path to be checked.
+     * @returns {boolean} - True if the path is available, false otherwise.
+     */
     isAvailable?: (pathname: string) => boolean;
+    /**
+     * Determines if the given pathname is active.
+     *
+     * @param {string} pathname - The URL pathname to check.
+     * @returns {boolean} - True if the pathname is active, false otherwise.
+     */
     isActive: (pathname: string) => boolean;
 }
 

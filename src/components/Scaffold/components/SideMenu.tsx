@@ -88,6 +88,14 @@ export const SideMenu = ({
         );
     };
 
+    /**
+     * Represents a child element in a menu.
+     *
+     * @typedef {Object} Child
+     * @property {number} key - The unique key of the child element.
+     * @property {Object} item - The item object passed as props to the child element.
+     * @property {number} currentPadding - The current padding of the child element.
+     */
     const child = options.map(((item, idx) => {
         const currentPadding = paddingLeft + PADDING_LEFT_STEP;
         if (item.options && item.options.length) {

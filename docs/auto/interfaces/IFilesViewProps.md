@@ -1,5 +1,7 @@
 # IFilesViewProps
 
+Represents the properties for the FilesView component.
+
 ## Properties
 
 ### items

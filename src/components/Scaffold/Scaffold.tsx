@@ -17,6 +17,13 @@ import { PassthroughProvider } from './hooks/usePassthrough';
 import IScaffoldProps from './model/IScaffoldProps';
 import IMenuGroup, { IMenuOption } from '../../model/IMenuGroup';
 
+/**
+ * Function that recursively flattens a nested array of objects.
+ *
+ * @template T - The type of the menu option.
+ * @param arr - The array of menu groups.
+ * @returns - The flattened array of menu options.
+ */
 const deepFlat = <T extends any = any>(arr: IMenuGroup<T>[] = []) => {
     const result: IMenuOption<T>[] = [];
     const process = (entries: any[] = []) => entries.forEach((entry) => {

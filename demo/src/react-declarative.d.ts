@@ -6716,6 +6716,10 @@ declare module "react-declarative/utils/loadScript" {
 
 declare module "react-declarative/utils/reloadPage" {
   global {
+    /**
+     * Represents a location reload callback with clear cache argument.
+     * @interface
+     */
     interface Location {
       reload(forceReload: boolean): void;
     }
@@ -6836,6 +6840,11 @@ declare module "react-declarative/utils/getMediaContext" {
 }
 
 declare module "react-declarative/utils/getRouteParams" {
+  /**
+   * Represents an item that can be switched.
+   *
+   * @interface ISwitchItem
+   */
   export interface ISwitchItem {
     path: string;
   }
@@ -6939,6 +6948,12 @@ declare module "react-declarative/utils/isObject" {
 }
 
 declare module "react-declarative/utils/fetchApi" {
+  /**
+   * Represents an error that occurs during a fetch request.
+   *
+   * @class
+   * @extends Error
+   */
   export class FetchError extends Error {
     readonly originalError: any;
     readonly request: RequestInfo;
@@ -7063,6 +7078,10 @@ declare module "react-declarative/utils/createLsStateProvider" {
 
 declare module "react-declarative/utils/normalizeText" {
   import IField from "react-declarative/model/IField";
+  /**
+   * Represents the configuration options for input formatting.
+   * @interface
+   */
   interface IConfig {
     inputFormatterSymbol: IField["inputFormatterSymbol"];
     inputFormatterAllowed: IField["inputFormatterAllowed"];
@@ -7096,6 +7115,10 @@ declare module "react-declarative/utils/normalizeText" {
 }
 
 declare module "react-declarative/utils/formatText" {
+  /**
+   * Represents a set of parameters for custom symbol validation and replacement.
+   * @interface
+   */
   interface IParams {
     symbol?: string;
     allowed?: RegExp | ((char: string, idx: number) => boolean);
@@ -7133,6 +7156,10 @@ declare module "react-declarative/utils/roundTicks" {
 }
 
 declare module "react-declarative/utils/wordForm" {
+  /**
+   * Represents a word form with singular, optional dual, and plural forms.
+   * @interface
+   */
   interface IWordForm {
     one: string;
     two?: string;
@@ -9367,7 +9394,19 @@ declare module "react-declarative/utils/createLsManager" {
   export const createLsManager: <T = Record<string, any>>(
     STORAGE_KEY: string,
   ) => {
+    /**
+     * Returns the value stored in localStorage using the specified key.
+     *
+     * @template T - The type of the value to be returned.
+     * @returns - The value stored in localStorage or null if an error occurs during parsing.
+     */
     getValue: () => T | null;
+    /**
+     * Sets a value in the local storage.
+     *
+     * @param value - The value to be stored in the local storage.
+     * @throws {DOMException} - If the local storage exceeds the quota.
+     */
     setValue: (value: T) => void;
     clear: () => void;
   };
@@ -9386,7 +9425,18 @@ declare module "react-declarative/utils/createSsManager" {
   export const createSsManager: <T = Record<string, any>>(
     STORAGE_KEY: string,
   ) => {
+    /**
+     * Retrieves the value from the sessionStorage.
+     *
+     * @returns The value retrieved from sessionStorage, or null if an error occurred while parsing or the value is not found.
+     */
     getValue: () => T | null;
+    /**
+     * Sets the value in the session storage.
+     *
+     * @param value - The value to be set.
+     * @returns
+     */
     setValue: (value: T) => void;
     clear: () => void;
   };
@@ -9394,6 +9444,15 @@ declare module "react-declarative/utils/createSsManager" {
 }
 
 declare module "react-declarative/utils/createCustomTag" {
+  /**
+   * Interface representing a configuration object.
+   *
+   * @typedef {Object} IConfig
+   * @property {function} onClick - The event handler for the click event.
+   * @param {MouseEvent} onClick.e - The MouseEvent object representing the click event.
+   * @property {function} onInit - The event handler for the initialization event.
+   * @param {HTMLDivElement} onInit.element - The HTMLDivElement object representing the element that was initialized.
+   */
   interface IConfig {
     onClick: (e: MouseEvent) => void;
     onInit: (element: HTMLDivElement) => void;
@@ -9480,21 +9539,59 @@ declare module "react-declarative/utils/datetime" {
   export const TIME_PLACEHOLDER = "HH:MM";
   export const DATE_EXPR: RegExp;
   export const TIME_EXPR: RegExp;
+  /**
+   * Represents a specific point in time.
+   */
   export class Time {
     readonly hour: number;
     readonly minute: number;
     constructor(hour: number, minute: number);
+    /**
+     * Converts the object to a string representation.
+     *
+     * @returns The string representation of the object.
+     */
     toString: () => string | null;
+    /**
+     * Calculates the total minutes represented by the hour and minute properties of an object.
+     *
+     * @returns The total minutes represented by the hour and minute properties.
+     */
     toStamp: () => number;
+    /**
+     * Takes a stamp value and converts it into a Time object.
+     *
+     * @param stamp - The stamp value representing minutes since 1970-01-01 00:00.
+     * @returns - The Time object representing the hour and minute derived from the stamp value.
+     */
     static fromStamp: (stamp: number) => Time;
   }
+  /**
+   * Represents a date.
+   */
   export class Date {
     readonly day: number;
     readonly month: number;
     readonly year: number;
     constructor(day: number, month: number, year: number);
+    /**
+     * Returns a string representation of the current object.
+     *
+     * @return The serialized string representation of the object.
+     */
     toString: () => string | null;
+    /**
+     * Calculates the number of days from 1970-01-01 to a specified date.
+     *
+     * @returns The number of days from 1970-01-01 to the specified date.
+     */
     toStamp: () => number;
+    /**
+     * Converts a stamp value to a date object.
+     *
+     * @param stamp - The number of days since '1970-01-01' to convert.
+     * @returns - The converted date object.
+     */
     static fromStamp: (stamp: number) => Date;
   }
   /**
@@ -9712,6 +9809,11 @@ declare module "react-declarative/view/useOpenDocument" {
 
 declare module "react-declarative/utils/heavy" {
   import * as React from "react";
+  /**
+   * An interface representing the parameters for a loader.
+   *
+   * @interface
+   */
   interface IParams {
     loaderSize: number;
   }
@@ -18177,6 +18279,11 @@ declare module "react-declarative/components/TreeView/model/INode" {
   export interface INode {
     label: string;
     value: string;
+    /**
+     * Represents an array of child nodes excluding the "child" property (recursion).
+     *
+     * @typedef {Array<Omit<INode, "child">>} ChildArray
+     */
     child?: Omit<INode, "child">[];
   }
   export default INode;
@@ -18496,6 +18603,29 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotFact
 
 declare module "react-declarative/components/One/components/SlotFactory/SlotContext" {
   import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * @description A list of default slots for a component.
+   * @type {Array}
+   * @property {string} Checkbox Slot for a checkbox component.
+   * @property {string} Combo Slot for a comboBox component.
+   * @property {string} Items Slot for an items component.
+   * @property {string} Line Slot for a line component.
+   * @property {string} Radio Slot for a radio component.
+   * @property {string} Rating Slot for a rating component.
+   * @property {string} Progress Slot for a progress component.
+   * @property {string} Typography Slot for a typography component.
+   * @property {string} Text Slot for a text component.
+   * @property {string} Date Slot for a date component.
+   * @property {string} Time Slot for a time component.
+   * @property {string} Switch Slot for a switch component.
+   * @property {string} Slider Slot for a slider component.
+   * @property {string} File Slot for a file component.
+   * @property {string} Choose Slot for a choose component.
+   * @property {string} Complete Slot for a complete component.
+   * @property {string} YesNo Slot for a yes/no component.
+   * @property {string} Dict Slot for a dictionary component.
+   * @property {string} Tree Slot for a tree component.
+   */
   export const defaultSlots: {
     CheckBox: ({
       disabled,
@@ -19927,27 +20057,71 @@ declare module "react-declarative/components/Translate/Translate" {
   export class Translate {
     readonly config: Partial<ITranslateConfig>;
     get skipList(): string[];
+    /**
+     * Translates the given text to another language.
+     *
+     * @param {string} text - The text to be translated.
+     * @returns {string} The translated text.
+     */
     translateText: (text: string) => string;
+    /**
+     * Constructs a new instance of the Translator class.
+     *
+     * @param [locale={}] - An object representing the initial locale configuration.
+     * @param [transform] - A function for transforming strings.
+     * @param [config={}] - An object representing additional configuration options.
+     * @return
+     */
     constructor(
       locale?: Locale,
       transform?: ((str: string) => string) | undefined,
       config?: Partial<ITranslateConfig>,
     );
+    /**
+     * Adds a middleware to the list of used middlewares.
+     *
+     * @param middleware - The middleware to be added.
+     */
     use: (middleware: Middleware) => void;
+    /**
+     * Creates and returns an element based on the provided type, props, and children.
+     *
+     * @param {string} type - The type of the element to create.
+     * @param {IAttributeCollection | null} props - The properties or attributes to assign to the element.
+     * @param {...any[]} children - The child elements or content to append to the element.
+     * @returns {ReturnType<typeof createElementRef>} - The created element.
+     */
     createElement: (
       type: string,
       props: IAttributeCollection | null,
       ...children: any[]
     ) => ReturnType<typeof createElementRef>;
+    /**
+     * Create an element using the given type and props
+     * @param type - The type of the element
+     * @param props - The props for the element
+     * @returns - The created element
+     */
     jss: (
       type: string,
       props: IAttributeCollection | null,
     ) => React.ReactElement<{}, string | React.JSXElementConstructor<any>>;
+    /**
+     * Installs the Translate object and configures React.
+     *
+     * @param params - The parameters needed to create a new Translate instance.
+     * @returns The installed Translate object.
+     */
     static install: (
       locale?: Locale | undefined,
       transform?: ((str: string) => string) | undefined,
       config?: Partial<ITranslateConfig> | undefined,
     ) => Translate;
+    /**
+     * Clear the _skip and _transformed variables.
+     *
+     * @function
+     */
     clear: () => void;
   }
   global {
@@ -20050,12 +20224,39 @@ declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
     IErrorBoundaryProps,
     IErrorBoundaryState
   > {
+    /**
+     * Returns an object that represents the new state for a component when an error is thrown during rendering.
+     * This is a static method that can be implemented in a React class component.
+     *
+     * @function
+     * @returns The new state object with the 'hasError' property set to true.
+     */
     static getDerivedStateFromError(): {
       hasError: boolean;
     };
     constructor(props: IErrorBoundaryProps);
+    /**
+     * Listens for updates to the component and handles error state.
+     *
+     * @function componentDidUpdate
+     * @memberof Component
+     * @returns
+     */
     componentDidUpdate: () => void;
+    /**
+     * Handles error caught during rendering in React components.
+     *
+     * @param error - The error object that was caught.
+     * @param errorInfo - Additional information about the error.
+     * @memberof [ComponentName]
+     */
     componentDidCatch: (error: any, errorInfo: any) => void;
+    /**
+     * A function that renders the children component.
+     * If there is an error in the state, it will return null.
+     * Otherwise, it will return the children component.
+     * @returns The rendered component or null if there is an error in the state.
+     */
     render: () => React.ReactNode;
   }
   export default ErrorBoundary;
@@ -21434,14 +21635,6 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
    *   isActive: (pathname) => pathname.startsWith('/sample'),
    * };
    *
-   * @example
-   *
-   * const sampleOutlet: IOutlet<number, string, {id: number}> = {
-   *   id: 'sample-outlet',
-   *   element: (props) => <div>{props.data}</div>,
-   *   isAvailable: (pathname) => true,
-   *   isActive: (pathname) => false,
-   * };
    */
   export interface IOutlet<
     Data = IAnything,
@@ -21450,10 +21643,28 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
     OtherProps = IOtherProps,
   > {
     id: string;
+    /**
+     * Renders an element for the active outlet
+     *
+     * @param {IOutletProps<Data, Payload, Params> & OtherProps} props - The props to pass to the element.
+     * @returns {React.ReactElement} - The rendered element.
+     */
     element: (
       props: IOutletProps<Data, Payload, Params> & OtherProps,
     ) => React.ReactElement;
+    /**
+     * Checks if a given path is available.
+     *
+     * @param {string} pathname - The path to be checked.
+     * @returns {boolean} - True if the path is available, false otherwise.
+     */
     isAvailable?: (pathname: string) => boolean;
+    /**
+     * Determines if the given pathname is active.
+     *
+     * @param {string} pathname - The URL pathname to check.
+     * @returns {boolean} - True if the pathname is active, false otherwise.
+     */
     isActive: (pathname: string) => boolean;
   }
   export default IOutlet;
@@ -21494,11 +21705,56 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
     Payload = IAnything,
     Params = IAnything,
   > {
+    /**
+     * A callback function that is invoked when a change event occurs.
+     *
+     * @callback onChangeCallback
+     * @param {Data[keyof Data]} data - The updated data value.
+     * @param {boolean} [initial=false] - Indicates whether the change is triggered initially.
+     * @returns {void}
+     */
     onChange: (data: Data[keyof Data], initial?: boolean) => void;
+    /**
+     * Callback function for handling an invalid event.
+     *
+     * @callback onInvalid
+     * @param {string} name - The name of the event that triggered the invalid event.
+     * @param {string} msg - The error message associated with the invalid event.
+     * @returns {void} - This function does not return any value.
+     */
     onInvalid: (name: string, msg: string) => void;
+    /**
+     * Begins the save process.
+     *
+     * @function
+     * @returns {Promise<boolean>} A promise that resolves to a boolean value indicating if the save process has started successfully.
+     */
     beginSave: () => Promise<boolean>;
+    /**
+     * Executes the afterSave logic.
+     *
+     * @returns {Promise<void>} A Promise that resolves once the afterSave logic is completed.
+     */
     afterSave: () => Promise<void>;
+    /**
+     * Indicates whether a certain state is dirty.
+     *
+     * @type {boolean}
+     */
     dirty: boolean;
+    /**
+     * Represents the state of a form.
+     *
+     * @typedef {Object} FormState
+     *
+     * @property {function} change - A callback function that is triggered when the form data changes. It receives a `data` parameter of type `Data`.
+     * @property {Data} data - The current data of the form.
+     * @property {boolean} hasChanged - Indicates whether the form data has changed.
+     * @property {boolean} hasLoading - Indicates whether the form is currently loading.
+     * @property {boolean} hasInvalid - Indicates whether the form data is invalid.
+     * @property {Payload} payload - The payload associated with the form.
+     * @property {string} id - The unique identifier of the form.
+     */
     formState: {
       change: (data: Data) => void;
       data: Data;
@@ -21508,14 +21764,59 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
       payload: Payload;
       id: string;
     };
+    /**
+     * Represents the history of an outlet.
+     *
+     * @class
+     */
     history: History;
+    /**
+     * Represents the currently active option.
+     *
+     * @typedef {string} activeOption
+     * @description A string variable indicating the currently active option.
+     */
     activeOption: string;
+    /**
+     * Specifies whether a variable is read-only or not.
+     *
+     * @typedef {boolean} Readonly
+     */
     readonly: boolean;
+    /**
+     * Represents the data of the outlet.
+     */
     data: Data;
+    /**
+     * Indicates whether a change has occurred.
+     *
+     * @type {boolean}
+     */
     hasChanged: boolean;
+    /**
+     * Represents the loading state of a system.
+     *
+     * @typedef {boolean} hasLoading
+     */
     hasLoading: boolean;
+    /**
+     * Indicates whether the value is invalid.
+     *
+     * @type {boolean}
+     */
     hasInvalid: boolean;
+    /**
+     * Represents the parameters for a function.
+     *
+     * @typedef {Object} Params
+     * @property {number} param1 - The first parameter of type number.
+     * @property {string} param2 - The second parameter of type string.
+     * @property {boolean} param3 - The third parameter of type boolean.
+     */
     params: Params;
+    /**
+     * Represents a payload object.
+     */
     payload: Payload;
   }
   export default IOutletProps;
@@ -21673,6 +21974,11 @@ declare module "react-declarative/components/PaperView/PaperView" {
   import * as React from "react";
   import { PaperProps } from "@mui/material/Paper";
   export const PAPERVIEW_ROOT = "react-declatative__PaperView-root";
+  /**
+   * Interface representing the props for the PaperView component.
+   *
+   * @interface IPaperViewProps
+   */
   interface IPaperViewProps
     extends Omit<
       PaperProps,
@@ -22012,6 +22318,9 @@ declare module "react-declarative/components/DragDropView/DragDropView" {
 declare module "react-declarative/components/FilesView/FilesView" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
+  /**
+   * Represents the properties for the FilesView component.
+   */
   export interface IFilesViewProps {
     items?: string[];
     disabled?: boolean;
@@ -22075,6 +22384,11 @@ declare module "react-declarative/components/FilesView/FilesView" {
 
 declare module "react-declarative/components/FilesView/api/usePreventNavigate" {
   import { MemoryHistory, BrowserHistory, HashHistory } from "history";
+  /**
+   * Represents the parameters for a specific operation.
+   *
+   * @interface IParams
+   */
   interface IParams {
     history: MemoryHistory | BrowserHistory | HashHistory;
     withConfirm?: boolean;
@@ -23005,6 +23319,21 @@ declare module "react-declarative/components/WaitView/WaitView" {
 
 declare module "react-declarative/components/PingView/PingView" {
   import * as React from "react";
+  /**
+   * Represents the properties of the PingView component.
+   *
+   * @template P The type of the payload.
+   *
+   * @property {React.ReactNode} [children] - The children elements.
+   * @property {React.ComponentType<any>} [Offline] - The component to render when offline.
+   * @property {(payload?: P) => (boolean | Promise<boolean>)} ping - The function to perform the ping.
+   * @property {(e: Error) => void} [fallback] - The function to handle errors.
+   * @property {boolean} [throwError] - A flag indicating whether to throw an error if the ping fails.
+   * @property {number} [delay=5000] - The delay (in milliseconds) between each ping.
+   * @property {P} [payload] - The payload to pass to the ping function.
+   * @property {() => void} [onOnline] - The function to call when the ping is successful.
+   * @property {() => void} [onOffline] - The function to call when the ping fails.
+   */
   interface IPingViewProps<P extends any = object> {
     children?: React.ReactNode;
     Offline?: React.ComponentType<any>;
@@ -23164,6 +23493,9 @@ declare module "react-declarative/components/OfflineView/OfflineView" {
 declare module "react-declarative/components/RevealView/RevealView" {
   import * as React from "react";
   import { IRevealProps } from "react-declarative/components/FetchView/components/Reveal";
+  /**
+   * Represents the properties for the RevealView component.
+   */
   interface IRevealViewProps {
     className?: string;
     style?: React.CSSProperties;
@@ -23591,12 +23923,36 @@ declare module "react-declarative/components/WizardView/hooks/useWizardModal" {
 
 declare module "react-declarative/components/PortalView/PortalView" {
   import * as React from "react";
+  /**
+   * Represents the properties for the PortalView component.
+   */
   interface IPortalViewProps {
     children: React.ReactNode;
   }
+  /**
+   * Represents a portal view component.
+   * @class
+   */
   export class PortalView extends React.Component<IPortalViewProps> {
     element: HTMLDivElement | null;
+    /**
+     * Method componentWillUnmount
+     *
+     * This method is called when the component is about to be unmounted (removed) from the DOM.
+     * It performs clean-up tasks, if any, to avoid memory leaks or unwanted effects after the component is removed.
+     *
+     * This method checks if 'this.element' (assumed to be a DOM element) exists, and if so,
+     * removes it from the document body using 'document.body.removeChild()'.
+     * Finally, it sets 'this.element' to null to release any references to the removed element.
+     *
+     * @return
+     */
     componentWillUnmount(): void;
+    /**
+     * Renders the provided children into a portal, within a dynamically created div element appended to the document body.
+     *
+     * @return - The resulting React element after rendering the children into the portal.
+     */
     render(): React.ReactPortal;
   }
   export default PortalView;
@@ -23933,10 +24289,31 @@ declare module "react-declarative/components/ReloadView/ReloadView" {
    */
   export class ReloadView extends React.Component<IReloadViewProps> {
     _disconnectListener: (() => void) | undefined;
+    /**
+     * Unsubscribes from previous reloadTrigger subscription and subscribes to a new reloadTrigger subscription.
+     * Whenever reloadTrigger emits a value, it forces the component to update.
+     *
+     * @method doSubscribe
+     */
     doSubscribe: () => void;
+    /**
+     * Invoked immediately after a component is mounted.
+     *
+     * @function componentDidMount
+     */
     componentDidMount: () => void;
+    /**
+     * Executes the necessary operations after the component is updated.
+     */
     componentDidUpdate: () => void;
+    /**
+     * Component lifecycle method that is called just before the component is unmounted and destroyed.
+     * It is used to perform any necessary cleanup logic or clean up any resources that were previously allocated by this component.
+     */
     componentWillUnmount: () => void;
+    /**
+     * Render lifecycle method
+     */
     render: () => JSX.Element;
   }
   export default ReloadView;
@@ -24076,16 +24453,6 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
     }: IVirtualViewProps): JSX.Element;
     /**
      * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
-     *
-     * @param viewId - The unique identifier of the view.
-     * @param data - The array of data to be rendered.
-     * @param bufferSize - The number of elements to be rendered in the viewport.
-     * @param renderItem - The function responsible for rendering each item in the data array.
-     * @param updateItem - The function responsible for updating an already rendered item with new data.
-     * @param removeItem - The function responsible for removing an item from the view.
-     * @param keyExtractor - The function responsible for extracting the unique identifier of each item in the data array.
-     * @param scrollEventName - The scroll event name (e.g. 'scroll', 'touchmove') to listen for viewport changes.
-     * @param viewportElement - The DOM element representing the viewport.
      */
     virtualize<T extends IVirtualized = {}>(
       OriginalComponent: React.ComponentType<T>,
@@ -24093,6 +24460,12 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
       React.PropsWithoutRef<T> & React.RefAttributes<HTMLDivElement>
     >;
   };
+  /**
+   * Interface representing a virtualized component.
+   * @interface
+   * @property className - The class name of the component. This property should not be used.
+   * @property style - The style of the component. This property should not be used.
+   */
   interface IVirtualized {
     className?: never;
     style?: never;

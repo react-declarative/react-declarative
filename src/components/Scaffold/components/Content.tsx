@@ -150,6 +150,12 @@ const filerFlatMenu = (options: IScaffoldOption[], {
   .filter(({ roles = [] }) => !currentRoles || roles.some((role) => currentRoles.includes(role)))
   .filter(({ visible = true }) => visible);
 
+/**
+ * Cleans up the menu by removing options that are not allowed.
+ *
+ * @param entry - The menu entry to clean up.
+ * @param allowed - The set of allowed menu entries.
+ */
 const cleanupMenu = (entry: Partial<IScaffoldGroup>, allowed: Set<IScaffoldGroup>) =>
   entry.options = entry.options?.filter((option: any) => {
     if (option.options?.length && option.visible !== false) {

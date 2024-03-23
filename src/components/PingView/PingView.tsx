@@ -1,6 +1,21 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
+/**
+ * Represents the properties of the PingView component.
+ *
+ * @template P The type of the payload.
+ *
+ * @property {React.ReactNode} [children] - The children elements.
+ * @property {React.ComponentType<any>} [Offline] - The component to render when offline.
+ * @property {(payload?: P) => (boolean | Promise<boolean>)} ping - The function to perform the ping.
+ * @property {(e: Error) => void} [fallback] - The function to handle errors.
+ * @property {boolean} [throwError] - A flag indicating whether to throw an error if the ping fails.
+ * @property {number} [delay=5000] - The delay (in milliseconds) between each ping.
+ * @property {P} [payload] - The payload to pass to the ping function.
+ * @property {() => void} [onOnline] - The function to call when the ping is successful.
+ * @property {() => void} [onOffline] - The function to call when the ping fails.
+ */
 interface IPingViewProps<P extends any = object> {
     children?: React.ReactNode;
     Offline?: React.ComponentType<any>;
@@ -13,6 +28,10 @@ interface IPingViewProps<P extends any = object> {
     onOffline?: () => void;
 }
 
+/**
+ * Represents the state of a system or entity.
+ * @interface
+ */
 interface IState {
     isOnline: boolean;
     initComplete: boolean;
@@ -56,6 +75,11 @@ export const PingView = <P extends any = object>({
         initComplete: false,
     });
 
+    /**
+     * Sets the online status of the application.
+     *
+     * @param isOnline - The online status to set.
+     */
     const setIsOnline = (isOnline: boolean) => {
         setState({ initComplete: true, isOnline });
         isOnline ? onOnline() : onOffline();

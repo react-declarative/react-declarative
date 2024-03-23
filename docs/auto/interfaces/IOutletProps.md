@@ -22,17 +22,23 @@ onInvalid: (name: string, msg: string) => void
 beginSave: () => Promise<boolean>
 ```
 
+Begins the save process.
+
 ### afterSave
 
 ```ts
 afterSave: () => Promise<void>
 ```
 
+Executes the afterSave logic.
+
 ### dirty
 
 ```ts
 dirty: boolean
 ```
+
+Indicates whether a certain state is dirty.
 
 ### formState
 
@@ -45,6 +51,8 @@ formState: { change: (data: Data) => void; data: Data; hasChanged: boolean; hasL
 ```ts
 history: History
 ```
+
+Represents the history of an outlet.
 
 ### activeOption
 
@@ -64,11 +72,15 @@ readonly: boolean
 data: Data
 ```
 
+Represents the data of the outlet.
+
 ### hasChanged
 
 ```ts
 hasChanged: boolean
 ```
+
+Indicates whether a change has occurred.
 
 ### hasLoading
 
@@ -82,6 +94,8 @@ hasLoading: boolean
 hasInvalid: boolean
 ```
 
+Indicates whether the value is invalid.
+
 ### params
 
 ```ts
@@ -93,3 +107,5 @@ params: Params
 ```ts
 payload: Payload
 ```
+
+Represents a payload object.

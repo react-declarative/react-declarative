@@ -1,5 +1,7 @@
 # IPaperViewProps
 
+Interface representing the props for the PaperView component.
+
 ## Properties
 
 ### outlinePaper

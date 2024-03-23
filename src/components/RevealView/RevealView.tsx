@@ -8,6 +8,9 @@ import Reveal, { IRevealProps } from '../FetchView/components/Reveal';
 import classNames from '../../utils/classNames';
 import sleep from '../../utils/sleep';
 
+/**
+ * Represents the properties for the RevealView component.
+ */
 interface IRevealViewProps {
     className?: string;
     style?: React.CSSProperties;

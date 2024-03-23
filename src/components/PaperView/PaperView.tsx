@@ -22,6 +22,11 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Interface representing the props for the PaperView component.
+ *
+ * @interface IPaperViewProps
+ */
 interface IPaperViewProps extends Omit<PaperProps, keyof {
   component: never;
 }> {

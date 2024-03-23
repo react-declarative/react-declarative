@@ -1,5 +1,7 @@
 # IVirtualized
 
+Interface representing a virtualized component.
+
 ## Properties
 
 ### className
