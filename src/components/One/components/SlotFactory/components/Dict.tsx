@@ -60,6 +60,22 @@ const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
 
+/**
+ * Creates an icon button with the specified icon and props.
+ *
+ * @param icon - The icon component.
+ * @param data - The data prop.
+ * @param payload - The payload prop.
+ * @param disabled - The disabled prop.
+ * @param readonly - The readonly prop.
+ * @param value - The value prop.
+ * @param onChange - The change event handler.
+ * @param onValueChange - The onValueChange prop.
+ * @param click - The click prop.
+ * @param edge - The edge prop.
+ * @param ripple - The ripple prop.
+ * @returns - The icon button component.
+ */
 const createIcon = (
   icon: React.ComponentType<any>,
   data: IAnything,

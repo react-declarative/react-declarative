@@ -79,6 +79,12 @@ export const SecretView = ({
   
   const [state, setState] = useActualState(INITIAL_STATE);
 
+  /**
+   * Handles the close action by updating the component state.
+   * It sets the component state to the initial state defined in the 'INITIAL_STATE' constant.
+   *
+   * @function
+   */
   const handleClose = () => setState({
     ...state.current,
     ...INITIAL_STATE,
@@ -90,21 +96,43 @@ export const SecretView = ({
     }
   }, [enabled]);
 
+  /**
+   * Sets the value of `open` in the state.
+   *
+   * @param open - The new value of `open`.
+   * @returns
+   */
   const setOpen = (open: boolean) => setState({
     ...state.current,
     open,
   });
 
+  /**
+   * Sets the value of the current state object to the given value.
+   *
+   * @param value - The value to assign to the state object.
+   * @returns
+   */
   const setValue = (value: string) => setState({
     ...state.current,
     value,
   });
 
+  /**
+   * Sets the 'approved' flag in the current state object.
+   *
+   * @param approved - The value to set for the 'approved' flag.
+   */
   const setApproved = (approved: boolean) => setState({
     ...state.current,
     approved,
   });
 
+  /**
+   * Handles keydown events and performs certain actions based on the key pressed.
+   *
+   * @param {string} key - The key pressed.
+   */
   const handleKeydown = useActualCallback((key: string) => {
     if (state.current.approved) {
       return;
@@ -140,6 +168,19 @@ export const SecretView = ({
     }
   });
 
+  /**
+   * Handles the dismissing of an event.
+   *
+   * This function is responsible for dismissing an event by closing it, unless
+   * the event has already been approved.
+   *
+   * @function
+   * @name handleDismiss
+   * @returns
+   *
+   * @example
+   * handleDismiss();
+   */
   const handleDismiss = () => {
     if (state.current.approved) {
       return;

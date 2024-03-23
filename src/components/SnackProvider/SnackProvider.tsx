@@ -44,6 +44,13 @@ export const SnackProvider = ({
 
     const [alerts, setAlerts] = useState<ISnack[]>([]);
 
+    /**
+     * Returns the current alert from the list of alerts.
+     *
+     * @name getCurrent
+     * @function
+     * @returns {Object|null} The current alert object, or null if no alerts
+     */
     const getCurrent = useCallback(() => {
         if (alerts.length) {
             return alerts[0];
@@ -52,6 +59,9 @@ export const SnackProvider = ({
         }
     }, [alerts]);
 
+    /**
+     * Hides the current alert in the alerts list.
+     */
     const hideCurrent = useCallback(() => {
         const { length } = alerts;
         if (length > 0) {
@@ -59,6 +69,11 @@ export const SnackProvider = ({
         }
     }, [alerts]);
 
+    /**
+     * Adds a new alert message to the existing list of alerts.
+     *
+     * @param message - The message to be displayed in the alert.
+     */
     const notify = (message: string) => setAlerts((alerts) => [
         ...alerts,
         {

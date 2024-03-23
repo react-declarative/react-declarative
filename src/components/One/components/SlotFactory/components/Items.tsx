@@ -266,6 +266,14 @@ export const Items = ({
         return labels[v] || `${v} (unknown)`;
     };
 
+    /**
+     * Renders an Autocomplete input field with given parameters.
+     *
+     * @param loading - Indicates if the input field is in a loading state.
+     * @param readonly - Indicates if the input field is set to readonly.
+     * @param params - AutocompleteRenderInputParams object containing input parameters.
+     * @returns - JSX element representing the input field.
+     */
     const createRenderInput = (loading: boolean, readonly: boolean) => (params: AutocompleteRenderInputParams) => (
         <MatTextField
             {...params}
@@ -301,6 +309,14 @@ export const Items = ({
         />
     );
 
+    /**
+     * Render an option for the Autocomplete component.
+     *
+     * @param props - The HTML attributes for the <li> element.
+     * @param option - The option to render.
+     * @param state - The state of the option being rendered.
+     * @returns - The rendered option.
+     */
     const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: any, state: AutocompleteRenderOptionState) => {
         const { current: labels } = labels$;
         return (

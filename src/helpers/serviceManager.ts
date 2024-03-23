@@ -19,11 +19,26 @@ export interface IService {
  */
 const createInstanceRef = (name: string) => class InstanceRef<T extends object> {
 
+    /**
+     * Creates a queue factory function that can be used to wrap any async function
+     * into a queued version. The queued version ensures that only one instance of
+     * the async function is executed at a time, queuing subsequent calls until the
+     * previous one completes.
+     *
+     * @param {Function} asyncFunc - The async function to be queued.
+     * @returns {Function} - The queued version of the async function.
+     * @throws {TypeError} - If the input parameter is not a function.
+     */
     private readonly queueFactory = queued(async (promise: Promise<object>) => await promise);
 
     private static readonly _waitPool: Promise<object>[] = [];
     private static _keys: (symbol | string)[] = [];
 
+    /**
+     * @constructor
+     * @param key - The key for the instance.
+     * @param promise - The promise to be added to the wait pool.
+     */
     constructor(key: symbol | string, promise: Promise<T>) {
         InstanceRef._waitPool.push(promise);
         InstanceRef._keys.push(key);
@@ -35,6 +50,12 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
         });
     }
 
+    /**
+     * A function that waits for promises in a pool to be resolved or rejected.
+     *
+     * @param verbose - Specifies whether or not to output logs.
+     * @returns - A promise that is resolved when all promises in the pool are resolved or rejected.
+     */
     public static waitForProvide = async (verbose: boolean) => {
         await Promise.all(this._waitPool.map((instance, idx) => {
             instance.then(() => {
@@ -64,6 +85,16 @@ class ServiceManager {
 
     constructor(private readonly _name = 'root') { }
 
+    /**
+     * Checks for circular dependency in the resolution order of a key.
+     * If a circular dependency is found, it throws an error.
+     * Otherwise, it adds the key to the resolution order.
+     *
+     * @param key - The key to be checked for circular dependency.
+     *
+     * @throws {Error} Circular Dependency detected
+     *
+     */
     private _checkCircularDependency = (key: Key) => {
         const lastIndex = this._resolutionOrder.lastIndexOf(key);
         if (lastIndex !== -1) {
@@ -77,6 +108,12 @@ class ServiceManager {
         }
     };
 
+    /**
+     * Updates the resolution order of a variable.
+     *
+     * @param index - The index at which the resolution order needs to be updated.
+     * @returns
+     */
     private _updateResolutionOrder = (index: number) => {
         if (this._reverseCounter === 0) {
             const beforeInstance = this._resolutionOrder.slice(0, index);
@@ -85,6 +122,14 @@ class ServiceManager {
         }
     };
 
+    /**
+     * Registers an instance with a given key.
+     *
+     * @template T - The type of the instance.
+     * @param key - The key to register the instance with.
+     * @param inst - The instance to register.
+     * @returns
+     */
     registerInstance = <T = object>(key: Key, inst: T) => {
         if (this._instances.has(key)) {
             return;
@@ -92,6 +137,14 @@ class ServiceManager {
         this._instances.set(key, inst as unknown as object);
     };
 
+    /**
+     * Registers a creator function for a given key.
+     *
+     * @param key - The unique key to identify the creator function.
+     * @param ctor - The constructor function that creates an instance of type T.
+     * @template T - The type of the object created by the constructor function.
+     * @returns
+     */
     registerCreator = <T = object>(key: Key, ctor: () => (T | Promise<T>)) => {
         if (this._creators.has(key)) {
             return;
@@ -99,6 +152,15 @@ class ServiceManager {
         this._creators.set(key, ctor as unknown as () => object);
     };
 
+    /**
+     * Injects a service instance based on the provided key.
+     *
+     * @template T - The type of the service instance.
+     * @param key - The key of the service.
+     * @param [verbose=true] - Whether to display console errors when the service is unknown.
+     * @returns - The service instance.
+     * @throws {never} - Throws an error if the service is unknown and `verbose` is `true`.
+     */
     inject = <T = object>(key: Key, verbose = true): T => {
         if (this._instances.has(key)) {
             const instance = this._instances.get(key);
@@ -119,10 +181,25 @@ class ServiceManager {
         }
     };
 
+    /**
+     * A variable that represents a single shot function for waiting until a specific condition is met.
+     *
+     * @typedef {Function} waitForProvide
+     * @param {boolean} [verbose=false] - Whether to enable verbose mode or not.
+     * @returns {Promise} - A promise that resolves when the specified condition is met.
+     *
+     */
     waitForProvide = singleshot(async (verbose = false) => {
         await this.InstanceRef.waitForProvide(verbose);
     });
 
+    /**
+     * Executes prefetch operation for all service instances in a service manager.
+     *
+     * @param {boolean} [verbose=true] - Flag to enable verbose logging.
+     * @returns {Promise<void>} - Promise that resolves when prefetch operation is completed.
+     * @throws {Error} - Throws an error if an error occurs during prefetch operation.
+     */
     prefetch = singleshot(async (verbose = true) => {
         this.unload.clear();
         try {
@@ -145,6 +222,13 @@ class ServiceManager {
         }
     });
 
+    /**
+     * Unload function that unloads services and clears prefetch.
+     *
+     * @param {boolean} verbose - Optional parameter to enable verbose logging.
+     * @returns {Promise} - A promise that resolves when all services are unloaded.
+     * @throws {Error} - If any error occurs during the unload process.
+     */
     unload = singleshot(async (verbose = true) => {
         this.prefetch.clear();
         try {
@@ -167,6 +251,15 @@ class ServiceManager {
         }
     });
 
+    /**
+     * Clears the state of the current instance.
+     * Resets the resolution order, reverse counter, creators, instances, prefetch, and unload.
+     *
+     * @function clear
+     * @memberof <YourPackageName>
+     * @instance
+     * @returns
+     */
     clear = () => {
         this._resolutionOrder = [];
         this._reverseCounter = 0;
@@ -210,12 +303,64 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
         this._serviceManager = window.__reactDeclarative_ServiceManager;
     }
 
+    /**
+     * Registers an instance with the service manager.
+     *
+     * @param key - The key for the registered instance.
+     * @param inst - The instance to be registered.
+     * @returns
+     */
     registerInstance = <T = object>(key: Key, inst: T) => this._serviceManager.registerInstance<T>(key, inst);
+    /**
+     * Registers a creator function for a given key.
+     *
+     * @param key - The key to associate with the creator function.
+     * @param ctor - The creator function that returns the desired object or a promise resolving to the desired object.
+     * @returns
+     */
     registerCreator = <T = object>(key: Key, ctor: () => (T | Promise<T>)) => this._serviceManager.registerCreator<T>(key, ctor);
+    /**
+     * Injects a dependency using the given key and returns an instance of the dependency.
+     *
+     * @template T - The type of the dependency being injected.
+     * @param key - The key used to locate the dependency.
+     * @param [verbose=true] - A flag indicating whether verbose logging should be enabled (default is true).
+     * @returns - An instance of the dependency.
+     */
     inject = <T = object>(key: Key, verbose = true): T => this._serviceManager.inject<T>(key, verbose);
+    /**
+     * Wait for the service to be provided.
+     *
+     * @async
+     * @param verbose - Whether to output verbose logs.
+     * @returns - A promise that resolves when the service is provided.
+     */
     waitForProvide = async (verbose = true) => await this._serviceManager.waitForProvide(verbose);
+    /**
+     * Prefetches data using the `_serviceManager.prefetch` method.
+     *
+     * @param [verbose=true] - Specifies whether to enable verbose mode.
+     * @returns - A promise that resolves when the prefetching is complete.
+     */
     prefetch = async (verbose = true) => await this._serviceManager.prefetch(verbose);
+    /**
+     * Unloads a resource using the _serviceManager.
+     *
+     * @async
+     * @param [verbose=true] - Whether to output verbose information. Default value is true.
+     * @returns - A promise that resolves when the resource is unloaded.
+     */
     unload = async (verbose = true) => await this._serviceManager.unload(verbose);
+    /**
+     * Clears the service.
+     *
+     * @memberOf SomeClass
+     * @function
+     * @name clear
+     * @instance
+     *
+     * @returns Returns nothing.
+     */
     clear = () => this._serviceManager.clear();
 };
 
@@ -256,15 +401,33 @@ export const createServiceManager = (name = 'unknown') => {
         }
     };
 
+    /**
+     * Asynchronously prefetches data from the service and local service managers.
+     *
+     * @returns
+     */
     const prefetch = async () => {
         await serviceManager.prefetch();
         await localServiceManager.prefetch();
     };
 
+    /**
+     * Unload function
+     * @async
+     * @function unload
+     * @returns - A promise that resolves once the unload process is complete
+     */
     const unload = async () => {
         await localServiceManager.unload();
     };
 
+    /**
+     * Disposes the local service and service managers.
+     *
+     * @async
+     * @function dispose
+     * @returns Promise that resolves when the local service and service managers are unloaded.
+     */
     const dispose = async () => {
         await localServiceManager.unload();
         await serviceManager.unload();

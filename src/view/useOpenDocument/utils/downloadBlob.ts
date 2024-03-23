@@ -13,35 +13,66 @@ export const downloadBlob = (
     onProgress,
   }: {
     sizeOriginal?: number;
-    onProgress?: (progress: number) => void
+    onProgress?: (progress: number) => void;
   }
 ) =>
   new Promise<Blob>((res, rej) => {
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener("progress", (event) => {
-      if (event.lengthComputable) {
-        onProgress && onProgress((event.loaded / event.total) * 100);
-      } else if (sizeOriginal) {
-        onProgress && onProgress(Math.min((event.loaded / sizeOriginal) * 100, 100));
-      } else {
-        console.log('downloadBlob file length is not computable');
-      }
-      return;
-    });
-    xhr.addEventListener("error", () => {
-      rej();
-    });
-    xhr.addEventListener("loadend", () => {
-      onProgress && onProgress(100);
-      if (xhr.status !== 200) {
-        rej(new Error("downloadBlob status !== 200"));
+    xhr.addEventListener(
+      "progress",
+      /**
+       * Updates the progress based on the event object.
+       *
+       * @param event - The event object containing information about the progress.
+       * @param sizeOriginal - The original size of the file being downloaded. Optional.
+       * @param onProgress - The callback function to be called with the updated progress percentage.
+       * @returns
+       */
+      (event) => {
+        if (event.lengthComputable) {
+          onProgress && onProgress((event.loaded / event.total) * 100);
+        } else if (sizeOriginal) {
+          onProgress &&
+            onProgress(Math.min((event.loaded / sizeOriginal) * 100, 100));
+        } else {
+          console.log("downloadBlob file length is not computable");
+        }
         return;
       }
-      if (xhr.readyState === 4) {
-        res(xhr.response);
-        return;
+    );
+    xhr.addEventListener(
+      "error",
+      /**
+       * Rejects a promise.
+       *
+       * @returns
+       */
+      () => {
+        rej();
       }
-    });
+    );
+    xhr.addEventListener(
+      "loadend",
+      /**
+       * Function to handle download progress and response for a XMLHttpRequest.
+       *
+       * @param onProgress - Optional callback function to track the progress of the download.
+       * @param xhr - The XMLHttpRequest object used for the download.
+       * @param res - The resolve function of the Promise used for the download.
+       * @param rej - The reject function of the Promise used for the download.
+       */
+      () => {
+        onProgress && onProgress(100);
+        if (xhr.status !== 200) {
+          rej(new Error("downloadBlob status !== 200"));
+          return;
+        }
+        if (xhr.readyState === 4) {
+          res(xhr.response);
+          return;
+        }
+      }
+    );
     xhr.responseType = "blob";
     xhr.open("GET", url, true);
     xhr.send();

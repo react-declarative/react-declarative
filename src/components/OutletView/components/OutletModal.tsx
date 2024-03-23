@@ -67,27 +67,73 @@ export interface IOutletModalProps<
     sx?: SxProps;
   };
   fullScreen?: boolean;
+  /**
+   * Specifies whether the component should include an action button.
+   *
+   * @type {boolean}
+   * @default false
+   */
   withActionButton?: boolean;
+  /**
+   * Indicates whether the action being performed is static or not.
+   *
+   * @type {boolean}
+   */
   withStaticAction?: boolean;
   outletIdSubject: TBehaviorSubject<Id | null>;
   title?: string;
   fetchState?: IFetchViewProps<Id>["state"];
   reloadSubject?: TSubject<void>;
+  /**
+   * Handles the onSubmit event.
+   *
+   * @param {Id} id - The identifier.
+   * @param {Data|null} data - The data or null.
+   * @param {Payload} payload - The payload.
+   * @returns {Promise<boolean>|boolean} A promise resolving to a boolean or a boolean value.
+   */
   onSubmit?: (
     id: Id,
     data: Data | null,
     payload: Payload
   ) => Promise<boolean> | boolean;
+  /**
+   * Represents the AfterTitle component.
+   *
+   * @component
+   * @param {Object} props - The component props.
+   * @param {Function} props.onClose - The function to be called when closing the component.
+   * @param {Data | null} props.data - The data to be displayed in the component.
+   * @param {string} props.id - The unique identifier for the component.
+   * @return {ReactElement|null} - The rendered AfterTitle component or null if data is null.
+   */
   AfterTitle?: React.ComponentType<{
     onClose: () => void;
     data: Data | null;
     id: string;
   }>;
+  /**
+   * BeforeTitle is a React component that renders a title with a close button.
+   *
+   * @param {Object} props - The props object that contains the following properties:
+   *   @param {function} props.onClose - The callback function to be called when the close button is clicked.
+   *   @param {Data|null} props.data - The data to be displayed in the component. Can be null if there is no data.
+   *   @param {string} props.id - The unique identifier for the component.
+   *
+   * @returns {React.ComponentType} The BeforeTitle component.
+   */
   BeforeTitle?: React.ComponentType<{
     onClose: () => void;
     data: Data | null;
     id: string;
   }>;
+  /**
+   * Represents an array of outlet modals routes.
+   *
+   * @template Data - The type of data provided by the outlet modals.
+   * @template Payload - The type of payload accepted by the outlet modals.
+   * @template Params - The type of parameters expected by the outlet modals.
+   */
   routes: IOutletModal<Data, Payload, Params>[];
   data?: Data | null;
   onLoadStart?: () => void;
@@ -96,11 +142,33 @@ export interface IOutletModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  /**
+   * Maps the payload with the given ID and data.
+   *
+   * @param {Id} id - The ID of the payload.
+   * @param {Record<string, any>[]} data - The data to be mapped.
+   *
+   * @returns {Payload | Promise<Payload>} - The mapped payload.
+   */
   mapPayload?: (
     id: Id,
     data: Record<string, any>[]
   ) => Payload | Promise<Payload>;
+  /**
+   * Maps the given data into parameters based on the provided id.
+   *
+   * @param {Id} id - The identifier to map the data.
+   * @param {Record<string, any>[]} data - The data to be mapped.
+   * @returns {Params | Promise<Params>} The mapped parameters.
+   */
   mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
+  /**
+   * Represents a function to initialize data based on given ID and data.
+   *
+   * @param {Id} id - The ID for initialization.
+   * @param {Record<string, any>[]} data - An array of data records.
+   * @returns {Data|Promise<Data>} - The initialized data or a promise of the initialized data.
+   */
   mapInitialData?: (
     id: Id,
     data: Record<string, any>[]
@@ -269,6 +337,14 @@ export const OutletModal = <
   const [id, setId] = useState<string | null>(outletIdSubject.data);
   const { classes } = useStyles();
 
+  /**
+   * Calculate the requested size based on the current window size.
+   *
+   * @param {Object} options - The options for calculating the requested size.
+   * @param {Function} options.compute - The function to compute the requested size.
+   * @param {Number} options.debounce - The delay in milliseconds to debounce the window resize event.
+   * @returns {Object} The requested size object with height, width, and sx properties.
+   */
   const requestedSize = useWindowSize({
     compute: (size) => {
       const request = sizeRequest(size);
@@ -309,6 +385,15 @@ export const OutletModal = <
     setData(upperData);
   }, [open]);
 
+  /**
+   * Updates the data and triggers a change event.
+   *
+   * @param data - The updated data object.
+   * @param initial - Indicates whether the change is initial or not.
+   * @param payload - Additional payload information.
+   * @param source - The source of the change.
+   * @returns
+   */
   const handleChange = (
     data: Data,
     initial: boolean,
@@ -320,22 +405,55 @@ export const OutletModal = <
     onChange(data, initial, payload, source);
   };
 
+  /**
+   * Increases the value of loading by 1 and calls the onLoadStart function if it exists.
+   *
+   * @function
+   * @name handleLoadStart
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading count and calls `onLoadEnd` if it exists.
+   *
+   * @param isOk - Indicates whether the loading has ended successfully.
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * Creates a render waiter for the provided data with a given timeout.
+   *
+   * @param {Array} data - The data to be rendered.
+   * @param {number} timeout - The maximum time to wait for rendering in milliseconds.
+   * @return {RenderWaiter} - The render waiter object.
+   */
   const waitForRender = useRenderWaiter([data], 10);
 
+  /**
+   * Waits for changes to occur before continuing execution.
+   *
+   * @async
+   * @function waitForChanges
+   * @returns A promise that resolves when changes occur.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
+  /**
+   * Function that handles the accept action.
+   *
+   * @function handleAccept
+   * @async
+   *
+   * @returns A Promise that resolves once the accept action is complete.
+   */
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -359,6 +477,13 @@ export const OutletModal = <
     }
   };
 
+  /**
+   * Closes the handle if it is not already loading.
+   *
+   * @async
+   * @function handleClose
+   * @returns Returns a promise that resolves when the handle is closed.
+   */
   const handleClose = async () => {
     if (loading.current) {
       return;

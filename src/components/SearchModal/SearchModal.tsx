@@ -231,21 +231,50 @@ export const SearchModal = <
     setData(upperData || []);
   }, [open]);
 
+  /**
+   * Handles the change in data.
+   *
+   * @param newData - The new data to be set.
+   * @param initial - A flag indicating if this is the initial change.
+   *
+   * @returns
+   */
   const handleChange = (newData: IRowData["id"][], initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
   };
 
+  /**
+   * Function to handle the start of a load operation.
+   * It increments the "loading" state and triggers the onLoadStart event, if provided.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Handles the end of a load operation.
+   *
+   * @param isOk - Indicates whether the load operation completed successfully.
+   *
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * Function handleAccept handles the accept action.
+   *
+   * @async
+   * @function handleAccept
+   * @returns
+   */
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -268,6 +297,11 @@ export const SearchModal = <
     }
   };
 
+  /**
+   * Asynchronously handles the close action.
+   *
+   * @returns A Promise that is resolved when the close action is completed.
+   */
   const handleClose = async () => {
     if (loading.current) {
       return;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useCallback } from "react";
 import { createMemoryHistory } from "history";
 
@@ -10,7 +10,7 @@ import ImageView from "./view/ImageView";
 import VideoView from "./view/VideoView";
 import AudioView from "./view/AudioView";
 import ErrorView from "./view/ErrorView";
-import PdfView from './view/PdfView';
+import PdfView from "./view/PdfView";
 
 import useActualRef from "../../hooks/useActualRef";
 import { useOutletModal } from "../../components/OutletView";
@@ -35,9 +35,20 @@ interface IParams {
   onClose?: () => void;
   title?: string;
   submitLabel?: string;
+  /**
+   * Callback function triggered when a form is submitted.
+   *
+   * @param {string} url - The URL where the form data will be submitted.
+   * @param {object} data - The data to be submitted. It should contain a "main" property with the following structure:
+   *   - blob: The blob data to be submitted, if applicable. Can be null if no blob data is present.
+   *   - mime: The MIME type of the blob data.
+   *   - fileName: The name of the file associated with the blob data.
+   *     Note: The "main" property can also be null if no data is to be submitted.
+   * @returns {boolean|Promise<boolean>} - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
+   */
   onSubmit?: (
     url: string,
-    data: { main: { blob: Blob | null; mime: string; fileName: string; } } | null,
+    data: { main: { blob: Blob | null; mime: string; fileName: string } } | null
   ) => boolean | Promise<boolean>;
 }
 
@@ -145,6 +156,11 @@ export const useOpenDocument = ({
     routes,
     history,
     fullScreen: false,
+    /**
+     * Maps the initial data of the application.
+     *
+     * @returns - The mapped initial data.
+     */
     mapInitialData: () => ({
       main: {
         blob: null as never,
@@ -155,11 +171,20 @@ export const useOpenDocument = ({
   });
   return {
     render,
-    pickData: useCallback((request: IRequest) => {
-      setParams(request);
-      history.push("/");
-      pickData(request.url);
-    }, []),
+    pickData: useCallback(
+      /**
+       * Sets the parameters of the given request and redirects to the home page.
+       * Then picks the data from the given request URL.
+       *
+       * @param request - The request object.
+       */
+      (request: IRequest) => {
+        setParams(request);
+        history.push("/");
+        pickData(request.url);
+      },
+      []
+    ),
   };
 };
 

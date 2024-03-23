@@ -146,6 +146,11 @@ export const Switch = ({
   onDispose = () => undefined,
   throwError = false,
 }: ISwitchProps) => {
+  /**
+   * Memoized function to sort items based on their paths
+   *
+   * @returns {Array} Sorted list of items
+   */
   const items = useMemo(() => {
     return [...upperItems].sort(
       ({ path: path_a = "" }, { path: path_b = "" }) => {

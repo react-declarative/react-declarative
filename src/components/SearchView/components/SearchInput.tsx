@@ -70,6 +70,17 @@ export const SearchInput = ({
     }
   }, [loading]);
 
+  /**
+   * A memoized debounced function that is used for handling onChange events in search functionality.
+   *
+   * @name emitChangeSearch
+   * @type {Function}
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e - The event triggered by a change in the input or textarea element.
+   * @returns {void}
+   * @example
+   * // Usage
+   * emitChangeSearch(e);
+   */
   const emitChangeSearch = useMemo(
     () =>
       debounce(
@@ -85,6 +96,12 @@ export const SearchInput = ({
     emitChangeSearch.flush();
   }, []);
 
+  /**
+   * Handle key search function.
+   *
+   * @param {React.KeyboardEvent<HTMLDivElement>} e - The keyboard event.
+   * @returns {void}
+   */
   const handleKeySearch = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key !== "Escape") {

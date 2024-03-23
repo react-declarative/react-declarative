@@ -22,11 +22,15 @@ fullScreen: boolean
 withActionButton: boolean
 ```
 
+Specifies whether the component should include an action button.
+
 ### withStaticAction
 
 ```ts
 withStaticAction: boolean
 ```
+
+Indicates whether the action being performed is static or not.
 
 ### outletIdSubject
 
@@ -58,11 +62,15 @@ reloadSubject: TSubject<void>
 onSubmit: (id: string, data: Data, payload: Payload) => boolean | Promise<boolean>
 ```
 
+Handles the onSubmit event.
+
 ### AfterTitle
 
 ```ts
 AfterTitle: ComponentType<{ onClose: () => void; data: Data; id: string; }>
 ```
+
+Represents the AfterTitle component.
 
 ### BeforeTitle
 
@@ -70,11 +78,15 @@ AfterTitle: ComponentType<{ onClose: () => void; data: Data; id: string; }>
 BeforeTitle: ComponentType<{ onClose: () => void; data: Data; id: string; }>
 ```
 
+BeforeTitle is a React component that renders a title with a close button.
+
 ### routes
 
 ```ts
 routes: IOutletModal<Data, Payload, Params>[]
 ```
+
+Represents an array of outlet modals routes.
 
 ### data
 
@@ -124,17 +136,23 @@ submitLabel: string
 mapPayload: (id: string, data: Record<string, any>[]) => Payload | Promise<Payload>
 ```
 
+Maps the payload with the given ID and data.
+
 ### mapParams
 
 ```ts
 mapParams: (id: string, data: Record<string, any>[]) => Params | Promise<Params>
 ```
 
+Maps the given data into parameters based on the provided id.
+
 ### mapInitialData
 
 ```ts
 mapInitialData: (id: string, data: Record<string, any>[]) => Data | Promise<Data>
 ```
+
+Represents a function to initialize data based on given ID and data.
 
 ### onMount
 

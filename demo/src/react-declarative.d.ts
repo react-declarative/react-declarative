@@ -3849,15 +3849,71 @@ declare module "react-declarative/helpers/serviceManager" {
    */
   class ServiceManager {
     constructor(_name?: string);
+    /**
+     * Registers an instance with a given key.
+     *
+     * @template T - The type of the instance.
+     * @param key - The key to register the instance with.
+     * @param inst - The instance to register.
+     * @returns
+     */
     registerInstance: <T = object>(key: Key, inst: T) => void;
+    /**
+     * Registers a creator function for a given key.
+     *
+     * @param key - The unique key to identify the creator function.
+     * @param ctor - The constructor function that creates an instance of type T.
+     * @template T - The type of the object created by the constructor function.
+     * @returns
+     */
     registerCreator: <T = object>(key: Key, ctor: () => T | Promise<T>) => void;
+    /**
+     * Injects a service instance based on the provided key.
+     *
+     * @template T - The type of the service instance.
+     * @param key - The key of the service.
+     * @param [verbose=true] - Whether to display console errors when the service is unknown.
+     * @returns - The service instance.
+     * @throws {never} - Throws an error if the service is unknown and `verbose` is `true`.
+     */
     inject: <T = object>(key: Key, verbose?: boolean) => T;
+    /**
+     * A variable that represents a single shot function for waiting until a specific condition is met.
+     *
+     * @typedef {Function} waitForProvide
+     * @param {boolean} [verbose=false] - Whether to enable verbose mode or not.
+     * @returns {Promise} - A promise that resolves when the specified condition is met.
+     *
+     */
     waitForProvide: ((verbose?: any) => Promise<void>) &
       import("../utils/hof/singleshot").IClearable;
+    /**
+     * Executes prefetch operation for all service instances in a service manager.
+     *
+     * @param {boolean} [verbose=true] - Flag to enable verbose logging.
+     * @returns {Promise<void>} - Promise that resolves when prefetch operation is completed.
+     * @throws {Error} - Throws an error if an error occurs during prefetch operation.
+     */
     prefetch: ((verbose?: any) => Promise<void>) &
       import("../utils/hof/singleshot").IClearable;
+    /**
+     * Unload function that unloads services and clears prefetch.
+     *
+     * @param {boolean} verbose - Optional parameter to enable verbose logging.
+     * @returns {Promise} - A promise that resolves when all services are unloaded.
+     * @throws {Error} - If any error occurs during the unload process.
+     */
     unload: ((verbose?: any) => Promise<void>) &
       import("../utils/hof/singleshot").IClearable;
+    /**
+     * Clears the state of the current instance.
+     * Resets the resolution order, reverse counter, creators, instances, prefetch, and unload.
+     *
+     * @function clear
+     * @memberof <YourPackageName>
+     * @instance
+     * @returns
+     */
     clear: () => void;
   }
   global {
@@ -3872,15 +3928,67 @@ declare module "react-declarative/helpers/serviceManager" {
    */
   export const serviceManager: {
     _serviceManager: ServiceManager;
+    /**
+     * Registers an instance with the service manager.
+     *
+     * @param key - The key for the registered instance.
+     * @param inst - The instance to be registered.
+     * @returns
+     */
     registerInstance: <T = object>(key: Key, inst: T) => void;
+    /**
+     * Registers a creator function for a given key.
+     *
+     * @param key - The key to associate with the creator function.
+     * @param ctor - The creator function that returns the desired object or a promise resolving to the desired object.
+     * @returns
+     */
     registerCreator: <T_1 = object>(
       key: Key,
       ctor: () => T_1 | Promise<T_1>,
     ) => void;
+    /**
+     * Injects a dependency using the given key and returns an instance of the dependency.
+     *
+     * @template T - The type of the dependency being injected.
+     * @param key - The key used to locate the dependency.
+     * @param [verbose=true] - A flag indicating whether verbose logging should be enabled (default is true).
+     * @returns - An instance of the dependency.
+     */
     inject: <T_2 = object>(key: Key, verbose?: boolean) => T_2;
+    /**
+     * Wait for the service to be provided.
+     *
+     * @async
+     * @param verbose - Whether to output verbose logs.
+     * @returns - A promise that resolves when the service is provided.
+     */
     waitForProvide: (verbose?: boolean) => Promise<void>;
+    /**
+     * Prefetches data using the `_serviceManager.prefetch` method.
+     *
+     * @param [verbose=true] - Specifies whether to enable verbose mode.
+     * @returns - A promise that resolves when the prefetching is complete.
+     */
     prefetch: (verbose?: boolean) => Promise<void>;
+    /**
+     * Unloads a resource using the _serviceManager.
+     *
+     * @async
+     * @param [verbose=true] - Whether to output verbose information. Default value is true.
+     * @returns - A promise that resolves when the resource is unloaded.
+     */
     unload: (verbose?: boolean) => Promise<void>;
+    /**
+     * Clears the service.
+     *
+     * @memberOf SomeClass
+     * @function
+     * @name clear
+     * @instance
+     *
+     * @returns Returns nothing.
+     */
     clear: () => void;
   };
   const provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void,
@@ -3920,12 +4028,29 @@ declare module "react-declarative/helpers/routeManager" {
     T extends Record<string, any> = Record<string, any>,
     I extends ISwitchItem = ISwitchItem,
   > extends Subject<void> {
+    /**
+     * Returns the value of the params property.
+     *
+     * @returns The value of the params property, which can be of type T or null.
+     */
     get params(): T | null;
+    /**
+     * Retrieves the value of the item.
+     *
+     * @return The value of the item. Returns null if item is not set.
+     */
     get item(): I | null;
     constructor(
       routes: I[],
       history: MemoryHistory | BrowserHistory | HashHistory,
     );
+    /**
+     * Disposes of the current object by unsubscribing from any subscriptions.
+     * @function
+     * @memberof Object
+     * @name dispose
+     * @returns
+     */
     dispose: () => void;
   }
   /**
@@ -18231,6 +18356,17 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
     onClose?: () => void;
     title?: string;
     submitLabel?: string;
+    /**
+     * Callback function triggered when a form is submitted.
+     *
+     * @param {string} url - The URL where the form data will be submitted.
+     * @param {object} data - The data to be submitted. It should contain a "main" property with the following structure:
+     *   - blob: The blob data to be submitted, if applicable. Can be null if no blob data is present.
+     *   - mime: The MIME type of the blob data.
+     *   - fileName: The name of the file associated with the blob data.
+     *     Note: The "main" property can also be null if no data is to be submitted.
+     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
+     */
     onSubmit?: (
       url: string,
       data: {
@@ -27672,27 +27808,73 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
       sx?: SxProps;
     };
     fullScreen?: boolean;
+    /**
+     * Specifies whether the component should include an action button.
+     *
+     * @type {boolean}
+     * @default false
+     */
     withActionButton?: boolean;
+    /**
+     * Indicates whether the action being performed is static or not.
+     *
+     * @type {boolean}
+     */
     withStaticAction?: boolean;
     outletIdSubject: TBehaviorSubject<Id | null>;
     title?: string;
     fetchState?: IFetchViewProps<Id>["state"];
     reloadSubject?: TSubject<void>;
+    /**
+     * Handles the onSubmit event.
+     *
+     * @param {Id} id - The identifier.
+     * @param {Data|null} data - The data or null.
+     * @param {Payload} payload - The payload.
+     * @returns {Promise<boolean>|boolean} A promise resolving to a boolean or a boolean value.
+     */
     onSubmit?: (
       id: Id,
       data: Data | null,
       payload: Payload,
     ) => Promise<boolean> | boolean;
+    /**
+     * Represents the AfterTitle component.
+     *
+     * @component
+     * @param {Object} props - The component props.
+     * @param {Function} props.onClose - The function to be called when closing the component.
+     * @param {Data | null} props.data - The data to be displayed in the component.
+     * @param {string} props.id - The unique identifier for the component.
+     * @return {ReactElement|null} - The rendered AfterTitle component or null if data is null.
+     */
     AfterTitle?: React.ComponentType<{
       onClose: () => void;
       data: Data | null;
       id: string;
     }>;
+    /**
+     * BeforeTitle is a React component that renders a title with a close button.
+     *
+     * @param {Object} props - The props object that contains the following properties:
+     *   @param {function} props.onClose - The callback function to be called when the close button is clicked.
+     *   @param {Data|null} props.data - The data to be displayed in the component. Can be null if there is no data.
+     *   @param {string} props.id - The unique identifier for the component.
+     *
+     * @returns {React.ComponentType} The BeforeTitle component.
+     */
     BeforeTitle?: React.ComponentType<{
       onClose: () => void;
       data: Data | null;
       id: string;
     }>;
+    /**
+     * Represents an array of outlet modals routes.
+     *
+     * @template Data - The type of data provided by the outlet modals.
+     * @template Payload - The type of payload accepted by the outlet modals.
+     * @template Params - The type of parameters expected by the outlet modals.
+     */
     routes: IOutletModal<Data, Payload, Params>[];
     data?: Data | null;
     onLoadStart?: () => void;
@@ -27701,14 +27883,36 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     throwError?: boolean;
     hidden?: boolean;
     submitLabel?: string;
+    /**
+     * Maps the payload with the given ID and data.
+     *
+     * @param {Id} id - The ID of the payload.
+     * @param {Record<string, any>[]} data - The data to be mapped.
+     *
+     * @returns {Payload | Promise<Payload>} - The mapped payload.
+     */
     mapPayload?: (
       id: Id,
       data: Record<string, any>[],
     ) => Payload | Promise<Payload>;
+    /**
+     * Maps the given data into parameters based on the provided id.
+     *
+     * @param {Id} id - The identifier to map the data.
+     * @param {Record<string, any>[]} data - The data to be mapped.
+     * @returns {Params | Promise<Params>} The mapped parameters.
+     */
     mapParams?: (
       id: Id,
       data: Record<string, any>[],
     ) => Params | Promise<Params>;
+    /**
+     * Represents a function to initialize data based on given ID and data.
+     *
+     * @param {Id} id - The ID for initialization.
+     * @param {Record<string, any>[]} data - An array of data records.
+     * @returns {Data|Promise<Data>} - The initialized data or a promise of the initialized data.
+     */
     mapInitialData?: (
       id: Id,
       data: Record<string, any>[],

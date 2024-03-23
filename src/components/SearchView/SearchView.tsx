@@ -159,6 +159,12 @@ export const SearchView = <
   const onChange$ = useActualCallback(onChange);
   const onTextChange$ = useActualCallback(onTextChange);
 
+  /**
+   * Executes the given function after a certain delay.
+   * @param {Function} callback - The function to be executed.
+   * @param {number} delay - The delay (in milliseconds) before executing the function.
+   * @returns {void}
+   */
   const { execute } = useQueuedAction(
     async () => {
       const state: IState = {
@@ -216,6 +222,15 @@ export const SearchView = <
     clear,
   } = useOffsetPaginator<ISearchItem>({
     reloadSubject,
+    /**
+     * Handler function that processes the results based on the given parameters.
+     *
+     * @param limit - The number of rows to limit the results to.
+     * @param offset - The number of rows to skip before returning the results.
+     * @param initial - Whether to execute the initial search or not.
+     * @param rows - The rows to process.
+     * @returns - A promise that resolves with the processed results.
+     */
     handler: async (limit, offset, initial, rows) => {
       return await handler(search$.current, limit, offset, initial, rows);
     },
@@ -227,6 +242,17 @@ export const SearchView = <
     limit,
   });
 
+  /**
+   * Memoized function to filter out items from the rawData array based on
+   * whether their value property already exists in the state.item object or not.
+   * Returns a new array of filtered items.
+   *
+   * @function
+   * @name useMemo
+   * @returns {Array} - Array of filtered items
+   * @param {function} callback - Function to be memoized
+   * @param {Array} deps - Dependency array determining when to recalculate the memoized value
+   */
   const data = useMemo(() => {
     const valueSet = new Set<string>([state.item?.value || ""]);
     return rawData.filter((item) => {
@@ -251,6 +277,11 @@ export const SearchView = <
     }
   }, [state.item]);
 
+  /**
+   * Sets the value of the 'open' property in the state.
+   *
+   * @param {boolean} open - The new value for the 'open' property.
+   */
   const setOpen = useCallback(
     (open: boolean) =>
       setState((prevState) => ({
@@ -260,6 +291,13 @@ export const SearchView = <
     []
   );
 
+  /**
+   * handleChangeText is a callback function that updates the state of a component.
+   *
+   * @param {string} value - The new value to be set in the state.
+   *
+   * @returns {void}
+   */
   const handleChangeText = useCallback(
     (value: string) =>
       setState((prevState) => ({
@@ -270,6 +308,12 @@ export const SearchView = <
     []
   );
 
+  /**
+   * Handles the change of an item in the search.
+   *
+   * @param {ISearchItem} item - The selected search item.
+   * @returns {void}
+   */
   const handleChangeItem = useCallback(
     (item: ISearchItem) =>
       setState((prevState) => ({
@@ -281,6 +325,11 @@ export const SearchView = <
     []
   );
 
+  /**
+   * Handle clear function to clear the state values.
+   * @function handleClear
+   * @returns {void}
+   */
   const handleClear = useCallback(
     () =>
       setState(() => ({
@@ -291,10 +340,22 @@ export const SearchView = <
     []
   );
 
+  /**
+   * Returns the value from the underlying callback function,
+   * or an empty string if the value is falsy.
+   *
+   * @returns {string} The value obtained from the callback function,
+   *                   or an empty string if the value is falsy.
+   */
   const getValue = useActualCallback(
     () => state.item?.label || state.value || ""
   );
 
+  /**
+   * Retrieves the value of text from an external source.
+   *
+   * @returns {string} The value of the text.
+   */
   const textValue = getValue();
 
   return (

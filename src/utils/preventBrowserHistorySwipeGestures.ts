@@ -8,6 +8,12 @@
  * @return The function to remove the event listener.
  */
 export const preventBrowserHistorySwipeGestures = () => {
+  /**
+   * Event handler for touch start event.
+   * Prevents default behavior of the event if touch is within 10% of window width from either side.
+   *
+   * @param event - The touch start event object.
+   */
   const touchStart = (event: TouchEvent) => {
     if (event.touches.length === 1) {
       const touch = event.touches[0];

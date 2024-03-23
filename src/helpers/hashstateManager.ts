@@ -10,11 +10,22 @@ import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
  */
 export const createHashstateManager = (history: MemoryHistory | BrowserHistory | HashHistory) => new class {
 
+    /**
+     * Retrieves the value of the current hash from the browser's location.
+     *
+     * @returns The value of the current hash.
+     */
     getValue = () => {
         const { hash } = history.location;
         return hash[0] === '#' ? hash.slice(1, hash.length) : hash;
     };
 
+    /**
+     * Sets the hash value in the URL of the current page.
+     *
+     * @param hash - The new hash value to be set.
+     * @returns
+     */
     setValue = (hash: string) => {
         const { pathname, search } = history.location;
         history.push({

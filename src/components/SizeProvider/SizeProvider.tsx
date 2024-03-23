@@ -73,11 +73,25 @@ export const SizeProvider = ({
             return;
         }
 
+        /**
+         * Handles resizing of the element.
+         * @function handleResize
+         * @memberof global
+         * @param {function} callback - A callback function to execute when element is resized.
+         */
         const handleResize = debounce(() => {
             const { height, width } = elementRef.getBoundingClientRect();
             setSize({ height, width });
         });
 
+        /**
+         * @description A ResizeObserver class that tracks changes in the size of a target element.
+         *
+         * @param {function} callback - The callback function to be called whenever a resize event occurs.
+         *                             It will receive a list of ResizeObserverEntry objects as argument.
+         *
+         * @returns {object} The ResizeObserver instance.
+         */
         const observer = new ResizeObserver(handleResize);
 
         handleResize();
@@ -91,6 +105,11 @@ export const SizeProvider = ({
 
     }, [rootRef]);
 
+    /**
+     * Assigns the given reference to the root reference.
+     *
+     * @param ref - The reference to assign to the root reference.
+     */
     const handleRef = (ref: any) => setRootRef(ref)
 
     return (

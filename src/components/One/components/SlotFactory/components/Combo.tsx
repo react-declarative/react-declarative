@@ -126,6 +126,9 @@ export const Combo = ({
 
   const { fallback } = useOneProps();
 
+  /**
+   * Loads the given variable from a source.
+   */
   const { loading, execute } = useAsyncAction(
     async (object) => {
       const labels: Record<string, string> = {};
@@ -226,6 +229,14 @@ export const Combo = ({
         />
       );
 
+  /**
+   * Renders an option for the Autocomplete component.
+   *
+   * @param props - The HTML attributes for the <li> element.
+   * @param option - The option to render.
+   * @param state - The state of the render option.
+   * @returns - The rendered option.
+   */
   const renderOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
     option: any,
@@ -245,6 +256,12 @@ export const Combo = ({
     );
   };
 
+  /**
+   * Retrieves the label for a given value.
+   *
+   * @param v - The value for which to retrieve the label.
+   * @returns The label corresponding to the given value.
+   */
   const getOptionLabel = (v: string) => {
     const { current: labels } = labels$;
     if (freeSolo) {

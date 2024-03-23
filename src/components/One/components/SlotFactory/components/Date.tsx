@@ -180,6 +180,12 @@ export const Date = ({
     return undefined;
   }, [value]);
 
+  /**
+   * Represents a caret manager for handling caret position in an input element.
+   * @typedef {Object} CaretManager
+   * @property {Function} render - Renders the caret at the last known position.
+   * @property {Function} pos - Returns the current caret position in the input element.
+   */
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 

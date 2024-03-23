@@ -115,12 +115,44 @@ export const useSearchModal = <
   const onSubmit$ = useActualCallback(onSubmit);
   const param$ = useActualValue(param);
 
+  /**
+   * Handles submit event.
+   *
+   * @param {IRowData['id'][] | null} data - The data to submit.
+   * @returns {Promise<boolean>} A promise that resolves to a boolean indicating if the submit was successful or not.
+   */
   const handleSubmit = useCallback(async (data: IRowData['id'][] | null) => {
     const result = await onSubmit$(data?.length ? data : null, payload, param$.current);
     setOpen(!result);
     return result;
   }, []);
 
+  /**
+   * A memoized function that returns a rendered SearchModal component with specified props.
+   *
+   * @callback render
+   * @returns {React.Element} The rendered SearchModal component.
+   *
+   * @param {boolean} open - Indicator to show/hide the SearchModal.
+   * @param {boolean} hidden - Indicator to hide/show the SearchModal.
+   * @param {Object} data - The data to be passed to the SearchModal component.
+   * @param {string} title - The title of the SearchModal.
+   * @param {Object} apiRef - The reference object for API methods.
+   * @param {Subject} reloadSubject - The subject for reloading data.
+   * @param {string} selectionMode - The mode for selecting data in the SearchModal.
+   * @param {Function} handler - The custom handler function for data selection.
+   * @param {Object} payload - Additional data payload to be passed to the handler function.
+   * @param {React.Component} fallback - The fallback component to show if there is no data.
+   * @param {Function} onChange - The function to be called when the input value changes.
+   * @param {Function} onLoadEnd - The function to be called when data loading ends.
+   * @param {Function} onLoadStart - The function to be called when data loading starts.
+   * @param {Function} onAction - The function to be called when an action is triggered.
+   * @param {Function} onRowAction - The function to be called when an action is triggered on a row.
+   * @param {string} submitLabel - The label for the submit button in the SearchModal.
+   * @param {boolean} throwError - Indicator to throw an error on submit.
+   * @param {Function} handleSubmit - The function to be called when the search form is submitted.
+   * @param {Object} listProps - Additional props to be passed to the SearchModal component.
+   */
   const render = useCallback(
     () => (
       <SearchModal
@@ -164,6 +196,12 @@ export const useSearchModal = <
     ]
   );
 
+  /**
+   * A callback function to pick data.
+   *
+   * @param {Param} [param=[]] - The parameter to pass to the callback function.
+   * @returns {void}
+   */
   const pickData = useCallback((param: Param = []) => {
     setParam(param);
     setOpen(true);

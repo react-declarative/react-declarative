@@ -36,6 +36,12 @@ const ITEM_HEIGHT = 36;
 
 const NEVER_POS = Symbol("never-pos");
 
+/**
+ * Retrieves the current caret position in the given HTML input element or textarea.
+ *
+ * @param element - The HTML input element or textarea.
+ * @returns - The current caret position.
+ */
 const getCaretPos = (element: HTMLInputElement | HTMLTextAreaElement) => {
   return element.selectionStart || element.value.length;
 };
@@ -140,6 +146,11 @@ export const Complete = ({
     setAnchorEl(target as unknown as HTMLDivElement);
   };
 
+  /**
+   * Closes the anchor element by setting its value to null.
+   *
+   * @function
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -178,6 +189,9 @@ export const Complete = ({
     };
 
     return {
+      /**
+       * Renders the position of caret
+       */
       render: () => {
         if (inputType !== "text") {
           return;
@@ -188,6 +202,9 @@ export const Complete = ({
           lastPos = NEVER_POS;
         }
       },
+      /**
+       * Retrieves the position of the caret in the current input element.
+       */
       pos: () => {
         const { current: input } = inputElementRef;
         if (input) {
@@ -219,6 +236,12 @@ export const Complete = ({
     }
   }, [value]);
 
+  /**
+   * A memoized function that handles a change event.
+   *
+   * @param {string} text - The text to be processed.
+   * @returns {undefined}
+   */
   const handleChange = useMemo(
     () =>
       queued(async (text: string) => {

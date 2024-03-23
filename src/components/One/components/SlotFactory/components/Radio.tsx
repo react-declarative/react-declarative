@@ -34,11 +34,24 @@ export const Radio = ({
     const [radioMap, setRadioMap] = useOneRadio();
     const radioMap$ = useActualValue(radioMap);
 
+    /**
+     * Sets the value of a radio map.
+     *
+     * @param {string|null} value - The value to set.
+     *
+     * @returns {void}
+     */
     const setValue = useCallback((value: string | null) => setRadioMap((prevRadioMap) => ({
         ...prevRadioMap,
         [name]: value,
     })), []);
 
+    /**
+     * Handles changes in a value and triggers a callback function.
+     *
+     * @param {(string|null)} value - The new value to be handled.
+     * @returns {void}
+     */
     const handleChange = useCallback((value: string | null) => {
         setValue(value);
         onChange(value);

@@ -106,11 +106,19 @@ export const SearchList = ({
 
   const [currentLoading, setCurrentLoading] = useState(0);
 
+  /**
+   * A callback function triggered when the loading starts.
+   * It increments the current loading count and calls the onLoadStart function if provided.
+   */
   const handleLoadStart = useCallback(() => {
     setCurrentLoading((currentLoading) => currentLoading + 1);
     onLoadStart && onLoadStart();
   }, []);
 
+  /**
+   * Handle the end of a load operation.
+   * @param {boolean} isOk - Indicates if the load was successful.
+   */
   const handleLoadEnd = useCallback((isOk: boolean) => {
     setCurrentLoading((currentLoading) => currentLoading - 1);
     onLoadEnd && onLoadEnd(isOk);
@@ -125,6 +133,17 @@ export const SearchList = ({
     setText(input?.value || "");
   }, [loading]);
 
+  /**
+   * Render a loader component.
+   *
+   * @returns {React.Component} The rendered loader component.
+   *
+   * @param {function} onCreate - The callback function to invoke when creating an item.
+   * @param {object} classes - The CSS classes to apply to the rendered component.
+   * @param {boolean} loading - Indicates if the loader is currently loading.
+   * @param {object} item - The item to be rendered.
+   * @param {array} items - The items to be rendered.
+   */
   const renderLoader = useCallback(() => {
     if (!loading && !!onCreate) {
       return null;
@@ -139,6 +158,17 @@ export const SearchList = ({
     return null;
   }, [item, items, loading, onCreate]);
 
+  /**
+   * Renders the create button if all conditions are met.
+   * @returns {React.Element|null} The rendered create button, or null if conditions are not met.
+   * @param {function} onCreate - The callback function to be executed when the create button is clicked.
+   * @param {string} text - The text input value.
+   * @param {boolean} item - A flag indicating if an item is present.
+   * @param {Array} items - An array containing items.
+   * @param {boolean} loading - A flag indicating if data is being loaded.
+   * @param {object} classes - The CSS classes object.
+   * @param {object} payload - The payload object.
+   */
   const renderCreate = useCallback(() => {
     if (!onCreate) {
       return null;

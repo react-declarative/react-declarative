@@ -103,6 +103,14 @@ export const useOutletModal = <
 
   const onSubmit$ = useActualCallback(onSubmit);
 
+  /**
+   * Handles form submission.
+   *
+   * @param {Id} id - The id of the form.
+   * @param {Data | null} data - The form data.
+   * @param {Payload} payload - The payload to be submitted with the form.
+   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating the success status of the submission.
+   */
   const handleSubmit = useCallback(async (id: Id, data: Data | null, payload: Payload) => {
     const result = await onSubmit$(id, data, payload);
     if (result) {
@@ -111,6 +119,12 @@ export const useOutletModal = <
     return result;
   }, []);
 
+  /**
+   * A callback function that handles closing of an outlet.
+   *
+   * @callback handleClose
+   * @returns {void}
+   */
   const handleClose = useCallback(() => {
     outletIdSubject.next(null);
     onClose && onClose();

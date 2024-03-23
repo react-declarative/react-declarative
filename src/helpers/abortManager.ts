@@ -17,6 +17,16 @@ export const abortManager = new class {
         }
     }
 
+    /**
+     * Aborts the last instance of AbortController if available.
+     * Creates a new instance of AbortController.
+     *
+     * @function abort
+     * @memberof global
+     *
+     * @example
+     * abort();
+     */
     abort = () => {
         if ('AbortController' in window) {
             this._lastInstance?.abort();
