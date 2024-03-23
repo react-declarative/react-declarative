@@ -51,6 +51,16 @@ export const useEntityBinding = <T extends IEntity = any>({
      */
     const handleChange = (item: EntityAdapter<T>) => onChange && onChange(item, !initComplete.current);
 
+    /**
+     * Initializes an entity with the provided initial value and change handler.
+     *
+     * @template T - The type of value for the entity.
+     * @param {Object} options - The options for initializing the entity.
+     * @param {T} options.initialValue - The initial value of the entity.
+     * @param {Function} options.onChange - The change handler function for the entity.
+     * @param {number|null|undefined} [options.debounce] - The debounce time in milliseconds for the onChange function. Defaults to `null`.
+     * @returns {T} - The entity with the provided initial value and change handler.
+     */
     const entity = useEntity<T>({
         initialValue: initialValue as T,
         onChange: handleChange,
