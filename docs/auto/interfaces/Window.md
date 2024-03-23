@@ -9,3 +9,5 @@ A window containing a DOM document; the document property points to the DOM docu
 ```ts
 Sanitizer: new (config?: Partial<IConfig>) => Sanitizer
 ```
+
+Represents a Sanitizer class.

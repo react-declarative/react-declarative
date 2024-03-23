@@ -51,10 +51,6 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
    * @function
    * @param args - The arguments to pass to the createRequest function.
    * @returns A promise that resolves to the result of the request.
-   *
-   * @example
-   * // Usage:
-   * const result = await createRequest(...args);
    */
   const request: typeof createRequest = async (...args) => {
     const [result] = await Promise.all([

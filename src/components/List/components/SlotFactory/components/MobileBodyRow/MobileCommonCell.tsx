@@ -83,6 +83,14 @@ export const MobileCommonCell = ({
 
     const { column } = props;
 
+    /**
+     * Calculate the minimum height for a column.
+     *
+     * @function
+     *
+     * @returns {number | undefined} The calculated minimum height.
+     *
+     */
     const minHeight =  useMemo(() => {
         const { minHeight: minHeightCol } = column;
         return minHeightCol || (column.type === ColumnType.Component ? COMPONENT_MIN_HEIGHT : undefined)

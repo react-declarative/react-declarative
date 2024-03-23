@@ -27,10 +27,22 @@ declare class Sanitizer {
 
 declare global {
     interface Window {
+        /**
+         * Represents a Sanitizer class.
+         *
+         * @typedef {function} Sanitizer
+         * @param {...*} params - The parameters required to construct a Sanitizer object.
+         * @constructor
+         */
         Sanitizer: new (...params: ConstructorParameters<typeof Sanitizer>) => Sanitizer;
     }    
 }
 
+/**
+ * Represents an element that extends HTMLElement and provides a setHTML method.
+ * @interface
+ * @extends HTMLElement
+ */
 interface Element extends HTMLElement {
     setHTML: (...args: any) => any;
 }

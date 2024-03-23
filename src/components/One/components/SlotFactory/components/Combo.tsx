@@ -37,11 +37,22 @@ const checkedIcon = <RadioIcon fontSize="small" />;
 const EMPTY_ARRAY = [] as any;
 const MOUSE_OUT_DEBOUNCE = 45;
 
+/**
+ * Returns a hash string generated from the values in an array.
+ *
+ * @param value - The array object to generate the hash from.
+ * @returns - The hash string generated from the array values.
+ */
 const getArrayHash = (value: any) =>
   Object.values<string>(value || {})
     .sort((a, b) => b.localeCompare(a))
     .join("-");
 
+/**
+ * Represents the contract for the State class, which holds options and labels.
+ *
+ * @interface
+ */
 interface IState {
   options: string[];
   labels: Record<string, string>;

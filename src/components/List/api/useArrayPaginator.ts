@@ -23,11 +23,20 @@ import queued from '../../../utils/hof/queued';
 
 const FILTER_CHARS = [',', ';', '-', '@'];
 
+/**
+ * Represents an empty response.
+ *
+ * @property {Array} rows - An empty array representing no data rows.
+ * @property {?number} total - A nullable total representing no data total.
+ */
 const EMPTY_RESPONSE = {
     rows: [],
     total: null,
 };
 
+/**
+ * This variable provides a centralized list of searchable entry parameters, making it easier to manage and maintain search functionality in the system.
+ */
 const SEARCH_ENTRIES = [
     "name",
     "label",

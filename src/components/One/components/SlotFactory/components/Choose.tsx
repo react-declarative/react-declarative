@@ -20,6 +20,15 @@ import { IChooseSlot } from "../../../slots/ChooseSlot";
 
 const EMPTY_ARRAY: any[] = [];
 
+/**
+ * Retrieves the processed input value based on the provided parameters.
+ *
+ * @param value - The input value to process.
+ * @param tr - The transformation function.
+ * @param data - Additional data used in the transformation process.
+ * @param payload - Additional payload used in the transformation process.
+ * @returns - The processed input value or null.
+ */
 const getInputValue = async (
   value: IAnything,
   tr: Exclude<IField["tr"], undefined>,

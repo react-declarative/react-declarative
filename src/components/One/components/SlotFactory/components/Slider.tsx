@@ -13,6 +13,21 @@ import IManaged, { PickProp } from "../../../../../model/IManaged";
 
 import { ISliderSlot } from "../../../slots/SliderSlot";
 
+/**
+ * Creates an icon component.
+ * @param icon - The icon component to be rendered.
+ * @param data - The data object.
+ * @param payload - The payload object.
+ * @param disabled - Indicates if the icon is disabled.
+ * @param readonly - Indicates if the icon is read-only.
+ * @param value - The value object.
+ * @param onChange - The callback function triggered when the value changes.
+ * @param onValueChange - The callback function triggered when the value changes.
+ * @param click - The callback function triggered when the icon is clicked.
+ * @param edge - The edge where the icon is positioned.
+ * @param ripple - Indicates if the icon should have a ripple effect.
+ * @returns - The icon component.
+ */
 const createIcon = (
   icon: React.ComponentType<any>,
   data: IAnything,

@@ -249,6 +249,13 @@ export const Text = ({
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 
+    /**
+     * Calculates the adjustment for the cursor based on the position of a character in the template.
+     * The adjustment value represents the number of characters to skip before reaching the desired position.
+     *
+     * @param pos - The position of the character in the template. Must be a non-negative integer.
+     * @returns The adjustment value.
+     */
     const getAdjust = (pos: number) => {
       let adjust = 0;
       for (let i = Math.max(pos - 1, 0); i < template.length; i++) {

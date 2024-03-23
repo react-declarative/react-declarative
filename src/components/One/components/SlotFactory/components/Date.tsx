@@ -189,6 +189,12 @@ export const Date = ({
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;
 
+    /**
+     * Calculates the adjustment for the cursor based on the given position.
+     *
+     * @param pos - The position.
+     * @returns The adjustment value.
+     */
     const getAdjust = (pos: number) => {
       let adjust = 0;
       for (let i = Math.max(pos - 1, 0); i < DATE_TEMPLATE.length; i++) {

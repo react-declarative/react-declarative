@@ -229,6 +229,14 @@ export const Items = ({
         setOpened(false);
     }), []);
 
+    /**
+     * Handles a change event by calling the provided onChange function with the value.
+     * If the value is an empty string or undefined, null is passed to the onChange function.
+     * After calling onChange, the changeSubject is notified.
+     *
+     * @param value - The value to be passed to the onChange function.
+     * @returns
+     */
     const handleChange = (value: any) => {
         onChange(value?.length ? value : null);
         changeSubject.next();

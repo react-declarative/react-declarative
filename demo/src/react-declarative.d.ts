@@ -23622,6 +23622,13 @@ declare module "react-declarative/components/HtmlView/HtmlView" {
   }
   global {
     interface Window {
+      /**
+       * Represents a Sanitizer class.
+       *
+       * @typedef {function} Sanitizer
+       * @param {...*} params - The parameters required to construct a Sanitizer object.
+       * @constructor
+       */
       Sanitizer: new (
         ...params: ConstructorParameters<typeof Sanitizer>
       ) => Sanitizer;
