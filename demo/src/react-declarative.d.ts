@@ -18453,6 +18453,9 @@ declare module "react-declarative/components/List/slots/SearchSlot" {
 declare module "react-declarative/components/List/components/SlotFactory/SlotFactory" {
   import * as React from "react";
   import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * Interface for the props of the SlotFactory component.
+   */
   interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
     children: React.ReactNode;
   }
@@ -25364,12 +25367,18 @@ declare module "react-declarative/components/Copy/Copy" {
    *
    * @interface
    */
-  interface ICopyProps extends BoxProps {
+  interface ICopyProps
+    extends Omit<
+      BoxProps,
+      keyof {
+        onCopy: never;
+      }
+    > {
     fullWidth?: boolean;
     transparent?: boolean;
     content: string;
     children?: React.ReactNode;
-    onCopy?: () => void;
+    onCopy?: (content: string) => void;
     onCopyClick?: () => void;
     fallback?: (e: Error) => void;
     onLoadStart?: () => void;
@@ -25478,6 +25487,7 @@ declare module "react-declarative/components/CopyButton/CopyButton" {
       e: React.MouseEvent<HTMLButtonElement>,
       doCopy: () => void,
     ) => void;
+    onCopy?: (content: string) => void;
     startIcon?: React.ReactNode;
     variant?: "text" | "outlined" | "contained";
     size?: "small" | "medium" | "large";
@@ -25515,12 +25525,13 @@ declare module "react-declarative/components/CopyButton/CopyButton" {
     style,
     sx,
     onClick,
+    content,
+    onCopy,
     delay,
     variant,
     size,
     color,
     startIcon,
-    content,
     label,
   }: ICopyButtonProps) => JSX.Element;
   export default CopyButton;

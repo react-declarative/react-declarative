@@ -40,6 +40,12 @@ delay: number
 onClick: (e: MouseEvent<HTMLButtonElement, MouseEvent>, doCopy: () => void) => void
 ```
 
+### onCopy
+
+```ts
+onCopy: (content: string) => void
+```
+
 ### startIcon
 
 ```ts

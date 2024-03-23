@@ -31,7 +31,7 @@ children: ReactNode
 ### onCopy
 
 ```ts
-onCopy: () => void
+onCopy: (content: string) => void
 ```
 
 ### onCopyClick

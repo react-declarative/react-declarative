@@ -24,6 +24,7 @@ interface ICopyButtonProps {
   sx?: SxProps<any>;
   delay?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>, doCopy: () => void) => void;
+  onCopy?: (content: string) => void;
   startIcon?: React.ReactNode;
   variant?: "text" | "outlined" | "contained";
   size?: "small" | "medium" | "large";
@@ -31,6 +32,25 @@ interface ICopyButtonProps {
   content: string | number;
   label?: string | number;
 }
+
+/**
+ * Creates a copy handler for the given content.
+ *
+ * @param content - The content to copy.
+ * @returns - A Promise that resolves when the content is successfully copied.
+ */
+const createCopyHandler = (content: React.ReactNode) => async () => {
+  let isOk = false;
+  isOk = isOk || typeof content === "string";
+  isOk = isOk || typeof content === "number";
+  isOk = isOk || typeof content === "boolean";
+  isOk = isOk || content === undefined;
+  isOk = isOk || content === null;
+  if (!isOk) {
+    return;
+  }
+  await copyToClipboard(String(content));
+};
 
 /**
  * Represents a copy button component.
@@ -55,12 +75,13 @@ export const CopyButton = ({
   style,
   sx,
   onClick,
+  content,
+  onCopy = createCopyHandler(content),
   delay = TOOLTIP_CLOSE_DELAY,
   variant = "text",
   size = "small",
   color = "info",
   startIcon = <ContentCopy />,
-  content,
   label = content, 
 }: ICopyButtonProps) => {
   const [open, setOpen] = useState(false);
@@ -97,13 +118,13 @@ export const CopyButton = ({
           if (onClick) {
             onClick(e, () => {
                 setOpen(true);
-                copyToClipboard(String(content));
+                onCopy(String(content));
                 emitClose();
             });
             return;
           }
           setOpen(true);
-          copyToClipboard(String(content));
+          onCopy(String(content));
           emitClose();
         }}
         startIcon={startIcon}

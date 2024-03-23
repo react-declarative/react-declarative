@@ -17,12 +17,14 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
  *
  * @interface
  */
-interface ICopyProps extends BoxProps {
+interface ICopyProps extends Omit<BoxProps, keyof {
+  onCopy: never;
+}> {
   fullWidth?: boolean;
   transparent?: boolean;
   content: string;
   children?: React.ReactNode;
-  onCopy?: () => void;
+  onCopy?: (content: string) => void;
   onCopyClick?: () => void;
   fallback?: (e: Error) => void;
   onLoadStart?: () => void;
@@ -116,7 +118,7 @@ export const Copy = ({
       onLoadStart && onLoadStart();
       try {
         onCopyClick && onCopyClick();
-        await Promise.resolve(onCopy());
+        await Promise.resolve(onCopy(content));
       } catch (e: any) {
         isOk = false;
         if (!throwError) {
