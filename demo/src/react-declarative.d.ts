@@ -27717,7 +27717,7 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
     params?: Params;
     routes: IOutlet<Data, Payload, Params, OtherProps>[];
     initialData?: Data | (() => Data);
-    changed?: boolean | ((data: Data) => boolean);
+    changed?: boolean | ((data: Data, payload: Payload) => boolean);
     onChange?: (
       data: Data,
       initial: boolean,

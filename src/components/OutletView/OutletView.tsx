@@ -94,11 +94,24 @@ export const OutletView = <
 }: IOutletViewProps<Data, Payload, Params, OtherProps>) => {
   const { classes } = useStyles();
 
+  /**
+   * Applies a transformation to the given subject using the provided change subject function.
+   *
+   * @param {Function} changeSubject - The change subject function to be used for merge.
+   * @param {string} upperChangeSubject - The subject to be merged.
+   * @returns {*} - The result of applying the transformation to the subject.
+   */
   const changeSubject = useSubject(upperChangeSubject);
 
   const payload = useSingleton(upperPayload);
   const initialData = useSingleton(upperInitialData);
 
+  /**
+   * Represents the variable 'data'.
+   *
+   * @typedef {Object} Data
+   * @property {number} id - The identifier of outlet.
+   */
   const [data, setData] = useState(() => ({
     ...routes.reduce<Data>(
       (acm, { id }) => ({ ...acm, [id]: null }),
@@ -110,7 +123,7 @@ export const OutletView = <
   const [invalid, setInvalid] = useState(() => new Set<string>());
   const [changed, setChanged] = useState(() => {
     if (typeof upperChanged === 'function') {
-      return upperChanged(data);
+      return upperChanged(data, payload);
     }
     return !!upperChanged;
   });

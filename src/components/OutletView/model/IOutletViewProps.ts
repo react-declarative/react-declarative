@@ -28,7 +28,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     params?: Params;
     routes: IOutlet<Data, Payload, Params, OtherProps>[];
     initialData?: Data | (() => Data);
-    changed?: boolean | ((data: Data) => boolean);
+    changed?: boolean | ((data: Data, payload: Payload) => boolean);
     onChange?: (data: Data, initial: boolean, payload: Payload, source: string) => void,
     onSubmit?: (data: Data, payload: Payload, config: { afterSave: () => Promise<void>; }) => (boolean | Promise<boolean>);
     onLeave?: () => void;

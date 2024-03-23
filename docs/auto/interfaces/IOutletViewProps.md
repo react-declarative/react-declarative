@@ -55,7 +55,7 @@ initialData: Data | (() => Data)
 ### changed
 
 ```ts
-changed: boolean | ((data: Data) => boolean)
+changed: boolean | ((data: Data, payload: Payload) => boolean)
 ```
 
 ### onChange
