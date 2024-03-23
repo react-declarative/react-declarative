@@ -14,17 +14,114 @@ import IField from "../../../model/IField";
  * @template Payload - The payload type for the field.
  */
 export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Type definition for the `PickProp` function.
+   * Extracts a specific property `description` from a given object type `IField<Data, Payload>`.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   * @template T - The type of the object from which to pick the `description` property.
+   *
+   * @param object - The object from which to pick the `description` property.
+   * @return - The value of the `description` property if found, otherwise `undefined`.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * Picks the "outlined" property from a given object type.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Type definition for the 'title' property of the PickProp utility.
+   *
+   * @template T - The type of object from which to pick the property.
+   * @template K - The key of the property to be picked.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Type definition for the placeholder property of a field.
+   *
+   * @template T - The type of the field.
+   * @template K - The key of the property to pick.
+   * @template Data - The data object containing the field.
+   * @template Payload - The payload type for the field.
+   *
+   * @typedef {PickProp<T, K>} PickProp
+   *
+   * @param {IField<Data, Payload>} field - The field object.
+   *
+   * @returns {T[K]} - The value of the field's placeholder property.
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Represents the `fileAccept` property of a field.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'fileAccept'>} fileAccept
+   *
+   * @property {string} fileAccept - The accepted file types for the field.
+   */
   fileAccept?: PickProp<IField<Data, Payload>, 'fileAccept'>;
+  /**
+   * Retrieves the value of the "readonly" property from the provided object.
+   *
+   * @template IField - The type of the object containing the "readonly" property.
+   * @template Data - The type of the data stored in the "IField" object.
+   * @template Payload - The type of the payload stored in the "IField" object.
+   *
+   * @param {IField<Data, Payload>} obj - The object from which to retrieve the "readonly" property.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the "readonly" property, or undefined if it is not present.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the "disabled" property of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledField
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents a reference to a group within a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  /**
+   * Represents the input reference associated with a field in a specific data payload.
+   *
+   * @typedef {object} IInputRef
+   * @property {PickProp<IField<Data, Payload>, 'inputRef'>} inputRef - The input reference value.
+   */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
+  /**
+   * Label shrink value from the field data.
+   *
+   * @typedef {Pick<IField<Data>, "labelShrink">} labelShrink
+   * @property {boolean | undefined} [labelShrink] - The label shrink value from the field data.
+   * @private
+   */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
+  /**
+   * Represents the 'upload' property of a given object.
+   *
+   * @template Data - The type of data for the object containing the 'upload' property.
+   * @template Payload - The type of payload for the 'upload' property.
+   * @template IField - The type of field for the object containing the 'upload' property.
+   * @typedef {PickProp<IField<Data, Payload>, 'upload'>} upload
+   */
   upload?: PickProp<IField<Data, Payload>, 'upload'>;
+  /**
+   * This variable represents a property 'view' extracted from an object of type PickProp<IField<Data, Payload>, 'view'>.
+   * The 'view' property is used to specify a specific view for processing fields.
+   *
+   * @remarks
+   * The 'IField' type is a generic type that takes two type parameters: 'Data' and 'Payload'. It represents a field in a form, with 'Data' representing the data type of the field value
+   *, and 'Payload' representing additional payload data associated with the field.
+   *
+   * The 'PickProp' utility type is used to extract the 'view' property from the 'IField' type.
+   *
+   */
   view?: PickProp<IField<Data, Payload>, 'view'>;
 }
 

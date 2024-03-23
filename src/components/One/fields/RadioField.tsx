@@ -14,10 +14,51 @@ import IManaged, { PickProp } from "../../../model/IManaged";
  * @template Payload - The payload type.
  */
 export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Type definition for the "title" property of an object.
+   * It is a generic type that picks the "title" property from a given object type.
+   *
+   * @template IField - The object type from which to pick the "title" property.
+   * @template Data - The data type of the object.
+   * @template Payload - The payload type of the object.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Represents the radio value of a field.
+   *
+   * @typedef {string | undefined} RadioValue
+   */
   radioValue?: PickProp<IField<Data, Payload>, "radioValue">;
+  /**
+   * Represents a reference to a group in a field object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @property {undefined | PickProp<IField<Data, Payload>, 'groupRef'>} groupRef - The reference to the group.
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  /**
+   * Type definition for the "readonly" property of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "readonly">} ReadonlyProp
+   *
+   * @description
+   * This property represents the "readonly" attribute of a field.
+   * It is used to indicate whether a field is read-only or not.
+   *
+   * The value of this property is derived from the "IField" interface
+   * in the "Data" module and the "Payload" type.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the 'disabled' property of a field.
+   *
+   * The 'disabled' property determines whether a field is disabled or not. If set to true, the field will be disabled
+   * and the user will not be able to interact with it.
+   *
+   * @template Data The type of data passed to the field.
+   * @template Payload The type of payload received by the field.
+   * @typedef {(field: IField<Data, Payload>) => boolean} PickProp
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 

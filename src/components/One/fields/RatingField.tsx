@@ -15,8 +15,26 @@ import IField from "../../../model/IField";
  * @template Payload - The type of payload for the field.
  */
 export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Retrieves the 'readonly' property value of a given field.
+   *
+   * @param {IField<Data, Payload>} field - The field object to retrieve the property from.
+   *
+   * @return {PickProp<IField<Data, Payload>, "readonly">} - The value of the 'readonly' property.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the groupRef property of the IField object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @property {string} [groupRef] - The reference to the group.
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  /**
+   * Represents the disabled property of an input field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }
 

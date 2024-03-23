@@ -49,50 +49,299 @@ import IField from "../../../model/IField";
  * @property [trailingIconClick] - The function to call when the trailing icon is clicked.
  */
 export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Represents the 'dictLimit' property of an object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "dictLimit">} dictLimit
+   * @property {number} [dictLimit] - The limit for the dictionary.
+   * @returns {number} - The limit for the dictionary.
+   */
   dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
+  /**
+   * Retrieves the optional "dictDelay" property from the provided object.
+   *
+   * @template Data - The data type of the object.
+   * @template Payload - The payload type of the object.
+   *
+   * @param {IField<Data, Payload>} object - The object containing the "dictDelay" property.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "dictDelay"> | undefined} The value of the "dictDelay" property, if it exists, or undefined if it does not.
+   */
   dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
+  /**
+   * @typedef {import("./types").IField<Data, Payload>} IField
+   * @typedef {import("./types").Payload} Payload
+   * @typedef {import("./types").Data} Data
+   * @typedef {import("./types").PickProp} PickProp
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "dictSearch">} dictSearch
+   */
   dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
+  /**
+   * Represents an optional configuration property for a dictionary append operation.
+   */
   dictOnAppend?: PickProp<IField<Data, Payload>, "dictOnAppend">;
+  /**
+   * Represents a variable `dictOnText` which is optional and can be of type `PickProp<IField<Data, Payload>, "dictOnText">`.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "dictOnText">} dictOnText
+   */
   dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
+  /**
+   * Represents the field configuration for `dictOnItem` property.
+   *
+   * @template Data - The type of data object for the field.
+   * @template Payload - The type of payload for the field.
+   * @typedef {PickProp<IField<Data, Payload>, "dictOnItem">} dictOnItem?
+   * @property {boolean} dictOnItem - Indicates whether the field uses dictionary on item.
+   */
   dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
+  /**
+   * Retrieves the "dictValue" property from the given object.
+   *
+   * @param {PickProp<IField<Data, Payload>, "dictValue">} obj - The object from which to retrieve the "dictValue" property.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "dictValue"> | undefined} - The value of the "dictValue" property, or undefined if it does not exist.
+   */
   dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
+  /**
+   * @typedef {Object} IField
+   * @property {Data} data - The data object
+   * @property {Payload} payload - The payload object
+   */
   dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
+  /**
+   * Represents the 'dictSearchItem' property of an object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "dictSearchItem">} dictSearchItem
+   *
+   * @description
+   * This property is an optional field that is used to store information related to dictionary search item.
+   * It is extracted from the 'IField' interface using the 'PickProp' utility type.
+   *
+   * @see {@link IField}
+   * @see {@link PickProp}
+   */
   dictSearchItem?: PickProp<IField<Data, Payload>, "dictSearchItem">;
+  /**
+   * Retrieves the value of the "dictCreateButton" property from the provided object,
+   * which is of type PickProp<IField<Data, Payload>, "dictCreateButton">.
+   *
+   * @param {PickProp<IField<Data, Payload>, "dictCreateButton">} input - The input object.
+   * @returns {undefined | someDataType} - Returns the value of the "dictCreateButton" property,
+   *                                       which can be of type "undefined" or "someDataType".
+   */
   dictCreateButton?: PickProp<IField<Data, Payload>, "dictCreateButton">;
+  /**
+   * Represents the input type of a field.
+   *
+   * @typedef {string} InputType
+   *
+   * @property {string} inputType - The type of input for the field.
+   */
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
+  /**
+   * Represents the input mode configuration for a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
+   * @property {string | undefined} inputMode - The input mode for the field.
+   */
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
+  /**
+   * Represents the input pattern of a field in the form.
+   *
+   * @typedef {Object} PickProp<IField<Data, Payload>, "inputPattern">
+   * @property {string} [inputPattern] - The regular expression pattern that the input value of the field must match.
+   */
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+  /**
+   * Retrieves the value of the "inputAutocomplete" property from the specified object.
+   *
+   * @template Data The type of the data object.
+   * @template Payload The type of the payload object.
+   * @template T The type of the object.
+   * @param {T} obj The object from which to retrieve the "inputAutocomplete" property.
+   * @returns {PickProp<IField<Data, Payload>, "inputAutocomplete"> | undefined} The value of the "inputAutocomplete" property,
+   * or undefined if the property doesn't exist.
+   */
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+  /**
+   * Represents an input formatter for a specific type of field in a form.
+   *
+   * @template Data - The type of data object associated with the form.
+   * @template Payload - The type of payload for the field.
+   */
   inputFormatter?: PickProp<IField<Data, Payload>, "inputFormatter">;
+  /**
+   * Represents a symbol used by the input formatter for a given field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterSymbol">} inputFormatterSymbol
+   *
+   * @property {string} inputFormatterSymbol - The symbol used by the input formatter.
+   */
   inputFormatterSymbol?: PickProp<
     IField<Data, Payload>,
     "inputFormatterSymbol"
   >;
+  /**
+   * Represents the allowed input formatters for a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
+   * @property {string[]} inputFormatterAllowed - An array of allowed input formatter names.
+   */
   inputFormatterAllowed?: PickProp<
     IField<Data, Payload>,
     "inputFormatterAllowed"
   >;
+  /**
+   * Represents a template for input formatter.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterTemplate">} InputFormatterTemplate
+   */
   inputFormatterTemplate?: PickProp<
     IField<Data, Payload>,
     "inputFormatterTemplate"
   >;
+  /**
+   * Represents an object property `inputFormatterReplace` of the interface `IField<Data, Payload>`.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace
+   * @property {string} inputFormatterReplace - The value of the `inputFormatterReplace` property.
+   * @see {@link IField}
+   * @see {@link PickProp}
+   */
   inputFormatterReplace?: PickProp<
     IField<Data, Payload>,
     "inputFormatterReplace"
   >;
+  /**
+   * Type definition for the PickProp function.
+   *
+   * @template T - The type of the object to pick from.
+   * @template K - The type of the property to pick.
+   * @param object - The object to pick from.
+   * @param prop - The property to pick from the object.
+   * @returns The value of the picked property.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * A type representing the picked property "outlined" from the given object type.
+   *
+   * @template T - The object type to pick the property from.
+   * @template K - The name of the property to pick.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Type declaration for the utility function `PickProp`.
+   *
+   * @template T - The type of the input object.
+   * @template K - The type of the property to pick.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Type definition for the `placeholder` property of `PickProp` type.
+   *
+   * The `placeholder` property represents a subset of the `IField<Data, Payload>` type,
+   * where it specifically picks the `placeholder` property.
+   *
+   * @template Data - The type of the `Data` object in `IField`.
+   * @template Payload - The type of the `Payload` object in `IField`.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} PlaceholderType
+   *
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * The `readonly` property of the `IField` object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly
+   * @property {boolean} value - A boolean value indicating if the field is read-only or not.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the `disabled` property of a given field in a form.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   * @template IField - The interface of the field.
+   * @template PickProp - Utility to pick a property from an interface.
+   *
+   * @param {IField<Data, Payload>} field - The given field in a form.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "disabled">} - The value of the `disabled` property.
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents the group reference property of a field in a data payload.
+   * @typedef {PickProp<IField<Data, Payload>, "groupRef">} groupRef
+   * @property {string} groupRef - The group reference value.
+   */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  /**
+   * Represents a reference to the input element within a field.
+   *
+   * @typedef {object} InputRef
+   * @property {string} name - The name of the input element.
+   * @property {string} id - The unique ID of the input element.
+   * @property {HTMLElement} element - The actual input element.
+   */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+  /**
+   * Represents the configuration for the leading icon ripple effect.
+   *
+   * @typedef {boolean} leadingIconRipple
+   * @memberof PickProp<IField<Data, Payload>, 'leadingIconRipple'>
+   */
   leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
+  /**
+   * Represents the trailing icon ripple configuration for a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'trailingIconRipple'>} trailingIconRipple
+   */
   trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
+  /**
+   * Represents the leading icon for a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'leadingIcon'>} leadingIcon
+   *
+   * @property {string} [name] - The name of the leading icon.
+   * @property {string} [url] - The URL of the leading icon.
+   * @property {string} [color] - The color of the leading icon.
+   */
   leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
+  /**
+   * This is a variable named trailingIcon.
+   * The variable is an optional property of type 'PickProp<IField<Data, Payload>, 'trailingIcon'>'.
+   *
+   * @typedef {import('path/to/IField').Data} Data - The data type used by IField.
+   * @typedef {import('path/to/IField').Payload} Payload - The payload type used by IField.
+   * @typedef {import('path/to/PickProp').PickProp} PickProp - The type used to pick properties from IField.
+   * @property {PickProp<IField<Data, Payload>, 'trailingIcon'>} [trailingIcon] - Optional trailing icon property.
+   */
   trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
+  /**
+   * Represents the optional property 'leadingIconClick' from the 'IField' interface.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload expected when the leading icon is clicked.
+   *
+   * @param {PickProp<IField<Data, Payload>, 'leadingIconClick'>} leadingIconClick - The value of the 'leadingIconClick' property.
+   *
+   * @returns {undefined}
+   */
   leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
+  /**
+   * The `trailingIconClick` property defines the action to be performed when the trailing icon of a field is clicked.
+   *
+   * @typedef {import('path/to/IField').IField<Data, Payload>} IField
+   * @template Data, Payload
+   *
+   * @param {PickProp<IField<Data, Payload>, 'trailingIconClick'>} trailingIconClick - The value of the `trailingIconClick` property which defines the action to be performed when the trailing
+   * icon is clicked.
+   *
+   * @description
+   * The `trailingIconClick` property accepts a function that will be executed when the trailing icon of a field is clicked.
+   */
   trailingIconClick?: PickProp<IField<Data, Payload>, 'trailingIconClick'>;
 }
 

@@ -15,9 +15,47 @@ import IField from '../../../model/IField';
  * @template Payload - The type of payload for the field.
  */
 export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Retrieves the 'title' property from the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The key to pick from the variable.
+   *
+   * @param {T} variable - The variable to pick the property from.
+   *
+   * @returns {Pick<T, K>} - The picked property.
+   */
   title?: PickProp<IField<Data, Payload>, 'title'>;
+  /**
+   * Retrieves the value of the 'readonly' property from the given object.
+   *
+   * @template Data - The type of data stored in the field.
+   * @template Payload - The type of payload used in the field.
+   * @template T - The type of the field object.
+   *
+   * @param {T} field - The field object.
+   *
+   * @returns {PickProp<T, "readonly">}
+   * The value of the 'readonly' property from the field object.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the "disabled" property of a field in the given data payload.
+   *
+   * @template Data - The type of the data payload.
+   * @template Payload - The type of the payload object.
+   *
+   * @param {PickProp<IField<Data, Payload>, "disabled">} disabled - The value of the "disabled" property.
+   *
+   * @returns {void}
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents the optional property `groupRef` from the `IField` interface.
+   * The `groupRef` property is a subset of the `PickProp` type with the 'groupRef' key.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 

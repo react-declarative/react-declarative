@@ -15,14 +15,78 @@ import IManaged, { PickProp } from "../../../model/IManaged";
  * @template Payload - The type of payload associated with the field.
  */
 export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Retrieves the value of the "title" property from the given object.
+   *
+   * @template T - The type of the object.
+   * @template K - The keys of the object.
+   * @param {T} obj - The object from which to retrieve the property value.
+   * @param {K} key - The key of the property to retrieve.
+   * @returns {Pick<T, K>} - The value of the "title" property.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Retrieves the "description" property from a given object of type IField<Data, Payload>.
+   * @param {IField<Data, Payload>} field - The input field object.
+   * @returns {Pick<IField<Data, Payload>, "description">["description"]} - The value of the "description" property.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * Picks the 'outlined' property from the IField<Data, Payload> object.
+   *
+   * @template Data - The type of data in the IField object.
+   * @template Payload - The type of payload in the IField object.
+   * @param {IField<Data, Payload>} field - The IField object to pick the 'outlined' property from.
+   * @returns {PickProp<IField<Data, Payload>, "outlined">} - The 'outlined' property value.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Represents the `placeholder` property of a field.
+   *
+   * @template Data - The type of the field's data.
+   * @template Payload - The type of the field's payload.
+   * @template Prop - The specific property of the field.
+   *
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Retrieves the value of the readonly property from a given field object.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload that may be associated with the field.
+   * @param {IField<Data, Payload>} field - The field object from which to retrieve the readonly property.
+   * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the readonly property, or undefined if the property is not present.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Shrink the label of a field.
+   *
+   * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
+   * @property {boolean} [labelShrink] - Specifies whether to shrink the label of the field.
+   */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
+  /**
+   * Represents the autoFocus property of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
+   * @property {boolean} [autoFocus] - If set to true, the field will automatically receive focus when rendered.
+   */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
+  /**
+   * Represents the `disabled` property of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledField
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents an optional reference to the input element within a field.
+   *
+   * @typedef {import("path/to/IField").Data} Data - The data type of the field.
+   * @typedef {import("path/to/IField").Payload} Payload - The payload type of the field.
+   * @typedef {import("path/to/PickProp").PickProp<IField<Data, Payload>, "inputRef">} PickPropResult - The result type of the PickProp function.
+   *
+   * @property {PickPropResult} [inputRef] - The reference to the input element within a field.
+   */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
 }
 

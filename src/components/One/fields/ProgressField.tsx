@@ -14,8 +14,29 @@ import IAnything from "../../../model/IAnything";
  * @template Payload - The type of payload associated with the field.
  */
 export interface IProgressFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Maximum percentage value for a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "maxPercent">} maxPercent
+   */
   maxPercent?: PickProp<IField<Data, Payload>, "maxPercent">;
+  /**
+   * Determines whether to show the percent label.
+   *
+   * @typedef {import('./types').IField} IField
+   * @typedef {import('./types').Payload} Payload
+   * @typedef {import('./utils').PickProp<T, K>} PickProp
+   *
+   * @param {IField<Data, Payload>} showPercentLabel - The field containing the showPercentLabel property.
+   * @returns {boolean} - Whether to show the percent label.
+   */
   showPercentLabel?: PickProp<IField<Data, Payload>, "showPercentLabel">;
+  /**
+   * Represents a reference to a group in a field.
+   *
+   * @typedef {Object} groupRef
+   * @property {PickProp<IField<Data, Payload>, 'groupRef'>} [groupRef] - The group reference.
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
 

@@ -15,11 +15,57 @@ import IField from '../../../model/IField';
  * @template Payload - The type of payload for the field.
  */
 export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
+  /**
+   * Retrieves the value of the 'title' property from an object of type IField<Data, Payload>.
+   *
+   * @template Data - The type of the data contained in the field.
+   * @template Payload - The type of the payload associated with the field.
+   *
+   * @param {IField<Data, Payload>} field - An object of type IField<Data, Payload>.
+   *
+   * @returns {PickProp<IField<Data, Payload>, 'title'>} - The value of the 'title' property from the given field.
+   */
   title?: PickProp<IField<Data, Payload>, 'title'>;
+  /**
+   * Retrieves the 'groupRef' property from an object based on the given type.
+   *
+   * @template Data - The type of data in the object containing the 'groupRef' property.
+   * @template Payload - The type representing the payload of the 'groupRef' property.
+   * @template IField - The interface describing the object structure.
+   *
+   * @param {IField<Data, Payload>} groupRef - The object containing the 'groupRef' property to retrieve.
+   *
+   * @returns {PickProp<IField<Data, Payload>, 'groupRef'>} - The 'groupRef' property from the given object.
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  /**
+   * Represents the readonly property of an IField object.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly?
+   * @property {boolean} [readonly] - Specifies whether the field is readonly or not.
+   * @public
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the 'disabled' property of a field in a form.
+   *
+   * @template Data The data type associated with the form.
+   * @template Payload The payload type associated with the form.
+   * @typedef {PickProp<IField<Data, Payload>, 'disabled'>} disabled
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * The switchNoColor property of the Field interface.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "switchNoColor">} switchNoColor
+   */
   switchNoColor?: PickProp<IField<Data, Payload>, "switchNoColor">;
+  /**
+   * Gets the value of the switchActiveLabel property from the given field.
+   *
+   * @param {IField<Data, Payload>} field - The field object from which to get the switchActiveLabel property.
+   * @returns {PickProp<IField<Data, Payload>, "switchActiveLabel">} - The value of the switchActiveLabel property.
+   */
   switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
 }
 

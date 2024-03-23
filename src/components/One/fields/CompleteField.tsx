@@ -13,36 +13,213 @@ import IField from "../../../model/IField";
  * @template Data, Payload - The types of data and payload.
  */
 export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Represents the input type of a field.
+   *
+   * @template Data The type of data associated with the field.
+   * @template Payload The type of payload associated with the field.
+   * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
+   *
+   * @property {string} inputType - The type of input for the field.
+   */
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
+  /**
+   * Represents the input mode of a field in the data object payload.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
+   * @property {string} inputMode - The input mode of the field.
+   */
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
+  /**
+   * Represents the input pattern of a field.
+   *
+   * @typedef {Object} inputPattern
+   * @property {string} [inputPattern.prop1] - The first property of the input pattern.
+   * @property {boolean} [inputPattern.prop2] - The second property of the input pattern.
+   *
+   * @typedef {import('./IField').IField<Data, Payload>} IField
+   * @typedef {import('./IField').Data} Data
+   * @typedef {import('./IField').Payload} Payload
+   * @typedef {import('./PickProp').PickProp} PickProp
+   */
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
+  /**
+   * Represents the optional prop "inputAutocomplete" for a field.
+   *
+   * @typedef {object} PickProp
+   * @property {IField<Data, Payload>} _field - The field to pick the prop from.
+   * @property {"inputAutocomplete"} _prop - The name of the prop to pick.
+   *
+   * @param {PickProp<IField<Data, Payload>, "inputAutocomplete">} inputAutocomplete - The value of the "inputAutocomplete" prop.
+   *
+   * @returns {void}
+   */
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
+  /**
+   * Retrieves the "description" property from a given object and its nested properties if available.
+   *
+   * @template T - The type of the object to pick the "description" property from.
+   * @template K - The keys of the properties in T.
+   * @param {T} obj - The object to pick the "description" property from.
+   * @returns {Pick<T, K>} - The picked object with "description" property.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * Reduces the size of the label for a given field.
+   *
+   * @param {PickProp<IField<Data>, "labelShrink">} labelShrink - The label shrink configuration for a field.
+   * @returns {undefined}
+   */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
+  /**
+   * Represents the value of the `keepRaw` property, which indicates whether to keep the raw data in a field.
+   *
+   * @template Data - The data type of the field.
+   * @template Payload - The payload type of the field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "keepRaw">} KeepRaw
+   * @property {boolean} keepRaw - Indicates whether to keep the raw data.
+   */
   keepRaw?: PickProp<IField<Data, Payload>, "keepRaw">;
+  /**
+   * Returns the value of the `outlined` property from the provided object.
+   *
+   * @template T - The type of the object.
+   * @template K - The keyof `T` representing the property to pick.
+   *
+   * @param {T} obj - The object from which to pick the property.
+   * @param {K} field - The key representing the property to pick.
+   *
+   * @returns {Pick<T, K>[K]} - The value of the picked property.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Type definition for the "title" property picked from the "IField" object type,
+   * where "IField" is a generic object with properties "Data" and "Payload".
+   * The resulting type is determined by the "PickProp" utility, which selects the specific property
+   * from the provided object type.
+   *
+   * @template IField - The generic object type with properties "Data" and "Payload".
+   * @template Data - The data type of the "IField" object.
+   * @template Payload - The payload type of the "IField" object.
+   * @template Key - The specific property key to pick from the "IField" object.
+   * @typedef PickProp
+   * @property {IField<Data, Payload>} object - The object from which the property is picked.
+   * @property {Key} prop - The specific property key to pick.
+   * @returns The type of the picked property.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Represents the "tip" property of an object.
+   *
+   * @template T - The type of the object.
+   * @template K - The key of the property to pick.
+   * @typedef {K extends keyof T ? T[K] : undefined} PickProp
+   */
   tip?: PickProp<IField<Data, Payload>, "tip">;
+  /**
+   * Represents a variable that holds the value of the "tipSelect" property.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "tipSelect">} TipSelect
+   * @property {IField<Data, Payload>} IField - Represents a generic field object.
+   * @property {Data} Data - Represents the generic data type.
+   * @property {Payload} Payload - Represents the generic payload type.
+   * @property {string} tipSelect - The value of the "tipSelect" property.
+   */
   tipSelect?: PickProp<IField<Data, Payload>, "tipSelect">;
+  /**
+   * Retrieves the `placeholder` property of a given field.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   * @template Field - The type of field.
+   *
+   * @typedef PickProp - A utility type for picking properties from a type.
+   * @param {Field} field - The field to pick the `placeholder` property from.
+   *
+   * @returns {string | undefined} - The `placeholder` property of the given field, if present. Otherwise, `undefined`.
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Retrieves the "readonly" property from the provided field object.
+   *
+   * @param {IField<Data, Payload>} field - The field object.
+   * @returns {PickProp<IField<Data, Payload>, "readonly">} - The value of the "readonly" property.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Specifies whether the field should be automatically focused.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
+   */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
+  /**
+   * Represents the "disabled" property of a field.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload for the field's actions.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledProp
+   *
+   * @property {boolean} disabled - Specifies whether the field is disabled.
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents a reference to a group within a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "groupRef">} GroupRef
+   * @property {string} groupRef - The identifier of the group.
+   */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  /**
+   * Represents the input reference of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputRef">} InputRef
+   * @property {string} inputRef - The reference to the input element.
+   *
+   */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
+  /**
+   * Represents the input formatter property of a field within a specific data type.
+   *
+   * @template Data - The data type containing the field.
+   * @template Payload - The payload type containing the data.
+   */
   inputFormatter?: PickProp<IField<Data, Payload>, "inputFormatter">;
+  /**
+   * Represents the input formatter symbol for a specific field.
+   */
   inputFormatterSymbol?: PickProp<
     IField<Data, Payload>,
     "inputFormatterSymbol"
   >;
+  /**
+   * Determines whether input formatting is allowed for a given field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
+   * @property {boolean} inputFormatterAllowed - Specifies if input formatting is allowed.
+   */
   inputFormatterAllowed?: PickProp<
     IField<Data, Payload>,
     "inputFormatterAllowed"
   >;
+  /**
+   * Represents a template for formatting input data.
+   *
+   */
   inputFormatterTemplate?: PickProp<
     IField<Data, Payload>,
     "inputFormatterTemplate"
   >;
+  /**
+   * Replaces the input formatter of a field with a new one.
+   *
+   * @template Data The data type of the field.
+   * @template Payload The payload type of the field.
+   *
+   * @param {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace The object containing the "inputFormatterReplace" property.
+   *
+   */
   inputFormatterReplace?: PickProp<
     IField<Data, Payload>,
     "inputFormatterReplace"

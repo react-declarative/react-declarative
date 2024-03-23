@@ -44,13 +44,75 @@ const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
  * @template Payload - The type of payload for the field.
  */
 export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Type definition for the 'name' property of an object.
+   * The 'name' property is extracted from a specific type and is used to pick a specific property from that type.
+   *
+   * @template Data The data type to extract the property from.
+   * @template Payload The type of the property to pick.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "name">} name
+   */
   name?: PickProp<IField<Data, Payload>, "name">;
+  /**
+   * Type definition for the `placeholder` property of a field.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload used for updating the field.
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Retrieves the "element" property from the given object
+   *
+   * @param {PickProp<IField<Data, Payload>, "element">} element - The object to extract the "element" property from
+   * @returns {PickProp<IField<Data, Payload>, "element">} - The value of the "element" property
+   */
   element?: PickProp<IField<Data, Payload>, "element">;
+  /**
+   * Represents a property of an object, where the key is "groupRef" and the value is of type PickProp<IField<Data, Payload>, "groupRef">.
+   *
+   * @property {PickProp<IField<Data, Payload>, "groupRef">} groupRef - The 'groupRef' property of the object.
+   */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  /**
+   * Retrieves the "className" property from an object of type PickProp<IField<Data, Payload>, "className">.
+   *
+   * @param {PickProp<IField<Data, Payload>, "className">} obj - The input object containing the "className" property.
+   * @returns {undefined | PickProp<IField<Data, Payload>, "className">} - The value of the "className" property if present, otherwise undefined.
+   * @throws {TypeError} If the input object is not of the expected type.
+   * @example
+   * // Example usage
+   * const data: PickProp<IField<Data, Payload>, "className"> = { className: "example-class" };
+   * const result = className(data);
+   * console.log(result); // "example-class"
+   */
   className?: PickProp<IField<Data, Payload>, "className">;
+  /**
+   * Represents the contextual information for watching a single field in a data structure.
+   * @typedef {PickProp<IField<Data, Payload>, "watchOneContext">} watchOneContext?
+   */
   watchOneContext?: PickProp<IField<Data, Payload>, "watchOneContext">;
+  /**
+   * Returns the style property of the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The type of the property to be picked.
+   * @param {T} obj - The variable from which to pick the property.
+   * @param {K} prop - The property to pick from the variable.
+   * @returns {Pick<T, K>} - The picked property value.
+   */
   style?: PickProp<IField<Data, Payload>, "style">;
+  /**
+   * Represents the 'sx' property of a PickProp.
+   *
+   * @template IField - The input field type.
+   * @template Data - The data type.
+   * @template Payload - The payload type.
+   *
+   * @param {IField<Data, Payload>} - The input field.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "sx"> | undefined} - The value of the 'sx' property.
+   */
   sx?: PickProp<IField<Data, Payload>, "sx">;
 }
 

@@ -15,19 +15,128 @@ import IField from "../../../model/IField";
  * @template Payload - The type of payload for the field.
  */
 export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Returns the "description" property of the given object if it exists, otherwise returns undefined.
+   *
+   * @template T - The type of the object to pick the property from.
+   * @template K - The key of the property to pick.
+   * @param {T} obj - The object to pick the property from.
+   * @param {K} key - The key of the property to pick.
+   * @returns {Pick<T, K>["description"] | undefined} - The value of the "description" property if it exists, otherwise undefined.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * Type definition for the `placeholder` property.
+   *
+   * @template T - The type of the field.
+   * @template K - The type of the key to pick from the field.
+   * @param field - The field object.
+   * @param key - The key representing the property to pick from the field.
+   * @returns The picked `placeholder` property from the field.
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Picks the specified property "outlined" from the given object type "IField<Data, Payload>".
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   * @template T - The resulting type after picking the property.
+   *
+   * @param {IField<Data, Payload>} field - The object from which to pick the property.
+   *
+   * @returns {PickProp<IField<Data, Payload>, "outlined">["outlined"]} - The value of the "outlined" property.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Represents the itemList property of a field in the Data object.
+   * @typedef {PickProp<IField<Data, Payload>, "itemList">} itemList
+   * @property {unknown} [itemList] - The value of the itemList property.
+   */
   itemList?: PickProp<IField<Data, Payload>, "itemList">;
+  /**
+   * Represents the `freeSolo` property of a field object.
+   *
+   * @typedef {import('path/to/types').PickProp<import('path/to/types').IField<Data, Payload>, "freeSolo">} freeSolo
+   * @description This property determines if the field supports selecting values that are not contained in the predefined options list.
+   * @property {boolean} [freeSolo] - A boolean value representing if the field allows free text input.
+   */
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
+  /**
+   * Represents the configuration for a virtual list box field in a form.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} VirtualListBoxConfig
+   * @property {string} virtualListBox - The value of the virtualListBox property.
+   */
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
+  /**
+   * Represents an optional readonly flag of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the "disabled" property of a field.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
+   * @property {boolean} value - Indicates whether the field is disabled or not.
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents a configuration option for disabling deselect functionality.
+   *
+   * @template Data - The type of data associated with the field.
+   * @template Payload - The type of payload associated with the field.
+   * @typedef {PickProp<IField<Data, Payload>, "noDeselect">} noDeselect
+   */
   noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
+  /**
+   * Type definition for the "title" property of an object.
+   *
+   * Suppose we have an object of type "IField<Data, Payload>". This type represents a field
+   * in a form, where "Data" is the type of the form data and "Payload" is the type of data that
+   * should be submitted when the form is submitted.
+   *
+   * The "PickProp" utility type is used to extract the "title" property from the "IField<Data, Payload>"
+   * type. This variable represents the extracted type.
+   *
+   * @template Data - The type of the form data.
+   * @template Payload - The type of the data to be submitted.
+   *
+   * @typedef {string} PickProp<IField<Data, Payload>, "title">
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Represents the "tr" property of a field in the given data and payload.
+   *
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   * @typeParam IField - The type of field.
+   * @typeParam PickProp - The type for picking properties.
+   *
+   * @property {PickProp<IField<Data, Payload>, "tr">} tr - The "tr" property of the field.
+   */
   tr?: PickProp<IField<Data, Payload>, "tr">;
+  /**
+   * Retrieves the value of the 'groupRef' property from the given object 'fieldData'.
+   *
+   * @param {IField<Data, Payload>} fieldData - The object containing the 'groupRef' property.
+   *
+   * @returns {PickProp<IField<Data, Payload>, 'groupRef'> | undefined} - The value of the 'groupRef' property from 'fieldData', or undefined if it doesn't exist.
+   */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
+  /**
+   * Represents the optional "labelShrink" property of an object that implements the `IField<Data>` interface.
+   * The "labelShrink" property is of type `PickProp<IField<Data>, "labelShrink">`, which picks the "labelShrink" property
+   * from the `IField<Data>` interface.
+   *
+   * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
+   */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
+  /**
+   * Represents a variable watchItemList.
+   * @typedef {PickProp<IField<Data>, "watchItemList">} watchItemList
+   * @property {IField<Data>} watchItemList - The watchItemList property of type PickProp<IField<Data>, "watchItemList">
+   */
   watchItemList?: PickProp<IField<Data>, "watchItemList">;
 }
 

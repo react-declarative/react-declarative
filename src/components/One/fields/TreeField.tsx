@@ -15,12 +15,72 @@ import IField from "../../../model/IField";
  * @template Payload The type of payload in the field.
  */
 export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
+  /**
+   * Returns the "description" property of a given object.
+   *
+   * @template T - The type of the object.
+   * @template K - The literal key type.
+   *
+   * @param {T} obj - The object from which to extract the property.
+   * @param {K} key - The literal key representing the property to extract.
+   *
+   * @returns {Pick<T, K>} - The value of the specified property.
+   */
   description?: PickProp<IField<Data, Payload>, "description">;
+  /**
+   * Type declaration for the PickProp utility function.
+   */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
+  /**
+   * Type definition for the "title" property picked from the given object type.
+   *
+   * @template IField - The object type that contains the "title" property.
+   * @template Data - The data type of the "title" property.
+   * @template Payload - The payload type of the "title" property.
+   *
+   * @param {IField<Data, Payload>} - The object from which the "title" property will be picked.
+   *
+   * @returns {Pick<IField<Data, Payload>, "title">} - The resulting object that only contains the "title" property.
+   */
   title?: PickProp<IField<Data, Payload>, "title">;
+  /**
+   * Type definition for the variable placeholder.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} placeholder
+   */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+  /**
+   * Specifies if a field is readOnly.
+   *
+   * @typedef {boolean} Readonly
+   *
+   * @typedef {import('./types').IField<Data, Payload>} IField
+   * @typedef {import('./types').Payload} Payload
+   * @typedef {import('./types').PickProp} PickProp
+   * @typedef {import('./types').Data} Data
+   *
+   * @param {IField<Data, Payload>} readonly - The field being checked for readOnly status.
+   *
+   * @returns {Readonly} - A boolean value indicating if the field is readOnly.
+   */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
+  /**
+   * Represents the `disabled` property of a field in a form.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
+   *
+   * @property {boolean} disabled - Indicates whether the field is disabled or not.
+   * @template Data - The type of data stored in the form.
+   * @template Payload - The type of payload used for form submission.
+   */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  /**
+   * Represents the item tree of a specific field in the data payload.
+   *
+   * @typedef {PickProp<IField<Data, Payload>, 'itemTree'>} ItemTree
+   */
   itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
 }
 
