@@ -160,6 +160,13 @@ export const useQueryPagination = <
     fallback,
 }: Partial<IParams<FilterData, RowData>> = {}) => {
 
+    /**
+     * A memoized value that computes and returns a default query object.
+     *
+     * @return {IQuery} The default query object with properties including chipData,
+     * filterData, limit, page, search, and sortModel.
+     *
+     */
     const defaultValue = useMemo((): IQuery => ({
         chipData: initialValue.chipData || DEFAULT_QUERY.chipData,
         filterData: initialValue.filterData || DEFAULT_QUERY.filterData,
@@ -184,6 +191,14 @@ export const useQueryPagination = <
 
     const state$ = useActualValue(state);
 
+    /**
+     * Creates a memoized query object
+     *
+     * @typeparam {FilterData} - The type of the filter data
+     * @typeparam {RowData} - The type of the row data
+     * @param {object} state - The state object containing the filter data, sort model, chip data, limit, page, and search values
+     * @returns {IQuery<FilterData, RowData>} - The memoized query object
+     */
     const query = useMemo<IQuery<FilterData, RowData>>(() => ({
         filterData: JSON.parse(state.filterData || "{}"),
         sortModel: JSON.parse(state.sortModel || "[]"),
@@ -199,6 +214,12 @@ export const useQueryPagination = <
         handleChange(JSON.stringify(state$.current));
     }, [state]);
 
+    /**
+     * Callback function for handling filter changes.
+     *
+     * @param filterData - The new filter data.
+     * @returns
+     */
     const onFilterChange: IResult<FilterData, RowData>['onFilterChange'] = (filterData) => {
         filterData = removeEmptyFilters(filterData) as FilterData;
         setState((prevState) => ({
@@ -208,6 +229,12 @@ export const useQueryPagination = <
         handleFilterChange(filterData)
     };
     
+    /**
+     * Function to handle limit change.
+     *
+     * @param limit - The new limit value.
+     * @returns
+     */
     const onLimitChange: IResult<FilterData, RowData>['onLimitChange'] = (limit) => {
         setState((prevState) => ({
             ...prevState,
@@ -216,6 +243,13 @@ export const useQueryPagination = <
         handleLimitChange(limit);
     };
 
+    /**
+     * Callback function invoked when the page changes.
+     *
+     * @param page - The new page number.
+     * @returns
+     *
+     */
     const onPageChange: IResult<FilterData, RowData>['onPageChange'] = (page) => {
         setState((prevState) => ({
             ...prevState,
@@ -224,6 +258,11 @@ export const useQueryPagination = <
         handlePageChange(page);
     };
 
+    /**
+     * Updates the sort model and triggers the handleSortModelChange function.
+     *
+     * @param sortModel - The new sort model.
+     */
     const onSortModelChange: IResult<FilterData, RowData>['onSortModelChange'] = (sortModel) => {
         setState((prevState) => ({
             ...prevState,
@@ -232,6 +271,12 @@ export const useQueryPagination = <
         handleSortModelChange(sortModel);
     };
 
+    /**
+     * Handles the change event for chips in the filter.
+     *
+     * @param chipData - The new chip data.
+     * @returns
+     */
     const onChipsChange: IResult<FilterData, RowData>['onChipsChange'] = (chipData) => {
         setState((prevState) => ({
             ...prevState,
@@ -240,6 +285,12 @@ export const useQueryPagination = <
         handleChipsChange(chipData);
     };
 
+    /**
+     * Callback function for handling search change.
+     *
+     * @param search - The new search value.
+     * @returns
+     */
     const onSearchChange: IResult<FilterData, RowData>['onSearchChange'] = (search) => {
         setState((prevState) => ({
             ...prevState,
@@ -248,6 +299,12 @@ export const useQueryPagination = <
         handleSeachChange(search);
     };
 
+    /**
+     * Retrieves various properties from the query object.
+     * @typedef {Object} FilterData
+     * @property {FilterData} filterData - The filter data.
+     * @property {RowData} rowData - The row data.
+     */
     const getQueryMap = {
         getFilterData: (): FilterDataT<FilterData, RowData> => {
             const { current: query } = query$;
@@ -275,6 +332,17 @@ export const useQueryPagination = <
         },
     };
 
+    /**
+     * Query map for setting various properties.
+     *
+     * @type {Object}
+     * @property {Function} setFilterData - Sets the filter data.
+     * @property {Function} setSortModel - Sets the sort model.
+     * @property {Function} setChipData - Sets the chip data.
+     * @property {Function} setLimit - Sets the limit.
+     * @property {Function} setPage - Sets the page.
+     * @property {Function} setSearch - Sets the search.
+     */
     const setQueryMap = {
         setFilterData: onFilterChange,
         setSortModel: onSortModelChange,

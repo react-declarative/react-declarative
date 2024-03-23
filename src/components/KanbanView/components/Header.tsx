@@ -145,16 +145,48 @@ export const Header = ({
     null
   );
 
+  /**
+   * Retrieves the columns that appear before the current column.
+   *
+   * @function
+   * @name beforeCurrentColumn
+   * @returns {Array} - An array of columns before the current column.
+   *
+   * @param {string} column - The current column value.
+   * @param {Array} columns - The array of columns.
+   */
   const beforeCurrentColumn = useMemo(() => {
     const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
     return columns.filter((_, idx) => idx < currentColumnIdx).reverse();
   }, [column]);
 
+  /**
+   * Variable representing the columns after the current column.
+   *
+   * @type {Array}
+   *
+   * @description
+   * This variable is a memoized value that contains all the columns in the `columns` array
+   * that come after the current column. The current column is determined by matching the
+   * value of the `column` property against the `value` property of each element in the
+   * `columns` array.
+   *
+   * @returns {Array} The columns that come after the current column.
+   */
   const afterCurrentColumn = useMemo(() => {
     const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
     return columns.filter((_, idx) => idx > currentColumnIdx);
   }, [column]);
 
+  /**
+   * Renders a tooltip with optional header based on the value of the `label` variable.
+   * If `label` is `null`, it will render a loader.
+   * If `withHeaderTooltip` is `true`, it will render a tooltip with a chip as the content.
+   * If `withHeaderTooltip` is `false` or not provided, it will render just the chip.
+   * The `onCardLabelClick` function can be provided to handle the click event on the chip.
+   *
+   * @returns {React.Element} - The rendered tooltip or chip.
+   */
   const renderTooltip = useCallback(() => {
     if (label === null) {
       return <Loader />;

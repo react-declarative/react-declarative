@@ -264,6 +264,15 @@ export const ActionModal = <
 
   const payload = useSingleton(upperPayload);
 
+  /**
+   * Calculate the requested size based on the window size.
+   *
+   * @param {Object} options - The options to customize the calculation.
+   * @param {function} options.compute - The function to compute the requested size based on the window size.
+   * @param {number} options.debounce - The debounce delay in milliseconds to prevent frequent recalculations.
+   *
+   * @returns {Object} - The requested size object with height, width, and sx properties.
+   */
   const requestedSize = useWindowSize({
     compute: (size) => {
       const request = sizeRequest(size);
@@ -281,32 +290,77 @@ export const ActionModal = <
 
   const data$ = useActualValue(data);
 
+  /**
+   * Updates the data and triggers the onChange event.
+   *
+   * @param newData - The new data to be set.
+   * @param initial - Flag indicating if it's the initial data.
+   * @returns
+   */
   const handleChange = (newData: Data, initial: boolean) => {
     setData(newData);
     onChange(newData, initial);
   };
 
+  /**
+   * Handles invalid name and message.
+   *
+   * @param name - The name that is considered invalid.
+   * @param msg - The error message associated with the invalid name.
+   * @returns
+   */
   const handleInvalid = (name: string, msg: string) => {
     setData(null);
     onInvalid(name, msg);
   };
 
+  /**
+   * Increments the loading count and triggers the onLoadStart callback function if provided.
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading count and triggers the onLoadEnd callback if it exists.
+   *
+   * @param isOk - Indicates if the load operation is successful.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => loading - 1);
     onLoadEnd && onLoadEnd(isOk);
   };
 
+  /**
+   * Creates a render waiter function to wait for a specified time limit before rendering the data.
+   *
+   * @param {Array} data - The data to be rendered.
+   * @param {number} timeout - The time limit in milliseconds to wait for rendering.
+   * @returns {Function} - The render waiter function.
+   */
   const waitForRender = useRenderWaiter([data], 10);
 
+  /**
+   * Waits for changes to occur by executing a Promise race
+   * between the "waitForRender" function and a sleep function
+   * with a delay specified by "waitForChangesDelay".
+   *
+   * @returns - A promise that resolves when changes occur.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
+  /**
+   * A function that handles the acceptance of data.
+   *
+   * @async
+   * @function handleAccept
+   *
+   * @returns A promise that resolves when acceptance is complete.
+   */
   const handleAccept = async () => {
     if (loading.current) {
       return;
@@ -330,6 +384,15 @@ export const ActionModal = <
     }
   };
 
+  /**
+   * Handles closing of a component.
+   *
+   * @async
+   * @function handleClose
+   * @returns - A promise that resolves once the closing process is completed.
+   *
+   * @throws {*} - Throws any error that occurred during the closing process.
+   */
   const handleClose = async () => {
     if (loading.current) {
       return;

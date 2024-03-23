@@ -157,11 +157,23 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     []
   );
 
+  /**
+   * Handles the load start event.
+   * It calls the `onLoadStart` function if it exists,
+   * and updates the loading state by incrementing it by 1.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => {
     onLoadStart && onLoadStart();
     setLoading((loading) => loading + 1);
   };
 
+  /**
+   * Handles the completion of a load operation.
+   * @param isOk - Indicates whether the load operation was successful or not.
+   */
   const handleLoadEnd = (isOk: boolean) => {
     onLoadEnd && onLoadEnd(isOk);
     setLoading((loading) => loading - 1);
@@ -182,6 +194,15 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
   const waitForLeave = () => leaveSubject.toPromise();
 
+  /**
+   * Represents a confirmation dialog box for picking an option.
+   *
+   * @param {object} options - The configuration options for the confirmation dialog box.
+   * @param {string} options.title - The title of the confirmation dialog box.
+   * @param {string} options.msg - The message displayed in the confirmation dialog box.
+   *
+   * @returns {boolean} - Indicates whether the user confirmed the action or not.
+   */
   const pickConfirm = useConfirm({
     title: "Continue?",
     msg: LEAVE_MESSAGE,
@@ -216,6 +237,11 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
       });
     };
 
+    /**
+     * Handle navigation logic that includes auto-save and confirmation.
+     * @param retry - Function to retry navigation.
+     * @returns
+     */
     const handleNavigate = async (retry: () => void) => {
       let isOk = false;
       if (shouldAutoSave()) {
@@ -228,14 +254,32 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
       isOk && retry();
     };
 
+    /**
+     * Creates a router subject that handles navigation changes.
+     *
+     * @returns A function that can be called to navigate and handle navigation changes.
+     * @example
+     * const routerSubject = createRouterSubject();
+     * routerSubject();
+     */
     const createRouterSubject = () =>
       history.block(({ retry }) => handleNavigate(retry));
 
+    /**
+     * Creates a layout subject.
+     *
+     * @returns A function that, when invoked, disposes of the layout subject.
+     */
     const createLayoutSubject = () => {
       const dispose = onBlock && onBlock();
       return () => dispose && dispose();
     };
 
+    /**
+     * Creates an unload subject that listens to the 'beforeunload' event and returns a function to remove the event listener.
+     *
+     * @returns A function that removes the 'beforeunload' event listener.
+     */
     const createUnloadSubject = () => {
       const handler = (e: any) => {
         e.preventDefault();
@@ -251,6 +295,14 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     let unsubscribeLayout: ReturnType<typeof createLayoutSubject>;
     let unsubscribeUnload: ReturnType<typeof createUnloadSubject>;
 
+    /**
+     * Unsubscribes the router, layout, and unload events.
+     * Resets the ref to null.
+     *
+     * @function unsubscribe
+     * @memberof module:example-module
+     * @returns
+     */
     const unsubscribe = () => {
       unsubscribeRouter && unsubscribeRouter();
       unsubscribeLayout && unsubscribeLayout();
@@ -258,6 +310,10 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
       unsubscribeRef.current = null;
     };
 
+    /**
+     * Sets up subscriptions to various subjects.
+     * @returns
+     */
     const subscribe = () => {
       unsubscribeRouter = createRouterSubject();
       unsubscribeLayout = createLayoutSubject();
@@ -272,6 +328,12 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     return unsubscribe;
   }, [data, invalid]);
 
+  /**
+   * Handles the change of data.
+   *
+   * @param pendingData - The new data to be checked against the current data.
+   * @param initial - Flag indicating if the change is the initial change.
+   */
   const handleChange = (pendingData: Data, initial = false) => {
     const { current: data } = data$;
     const isDirty = checkDirty(data || ({} as Data), pendingData);
@@ -288,10 +350,28 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     onChange && onChange(pendingData, initial);
   };
 
+  /**
+   * Handles the invalid state by setting it to true.
+   *
+   * @function handleInvalid
+   * @returns
+   */
   const handleInvalid = () => {
     setInvalid(true);
   };
 
+  /**
+   * The afterSave function is an asynchronous function that is called after a save operation.
+   * It performs the following tasks:
+   * - Unsubscribes from any existing subscription if it exists.
+   * - Clears the data state by setting it to null.
+   * - Resets the invalid state to false.
+   * - Waits for either the render or leave events to occur using Promise.race.
+   *
+   * @async
+   * @function afterSave
+   * @returns A Promise that resolves when the afterSave tasks are completed.
+   */
   const afterSave = async () => {
     unsubscribeRef.current && unsubscribeRef.current();
     if (isMounted.current) {
@@ -301,6 +381,16 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     }
   };
 
+  /**
+   * Begins the saving process.
+   * If there are no changes, it returns false.
+   * If there are changes, it waits for changes to be applied and retrieves the current data.
+   * It then calls the onSave function with the data and handles the result accordingly.
+   * After the save is completed, it calls the afterSave function.
+   * If there is an error during the save process, it handles the error and optionally calls fallback function.
+   * Finally, it handles the loading state based on the success of the save and returns the result.
+   * @returns - Returns a promise with a boolean value indicating the success of the save.
+   */
   const beginSave = async () => {
     if (!hasChanged$.current) {
       return false;
@@ -333,6 +423,13 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     }
   };
 
+  /**
+   * Drops changes made to the data.
+   *
+   * @function dropChanges
+   * @description This function drops the changes made to the data. It sets the last data value obtained from the initial data reference as the next value emitted by the change subject
+   *. It sets the data to null and invalid state to false.
+   */
   const dropChanges = () => {
     const { current: lastData } = initialDataRef;
     lastData && changeSubject.next(lastData);
@@ -340,6 +437,13 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     setInvalid(false);
   };
 
+  /**
+   * Asynchronously waits for changes to occur.
+   *
+   * @async
+   * @function waitForChanges
+   * @returns A promise that resolves when changes have occurred.
+   */
   const waitForChanges = async () => {
     const unblock = history.block(() => {});
     setReadonly(true);

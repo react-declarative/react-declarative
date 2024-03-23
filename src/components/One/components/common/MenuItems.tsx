@@ -124,10 +124,32 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const { object, changeObject} = useOneState<object>();
   const payload = useOnePayload();
 
+  /**
+   * A callback function to handle the start of a load operation.
+   *
+   * @callback HandleLoadStart
+   * @memberof global
+   *
+   * @returns {void}
+   */
   const handleLoadStart = useCallback(() => {
     setLoading((loading) => loading + 1);
   }, []);
 
+  /**
+   * A callback function to handle the end of a loading process.
+   * Decreases the loading value by 1 or sets it to 0 if already at 0.
+   * This function is intended to be used with the `useCallback` hook.
+   *
+   * @function handleLoadEnd
+   * @returns {void}
+   *
+   * @example
+   * // Usage with the `useCallback` hook
+   * const handleLoadEnd = useCallback(() => {
+   *   setLoading((loading) => Math.max(loading - 1, 0));
+   * }, []);
+   */
   const handleLoadEnd = useCallback(() => {
     setLoading((loading) => Math.max(loading - 1, 0));
   }, []);
@@ -149,6 +171,20 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
 
   const object$ = useActualValue(object);
 
+  /**
+   * Calculate the managed options based on the given parameters.
+   *
+   * @returns {Array<IManagedOption>} - The array of managed options.
+   *
+   * @param {Object} object$ - The object used for evaluating the isDisabled and isVisible functions.
+   * @param {Object} payload - The payload object.
+   * @param {Array<Object>} params$.current.menuItems - The array of menu items.
+   *
+   * @throws {TypeError} - If the menuItems parameter is not an array.
+   *
+   * @example
+   * const options = useMemo(calculateManagedOptions, [params$.current.menuItems]);
+   */
   const options = useMemo(
     (): IManagedOption[] =>
       params$.current.menuItems.map(

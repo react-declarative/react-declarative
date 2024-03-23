@@ -35,6 +35,11 @@ export const useCachedPaginator = <FilterData extends {} = IAnything, RowData ex
     handler: ListHandler<FilterData, RowData>,
     params: IArrayPaginatorParams<FilterData, RowData>
 ): IResult<FilterData, RowData> => {
+    /**
+     * Memoized function for handling rows.
+     *
+     * @returns {Function} - The memoized function.
+     */
     const rowsHandler = useMemo(() => singleshot((...args: any[]) => {
         if (typeof handler === 'function') {
             return (handler as Function)(...args);

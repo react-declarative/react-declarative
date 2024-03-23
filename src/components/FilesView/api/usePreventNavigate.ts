@@ -8,6 +8,11 @@ import compose from "../../../utils/compose";
 
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
 
+/**
+ * Represents the parameters for a specific operation.
+ *
+ * @interface IParams
+ */
 interface IParams {
   history: MemoryHistory | BrowserHistory | HashHistory;
   withConfirm?: boolean;

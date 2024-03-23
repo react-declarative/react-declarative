@@ -240,6 +240,12 @@ export const useActionModal = <
     ]
   );
 
+  /**
+   * Callback function to set the value of 'param' and open a modal.
+   *
+   * @param {Param} [param] - Optional parameter to set the value of 'param'.
+   * @return {void}
+   */
   const pickData = useCallback((param?: Param) => {
     setParam(param as Param);
     setOpen(true);

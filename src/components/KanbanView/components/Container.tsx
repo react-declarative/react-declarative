@@ -123,6 +123,11 @@ export const Container = ({
 
   useEffect(() => reloadSubject.subscribe(doReload), []);
 
+  /**
+   * Render the inner content of a component.
+   *
+   * @return The rendered inner content.
+   */
   const renderInner = () => {
     if (!rows) {
       return <LoaderView sx={{ flex: 1 }} size={LOADER_SIZE} />;

@@ -179,6 +179,12 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
 
     const { classes } = useStyles();
 
+    /**
+     * Handles the authentication process.
+     *
+     * @param {Data | null} data - The data to be used for authentication.
+     * @returns {void}
+     */
     const handleAuth = useActualCallback(async (data: Data | null) => {
         if (!data) {
             return;
@@ -199,6 +205,11 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
         }
     });
 
+    /**
+     * Represents a component that handles content and authentication.
+     * @constructor
+     * @returns The rendered content component.
+     */
     const Content = () => {
 
         const [data, setData] = useState<Data | null>(null);

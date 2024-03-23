@@ -84,6 +84,13 @@ export const Content = ({
 }: IContentProps) => {
   const { classes } = useStyles();
 
+  /**
+   * Renders a cell with given value and click functionality.
+   *
+   * @param row - The row object containing the value and click function.
+   * @param className - The CSS class name to be applied to the cell.
+   * @returns The rendered cell as a Typography component.
+   */
   const renderCell = ({ value, click }: IBoardRowInternal, className: string) => {
     if (click) {
       return (

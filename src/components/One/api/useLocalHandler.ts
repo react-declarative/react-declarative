@@ -67,6 +67,13 @@ export const useLocalHandler = <Data extends IAnything = IAnything, Payload exte
     const [data, setData] = useState<Data | null>(null);
 
     useEffect(() => {
+        /**
+         * Executes a process asynchronously.
+         *
+         * The process function is executed in an asynchronous manner. It handles the loading state, data retrieval, error handling, and completion state.
+         *
+         * @return - A Promise that resolves when the process is completed.
+         */
         const process = async () => {
             onLoadBegin && onLoadBegin();
             let isOk = true;

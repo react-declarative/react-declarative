@@ -184,6 +184,11 @@ export const useHistoryStatePagination = <
   }: Partial<IParams<FilterData, RowData>> = {}
 ) => {
 
+  /**
+   * defaultQuery represents the default values for a query.
+   *
+   * @returns {IQuery} - The default query object.
+   */
   const defaultQuery = useMemo((): IQuery => ({
     chipData: initialValue.chipData || DEFAULT_QUERY.chipData,
     filterData: initialValue.filterData || DEFAULT_QUERY.filterData,
@@ -193,6 +198,12 @@ export const useHistoryStatePagination = <
     sortModel: initialValue.sortModel || DEFAULT_QUERY.sortModel,
   }), []);
 
+  /**
+   * Returns the state object from the current location.
+   * If there is no state object, returns an empty object.
+   *
+   * @returns {Object} The state object from the current location.
+   */
   const getLocationState = useCallback(() => {
     if (history.location.state) {
       return history.location.state as any;
@@ -220,6 +231,45 @@ export const useHistoryStatePagination = <
     []
   );
 
+  /**
+   * This variable is used to memoize and store the result of a function call
+   * that returns an instance of the IQuery interface. The interface has two
+   * generic parameters, FilterData and RowData.
+   *
+   * The function takes no arguments and returns an object that conforms to the
+   * IQuery interface. The properties of the returned object are the following:
+   *
+   *  - filterData: A property that captures the value of the filterData property
+   *    of the state object. If the state object does not have a filterData
+   *    property, an empty object is used as the default value.
+   *
+   *  - sortModel: A property that captures the value of the sortModel property
+   *    of the state object. If the state object does not have a sortModel
+   *    property, an empty array is used as the default value.
+   *
+   *  - chipData: A property that captures the value of the chipData property
+   *    of the state object. If the state object does not have a chipData
+   *    property, an empty object is used as the default value.
+   *
+   *  - limit: A property that captures the value of the limit property
+   *    of the state object. If the state object does not have a limit
+   *    property, the value of the DEFAULT_LIMIT variable is used as the default
+   *    value.
+   *
+   *  - page: A property that captures the value of the page property
+   *    of the state object. If the state object does not have a page
+   *    property, the value of the DEFAULT_PAGE variable is used as the default
+   *    value.
+   *
+   *  - search: A property that captures the value of the search property
+   *    of the state object. If the state object does not have a search
+   *    property, an empty string is used as the default value.
+   *
+   * The function is memoized using the state object as a dependency. This means
+   * that the function will only be re-executed if the state object changes.
+   * Memoization helps to improve performance by caching and reusing the result
+   * of the function call when the dependencies have not changed.
+   */
   const query = useMemo<IQuery<FilterData, RowData>>(
     () => ({
       filterData: state.filterData || {},
@@ -234,6 +284,12 @@ export const useHistoryStatePagination = <
 
   const query$ = useActualValue(query);
 
+  /**
+   * Handle the change of filter data.
+   *
+   * @param filterData - The new filter data.
+   * @returns
+   */
   const onFilterChange: IResult<FilterData, RowData>["onFilterChange"] = (
     filterData
   ) => {
@@ -245,6 +301,12 @@ export const useHistoryStatePagination = <
     handleFilterChange(filterData);
   };
 
+  /**
+   * Handler function for limit change.
+   *
+   * @param limit - The new limit value.
+   * @returns
+   */
   const onLimitChange: IResult<FilterData, RowData>["onLimitChange"] = (
     limit
   ) => {
@@ -255,6 +317,12 @@ export const useHistoryStatePagination = <
     handleLimitChange(limit);
   };
 
+  /**
+   * Function invoked when the page changes.
+   *
+   * @param page - The new page number.
+   * @returns
+   */
   const onPageChange: IResult<FilterData, RowData>["onPageChange"] = (page) => {
     history.replace(history.location, {
       ...state$.current,
@@ -263,6 +331,11 @@ export const useHistoryStatePagination = <
     handlePageChange(page);
   };
 
+  /**
+   * Handles the change event of the sort model.
+   *
+   * @param sortModel - The new sort model.
+   */
   const onSortModelChange: IResult<FilterData, RowData>["onSortModelChange"] = (
     sortModel
   ) => {
@@ -273,6 +346,11 @@ export const useHistoryStatePagination = <
     handleSortModelChange(sortModel);
   };
 
+  /**
+   * Handles the change event of the chips.
+   * @param chipData - The updated chip data.
+   * @returns
+   */
   const onChipsChange: IResult<FilterData, RowData>["onChipsChange"] = (
     chipData
   ) => {
@@ -283,6 +361,14 @@ export const useHistoryStatePagination = <
     handleChipsChange(chipData);
   };
 
+  /**
+   * Handles the change event for the search input.
+   * Updates the search state in the current history location and
+   * triggers the handleSearchChange function.
+   *
+   * @param search - The new search value.
+   * @returns
+   */
   const onSearchChange: IResult<FilterData, RowData>["onSearchChange"] = (
     search
   ) => {
@@ -293,6 +379,11 @@ export const useHistoryStatePagination = <
     handleSeachChange(search);
   };
 
+  /**
+   * Retrieves various parts of a query object.
+   *
+   * @returns {Object} The query map with methods to retrieve specific parts of the query object.
+   */
   const getQueryMap = {
     getFilterData: (): FilterDataT<FilterData, RowData> => {
       const { current: query } = query$;
@@ -320,6 +411,17 @@ export const useHistoryStatePagination = <
     },
   };
 
+  /**
+   * A map of functions that can be used to update different variables.
+   *
+   * @typedef {Object} setQueryMap
+   * @property {function} setFilterData - Function to update filter data.
+   * @property {function} setSortModel - Function to update sort model.
+   * @property {function} setChipData - Function to update chip data.
+   * @property {function} setLimit - Function to update the limit.
+   * @property {function} setPage - Function to update the page.
+   * @property {function} setSearch - Function to update the search value.
+   */
   const setQueryMap = {
     setFilterData: onFilterChange,
     setSortModel: onSortModelChange,

@@ -146,6 +146,17 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
 
     const queuedFetch = useMemo(() => queued(fetch), []);
 
+    /**
+     * Handler for managing lists of data with filters, pagination, sorting, chips, and search.
+     * @function
+     * @param {FilterData} filterData - The filter data to apply.
+     * @param {PaginationData} pagination - The pagination data to apply.
+     * @param {SortData} sort - The sort data to apply.
+     * @param {ChipsData} chips - The chips data to apply.
+     * @param {SearchData} search - The search data to apply.
+     * @returns {Promise<ListResult>} The list result containing the filtered, sorted, and paginated data.
+     * @throws {Error} If an error occurred during the execution.
+     */
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
         filterData = removeEmptyFilters(filterData) as FilterData;
         let url = new URL(path, origin);

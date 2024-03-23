@@ -19,6 +19,18 @@ export interface IStaticHandlerParams<Data extends IAnything = IAnything> {
 
 const EMPTY_RESPONSE = null;
 
+/**
+ * Resolves the handler function with the provided payload.
+ *
+ * @async
+ * @template Data - The expected data type of the resolved value.
+ * @template Payload - The payload type to pass to the handler function.
+ *
+ * @param handler - The handler function to resolve. Can also be any other type that will be returned as-is.
+ * @param payload - The payload to pass to the handler function.
+ *
+ * @returns - The resolved data from the handler function or null if the handler was not a function.
+ */
 const resolveHandler = async <Data = IAnything, Payload = IAnything>(handler: OneHandler<Data, Payload>, payload: Payload): Promise<Data | null> => {
     if (typeof handler === 'function') {
         const result = (handler as Function)(payload);
@@ -47,6 +59,12 @@ export const useStaticHandler = <Data extends IAnything = IAnything, Payload = I
     onLoadEnd,
     fallback,
 }: IStaticHandlerParams<Data> = {}): OneHandler<Data, Payload> => {
+    /**
+     * Represents a result handler function.
+     * @template Data - The type of data returned by the handler.
+     * @param {Payload} payload - The payload to be passed to the handler.
+     * @returns {Promise<Record<string, any>>} - A promise that resolves to a result object.
+     */
     const resultHandler: OneHandler<Data> = useMemo(() => async (payload: Payload) => {
         onLoadBegin && onLoadBegin();
         let isOk = true;

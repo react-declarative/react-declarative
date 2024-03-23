@@ -49,6 +49,11 @@ export const VirtualListBox = forwardRef(
 
     const itemCount = Array.isArray(children) ? children.length : 0;
 
+    /**
+     * Computes the height for a popup based on the number of items and predefined constants.
+     *
+     * @return The calculated height for the popup.
+     */
     const computeHeight = () =>
       itemCount
         ? Math.min(itemCount * MIN_ROW_HEIGHT, MAX_POPUP_HEIGHT)

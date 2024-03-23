@@ -22,6 +22,9 @@ import useActualCallback from "../../hooks/useActualCallback";
 
 import { SxProps } from "@mui/material";
 
+/**
+ * Represents the properties for the FilesView component.
+ */
 export interface IFilesViewProps {
   items?: string[];
   disabled?: boolean;

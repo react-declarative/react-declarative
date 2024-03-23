@@ -22,6 +22,29 @@ import Tree from './components/Tree';
 
 import ISlotFactoryContext from './ISlotFactoryContext';
 
+/**
+ * @description A list of default slots for a component.
+ * @type {Array}
+ * @property {string} Checkbox Slot for a checkbox component.
+ * @property {string} Combo Slot for a comboBox component.
+ * @property {string} Items Slot for an items component.
+ * @property {string} Line Slot for a line component.
+ * @property {string} Radio Slot for a radio component.
+ * @property {string} Rating Slot for a rating component.
+ * @property {string} Progress Slot for a progress component.
+ * @property {string} Typography Slot for a typography component.
+ * @property {string} Text Slot for a text component.
+ * @property {string} Date Slot for a date component.
+ * @property {string} Time Slot for a time component.
+ * @property {string} Switch Slot for a switch component.
+ * @property {string} Slider Slot for a slider component.
+ * @property {string} File Slot for a file component.
+ * @property {string} Choose Slot for a choose component.
+ * @property {string} Complete Slot for a complete component.
+ * @property {string} YesNo Slot for a yes/no component.
+ * @property {string} Dict Slot for a dictionary component.
+ * @property {string} Tree Slot for a tree component.
+ */
 export const defaultSlots = {
     CheckBox,
     Combo,

@@ -159,11 +159,23 @@ export const ActionMenu = <T extends any = object>({
 
   const onAction$ = useActualCallback(onAction);
 
+  /**
+   * Increases the loading count and triggers the `onLoadStart` event.
+   * @function handleLoadStart
+   * @memberof [namespace]
+   * @returns
+   */
   const handleLoadStart = () => {
     setLoading((loading) => loading + 1);
     onLoadStart && onLoadStart();
   };
 
+  /**
+   * Decreases the loading counter by 1 and invokes the onLoadEnd callback if provided.
+   *
+   * @param isOk - Flag indicating if the load operation was successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) => {
     setLoading((loading) => Math.max(loading - 1, 0));
     onLoadEnd && onLoadEnd(isOk);
@@ -178,6 +190,11 @@ export const ActionMenu = <T extends any = object>({
     fallback,
   });
 
+  /**
+   * Handles focus event.
+   *
+   * @param e - The event object.
+   */
   const handleFocus = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -185,6 +202,11 @@ export const ActionMenu = <T extends any = object>({
     onToggle && onToggle(true);
   };
 
+  /**
+   * Handles the close event.
+   * @param e - The event object.
+   * @returns
+   */
   const handleClose = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -193,6 +215,13 @@ export const ActionMenu = <T extends any = object>({
     onToggle && onToggle(false);
   };
 
+  /**
+   * Function to handle click event.
+   *
+   * @param item - The item to be handled.
+   *
+   * @returns The click event handler function.
+   */
   const handleClick = (item: string) => (e: any) => {
     e.preventDefault();
     e.stopPropagation();

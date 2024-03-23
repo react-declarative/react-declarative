@@ -15,6 +15,12 @@ export const createDetectElementResize = () => {
   const emit = () => eventManager.emit(RESIZE_EVENT);
   const observer = new ResizeObserver(emit);
 
+  /**
+   * Attaches a resize listener to an HTML element.
+   *
+   * @param element - The HTML element to attach the listener to.
+   * @param fn - The callback function to be executed when the element is resized.
+   */
   const addResizeListener = (element: HTMLElement, fn: Function) => {
     if (!eventManager.hasListeners) {
       window.addEventListener('resize', emit);
@@ -23,6 +29,14 @@ export const createDetectElementResize = () => {
     eventManager.subscribe(RESIZE_EVENT, fn);
   };
 
+  /**
+   * Removes a resize event listener from an element.
+   *
+   * @param element - The element to remove the listener from.
+   * @param fn - The listener function to be removed.
+   *
+   * @returns
+   */
   const removeResizeListener = (element: HTMLElement, fn: Function) => {
     observer.unobserve(element);
     eventManager.unsubscribe(RESIZE_EVENT, fn);

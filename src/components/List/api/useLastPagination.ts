@@ -57,6 +57,17 @@ export const useLastPagination = <FilterData extends {} = IAnything, RowData ext
         },
         search: "",
     });
+    /**
+     * Handles the list of data.
+     *
+     * @param filterData - The filter data.
+     * @param pagination - The pagination data.
+     * @param sort - The sort data.
+     * @param chipData - The chip data.
+     * @param search - The search value.
+     * @param payload - The payload data.
+     * @return - The result of the upper handler.
+     */
     const handler: ListHandler<FilterData, RowData> = (filterData, pagination, sort, chipData, search, payload) => {
         filterData = removeEmptyFilters(filterData);
         setData({ filterData, pagination, sort, chipData, search });
