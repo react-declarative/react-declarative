@@ -20,6 +20,11 @@ export type HeadColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowD
  * @template RowData - The type of data for each row.
  */
 export interface IHeadRowSlot<RowData extends IRowData = IAnything>  {
+    /**
+     * Represents an array of column headers with associated row data.
+     * @typedef {HeadColumn<RowData>[]} Columns
+     * @template RowData The type of data contained in each column's rows.
+     */
     columns: HeadColumn<RowData>[];
     fullWidth: number;
     mode: DisplayMode;

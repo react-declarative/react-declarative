@@ -38,7 +38,20 @@ export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
     fullWidth: number;
     disabled: boolean;
     mode: DisplayMode;
+    /**
+     * Callback function for the toggle action of a menu.
+     *
+     * @callback onMenuToggle
+     * @param {boolean} isOpen - Specifies whether the menu is open or closed.
+     * @returns {void}
+     */
     onMenuToggle: IActionMenuProps['onToggle'];
+    /**
+     * The callback function for an action triggered in the action menu.
+     *
+     * @param {string} action - The action triggered in the action menu.
+     * @returns {void}
+     */
     onAction: IActionMenuProps['onAction']
 }
 

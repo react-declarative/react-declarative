@@ -15,7 +15,21 @@ export interface IActionFabSlot<RowData extends IRowData = IAnything, Payload ex
     icon?: React.ComponentType<any>;
     height: number;
     width: number;
+    /**
+     * Determines if the element is visible based on the selected rows and payload.
+     *
+     * @param {RowData[]} selectedRows - The selected rows to check against.
+     * @param {Payload} payload - The payload to evaluate.
+     * @returns {Promise<boolean> | boolean} - True if the element is visible, false otherwise.
+     */
     isVisible?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
+    /**
+     * Determines whether a specific feature is disabled based on the selected rows and payload.
+     *
+     * @param {RowData[]} selectedRows - The selected rows.
+     * @param {Payload} payload - The payload.
+     * @returns {Promise<boolean> | boolean} - A promise that resolves to a boolean or a boolean value.
+     */
     isDisabled?: (selectedRows: RowData[], payload: Payload) => (Promise<boolean> | boolean);
 }
 
