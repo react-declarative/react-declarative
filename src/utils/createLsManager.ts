@@ -8,6 +8,12 @@ import reloadPage from "./reloadPage";
  */
 export const createLsManager = <T = Record<string, any>>(STORAGE_KEY: string) => new class {
 
+    /**
+     * Returns the value stored in localStorage using the specified key.
+     *
+     * @template T - The type of the value to be returned.
+     * @returns - The value stored in localStorage or null if an error occurs during parsing.
+     */
     getValue = (): T | null => {
         try {
             return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
@@ -16,6 +22,12 @@ export const createLsManager = <T = Record<string, any>>(STORAGE_KEY: string) =>
         }
     };
 
+    /**
+     * Sets a value in the local storage.
+     *
+     * @param value - The value to be stored in the local storage.
+     * @throws {DOMException} - If the local storage exceeds the quota.
+     */
     setValue = (value: T) => {
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(value, null, 2));

@@ -6,17 +6,36 @@ export const TIME_PLACEHOLDER = 'HH:MM';
 export const DATE_EXPR = /(?:\d\d\/\d\d\/\d\d\d\d)/g;
 export const TIME_EXPR = /(?:\d\d:\d\d)/g;
 
+/**
+ * Represents a specific point in time.
+ */
 export class Time {
     constructor(
         public readonly hour: number,
         public readonly minute: number
     ) { }
+    /**
+     * Converts the object to a string representation.
+     *
+     * @returns The string representation of the object.
+     */
     toString = () => {
         return serializeTime(this);
     };
+    /**
+     * Calculates the total minutes represented by the hour and minute properties of an object.
+     *
+     * @returns The total minutes represented by the hour and minute properties.
+     */
     toStamp = () => {
         return this.hour * 60 + this.minute;
     };
+    /**
+     * Takes a stamp value and converts it into a Time object.
+     *
+     * @param stamp - The stamp value representing minutes since 1970-01-01 00:00.
+     * @returns - The Time object representing the hour and minute derived from the stamp value.
+     */
     static fromStamp = (stamp: number) => {
         const source = dayjs("1970-01-01").set("hour", 0).set("minute", 0).add(stamp, "minute");
         const hour = source.get('hour');
@@ -25,15 +44,28 @@ export class Time {
     };
 };
 
+/**
+ * Represents a date.
+ */
 export class Date {
     constructor(
         public readonly day: number,
         public readonly month: number,
         public readonly year: number,
     ) { }
+    /**
+     * Returns a string representation of the current object.
+     *
+     * @return The serialized string representation of the object.
+     */
     toString = () => {
         return serializeDate(this);
     };
+    /**
+     * Calculates the number of days from 1970-01-01 to a specified date.
+     *
+     * @returns The number of days from 1970-01-01 to the specified date.
+     */
     toStamp = () => {
         const start = dayjs('1970-01-01');
         let now = dayjs();
@@ -46,6 +78,12 @@ export class Date {
             return -1;
         }
     };
+    /**
+     * Converts a stamp value to a date object.
+     *
+     * @param stamp - The number of days since '1970-01-01' to convert.
+     * @returns - The converted date object.
+     */
     static fromStamp = (stamp: number) => {
         const now = dayjs('1970-01-01').add(stamp, 'days').toDate();
         return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());

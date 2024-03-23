@@ -207,6 +207,12 @@ export const ContentRow = forwardRef(
       []
     );
 
+    /**
+     * Callback function for handling selection of a row.
+     *
+     * @param {MouseEvent} e - The event object.
+     * @returns {void}
+     */
     const handleSelect = useCallback(
       (e: any) => {
         e.preventDefault();
@@ -230,6 +236,11 @@ export const ContentRow = forwardRef(
       [selection]
     );
 
+    /**
+     * Renders a checkbox or radio button based on the selection mode and current selection.
+     *
+     * @returns {JSX.Element | null} The rendered checkbox or radio button.
+     */
     const renderCheckbox = useCallback(() => {
       if (selectionMode === SelectionMode.Single) {
         return (

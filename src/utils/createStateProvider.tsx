@@ -21,6 +21,13 @@ export const createStateProvider = <S extends unknown>() => {
     readonly [S, (state: S | ((prevState: S) => S)) => void]
   >(null as never);
 
+  /**
+   * Provider component to manage and provide state to its children.
+   * @param props - The component props.
+   * @param props.children - The children of the Provider.
+   * @param props.onChange - Optional function to be called when the state changes.
+   * @param props.initialState - The initial state value or a function to generate the initial state.
+   */
   const Provider = ({
     children,
     initialState,

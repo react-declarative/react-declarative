@@ -108,6 +108,14 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
             return;
         }
 
+        /**
+         * Creates a debounced function that will only execute after a certain delay,
+         * and with the latest arguments provided.
+         *
+         * @param {Function} fn - The function to debounce.
+         * @param {number} delay - The delay in milliseconds before the function is executed.
+         * @returns {Function} - The debounced function.
+         */
         const handler = debounce((pendingSize : ISize) => {
             let mappedSize = {...compute(pendingSize)};
             mappedSize.height = Math.floor(mappedSize.height);
@@ -119,6 +127,14 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
             }
         }, delay);
 
+        /**
+         * The ResizeObserver class represents an object that observes changes to the dimensions of an element.
+         *
+         * @class
+         * @constructor
+         * @param {function} handler - The callback function that will be called when the observed element's dimensions change.
+         *   The callback function will be invoked with an object containing the updated height and width of the element.
+         */
         const observer = new ResizeObserver(() => {
             const { height, width } = element!.getBoundingClientRect();
             handler({ height, width });

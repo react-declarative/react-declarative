@@ -87,6 +87,10 @@ export const useVisibilityView = ({
     []
   );
 
+  /**
+   * Represents a memoized value.
+   *
+   */
   const value = useMemo(() => {
     if (!data) {
       return {};

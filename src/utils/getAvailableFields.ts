@@ -3,6 +3,14 @@ import deepFlat from "./deepFlat";
 import IField from "../model/IField";
 import IOnePublicProps from "../model/IOnePublicProps";
 
+/**
+ * Build a common result object based on the provided fields, data, and payload.
+ *
+ * @param fields - The list of fields to process.
+ * @param data - The data object.
+ * @param payload - The payload object.
+ * @returns - The resulting object with visible and hidden fields.
+ */
 const buildCommonResult = (
   fields: IField[],
   data: Record<string, any>,
@@ -52,6 +60,12 @@ const buildCommonResult = (
   };
 };
 
+/**
+ * Resolves features from the given `upperFeatures` object or function.
+ *
+ * @param upperFeatures - The object or function containing the features.
+ * @returns - The resolved features.
+ */
 const resolveFeatues = (upperFeatures: IOnePublicProps["features"]) => {
   let result = upperFeatures;
   if (typeof upperFeatures === "function") {

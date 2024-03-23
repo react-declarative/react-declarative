@@ -3,6 +3,10 @@ let isReloading = false;
 let overrideRef: (() => void) | null = null
 
 declare global {
+    /**
+     * Represents a location reload callback with clear cache argument.
+     * @interface
+     */
     interface Location {
         reload(forceReload: boolean): void;
     }

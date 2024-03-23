@@ -1,6 +1,10 @@
 import IField from "../model/IField";
 import formatText from "./formatText";
 
+/**
+ * Represents the configuration options for input formatting.
+ * @interface
+ */
 interface IConfig {
   inputFormatterSymbol: IField["inputFormatterSymbol"];
   inputFormatterAllowed: IField["inputFormatterAllowed"];

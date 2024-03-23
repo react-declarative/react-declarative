@@ -49,11 +49,24 @@ export const Line = forwardRef(
     const constraintManager = useConstraintManager();
     const { width: fullWidth } = useContainerSize();
 
+    /**
+     * Calculates the width of a container based on the given conditions.
+     *
+     * @param {number} fullWidth - The full width of the container.
+     * @param {boolean} withRowActions - Whether the container has row actions.
+     *
+     * @returns {number} - The calculated width of the container.
+     */
     const containerWidth = useMemo(
       () => Math.max(fullWidth - (withRowActions ? ACTIONS_WIDTH : 0), 0),
       [fullWidth, withRowActions],
     );
 
+    /**
+     * The computed width of a container.
+     *
+     * @type {string}
+     */
     const computedWidth = useMemo(() => {
       const compute = (column: IColumn) => () => {
         const field = column.width || DEFAULT_ROW_WIDTH;

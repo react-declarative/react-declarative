@@ -10,6 +10,13 @@ export const createValueProvider = <P extends any = object>(defaultValue?: P) =>
 
   const Context = createContext<P>(defaultValue || null as never);
 
+  /**
+   * Represents a Provider component.
+   * @param props - The props for the Provider component.
+   * @param props.children - The children components to be wrapped by the Provider.
+   * @param props.payload - The payload value to be provided by the Provider.
+   * @returns - The wrapped children components with the provided payload.
+   */
   const Provider = ({
     children,
     payload,

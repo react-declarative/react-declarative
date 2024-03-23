@@ -1,3 +1,9 @@
+/**
+ * Converts an image URL to a Blob object.
+ *
+ * @param src - The URL of the image to convert.
+ * @return - A promise that resolves to a Blob object representing the image.
+ */
 const toBlob = (src: string) => new Promise<Blob>((res) => {
     const img = document.createElement('img');
     const c = document.createElement("canvas");
@@ -12,6 +18,9 @@ const toBlob = (src: string) => new Promise<Blob>((res) => {
     img.src = src;
 });
 
+/**
+ * Represents a cache manager.
+ */
 const cacheManager = new class {
     _cacheMap = new Map<string, Promise<Blob>>();
     createPromise = (url: string) => {

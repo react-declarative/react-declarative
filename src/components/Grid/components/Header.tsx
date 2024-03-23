@@ -140,6 +140,12 @@ export const Header = <T extends RowData>({
 
   const { selectionMode = SelectionMode.None } = useGridProps();
 
+  /**
+   * Callback function used to handle a reference to an HTMLDivElement.
+   *
+   * @param {HTMLDivElement} ref - The reference to the HTMLDivElement.
+   * @returns {void}
+   */
   const handleRef = useCallback(
     (ref: HTMLDivElement | null) => {
       if (!ref) {
@@ -154,6 +160,11 @@ export const Header = <T extends RowData>({
     [scrollXSubject]
   );
 
+  /**
+   * Renders a checkbox component based on the current selection mode.
+   *
+   * @returns {JSX.Element|null} The rendered checkbox component or null if the selection mode is not valid.
+   */
   const renderCheckbox = useCallback(() => {
     if (selectionMode === SelectionMode.Single) {
       return (

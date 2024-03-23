@@ -11,6 +11,14 @@ import useAsyncValue from "../../../hooks/useAsyncValue";
 import { IOutletModalProps } from "../../../components/OutletView";
 import downloadBlob from "../utils/downloadBlob";
 
+/**
+ * Asynchronously fetches a file from a given URL.
+ *
+ * @param url - The URL of the file to fetch.
+ * @param onProgress - An optional callback function that will be called with the progress of the download.
+ * @param sizeOriginal - An optional parameter specifying the original size of the file.
+ * @returns - A Promise that resolves with the fetched Blob object or rejects with an error.
+ */
 const fetchFile = async (
   url: string,
   onProgress?: (progress: number) => void,

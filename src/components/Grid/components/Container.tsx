@@ -95,6 +95,14 @@ export const Container = ({
     height: 0,
     width: 0,
   });
+  /**
+   * Singleton instance of `ResizeObserver` used to track and handle element resizing.
+   *
+   * @typedef {Object} ResizeObserver
+   * @property {Function} useSingleton - Singleton pattern wrapper function.
+   * @property {Function} clear - Clear the constraint manager.
+   * @property {Function} setSize - Set the size of the target element.
+   */
   const resizeObserver = useSingleton(
     () =>
       new ResizeObserver(([entry]) => {

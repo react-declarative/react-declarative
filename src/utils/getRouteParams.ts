@@ -1,5 +1,10 @@
 import { Key, pathToRegexp } from "path-to-regexp";
 
+/**
+ * Represents an item that can be switched.
+ *
+ * @interface ISwitchItem
+ */
 export interface ISwitchItem {
     path: string;
 }

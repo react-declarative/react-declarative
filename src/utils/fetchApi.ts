@@ -1,4 +1,10 @@
 
+/**
+ * Represents an error that occurs during a fetch request.
+ *
+ * @class
+ * @extends Error
+ */
 export class FetchError extends Error {
     constructor(
         readonly originalError: any,

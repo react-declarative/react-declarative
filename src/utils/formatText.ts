@@ -1,3 +1,7 @@
+/**
+ * Represents a set of parameters for custom symbol validation and replacement.
+ * @interface
+ */
 interface IParams {
     symbol?: string;
     allowed?: RegExp | ((char: string, idx: number) => boolean);

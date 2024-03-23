@@ -98,6 +98,14 @@ export const InfiniteView = ({
   const isMounted = useRef(true);
   const isChildrenChanged = useRef(false);
 
+  /**
+   * A memoized value representing the children variable.
+   *
+   * This variable is generated using the useMemo hook. It memoizes the value of the upperChildren variable
+   * and updates the value only when the upperChildren variable changes.
+   *
+   * @returns {*} The memoized children value.
+   */
   const children = useMemo(() => {
     isChildrenChanged.current = true;
     return upperChildren;
@@ -115,6 +123,11 @@ export const InfiniteView = ({
   const currentLoading$ = useActualValue(currentLoading);
   const hasMore$ = useActualValue(hasMore);
 
+  /**
+   * Handles a data request by invoking a callback function asynchronously.
+   *
+   * @param {boolean} initial - Indicates whether it is an initial data request.
+   */
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
       return;
@@ -141,6 +154,15 @@ export const InfiniteView = ({
     }
   });
 
+  /**
+   * A callback function used to handle the reference to a HTMLDivElement.
+   *
+   * The function checks if there is any current loading in progress, if not, it disconnects from the observer if it exists.
+   * Then it creates a new IntersectionObserver to observe changes in the target element.
+   * If the target element is intersecting with the viewport, and conditions for requesting more data are met, it calls the appropriate data request function passed in the props.
+   *
+   * @param {HTMLDivElement | null} node - The reference to the HTMLDivElement.
+   */
   const handleRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (currentLoading) {
@@ -181,6 +203,11 @@ export const InfiniteView = ({
     []
   );
 
+  /**
+   * A callback function to handle scrolling behavior.
+   *
+   * @param {HTMLDivElement | null} node - The HTML element on which the scroll behavior will be applied.
+   */
   const handleScroll = useCallback((node: HTMLDivElement | null) => {
     if (!node) {
       return;

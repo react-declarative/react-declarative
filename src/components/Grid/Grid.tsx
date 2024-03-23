@@ -21,6 +21,12 @@ import throttle from "../../utils/hof/throttle";
 import { DEFAULT_ROW_WIDTH, CELL_MARGIN } from "./config";
 import { SelectionProvider } from "./hooks/useSelection";
 
+/**
+ * Creates a function to calculate the default width for columns.
+ *
+ * @param columnsLength - The number of columns in the table.
+ * @returns - A function that calculates the default width for columns.
+ */
 const createDefaultWidthFn = (columnsLength: number) => (fullWidth: number) => {
   const pendingWidth = Math.floor(fullWidth / columnsLength);
   return Math.max(pendingWidth, DEFAULT_ROW_WIDTH);

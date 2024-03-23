@@ -1,3 +1,10 @@
+/**
+ * A function that compares two values and returns a numeric value based on their comparison.
+ *
+ * @param a - The first value to compare.
+ * @param b - The second value to compare.
+ * @returns - A numeric value indicating the result of the comparison.
+ */
 const compareFn = (a: any, b: any) => {
     if (typeof a === 'number' && typeof b === 'number') {
         return a - b;

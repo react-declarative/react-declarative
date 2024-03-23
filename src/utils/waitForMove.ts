@@ -35,6 +35,14 @@ const scrollSource = Source.create((handler) => {
     return () => document.removeEventListener('scroll', handler);
 });
 
+/**
+ * [Description of the variable]
+ *
+ * The moveSource variable represents a unicast Source that combines multiple input sources (mouse, touch, and scroll) to track movement events.
+ *
+ * @type {Source}
+ * @private
+ */
 const moveSource = Source.unicast(() => {
     let count = 0;
     return Source.merge([

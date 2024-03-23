@@ -50,6 +50,25 @@ export const Cell = ({
   const { rowActions, selectionMode = SelectionMode.None } = useGridProps();
   const containerWidth = useMemo(() => Math.max(fullWidth - (rowActions ? ACTIONS_WIDTH : 0) - (selectionMode === SelectionMode.None ? 0 : CHECKBOX_WIDTH), 0), [fullWidth, rowActions]);
 
+  /**
+   * Computed width of a column.
+   *
+   * It uses memoization to store and retrieve a previously computed value, based on the provided dependencies.
+   *
+   * @returns {string} - The computed width as a string, in pixels or a custom format.
+   *
+   * @param {Object} column - The column object.
+   * @param {number|string|function} column.width - The width of the column. It can be a number (in pixels), a string (custom format), or a function returning a number or string.
+   * @param {number} containerWidth - The width of the container.
+   * @param {number} idx - The index of the column.
+   * @param {Object} constraintManager - The constraint manager object.
+   *
+   * @dependencies The computed width will be recalculated whenever any of the following dependencies change:
+   * - column.width
+   * - containerWidth
+   * - idx
+   * - constraintManager
+   */
   const computedWidth = useMemo(() => {
     const compute = () => {
       const field = column.width || DEFAULT_ROW_WIDTH;

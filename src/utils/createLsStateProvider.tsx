@@ -16,6 +16,16 @@ export const createLsStateProvider = <S extends unknown>(
 ) => {
   const storageManager = createLsManager<S>(storageKey);
   const [StateProvider, useStateProvider] = createStateProvider<S>();
+  /**
+   * A higher-order component that wraps the StateProvider component and provides additional functionality.
+   *
+   * @param options - The options for the WrappedStateProvider.
+   * @param options.onChange - Optional. A callback function that will be called when the state changes.
+   * @param options.children - The child components to be wrapped.
+   * @param options.initialState - The initial state value or a function that returns the initial state.
+   *
+   * @returns - The wrapped components.
+   */
   const WrappedStateProvider = ({
     children,
     initialState,

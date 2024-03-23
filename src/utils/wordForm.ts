@@ -1,3 +1,7 @@
+/**
+ * Represents a word form with singular, optional dual, and plural forms.
+ * @interface
+ */
 interface IWordForm {
   one: string;
   two?: string;

@@ -60,6 +60,11 @@ export interface ISwitchProps {
   children?: (result: ISwitchResult) => React.ReactNode;
 }
 
+/**
+ * Checks if the given item can be activated.
+ * @param item - The item to be checked for activation.
+ * @returns - A promise that resolves to a boolean indicating whether the item can be activated.
+ */
 const canActivate = async (item: ISwitchItem) => {
   const { guard = () => true } = item;
   const isAvailable = guard();
@@ -84,6 +89,16 @@ interface ISwitchResult {
 
 const DEFAULT_HISTORY = createWindowHistory();
 
+/**
+ * Function that returns a default child element based on the given parameters.
+ *
+ * @param options - The options object.
+ * @param options.element - The element to be rendered as the child. Defaults to Fragment if not provided.
+ * @param options.key - The key for the child element.
+ * @param options.params - Additional parameters to be passed to the child element.
+ *
+ * @returns The default child element with the specified key and parameters.
+ */
 const DEFAULT_CHILD_FN = ({
   element: Element = Fragment,
   key,
@@ -153,6 +168,13 @@ export const Switch = ({
     ...history.location,
   });
 
+  /**
+   * Initializes the router.
+   *
+   * @async
+   * @function handleInit
+   * @returns Resolves when initialization is complete.
+   */
   const handleInit = async () => {
     let isOk = true;
     onLoadStart && onLoadStart();
@@ -171,6 +193,12 @@ export const Switch = ({
     }
   };
 
+  /**
+   * Performs the disposal process with error handling and callbacks.
+   * @async
+   * @function handleDispose
+   * @returns A promise that resolves when the disposal process is complete.
+   */
   const handleDispose = async () => {
     let isOk = true;
     onLoadStart && onLoadStart();
@@ -208,6 +236,11 @@ export const Switch = ({
     return history.listen(handleLocation);
   }, [history, location]);
 
+  /**
+   * Returns a memoized callback that handles state for switching routes.
+   *
+   * @returns {Promise<ISwitchResult>} A promise that resolves to the result of the switch operation.
+   */
   const handleState = useMemo(
     () => async (): Promise<ISwitchResult> => {
       const { pathname: url = "/" } = location;

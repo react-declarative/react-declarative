@@ -14,6 +14,17 @@ export const createSsStateProvider = <S extends unknown>(
 ) => {
   const storageManager = createSsManager<S>(storageKey);
   const [StateProvider, useStateProvider] = createStateProvider<S>();
+  /**
+   * WrappedStateProvider is a higher-order component that wraps the StateProvider component.
+   * It provides a convenient way to manage state using the StateProvider component with additional functionality.
+   *
+   * @param props - The properties for WrappedStateProvider.
+   * @param props.children - The child components to be rendered.
+   * @param props.initialState - The initial state value or a function that returns the initial state value.
+   * @param props.onChange - An optional callback function to be called when the state changes. Receives the new state as a parameter.
+   *
+   * @returns - The rendered child components wrapped with the StateProvider component.
+   */
   const WrappedStateProvider = ({
     children,
     initialState,

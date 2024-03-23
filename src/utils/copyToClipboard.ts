@@ -1,5 +1,14 @@
 let overrideRef: ((text: string) => (Promise<void> | void)) | null = null
 
+/**
+ * Creates a textarea element, assigns the given text to its value property, appends it to the document body,
+ * focuses and selects the textarea, and then tries to copy the selected text to the clipboard using the
+ * `document.execCommand('copy')` method. If the copy is successful, it logs a success message to the console,
+ * otherwise it logs an error message to the console.
+ * Finally, it removes the textarea element from the document body.
+ *
+ * @param text - The text to be copied to the clipboard.
+ */
 const fallbackCopy = (text: string) => {
     const textArea = document.createElement("textarea");
     textArea.value = text;
@@ -19,6 +28,12 @@ const fallbackCopy = (text: string) => {
     document.body.removeChild(textArea);
 };
 
+/**
+ * Asynchronously copies text to the clipboard.
+ *
+ * @param text - The text to be copied to the clipboard.
+ * @returns - A Promise that resolves when the text has been copied successfully or a fallback method has been used.
+ */
 const doCopy = async (text: string) => {
     try {
         if ('copyToClipboard' in navigator) {

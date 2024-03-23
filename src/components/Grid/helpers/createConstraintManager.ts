@@ -7,6 +7,13 @@ import Dimension from '../model/Dimension';
  */
 export const createConstraintManager = () => {
   const cache = new Map<string, Dimension>();
+  /**
+   * Memoizes the result of a computation based on a given column.
+   *
+   * @param column - The column name to memoize the result for.
+   * @param compute - The computation function that calculates the result.
+   * @returns The memoized result for the given column.
+   */
   const memoize = (column: string, compute: () => Dimension) => {
     if (!cache.has(column)) {
       const value = compute();

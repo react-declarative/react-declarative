@@ -3,6 +3,11 @@ import { Suspense, lazy } from "react";
 
 import LoaderView from "../components/LoaderView";
 
+/**
+ * An interface representing the parameters for a loader.
+ *
+ * @interface
+ */
 interface IParams {
   loaderSize: number;
 }

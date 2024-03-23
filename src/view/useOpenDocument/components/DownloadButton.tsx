@@ -7,6 +7,10 @@ import ListItemText from "@mui/material/ListItemText";
 
 import CloudSync from "@mui/icons-material/CloudSync";
 
+/**
+ * Represents the props for the DownloadButton component.
+ * @interface IDownloadButtonProps
+ */
 interface IDownloadButtonProps {
   primary: string;
   secondary: string;

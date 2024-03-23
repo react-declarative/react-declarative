@@ -142,6 +142,11 @@ export const VirtualView = ({
   const minRowHeight$ = useActualValue(minRowHeight);
   const currentLoading$ = useActualValue(currentLoading);
 
+  /**
+   * Handles the data request by using an actual callback function.
+   *
+   * @param {boolean} initial - Indicates if this is an initial data request.
+   */
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
       return;
@@ -174,11 +179,24 @@ export const VirtualView = ({
   const [scrollPosition, setScrollPosition] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
 
+  /**
+   * Calculates the buffer size for rendering rows in a container.
+   *
+   * @param {number} containerHeight - The height of the container in pixels.
+   * @param {number} minRowHeight - The minimum height of a row in pixels.
+   * @param {number} upperBufferSize - The upper bound for the buffer size.
+   * @returns {number} The calculated buffer size for rendering rows.
+   */
   const bufferSize = useMemo(
     () => Math.max(Math.floor(containerHeight / minRowHeight), upperBufferSize),
     [minRowHeight, upperBufferSize, containerHeight]
   );
 
+  /**
+   * ResizeObserver class for handling element resize events.
+   *
+   * @class
+   */
   const resizeObserver = useSingleton(
     () =>
       new ResizeObserver((entries) =>
@@ -224,6 +242,12 @@ export const VirtualView = ({
       )
   );
 
+  /**
+   * Calculates the start index based on the given scroll position.
+   *
+   * @param {number} scrollPosition - The current scroll position.
+   * @returns {number} - The calculated start index.
+   */
   const getStartIndex = useCallback(
     (scrollPosition: number) => {
       let startScrollPos = scrollPosition;
@@ -239,6 +263,14 @@ export const VirtualView = ({
     [rowHeightMap, bufferSize, minRowHeight, children]
   );
 
+  /**
+   * Calculates the index of the ending element in the list, based on the given scroll position and total length.
+   *
+   * @param {number} scrollPosition - The current scroll position.
+   * @param {number} totalLength - The total length of the list.
+   *
+   * @returns {number} - The index of the ending element in the list.
+   */
   const getEndIndex = useCallback(
     (scrollPosition: number, totalLength: number) => {
       let endScrollPos = scrollPosition + containerHeight;
@@ -254,6 +286,12 @@ export const VirtualView = ({
     [rowHeightMap, bufferSize, containerHeight, minRowHeight, children]
   );
 
+  /**
+   * Calculates the total top position of an element based on its index.
+   *
+   * @param {Number} elementIndex - The index of the element for which the top position needs to be calculated.
+   * @returns {Number} The total top position of the element.
+   */
   const getTopPos = useCallback(
     (elementIndex: number) => {
       let totalTop = 0;
@@ -265,6 +303,16 @@ export const VirtualView = ({
     [rowHeightMap, minRowHeight, children]
   );
 
+  /**
+   * Calculates the scroll adjustment for a list view based on the given row height map,
+   * children array, and minimum row height.
+   *
+   * @returns {number} - The scroll adjustment value.
+   *
+   * @param {Map<number, number>} rowHeightMap - A map containing the heights of each row.
+   * @param {React.ReactNode[]} children - An array of child elements representing rows.
+   * @param {number} minRowHeight - The minimum height of a row.
+   */
   const scrollAdjust = useMemo(() => {
     let totalHeight = 0;
     children.forEach((_, idx) => {
@@ -273,6 +321,16 @@ export const VirtualView = ({
     return totalHeight;
   }, [rowHeightMap, children, minRowHeight]);
 
+  /**
+   * Returns whether the bottom of the given container has been reached.
+   *
+   * @callback getBottomReached
+   * @returns {boolean} Whether the bottom of the container has been reached.
+   *
+   * @example
+   * const bottomReached = getBottomReached();
+   * console.log(bottomReached); // true or false
+   */
   const getBottomReached = useCallback(() => {
     if (container) {
       if (container.clientHeight >= container.scrollHeight) {
@@ -285,6 +343,11 @@ export const VirtualView = ({
     return false;
   }, [container]);
 
+  /**
+   * Memoized variable that computes the visible children based on the scroll position and other dependencies.
+   *
+   * @type {Array<React.ReactElement>}
+   */
   const visibleChildren = React.useMemo(() => {
     const startIndex = getStartIndex(scrollPosition);
     const endIndex = getEndIndex(scrollPosition, children.length);
@@ -298,6 +361,11 @@ export const VirtualView = ({
       }
     });
 
+    /**
+     * Flag indicating if the bottom has been reached.
+     *
+     * @type {boolean}
+     */
     let isBottomReached = true;
     isBottomReached = isBottomReached && hasMore$.current;
     isBottomReached = isBottomReached && !currentLoading$.current;
@@ -359,6 +427,13 @@ export const VirtualView = ({
     handleDataRequest,
   ]);
 
+  /**
+   * A callback function for handling a reference to an HTMLDivElement.
+   * This callback is typically used with the useCallback hook in React components.
+   * When the element is provided, it performs various operations related to scrolling and resizing.
+   *
+   * @param {HTMLDivElement | null} element - The HTMLDivElement to be handled.
+   */
   const handleRef = useCallback((element: HTMLDivElement | null) => {
     if (element) {
       element.addEventListener(
@@ -434,6 +509,12 @@ export const VirtualView = ({
   );
 };
 
+/**
+ * Interface representing a virtualized component.
+ * @interface
+ * @property className - The class name of the component. This property should not be used.
+ * @property style - The style of the component. This property should not be used.
+ */
 interface IVirtualized {
   className?: never;
   style?: never;
