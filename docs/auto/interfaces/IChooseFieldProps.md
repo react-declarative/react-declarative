@@ -10,17 +10,23 @@ Props for the IChooseField component.
 description: string
 ```
 
+Retrieves the "description" property from the given object.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
 
+Type definition for the `PickProp` function.
+
 ### title
 
 ```ts
 title: string
 ```
+
+Type definition for the `title` property when using `PickProp` utility.
 
 ### placeholder
 
@@ -63,6 +69,8 @@ inputRef: (element?: HTMLInputElement) => void
 ```ts
 choose: (data: Data, payload: Payload) => string | string[] | Promise<string | string[]>
 ```
+
+Type definition for the 'choose' property of IField.
 
 ### tr
 

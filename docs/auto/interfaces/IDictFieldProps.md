@@ -10,11 +10,15 @@ Props for the IDictField component.
 dictLimit: number
 ```
 
+Represents the 'dictLimit' property of an object.
+
 ### dictDelay
 
 ```ts
 dictDelay: number
 ```
+
+Retrieves the optional "dictDelay" property from the provided object.
 
 ### dictSearch
 
@@ -27,6 +31,8 @@ dictSearch: (dto: { search: string; limit: number; offset: number; initial: bool
 ```ts
 dictOnAppend: (search: string, data: Data, payload: Payload, onValueChange: (value: string) => void, onChange: (value: Data) => void) => void
 ```
+
+Represents an optional configuration property for a dictionary append operation.
 
 ### dictOnText
 
@@ -46,6 +52,8 @@ dictOnItem: (value: string, data: Data, payload: Payload, onValueChange: (value:
 dictValue: (value: string, data: Data, payload: Payload) => ISearchItem<any> | Promise<ISearchItem<any>>
 ```
 
+Retrieves the "dictValue" property from the given object.
+
 ### dictSearchText
 
 ```ts
@@ -63,6 +71,9 @@ dictSearchItem: ComponentType<ISearchItemProps<any>>
 ```ts
 dictCreateButton: ComponentType<ICreateButtonProps>
 ```
+
+Retrieves the value of the "dictCreateButton" property from the provided object,
+which is of type PickProp&lt;IField&lt;Data, Payload&gt;, "dictCreateButton"&gt;.
 
 ### inputType
 
@@ -88,11 +99,15 @@ inputPattern: string
 inputAutocomplete: "new-password" | "on" | "off" | "false"
 ```
 
+Retrieves the value of the "inputAutocomplete" property from the specified object.
+
 ### inputFormatter
 
 ```ts
 inputFormatter: (input: string) => string
 ```
+
+Represents an input formatter for a specific type of field in a form.
 
 ### inputFormatterSymbol
 
@@ -124,17 +139,23 @@ inputFormatterReplace: (char: string) => string
 description: string
 ```
 
+Type definition for the PickProp function.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
 
+A type representing the picked property "outlined" from the given object type.
+
 ### title
 
 ```ts
 title: string
 ```
+
+Type declaration for the utility function `PickProp`.
 
 ### placeholder
 
@@ -153,6 +174,8 @@ readonly: boolean
 ```ts
 disabled: boolean
 ```
+
+Represents the `disabled` property of a given field in a form.
 
 ### groupRef
 
@@ -196,8 +219,12 @@ trailingIcon: ComponentType<any>
 leadingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+Represents the optional property 'leadingIconClick' from the 'IField' interface.
+
 ### trailingIconClick
 
 ```ts
 trailingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void
 ```
+
+The `trailingIconClick` property defines the action to be performed when the trailing icon of a field is clicked.

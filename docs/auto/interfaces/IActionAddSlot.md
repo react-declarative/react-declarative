@@ -34,8 +34,12 @@ width: number
 isVisible: (selectedRows: RowData[], payload: Payload) => boolean | Promise<boolean>
 ```
 
+Determines the visibility of an element based on selected rows and payload.
+
 ### isDisabled
 
 ```ts
 isDisabled: (selectedRows: RowData[], payload: Payload) => boolean | Promise<boolean>
 ```
+
+Checks if the provided rows are disabled based on the given payload.

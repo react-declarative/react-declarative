@@ -34,6 +34,8 @@ inputAutocomplete: "new-password" | "on" | "off" | "false"
 inputFormatter: (input: string) => string
 ```
 
+Represents the input formatter function for a specific field in the Data object.
+
 ### inputFormatterSymbol
 
 ```ts
@@ -64,17 +66,23 @@ inputFormatterReplace: (char: string) => string
 description: string
 ```
 
+Returns the "description" property value of the given field object.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
 
+Type definition to pick the `outlined` property from a given `IField` type.
+
 ### title
 
 ```ts
 title: string
 ```
+
+Type definition for the `title` property of an object.
 
 ### leadingIconRipple
 
@@ -87,6 +95,8 @@ leadingIconRipple: boolean
 ```ts
 trailingIconRipple: boolean
 ```
+
+Represents the option to enable or disable the trailing icon ripple effect.
 
 ### leadingIcon
 
@@ -106,11 +116,21 @@ trailingIcon: ComponentType<any>
 leadingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+Represents the leading icon click event handler for a field in a form.
+
 ### trailingIconClick
 
 ```ts
 trailingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void
 ```
+
+The `trailingIconClick` property is an optional property
+that represents a callback function to be executed when
+the trailing icon of a field is clicked.
+
+This property is of type `PickProp&lt;IField&lt;Data, Payload&gt;, "trailingIconClick"&gt;`,
+where `IField&lt;Data, Payload&gt;` is a generic type representing a field with
+`Data` and `Payload` types.
 
 ### inputRows
 
@@ -129,6 +149,8 @@ placeholder: string
 ```ts
 readonly: boolean
 ```
+
+Gets the value of the "readonly" property from the provided object.
 
 ### autoFocus
 

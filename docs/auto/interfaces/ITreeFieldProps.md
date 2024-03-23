@@ -10,17 +10,23 @@ Interface for the props of the ITreeField component.
 description: string
 ```
 
+Returns the "description" property of a given object.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
 
+Type declaration for the PickProp utility function.
+
 ### title
 
 ```ts
 title: string
 ```
+
+Type definition for the "title" property picked from the given object type.
 
 ### placeholder
 
@@ -33,6 +39,8 @@ placeholder: string
 ```ts
 readonly: boolean
 ```
+
+Specifies if a field is readOnly.
 
 ### disabled
 

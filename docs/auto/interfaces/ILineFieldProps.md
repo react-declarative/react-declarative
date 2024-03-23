@@ -10,6 +10,8 @@ Represents the properties of a line field.
 title: string
 ```
 
+Retrieves the 'title' property from the provided object type with the specified properties.
+
 ### lineTransparent
 
 ```ts

@@ -16,6 +16,8 @@ maxPercent: number
 showPercentLabel: boolean
 ```
 
+Determines whether to show the percent label.
+
 ### groupRef
 
 ```ts

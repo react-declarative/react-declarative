@@ -22,6 +22,8 @@ maxSlider: number
 minSlider: number
 ```
 
+The minimum value for a slider in a field.
+
 ### labelFormatSlider
 
 ```ts
@@ -33,6 +35,8 @@ labelFormatSlider: (v: number) => string | number
 ```ts
 leadingIconRipple: boolean
 ```
+
+Retrieve the value of the 'leadingIconRipple' property from a given object.
 
 ### trailingIconRipple
 
@@ -51,6 +55,8 @@ leadingIcon: ComponentType<any>
 ```ts
 trailingIcon: ComponentType<any>
 ```
+
+Sets the trailing icon of the field.
 
 ### leadingIconClick
 
@@ -76,11 +82,15 @@ sliderThumbColor: (v: number) => string
 sliderTrackColor: (v: number) => string
 ```
 
+The color of the slider track.
+
 ### sliderRailColor
 
 ```ts
 sliderRailColor: (v: number) => string
 ```
+
+Retrieves the value of the `sliderRailColor` property from the given object.
 
 ### groupRef
 
@@ -93,6 +103,8 @@ groupRef: (element?: HTMLDivElement) => void
 ```ts
 readonly: boolean
 ```
+
+Retrieves the `readonly` property value from the provided object.
 
 ### disabled
 

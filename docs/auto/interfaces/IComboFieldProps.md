@@ -10,6 +10,8 @@ Represents the properties for the ComboField component.
 description: string
 ```
 
+Retrieves the "description" property
+
 ### placeholder
 
 ```ts
@@ -40,6 +42,8 @@ freeSolo: boolean
 noDeselect: boolean
 ```
 
+Specifies whether the field should allow deselection.
+
 ### virtualListBox
 
 ```ts
@@ -58,6 +62,8 @@ watchItemList: boolean
 readonly: boolean
 ```
 
+Retrieves the "readonly" property from a given object of type IField&lt;Data, Payload&gt;.
+
 ### disabled
 
 ```ts
@@ -75,6 +81,8 @@ labelShrink: boolean
 ```ts
 title: string
 ```
+
+Retrieves the "title" property for a field
 
 ### tr
 

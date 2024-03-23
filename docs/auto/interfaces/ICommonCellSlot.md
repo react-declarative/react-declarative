@@ -51,3 +51,5 @@ onMenuToggle: (opened: boolean) => void
 ```ts
 onAction: (action: string) => void
 ```
+
+The callback function for an action triggered in the action menu.

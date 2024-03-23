@@ -10,6 +10,8 @@ Represents the properties for a rating field component.
 readonly: boolean
 ```
 
+Retrieves the 'readonly' property value of a given field.
+
 ### groupRef
 
 ```ts

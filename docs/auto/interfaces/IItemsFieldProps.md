@@ -10,17 +10,23 @@ Props for the IItemsField component.
 description: string
 ```
 
+Returns the "description" property of the given object if it exists, otherwise returns undefined.
+
 ### placeholder
 
 ```ts
 placeholder: string
 ```
 
+Type definition for the `placeholder` property.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
+
+Picks the specified property "outlined" from the given object type "IField&lt;Data, Payload&gt;".
 
 ### itemList
 
@@ -70,11 +76,15 @@ title: string
 tr: ((s: string, data: Data, payload: Payload) => string) | ((s: string, data: Data, payload: Payload) => Promise<string>)
 ```
 
+Represents the "tr" property of a field in the given data and payload.
+
 ### groupRef
 
 ```ts
 groupRef: (element?: HTMLDivElement) => void
 ```
+
+Retrieves the value of the 'groupRef' property from the given object 'fieldData'.
 
 ### labelShrink
 

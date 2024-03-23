@@ -28,17 +28,23 @@ inputPattern: string
 inputAutocomplete: "new-password" | "on" | "off" | "false"
 ```
 
+Represents the optional prop "inputAutocomplete" for a field.
+
 ### description
 
 ```ts
 description: string
 ```
 
+Retrieves the "description" property from a given object and its nested properties if available.
+
 ### labelShrink
 
 ```ts
 labelShrink: boolean
 ```
+
+Reduces the size of the label for a given field.
 
 ### keepRaw
 
@@ -52,11 +58,18 @@ keepRaw: boolean
 outlined: boolean
 ```
 
+Returns the value of the `outlined` property from the provided object.
+
 ### title
 
 ```ts
 title: string
 ```
+
+Type definition for the "title" property picked from the "IField" object type,
+where "IField" is a generic object with properties "Data" and "Payload".
+The resulting type is determined by the "PickProp" utility, which selects the specific property
+from the provided object type.
 
 ### tip
 
@@ -76,11 +89,15 @@ tipSelect: (value: string, data: Data, payload: Payload, onChange: (data: Data) 
 placeholder: string
 ```
 
+Retrieves the `placeholder` property of a given field.
+
 ### readonly
 
 ```ts
 readonly: boolean
 ```
+
+Retrieves the "readonly" property from the provided field object.
 
 ### autoFocus
 
@@ -112,11 +129,15 @@ inputRef: (element?: HTMLInputElement) => void
 inputFormatter: (input: string) => string
 ```
 
+Represents the input formatter property of a field within a specific data type.
+
 ### inputFormatterSymbol
 
 ```ts
 inputFormatterSymbol: string
 ```
+
+Represents the input formatter symbol for a specific field.
 
 ### inputFormatterAllowed
 
@@ -130,8 +151,12 @@ inputFormatterAllowed: RegExp | ((char: string, idx: number) => boolean)
 inputFormatterTemplate: string
 ```
 
+Represents a template for formatting input data.
+
 ### inputFormatterReplace
 
 ```ts
 inputFormatterReplace: (char: string) => string
 ```
+
+Replaces the input formatter of a field with a new one.

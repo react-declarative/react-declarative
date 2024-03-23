@@ -46,11 +46,15 @@ onSearchChange: (search: string) => void
 onFilterChange: (data: FilterData) => void
 ```
 
+Function signature for the onFilterChange event callback.
+
 ### onCollapsedChange
 
 ```ts
 onCollapsedChange: (collapsed: boolean) => void
 ```
+
+Callback function called when the collapsed state changes.
 
 ### withToggledFilters
 

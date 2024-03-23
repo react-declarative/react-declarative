@@ -10,11 +10,16 @@ Interface representing props for the IFileField component.
 description: string
 ```
 
+Type definition for the `PickProp` function.
+Extracts a specific property `description` from a given object type `IField&lt;Data, Payload&gt;`.
+
 ### outlined
 
 ```ts
 outlined: boolean
 ```
+
+Picks the "outlined" property from a given object type.
 
 ### title
 
@@ -22,11 +27,15 @@ outlined: boolean
 title: string
 ```
 
+Type definition for the 'title' property of the PickProp utility.
+
 ### placeholder
 
 ```ts
 placeholder: string
 ```
+
+Type definition for the placeholder property of a field.
 
 ### fileAccept
 
@@ -39,6 +48,8 @@ fileAccept: string
 ```ts
 readonly: boolean
 ```
+
+Retrieves the value of the "readonly" property from the provided object.
 
 ### disabled
 
@@ -75,3 +86,6 @@ upload: (file: File, data: Data, payload: Payload) => string | Promise<string>
 ```ts
 view: (file: string, data: Data, payload: Payload) => void | Promise<void>
 ```
+
+This variable represents a property 'view' extracted from an object of type PickProp&lt;IField&lt;Data, Payload&gt;, 'view'&gt;.
+The 'view' property is used to specify a specific view for processing fields.
