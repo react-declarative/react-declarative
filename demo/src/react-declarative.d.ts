@@ -24,6 +24,53 @@ declare module "react-declarative" {
   import { IColumn as IColumnInternal } from "react-declarative/model/IColumn";
   import { IApiPaginatorParams as IApiPaginatorParamsInternal } from "react-declarative/components/List/api/useApiPaginator";
   import { IArrayPaginatorParams as IArrayPaginatorParamsInternal } from "react-declarative/components/List/api/useArrayPaginator";
+  /**
+   * The given TypeScript code is a modular project structure where functionalities are broken into distinct and reusable parts.
+   *
+   * The code imports certain modules (files) and then exports some of the classes, hooks, functions, or types defined in these modules for other parts of the application to use.
+   *
+   * Here are some parts explained:
+   *
+   * **Imports**
+   *
+   * Modules are being imported from various locations in the application. Structures like classes, interfaces, and functions are imported. For example:
+   *
+   * ```typescript
+   * import { TypedField as TypedFieldInternal } from './model/TypedField';
+   * import { useModal } from './components/ModalProvider';
+   * ```
+   *
+   * **Exports**
+   *
+   * The code exports some of the imported structures, making them available to be used in other parts of the application. For instance:
+   *
+   * ```typescript
+   * export type IOneApiHandlerParams<Data = any>  = IApiHandlerParamsInternal<Data>;
+   * export { useColumnConfig } from './components/List';
+   * ```
+   *
+   * **Type Aliases**
+   *
+   * The code also creates several type aliases that create a new name for an existing type. For example:
+   *
+   * ```typescript
+   * export type IService = IServiceInternal;
+   * ```
+   *
+   * In the above line, `IService` is now an alias for `IServiceInternal`.
+   *
+   * **Re-importing and Renaming**
+   *
+   * Some features like hooks or types are re-imported with more application-appropriate naming. The `as` keyword is used to rename the imports:
+   *
+   * ```typescript
+   * import { IField as IFieldInternal } from './model/IField';
+   * ```
+   *
+   * In this line, `IField` from `./model/IField` is imported and renamed as `IFieldInternal`.
+   *
+   * Overall, this file seems to act like an intermediary that collects, organizes, restructures, and then re-exports various structures that are used across the application.
+   */
   export { useColumnConfig } from "react-declarative/components/List";
   import { IApiHandlerParams as IApiHandlerParamsInternal } from "react-declarative/components/One/api/useApiHandler";
   export type IListApiPaginatorParams<
@@ -5271,6 +5318,30 @@ declare module "react-declarative/hooks/useChange" {
 }
 
 declare module "react-declarative/components" {
+  /**
+   * The TypeScript code is a bunch of export statements.
+   *
+   * This file behaves as a central hub for exporting values (like components, functions, or variables) from individual modules. Each `export * from './ModuleName';` statement takes all exports from a corresponding module file and re-exports them.
+   *
+   * Let's break down each line:
+   *
+   * `export * from './One';` - This line of code is exporting everything that the file `One.ts` (or `One.tsx`, `One.js`, `One.jsx` depending on your setup) exports, from its current location. The same goes for all the other lines as well.
+   *
+   * So if `./One` was exporting a function called `function1` like this:
+   *
+   * ```typescript
+   * export function function1() {
+   *     return "I'm function 1";
+   * }
+   * ```
+   * Then, with this export in the main file, you will be able to import it elsewhere like:
+   *
+   * ```typescript
+   * import { function1 } from './theMainFile';
+   * ```
+   *
+   * This kind of structure is used to streamline imports in larger projects, where you want to import many things from one place rather than from individual files.
+   */
   export * from "react-declarative/components/One";
   export * from "react-declarative/components/OneIcon";
   export * from "react-declarative/components/OneButton";
