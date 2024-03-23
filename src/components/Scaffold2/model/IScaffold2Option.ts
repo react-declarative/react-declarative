@@ -15,9 +15,29 @@ export interface IScaffold2Option<T = Payload> {
     pin?: boolean;
     sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
+    /**
+     * Represents an array of `IScaffold2Tab` objects.
+     * @template T - The type of the `IScaffold2Tab` object.
+     */
     tabs?: IScaffold2Tab<T>[];
+    /**
+     * Represents an array of options for a variable.
+     * @template T The type of the options.
+     */
     options?: IScaffold2Option<T>[];
+    /**
+     * Determines the visibility of a given payload.
+     *
+     * @param {T} payload - The payload to check visibility for.
+     * @returns {boolean | Promise<boolean>} - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
+     */
     isVisible?: (payload: T) => boolean | (Promise<boolean>);
+    /**
+     * Checks if a payload is disabled.
+     *
+     * @param {T} payload - The payload to check.
+     * @returns {boolean|Promise<boolean>} - True if the payload is disabled, false otherwise.
+     */
     isDisabled?: (payload: T) => boolean | (Promise<boolean>);
 }
 
@@ -35,7 +55,17 @@ export interface IScaffold2OptionInternal<T = Payload> extends Omit<IScaffold2Op
     path: string;
     visible: boolean;
     disabled: boolean;
+    /**
+     * Options for the given variable.
+     *
+     * @template T - The type of the options.
+     */
     options?: IScaffold2OptionInternal<T>[];
+    /**
+     * Represents an array of internal scaffold tabs.
+     * @template T - The type of data associated with the tabs.
+     * @typedef {Array<IScaffold2TabInternal<T>>} Tabs
+     */
     tabs?: IScaffold2TabInternal<T>[]
 }
 

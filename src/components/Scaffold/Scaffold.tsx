@@ -67,6 +67,11 @@ export const Scaffold = <T extends any = any> ({
     ...props
 }: IScaffoldProps<T>) => {
 
+    /**
+     * Resolves the roles based on the provided roles and payload.
+     *
+     * @returns {Promise<*>} - The resolved roles.
+     */
     const resolveRoles = useMemo(() => async () => {
         if (typeof roles === 'function') {
             return await roles(payload!);
@@ -75,6 +80,17 @@ export const Scaffold = <T extends any = any> ({
         }
     }, [roles, payload]);
 
+    /**
+     * Resolves the options by cloning the given options object and updating the properties
+     * based on their respective function values using the provided payload.
+     * This function is memoized using useMemo to optimize performance.
+     *
+     * @returns {Promise<Array<IMenuOption>>} - A promise that resolves to an array of updated menu options.
+     *
+     * @param {Array<IMenuOption>} options - The original options array.
+     * @param {Object} payload - The payload object used to update the option properties.
+     *
+     */
     const resolveOptions = useMemo(() => async () => {
         const result = cloneDeep(options);
         await Promise.all(deepFlat<T>(result).map(async (option: IMenuOption<T>) => {

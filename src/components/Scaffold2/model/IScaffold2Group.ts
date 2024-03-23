@@ -21,7 +21,17 @@ export interface IScaffold2Group<T = Payload> {
     label?: string;
     icon?: React.ComponentType;
     noHeader?: boolean;
+    /**
+     * Checks if the element is visible.
+     *
+     * @returns {boolean|Promise<boolean>} - True if the element is visible.
+     */
     isVisible?: () => boolean | (Promise<boolean>);
+    /**
+     * Checks if the element is disabled.
+     *
+     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a promise that resolves to a boolean value.
+     */
     isDisabled?: () => boolean | (Promise<boolean>);
     children: IScaffold2Option<T>[];
 }
@@ -40,6 +50,11 @@ export interface IScaffold2GroupInternal<T = Payload> extends Omit<IScaffold2Gro
     path: string;
     visible: boolean;
     disabled: boolean;
+    /**
+     * Represents a collection of internal options for a Scaffold2 component.
+     *
+     * @template T - The type of the options.
+     */
     children: IScaffold2OptionInternal<T>[];
 }
 

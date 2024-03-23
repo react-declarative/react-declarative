@@ -78,6 +78,18 @@ export const ScaleView = ({
 
     useEffect(() => {
 
+        /**
+         * Calculates the size and positioning of a handle based on the dimensions of the content and container.
+         *
+         * @function handleSize
+         *
+         * @description This function calculates the size and positioning of a handle based on the dimensions of
+         * the content and container elements. If the content is smaller than the container, no adjustments are made.
+         * If the content is larger than the container, the handle is scaled down proportionally and positioned to
+         * fit within the container.
+         *
+         * @returns This function does not return a value.
+         */
         const handleSize = () => {
             if (!rootRef) {
                 return;
@@ -122,6 +134,11 @@ export const ScaleView = ({
 
     }, [rootRef]);
 
+    /**
+     * Sets the rootRef of the component using the supplied HTMLDivElement.
+     *
+     * @param rootRef - The HTMLDivElement to set as the rootRef.
+     */
     const handleRef = (rootRef: HTMLDivElement | null) => {
         setRootRef(rootRef);
     };
