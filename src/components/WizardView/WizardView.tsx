@@ -201,20 +201,6 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * @param {Array} steps - The array of steps.
    * @param {Object} lastActiveStep - The last active step reference.
    *
-   * @example
-   * const activeStep = useMemo(() => {
-   *   const route = routes.find(({ isActive }) => isActive(path));
-   *   if (!route) {
-   *     return -1;
-   *   }
-   *   const activeStep = steps.findIndex(
-   *     ({ isMatch = () => false, id }) => id === route.id || isMatch(route.id)
-   *   );
-   *   if (activeStep === -1) {
-   *     return lastActiveStep.current;
-   *   }
-   *   return (lastActiveStep.current = activeStep);
-   * }, [path]);
    */
   const activeStep = useMemo(() => {
     const route = routes.find(({ isActive }) => isActive(path));

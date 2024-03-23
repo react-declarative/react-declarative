@@ -46,6 +46,18 @@ export const VisibilityView = ({
   keyToTitle = keyToTitleDefault,
 }: IVisibilityViewProps) => {
 
+  /**
+   * Returns an array of field objects for the given groups.
+   *
+   * @returns {Array} An array of field objects.
+   * @param {Function} useMemo - A memoization function.
+   * @param {Function} getVariantList - A function that returns a list of variants.
+   * @param {Array} groups - An array of group objects.
+   * @param {String} keyToTitle - A function that converts a key to a title.
+   * @param {Boolean} expandAll - Indicates whether to expand all fields.
+   * @param {Boolean} readonly - Indicates whether the fields are readonly.
+   * @returns {Array} An array of field objects.
+   */
   const fields = useMemo((): IField[] => groups.map(({
     fields,
     name,
@@ -69,6 +81,30 @@ export const VisibilityView = ({
     }
   }), []);
 
+  /**
+   * Returns a memoized value based on the given data and groups.
+   *
+   * @param {Object} data - The data to be processed.
+   *
+   * @returns {Object} - The memoized value.
+   *
+   * @typedef {Object} State - Represents the state of the memoized value.
+   * @property {Object} [name] - The name property.
+   * @property {Object} [name][value] - The value property associated with the name.
+   *
+   * @typedef {Object[]} Group - Represents a group of fields.
+   * @property {string} name - The name of the group.
+   * @property {Object[]} fields - The fields in the group.
+   *
+   * @typedef {Object[]} Variant - Represents a variant of a field.
+   * @property {any} value - The value of the variant.
+   *
+   * @typedef {Object} Field - Represents a field.
+   * @property {Variant[]} variants - The variants of the field.
+   *
+   * @typedef {Object} Data - Represents the data.
+   * @property {Object[]} [name] - The data associated with the name.
+   */
   const value = useMemo(() => {
     if (!data) {
       return {};
@@ -91,6 +127,14 @@ export const VisibilityView = ({
 
   const handler = useCallback(() => value, [data]);
 
+  /**
+   * Handles change in state and calls onChange if provided.
+   *
+   * @param {State} state - The state object.
+   * @param {boolean} initial - Indicates whether it is the initial change.
+   *
+   * @returns {void}
+   */
   const handleChange = useCallback((state: State, initial: boolean) => {
     if (initial) {
       return;

@@ -188,6 +188,12 @@ export const TreeView = ({
     };
   }, [upperItems]);
 
+  /**
+   * Toggles values in a set based on the current state.
+   *
+   * @param values - The values to be toggled.
+   * @returns
+   */
   const handleToggle = (...values: string[]) =>
     setValue((prevValue) => {
       const currentValue = new Set(prevValue);
@@ -202,6 +208,11 @@ export const TreeView = ({
       return [...currentValue];
     });
 
+  /**
+   * Represents the autocomplete value based on filtered items.
+   *
+   * @type {Array}
+   */
   const autocompleteValue = useMemo(() => {
     return items.filter((item) => value.includes(item.value));
   }, [value, items]);

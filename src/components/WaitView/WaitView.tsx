@@ -66,6 +66,12 @@ export const WaitView = <P extends any = object, T extends any = object>({
     ...otherProps
 }: IWaitViewProps<P, T>) => {
 
+    /**
+     * Represents the state of a variable.
+     *
+     * @typedef {*} VariableState
+     * @description The type of state that a variable can have. It can be any JavaScript value.
+     */
     const [state, setState] = useState<IState<P>>({
         payload,
         attempt: 0,
@@ -78,6 +84,11 @@ export const WaitView = <P extends any = object, T extends any = object>({
         initComplete: true,
     }), [payload]);
 
+    /**
+     * Handles delay and updates state.
+     *
+     * @function handleDelay
+     */
     const handleDelay = () => setTimeout(() => setState((prevState) => ({
         ...prevState,
         attempt: prevState.attempt + 1,

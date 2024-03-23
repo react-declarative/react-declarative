@@ -131,6 +131,39 @@ export const useWizardModal = <
     onClose && onClose();
   }, []);
 
+  /**
+   * Renders the WizardOutletModal component with the provided props.
+   *
+   * @returns {React.Element} The rendered WizardOutletModal component.
+   *
+   * @param {Object} props - The props for the WizardOutletModal component.
+   * @param {boolean} props.openSubject - Controls whether the WizardOutletModal is open or closed.
+   * @param {boolean} props.fullScreen - Controls whether the WizardOutletModal is displayed in full screen mode.
+   * @param {object} props.history - The history object for controlling navigation within the modal.
+   * @param {boolean} props.hidden - Controls whether the WizardOutletModal is hidden or visible.
+   * @param {string} props.title - The title of the WizardOutletModal.
+   * @param {React.Element} props.fallback - The fallback element to be displayed if the WizardOutletModal fails to load.
+   * @param {Function} props.onChange - The callback function to be executed when the input value of the WizardOutletModal changes.
+   * @param {Function} props.onLoadEnd - The callback function to be executed when the WizardOutletModal finishes loading.
+   * @param {Function} props.onMount - The callback function to be executed when the WizardOutletModal mounts.
+   * @param {Function} props.onClose - The callback function to be executed when the WizardOutletModal is closed.
+   * @param {Function} props.onUnmount - The callback function to be executed when the WizardOutletModal is unmounted.
+   * @param {Function} props.onLoadStart - The callback function to be executed when the WizardOutletModal starts loading.
+   * @param {string} props.submitLabel - The label for the submit button in the WizardOutletModal.
+   * @param {boolean} props.throwError - Controls whether an error is thrown if the WizardOutletModal fails to load.
+   * @param {Function} props.onSubmit - The callback function to be executed when the submit button in the WizardOutletModal is clicked.
+   * @param {Object} outletProps - Additional props to be spread to the WizardOutletModal component.
+   *
+   * @param {boolean} hidden - The value used for the hidden dependency in the useCallback hook.
+   * @param {React.Element} fallback - The value used for the fallback dependency in the useCallback hook.
+   * @param {Function} onChange - The value used for the onChange dependency in the useCallback hook.
+   * @param {Function} onLoadEnd - The value used for the onLoadEnd dependency in the useCallback hook.
+   * @param {Function} onLoadStart - The value used for the onLoadStart dependency in the useCallback hook.
+   * @param {Function} handleSubmit - The value used for the handleSubmit dependency in the useCallback hook.
+   * @param {string} submitLabel - The value used for the submitLabel dependency in the useCallback hook.
+   * @param {boolean} throwError - The value used for the throwError dependency in the useCallback hook.
+   * @param {string} title - The value used for the title dependency in the useCallback hook.
+   */
   const render = useCallback(
     () => (
       <WizardOutletModal
@@ -165,6 +198,19 @@ export const useWizardModal = <
     ]
   );
 
+  /**
+   * Executes the provided callback function when called.
+   *
+   * @function
+   * @memberof module:Utils
+   * @name pickData
+   * @returns {void}
+   *
+   * @description
+   * The `pickData` function is a utility function that can be used to execute a callback function when called.
+   * It is implemented using the `useCallback` hook from React library.
+   *
+   */
   const pickData = useCallback(() => {
     openSubject.next(true);
   }, []);

@@ -23,21 +23,20 @@ const NEVER_POS = Symbol("never-pos");
 /**
  * Represents a set of icons.
  *
- * @param icons - The icons object.
- * @param icons.data - The data object.
- * @param icons.payload - The payload object.
- * @param icons.leadingIcon - The leading icon component.
- * @param icons.trailingIcon - The trailing icon component.
- * @param icons.leadingIconClick - The leading icon click handler.
- * @param icons.trailingIconClick - The trailing icon click handler.
- * @param icons.loading - Indicates if icons are in loading state.
- * @param icons.disabled - Indicates if the icons are disabled.
- * @param icons.readonly - Indicates if the icons are read-only.
- * @param icons.v - The v value.
- * @param icons.c - The onChange function.
- * @param icons.cc - The cc function.
- * @param icons.leadingIconRipple - Indicates if the leading icon has ripple effect.
- * @param icons.trailingIconRipple - Indicates if the trailing icon has ripple effect.
+ * @param data - The data object.
+ * @param payload - The payload object.
+ * @param leadingIcon - The leading icon component.
+ * @param trailingIcon - The trailing icon component.
+ * @param leadingIconClick - The leading icon click handler.
+ * @param trailingIconClick - The trailing icon click handler.
+ * @param loading - Indicates if icons are in loading state.
+ * @param disabled - Indicates if the icons are disabled.
+ * @param readonly - Indicates if the icons are read-only.
+ * @param v - The v value.
+ * @param c - The onChange function.
+ * @param cc - The cc function.
+ * @param leadingIconRipple - Indicates if the leading icon has ripple effect.
+ * @param trailingIconRipple - Indicates if the trailing icon has ripple effect.
  * @returns - The icons object with their respective properties.
  */
 const icons = (

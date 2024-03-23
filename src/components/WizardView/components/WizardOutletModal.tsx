@@ -152,6 +152,18 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+/**
+ * Represents the size request for a small wizard modal.
+ *
+ * @typedef {object} IWizardSizeRequest
+ * @property {number} height - The height of the wizard modal.
+ * @property {number} width - The width of the wizard modal.
+ * @property {object} sx - The style object for the wizard modal.
+ * @property {string} sx.maxHeight - The maximum height of the wizard modal as a CSS value.
+ * @property {string} sx.minWidth - The minimum width of the wizard modal as a CSS value.
+ * @property {string} sx.maxWidth - The maximum width of the wizard modal as a CSS value.
+ * @property {string} sx.margin - The margin of the wizard modal as a CSS value.
+ */
 const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
@@ -163,6 +175,11 @@ const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
   },
 });
 
+/**
+ * @description Represents the size request modification function for a wizard modal.
+ * @param sizeRequest - The original size request object.
+ * @returns - The modified size request object.
+ */
 const LARGE_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = ({
   height,
   width,

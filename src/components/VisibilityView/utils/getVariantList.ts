@@ -3,6 +3,11 @@ import deepFlat from "../../../utils/deepFlat";
 import FieldType from "../../../model/FieldType";
 import IField from "../../../model/IField";
 
+/**
+ * Represents a set of field types for variants.
+ *
+ * @type {Set<FieldType>}
+ */
 const VARIANT_FIELD_TYPE = new Set([
   FieldType.Text,
   FieldType.Time,

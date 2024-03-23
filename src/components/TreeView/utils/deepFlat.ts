@@ -6,6 +6,11 @@
  */
 export const deepFlat = <T = any>(arr: T[] = []) => {
     const result: T[] = [];
+    /**
+     * Recursively processes an array of entries.
+     *
+     * @param entries - The array of entries to be processed.
+     */
     const process = (entries: any[] = []) => entries.forEach((entry) => {
         const child = entry['child'] || [];
         process(child);
