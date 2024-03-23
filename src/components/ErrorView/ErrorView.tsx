@@ -65,8 +65,6 @@ interface IErrorViewProps {
  * @name handleReload
  * @memberOf window
  *
- * @example
- * handleReload();
  */
 const handleReload = () => {
     const { href, origin, protocol } = window.location;

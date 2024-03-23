@@ -145,9 +145,6 @@ export const Chooser = <
    * @callback
    * @returns {void}
    *
-   * @example
-   * // Usage
-   * handleCleanRows();
    */
   const handleCleanRows = useCallback(() => {
     setState(() => ({

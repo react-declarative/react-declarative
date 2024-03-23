@@ -73,8 +73,6 @@ const useStyles = makeStyles()((theme) => ({
  * @property {string} sx.maxWidth - The maximum width of the request's style. Default: "450px".
  * @property {string} sx.margin - The margin of the request's style. Default: "10px".
  *
- * @example
- * const sizeRequest = SMALL_SIZE_REQUEST();
  */
 const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
   height: 0,
@@ -96,14 +94,6 @@ const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
  * @returns - The modified size request object.
  * @throws {TypeError} - If the sizeRequest parameter is not an object or if height and width are not numbers.
  *
- * @example
- * const sizeRequest = {
- *   height: 300,
- *   width: 400
- * };
- *
- * const modifiedRequest = LARGE_SIZE_REQUEST(sizeRequest);
- * // modifiedRequest => { height: 250, width: 350 }
  */
 const LARGE_SIZE_REQUEST: IParams['sizeRequest'] = ({
   height,

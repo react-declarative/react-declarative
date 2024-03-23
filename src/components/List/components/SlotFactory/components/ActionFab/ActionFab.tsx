@@ -95,8 +95,6 @@ export const ActionFab = ({
      *
      * @returns
      *
-     * @example
-     * handleLoadStart();
      */
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
     /**

@@ -327,9 +327,6 @@ export const VirtualView = ({
    * @callback getBottomReached
    * @returns {boolean} Whether the bottom of the container has been reached.
    *
-   * @example
-   * const bottomReached = getBottomReached();
-   * console.log(bottomReached); // true or false
    */
   const getBottomReached = useCallback(() => {
     if (container) {

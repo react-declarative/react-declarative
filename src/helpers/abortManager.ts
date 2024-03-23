@@ -24,8 +24,6 @@ export const abortManager = new class {
      * @function abort
      * @memberof global
      *
-     * @example
-     * abort();
      */
     abort = () => {
         if ('AbortController' in window) {

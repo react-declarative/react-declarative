@@ -76,49 +76,6 @@ interface IState {
  * @param [options.selectedRows] - The initially selected rows in the ListPicker.
  *
  * @returns - A function that creates and opens the ListPicker modal.
- *
- * @example
- * const listPicker = useList({
- *   handler: handleSelection,
- *   columns: [
- *     { label: 'Name', field: 'name' },
- *     { label: 'Age', field: 'age' }
- *   ],
- *   rowActions: [
- *     { label: 'Edit', action: editRow },
- *     { label: 'Delete', action: deleteRow }
- *   ],
- *   payload: { id: 123 },
- *   features: ['sorting', 'filtering'],
- *   selectionMode: SelectionMode.Multiple,
- *   title: 'Select items',
- *   minWidth: 500,
- *   minHeight: 400,
- *   selectedRows: [1, 2, 3]
- * });
- *
- * listPicker({
- *   title: 'Custom title',
- *   minHeight: 300
- * }).then((selectedRows) => {
- *   // Handle selected rows
- * });
- *
- * @example
- * const listPicker = useList({
- *   handler: handleSelection,
- *   columns: [],
- *   rowActions: [],
- *   payload: null,
- *   features: [],
- *   selectionMode: SelectionMode.Single,
- *   title: 'Pick an item',
- *   minWidth: 425,
- *   minHeight: 375,
- *   selectedRows: null
- * });
- *
- * const selectedRows = await listPicker().toPromise();
  */
 export const useList = <RowData extends IRowData = IAnything>({
   handler,

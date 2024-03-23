@@ -80,11 +80,6 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
    * @param {PickProp<IField<Data, Payload>, "className">} obj - The input object containing the "className" property.
    * @returns {undefined | PickProp<IField<Data, Payload>, "className">} - The value of the "className" property if present, otherwise undefined.
    * @throws {TypeError} If the input object is not of the expected type.
-   * @example
-   * // Example usage
-   * const data: PickProp<IField<Data, Payload>, "className"> = { className: "example-class" };
-   * const result = className(data);
-   * console.log(result); // "example-class"
    */
   className?: PickProp<IField<Data, Payload>, "className">;
   /**

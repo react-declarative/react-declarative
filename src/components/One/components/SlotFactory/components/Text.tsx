@@ -142,10 +142,6 @@ const icons = (
  * @param inputRows - The number of input rows.
  * @returns - The multiline object.
  *
- * @example
- * const inputRows = 3;
- * const multiline = createMultiline(inputRows);
- * // => { multiline: true, rows: 3 }
  */
 const multiline = (inputRows: number) => ({
   multiline: inputRows > 1,

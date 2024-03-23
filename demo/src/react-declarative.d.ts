@@ -4291,8 +4291,6 @@ declare module "react-declarative/hooks/useForceUpdate" {
    * A custom hook that returns a function for force updating a component.
    *
    * @returns The function to be used for force updating.
-   * @example
-   * useForceUpdate();
    */
   export const useForceUpdate: () => () => void;
   export default useForceUpdate;
@@ -4785,29 +4783,6 @@ declare module "react-declarative/hooks/useAsyncProgress" {
    * @param options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
    * @returns An object containing the execute function, loading state, progress, and errors.
    *
-   * @example
-   * const items = [
-   *   { label: 'Item 1', data: { id: 1 } },
-   *   { label: 'Item 2', data: { id: 2 } },
-   * ];
-   *
-   * const { execute, loading, progress, errors } = useAsyncProgress(
-   *   async (item: IProcess<Data>) => {
-   *     // Process the data here
-   *   },
-   *   {
-   *     delay: 2000,
-   *     onError: (error) => console.error(error),
-   *     onProgress: (progress) => console.log(progress),
-   *     onFinish: (data, errors, result) => console.log(data, errors, result),
-   *     onBegin: () => console.log('Process started'),
-   *     onEnd: (isOk) => console.log(`Process ended ${isOk ? 'successfully' : 'with errors'}`),
-   *   }
-   * );
-   *
-   * useEffect(() => {
-   *   execute(items);
-   * }, []);
    */
   export const useAsyncProgress: <Data extends unknown = any, Result = void>(
     process: (item: IProcess<Data>) => Result | Promise<Result>,
@@ -6066,49 +6041,6 @@ declare module "react-declarative/hooks/useList" {
    * @param [options.selectedRows] - The initially selected rows in the ListPicker.
    *
    * @returns - A function that creates and opens the ListPicker modal.
-   *
-   * @example
-   * const listPicker = useList({
-   *   handler: handleSelection,
-   *   columns: [
-   *     { label: 'Name', field: 'name' },
-   *     { label: 'Age', field: 'age' }
-   *   ],
-   *   rowActions: [
-   *     { label: 'Edit', action: editRow },
-   *     { label: 'Delete', action: deleteRow }
-   *   ],
-   *   payload: { id: 123 },
-   *   features: ['sorting', 'filtering'],
-   *   selectionMode: SelectionMode.Multiple,
-   *   title: 'Select items',
-   *   minWidth: 500,
-   *   minHeight: 400,
-   *   selectedRows: [1, 2, 3]
-   * });
-   *
-   * listPicker({
-   *   title: 'Custom title',
-   *   minHeight: 300
-   * }).then((selectedRows) => {
-   *   // Handle selected rows
-   * });
-   *
-   * @example
-   * const listPicker = useList({
-   *   handler: handleSelection,
-   *   columns: [],
-   *   rowActions: [],
-   *   payload: null,
-   *   features: [],
-   *   selectionMode: SelectionMode.Single,
-   *   title: 'Pick an item',
-   *   minWidth: 425,
-   *   minHeight: 375,
-   *   selectedRows: null
-   * });
-   *
-   * const selectedRows = await listPicker().toPromise();
    */
   export const useList: <RowData extends IRowData = any>({
     handler,
@@ -6249,16 +6181,6 @@ declare module "react-declarative/hooks/useAlert" {
    * @param params.large - Whether to display a large alert. Default is false.
    * @returns - A function that, when called, displays the alert and returns a Promise.
    *                      The Promise resolves when the alert is closed.
-   *
-   * @example
-   * const alert = useAlert();
-   * alert({ title: "My Alert", description: "This is my alert message" })
-   *   .then(() => {
-   *     console.log("Alert closed");
-   *   })
-   *   .catch((error) => {
-   *     console.error("Error occurred: ", error);
-   *   });
    */
   export const useAlert: ({
     title: defaultTitle,
@@ -6281,12 +6203,6 @@ declare module "react-declarative/hooks/useDate" {
    * The returned function can be used to display the modal and retrieve the selected date.
    *
    * @returns A function that can be called to display the modal and retrieve the selected date.
-   *
-   * @example
-   * const dateGetter = useDate();
-   * dateGetter().then((selectedDate) => {
-   *   console.log(selectedDate);
-   * });
    */
   export const useDate: () => () => {
     then: (onData: Fn) => void;
@@ -11798,11 +11714,6 @@ declare module "react-declarative/components/One/fields/ComponentField" {
      * @param {PickProp<IField<Data, Payload>, "className">} obj - The input object containing the "className" property.
      * @returns {undefined | PickProp<IField<Data, Payload>, "className">} - The value of the "className" property if present, otherwise undefined.
      * @throws {TypeError} If the input object is not of the expected type.
-     * @example
-     * // Example usage
-     * const data: PickProp<IField<Data, Payload>, "className"> = { className: "example-class" };
-     * const result = className(data);
-     * console.log(result); // "example-class"
      */
     className?: PickProp<IField<Data, Payload>, "className">;
     /**
@@ -16587,10 +16498,6 @@ declare module "react-declarative/components/List/hooks/useReload" {
    * @function
    * @returns A callback function for reloading data.
    *
-   * @example
-   * const reloadCallback = useReload();
-   * reloadCallback(); // reloads data and resets pagination
-   * reloadCallback(true); // reloads data without resetting pagination
    */
   export const useReload: () => (
     keepPagination?: boolean | undefined,
@@ -21845,15 +21752,6 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
    * @property element - The React component function that renders the outlet's content.
    * @property [isAvailable] - Optional. A function that determines whether the outlet is available for a given pathname.
    * @property isActive - A function that determines whether the outlet is active for a given pathname.
-   *
-   * @example
-   *
-   * const sampleOutlet: IOutlet = {
-   *   id: 'sample-outlet',
-   *   element: (props) => <div>{props.title}</div>,
-   *   isAvailable: (pathname) => pathname === '/sample',
-   *   isActive: (pathname) => pathname.startsWith('/sample'),
-   * };
    *
    */
   export interface IOutlet<

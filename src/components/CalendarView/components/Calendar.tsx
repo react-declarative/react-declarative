@@ -155,8 +155,6 @@ export const Calendar = ({
    * for each week in the list, it calls the renderDays function to render the
    * individual days of the week.
    *
-   * @example
-   * const weeks = renderWeeks();
    */
   const renderWeeks = useCallback(() => {
     const start = currentMonth.clone().startOf("week");

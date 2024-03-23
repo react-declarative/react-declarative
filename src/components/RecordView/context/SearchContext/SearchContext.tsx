@@ -111,8 +111,6 @@ export const SearchProvider = ({
    *
    * @returns {string[]} - An array of namespace paths.
    *
-   * @example
-   * getExpandAllNamespaces();
    */
   const getExpandAllNamespaces = useCallback(
     () =>

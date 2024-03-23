@@ -143,12 +143,6 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
    *
    * @function handleLoadEnd
    * @returns {void}
-   *
-   * @example
-   * // Usage with the `useCallback` hook
-   * const handleLoadEnd = useCallback(() => {
-   *   setLoading((loading) => Math.max(loading - 1, 0));
-   * }, []);
    */
   const handleLoadEnd = useCallback(() => {
     setLoading((loading) => Math.max(loading - 1, 0));
@@ -182,8 +176,6 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
    *
    * @throws {TypeError} - If the menuItems parameter is not an array.
    *
-   * @example
-   * const options = useMemo(calculateManagedOptions, [params$.current.menuItems]);
    */
   const options = useMemo(
     (): IManagedOption[] =>

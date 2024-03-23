@@ -12,8 +12,6 @@ interface IConfig {
  * @param config.defaultValue - The default value to return if an error occurs.
  * @returns - A promise that resolves to the resolved value of the input promise, or the defaultValue if an error occurs.
  *
- * @example
- * const result = await awaiter(promise, { fallback: handleError, defaultValue: null });
  */
 const awaiter = async <V extends any>(value: Promise<V>, { fallback, defaultValue }: IConfig) => {
     try {

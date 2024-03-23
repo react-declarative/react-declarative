@@ -63,12 +63,6 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
      * @function cancel
      * @memberof wrappedFn
      *
-     * @example
-     * // Define a wrapped function
-     * const wrappedFn = wrapFunction(someFunction);
-     *
-     * // Cancel the execution of the wrapped function
-     * wrappedFn.cancel();
      */
     wrappedFn.cancel = () => {
         wrappedFn.clear();

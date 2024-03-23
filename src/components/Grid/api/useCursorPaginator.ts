@@ -135,8 +135,6 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
    * @param {Object} state - The current state object.
    * @param {Array} state.current.data - The data array in the current state.
    *
-   * @example
-   * const lastCursor = lastCursor();
    */
   const lastCursor = useMemo(() => {
     const [lastItem = {}] = state.current.data.slice(-1);

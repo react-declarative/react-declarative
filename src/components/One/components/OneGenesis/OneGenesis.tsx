@@ -180,12 +180,6 @@ export const OneGenesis = <
    * Determines if the baseline alignment is true.
    *
    * @typedef {boolean} isBaselineAlign
-   * @example
-   *
-   * const fieldsSnapshot = [{ id: 1, isBaseline: true }, { id: 2, isBaseline: false }];
-   * const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
-   *
-   * console.log(isBaselineAlign); // Output: true
    */
   const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
 

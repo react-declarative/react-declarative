@@ -77,9 +77,6 @@ export const SearchInput = ({
    * @type {Function}
    * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e - The event triggered by a change in the input or textarea element.
    * @returns {void}
-   * @example
-   * // Usage
-   * emitChangeSearch(e);
    */
   const emitChangeSearch = useMemo(
     () =>

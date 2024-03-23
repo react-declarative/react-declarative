@@ -83,29 +83,6 @@ const getPercent = (value: number, total: number) =>
  * @param options.onEnd - Callback function to be executed when the process ends. Default is an empty function.
  * @returns An object containing the execute function, loading state, progress, and errors.
  *
- * @example
- * const items = [
- *   { label: 'Item 1', data: { id: 1 } },
- *   { label: 'Item 2', data: { id: 2 } },
- * ];
- *
- * const { execute, loading, progress, errors } = useAsyncProgress(
- *   async (item: IProcess<Data>) => {
- *     // Process the data here
- *   },
- *   {
- *     delay: 2000,
- *     onError: (error) => console.error(error),
- *     onProgress: (progress) => console.log(progress),
- *     onFinish: (data, errors, result) => console.log(data, errors, result),
- *     onBegin: () => console.log('Process started'),
- *     onEnd: (isOk) => console.log(`Process ended ${isOk ? 'successfully' : 'with errors'}`),
- *   }
- * );
- *
- * useEffect(() => {
- *   execute(items);
- * }, []);
  */
 export const useAsyncProgress = <
   Data extends IAnything = IAnything,

@@ -41,16 +41,6 @@ interface IState {
  * @param params.large - Whether to display a large alert. Default is false.
  * @returns - A function that, when called, displays the alert and returns a Promise.
  *                      The Promise resolves when the alert is closed.
- *
- * @example
- * const alert = useAlert();
- * alert({ title: "My Alert", description: "This is my alert message" })
- *   .then(() => {
- *     console.log("Alert closed");
- *   })
- *   .catch((error) => {
- *     console.error("Error occurred: ", error);
- *   });
  */
 export const useAlert = ({
   title: defaultTitle = "Alert",

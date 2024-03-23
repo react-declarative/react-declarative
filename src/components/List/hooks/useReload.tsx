@@ -6,10 +6,6 @@ import useProps from './useProps';
  * @function
  * @returns A callback function for reloading data.
  *
- * @example
- * const reloadCallback = useReload();
- * reloadCallback(); // reloads data and resets pagination
- * reloadCallback(true); // reloads data without resetting pagination
  */
 export const useReload = () => {
     const { handleReload } = useProps();

@@ -178,8 +178,6 @@ export const SecretView = ({
    * @name handleDismiss
    * @returns
    *
-   * @example
-   * handleDismiss();
    */
   const handleDismiss = () => {
     if (state.current.approved) {

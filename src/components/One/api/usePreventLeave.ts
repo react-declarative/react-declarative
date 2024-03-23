@@ -258,9 +258,6 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
      * Creates a router subject that handles navigation changes.
      *
      * @returns A function that can be called to navigate and handle navigation changes.
-     * @example
-     * const routerSubject = createRouterSubject();
-     * routerSubject();
      */
     const createRouterSubject = () =>
       history.block(({ retry }) => handleNavigate(retry));

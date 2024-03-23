@@ -65,21 +65,6 @@ const MenuGroup = ({
    * @param {string} hoverPath - The current hover path
    * @param {string} option.path - The value of the option path
    *
-   * @example
-   * const hoverPath = "/path/to/hover";
-   * const option = {
-   *    path: "/path/to"
-   * };
-   *
-   * const nestedLifted = useMemo(() => {
-   *   if (hoverPath === "") {
-   *     return false;
-   *   }
-   *   if (hoverPath === option.path) {
-   *     return true;
-   *   }
-   *   return hoverPath.startsWith(option.path);
-   * }, [hoverPath]);
    */
   const nestedLifted = useMemo(() => {
     if (hoverPath === "") {

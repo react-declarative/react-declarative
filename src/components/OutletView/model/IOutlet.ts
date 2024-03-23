@@ -17,15 +17,6 @@ import IOtherProps from './IOtherProps';
  * @property [isAvailable] - Optional. A function that determines whether the outlet is available for a given pathname.
  * @property isActive - A function that determines whether the outlet is active for a given pathname.
  *
- * @example
- *
- * const sampleOutlet: IOutlet = {
- *   id: 'sample-outlet',
- *   element: (props) => <div>{props.title}</div>,
- *   isAvailable: (pathname) => pathname === '/sample',
- *   isActive: (pathname) => pathname.startsWith('/sample'),
- * };
- *
  */
 export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnything, OtherProps = IOtherProps> {
     id: string;
