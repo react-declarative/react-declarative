@@ -2107,7 +2107,26 @@ declare module "react-declarative/model/IManaged" {
      * @typedef {PickProp<IField<Data, Payload>, 'desktopHidden'>} desktopHidden
      */
     desktopHidden?: PickProp<IField<Data, Payload>, "desktopHidden">;
+    /**
+     * Represents the 'hidden' property of an object.
+     *
+     * @template IField - The type of the field object.
+     * @template Data - The type of the data object.
+     * @template Payload - The type of the payload object.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} Hidden
+     */
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
+    /**
+     * Represents an optional property `noBaseline` that is picked from the interface `IField` using the `PickProp` utility type.
+     *
+     * @template Data - The type of data associated with the field.
+     * @template Payload - The type of payload associated with the field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'noBaseline'>} noBaseline
+     *
+     * @property {boolean} [noBaseline] - Specifies whether the field has a baseline or not.
+     */
     noBaseline?: PickProp<IField<Data, Payload>, "noBaseline">;
   }
   /**
@@ -2115,14 +2134,68 @@ declare module "react-declarative/model/IManaged" {
    */
   export interface IManagedLayout<Data = IAnything, Payload = IAnything>
     extends IWrappedLayout<Data, Payload> {
+    /**
+     * Represents override columns configuration for a field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'columnsOverride'>} columnsOverride
+     *
+     * @property {string} - The name of the field for which the columns are overridden.
+     */
     columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
+    /**
+     * Represents the 'sx' property of the 'PickProp' type.
+     *
+     * @typedef {keyof IField<Data, Payload>} IFieldKey
+     * @typedef PickProp<IField<Data, Payload>, 'sx'> SxProp
+     *
+     * @property {IFieldKey} sx - The key of the 'IField' type that represents the 'sx' property.
+     */
     sx?: PickProp<IField<Data, Payload>, "sx">;
+    /**
+     * Retrieves the specific columns from a given object.
+     */
     columns?: PickProp<IField<Data, Payload>, "columns">;
+    /**
+     * Represents the phone columns configuration for a field
+     */
     phoneColumns?: PickProp<IField<Data, Payload>, "phoneColumns">;
+    /**
+     * Represents the number of columns for the "tablet" viewport size of a field.
+     * This property is optional.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'tabletColumns'>} tabletColumns
+     */
     tabletColumns?: PickProp<IField<Data, Payload>, "tabletColumns">;
+    /**
+     * Represents the number of columns on a desktop layout for a field in a data payload object.
+     *
+     * @typedef {number} desktopColumns
+     * @property {number} desktopColumns - The number of columns on a desktop layout.
+     * @property {PickProp<IField<Data, Payload>, 'desktopColumns'>} desktopColumns - Optional property to pick the 'desktopColumns' property from 'IField<Data, Payload>' interface.
+     */
     desktopColumns?: PickProp<IField<Data, Payload>, "desktopColumns">;
+    /**
+     * Represents the right margin of a field.
+     *
+     * @typedef {number} FieldRightMargin
+     */
     fieldRightMargin?: PickProp<IField<Data, Payload>, "fieldRightMargin">;
+    /**
+     * Represents the optional configuration for the bottom margin
+     * of a field.
+     *
+     * @typedef {number} FieldBottomMargin
+     */
     fieldBottomMargin?: PickProp<IField<Data, Payload>, "fieldBottomMargin">;
+    /**
+     * Returns the picked 'features' property from the given variable.
+     *
+     * @template Data - The type of data.
+     * @template Payload - The type of payload.
+     * @template T - The type of the variable.
+     * @param {T} variable - The variable from which to pick the 'features' property.
+     * @returns {PickProp<IField<Data, Payload>, 'features'>} - The picked 'features' property.
+     */
     features?: PickProp<IField<Data, Payload>, "features">;
   }
   /**
@@ -2398,6 +2471,11 @@ declare module "react-declarative/model/IColumn" {
     headerName?: string;
     fullName?: string;
     description?: string;
+    /**
+     * Represents the width of an element.
+     *
+     * @typedef {(string | ((width: number) => string | number))} Width
+     */
     width: string | ((width: number) => string | number);
     minHeight?: string | number;
     phoneOrder?: number;
@@ -3128,10 +3206,24 @@ declare module "react-declarative/model/IListProps" {
         isDisabled: never;
       }
     > {
+    /**
+     * Check if a specific condition is satisfied for the visibility of an element.
+     *
+     * @param {RowData[]} selectedRows - An array of selected rows.
+     * @param {Payload} payload - The payload object containing additional data.
+     * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility of the element.
+     */
     isVisible?: (
       selectedRows: RowData[],
       payload: Payload,
     ) => Promise<boolean> | boolean;
+    /**
+     * Checks whether the entity is disabled based on the provided selected rows and payload.
+     *
+     * @param {RowData[]} selectedRows - The array of selected rows.
+     * @param {Payload} payload - The payload object containing additional data.
+     * @returns {Promise<boolean> | boolean} - A promise or boolean indicating whether the entity is disabled.
+     */
     isDisabled?: (
       selectedRows: RowData[],
       payload: Payload,
@@ -3149,15 +3241,54 @@ declare module "react-declarative/model/IListProps" {
     type: ActionType;
     action?: string;
     label?: string;
+    /**
+     * Determines the visibility of a certain element based on the provided parameters.
+     *
+     * @param {RowData[]} selectedRows - An array of selected rows.
+     * @param {Payload} payload - The payload containing additional information.
+     * @returns {Promise<boolean> | boolean} - A promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility directly.
+     */
     isVisible?: (
       selectedRows: RowData[],
       payload: Payload,
     ) => Promise<boolean> | boolean;
+    /**
+     * Checks if a row or a payload is disabled
+     * @param {RowData[]} selectedRows - The selected rows to check against
+     * @param {Payload} payload - The payload to check against
+     * @returns {Promise<boolean> | boolean} - A promise that resolves with a boolean indicating if the row or the payload is disabled, or a boolean indicating if the row or the payload
+     * is disabled
+     */
     isDisabled?: (
       selectedRows: RowData[],
       payload: Payload,
     ) => Promise<boolean> | boolean;
+    /**
+     * Represents the icon component in React.
+     *
+     * @typedef {React.ComponentType<any>} IconType
+     */
     icon?: React.ComponentType<any>;
+    /**
+     * @typedef {object} IListActionOption<T>
+     * @property {T} rowData - The data of the row.
+     *
+     * @typedef {object} IUpdateOption<T>
+     * @property {T} rowData - The data of the row.
+     *
+     * @typedef {object} IResortOption<T>
+     * @property {T} rowData - The data of the row.
+     *
+     * @typedef {object} IDropFiltersOption<T>
+     * @property {T} rowData - The data of the row.
+     *
+     * @typedef {object} IAddFiltersOption<T>
+     * @property {T} rowData - The data of the row.
+     *
+     * @typedef {(IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[]} Options
+     *
+     * @param {Options} options - An array of options.
+     */
     options?: (
       | IListActionOption<RowData>
       | IUpdateOption<RowData>
@@ -3286,16 +3417,88 @@ declare module "react-declarative/model/IListProps" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
   > {
+    /**
+     * Handles the list state reset.
+     *
+     * @function
+     * @name handleDefault
+     * @returns {Promise<void>} A promise that resolves with no value.
+     */
     handleDefault: () => Promise<void>;
+    /**
+     * Handles the sort model for the given sort.
+     *
+     * @param {ListHandlerSortModel<RowData>} sort - The sort model to handle.
+     * @returns {void}
+     */
     handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
+    /**
+     * Handles the filter action.
+     *
+     * @param {FilterData} data - The filter data to be processed.
+     * @param {boolean} [keepPagination] - Indicates whether to keep the pagination state.
+     *                                    Defaults to false.
+     * @returns {void}
+     */
     handleFilter: (data: FilterData, keepPagination?: boolean) => void;
+    /**
+     * Handle page change function.
+     *
+     * @param {number} page - The page number being handled.
+     * @returns {void} - There is no return value.
+     */
     handlePageChange: (page: number) => void;
+    /**
+     * Handles a change in the limit value.
+     *
+     * @param {number} limit - The new limit value.
+     * @returns {void}
+     */
     handleLimitChange: (limit: number) => void;
+    /**
+     * Callback function to handle changes in rows.
+     *
+     * @param {Array} rows - An array of row data.
+     * @returns {void} - This function does not return anything.
+     */
     handleRowsChange: (rows: RowData[]) => void;
+    /**
+     * Handles the event when the filters are collapsed or expanded.
+     *
+     * @param {boolean} filtersCollapsed - Indicates whether the filters are collapsed or expanded.
+     * @returns {void}
+     */
     handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
+    /**
+     * Handles the chips list.
+     *
+     * @param {ListHandlerChips} chips - The list of chips to be handled.
+     * @returns {void}
+     */
     handleChips: (chips: ListHandlerChips) => void;
+    /**
+     * Reloads the data and updates the UI.
+     *
+     * @param {boolean} [keepPagination=false] - Determines whether to keep the current pagination state.
+     *                                            If set to true, the pagination will not be reset after reloading.
+     *                                            If not provided or set to false, the pagination will be reset to its initial state.
+     * @returns {Promise<void>} - A promise that resolves once the data has been reloaded and the UI has been updated.
+     */
     handleReload: (keepPagination?: boolean) => Promise<void>;
+    /**
+     * Handles the search action.
+     *
+     * @param {string} search - The search query entered by the user.
+     * @returns {void}
+     */
     handleSearch: (search: string) => void;
+    /**
+     * Function to handle re-rendering.
+     *
+     * @function
+     * @name handleRerender
+     * @returns {void}
+     */
     handleRerender: () => void;
     ready: () => void;
   }
@@ -3340,22 +3543,78 @@ declare module "react-declarative/model/IListProps" {
     Field extends IField = IField<FilterData, Payload>,
   > {
     apiRef?: Ref<IListApi<FilterData, RowData>>;
+    /**
+     * Represents a React component type for BeforeActionList.
+     *
+     * @template FilterData - The type of data used for filtering.
+     * @template RowData - The type of data used for individual rows.
+     * @template Payload - The type of payload for action.
+     */
     BeforeActionList?: React.ComponentType<
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
+    /**
+     * Represents a React component for AfterActionList.
+     *
+     * @typeparam FilterData - The type of filter data.
+     * @typeparam RowData - The type of row data.
+     * @typeparam Payload - The type of payload.
+     */
     AfterActionList?: React.ComponentType<
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
+    /**
+     * A React component that represents a list of position actions before an operation.
+     *
+     * @typedef {React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>} BeforeOperationList
+     * @template FilterData - The type of data used for filtering the list
+     * @template RowData - The type of data used for each row in the list
+     * @template Payload - The type of data sent as a payload during an operation
+     *
+     */
     BeforeOperationList?: React.ComponentType<
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
+    /**
+     * Represents the AfterOperationList component.
+     *
+     * This component is a React component that renders a list of actions to be displayed after a specific operation.
+     * It is used to render the list of available actions, typically used for filtering or manipulating data.
+     *
+     * @template FilterData - The type of data used for filtering.
+     * @template RowData - The type of data associated with each row.
+     * @template Payload - The type of payload used for each action.
+     *
+     * @component
+     */
     AfterOperationList?: React.ComponentType<
       IPositionActionListSlot<FilterData, RowData, Payload>
     >;
+    /**
+     * Represents a custom template component for rendering a tile.
+     *
+     * @typedef {React.ComponentType<ITile<RowData, Payload>>} customTemplate
+     * @property {React.ComponentType<ITile<RowData, Payload>>} customTemplate - The custom template component used for rendering a tile.
+     * @template {RowData} - The type of data for the tile row.
+     * @template {Payload} - The type of payload associated with the tile.
+     */
     customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+    /**
+     * Represents the minimum height for a custom template.
+     *
+     * @type {number|undefined}
+     */
     customTemplateMinHeight?: number;
+    /**
+     * Represents the debounce time in milliseconds for performing fetch requests.
+     */
     fetchDebounce?: number;
     className?: string;
+    /**
+     * Represents the height of an element, measured in pixels.
+     *
+     * @type {number}
+     */
     denseHeight?: number;
     style?: React.CSSProperties;
     title?: string;
@@ -3368,7 +3627,19 @@ declare module "react-declarative/model/IListProps" {
     sizeByElement?: boolean;
     selectedRows?: RowId[];
     features?: IOnePublicProps<FilterData>["features"];
+    /**
+     * Represents a function that calculates the desired height based on the provided input height.
+     *
+     * @param {number} height - The input height value.
+     * @return {number} - The calculated desired height.
+     */
     heightRequest?: (height: number) => number;
+    /**
+     * Represents a function that takes a width value and returns a number.
+     *
+     * @param {number} width - The width value to pass to the function.
+     * @returns {number} - The number value returned by the function.
+     */
     widthRequest?: (width: number) => number;
     onRows?: (rows: RowData[]) => void;
     onSelectedRows?: (rowIds: RowId[], initialChange: boolean) => void;
@@ -3412,6 +3683,19 @@ declare module "react-declarative/model/IListProps" {
     payload?: Payload | (() => Payload);
     rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
     rowColor?: (row: RowData) => string;
+    /**
+     * Determines if a row is disabled based on various parameters.
+     *
+     * @param {RowData} row - The row data object.
+     * @param {Object} params - The parameters used to determine row disablement.
+     * @param {FilterData} params.filterData - The filter data object.
+     * @param {ListHandlerPagination} params.pagination - The pagination object.
+     * @param {ListHandlerSortModel<RowData>} params.sortModel - The sort model object.
+     * @param {ListHandlerChips<RowData>} params.chips - The chips object.
+     * @param {string} params.search - The search string.
+     * @param {Payload} params.payload - The payload object.
+     * @returns {boolean} - True if the row is disabled, false otherwise.
+     */
     isRowDisabled?: (
       row: RowData,
       params: {
@@ -3423,6 +3707,16 @@ declare module "react-declarative/model/IListProps" {
         payload: Payload;
       },
     ) => boolean;
+    /**
+     * Returns a string containing information about the displayed rows label.
+     *
+     * @param {Object} paginationInfo - An object containing pagination information.
+     * @param {number} paginationInfo.from - The starting index of the displayed rows.
+     * @param {number} paginationInfo.to - The ending index of the displayed rows.
+     * @param {number} paginationInfo.count - The total count of rows.
+     * @param {number} paginationInfo.page - The current page.
+     * @returns {string} - The label displaying information about the displayed rows.
+     */
     labelDisplayedRows?: (paginationInfo: {
       from: number;
       to: number;
@@ -6037,6 +6331,9 @@ declare module "react-declarative/model/IRowData" {
   export interface IRowData {
     id: RowId;
   }
+  /**
+   * Represents a unique identifier for a row in a data table.
+   */
   export type RowId = string | number;
   export default IRowData;
 }
@@ -8387,6 +8684,10 @@ declare module "react-declarative/model/TObserver" {
       done(): void;
     };
   }
+  /**
+   * Represents an observable class that can be used to observe changes in data.
+   * @template Data - The type of data that the observable emits.
+   */
   export type TObservable<Data = unknown> = Omit<
     TObserver<Data>,
     keyof {
@@ -8473,10 +8774,42 @@ declare module "react-declarative/utils/mvvm/Entity" {
    * @template T - The type of the entity.
    */
   export interface IEntityAdapter<T extends IEntity = any> {
+    /**
+     * An identifier representing the unique identity of an entity.
+     *
+     * @typedef {string|number} IEntityId
+     */
     id: IEntity["id"];
+    /**
+     * Sets the data for the given object.
+     *
+     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
+     * input and returns a partial object of type T.
+     * @returns {void}
+     */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    /**
+     * Represents a variable of type T.
+     *
+     * @typeparam T - The type of data stored in the variable.
+     */
     data: T;
+    /**
+     * Refreshes the view or data associated with the current state.
+     * This method internally handles the logic to update the view or fetch the latest data
+     * based on the current state of the application.
+     * Note that this method does not return any value.
+     *
+     * @function
+     * @name refresh
+     * @returns {void}
+     */
     refresh(): void;
+    /**
+     * Converts the current object to its corresponding type T.
+     *
+     * @returns {T} The converted object of type T.
+     */
     toObject(): T;
   }
   /**
@@ -8530,30 +8863,149 @@ declare module "react-declarative/utils/mvvm/Collection" {
    * @template T - The type of entities in the collection.
    */
   export interface ICollectionAdapter<T extends IEntity = any> {
+    /**
+     * Represents an array of IEntityAdapter objects.
+     *
+     * @template T - The type of entities that the adapters handle.
+     */
     items: IEntityAdapter<T>[];
+    /**
+     * Represents the last index of an array or string.
+     *
+     * @type {number}
+     */
     lastIdx: number;
+    /**
+     * Represents an array of entity IDs.
+     *
+     * @typedef {Array<string | number>} IEntityIds
+     */
     ids: IEntity["id"][];
+    /**
+     * Checks if a value is empty or not.
+     *
+     * @param {any} value - The value to check if it is empty.
+     * @returns {boolean} - True if the value is empty, otherwise false.
+     */
     isEmpty: boolean;
+    /**
+     * Sets the data for the items.
+     *
+     * @param {T[]} items - An array of items to be set as the data.
+     * @return {void}
+     */
     setData(items: T[]): void;
+    /**
+     * Applies a mapping function to each value of an entity adapter and returns an array of the mapped values.
+     *
+     * @template V - The type of values in the resulting array.
+     * @param callbackfn - The mapping function to be applied to each value.
+     *                    It takes two arguments: the value itself and its index in the entity adapter.
+     * @returns An array containing the mapped values.
+     */
     map<V = any>(callbackfn: (value: IEntityAdapter<T>, idx: number) => V): V[];
+    /**
+     * Filters an array of IEntityAdapter<T> objects based on a provided predicate function.
+     *
+     * @param {function} predicate - The predicate function used to test each IEntityAdapter<T> object.
+     *                              The function should accept two arguments:
+     *                              - value: The current IEntityAdapter<T> object being processed.
+     *                              - idx: The index of the current IEntityAdapter<T> object being processed.
+     *                              The predicate function should return a boolean value indicating whether to include the entity in the filtered array.
+     * @returns {IEntityAdapter<T>[]} - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
+     */
     filter(
       predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): IEntityAdapter<T>[];
+    /**
+     * Finds the first element in the IEntityAdapter array that satisfies the provided testing function.
+     *
+     * @param {function} predicate - The testing function that determines whether the element is found or not.
+     *                              It should accept two parameters: value (IEntityAdapter<T>) and idx (number).
+     * @returns {IEntityAdapter<T>|undefined} - The first element that satisfies the testing function, or undefined if no such element is found.
+     */
     find(
       predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): IEntityAdapter<T> | undefined;
+    /**
+     * Checks if any of the elements in the array satisfies the provided predicate.
+     *
+     * @param {function} predicate - The predicate function to be executed for each element in the array.
+     *        It takes two parameters:
+     *          - value: The current element being processed.
+     *          - idx: The index of the current element being processed.
+     *        The function should return a boolean value indicating whether the element satisfies the condition.
+     *
+     * @return {boolean} - Returns true if at least one element satisfies the predicate, otherwise returns false.
+     */
     some(
       predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
     ): boolean;
+    /**
+     * Executes a provided function once for each entity in the adapter.
+     *
+     * @param {function(value: IEntityAdapter<T>, idx: number): void} callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
+     * of the entity in the adapter.
+     * @return {void}
+     */
     forEach(callbackfn: (value: IEntityAdapter<T>, idx: number) => void): void;
+    /**
+     * Pushes one or more items onto the end of the array.
+     *
+     * @param {...(T[]|T[][])} items - The items to push onto the array.
+     * @return {void}
+     */
     push(...items: T[] | T[][]): void;
+    /**
+     * Upserts the given items into the database.
+     *
+     * @param {...(T[] | T[][])} items - The items to be upserted. Can be a single array or an array of arrays.
+     */
     upsert(...items: T[] | T[][]): void;
+    /**
+     * Removes the specified item from the collection.
+     *
+     * @param {IEntity} item - The item to be removed from the collection.
+     * @return {void}
+     */
     remove(item: IEntity): void;
+    /**
+     * Removes an entity from the collection by its id.
+     *
+     * @param {IEntity['id']} id - The id of the entity to be removed.
+     * @return {void}
+     */
     removeById(id: IEntity["id"]): void;
+    /**
+     * Removes all elements from the collection.
+     *
+     * @return {void}
+     */
     removeAll(): void;
+    /**
+     * Finds an entity by its ID.
+     *
+     * @param {IEntity['id']} id - The ID of the entity to find.
+     * @returns {IEntityAdapter<T>} - The entity adapter containing the found entity, if any.
+     */
     findById(id: IEntity["id"]): IEntityAdapter<T>;
+    /**
+     * Clears the data of the object.
+     *
+     * @returns {void}
+     */
     clear(): void;
+    /**
+     * Refreshes the content of the page.
+     *
+     * @return {void} This method has no return value.
+     */
     refresh(): void;
+    /**
+     * Converts the collection into an array.
+     *
+     * @return {T[]} An array containing the elements of the collection.
+     */
     toArray(): T[];
   }
   export class EntityNotFoundError extends Error {}
@@ -8764,9 +9216,32 @@ declare module "react-declarative/utils/mvvm/Model" {
    * @template T The type of data that the adapter handles.
    */
   export interface IModelAdapter<T extends {} = any> {
+    /**
+     * Represents a variable of unknown type T.
+     *
+     * @template T
+     */
     data: T;
+    /**
+     * Sets the data for the object.
+     *
+     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
+     * partial object of type T.
+     * @return {void}
+     */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    /**
+     * Refreshes the page.
+     *
+     * @returns {void}
+     */
     refresh(): void;
+    /**
+     * Returns an object representation of the instance.
+     *
+     * @template T
+     * @returns {T} The object representation of the instance.
+     */
     toObject(): T;
   }
   /**

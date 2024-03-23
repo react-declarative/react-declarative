@@ -13,6 +13,14 @@ export interface IClearable {
 export const singletick = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
     let timeout: NodeJS.Timer | null = null;
     const singleshotFn = singleshot(run);
+    /**
+     * This is a higher-order function that wraps another function and adds
+     * a delay before invoking it.
+     *
+     * @param singleshotFn - The function to be wrapped.
+     * @param singletick.delay - The delay in milliseconds before invoking the wrapped function.
+     * @returns - The result of invoking the wrapped function.
+     */
     const wrappedFn = (...args: any[]) => {
         const result = singleshotFn(...args);
         timeout !== null && clearTimeout(timeout);

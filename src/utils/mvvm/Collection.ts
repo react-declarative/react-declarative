@@ -15,24 +15,143 @@ export const REORDER_SYMBOL = Symbol('reorder');
  * @template T - The type of entities in the collection.
  */
 export interface ICollectionAdapter<T extends IEntity = any> {
+    /**
+     * Represents an array of IEntityAdapter objects.
+     *
+     * @template T - The type of entities that the adapters handle.
+     */
     items: IEntityAdapter<T>[];
+    /**
+     * Represents the last index of an array or string.
+     *
+     * @type {number}
+     */
     lastIdx: number;
+    /**
+     * Represents an array of entity IDs.
+     *
+     * @typedef {Array<string | number>} IEntityIds
+     */
     ids: IEntity['id'][];
+    /**
+     * Checks if a value is empty or not.
+     *
+     * @param {any} value - The value to check if it is empty.
+     * @returns {boolean} - True if the value is empty, otherwise false.
+     */
     isEmpty: boolean;
+    /**
+     * Sets the data for the items.
+     *
+     * @param {T[]} items - An array of items to be set as the data.
+     * @return {void}
+     */
     setData(items: T[]): void;
+    /**
+     * Applies a mapping function to each value of an entity adapter and returns an array of the mapped values.
+     *
+     * @template V - The type of values in the resulting array.
+     * @param callbackfn - The mapping function to be applied to each value.
+     *                    It takes two arguments: the value itself and its index in the entity adapter.
+     * @returns An array containing the mapped values.
+     */
     map<V = any>(callbackfn: (value: IEntityAdapter<T>, idx: number) => V): V[];
+    /**
+     * Filters an array of IEntityAdapter<T> objects based on a provided predicate function.
+     *
+     * @param {function} predicate - The predicate function used to test each IEntityAdapter<T> object.
+     *                              The function should accept two arguments:
+     *                              - value: The current IEntityAdapter<T> object being processed.
+     *                              - idx: The index of the current IEntityAdapter<T> object being processed.
+     *                              The predicate function should return a boolean value indicating whether to include the entity in the filtered array.
+     * @returns {IEntityAdapter<T>[]} - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
+     */
     filter(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T>[];
+    /**
+     * Finds the first element in the IEntityAdapter array that satisfies the provided testing function.
+     *
+     * @param {function} predicate - The testing function that determines whether the element is found or not.
+     *                              It should accept two parameters: value (IEntityAdapter<T>) and idx (number).
+     * @returns {IEntityAdapter<T>|undefined} - The first element that satisfies the testing function, or undefined if no such element is found.
+     */
     find(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T> | undefined;
+    /**
+     * Checks if any of the elements in the array satisfies the provided predicate.
+     *
+     * @param {function} predicate - The predicate function to be executed for each element in the array.
+     *        It takes two parameters:
+     *          - value: The current element being processed.
+     *          - idx: The index of the current element being processed.
+     *        The function should return a boolean value indicating whether the element satisfies the condition.
+     *
+     * @return {boolean} - Returns true if at least one element satisfies the predicate, otherwise returns false.
+     */
     some(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): boolean;
+    /**
+     * Executes a provided function once for each entity in the adapter.
+     *
+     * @param {function(value: IEntityAdapter<T>, idx: number): void} callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
+     * of the entity in the adapter.
+     * @return {void}
+     */
     forEach(callbackfn: (value: IEntityAdapter<T>, idx: number) => void): void;
+    /**
+     * Pushes one or more items onto the end of the array.
+     *
+     * @param {...(T[]|T[][])} items - The items to push onto the array.
+     * @return {void}
+     */
     push(...items: (T[] | T[][])): void;
+    /**
+     * Upserts the given items into the database.
+     *
+     * @param {...(T[] | T[][])} items - The items to be upserted. Can be a single array or an array of arrays.
+     */
     upsert(...items: (T[] | T[][])): void;
+    /**
+     * Removes the specified item from the collection.
+     *
+     * @param {IEntity} item - The item to be removed from the collection.
+     * @return {void}
+     */
     remove(item: IEntity): void;
+    /**
+     * Removes an entity from the collection by its id.
+     *
+     * @param {IEntity['id']} id - The id of the entity to be removed.
+     * @return {void}
+     */
     removeById(id: IEntity['id']): void;
+    /**
+     * Removes all elements from the collection.
+     *
+     * @return {void}
+     */
     removeAll(): void;
+    /**
+     * Finds an entity by its ID.
+     *
+     * @param {IEntity['id']} id - The ID of the entity to find.
+     * @returns {IEntityAdapter<T>} - The entity adapter containing the found entity, if any.
+     */
     findById(id: IEntity['id']): IEntityAdapter<T>;
+    /**
+     * Clears the data of the object.
+     *
+     * @returns {void}
+     */
     clear(): void;
+    /**
+     * Refreshes the content of the page.
+     *
+     * @return {void} This method has no return value.
+     */
     refresh(): void;
+    /**
+     * Converts the collection into an array.
+     *
+     * @return {T[]} An array containing the elements of the collection.
+     */
     toArray(): T[];
 }
 

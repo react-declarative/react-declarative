@@ -21,6 +21,14 @@ export class Task {
  */
 export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
     let result: Task | undefined = undefined;
+    /**
+     * Executes the given `run` function with the provided arguments and returns the result.
+     *
+     * If the `result` status is not "pending", a new `Task` is created with the `run` function.
+     *
+     * @param args - The arguments to be passed to the `run` function.
+     * @returns - The target property of the `result` object, if available.
+     */
     const fn = (...args: any) => {
         if (result?.status !== "pending") {
             result = new Task(run(...args));

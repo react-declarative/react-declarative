@@ -26,6 +26,14 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
 
     const valueMap = new Map<K, IRef<ReturnType<T>>>();
 
+    /**
+     * Clears the value map.
+     * If a key is provided, it deletes the corresponding value from the map.
+     * If no key is provided, it clears the entire map.
+     *
+     * @param [key] - The key of the value to delete from the map.
+     * @returns
+     */
     const clear = (key?: K) => {
         if (key) {
             valueMap.delete(key);
@@ -34,6 +42,15 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
         valueMap.clear();
     };
 
+    /**
+     * Executes a function with the given arguments and caches the result.
+     * Implements the `IClearable` interface.
+     *
+     * @template A - The argument types of the function.
+     * @template T - The return type of the function.
+     * @param args - The arguments to pass to the function.
+     * @returns - The cached result of the function.
+     */
     const executeFn: Function & IClearable<any> = (...args: A) => {
         const k = key(args);
         let value = valueMap.get(k)?.current;

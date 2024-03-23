@@ -71,7 +71,26 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
      * @typedef {PickProp<IField<Data, Payload>, 'desktopHidden'>} desktopHidden
      */
     desktopHidden?: PickProp<IField<Data, Payload>, 'desktopHidden'>;
+    /**
+     * Represents the 'hidden' property of an object.
+     *
+     * @template IField - The type of the field object.
+     * @template Data - The type of the data object.
+     * @template Payload - The type of the payload object.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} Hidden
+     */
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
+    /**
+     * Represents an optional property `noBaseline` that is picked from the interface `IField` using the `PickProp` utility type.
+     *
+     * @template Data - The type of data associated with the field.
+     * @template Payload - The type of payload associated with the field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'noBaseline'>} noBaseline
+     *
+     * @property {boolean} [noBaseline] - Specifies whether the field has a baseline or not.
+     */
     noBaseline?: PickProp<IField<Data, Payload>, 'noBaseline'>;
 }
 
@@ -79,14 +98,68 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
  * Типизацию компоновки следует вынести отдельно
  */
 export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends IWrappedLayout<Data, Payload> {
+    /**
+     * Represents override columns configuration for a field.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'columnsOverride'>} columnsOverride
+     *
+     * @property {string} - The name of the field for which the columns are overridden.
+     */
     columnsOverride?: PickProp<IField<Data, Payload>, 'columnsOverride'>;
+    /**
+     * Represents the 'sx' property of the 'PickProp' type.
+     *
+     * @typedef {keyof IField<Data, Payload>} IFieldKey
+     * @typedef PickProp<IField<Data, Payload>, 'sx'> SxProp
+     *
+     * @property {IFieldKey} sx - The key of the 'IField' type that represents the 'sx' property.
+     */
     sx?: PickProp<IField<Data, Payload>, 'sx'>;
+    /**
+     * Retrieves the specific columns from a given object.
+     */
     columns?: PickProp<IField<Data, Payload>, 'columns'>;
+    /**
+     * Represents the phone columns configuration for a field
+     */
     phoneColumns?: PickProp<IField<Data, Payload>, 'phoneColumns'>;
+    /**
+     * Represents the number of columns for the "tablet" viewport size of a field.
+     * This property is optional.
+     *
+     * @typedef {PickProp<IField<Data, Payload>, 'tabletColumns'>} tabletColumns
+     */
     tabletColumns?: PickProp<IField<Data, Payload>, 'tabletColumns'>;
+    /**
+     * Represents the number of columns on a desktop layout for a field in a data payload object.
+     *
+     * @typedef {number} desktopColumns
+     * @property {number} desktopColumns - The number of columns on a desktop layout.
+     * @property {PickProp<IField<Data, Payload>, 'desktopColumns'>} desktopColumns - Optional property to pick the 'desktopColumns' property from 'IField<Data, Payload>' interface.
+     */
     desktopColumns?: PickProp<IField<Data, Payload>, 'desktopColumns'>;
+    /**
+     * Represents the right margin of a field.
+     *
+     * @typedef {number} FieldRightMargin
+     */
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
+    /**
+     * Represents the optional configuration for the bottom margin
+     * of a field.
+     *
+     * @typedef {number} FieldBottomMargin
+     */
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
+    /**
+     * Returns the picked 'features' property from the given variable.
+     *
+     * @template Data - The type of data.
+     * @template Payload - The type of payload.
+     * @template T - The type of the variable.
+     * @param {T} variable - The variable from which to pick the 'features' property.
+     * @returns {PickProp<IField<Data, Payload>, 'features'>} - The picked 'features' property.
+     */
     features?: PickProp<IField<Data, Payload>, 'features'>;
 }
 

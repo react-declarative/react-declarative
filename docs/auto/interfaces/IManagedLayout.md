@@ -22,11 +22,15 @@ sx: SxProps<any>
 columns: string
 ```
 
+Retrieves the specific columns from a given object.
+
 ### phoneColumns
 
 ```ts
 phoneColumns: string
 ```
+
+Represents the phone columns configuration for a field
 
 ### tabletColumns
 
@@ -58,4 +62,4 @@ fieldBottomMargin: string
 features: string[]
 ```
 
-Retrieves the 'features' property from a given variable.
+Returns the picked 'features' property from the given variable.

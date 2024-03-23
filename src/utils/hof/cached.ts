@@ -20,6 +20,12 @@ export const cached = <T extends (...args: A) => any, A extends any[]>(changed: 
         lastArgs = null;
     };
 
+    /**
+     * Executes a function with given arguments and caches the result.
+     *
+     * @param args - The arguments to be passed to the function.
+     * @returns - The result of the executed function.
+     */
     const executeFn = (...args: A) => {
         if (!initial) {
             if (!changed(lastArgs, args)) {

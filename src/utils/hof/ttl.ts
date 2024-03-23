@@ -27,11 +27,24 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
     timeout?: number;
 } = {}): T & IClearable<K> => {
 
+    /**
+     * Creates a memoized function that caches the result of the
+     * original function based on the provided key.
+     *
+     * @param {string} key - The key used to cache the result of the function.
+     * @param {Function} run - The original function to be memoized.
+     * @returns {Function} - A memoized function that returns the cached value.
+     */
     const wrappedFn = memoize(key, (...args) => ({
         value: run(...args),
         ttl: Date.now(),
     }));
 
+    /**
+     * Executes a wrapped function with a TTL (Time To Live).
+     * @param args - The arguments for the wrapped function.
+     * @returns - The return value of the wrapped function.
+     */
     const executeFn = (...args: A): ReturnType<T> => {
         const currentTtl = Date.now();
         const { value, ttl } = wrappedFn(...args);
@@ -43,10 +56,25 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
         return value;
     };
 
+    /**
+     * Clears the executeFn function.
+     *
+     * @function
+     * @memberof executeFn
+     * @name clear
+     *
+     * @returns
+     */
     executeFn.clear = (key?: K) => {
         wrappedFn.clear(key);
     };
 
+    /**
+     * Executes a garbage collection in the ttl storage.
+     *
+     * @function executeFn.gc
+     * @returns
+     */
     executeFn.gc = () => {
         const valueMap: Map<K, IRef<{ ttl: number }>> = wrappedFn[GET_VALUE_MAP]();
         for (const [key, item] of valueMap.entries()) {

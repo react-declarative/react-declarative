@@ -13,6 +13,12 @@ export interface IClearable {
 export const singleshot = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
     let hasRunned = false;
     let result: ReturnType<T> = null as never;
+    /**
+     * Runs a function once and caches the result for subsequent calls.
+     *
+     * @param args - Arguments passed to the function.
+     * @returns - The result of the function.
+     */
     const fn = (...args: any) => {
         if (!hasRunned) {
             hasRunned = true;

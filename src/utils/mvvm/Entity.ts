@@ -20,10 +20,43 @@ export interface IEntity {
  * @template T - The type of the entity.
  */
 export interface IEntityAdapter<T extends IEntity = any> {
+    /**
+     * An identifier representing the unique identity of an entity.
+     *
+     * @typedef {string|number} IEntityId
+     */
     id: IEntity['id'];
+    /**
+     * Sets the data for the given object.
+     *
+     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
+     * input and returns a partial object of type T.
+     * @returns {void}
+     */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+
+    /**
+     * Represents a variable of type T.
+     *
+     * @typeparam T - The type of data stored in the variable.
+     */
     data: T;
+    /**
+     * Refreshes the view or data associated with the current state.
+     * This method internally handles the logic to update the view or fetch the latest data
+     * based on the current state of the application.
+     * Note that this method does not return any value.
+     *
+     * @function
+     * @name refresh
+     * @returns {void}
+     */
     refresh(): void;
+    /**
+     * Converts the current object to its corresponding type T.
+     *
+     * @returns {T} The converted object of type T.
+     */
     toObject(): T;
 };
 

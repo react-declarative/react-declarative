@@ -16,11 +16,15 @@ apiRef: Ref<IListApi<FilterData, RowData>>
 BeforeActionList: ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>
 ```
 
+Represents a React component type for BeforeActionList.
+
 ### AfterActionList
 
 ```ts
 AfterActionList: ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>
 ```
+
+Represents a React component for AfterActionList.
 
 ### BeforeOperationList
 
@@ -34,6 +38,11 @@ BeforeOperationList: ComponentType<IPositionActionListSlot<FilterData, RowData, 
 AfterOperationList: ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>
 ```
 
+Represents the AfterOperationList component.
+
+This component is a React component that renders a list of actions to be displayed after a specific operation.
+It is used to render the list of available actions, typically used for filtering or manipulating data.
+
 ### customTemplate
 
 ```ts
@@ -46,11 +55,15 @@ customTemplate: ComponentType<ITile<RowData, Payload>>
 customTemplateMinHeight: number
 ```
 
+Represents the minimum height for a custom template.
+
 ### fetchDebounce
 
 ```ts
 fetchDebounce: number
 ```
+
+Represents the debounce time in milliseconds for performing fetch requests.
 
 ### className
 
@@ -63,6 +76,8 @@ className: string
 ```ts
 denseHeight: number
 ```
+
+Represents the height of an element, measured in pixels.
 
 ### style
 
@@ -136,11 +151,15 @@ features: string[] | Record<string, Value> | (() => string[] | Record<string, Va
 heightRequest: (height: number) => number
 ```
 
+Represents a function that calculates the desired height based on the provided input height.
+
 ### widthRequest
 
 ```ts
 widthRequest: (width: number) => number
 ```
+
+Represents a function that takes a width value and returns a number.
 
 ### onRows
 
@@ -274,11 +293,15 @@ rowColor: (row: RowData) => string
 isRowDisabled: (row: RowData, params: { filterData: FilterData; pagination: ListHandlerPagination; sortModel: ListHandlerSortModel<RowData>; chips: Partial<...>; search: string; payload: Payload; }) => boolean
 ```
 
+Determines if a row is disabled based on various parameters.
+
 ### labelDisplayedRows
 
 ```ts
 labelDisplayedRows: (paginationInfo: { from: number; to: number; count: number; page: number; }) => string
 ```
+
+Returns a string containing information about the displayed rows label.
 
 ### fallback
 

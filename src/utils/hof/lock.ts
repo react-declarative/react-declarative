@@ -20,6 +20,10 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
     let lockCount = 0;
     let lockSubject = new BehaviorSubject(lockCount);
 
+    /**
+     * Waits for the lock to be unlocked.
+     * @returns - Resolves when the lock is unlocked.
+     */
     const waitForUnlock = () => new Promise<void>((resolve) => {
         const handler = () => {
             if (lockSubject.data === 0) {
@@ -31,6 +35,13 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
         handler();
     });
 
+    /**
+     * Executes a function, after waiting for the unlock signal.
+     *
+     * @function
+     * @param {...P} args - The arguments to pass to the function.
+     * @returns {Promise<ReturnType>} - A promise that resolves to the value returned by the function.
+     */
     const executeFn = queued(async (...args: P) => {
         await waitForUnlock();
         if (first(args) === NEVER_VALUE) {
@@ -39,6 +50,11 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
         return await promise(...args);
     });
 
+    /**
+     * Asynchronous function wrapper.
+     * @param args - Arguments to be passed to the wrapped function.
+     * @returns - A promise that resolves to the result of the wrapped function.
+     */
     const wrappedFn = async (...args: P) => {
         return await executeFn(...args);
     };

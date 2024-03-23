@@ -16,6 +16,12 @@ export const afterinit = <T extends any = any, P extends any[] = any[]>(run: (..
 
     let hasComplete = false;
 
+    /**
+     * A wrapper function that either resolves a Promise or calls the inner function 'run' depending on its state.
+     *
+     * @param args - The arguments to be passed to the inner function 'run'.
+     * @returns - A Promise that resolves to 'undefined' if 'hasComplete' is false, otherwise calls the inner function 'run'.
+     */
     const wrappedFn = (...args: P) => {
         if (!hasComplete) {
             hasComplete = true;

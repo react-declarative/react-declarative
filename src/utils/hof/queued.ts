@@ -21,6 +21,13 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
     let lastPromise: Promise<any> = Promise.resolve();
     let cancelFn: Function | undefined = undefined;
 
+    /**
+     * Executes a promise function with the given arguments, allowing cancellation and clearing.
+     * @template P - The tuple type of the arguments passed to the promise function.
+     * @param promise - The promise function to be executed.
+     * @param args - The arguments to be passed to the promise function.
+     * @returns - A promise that resolves with the result of the promise function or CANCELED_SYMBOL if canceled.
+     */
     const wrappedFn = (...args: P) => {
         let isCanceled = false;
         const cancel: Function = () => { isCanceled = true };
@@ -39,10 +46,30 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
         return lastPromise;
     };
 
+    /**
+     * Clears any existing wrapped function stored in the wrappedFn variable.
+     * This function is used to reset the wrapped function to its initial state.
+     *
+     * @function clear
+     */
     wrappedFn.clear = () => {
         lastPromise = Promise.resolve();
     };
 
+    /**
+     * Cancels the execution of the wrapped function.
+     * Once called, the wrapped function will not be executed.
+     *
+     * @function cancel
+     * @memberof wrappedFn
+     *
+     * @example
+     * // Define a wrapped function
+     * const wrappedFn = wrapFunction(someFunction);
+     *
+     * // Cancel the execution of the wrapped function
+     * wrappedFn.cancel();
+     */
     wrappedFn.cancel = () => {
         wrappedFn.clear();
         cancelFn && cancelFn();

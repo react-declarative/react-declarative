@@ -26,6 +26,11 @@ export interface IColumn<
   headerName?: string;
   fullName?: string;
   description?: string;
+  /**
+   * Represents the width of an element.
+   *
+   * @typedef {(string | ((width: number) => string | number))} Width
+   */
   width: string | ((width: number) => string | number);
   minHeight?: string | number;
   phoneOrder?: number;

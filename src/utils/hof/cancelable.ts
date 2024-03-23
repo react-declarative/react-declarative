@@ -17,6 +17,15 @@ export const cancelable = <T extends any = any, P extends any[] = any[]>(promise
 
     let cancelRef: Function | undefined;
 
+    /**
+     * A function that wraps a given promise with cancellation functionality.
+     *
+     * @template P - The type of the arguments passed to the wrapped function.
+     * @template T - The type of the resolved value of the promise.
+     * @param promise - The promise to be wrapped.
+     * @returns A promise that resolves with the resolved value of the given promise, or with the symbol `CANCELED_SYMBOL` if the wrapped function's
+     * cancellation is triggered.
+     */
     const wrappedFn = (...args: P) => new Promise<T | typeof CANCELED_SYMBOL>((resolve, reject) => {
         let hasCanceled = false;
         cancelRef && cancelRef();

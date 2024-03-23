@@ -12,9 +12,32 @@ export const CHANGE_DEBOUNCE = 1_000;
  * @template T The type of data that the adapter handles.
  */
 export interface IModelAdapter <T extends {} = any>  {
+    /**
+     * Represents a variable of unknown type T.
+     *
+     * @template T
+     */
     data: T;
+    /**
+     * Sets the data for the object.
+     *
+     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
+     * partial object of type T.
+     * @return {void}
+     */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
+    /**
+     * Refreshes the page.
+     *
+     * @returns {void}
+     */
     refresh(): void;
+    /**
+     * Returns an object representation of the instance.
+     *
+     * @template T
+     * @returns {T} The object representation of the instance.
+     */
     toObject(): T;
 };
 

@@ -15,6 +15,13 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
     let timeout: any;
     let lastRun: Function | null = null;
   
+    /**
+     * Wrapper function that delays the execution of a given function
+     *
+     * @param run - The function to be executed
+     * @param delay - The delay in milliseconds
+     * @returns
+     */
     const wrappedFn = (...args: any[]) => {
       clearTimeout(timeout);
       const exec = () => {

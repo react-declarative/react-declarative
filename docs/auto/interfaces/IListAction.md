@@ -28,11 +28,15 @@ label: string
 isVisible: (selectedRows: RowData[], payload: Payload) => boolean | Promise<boolean>
 ```
 
+Determines the visibility of a certain element based on the provided parameters.
+
 ### isDisabled
 
 ```ts
 isDisabled: (selectedRows: RowData[], payload: Payload) => boolean | Promise<boolean>
 ```
+
+Checks if a row or a payload is disabled
 
 ### icon
 

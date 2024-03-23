@@ -138,6 +138,10 @@ export interface TObserver<Data = unknown> {
     };
 }
 
+/**
+ * Represents an observable class that can be used to observe changes in data.
+ * @template Data - The type of data that the observable emits.
+ */
 export type TObservable<Data = unknown> = Omit<TObserver<Data>, keyof {
     unsubscribe: never;
     connect: never;

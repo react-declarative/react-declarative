@@ -13,11 +13,25 @@ export const throttle = <T extends (...args: any[]) => any>(run: T, delay = 1_00
 	let timeoutID: any;
 	let cancelled = false;
 	let lastExec = 0;
+	/**
+	 * Clears the existing timeout.
+	 *
+	 * @function
+	 * @name clearExistingTimeout
+	 * @returns
+	 */
 	const clearExistingTimeout = () => {
 		if (timeoutID) {
 			clearTimeout(timeoutID);
 		}
 	};
+	/**
+	 * A wrapper function that delays the execution of the given function
+	 * until a certain amount of time has passed since the last execution.
+	 *
+	 * @param args - Arguments to be passed to the wrapped function.
+	 * @returns
+	 */
 	const wrappedFn = (...args: any[]) => {
 		let elapsed = Date.now() - lastExec;
 		if (cancelled) {
