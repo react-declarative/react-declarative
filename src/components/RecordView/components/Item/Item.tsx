@@ -144,6 +144,15 @@ export const Item = ({
 }: IItemProps) => {
   const { classes } = useStyles({ background });
 
+  /**
+   * Calculate and memoize the formatted value based on the given parameters.
+   *
+   * @param {string} itemKey - The key of the item.
+   * @param {string | number | boolean} upperValue - The upper value to be formatted.
+   * @param {string} path - The path of the item.
+   * @param {function} formatValue - The function used to format the value.
+   * @returns {*} The formatted value.
+   */
   const value = useMemo(() => {
     const currentValue =
       typeof upperValue === 'string' ||

@@ -100,12 +100,23 @@ export const Content = ({
     setIsChecked(path, checked);
   }, [path, checked]);
 
+  /**
+   * Sets the checked value based on the provided boolean flag,
+   * if not currently in a searching state.
+   *
+   * @param check - The boolean value to set the checked state to.
+   */
   const handleCheck = (check: boolean) => {
     if (!isSearching) {
       setChecked(check);
     }
   };
 
+  /**
+   * Function to render the inner content based on the data provided.
+   *
+   * @returns {React.ReactNode} - The rendered content.
+   */
   const renderInner = useCallback(
     () =>
       Object.entries(data).map(([key, value], index) => {
