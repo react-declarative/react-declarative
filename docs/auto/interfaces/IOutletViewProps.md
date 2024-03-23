@@ -52,6 +52,12 @@ routes: IOutlet<Data, Payload, Params, OtherProps>[]
 initialData: Data | (() => Data)
 ```
 
+### changed
+
+```ts
+changed: boolean | ((data: Data) => boolean)
+```
+
 ### onChange
 
 ```ts
@@ -62,6 +68,12 @@ onChange: (data: Data, initial: boolean, payload: Payload, source: string) => vo
 
 ```ts
 onSubmit: (data: Data, payload: Payload, config: { afterSave: () => Promise<void>; }) => boolean | Promise<boolean>
+```
+
+### onLeave
+
+```ts
+onLeave: () => void
 ```
 
 ### onLoadStart

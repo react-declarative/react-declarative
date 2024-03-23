@@ -75,7 +75,8 @@ export const OutletView = <
   className,
   readonly,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
-  initialData = {} as Data,
+  initialData: upperInitialData = {} as Data,
+  changed: upperChanged = false,
   animation,
   routes,
   params = {} as Params,
@@ -83,6 +84,7 @@ export const OutletView = <
   history,
   fallback,
   onChange,
+  onLeave,
   onSubmit = () => true,
   onLoadStart,
   onLoadEnd,
@@ -94,16 +96,24 @@ export const OutletView = <
 
   const changeSubject = useSubject(upperChangeSubject);
 
+  const payload = useSingleton(upperPayload);
+  const initialData = useSingleton(upperInitialData);
+
   const [data, setData] = useState(() => ({
     ...routes.reduce<Data>(
       (acm, { id }) => ({ ...acm, [id]: null }),
       {} as Data
     ),
-    ...initialData,
+    ...initialData
   }));
 
   const [invalid, setInvalid] = useState(() => new Set<string>());
-  const [changed, setChanged] = useState(false);
+  const [changed, setChanged] = useState(() => {
+    if (typeof upperChanged === 'function') {
+      return upperChanged(data);
+    }
+    return !!upperChanged;
+  });
   const [loading, setLoading] = useState(0);
   const [pathname, setPathname] = useState(history.location.pathname);
 
@@ -130,8 +140,6 @@ export const OutletView = <
   const { component, activeOption } = state;
 
   const [appear, setAppear] = useState(false);
-
-  const payload = useSingleton(upperPayload);
 
   const pickConfirm = useConfirm({
     title: "Continue?",
@@ -266,6 +274,9 @@ export const OutletView = <
         if (result && !isSkipped) {
           await afterSave();
         }
+        if (result) {
+          onLeave && onLeave();
+        }
         isOk = !!result;
       } catch (e) {
         isOk = false;
@@ -327,6 +338,9 @@ export const OutletView = <
      */
     const handleNavigate = async (retry: () => void) => {
       const isOk = await waitForConfirm();
+      if (isOk) {
+        onLeave && onLeave();
+      }
       isOk && unsubscribe();
       isOk && retry();
     };
@@ -346,6 +360,7 @@ export const OutletView = <
           )
         ) {
           unsubscribeRef.current && unsubscribeRef.current();
+          onLeave && onLeave();
           retry();
           return;
         }

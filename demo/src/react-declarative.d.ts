@@ -21788,7 +21788,8 @@ declare module "react-declarative/components/OutletView/OutletView" {
     className,
     readonly,
     waitForChangesDelay,
-    initialData,
+    initialData: upperInitialData,
+    changed: upperChanged,
     animation,
     routes,
     params,
@@ -21796,6 +21797,7 @@ declare module "react-declarative/components/OutletView/OutletView" {
     history,
     fallback,
     onChange,
+    onLeave,
     onSubmit,
     onLoadStart,
     onLoadEnd,
@@ -27715,6 +27717,7 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
     params?: Params;
     routes: IOutlet<Data, Payload, Params, OtherProps>[];
     initialData?: Data | (() => Data);
+    changed?: boolean | ((data: Data) => boolean);
     onChange?: (
       data: Data,
       initial: boolean,
@@ -27728,6 +27731,7 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
         afterSave: () => Promise<void>;
       },
     ) => boolean | Promise<boolean>;
+    onLeave?: () => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (error: Error) => void;
