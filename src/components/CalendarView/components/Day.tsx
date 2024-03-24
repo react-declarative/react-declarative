@@ -93,9 +93,27 @@ export const Day = ({ onChange, day }: IDayProps) => {
 
   const total = items.length;
 
+  /**
+   * Retrieves the current timestamp using a memoized version of the getMomentStamp function.
+   * The getMomentStamp function is only executed once during the initial render, and its result is stored and reused for subsequent renders.
+   *
+   * @function currentStamp
+   *
+   * @returns {number} The current timestamp.
+   */
   const currentStamp = useMemo(() => getMomentStamp(day), []);
 
-  const { execute } = useAsyncAction(
+  /**
+   * Executes a given code block or function.
+   *
+   * @param {Function} code - The code block or function to be executed.
+   * @param {Object} [context] - The optional context in which the code should be executed.
+   * @param {...*} [args] - The optional arguments to be passed to the code block or function.
+   * @returns {*} - The result of executing the code. If the code block or function throws an error,
+   *                the error will be caught and logged, and undefined will be returned.
+   *
+   */
+    const { execute } = useAsyncAction(
     async () => {
       setItems([]);
       if (!request) {

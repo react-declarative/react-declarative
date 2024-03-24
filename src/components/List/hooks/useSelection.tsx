@@ -26,6 +26,13 @@ interface IState {
     setSelection: (s: Set<RowId>) => void;
 }
 
+/**
+ * Compares two sets of row ids to determine if they are similar.
+ *
+ * @param s1 - The first set of row ids.
+ * @param s2 - The second set of row ids.
+ * @returns - True if the sets are similar, false otherwise.
+ */
 const compareSelection = (s1: Set<RowId>, s2: Set<RowId>) => {
     if (s1.size !== s2.size) {
         return false;
@@ -45,10 +52,23 @@ const compareSelection = (s1: Set<RowId>, s2: Set<RowId>) => {
     }
 };
 
+/**
+ * Represents a selection reload reference.
+ * @interface
+ */
 export interface ISelectionReloadRef {
     reload: (initialChange?: boolean) => void;
 }
 
+/**
+ * SelectionProvider component
+ *
+ * @param props - The properties of the component.
+ * @param props.children - The children to be rendered.
+ * @param props.selectedRows - The initial selected rows.
+ *
+ * @returns - The rendered component.
+ */
 export const SelectionProvider = ({
     children,
     selectedRows,
@@ -58,11 +78,26 @@ export const SelectionProvider = ({
 
     const { onSelectedRows } = useProps();
 
+    /**
+     * Handles the change in selection of the rows.
+     *
+     * @param selection - The updated selection of rows.
+     * @param [initialChange=false] - Flag indicating if the change is initial.
+     *
+     * @return
+     */
     const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
         onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
 
+    /**
+     * Represents a variable value containing selection and a function to set the selection.
+     *
+     * @typedef {object} Value
+     * @property {any} selection - The selected value.
+     * @property {function} setSelection - A function to handle selection changes.
+     */
     const value = {
         selection,
         setSelection: handleSelectionChange,

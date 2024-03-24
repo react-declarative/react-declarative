@@ -6,6 +6,9 @@ import IOneProps from '../../../model/IOneProps';
 
 const FeatureContext = createContext<Exclude<IOneProps['features'], undefined>>(null as never);
 
+/**
+ * Represents the properties of the FeatureProvider component.
+ */
 interface IFeatureProviderProps {
     children: React.ReactNode;
     features?: IOneProps['features'];

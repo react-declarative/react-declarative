@@ -41,11 +41,29 @@ const DEFAULT_READY_CALLBACK = () => null;
 const DEFAULT_INVALIDITY_CALLBACK = () => null;
 const DEFAULT_FALLBACK = () => null;
 
+/**
+ * Represents the default value for the `shouldUpdateItemList` property of the `IField` interface.
+ * The value is a function that compares two data objects and determines whether the item list should be updated.
+ *
+ * @param prevData - The previous data object.
+ * @param currentData - The current data object.
+ * @returns - `true` if the item list should be updated, `false` otherwise.
+ */
 const SHOULD_UPDATE_ITEM_LIST_DEFAULT: IField["shouldUpdateItemList"] = (
   prevData,
   currentData
 ) => prevData !== currentData;
 
+/**
+ * Represents a function that determines whether the "shouldUpdateTr" field should be updated.
+ *
+ * The function takes in two parameters, "prevValue" and "currentValue", and returns a boolean value indicating whether
+ * the "shouldUpdateTr" field should be updated based on a comparison between the two values.
+ *
+ * @param prevValue - The previous value of the "shouldUpdateTr" field.
+ * @param currentValue - The current value of the "shouldUpdateTr" field.
+ * @returns - A boolean value indicating whether the "shouldUpdateTr" field should be updated.
+ */
 const SHOULD_UPDATE_TR_DEFAULT: IField["shouldUpdateTr"] = (
   [prevValue],
   [currentValue]

@@ -21,6 +21,12 @@ interface IContainerProps {
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
+/**
+ * Converts a string to a number.
+ *
+ * @param v - The string value to be converted to a number.
+ * @returns - The converted number value.
+ */
 const n = (v: string) => Number(v) as any;
 
 /**

@@ -164,6 +164,12 @@ export const useOutletModal = <
     ]
   );
 
+  /**
+   * Hook for picking data.
+   *
+   * @param {Id} id - The ID of the data to pick.
+   * @returns {void}
+   */
   const pickData = useCallback((id: Id) => {
     outletIdSubject.next(id);
   }, []);

@@ -74,14 +74,35 @@ export const ActionAdd = ({
         onLoadEnd,
     } = listProps;
 
+    /**
+     * Executes the click event handler.
+     *
+     * @param {any} e - The event object passed to the click event handler.
+     * @returns {void}
+     */
     const handleClick = useActualCallback((e: any) => {
         e.stopPropagation();
         onAction && onAction(action, selectedRows, reload);
     });
 
+    /**
+     * Function to handle the load start event.
+     * @function
+     * @name handleLoadStart
+     *
+     * @returns
+     */
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    /**
+     * Handles the load end event.
+     *
+     */
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
+    /**
+     * Loader component used for rendering a button or a fab based on given conditions.
+     * @returns - Button or Fab component.
+     */
     const Loader = () => {
         const isShrink = useShrink();
         if (label && !isShrink) {
@@ -104,6 +125,14 @@ export const ActionAdd = ({
         }
     };
 
+    /**
+     * Renders a button or a floating action button based on the provided props.
+     *
+     * @param props - The props object.
+     * @param props.disabled - Whether the button is disabled.
+     * @param props.onClick - The click event handler for the button.
+     * @returns - The rendered button.
+     */
     const Content = ({
         disabled,
         onClick,

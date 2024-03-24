@@ -1,5 +1,7 @@
 # IChipsProviderProps
 
+Interface representing the props for the ChipsProvider component.
+
 ## Properties
 
 ### children

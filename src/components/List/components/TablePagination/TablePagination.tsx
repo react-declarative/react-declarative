@@ -111,6 +111,11 @@ const TablePaginationContainer = (props: BoxProps) => {
     const { classes } = useStyles();
     const { selection } = useSelection();
     const { loading, selectionLabel = selectionLabelDefault, fallback, rows } = useProps();
+    /**
+     * Retrieves the label for the current selection.
+     *
+     * @returns {string} The label of the current selection.
+     */
     const getSelectionLabel = useActualCallback(() => selectionLabel(selection.size));
     return (
         <Box

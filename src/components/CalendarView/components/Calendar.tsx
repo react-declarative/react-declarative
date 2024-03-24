@@ -166,6 +166,11 @@ export const Calendar = ({
     ));
   }, [currentMonth, renderDays]);
 
+  /**
+   * Changes the current month to the specified new month.
+   *
+   * @param newMonth - The new month to set as the current month.
+   */
   const handleChangeMonth = (newMonth: dayjs.Dayjs) =>
     setCurrentMonth(newMonth);
 

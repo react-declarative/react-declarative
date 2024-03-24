@@ -22,6 +22,24 @@ type Layout = (props: React.PropsWithChildren<IEntity>) => React.ReactElement;
 
 const layoutMap: { [key in FieldType]?: Layout } = Object.create(null);
 
+/**
+ * Variable to map field types to corresponding layout classes.
+ *
+ * @typedef {Object} FieldTypeMap
+ * @property {GroupLayout} FieldType.Group - Group layout class.
+ * @property {BoxLayout} FieldType.Box - Box layout class.
+ * @property {PaperLayout} FieldType.Paper - Paper layout class.
+ * @property {OutlineLayout} FieldType.Outline - Outline layout class.
+ * @property {ExpansionLayout} FieldType.Expansion - Expansion layout class.
+ * @property {DivLayout} FieldType.Div - Div layout class.
+ * @property {TabsLayout} FieldType.Tabs - Tabs layout class.
+ * @property {HeroLayout} FieldType.Hero - Hero layout class.
+ * @property {FragmentLayout} FieldType.Fragment - Fragment layout class.
+ * @property {CenterLayout} FieldType.Center - Center layout class.
+ * @property {StretchLayout} FieldType.Stretch - Stretch layout class.
+ * @property {ConditionLayout} FieldType.Condition - Condition layout class.
+ * @property {CustomLayout} FieldType.Layout - Custom layout class.
+ */
 Object.assign(layoutMap, {
   [FieldType.Group]: GroupLayout,
   [FieldType.Box]: BoxLayout,

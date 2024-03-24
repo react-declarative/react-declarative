@@ -134,6 +134,11 @@ export const useFieldState = (initialData: IInitialData, config: IParams) => {
     };
   });
 
+  /**
+   * A utility hook that provides methods to update state values.
+   *
+   * @returns {Object} An object containing methods to update state values.
+   */
   const action = useMemo(
     () => ({
       setGroupRef: (groupRef: IState["groupRef"]) =>

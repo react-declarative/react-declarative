@@ -150,11 +150,23 @@ export const MasterDetail = <Payload extends any = any>({
             });
     }, [payload, activeOption, ...deps]);
 
+    /**
+     * Handles the change of the active option.
+     *
+     * @param activeOption - The new active option.
+     * @param initial - Whether the change is the initial change or not (optional, default is false).
+     * @returns
+     */
     const handleChange = (activeOption: string, initial = false) => {
         setActiveOption(activeOption);
         onActiveOptionChange && onActiveOptionChange(activeOption, initial);
     };
 
+    /**
+     * Renders the inner content of a component.
+     *
+     * @returns - The rendered inner content.
+     */
     const renderInner = () => {
         if (loading) {
             return <Loader />
@@ -178,6 +190,12 @@ export const MasterDetail = <Payload extends any = any>({
         );
     };
 
+    /**
+     * Determines if the mode is a passthrough mode.
+     *
+     * @param {MasterDetailMode} mode - The mode to check.
+     * @returns {boolean} - True if the mode is passthrough mode, false otherwise.
+     */
     const isPassthrough = useMemo(() => {
         let isOk = false;
         isOk = isOk || mode === MasterDetailMode.Outline;

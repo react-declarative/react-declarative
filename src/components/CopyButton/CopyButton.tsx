@@ -86,6 +86,21 @@ export const CopyButton = ({
 }: ICopyButtonProps) => {
   const [open, setOpen] = useState(false);
 
+  /**
+   * A memoized function that debounces the execution of a given callback function
+   * using the provided delay. The debounce function is used to delay the execution
+   * of the callback function until after a certain period of time has passed since
+   * the last time the debounce function was called.
+   *
+   * The emitClose variable is defined as a result of calling the useMemo hook,
+   * which is a hook used for memoizing the result of a function call. The function
+   * being memoized returns a debounced callback function that sets the "open" state
+   * to false.
+   *
+   * @type {Function}
+   * @param {number} delay - The number of milliseconds to wait before executing the callback
+   * @returns {void}
+   */
   const emitClose = useMemo(
     () =>
       debounce(() => {

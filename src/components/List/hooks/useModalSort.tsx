@@ -16,6 +16,9 @@ export const useModalSort = () => useContext(ModalSortContext);
 
 const ModalSortContext = createContext<() => void>(null as never);
 
+/**
+ * Represents the properties for the ModalSortProvider component.
+ */
 interface IModalSortProviderProps {
     children: React.ReactNode;
 }
@@ -55,6 +58,12 @@ const InternalProvider = ({
         />
     ), []);
 
+    /**
+     * Function that handles the modal by calling the showModal function.
+     *
+     * @function handleModal
+     * @returns
+     */
     const handleModal = () => showModal();
 
     return (

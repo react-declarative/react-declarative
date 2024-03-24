@@ -131,6 +131,14 @@ export const ActionFab = ({
         }
     };
 
+    /**
+     * Renders a button or a floating action button with an icon.
+     *
+     * @param props - The props object.
+     * @param props.disabled - Specifies if the button is disabled.
+     * @param props.onClick - The function to be called when the button is clicked.
+     * @returns - The rendered button component.
+     */
     const Content = ({
         disabled,
         onClick,

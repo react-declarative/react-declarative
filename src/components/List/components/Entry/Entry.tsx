@@ -148,6 +148,16 @@ export class Entry<
     slots: {},
   };
 
+  /**
+   * Initializes a new instance of the constructor.
+   *
+   * @param props - The props to be passed to the constructor.
+   * @param props.filterData - The filter data.
+   * @param props.rowData - The row data.
+   * @param props.payload - The payload.
+   * @param props.field - The field.
+   * @returns
+   */
   constructor(props: IListProps<FilterData, RowData, Payload, Field>) {
     super(props);
 
@@ -195,9 +205,21 @@ export class Entry<
     this.handleFetchQueue = this.createHandleFetchQueue(props.fetchDebounce);
   }
 
+  /**
+   * Sets the loading state of the component.
+   *
+   * @param loading - A boolean value indicating the loading state.
+   */
   private setLoading = (loading: boolean) =>
     this.isMountedFlag &&
     this.setState((prevState) => ({ ...prevState, loading }));
+  
+  /**
+   * Sets the value of `filtersCollapsed` state property.
+   *
+   * @param filtersCollapsed - The new value for `filtersCollapsed` state property.
+   * @returns
+   */
   private setFiltersCollapsed = (filtersCollapsed: boolean) =>
     this.isMountedFlag &&
     this.setState((prevState) => ({ ...prevState, filtersCollapsed }));

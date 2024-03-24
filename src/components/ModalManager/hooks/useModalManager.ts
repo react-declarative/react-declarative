@@ -33,6 +33,15 @@ interface IResult {
  */
 export const useModalManager = (): IResult => {
     const context = useContext(ModalManagerContext);
+    /**
+     * Represents the result object.
+     * @typedef {Object} Result
+     * @property {number} total - The total number of items in the modal stack.
+     * @property {function} push - The function that adds an item to the modal stack.
+     * @property {function} pop - The function that removes an item from the modal stack.
+     * @property {function} clear - The function that clears all items in the modal stack.
+     *
+     */
     return {
         total: context.modalStack.length,
         push: context.push,

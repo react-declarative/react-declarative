@@ -30,7 +30,17 @@ export const DateTextField = ({
   value = '',
   ...other
 }: IDateTextFieldProps) => {
+  /**
+   * Retrieves the formatted display date based on the provided value and format.
+   *
+   * @returns The formatted display date.
+   */
   const getDisplayDate = () => dayjs(value).format(format);
+  /**
+   * Handles change event for input fields.
+   *
+   * @param e - The change event object.
+   */
   const handleChange = (e: any) => {
     const {target} = e;
     const {value} = target;

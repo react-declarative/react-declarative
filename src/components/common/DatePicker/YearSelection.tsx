@@ -83,6 +83,12 @@ export const YearSelection = ({
     }
   }, [animateYearScrolling]);
 
+  /**
+   * Callback function triggered when a year is selected.
+   *
+   * @param {number} year - The selected year.
+   * @returns {void}
+   */
   const onYearSelect = useCallback((year: number) => {
     const newDate = date.clone().set('year', year);
     onChange(newDate);

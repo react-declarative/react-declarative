@@ -144,6 +144,16 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   };
 
   const [firstCol, actionCol, cols] = useMemo(() => {
+    /**
+     * Creates a render column function based on the given parameters.
+     *
+     * @param colSpan - The column span.
+     * @param prefix - The column prefix.
+     * @param withLabel - Indicates whether to render a label.
+     * @param disableGutters - Indicates whether to disable gutters.
+     *
+     * @returns The render column function.
+     */
     const createRenderColumn =
       (
         colSpan: number,
@@ -172,15 +182,27 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
     const commonCols = columns.filter(({ type }) => type !== ColumnType.Action);
 
+    /**
+     * Represents the action column.
+     *
+     */
     const [actionCol = null] = columns
       .filter(({ type }) => type === ColumnType.Action)
       .map(createRenderColumn(1, "action", false, true));
 
+    /**
+     * A variable representing the first column.
+     *
+     */
     const firstCol = commonCols
       .slice(0, 1)
       .map(createRenderColumn(1, "first", true, true))
       .pop();
 
+    /**
+     * Retrieves the primary column from the commonCols array.
+     *
+     */
     const primaryCol = commonCols
       .filter(({ primary }) => primary)
       .map(createRenderColumn(1, "primary", true, true))

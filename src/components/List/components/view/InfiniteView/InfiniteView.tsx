@@ -136,10 +136,24 @@ export const InfiniteView = <
 
   const reload = useReload();
 
+  /**
+   * @function gridColumns
+   * @description Returns a memoized value for the grid columns array
+   * @returns {Array} The grid columns array
+   */
   const gridColumns = useMemo(() => {
     return list2grid(listColumns, payload);
   }, []);
 
+  /**
+   * @description selectedRows represents an array of selected rows.
+   *
+   * @type {Array<string>}
+   *
+   * @param {Array<any>} selection - The array of selected items.
+   *
+   * @returns {Array<string>} - The selected rows as an array of strings.
+   */
   const selectedRows = useMemo(() => {
     return [...selection] as string[]
   }, [selection]);
@@ -225,6 +239,14 @@ export const InfiniteView = <
 
   const waitForRequest = useRenderWaiter([loading]);
 
+  /**
+   * Handles the request for data.
+   *
+   * @param {Object} request - The request object containing the necessary data parameters.
+   * @returns {Promise} - A promise that resolves with the requested data.
+   *
+   * @throws {Error} - If the request is invalid or fails.
+   */
   const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;
     isOk = isOk && hasMore;

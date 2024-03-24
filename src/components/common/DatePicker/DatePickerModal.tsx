@@ -39,8 +39,28 @@ export const DatePickerModal = ({
   now = dayjs(),
 }: IDatePickerModalProps) => {
   const [date, setDate] = useState(dayjs(now));
+  /**
+   * Function to handle change in date.
+   * Sets the given date as the new value of the 'date' variable.
+   *
+   * @param date - The new date value.
+   * @returns
+   */
   const handleChange = (date: any) => setDate(date);
+  /**
+   * handleAccept function
+   *
+   * This function is an event handler that is executed when the date selection is accepted.
+   * It calls the onChange function and passes the selected date as an argument.
+   *
+   * @function handleAccept
+   * @returns
+   */
   const handleAccept = () => onChange(date);
+  /**
+   * Handles the dismiss action.
+   * Calls the onChange function with null as the argument.
+   */
   const handleDismiss = () => onChange(null);
   return (
     <ModalDialog

@@ -72,6 +72,25 @@ export const useFieldMemory = ({
     value$,
     groupRef$,
 }: IMemoryData) => {
+    /**
+     * Variable representing the memory object.
+     *
+     * @typedef {Object} IMemory
+     * @property {boolean} inputUpdate - Represents whether input has been updated.
+     * @property {boolean} objectUpdate - Represents whether object has been updated.
+     * @property {boolean} initComplete - Represents whether initialization has been completed.
+     * @property {string} fieldName - Represents the field name.
+     * @property {*} lastDebouncedValue - Represents the last debounced value.
+     * @property {boolean} isMounted - Represents whether the component is mounted.
+     * @property {*} debouncedValue$ - Represents the debounced value.
+     * @property {*} fieldReadonly$ - Represents the field readonly value.
+     * @property {*} focusReadonly$ - Represents the focus readonly value.
+     * @property {*} invalid$ - Represents the invalid value.
+     * @property {*} object$ - Represents the object value.
+     * @property {*} upperReadonly$ - Represents the upper readonly value.
+     * @property {*} value$ - Represents the value.
+     * @property {*} groupRef$ - Represents the group reference value.
+     */
     const memory = useMemo((): IMemory => ({
         inputUpdate: false,
         objectUpdate: false,

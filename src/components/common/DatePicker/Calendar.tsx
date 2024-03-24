@@ -149,7 +149,20 @@ export const Calendar = ({
         </Fragment>
       ));
   }, [currentMonth]);
+  /**
+   * Represents a function that is triggered when a date is selected.
+   *
+   * @callback OnDateSelect
+   * @param day - The selected date.
+   * @returns
+   */
   const onDateSelect = (day: any) => onChange(day);
+  /**
+   * Updates the current month based on the provided input.
+   *
+   * @param newMonth - The new month value.
+   * @returns
+   */
   const handleChangeMonth = (newMonth: any) => setCurrentMonth(newMonth);
   return (
     <div className={classes.container}>

@@ -28,6 +28,11 @@ const useStyles = makeStyles()({
     },
 });
 
+/**
+ * Represents the layout of a component.
+ *
+ * @template Data - The type of data associated with the layout.
+ */
 export interface ILayout<Data extends IAnything = IAnything> extends IEntity<Data> {
     children: React.ReactNode;
 }
@@ -36,6 +41,13 @@ const DEFAULT_IS_VISIBLE = () => true;
 const DEFAULT_IS_READONLY = () => false;
 const DEFAULT_IS_DISABLED = () => false;
 
+/**
+ * Renders a component based on input data and conditions.
+ *
+ * @template T - The type of layout component
+ * @param originalComponent - The original component to be wrapped
+ * @returns - The wrapped component
+ */
 export function makeLayout<T extends ILayout<any>>(
     originalComponent: React.FC<T>,
 ) {

@@ -99,6 +99,12 @@ export const OperationListSlot = ({
 
   const conditionPayload = isAll ? "all" : selectedRows;
 
+  /**
+   * Invokes the `useActualCallback` function with the `onOperation` callback function
+   * to handle a specific operation.
+   *
+   * @param {function} onOperation - The callback function to execute for the operation.
+   */
   const handleOperation = useActualCallback(onOperation);
 
   /**
@@ -127,6 +133,10 @@ export const OperationListSlot = ({
 
   const nothingFound = !selectedRows.length && !isAll;
 
+  /**
+   * Represents a loader component.
+   * @constructor
+   */
   const Loader = () => (
     <>
       {operations.map(({ label, icon: Icon }, idx) => (
@@ -148,10 +158,31 @@ export const OperationListSlot = ({
     </>
   );
 
+  /**
+   * Executes the `onLoadStart` callback function if provided.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+  /**
+   * Handles the onLoadEnd event.
+   *
+   * @param isOk - Indicates whether the load operation is successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) =>
     onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
+  /**
+   * Executable operation component that represents a clickable button.
+   *
+   * @param props - The properties for the Operation component.
+   * @param props.available - Indicates if the operation is available for interaction.
+   * @param props.onClick - The function to be executed when the button is clicked.
+   * @param props.label - The label to be displayed on the button.
+   * @param [props.icon] - The optional icon component to be displayed on the button.
+   */
   const Operation = ({
     available,
     onClick,

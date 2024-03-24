@@ -35,6 +35,17 @@ export const useManagedCompute = ({
   const prevObject = useRef<any>(null);
   const initial = useRef(true);
 
+  /**
+   * A memoized value that holds the result of a computation.
+   *
+   * The `managedCompute` variable is assigned the value returned by the `useMemo` hook,
+   * which caches the result of the computation function and returns it on subsequent renders.
+   *
+   * If the `compute` function is truthy, the computation is performed using the `singleshot` function,
+   * and the result is stored in the `managedCompute` variable.
+   * If the `compute` function is falsy, the `managedCompute` variable is assigned `undefined`.
+   *
+   */
   const managedCompute = useMemo(() => {
     if (compute) {
       return singleshot(compute);
@@ -42,6 +53,18 @@ export const useManagedCompute = ({
     return undefined;
   }, []);
 
+  /**
+   * Recomputes the compute function when the provided dependencies change.
+   *
+   * @callback tickRecompute
+   * @param {function} compute - The compute function to be recomputed.
+   * @param {boolean} initial - Indicates if it is the initial computation or not.
+   * @param {object} prevObject - The previous object state.
+   * @param {object} object - The current object state.
+   * @param {object} payload - The payload object to be used in the recomputation.
+   * @param {object} managedCompute - The managed compute object.
+   * @returns {void}
+   */
   const tickRecompute = useCallback(() => {
     if (!compute) {
       return;

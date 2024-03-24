@@ -65,7 +65,24 @@ export const CalendarHeader = ({
   onMonthChange = (month: any) => console.log({month}),
 }) => {
   const { classes } = useStyles();
+  /**
+   * Function to select the next month.
+   * Updates the current month by adding 1 month.
+   *
+   * @function selectNextMonth
+   * @returns
+   */
   const selectNextMonth = () => onMonthChange(currentMonth.clone().add(1, 'months'));
+  /**
+   * Selects the previous month.
+   *
+   * This function is used to navigate to the previous month by subtracting
+   * 1 month from the current month and triggering a month change event.
+   *
+   * @param onMonthChange - A function to handle the month change event.
+   * @param currentMonth - The current month.
+   * @returns
+   */
   const selectPreviousMonth = () => onMonthChange(currentMonth.clone().subtract(1, 'months'));
   return (
     <div>

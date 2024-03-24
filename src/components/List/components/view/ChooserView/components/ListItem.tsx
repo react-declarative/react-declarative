@@ -232,11 +232,29 @@ export const ListItem = <RowData extends IRowData = IAnything>({
     setMenuOpened(opened);
   };
 
+  /**
+   * Handles the action triggered by the user.
+   *
+   * @param action - The action to be handled.
+   * @returns
+   */
   const handleAction = (action: string) => {
     onRowAction && onRowAction(action, row, reload);
   };
 
+  /**
+   * This function is used to handle the load start event.
+   *
+   * @function handleLoadStart
+   * @returns
+   */
   const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+  /**
+   * Handles the load end event.
+   *
+   * @param isOk - A flag indicating whether the load was successful or not.
+   * @returns
+   */
   const handleLoadEnd = (isOk: boolean) =>
     onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 

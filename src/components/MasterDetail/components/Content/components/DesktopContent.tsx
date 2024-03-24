@@ -40,6 +40,15 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * A component that represents the content of a desktop application.
+ *
+ * @param props - The props for the DesktopContent component.
+ * @param props.children - The child components to be rendered inside the content area.
+ * @param props.items - An array of objects representing the menu items to be displayed on the side menu.
+ * @param props.onChange - A callback function to be called when a menu item is clicked.
+ * @returns The rendered content component.
+ */
 export const DesktopContent = ({
     children,
     items,

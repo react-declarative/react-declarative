@@ -162,6 +162,11 @@ export const CalendarView = <
   );
 };
 
+/**
+ * Initializes the dayjs for CalendarView component.
+ *
+ * @memberof CalendarView
+ */
 CalendarView.init = () => {
   dayjs.extend(localeData);
   dayjs.extend(utc);

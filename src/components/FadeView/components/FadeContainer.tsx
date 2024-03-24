@@ -109,8 +109,18 @@ export const FadeContainer = ({
     none: true,
   });
 
+  /**
+   * A reference to the last bottom state.
+   *
+   * @type {React.MutableRefObject<IFadeState>}
+   */
   const lastBottomStateRef = useRef<IFadeState>(bottomState);
 
+  /**
+   * A reference to the last right state.
+   *
+   * @type {React.RefObject<IFadeState>}
+   */
   const lastRightStateRef = useRef<IFadeState>(bottomState);
 
   useEffect(() => {
@@ -187,6 +197,11 @@ export const FadeContainer = ({
     return () => null;
   }, [selector, elementRef]);
 
+  /**
+   * Sets the provided HTMLDivElement as the element reference.
+   *
+   * @param elementRef - The HTMLDivElement to be set as element reference.
+   */
   const handleElementRef = (elementRef: HTMLDivElement) =>
     setElementRef(elementRef);
 

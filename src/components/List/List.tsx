@@ -57,6 +57,16 @@ export const List = <
   return <Entry {...props} />;
 };
 
+/**
+ * Represents a typed list component.
+ *
+ * @template FilterData - The type of filter data.
+ * @template RowData - The type of row data.
+ *
+ * @param props - The list component props.
+ *
+ * @return - The rendered list component.
+ */
 export const ListTyped = <
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -64,6 +74,11 @@ export const ListTyped = <
     props: IListProps<FilterData, RowData, TypedField<FilterData>>,
 ) => {
 
+  /**
+   * For the given props, this variable filters the columns array to exclude any columns of type 'Action'
+   * if there are no rowActions or onRowAction provided. Otherwise, it returns the original columns array.
+   *
+   */
   const columns = useMemo(() => {
     const { columns = [], rowActions, onRowAction } = props;
     if (!rowActions?.length || !onRowAction) {

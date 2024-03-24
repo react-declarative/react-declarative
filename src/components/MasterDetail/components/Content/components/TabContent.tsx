@@ -80,6 +80,19 @@ const useStyles = makeStyles<{
   },
 }));
 
+/**
+ * Represents a TabContent component.
+ * @function TabContent
+ * @param props - The component props.
+ * @param props.children - The content to be rendered inside the TabContent component.
+ * @param props.items - An array of objects representing the tabs items. Each object should have an `id`, `label`, `disabled`, and optionally an `icon` property.
+ * @param props.onChange - The callback function to be called when the active tab changes.
+ * @param props.loading - Indicates if the component is in a loading state.
+ * @param props.withFixedPos - Indicates if the component should have a fixed position.
+ * @param props.withTransparentTabs - Indicates if the component should have transparent tabs.
+ * @param props.fixedPosHeaderAdjust - The adjustment value for the header when the component has a fixed position.
+ * @returns The rendered TabContent component.
+ */
 export const TabContent = ({
   children,
   items,
@@ -124,6 +137,11 @@ export const TabContent = ({
     return items.find(({ active }) => active)?.id || "unknown";
   }, [items]);
 
+  /**
+   * Renders a set of tabs with customizable properties.
+   *
+   * @returns The rendered tabs component.
+   */
   const renderTabs = () => (
     <Tabs
       variant="scrollable"
@@ -154,6 +172,11 @@ export const TabContent = ({
     </Tabs>
   );
 
+  /**
+   * Renders the inner content of the component.
+   *
+   * @returns The inner content JSX element.
+   */
   const renderInner = () => {
     if (withTransparentTabs) {
       return (

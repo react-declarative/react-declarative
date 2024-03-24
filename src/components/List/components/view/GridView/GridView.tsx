@@ -132,13 +132,40 @@ export const GridView = <
 
   const { handleLimitChange, handlePageChange } = props;
 
+  /**
+   * Function that handles window resize event.
+   * Clears the constraint manager.
+   *
+   * @function handleResize
+   * @returns
+   */
   const handleResize = () => constraintManager.clear();
 
+  /**
+   * Handles the change event for the dirty limit input field.
+   *
+   * @param e - The event object.
+   * @returns
+   */
   const handleDirtyLimitChange = (e: any) => handleLimitChange(e.target.value);
 
+  /**
+   * Handles a change in the dirty page state.
+   *
+   * @param _ - Placeholder parameter, not used in the implementation.
+   * @param newPage - The new page number.
+   * @returns
+   */
   const handleDirtyPageChange = (_: any, newPage: number) =>
     handlePageChange(newPage);
 
+  /**
+   * Renders a placeholder cell with loading indicator and text.
+   *
+   * @param width - The width of the placeholder cell.
+   *
+   * @returns - The rendered placeholder cell.
+   */
   const renderPlaceholder = (width: number) => (
     <TableCell
       className={classes.noBorder}

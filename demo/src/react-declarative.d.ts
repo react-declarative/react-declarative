@@ -15744,43 +15744,43 @@ declare module "react-declarative/components/List/List" {
   import IListProps from "react-declarative/model/IListProps";
   import TypedField from "react-declarative/model/TypedField";
   /**
-      * Represents a List component which renders a collection of entries.
-      *
-      * @template FilterData - The type of the filter data.
-      * @template RowData - The type of the row data.
-      * @template Payload - The type of the payload.
-      * @template Field - The type of the field.
-      *
-      * @param handler - Function to handle the list data. Default value is an empty array.
-      * @param payload - The payload for the list data. Default value is an empty object.
-      * @param fallback - Function to handle errors. Default value is a console.error call.
-      * @param limit - The limit of items per page. Default value is DEFAULT_LIMIT.
-      * @param page - The current page number. Default value is DEFAULT_PAGE.
-      * @param isChooser - Flag to indicate if the list is for choosing items. Default value is false.
-      * @param filters - The array of filters for the list. Default value is an empty array.
-      * @param columns - The array of columns for the list. Default value is an empty array.
-      * @param actions - The array of actions for the list. Default value is an empty array.
-      * @param onRows - Callback function for when list rows change. Default value is a null function.
-      * @param onSortModelChange - Callback function for when sort model changes. Default value is a null function.
-      * @param onFilterChange - Callback function for when filter changes. Default value is a null function.
-      * @param onChipsChange - Callback function for when chip changes. Default value is a null function.
-      * @param onSearchChange - Callback function for when search query changes. Default value is a null function.
-      * @param onPageChange - Callback function for when page changes. Default value is a null function.
-      * @param onLimitChange - Callback function for when limit changes. Default value is a null function.
-      * @param labelDisplayedRows - Function to display the label for displayed rows.
-      * @param selectionLabel - Function to display the label for selected items.
-      * @param filterData - The additional data for filters. Default value is an empty object.
-      * @param withToggledFilters - Flag to indicate if filters are toggled. Default value is false.
-      * @param withCustomFilters - Flag to indicate if custom filters are used. Default value is false.
-      * @param fetchDebounce - The debounce time for fetching the list data. Default value is LIST_FETCH_DEBOUNCE.
-      * @param sortModel - The array of sort model for the list. Default value is an empty array.
-      * @param chips - The array of chips for the list. Default value is an empty array.
-      * @param chipData - The additional data for chips. Default value is an empty object.
-      * @param search - The search query for the list. Default value is an empty string.
-      * @param slots - The slots for the list. Default value is an empty object.
+        * Represents a List component which renders a collection of entries.
+        *
+        * @template FilterData - The type of the filter data.
+        * @template RowData - The type of the row data.
+        * @template Payload - The type of the payload.
+        * @template Field - The type of the field.
+        *
+        * @param handler - Function to handle the list data. Default value is an empty array.
+        * @param payload - The payload for the list data. Default value is an empty object.
+        * @param fallback - Function to handle errors. Default value is a console.error call.
+        * @param limit - The limit of items per page. Default value is DEFAULT_LIMIT.
+        * @param page - The current page number. Default value is DEFAULT_PAGE.
+        * @param isChooser - Flag to indicate if the list is for choosing items. Default value is false.
+        * @param filters - The array of filters for the list. Default value is an empty array.
+        * @param columns - The array of columns for the list. Default value is an empty array.
+        * @param actions - The array of actions for the list. Default value is an empty array.
+        * @param onRows - Callback function for when list rows change. Default value is a null function.
+        * @param onSortModelChange - Callback function for when sort model changes. Default value is a null function.
+        * @param onFilterChange - Callback function for when filter changes. Default value is a null function.
+        * @param onChipsChange - Callback function for when chip changes. Default value is a null function.
+        * @param onSearchChange - Callback function for when search query changes. Default value is a null function.
+        * @param onPageChange - Callback function for when page changes. Default value is a null function.
+        * @param onLimitChange - Callback function for when limit changes. Default value is a null function.
+        * @param labelDisplayedRows - Function to display the label for displayed rows.
+        * @param selectionLabel - Function to display the label for selected items.
+        * @param filterData - The additional data for filters. Default value is an empty object.
+        * @param withToggledFilters - Flag to indicate if filters are toggled. Default value is false.
+        * @param withCustomFilters - Flag to indicate if custom filters are used. Default value is false.
+        * @param fetchDebounce - The debounce time for fetching the list data. Default value is LIST_FETCH_DEBOUNCE.
+        * @param sortModel - The array of sort model for the list. Default value is an empty array.
+        * @param chips - The array of chips for the list. Default value is an empty array.
+        * @param chipData - The additional data for chips. Default value is an empty object.
+        * @param search - The search query for the list. Default value is an empty string.
+        * @param slots - The slots for the list. Default value is an empty object.
     
-      * @returns - The List component.
-      */
+        * @returns - The List component.
+        */
   export const List: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -15789,6 +15789,16 @@ declare module "react-declarative/components/List/List" {
   >(
     props: IListProps<FilterData, RowData, Payload, Field>,
   ) => JSX.Element;
+  /**
+   * Represents a typed list component.
+   *
+   * @template FilterData - The type of filter data.
+   * @template RowData - The type of row data.
+   *
+   * @param props - The list component props.
+   *
+   * @return - The rendered list component.
+   */
   export const ListTyped: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -15902,9 +15912,19 @@ declare module "react-declarative/components/List/hooks/useCachedRows" {
   export const useCachedRows: <
     RowData extends IRowData = any,
   >() => IState<RowData>;
+  /**
+   * Represents the props for the `ICachedRowsProvider` component.
+   *
+   * @interface ICachedRowsProviderProps
+   */
   interface ICachedRowsProviderProps {
     children: React.ReactNode;
   }
+  /**
+   * Represents the state of a particular entity.
+   * @interface
+   * @template RowData - The type of RowData.
+   */
   interface IState<RowData extends IRowData = IAnything> {
     cachedRows: Map<RowId, RowData>;
     selectedRows: RowData[];
@@ -16534,11 +16554,18 @@ declare module "react-declarative/components/List/hooks/useChips" {
     ListHandlerChips,
   } from "react-declarative/model/IListProps";
   export const useChips: () => IState;
+  /**
+   * Interface representing the props for the ChipsProvider component.
+   */
   interface IChipsProviderProps {
     children: React.ReactNode;
     chips: IListChip[];
     chipData: ListHandlerChips;
   }
+  /**
+   * Represents the state of a system.
+   * @interface IState
+   */
   interface IState {
     chips: Map<string, boolean>;
     setChips: (s: Map<string, boolean>) => void;
@@ -16571,6 +16598,11 @@ declare module "react-declarative/components/List/hooks/useSearch" {
     value: IContext;
     children: React.ReactNode;
   }
+  /**
+   * Represents a component that provides search functionality.
+   * @param props - The props object containing the component's properties.
+   * @param props.value - The search value to be provided to child components.
+   */
   export const SearchProvider: (props: IProps) => JSX.Element;
   export const useSearch: () => string;
   export default useSearch;
@@ -16636,9 +16668,22 @@ declare module "react-declarative/components/List/hooks/useSelection" {
     selection: Set<RowId>;
     setSelection: (s: Set<RowId>) => void;
   }
+  /**
+   * Represents a selection reload reference.
+   * @interface
+   */
   export interface ISelectionReloadRef {
     reload: (initialChange?: boolean) => void;
   }
+  /**
+   * SelectionProvider component
+   *
+   * @param props - The properties of the component.
+   * @param props.children - The children to be rendered.
+   * @param props.selectedRows - The initial selected rows.
+   *
+   * @returns - The rendered component.
+   */
   export const SelectionProvider: ({
     children,
     selectedRows,
@@ -17462,6 +17507,10 @@ declare module "react-declarative/components/ModalManager/model/IModal" {
 }
 
 declare module "react-declarative/components/ModalManager/model/ModalRender" {
+  /**
+   * Represents a function that renders a modal and returns React node.
+   * @typedef {() => React.ReactNode} ModalRender
+   */
   export type ModalRender = () => React.ReactNode;
   export default ModalRender;
 }
@@ -17605,6 +17654,11 @@ declare module "react-declarative/components/CalendarView/CalendarView" {
     <Data extends unknown = any, Payload extends unknown = any>(
       props: ICalendarViewProps<Data, Payload>,
     ): JSX.Element;
+    /**
+     * Initializes the dayjs for CalendarView component.
+     *
+     * @memberof CalendarView
+     */
     init(): void;
   };
   export default CalendarView;
@@ -19570,6 +19624,9 @@ declare module "react-declarative/components/One/context/PayloadProvider" {
 declare module "react-declarative/components/One/context/FeatureProvider" {
   import * as React from "react";
   import IOneProps from "react-declarative/model/IOneProps";
+  /**
+   * Represents the properties of the FeatureProvider component.
+   */
   interface IFeatureProviderProps {
     children: React.ReactNode;
     features?: IOneProps["features"];
@@ -20061,6 +20118,11 @@ declare module "react-declarative/components/NoSsr/NoSsr" {
   export class NoSsr extends React.Component<INoSsrProps, State> {
     constructor(props: INoSsrProps);
     componentDidMount: () => void;
+    /**
+     * Renders the content based on the current state.
+     *
+     * @returns The rendered content.
+     */
     render: () => JSX.Element;
   }
   export default NoSsr;
@@ -21625,6 +21687,18 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     readonly pickData: (param?: Param) => void;
     readonly close: () => Promise<boolean>;
   };
+  /**
+   * Hook for using a search modal with strong typed parameters.
+   *
+   * @template FilterData - The type of the filter data.
+   * @template RowData - The type of the row data.
+   * @template Payload - The type of the payload.
+   * @template Field - The type of the field.
+   *
+   * @param params - The parameters for the search modal.
+   *
+   * @returns
+   */
   export const useSearchModalTyped: <
     FilterData extends {} = any,
     RowData extends IRowData = any,
@@ -23750,6 +23824,18 @@ declare module "react-declarative/components/OfflineView/OfflineView" {
     interval?: number;
     timeout?: number;
   }
+  /**
+   * Represents a component that renders its child components conditionally based on the online status of the browser.
+   *
+   * @param OfflineViewProps - The configuration options for the OfflineView component.
+   * @param children - The child components to be rendered when the browser is online.
+   * @param onOnline - Callback function to be called when the browser transitions to the online state. (optional)
+   * @param onOffline - Callback function to be called when the browser transitions to the offline state. (optional)
+   * @param config - Configuration options for the OfflineView component. (optional, default: DEFAULT_CONFIG)
+   * @param withPolling - Whether to enable polling for checking online status. (optional, default: false)
+   * @param Offline - The component to be rendered when the browser is offline. (optional)
+   * @returns The rendered child components or null if the initialization is not yet complete.
+   */
   export const OfflineView: ({
     children,
     onOnline,
@@ -27521,10 +27607,22 @@ declare module "react-declarative/components/One/components/makeLayout/makeLayou
   import * as React from "react";
   import IAnything from "react-declarative/model/IAnything";
   import IEntity from "react-declarative/model/IEntity";
+  /**
+   * Represents the layout of a component.
+   *
+   * @template Data - The type of data associated with the layout.
+   */
   export interface ILayout<Data extends IAnything = IAnything>
     extends IEntity<Data> {
     children: React.ReactNode;
   }
+  /**
+   * Renders a component based on input data and conditions.
+   *
+   * @template T - The type of layout component
+   * @param originalComponent - The original component to be wrapped
+   * @returns - The wrapped component
+   */
   export function makeLayout<T extends ILayout<any>>(
     originalComponent: React.FC<T>,
   ): React.FC<T>;

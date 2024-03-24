@@ -47,6 +47,11 @@ export const SortModelProvider = ({
         handleSortModel,
     } = useProps();
 
+    /**
+     * Handles changes in the sort model.
+     *
+     * @param sortModel - The new sort model.
+     */
     const handleSortModelChange = (sortModel: IState['sortModel']) => {
         const { current: upperSortModel } = sortModel$;
         if (withSingleSort) {
@@ -68,6 +73,12 @@ export const SortModelProvider = ({
         setSortModel(new Map(sortModel));
     };
 
+    /**
+     * Represents the value object.
+     * @typedef {Object} VariableValue
+     * @property {Array} sortModel - An array containing the sorting model.
+     * @property {Function} setSortModel - A function to handle changes to the sorting model.
+     */
     const value = {
         sortModel,
         setSortModel: handleSortModelChange,

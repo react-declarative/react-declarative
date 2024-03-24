@@ -19,6 +19,12 @@ export const MinutesView = ({
   date = dayjs(),
 }) => {
   const value = date.get('minutes');
+  /**
+   * Handles the change in minutes and updates the date accordingly.
+   *
+   * @param minutes - The new value for the minutes.
+   * @returns
+   */
   const handleChange = (minutes: any) => {
     const updatedDate = date.clone().minute(minutes);
     onChange(updatedDate);

@@ -45,6 +45,14 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
+/**
+ * Represents a mobile content component.
+ *
+ * @param items - The array of items for the tabs.
+ * @param children - The children nodes to be rendered inside the content box.
+ * @param onChange - The callback function to be called when the active tab is changed.
+ * @returns The rendered mobile content component.
+ */
 export const MobileContent = ({
     items,
     children,

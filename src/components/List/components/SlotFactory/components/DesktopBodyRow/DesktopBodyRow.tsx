@@ -120,7 +120,27 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
     onRowAction && onRowAction(action, row, reload);
   };
 
+  /**
+   * Returns the content of a useMemo hook.
+   *
+   * @param {Array} columns - An array of BodyColumn objects representing the columns.
+   * @param  fullWidth - A boolean indicating if the content should be displayed in full width.
+   * @param  row - An object representing the row data.
+   * @param  disabled - A boolean indicating if the content should be disabled.
+   * @param  mode - A string representing the mode of the content.
+   * @param  handleAction - A function to be called when an action is triggered.
+   * @param  handleMenuToggle - A function to be called when the menu is toggled.
+   * @returns  The content of the useMemo hook.
+   */
   const content = useMemo(() => {
+    /**
+     * Renders a single column in the body of a table.
+     *
+     * @param column - The column to render.
+     * @param idx - The index of the column.
+     *
+     * @returns - The rendered column.
+     */
     const renderColumn = (column: BodyColumn, idx: number) => (
       <>
         {idx > 0 && <TableCell className={classes.separator} />}

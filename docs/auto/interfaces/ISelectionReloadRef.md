@@ -1,5 +1,7 @@
 # ISelectionReloadRef
 
+Represents a selection reload reference.
+
 ## Properties
 
 ### reload

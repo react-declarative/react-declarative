@@ -15,6 +15,11 @@ interface IProps {
 
 const SearchContext = React.createContext<IContext>(null as never);
 
+/**
+ * Represents a component that provides search functionality.
+ * @param props - The props object containing the component's properties.
+ * @param props.value - The search value to be provided to child components.
+ */
 export const SearchProvider = (props: IProps) => (
   <SearchContext.Provider value={props.value}>
     {props.children}

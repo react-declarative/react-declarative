@@ -34,8 +34,16 @@ export const ConfirmPicker = ({
   msg,
   open = true,
 }: IConfirmPickerProps) => {
+  /**
+   * Callback function to handle an accept event.
+   * Calls the `onChange` function with `true` as the argument.
+   */
   const handleAccept = () => onChange(true);
+  /**
+   * Handles dismissing by calling the provided onChange function with false.
+   */
   const handleDismiss = () => onChange(false);
+
   return (
     <ModalDialog
       open={open}

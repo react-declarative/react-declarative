@@ -52,13 +52,34 @@ export const DatePicker = ({
   const [date, setDate] = useState(upperDate);
   const [showYearSelection, setShowYearSelection] = useState(openToYearSelection);
   const { classes } = useStyles();
+  /**
+   * Sets the showYearSelection state to true, allowing the year selection to be displayed.
+   *
+   * @function openYearSelection
+   */
   const openYearSelection = () => setShowYearSelection(true);
+  /**
+   * Sets the showYearSelection flag to false, hiding the year selection UI in the calendar.
+   *
+   * @function openCalendar
+   * @returns
+   */
   const openCalendar = () => setShowYearSelection(false);
   const startOfDay = date.startOf('day');
+  /**
+   * Updates the date and triggers the onChange event.
+   *
+   * @param date - The updated date value.
+   */
   const handleChange = (date: any) => {
     setDate(date);
     onChange(date);
   };
+  /**
+   * Triggers a callback function when the year is changed.
+   *
+   * @param date - The new date value.
+   */
   const onYearChange = (date: any) => {
     setShowYearSelection(false);
     handleChange(date);

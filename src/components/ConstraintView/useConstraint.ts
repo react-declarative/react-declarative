@@ -35,18 +35,30 @@ export const useConstraint = (width: number) => {
             }
         } = theme;
 
-        const isPhoneFn = match(xs, sm);
-        const isTabletFn = match(sm, lg);
-        const isDesktopFn = match(lg, GRID_MAX_WIDTH);
-
+        /**
+         * Configuration object for device breakpoints.
+         *
+         * @typedef {Object} Config
+         * @property {function} isPhoneFn - Function to determine if device is a phone.
+         * @property {function} isTabletFn - Function to determine if device is a tablet.
+         * @property {function} isDesktopFn - Function to determine if device is a desktop.
+         */
         return {
-            isPhoneFn,
-            isTabletFn,
-            isDesktopFn,
+            isPhoneFn: match(xs, sm),
+            isTabletFn: match(sm, lg),
+            isDesktopFn: match(lg, GRID_MAX_WIDTH),
         };
 
     }, [theme]);
 
+    /**
+     * Configuration object for device breakpoints.
+     *
+     * @typedef {Object} Config
+     * @property {function} isPhoneFn - Function to determine if device is a phone.
+     * @property {function} isTabletFn - Function to determine if device is a tablet.
+     * @property {function} isDesktopFn - Function to determine if device is a desktop.
+     */
     return {
         isPhone: isPhoneFn(width),
         isTablet: isTabletFn(width),

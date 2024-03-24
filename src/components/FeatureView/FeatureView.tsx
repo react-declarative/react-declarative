@@ -70,6 +70,13 @@ export const FeatureView = ({
     [data]
   );
 
+  /**
+   * Callback handler to wrap a value and its dependencies using `useCallback`
+   *
+   * @param {Function} func - The function to memoize
+   * @param {Array} dependencies - The dependencies to watch for changes
+   * @returns {Function} - The memoized callback handler function
+   */
   const handler = useCallback(() => value, [data]);
 
   /**

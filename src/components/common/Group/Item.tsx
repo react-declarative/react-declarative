@@ -104,6 +104,16 @@ export const Item = ({
     const xl = n(desktopColumns || columns || FULL_ROW);
     const mr = n(fieldRightMargin);
     const mb = n(fieldBottomMargin);
+    /**
+     * Configuration object for defining responsive breakpoints and margin values.
+     * @property {number} xs - The extra small breakpoint value in pixels.
+     * @property {number} sm - The small breakpoint value in pixels.
+     * @property {number} md - The medium breakpoint value in pixels.
+     * @property {number} lg - The large breakpoint value in pixels.
+     * @property {number} xl - The extra large breakpoint value in pixels.
+     * @property {number} mr - The margin right value in pixels.
+     * @property {number} mb - The margin bottom value in pixels.
+     */
     return {
       xs,
       sm,

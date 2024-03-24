@@ -95,12 +95,23 @@ export const CardView = <ItemData extends IItemData = any>(
     menuOpened: false,
     selectedIds: new Set(),
   }));
+  /**
+   * Set the loading state.
+   *
+   * @param {boolean} loading - The loading state value.
+   * @returns {void}
+   */
   const setLoading = useCallback(
     (loading: boolean) => setState((prevState) => ({ ...prevState, loading })),
     []
   );
   const reloadSubject = useSubject(upperReloadSubject);
   const scrollYSubject = useSubject(upperScrollYSubject);
+  /**
+   * Handles a data request.
+   *
+   * @param {boolean} initial - Indicates if it is the initial request.
+   */
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (state.loading) {
       return;
@@ -167,6 +178,16 @@ export const CardView = <ItemData extends IItemData = any>(
     }),
     [reloadSubject]
   );
+  /**
+   * Represents the context object for managing state in a component.
+   * @type {Object}
+   * @property {Object} state - The current state object.
+   * @property {Object} action - Object containing functions to update the state.
+   * @property {Function} action.setSearch - Function to set the search value in the state.
+   * @property {Function} action.setIsAllSelected - Function to set the isAllSelected value in the state.
+   * @property {Function} action.setSelectedIds - Function to set the selectedIds value in the state.
+   * @property {Function} action.setMenuOpened - Function to set the menuOpened value in the state.
+   */
   const stateContext = useMemo(
     () => ({
       state,

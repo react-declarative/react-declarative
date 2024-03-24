@@ -14,6 +14,12 @@ export const useToggleHandler = <RowData extends IRowData = IAnything>(row: RowD
 
     const { selection, setSelection } = useSelection();
 
+    /**
+     * Function to handle click events on a specific element, such as a button.
+     *
+     * @param [radio=false] - Flag indicating whether the selection should act as radio buttons.
+     * @returns - Event handler function that takes an event object.
+     */
     return (radio = false) => (e: any) => {
         e.preventDefault();
         e.stopPropagation();

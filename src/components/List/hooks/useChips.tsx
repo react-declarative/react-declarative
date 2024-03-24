@@ -9,12 +9,19 @@ const ChipsContext = createContext<IState>(null as never);
 
 export const useChips = () => useContext(ChipsContext);
 
+/**
+ * Interface representing the props for the ChipsProvider component.
+ */
 interface IChipsProviderProps {
     children: React.ReactNode;
     chips: IListChip[];
     chipData: ListHandlerChips;
 }
 
+/**
+ * Represents the state of a system.
+ * @interface IState
+ */
 interface IState {
     chips: Map<string, boolean>;
     setChips: (s: Map<string, boolean>) => void;
@@ -41,11 +48,24 @@ export const ChipsProvider = ({
         handleChips,
     } = useProps();
 
+    /**
+     * Callback function to handle changes in the `chips` variable.
+     *
+     * @param chips - The updated chips data represented as a Map.
+     * @returns
+     */
     const handleChipsChange = (chips: Map<string, boolean>) => {
         handleChips([...chips].reduce((acm, [k, v]) => ({...acm, [k]: v}), {}));
         setChips(new Map(chips));
     };
 
+    /**
+     * Represents a set of chips and its associated change handler.
+     *
+     * @typedef {Object} ChipsWithChangeHandler
+     * @property {Array} chips - The array of chips.
+     * @property {Function} setChips - The function to handle changes to the chips.
+     */
     const value = {
         chips,
         setChips: handleChipsChange,

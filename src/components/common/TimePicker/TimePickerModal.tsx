@@ -30,8 +30,28 @@ export const TimePickerModal = ({
   open = true,
 }: ITimePickerModalProps) => {
   const [time, setTime] = useState(now);
+  /**
+   * Update the time value.
+   *
+   * @param time - The new time value.
+   * @returns
+   */
   const handleChange = (time: any) => setTime(time);
+  /**
+   * A callback function that handles accepting changes to a current time value.
+   *
+   * @callback handleAccept
+   * @param {number} time - The new time value to be accepted.
+   */
   const handleAccept = useCallback(() => onChange(time), [time]);
+  /**
+   * Function to handle dismiss action.
+   * Calls the onChange function with a null value.
+   *
+   * @function
+   * @name handleDismiss
+   * @returns
+   */
   const handleDismiss = () => onChange(null);
   return (
     <ModalDialog

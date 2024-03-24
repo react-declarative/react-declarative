@@ -12,10 +12,20 @@ const CachedRowsContext = createContext<IState>(null as never);
 
 export const useCachedRows = <RowData extends IRowData = IAnything>() => useContext(CachedRowsContext) as IState<RowData>;
 
+/**
+ * Represents the props for the `ICachedRowsProvider` component.
+ *
+ * @interface ICachedRowsProviderProps
+ */
 interface ICachedRowsProviderProps {
     children: React.ReactNode;
 }
 
+/**
+ * Represents the state of a particular entity.
+ * @interface
+ * @template RowData - The type of RowData.
+ */
 interface IState<RowData extends IRowData = IAnything> {
     cachedRows: Map<RowId, RowData>;
     selectedRows: RowData[];
@@ -63,8 +73,21 @@ export const CachedRowsProvider = <RowData extends IRowData = IAnything>({
 
     }, [selection, rows]);
 
+    /**
+     * Memoizes and selects rows based on given selection and cached rows.
+     *
+     * @param {Set} selection - The selected row IDs.
+     * @param {Map} cachedRows - The cached rows with their corresponding IDs.
+     * @returns {Array} - The selected rows.
+     */
     const selectedRows = useMemo(() => [...selection].map((id) => cachedRows.get(id)), [cachedRows])
 
+    /**
+     * Represents the value of a variable.
+     * @typedef {Object} VariableValue
+     * @property {Array} cachedRows - The cached rows of data.
+     * @property {Array} selectedRows - The selected rows of data.
+     */
     const value = {
         cachedRows,
         selectedRows,

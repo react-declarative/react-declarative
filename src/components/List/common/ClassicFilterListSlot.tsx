@@ -126,8 +126,21 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
 
   const isInitialized = useRef(false);
 
+  /**
+   * Function to handle collapse behavior
+   *
+   * @description This function toggles the value of 'collapsed' by calling the 'setCollapsed' function.
+   *
+   * @returns This function does not return any value.
+   */
   const handleCollapse = () => setCollapsed(!collapsed);
 
+  /**
+   * Handles the change event for the given filter data.
+   *
+   * @param data - The filter data to handle.
+   * @returns
+   */
   const handleChange = (data: FilterData) => {
     onFilterChange(data);
     change(data);
@@ -163,6 +176,12 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
     }
   }, [collapsed]);
 
+  /**
+   * Cleans up the search by calling the onSearchChange function with an empty string.
+   *
+   * @function handleSearchCleanup
+   * @returns
+   */
   const handleSearchCleanup = () => {
     onSearchChange("");
   };

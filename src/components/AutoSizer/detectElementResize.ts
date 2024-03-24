@@ -10,6 +10,11 @@ const RESIZE_EVENT = Symbol('resize-event');
  */
 export const createDetectElementResize = () => {
   
+  /**
+   * Represents an event manager.
+   * @class
+   * @classdesc The event manager is responsible for managing and dispatching events.
+   */
   const eventManager = new EventEmitter();
 
   const emit = () => eventManager.emit(RESIZE_EVENT);

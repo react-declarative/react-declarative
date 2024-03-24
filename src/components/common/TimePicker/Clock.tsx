@@ -78,6 +78,11 @@ export const Clock = ({
 }: IClockProps) => {
   const { classes } = useStyles();
 
+  /**
+   * Sets the time value based on the given event.
+   *
+   * @param e - The event object.
+   */
   const setTime = (e: any) => {
     const value = type === MINUTES
       ? getMinutes(e.offsetX, e.offsetY)
@@ -85,18 +90,34 @@ export const Clock = ({
     onChange(value);
   };
 
+  /**
+   * Handles the move event and performs necessary actions.
+   *
+   * @param e - The event object.
+   */
   const handleMove = (e: any) => {
     e.preventDefault();
     if (e.buttons !== 1) { return; }
     setTime(e.nativeEvent);
   };
 
+  /**
+   * Handles the touch move event.
+   *
+   * @param e - The touch move event object.
+   * @returns - True if the event is handled successfully, otherwise false.
+   */
   const handleTouchMove = (e: any) => {
     e.stopPropagation();
     setTime(touch.toMouseEvent(e));
     return true;
   };
 
+  /**
+   * Checks if a selection has been made.
+   *
+   * @returns Returns true if a selection has been made, false otherwise.
+   */
   const hasSelected = () => {
     if (type === HOURS) {
       return true;

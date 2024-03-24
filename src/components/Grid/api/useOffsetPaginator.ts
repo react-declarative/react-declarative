@@ -91,22 +91,9 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
 
   const handler$ = useActualCallback(handler);
 
+
   /**
-   * Function to fetch data from a specific source.
-   *
-   * @param {string} url - The URL to fetch the data from.
-   * @param {Object} options - Additional options to customize the data fetching process.
-   * @param {boolean} options.cache - Specify whether to cache the fetched data or not.
-   * @param {number} options.timeout - Specify the timeout in milliseconds for the data fetching request.
-   * @param {string} options.method - The HTTP method to use for the request, defaults to 'GET'.
-   * @param {Object} options.headers - Additional headers to include in the request.
-   * @param {function} options.onProgress - Callback function to handle request progress updates.
-   * @param {function} options.onError - Callback function to handle request errors.
-   * @param {function} options.onSuccess - Callback function to handle successful request completion.
-   *
-   * @returns {Promise} - A promise that resolves with the fetched data.
-   *
-   * @throws {Error} - If the URL is not a valid string or if any of the options are of invalid type.
+   * Fetches data from a specified source.
    */
   const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
     return await handler$(

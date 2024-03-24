@@ -188,6 +188,12 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     }
   };
 
+  /**
+   * A callback function to handle sorting toggle.
+   *
+   * @param {string} id - The id of the sort target.
+   * @returns {void}
+   */
   const handleSortToggle = useCallback(
     (id: string) => {
       const sortModelCopy = new Map(sortModel);
@@ -212,13 +218,44 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
     [sortModel]
   );
 
+  /**
+   * Function to handle the load start event.
+   *
+   * @function handleLoadStart
+   * @param onLoadStart - The function to be called when load starts.
+   * @returns
+   */
   const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+  /**
+   * Handles the load end event.
+   *
+   * @param isOk - Indicates whether the load operation was successful or not.
+   */
   const handleLoadEnd = (isOk: boolean) =>
     onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+  /**
+   * Creates a handle action function for a specified field.
+   *
+   * @param field - The field for which the handle action function is created.
+   * @returns - The handle action function.
+   */
   const createHandleAction = (field: string) => (action: string) =>
     onColumnAction && onColumnAction(field, action, selectedRows, reload);
 
+  /**
+   * Returns the rendered content of the table columns.
+   *
+   * @param {Array<HeadColumn>} columns - The array of table columns.
+   * @returns {Array<React.ReactNode>} - The rendered content of the table columns.
+   */
   const content = useMemo(() => {
+    /**
+     * Renders a column in a table.
+     *
+     * @param column - The column object to render.
+     * @param idx - The index of the column.
+     * @returns - The rendered table column.
+     */
     const renderColumn = (column: HeadColumn, idx: number) => {
       const sortTarget = sortModel.get(column.field || "");
       const sortDirection = sortTarget?.sort || undefined;
@@ -307,6 +344,10 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
   }, [fullWidth]);
 
+  /**
+   * Computes the tooltip label based on the current state.
+   * @returns The tooltip label.
+   */
   const computeTooltipLabel = () => {
     if (selectionMode === SelectionMode.Single) {
       return "Deselect";

@@ -73,6 +73,14 @@ export const DefaultFade = ({
     const { classes } = useStyles();
     const theme = useTheme();
 
+    /**
+     * Returns a memoized object with background CSS property.
+     *
+     * @param {object} theme - The theme object.
+     * @param {?string} color - The color value.
+     *
+     * @returns {object} - The memoized background object.
+     */
     const bg = useMemo(() => {
         const fadeColor = color || theme.palette.background.default;
         return {

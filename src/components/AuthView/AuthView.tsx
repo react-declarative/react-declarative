@@ -214,10 +214,22 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
 
         const [data, setData] = useState<Data | null>(null);
 
+        /**
+         * Function to handle change of data.
+         *
+         * @param data - The data to be handled.
+         * @returns
+         */
         const handleChange = (data: Data) => {
             setData(data);
         };
 
+        /**
+         * Sets the data to null in case of invalid input.
+         *
+         * @function handleInvalid
+         * @returns
+         */
         const handleInvalid = () => {
             setData(null);
         };

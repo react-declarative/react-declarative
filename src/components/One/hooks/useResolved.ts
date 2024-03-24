@@ -27,6 +27,12 @@ import { useApiRef } from '../context/ApiProvider';
 
 const LOAD_SOURCE = 'one-resolve';
 
+/**
+ * Represents the resolved properties for a hook.
+ *
+ * @template Data - The type of data.
+ * @template Payload - The type of payload.
+ */
 interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
     handler: PickProp<IOneProps<Data, Payload>, 'handler'>;
     fallback: PickProp<IOneProps<Data, Payload>, 'fallback'>;
@@ -38,6 +44,14 @@ interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
     loadEnd: PickProp<IOneProps<Data, Payload>, 'loadEnd'>;
 }
 
+/**
+ * Create an object based on the provided fields and payload.
+ *
+ * @param fields - The array of fields to build the object.
+ * @param payload - The payload object.
+ * @param [features] - Optional array of features to filter the fields.
+ * @returns - The built object.
+ */
 const buildObj = <Data = IAnything, Payload = IAnything>(fields: IField<Data>[], payload: Payload, features?: string[]) => {
     const obj = {};
     if (fields) {
@@ -122,6 +136,14 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                 isMounted.current && setData(assign({}, buildObj(fields, payload, features), deepClone(handler)));
             }
         };
+        /**
+         * Function to handle updating the reference to an instance of a given interface.
+         *
+         * @function
+         * @name handleUpdateRef
+         *
+         * @returns
+         */
         const handleUpdateRef = () => {
             const instance: IOneApi<Data> = {
                 reload: tryResolve,

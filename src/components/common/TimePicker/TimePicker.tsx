@@ -13,6 +13,12 @@ import ToolbarButton from '../ToolbarButton';
 import HourView from './HourView';
 import MinutesView from './MinutesView';
 
+/**
+ * Creates the global styles for time picker.
+ *
+ * @param theme - The theme object containing the palette.
+ * @returns - The global styles object.
+ */
 const globalStyles = (theme: Theme) => ({
   container: {
     width: 300,
@@ -68,6 +74,12 @@ export const TimePicker = ({
     meridiemMode: date.format('a'),
     isHourViewShown: true,
   });
+  /**
+   * A callback function to handle change in time.
+   *
+   * @param {dayjs.Dayjs} time - The time value that was changed.
+   * @returns {void}
+   */
   const handleChange = useCallback((time: dayjs.Dayjs) => {
     if (time.format('a') !== state.meridiemMode) {
       const hours = state.meridiemMode === 'am'
@@ -78,9 +90,28 @@ export const TimePicker = ({
     setDate(time);
     onChange(time);
   }, [state]);
+  /**
+   * Sets the meridiem mode of the component.
+   *
+   * @param mode - The new meridiem mode to be set.
+   * @returns - A function that updates the state with the new meridiem mode.
+   */
   const setMeridiemMode = (mode: any) => () => setState((p) => ({...p, meridiemMode: mode }));
   useEffect(() => handleChange(date), [state.meridiemMode]);
+  /**
+   * Sets the 'isHourViewShown' state to false.
+   * This function is used to hide the hour view in the minutes view.
+   *
+   * @function openMinutesView
+   * @returns
+   */
   const openMinutesView = () => setState((p) => ({...p, isHourViewShown: false}));
+  /**
+   * Sets the `isHourViewShown` state to `true` when called.
+   *
+   * @function openHourView
+   * @returns
+   */
   const openHourView = () => setState((p) => ({...p, isHourViewShown: true}));
   return (
     <div className={classes.container}>

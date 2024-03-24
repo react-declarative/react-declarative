@@ -114,6 +114,13 @@ export const HtmlView = ({
       isMounted.current = false;
     }, []);
     useEffect(() => {
+        /**
+         * Executes the process asynchronously.
+         *
+         * @async
+         * @function process
+         * @returns A promise that resolves once the process is complete.
+         */
         const process = async () => {
             let isOk = true;
             onLoadStart && onLoadStart();

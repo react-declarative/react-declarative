@@ -52,7 +52,24 @@ export const PromptPicker = ({
       }
     }, 500);
   }, []);
+  /**
+   * Executes the handleAccept function.
+   * Calls the onChange function with the provided value as an argument.
+   *
+   * @param onChange - The onChange function to be called.
+   * @param value - The value to be passed as an argument to the onChange function.
+   */
   const handleAccept = () => onChange(value);
+  /**
+   * Function handleDismiss
+   *
+   * This function is responsible for triggering the `onChange` callback with a `null` value.
+   * It is typically used to dismiss or clear a certain value.
+   *
+   * @function
+   * @name handleDismiss
+   * @returns
+   */
   const handleDismiss = () => onChange(null);
   return (
     <ModalDialog

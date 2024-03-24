@@ -137,11 +137,22 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 
   const { classes } = useStyles();
 
+  /**
+   * Handles a change event for the filter data.
+   *
+   * @param data - The filter data to handle.
+   * @returns
+   */
   const handleChange = (data: FilterData) => {
     onFilterChange(data);
     change(data);
   };
 
+  /**
+   * Cleans up the search input by calling the onSearchChange function with an empty string.
+   *
+   * @function handleSearchCleanup
+   */
   const handleSearchCleanup = () => {
     onSearchChange("");
   };

@@ -5,6 +5,11 @@ import { makeStyles } from '../../../styles';
 
 import classNames from '../../../utils/classNames';
 
+/**
+ * An array of positions that represent coordinates on a plane.
+ *
+ * @type {Array<Array<number>>}
+ */
 const positions = [
   [0, 5],
   [55, 19.6],
@@ -56,6 +61,11 @@ export const ClockNumber = ({
   const className = classNames(classes.clockNumber, {
     [classes.selected]: selected,
   });
+  /**
+   * Retrieves the transform style for a given index.
+   * @param index - The index of the desired transform style.
+   * @returns - The transform style object.
+   */
   const getTransformStyle = (index: number) => {
     const position = positions[index];
     return {

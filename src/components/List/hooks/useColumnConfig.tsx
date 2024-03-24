@@ -129,6 +129,10 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     return value;
   });
 
+  /**
+   * Represents a memoized array of sorted columns.
+   * @type {Array.<Object>}
+   */
   const sortedColumns = useMemo(() => {
     const result = currentColumns
       .filter(({ show }) => show)
@@ -141,11 +145,24 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     return result;
   }, []);
 
+  /**
+   * Handles the accept event, which saves the current columns
+   * configuration to the storage manager and reloads the page.
+   *
+   * @function
+   * @name handleAccept
+   * @returns
+   */
   const handleAccept = () => {
     storageManager.setValue(currentColumns);
     reloadPage();
   };
 
+  /**
+   * Toggles the visibility of a column in the current columns array.
+   *
+   * @param field - The field identifier of the column to toggle.
+   */
   const toggleColumn = (field: string) =>
     setCurrentColumns((prevColumns) =>
       prevColumns.map((item) => {
@@ -157,6 +174,11 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
       })
     );
 
+  /**
+   * Moves the column with the specified field up by one position in the currentColumns array.
+   *
+   * @param field - The field of the column to move up
+   */
   const moveUpColumn = (field: string) => {
     const currentIdx = currentColumns.findIndex((item) => item.field === field);
     if (currentIdx === 0) return;
@@ -168,6 +190,11 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     });
   };
 
+  /**
+   * Moves the specified column one position down in the currentColumns array.
+   *
+   * @param field - The field name of the column to be moved.
+   */
   const moveDownColumn = (field: string) => {
     const currentIdx = currentColumns.findIndex((item) => item.field === field);
     if (currentIdx === currentColumns.length) return;
@@ -179,6 +206,10 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     });
   };
 
+  /**
+   * Renders a dialog with a list of columns.
+   * @returns The rendered dialog component.
+   */
   const render = () => (
     <Dialog open={open} className={classes.dialog_wrapper}>
       <DialogContent className={classes.dialog}>
@@ -225,6 +256,14 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
     </Dialog>
   );
 
+  /**
+   * Configuration object for rendering a table.
+   * @typedef {Object} Config
+   * @property {boolean} open - Specifies if the modal is open or closed.
+   * @property {function} render - Function used to render the modal.
+   * @property {Array} columns - Array of columns in the modal, sorted in the specified order.
+   * @property {function} pickColumns - Function used to open the column selection.
+   */
   return {
     open,
     render,

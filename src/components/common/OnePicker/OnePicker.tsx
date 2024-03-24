@@ -77,17 +77,53 @@ export const OnePicker = <
 
   const waitForRender = useRenderWaiter([data], 10);
 
+  /**
+   * Waits for changes to occur by asynchronously waiting for the completion of either
+   * the `waitForRender` function or a `sleep` function with the provided `waitForChangesDelay`.
+   *
+   * @returns A promise that resolves when either the `waitForRender` function or the `sleep` function completes.
+   */
   const waitForChanges = async () => {
     await Promise.race([waitForRender(), sleep(waitForChangesDelay)]);
   };
 
+  /**
+   * Handle change function.
+   *
+   * @param data - The new data to be handled.
+   * @returns
+   */
   const handleChange = (data: Data) => {
     setData(data);
     setInvalid(false);
   };
+  
+  /**
+   * Callback function to handle invalid state.
+   * Sets the `invalid` state to `true`.
+   *
+   * @function
+   * @name handleInvalid
+   * @returns
+   */
   const handleInvalid = () => setInvalid(true);
+
+  /**
+   * Function to handle dismiss action.
+   *
+   * @function
+   * @name handleDismiss
+   * @returns
+   */
   const handleDismiss = () => onChange(null);
 
+  /**
+   * Handles an accept event.
+   *
+   * @async
+   * @function handleAccept
+   * @returns - A Promise that resolves to undefined.
+   */
   const handleAccept = async () => {
     setDisabled(true);
     try {

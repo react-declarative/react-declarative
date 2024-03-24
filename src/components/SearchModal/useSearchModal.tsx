@@ -215,6 +215,18 @@ export const useSearchModal = <
   } as const;
 };
 
+/**
+ * Hook for using a search modal with strong typed parameters.
+ *
+ * @template FilterData - The type of the filter data.
+ * @template RowData - The type of the row data.
+ * @template Payload - The type of the payload.
+ * @template Field - The type of the field.
+ *
+ * @param params - The parameters for the search modal.
+ *
+ * @returns
+ */
 export const useSearchModalTyped = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,

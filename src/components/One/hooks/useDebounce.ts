@@ -9,6 +9,16 @@ import {
 
 import { Value } from '../../../model/IField';
 
+/**
+ * Determines whether two values are equal.
+ *
+ * @template T - The type of the values being compared.
+ *
+ * @param left - The first value to compare.
+ * @param right - The second value to compare.
+ *
+ * @return - Returns true if the values are equal, otherwise returns false.
+ */
 function valueEquality<T>(left: T, right: T): boolean {
     return left === right;
 }

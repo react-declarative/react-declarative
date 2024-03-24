@@ -69,6 +69,21 @@ const useStyles = makeStyles<{
   },
 }));
 
+/**
+ * Component for rendering card content with side menu.
+ *
+ * @param CardContent - The props object for CardContent.
+ * @param mode - The mode of the card content (MasterDetailMode.Paper or MasterDetailMode.Outline).
+ * @param loading - Indicates if the content is in a loading state.
+ * @param items - An array of items to display in the side menu.
+ * @param children - The content to display in the card.
+ * @param onChange - The function to call when an item in the side menu is clicked.
+ * @param withMenuCollapse - Indicates if the side menu should collapse when there are no items.
+ * @param withFixedPos - Indicates if the side menu should have a fixed position.
+ * @param fixedPosHeaderAdjust - The adjustment value for the fixed position header.
+ *
+ * @returns - The rendered CardContent component.
+ */
 export const CardContent = ({
   mode,
   loading,
@@ -104,6 +119,11 @@ export const CardContent = ({
     return undefined;
   }, [sideMenuRef.current, isWide]);
 
+  /**
+   * Renders a list of items with corresponding icons, labels, and click handlers.
+   *
+   * @returns The rendered list component.
+   */
   const renderList = () => (
     <List disablePadding dense>
       {items
@@ -132,6 +152,11 @@ export const CardContent = ({
     </List>
   );
 
+  /**
+   * Function that renders the inner content based on the value of the mode variable.
+   *
+   * @returns - The rendered inner content.
+   */
   const renderInner = () => {
     if (mode === MasterDetailMode.Paper) {
       return (

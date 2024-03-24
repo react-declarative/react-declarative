@@ -25,6 +25,13 @@ export const createConstraintManager = () => {
   const clear = () => {
     cache.clear();
   };
+  /**
+   * Configuration object.
+   *
+   * @typedef {Object} Config
+   * @property {Function} memoize - The memoize function.
+   * @property {Function} clear - The clear function.
+   */
   return {
     memoize,
     clear,

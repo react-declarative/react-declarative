@@ -81,10 +81,23 @@ export const ActionFilter = ({
         }
     };
 
+    /**
+     * Sets the anchor element for opening the menu.
+     *
+     * @param e - The event object.
+     */
     const handleOpen = (e: any) => {
         setAnchorEl(e.target);
     };
 
+    /**
+     * Closes the anchor element.
+     *
+     * @function
+     * @name handleClose
+     *
+     * @returns
+     */
     const handleClose = () => {
         setAnchorEl(null);
     };

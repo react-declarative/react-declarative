@@ -73,14 +73,18 @@ export const ConstraintView = <T extends IAnything = IAnything>({
             }
         } = theme;
 
-        const isPhone = match(xs, sm);
-        const isTablet = match(sm, lg);
-        const isDesktop = match(lg, GRID_MAX_WIDTH);
-
+        /**
+         * Configuration object for device breakpoints.
+         *
+         * @typedef {Object} Config
+         * @property {boolean} isPhone - Indicates if the device matches the phone breakpoint.
+         * @property {boolean} isTablet - Indicates if the device matches the tablet breakpoint.
+         * @property {boolean} isDesktop - Indicates if the device matches the desktop breakpoint.
+         */
         return {
-            isPhone,
-            isTablet,
-            isDesktop,
+            isPhone: match(xs, sm),
+            isTablet: match(sm, lg),
+            isDesktop: match(lg, GRID_MAX_WIDTH),
         };
 
     }, [theme]);

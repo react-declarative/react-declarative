@@ -152,6 +152,12 @@ export const DialogFilterListSlot = <FilterData extends {}>({
     change(data);
   };
 
+  /**
+   * Clean up search input and trigger search change event.
+   *
+   * @function handleSearchCleanup
+   * @returns
+   */
   const handleSearchCleanup = () => {
     onSearchChange("");
   };

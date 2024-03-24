@@ -65,7 +65,20 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
         loading,
     } = useProps<RowData>();
 
+    /**
+     * Invokes the `onLoadStart` function, if provided, with the `LOAD_SOURCE`.
+     *
+     * @function handleLoadStart
+     * @returns
+     */
     const handleLoadStart = () => onLoadStart && onLoadStart(LOAD_SOURCE);
+    
+    /**
+     * A function for handling the load end event.
+     *
+     * @param isOk - A boolean value indicating the success of the load operation.
+     * @returns
+     */
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
     if (column.type === ColumnType.Text) {

@@ -18,11 +18,21 @@ export const HourView = ({
   date = dayjs(),
   onChange = (change: any) => console.log({change}),
 }) => {
+  /**
+   * Updates the hour of a given date and calls the onChange function.
+   *
+   * @param hours - The new value for the hour.
+   */
   const handleChange = (hours: any) => {
     const updatedDate = date.clone().hour(hours);
     onChange(updatedDate);
   };
   const value = date.get('hours');
+  /**
+   * Represents the value of AM/PM format from a given date object.
+   *
+   * @typedef {number} ampmValue
+   */
   const ampmValue = Number(date.format('hh'));
   return (
     <Clock

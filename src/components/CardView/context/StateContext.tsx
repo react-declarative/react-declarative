@@ -32,6 +32,9 @@ interface IContext<ItemData extends IItemData = any>  {
     };
 }
 
+/**
+ * Represents a context for managing CalendarView state.
+ */
 const StateContext = createContext<IContext>(null as never);
 
 /**

@@ -46,6 +46,10 @@ export const ClockPointer = ({
   max = 0,
 }) => {
   const { classes } = useStyles();
+  /**
+   * Returns the CSS style for rotating an element based on the angle calculated from value and max.
+   * @returns {Object} The CSS transform style object.
+   */
   const getAngleStyle = useCallback(() => {
     const angle = (360 / max) * value;
     return {

@@ -228,6 +228,9 @@ export const CustomView = <
 
   const waitForRequest = useRenderWaiter([loading]);
 
+  /**
+   * Handles the data request.
+   */
   const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;
     isOk = isOk && hasMore;

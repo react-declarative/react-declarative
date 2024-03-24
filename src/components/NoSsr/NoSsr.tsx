@@ -37,6 +37,11 @@ export class NoSsr extends React.Component<INoSsrProps, State> {
     });
   };
 
+  /**
+   * Renders the content based on the current state.
+   *
+   * @returns The rendered content.
+   */
   render = () => {
     const { children, ServerView = Fragment } = this.props;
     const { canRender } = this.state;
