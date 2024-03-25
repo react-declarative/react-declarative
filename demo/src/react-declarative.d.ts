@@ -24811,7 +24811,7 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
     /**
      * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
      */
-    virtualize<T extends IVirtualized = {}>(
+    virtualize<T extends IVirtualized = any>(
       OriginalComponent: React.ComponentType<T>,
     ): React.ForwardRefExoticComponent<
       React.PropsWithoutRef<T> & React.RefAttributes<HTMLDivElement>
