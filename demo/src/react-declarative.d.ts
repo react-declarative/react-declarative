@@ -24822,10 +24822,13 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
    * @interface
    * @property className - The class name of the component. This property should not be used.
    * @property style - The style of the component. This property should not be used.
+   * @property ref - The ref of the component. This property should not be used.
    */
   interface IVirtualized {
     className?: never;
     style?: never;
+    ref?: never;
+    [key: string]: any;
   }
   export default VirtualView;
 }

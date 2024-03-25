@@ -15,3 +15,9 @@ className: never
 ```ts
 style: never
 ```
+
+### ref
+
+```ts
+ref: never
+```
