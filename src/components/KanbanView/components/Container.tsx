@@ -108,6 +108,11 @@ export const Container = ({
 
   const fetchRows = useFetchRows();
 
+  /**
+   * Represents the number of rows in a data set or table.
+   *
+   * @typedef {number} Rows
+   */
   const [rows] = useAsyncValue(
     async () => {
       return await fetchRows(id, data, upperRows);

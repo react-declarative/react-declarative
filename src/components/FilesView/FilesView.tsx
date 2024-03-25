@@ -93,6 +93,14 @@ export const FilesView = ({
 
   const disabled = !!loading || upperDisabled;
 
+  /**
+   * A variable named `pickConfirm` that is assigned the result of calling the `useConfirm` function.
+   * The `useConfirm` function takes an object as an argument with the following properties:
+   *
+   * - `title`: A string representing the title of the confirmation dialog.
+   * - `msg`: A string representing the message of the confirmation dialog.
+   *
+   */
   const pickConfirm = useConfirm({
     title: CONFIRM_TITLE,
     msg: CONFIRM_MESSAGE,

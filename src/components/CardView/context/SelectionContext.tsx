@@ -24,6 +24,12 @@ interface ISelectionContextProviderProps {
   children: React.ReactNode;
 }
 
+/**
+ * Provides context for item selection.
+ *
+ * @typedef {Object} ISelectionContextProviderProps
+ * @property {React.ReactNode} children - The child elements to render within the provider.
+ */
 export const SelectionContextProvider = ({
   children,
 }: ISelectionContextProviderProps) => {

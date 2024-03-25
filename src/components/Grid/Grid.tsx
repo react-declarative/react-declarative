@@ -75,6 +75,13 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
 
   const scrollXSubject = useSubject<number>(upperScrollXSubject);
 
+  /**
+   * A memoized function that returns the default width for a given number of columns.
+   *
+   * @type {Function}
+   * @param {number} columnCount - The number of columns for which to determine the default width.
+   * @returns {number} - The default width for the given number of columns.
+   */
   const defaultWidthFn = useMemo(
     () => createDefaultWidthFn(upperColumns.length),
     [upperColumns]

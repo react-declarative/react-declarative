@@ -101,6 +101,12 @@ export const Breadcrumbs = <T extends any = any>({
 }: IBreadcrumbsProps<T>) => {
   const { classes } = useStyles();
 
+  /**
+   * Executes the provided save function after a delay.
+   *
+   * @function handleSave
+   * @returns
+   */
   const handleSave = () => onSave && setTimeout(onSave, BREADCRUMBS_SAVE_DELAY);
 
   return (
