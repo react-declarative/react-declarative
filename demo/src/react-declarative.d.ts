@@ -24811,10 +24811,16 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
     /**
      * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
      */
-    virtualize<T extends IVirtualized = any>(
-      OriginalComponent: React.ComponentType<T>,
+    virtualize<T extends object = any>(
+      OriginalComponent: React.ComponentType<T & IVirtualized>,
     ): React.ForwardRefExoticComponent<
-      React.PropsWithoutRef<T> & React.RefAttributes<HTMLDivElement>
+      React.PropsWithoutRef<
+        T & {
+          className: string;
+          style: React.CSSProperties;
+        }
+      > &
+        React.RefAttributes<HTMLDivElement>
     >;
   };
   /**
@@ -24828,7 +24834,6 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
     className?: never;
     style?: never;
     ref?: never;
-    [key: string]: any;
   }
   export default VirtualView;
 }

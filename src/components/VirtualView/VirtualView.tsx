@@ -527,15 +527,14 @@ interface IVirtualized {
   className?: never;
   style?: never;
   ref?: never;
-  [key: string]: any;
 }
 
 /**
  * Virtualize is a method that helps in optimizing rendering performance by rendering only the visible elements in a view, using virtualization technique.
  */
-VirtualView.virtualize = <T extends IVirtualized = any>(OriginalComponent: React.ComponentType<T>) => forwardRef(
+VirtualView.virtualize = <T extends object = any>(OriginalComponent: React.ComponentType<T & IVirtualized>) => forwardRef(
   (
-    { className, style, ...otherProps }: T,
+    { className, style, ...otherProps }: T & { className: string; style: React.CSSProperties; },
     ref: React.Ref<HTMLDivElement>,
   ) => (
     <div className={className} style={style} ref={ref}>
