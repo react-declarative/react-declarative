@@ -534,13 +534,16 @@ interface IVirtualized {
  */
 VirtualView.virtualize = <T extends object = any>(OriginalComponent: React.ComponentType<T & IVirtualized>) => forwardRef(
   (
-    { className, style, ...otherProps }: T & { className: string; style: React.CSSProperties; },
+    props: T,
     ref: React.Ref<HTMLDivElement>,
-  ) => (
-    <div className={className} style={style} ref={ref}>
-      <OriginalComponent {...otherProps as unknown as T} />
-    </div>
-  )
+  ) => {
+    const { className, style, ...otherProps } = props as any;
+    return (
+      <div className={className} style={style} ref={ref}>
+        <OriginalComponent {...otherProps as unknown as T} />
+      </div>
+    );
+  }
 );
 
 export default VirtualView;

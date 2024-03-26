@@ -179,7 +179,7 @@ The function takes a `name` parameter of type `string` and returns `void`.
 ### onOptionClick
 
 ```ts
-onOptionClick: (path: string, id: string) => boolean
+onOptionClick: (path: string, id: string) => boolean | void
 ```
 
 Callback function that is triggered when an option is clicked.
@@ -187,7 +187,7 @@ Callback function that is triggered when an option is clicked.
 ### onOptionGroupClick
 
 ```ts
-onOptionGroupClick: (path: string, id: string) => boolean
+onOptionGroupClick: (path: string, id: string) => boolean | void
 ```
 
 Function called when an option group is clicked.

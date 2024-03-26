@@ -24814,13 +24814,7 @@ declare module "react-declarative/components/VirtualView/VirtualView" {
     virtualize<T extends object = any>(
       OriginalComponent: React.ComponentType<T & IVirtualized>,
     ): React.ForwardRefExoticComponent<
-      React.PropsWithoutRef<
-        T & {
-          className: string;
-          style: React.CSSProperties;
-        }
-      > &
-        React.RefAttributes<HTMLDivElement>
+      React.PropsWithoutRef<T> & React.RefAttributes<HTMLDivElement>
     >;
   };
   /**
@@ -26475,7 +26469,10 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
      * @param {string} id - The ID of the clicked option group.
      * @return {undefined | boolean} - Returns undefined or a boolean value.
      */
-    onOptionGroupClick?: (path: string, id: string) => undefined | boolean;
+    onOptionGroupClick?: (
+      path: string,
+      id: string,
+    ) => void | undefined | boolean;
     /**
      * Represents a callback for when a tab change event occurs.
      *
