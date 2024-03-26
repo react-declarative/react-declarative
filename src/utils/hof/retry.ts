@@ -1,5 +1,10 @@
 import cancelable, { CANCELED_SYMBOL } from "./cancelable";
 
+/**
+ * Represents a wrapped function that returns a promise.
+ * @template T - The type of the promise's resolved value.
+ * @template P - The type of the function's arguments.
+ */
 export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;

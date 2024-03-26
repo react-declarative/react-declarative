@@ -1,8 +1,23 @@
 import memoize, { IClearable as IClearableInternal, IRef, GET_VALUE_MAP } from './memoize';
 
+/**
+ * Represents the default timeout value in milliseconds.
+ *
+ * @constant {number} DEFAULT_TIMEOUT - The value of the default timeout.
+ */
 const DEFAULT_TIMEOUT = 250;
+/**
+ * A unique symbol representing a value that should never occur.
+ *
+ * @type {symbol}
+ */
 const NEVER_VALUE = Symbol('never');
 
+/**
+ * Represents a clearable object that can be garbage collected.
+ *
+ * @template K - The type of key used for clearing.
+ */
 export interface IClearable<K = string> extends IClearableInternal<K> {
     gc: () => void;
 }

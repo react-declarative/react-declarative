@@ -1,12 +1,33 @@
+/**
+ * Interface for classes that can be cleared.
+ * @interface
+ */
 export interface IClearable {
     clear: () => void;
 }
 
+/**
+ * A class representing a task.
+ *
+ * @class
+ */
 export class Task {
     private _status: "pending" | "fulfilled" | "rejected" = "pending";
+    /**
+     * Retrieves the current status value.
+     *
+     * @return The value of the status.
+     */
     get status() {
         return this._status;
     };
+    /**
+     * Constructor for creating an instance of the class.
+     *
+     * @param target - The target promise to be handled.
+     *
+     * @return - This method does not return any value.
+     */
     constructor(public readonly target: Promise<any>) {
         target.then(() => this._status = "fulfilled");
         target.catch(() => this._status = "rejected");
@@ -35,6 +56,12 @@ export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClear
         }
         return result?.target;
     };
+    /**
+     * Clears the content of the given input field.
+     *
+     * @param input - The input field to be cleared.
+     * @returns
+     */
     fn.clear = () => {
         result = undefined;
     };

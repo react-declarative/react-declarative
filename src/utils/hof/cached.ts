@@ -1,3 +1,8 @@
+/**
+ * Interface for objects that can be cleared.
+ *
+ * @interface
+ */
 interface IClearable {
     clear: () => void;
 }
@@ -16,6 +21,12 @@ export const cached = <T extends (...args: A) => any, A extends any[]>(changed: 
     let initial = true;
     let lastValue: ReturnType<typeof run>;
 
+    /**
+     * Clears the value of the lastArgs variable.
+     * @function
+     * @name clear
+     * @returns
+     */
     const clear = () => {
         lastArgs = null;
     };

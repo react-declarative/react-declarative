@@ -1,8 +1,19 @@
+/**
+ * Represents a wrapped function that returns a promise.
+ * @template T - The type of the result of the wrapped function.
+ * @template P - The types of the parameters of the wrapped function.
+ */
 export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;
 };
 
+/**
+ * Symbol representing cancellation status.
+ *
+ * @type {Symbol}
+ * @name CANCELED_SYMBOL
+ */
 export const CANCELED_SYMBOL = Symbol('cancelable-canceled');
 
 /**
@@ -47,6 +58,13 @@ export const cancelable = <T extends any = any, P extends any[] = any[]>(promise
         });
     });
 
+    /**
+     * Cancels the execution of the wrapped function.
+     *
+     * @function
+     * @name wrappedFn.cancel
+     * @returns
+     */
     wrappedFn.cancel = () => {
         cancelRef && cancelRef();
     };

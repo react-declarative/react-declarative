@@ -1,3 +1,6 @@
+/**
+ * Interface representing an object that can be cleared and flushed.
+ */
 export interface IClearable {
     clear: () => void;
     flush: () => void;
@@ -32,11 +35,22 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
       timeout = setTimeout(exec, delay);
     };
 
+    /**
+     * Clears the wrapped function from any saved state or implementation.
+     *
+     * @memberof wrappedFn
+     */
     wrappedFn.clear = () => {
       clearTimeout(timeout);
       lastRun = null;
     };
 
+    /**
+     * Flushes any queued functions within the wrapped function.
+     *
+     * @param wrappedFn - The wrapped function that may have queued functions.
+     * @returns
+     */
     wrappedFn.flush = () => {
       clearTimeout(timeout);
       lastRun && lastRun();

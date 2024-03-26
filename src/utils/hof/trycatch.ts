@@ -1,3 +1,8 @@
+/**
+ * Represents a configuration interface.
+ *
+ * @interface
+ */
 interface IConfig {
     fallback?: (error: Error) => void
     defaultValue: null | false;

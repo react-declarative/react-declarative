@@ -1,5 +1,7 @@
 # IWrappedFn
 
+Represents a wrapped function definition.
+
 ## Methods
 
 ### beginLock

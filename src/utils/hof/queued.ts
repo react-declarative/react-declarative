@@ -2,6 +2,11 @@ import { CANCELED_SYMBOL } from "./cancelable";
 
 import compose, { Function } from "../compose";
 
+/**
+ * Represents a wrapped function that returns a Promise.
+ * @template T - The type of the value returned by the wrapped function.
+ * @template P - The types of the parameters of the wrapped function.
+ */
 export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     clear(): void;

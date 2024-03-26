@@ -63,6 +63,12 @@ interface IRequest {
   placeholder?: string;
 }
 
+/**
+ * @typedef {Object} IOutletModal
+ * @property {string} id - The ID of the modal page.
+ * @property {React.Component} element - The React component to render for this modal.
+ * @property {function(url: string): boolean} isActive - Function that determines if this modal page is active based on the current URL.
+ */
 const routes: IOutletModal[] = [
   {
     id: "main",

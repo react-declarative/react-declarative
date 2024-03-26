@@ -1,3 +1,6 @@
+/**
+ * Represents an interface for objects that can be cleared.
+ */
 export interface IClearable {
     clear: () => void;
 }
@@ -49,6 +52,13 @@ export const throttle = <T extends (...args: any[]) => any>(run: T, delay = 1_00
 			exec();
 		}
 	};
+	/**
+	 * Clears the wrapped function.
+	 * This function removes any existing functionality from the wrapped function.
+	 *
+	 * @memberof wrappedFn
+	 * @function clear
+	 */
 	wrappedFn.clear = clearExistingTimeout;
     return wrappedFn as T & IClearable;
 };

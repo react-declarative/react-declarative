@@ -7327,6 +7327,10 @@ declare module "react-declarative/utils/wordForm" {
 }
 
 declare module "react-declarative/utils/hof/singleshot" {
+  /**
+   * @interface IClearable
+   * @description An interface representing an object that can be cleared.
+   */
   export interface IClearable {
     clear: () => void;
   }
@@ -7344,6 +7348,10 @@ declare module "react-declarative/utils/hof/singleshot" {
 }
 
 declare module "react-declarative/utils/hof/singletick" {
+  /**
+   * Represents a clearable object.
+   * @interface
+   */
   export interface IClearable {
     clear: () => void;
   }
@@ -7361,6 +7369,12 @@ declare module "react-declarative/utils/hof/singletick" {
 }
 
 declare module "react-declarative/utils/hof/afterinit" {
+  /**
+   * Represents a function wrapped in a promise that can be executed and cleared.
+   *
+   * @template T - The type of the promise result.
+   * @template P - The type of the function arguments.
+   */
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T>;
     clear(): void;
@@ -7382,6 +7396,11 @@ declare module "react-declarative/utils/hof/afterinit" {
 
 declare module "react-declarative/utils/hof/retry" {
   import { CANCELED_SYMBOL } from "react-declarative/utils/hof/cancelable";
+  /**
+   * Represents a wrapped function that returns a promise.
+   * @template T - The type of the promise's resolved value.
+   * @template P - The type of the function's arguments.
+   */
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;
@@ -7401,12 +7420,33 @@ declare module "react-declarative/utils/hof/retry" {
 }
 
 declare module "react-declarative/utils/hof/singlerun" {
+  /**
+   * Interface for classes that can be cleared.
+   * @interface
+   */
   export interface IClearable {
     clear: () => void;
   }
+  /**
+   * A class representing a task.
+   *
+   * @class
+   */
   export class Task {
     readonly target: Promise<any>;
+    /**
+     * Retrieves the current status value.
+     *
+     * @return The value of the status.
+     */
     get status(): "pending" | "fulfilled" | "rejected";
+    /**
+     * Constructor for creating an instance of the class.
+     *
+     * @param target - The target promise to be handled.
+     *
+     * @return - This method does not return any value.
+     */
     constructor(target: Promise<any>);
   }
   /**
@@ -7422,10 +7462,21 @@ declare module "react-declarative/utils/hof/singlerun" {
 }
 
 declare module "react-declarative/utils/hof/cancelable" {
+  /**
+   * Represents a wrapped function that returns a promise.
+   * @template T - The type of the result of the wrapped function.
+   * @template P - The types of the parameters of the wrapped function.
+   */
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;
   }
+  /**
+   * Symbol representing cancellation status.
+   *
+   * @type {Symbol}
+   * @name CANCELED_SYMBOL
+   */
   export const CANCELED_SYMBOL: unique symbol;
   /**
    * Wraps a promise function and provides cancellation functionality.
@@ -7442,6 +7493,9 @@ declare module "react-declarative/utils/hof/cancelable" {
 }
 
 declare module "react-declarative/utils/hof/debounce" {
+  /**
+   * Interface representing an object that can be cleared and flushed.
+   */
   export interface IClearable {
     clear: () => void;
     flush: () => void;
@@ -7463,6 +7517,11 @@ declare module "react-declarative/utils/hof/debounce" {
 
 declare module "react-declarative/utils/hof/queued" {
   import { CANCELED_SYMBOL } from "react-declarative/utils/hof/cancelable";
+  /**
+   * Represents a wrapped function that returns a Promise.
+   * @template T - The type of the value returned by the wrapped function.
+   * @template P - The types of the parameters of the wrapped function.
+   */
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     clear(): void;
@@ -7485,6 +7544,11 @@ declare module "react-declarative/utils/hof/queued" {
 
 declare module "react-declarative/utils/hof/lock" {
   import { IWrappedFn as IWrappedFnInternal } from "react-declarative/utils/hof/queued";
+  /**
+   * Represents a wrapped function definition.
+   * @template T - The return type of the wrapped function.
+   * @template P - The parameter types of the wrapped function.
+   */
   interface IWrappedFn<T extends any = any, P extends any[] = any>
     extends IWrappedFnInternal<T, P> {
     beginLock(): void;
@@ -7503,6 +7567,11 @@ declare module "react-declarative/utils/hof/lock" {
 }
 
 declare module "react-declarative/utils/hof/cached" {
+  /**
+   * Interface for objects that can be cleared.
+   *
+   * @interface
+   */
   interface IClearable {
     clear: () => void;
   }
@@ -7522,12 +7591,29 @@ declare module "react-declarative/utils/hof/cached" {
 }
 
 declare module "react-declarative/utils/hof/memoize" {
+  /**
+   * Interface representing a clearable object.
+   * @template K - The type of the key.
+   */
   export interface IClearable<K = string> {
     clear: (key?: K) => void;
   }
+  /**
+   * Represents a reference to a value of type T.
+   *
+   * @template T - The type of the value referenced by this reference.
+   */
   export interface IRef<T = any> {
     current: T;
   }
+  /**
+   * Defines the GET_VALUE_MAP constant.
+   *
+   * This symbol is used to uniquely identify the 'get-value-map' property in an object or map.
+   * It can be used as a key to retrieve or set a value from a map.
+   *
+   * @const {symbol} GET_VALUE_MAP - The symbol representing the 'get-value-map' property.
+   */
   export const GET_VALUE_MAP: unique symbol;
   /**
    * A memoization function that caches the result of a function based on its arguments.
@@ -7551,6 +7637,11 @@ declare module "react-declarative/utils/hof/memoize" {
 }
 
 declare module "react-declarative/utils/hof/trycatch" {
+  /**
+   * Represents a configuration interface.
+   *
+   * @interface
+   */
   interface IConfig {
     fallback?: (error: Error) => void;
     defaultValue: null | false;
@@ -7583,6 +7674,11 @@ declare module "react-declarative/utils/hof/trycatch" {
 
 declare module "react-declarative/utils/hof/ttl" {
   import { IClearable as IClearableInternal } from "react-declarative/utils/hof/memoize";
+  /**
+   * Represents a clearable object that can be garbage collected.
+   *
+   * @template K - The type of key used for clearing.
+   */
   export interface IClearable<K = string> extends IClearableInternal<K> {
     gc: () => void;
   }

@@ -1,4 +1,8 @@
 
+/**
+ * @interface IClearable
+ * @description An interface representing an object that can be cleared.
+ */
 export interface IClearable {
     clear: () => void;
 }
@@ -26,6 +30,13 @@ export const singleshot = <T extends (...args: any[]) => any>(run: T): T & IClea
         }
         return result;
     };
+    /**
+     * Clears the given array or object by removing all its properties or elements.
+     *
+     * @param target - The array or object to be cleared.
+     * @throws {TypeError} If the target is not an array or an object.
+     *
+     */
     fn.clear = () => {
         hasRunned = false;
     };

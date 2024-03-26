@@ -1,15 +1,38 @@
+/**
+ * Interface representing a clearable object.
+ * @template K - The type of the key.
+ */
 export interface IClearable<K = string> {
     clear: (key?: K) => void;
 }
 
+/**
+ * Represents a reference to a value of type T.
+ *
+ * @template T - The type of the value referenced by this reference.
+ */
 export interface IRef<T = any> {
     current: T;
 }
 
+/**
+ * Represents a function that can take any number of arguments and return any value.
+ * @typedef {Function} Function
+ * @param  {...any} args - The arguments to be passed to the function.
+ * @return {any} The result of the function execution.
+ */
 interface Function {
     (...args: any): any;
 }
 
+/**
+ * Defines the GET_VALUE_MAP constant.
+ *
+ * This symbol is used to uniquely identify the 'get-value-map' property in an object or map.
+ * It can be used as a key to retrieve or set a value from a map.
+ *
+ * @const {symbol} GET_VALUE_MAP - The symbol representing the 'get-value-map' property.
+ */
 export const GET_VALUE_MAP = Symbol('get-value-map');
 
 /**
@@ -24,6 +47,12 @@ export const GET_VALUE_MAP = Symbol('get-value-map');
  */
 export const memoize = <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T): T & IClearable<K> => {
 
+    /**
+     * A map that associates keys of type K with values of type IRef<ReturnType<T>>.
+     *
+     * @template K - The type of the keys in the valueMap.
+     * @template T - The type of the values in the valueMap.
+     */
     const valueMap = new Map<K, IRef<ReturnType<T>>>();
 
     /**
@@ -62,8 +91,20 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
         return value;
     };
 
+    /**
+     * Executes the GET_VALUE_MAP function by symbol. Works like a friend classes in C++
+     *
+     * @return The value map containing key-value pairs.
+     */
     executeFn[GET_VALUE_MAP] = () => valueMap;
 
+    /**
+     * Clears the executeFn function.
+     *
+     * @function clear
+     * @memberof executeFn
+     * @returns {void}
+     */
     executeFn.clear = clear;
 
     return executeFn as T & IClearable<K>;

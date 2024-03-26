@@ -1,5 +1,9 @@
 import singleshot from "./singleshot";
 
+/**
+ * Represents a clearable object.
+ * @interface
+ */
 export interface IClearable {
     clear: () => void;
 }

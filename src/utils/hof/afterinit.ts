@@ -1,3 +1,9 @@
+/**
+ * Represents a function wrapped in a promise that can be executed and cleared.
+ *
+ * @template T - The type of the promise result.
+ * @template P - The type of the function arguments.
+ */
 export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T>;
     clear(): void;
@@ -30,6 +36,13 @@ export const afterinit = <T extends any = any, P extends any[] = any[]>(run: (..
         return run(...args);
     };
 
+    /**
+     * Clears the function wrapped in a wrapper function.
+     * This function removes any previously set function and resets it to null.
+     *
+     * @param wrappedFn - The wrapped function to be cleared.
+     * @returns
+     */
     wrappedFn.clear = () => {
         hasComplete = false;
     };
