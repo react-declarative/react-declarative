@@ -12,29 +12,60 @@ import { IOutletModalProps } from "../../../components/OutletView";
 import downloadBlob from "../utils/downloadBlob";
 
 /**
- * Asynchronously fetches a file from a given URL.
+ * Asynchronously fetches a file from a given URL by using XMLHttpRequest.
  *
  * @param url - The URL of the file to fetch.
  * @param onProgress - An optional callback function that will be called with the progress of the download.
  * @param sizeOriginal - An optional parameter specifying the original size of the file.
  * @returns - A Promise that resolves with the fetched Blob object or rejects with an error.
  */
-const fetchFile = async (
+const downloadXHR = async (
   url: string,
   onProgress?: (progress: number) => void,
   sizeOriginal?: number
 ) => {
+  console.log('useOpenDocument downloadXHR', {url});
   try {
     return await downloadBlob(url, {
       onProgress,
       sizeOriginal,
     });
   } catch (error) {
-    console.log("fetchFile downloadBlob error", error);
+    console.log("useOpenDocument downloadXHR error", error);
+    onProgress && onProgress(0);
+    return null;
+  }
+};
+
+/**
+ * Asynchronously fetches a file from a given URL by using Fetch API.
+ *
+ * @param url - The URL of the file to fetch.
+ * @param onProgress - An optional callback function that will be called with the progress of the download.
+ * @returns - A Promise that resolves with the fetched Blob object or rejects with an error.
+ */
+const downloadFetch = async (url: string, onProgress?: (progress: number) => void) => {
+  console.log('useOpenDocument downloadFetch', {url});
+  try {
     const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/octet-stream",
+        "X-Requested-With": "XMLHttpRequest",
+        "Access-Control-Allow-Origin": "*"
+      },
       mode: "no-cors",
     });
-    return await response.blob();
+    if (!response.ok) {
+      throw response;
+    }
+    const result = await response.blob();
+    onProgress && onProgress(100);
+    return result;
+  } catch (error) {
+    onProgress && onProgress(0);
+    console.log("useOpenDocument downloadFetch error", error);
+    return null;
   }
 };
 
@@ -53,7 +84,15 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
 
   useAsyncValue(async () => {
     try {
-      const blob = await fetchFile(data.url, setProgress, data.sizeOriginal);
+      let blob = await downloadXHR(data.url, setProgress, data.sizeOriginal);
+      if (!blob) {
+        blob = await downloadFetch(data.url, setProgress);
+      }
+      if (!blob) {
+        console.log('useOpenDocument failed to fetch');
+        history.replace("/error");
+        return;
+      }
       const blobType = await fileTypeFromBlob(blob);
       const mime = blobType?.mime || blob.type;
       const url = URL.createObjectURL(new Blob([blob], { type: mime }));
@@ -83,8 +122,8 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
 
   return (
     <LoaderView
-      variant={progress ? "determinate" : "indeterminate"}
-      value={progress || undefined}
+      variant={progress !== 0 && progress !== 100 ? "determinate" : "indeterminate"}
+      value={progress !== 0 && progress !== 100 ? progress : undefined}
       size={48}
       sx={{ height: 275 }}
     />

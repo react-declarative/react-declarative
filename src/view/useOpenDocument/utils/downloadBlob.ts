@@ -47,8 +47,8 @@ export const downloadBlob = (
        *
        * @returns
        */
-      () => {
-        rej();
+      (error) => {
+        rej(error);
       }
     );
     xhr.addEventListener(

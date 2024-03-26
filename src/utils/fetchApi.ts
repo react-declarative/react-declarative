@@ -38,6 +38,9 @@ export const fetchApi = async <T = any>(input: RequestInfo | URL, init?: Request
                 ...init?.headers,
             },
         });
+        if (!response.ok) {
+            throw new Error('fetchApi response not ok');
+        }
         return await response.json();
     } catch (error: any) {
         throw new FetchError(
