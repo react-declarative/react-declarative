@@ -69,6 +69,7 @@
 
 1. [API reference](./auto/index.md)
 2. [Implement your own field](../src/README.md)
+3. [Philosophy notes](../NOTES.md)
 
 ## Overview
 
