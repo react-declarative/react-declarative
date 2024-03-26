@@ -25,6 +25,12 @@ const positions = [
   [-54.5, 19.6],
 ];
 
+/**
+ * Defines the styles for the "clockNumber" component.
+ *
+ * @function useStyles
+ * @returns {Object} The styles object.
+ */
 const useStyles = makeStyles()((theme: Theme) => ({
   clockNumber: {
     width: 32,

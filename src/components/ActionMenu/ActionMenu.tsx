@@ -53,6 +53,11 @@ export interface IActionMenuProps<T extends any = object> {
 
 const MENU_MIN_WIDTH = 225;
 
+/**
+ * Returns the styles object for a component using the makeStyles hook.
+ *
+ * @returns {object} The styles object.
+ */
 const useStyles = makeStyles()({
   root: {
     zIndex: "unset !important",

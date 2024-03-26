@@ -30,6 +30,11 @@ interface Props {
   children: React.ReactNode;
 }
 
+/**
+ * Custom hook to generate styles using the makeStyles() function from Material-UI.
+ * @param {Object} theme - The theme object provided by the Material-UI theme provider.
+ * @returns {Object} - The generated styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     width: "100%",

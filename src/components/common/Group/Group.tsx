@@ -38,6 +38,12 @@ interface IGroupPrivate {
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
+/**
+ * Returns the styles for a component.
+ *
+ * @function useStyles
+ * @returns {Object} The styles for a component.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

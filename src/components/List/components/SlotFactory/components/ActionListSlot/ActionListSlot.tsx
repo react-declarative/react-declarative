@@ -20,6 +20,11 @@ import ActionMenu from '../../../../slots/ActionMenuSlot';
 import ActionAdd from '../../../../slots/ActionAddSlot';
 import ActionFab from '../../../../slots/ActionFabSlot';
 
+/**
+ * Hook that creates a custom styles object for a component.
+ *
+ * @return {object} The styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

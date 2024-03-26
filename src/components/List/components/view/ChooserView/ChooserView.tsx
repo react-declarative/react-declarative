@@ -32,6 +32,13 @@ const DEFAULT_ITEM_SIZE = 75;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
+/**
+ * A function that returns an object with CSS styles for a component.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} - An object containing CSS styles for a component.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",

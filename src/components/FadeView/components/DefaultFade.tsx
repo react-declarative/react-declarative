@@ -20,6 +20,11 @@ interface IDefaultFadeProps {
     none: boolean;
 }
 
+/**
+ * Creates a useStyles object that can be used to access CSS styles.
+ *
+ * @returns {Object} The useStyles object.
+ */
 const useStyles = makeStyles()(() => ({
     root: {
         pointerEvents: 'none',

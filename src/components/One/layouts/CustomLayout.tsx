@@ -50,6 +50,12 @@ interface ICustomLayoutPrivate<Data = IAnything> extends IEntity<Data> {
   children?: React.ReactNode;
 }
 
+/**
+ * The useStyles variable is a function that returns an object containing CSS styles.
+ *
+ * @type {function(): object}
+ * @return {object} The object containing CSS styles.
+ */
 const useStyles = makeStyles()({
     root: {
         display: 'flex',

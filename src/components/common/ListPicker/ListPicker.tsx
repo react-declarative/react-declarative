@@ -44,6 +44,11 @@ export interface IListPickerProps<RowData extends IRowData = IAnything> {
   rowActions?: IListRowAction[];
 }
 
+/**
+ * The useStyles variable is a function that returns a styles object used for styling a component.
+ * The styles object contains CSS properties and values that are applied to specific elements within the component.
+ * @returns {object} - The styles object containing CSS properties and values.
+ */
 const useStyles = makeStyles()({
   root: {
     display: 'flex',

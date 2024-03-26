@@ -44,6 +44,32 @@ import SideMenu from "./SideMenu";
 
 const DRAWER_WIDTH = 256;
 
+/**
+ * The `useStyles` variable is a function that returns an object containing CSS classes. These classes are created using the `makeStyles` function from the Material-UI library. The `
+ *makeStyles` function is invoked with a single argument, which is an arrow function that defines the styles for the various selectors.
+ *
+ * The returned object contains the following CSS class names:
+ *
+ * - `root`: Represents the root element of the component. It has various flexbox properties applied to it to stretch the component to fill the available space.
+ * - `container`: Represents a container element within the component. It has the `flex: 1` property applied to it to fill the remaining space within the component.
+ * - `title`: Represents the title element within the component. It has the `flex-grow: 1` property applied to it to grow and fill the available space.
+ * - `appBarSolidPaper`: Represents the app bar element within the component with a solid background color. It has the background color and text color set dynamically based on the theme
+ *.
+ * - `drawer`: Represents the drawer element within the component. It has a fixed width and its child element (MuiPaper) has the same width with an overflow-x set to hidden to prevent
+ * horizontal scrolling.
+ * - `loaderBar`: Represents the loading bar element within the component. It has a negative top margin to offset the component by 4 pixels.
+ * - `offsetRegular`: Represents an offset element within the component with a regular (default) height of 64 pixels.
+ * - `offsetDense`: Represents an offset element within the component with a dense (shorter) height of 48 pixels.
+ * - `searchBox`: Represents a search box container element within the component. It has an inline-flex display and margins applied to it. Its child (TextField) elements have a flex
+ *: 1 property applied to them to fill the available space.
+ * - `beforeSearch`: Represents an element that comes before the search box within the component. It has a width and flex properties applied to it to stretch and fill the available space
+ *. Its child elements have a flex: 1 property applied to them to fill the available space.
+ * - `afterSearch`: Represents an element that comes after the search box within the component. It has a width and flex properties applied to it to stretch and fill the available space
+ *. Its child elements have a flex: 1 property applied to them to fill the available space.
+ *
+ * @function
+ * @returns {Object} The CSS classes as an object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',

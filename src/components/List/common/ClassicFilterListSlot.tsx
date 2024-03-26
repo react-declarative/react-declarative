@@ -25,6 +25,13 @@ import { IFilterListSlot } from "../slots/FilterListSlot";
 
 import One from "../../One";
 
+/**
+ * Returns the styles for the useStyles variable.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} The styles for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

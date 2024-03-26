@@ -22,6 +22,12 @@ import ISize from '../../model/ISize';
 const MODAL_ROOT = "files-modal__root";
 const RESIZE_DEBOUNCE = 10;
 
+/**
+ * makeStyles is a function that takes a theme object and returns an object containing CSS styles.
+ *
+ * @param {object} theme - The theme object containing the color palette.
+ * @returns {object} - An object containing CSS styles.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',

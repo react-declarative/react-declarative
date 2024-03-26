@@ -41,6 +41,24 @@ const RESIZE_DELAY = 100;
 
 const ROWS_PER_PAGE = [10, 25, 50];
 
+/**
+ * Creates and returns an object containing CSS styles for a component.
+ *
+ * @function
+ * @name useStyles
+ * @param {object} theme - The theme object containing the desired styles.
+ * @param {function} _ - A function that can be used to customize the styles based on the component's properties.
+ * @param {object} classes - An object containing additional classes that can be used to customize the styles.
+ * @returns {object} - The CSS styles for the component.
+ *
+ * @example
+ * const styles = useStyles(theme, _, classes);
+ *
+ * console.log(styles.root); // { position: 'relative' }
+ * console.log(styles.container); // { position: 'absolute', top: 0, left: 0, background: theme.palette.background.paper }
+ * console.log(styles.noBorder); // { border: 'none !important' }
+ * console.log(styles.tableHead); // { position: 'sticky', top: -1, zIndex: 5, background: theme.palette.background.paper }
+ */
 const useStyles = makeStyles()((theme, _, classes) => ({
   root: {
     position: "relative",
@@ -66,6 +84,12 @@ const useStyles = makeStyles()((theme, _, classes) => ({
   },
 }));
 
+/**
+ * Interface for the props of the GridView component.
+ *
+ * @template FilterData - The type for the filter data.
+ * @template RowData - The type for the row data.
+ */
 interface IGridViewProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything

@@ -13,6 +13,11 @@ const FADE_ANIMATION_DELAY = 50;
 const FADE_MARK = "react-declarative__fadeMark";
 export const SCROLL_VIEW_TARGER = "react-declarative__scrollViewTarget";
 
+/**
+ * Creates and returns the CSS styles for a component called useStyles.
+ *
+ * @returns {Object} The CSS styles object.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

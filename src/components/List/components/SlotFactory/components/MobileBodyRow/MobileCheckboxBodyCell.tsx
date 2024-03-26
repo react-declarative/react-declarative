@@ -6,6 +6,14 @@ import TableCell from '@mui/material/TableCell';
 
 import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../slots/CheckboxCellSlot';
 
+/**
+ * A function that generates styles using the `makeStyles` method.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} - The generated styles object.
+ *
+ */
 const useStyles = makeStyles()({
     root: {
         position: 'relative',

@@ -23,6 +23,17 @@ import classNames from "../../../../../../utils/classNames";
 
 const CELL_PADDING_LEFT = 32;
 
+/**
+ * useStyles is a variable that stores a function which returns an object containing CSS classes for a component.
+ * The returned object contains the following properties:
+ *
+ * - root: CSS class for the root element of the component.
+ * - cellStretch: CSS class for an element that stretches to occupy the full width.
+ * - separator: CSS class for a separator element.
+ * - disabled: CSS class for a disabled element, with reduced opacity and disabled pointer events.
+ *
+ * @returns {object} The object containing CSS classes.
+ */
 const useStyles = makeStyles()({
   root: {},
   cellStretch: {

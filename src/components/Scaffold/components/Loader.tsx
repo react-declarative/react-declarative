@@ -5,6 +5,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { makeStyles } from '../../../styles';
 
+/**
+ * Returns the styles for a specific component.
+ * @function
+ * @name useStyles
+ * @returns {Object} The styles object for the component.
+ *
+ * @param {Object} theme - The theme object provided by the Material-UIThemeProvider.
+ * @param {string} theme.palette.background.paper - The background color for the component.
+ *
+ */
 const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'fixed',

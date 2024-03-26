@@ -43,6 +43,10 @@ interface ICenterLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
 }
 
+/**
+ * Returns a customized styles object using makeStyles.
+ *
+ */
 const useStyles = makeStyles()({
     root: {
         display: 'flex',

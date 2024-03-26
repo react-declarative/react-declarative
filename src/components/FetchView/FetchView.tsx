@@ -148,6 +148,24 @@ export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D
     IFetchViewTupleProps<P, A, B, C, D, E, F, G, H, I, J>
         | IFetchViewObjectProps<P, A, B, C, D, E, F, G, H, I, J>;
 
+/**
+ * Variable: useStyles
+ *
+ * @description
+ * The useStyles variable is used to define styles using the makeStyles hook from the Material-UI library.
+ *
+ * @returns {Object} styles - The object containing the defined styles.
+ *
+ * @example
+ * // Usage example
+ * import { makeStyles } from '@material-ui/core/styles';
+ *
+ * const useStyles = makeStyles()({
+ *   root: {
+ *     width: '100%',
+ *   },
+ * });
+ */
 const useStyles = makeStyles()({
     root: {
         width: '100%',

@@ -20,6 +20,12 @@ export interface ICountdownProps extends BoxProps {
   onExpire?: () => void;
 }
 
+/**
+ * The `useStyles` variable is a custom hook that generates a set of CSS styles
+ * using the `makeStyles` function provided by the Material-UI library.
+ *
+ * @returns {Object} - An object that contains the generated CSS styles.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

@@ -54,6 +54,13 @@ interface IContentProps {
   rowMark: IGridProps["rowMark"];
 }
 
+/**
+ * Defines the styles for a component.
+ *
+ * @typedef {Object} StylesObject
+ * @property {string} content - The styles for the content element.
+ * @property {string} noData - The styles for the noData element.
+ */
 const useStyles = makeStyles()({
   content: {
     height: "calc(100% - 35px)",

@@ -26,6 +26,11 @@ import Button from "@mui/material/Button";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 
+/**
+ * useStyles is a function that returns the styles for a component using the makeStyles hook from the Material-UI library.
+ *
+ * @returns {Object} - An object containing the CSS styles for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

@@ -14,6 +14,17 @@ import { IListChip } from "../../../model/IListProps";
 
 import { IChipListSlot } from "../slots/ChipListSlot";
 
+/**
+ * @typedef {Object} Styles
+ * @property {Object} root - The CSS properties for the root element.
+ * @property {number} root.height - The height of the root element in pixels.
+ * @property {string} root.width - The width of the root element as a CSS value.
+ * @property {string} root.background - The background color of the root element.
+ *
+ * @typedef {Function} useStyles
+ * @param {Object} theme - The theme object provided by the Material-UI library.
+ * @returns {Styles} The computed styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     height: 48,

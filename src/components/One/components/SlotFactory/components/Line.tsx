@@ -8,6 +8,13 @@ import Typography from '@mui/material/Typography';
 
 import { ILineSlot } from '../../../slots/LineSlot';
 
+/**
+ * The useStyles variable is used to define and retrieve custom styles
+ * for a component using the makeStyles function provided by the Material-UI library.
+ *
+ * @param {Object} theme - The theme object provided by the Material-UI library.
+ * @returns {Object} - An object containing the custom styles for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
     root: {
         height: 72,

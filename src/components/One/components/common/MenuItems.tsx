@@ -74,6 +74,28 @@ interface IMenuItemsProps {
 const MENU_MIN_WIDTH = 225;
 const MENU_OPEN_DELAY = 350;
 
+/**
+ * This variable defines the styles for a container component and its child elements.
+ * It uses the `makeStyles` function from the Material-UI library to create a CSS
+ * styles object.
+ *
+ * The `container` style defines the positioning and layout properties for the container
+ * component. It sets the position to "relative", displays the component as a flexible box,
+ * aligns the items and justifies the content to stretch, sets the maximum height to 45% of
+ * the viewport height, and applies overflow behaviors to handle overflowing content.
+ *
+ * The `content` style sets the flex property to 1 to allow it to expand and fill the available
+ * space within the container. It displays the component as a flex container with a column
+ * direction, and justifies the content to stretch.
+ *
+ * The `loader` style positions the loader component absolutely within the container component.
+ * It sets the top, left, right, and bottom properties to 0 to position it at the edges of the
+ * container. The height and width properties are set to "100%" to make it fill the container,
+ * and it is displayed as a flex container with centered content using `alignItems` and `justifyContent`.
+ *
+ * @type {function(): object} useStyles - A function that returns an object with CSS styles.
+ * @returns {object} The CSS styles object for the container component and its child elements.
+ */
 const useStyles = makeStyles()({
   container: {
     position: "relative",

@@ -24,6 +24,11 @@ import useActualCallback from '../../hooks/useActualCallback';
 
 import classNames from '../../utils/classNames';
 
+/**
+ * Returns the classes object for styling components.
+ *
+ * @returns {Object} The classes object.
+ */
 const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'fixed',

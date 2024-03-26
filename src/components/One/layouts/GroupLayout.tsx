@@ -28,6 +28,16 @@ interface IGroupLayoutPrivate {
   children?: React.ReactNode;
 }
 
+/**
+ * The variable useStyles is used to create and retrieve CSS styles
+ * using the makeStyles function from the Material-UI library.
+ * It returns an object containing the generated CSS classes.
+ *
+ * @type {function(): object} - A function that returns an object of CSS classes.
+ *
+ * @returns {object} - An object containing the generated CSS classes.
+ *
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

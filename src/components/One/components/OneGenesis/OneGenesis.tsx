@@ -34,6 +34,11 @@ import isBaseline from "../../config/isBaseline";
 
 const BASE_CLASS = "react-declarative__oneGenesis";
 
+/**
+ * The variable `useStyles` is a function that returns a makeStyles hook. This hook is used to create classes for styling components using the Material-UI library.
+ *
+ * @returns {Function} A makeStyles hook function.
+ */
 const useStyles = makeStyles()({
   readonly: {
     pointerEvents: "none",

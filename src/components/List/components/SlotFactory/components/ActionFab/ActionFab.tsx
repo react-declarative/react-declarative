@@ -23,6 +23,11 @@ import IActionFabSlot from '../../../../slots/ActionFabSlot/IActionFabSlot';
 const LOAD_SOURCE = 'action-menu';
 const LABEL_SHRINK = 500;
 
+/**
+ * A function that returns an object with style classes.
+ *
+ * @returns {Object} The style classes object.
+ */
 const useStyles = makeStyles()({
     button: {
         borderRadius: '50px !important',

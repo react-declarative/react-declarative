@@ -31,6 +31,14 @@ interface IExpansionLayoutPrivate {
   children?: React.ReactNode;
 }
 
+/**
+ * useStyles is a function that returns an object of CSS classes generated using the makeStyles() function from the Material-UI library.
+ *
+ * The returned object contains CSS classes for different elements and components, such as the root, content, outlinePaper, and transparentPaper.
+ * These classes can be used to apply styling and layout to the corresponding elements in a React component.
+ *
+ * @returns {object} An object containing CSS classes for different elements and components.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",

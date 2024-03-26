@@ -19,6 +19,12 @@ interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
 const MIN_ROW_HEIGHT = 54;
 const MAX_POPUP_HEIGHT = 300;
 
+/**
+ * A function that creates a styles object using makeStyles() function from Material-UI.
+ *
+ * @returns {Object} - A styles object with the following properties:
+ *  - listBox: Represents the styling for the listBox element, including an "overflow" property set to "hidden !important".
+ */
 const useStyles = makeStyles()({
   listBox: {
     overflow: "hidden !important",

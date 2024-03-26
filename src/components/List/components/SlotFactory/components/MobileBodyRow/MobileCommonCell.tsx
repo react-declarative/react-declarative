@@ -29,6 +29,10 @@ interface IMobileCommonCellProps extends ICommonCellSlot {
 const COMPONENT_MIN_HEIGHT = 70;
 export const CONTENT_CELL = 'react_declarative_listMobileCell';
 
+/**
+ * Returns an object containing CSS classes for different elements of the component.
+ *
+ */
 const useStyles = makeStyles()({
     root: {
         position: 'relative',

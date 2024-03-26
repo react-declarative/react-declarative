@@ -16,6 +16,12 @@ interface IDotProps extends BoxProps {
     color: string;
 }
 
+/**
+ * Returns the style classes for a component.
+ *
+ * @function useStyles
+ * @returns {Object} The style classes for the component.
+ */
 const useStyles = makeStyles()({
     root: {
         display: 'flex',

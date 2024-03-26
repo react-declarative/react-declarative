@@ -45,6 +45,11 @@ interface IImageViewProps<T extends any = object> extends BoxProps, Omit<IAction
     throwError?: boolean;
 }
 
+/**
+ * Custom styling hook for a component.
+ *
+ * @returns {Object} The styles object containing the class names and their corresponding CSS properties.
+ */
 const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'relative',

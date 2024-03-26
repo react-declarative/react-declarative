@@ -8,6 +8,10 @@ import CommonCellSlot, { ICommonCellSlot } from '../../../../slots/CommonCellSlo
 
 import ColumnType from '../../../../../../model/ColumnType';
 
+/**
+ * @description Creates custom styles for a component using the makeStyles hook from Material-UI.
+ * @returns {Object} The custom styles object for the component.
+ */
 const useStyles = makeStyles()({
     root: {
         position: 'relative',

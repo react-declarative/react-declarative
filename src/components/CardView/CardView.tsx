@@ -29,6 +29,26 @@ import classNames from "../../utils/classNames";
 
 const DEFAULT_SKIP_STEP = 25;
 
+/**
+ * Represents a function that generates CSS classes using the makeStyles hook from Material-UI.
+ *
+ * @typedef {function} useStyles
+ *
+ * @param {object} [overrides] - Optional overrides to customize the generated CSS classes.
+ *
+ * @returns {object} - The generated CSS classes.
+ *
+ * @example
+ *
+ * // Usage example:
+ * const classes = useStyles();
+ *
+ * // Accessing generated CSS classes:
+ * const rootClassName = classes.root;
+ * const containerClassName = classes.container;
+ * const contentClassName = classes.content;
+ * const placeholderClassName = classes.placeholder;
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

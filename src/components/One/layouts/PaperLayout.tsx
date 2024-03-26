@@ -42,6 +42,11 @@ interface IPaperLayoutPrivate {
   children?: React.ReactNode;
 }
 
+/**
+ * Generate custom styles for a component using the `makeStyles` function.
+ *
+ * @returns {object} - An object containing the generated styles.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

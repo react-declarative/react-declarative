@@ -127,6 +127,11 @@ interface IComponentFieldPrivate<Data = IAnything> {
   transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
 }
 
+/**
+ * A function that returns a style object based on the given configuration
+ *
+ * @returns {Object} The style object containing the defined CSS properties
+ */
 const useStyles = makeStyles()({
   root: {
     display: "flex",

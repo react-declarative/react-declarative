@@ -36,6 +36,15 @@ interface IFadeViewProps extends FadeContainerT {
   children: React.ReactNode;
 }
 
+/**
+ * Returns a styles object for the given component.
+ *
+ * @function
+ * @name useStyles
+ *
+ * @returns {object} - The styles object for the component.
+ *
+ */
 const useStyles = makeStyles()({
   root: {
     display: "flex",

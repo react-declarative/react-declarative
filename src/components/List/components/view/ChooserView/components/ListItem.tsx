@@ -78,6 +78,13 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
   );
 };
 
+/**
+ * Returns the styles for the given component.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} The styles for the component.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

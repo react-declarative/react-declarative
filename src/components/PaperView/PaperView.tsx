@@ -11,6 +11,13 @@ import classNames from "../../utils/classNames";
 
 export const PAPERVIEW_ROOT = 'react-declatative__PaperView-root';
 
+/**
+ * Creates a custom set of styles using the makeStyles hook from Material-UI.
+ * The returned styles object provides CSS classes for the outlined element.
+ *
+ * @param {Object} theme - The theme object from Material-UI.
+ * @returns {Object} - An object containing CSS classes for the outlined element.
+ */
 const useStyles = makeStyles()((theme) => ({
   outline: {
     border: `1px solid ${alpha(

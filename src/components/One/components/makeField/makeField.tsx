@@ -61,6 +61,10 @@ const stretch = {
     justifyContent: 'stretch',
 };
 
+/**
+ * Custom hook for generating CSS-in-JS styles using makeStyles function from Material-UI library.
+ * @returns {Object} The generated styles object.
+ */
 const useStyles = makeStyles()({
     root: {
       ...stretch,

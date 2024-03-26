@@ -13,6 +13,14 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
+/**
+ * The useStyles variable is used to define custom styles using the makeStyles hook.
+ * It returns an object containing CSS styles for the strech and content classes.
+ *
+ * @type {Object}
+ * @property {Object} strech - CSS styles for the .strech class.
+ * @property {Object} content - CSS styles for the .content class.
+ */
 const useStyles = makeStyles()((theme) => ({
   strech: {
     position: "relative",

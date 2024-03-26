@@ -81,6 +81,15 @@ interface IContainerProps<
   onResize?: IAutoSizerProps["onResize"];
 }
 
+/**
+ * useStyles is a function that returns an object containing CSS styles for a given component.
+ * It uses the makeStyles function from a CSS-in-JS library, such as Material-UI, to create and apply the styles.
+ *
+ * The returned object contains various CSS classes (keys) with their corresponding styles (values).
+ * These styles can be applied to the component's elements using the className property.
+ *
+ * @returns {object} An object containing CSS classes and their styles.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

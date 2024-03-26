@@ -7,6 +7,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 
+/**
+ * A function that returns the styles for a dialog component.
+ * @returns {object} The styles object for the dialog component.
+ */
 const useStyles = makeStyles()({
   dialog: {
     '&:first-of-type': {

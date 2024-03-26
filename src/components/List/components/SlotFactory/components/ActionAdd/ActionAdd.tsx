@@ -23,6 +23,10 @@ import IActionAddSlot from '../../../../slots/ActionAddSlot/IActionAddSlot';
 const LOAD_SOURCE = 'action-menu';
 const LABEL_SHRINK = 500;
 
+/**
+ * Variable representing a function that generates custom styles using the makeStyles hook from Material-UI.
+ *
+ */
 const useStyles = makeStyles()({
     button: {
         borderRadius: '50px !important',

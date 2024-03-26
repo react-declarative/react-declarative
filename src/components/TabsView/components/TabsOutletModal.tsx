@@ -125,6 +125,14 @@ export interface ITabsModalProps<
   onClose?: () => void;
 }
 
+/**
+ * This variable is used to apply custom styles to components using the `makeStyles` function from Material-UI.
+ * The `makeStyles` function takes a callback function as a parameter, which allows you to define the styles using a theme object.
+ *
+ * @type {Function}
+ * @param {Object} theme - The theme object provided by Material-UI.
+ * @returns {Object} - The custom styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',

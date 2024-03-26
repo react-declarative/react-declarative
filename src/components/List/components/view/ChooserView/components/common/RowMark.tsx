@@ -18,6 +18,12 @@ interface IRowMarkProps<RowData extends IRowData = IAnything> {
     row: RowData,
 }
 
+/**
+ * A function that generates CSS styles using the `makeStyles` function.
+ *
+ * @returns {Object} The generated CSS styles.
+ *
+ */
 const useStyles = makeStyles()({
     mark: {
         position: 'absolute',

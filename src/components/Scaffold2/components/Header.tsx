@@ -74,6 +74,13 @@ interface IHeaderProps<T = Payload> extends StackProps {
 
 const TAB_HEIGHT = 48;
 
+/**
+ * This variable represents the styles of tabs in a user interface.
+ * The useStyles variable utilizes the makeStyles function to generate the styles.
+ *
+ * @type {Function}
+ * @return {Object} - An object containing the styles for the tabs.
+ */
 const useStyles = makeStyles()({
   tabsRoot: {
     minHeight: TAB_HEIGHT,

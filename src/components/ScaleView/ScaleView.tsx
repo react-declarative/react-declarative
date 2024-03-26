@@ -22,6 +22,14 @@ interface IScaleViewProps {
     center?: boolean;
 }
 
+/**
+ * The `useStyles` variable is a function that returns an object containing CSS classes.
+ * The returned object maps class names to their corresponding CSS styles.
+ * These styles are created using the `makeStyles` function provided by the `@material-ui/core/styles` module.
+ *
+ * @returns {object} An object containing CSS class names and their corresponding styles.
+ *
+ */
 const useStyles = makeStyles()({
     root: {
         position: 'relative',

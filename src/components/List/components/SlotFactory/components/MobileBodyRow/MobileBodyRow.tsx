@@ -26,6 +26,11 @@ import useProps from "../../../../hooks/useProps";
 import useSelection from "../../../../hooks/useSelection";
 import useReload from "../../../../hooks/useReload";
 
+/**
+ * Returns the styles object for a component.
+ * @function
+ * @returns {object} The styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     "&:nth-of-type(2n)": {

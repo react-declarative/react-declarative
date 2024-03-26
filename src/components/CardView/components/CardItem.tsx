@@ -69,6 +69,11 @@ const defaultFormatter = (value: React.ReactNode) => {
   }
 };
 
+/**
+ * Custom hook for generating styles using the makeStyles function from Material-UI.
+ *
+ * @returns {Object} The generated styles.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

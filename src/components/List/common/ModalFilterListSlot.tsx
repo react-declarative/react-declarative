@@ -26,6 +26,11 @@ import Button from "@mui/material/Button";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 
+/**
+ * Custom hook for generating styles using the makeStyles function from Material-UI.
+ *
+ * @return {object} The generated styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

@@ -16847,6 +16847,9 @@ declare module "react-declarative/components/List/common/ModernChipListSlot" {
 
 declare module "react-declarative/components/List/hooks/useColumnConfig" {
   import IColumn from "react-declarative/model/IColumn";
+  /**
+   * Represents the properties for the SortModal component.
+   */
   interface ISortModalProps {
     columns: IColumn[];
     storageKey: string;

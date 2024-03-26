@@ -11,6 +11,26 @@ import ToolbarButton from '../ToolbarButton';
 import YearSelection from './YearSelection';
 import Calendar from './Calendar';
 
+/**
+ * Returns a makeStyles hook with custom styles for a container and a toolbar.
+ * @returns {Function} A makeStyles hook that can be used to create custom styles.
+ *
+ * @param {Object} theme - The theme object used for providing style properties.
+ * @param {Object} theme.palette - The palette object used for defining color properties.
+ * @param {string} theme.palette.primary.main - The color used for the background of the toolbar.
+ *
+ * @returns {Object} The custom styles object containing the styles for the container and the toolbar.
+ * @returns {Object} styles.container - The styles for the container.
+ * @returns {number} styles.container.width - The width of the container.
+ * @returns {number} styles.container.height - The height of the container.
+ * @returns {Object} styles.toolbar - The styles for the toolbar.
+ * @returns {string} styles.toolbar.backgroundColor - The background color of the toolbar.
+ * @returns {string} styles.toolbar.display - The display property of the toolbar.
+ * @returns {string} styles.toolbar.flexDirection - The flex direction property of the toolbar.
+ * @returns {string} styles.toolbar.alignItems - The align items property of the toolbar.
+ * @returns {string} styles.toolbar.justifyContent - The justify content property of the toolbar.
+ * @returns {number} styles.toolbar.height - The height of the toolbar.
+ */
 const useStyles = makeStyles()((theme) => ({
   container: {
     width: 300,

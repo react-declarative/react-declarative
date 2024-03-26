@@ -47,6 +47,18 @@ interface IHeaderProps<T = RowData> {
   onClickHeaderColumn: IGridProps<T>["onClickHeaderColumn"];
 }
 
+/**
+ * Returns an object with styles for a table component.
+ *
+ * @function useStyles
+ * @returns {Object} The styles object for the table.
+ *
+ * @param {Object} theme - The theme object provided by the Material-UI theme provider.
+ * @param {string} theme.palette.background.default - The default background color for the theme.
+ * @param {strunumberg} theme.palette.getContrastText - The function to get the contrast text color for a given background color.
+ *
+ * @returns {Object} The styles object for the table.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",

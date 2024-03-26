@@ -6,6 +6,11 @@ import { getMinutes, getHours, MINUTES, HOURS } from './time';
 
 import ClockPointer from './ClockPointer';
 
+/**
+ * Function that returns a styles object for a component.
+ *
+ * @returns {Object} The styles object containing the CSS properties for each class name.
+ */
 const useStyles = makeStyles()({
   container: {
     display: 'flex',

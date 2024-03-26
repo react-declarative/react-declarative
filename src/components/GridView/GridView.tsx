@@ -30,6 +30,11 @@ interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   AfterLabel?: ICardProps["AfterLabel"];
 }
 
+/**
+ * A function that returns an object with CSS styles.
+ *
+ * @returns {Object} The object containing CSS styles.
+ */
 const useStyles = makeStyles()({
   tile: {
     height: "100%",

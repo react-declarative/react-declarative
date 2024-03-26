@@ -5,6 +5,12 @@ import { makeStyles } from "../../../styles";
 
 import classNames from '../../../utils/classNames';
 
+/**
+ * Returns the styles object for a component using the makeStyles function with the provided theme.
+ *
+ * @param {Theme} theme - The theme object used for styling the component.
+ * @returns {Object} - The styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   pointer: {
     width: 2,

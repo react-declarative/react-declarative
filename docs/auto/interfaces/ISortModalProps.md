@@ -1,5 +1,7 @@
 # ISortModalProps
 
+Represents the properties for the SortModal component.
+
 ## Properties
 
 ### columns

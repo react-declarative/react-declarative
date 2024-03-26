@@ -17,6 +17,12 @@ export interface IRevealProps extends BoxProps {
     appear?: boolean;
 }
 
+/**
+ * The useStyles variable is assigned a function call to makeStyles().
+ * makeStyles() is a styling function provided by a library like Material-UI, which returns a styles object.
+ * The styles object contains CSS-in-JS style classes as key-value pairs.
+ *
+ */
 const useStyles = makeStyles()({
     slideDown: {
         animation: `${keyframes`

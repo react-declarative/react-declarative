@@ -14,6 +14,13 @@ import IEntity from '../../../../model/IEntity';
 
 import classNames from '../../../../utils/classNames';
 
+/**
+ * Creates and returns an object with CSS styles using the `makeStyles` function from Material-UI.
+ * The returned object contains different style classes for different situations.
+ *
+ * @returns {Object} The object with CSS style classes.
+ *
+ */
 const useStyles = makeStyles()({
     hidden: {
         display: 'none !important',

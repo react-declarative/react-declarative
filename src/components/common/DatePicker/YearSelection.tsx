@@ -7,6 +7,14 @@ import classNames from '../../../utils/classNames';
 
 import dayjs from 'dayjs';
 
+/**
+ * A variable that holds the styles for a component.
+ * @typedef {object} useStyles
+ * @property {string} container - The styles for the container.
+ * @property {string} yearItem - The styles for the year item.
+ * @property {string} selectedYear - The styles for the selected year item.
+ * @property {string} disabled - The styles for the disabled item.
+ */
 const useStyles = makeStyles()((theme) => ({
   container: {
     maxHeight: 320,

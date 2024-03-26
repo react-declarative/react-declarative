@@ -12,6 +12,11 @@ import { PickProp } from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
+/**
+ * Creates and returns a useStyles object using the makeStyles function.
+ *
+ * @return {Object} The useStyles object with generated styles.
+ */
 const useStyles = makeStyles()((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),

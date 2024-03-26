@@ -14,6 +14,11 @@ import IAnything from "../../../model/IAnything";
 
 const LABEL_CLASS = "react-declarative__gridViewLabel";
 
+/**
+ * Returns the object of styles for a component.
+ * @param {Object} theme - The theme object.
+ * @returns {Object} The styles for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

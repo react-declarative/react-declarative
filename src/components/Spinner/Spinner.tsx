@@ -35,6 +35,43 @@ const createSpin = (ms = 1_000) => ({
   `} ${ms}ms infinite linear`,
 } as const);
 
+/**
+ * The useStyles variable is created using the makeStyles() function, which is a hook in the Material-UI library.
+ * It is used to define and generate custom styles for a component.
+ *
+ * @typedef {Object} Classes
+ * @property {string} root - The class name for the root element of the component
+ * @property {string} spin1 - The class name for the spin1 element of the component
+ * @property {string} spin2 - The class name for the spin2 element of the component
+ * @property {string} spin3 - The class name for the spin3 element of the component
+ * @property {string} spin4 - The class name for the spin4 element of the component
+ *
+ * @typedef {Object} StyleFn
+ * @param {Object} theme - The theme object provided by Material-UI
+ * @returns {Classes} - An object containing the class names for the different elements of the component
+ *
+ * @function createSpin
+ * @param {number} duration - The duration of the spin animation, in milliseconds
+ * @returns {string} - The class name for the spin animation
+ *
+ * @function makeStyles
+ * @param {StyleFn} styles - The function that generates the styles for the component
+ * @returns {Classes} - An object containing the class names for the different elements of the component
+ *
+ * @description
+ * The useStyles variable is a function call to the makeStyles() hook, passing in an object
+ * that defines the styles for different elements of the component.
+ *
+ * The `root` property defines the styles for the root element of the component which includes
+ * display, alignItems, justifyContent, minHeight, and minWidth properties.
+ *
+ * The `spin1`, `spin2`, `spin3`, and `spin4` properties use the createSpin function to generate
+ * class names for spin animations with different durations.
+ *
+ * The useStyles variable returns an object with class names for each element, which can be used
+ * to apply the custom styles to the respective elements in the component.
+ *
+ */
 const useStyles = makeStyles()({
   root: {
     display: "flex",

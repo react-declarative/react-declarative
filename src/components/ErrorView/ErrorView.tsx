@@ -15,6 +15,13 @@ import RevealView from '../RevealView';
 
 import classNames from '../../utils/classNames';
 
+/**
+ * A function that generates the CSS styles for a particular component using the `makeStyles` hook from the Material-UI library.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} - The generated CSS styles for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'fixed',

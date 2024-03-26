@@ -8,6 +8,11 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
+/**
+ * Returns the styles for a component using the makeStyles hook.
+ *
+ * @returns {Object} The styles object containing classes for different elements.
+ */
 const useStyles = makeStyles()((theme) => ({
   label: {
     display: 'flex',

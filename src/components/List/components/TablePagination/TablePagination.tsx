@@ -28,6 +28,12 @@ import wordForm from '../../../../utils/wordForm';
 const ACTION_GROW = 500;
 const MIN_PAGES_COUNT = 10;
 
+/**
+ * This variable `useStyles` is a function that generates CSS styles using the `makeStyles` function from the Material-UI library.
+ *
+ * @type {Function}
+ * @returns {Object} The generated CSS styles.
+ */
 const useStyles = makeStyles()({
     root: {
         display: 'flex',

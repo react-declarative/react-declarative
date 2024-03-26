@@ -14,6 +14,12 @@ import Close from '@mui/icons-material/Close';
 
 import { ISearchSlot } from '../../../../slots/SearchSlot';
 
+/**
+ * Returns the styles for a component.
+ *
+ * @function
+ * @returns {Object} The styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

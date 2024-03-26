@@ -6,6 +6,12 @@ import TableCell from '@mui/material/TableCell';
 
 import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../slots/CheckboxCellSlot';
 
+/**
+ * Represents a function that returns a CSS-in-JS hook for creating styles.
+ *
+ * @function
+ * @return {Function} A function that takes an object representing CSS properties and returns the corresponding style object.
+ */
 const useStyles = makeStyles()({
     root: {
         position: 'relative',

@@ -73,6 +73,14 @@ interface IContentRowProps {
   };
 }
 
+/**
+ * The `useStyles` variable is a function that returns an object containing CSS styles.
+ * It uses the `makeStyles` function from the Material-UI library to create these styles.
+ * The returned object represents a set of CSS rules for various elements in the UI.
+ *
+ * @function useStyles
+ * @returns {object} The object containing the CSS styles.
+ */
 const useStyles = makeStyles()((theme) => ({
   wrapper: {
     display: "flex",

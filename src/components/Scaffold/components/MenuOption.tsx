@@ -28,6 +28,42 @@ interface IMenuOptionProps {
     onClick: (name: string) => void;
 }
 
+/**
+ * useStyles is a function that returns an object of CSS styles, generated using the makeStyles() function from the Material-UI library.
+ *
+ * @function
+ * @returns {Object} - An object containing CSS styles.
+ *
+ * @param {Object} theme - The theme object provided by the Material-UI's ThemeProvider component.
+ * @param {string} theme.palette.primary.main - The main primary color of the theme.
+ * @param {string} theme.palette.text.primary - The primary text color of the theme.
+ *
+ * @property {Object} selected - CSS styles for the "selected" class.
+ * @property {string} selected.color - The color of the primary main color, with "!important" priority.
+ * @property {Object} selected.MuiListItemIcon-root - CSS styles for the ".MuiListItemIcon-root" selector inside the "selected" class.
+ * @property {string} selected.MuiListItemIcon-root.color - The color of the primary main color, with "!important" priority.
+ *
+ * @property {Object} disabled - CSS styles for the "disabled" class.
+ * @property {string} disabled.pointerEvents - The value for the "pointerEvents" CSS property, set to "none".
+ * @property {string} disabled.touchAction - The value for the "touchAction" CSS property, set to "none".
+ * @property {number} disabled.opacity - The opacity value, set to 0.5.
+ *
+ * @property {Object} bold - CSS styles for the "bold" class.
+ * @property {string} bold.fontWeight - The value for the "fontWeight" CSS property, set to "bold".
+ *
+ * @property {Object} root - CSS styles for the "root" class.
+ * @property {string} root.display - The display value, set to "flex".
+ * @property {string} root.width - The width value, set to "100%".
+ * @property {number} root.flex - The flex value, set to 1.
+ * @property {Object} root.MuiListItemIcon-root - CSS styles for the ".MuiListItemIcon-root" selector inside the "root" class.
+ * @property {string} root.MuiListItemIcon-root.maxWidth - The maximum width value, set to "36px !important".
+ * @property {string} root.MuiListItemIcon-root.minWidth - The minimum width value, set to "36px !important".
+ *
+ * @property {Object} navLink - CSS styles for the "navLink" class.
+ * @property {string} navLink.color - The primary text color of the theme.
+ * @property {Object} navLink.MuiListItemIcon-root - CSS styles for the ".MuiListItemIcon-root" selector inside the "navLink" class.
+ * @property {string} navLink.MuiListItemIcon-root.color - The primary text color of the theme.
+ */
 const useStyles = makeStyles()((theme) => ({
     selected: {
         color: `${theme.palette.primary.main} !important`,

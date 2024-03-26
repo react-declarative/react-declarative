@@ -16,6 +16,11 @@ import { IListChip } from "../../../model/IListProps";
 
 import { IChipListSlot } from "../slots/ChipListSlot";
 
+/**
+ * A function that creates a set of styles using the makeStyles hook from the Material-UI library.
+ *
+ * @returns {object} The generated styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     height: 48,

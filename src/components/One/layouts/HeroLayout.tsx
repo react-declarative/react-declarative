@@ -187,6 +187,16 @@ type IHeroRegistry<D = IAnything> =
     & IHeroMaxHeight<D>
     & IHeroStyle<D>;
 
+/**
+ * A function that generates styles for a component using the makeStyles hook from Material-UI.
+ *
+ * @function
+ * @name useStyles
+ * @returns {Object} - An object containing the generated styles for the component.
+ *
+ * @example
+ * const classes = useStyles();
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

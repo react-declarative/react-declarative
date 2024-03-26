@@ -31,6 +31,30 @@ interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
   onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
 }
 
+/**
+ * The useStyles variable is a function that returns an object containing CSS styles.
+ * It uses the makeStyles hook provided by the Material-UI library.
+ *
+ * The returned styles object has two properties: root and container.
+ * - The root property contains the CSS styles for the root element.
+ * - The container property contains the CSS styles for the container element.
+ *
+ * The root property contains the following styles:
+ * - position: "relative" - Specifies that the element is positioned relative to its normal position.
+ * - display: "flex" - Specifies that the element is displayed as a flex container.
+ * - alignItems: "stretch" - Specifies the alignment of flex items along the cross axis to stretch.
+ * - justifyContent: "stretch" - Specifies the alignment of flex items along the main axis to stretch.
+ *
+ * The container property contains the following styles:
+ * - flex: 1 - Specifies that the element should take up the remaining space in its parent container.
+ * - display: "flex" - Specifies that the element is displayed as a flex container.
+ * - alignItems: "stretch" - Specifies the alignment of flex items along the cross axis to stretch.
+ * - justifyContent: "stretch" - Specifies the alignment of flex items along the main axis to stretch.
+ * - width: "100%" - Specifies the width of the element to be 100% of its parent container.
+ * - '& > *': { flex: 1 } - Specifies that all direct children of the element should take up equal space.
+ *
+ * @returns {Object} An object containing CSS styles for the root and container elements.
+ */
 const useStyles = makeStyles()({
   root: {
     position: "relative",

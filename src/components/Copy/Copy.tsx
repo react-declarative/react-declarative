@@ -32,6 +32,9 @@ interface ICopyProps extends Omit<BoxProps, keyof {
   throwError?: boolean;
 }
 
+/**
+ * Defines the styles for a component using the makeStyles utility from Material-UI.
+ */
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",

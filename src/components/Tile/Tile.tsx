@@ -21,6 +21,10 @@ import useSingleton from "../../hooks/useSingleton";
 const DEFAULT_MIN_HEIGHT = 72;
 const DEFAULT_BUFFER_SIZE = 25;
 
+/**
+ * A helper function to define and create CSS styles using the makeStyles API from Material-UI.
+ * @returns {Object} - An object containing CSS classes.
+ */
 const useStyles = makeStyles()({
   noData: {
     display: "flex",

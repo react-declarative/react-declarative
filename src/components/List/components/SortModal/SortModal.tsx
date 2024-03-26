@@ -29,6 +29,11 @@ interface ISortModalProps {
     onClose: () => void;
 }
 
+/**
+ * Function to create and return a makeStyles object with specific CSS styles.
+ *
+ * @returns {Object} The makeStyles object with the defined CSS styles.
+ */
 const useStyles = makeStyles()((theme, _, classes) => ({
     inactive: {
         opacity: 0.5,

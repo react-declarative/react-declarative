@@ -57,6 +57,9 @@ interface IResult {
 
 const MENU_MIN_WIDTH = 225;
 
+/**
+ * Returns the styles object for a component with the given classes.
+ */
 const useStyles = makeStyles()({
   container: {
     position: "relative",

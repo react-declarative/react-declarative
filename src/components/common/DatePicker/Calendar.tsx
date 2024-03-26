@@ -12,6 +12,12 @@ import classNames from '../../../utils/classNames';
 
 import CalendarHeader from './CalendarHeader';
 
+/**
+ * This variable `useStyles` is a function that returns an object with CSS classes.
+ * This object defines styles for the calendar component.
+ *
+ * @returns {Object} An object containing CSS classes for the calendar component.
+ */
 const useStyles = makeStyles()((theme) => ({
   calendar: {
     marginTop: 10,

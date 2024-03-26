@@ -34,6 +34,14 @@ const globalStyles = (theme: Theme) => ({
   },
 });
 
+/**
+ * Creates and returns an object containing the styles for a component.
+ *
+ * @function
+ *
+ * @param {Object} theme - The theme object.
+ * @returns {Object} The styles object for the component.
+ */
 const useStyles = makeStyles()((theme) => ({
   ...globalStyles(theme),
   toolbar: {

@@ -32,6 +32,11 @@ import usePayload from "../../../../../hooks/usePayload";
 
 const CELL_PADDING_LEFT = 32;
 
+/**
+ * A custom hook to generate styles for a component using Material-UI's `makeStyles` function.
+ *
+ * @returns {Object} The generated styles object.
+ */
 const useStyles = makeStyles()((theme) => ({
   cell: {
     paddingLeft: "0px !important",

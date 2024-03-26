@@ -25,6 +25,14 @@ interface IOperationsProps extends BoxProps {
   disabled: boolean;
 }
 
+/**
+ * A hook that returns the dynamically generated CSS styles.
+ *
+ * @name useStyles
+ * @function
+ * @returns {Object} The CSS styles object.
+ *
+ */
 const useStyles = makeStyles()({
   root: {
     display: "flex",
