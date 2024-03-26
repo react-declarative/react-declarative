@@ -68,6 +68,7 @@
 ## Documentation
 
 1. [API reference](./auto/index.md)
+2. [Implement your own field](../src/README.md)
 
 ## Overview
 
