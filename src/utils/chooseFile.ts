@@ -1,7 +1,7 @@
 import sleep from "./sleep";
 
 const CLEANUP_DELAY = 1_000;
-const AWAIT_DELAY = 7_000;
+const AWAIT_DELAY = 1_000;
 
 const waitForResume = () => new Promise<void>((res) => {
     const handler = () => {
