@@ -184,12 +184,12 @@ const fields: TypedField[] = [
                 maxSlider: 100,
                 name: 'progress',
                 leadingIcon: Remove,
-                leadingIconClick(value, onChange) {
-                    onChange(value - 10);
+                leadingIconClick(value, data, payload, onChange) {
+                    onChange(Number(value) - 10);
                 },
                 trailingIcon: Add,
                 trailingIconClick(value, onChange) {
-                    onChange(value + 10);
+                    onChange(Number(value) + 10);
                 }
             }
         ]

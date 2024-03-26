@@ -4,34 +4,34 @@
   "private": true,
   "devDependencies": {
     "@types/node": "16.11.51",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
-    "esbuild-loader": "2.19.0",
-    "fork-ts-checker-webpack-plugin": "^7.2.13",
-    "html-webpack-plugin": "5.5.0",
-    "typescript": "4.7.4",
-    "webpack": "5.74.0",
-    "webpack-cli": "4.10.0",
-    "webpack-dev-server": "4.10.0"
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "@types/uuid": "8.3.4",
+    "@vitejs/plugin-legacy": "4.1.1",
+    "@vitejs/plugin-react": "4.0.4",
+    "@vitejs/plugin-react-swc": "3.3.2",
+    "million": "3.0.3",
+    "typescript": "5.0.2",
+    "vite": "4.4.5",
+    "vite-plugin-full-reload": "1.0.5",
+    "vite-plugin-node-polyfills": "0.15.0",
+    "vite-plugin-checker": "0.6.4"
   },
   "dependencies": {
     "@faker-js/faker": "7.4.0",
-    "@emotion/react": "11.10.4",
-    "@emotion/styled": "11.10.4",
-    "@mui/icons-material": "5.11.0",
-    "@mui/material": "5.11.0",
-    "@mui/system": "5.11.0",
+    "dayjs": "1.11.5",
+    "history": "5.3.0",
+    "path-to-regexp": "6.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tss-react": "4.3.4",
-    "react-window": "1.8.7",
-    "dayjs": "1.10.8",
-    "history": "5.3.0",
-    "path-to-regexp": "6.2.0"
+    "uuid": "9.0.0",
+    "xlsx": "0.18.5"
   },
   "scripts": {
-    "start": "webpack-cli serve",
-    "build": "rimraf ./build && webpack-cli build",
+    "start": "vite --host 0.0.0.0 --port 3000",
+    "cleanup": "npx -y rimraf node_modules/.vite",
+    "build": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
     "postinstall": "node ./scripts/postinstall.js"
   }
 }

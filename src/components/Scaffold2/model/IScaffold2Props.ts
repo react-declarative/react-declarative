@@ -133,7 +133,7 @@ export interface IScaffold2Props<T = Payload> {
      * @param {string} id - The ID of the option.
      * @returns {undefined | boolean} - Returns undefined or a boolean value based on the processing of the option click.
      */
-    onOptionClick?: (path: string, id: string) => undefined | boolean;
+    onOptionClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Function called when an option group is clicked.
      *
@@ -141,7 +141,7 @@ export interface IScaffold2Props<T = Payload> {
      * @param {string} id - The ID of the clicked option group.
      * @return {undefined | boolean} - Returns undefined or a boolean value.
      */
-    onOptionGroupClick?: (path: string, id: string) => undefined | boolean;
+    onOptionGroupClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Represents a callback for when a tab change event occurs.
      *

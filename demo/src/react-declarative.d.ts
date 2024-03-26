@@ -26467,7 +26467,7 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
      * @param {string} id - The ID of the option.
      * @returns {undefined | boolean} - Returns undefined or a boolean value based on the processing of the option click.
      */
-    onOptionClick?: (path: string, id: string) => undefined | boolean;
+    onOptionClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Function called when an option group is clicked.
      *
