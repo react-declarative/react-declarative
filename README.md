@@ -99,7 +99,7 @@ npx create-react-app . --template=react-declarative
 ## Installation
 
 > [!NOTE]
-> There is a sample app avalible in [demo](./demo/src/index.tsx) folder...
+> There is a sample app avalible in the [demo](./demo/src/index.tsx) folder...
 
 ```bash
 npm install --save react-declarative tss-react @mui/material @emotion/react @emotion/styled
