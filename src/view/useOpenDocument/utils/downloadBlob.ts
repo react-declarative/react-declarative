@@ -73,8 +73,17 @@ export const downloadBlob = (
         }
       }
     );
+    /**
+     * @param {XMLHttpRequest} xhr - The XMLHttpRequest object.
+     * @param {string} responseType - The desired response type for the XMLHttpRequest.
+     * @description Sets the response type for the given XMLHttpRequest object.
+     * @returns {void}
+     */
     xhr.responseType = "blob";
     xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/octet-stream");
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhr.send();
   });
 
