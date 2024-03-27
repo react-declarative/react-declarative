@@ -1,5 +1,9 @@
 # Form schema
 
+The `<One />` template engine allows programmer to build huge forms with powerful business logic in functional + declarative style. Let's start our journey with several code snippets
+
+## Layout description
+
 Let's break down the following `TypedField[]` form schema
 
 ```tsx
@@ -238,3 +242,169 @@ The `type` field is used to specify the type of each field within the form. It i
 9. **FieldType.Component** : This type allows for integrating custom components or elements into the form. It's useful for adding custom functionality or displaying dynamic content within the form.
 
 By using the `type` field, the code can define various types of fields with different behaviors and appearances, allowing for the creation of dynamic and interactive forms tailored to specific use cases. The `react-declarative` library contains more of FieldTypes, here's the only used in this template. 
+
+## Validation description
+
+Let's describe the next form schema
+
+```tsx
+const fields: TypedField<IOneData>[] = [
+    {
+        type: FieldType.Text,
+        inputType: 'email',
+        inputAutocomplete: 'on',
+        name: 'email',
+        title: 'Email',
+        trailingIcon: Email,
+        // defaultValue: 'tripolskypetr@gmail.com',
+        isInvalid({email}) {
+            const expr = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            if (!expr.test(email)) {
+                return 'Invalid email address';
+            } else {
+                return null;
+            }
+        },
+        isDisabled({disabled}) {
+            return disabled;
+        },
+        isVisible({visible}) {
+            return visible;
+        }
+    },
+    {
+        type: FieldType.Fragment,
+        isVisible({visible}) {
+            return visible;
+        },
+        fields: [
+            {
+                type: FieldType.Text,
+                name: 'number',
+                title: 'Number',
+                description: 'Only number allowed',
+                isInvalid({number}) {
+                    if (isNaN(number as any) || number === '') {
+                        return 'It is not a number';
+                    }
+                    return null;
+                },
+            },
+        ],
+    },
+    {
+        type: FieldType.Text,
+        sx: { pt: 1 },
+        columns: '3',
+        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterTemplate: "000000000000000",
+        name: 'from',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
+                return null;
+            }
+            if (!to) {
+                return null;
+            }
+            if (parseInt(from) > parseInt(to)) {
+                return "From > to";
+            }
+            return null;
+        },
+        defaultValue: '50',
+    },
+    {
+        type: FieldType.Text,
+        columns: '3',
+        inputFormatterAllowed: /^[0-9.]/,
+        inputFormatterTemplate: "000000000000000",
+        name: 'to',
+        isInvalid: ({ from, to }) => {
+            if (!from) {
+                return null;
+            }
+            if (!to) {
+                return null;
+            }
+            if (parseInt(from) > parseInt(to)) {
+                return "From > to";
+            }
+            return null;
+        },
+        defaultValue: '150',
+    },
+    {
+        type: FieldType.Expansion,
+        title: 'Settings',
+        description: 'Hide or disable',
+        fields: [
+            {
+                type: FieldType.Switch,
+                title: 'Mark as visible',
+                name: 'visible',
+                defaultValue: true,
+            },
+            {
+                type: FieldType.Switch,
+                title: 'Mark as disabled',
+                name: 'disabled',
+            },
+        ],
+    },
+];
+```
+
+ - The `isInvalid` callback is a function used for validating the input value of a form field. It's typically used in scenarios where the validation logic is more complex or dynamic than what can be achieved with simple HTML5 input attributes or built-in form validation mechanisms.
+
+In the provided code snippet, the `isInvalid` callback is defined within each field object. It takes an object containing the current form field values as its parameter (referred to as `{email}`, `{number}`, `{from}`, `{to}`, etc., depending on the field it belongs to). This parameter allows the callback to access the current value of the field being validated and potentially other related fields.
+
+The `isInvalid` callback returns a validation error message if the input value is considered invalid based on the defined criteria. If the input is valid, the callback returns `null`.
+
+Here's a breakdown of how it's used: 
+
+- **Validation Logic** : Inside the `isInvalid` function, custom validation logic is implemented. For example, in the case of the email field, a regular expression is used to check if the email address is in a valid format. 
+
+- **Return Value** : If the input value fails the validation criteria, the `isInvalid` function returns an error message describing why the input is invalid. If the input is valid, it returns `null`. 
+
+- **Usage** : The returned error message, if any, can be utilized to display feedback to the user indicating what needs to be corrected in the input field. This could be done by showing an error message near the field or by disabling form submission until all fields are valid.
+
+This approach allows for more customized and dynamic validation behaviors, such as cross-field validation or validation based on external conditions.
+
+- The `inputFormatterAllowed` and `inputFormatterTemplate` properties are used to control the formatting of input values in text fields. These properties are commonly utilized in scenarios where you want to enforce a specific format for user input, such as phone numbers, credit card numbers, or any other data that follows a particular pattern. 
+
+1. **inputFormatterAllowed** :
+
+- This property specifies a regular expression that defines the characters allowed in the input field. Only the characters that match the regular expression will be accepted as input. Any other characters will be rejected or ignored. 
+- For example, if `inputFormatterAllowed` is set to `/^[0-9.-]/`, it means only digits (0-9), dots (.), and hyphens (-) will be allowed in the input field. Any other characters will not be accepted.
+- This property helps enforce input restrictions, ensuring that users can only input characters that are relevant to the data being collected. 
+
+2. **inputFormatterTemplate** :
+
+- This property defines a template for formatting the input value visually. It specifies the pattern or structure that the input value should follow. 
+- The template typically consists of placeholders for characters (e.g., `0` for digits) and other formatting characters (e.g., `-`, `.`) to represent the desired format. 
+
+- For example, a template of `"000-00-0000"` might be used for formatting social security numbers in the format `123-45-6789`.
+- When a user types in the input field, the actual input value is formatted according to this template, visually representing the expected format.
+- This property is used for enhancing user experience by providing visual cues about the expected input format and helping users input data correctly.
+
+Together, these properties enable developers to control the input format and enforce consistency in the data entered by users. They are particularly useful when dealing with data that needs to adhere to specific patterns or formats, such as dates, times, or identification numbers.
+
+- The `isVisible` and `isDisabled` callbacks are functions used to dynamically control the visibility and disabled state of form fields, respectively. These callbacks allow developers to implement logic that determines whether a field should be visible or disabled based on certain conditions or external factors. 
+
+1. ** Callback** : 
+
+- The `isVisible` callback is used to determine whether a form field should be visible to the user. 
+- It takes an object containing the current state or context of the form as its parameter (e.g., `{visible}`, `{disabled}`), allowing the callback to access relevant information needed to make the visibility decision. 
+- The callback returns a boolean value: `true` if the field should be visible and `false` if it should be hidden.
+- Developers typically implement logic inside this callback to evaluate conditions such as user permissions, the state of other fields, or any other factors that influence the visibility of the field.
+- For example, a field might be conditionally hidden based on whether a user has selected a specific option in another part of the form. 
+
+2. ** Callback** : 
+
+- The `isDisabled` callback is used to determine whether a form field should be disabled, meaning it cannot be interacted with by the user. 
+- Similar to `isVisible`, it takes an object containing the current state or context of the form as its parameter, allowing the callback to access relevant information. 
+- Like `isVisible`, this callback returns a boolean value: `true` if the field should be disabled and `false` if it should be enabled.
+- Developers implement logic inside this callback to evaluate conditions such as user permissions, the state of other fields, or any other factors that influence whether the field should be disabled.
+- For example, a field might be disabled if another field has a certain value, or if the user lacks the necessary permissions to modify the data in that field.
+
+By using these callbacks, developers can create dynamic and interactive forms that adapt to the context of the user's interaction, enhancing usability and guiding users through the input process effectively. These callbacks are commonly used in frameworks like React or Angular to build dynamic user interfaces.
