@@ -115,7 +115,7 @@ export const MobileCommonCell = ({
             <Box className={classes.container}>
                 {withLabel && (
                     <Typography variant="body1">
-                        {`${typo.bullet} ${headerName}`}
+                        {`${typo.bullet} `}{headerName}
                     </Typography>
                 )}
                 <Box 

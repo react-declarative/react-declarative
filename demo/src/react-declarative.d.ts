@@ -19782,7 +19782,7 @@ declare module "react-declarative/components/One/context/OneContextProvider" {
     children: React.ReactNode;
   }
   /**
-   * OneContextProvider function provides a context to its child components.
+   * OneContextProvider function provides a mutable context to its component fields with change detection.
    * @param props - The props object containing the following properties:
    * @param props.context - The context value to be provided to child components. Default value is set to DEFAULT_VALUE.
    * @param props.children - The child components to be wrapped by the context provider.
