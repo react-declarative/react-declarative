@@ -391,7 +391,7 @@ Together, these properties enable developers to control the input format and enf
 
 - The `isVisible` and `isDisabled` callbacks are functions used to dynamically control the visibility and disabled state of form fields, respectively. These callbacks allow developers to implement logic that determines whether a field should be visible or disabled based on certain conditions or external factors. 
 
-1. ** Callback** : 
+1. **isVisible Callback** : 
 
 - The `isVisible` callback is used to determine whether a form field should be visible to the user. 
 - It takes an object containing the current state or context of the form as its parameter (e.g., `{visible}`, `{disabled}`), allowing the callback to access relevant information needed to make the visibility decision. 
@@ -399,7 +399,7 @@ Together, these properties enable developers to control the input format and enf
 - Developers typically implement logic inside this callback to evaluate conditions such as user permissions, the state of other fields, or any other factors that influence the visibility of the field.
 - For example, a field might be conditionally hidden based on whether a user has selected a specific option in another part of the form. 
 
-2. ** Callback** : 
+2. **isDisabled Callback** : 
 
 - The `isDisabled` callback is used to determine whether a form field should be disabled, meaning it cannot be interacted with by the user. 
 - Similar to `isVisible`, it takes an object containing the current state or context of the form as its parameter, allowing the callback to access relevant information. 
