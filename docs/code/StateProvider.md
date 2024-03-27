@@ -2,7 +2,7 @@
 
 - A `StateProvider` component and a corresponding custom hook `useOneState` manages the form state. Let's break down the code: 
 
-1. ** Component** :
+1. **`StateProvider` Component** :
 
 - This component is a wrapper that manages the state of an object and provides it to its child components through a context. 
 - It accepts various props to configure its behavior, such as `fields`, `features`, `change`, `fallback`, `handler`, `payload`, `loadStart`, and `loadEnd`. 
