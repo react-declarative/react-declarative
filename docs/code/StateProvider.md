@@ -1,6 +1,6 @@
 # StateProvider
 
-- A `StateProvider` component and a corresponding custom hook `useOneState` manages the form state. Let's break down the code: 
+A `StateProvider` component and a corresponding custom hook `useOneState` manages the form state. Let's break down the code: 
 
 1. **`StateProvider` Component** :
 
