@@ -17,6 +17,7 @@ The hook sets up an effect that triggers whenever the `handler` prop changes.
 Within this effect:
 
 - It attempts to resolve data based on the `handler` function provided in the props. 
+- If the `handler` is a plain object, it mutates the state of form
 - If the `handler` is a function, it calls the function with the provided `payload` and updates the state with the result. 
 - It also handles cases where the `handler` result is synchronous or asynchronous (a Promise).
 - If an error occurs during resolution, it either invokes a fallback function (if provided) or throws the error.
