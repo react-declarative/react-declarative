@@ -1,6 +1,6 @@
 # Routing
 
-The routing for Material Design app required usage Scaffold component. The Scaffold use AppBar (html header) and NavBar (html aside) components
+The routing for Material Design app require usage of the Scaffold component. The Scaffold use AppBar (html header) and NavBar (html aside) components
 
 ## The `<Switch />` config
 
@@ -293,7 +293,7 @@ Let's break it down:
 
 ## The `<Scaffold2 />` config
 
-The `<Scaffold2 />` takes a `<Switch />` as a children and draws the base container with application header and aside. Also it shows tabs in header. An active tab is shown by a route match. Also it highlights the active sidebar item by it's dot joined ids path by comparing it with sideMenu property in current route.
+The `<Scaffold2 />` takes a `<Switch />` as a children and draws the base container with application header and aside. Also it shows tabs in header. An active tab is shown by the route match. Also it highlights the active sidebar item by using it's dot joined ids path compared with the sideMenu property in the current route.
 
 ```tsx
 export const sidemenu: IScaffold2Group[] = [
