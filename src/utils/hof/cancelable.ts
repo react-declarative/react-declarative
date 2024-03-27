@@ -40,21 +40,22 @@ export const cancelable = <T extends any = any, P extends any[] = any[]>(promise
     const wrappedFn = (...args: P) => new Promise<T | typeof CANCELED_SYMBOL>((resolve, reject) => {
         let hasCanceled = false;
         cancelRef && cancelRef();
-        cancelRef = () => hasCanceled = true;
+        cancelRef = () => {
+            hasCanceled = true;
+            resolve(CANCELED_SYMBOL);
+        };
         const result = promise(...args);
         result.then((val) => {
             if (!hasCanceled) {
                 resolve(val);
                 return;
             }
-            resolve(CANCELED_SYMBOL);
         });
         result.catch((error) => {
             if (!hasCanceled) {
                 reject(error);
                 return;
             }
-            resolve(CANCELED_SYMBOL);
         });
     });
 

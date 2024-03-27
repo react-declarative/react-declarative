@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { fileTypeFromBlob } from "file-type/core";
 
@@ -9,6 +9,8 @@ import useRenderWaiter from "../../../hooks/useRenderWaiter";
 import useAsyncValue from "../../../hooks/useAsyncValue";
 
 import { IOutletModalProps } from "../../../components/OutletView";
+
+import cancelable, { CANCELED_SYMBOL } from "../../../utils/hof/cancelable";
 import downloadBlob from "../utils/downloadBlob";
 
 /**
@@ -19,7 +21,7 @@ import downloadBlob from "../utils/downloadBlob";
  * @param sizeOriginal - An optional parameter specifying the original size of the file.
  * @returns - A Promise that resolves with the fetched Blob object or rejects with an error.
  */
-const downloadXHR = async (
+const downloadXHR = cancelable(async (
   url: string,
   onProgress?: (progress: number) => void,
   sizeOriginal?: number
@@ -35,7 +37,7 @@ const downloadXHR = async (
     onProgress && onProgress(0);
     return null;
   }
-};
+});
 
 /**
  * Asynchronously fetches a file from a given URL by using Fetch API.
@@ -44,7 +46,7 @@ const downloadXHR = async (
  * @param onProgress - An optional callback function that will be called with the progress of the download.
  * @returns - A Promise that resolves with the fetched Blob object or rejects with an error.
  */
-const downloadFetch = async (url: string, onProgress?: (progress: number) => void) => {
+const downloadFetch = cancelable(async (url: string, onProgress?: (progress: number) => void) => {
   console.log('useOpenDocument downloadFetch', {url});
   try {
     const response = await fetch(url, {
@@ -75,7 +77,7 @@ const downloadFetch = async (url: string, onProgress?: (progress: number) => voi
     console.log("useOpenDocument downloadFetch error", error);
     return null;
   }
-};
+});
 
 /**
  * Represents the main view component.
@@ -93,8 +95,14 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
   useAsyncValue(async () => {
     try {
       let blob = await downloadXHR(data.url, setProgress, data.sizeOriginal);
+      if (blob === CANCELED_SYMBOL) {
+        return;
+      }
       if (!blob) {
         blob = await downloadFetch(data.url, setProgress);
+      }
+      if (blob === CANCELED_SYMBOL) {
+        return;
       }
       if (!blob) {
         console.log('useOpenDocument failed to fetch');
@@ -127,6 +135,11 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
       history.replace("/error");
     }
   });
+
+  useEffect(() => () => {
+    downloadFetch.cancel();
+    downloadXHR.cancel();
+  }, []);
 
   return (
     <LoaderView
