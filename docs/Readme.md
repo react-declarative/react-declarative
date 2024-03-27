@@ -13,14 +13,15 @@
 1. [OneInternal](./code/OneInternal.md)
 2. [OneGenesis](./code/OneGenesis.md)
 3. [One](./code/One.md)
-4. [IManaged](./code/IManaged.md)
-5. [makeField](./code/makeField.md)
-6. [TypedField](./code/TypedField.md)
-7. [SlotFactory](./code/SlotFactory.md)
-8. [Form schema](./code/Schema.md)
-9. [Routing](./code/Routing.md)
-10. [index.ts](./code/Export.md)
-11. [react-declarative.d.ts](./code/react-declarative.md)
+4. [useResolved](./code/useResolved.md)
+5. [IManaged](./code/IManaged.md)
+6. [makeField](./code/makeField.md)
+7. [TypedField](./code/TypedField.md)
+8. [SlotFactory](./code/SlotFactory.md)
+9. [Form schema](./code/Schema.md)
+10. [Routing](./code/Routing.md)
+11. [index.ts](./code/Export.md)
+12. [react-declarative.d.ts](./code/react-declarative.md)
 
 ## Field properties with JSDoc:
 
