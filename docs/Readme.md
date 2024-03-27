@@ -23,8 +23,9 @@
 11. [SlotFactory](./code/SlotFactory.md)
 12. [Form schema](./code/Schema.md)
 13. [Routing](./code/Routing.md)
-14. [index.ts](./code/Export.md)
-15. [react-declarative.d.ts](./code/react-declarative.md)
+14. [Outlet](./code/OutletView.md)
+15. [index.ts](./code/Export.md)
+16. [react-declarative.d.ts](./code/react-declarative.md)
 
 ## Field properties with JSDoc:
 
