@@ -17,7 +17,8 @@
 5. [makeField](./code/makeField.md)
 6. [TypedField](./code/TypedField.md)
 7. [SlotFactory](./code/SlotFactory.md)
-8. [react-declarative.d.ts](./code/react-declarative.md)
+8. [index.ts](./code/Export.md)
+9. [react-declarative.d.ts](./code/react-declarative.md)
 
 ## Field properties with JSDoc:
 
