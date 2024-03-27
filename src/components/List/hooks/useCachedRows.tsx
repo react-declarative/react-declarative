@@ -10,6 +10,13 @@ import useSelection from "./useSelection";
 
 const CachedRowsContext = createContext<IState>(null as never);
 
+/**
+ * Represents the usage of cached rows.
+ *
+ * @returns The context containing the cached rows.
+ *
+ * @template RowData The type of the row data. Extends IRowData, defaults to IAnything.
+ */
 export const useCachedRows = <RowData extends IRowData = IAnything>() => useContext(CachedRowsContext) as IState<RowData>;
 
 /**

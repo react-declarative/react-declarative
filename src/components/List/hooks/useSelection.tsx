@@ -7,6 +7,12 @@ import { RowId } from '../../../model/IRowData';
 
 const SelectionContext = createContext<IState>(null as never);
 
+/**
+ * Returns the current selection from the SelectionContext.
+ *
+ * @function useSelection
+ * @returns The current selection value from the SelectionContext.
+ */
 export const useSelection = () => useContext(SelectionContext);
 
 /**

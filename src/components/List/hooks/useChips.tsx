@@ -7,6 +7,11 @@ import useProps from "./useProps";
 
 const ChipsContext = createContext<IState>(null as never);
 
+/**
+ * Retrieves the context value from the 'ChipsContext' using the useContext hook.
+ *
+ * @returns The context value obtained from the 'ChipsContext'.
+ */
 export const useChips = () => useContext(ChipsContext);
 
 /**

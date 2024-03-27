@@ -37,6 +37,11 @@ export const PayloadProvider = ({
     );
 };
 
+/**
+ * Retrieves the payload from the `PayloadContext` using the `useContext` hook.
+ *
+ * @returns The payload from the `PayloadContext`.
+ */
 export const usePayload = () => useContext(PayloadContext);
 
 export default usePayload;

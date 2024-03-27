@@ -2466,11 +2466,353 @@ The `useCallback` hooks are used to optimize the performance by memoizing the ca
 
 Overall, the `useWizardModal` hook provides a flexible way to create and control a wizard-like modal and its lifecycle events. It leverages React hooks and RxJS for state management and callback handling.
 
+## useOneProps
 
-## useOneProps, useOneState, useOnePayload, useOneFeatures, useOneRadio, useOneContext and useOneMenu
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
-Hooks which can be used in `FieldType.Component`, custom slot or custom field within `<One />` component
+`useOneProps` is a custom React hook that is used to access the context value from the `PropsContext`. Here's an explanation of its different parts:
 
-## useListProps, useListCachedRows, useListPayload, useListChips, useListReload and useListSelectionState
+```typescript jsx
+export const useOneProps = <Data extends IAnything = IAnything>() =>
+  useContext(PropsContext) as IOneProps<Data>;
+```
 
-Hooks which can be used in custom slot within `<List />` component
+1. `useOneProps = <Data extends IAnything = IAnything>()`: This part is a generic function that accepts an argument `Data` which extends from the interface `IAnything`. This argument is optional, and if not provided, the function will use `IAnything` as a default value. That means whatever type of data passed into this function, it must be a subtype of `IAnything` at least.
+
+2. `useContext(PropsContext)`: This function uses the useContext Hook from React. The useContext hook is a built-in React hook that allows you to use Context and subscribes to its changes. The argument of `useContext()` is the context object itself, which in this case is `PropsContext`.
+
+3. `as IOneProps<Data>`: This part is a TypeScript type assertion. It doesn't restructure the data or change it in any way, it's simply a way to tell TypeScript "trust me, I know what I'm doing.". This tells TypeScript that the value returned from `useContext(PropsContext)` can be treated as the `IOneProps<Data>` type. This is helpful when the actual type of the value is broader, but we are confident about the nature of the value and wish to utilize the properties of a more specific type.
+
+In conclusion, the function `useOneProps` is both a TypeScript generic function and a React hook that retrieves context value from `PropsContext` and types that value as `IOneProps<Data>`.
+
+
+
+## useOneState
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+a custom hook named `useOneState` that is being defined. Hooks in React are used to let you use state and other React features without writing a class.
+
+This hook is a generic function with `Data` as a type variable. Generic functions in TypeScript provide the advantage of creating reusable components that can work over a variety of types. 
+
+The `Data` type variable extends the `IAnything` interface which means it can be any type that is a subtype of `IAnything`. `IAnything` could be a general-purpose TypeScript interface to denote any type, typically it could be `any` or `{ [key: string]: any }`, but the actual definition will depend on your codebase. 
+
+This hook uses the `useContext` React hook to access the current value for a context. The context it accesses is `StateContext`. The entire expression is then type-casted to be of type `IState<Data>`. 
+
+`IState<Data>` is an interface where `Data` is a generic type variable. It represents the state of the application where the data held by the state object is of the type `Data`. From the code, it has properties `object` of type `Data | null`, `setObject` of a function that accepts a data of type `Data` and `invalidMap` of type `Record<string, boolean>`, and a `changeObject` of type function that accepts a `Data`.
+
+So, in summary, the `useOneState` hook allows access to the value of `StateContext` and makes sure that the value is of type `IState<Data>`. This could be used to access and manage state throughout your application.
+
+
+
+## useOnePayload
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+a custom React hook `useOnePayload` that uses the built-in `useContext` hook to access the value from a `PayloadContext`.
+
+Here's a breakdown of the major components:
+
+1. `useOnePayload` Custom Hook:
+   
+   ```typescript jsx
+   export const useOnePayload = () => useContext(PayloadContext);
+   ```
+   `useOnePayload` is a custom React hook that utilizes the `useContext` hook to extract and return the current context value for `PayloadContext`. It does not take any arguments.
+
+2. `useContext` Hook:
+
+   ```typescript jsx
+   import { useContext } from 'react';
+   ```
+   `useContext` is a hook provided by React that allows your React components to subscribe to context changes. This is useful when a component tree has a global state and you want to avoid passing props down manually at every level.
+
+3. `PayloadContext`:
+
+   ```typescript jsx
+   const PayloadContext = createContext<Exclude<IOneProps['payload'], undefined>>(null as never);
+   ```
+   `PayloadContext` is a React Context created with React's `createContext` function. It is designed to store and provide a `payload` prop from the `IOneProps` interface but explicitly excludes `undefined` as a possible type.
+
+The `useOnePayload` hook is then used inside the `FragmentLayout` component for accessing the `payload` prop:
+
+```typescript jsx
+const payload = useOnePayload();
+```
+To summarize, the `useOnePayload` is a custom hook that consumes the `PayloadContext` to access the payload value within a React component.
+
+## useOneFeatures
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+Let's break it down:
+
+1. The **custom hook useOneFeatures**
+
+   This hook is a custom React Hook that provides a way for your component to tap into the values available in the `FeatureContext`. The `FeatureContext` is a Context API object that has been created with `createContext` API from React and it's used to provide and consume state throughout the component tree without prop drilling.
+
+    The `useContext()` function is a built-in hook in React that is used to access the value from Context. So `useOneFeatures()` is a handy hook to obtain the value stored in `FeatureContext`.
+
+2. The **ComponentField component**
+
+    The `ComponentField` is a functional component accepting a range of properties related to component fields, with some having underlying default values. These properties provide custom configuration options for the underlying rendered component instances.
+
+    `useState` and `useEffect` are used within this component. `useState` is used to declare a stateful value and function to update it (`node` and `setNode`), and `useEffect` to perform side effect operations. Here, it is used to set the node to either a `ComponentInstance` or `Element` (which defaults to `Fragment` if not provided), based on the value of `watchOneContext`.
+
+3. More hooks
+
+    The component is using more custom hooks, `useOneState`, `useOnePayload`, each of them probably providing access to other context objects. 
+
+4. Styling
+
+    `useStyles` hook is being used to get styles for the component. Material-UI's `makeStyles` is used to generate a hook function (named `useStyles` here), that will provide classes object for CSS classes generation.
+
+In summary, this code defines a Component Field in a form-like interface, making use of TypeScript for static types checking and ensuring that passed properties are valid according to predefined interfaces. It relies heavily on React's Context API to enable state and props management in a more comfortable way than passing props down manually at every level.
+
+## useOneRadio
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+- The code defines a state for the `Radio` components so that their states can be shared and synced. The state provider is created using the `createStateProvider` function:
+
+    ```typescript jsx
+    export const [RadioProvider, useOneRadio] = createStateProvider<Record<string, string | null>>()
+    ```
+    The `RadioProvider` is a context provider that should be used to wrap components where the radio components states are used. On the other side, `useOneRadio` is a custom hook that retrieves the current state of the radio components.
+
+- The `Radio` component has properties defined by the `IRadioSlot` interface which includes both `IRadioFieldProps` and `IRadioFieldPrivate`:
+
+    ```typescript
+    export interface IRadioSlot extends IRadioFieldProps, IRadioFieldPrivate { }
+    ```
+
+   These interfaces are used to enforce certain properties within the radio component.
+
+- The `useActualValue` hook is used to get the current value of `radioMap`. This should return the latest value of `radioMap` during the render phase.
+
+- The `setValue` function updates the specific radio button's value in the radio map using the `setRadioMap` function. The function is memoized with the `useCallback` hook to prevent unnecessary re-renders.
+
+- The `handleChange` function is a helper function that sets the radio group's value and triggers the `onChange` event.
+
+- The `useEffect` hook keeps track of the changes made to the `value` prop and updates the value in the `radioMap` to keep them in sync.
+
+- The returned JSX in the `Radio` component describes how the radio button should be rendered in the React component tree.
+
+    ```jsx
+    return (
+        <FormGroup>
+            <RadioGroup
+                value={value}
+                onChange={(_, value) => {
+                    handleChange(value || null);
+                }}
+            >
+                <FormControlLabel 
+                    value={radioValue}
+                    control={<MatRadio disabled={disabled} />}
+                    label={title || ''}
+                />
+            </RadioGroup>
+        </FormGroup>
+    );
+    ```
+
+In the rendered JSX, the `MatRadio` component represents a material design radio button, the value and disabled state are passed as props, and the `FormControlLabel` component is used as a label for the `MatRadio` component. The response to the change in the radio button's state is handled by the `onChange` prop.
+
+## useOneContext
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+Here is a breakdown of the code:
+
+```typescript jsx
+export const useOneContext = () => useContext(OneContext) || DEFAULT_VALUE;
+```
+
+The function `useOneContext` is created, this function when invoked will call the `useContext` function from React and pass in `OneContext`. `OneContext` has been created using the `createContext` method from React and it should hold the context you want to use.
+
+If the context returned by `useContext(OneContext)` is valid (non-null or non-undefined), it will be returned as the result of the `useOneContext` function. Otherwise, `DEFAULT_VALUE` will be returned. 
+
+`DEFAULT_VALUE` in this case is an object defined as `{}`, which serves as a fallback value in case there is no Context provided.
+
+Now, when you call `useOneContext()` inside a functional component, you are essentially accessing the value of `OneContext`.
+
+The `ComponentFieldInstanceProps` type is being used in `ComponentInstance`. `Omit` utility type helps to create a type excluding certain predefined properties (`context` in this case) from `ComponentFieldInstance`.
+
+The `ComponentInstance` function uses the `useOneContext` function to assign the value of the context to the variable `context`, which is further passed to the `Element` as a prop.
+
+
+## useOneMenu
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+`useOneMenu` is a convenient wrapper for using the `useContext` hook with `MenuContext`, to be used anywhere the state of the `MenuContext` is required.
+
+The interface `IContext` consists of two properties inside:
+
+- `createContextMenu`: A method which accepts `params` of the type `IParams` and returns a `React.MouseEventHandler` for a `HTMLDivElement`.
+- `requestSubject`: A property of the generic `TSubject` type initialized with `void`.
+
+Without more context or the definitions of `TSubject` and `IParams`, it's not possible to be more specific about the roles of these properties, but they would hold contextual values or methods used throughout the application that's relying on this `MenuContext`.
+
+
+## useListProps
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+a custom hook named `useProps` which is meant to retrieve and return the current props from a React context called `PropContext`.
+
+The React hook `useContext(PropContext)` is used to retrieve the current context value, `PropContext`, which seems to be designed to store the properties of a component. This context is used to pass these properties down the component tree without having to pass props down manually at every level.
+
+Here is a breakdown of what's happening:
+
+1. `useProps` function is defined with four generic parameters: `FilterData`, `RowData`, `Payload`, `Field`. These are type parameters which are used to define the structure of the context.  Each of these are defined with some constraints and default types:
+
+    - `FilterData` extends an empty object and defaults to type `IAnything`.
+    - `RowData` extends `IRowData` and defaults to type `IAnything`.
+    - `Payload` defaults to the type `IAnything`.
+    - `Field` extends `IField` and defaults to `IField<FilterData, Payload>`.
+
+   The `extends` keyword here set bounds on what types could be passed for these generics. The `=` sets a default type if no type is provided.
+
+2. The `useContext` hook is then invoked with `PropContext`, which is a context object likely created with `React.createContext`. 
+
+3. Lastly, `as IPropContext<FilterData, RowData, Payload, Field>` is a type cast operation. Here, TypeScript is being told to treat the value returned by `useContext(PropContext)` as a `IPropContext` with the generic types specified.
+
+The `IPropContext` type is an interface that represents the structure of the properties being stored in the context. The interface is again defined with the same generics as the `useProps` function. 
+
+There are multiple definitions imported and used in defining this interface, such as `IListProps`, `IListState` and `IListCallbacks`, which seem to be part of the design of the component properties.
+
+```typescript jsx
+type IListState<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = {...};
+```
+
+In short, the `useProps` hook is a tool for obtaining properties from the `PropContext` context in a type-safe manner specified in terms of `FilterData`, `RowData`, `Payload`, and `Field`.
+
+
+## useListCachedRows
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+a custom React hook named `useCachedRows` that returns the current context value for the `CachedRowsContext` context. The context is designed to store the state for cached rows of data in the application. 
+
+Let's break down the code:
+
+- `<RowData extends IRowData = IAnything>()`: This is a TypeScript generic that's being applied to the function. It means the `RowData` type parameter extends from `IRowData` type and defaults to `IAnything` type if not provided.
+  
+- `useContext(CachedRowsContext)`: The React's `useContext` hook is called with `CachedRowsContext`, a React context, as the argument. It allows you to subscribe to React context without using context Consumer. It lets you read the context and subscribe to its changes from any function component.
+
+- `as IState<RowData>`: After the `useContext` hook is called, the result is cast to the `IState<RowData>` type, which is an interface designed to represent the state of cached rows.
+
+The `IState` interface might look like this:
+
+```typescript
+interface IState<RowData extends IRowData = IAnything> {
+    cachedRows: Map<RowId, RowData>;
+    selectedRows: RowData[];
+}
+```
+
+Here, `IState<RowData>` represents a generic interface (State) with two properties: `cachedRows` and `selectedRows`. `cachedRows` is a `Map` where keys are of `RowId` type and values are of generic `RowData` type. `selectedRows` is an array of `RowData`.
+
+## useListPayload 
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+In simple terms, `usePayload` is a custom hook that's been defined to return the current context value from `PayloadContext`. 
+
+Finally, `export const usePayload` is simply exporting this custom hook so it can be used in other parts of the codebase to retrieve the payload from `PayloadContext`. 
+
+This way of organizing code provides a flexible and efficient approach to managing and accessing shared state or behavior in a React application, utilizing the power of context and React hooks.
+
+
+## useListChips
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+The `useChips` function is a custom hook that retrieves the `ChipsContext` value using the `useContext` React hook: 
+
+```typescript jsx
+export const useChips = () => useContext(ChipsContext);
+``` 
+
+This context should presumably store and manage the state of chips — which chips are in the list and whether each chip is enabled or disabled. 
+
+The `ChipsContext` is created using:
+
+```typescript jsx
+const ChipsContext = createContext<IState>(null as never);
+```
+
+Here, `IState` is an interface that defines the shape of the context state, it consists of `chips` which is a Map where chip names (strings) are keys and booleans indicating whether a chip is enabled or not are values, and `setChips` which is a function for updating the `chips` Map.
+
+`ModernChipListSlot` and `ClassicChipListSlot` are components that render a list of chips. They are similar, but they use different Material-UI components for the chip representation (`FormControlLabel` with `Checkbox` for `ModernChipListSlot` and `Chip` for `ClassicChipListSlot`). Both components receive a list of chips and a loading flag as props, and they use the `useChips` and `useProps` hooks to access the chips state and some additional properties.
+
+The chips are rendered dynamically with the `renderChip` function inside each component. This function creates a representation of a chip based on its state and other properties. A handler for toggling the state of the chip is attached to the chip's click event. 
+
+The `useStyles` function is used to create styles for these components, using Material-UI's `makeStyles` function. This is a common pattern for CSS-in-JavaScript style definitions in Material-UI. The resulting `classes` object can then be used to apply styles to elements in the component's JSX. 
+
+Finally, several interfaces are defined that describe the structure of various pieces of data in this system, such as a chip (`IListChip`), the chip state (`IState`), and a slot for chips (`IChipListSlot`). These interfaces are used as generic parameters and props to ensure type safety and guide the usage of the functions and components in this code.
+
+## useListReload
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+1. `useReload` is a function that doesn't take any arguments, and its purpose is to define a custom hook that returns a callback function. Custom hooks in React are typically named with a `use` prefix and allow you to reuse stateful logic between different components.
+
+2. Within this function, it's calling another hook called `useProps()`. This `useProps` hook comes from an imported module, as indicated by the `import useProps from './useProps';` line.
+
+3. `useProps()` hook is deconstructed to extract the `handleReload` function. Seems like `useProps` is another custom hook that returns an object with the `handleReload` property.
+
+4. Finally, `useReload` returns a callback function that takes an optional boolean argument `keepPagination`. This callback function calls `handleReload(keepPagination)` when invoked. The optional `keepPagination` argument indicates whether pagination should be preserved when reloading data. 
+
+Remember that a callback function is a function you can pass into another function as an argument. Here, `keepPagination` is an optional argument that the callback function could receive - if it's not passed, its value would be `undefined`.
+
+This hook can be used in any part of your code where you need to reload data, possibly with an option to keep the current pagination.
+
+
+## useListSelectionState
+
+> Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
+
+
+
+The entire code is a custom hook that allows components to gain access to the current selection state stored in the `SelectionContext`.
+
+The `useContext` hook allows you to access a context without wrapping your component in a Context.Consumer in your JSX code. 
+
+The custom hook `useSelection` uses the `useContext` hook to access the context value from `SelectionContext`, which was created using `React.createContext`. `SelectionContext` is expected to hold the current selection state.
+
+```typescript jsx
+export const useSelection = () => useContext(SelectionContext);
+```
+
+The `SelectionContext` is initialized with a certain interface `IState`.
+
+```typescript jsx
+const SelectionContext = createContext<IState>(null as never);
+```
+
+`IState` interface describes a `selection` (which is a set of `RowId`s) and a `setSelection` function that updates the `selection` state.
+
+```typescript jsx
+interface IState {
+    selection: Set<RowId>;
+    setSelection: (s: Set<RowId>) => void;
+}
+```
+
+The `RowId` type is used to represent the unique identifiers for rows in a table and can be a `string` or `number`.
+
+```typescript
+export type RowId = string | number;
+```
+
+Overall, the `useSelection` hook is a tool that developers can use to access the current state of `SelectionContext` (which includes both the current selection state and a updater function to change this state) from anywhere within the component tree, as long as the component is a child of a Provider for this context.
+
+
