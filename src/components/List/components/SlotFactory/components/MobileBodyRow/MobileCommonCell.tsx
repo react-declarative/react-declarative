@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useMemo, createElement, Fragment } from 'react';
 
 import Typography from '@mui/material/Typography';
 import TableCell from '@mui/material/TableCell';
@@ -115,7 +115,12 @@ export const MobileCommonCell = ({
             <Box className={classes.container}>
                 {withLabel && (
                     <Typography variant="body1">
-                        {`${typo.bullet} `}{headerName}
+                        {createElement(Fragment, {
+                            children: [
+                                `${typo.bullet} `,
+                                headerName,
+                            ]
+                        })}
                     </Typography>
                 )}
                 <Box 
