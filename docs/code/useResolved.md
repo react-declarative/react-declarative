@@ -2,6 +2,8 @@
 
 To resolve `handler` value the `<One />` component use `useResolved` hook. If `handler` is a function it will process as a one-way binding. If handler is assigned to `useState` value, it will refresh `<One />` form on a state change
 
+## The Data Flow
+
 - The data flow in this code can be described as follows: 
 
 1. **Initialization** : 
