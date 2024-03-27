@@ -1,6 +1,6 @@
 # OutletView
 
-Outlet is a pattern [inspired from react-router-dom](https://reactrouter.com/en/main/components/outlet). In compasion with react-router, the `<OutletView/>` manage form submit state from multiple pages, prevent page leave when data changed. Let's break down the example code
+Outlet is a pattern [inspired from react-router-dom](https://reactrouter.com/en/main/components/outlet). In compasion with react-router, the `<OutletView/>` manage form submit state from multiple pages, prevent page leave when data changed. Let's break down the following pseudo-code (it works well but submit button is multiplied for example)
 
 ```tsx
 const DEFAULT_PATH = "/employee/employee";
@@ -50,7 +50,7 @@ export const useEmployeeEditModal = () => {
     onClose: () => {
       pop();
     },
-    submitLabel: "Open",
+    submitLabel: "Submit",
   });
 
   return (id: string) => {
