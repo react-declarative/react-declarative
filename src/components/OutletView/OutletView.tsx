@@ -258,9 +258,6 @@ export const OutletView = <
    * @returns Returns a promise that resolves with a boolean indicating if the save operation was successful.
    */
   const beginSave = async () => {
-    if (!hasChanged$.current) {
-      return false;
-    }
     if (hasLoading$.current) {
       return false;
     }

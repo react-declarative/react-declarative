@@ -381,6 +381,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
   /**
    * Begins the saving process.
    * If there are no changes, it returns false.
+   * If there is a pending loading, it returns false.
    * If there are changes, it waits for changes to be applied and retrieves the current data.
    * It then calls the onSave function with the data and handles the result accordingly.
    * After the save is completed, it calls the afterSave function.
@@ -390,6 +391,9 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
    */
   const beginSave = async () => {
     if (!hasChanged$.current) {
+      return false;
+    }
+    if (!hasLoading$.current) {
       return false;
     }
     await waitForChanges();
