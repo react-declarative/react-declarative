@@ -18,8 +18,9 @@
 6. [TypedField](./code/TypedField.md)
 7. [SlotFactory](./code/SlotFactory.md)
 8. [Form schema](./code/Schema.md)
-9. [index.ts](./code/Export.md)
-10. [react-declarative.d.ts](./code/react-declarative.md)
+9. [Routing](./code/Routing.md)
+10. [index.ts](./code/Export.md)
+11. [react-declarative.d.ts](./code/react-declarative.md)
 
 ## Field properties with JSDoc:
 
