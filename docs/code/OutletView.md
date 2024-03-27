@@ -131,7 +131,7 @@ export default routes;
 Nested views in outlet are placed to routes. This simplify active view management if we working with tabs or wizard steps. Also the `<OutletView />` use `history.replace` for navigation to easy integrate to the upper `<Switch />` router. Oulet can be shown directly on a page or opened in modal with `useOutletModal`, `useTabsModal`, `useWizardModal` hooks
 
 ```tsx
-export const DataView = ({ history, payload, data, formState, beginSave }: IOutletProps) => (
+export const DataView = ({ history, onChange, payload, data, formState, beginSave }: IOutletProps) => (
     <Container>
         <Breadcrumbs2
           payload={formState}
@@ -147,6 +147,7 @@ export const DataView = ({ history, payload, data, formState, beginSave }: IOutl
                 fields={employee_fields}
                 handler={() => data}
                 payload={payload}
+                onChange={onChange}
             />
         </SideBar>
     </Container>
