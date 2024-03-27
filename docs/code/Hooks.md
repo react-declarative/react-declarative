@@ -1727,4 +1727,742 @@ In the ActionModal component code which isn't fully included, LARGE_SIZE_REQUEST
 
 All in all, this hook allows for responsive adjustments to interface components based on window size changes.
 
+## useOpenDocument
+
+The `useOpenDocument` hook accepts an optional parameter `options` of type `IParams`. The `IParams` interface defines a set of optional callback functions and properties that can be passed into the hook. These provide various customization options for the document preview, such as callbacks for when the document starts or finishes loading (`onLoadStart`, `onLoadEnd`), the component is mounted or unmounted (`onMount`, `onUnmount`), the "submit" button is clicked (`onSubmit`), or the component is closed (`onClose`). Other parameters allow customization of the component's label and title.
+
+The hook then uses another custom hook named `useActualRef` to store a mutable reference (`params`) to the current request for the document to be shown. 
+
+The next part is the use of another custom hook called `useOutletModal` which is likely a pre-existing hook from your codebase. The `useOutletModal` hook is used to generate a render function and a pickData function for the document preview modal. The options provided to the `useOutletModal` hook are used to customize the behavior and appearance of the modal.
+
+```tsx
+const { render, pickData } = useOutletModal({
+  /* The options provided to the useOutletModal */
+});
+```
+
+Lastly, the hook returns an object containing the `render` function and a `pickData` function. The `render` function is used to render the document preview component. The `pickData` function is a function to set the parameters of the given request and redirect to the home page, also handles the data from the given request URL.
+
+Please note: To better understand the logic of the `useOpenDocument` hook and how it uses `useOutletModal` and other hooks, you would need to analyze the implementation of these underlying hooks (`useActualRef`, `useOutletModal`, and `useCallback`), the functions that they provide, and how these functions are being used in your existing application.
+
+## usePreventAction
+
+a custom React Hook called `usePreventAction`. This Hook is designed to manage a loading state and execute certain functions when the loading starts and ends.
+
+Here is a detailed breakdown of the code:
+
+1. *Initialization:* The function `usePreventAction` takes an object of parameters as its argument, which is represented by an interface `IParams`. The interface `IParams` contains three optional properties: `onLoadStart`, `onLoadEnd`, and `disabled`. These properties represent functions for handling the start of loading, the end of loading, and a state to disable the action respectively.
+
+2. *State Declaration:* `useState(0)` initializes a state variable called `loading` with an initial value of `0`. This state variable is used to keep track of the loading status.
+
+3. *Returning Object:* The Hook returns an object that includes `handleLoadStart`, `handleLoadEnd`, and `loading`. 
+
+    `handleLoadStart` is a function that (if defined) calls `onLoadStart` and increases the loading counter by 1.
+    
+    `handleLoadEnd` is a function that takes a boolean argument `isOk`, (if defined) it calls `onLoadEnd` with `isOk` as an argument and decreases the loading counter by 1.
+    
+    `loading` is a boolean that checks if the count of `loading` is not 0 or `disabled`.
+
+This Hook is particularly meant to be used with actions that could take some time to execute (for example fetching data from a server). It allows other parts of the app to know when such an action is ongoing and when it's completed.
+
+## useActionModal
+
+a custom React Hook, `useActionModal`, used for managing an action modal in a hypothetical application's user interface. This hook abstracts the state management and rendering logic for an action modal.
+
+Let's break down the core aspects of this hook:
+
+**Parameters**
+
+The `useActionModal` hook accepts an argument which is an object containing multiple keys. Each key represents some form of parameter or configuration for the action modal. 
+
+It has some optional parameters with default values, like `withActionButton = true`, which controls if the ActionModal should have an action button and `onSubmit = () => true`, an function that is used when the modal is submitted and returns true by default.
+
+**Type Parameters**
+
+`useActionModal` is a generic function with four type parameters: `Data`, `Payload`, `Field`, and `Param` which are used to ensure type safety. Here, `IAnything` is a placeholder for any type, `IField` represents a field in the modal form, and `Param` is used for function parameters. 
+
+**State Management**
+
+This hook makes use of React's `useState` to manage local state for things like if modal is open (`open`) and a parameter (`param`).
+
+**Effects**
+
+In the hook, a `useEffect` is used to update the `param` if the `upperParam` changes. 
+
+**Callback**
+
+`useCallback` is utilized to create memoized versions of a `handleSubmit` function (which manages async submission of data) and a rendering function named `render`.
+
+**Render Function**
+
+The render function returns an `ActionModal` Component, which uses the state and callback functions maintained by the hook.
+
+In summary, this hook hides the complexities of handling an action modal, allowing developers to simply use this hook and provide the required parameters to get a fully functional, customizable action modal in their React applications.
+
+## usePreventNavigate
+
+the `usePreventNavigate` hook could be used inside a React component to prevent navigation away from the current page and display a confirmation prompt if specified. It also handles load state changes. This could be particularly useful in forms or other places where user inputs need to be preserved. 
+
+Here's a walk-through of the key parts of the hook:
+
+- `usePreventNavigate` takes specific parameters:
+    - `history`: The history object from `react-router-dom`, which is typically used for controlling web page navigation in a React application.
+    - `withConfirm`: A boolean value that determines if a confirmation prompt should be displayed before navigating away from the page. Default value is `false`.
+    - `onLoadStart` and `onLoadEnd`: Callback functions invoked when loading starts and ends, respectively.
+
+- Hook's internal state is maintained using `useState` and `useRef`:
+    - `loading`: A value that increases when loading starts and decreases when loading ends.
+    - `unblocked`: A boolean value to manage whether navigation has been unblocked.
+    - `unsubscribeRef`: A reference that holds a function to remove the navigation blockers.
+
+- `useConfirm` hook is used to display the confirmation dialog that is shown when the user attempts to navigate away.
+
+- Effect hook (`useEffect`) is used to create navigation and unload blockers whenever `loading`, `unblocked`, or `withConfirm` changes. The effect returns a cleanup function to remove the listener when the component unmounts or a dependent value changes.
+
+- Finally, `usePreventNavigate` returns an object with methods and a state, which gives the consumers of this hook the ability to start or end loading phases, block and unblock navigation, and check the current loading state.
+
+The definitions for `useConfirm`, `compose`, and other hooks and functions used in the `usePreventNavigate` hook are not provided in the question but seem to be imported at the beginning of the script. Other hooks like `useState`, `useEffect`, and `useRef` are part of the React API. You might want to investigate the source code for these to fully understand how these hooks are used, especially since usage and behavior for these may vary depending on your team's individual conventions and the libraries you're using.
+
+Please note that the `usePreventNavigate` hook assumes that it's used in an environment where the `history` module from `react-router-dom` is available, which might not be the case for every React application. Please make sure that your project does use React Router. 
+
+Finally, remember that since the `usePreventNavigate` method is a hook, it must follow the Rules of Hooks – namely, it must not be called conditionally or inside loops, and it must be called from the top level of a React function component or a custom hook.
+
+## useCursorPaginator
+
+a React Hook `useCursorPaginator` which helps in implementing cursor-based pagination system. It is most beneficial in scenarios where infinite scrolling or progressively loading content is required.
+
+Let's break down its functionality:
+
+1. The `useCursorPaginator` hook is generic and it includes type parameter `Data extends RowData = RowData` which means the data type being worked with is considered to be type of `RowData` unless specified otherwise.
+
+2. The argument passed to `useCursorPaginator` function is an object of type `IParams` which has various fields representing the input parameters that configure the paginator.
+
+3. The `reloadSubject`, `initialData`, `handler`, `delay`, and `limit` variables are destructured from `params`. The parameters come with default values, so in case they are not provided during function call, they will take the default value.
+
+4. `useSubject`, `useActualState`, and `useActualCallback` hooks are used to manage state and capture context for the hook, while `useQueuedAction` and `useSingleRunAction` manage different kinds of async actions.
+
+5. `fetchData` is an asynchronous function that retrieves more data using the `handler$` which is provided as an argument when calling `useCursorPaginator`.
+
+6. `onSkip` is an asynchronous function that is used to load the next set of data by calling `fetchData`.
+
+7. `useEffect` is used here to handle `reloadSubject`. Whenever `reloadSubject` is triggered `fetchData`, `onSkip` are cleared and initial data is set to an empty array.
+
+8. `useMemo` and `useCallback` are used to optimize performance by avoiding unnecessary re-renders and computations.
+
+9. The function `useCursorPaginator` ultimately returns an object that contains the paginator data and related functions such as `setData`, `onSkip` etc which can be used in the component for pagination.
+
+Please, let me know if you need more details about a particular part of the code.
+
+## useGridAction
+
+a React hook, `useGridAction`, that provides a way to handle actions on a data grid. The actions include generic grid actions as well as specific row actions.
+
+The `useGridAction` function accepts an object of type `IParams<Data>`, which contributes several properties that define how to perform these actions, handle potential errors, and define fallback behavior. Some notable properties include:
+
+- `fetchRow`: a function that fetches a specific row from the grid based on the passed `id`.
+- `onAction`: a function that is executed when a grid action is performed. The function receives the action name, the rows to perform the action on, and a function to deselect all rows.
+- `onRowAction`: a function that is executed when a row action is performed.
+
+The hook uses two other hooks, `useGridSelection` and `useAsyncAction`, for selection management and asynchronous action execution respectively. 
+
+`useGridSelection` is presumably a hook for managing row selection in the grid and it provides the `deselectAll`, `gridProps` and `selectedRows`.
+
+`useAsyncAction` is used twice: `commitAction` committed on the selected rows of the entire grid and `commitRowAction` committed on a single specified row.
+
+The `useGridAction` hook ultimately returns an object with five properties: the methods `deselectAll`, `commitAction`, and `commitRowAction`; and the data `selectedRows` and `gridProps`. These results are used to interact with the grid system, manage selection, and commit actions on the grid or individual rows.
+
+## useGridSelection
+
+ a custom React Hook called `useGridSelection`. This hook is mainly used to manage row selection in a grid-like structure.
+
+Here's a piece-by-piece breakdown:
+
+1. The function `useGridSelection` uses React Hooks, which are a React feature that allows you to use state and other React features without writing a class component. Hooks must be used within functional components.
+
+2. `useState<string[]>([])`: This is a state hook provided by React. It creates a state variable (here, `selectedRows`) and a corresponding setter function (here, `setSelectedRows`). The value in the bracket (`[]`) is the initial state and it's an empty array in this case. So, `selectedRows` is an array of strings which are the IDs of selected rows.
+
+3. `useCallback`: This is another hook provided by React. It memoizes (caches) a callback function. It returns a memoized version of the callback that only changes if one of the dependencies, specified in the second parameter as an array, has changed. Here it's used to define the `deselectAll` function which sets the `selectedRows` to an empty array. As there are no dependencies mentioned in the array, this function will not change across renders.
+
+4. In the return statement, `useGridSelection` returns an object containing the state with the selected rows, an object with properties for grid selection (including a function to set the selected rows), and a function to deselect all rows.
+
+5. `as const` is used in TypeScript to indicate that every property of the object should be considered readonly, or a literal type.
+
+Using this hook in a component, you can easily manage the state of row selection in a grid.
+
+Lastly, to link this with your project code snippets, you might use `useGridSelection` within a grid component, where rows are selected for operations specified in `IParams` interface.
+
+
+## useOffsetPaginator
+
+a custom React Hook that extends standard pagination systems by adding a loading state, error handling, and additional query properties to handle complex data fetching scenarios.
+
+Fundamentally, in any pagination system, we divide a larger set of data into smaller chunks or pages and render them as needed. Doing so improves efficiency and performance in contexts where displaying all the data at once may be resource-intensive or unnecessary (e.g., if a user never views the data).
+
+Here's a detailed breakdown of the code:
+
+1. **Generics and Parameters:**
+
+    The hook uses a generic type `Data extends RowData = RowData`, where `RowData` is presumably a type defined elsewhere in your code base that represents a single unit of your data.
+
+    It accepts an object of parameters that configure several aspects of the pagination mechanism, including (1) a reload subject to trigger data reloads, (2) initial data, (3) a data fetching handler, (4) a limit for the number of items per request, and (5) a delay between requests.
+
+2. **State Management:**
+
+    Multiple states are managed within the hook:
+
+    - `reloadSubject` is a behavior subject that the hook uses to reactively dictate when the data should reload.
+
+    - `initialData$` and `state` store the initial data and the state of the component respectively. The `state` includes paginated data (`Data[]`), offset of current page, and a boolean flag indicating whether more data can be loaded or not.
+
+    - `handler$` is the data fetching function that accepts a limit, offset, and two boolean flags to fetch the next batch of data.
+
+3. **Data Fetching:**
+
+    The `execute: fetchData` function from `useQueuedAction` hook is used to fetch data from a source, which is defined by `handler$`.
+
+4. **Skip Handler:**
+
+    The `execute: onSkip` function from `useSinglerunAction` hook handles skip events, which occur when there's a need to skip to a specific process step, for instance, due to an error during data fetching. It fetches data and sets it. If more data elements are returned than the specified limit, then it's assumed that more data remains to be fetched.
+
+5. **Reload Logic:**
+
+    The hook uses `useEffect` to automatically invoke the `onSkip(true)` function whenever a `reloadSubject` event is detected. This function resets the state and initiates data fetching for the first page.
+
+6. **Data Update and Reset Functions:**
+
+    Two functions `setData` and `clear` are included to forcefully set the component's data state and reset the state to its initial state respectively.
+
+At the end, `useOffsetPaginator` returns an object containing the paginated data, utility functions, and flags indicating loading status and error presence, which can be used to build a UI that reflects the current loading state and error status of pagination.
+
+Please note: This utility relies on several custom hooks including `useSubject`, `useActualState`, `useActualCallback`, `useQueuedAction`, and `useSinglerunAction`. Their exact behavior depends on their respective implementations.
+
+## useApiPaginator
+
+The `useApiPaginator` is a TypeScript function that acts as a list handler generator for API pagination. This function provides an extensive set of options to control fetching data from an API endpoint and processing that data. It uses multiple Features like Filters, Pagination, Sort, Search, and Chips. 
+
+Here is a brief explanation of some of the key parts of the code:
+
+- Function and Parameter Definition:
+The function `useApiPaginator` is a generic function that takes a path and an optional settings object. The generic parameters `FilterData` and `RowData` which extends from `IAnything` are used to specify the type of filter data and row data.
+
+- Default Function Parameters:
+Several defaults are provided to the settings object, like the use of `window.fetch` for the fetch operation, `window.location.origin` for the origin, among others. Default functions are also provided for manipulating the request and response, and handling filters, chips, sorting, search, and pagination.
+
+- List Handler:
+The resultant function (`handler`) is returned, which takes parameters for filter data, pagination, sorting, chips, and search, and returns a result that includes the filtered, sorted, and paginated data. It leverages the provided functions for manipulating these parameters and for processing the response. If an error occurs during the fetch request or if the request is manually aborted, the function appropriately handles these cases and may provide fallbacks when available.
+
+- Cleanup with `useEffect`:
+After the list handler is defined, `useEffect` is used to clean up after the component is unmounted. In this case, any pending network request is cancelled and the fetch queue is also cleared. 
+  
+
+The function `useApiPaginator` is quite customizable, supporting a variety of options to change its behavior. This type of pattern is often useful in libraries or utility functions, where a single function might need to support a variety of scenarios with many different options.
+
+On final note, the function comments are well articulated explaining each parameters the function expects and their default behaviors. It's a great example of how to document a complex function.
+
+## useArrayPaginator
+
+The `useArrayPaginator` hook represents a paging and filtering function defined for handling data arrays.
+
+This function is known as `useArrayPaginator` and is exported as a generic function from the module.
+It takes two type parameters:
+
+* `FilterData` - Which dictates the object's type for filter data.
+* `RowData` - It represents the type of the row data objects. It extends the interface `IRowData`.
+
+This function is executed with `ListHandler<FilterData, RowData>` as the first argument, which is a function that retrieves the row data.
+
+The second argument is an options object that contains properties for configuring the function:
+
+* `searchEntries` - Property names to search when using the search feature.
+* `searchFilterChars` - Characters to filter in the search feature.
+* `responseMap`, `removeEmptyFilters`, `compareFn`, `filterHandler`, `chipsHandler`, `sortHandler`, `searchHandler` - These are all handler functions for various functionalities such as sorting, filtering, comparison, etc.
+* `paginationHandler` - It's a function to paginate the rows.
+* `withPagination`, `withFilters`, `withChips`, `withSort`, `withTotal`, `withSearch` - These are flags enabling or disabling certain functionalities such as searching, sorting, filtration, pagination etc.
+* `fallback`, `onLoadStart`, `onLoadEnd`, `onData` - These are various events for error handling, data loading start/end, and data receiving events.
+
+The function `useArrayPaginator` returns `ListHandler<FilterData, RowData>`.
+
+There's a nested function in the `useArrayPaginator` function which queues the resolve function, and it returns its result. The queueing of the resolve function is defined using `useMemo`, a React hook, for performance optimization, which ensures that expensive calculations only re-run when necessary. This function is executed asynchronously and returns a `Promise` that resolves with the results of the resolve function.
+
+This function encapsulates a comprehensive logic handling list items with versatile controls and options provided thereby making operations like Searching, Sorting, Filtration and Pagination on list data convenient and efficient.
+
+## useCachedPaginator
+
+a hook function `useCachedPaginator` in TypeScript. This function creates a cached paginator for list data. It could particularly be useful in frontend scenarios where we have long and chunky lists of data that need to be requested from the backend server in an optimized manner. 
+
+Here's a run-down of the function's design:
+
+The function `useCachedPaginator` is a generic function that takes two type parameters `FilterData` and `RowData`. `FilterData` represents the type of the filter data, and `RowData` represents the type of the data in each row. If not provided, they default to `IAnything`,  a custom type shown in attachments.
+
+`useCachedPaginator` accepts two arguments:
+
+- `handler` of type `ListHandler<FilterData, RowData>`. The `ListHandler` could either be an Array of type `RowData` or a function that returns `Promise<ListHandlerResult<RowData>>` or `ListHandlerResult<RowData>`. The function takes several parameters to handle list actions like filtering, pagination, sorting, and searching data.
+
+- `params` of type `IArrayPaginatorParams<FilterData, RowData>`. This parameters object is used to customize the paginator's behavior. It could include handlers for filtering, sorting, and pagination of the data rows, a response mapper, a search handler, a compare function for manual sorting, data validation rules, several true/false switches for turning on/off built-in features (such as pagination, filters, total count, etc.), handlers for fallbacks and load statuses, etc.
+
+The function uses `useMemo` hook from React library to memoize a function `rowsHandler`. This function encapsulates the `handler` passed to `useCachedPaginator`. If `handler` is a function, it is invoked with the arguments passed to `rowsHandler`. If `handler` is an object (a predefined list of `RowData`), it is returned as it is. `useMemo` ensures that `rowsHandler` is only created once and not re-created on every render, unless its dependencies change.
+
+In the return statement, the function output is an object with two properties: `handler` and `clear`. 
+
+- `handler` is obtained by invoking `useArrayPaginator` with `rowsHandler` and `params`. So this `handler` is essentially an array paginator handler targeted at the `RowData` list (precomuted or dynamic). 
+
+- `clear` is a reference to the `clear` function in `rowsHandler`. This could be used to clear the cached list data.
+
+The returned result is of type `IResult<FilterData, RowData>` which is an interface that represents the result of a `ListHandler` operation. This interface exposes `handler` and `clear` methods for handling the created paginator and clearing it. 
+
+So in essence, `useCachedPaginator` is about creating fully customizable cached paginators (possibly to interact with backend services for CRUD operations on large lists) using a combination of different handlers for different list actions, and encapsulating them within a `ListHandler` object.
+
+For further analysis, please consider that the additional provided TypeScript modules `ListHandler`, `IArrayPaginatorParams`, `IResult`, `singleshot` and `useArrayPaginator` are critical pieces to fully understanding what is happening in the `useCachedPaginator`.
+The utility function `singleshot` possibly intended to run a function only once, and the memoized `rowsHandler` is constructed using it. Also, `useArrayPaginator` would be a hook function that creates an array-based paginator. Without these code pieces, we can only take educated guesses about the complete functionality.
+What is obvious is that this hook provides a way to use a single list (data rows) handler function across multiple instances or components, while encapsulating some of the complexity of the handler's state and logic. It provides an elegant way to use caching and state management for data handlers, particularly useful when dealing with intensive data operations in frontend interfaces.
+
+
+## useHistoryStatePagination
+
+a custom React Hook called `useHistoryStatePagination`, which seems to be managing pagination states using the browser history state, a feature provided by the `react-router` module.
+
+It's a generic function that takes two type parameters `FilterData` and `RowData`, with both default to `IAnything`, which seems like a predefined generic type. This allows the hook function to be used with different data sets and types for custom filter data and row data.
+
+Here's a high-level explanation of the different parts of the code:
+
+1. **Input Parameters**: The hook function accepts two main arguments:
+    - `history` - The history object from react-router.
+    - `options` - An optional object containing configurations for the pagination.
+
+2. **State**: It initializes a state `state` that is derived from a default set of query parameters and the current browser history location state.
+
+   The `defaultQuery` is composed of a variety of default parameters, either coming from `initialValue` which is destructured from `options` or default properties defined in `DEFAULT_QUERY`.
+   
+3. **Hooks**: It uses several hooks such as `useMemo`, `useCallback`, `useState`, and `useEffect` to manage the query data state and handle changes in that state. Additionally, `useActualValue` seems to be a custom Hook used to get the actual value of the state or query.
+
+4. **Effect**: It listens for any change in the browser history location and updates the `state` based on the new location state. It also triggers an `onChange` event handler with the updated state.
+
+5. **Return**: It does not show the full return statement, but based on the comment it returns an object that includes `listProps` and the methods to get and set the various properties of `listProps`.
+
+The specific `onFilterChange` and `onLimitChange` callback functions provided in the code are examples of methods used to handle state changes for specific parts of the query. When they are invoked, they update the relevant property in `state` and the browser history, triggering a re-render with the updated state. They also call their respective handler methods that are passed into the hook through `options`. The full code includes similar callback functions to handle changes to other properties of the query.
+
+This hook would be particularly useful in a scenario where you are displaying paginated data and want to maintain the current page, sort model, applied filters, etc., across page refreshes or navigation using browser history.
+
+## useLastPagination
+
+a custom React hook called `useLastPagination` which is designed to manage and handle pagination state and logic in an application. It is a generic function that can operate on any kind of filter data (`FilterData`) and row data (`RowData`).
+
+The `useLastPagination` function receives a `ListHandler` function as an argument (`upperHandler`), which is anticipated to fetch data based on filter data and other parameters. Here `ListHandler` is a type that could either be a function that returns a promise of `ListHandlerResult` or an array of `RowData`. This function takes parameters for data filtering, pagination, sorting, chips and search:
+
+```typescript
+(
+  data: FilterData,
+  pagination: ListHandlerPagination,
+  sort: ListHandlerSortModel<RowData>,
+  chips: ListHandlerChips<RowData>,
+  search: string,
+  payload: Payload,
+) => Promise<ListHandlerResult<RowData>> | ListHandlerResult<RowData>
+```
+
+The `useLastPagination` hook internally uses React's `useState` hook to manage its state. This state is an object encapsulating `filterData`, `chipData`, pagination data, sorting data and search string.
+
+The hook defines a `handler` function which manipulates this internal state based on the arguments it receives. The `removeEmptyFilters` function is used to clean the filter data before it's set in the state.
+
+Lastly, the `useLastPagination` hook returns an object containing this `handler` function and the current state data. This allows consumers of this hook to both manipulate the state (via handler) and react to state changes.
+
+In a typical use case, this hook would probably be used by a component rendering paginated data. The component could use the handler function returned by this hook to fetch new pages of data (using the `upperHandler` function) and then render this data based on the current state returned by the hook.
+
+
+## useListAction
+
+a function named `useListAction`. This function can be considered a custom hook in context of React.
+
+The function `useListAction` takes an object parameter of generic type `Data` which extends the interface `IRowData`. The properties of this object correspond to various actions that can be performed on a list of data. A brief description of these parameters:
+
+- `onLoadStart`: A function that is called when data loading starts.
+- `onLoadEnd`: A function that is called when data loading ends.
+- `throwError`: A boolean that tells the system whether to throw an error.
+- `fallback`: A function that is called when an error occurs.
+- `fetchRow`: A function that fetches a single row of data.
+- `onAction`: A function that is called when a bulk action is performed.
+- `onRowAction`: A function that is called when an action is performed on a row.
+
+The hook `useListAction` uses another custom hook `useListSelection` to manage the selection of data rows in a list.
+
+```typescript
+const { deselectAll, listProps, selectedRows } = useListSelection();
+```
+
+The two action functions `commitAction` and `commitRowAction` are returned from the custom hook `useAsyncAction`, which asynchronously executes certain actions passed to it.
+
+In case of `commitAction`, the passed function executes the `onAction` callback (if defined), with data fetched for each selected row and `deselectAll` callback.
+
+In case of `commitRowAction`, the passed function executes the `onRowAction` callback (if defined), with action performed, row data, and `deselectAll` callback.
+
+Finally, the function returns an object that contains the `deselectAll` function, `selectedRows`, `listProps`, `commitAction`, and a function to `commitRowAction` which accepts `action` and `row` as parameters that executes the corresponding async action.
+
+```typescript
+return {
+  deselectAll,
+  selectedRows,
+  listProps,
+  commitAction,
+  commitRowAction: (action: string, row: Data) => commitRowAction({ action, row }),
+} as const;
+```
+
+This `useListAction` custom hook encapsulates the functionality related to managing list actions such as loading, performing an action on selected rows, performing an action on a single row, etc. It is designed to be used in a React environment since it likely relies on React's state and effect hooks in its implementation.
+
+
+## useListSelection
+
+
+1. The `useListSelection` hook: This hook manages the selection of rows in a list. It uses the `useState` and `useCallback` hooks from React and returns an object that contains:
+
+    - `selectedRows`: An array of selected row IDs. The state for this is managed with a useState hook. The initial state for selectedRows is an empty array, indicating that initially no rows are selected.
+    
+    - `listProps`: An object that includes:
+        - `selectedRows`: The same array of selected row IDs as above.
+        - `onSelectedRows`: A function that selects row IDs. This function sets the state of selectedRows to the provided array of row IDs (`rowIds`).
+
+    - `deselectAll`: A function that deselects all rows. This callback function sets selectedRows to an empty array, thereby deselecting all rows. It caches this function to prevent unnecessary re-renders of any components that might depend on it.
+
+2. The `useListAction` hook: This hook provides a set of actions and hooks for managing a list of data based on the provided parameters. `RowId` in this context is a type that can either be a string or a number, representing a unique identifier (id) for a row in a data list.
+
+3. The `onAction` and `onRowAction` functions: These functions are called when a bulk action is performed and when a row action is performed respectively. They are optional and can be provided when the `useListAction` hook is invoked.
+
+4. The `commitAction` and `commitRowAction` functions: These are obtained from `useAsyncAction` and are used to perform an action on multiple rows or a single row respectively. `useAsyncAction` seems to be an asynchronous custom hook that handles common states and side effects of an asynchronous operation, such as loading state and error handling.
+
+In summary, this module provides hooks to manage list selections and operations acting on the rows of a list. I hope that helps. If you have any further queries or require clarification on any point, feel free to ask.
+
+
+
+## useQueryPagination
+
+a `useQueryPagination` hook function. This function is likely designed to be used as part of a data fetching operation in a React application, specifically in scenarios where the data needs to be paginated. Here is how each part is functioning:
+
+- **useQueryPagination function**: This is a generic react hook that accepts two type parameters `FilterData` and `RowData`. These are used throughout the function definition to provide types for variables and returned object types. The function accepts two parameters, `initialValue` and `options`, both are optional and have default values.
+
+- **useState and useMemo Hooks**: The implementation uses React's `useState` and `useMemo` hooks. `useState` is used to keep track of some local state in the hook, and `useMemo` creates a memoized value of the default query object and state.
+
+- **Callback functions**: `onFilterChange`, `onLimitChange`, `onPageChange`, `onSortModelChange`, `onChipsChange`, `onSearchChange` are all optional callback functions that are part of the `options` parameter. These callback functions are invoked when there is a change in their corresponding fields.
+
+- **useChange and useActualValue Hooks**: These appear to be custom hooks not provided by React itself. It looks like `useChange` is used to call a custom function any time the state changes. `useActualValue` hook is used to get the most recent state value.
+
+- **getQueryMap**: It's an object containing various getter functions. These functions are used to extract specific properties from the query data. This appears to allow easy access to specific parts of the state.
+
+Keep in mind that this function also uses several unknown constants, hook functions, types, and interfaces in its implementation which are not described in the provided code.
+
+## useModalManager
+
+
+This is an exported function named `useModalManager` that does not accept any arguments and returns an object `IResult`.
+
+```typescript
+export const useModalManager = (): IResult => {
+```
+
+Inside this function, there is a call to the `useContext` hook of React, passing `ModalManagerContext` as its argument.
+
+```typescript
+const context = useContext(ModalManagerContext);
+```
+
+This `useContext` hook is a function used in React that allows you to use the value from a context. Here, it's receiving the ModalManagerContext, which suggests that somewhere in the application's component tree, there's a context Provider for this ModalManagerContext.
+
+Finally, the function returns an object with four properties:
+
+- `total`: This represents the length of 'modalStack', which seems to be an array stored in the context representing the number of modals.
+- `push`: This is a function that appears to add a new modal to the stack.
+- `pop`: This is a function that seems to remove the last modal from the stack.
+- `clear`: This is a function that appears to clear the stack.
+
+Each of these properties are likely methods provided by the `ModalManagerContext`.
+
+```typescript
+return {
+    total: context.modalStack.length,
+    push: context.push,
+    pop: context.pop,
+    clear: context.clear,
+};
+```
+
+### IResult Interface
+
+The `IResult` interface is utilized by the `useModalManager` function as a TypeScript type.
+
+This interface describes an object with a `total` property, which is a number, and three functions: `push`, `pop` and `clear`.
+
+```typescript
+
+interface IResult {
+    total: number;
+    push: (modal: IModal) => void;
+    pop: () => void;
+    clear: () => void;
+}
+```
+
+Each of `push`, `pop` and `clear` methods are annotated with JSDoc comments providing brief descriptions of their purposes and behaviors.
+
+In summary, the `useModalManager` function is a custom React Hook that is used to manage modals in this application. It leverages the context system to provide these functionalities.
+
+
+## useModal
+
+The `useModal` is a custom React Hook that provides functionality for controlling a modal dialog. The provided JSX code defines its TypeScript type, implementation, and usage across different components.
+
+Here's an analysis breakdown of the code:
+
+First of all, it's important to note that this TypeScript JSX code employs useful features from the React library such as `useEffect`, `useState`, `useCallback`, and `useContext`:
+
+- The `useState` hook is used to create a state variable `open`, which controls the visibility of the modal. `setOpen` is the function to update this state.
+  
+- `useContext` is used to access methods (`handleElement`, `handleUpdate`, `handleClear`) from the `ModalContext` likely defined somewhere else in the code.
+
+- The `useEffect` and `useCallback` hooks are used to manage side effects i.e., operations that can lead to a change in the visible UI or in the state of the components.
+
+The `useModal` custom hook function:
+- Takes two arguments `renderer` and `deps`. The `renderer` is a function that likely returns a JSX component to be displayed when the modal opens. `deps` is an array of dependencies, which, when any of them updates, triggers an update in `useModal`.
+- Initialises a state variable `open` with `useState`, which dictates the condition of the modal (showing/not showing).
+- Defines two callback operations `showModal` and `hideModal` for displaying and hiding the modal, respectively. They work by setting the `open` state to `true` or `false`.
+- Finally, it returns an object containing these two operations as methods.
+
+In the example usages, `useModal` is employed to create modals with `Date` and `TimePicker` components. It is demonstrated how it can be conveniently used to encapsulate the logic of handling modals with different content.
+
+```typescript jsx
+const { showModal, hideModal } = useModal(() => (
+    <DatePicker
+      open
+      onChange={handleChange}
+    />
+  ));
+```
+
+In this example, a modal with a `DatePicker` is created. When the modal is opened, the `DatePicker` component is rendered to the screen. `handleChange` is the function that will be executed when a date change event occurs in the `DatePicker` component.
+
+The calling of these hooks (`useDate` and `useTime`) returns a new class instance that allows sequential or Promise-based interactions for fetching the selected date or time.
+
+Overall, the `useModal` hook encapsulates the logic for handling modal operations, making it easy to manage modals throughout the application. It follows the best-practice of abstracting complex operations in a customizable and reusable way.
+
+Let me know if you need a deeper dive into any other piece of the provided code or any other explanation.
+
+## useApiHandler
+
+The `useApiHandler` is a function that constructs a reusable API handler for performing asynchronous HTTP requests and processing the responses.
+
+The function accepts an object configuration `IApiHandlerParams<Data>`, which sets up various parameters and options for the API handler, involving origin, request and response parameters mapping, loading lifecycle hooks, abort signals, fetch parameters and fallback error handler.
+
+Default values for `fetch`, `origin`, `abortSignal`, `requestMap`, and `responseMap` are provided and can be overridden by the user through function parameters. The `fetch` function is the built-in window fetch API, the `origin` is the current window's location origin, `abortSignal` is referenced from an abort manager, `requestMap` updates the request URL, and `responseMap` changes the JSON response.
+
+The API handler `handler` inside the `useApiHandler` function is memoized using React's `useMemo` function, ensuring it only changes if any of its dependency changes. This handler makes an async request, calls `onLoadBegin` before making a request if present, processes the response, and then calls `onLoadEnd` after making a request if present. In case of any error, it checks if a fallback function is provided which handles errors, otherwise it throws the error.
+
+Several `useEffect` hooks are being used to handle cleaning up tasks when the component is unmounted or re-rendered. They provide aborting the request and clearing the queue when the component is unmounted.
+
+Finally, it returns the `handler` which is expected to be a function that either returns data or performs asynchronous tasks with payload based on `OneHandler` type.
+
+Here's a summary of the types and functions referenced in the code:
+
+- Interface `IApiHandlerParams<Data>`: A type that represents the parameters for an API handler.
+- Type `DataOrNull<Data>`: Either Data or null.
+- IAnything: An interface imported from `IAnything.ts`, could be any type.
+- Type `IWrappedFn<T, P>`: Represents a promise returning wrapped function type.
+- Function `useMemo`: A React hook used to memorize expensive calculations.
+- Function `useEffect`: A React hook used to perform side effects, like lifecycle methods in class components.
+- `abortManager`: A helper managing aborting of requests.
+- `queued`: A higher-order function/utility that controls the execution of tasks in a queue.
+- `FetchError`: Custom error class that extends Error, particularly for handling fetch related errors.
+- `CANCELED_SYMBOL`: Constant symbol for representing a canceled request.
+- `EMPTY_RESPONSE`: Not shown in the code you provided, but as per the code's context, it should be a defined value that represents an empty or null response.
+- The use of `window.fetch` provides a function fetching resources (including across the network).
+
+## useLocalHandler
+
+a custom React Hook `useLocalHandler` that fetches data via a handler function, introduces loading and error states, and then transforms and manages the data using hooks.
+
+The `useLocalHandler` function accepts two parameters - a handler of type `OneHandler`, and an `options` object of type `ILocalHandlerParams`. The handler can be a value of `Data`, a function taking `Payload` as its parameter and returning `DataOrNull`, a function returning a promise of `DataOrNull`, or `null`. 
+
+The `ILocalHandlerParams` object provides several optional parameters:
+
+- `resultMap`: This function, if provided, is used to process/transform the data before setting it into the state. If not provided, a default function is used that simply returns the input data as it is.
+- `payload`: Any payload provided will be passed to the handler if it is a function.
+- `onLoadBegin`, `onLoadEnd`: These are optional callbacks that are called before and after (respectively) the handler function is invoked.
+- `fallback`: This is an optional function which will be called if an error is caught during the invocation of the handler function.
+
+Inside the `useLocalHandler`, a React state is initialized with the `useState` hook to hold the data.
+
+Then the `useEffect` hook is used to call the handler function asynchronously when the hook is invoked. Here, the state is managed based on the result or error obtained from the handler function. The `resolveHandler` function is used to return a result from the provided handler. If the handler is a function, it is invoked with the provided payload and the result is awaited (supporting both synchronous and asynchronous handler functions). If the handler is not a function, its value is directly returned.
+
+A `change` function is defined that allows to set data to state initially. 
+
+This hook returns an object containing the data obtained from the handler function and the `change` function to manipulate the data. 
+
+Overall, this hook provides an abstraction for managing data fetching with loading, error, and success states, as well as data transformation.
+
+
+## usePreventLeave
+
+a React hook named `usePreventLeave`. Hooks are a feature of React that lets you use state and other features of React without writing a class. The purpose of this specific hook seems to be management of a piece of data and prevention of the user from leaving the page without explicit confirmation if that data has changed.
+
+Let's discuss the important parts of this hook:
+
+1. Function Signature: The function exported is a generic function, meaning it can be used for data of any type. The two generic parameters, `Data` and `ID` are likely used to encompass any data type and any ID type respectively. The function accepts a single `params` object whose properties are used to customize the hook's behavior. 
+  
+2. State Initialization: The `useState` and `useRef` hooks are used to initialize and manage various pieces of state and "ref" values within the hook. For example, the `data` variable contains the actual data object that the rest of the functions operate on.
+
+3. `useEffect` Call: A hook that runs side-effects after render. In this case, it's subscribing to the `updateSubject`, providing a callback that will handle specific changes.
+
+4. `handleLoadStart` & `handleLoadEnd` functions: These are used to increment and decrement the loading count respectively. They could represent distinct phases in a multi-phase load operation.
+
+5. `useLayoutEffect` Call: this is another hook that runs synchronously after all DOM mutations. In this script it's used to update the `isMounted` ref to indicate the unmount phase of a React component.
+
+6. `pickConfirm` Function: It's a function that utilizes a custom `useConfirm` hook to display a confirmation prompt with a customizable message to the user.
+
+7. `handleNavigate` Function: It handles navigation, it tries to save the changes, later if autosave fails or doesn't happen, it asks user about the confirmation of their action.
+
+8. `createRouterSubject`, `createLayoutSubject`, `createUnloadSubject` Functions: These functions set up different subscriptions or event listeners that are used to manage navigation and prevent the user from leaving if necessary.
+
+9. `unsubscribe` Function: This function cleans up or removes the various subscriptions and event listeners set up by the three functions above.
+
+Please note that I can't see the rest of the code snippet, so my interpretation is based on the context of the pasted code only.
+
+## useStaticHandler
+
+The `useStaticHandler` generates a "static" handler (i.e., a handler that doesn't change across multiple component rerenders) based on an existing handler. It wraps around the existing handler to provide optional custom behaviour for result mapping, load start and end events, and error fallback procedures.
+
+Below, is a breakdown of what the various parts of your code does:
+
+- `useStaticHandler` function: The function takes two type parameters, `Data` and `Payload`. `Data` type is expected to be returned by the handler and `Payload` type is expected to be passed to the handler. Both of them default to the `IAnything` type. It also takes in two arguments, a handler function of type `OneHandler`, and an options object of type `IStaticHandlerParams`. The options parameter provides optional callbacks to customize the behaviour of the static handler. It then creates and returns a new static handler.
+
+- Options argument: This contains 4 optional functions that modify the behavior of the static handler.
+    - `resultMap`: It's used to modify the returned data from the handler. By default, it's an identity function — it just directly returns the input data.
+    - `onLoadBegin`: It's called when the handler starts loading.
+    - `onLoadEnd`: It's called when the handler finishes loading, the loading success status is passed as a boolean argument.
+    - `fallback`: It's executed if an error occurs in the handler.
+
+- `resultHandler`: This is the resulting static handler function. This function begins by calling `onLoadBegin` (if it is provided), then attempts to resolve the original handler with a provided payload, applies the `resultMap` function to the result, and returns this final result. In case of an error, the error is passed to the `fallback` function, if provided, or else re-thrown, and after the error handling, `onLoadEnd` is called with a success status of false.
+
+- `useMemo`: The React's `useMemo` hook is used to ensure that `resultHandler` is not recreated on every execution, but only when the dependencies (provided as the second argument) change. Here an empty dependencies array is provided, meaning the memoized value is never updated after the initial render — it will always return the same handler function.
+
+The interfaces and types that's being used in the code are mostly self explanatory and add further typescript type safety into the function. For instance, `OneHandler` ensures the handler is one of a function returning a promise for data, or a function returning data, or just the data itself; the `resolveHandler` then awaits on the promise (if the handler is a function returning a promise) or returns the data directly.
+
+## useOutletModal
+
+a custom hook `useOutletModal`, which manages the functioning of an "outlet modal" and provides necessary callbacks for interactivity.
+
+The hook is built with three generic types: `Data`, `Payload`, and `Params`, with some defaults provided. The types `Data` and `Payload` are mostly used to type-check the data being handled and passed around, while 'Params' is used for type-checking additional parameters.
+
+The hook accepts various parameters which define its behavior:
+
+- `fallback`: The fallback content to be rendered if the modal cannot be displayed.
+- `pathname` and `history`: Used for managing navigation of the outlet modal.
+- `fullScreen`: A boolean that indicates whether the modal should be displayed in full screen.
+- `onLoadEnd` and `onLoadStart`: Callbacks for when the outlet content starts and finishes loading, respectively.
+- `throwError`: Specifies if errors should be thrown during submission.
+- `onChange`: Callback for when the outlet content changes.
+- `onSubmit`: Callback for when the outlet content is submitted.
+- `onMount` and `onUnmount`: Callbacks for when the outlet modal is mounted and unmounted, respectively.
+- `onClose`: Callback for when the outlet modal is closed.
+- `submitLabel`: The label for the submit button in the outlet modal.
+- `title`: The title for the outlet modal.
+- `hidden`: A boolean value indicating whether the outlet modal should be hidden.
+- `pickDataSubject`: The subject used for picking data.
+
+The hook returns an object containing functions `render` and `pickData`, and signals `open` and `close` related to the modal state. This API is intended to be used for controlling the prompting, hiding, and data handling of the `OutletModal`.
+
+The hook uses multiple custom hooks such as `useSubject`, `useBehaviorSubject`, `useSingleton`, and `useActualCallback`. It also leverages React's `useEffect` and `useCallback` hooks for managing side effects and memoizing functions and values. The custom hooks might be specific to your application, providing enhanced control over standard React functionality.
+
+Please note that understanding the complete behavior of the hook requires knowledge of the internals of these custom hooks and the `OutletModal` component, as well as understanding the interaction with the `outletIdSubject`, `onSubmit$`, and the provided callbacks.
+
+Here's a simplified flow of the code:
+
+1. Initializes subjects, `onSubmit` callback, outlet modal history, and other necessary values.
+2. Defines `handleSubmit` and `handleClose` functions using `useCallback`. `handleSubmit` submits the outlet data and clears outlet ID if successful. `handleClose` clears outlet ID and calls provided `onClose` callback.
+3. Defines the `render` function, which returns the `OutletModal` component with bound props.
+4. Defines `pickData` function that changes the `outletIdSubject`'s value, triggering associated subscriptions.
+5. Subscribes `pickData` function to `pickDataSubject`'s changes using `useEffect`.
+6. Returns an object containing methods to open and close modal, and the render function. 
+
+Remember this explanation is based on the provided code and assumptions about the custom hooks and component used. For a complete understanding, examine these elements in the actual project source code.
+
+## useSearchModal
+
+The `useSearchModal` function is a custom React hook that provides functionality for using a search modal in your application. It takes in a configuration object that defines several parameters for controlling the search modal, and returns an object with properties and methods for interacting with the modal. The custom hook is heavily dependent on the Context API, useState, useCallback, useEffect and various other React hooks.
+
+The types `FilterData`, `RowData`, `Payload`, and `Field` are generics used to type the various parameters accepted by the `useSearchModal` function. They default to `IAnything` and `IField` if not provided.
+
+The `param` property represents the initial value for the parameter.
+
+The `selectionMode` property determines how selection within the search modal should be handled.
+
+The `handler` function is for handling events, whereas the `fallback` function will be executed if an error occurs.
+
+The `apiRef` property is a reference to the API.
+
+`reloadSubject` is used for triggering reload events, and `payload` is the initial preparation for the payload. 
+
+The `onChange`, `onAction`, `onRowAction`, `onSubmit`, `onLoadEnd`, `onLoadStart` are respective callback functions for handling change events, action events, row action events, submit events, end of loading, and start of loading.
+
+`submitLabel` represents the label for the submit button. `throwError` indicates whether to throw an error or not, `title` is the title of the search modal, and `hidden` indicates whether the search modal should be hidden or not.
+
+`useSingleton` and `useState` hooks are used to manage and sync state of payload and modal parameters between the parent and modal component.
+
+An `useEffect` hook is used to watch changes in `upperParam`, so every time it changes, the local state param is updated.
+
+The `render` function returns a JSX component `SearchModal` with all the necessary parameters, such as state and handlers for data submission, modal opening and closing, and others.
+
+The `pickData` function is used to open the modal component and set a specific data parameter.
+
+At the end, it returns an object that allows interaction with the modal, such as controlling its visibility (`open`), rendering it (`render`), choosing specific data parameter (`pickData`), and closing it (`close`). 
+
+## useTabsModal
+
+The `useTabsModal` TypeScript function is a custom React hook that provides a modal component to display tabs with content and handle user interactions. This modal is designed to be highly configurable, with optional callback methods for various events like loading, closing, and submission of form data. The modal's current open/closed state is managed using a reactive programming approach via behavior subject.
+
+Let's break down the function:
+
+- It uses TypeScript generics (`Data` and `Payload`) and extensive type annotation for comprehensive type-safety.
+
+- The function takes in an object of parameters that configure the modal's behavior. Notable parameters:
+    - `onSubmit`: Depending on the data that the user submits, execution of custom logic may need to take place. This data can be passed to the `onSubmit` function. The exact specifications of the `onSubmit` function will likely be specific to your app's logic.
+    - `onChange`: A function to handle changes in the modal's content.
+    - `onLoadStart` and `onLoadEnd`: For modals that load data, these provide hooks for when the data starts and finishes loading.
+    - `onMount` and `onUnmount`: Events that occur when the modal is mounted and unmounted.
+    - `fullScreen`: This flag determines if the modal should be displayed in full screen mode.
+    - `pathname` and `history`: Determines whether history navigation should be used.
+
+- The function calls several custom hooks like `useSingleton`, `useActualCallback` and `useBehaviorSubject` to leverage shared context/state behavior and to manage the side-effect for the submit action.
+
+- This_hook returns an object containing the `open`, `render`, `pickData`, and `close` methods.
+
+The `useTabsModal` hook is designed to be used with the `TabsOutletModal` component, which seems to be a modal dialog component that uses tabs for navigation. This sort of component might be used in a settings dialog, for example, where each tab corresponds to a different settings category. The `render` method in our hook returns an instance of this `TabsOutletModal`. 
+
+**Note:** Without details of the `TabsOutletModal` component, `createMemoryHistory`,  `useSingleton`,  `useActualCallback` and `useBehaviorSubject` hooks, it's tough to provide more insights from the given code.
+
+
+## useWizardModal
+
+a custom hook `useWizardModal`. This hook is designed to provide a modal component for wizards, with a variety of configurable parameters.
+
+Let's break down the key parts of this code:
+
+1. **Function Signature**: 
+
+The `useWizardModal` function is a generic function that accepts one argument: a parameter object `params` which includes a multitude of optional properties, each serving a different purpose - for instance, controlling whether the modal is full-screen, setting callbacks for various points in the wizard's lifecycle (like load end/start, submit, mount/unmount, etc.), as well as some other modal functionality.
+
+2. **State and Callbacks**:
+
+The hook declares several pieces of state and callbacks:
+
+- `openSubject`: It's a reactive subject, and `next` method on it allows emitting a new value to its subscribers. It maintains whether the modal is open or not.
+- `history`: It's used to keep track of navigation history inside the modal. If the `history` parameter is not passed to the `useWizardModal` function, a new memory history object is created.
+- `handleSubmit`: A callback is defined to handle form submissions. Once the data is successfully submitted, it closes the modal.
+- `handleClose`: A callback to handle the closing of the modal which emits 'false' to `openSubject` and triggers the `onClose` callback if it exists.
+- `render`: A callback is defined to render a `WizardOutletModal` with all the desired props.
+- `pickData`: A function that opens the modal.
+
+3. **Returned Values**:
+
+At the last, the hook returns an object consisting of a boolean `open` value indicating whether the modal is open, a `render` function that is used to render the wizard modal, a `pickData` function for opening the modal, and a `close` function which closes the modal and triggers an empty payload submission.
+
+The `useCallback` hooks are used to optimize the performance by memoizing the callbacks so they don't get recreated in each render, only when their dependencies change.
+
+Overall, the `useWizardModal` hook provides a flexible way to create and control a wizard-like modal and its lifecycle events. It leverages React hooks and RxJS for state management and callback handling.
 

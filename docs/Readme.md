@@ -26,6 +26,7 @@
 14. [Route Outlets](./code/OutletView.md)
 15. [index.ts](./code/Export.md)
 16. [react-declarative.d.ts](./code/react-declarative.md)
+17. [Hooks](./code/Hooks.md)
 
 ## Field properties with JSDoc:
 
