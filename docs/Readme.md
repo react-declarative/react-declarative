@@ -33,8 +33,8 @@
 1. [Components](./code/Components.md)
 2. [Hooks](./code/Hooks.md)
 3. [Higher Order Function](./code/HOF.md)
-4. [Mathematical logic](./code/MATH.md)
-5. [Reactive programming](./code/RX.md)
+4. [Mathematical Logic](./code/MATH.md)
+5. [Reactive Programming](./code/RX.md)
 
 ## Field properties with JSDoc:
 
