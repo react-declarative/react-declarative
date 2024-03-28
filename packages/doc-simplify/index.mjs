@@ -15,8 +15,8 @@ async function main() {
 
   const chunks = data
     .split("\n# ")
+    .map(v => v.trim())
     .filter((v) => v)
-    .map((v) => " # " + v);
 
   const result = [];
   let error = null;
