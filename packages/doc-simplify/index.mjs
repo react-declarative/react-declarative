@@ -1,7 +1,7 @@
 import { createCompletion, loadModel } from "gpt4all";
 
-import { exec } from 'child_process';
 import dotenv from "dotenv";
+import { exec } from 'child_process';
 import fs from "fs";
 
 dotenv.config();
@@ -10,11 +10,7 @@ const GPT_PROMPT =
   "Please write a summary for that React component with several sentences in more human way";
 
 async function main() {
-  const model = await loadModel("orca-mini-3b-gguf2-q4_0.gguf", {
-    verbose: true,
-    device: "gpu",
-    nCtx: 2048,
-  });
+  const model = await loadModel("Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf");
   const data = fs.readFileSync("../../docs/code/Components.md").toString();
 
   const chunks = data
@@ -27,15 +23,16 @@ async function main() {
 
   console.log('Creating chat session');
 
-  const chat = await model.createChatSession({
-    temperature: 0.8,
-    systemPrompt: `### System:\n${GPT_PROMPT}.\n\n`,
-  });
-
   console.time('Documentation');
 
   try {
     for (const chunk of chunks) {
+
+      const chat = await model.createChatSession({
+        temperature: 0.8,
+        systemPrompt: `### System:\n${GPT_PROMPT}.\n\n`,
+      });
+
       const header = chunk.split("\n")[0].split('#').join('').trim();
       console.log(`Generating header=${header}`);
 
@@ -43,7 +40,7 @@ async function main() {
 
       const output = res1.choices[0].message.content;
 
-      result.push(output.trim());
+      result.push([`# ${header}`, output.trim()].join('\n'));
       fs.writeFileSync("./Result.md", result.join("\n\n").toString());
     }
   } catch (e) {
