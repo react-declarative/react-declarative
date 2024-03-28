@@ -14,7 +14,7 @@ async function main() {
   const data = fs.readFileSync("../../docs/code/Components.md").toString();
 
   const chunks = data
-    .split("# ")
+    .split("\n# ")
     .filter((v) => v)
     .map((v) => " # " + v);
 
