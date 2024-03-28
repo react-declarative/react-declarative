@@ -176,12 +176,6 @@ export const or = <T = Promise<Value>>(...args: T[]): T => {
 }
 ```
 
-While the `createFeatureItem` function constructs a feature item defined by a passed in `type` and parameters object `params`. It's used in this code to dynamically create a form field. The return value of this function depends on the 'type' parameter. It returns a TypedField object (which is based on a model you defined). If 'type' is `FeatureType.Number`, a DIV field with a inner Component (a Typography component) and a Text field are created. Otherwise, a DIV field with a Component and a Switch field is created.
-
-Lastly, this `or` function is imported and used in the `createFeatureItem` function to determine if the Switch field in the feature item should be disabled.
-
-Let me know if you have any particular questions regarding these functions.
-
 
 ## truely
 
