@@ -28,6 +28,7 @@
 16. [react-declarative.d.ts](./code/react-declarative.md)
 17. [Hooks](./code/Hooks.md)
 18. [Higher Order Function](./code/HOF.md)
+19. [Mathematical logic](./code/MATH.md)
 
 ## Field properties with JSDoc:
 
