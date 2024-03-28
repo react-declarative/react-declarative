@@ -29,6 +29,7 @@
 17. [Hooks](./code/Hooks.md)
 18. [Higher Order Function](./code/HOF.md)
 19. [Mathematical logic](./code/MATH.md)
+20. [Reactive programming](./code/RX.md)
 
 ## Field properties with JSDoc:
 
