@@ -10,6 +10,8 @@
 
 ## Source Description:
 
+**Main concept**
+
 1. [OneInternal](./code/OneInternal.md)
 2. [OneGenesis](./code/OneGenesis.md)
 3. [One](./code/One.md)
@@ -24,12 +26,15 @@
 12. [Form schema](./code/Schema.md)
 13. [Routing](./code/Routing.md)
 14. [Route Outlets](./code/OutletView.md)
-15. [index.ts](./code/Export.md)
-16. [react-declarative.d.ts](./code/react-declarative.md)
-17. [Hooks](./code/Hooks.md)
-18. [Higher Order Function](./code/HOF.md)
-19. [Mathematical logic](./code/MATH.md)
-20. [Reactive programming](./code/RX.md)
+15. [react-declarative.d.ts](./code/react-declarative.md)
+
+**Other functionality**
+
+1. [Components](./code/Components.md)
+2. [Hooks](./code/Hooks.md)
+3. [Higher Order Function](./code/HOF.md)
+4. [Mathematical logic](./code/MATH.md)
+5. [Reactive programming](./code/RX.md)
 
 ## Field properties with JSDoc:
 
