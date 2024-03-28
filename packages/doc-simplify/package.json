@@ -1,0 +1,11 @@
+{
+  "name": "doc-simplify",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "node --inspect-brk index.mjs"
+  },
+  "dependencies": {
+    "dotenv": "16.4.5",
+    "openai": "4.30.0"
+  }
+}
