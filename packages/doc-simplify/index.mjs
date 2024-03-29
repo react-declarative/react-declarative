@@ -7,11 +7,11 @@ import fs from "fs";
 dotenv.config();
 
 const GPT_PROMPT =
-  "Please write a summary for that React component with several sentences in more human way";
+  "Please write a summary for that React hook with several sentences in more human way";
 
 async function main() {
   const model = await loadModel("Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf");
-  const data = fs.readFileSync("../../docs/code/Components.md").toString();
+  const data = fs.readFileSync("../../docs/code/Hooks.md").toString();
 
   const chunks = data
     .split("\n# ")
@@ -40,7 +40,7 @@ async function main() {
 
       const output = res1.choices[0].message.content;
 
-      result.push([`# ${header}`, output.trim()].join('\n'));
+      result.push([`# ${header}`, '', output.trim()].join('\n'));
       fs.writeFileSync("./Result.md", result.join("\n\n").toString());
     }
   } catch (e) {

@@ -1,8 +1,5 @@
-# Hooks
 
-> Hooks build into `react-declarative`
-
-## useActualCallback
+# useActualCallback
 
 This hook is used to execute a callback function while preserving its reference and memoizing it with specified dependencies. Memoization is a form of optimization where you save expensive computations and re-use them when needed, rather than calculating again. 
 
@@ -35,7 +32,7 @@ import { useRef, useCallback } from "react";
 ```
 This code is importing `useRef` and `useCallback` hooks from `react`. Both hooks are required by `useActualCallback` for memoizing a callback.
 
-## useActualRef
+# useActualRef
 
 a custom React hook named `useActualRef` that creates and manages a mutable reference to a state value.
 
@@ -84,7 +81,7 @@ return [stateRef, handleState] as const;
 
 In general, this hook allows you to use the React's state functionality with mutable reference which is different from the useState hook that triggers re-renders when the state is updated. Instead of triggering a re-render, it allows the current state value to be accessed and updated anytime without causing render, which can be useful in many scenarios where re-rendering is unwanted or expensive.
 
-## useActualState
+# useActualState
 
 a custom React Hook named `useActualState`.
 
@@ -134,7 +131,7 @@ return  [
 
 The effect of this `useActualState` hook is that you will have a state and a state updater that will always have the newest state inside the callback, because the ref is updated every time when the state is changed. The returned mutable ref object `stateRef` always represents the current state which can be used directly for state reading, while `handleState` is used for state updating.
 
-## useActualValue
+# useActualValue
 
 a custom hook named "useActualValue".
 
@@ -158,7 +155,7 @@ This hook can be useful when you need to keep track of a value, and this value c
 
 The JSDoc comments above the function explain its function and expected parameters further.
 
-## useAlert
+# useAlert
 
 a React hook called "useAlert" which can be used to manage an alert modal's display and functionality in a React application. The alert modal's information such as title, description etc. is managed by this hook.
 
@@ -184,7 +181,7 @@ Here is an expanded explanation of its functionality:
 
 This would be used in a React component to open and manage an Alert modal dynamically within an application. It provides a lot of flexibility, for example, you can create an alert with just a description by calling the function returned by `useAlert` without a `title` parameter, like this: `useAlert()({ description: 'This is a sample alert!' })`. The created alert will use the default title ("Alert") and the provided description. When the alert is closed, the returned Promise will be resolved.
 
-## useAsyncAction
+# useAsyncAction
 
 A hook for React called `useAsyncAction`. It's a custom hook that handles running and managing the lifecycle of an asynchronous action.
 
@@ -214,7 +211,7 @@ Please note that this TypeScript code is used in a React project, hence the usag
 
 Let me know if you need in-depth explanation of a specific part of the code, or if you have other questions!
 
-## useAsyncProgress
+# useAsyncProgress
 
 This hook is designed to facilitate the tracking of asynchronous processes that return a particular result, handle any potential errors, and provide progress updates.
 
@@ -242,7 +239,7 @@ Let's illustrate its usage in a potential use case: tracking an upload process. 
 
 Overall, this function provides a versatile way to handle data processing in an asynchronous manner with robust error handling and progress tracking capabilities.
 
-## useAsyncValue
+# useAsyncValue
 
 a hook `useAsyncValue` that is used to handle asynchronous values. This hook could be useful in scenarios where you have some value that is obtained asynchronously, such as data fetched from an API. This hook manages the state (value, error, loading) related to such asynchronous data handling.
 
@@ -288,7 +285,7 @@ Finally, the hook returns an array with the following three values:
 
 The `useAsyncValue` hook essentially simplifies the process of setting up, executing, and handling the results (or potential errors) of asynchronous operations, and especially useful while dealing with fetch requests in React functional components.
 
-## useAudioPlayer
+# useAudioPlayer
 
 a custom React hook named `useAudioPlayer`. This hook creates an audio player with control functions. Here's how it works:
 
@@ -325,7 +322,7 @@ const MyComponent = () => {
 };
 ```
 
-## useBehaviorSubject
+# useBehaviorSubject
 
 The hook `useBehaviorSubject` is a generic function that can be parameterized with a type `Data`. It accepts one argument `data` which can be of type `Data` or `null`. If no argument is provided, it defaults to `null`.
 
@@ -353,7 +350,7 @@ Unique features of `useSingleton`:
 
 So this custom hook `useBehaviorSubject`, when used in a React component, will give you a reference to a singleton BehaviorSubject, and allows you to keep track of a piece of data that can be provided with the initial value, observed for changes, and for which you can get the current value at any point.
 
-## useChange
+# useChange
 
 a custom React hook named `useChange` exported from a module.
 
@@ -386,7 +383,7 @@ The hook returns an object of utility functions (enclosed in the `useMemo` hook)
 
 The `useMemo` hook is used here to cache the utility functions object and return the same object on every render, unless one of the dependencies (`[]` in this case, none) changes. This prevents unnecessary re-renders when using these methods in a component.
 
-## useChangeSubject
+# useChangeSubject
 
 A hook called `useChangeSubject`. It's a [React Hook](https://reactjs.org/docs/hooks-intro.html) that creates a reactive subject using an initial value and a particular type (`T`). Reactive programming paradigms are often used in frontend JavaScript frameworks for managing state and handling updates throughout an application's components in a predictable manner. In this case, the reactive subject (created using `new Subject<T>()`) is used to emit a change every time the given value is updated.
 
@@ -414,7 +411,7 @@ Some parts of the `Subject` class and its related modules/classes you provided a
 
 This is a common pattern especially in projects built with RxJS (Reactive Extension for JavaScript), where `Subject`, `Observer`, `Observable` are core concepts. This codebase seems to implement a variation or subset of those concepts for its own specific needs.
 
-## useCollection
+# useCollection
 
 A custom React Hook, `useCollection`, which returns an instance of a `CollectionAdapter` that can be used to manage a collection of `IEntity` objects. 
 
@@ -444,7 +441,7 @@ This hook might be used, for instance, in a list component where `IEntity` could
 
 Note: Some components and functions like `Collection`, `CollectionAdapter`, `CollectionEntityAdapter`, `useSingleton` and `useActualCallback` come from your project or libraries and are not a part of TypeScript or React. These would have been defined elsewhere in the project. So, their implementation details are hidden in this context.
 
-## useCollectionBinding
+# useCollectionBinding
 
 a custom React hook `useCollectionBinding` used to bind a collection of entities to a component and provides callbacks for updating this collection. 
 
@@ -478,7 +475,7 @@ The main logic breakdown is as follows:
 
 The dependencies for this code appear to come from the same project and consist of other custom hooks and helper classes: `useCollection`, `useChangeSubject`, `useSingleton`, `Subject`, and `useChange`. All of these probably offer some post-creation, pre-render behavior handling for the collection.
 
-## useConfirm
+# useConfirm
 
 a custom Hook named `useConfirm` that is designed to provide functionality for generating and managing a confirmation dialog.
 
@@ -535,7 +532,7 @@ return ({ canCancel, title, msg }: Partial<IParams> = {}) =>
 
 Overall, this code snippet is a good illustration of how to use a combination of Hooks, JSX, and async functionality in a TypeScript context to manage a UI feature such as a dialog box.
 
-## useContextMenu
+# useContextMenu
 
 useContextMenu hook is a named generic function. This function accepts an object `params` of type `IParams<T>`, returns an object of type `IResult` and uses React component development methodologies such as hooks.
 
@@ -579,7 +576,7 @@ Also, this function uses some external custom hooks and functions like `useActua
 
 Please note that this explanation assumes a familiarity with React and Material UI concepts.
 
-## useDate
+# useDate
 
 a custom hook `useDate`. 
 
@@ -597,7 +594,7 @@ Here's a breakdown of what's happening in this hook:
 
 The code uses advanced TypeScript features, like generics and type inference, alongside the React library to provide a neat, promise-based interface for reacting to user's selecting a date from a date picker. This approach is beneficial because it abstracts away the complexity of managing the date picker modal's state and gives a simple interface to just deal with the picked date.
 
-## useElementSize
+# useElementSize
 
 a custom React hook named `useElementSize`. This hook is a function that is meant to be used inside a React component to calculate the size of an HTML element and update it when it changes.
 
@@ -648,7 +645,7 @@ const MyComponent = () => {
 };
 ```
 
-## useEntity
+# useEntity
 
 a custom React Hook that manages an "entity" state. An "entity" is defined as an object with some properties (including an `id`). The state of this entity object can be managed, including its creation, reading, updating and debouncing its updates. The concept is similar to the way you would use `useState` for state management in React.
 
@@ -671,7 +668,7 @@ See a breakdown of the hook below:
 So, to wrap up, the `useEntity` is a custom React hook that streamlines the state management process of an entity object leveraging TypeScript's static types and React's hooks.
 If you need further explanations or have any questions, let me know.
 
-## useEntityBinding
+# useEntityBinding
 
 a custom hook named `useEntityBinding` in React, intended to deal with entities in your application. It uses concepts of state, references, and effects from React.
 
@@ -707,7 +704,7 @@ Towards the end of the hook, it checks whether the entity is still loading. If i
 This hook provides a specific way to manage entity within your application including loading state, initialization, and handling changes.
 
 
-## useFile
+# useFile
 
 a custom React hook called `useFile`. It accepts an object of parameters that conform to the `IParams` interface, which can contain an optional `accept` string and an `onSelect` callback function. These parameters are destructured as arguments to `useFile`.
 
@@ -760,7 +757,7 @@ return {
 In summary, `useFile` is a React hook that abstracts the creation, handling, and rendering of a file input element in a React component. It's used to get the selected files when the user selects files from the file selection dialog box. The actual input field is hidden with the intent that actual interaction be customized and programmatically triggered via the provided `open` function.
 
 
-## useForceUpdate
+# useForceUpdate
 
 a custom hook in React named `useForceUpdate`. This hook utilizes the `useState` and `useCallback` hooks from React. Here's a breakdown:
 
@@ -772,7 +769,7 @@ a custom hook in React named `useForceUpdate`. This hook utilizes the `useState`
 
 In conclusion, the `useForceUpdate` hook provides a way to force a component to re-render itself. By calling the function returned by this hook, a component can cause itself to be updated, even if its props or state otherwise haven't changed.
 
-## useList
+# useList
 
 a hook named `useList` which creates and controls a UI for picking items from a list. The hook exports a function `useList` that takes an object of options to configure the ListPicker. 
 
@@ -812,7 +809,7 @@ pickList().then((data) => {
 
 The exact usage might differ based on your application's modal system and observables implementation. Note that it's recommended to explore the definitions of custom hooks and utility classes for an absolute understanding.
 
-## useListEditor
+# useListEditor
 
 a custom React hook called `useListEditor`. This custom hook is a tool that manages an editable list of items. The item data is represented by a generic `Data` type that could be any type you specify. 
 
@@ -847,7 +844,7 @@ type RowId = number;
 ```
 You would use this hook when you need to administer an editable list of items in your React component, where the list can be manipulated through add, remove, and update operations. The `onChange` callback enables your component to respond to changes in the item list.
 
-## useLocalHistory
+# useLocalHistory
 
 a custom React hook named `useLocalHistory`. It creates and manages a unique memory history object that synchronizes with a higher level (parent) history object if such an object is provided.
 
@@ -867,7 +864,7 @@ This hook heavily relies on the `history` library, which provides a way of manag
 
 The TypeScript interfaces and other React hooks imported at the provided code snippets help to shape types and utilize React functionalities, but they are used out of context from the provided hook code, meaning they are used somewhere else inside your project.
 
-## useMediaContext
+# useMediaContext
 
 a hook called `useMediaContext`. This function uses the `@mui/material` package's `useMediaQuery` hook and the `react` package's `useMemo` hook to determine some properties of the current device based on its screen size.
 
@@ -886,7 +883,7 @@ Here's what the function does:
 
 Effectively, `useMediaContext` provides a way to get information about the current screen size in the form of these boolean properties. It can be useful for responsive design, allowing components to adapt their behavior based on the device's screen size.
 
-## useMediaStreamBuilder
+# useMediaStreamBuilder
 
 A hook called `useMediaStreamBuilder` is used for creating and managing media streams. These streams are used to capture screen, audio, and video via the WebRTC API. It takes an options object with various configuration, callback functions, and fallback behaviors.
 
@@ -914,7 +911,7 @@ This code contains promise-based try/catch/finally blocks to handle asynchronous
 
 The utility function is likely designed for use within a React component, given the use of React hooks (`useState`, `useMemo`), although the code for the hooks `useActualValue`, `useSingleton` and `useActualCallback` is not shown in the provided script.
 
-## useModel
+# useModel
 
 a custom React hook named `useModel`, intended for creating and managing a model object for a given value.
 
@@ -948,7 +945,7 @@ The `useModel` hook operates on generic type `T`.
 
 Please note that in this hook, functions like `useSingleton`, `useActualCallback`, and classes like `Model`, `ModelAdapter`, `BehaviorSubject` appear to be user-defined. Their behavior may significantly affect how this hook operates; hence, it could be beneficial to have their definitions for further analysis.
 
-## useModelBinding
+# useModelBinding
 
 a custom hook called `useModelBinding` that manages data binding and state management, using the concept of React hooks. The custom `useModelBinding` hook is generic as it uses the placeholder `T`, which extends an empty object `{}` with a default value `any`, representing any data model type.
 
@@ -979,7 +976,7 @@ In sum, the `useModelBinding` function is a custom React Hook that deals with in
 Please, let me know if you have any further questions or any other code to be explained.
 
 
-## useOne
+# useOne
 
  a custom hook that returns a dynamically created class to manage modal state, specifically related to a form component used to pick a value from a group, possibly from a dropdown or overlay of some sort, given the context and some of the variable naming conventions.
 
@@ -999,7 +996,7 @@ Also, there's a separate declaration `useOneTyped` is that is simply a typed ver
 
 This TypeScript code is a good example of creating a high order function that returns a class with promise-based API. It's a mix between functional programming (use of hooks and functions) and object-oriented programming (use of a class with methods).
 
-## useOneArray
+# useOneArray
 
 a custom hook in React, namely `useOneArray`.
 
@@ -1039,7 +1036,7 @@ It is designed to manage an array of data with an initializer, allowing flexibil
 
 The purpose of this hook is likely to manage arrays in the state that are dynamically created or loaded and to return a version of said array that is optimized for re-rendering. You would use it in a component where you need to maintain an array in the state, and wish to have the advantages provided by the `useMemo` optimization.
 
-## usePointer
+# usePointer
 
 a higher-order hook `usePointer()` which creates a pointer object to a reference object. This function is a React Hook because it uses the `useMemo()` hook. 
 
@@ -1067,7 +1064,7 @@ For more specific explanations, we would need the implementation of `createPoint
 
 Remember, TypeScript is just JavaScript with static type checking, which makes the code more robust and errors predictable as they are identified during compile time (or coding time).
 
-## usePreventAutofill
+# usePreventAutofill
 
 a hook `usePreventAutofill` which is intended to prevent autofill behavior for `HTMLInputElement` in web browsers. This function is used preferably with React functional components as it makes use of Hooks.
 
@@ -1120,7 +1117,7 @@ Thus, `usePreventAutofill` provides a configurable framework to handle and contr
 
 Notice: `usePreventAutofill` hook should be used within a React component or another hook and cannot be used in regular JavaScript functions according to the rules of Hooks in React.
 
-## usePrompt
+# usePrompt
 
 the purpose of `usePrompt` is the creation and display of a prompt modal. It takes a configuration object `usePrompt` as a parameter. This object might contain properties like `title`, `value`, `placeholder`, `canCancel`, and `large`, which configure the characteristics of the prompt modal. If certain properties are not specified by the caller, they receive a default value.
 
@@ -1145,7 +1142,7 @@ Finally, it invokes the `showModal` function when a new class instance is create
 In short, `usePrompt` is a flexible, ready-to-use hook for creating, handling a prompt modal in a React application. "Modal" here refers to a dialog box or popup window that is displayed on top of the current page. The use of hooks and context here is a typical pattern seen in complex React applications.
 
 
-## useQueuedAction
+# useQueuedAction
 
  a custom React hook function named `useQueuedAction`. The `useQueuedAction` function helps in executing an asynchronous action where it can queue calls, while also providing a loading state and error state. This is particularly useful for actions such as making API requests where you might want to handle subsequent calls in an orderly fashion and also manage their loading and error states.
 
@@ -1174,7 +1171,7 @@ The `useQueuedAction` function is mainly used to handle queueing of asynchronous
 The supporting types and additional hooks used (`IParams`, `IResult`,`useActualCallback`, etc.) provide the necessary typing and extra functionality needed for `useQueuedAction` to work.
 
 
-## useReloadTrigger
+# useReloadTrigger
 
 a React hook named `useReloadTrigger`. This hook is designed to set up a trigger for reloading some data. The hook accepts an optional parameter, `autoReload`, which represents an interval in milliseconds to automatically trigger a reload. If `autoReload` is not provided, its default value would be 0, meaning the auto-reloading is disabled.
 
@@ -1233,7 +1230,7 @@ return {
 In summary, this hook is a tool to help control data reloading. It can enable automatic data reloading at fixed intervals, or provide a control for manual reloading. The `reloadTrigger` returned by the hook can be watched by effects that need to perform actions (like fetching new data) upon a reload.
 
 
-## useRenderWaiter
+# useRenderWaiter
 
 a custom hook `useRenderWaiter`. Hooks are a feature in React that allow you to use state and lifecycle methods inside functional components, you can even write your own hooks to create reusable logic.
 
@@ -1290,7 +1287,7 @@ The `useSubject` here is assumed to create a Subject, an entity that can have mu
 The `next` method is used to trigger an event in the subject and the `once` method is used in `useRenderWaiter` to resolve the promise once the `next` method is triggered.
 
 
-## useRequestSnackbar
+# useRequestSnackbar
 
 It's a custom hook that shows a snackbar with request feedback based on certain parameters passed to it. Here are the main parts:
 
@@ -1329,7 +1326,7 @@ Note: The code assumes that the following hooks `useSubject`, `useActualCallback
 The JSX code is for the `Snackbar` component which is created every time an error occurs or when the request is successful (and `noSnackOnOk` is `false`). The snackbar is displayed at the bottom center of the viewport, its content is either the `error` message or the `message` passed to the hook, and it hides automatically after a duration, defaulting to `AUTO_HIDE_DURATION`.
 
 
-## useRouteItem
+# useRouteItem
 
 a custom React hook called `useRouteItem`. This hook is meant to interact with a route management system to provide the current route item based on the provided routes and history.
 
@@ -1384,7 +1381,7 @@ This `useLayoutEffect` hook is used to signal that a component has unmounted by 
 Finally, the function returns the `item` state variable. This would be the current switch item based on the provided routes and history.
 
 
-## useRouteParams
+# useRouteParams
 
 a hook function named `useRouteParams`. This hook is designed to retrieve the parameters of the currently active route. It's built for applications employing a Single Page Application (SPA) model, where routes are managed client-side by JavaScript.
 
@@ -1444,7 +1441,7 @@ return params;
 Finally, the hook returns `params` which holds the parameters of the current active route.
 
 
-## useSearchParams
+# useSearchParams
 
 a hook function named `useSearchParams`. This hook is used to retrieve and parse search parameters from the current URL's query string.
 
@@ -1465,7 +1462,7 @@ Regarding the rest of the code, `useSearchState` is a hook that manages the sear
 Both of these hooks are designed to help manage search parameters in the URL, which may be useful when you want to share links to specific states of an application, or preserve application state across refreshes in a way that's native to the web.
 
 
-## useSearchState
+# useSearchState
 
 a custom React Hook that manages search state in the URL.
 
@@ -1488,7 +1485,7 @@ The hook returns the current state and a function to update the state (`setState
 Please note that the specific behavior of the `useSearchState` hook (like managing the search parameters in the URL, delay timing for updates, and cleanup strategy) is highly dependent on the behavior of the `dispatchState`, `useSearchParams` functions and `ISearchStateConfig` interface.
 
 
-## useSinglerunAction
+# useSinglerunAction
 
 a custom React hook called `useSinglerunAction`. In general a hook is a function that lets you interact with React's state and lifecycle features from function components.
 
@@ -1516,7 +1513,7 @@ The hook makes use of several other hooks and utilities in its implementation:
 
 The hook function finally returns an object containing `loading`, `error`, and `execute`.
 
-## useSingleton
+# useSingleton
 
 a custom hook in React, `useSingleton`, that ensures the provision of only a single instance of a specific value within the lifetime of the React component where this hook is used. This can be useful when you want to ensure that the function provided does not create a new instance of the value on each render of the component.
 
@@ -1545,7 +1542,7 @@ and then, `EMPTY_VALUE` is defined as a unique symbol:
 const EMPTY_VALUE = Symbol('empty-value')
 ```
 
-## useSource
+# useSource
 
 a custom hook that performs certain operations on objects of `TObserver<Data>` type, probably something related to a custom implementation of an Observable pattern.
 
@@ -1565,7 +1562,7 @@ The `TObserver` model and `useSingleton` are not visible in the code you provide
 
 The custom hook `useSource` and its internal logic might be an essential part of managing the data flow inside a React application, especially in cases when you're dealing with observable data sources.
 
-## useSubject
+# useSubject
 
 
 The hook `useSubject` is a generic function which can be specialized for any type `Data`. It takes an optional target of type `TSubject<Data>` or `null`, which, if provided, is a reactive subject instance to which this new subject can be subscribed.
@@ -1580,7 +1577,7 @@ Finally, it returns the `result`, which is an instance of `Subject<Data>`.
 
 So basically, the `useSubject` hook is used to create a singleton of a new subject that optionally subscribes to an existing subject, and should be maintained across renders of the consuming component.
 
-## useSubjectValue
+# useSubjectValue
 
 
 The function `useSubjectValue` is a react hook function that declares a stateful variable (using `useState`) and then subscribes to updates from a target observable subject (using `useEffect`). It sets an initial value for the stateful variable and then receives new values through a subscription to an observable subject.
@@ -1602,7 +1599,7 @@ Finally, the function returns the state variable `data`.
 
 So, this function is used to sync a state variable with a changeable value from an observable subject.
 
-## useSubscription
+# useSubscription
 
 a function `useSubscription` that takes as an argument another function `fn` that itself returns a function. The returned function from `fn` should not return anything, indicated by `void`.
 
@@ -1614,7 +1611,7 @@ The array is the list of dependencies for this effect. If one of the dependencie
 
 It seems like this `useSubscription` is used to emulate a componentDidMount effect that will run a subscribe function (which returns an unsubscribe function). When the component unmounts, the unsubscribe function returned by the `fn` function will be called, effectively cleaning up the subscription. However, without seeing the actual usage of `useSubscription`, this is just an educated guess.
 
-## useTime
+# useTime
 
 a custom hook called `useTime`, which allows you to use a time picker with modal functionality.
 
@@ -1645,7 +1642,7 @@ Key concepts involved:
 
 Lastly, please let me know if you need further clarification or have more questions.
 
-## useUserAgent
+# useUserAgent
 
 a custom hook that utilizes the React's `useMemo` hook. The code provided returns an object containing information based on user agent string provided by the client's browser. This function is primarily used to determine if the client is using an Apple Mobile device, namely an iPad, iPhone, or iPod.
 
@@ -1667,7 +1664,7 @@ The computed memoized value is an object that contains one property: `isAppleMob
 
 Therefore, the `useUserAgent` hook is a utility for easily determining if the client is using an Apple mobile device.
 
-## useWatchChanges
+# useWatchChanges
 
 a custom React hook, `useWatchChanges`, that creates a mechanism to detect changes in a set of dependencies and trigger actions when those dependencies are changed.
 
@@ -1701,7 +1698,7 @@ Here is a breakdown of the methods:
     
 Please note that while I have done my best to provide an explanation based on the provided code and additional context, without more specific information about the definitions and implementations of certain items (like `useSubject`, `useChange`, or the exact behavior of the `Subject` class), some assumptions had to be made. You might need to look into the exact implementation of those parts for a fully accurate understanding.
 
-## useWindowSize
+# useWindowSize
 
 a hook which listens to changes in window size and responds accordingly. This hook is called `useWindowSize`.
 
@@ -1727,7 +1724,7 @@ In the ActionModal component code which isn't fully included, LARGE_SIZE_REQUEST
 
 All in all, this hook allows for responsive adjustments to interface components based on window size changes.
 
-## useOpenDocument
+# useOpenDocument
 
 The `useOpenDocument` hook accepts an optional parameter `options` of type `IParams`. The `IParams` interface defines a set of optional callback functions and properties that can be passed into the hook. These provide various customization options for the document preview, such as callbacks for when the document starts or finishes loading (`onLoadStart`, `onLoadEnd`), the component is mounted or unmounted (`onMount`, `onUnmount`), the "submit" button is clicked (`onSubmit`), or the component is closed (`onClose`). Other parameters allow customization of the component's label and title.
 
@@ -1745,7 +1742,7 @@ Lastly, the hook returns an object containing the `render` function and a `pickD
 
 Please note: To better understand the logic of the `useOpenDocument` hook and how it uses `useOutletModal` and other hooks, you would need to analyze the implementation of these underlying hooks (`useActualRef`, `useOutletModal`, and `useCallback`), the functions that they provide, and how these functions are being used in your existing application.
 
-## usePreventAction
+# usePreventAction
 
 a custom React Hook called `usePreventAction`. This Hook is designed to manage a loading state and execute certain functions when the loading starts and ends.
 
@@ -1765,7 +1762,7 @@ Here is a detailed breakdown of the code:
 
 This Hook is particularly meant to be used with actions that could take some time to execute (for example fetching data from a server). It allows other parts of the app to know when such an action is ongoing and when it's completed.
 
-## useActionModal
+# useActionModal
 
 a custom React Hook, `useActionModal`, used for managing an action modal in a hypothetical application's user interface. This hook abstracts the state management and rendering logic for an action modal.
 
@@ -1799,7 +1796,7 @@ The render function returns an `ActionModal` Component, which uses the state and
 
 In summary, this hook hides the complexities of handling an action modal, allowing developers to simply use this hook and provide the required parameters to get a fully functional, customizable action modal in their React applications.
 
-## usePreventNavigate
+# usePreventNavigate
 
 the `usePreventNavigate` hook could be used inside a React component to prevent navigation away from the current page and display a confirmation prompt if specified. It also handles load state changes. This could be particularly useful in forms or other places where user inputs need to be preserved. 
 
@@ -1827,7 +1824,7 @@ Please note that the `usePreventNavigate` hook assumes that it's used in an envi
 
 Finally, remember that since the `usePreventNavigate` method is a hook, it must follow the Rules of Hooks – namely, it must not be called conditionally or inside loops, and it must be called from the top level of a React function component or a custom hook.
 
-## useCursorPaginator
+# useCursorPaginator
 
 a React Hook `useCursorPaginator` which helps in implementing cursor-based pagination system. It is most beneficial in scenarios where infinite scrolling or progressively loading content is required.
 
@@ -1853,7 +1850,7 @@ Let's break down its functionality:
 
 Please, let me know if you need more details about a particular part of the code.
 
-## useGridAction
+# useGridAction
 
 a React hook, `useGridAction`, that provides a way to handle actions on a data grid. The actions include generic grid actions as well as specific row actions.
 
@@ -1871,7 +1868,7 @@ The hook uses two other hooks, `useGridSelection` and `useAsyncAction`, for sele
 
 The `useGridAction` hook ultimately returns an object with five properties: the methods `deselectAll`, `commitAction`, and `commitRowAction`; and the data `selectedRows` and `gridProps`. These results are used to interact with the grid system, manage selection, and commit actions on the grid or individual rows.
 
-## useGridSelection
+# useGridSelection
 
  a custom React Hook called `useGridSelection`. This hook is mainly used to manage row selection in a grid-like structure.
 
@@ -1892,7 +1889,7 @@ Using this hook in a component, you can easily manage the state of row selection
 Lastly, to link this with your project code snippets, you might use `useGridSelection` within a grid component, where rows are selected for operations specified in `IParams` interface.
 
 
-## useOffsetPaginator
+# useOffsetPaginator
 
 a custom React Hook that extends standard pagination systems by adding a loading state, error handling, and additional query properties to handle complex data fetching scenarios.
 
@@ -1936,7 +1933,7 @@ At the end, `useOffsetPaginator` returns an object containing the paginated data
 
 Please note: This utility relies on several custom hooks including `useSubject`, `useActualState`, `useActualCallback`, `useQueuedAction`, and `useSinglerunAction`. Their exact behavior depends on their respective implementations.
 
-## useApiPaginator
+# useApiPaginator
 
 The `useApiPaginator` is a TypeScript function that acts as a list handler generator for API pagination. This function provides an extensive set of options to control fetching data from an API endpoint and processing that data. It uses multiple Features like Filters, Pagination, Sort, Search, and Chips. 
 
@@ -1959,7 +1956,7 @@ The function `useApiPaginator` is quite customizable, supporting a variety of op
 
 On final note, the function comments are well articulated explaining each parameters the function expects and their default behaviors. It's a great example of how to document a complex function.
 
-## useArrayPaginator
+# useArrayPaginator
 
 The `useArrayPaginator` hook represents a paging and filtering function defined for handling data arrays.
 
@@ -1986,7 +1983,7 @@ There's a nested function in the `useArrayPaginator` function which queues the r
 
 This function encapsulates a comprehensive logic handling list items with versatile controls and options provided thereby making operations like Searching, Sorting, Filtration and Pagination on list data convenient and efficient.
 
-## useCachedPaginator
+# useCachedPaginator
 
 a hook function `useCachedPaginator` in TypeScript. This function creates a cached paginator for list data. It could particularly be useful in frontend scenarios where we have long and chunky lists of data that need to be requested from the backend server in an optimized manner. 
 
@@ -2017,7 +2014,7 @@ The utility function `singleshot` possibly intended to run a function only once,
 What is obvious is that this hook provides a way to use a single list (data rows) handler function across multiple instances or components, while encapsulating some of the complexity of the handler's state and logic. It provides an elegant way to use caching and state management for data handlers, particularly useful when dealing with intensive data operations in frontend interfaces.
 
 
-## useHistoryStatePagination
+# useHistoryStatePagination
 
 a custom React Hook called `useHistoryStatePagination`, which seems to be managing pagination states using the browser history state, a feature provided by the `react-router` module.
 
@@ -2043,7 +2040,7 @@ The specific `onFilterChange` and `onLimitChange` callback functions provided in
 
 This hook would be particularly useful in a scenario where you are displaying paginated data and want to maintain the current page, sort model, applied filters, etc., across page refreshes or navigation using browser history.
 
-## useLastPagination
+# useLastPagination
 
 a custom React hook called `useLastPagination` which is designed to manage and handle pagination state and logic in an application. It is a generic function that can operate on any kind of filter data (`FilterData`) and row data (`RowData`).
 
@@ -2069,7 +2066,7 @@ Lastly, the `useLastPagination` hook returns an object containing this `handler`
 In a typical use case, this hook would probably be used by a component rendering paginated data. The component could use the handler function returned by this hook to fetch new pages of data (using the `upperHandler` function) and then render this data based on the current state returned by the hook.
 
 
-## useListAction
+# useListAction
 
 a function named `useListAction`. This function can be considered a custom hook in context of React.
 
@@ -2110,7 +2107,7 @@ return {
 This `useListAction` custom hook encapsulates the functionality related to managing list actions such as loading, performing an action on selected rows, performing an action on a single row, etc. It is designed to be used in a React environment since it likely relies on React's state and effect hooks in its implementation.
 
 
-## useListSelection
+# useListSelection
 
 
 1. The `useListSelection` hook: This hook manages the selection of rows in a list. It uses the `useState` and `useCallback` hooks from React and returns an object that contains:
@@ -2133,7 +2130,7 @@ In summary, this module provides hooks to manage list selections and operations 
 
 
 
-## useQueryPagination
+# useQueryPagination
 
 a `useQueryPagination` hook function. This function is likely designed to be used as part of a data fetching operation in a React application, specifically in scenarios where the data needs to be paginated. Here is how each part is functioning:
 
@@ -2149,7 +2146,7 @@ a `useQueryPagination` hook function. This function is likely designed to be use
 
 Keep in mind that this function also uses several unknown constants, hook functions, types, and interfaces in its implementation which are not described in the provided code.
 
-## useModalManager
+# useModalManager
 
 
 This is an exported function named `useModalManager` that does not accept any arguments and returns an object `IResult`.
@@ -2205,7 +2202,7 @@ Each of `push`, `pop` and `clear` methods are annotated with JSDoc comments prov
 In summary, the `useModalManager` function is a custom React Hook that is used to manage modals in this application. It leverages the context system to provide these functionalities.
 
 
-## useModal
+# useModal
 
 The `useModal` is a custom React Hook that provides functionality for controlling a modal dialog. The provided JSX code defines its TypeScript type, implementation, and usage across different components.
 
@@ -2244,7 +2241,7 @@ Overall, the `useModal` hook encapsulates the logic for handling modal operation
 
 Let me know if you need a deeper dive into any other piece of the provided code or any other explanation.
 
-## useApiHandler
+# useApiHandler
 
 The `useApiHandler` is a function that constructs a reusable API handler for performing asynchronous HTTP requests and processing the responses.
 
@@ -2273,7 +2270,7 @@ Here's a summary of the types and functions referenced in the code:
 - `EMPTY_RESPONSE`: Not shown in the code you provided, but as per the code's context, it should be a defined value that represents an empty or null response.
 - The use of `window.fetch` provides a function fetching resources (including across the network).
 
-## useLocalHandler
+# useLocalHandler
 
 a custom React Hook `useLocalHandler` that fetches data via a handler function, introduces loading and error states, and then transforms and manages the data using hooks.
 
@@ -2297,7 +2294,7 @@ This hook returns an object containing the data obtained from the handler functi
 Overall, this hook provides an abstraction for managing data fetching with loading, error, and success states, as well as data transformation.
 
 
-## usePreventLeave
+# usePreventLeave
 
 a React hook named `usePreventLeave`. Hooks are a feature of React that lets you use state and other features of React without writing a class. The purpose of this specific hook seems to be management of a piece of data and prevention of the user from leaving the page without explicit confirmation if that data has changed.
 
@@ -2323,7 +2320,7 @@ Let's discuss the important parts of this hook:
 
 Please note that I can't see the rest of the code snippet, so my interpretation is based on the context of the pasted code only.
 
-## useStaticHandler
+# useStaticHandler
 
 The `useStaticHandler` generates a "static" handler (i.e., a handler that doesn't change across multiple component rerenders) based on an existing handler. It wraps around the existing handler to provide optional custom behaviour for result mapping, load start and end events, and error fallback procedures.
 
@@ -2343,7 +2340,7 @@ Below, is a breakdown of what the various parts of your code does:
 
 The interfaces and types that's being used in the code are mostly self explanatory and add further typescript type safety into the function. For instance, `OneHandler` ensures the handler is one of a function returning a promise for data, or a function returning data, or just the data itself; the `resolveHandler` then awaits on the promise (if the handler is a function returning a promise) or returns the data directly.
 
-## useOutletModal
+# useOutletModal
 
 a custom hook `useOutletModal`, which manages the functioning of an "outlet modal" and provides necessary callbacks for interactivity.
 
@@ -2382,7 +2379,7 @@ Here's a simplified flow of the code:
 
 Remember this explanation is based on the provided code and assumptions about the custom hooks and component used. For a complete understanding, examine these elements in the actual project source code.
 
-## useSearchModal
+# useSearchModal
 
 The `useSearchModal` function is a custom React hook that provides functionality for using a search modal in your application. It takes in a configuration object that defines several parameters for controlling the search modal, and returns an object with properties and methods for interacting with the modal. The custom hook is heavily dependent on the Context API, useState, useCallback, useEffect and various other React hooks.
 
@@ -2412,7 +2409,7 @@ The `pickData` function is used to open the modal component and set a specific d
 
 At the end, it returns an object that allows interaction with the modal, such as controlling its visibility (`open`), rendering it (`render`), choosing specific data parameter (`pickData`), and closing it (`close`). 
 
-## useTabsModal
+# useTabsModal
 
 The `useTabsModal` TypeScript function is a custom React hook that provides a modal component to display tabs with content and handle user interactions. This modal is designed to be highly configurable, with optional callback methods for various events like loading, closing, and submission of form data. The modal's current open/closed state is managed using a reactive programming approach via behavior subject.
 
@@ -2437,7 +2434,7 @@ The `useTabsModal` hook is designed to be used with the `TabsOutletModal` compon
 **Note:** Without details of the `TabsOutletModal` component, `createMemoryHistory`,  `useSingleton`,  `useActualCallback` and `useBehaviorSubject` hooks, it's tough to provide more insights from the given code.
 
 
-## useWizardModal
+# useWizardModal
 
 a custom hook `useWizardModal`. This hook is designed to provide a modal component for wizards, with a variety of configurable parameters.
 
@@ -2466,7 +2463,7 @@ The `useCallback` hooks are used to optimize the performance by memoizing the ca
 
 Overall, the `useWizardModal` hook provides a flexible way to create and control a wizard-like modal and its lifecycle events. It leverages React hooks and RxJS for state management and callback handling.
 
-## useOneProps
+# useOneProps
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2487,7 +2484,7 @@ In conclusion, the function `useOneProps` is both a TypeScript generic function 
 
 
 
-## useOneState
+# useOneState
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2505,7 +2502,7 @@ So, in summary, the `useOneState` hook allows access to the value of `StateConte
 
 
 
-## useOnePayload
+# useOnePayload
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2541,7 +2538,7 @@ const payload = useOnePayload();
 ```
 To summarize, the `useOnePayload` is a custom hook that consumes the `PayloadContext` to access the payload value within a React component.
 
-## useOneFeatures
+# useOneFeatures
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2569,7 +2566,7 @@ Let's break it down:
 
 In summary, this code defines a Component Field in a form-like interface, making use of TypeScript for static types checking and ensuring that passed properties are valid according to predefined interfaces. It relies heavily on React's Context API to enable state and props management in a more comfortable way than passing props down manually at every level.
 
-## useOneRadio
+# useOneRadio
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2620,7 +2617,7 @@ In summary, this code defines a Component Field in a form-like interface, making
 
 In the rendered JSX, the `MatRadio` component represents a material design radio button, the value and disabled state are passed as props, and the `FormControlLabel` component is used as a label for the `MatRadio` component. The response to the change in the radio button's state is handled by the `onChange` prop.
 
-## useOneContext
+# useOneContext
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2644,7 +2641,7 @@ The `ComponentFieldInstanceProps` type is being used in `ComponentInstance`. `Om
 The `ComponentInstance` function uses the `useOneContext` function to assign the value of the context to the variable `context`, which is further passed to the `Element` as a prop.
 
 
-## useOneMenu
+# useOneMenu
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2658,7 +2655,7 @@ The interface `IContext` consists of two properties inside:
 Without more context or the definitions of `TSubject` and `IParams`, it's not possible to be more specific about the roles of these properties, but they would hold contextual values or methods used throughout the application that's relying on this `MenuContext`.
 
 
-## useListProps
+# useListProps
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2692,7 +2689,7 @@ type IListState<FilterData extends {} = IAnything, RowData extends IRowData = IA
 In short, the `useProps` hook is a tool for obtaining properties from the `PropContext` context in a type-safe manner specified in terms of `FilterData`, `RowData`, `Payload`, and `Field`.
 
 
-## useListCachedRows
+# useListCachedRows
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2717,7 +2714,7 @@ interface IState<RowData extends IRowData = IAnything> {
 
 Here, `IState<RowData>` represents a generic interface (State) with two properties: `cachedRows` and `selectedRows`. `cachedRows` is a `Map` where keys are of `RowId` type and values are of generic `RowData` type. `selectedRows` is an array of `RowData`.
 
-## useListPayload 
+# useListPayload 
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2729,7 +2726,7 @@ Finally, `export const usePayload` is simply exporting this custom hook so it ca
 This way of organizing code provides a flexible and efficient approach to managing and accessing shared state or behavior in a React application, utilizing the power of context and React hooks.
 
 
-## useListChips
+# useListChips
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2758,7 +2755,7 @@ The `useStyles` function is used to create styles for these components, using Ma
 
 Finally, several interfaces are defined that describe the structure of various pieces of data in this system, such as a chip (`IListChip`), the chip state (`IState`), and a slot for chips (`IChipListSlot`). These interfaces are used as generic parameters and props to ensure type safety and guide the usage of the functions and components in this code.
 
-## useListReload
+# useListReload
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
@@ -2776,7 +2773,7 @@ Remember that a callback function is a function you can pass into another functi
 This hook can be used in any part of your code where you need to reload data, possibly with an option to keep the current pagination.
 
 
-## useListSelectionState
+# useListSelectionState
 
 > Hooks which can be used in FieldType.Component, custom slot or custom field within `<One />` and `<List />` components
 
