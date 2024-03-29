@@ -16005,6 +16005,13 @@ declare module "react-declarative/components/List/hooks/useCachedRows" {
   import React from "react";
   import IAnything from "react-declarative/model/IAnything";
   import IRowData, { RowId } from "react-declarative/model/IRowData";
+  /**
+   * Represents the usage of cached rows.
+   *
+   * @returns The context containing the cached rows.
+   *
+   * @template RowData The type of the row data. Extends IRowData, defaults to IAnything.
+   */
   export const useCachedRows: <
     RowData extends IRowData = any,
   >() => IState<RowData>;
@@ -16649,6 +16656,11 @@ declare module "react-declarative/components/List/hooks/useChips" {
     IListChip,
     ListHandlerChips,
   } from "react-declarative/model/IListProps";
+  /**
+   * Retrieves the context value from the 'ChipsContext' using the useContext hook.
+   *
+   * @returns The context value obtained from the 'ChipsContext'.
+   */
   export const useChips: () => IState;
   /**
    * Interface representing the props for the ChipsProvider component.
@@ -16727,6 +16739,11 @@ declare module "react-declarative/components/List/hooks/usePayload" {
     children,
     value,
   }: IPayloadProviderProps) => JSX.Element;
+  /**
+   * Retrieves the payload from the `PayloadContext` using the `useContext` hook.
+   *
+   * @returns The payload from the `PayloadContext`.
+   */
   export const usePayload: () => any;
   export default usePayload;
 }
@@ -16748,6 +16765,12 @@ declare module "react-declarative/components/List/hooks/useReload" {
 declare module "react-declarative/components/List/hooks/useSelection" {
   import React from "react";
   import { RowId } from "react-declarative/model/IRowData";
+  /**
+   * Returns the current selection from the SelectionContext.
+   *
+   * @function useSelection
+   * @returns The current selection value from the SelectionContext.
+   */
   export const useSelection: () => IState;
   /**
    * Represents the properties for the ISelectionProvider component.
