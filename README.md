@@ -40,6 +40,8 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 -->
 
+<img src="./assets/icons/decart.svg" height="35px" align="right">
+
 ## Short review
 
 > [!TIP]
