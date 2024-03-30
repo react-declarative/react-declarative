@@ -18,7 +18,7 @@ import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 import throttle from "../../utils/hof/throttle";
 
-import { DEFAULT_ROW_WIDTH, CELL_MARGIN } from "./config";
+import { DEFAULT_ROW_WIDTH, CELL_MARGIN, DEFAULT_BUFFER_SIZE } from "./config";
 import { SelectionProvider } from "./hooks/useSelection";
 
 /**
@@ -56,7 +56,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     rowKey,
     sort,
     minRowHeight,
-    bufferSize,
+    bufferSize = DEFAULT_BUFFER_SIZE,
     onButtonSkip,
     onClickHeaderColumn,
     onRowAction,
