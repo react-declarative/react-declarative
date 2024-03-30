@@ -393,7 +393,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     if (!hasChanged$.current) {
       return false;
     }
-    if (!hasLoading$.current) {
+    if (hasLoading$.current) {
       return false;
     }
     await waitForChanges();
