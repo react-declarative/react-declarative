@@ -24,7 +24,7 @@ interface IParams<Data extends IAnything, Result = void> {
     errors: IError[],
     result: (Result | null)[]
   ) => void;
-  onError?: (errors: IError[]) => void;
+  onError?: (errors: IError[]) => void | boolean;
   onProgress?: (progress: number) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
@@ -192,7 +192,10 @@ export const useAsyncProgress = <
             error: error as unknown as Error,
           };
           handleError(e);
-          onError$([...state$.current.errors, e]);
+          if (onError$([...state$.current.errors, e])) {
+            setProgress(100);
+            break;
+          }
         } finally {
           const progress = getPercent(++count, items.length);
           setProgress(progress);

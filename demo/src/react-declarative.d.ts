@@ -4816,7 +4816,7 @@ declare module "react-declarative/hooks/useAsyncProgress" {
       errors: IError[],
       result: (Result | null)[],
     ) => void;
-    onError?: (errors: IError[]) => void;
+    onError?: (errors: IError[]) => void | boolean;
     onProgress?: (progress: number) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
