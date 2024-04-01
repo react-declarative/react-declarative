@@ -9678,7 +9678,7 @@ declare module "react-declarative/utils/templateStr" {
    */
   export const templateStr: (
     str: string,
-    context: Record<string, unknown>,
+    ...contexts: Record<string, unknown>[]
   ) => string;
   export default templateStr;
 }
