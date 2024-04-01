@@ -780,6 +780,8 @@ declare module "react-declarative" {
     TObservable as TObservableInternal,
   } from "react-declarative/model/TObserver";
   import TPaginatorInternal from "react-declarative/model/TPaginator";
+  import TOffsetPaginatorInternal from "react-declarative/model/TOffsetPaginator";
+  import TCursorPaginatorInternal from "react-declarative/model/TCursorPaginator";
   export type TSubject<Data = void> = TSubjectInternal<Data>;
   export type TObserver<Data = void> = TObserverInternal<Data>;
   export type TObservable<Data = void> = TObservableInternal<Data>;
@@ -789,6 +791,16 @@ declare module "react-declarative" {
     RowData extends IRowData = any,
     Payload = any,
   > = TPaginatorInternal<FilterData, RowData, Payload>;
+  export type TOffsetPaginator<
+    FilterData extends {} = any,
+    RowData extends IRowData = any,
+    Payload = any,
+  > = TOffsetPaginatorInternal<FilterData, RowData, Payload>;
+  export type TCursorPaginator<
+    FilterData extends {} = any,
+    RowData extends IRowData = any,
+    Payload = any,
+  > = TCursorPaginatorInternal<FilterData, RowData, Payload>;
   export { getErrorMessage } from "react-declarative/utils/getErrorMessage";
   import {
     IEntityAdapter as IEntityAdapterInternal,
@@ -9009,6 +9021,64 @@ declare module "react-declarative/model/TPaginator" {
     | RowData[]
   >;
   export default TPaginator;
+}
+
+declare module "react-declarative/model/TOffsetPaginator" {
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a type for offset pagination.
+   * @typeparam FilterData - The type of filter data.
+   * @typeparam RowData - The type of row data.
+   * @typeparam Payload - The type of payload.
+   *
+   * @param filterData - The filter data to be applied to the dataset.
+   * @param limit - The maximum number of records to be returned.
+   * @param offset - The offset from which to start retrieving records.
+   * @param payload - The payload containing additional parameters for filtering.
+   *
+   * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+   */
+  export interface TOffsetPaginator<
+    FilterData extends {} = any,
+    RowData extends IRowData = any,
+    Payload = any,
+  > {
+    (
+      filterData: FilterData,
+      limit: number,
+      offset: number,
+      payload: Payload,
+    ): Promise<RowData[]> | RowData[];
+  }
+  export default TOffsetPaginator;
+}
+
+declare module "react-declarative/model/TCursorPaginator" {
+  import IRowData, { RowId } from "react-declarative/model/IRowData";
+  /**
+   * Represents a type for cursor pagination.
+   * @typeparam FilterData - The type of filter data.
+   * @typeparam RowData - The type of row data.
+   * @typeparam Payload - The type of payload.
+   *
+   * @param filterData - The filter data to be applied to the dataset.
+   * @param lastId - The last id from which to start retrieving records.
+   * @param payload - The payload containing additional parameters for filtering.
+   *
+   * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+   */
+  export interface TCursorPaginator<
+    FilterData extends {} = any,
+    RowData extends IRowData = any,
+    Payload = any,
+  > {
+    (
+      filterData: FilterData,
+      lastId: RowId,
+      payload: Payload,
+    ): Promise<RowData[]> | RowData[];
+  }
+  export default TCursorPaginator;
 }
 
 declare module "react-declarative/utils/getErrorMessage" {
