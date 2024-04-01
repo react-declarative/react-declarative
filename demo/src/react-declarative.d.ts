@@ -820,6 +820,7 @@ declare module "react-declarative" {
   export { Entity } from "react-declarative/utils/mvvm/Entity";
   export { Model } from "react-declarative/utils/mvvm/Model";
   export { formatAmount } from "react-declarative/utils/formatAmount";
+  export { templateStr } from "react-declarative/utils/templateStr";
   export { formatStr } from "react-declarative/utils/formatStr";
   export { createWindowHistory } from "react-declarative/utils/createWindowHistory";
   export { createLsManager } from "react-declarative/utils/createLsManager";
@@ -9666,6 +9667,20 @@ declare module "react-declarative/utils/formatAmount" {
     separator?: string,
   ) => string;
   export default formatAmount;
+}
+
+declare module "react-declarative/utils/templateStr" {
+  /**
+   * Replaces placeholder strings in a given template string with corresponding values from a context object.
+   * @param str - The template string with placeholders to be replaced.
+   * @param context - The object containing values to replace the placeholders.
+   * @returns - The modified string with replaced placeholders.
+   */
+  export const templateStr: (
+    str: string,
+    context: Record<string, unknown>,
+  ) => string;
+  export default templateStr;
 }
 
 declare module "react-declarative/utils/formatStr" {

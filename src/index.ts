@@ -738,6 +738,7 @@ export { Entity } from './utils/mvvm/Entity';
 export { Model } from './utils/mvvm/Model';
 
 export { formatAmount } from './utils/formatAmount';
+export { templateStr } from './utils/templateStr';
 export { formatStr } from './utils/formatStr';
 
 export { createWindowHistory } from './utils/createWindowHistory';
